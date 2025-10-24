@@ -21,10 +21,8 @@ import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.Pair;
 
 import io.kestra.sdk.model.BulkResponse;
-import io.kestra.sdk.model.DeleteExecutionsByQueryRequest;
 import io.kestra.sdk.model.EventExecution;
 import io.kestra.sdk.model.Execution;
-import io.kestra.sdk.model.ExecutionControllerApiValidateExecutionInputsResponse;
 import io.kestra.sdk.model.ExecutionControllerEvalResult;
 import io.kestra.sdk.model.ExecutionControllerExecutionResponse;
 import io.kestra.sdk.model.ExecutionControllerLastExecutionResponse;
@@ -32,17 +30,14 @@ import io.kestra.sdk.model.ExecutionControllerSetLabelsByIdsRequest;
 import io.kestra.sdk.model.ExecutionControllerStateRequest;
 import io.kestra.sdk.model.ExecutionControllerWebhookResponse;
 import io.kestra.sdk.model.ExecutionKind;
-import io.kestra.sdk.model.ExecutionRepositoryInterfaceChildFilter;
 import io.kestra.sdk.model.ExecutionRepositoryInterfaceFlowFilter;
 import java.io.File;
 import io.kestra.sdk.model.FileMetas;
 import io.kestra.sdk.model.FlowForExecution;
 import io.kestra.sdk.model.FlowGraph;
-import io.kestra.sdk.model.FlowScope;
 import io.kestra.sdk.model.Label;
 import java.time.OffsetDateTime;
 import io.kestra.sdk.model.PagedResultsExecution;
-import io.kestra.sdk.model.PagedResultsTaskRun;
 import io.kestra.sdk.model.QueryFilter;
 import io.kestra.sdk.model.StateType;
 import java.net.URI;
@@ -400,7 +395,7 @@ public class ExecutionsApi extends BaseApi {
    * @param deleteMetrics Whether to delete execution metrics (required)
    * @param deleteStorage Whether to delete execution files in the internal storage (required)
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters  (required)
    * @param includeNonTerminated Whether to delete non-terminated executions (optional, default to false)
    * @return Object
    * @throws ApiException if fails to make API call
@@ -466,7 +461,7 @@ public class ExecutionsApi extends BaseApi {
     localVarQueryParams.addAll(apiClient.parameterToPair("deleteLogs", deleteLogs));
     localVarQueryParams.addAll(apiClient.parameterToPair("deleteMetrics", deleteMetrics));
     localVarQueryParams.addAll(apiClient.parameterToPair("deleteStorage", deleteStorage));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("filters", "filters", filters));
     localVarHeaderParams.putAll(additionalHeaders);
 
 
@@ -942,23 +937,12 @@ public class ExecutionsApi extends BaseApi {
    * Force run executions filter by query parameters
    *
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters  (required)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object forceRunExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
-    return this.forceRunExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
+  public Object forceRunExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<QueryFilter> filters) throws ApiException {
+    return this.forceRunExecutionsByQuery(tenant, filters, Collections.emptyMap());
   }
 
 
@@ -966,33 +950,22 @@ public class ExecutionsApi extends BaseApi {
    * Force run executions filter by query parameters
    *
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters  (required)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object forceRunExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object forceRunExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
 
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling forceRunExecutionsByQuery");
     }
 
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling forceRunExecutionsByQuery");
+    // verify the required parameter 'filters' is set
+    if (filters == null) {
+      throw new ApiException(400, "Missing the required parameter 'filters' when calling forceRunExecutionsByQuery");
     }
 
     // create path and map variables
@@ -1007,17 +980,7 @@ public class ExecutionsApi extends BaseApi {
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("startDate", startDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("endDate", endDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("timeRange", timeRange));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "state", state));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
-    localVarQueryParams.addAll(apiClient.parameterToPair("triggerExecutionId", triggerExecutionId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("childFilter", childFilter));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("filters", "filters", filters));
 
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -1749,23 +1712,12 @@ public class ExecutionsApi extends BaseApi {
    * Kill executions filter by query parameters
    *
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters  (required)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object killExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
-    return this.killExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
+  public Object killExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<QueryFilter> filters) throws ApiException {
+    return this.killExecutionsByQuery(tenant, filters, Collections.emptyMap());
   }
 
 
@@ -1773,33 +1725,22 @@ public class ExecutionsApi extends BaseApi {
    * Kill executions filter by query parameters
    *
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters  (required)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object killExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object killExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
 
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling killExecutionsByQuery");
     }
 
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling killExecutionsByQuery");
+    // verify the required parameter 'filters' is set
+    if (filters == null) {
+      throw new ApiException(400, "Missing the required parameter 'filters' when calling killExecutionsByQuery");
     }
 
     // create path and map variables
@@ -1814,17 +1755,7 @@ public class ExecutionsApi extends BaseApi {
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("startDate", startDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("endDate", endDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("timeRange", timeRange));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "state", state));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
-    localVarQueryParams.addAll(apiClient.parameterToPair("triggerExecutionId", triggerExecutionId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("childFilter", childFilter));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("filters", "filters", filters));
 
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -2026,23 +1957,12 @@ public class ExecutionsApi extends BaseApi {
    * Pause executions filter by query parameters
    *
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters  (required)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object pauseExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
-    return this.pauseExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
+  public Object pauseExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<QueryFilter> filters) throws ApiException {
+    return this.pauseExecutionsByQuery(tenant, filters, Collections.emptyMap());
   }
 
 
@@ -2050,33 +1970,22 @@ public class ExecutionsApi extends BaseApi {
    * Pause executions filter by query parameters
    *
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters  (required)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object pauseExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object pauseExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
 
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling pauseExecutionsByQuery");
     }
 
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling pauseExecutionsByQuery");
+    // verify the required parameter 'filters' is set
+    if (filters == null) {
+      throw new ApiException(400, "Missing the required parameter 'filters' when calling pauseExecutionsByQuery");
     }
 
     // create path and map variables
@@ -2091,17 +2000,7 @@ public class ExecutionsApi extends BaseApi {
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("startDate", startDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("endDate", endDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("timeRange", timeRange));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "state", state));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
-    localVarQueryParams.addAll(apiClient.parameterToPair("triggerExecutionId", triggerExecutionId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("childFilter", childFilter));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("filters", "filters", filters));
 
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -2410,24 +2309,13 @@ public class ExecutionsApi extends BaseApi {
    * Create new executions from old ones filter by query parameters. Keep the flow revision
    *
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters  (required)
    * @param latestRevision If latest revision should be used (optional, default to false)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object replayExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, @javax.annotation.Nullable Boolean latestRevision) throws ApiException {
-    return this.replayExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, latestRevision, Collections.emptyMap());
+  public Object replayExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<QueryFilter> filters, @javax.annotation.Nullable Boolean latestRevision) throws ApiException {
+    return this.replayExecutionsByQuery(tenant, filters, latestRevision, Collections.emptyMap());
   }
 
 
@@ -2435,34 +2323,23 @@ public class ExecutionsApi extends BaseApi {
    * Create new executions from old ones filter by query parameters. Keep the flow revision
    *
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters  (required)
    * @param latestRevision If latest revision should be used (optional, default to false)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object replayExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, @javax.annotation.Nullable Boolean latestRevision, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object replayExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<QueryFilter> filters, @javax.annotation.Nullable Boolean latestRevision, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
 
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling replayExecutionsByQuery");
     }
 
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling replayExecutionsByQuery");
+    // verify the required parameter 'filters' is set
+    if (filters == null) {
+      throw new ApiException(400, "Missing the required parameter 'filters' when calling replayExecutionsByQuery");
     }
 
     // create path and map variables
@@ -2477,17 +2354,7 @@ public class ExecutionsApi extends BaseApi {
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("startDate", startDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("endDate", endDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("timeRange", timeRange));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "state", state));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
-    localVarQueryParams.addAll(apiClient.parameterToPair("triggerExecutionId", triggerExecutionId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("childFilter", childFilter));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("filters", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("latestRevision", latestRevision));
 
     localVarHeaderParams.putAll(additionalHeaders);
@@ -2696,23 +2563,12 @@ public class ExecutionsApi extends BaseApi {
    * Restart executions filter by query parameters
    *
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters  (required)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object restartExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
-    return this.restartExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
+  public Object restartExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<QueryFilter> filters) throws ApiException {
+    return this.restartExecutionsByQuery(tenant, filters, Collections.emptyMap());
   }
 
 
@@ -2720,33 +2576,22 @@ public class ExecutionsApi extends BaseApi {
    * Restart executions filter by query parameters
    *
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters  (required)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object restartExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object restartExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
 
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling restartExecutionsByQuery");
     }
 
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling restartExecutionsByQuery");
+    // verify the required parameter 'filters' is set
+    if (filters == null) {
+      throw new ApiException(400, "Missing the required parameter 'filters' when calling restartExecutionsByQuery");
     }
 
     // create path and map variables
@@ -2761,17 +2606,7 @@ public class ExecutionsApi extends BaseApi {
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("startDate", startDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("endDate", endDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("timeRange", timeRange));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "state", state));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
-    localVarQueryParams.addAll(apiClient.parameterToPair("triggerExecutionId", triggerExecutionId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("childFilter", childFilter));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("filters", "filters", filters));
 
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -2976,23 +2811,12 @@ public class ExecutionsApi extends BaseApi {
    * Resume executions filter by query parameters
    *
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters  (required)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object resumeExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
-    return this.resumeExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
+  public Object resumeExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<QueryFilter> filters) throws ApiException {
+    return this.resumeExecutionsByQuery(tenant, filters, Collections.emptyMap());
   }
 
 
@@ -3000,33 +2824,22 @@ public class ExecutionsApi extends BaseApi {
    * Resume executions filter by query parameters
    *
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters  (required)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object resumeExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object resumeExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
 
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling resumeExecutionsByQuery");
     }
 
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling resumeExecutionsByQuery");
+    // verify the required parameter 'filters' is set
+    if (filters == null) {
+      throw new ApiException(400, "Missing the required parameter 'filters' when calling resumeExecutionsByQuery");
     }
 
     // create path and map variables
@@ -3041,17 +2854,7 @@ public class ExecutionsApi extends BaseApi {
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("startDate", startDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("endDate", endDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("timeRange", timeRange));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "state", state));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
-    localVarQueryParams.addAll(apiClient.parameterToPair("triggerExecutionId", triggerExecutionId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("childFilter", childFilter));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("fitlers", "filters", filters));
 
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -3095,22 +2898,11 @@ public class ExecutionsApi extends BaseApi {
    * @param tenant  (required)
    * @param sort The sort of current page (optional)
    * @param filters Filters (optional)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
    * @return PagedResultsExecution
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsExecution searchExecutions(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
-    return this.searchExecutions(page, size, tenant, sort, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
+  public PagedResultsExecution searchExecutions(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.searchExecutions(page, size, tenant, sort, filters, Collections.emptyMap());
   }
 
 
@@ -3122,22 +2914,11 @@ public class ExecutionsApi extends BaseApi {
    * @param tenant  (required)
    * @param sort The sort of current page (optional)
    * @param filters Filters (optional)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return PagedResultsExecution
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsExecution searchExecutions(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsExecution searchExecutions(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
 
     // verify the required parameter 'page' is set
@@ -3170,18 +2951,7 @@ public class ExecutionsApi extends BaseApi {
     localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
     localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("startDate", startDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("endDate", endDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("timeRange", timeRange));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "state", state));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
-    localVarQueryParams.addAll(apiClient.parameterToPair("triggerExecutionId", triggerExecutionId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("childFilter", childFilter));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("fitlers", "filters", filters));
 
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -3200,133 +2970,6 @@ public class ExecutionsApi extends BaseApi {
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
     TypeReference<PagedResultsExecution> localVarReturnType = new TypeReference<PagedResultsExecution>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "GET",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
-
-  /**
-   * Search for taskruns, only available with the Elasticsearch repository
-   *
-   * @param page The current page (required)
-   * @param size The current page size (required)
-   * @param tenant  (required)
-   * @param sort The sort of current page (optional)
-   * @param filters Filters (optional)
-   * @param q A string filter (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
-   * @return PagedResultsTaskRun
-   * @throws ApiException if fails to make API call
-   */
-  public PagedResultsTaskRun searchTaskRun(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
-    return this.searchTaskRun(page, size, tenant, sort, filters, q, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
-  }
-
-
-  /**
-   * Search for taskruns, only available with the Elasticsearch repository
-   *
-   * @param page The current page (required)
-   * @param size The current page size (required)
-   * @param tenant  (required)
-   * @param sort The sort of current page (optional)
-   * @param filters Filters (optional)
-   * @param q A string filter (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return PagedResultsTaskRun
-   * @throws ApiException if fails to make API call
-   */
-  public PagedResultsTaskRun searchTaskRun(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = null;
-
-    // verify the required parameter 'page' is set
-    if (page == null) {
-      throw new ApiException(400, "Missing the required parameter 'page' when calling searchTaskRun");
-    }
-
-    // verify the required parameter 'size' is set
-    if (size == null) {
-      throw new ApiException(400, "Missing the required parameter 'size' when calling searchTaskRun");
-    }
-
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling searchTaskRun");
-    }
-
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/taskruns/search"
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
-    localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("startDate", startDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("endDate", endDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("timeRange", timeRange));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "state", state));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
-    localVarQueryParams.addAll(apiClient.parameterToPair("triggerExecutionId", triggerExecutionId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("childFilter", childFilter));
-
-    localVarHeaderParams.putAll(additionalHeaders);
-
-
-
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<PagedResultsTaskRun> localVarReturnType = new TypeReference<PagedResultsTaskRun>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "GET",
@@ -3521,22 +3164,12 @@ public class ExecutionsApi extends BaseApi {
    *
    * @param tenant  (required)
    * @param label The labels to add to the execution (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters Filters
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object setLabelsOnTerminatedExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Label> label, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
-    return this.setLabelsOnTerminatedExecutionsByQuery(tenant, label, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
+  public Object setLabelsOnTerminatedExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Label> label, @javax.annotation.Nonnull List<QueryFilter> filters) throws ApiException {
+    return this.setLabelsOnTerminatedExecutionsByQuery(tenant, label,filters, Collections.emptyMap());
   }
 
 
@@ -3545,22 +3178,12 @@ public class ExecutionsApi extends BaseApi {
    *
    * @param tenant  (required)
    * @param label The labels to add to the execution (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters Filters
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object setLabelsOnTerminatedExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Label> label, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
+  public Object setLabelsOnTerminatedExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Label> label, @javax.annotation.Nonnull List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = label;
 
     // verify the required parameter 'tenant' is set
@@ -3572,6 +3195,11 @@ public class ExecutionsApi extends BaseApi {
     if (label == null) {
       throw new ApiException(400, "Missing the required parameter 'label' when calling setLabelsOnTerminatedExecutionsByQuery");
     }
+
+      // verify the required parameter 'filters' is set
+      if (filters == null) {
+          throw new ApiException(400, "Missing the required parameter 'filters' when calling setLabelsOnTerminatedExecutionsByQuery");
+      }
 
     // create path and map variables
     String localVarPath = "/api/v1/{tenant}/executions/labels/by-query"
@@ -3585,17 +3213,7 @@ public class ExecutionsApi extends BaseApi {
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("startDate", startDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("endDate", endDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("timeRange", timeRange));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "state", state));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
-    localVarQueryParams.addAll(apiClient.parameterToPair("triggerExecutionId", triggerExecutionId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("childFilter", childFilter));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("fitlers", "filters", filters));
 
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -3915,24 +3533,13 @@ public class ExecutionsApi extends BaseApi {
    * Unqueue executions filter by query parameters
    *
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters  (required)
    * @param newState The new state of the unqueued executions (optional)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unqueueExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, @javax.annotation.Nullable StateType newState) throws ApiException {
-    return this.unqueueExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, newState, Collections.emptyMap());
+  public Object unqueueExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<QueryFilter> filters, @javax.annotation.Nullable StateType newState) throws ApiException {
+    return this.unqueueExecutionsByQuery(tenant, filters, newState, Collections.emptyMap());
   }
 
 
@@ -3940,34 +3547,23 @@ public class ExecutionsApi extends BaseApi {
    * Unqueue executions filter by query parameters
    *
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters  (required)
    * @param newState The new state of the unqueued executions (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unqueueExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, @javax.annotation.Nullable StateType newState, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object unqueueExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<QueryFilter> filters, @javax.annotation.Nullable StateType newState, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
 
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling unqueueExecutionsByQuery");
     }
 
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling unqueueExecutionsByQuery");
+    // verify the required parameter 'filters' is set
+    if (filters == null) {
+      throw new ApiException(400, "Missing the required parameter 'filters' when calling unqueueExecutionsByQuery");
     }
 
     // create path and map variables
@@ -3982,17 +3578,7 @@ public class ExecutionsApi extends BaseApi {
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("startDate", startDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("endDate", endDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("timeRange", timeRange));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "state", state));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
-    localVarQueryParams.addAll(apiClient.parameterToPair("triggerExecutionId", triggerExecutionId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("childFilter", childFilter));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("fitlers", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("newState", newState));
 
     localVarHeaderParams.putAll(additionalHeaders);
@@ -4215,23 +3801,12 @@ public class ExecutionsApi extends BaseApi {
    *
    * @param newStatus The new state of the executions (required)
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters  (required)
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse updateExecutionsStatusByQuery(@javax.annotation.Nonnull StateType newStatus, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
-    return this.updateExecutionsStatusByQuery(newStatus, tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
+  public BulkResponse updateExecutionsStatusByQuery(@javax.annotation.Nonnull StateType newStatus, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<QueryFilter> filters) throws ApiException {
+    return this.updateExecutionsStatusByQuery(newStatus, tenant, filters, Collections.emptyMap());
   }
 
 
@@ -4240,24 +3815,13 @@ public class ExecutionsApi extends BaseApi {
    *
    * @param newStatus The new state of the executions (required)
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters  (required)
    * @param additionalHeaders additionalHeaders for this call
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse updateExecutionsStatusByQuery(@javax.annotation.Nonnull StateType newStatus, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public BulkResponse updateExecutionsStatusByQuery(@javax.annotation.Nonnull StateType newStatus, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = filters;
 
     // verify the required parameter 'newStatus' is set
     if (newStatus == null) {
@@ -4269,9 +3833,9 @@ public class ExecutionsApi extends BaseApi {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling updateExecutionsStatusByQuery");
     }
 
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling updateExecutionsStatusByQuery");
+    // verify the required parameter 'filters' is set
+    if (filters == null) {
+      throw new ApiException(400, "Missing the required parameter 'filters' when calling updateExecutionsStatusByQuery");
     }
 
     // create path and map variables
@@ -4286,17 +3850,7 @@ public class ExecutionsApi extends BaseApi {
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("startDate", startDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("endDate", endDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("timeRange", timeRange));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "state", state));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
-    localVarQueryParams.addAll(apiClient.parameterToPair("triggerExecutionId", triggerExecutionId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("childFilter", childFilter));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("fitlers", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("newStatus", newStatus));
 
     localVarHeaderParams.putAll(additionalHeaders);
