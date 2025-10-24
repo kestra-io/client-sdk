@@ -37,7 +37,7 @@ public class TriggersApiTest {
 
         kestraClient().flows().createFlow(MAIN_TENANT, body);
         try {
-            Thread.sleep(100L);
+            Thread.sleep(200L);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
