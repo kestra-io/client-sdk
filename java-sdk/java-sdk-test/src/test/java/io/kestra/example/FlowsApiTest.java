@@ -4,11 +4,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.model.*;
-import netscape.javascript.JSObject;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Map;
 
@@ -307,12 +308,17 @@ public class FlowsApiTest {
      *          if the Api call fails
      */
     @Test
-    @Disabled
-    public void importFlowsTest() throws ApiException {
-        File fileUpload = null;
-        List<String> response = kestraClient().flows().importFlows(MAIN_TENANT, fileUpload);
+    public void importFlowsTest() throws ApiException, IOException {
+        var flow1 = getSimpleFlowAndId();
+        var flow2 = getSimpleFlowAndId();
+        var tmpFile = File.createTempFile("fff", "d");
+        var fileContent = flow1 + "\n---\n" + flow2;
+        Files.writeString(tmpFile.toPath(), fileContent, StandardOpenOption.WRITE);
 
-        // FIXME not sure the impl can ever work
+        var flows = kestraClient().flows().importFlows(MAIN_TENANT, tmpFile);
+        assertThat(flows).containsOnly(flow1.flowId(), flow2.flowId());
+        assertFlowExist(flow1.flowNamespace(), flow1.flowId());
+        assertFlowExist(flow2.flowNamespace(), flow2.flowId());
     }
     /**
      * List all distinct namespaces
@@ -520,6 +526,11 @@ public class FlowsApiTest {
 
     private static void assertFlowExist(FlowWithSource flow) {
         assertThatCode(() -> kestraClient().flows().getFlow(flow.getNamespace(), flow.getId(), false, false, MAIN_TENANT, null))
+            .as("assert flow exists")
+            .doesNotThrowAnyException();
+    }
+    private static void assertFlowExist(String namespace, String flowId) {
+        assertThatCode(() -> kestraClient().flows().getFlow(namespace, flowId, false, false, MAIN_TENANT, null))
             .as("assert flow exists")
             .doesNotThrowAnyException();
     }
