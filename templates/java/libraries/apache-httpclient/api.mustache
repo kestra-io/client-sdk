@@ -41,6 +41,7 @@ public class {{classname}} extends BaseApi {
   }
 
   {{#operation}}
+  {{^vendorExtensions.x-sdk-customization.x-skipped}}
   /**
    * {{summary}}
    * {{notes}}
@@ -238,6 +239,18 @@ public class {{classname}} extends BaseApi {
     );
   }
   {{/-last}}
+
+  {{/vendorExtensions.x-sdk-customization.x-skipped}}
+
+
+  {{#vendorExtensions.x-sdk-customization.x-replace-follow-execution}}
+
+  {{/vendorExtensions.x-sdk-customization.x-replace-follow-execution}}
+
+
+  {{#vendorExtensions.x-sdk-customization.x-replace-follow-dependencies-execution}}
+
+  {{/vendorExtensions.x-sdk-customization.x-replace-follow-dependencies-execution}}
   {{/operation}}
 }
 {{/operations}}

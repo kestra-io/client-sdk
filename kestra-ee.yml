@@ -1096,7 +1096,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/MeController.ApiMe"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -1113,7 +1113,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiTokenList"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -1134,7 +1134,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/CreateApiTokenResponse"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -7257,6 +7257,9 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+      x-sdk-customization:
+        x-replace-follow-execution: "true"
+        x-skipped: "true"
   /api/v1/{tenant}/executions/{executionId}/follow-dependencies:
     get:
       tags:
@@ -7302,6 +7305,9 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+      x-sdk-customization:
+        x-replace-follow-dependencies-execution: "true"
+        x-skipped: "true"
   /api/v1/{tenant}/executions/{executionId}/force-run:
     post:
       tags:
