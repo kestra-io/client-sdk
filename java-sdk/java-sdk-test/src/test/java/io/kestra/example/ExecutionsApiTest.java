@@ -10,19 +10,20 @@ import io.kestra.sdk.model.ExecutionControllerSetLabelsByIdsRequest;
 import io.kestra.sdk.model.ExecutionControllerStateRequest;
 import io.kestra.sdk.model.ExecutionControllerWebhookResponse;
 import io.kestra.sdk.model.ExecutionKind;
-import io.kestra.sdk.model.ExecutionRepositoryInterfaceChildFilter;
 import io.kestra.sdk.model.ExecutionRepositoryInterfaceFlowFilter;
+import io.kestra.sdk.model.QueryFilterField;
+import io.kestra.sdk.model.QueryFilterOp;
 import java.io.File;
 import io.kestra.sdk.model.FileMetas;
 import io.kestra.sdk.model.FlowForExecution;
 import io.kestra.sdk.model.FlowGraph;
-import io.kestra.sdk.model.FlowScope;
 import io.kestra.sdk.model.Label;
 import java.time.OffsetDateTime;
 import io.kestra.sdk.model.PagedResultsExecution;
 import io.kestra.sdk.model.QueryFilter;
 import io.kestra.sdk.model.StateType;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import org.junit.jupiter.api.Test;
 
 import java.net.URI;
@@ -59,7 +60,7 @@ public class ExecutionsApiTest {
 
     public ExecutionControllerExecutionResponse createFlowWithExecution(String flowId, String namespace){
         createSimpleFlow(flowId, namespace);
-        return kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, ExecutionKind.NORMAL);
+        return kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
     }
 
     /**
@@ -147,25 +148,32 @@ public class ExecutionsApiTest {
      */
     @Test
     public void deleteExecutionsByQueryTest() throws ApiException {
-        Boolean deleteLogs = null;
-        Boolean deleteMetrics = null;
-        Boolean deleteStorage = null;
+        String namespace1 = randomId();
+        String id1 = randomId();
+        ExecutionControllerExecutionResponse execution = createFlowWithExecution(id1, namespace1);
+        ExecutionControllerExecutionResponse execution1 = kestraClient().executions().createExecution(namespace1, id1, false, MAIN_TENANT, null, null, null, null, null);
 
-        String q = null;
-        List<FlowScope> scope = null;
-        String namespace = randomId();
-        String flowId = null;
-        OffsetDateTime startDate = null;
-        OffsetDateTime endDate = null;
-        String timeRange = null;
-        List<StateType> state = null;
-        List<String> labels = null;
-        String triggerExecutionId = null;
-        ExecutionRepositoryInterfaceChildFilter childFilter = null;
-        Boolean includeNonTerminated = null;
-//        Object response = kestraClient().executions().deleteExecutionsByQuery(deleteLogs, deleteMetrics, deleteStorage, MAIN_TENANT, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, includeNonTerminated);
+        String namespace2 = randomId();
+        String id2= randomId();
+        ExecutionControllerExecutionResponse execution2 = createFlowWithExecution(id2, namespace2);
 
-        // TODO: test validations
+
+        Boolean deleteLogs = false;
+        Boolean deleteMetrics = false;
+        Boolean deleteStorage = false;
+        Boolean includeNonTerminated = true;
+        List<QueryFilter> filters = List.of(new QueryFilter()
+            .field(QueryFilterField.NAMESPACE)
+            .operation(QueryFilterOp.EQUALS)
+            .value(namespace1));
+
+        Object response = kestraClient().executions().deleteExecutionsByQuery(deleteLogs, deleteMetrics, deleteStorage, MAIN_TENANT, filters, includeNonTerminated);
+
+        assertThat(response).isInstanceOf(LinkedHashMap.class).extracting("count").isEqualTo(2);
+
+        assertThrows(ApiException.class, () -> kestraClient().executions().getExecution(execution.getId(), MAIN_TENANT));
+        assertThrows(ApiException.class, () -> kestraClient().executions().getExecution(execution1.getId(), MAIN_TENANT));
+        assertThat(kestraClient().executions().getExecution(execution2.getId(), MAIN_TENANT)).isNotNull();
     }
     /**
      * Download file for an execution
