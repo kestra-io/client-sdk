@@ -179,7 +179,7 @@ public class Example {
 
 ## deleteBackfillByQuery
 
-> Object deleteBackfillByQuery(tenant, filters, q, namespace)
+> Object deleteBackfillByQuery(tenant, filters)
 
 Delete backfill for given triggers
 
@@ -211,10 +211,8 @@ public class Example {
         TriggersApi apiInstance = new TriggersApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
-        String q = "q_example"; // String | A string filter
-        String namespace = "namespace_example"; // String | A namespace filter prefix
         try {
-            Object result = apiInstance.deleteBackfillByQuery(tenant, filters, q, namespace);
+            Object result = apiInstance.deleteBackfillByQuery(tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#deleteBackfillByQuery");
@@ -234,8 +232,6 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
-| **q** | **String**| A string filter | [optional] |
-| **namespace** | **String**| A namespace filter prefix | [optional] |
 
 ### Return type
 
@@ -335,7 +331,7 @@ public class Example {
 
 ## disabledTriggersByQuery
 
-> Object disabledTriggersByQuery(disabled, tenant, filters, q, namespace)
+> Object disabledTriggersByQuery(disabled, tenant, filters)
 
 Disable/enable triggers by query parameters
 
@@ -368,10 +364,8 @@ public class Example {
         Boolean disabled = true; // Boolean | The disabled state
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
-        String q = "q_example"; // String | A string filter
-        String namespace = "namespace_example"; // String | A namespace filter prefix
         try {
-            Object result = apiInstance.disabledTriggersByQuery(disabled, tenant, filters, q, namespace);
+            Object result = apiInstance.disabledTriggersByQuery(disabled, tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#disabledTriggersByQuery");
@@ -392,8 +386,6 @@ public class Example {
 | **disabled** | **Boolean**| The disabled state | [default to true] |
 | **tenant** | **String**|  | |
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
-| **q** | **String**| A string filter | [optional] |
-| **namespace** | **String**| A namespace filter prefix | [optional] |
 
 ### Return type
 
@@ -569,7 +561,7 @@ public class Example {
 
 ## pauseBackfillByQuery
 
-> Object pauseBackfillByQuery(tenant, filters, q, namespace)
+> Object pauseBackfillByQuery(tenant, filters)
 
 Pause backfill for given triggers
 
@@ -601,10 +593,8 @@ public class Example {
         TriggersApi apiInstance = new TriggersApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
-        String q = "q_example"; // String | A string filter
-        String namespace = "namespace_example"; // String | A namespace filter prefix
         try {
-            Object result = apiInstance.pauseBackfillByQuery(tenant, filters, q, namespace);
+            Object result = apiInstance.pauseBackfillByQuery(tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#pauseBackfillByQuery");
@@ -624,8 +614,6 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
-| **q** | **String**| A string filter | [optional] |
-| **namespace** | **String**| A namespace filter prefix | [optional] |
 
 ### Return type
 
@@ -1053,7 +1041,7 @@ public class Example {
 
 ## unlockTriggersByQuery
 
-> Object unlockTriggersByQuery(tenant, filters, q, namespace)
+> Object unlockTriggersByQuery(tenant, filters)
 
 Unlock triggers by query parameters
 
@@ -1085,10 +1073,8 @@ public class Example {
         TriggersApi apiInstance = new TriggersApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
-        String q = "q_example"; // String | A string filter
-        String namespace = "namespace_example"; // String | A namespace filter prefix
         try {
-            Object result = apiInstance.unlockTriggersByQuery(tenant, filters, q, namespace);
+            Object result = apiInstance.unlockTriggersByQuery(tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#unlockTriggersByQuery");
@@ -1108,8 +1094,6 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
-| **q** | **String**| A string filter | [optional] |
-| **namespace** | **String**| A namespace filter prefix | [optional] |
 
 ### Return type
 
@@ -1285,7 +1269,7 @@ public class Example {
 
 ## unpauseBackfillByQuery
 
-> Object unpauseBackfillByQuery(tenant, filters, q, namespace)
+> Object unpauseBackfillByQuery(tenant, filters)
 
 Unpause backfill for given triggers
 
@@ -1317,10 +1301,8 @@ public class Example {
         TriggersApi apiInstance = new TriggersApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
-        String q = "q_example"; // String | A string filter
-        String namespace = "namespace_example"; // String | A namespace filter prefix
         try {
-            Object result = apiInstance.unpauseBackfillByQuery(tenant, filters, q, namespace);
+            Object result = apiInstance.unpauseBackfillByQuery(tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#unpauseBackfillByQuery");
@@ -1340,8 +1322,6 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
-| **q** | **String**| A string filter | [optional] |
-| **namespace** | **String**| A namespace filter prefix | [optional] |
 
 ### Return type
 
