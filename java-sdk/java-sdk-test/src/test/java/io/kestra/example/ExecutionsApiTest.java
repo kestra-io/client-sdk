@@ -3,7 +3,6 @@ package io.kestra.example;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.model.BulkResponse;
 import io.kestra.sdk.model.Execution;
-import io.kestra.sdk.model.ExecutionControllerEvalResult;
 import io.kestra.sdk.model.ExecutionControllerExecutionResponse;
 import io.kestra.sdk.model.ExecutionControllerLastExecutionResponse;
 import io.kestra.sdk.model.ExecutionControllerSetLabelsByIdsRequest;
@@ -13,7 +12,6 @@ import io.kestra.sdk.model.ExecutionKind;
 import io.kestra.sdk.model.ExecutionRepositoryInterfaceFlowFilter;
 import io.kestra.sdk.model.QueryFilterField;
 import io.kestra.sdk.model.QueryFilterOp;
-import io.kestra.sdk.model.State;
 import java.io.File;
 import io.kestra.sdk.model.FileMetas;
 import io.kestra.sdk.model.FlowForExecution;
@@ -40,6 +38,7 @@ import java.util.List;
 import static io.kestra.example.CommonTestSetup.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -72,6 +71,30 @@ public class ExecutionsApiTest {
     public ExecutionControllerExecutionResponse createFlowWithExecution(String flowId, String namespace){
         createSimpleFlow(flowId, namespace);
         return kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
+    }
+
+    private Execution getExecutionWithFile(String flowId,
+        String namespace) {
+        String flow = """
+            id: %s
+            namespace: %s
+
+            tasks:
+                - id: write
+                  type: io.kestra.plugin.core.storage.Write
+                  content: "Hello from file"
+                  extension: .txt
+            """.formatted(flowId, namespace);
+        createSimpleFlow(flow);
+        ExecutionControllerExecutionResponse execution = kestraClient().executions().createExecution(
+            namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
+
+        AtomicReference<Execution> executionAtomic = new AtomicReference<>();
+        await().atMost(Duration.ofSeconds(5)).until(() -> {
+            executionAtomic.set(kestraClient().executions().getExecution(execution.getId(), MAIN_TENANT));
+            return executionAtomic.get().getState().getCurrent().equals(StateType.SUCCESS);
+        });
+        return executionAtomic.get();
     }
 
     /**
@@ -196,63 +219,16 @@ public class ExecutionsApiTest {
     public void downloadFileFromExecutionTest() throws ApiException, IOException {
         String namespace = randomId();
         String flowId = randomId();
-        String flow = """
-            id: %s
-            namespace: %s
+        Execution execution = getExecutionWithFile(flowId, namespace);
 
-            tasks:
-                - id: write
-                  type: io.kestra.plugin.core.storage.Write
-                  content: "Hello from file"
-                  extension: .txt
-            """.formatted(flowId, namespace);
-        createSimpleFlow(flow);
-        ExecutionControllerExecutionResponse execution = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
-
-        AtomicReference<Execution> executionAtomic = new AtomicReference<>();
-        await().atMost(Duration.ofSeconds(5)).until(() -> {
-            executionAtomic.set(kestraClient().executions().getExecution(execution.getId(), MAIN_TENANT));
-            return executionAtomic.get().getState().getCurrent().equals(StateType.SUCCESS);
-        });
-
-
-        String executionId = executionAtomic.get().getId();
-        URI path = URI.create(executionAtomic.get().getTaskRunList().getFirst().getOutputs().get("uri").toString());
+        String executionId = execution.getId();
+        URI path = URI.create(execution.getTaskRunList().getFirst().getOutputs().get("uri").toString());
 
         File response = kestraClient().executions().downloadFileFromExecution(executionId, path, MAIN_TENANT);
         String content = Files.readString(response.toPath(), StandardCharsets.UTF_8);
         assertThat(content).isEqualTo("Hello from file");
     }
-    /**
-     * Evaluate a variable expression for this taskrun
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void evalTaskRunExpressionTest() throws ApiException {
-        String executionId = null;
-        String taskRunId = null;
 
-        String body = null;
-        ExecutionControllerEvalResult response = kestraClient().executions().evalTaskRunExpression(executionId, taskRunId, MAIN_TENANT, body);
-
-        // TODO: test validations
-    }
-    /**
-     * Follow an execution
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void followExecutionTest() throws ApiException {
-        String executionId = null;
-
-//        EventExecution response = kestraClient().executions().followExecution(executionId, MAIN_TENANT);
-
-        // TODO: test validations
-    }
     /**
      * Force run a list of executions
      *
@@ -367,11 +343,14 @@ public class ExecutionsApiTest {
      */
     @Test
     public void getExecutionTest() throws ApiException {
-        String executionId = null;
+        String namespace = randomId();
+        String id = randomId();
+        ExecutionControllerExecutionResponse execution = createFlowWithExecution(id, namespace);
+
+        String executionId = execution.getId();
 
         Execution response = kestraClient().executions().getExecution(executionId, MAIN_TENANT);
-
-        // TODO: test validations
+        assertThat(response.getId()).isEqualTo(executionId);
     }
     /**
      * Generate a graph for an execution
@@ -381,12 +360,15 @@ public class ExecutionsApiTest {
      */
     @Test
     public void getExecutionFlowGraphTest() throws ApiException {
-        String executionId = null;
+        String namespace = randomId();
+        String id = randomId();
+        ExecutionControllerExecutionResponse execution = createFlowWithExecution(id, namespace);
+
+        String executionId = execution.getId();
 
         List<String> subflows = null;
         FlowGraph response = kestraClient().executions().getExecutionFlowGraph(executionId, MAIN_TENANT, subflows);
-
-        // TODO: test validations
+        assertThat(response).isNotNull();
     }
     /**
      * Get file meta information for an execution
@@ -396,12 +378,15 @@ public class ExecutionsApiTest {
      */
     @Test
     public void getFileMetadatasFromExecutionTest() throws ApiException {
-        String executionId = null;
-        URI path = null;
+        String namespace = randomId();
+        String id = randomId();
+        Execution execution = getExecutionWithFile(id, namespace);
+
+        String executionId = execution.getId();
+        URI path = URI.create(execution.getTaskRunList().getFirst().getOutputs().get("uri").toString());
 
         FileMetas response = kestraClient().executions().getFileMetadatasFromExecution(executionId, path, MAIN_TENANT);
-
-        // TODO: test validations
+        assertThat(response.getSize()).isEqualTo(15);
     }
     /**
      * Get flow information&#39;s for an execution
