@@ -10,6 +10,12 @@
 
     Do not edit the class manually.
 """  # noqa: E501
+# Custom imports
+import requests
+import sseclient
+import json
+from typing import Generator
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -50,7 +56,6 @@ class UsersApi:
         if api_client is None:
             api_client = ApiClient.get_default()
         self.api_client = api_client
-
 
     @validate_call
     def autocomplete_users(
@@ -258,6 +263,7 @@ class UsersApi:
         return response_data.response
 
 
+
     def _autocomplete_users_serialize(
         self,
         tenant,
@@ -335,6 +341,7 @@ class UsersApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -551,6 +558,7 @@ class UsersApi:
         return response_data.response
 
 
+
     def _create_api_tokens_for_user_serialize(
         self,
         id,
@@ -628,6 +636,7 @@ class UsersApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -832,6 +841,7 @@ class UsersApi:
         return response_data.response
 
 
+
     def _create_user_serialize(
         self,
         iam_user_controller_api_create_or_update_user_request,
@@ -906,6 +916,7 @@ class UsersApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -1122,6 +1133,7 @@ class UsersApi:
         return response_data.response
 
 
+
     def _delete_api_token_for_user_serialize(
         self,
         id,
@@ -1179,6 +1191,7 @@ class UsersApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -1380,6 +1393,7 @@ class UsersApi:
         return response_data.response
 
 
+
     def _delete_refresh_token_serialize(
         self,
         id,
@@ -1434,6 +1448,7 @@ class UsersApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -1638,6 +1653,7 @@ class UsersApi:
         return response_data.response
 
 
+
     def _delete_user_serialize(
         self,
         id,
@@ -1692,6 +1708,7 @@ class UsersApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -1908,6 +1925,7 @@ class UsersApi:
         return response_data.response
 
 
+
     def _delete_user_auth_method_serialize(
         self,
         id,
@@ -1976,6 +1994,7 @@ class UsersApi:
 
 
 
+
     @validate_call
     def get_user(
         self,
@@ -2030,8 +2049,8 @@ class UsersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '404': None,
             '200': "IAMUserControllerApiUser",
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2098,8 +2117,8 @@ class UsersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '404': None,
             '200': "IAMUserControllerApiUser",
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2166,14 +2185,15 @@ class UsersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '404': None,
             '200': "IAMUserControllerApiUser",
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
         return response_data.response
+
 
 
     def _get_user_serialize(
@@ -2241,6 +2261,7 @@ class UsersApi:
 
 
 
+
     @validate_call
     def impersonate(
         self,
@@ -2295,8 +2316,8 @@ class UsersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '404': None,
             '200': "object",
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2363,8 +2384,8 @@ class UsersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '404': None,
             '200': "object",
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2431,14 +2452,15 @@ class UsersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '404': None,
             '200': "object",
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
         return response_data.response
+
 
 
     def _impersonate_serialize(
@@ -2506,6 +2528,7 @@ class UsersApi:
 
 
 
+
     @validate_call
     def list_api_tokens_for_user(
         self,
@@ -2560,8 +2583,8 @@ class UsersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '404': None,
             '200': "ApiTokenList",
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2628,8 +2651,8 @@ class UsersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '404': None,
             '200': "ApiTokenList",
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2696,14 +2719,15 @@ class UsersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '404': None,
             '200': "ApiTokenList",
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
         return response_data.response
+
 
 
     def _list_api_tokens_for_user_serialize(
@@ -2767,6 +2791,7 @@ class UsersApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -3001,6 +3026,7 @@ class UsersApi:
         return response_data.response
 
 
+
     def _list_users_serialize(
         self,
         page,
@@ -3080,6 +3106,7 @@ class UsersApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -3293,6 +3320,7 @@ class UsersApi:
         return response_data.response
 
 
+
     def _patch_user_serialize(
         self,
         id,
@@ -3370,6 +3398,7 @@ class UsersApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -3586,6 +3615,7 @@ class UsersApi:
         return response_data.response
 
 
+
     def _patch_user_demo_serialize(
         self,
         id,
@@ -3656,6 +3686,7 @@ class UsersApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -3872,6 +3903,7 @@ class UsersApi:
         return response_data.response
 
 
+
     def _patch_user_password_serialize(
         self,
         id,
@@ -3949,6 +3981,7 @@ class UsersApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -4165,6 +4198,7 @@ class UsersApi:
         return response_data.response
 
 
+
     def _patch_user_super_admin_serialize(
         self,
         id,
@@ -4235,6 +4269,7 @@ class UsersApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -4436,6 +4471,7 @@ class UsersApi:
         return response_data.response
 
 
+
     def _update_current_user_password_serialize(
         self,
         me_controller_api_update_password_request,
@@ -4514,6 +4550,7 @@ class UsersApi:
 
 
 
+
     @validate_call
     def update_user(
         self,
@@ -4572,8 +4609,8 @@ class UsersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '404': None,
             '200': "IAMUserControllerApiUser",
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4644,8 +4681,8 @@ class UsersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '404': None,
             '200': "IAMUserControllerApiUser",
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4716,14 +4753,15 @@ class UsersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '404': None,
             '200': "IAMUserControllerApiUser",
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
         return response_data.response
+
 
 
     def _update_user_serialize(
@@ -4807,6 +4845,7 @@ class UsersApi:
 
 
 
+
     @validate_call
     def update_user_groups(
         self,
@@ -4869,8 +4908,8 @@ class UsersApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '404': None,
             '400': None,
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4945,8 +4984,8 @@ class UsersApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '404': None,
             '400': None,
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5021,14 +5060,15 @@ class UsersApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '404': None,
             '400': None,
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
         return response_data.response
+
 
 
     def _update_user_groups_serialize(
@@ -5104,5 +5144,7 @@ class UsersApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
+
 
 

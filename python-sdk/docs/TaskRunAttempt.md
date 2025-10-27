@@ -5,7 +5,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**metrics** | [**List[AbstractMetricEntryObject]**](AbstractMetricEntryObject.md) |  | [optional] 
 **state** | [**State**](State.md) |  | 
 **worker_id** | **str** |  | [optional] 
 **log_file** | **str** |  | [optional] 

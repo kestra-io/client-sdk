@@ -28,8 +28,8 @@ __all__ = [
     "TriggersApi",
     "UsersApi",
     "ApiResponse",
+    "ApiClient",
     "Configuration",
-    "KestraClient",
     "OpenApiException",
     "ApiTypeError",
     "ApiValueError",
@@ -119,7 +119,6 @@ __all__ = [
     "DailyExecutionStatisticsExecutionCounts",
     "Dashboard",
     "DashboardControllerPreviewRequest",
-    "DeleteExecutionsByQueryRequest",
     "DeletedInterface",
     "DependsOn",
     "DocumentationWithSchema",
@@ -409,7 +408,6 @@ __all__ = [
     "UnitTest",
     "UnitTestResult",
     "UpdateFlow200Response",
-    "UpdateFlowsInNamespaceFromJson200Response",
     "UsageEE",
     "UserGroup",
     "UserGroupType",
@@ -529,7 +527,6 @@ from kestrapy.models.daily_execution_statistics_duration import DailyExecutionSt
 from kestrapy.models.daily_execution_statistics_execution_counts import DailyExecutionStatisticsExecutionCounts as DailyExecutionStatisticsExecutionCounts
 from kestrapy.models.dashboard import Dashboard as Dashboard
 from kestrapy.models.dashboard_controller_preview_request import DashboardControllerPreviewRequest as DashboardControllerPreviewRequest
-from kestrapy.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest as DeleteExecutionsByQueryRequest
 from kestrapy.models.deleted_interface import DeletedInterface as DeletedInterface
 from kestrapy.models.depends_on import DependsOn as DependsOn
 from kestrapy.models.documentation_with_schema import DocumentationWithSchema as DocumentationWithSchema
@@ -819,7 +816,6 @@ from kestrapy.models.type import Type as Type
 from kestrapy.models.unit_test import UnitTest as UnitTest
 from kestrapy.models.unit_test_result import UnitTestResult as UnitTestResult
 from kestrapy.models.update_flow200_response import UpdateFlow200Response as UpdateFlow200Response
-from kestrapy.models.update_flows_in_namespace_from_json200_response import UpdateFlowsInNamespaceFromJson200Response as UpdateFlowsInNamespaceFromJson200Response
 from kestrapy.models.usage_ee import UsageEE as UsageEE
 from kestrapy.models.user_group import UserGroup as UserGroup
 from kestrapy.models.user_group_type import UserGroupType as UserGroupType
@@ -832,5 +828,4 @@ from kestrapy.models.worker_group import WorkerGroup as WorkerGroup
 from kestrapy.models.worker_group_fallback import WorkerGroupFallback as WorkerGroupFallback
 from kestrapy.models.worker_task_restart_strategy import WorkerTaskRestartStrategy as WorkerTaskRestartStrategy
 
-from kestrapy.kestra_client import KestraClient as KestraClient
 from kestrapy.kestra_client import KestraClient as KestraClient

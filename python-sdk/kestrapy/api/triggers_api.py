@@ -10,6 +10,12 @@
 
     Do not edit the class manually.
 """  # noqa: E501
+# Custom imports
+import requests
+import sseclient
+import json
+from typing import Generator
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -19,7 +25,6 @@ from typing_extensions import Annotated
 from pydantic import Field, StrictBool, StrictStr
 from typing import Any, Dict, List, Optional
 from typing_extensions import Annotated
-from kestrapy.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
 from kestrapy.models.paged_results_trigger import PagedResultsTrigger
 from kestrapy.models.paged_results_trigger_controller_triggers import PagedResultsTriggerControllerTriggers
 from kestrapy.models.query_filter import QueryFilter
@@ -42,7 +47,6 @@ class TriggersApi:
         if api_client is None:
             api_client = ApiClient.get_default()
         self.api_client = api_client
-
 
     @validate_call
     def delete_backfill(
@@ -250,6 +254,7 @@ class TriggersApi:
         return response_data.response
 
 
+
     def _delete_backfill_serialize(
         self,
         tenant,
@@ -327,6 +332,7 @@ class TriggersApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -537,6 +543,7 @@ class TriggersApi:
         return response_data.response
 
 
+
     def _delete_backfill_by_ids_serialize(
         self,
         tenant,
@@ -619,13 +626,12 @@ class TriggersApi:
 
 
 
+
     @validate_call
     def delete_backfill_by_query(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -644,12 +650,8 @@ class TriggersApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param namespace: A namespace filter prefix
-        :type namespace: str
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -674,9 +676,7 @@ class TriggersApi:
 
         _param = self._delete_backfill_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            namespace=namespace,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -701,9 +701,7 @@ class TriggersApi:
     def delete_backfill_by_query_with_http_info(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -722,12 +720,8 @@ class TriggersApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param namespace: A namespace filter prefix
-        :type namespace: str
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -752,9 +746,7 @@ class TriggersApi:
 
         _param = self._delete_backfill_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            namespace=namespace,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -779,9 +771,7 @@ class TriggersApi:
     def delete_backfill_by_query_without_preload_content(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -800,12 +790,8 @@ class TriggersApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param namespace: A namespace filter prefix
-        :type namespace: str
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -830,9 +816,7 @@ class TriggersApi:
 
         _param = self._delete_backfill_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            namespace=namespace,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -849,12 +833,11 @@ class TriggersApi:
         return response_data.response
 
 
+
     def _delete_backfill_by_query_serialize(
         self,
         tenant,
-        delete_executions_by_query_request,
-        q,
-        namespace,
+        filters,
         _request_auth,
         _content_type,
         _headers,
@@ -864,6 +847,7 @@ class TriggersApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
+            'filters': 'csv',
         }
 
         _path_params: Dict[str, str] = {}
@@ -879,19 +863,13 @@ class TriggersApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
-        if q is not None:
+        if filters is not None:
             
-            _query_params.append(('q', q))
-            
-        if namespace is not None:
-            
-            _query_params.append(('namespace', namespace))
+            _query_params.append(('filters', filters))
             
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if delete_executions_by_query_request is not None:
-            _body_params = delete_executions_by_query_request
 
 
         # set the HTTP header `Accept`
@@ -902,19 +880,6 @@ class TriggersApi:
                 ]
             )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -936,6 +901,7 @@ class TriggersApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -1146,6 +1112,7 @@ class TriggersApi:
         return response_data.response
 
 
+
     def _disabled_triggers_by_ids_serialize(
         self,
         tenant,
@@ -1227,14 +1194,13 @@ class TriggersApi:
 
 
 
+
     @validate_call
     def disabled_triggers_by_query(
         self,
         disabled: Annotated[StrictBool, Field(description="The disabled state")],
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1255,12 +1221,8 @@ class TriggersApi:
         :type disabled: bool
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param namespace: A namespace filter prefix
-        :type namespace: str
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1286,9 +1248,7 @@ class TriggersApi:
         _param = self._disabled_triggers_by_query_serialize(
             disabled=disabled,
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            namespace=namespace,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1314,9 +1274,7 @@ class TriggersApi:
         self,
         disabled: Annotated[StrictBool, Field(description="The disabled state")],
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1337,12 +1295,8 @@ class TriggersApi:
         :type disabled: bool
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param namespace: A namespace filter prefix
-        :type namespace: str
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1368,9 +1322,7 @@ class TriggersApi:
         _param = self._disabled_triggers_by_query_serialize(
             disabled=disabled,
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            namespace=namespace,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1396,9 +1348,7 @@ class TriggersApi:
         self,
         disabled: Annotated[StrictBool, Field(description="The disabled state")],
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1419,12 +1369,8 @@ class TriggersApi:
         :type disabled: bool
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param namespace: A namespace filter prefix
-        :type namespace: str
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1450,9 +1396,7 @@ class TriggersApi:
         _param = self._disabled_triggers_by_query_serialize(
             disabled=disabled,
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            namespace=namespace,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1469,13 +1413,12 @@ class TriggersApi:
         return response_data.response
 
 
+
     def _disabled_triggers_by_query_serialize(
         self,
         disabled,
         tenant,
-        delete_executions_by_query_request,
-        q,
-        namespace,
+        filters,
         _request_auth,
         _content_type,
         _headers,
@@ -1485,6 +1428,7 @@ class TriggersApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
+            'filters': 'csv',
         }
 
         _path_params: Dict[str, str] = {}
@@ -1500,13 +1444,9 @@ class TriggersApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
-        if q is not None:
+        if filters is not None:
             
-            _query_params.append(('q', q))
-            
-        if namespace is not None:
-            
-            _query_params.append(('namespace', namespace))
+            _query_params.append(('filters', filters))
             
         if disabled is not None:
             
@@ -1515,8 +1455,6 @@ class TriggersApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if delete_executions_by_query_request is not None:
-            _body_params = delete_executions_by_query_request
 
 
         # set the HTTP header `Accept`
@@ -1527,19 +1465,6 @@ class TriggersApi:
                 ]
             )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -1561,6 +1486,7 @@ class TriggersApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -1771,6 +1697,7 @@ class TriggersApi:
         return response_data.response
 
 
+
     def _pause_backfill_serialize(
         self,
         tenant,
@@ -1848,6 +1775,7 @@ class TriggersApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -2058,6 +1986,7 @@ class TriggersApi:
         return response_data.response
 
 
+
     def _pause_backfill_by_ids_serialize(
         self,
         tenant,
@@ -2140,13 +2069,12 @@ class TriggersApi:
 
 
 
+
     @validate_call
     def pause_backfill_by_query(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2165,12 +2093,8 @@ class TriggersApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param namespace: A namespace filter prefix
-        :type namespace: str
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2195,9 +2119,7 @@ class TriggersApi:
 
         _param = self._pause_backfill_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            namespace=namespace,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2222,9 +2144,7 @@ class TriggersApi:
     def pause_backfill_by_query_with_http_info(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2243,12 +2163,8 @@ class TriggersApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param namespace: A namespace filter prefix
-        :type namespace: str
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2273,9 +2189,7 @@ class TriggersApi:
 
         _param = self._pause_backfill_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            namespace=namespace,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2300,9 +2214,7 @@ class TriggersApi:
     def pause_backfill_by_query_without_preload_content(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2321,12 +2233,8 @@ class TriggersApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param namespace: A namespace filter prefix
-        :type namespace: str
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2351,9 +2259,7 @@ class TriggersApi:
 
         _param = self._pause_backfill_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            namespace=namespace,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2370,12 +2276,11 @@ class TriggersApi:
         return response_data.response
 
 
+
     def _pause_backfill_by_query_serialize(
         self,
         tenant,
-        delete_executions_by_query_request,
-        q,
-        namespace,
+        filters,
         _request_auth,
         _content_type,
         _headers,
@@ -2385,6 +2290,7 @@ class TriggersApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
+            'filters': 'csv',
         }
 
         _path_params: Dict[str, str] = {}
@@ -2400,19 +2306,13 @@ class TriggersApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
-        if q is not None:
+        if filters is not None:
             
-            _query_params.append(('q', q))
-            
-        if namespace is not None:
-            
-            _query_params.append(('namespace', namespace))
+            _query_params.append(('filters', filters))
             
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if delete_executions_by_query_request is not None:
-            _body_params = delete_executions_by_query_request
 
 
         # set the HTTP header `Accept`
@@ -2423,19 +2323,6 @@ class TriggersApi:
                 ]
             )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -2457,6 +2344,7 @@ class TriggersApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -2691,6 +2579,7 @@ class TriggersApi:
         return response_data.response
 
 
+
     def _restart_trigger_serialize(
         self,
         namespace,
@@ -2765,6 +2654,7 @@ class TriggersApi:
 
 
 
+
     @validate_call
     def search_triggers(
         self,
@@ -2773,10 +2663,6 @@ class TriggersApi:
         tenant: StrictStr,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        worker_id: Annotated[Optional[StrictStr], Field(description="The identifier of the worker currently evaluating the trigger")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="The flow identifier")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2803,14 +2689,6 @@ class TriggersApi:
         :type sort: List[str]
         :param filters: Filters
         :type filters: List[QueryFilter]
-        :param q: A string filter
-        :type q: str
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param worker_id: The identifier of the worker currently evaluating the trigger
-        :type worker_id: str
-        :param flow_id: The flow identifier
-        :type flow_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2839,10 +2717,6 @@ class TriggersApi:
             tenant=tenant,
             sort=sort,
             filters=filters,
-            q=q,
-            namespace=namespace,
-            worker_id=worker_id,
-            flow_id=flow_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2871,10 +2745,6 @@ class TriggersApi:
         tenant: StrictStr,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        worker_id: Annotated[Optional[StrictStr], Field(description="The identifier of the worker currently evaluating the trigger")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="The flow identifier")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2901,14 +2771,6 @@ class TriggersApi:
         :type sort: List[str]
         :param filters: Filters
         :type filters: List[QueryFilter]
-        :param q: A string filter
-        :type q: str
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param worker_id: The identifier of the worker currently evaluating the trigger
-        :type worker_id: str
-        :param flow_id: The flow identifier
-        :type flow_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2937,10 +2799,6 @@ class TriggersApi:
             tenant=tenant,
             sort=sort,
             filters=filters,
-            q=q,
-            namespace=namespace,
-            worker_id=worker_id,
-            flow_id=flow_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2969,10 +2827,6 @@ class TriggersApi:
         tenant: StrictStr,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        worker_id: Annotated[Optional[StrictStr], Field(description="The identifier of the worker currently evaluating the trigger")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="The flow identifier")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2999,14 +2853,6 @@ class TriggersApi:
         :type sort: List[str]
         :param filters: Filters
         :type filters: List[QueryFilter]
-        :param q: A string filter
-        :type q: str
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param worker_id: The identifier of the worker currently evaluating the trigger
-        :type worker_id: str
-        :param flow_id: The flow identifier
-        :type flow_id: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3035,10 +2881,6 @@ class TriggersApi:
             tenant=tenant,
             sort=sort,
             filters=filters,
-            q=q,
-            namespace=namespace,
-            worker_id=worker_id,
-            flow_id=flow_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3055,6 +2897,7 @@ class TriggersApi:
         return response_data.response
 
 
+
     def _search_triggers_serialize(
         self,
         page,
@@ -3062,10 +2905,6 @@ class TriggersApi:
         tenant,
         sort,
         filters,
-        q,
-        namespace,
-        worker_id,
-        flow_id,
         _request_auth,
         _content_type,
         _headers,
@@ -3108,22 +2947,6 @@ class TriggersApi:
             
             _query_params.append(('filters', filters))
             
-        if q is not None:
-            
-            _query_params.append(('q', q))
-            
-        if namespace is not None:
-            
-            _query_params.append(('namespace', namespace))
-            
-        if worker_id is not None:
-            
-            _query_params.append(('workerId', worker_id))
-            
-        if flow_id is not None:
-            
-            _query_params.append(('flowId', flow_id))
-            
         # process the header parameters
         # process the form parameters
         # process the body parameter
@@ -3158,6 +2981,7 @@ class TriggersApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -3428,6 +3252,7 @@ class TriggersApi:
         return response_data.response
 
 
+
     def _search_triggers_for_flow_serialize(
         self,
         page,
@@ -3516,6 +3341,7 @@ class TriggersApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -3750,6 +3576,7 @@ class TriggersApi:
         return response_data.response
 
 
+
     def _unlock_trigger_serialize(
         self,
         namespace,
@@ -3820,6 +3647,7 @@ class TriggersApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -4030,6 +3858,7 @@ class TriggersApi:
         return response_data.response
 
 
+
     def _unlock_triggers_by_ids_serialize(
         self,
         tenant,
@@ -4112,13 +3941,12 @@ class TriggersApi:
 
 
 
+
     @validate_call
     def unlock_triggers_by_query(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4137,12 +3965,8 @@ class TriggersApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param namespace: A namespace filter prefix
-        :type namespace: str
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4167,9 +3991,7 @@ class TriggersApi:
 
         _param = self._unlock_triggers_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            namespace=namespace,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4194,9 +4016,7 @@ class TriggersApi:
     def unlock_triggers_by_query_with_http_info(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4215,12 +4035,8 @@ class TriggersApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param namespace: A namespace filter prefix
-        :type namespace: str
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4245,9 +4061,7 @@ class TriggersApi:
 
         _param = self._unlock_triggers_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            namespace=namespace,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4272,9 +4086,7 @@ class TriggersApi:
     def unlock_triggers_by_query_without_preload_content(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4293,12 +4105,8 @@ class TriggersApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param namespace: A namespace filter prefix
-        :type namespace: str
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4323,9 +4131,7 @@ class TriggersApi:
 
         _param = self._unlock_triggers_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            namespace=namespace,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4342,12 +4148,11 @@ class TriggersApi:
         return response_data.response
 
 
+
     def _unlock_triggers_by_query_serialize(
         self,
         tenant,
-        delete_executions_by_query_request,
-        q,
-        namespace,
+        filters,
         _request_auth,
         _content_type,
         _headers,
@@ -4357,6 +4162,7 @@ class TriggersApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
+            'filters': 'csv',
         }
 
         _path_params: Dict[str, str] = {}
@@ -4372,19 +4178,13 @@ class TriggersApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
-        if q is not None:
+        if filters is not None:
             
-            _query_params.append(('q', q))
-            
-        if namespace is not None:
-            
-            _query_params.append(('namespace', namespace))
+            _query_params.append(('filters', filters))
             
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if delete_executions_by_query_request is not None:
-            _body_params = delete_executions_by_query_request
 
 
         # set the HTTP header `Accept`
@@ -4395,19 +4195,6 @@ class TriggersApi:
                 ]
             )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -4429,6 +4216,7 @@ class TriggersApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -4639,6 +4427,7 @@ class TriggersApi:
         return response_data.response
 
 
+
     def _unpause_backfill_serialize(
         self,
         tenant,
@@ -4716,6 +4505,7 @@ class TriggersApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -4926,6 +4716,7 @@ class TriggersApi:
         return response_data.response
 
 
+
     def _unpause_backfill_by_ids_serialize(
         self,
         tenant,
@@ -5008,13 +4799,12 @@ class TriggersApi:
 
 
 
+
     @validate_call
     def unpause_backfill_by_query(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -5033,12 +4823,8 @@ class TriggersApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param namespace: A namespace filter prefix
-        :type namespace: str
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -5063,9 +4849,7 @@ class TriggersApi:
 
         _param = self._unpause_backfill_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            namespace=namespace,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -5090,9 +4874,7 @@ class TriggersApi:
     def unpause_backfill_by_query_with_http_info(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -5111,12 +4893,8 @@ class TriggersApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param namespace: A namespace filter prefix
-        :type namespace: str
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -5141,9 +4919,7 @@ class TriggersApi:
 
         _param = self._unpause_backfill_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            namespace=namespace,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -5168,9 +4944,7 @@ class TriggersApi:
     def unpause_backfill_by_query_without_preload_content(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -5189,12 +4963,8 @@ class TriggersApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param namespace: A namespace filter prefix
-        :type namespace: str
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -5219,9 +4989,7 @@ class TriggersApi:
 
         _param = self._unpause_backfill_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            namespace=namespace,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -5238,12 +5006,11 @@ class TriggersApi:
         return response_data.response
 
 
+
     def _unpause_backfill_by_query_serialize(
         self,
         tenant,
-        delete_executions_by_query_request,
-        q,
-        namespace,
+        filters,
         _request_auth,
         _content_type,
         _headers,
@@ -5253,6 +5020,7 @@ class TriggersApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
+            'filters': 'csv',
         }
 
         _path_params: Dict[str, str] = {}
@@ -5268,19 +5036,13 @@ class TriggersApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
-        if q is not None:
+        if filters is not None:
             
-            _query_params.append(('q', q))
-            
-        if namespace is not None:
-            
-            _query_params.append(('namespace', namespace))
+            _query_params.append(('filters', filters))
             
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if delete_executions_by_query_request is not None:
-            _body_params = delete_executions_by_query_request
 
 
         # set the HTTP header `Accept`
@@ -5291,19 +5053,6 @@ class TriggersApi:
                 ]
             )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -5325,6 +5074,7 @@ class TriggersApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -5535,6 +5285,7 @@ class TriggersApi:
         return response_data.response
 
 
+
     def _update_trigger_serialize(
         self,
         tenant,
@@ -5612,5 +5363,7 @@ class TriggersApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
+
 
 

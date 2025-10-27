@@ -17,10 +17,8 @@ Name | Type | Description | Notes
 **worker_group** | [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
 **deleted** | **bool** |  | 
 **var_finally** | [**List[Task]**](Task.md) |  | [optional] 
-**task_defaults** | [**List[PluginDefault]**](PluginDefault.md) |  | [optional] 
 **tasks** | [**Dict[Task]**](Task.md) |  | 
 **errors** | [**List[Task]**](Task.md) |  | [optional] 
-**listeners** | [**List[Listener]**](Listener.md) |  | [optional] 
 **after_execution** | [**List[Task]**](Task.md) |  | [optional] 
 **triggers** | [**List[AbstractTrigger]**](AbstractTrigger.md) |  | [optional] 
 **plugin_defaults** | [**List[PluginDefault]**](PluginDefault.md) |  | [optional] 

@@ -5,7 +5,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**min_log_level** | [**Level**](Level.md) |  | [optional] 
 **id** | **str** |  | 
 **type** | **str** |  | 
 **version** | **str** |  | [optional] 

@@ -20,7 +20,6 @@ from typing import Optional, Tuple
 import uuid
 from kestrapy import (
     Trigger,
-    DeleteExecutionsByQueryRequest,
     TriggerControllerSetDisabledRequest,
     Backfill,
 )
@@ -130,8 +129,7 @@ triggers:
             operation=QueryFilterOp.CONTAINS,
             value={"value": self._testMethodName}
         )
-        req = DeleteExecutionsByQueryRequest(filters=[qf])
-        resp = self.kestra_client.triggers.delete_backfill_by_query(tenant=self.tenant, delete_executions_by_query_request=req)
+        resp = self.kestra_client.triggers.delete_backfill_by_query(tenant=self.tenant, filters=[qf])
         assert resp is not None
 
 
@@ -157,8 +155,7 @@ triggers:
             operation=QueryFilterOp.CONTAINS,
             value={"value": self._testMethodName}
         )
-        delete_req = DeleteExecutionsByQueryRequest(filters=[qf])
-        resp = self.kestra_client.triggers.disabled_triggers_by_query(disabled=True, tenant=self.tenant, delete_executions_by_query_request=delete_req)
+        resp = self.kestra_client.triggers.disabled_triggers_by_query(disabled=True, tenant=self.tenant, filters=[qf])
         assert resp is not None
 
     def test_pause_backfill(self) -> None:
@@ -196,8 +193,7 @@ triggers:
             operation=QueryFilterOp.CONTAINS,
             value={"value": self._testMethodName}
         )
-        req = DeleteExecutionsByQueryRequest(filters=[qf])
-        resp = self.kestra_client.triggers.pause_backfill_by_query(tenant=self.tenant, delete_executions_by_query_request=req)
+        resp = self.kestra_client.triggers.pause_backfill_by_query(tenant=self.tenant, filters=[qf])
         assert resp is not None
 
     def test_restart_trigger(self) -> None:
@@ -216,7 +212,7 @@ triggers:
         Search for triggers
         """
         self.create_flow_with_trigger(flow_id=f"{self._testMethodName}", trigger_id=f"{self._testMethodName}_trigger")
-        time.sleep(1)
+        time.sleep(2)
         resp = self.kestra_client.triggers.search_triggers(page=1, size=10, tenant=self.tenant)
         assert resp is not None
 
@@ -258,8 +254,14 @@ triggers:
         Unlock triggers by query parameters
         """
         self.create_flow_with_trigger(flow_id=f"{self._testMethodName}", trigger_id=f"{self._testMethodName}_trigger")
-        req = DeleteExecutionsByQueryRequest()
-        resp = self.kestra_client.triggers.unlock_triggers_by_query(tenant=self.tenant, delete_executions_by_query_request=req)
+
+        qf = QueryFilter(
+            field=QueryFilterField.TRIGGER_ID,
+            operation=QueryFilterOp.CONTAINS,
+            value={"value": self._testMethodName}
+        )
+
+        resp = self.kestra_client.triggers.unlock_triggers_by_query(tenant=self.tenant, filters=[qf])
         assert resp is not None
 
     def test_unpause_backfill(self) -> None:
@@ -292,8 +294,14 @@ triggers:
         Unpause backfill for given triggers
         """
         self.create_flow_with_trigger(flow_id=f"{self._testMethodName}", trigger_id=f"{self._testMethodName}_trigger")
-        req = DeleteExecutionsByQueryRequest()
-        resp = self.kestra_client.triggers.unpause_backfill_by_query(tenant=self.tenant, delete_executions_by_query_request=req)
+
+        qf = QueryFilter(
+            field=QueryFilterField.TRIGGER_ID,
+            operation=QueryFilterOp.CONTAINS,
+            value={"value": self._testMethodName}
+        )
+
+        resp = self.kestra_client.triggers.unpause_backfill_by_query(tenant=self.tenant, filters=[qf])
         assert resp is not None
 
     def test_update_trigger(self) -> None:

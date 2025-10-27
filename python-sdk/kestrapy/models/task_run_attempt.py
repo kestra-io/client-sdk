@@ -19,7 +19,6 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from kestrapy.models.abstract_metric_entry_object import AbstractMetricEntryObject
 from kestrapy.models.state import State
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,12 +27,11 @@ class TaskRunAttempt(BaseModel):
     """
     TaskRunAttempt
     """ # noqa: E501
-    metrics: Optional[List[AbstractMetricEntryObject]] = None
     state: State
     worker_id: Optional[StrictStr] = Field(default=None, alias="workerId")
     log_file: Optional[StrictStr] = Field(default=None, alias="logFile")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["metrics", "state", "workerId", "logFile"]
+    __properties: ClassVar[List[str]] = ["state", "workerId", "logFile"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -76,13 +74,6 @@ class TaskRunAttempt(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of each item in metrics (list)
-        _items = []
-        if self.metrics:
-            for _item_metrics in self.metrics:
-                if _item_metrics:
-                    _items.append(_item_metrics.to_dict())
-            _dict['metrics'] = _items
         # override the default output from pydantic by calling `to_dict()` of state
         if self.state:
             _dict['state'] = self.state.to_dict()
@@ -113,7 +104,6 @@ class TaskRunAttempt(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "metrics": [AbstractMetricEntryObject.from_dict(_item) for _item in obj["metrics"]] if obj.get("metrics") is not None else None,
             "state": State.from_dict(obj["state"]) if obj.get("state") is not None else None,
             "workerId": obj.get("workerId"),
             "logFile": obj.get("logFile")

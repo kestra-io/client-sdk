@@ -10,6 +10,12 @@
 
     Do not edit the class manually.
 """  # noqa: E501
+# Custom imports
+import requests
+import sseclient
+import json
+from typing import Generator
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -21,12 +27,10 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 from kestrapy.models.apps_controller_api_bulk_import_response import AppsControllerApiBulkImportResponse
 from kestrapy.models.bulk_response import BulkResponse
-from kestrapy.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
 from kestrapy.models.flow import Flow
 from kestrapy.models.flow_controller_task_validation_type import FlowControllerTaskValidationType
 from kestrapy.models.flow_graph import FlowGraph
 from kestrapy.models.flow_interface import FlowInterface
-from kestrapy.models.flow_scope import FlowScope
 from kestrapy.models.flow_topology_graph import FlowTopologyGraph
 from kestrapy.models.flow_with_source import FlowWithSource
 from kestrapy.models.id_with_namespace import IdWithNamespace
@@ -35,7 +39,6 @@ from kestrapy.models.paged_results_search_result_flow import PagedResultsSearchR
 from kestrapy.models.query_filter import QueryFilter
 from kestrapy.models.task import Task
 from kestrapy.models.update_flow200_response import UpdateFlow200Response
-from kestrapy.models.update_flows_in_namespace_from_json200_response import UpdateFlowsInNamespaceFromJson200Response
 from kestrapy.models.validate_constraint_violation import ValidateConstraintViolation
 
 from kestrapy.api_client import ApiClient, RequestSerialized
@@ -54,7 +57,6 @@ class FlowsApi:
         if api_client is None:
             api_client = ApiClient.get_default()
         self.api_client = api_client
-
 
     @validate_call
     def bulk_import_apps(
@@ -262,6 +264,7 @@ class FlowsApi:
         return response_data.response
 
 
+
     def _bulk_import_apps_serialize(
         self,
         tenant,
@@ -339,6 +342,7 @@ class FlowsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -588,6 +592,7 @@ class FlowsApi:
         return response_data.response
 
 
+
     def _bulk_update_flows_serialize(
         self,
         delete,
@@ -680,6 +685,7 @@ class FlowsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -890,6 +896,7 @@ class FlowsApi:
         return response_data.response
 
 
+
     def _create_flow_serialize(
         self,
         tenant,
@@ -971,6 +978,7 @@ class FlowsApi:
 
 
 
+
     @validate_call
     def delete_flow(
         self,
@@ -1032,8 +1040,8 @@ class FlowsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '204': None,
             '200': None,
+            '204': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1107,8 +1115,8 @@ class FlowsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '204': None,
             '200': None,
+            '204': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1182,14 +1190,15 @@ class FlowsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '204': None,
             '200': None,
+            '204': None,
         }
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
         return response_data.response
+
 
 
     def _delete_flow_serialize(
@@ -1252,6 +1261,7 @@ class FlowsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -1462,6 +1472,7 @@ class FlowsApi:
         return response_data.response
 
 
+
     def _delete_flows_by_ids_serialize(
         self,
         tenant,
@@ -1544,15 +1555,12 @@ class FlowsApi:
 
 
 
+
     @validate_call
     def delete_flows_by_query(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the flows to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1571,16 +1579,8 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the flows to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1605,11 +1605,7 @@ class FlowsApi:
 
         _param = self._delete_flows_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            labels=labels,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1634,11 +1630,7 @@ class FlowsApi:
     def delete_flows_by_query_with_http_info(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the flows to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1657,16 +1649,8 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the flows to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1691,11 +1675,7 @@ class FlowsApi:
 
         _param = self._delete_flows_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            labels=labels,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1720,11 +1700,7 @@ class FlowsApi:
     def delete_flows_by_query_without_preload_content(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the flows to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1743,16 +1719,8 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the flows to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1777,11 +1745,7 @@ class FlowsApi:
 
         _param = self._delete_flows_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            labels=labels,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1798,14 +1762,11 @@ class FlowsApi:
         return response_data.response
 
 
+
     def _delete_flows_by_query_serialize(
         self,
         tenant,
-        delete_executions_by_query_request,
-        q,
-        scope,
-        namespace,
-        labels,
+        filters,
         _request_auth,
         _content_type,
         _headers,
@@ -1815,8 +1776,7 @@ class FlowsApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
-            'scope': 'csv',
-            'labels': 'multi',
+            'filters': 'csv',
         }
 
         _path_params: Dict[str, str] = {}
@@ -1832,27 +1792,13 @@ class FlowsApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
-        if q is not None:
+        if filters is not None:
             
-            _query_params.append(('q', q))
-            
-        if scope is not None:
-            
-            _query_params.append(('scope', scope))
-            
-        if namespace is not None:
-            
-            _query_params.append(('namespace', namespace))
-            
-        if labels is not None:
-            
-            _query_params.append(('labels', labels))
+            _query_params.append(('filters', filters))
             
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if delete_executions_by_query_request is not None:
-            _body_params = delete_executions_by_query_request
 
 
         # set the HTTP header `Accept`
@@ -1863,19 +1809,6 @@ class FlowsApi:
                 ]
             )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -1897,6 +1830,7 @@ class FlowsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -2107,6 +2041,7 @@ class FlowsApi:
         return response_data.response
 
 
+
     def _disable_flows_by_ids_serialize(
         self,
         tenant,
@@ -2189,15 +2124,12 @@ class FlowsApi:
 
 
 
+
     @validate_call
     def disable_flows_by_query(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the flows to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2216,16 +2148,8 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the flows to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2250,11 +2174,7 @@ class FlowsApi:
 
         _param = self._disable_flows_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            labels=labels,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2279,11 +2199,7 @@ class FlowsApi:
     def disable_flows_by_query_with_http_info(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the flows to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2302,16 +2218,8 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the flows to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2336,11 +2244,7 @@ class FlowsApi:
 
         _param = self._disable_flows_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            labels=labels,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2365,11 +2269,7 @@ class FlowsApi:
     def disable_flows_by_query_without_preload_content(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the flows to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2388,16 +2288,8 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the flows to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2422,11 +2314,7 @@ class FlowsApi:
 
         _param = self._disable_flows_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            labels=labels,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2443,14 +2331,11 @@ class FlowsApi:
         return response_data.response
 
 
+
     def _disable_flows_by_query_serialize(
         self,
         tenant,
-        delete_executions_by_query_request,
-        q,
-        scope,
-        namespace,
-        labels,
+        filters,
         _request_auth,
         _content_type,
         _headers,
@@ -2460,8 +2345,7 @@ class FlowsApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
-            'scope': 'csv',
-            'labels': 'multi',
+            'filters': 'csv',
         }
 
         _path_params: Dict[str, str] = {}
@@ -2477,27 +2361,13 @@ class FlowsApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
-        if q is not None:
+        if filters is not None:
             
-            _query_params.append(('q', q))
-            
-        if scope is not None:
-            
-            _query_params.append(('scope', scope))
-            
-        if namespace is not None:
-            
-            _query_params.append(('namespace', namespace))
-            
-        if labels is not None:
-            
-            _query_params.append(('labels', labels))
+            _query_params.append(('filters', filters))
             
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if delete_executions_by_query_request is not None:
-            _body_params = delete_executions_by_query_request
 
 
         # set the HTTP header `Accept`
@@ -2508,19 +2378,6 @@ class FlowsApi:
                 ]
             )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -2542,6 +2399,7 @@ class FlowsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -2752,6 +2610,7 @@ class FlowsApi:
         return response_data.response
 
 
+
     def _enable_flows_by_ids_serialize(
         self,
         tenant,
@@ -2834,15 +2693,12 @@ class FlowsApi:
 
 
 
+
     @validate_call
     def enable_flows_by_query(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the flows to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2861,16 +2717,8 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the flows to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2895,11 +2743,7 @@ class FlowsApi:
 
         _param = self._enable_flows_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            labels=labels,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2924,11 +2768,7 @@ class FlowsApi:
     def enable_flows_by_query_with_http_info(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the flows to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2947,16 +2787,8 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the flows to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2981,11 +2813,7 @@ class FlowsApi:
 
         _param = self._enable_flows_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            labels=labels,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3010,11 +2838,7 @@ class FlowsApi:
     def enable_flows_by_query_without_preload_content(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the flows to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3033,16 +2857,8 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the flows to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3067,11 +2883,7 @@ class FlowsApi:
 
         _param = self._enable_flows_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            labels=labels,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3088,14 +2900,11 @@ class FlowsApi:
         return response_data.response
 
 
+
     def _enable_flows_by_query_serialize(
         self,
         tenant,
-        delete_executions_by_query_request,
-        q,
-        scope,
-        namespace,
-        labels,
+        filters,
         _request_auth,
         _content_type,
         _headers,
@@ -3105,8 +2914,7 @@ class FlowsApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
-            'scope': 'csv',
-            'labels': 'multi',
+            'filters': 'csv',
         }
 
         _path_params: Dict[str, str] = {}
@@ -3122,27 +2930,13 @@ class FlowsApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
-        if q is not None:
+        if filters is not None:
             
-            _query_params.append(('q', q))
-            
-        if scope is not None:
-            
-            _query_params.append(('scope', scope))
-            
-        if namespace is not None:
-            
-            _query_params.append(('namespace', namespace))
-            
-        if labels is not None:
-            
-            _query_params.append(('labels', labels))
+            _query_params.append(('filters', filters))
             
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if delete_executions_by_query_request is not None:
-            _body_params = delete_executions_by_query_request
 
 
         # set the HTTP header `Accept`
@@ -3153,19 +2947,6 @@ class FlowsApi:
                 ]
             )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -3187,6 +2968,7 @@ class FlowsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -3397,6 +3179,7 @@ class FlowsApi:
         return response_data.response
 
 
+
     def _export_flows_by_ids_serialize(
         self,
         tenant,
@@ -3479,15 +3262,12 @@ class FlowsApi:
 
 
 
+
     @validate_call
     def export_flows_by_query(
         self,
         tenant: StrictStr,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the flows to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3508,14 +3288,6 @@ class FlowsApi:
         :type tenant: str
         :param filters: Filters
         :type filters: List[QueryFilter]
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the flows to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3541,10 +3313,6 @@ class FlowsApi:
         _param = self._export_flows_by_query_serialize(
             tenant=tenant,
             filters=filters,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            labels=labels,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3570,10 +3338,6 @@ class FlowsApi:
         self,
         tenant: StrictStr,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the flows to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3594,14 +3358,6 @@ class FlowsApi:
         :type tenant: str
         :param filters: Filters
         :type filters: List[QueryFilter]
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the flows to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3627,10 +3383,6 @@ class FlowsApi:
         _param = self._export_flows_by_query_serialize(
             tenant=tenant,
             filters=filters,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            labels=labels,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3656,10 +3408,6 @@ class FlowsApi:
         self,
         tenant: StrictStr,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the flows to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3680,14 +3428,6 @@ class FlowsApi:
         :type tenant: str
         :param filters: Filters
         :type filters: List[QueryFilter]
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the flows to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3713,10 +3453,6 @@ class FlowsApi:
         _param = self._export_flows_by_query_serialize(
             tenant=tenant,
             filters=filters,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            labels=labels,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3733,14 +3469,11 @@ class FlowsApi:
         return response_data.response
 
 
+
     def _export_flows_by_query_serialize(
         self,
         tenant,
         filters,
-        q,
-        scope,
-        namespace,
-        labels,
         _request_auth,
         _content_type,
         _headers,
@@ -3751,8 +3484,6 @@ class FlowsApi:
 
         _collection_formats: Dict[str, str] = {
             'filters': 'csv',
-            'scope': 'csv',
-            'labels': 'multi',
         }
 
         _path_params: Dict[str, str] = {}
@@ -3771,22 +3502,6 @@ class FlowsApi:
         if filters is not None:
             
             _query_params.append(('filters', filters))
-            
-        if q is not None:
-            
-            _query_params.append(('q', q))
-            
-        if scope is not None:
-            
-            _query_params.append(('scope', scope))
-            
-        if namespace is not None:
-            
-            _query_params.append(('namespace', namespace))
-            
-        if labels is not None:
-            
-            _query_params.append(('labels', labels))
             
         # process the header parameters
         # process the form parameters
@@ -3822,6 +3537,7 @@ class FlowsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -4068,6 +3784,7 @@ class FlowsApi:
         return response_data.response
 
 
+
     def _generate_flow_graph_serialize(
         self,
         namespace,
@@ -4146,6 +3863,7 @@ class FlowsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -4368,6 +4086,7 @@ class FlowsApi:
         return response_data.response
 
 
+
     def _generate_flow_graph_from_source_serialize(
         self,
         tenant,
@@ -4451,6 +4170,7 @@ class FlowsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -4709,6 +4429,7 @@ class FlowsApi:
         return response_data.response
 
 
+
     def _get_flow_serialize(
         self,
         namespace,
@@ -4791,6 +4512,7 @@ class FlowsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -5037,6 +4759,7 @@ class FlowsApi:
         return response_data.response
 
 
+
     def _get_flow_dependencies_serialize(
         self,
         namespace,
@@ -5114,6 +4837,7 @@ class FlowsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -5336,6 +5060,7 @@ class FlowsApi:
         return response_data.response
 
 
+
     def _get_flow_dependencies_from_namespace_serialize(
         self,
         namespace,
@@ -5405,6 +5130,7 @@ class FlowsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -5651,6 +5377,7 @@ class FlowsApi:
         return response_data.response
 
 
+
     def _get_task_from_flow_serialize(
         self,
         namespace,
@@ -5726,6 +5453,7 @@ class FlowsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -5936,6 +5664,7 @@ class FlowsApi:
         return response_data.response
 
 
+
     def _import_flows_serialize(
         self,
         tenant,
@@ -6013,6 +5742,7 @@ class FlowsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -6223,6 +5953,7 @@ class FlowsApi:
         return response_data.response
 
 
+
     def _list_distinct_namespaces_serialize(
         self,
         tenant,
@@ -6289,6 +6020,7 @@ class FlowsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -6511,6 +6243,7 @@ class FlowsApi:
         return response_data.response
 
 
+
     def _list_flow_revisions_serialize(
         self,
         namespace,
@@ -6578,6 +6311,7 @@ class FlowsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -6788,6 +6522,7 @@ class FlowsApi:
         return response_data.response
 
 
+
     def _list_flows_by_namespace_serialize(
         self,
         namespace,
@@ -6856,6 +6591,7 @@ class FlowsApi:
 
 
 
+
     @validate_call
     def search_flows(
         self,
@@ -6864,10 +6600,6 @@ class FlowsApi:
         tenant: StrictStr,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the flows to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -6894,14 +6626,6 @@ class FlowsApi:
         :type sort: List[str]
         :param filters: Filters
         :type filters: List[QueryFilter]
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the flows to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -6930,10 +6654,6 @@ class FlowsApi:
             tenant=tenant,
             sort=sort,
             filters=filters,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            labels=labels,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -6962,10 +6682,6 @@ class FlowsApi:
         tenant: StrictStr,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the flows to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -6992,14 +6708,6 @@ class FlowsApi:
         :type sort: List[str]
         :param filters: Filters
         :type filters: List[QueryFilter]
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the flows to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -7028,10 +6736,6 @@ class FlowsApi:
             tenant=tenant,
             sort=sort,
             filters=filters,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            labels=labels,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -7060,10 +6764,6 @@ class FlowsApi:
         tenant: StrictStr,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the flows to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -7090,14 +6790,6 @@ class FlowsApi:
         :type sort: List[str]
         :param filters: Filters
         :type filters: List[QueryFilter]
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the flows to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -7126,10 +6818,6 @@ class FlowsApi:
             tenant=tenant,
             sort=sort,
             filters=filters,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            labels=labels,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -7146,6 +6834,7 @@ class FlowsApi:
         return response_data.response
 
 
+
     def _search_flows_serialize(
         self,
         page,
@@ -7153,10 +6842,6 @@ class FlowsApi:
         tenant,
         sort,
         filters,
-        q,
-        scope,
-        namespace,
-        labels,
         _request_auth,
         _content_type,
         _headers,
@@ -7168,8 +6853,6 @@ class FlowsApi:
         _collection_formats: Dict[str, str] = {
             'sort': 'csv',
             'filters': 'csv',
-            'scope': 'csv',
-            'labels': 'multi',
         }
 
         _path_params: Dict[str, str] = {}
@@ -7200,22 +6883,6 @@ class FlowsApi:
         if filters is not None:
             
             _query_params.append(('filters', filters))
-            
-        if q is not None:
-            
-            _query_params.append(('q', q))
-            
-        if scope is not None:
-            
-            _query_params.append(('scope', scope))
-            
-        if namespace is not None:
-            
-            _query_params.append(('namespace', namespace))
-            
-        if labels is not None:
-            
-            _query_params.append(('labels', labels))
             
         # process the header parameters
         # process the form parameters
@@ -7251,6 +6918,7 @@ class FlowsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -7509,6 +7177,7 @@ class FlowsApi:
         return response_data.response
 
 
+
     def _search_flows_by_source_code_serialize(
         self,
         page,
@@ -7600,6 +7269,7 @@ class FlowsApi:
 
 
 
+
     @validate_call
     def update_flow(
         self,
@@ -7620,7 +7290,7 @@ class FlowsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UpdateFlow200Response:
-        """(Deprecated) Update a flow
+        """Update a flow
 
 
         :param id: The flow id (required)
@@ -7652,7 +7322,6 @@ class FlowsApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
-        warnings.warn("PUT /api/v1/{tenant}/flows/{namespace}/{id} is deprecated.", DeprecationWarning)
 
         _param = self._update_flow_serialize(
             id=id,
@@ -7699,7 +7368,7 @@ class FlowsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[UpdateFlow200Response]:
-        """(Deprecated) Update a flow
+        """Update a flow
 
 
         :param id: The flow id (required)
@@ -7731,7 +7400,6 @@ class FlowsApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
-        warnings.warn("PUT /api/v1/{tenant}/flows/{namespace}/{id} is deprecated.", DeprecationWarning)
 
         _param = self._update_flow_serialize(
             id=id,
@@ -7778,7 +7446,7 @@ class FlowsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """(Deprecated) Update a flow
+        """Update a flow
 
 
         :param id: The flow id (required)
@@ -7810,7 +7478,6 @@ class FlowsApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
-        warnings.warn("PUT /api/v1/{tenant}/flows/{namespace}/{id} is deprecated.", DeprecationWarning)
 
         _param = self._update_flow_serialize(
             id=id,
@@ -7831,6 +7498,7 @@ class FlowsApi:
             _request_timeout=_request_timeout
         )
         return response_data.response
+
 
 
     def _update_flow_serialize(
@@ -7917,667 +7585,6 @@ class FlowsApi:
             _request_auth=_request_auth
         )
 
-
-
-
-    @validate_call
-    def update_flows_in_namespace_from_json(
-        self,
-        delete: Annotated[StrictBool, Field(description="If missing flow should be deleted")],
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        tenant: StrictStr,
-        flow: Annotated[List[Flow], Field(description="A list of flows")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> UpdateFlowsInNamespaceFromJson200Response:
-        """(Deprecated) Update a complete namespace from json object
-
-        All flow will be created / updated for this namespace. Flow that already created but not in `flows` will be deleted if the query delete is `true`
-
-        :param delete: If missing flow should be deleted (required)
-        :type delete: bool
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-        :param tenant: (required)
-        :type tenant: str
-        :param flow: A list of flows (required)
-        :type flow: List[Flow]
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-        warnings.warn("POST /api/v1/{tenant}/flows/{namespace} is deprecated.", DeprecationWarning)
-
-        _param = self._update_flows_in_namespace_from_json_serialize(
-            delete=delete,
-            namespace=namespace,
-            tenant=tenant,
-            flow=flow,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UpdateFlowsInNamespaceFromJson200Response",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def update_flows_in_namespace_from_json_with_http_info(
-        self,
-        delete: Annotated[StrictBool, Field(description="If missing flow should be deleted")],
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        tenant: StrictStr,
-        flow: Annotated[List[Flow], Field(description="A list of flows")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UpdateFlowsInNamespaceFromJson200Response]:
-        """(Deprecated) Update a complete namespace from json object
-
-        All flow will be created / updated for this namespace. Flow that already created but not in `flows` will be deleted if the query delete is `true`
-
-        :param delete: If missing flow should be deleted (required)
-        :type delete: bool
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-        :param tenant: (required)
-        :type tenant: str
-        :param flow: A list of flows (required)
-        :type flow: List[Flow]
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-        warnings.warn("POST /api/v1/{tenant}/flows/{namespace} is deprecated.", DeprecationWarning)
-
-        _param = self._update_flows_in_namespace_from_json_serialize(
-            delete=delete,
-            namespace=namespace,
-            tenant=tenant,
-            flow=flow,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UpdateFlowsInNamespaceFromJson200Response",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def update_flows_in_namespace_from_json_without_preload_content(
-        self,
-        delete: Annotated[StrictBool, Field(description="If missing flow should be deleted")],
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        tenant: StrictStr,
-        flow: Annotated[List[Flow], Field(description="A list of flows")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """(Deprecated) Update a complete namespace from json object
-
-        All flow will be created / updated for this namespace. Flow that already created but not in `flows` will be deleted if the query delete is `true`
-
-        :param delete: If missing flow should be deleted (required)
-        :type delete: bool
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-        :param tenant: (required)
-        :type tenant: str
-        :param flow: A list of flows (required)
-        :type flow: List[Flow]
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-        warnings.warn("POST /api/v1/{tenant}/flows/{namespace} is deprecated.", DeprecationWarning)
-
-        _param = self._update_flows_in_namespace_from_json_serialize(
-            delete=delete,
-            namespace=namespace,
-            tenant=tenant,
-            flow=flow,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UpdateFlowsInNamespaceFromJson200Response",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _update_flows_in_namespace_from_json_serialize(
-        self,
-        delete,
-        namespace,
-        tenant,
-        flow,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-            'Flow': '',
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if namespace is not None:
-            _path_params['namespace'] = namespace
-        if tenant is not None:
-            _path_params['tenant'] = tenant
-        # process the query parameters
-        if delete is not None:
-            
-            _query_params.append(('delete', delete))
-            
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if flow is not None:
-            _body_params = flow
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json', 
-                        'application/x-yaml'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'basicAuth', 
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/api/v1/{tenant}/flows/{namespace}',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def update_task(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        id: Annotated[StrictStr, Field(description="The flow id")],
-        task_id: Annotated[StrictStr, Field(description="The task id")],
-        tenant: StrictStr,
-        task: Annotated[Task, Field(description="The task")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> Flow:
-        """(Deprecated) Update a single task on a flow
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-        :param id: The flow id (required)
-        :type id: str
-        :param task_id: The task id (required)
-        :type task_id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param task: The task (required)
-        :type task: Task
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-        warnings.warn("PATCH /api/v1/{tenant}/flows/{namespace}/{id}/{taskId} is deprecated.", DeprecationWarning)
-
-        _param = self._update_task_serialize(
-            namespace=namespace,
-            id=id,
-            task_id=task_id,
-            tenant=tenant,
-            task=task,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Flow",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def update_task_with_http_info(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        id: Annotated[StrictStr, Field(description="The flow id")],
-        task_id: Annotated[StrictStr, Field(description="The task id")],
-        tenant: StrictStr,
-        task: Annotated[Task, Field(description="The task")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[Flow]:
-        """(Deprecated) Update a single task on a flow
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-        :param id: The flow id (required)
-        :type id: str
-        :param task_id: The task id (required)
-        :type task_id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param task: The task (required)
-        :type task: Task
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-        warnings.warn("PATCH /api/v1/{tenant}/flows/{namespace}/{id}/{taskId} is deprecated.", DeprecationWarning)
-
-        _param = self._update_task_serialize(
-            namespace=namespace,
-            id=id,
-            task_id=task_id,
-            tenant=tenant,
-            task=task,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Flow",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def update_task_without_preload_content(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        id: Annotated[StrictStr, Field(description="The flow id")],
-        task_id: Annotated[StrictStr, Field(description="The task id")],
-        tenant: StrictStr,
-        task: Annotated[Task, Field(description="The task")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """(Deprecated) Update a single task on a flow
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-        :param id: The flow id (required)
-        :type id: str
-        :param task_id: The task id (required)
-        :type task_id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param task: The task (required)
-        :type task: Task
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-        warnings.warn("PATCH /api/v1/{tenant}/flows/{namespace}/{id}/{taskId} is deprecated.", DeprecationWarning)
-
-        _param = self._update_task_serialize(
-            namespace=namespace,
-            id=id,
-            task_id=task_id,
-            tenant=tenant,
-            task=task,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Flow",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _update_task_serialize(
-        self,
-        namespace,
-        id,
-        task_id,
-        tenant,
-        task,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if namespace is not None:
-            _path_params['namespace'] = namespace
-        if id is not None:
-            _path_params['id'] = id
-        if task_id is not None:
-            _path_params['taskId'] = task_id
-        if tenant is not None:
-            _path_params['tenant'] = tenant
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if task is not None:
-            _body_params = task
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'basicAuth', 
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='PATCH',
-            resource_path='/api/v1/{tenant}/flows/{namespace}/{id}/{taskId}',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
 
 
 
@@ -8788,6 +7795,7 @@ class FlowsApi:
         return response_data.response
 
 
+
     def _validate_flows_serialize(
         self,
         tenant,
@@ -8865,6 +7873,7 @@ class FlowsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -9087,6 +8096,7 @@ class FlowsApi:
         return response_data.response
 
 
+
     def _validate_task_serialize(
         self,
         section,
@@ -9170,6 +8180,7 @@ class FlowsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -9380,6 +8391,7 @@ class FlowsApi:
         return response_data.response
 
 
+
     def _validate_trigger_serialize(
         self,
         tenant,
@@ -9457,5 +8469,7 @@ class FlowsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
+
 
 

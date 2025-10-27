@@ -14,6 +14,12 @@ from typing import Generator
 
     Do not edit the class manually.
 """  # noqa: E501
+# Custom imports
+import requests
+import sseclient
+import json
+from typing import Generator
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -25,12 +31,8 @@ from pydantic import Field, StrictBool, StrictBytes, StrictInt, StrictStr
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 from kestrapy.models.bulk_response import BulkResponse
-from kestrapy.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
 from kestrapy.models.event_execution import EventExecution
-from kestrapy.models.event_execution_status_event import EventExecutionStatusEvent
 from kestrapy.models.execution import Execution
-from kestrapy.models.execution_controller_api_validate_execution_inputs_response import ExecutionControllerApiValidateExecutionInputsResponse
-from kestrapy.models.execution_controller_eval_result import ExecutionControllerEvalResult
 from kestrapy.models.execution_controller_execution_response import ExecutionControllerExecutionResponse
 from kestrapy.models.execution_controller_last_execution_response import ExecutionControllerLastExecutionResponse
 from kestrapy.models.execution_controller_set_labels_by_ids_request import ExecutionControllerSetLabelsByIdsRequest
@@ -40,10 +42,8 @@ from kestrapy.models.execution_repository_interface_flow_filter import Execution
 from kestrapy.models.file_metas import FileMetas
 from kestrapy.models.flow_for_execution import FlowForExecution
 from kestrapy.models.flow_graph import FlowGraph
-from kestrapy.models.flow_scope import FlowScope
 from kestrapy.models.label import Label
 from kestrapy.models.paged_results_execution import PagedResultsExecution
-from kestrapy.models.paged_results_task_run import PagedResultsTaskRun
 from kestrapy.models.query_filter import QueryFilter
 from kestrapy.models.state_type import StateType
 
@@ -63,7 +63,6 @@ class ExecutionsApi:
         if api_client is None:
             api_client = ApiClient.get_default()
         self.api_client = api_client
-
 
     @validate_call
     def create_execution(
@@ -150,8 +149,8 @@ class ExecutionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '409': None,
             '200': "ExecutionControllerExecutionResponse",
+            '409': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -249,8 +248,8 @@ class ExecutionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '409': None,
             '200': "ExecutionControllerExecutionResponse",
+            '409': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -348,14 +347,15 @@ class ExecutionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '409': None,
             '200': "ExecutionControllerExecutionResponse",
+            '409': None,
         }
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
         return response_data.response
+
 
 
     def _create_execution_serialize(
@@ -482,6 +482,7 @@ class ExecutionsApi:
 
 
 
+
     @validate_call
     def delete_execution(
         self,
@@ -551,8 +552,8 @@ class ExecutionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '204': None,
             '200': None,
+            '204': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -634,8 +635,8 @@ class ExecutionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '204': None,
             '200': None,
+            '204': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -717,14 +718,15 @@ class ExecutionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '204': None,
             '200': None,
+            '204': None,
         }
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
         return response_data.response
+
 
 
     def _delete_execution_serialize(
@@ -799,6 +801,7 @@ class ExecutionsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -1060,6 +1063,7 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _delete_executions_by_ids_serialize(
         self,
         delete_logs,
@@ -1162,6 +1166,7 @@ class ExecutionsApi:
 
 
 
+
     @validate_call
     def delete_executions_by_query(
         self,
@@ -1169,18 +1174,7 @@ class ExecutionsApi:
         delete_metrics: Annotated[StrictBool, Field(description="Whether to delete execution metrics")],
         delete_storage: Annotated[StrictBool, Field(description="Whether to delete execution files in the internal storage")],
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         include_non_terminated: Annotated[Optional[StrictBool], Field(description="Whether to delete non-terminated executions")] = None,
         _request_timeout: Union[
             None,
@@ -1206,30 +1200,8 @@ class ExecutionsApi:
         :type delete_storage: bool
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param include_non_terminated: Whether to delete non-terminated executions
         :type include_non_terminated: bool
         :param _request_timeout: timeout setting for this request. If one
@@ -1259,18 +1231,7 @@ class ExecutionsApi:
             delete_metrics=delete_metrics,
             delete_storage=delete_storage,
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
+            filters=filters,
             include_non_terminated=include_non_terminated,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1299,18 +1260,7 @@ class ExecutionsApi:
         delete_metrics: Annotated[StrictBool, Field(description="Whether to delete execution metrics")],
         delete_storage: Annotated[StrictBool, Field(description="Whether to delete execution files in the internal storage")],
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         include_non_terminated: Annotated[Optional[StrictBool], Field(description="Whether to delete non-terminated executions")] = None,
         _request_timeout: Union[
             None,
@@ -1336,30 +1286,8 @@ class ExecutionsApi:
         :type delete_storage: bool
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param include_non_terminated: Whether to delete non-terminated executions
         :type include_non_terminated: bool
         :param _request_timeout: timeout setting for this request. If one
@@ -1389,18 +1317,7 @@ class ExecutionsApi:
             delete_metrics=delete_metrics,
             delete_storage=delete_storage,
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
+            filters=filters,
             include_non_terminated=include_non_terminated,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1429,18 +1346,7 @@ class ExecutionsApi:
         delete_metrics: Annotated[StrictBool, Field(description="Whether to delete execution metrics")],
         delete_storage: Annotated[StrictBool, Field(description="Whether to delete execution files in the internal storage")],
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         include_non_terminated: Annotated[Optional[StrictBool], Field(description="Whether to delete non-terminated executions")] = None,
         _request_timeout: Union[
             None,
@@ -1466,30 +1372,8 @@ class ExecutionsApi:
         :type delete_storage: bool
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param include_non_terminated: Whether to delete non-terminated executions
         :type include_non_terminated: bool
         :param _request_timeout: timeout setting for this request. If one
@@ -1519,18 +1403,7 @@ class ExecutionsApi:
             delete_metrics=delete_metrics,
             delete_storage=delete_storage,
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
+            filters=filters,
             include_non_terminated=include_non_terminated,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1548,24 +1421,14 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _delete_executions_by_query_serialize(
         self,
         delete_logs,
         delete_metrics,
         delete_storage,
         tenant,
-        delete_executions_by_query_request,
-        q,
-        scope,
-        namespace,
-        flow_id,
-        start_date,
-        end_date,
-        time_range,
-        state,
-        labels,
-        trigger_execution_id,
-        child_filter,
+        filters,
         include_non_terminated,
         _request_auth,
         _content_type,
@@ -1576,9 +1439,7 @@ class ExecutionsApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
-            'scope': 'csv',
-            'state': 'csv',
-            'labels': 'multi',
+            'filters': 'csv',
         }
 
         _path_params: Dict[str, str] = {}
@@ -1594,67 +1455,9 @@ class ExecutionsApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
-        if q is not None:
+        if filters is not None:
             
-            _query_params.append(('q', q))
-            
-        if scope is not None:
-            
-            _query_params.append(('scope', scope))
-            
-        if namespace is not None:
-            
-            _query_params.append(('namespace', namespace))
-            
-        if flow_id is not None:
-            
-            _query_params.append(('flowId', flow_id))
-            
-        if start_date is not None:
-            if isinstance(start_date, datetime):
-                _query_params.append(
-                    (
-                        'startDate',
-                        start_date.strftime(
-                            self.api_client.configuration.datetime_format
-                        )
-                    )
-                )
-            else:
-                _query_params.append(('startDate', start_date))
-            
-        if end_date is not None:
-            if isinstance(end_date, datetime):
-                _query_params.append(
-                    (
-                        'endDate',
-                        end_date.strftime(
-                            self.api_client.configuration.datetime_format
-                        )
-                    )
-                )
-            else:
-                _query_params.append(('endDate', end_date))
-            
-        if time_range is not None:
-            
-            _query_params.append(('timeRange', time_range))
-            
-        if state is not None:
-            
-            _query_params.append(('state', state))
-            
-        if labels is not None:
-            
-            _query_params.append(('labels', labels))
-            
-        if trigger_execution_id is not None:
-            
-            _query_params.append(('triggerExecutionId', trigger_execution_id))
-            
-        if child_filter is not None:
-            
-            _query_params.append(('childFilter', child_filter.value))
+            _query_params.append(('filters', filters))
             
         if include_non_terminated is not None:
             
@@ -1675,8 +1478,6 @@ class ExecutionsApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if delete_executions_by_query_request is not None:
-            _body_params = delete_executions_by_query_request
 
 
         # set the HTTP header `Accept`
@@ -1687,19 +1488,6 @@ class ExecutionsApi:
                 ]
             )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -1721,6 +1509,7 @@ class ExecutionsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -1943,6 +1732,7 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _download_file_from_execution_serialize(
         self,
         execution_id,
@@ -2016,835 +1806,6 @@ class ExecutionsApi:
 
 
 
-    @validate_call
-    def eval_task_run_expression(
-        self,
-        execution_id: Annotated[StrictStr, Field(description="The execution id")],
-        task_run_id: Annotated[StrictStr, Field(description="The taskrun id")],
-        tenant: StrictStr,
-        body: Annotated[StrictStr, Field(description="The Pebble expression that should be evaluated")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ExecutionControllerEvalResult:
-        """Evaluate a variable expression for this taskrun
-
-
-        :param execution_id: The execution id (required)
-        :type execution_id: str
-        :param task_run_id: The taskrun id (required)
-        :type task_run_id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param body: The Pebble expression that should be evaluated (required)
-        :type body: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._eval_task_run_expression_serialize(
-            execution_id=execution_id,
-            task_run_id=task_run_id,
-            tenant=tenant,
-            body=body,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ExecutionControllerEvalResult",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def eval_task_run_expression_with_http_info(
-        self,
-        execution_id: Annotated[StrictStr, Field(description="The execution id")],
-        task_run_id: Annotated[StrictStr, Field(description="The taskrun id")],
-        tenant: StrictStr,
-        body: Annotated[StrictStr, Field(description="The Pebble expression that should be evaluated")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ExecutionControllerEvalResult]:
-        """Evaluate a variable expression for this taskrun
-
-
-        :param execution_id: The execution id (required)
-        :type execution_id: str
-        :param task_run_id: The taskrun id (required)
-        :type task_run_id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param body: The Pebble expression that should be evaluated (required)
-        :type body: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._eval_task_run_expression_serialize(
-            execution_id=execution_id,
-            task_run_id=task_run_id,
-            tenant=tenant,
-            body=body,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ExecutionControllerEvalResult",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def eval_task_run_expression_without_preload_content(
-        self,
-        execution_id: Annotated[StrictStr, Field(description="The execution id")],
-        task_run_id: Annotated[StrictStr, Field(description="The taskrun id")],
-        tenant: StrictStr,
-        body: Annotated[StrictStr, Field(description="The Pebble expression that should be evaluated")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Evaluate a variable expression for this taskrun
-
-
-        :param execution_id: The execution id (required)
-        :type execution_id: str
-        :param task_run_id: The taskrun id (required)
-        :type task_run_id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param body: The Pebble expression that should be evaluated (required)
-        :type body: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._eval_task_run_expression_serialize(
-            execution_id=execution_id,
-            task_run_id=task_run_id,
-            tenant=tenant,
-            body=body,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ExecutionControllerEvalResult",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _eval_task_run_expression_serialize(
-        self,
-        execution_id,
-        task_run_id,
-        tenant,
-        body,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if execution_id is not None:
-            _path_params['executionId'] = execution_id
-        if task_run_id is not None:
-            _path_params['taskRunId'] = task_run_id
-        if tenant is not None:
-            _path_params['tenant'] = tenant
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if body is not None:
-            _body_params = body
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'text/plain'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'basicAuth', 
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/api/v1/{tenant}/executions/{executionId}/eval/{taskRunId}',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def follow_dependencies_executions(
-        self,
-        execution_id: Annotated[StrictStr, Field(description="The execution id")],
-        destination_only: Annotated[StrictBool, Field(description="If true, list only destination dependencies, otherwise list also source dependencies")],
-        expand_all: Annotated[StrictBool, Field(description="If true, expand all dependencies recursively")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> EventExecutionStatusEvent:
-        """Follow all execution dependencies executions
-
-
-        :param execution_id: The execution id (required)
-        :type execution_id: str
-        :param destination_only: If true, list only destination dependencies, otherwise list also source dependencies (required)
-        :type destination_only: bool
-        :param expand_all: If true, expand all dependencies recursively (required)
-        :type expand_all: bool
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._follow_dependencies_executions_serialize(
-            execution_id=execution_id,
-            destination_only=destination_only,
-            expand_all=expand_all,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "EventExecutionStatusEvent",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def follow_dependencies_executions_with_http_info(
-        self,
-        execution_id: Annotated[StrictStr, Field(description="The execution id")],
-        destination_only: Annotated[StrictBool, Field(description="If true, list only destination dependencies, otherwise list also source dependencies")],
-        expand_all: Annotated[StrictBool, Field(description="If true, expand all dependencies recursively")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[EventExecutionStatusEvent]:
-        """Follow all execution dependencies executions
-
-
-        :param execution_id: The execution id (required)
-        :type execution_id: str
-        :param destination_only: If true, list only destination dependencies, otherwise list also source dependencies (required)
-        :type destination_only: bool
-        :param expand_all: If true, expand all dependencies recursively (required)
-        :type expand_all: bool
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._follow_dependencies_executions_serialize(
-            execution_id=execution_id,
-            destination_only=destination_only,
-            expand_all=expand_all,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "EventExecutionStatusEvent",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def follow_dependencies_executions_without_preload_content(
-        self,
-        execution_id: Annotated[StrictStr, Field(description="The execution id")],
-        destination_only: Annotated[StrictBool, Field(description="If true, list only destination dependencies, otherwise list also source dependencies")],
-        expand_all: Annotated[StrictBool, Field(description="If true, expand all dependencies recursively")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Follow all execution dependencies executions
-
-
-        :param execution_id: The execution id (required)
-        :type execution_id: str
-        :param destination_only: If true, list only destination dependencies, otherwise list also source dependencies (required)
-        :type destination_only: bool
-        :param expand_all: If true, expand all dependencies recursively (required)
-        :type expand_all: bool
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._follow_dependencies_executions_serialize(
-            execution_id=execution_id,
-            destination_only=destination_only,
-            expand_all=expand_all,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "EventExecutionStatusEvent",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _follow_dependencies_executions_serialize(
-        self,
-        execution_id,
-        destination_only,
-        expand_all,
-        tenant,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if execution_id is not None:
-            _path_params['executionId'] = execution_id
-        if tenant is not None:
-            _path_params['tenant'] = tenant
-        # process the query parameters
-        if destination_only is not None:
-            
-            _query_params.append(('destinationOnly', destination_only))
-            
-        if expand_all is not None:
-            
-            _query_params.append(('expandAll', expand_all))
-            
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'text/event-stream'
-                ]
-            )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'basicAuth', 
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/api/v1/{tenant}/executions/{executionId}/follow-dependencies',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def follow_execution(
-        self,
-        execution_id: Annotated[StrictStr, Field(description="The execution id")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> EventExecution:
-        """Follow an execution
-
-
-        :param execution_id: The execution id (required)
-        :type execution_id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._follow_execution_serialize(
-            execution_id=execution_id,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "EventExecution",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def follow_execution_with_http_info(
-        self,
-        execution_id: Annotated[StrictStr, Field(description="The execution id")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[EventExecution]:
-        """Follow an execution
-
-
-        :param execution_id: The execution id (required)
-        :type execution_id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._follow_execution_serialize(
-            execution_id=execution_id,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "EventExecution",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def follow_execution_without_preload_content(
-        self,
-        execution_id: Annotated[StrictStr, Field(description="The execution id")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Follow an execution
-
-
-        :param execution_id: The execution id (required)
-        :type execution_id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._follow_execution_serialize(
-            execution_id=execution_id,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "EventExecution",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
 
 
     def _follow_execution_serialize(
@@ -2911,6 +1872,58 @@ class ExecutionsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
+    @validate_call
+    def follow_execution(
+            self,
+            execution_id: Annotated[StrictStr, Field(description="The execution id")],
+            tenant: StrictStr,
+            _request_timeout: Optional[Union[float, Tuple[float, float]]] = None,
+            _request_auth: Optional[Dict[StrictStr, Any]] = None,
+            _content_type: Optional[StrictStr] = None,
+            _headers: Optional[Dict[StrictStr, Any]] = None,
+            _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> Generator[Dict[str, Any], None, None]:
+        """
+        Follow an execution using SSE.
+
+        This method establishes a persistent connection and yields
+        EventExecution objects as they are streamed from the server,
+        allowing to follow an execution in realtime.
+        """
+
+        _method, final_url, header_params, _body, _post_params = self._follow_execution_serialize(
+            execution_id=execution_id,
+            tenant=tenant,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        header_params['Accept'] = 'text/event-stream'
+
+        try:
+            response = requests.get(
+                final_url,
+                headers=header_params,
+                stream=True,
+                timeout=_request_timeout
+            )
+
+            response.raise_for_status()
+
+            client = sseclient.SSEClient(response)
+
+            for event in client.events():
+                if event.data is None or event.data == "":
+                    continue
+
+                yield json.loads(event.data)
+
+        except requests.exceptions.RequestException as e:
+            print(f"SSE connection failed: {e}")
+            raise e
 
 
 
@@ -3124,6 +2137,7 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _force_run_by_ids_serialize(
         self,
         tenant,
@@ -3202,6 +2216,7 @@ class ExecutionsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -3412,6 +2427,7 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _force_run_execution_serialize(
         self,
         execution_id,
@@ -3480,22 +2496,12 @@ class ExecutionsApi:
 
 
 
+
     @validate_call
     def force_run_executions_by_query(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3514,30 +2520,8 @@ class ExecutionsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3562,18 +2546,7 @@ class ExecutionsApi:
 
         _param = self._force_run_executions_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3598,18 +2571,7 @@ class ExecutionsApi:
     def force_run_executions_by_query_with_http_info(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3628,30 +2590,8 @@ class ExecutionsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3676,18 +2616,7 @@ class ExecutionsApi:
 
         _param = self._force_run_executions_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3712,18 +2641,7 @@ class ExecutionsApi:
     def force_run_executions_by_query_without_preload_content(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3742,30 +2660,8 @@ class ExecutionsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3790,18 +2686,7 @@ class ExecutionsApi:
 
         _param = self._force_run_executions_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3818,21 +2703,11 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _force_run_executions_by_query_serialize(
         self,
         tenant,
-        delete_executions_by_query_request,
-        q,
-        scope,
-        namespace,
-        flow_id,
-        start_date,
-        end_date,
-        time_range,
-        state,
-        labels,
-        trigger_execution_id,
-        child_filter,
+        filters,
         _request_auth,
         _content_type,
         _headers,
@@ -3842,9 +2717,7 @@ class ExecutionsApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
-            'scope': 'csv',
-            'state': 'csv',
-            'labels': 'multi',
+            'filters': 'csv',
         }
 
         _path_params: Dict[str, str] = {}
@@ -3860,73 +2733,13 @@ class ExecutionsApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
-        if q is not None:
+        if filters is not None:
             
-            _query_params.append(('q', q))
-            
-        if scope is not None:
-            
-            _query_params.append(('scope', scope))
-            
-        if namespace is not None:
-            
-            _query_params.append(('namespace', namespace))
-            
-        if flow_id is not None:
-            
-            _query_params.append(('flowId', flow_id))
-            
-        if start_date is not None:
-            if isinstance(start_date, datetime):
-                _query_params.append(
-                    (
-                        'startDate',
-                        start_date.strftime(
-                            self.api_client.configuration.datetime_format
-                        )
-                    )
-                )
-            else:
-                _query_params.append(('startDate', start_date))
-            
-        if end_date is not None:
-            if isinstance(end_date, datetime):
-                _query_params.append(
-                    (
-                        'endDate',
-                        end_date.strftime(
-                            self.api_client.configuration.datetime_format
-                        )
-                    )
-                )
-            else:
-                _query_params.append(('endDate', end_date))
-            
-        if time_range is not None:
-            
-            _query_params.append(('timeRange', time_range))
-            
-        if state is not None:
-            
-            _query_params.append(('state', state))
-            
-        if labels is not None:
-            
-            _query_params.append(('labels', labels))
-            
-        if trigger_execution_id is not None:
-            
-            _query_params.append(('triggerExecutionId', trigger_execution_id))
-            
-        if child_filter is not None:
-            
-            _query_params.append(('childFilter', child_filter.value))
+            _query_params.append(('filters', filters))
             
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if delete_executions_by_query_request is not None:
-            _body_params = delete_executions_by_query_request
 
 
         # set the HTTP header `Accept`
@@ -3937,19 +2750,6 @@ class ExecutionsApi:
                 ]
             )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -3971,6 +2771,7 @@ class ExecutionsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -4181,6 +2982,7 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _get_execution_serialize(
         self,
         execution_id,
@@ -4245,6 +3047,7 @@ class ExecutionsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -4467,6 +3270,7 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _get_execution_flow_graph_serialize(
         self,
         execution_id,
@@ -4537,6 +3341,7 @@ class ExecutionsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -4759,6 +3564,7 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _get_file_metadatas_from_execution_serialize(
         self,
         execution_id,
@@ -4828,6 +3634,7 @@ class ExecutionsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -5062,6 +3869,7 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _get_flow_from_execution_serialize(
         self,
         namespace,
@@ -5134,6 +3942,7 @@ class ExecutionsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -5344,6 +4153,7 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _get_flow_from_execution_by_id_serialize(
         self,
         execution_id,
@@ -5408,6 +4218,7 @@ class ExecutionsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -5618,6 +4429,7 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _get_latest_executions_serialize(
         self,
         tenant,
@@ -5700,6 +4512,7 @@ class ExecutionsApi:
 
 
 
+
     @validate_call
     def kill_execution(
         self,
@@ -5761,10 +4574,10 @@ class ExecutionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '202': None,
-            '409': None,
-            '404': None,
             '200': "object",
+            '202': None,
+            '404': None,
+            '409': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5838,10 +4651,10 @@ class ExecutionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '202': None,
-            '409': None,
-            '404': None,
             '200': "object",
+            '202': None,
+            '404': None,
+            '409': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5915,16 +4728,17 @@ class ExecutionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '202': None,
-            '409': None,
-            '404': None,
             '200': "object",
+            '202': None,
+            '404': None,
+            '409': None,
         }
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
         return response_data.response
+
 
 
     def _kill_execution_serialize(
@@ -5996,6 +4810,7 @@ class ExecutionsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -6209,6 +5024,7 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _kill_executions_by_ids_serialize(
         self,
         tenant,
@@ -6291,22 +5107,12 @@ class ExecutionsApi:
 
 
 
+
     @validate_call
     def kill_executions_by_query(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -6325,30 +5131,8 @@ class ExecutionsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -6373,18 +5157,7 @@ class ExecutionsApi:
 
         _param = self._kill_executions_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -6409,18 +5182,7 @@ class ExecutionsApi:
     def kill_executions_by_query_with_http_info(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -6439,30 +5201,8 @@ class ExecutionsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -6487,18 +5227,7 @@ class ExecutionsApi:
 
         _param = self._kill_executions_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -6523,18 +5252,7 @@ class ExecutionsApi:
     def kill_executions_by_query_without_preload_content(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -6553,30 +5271,8 @@ class ExecutionsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -6601,18 +5297,7 @@ class ExecutionsApi:
 
         _param = self._kill_executions_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -6629,21 +5314,11 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _kill_executions_by_query_serialize(
         self,
         tenant,
-        delete_executions_by_query_request,
-        q,
-        scope,
-        namespace,
-        flow_id,
-        start_date,
-        end_date,
-        time_range,
-        state,
-        labels,
-        trigger_execution_id,
-        child_filter,
+        filters,
         _request_auth,
         _content_type,
         _headers,
@@ -6653,9 +5328,7 @@ class ExecutionsApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
-            'scope': 'csv',
-            'state': 'csv',
-            'labels': 'multi',
+            'filters': 'csv',
         }
 
         _path_params: Dict[str, str] = {}
@@ -6671,73 +5344,13 @@ class ExecutionsApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
-        if q is not None:
+        if filters is not None:
             
-            _query_params.append(('q', q))
-            
-        if scope is not None:
-            
-            _query_params.append(('scope', scope))
-            
-        if namespace is not None:
-            
-            _query_params.append(('namespace', namespace))
-            
-        if flow_id is not None:
-            
-            _query_params.append(('flowId', flow_id))
-            
-        if start_date is not None:
-            if isinstance(start_date, datetime):
-                _query_params.append(
-                    (
-                        'startDate',
-                        start_date.strftime(
-                            self.api_client.configuration.datetime_format
-                        )
-                    )
-                )
-            else:
-                _query_params.append(('startDate', start_date))
-            
-        if end_date is not None:
-            if isinstance(end_date, datetime):
-                _query_params.append(
-                    (
-                        'endDate',
-                        end_date.strftime(
-                            self.api_client.configuration.datetime_format
-                        )
-                    )
-                )
-            else:
-                _query_params.append(('endDate', end_date))
-            
-        if time_range is not None:
-            
-            _query_params.append(('timeRange', time_range))
-            
-        if state is not None:
-            
-            _query_params.append(('state', state))
-            
-        if labels is not None:
-            
-            _query_params.append(('labels', labels))
-            
-        if trigger_execution_id is not None:
-            
-            _query_params.append(('triggerExecutionId', trigger_execution_id))
-            
-        if child_filter is not None:
-            
-            _query_params.append(('childFilter', child_filter.value))
+            _query_params.append(('filters', filters))
             
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if delete_executions_by_query_request is not None:
-            _body_params = delete_executions_by_query_request
 
 
         # set the HTTP header `Accept`
@@ -6748,19 +5361,6 @@ class ExecutionsApi:
                 ]
             )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -6783,538 +5383,6 @@ class ExecutionsApi:
             _request_auth=_request_auth
         )
 
-
-
-
-    @validate_call
-    def list_executable_distinct_namespaces(
-        self,
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[str]:
-        """Get all namespaces that have executable flows
-
-
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._list_executable_distinct_namespaces_serialize(
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[str]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def list_executable_distinct_namespaces_with_http_info(
-        self,
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[str]]:
-        """Get all namespaces that have executable flows
-
-
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._list_executable_distinct_namespaces_serialize(
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[str]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def list_executable_distinct_namespaces_without_preload_content(
-        self,
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Get all namespaces that have executable flows
-
-
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._list_executable_distinct_namespaces_serialize(
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[str]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _list_executable_distinct_namespaces_serialize(
-        self,
-        tenant,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if tenant is not None:
-            _path_params['tenant'] = tenant
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'basicAuth', 
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/api/v1/{tenant}/executions/namespaces',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def list_flow_executions_by_namespace(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The namespace")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[FlowForExecution]:
-        """Get all flow ids for a namespace. Data returned are FlowForExecution containing minimal information about a Flow for when you are allowed to executing but not reading.
-
-
-        :param namespace: The namespace (required)
-        :type namespace: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._list_flow_executions_by_namespace_serialize(
-            namespace=namespace,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[FlowForExecution]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def list_flow_executions_by_namespace_with_http_info(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The namespace")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[FlowForExecution]]:
-        """Get all flow ids for a namespace. Data returned are FlowForExecution containing minimal information about a Flow for when you are allowed to executing but not reading.
-
-
-        :param namespace: The namespace (required)
-        :type namespace: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._list_flow_executions_by_namespace_serialize(
-            namespace=namespace,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[FlowForExecution]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def list_flow_executions_by_namespace_without_preload_content(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The namespace")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Get all flow ids for a namespace. Data returned are FlowForExecution containing minimal information about a Flow for when you are allowed to executing but not reading.
-
-
-        :param namespace: The namespace (required)
-        :type namespace: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._list_flow_executions_by_namespace_serialize(
-            namespace=namespace,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[FlowForExecution]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _list_flow_executions_by_namespace_serialize(
-        self,
-        namespace,
-        tenant,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if namespace is not None:
-            _path_params['namespace'] = namespace
-        if tenant is not None:
-            _path_params['tenant'] = tenant
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'basicAuth', 
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/api/v1/{tenant}/executions/namespaces/{namespace}/flows',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
 
 
 
@@ -7376,9 +5444,9 @@ class ExecutionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '200': None,
             '204': None,
             '409': None,
-            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7448,9 +5516,9 @@ class ExecutionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '200': None,
             '204': None,
             '409': None,
-            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7520,15 +5588,16 @@ class ExecutionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '200': None,
             '204': None,
             '409': None,
-            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
         return response_data.response
+
 
 
     def _pause_execution_serialize(
@@ -7588,6 +5657,7 @@ class ExecutionsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -7801,6 +5871,7 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _pause_executions_by_ids_serialize(
         self,
         tenant,
@@ -7883,22 +5954,12 @@ class ExecutionsApi:
 
 
 
+
     @validate_call
     def pause_executions_by_query(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -7917,30 +5978,8 @@ class ExecutionsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -7965,18 +6004,7 @@ class ExecutionsApi:
 
         _param = self._pause_executions_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -8001,18 +6029,7 @@ class ExecutionsApi:
     def pause_executions_by_query_with_http_info(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -8031,30 +6048,8 @@ class ExecutionsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -8079,18 +6074,7 @@ class ExecutionsApi:
 
         _param = self._pause_executions_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -8115,18 +6099,7 @@ class ExecutionsApi:
     def pause_executions_by_query_without_preload_content(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -8145,30 +6118,8 @@ class ExecutionsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -8193,18 +6144,7 @@ class ExecutionsApi:
 
         _param = self._pause_executions_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -8221,21 +6161,11 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _pause_executions_by_query_serialize(
         self,
         tenant,
-        delete_executions_by_query_request,
-        q,
-        scope,
-        namespace,
-        flow_id,
-        start_date,
-        end_date,
-        time_range,
-        state,
-        labels,
-        trigger_execution_id,
-        child_filter,
+        filters,
         _request_auth,
         _content_type,
         _headers,
@@ -8245,9 +6175,7 @@ class ExecutionsApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
-            'scope': 'csv',
-            'state': 'csv',
-            'labels': 'multi',
+            'filters': 'csv',
         }
 
         _path_params: Dict[str, str] = {}
@@ -8263,73 +6191,13 @@ class ExecutionsApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
-        if q is not None:
+        if filters is not None:
             
-            _query_params.append(('q', q))
-            
-        if scope is not None:
-            
-            _query_params.append(('scope', scope))
-            
-        if namespace is not None:
-            
-            _query_params.append(('namespace', namespace))
-            
-        if flow_id is not None:
-            
-            _query_params.append(('flowId', flow_id))
-            
-        if start_date is not None:
-            if isinstance(start_date, datetime):
-                _query_params.append(
-                    (
-                        'startDate',
-                        start_date.strftime(
-                            self.api_client.configuration.datetime_format
-                        )
-                    )
-                )
-            else:
-                _query_params.append(('startDate', start_date))
-            
-        if end_date is not None:
-            if isinstance(end_date, datetime):
-                _query_params.append(
-                    (
-                        'endDate',
-                        end_date.strftime(
-                            self.api_client.configuration.datetime_format
-                        )
-                    )
-                )
-            else:
-                _query_params.append(('endDate', end_date))
-            
-        if time_range is not None:
-            
-            _query_params.append(('timeRange', time_range))
-            
-        if state is not None:
-            
-            _query_params.append(('state', state))
-            
-        if labels is not None:
-            
-            _query_params.append(('labels', labels))
-            
-        if trigger_execution_id is not None:
-            
-            _query_params.append(('triggerExecutionId', trigger_execution_id))
-            
-        if child_filter is not None:
-            
-            _query_params.append(('childFilter', child_filter.value))
+            _query_params.append(('filters', filters))
             
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if delete_executions_by_query_request is not None:
-            _body_params = delete_executions_by_query_request
 
 
         # set the HTTP header `Accept`
@@ -8340,19 +6208,6 @@ class ExecutionsApi:
                 ]
             )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -8375,330 +6230,6 @@ class ExecutionsApi:
             _request_auth=_request_auth
         )
 
-
-
-
-    @validate_call
-    def preview_file_from_execution(
-        self,
-        execution_id: Annotated[StrictStr, Field(description="The execution id")],
-        path: Annotated[StrictStr, Field(description="The internal storage uri")],
-        max_rows: Annotated[StrictInt, Field(description="The max row returns")],
-        encoding: Annotated[StrictStr, Field(description="The file encoding as Java charset name. Defaults to UTF-8")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> object:
-        """Get file preview for an execution
-
-
-        :param execution_id: The execution id (required)
-        :type execution_id: str
-        :param path: The internal storage uri (required)
-        :type path: str
-        :param max_rows: The max row returns (required)
-        :type max_rows: int
-        :param encoding: The file encoding as Java charset name. Defaults to UTF-8 (required)
-        :type encoding: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._preview_file_from_execution_serialize(
-            execution_id=execution_id,
-            path=path,
-            max_rows=max_rows,
-            encoding=encoding,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def preview_file_from_execution_with_http_info(
-        self,
-        execution_id: Annotated[StrictStr, Field(description="The execution id")],
-        path: Annotated[StrictStr, Field(description="The internal storage uri")],
-        max_rows: Annotated[StrictInt, Field(description="The max row returns")],
-        encoding: Annotated[StrictStr, Field(description="The file encoding as Java charset name. Defaults to UTF-8")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[object]:
-        """Get file preview for an execution
-
-
-        :param execution_id: The execution id (required)
-        :type execution_id: str
-        :param path: The internal storage uri (required)
-        :type path: str
-        :param max_rows: The max row returns (required)
-        :type max_rows: int
-        :param encoding: The file encoding as Java charset name. Defaults to UTF-8 (required)
-        :type encoding: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._preview_file_from_execution_serialize(
-            execution_id=execution_id,
-            path=path,
-            max_rows=max_rows,
-            encoding=encoding,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def preview_file_from_execution_without_preload_content(
-        self,
-        execution_id: Annotated[StrictStr, Field(description="The execution id")],
-        path: Annotated[StrictStr, Field(description="The internal storage uri")],
-        max_rows: Annotated[StrictInt, Field(description="The max row returns")],
-        encoding: Annotated[StrictStr, Field(description="The file encoding as Java charset name. Defaults to UTF-8")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Get file preview for an execution
-
-
-        :param execution_id: The execution id (required)
-        :type execution_id: str
-        :param path: The internal storage uri (required)
-        :type path: str
-        :param max_rows: The max row returns (required)
-        :type max_rows: int
-        :param encoding: The file encoding as Java charset name. Defaults to UTF-8 (required)
-        :type encoding: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._preview_file_from_execution_serialize(
-            execution_id=execution_id,
-            path=path,
-            max_rows=max_rows,
-            encoding=encoding,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _preview_file_from_execution_serialize(
-        self,
-        execution_id,
-        path,
-        max_rows,
-        encoding,
-        tenant,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if execution_id is not None:
-            _path_params['executionId'] = execution_id
-        if tenant is not None:
-            _path_params['tenant'] = tenant
-        # process the query parameters
-        if path is not None:
-            
-            _query_params.append(('path', path))
-            
-        if max_rows is not None:
-            
-            _query_params.append(('maxRows', max_rows))
-            
-        if encoding is not None:
-            
-            _query_params.append(('encoding', encoding))
-            
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'basicAuth', 
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/api/v1/{tenant}/executions/{executionId}/file/preview',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
 
 
 
@@ -8945,6 +6476,7 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _replay_execution_serialize(
         self,
         execution_id,
@@ -9024,6 +6556,7 @@ class ExecutionsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -9270,6 +6803,7 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _replay_execution_withinputs_serialize(
         self,
         execution_id,
@@ -9362,6 +6896,7 @@ class ExecutionsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -9587,6 +7122,7 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _replay_executions_by_ids_serialize(
         self,
         tenant,
@@ -9674,22 +7210,12 @@ class ExecutionsApi:
 
 
 
+
     @validate_call
     def replay_executions_by_query(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         latest_revision: Annotated[Optional[StrictBool], Field(description="If latest revision should be used")] = None,
         _request_timeout: Union[
             None,
@@ -9709,30 +7235,8 @@ class ExecutionsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param latest_revision: If latest revision should be used
         :type latest_revision: bool
         :param _request_timeout: timeout setting for this request. If one
@@ -9759,18 +7263,7 @@ class ExecutionsApi:
 
         _param = self._replay_executions_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
+            filters=filters,
             latest_revision=latest_revision,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -9796,18 +7289,7 @@ class ExecutionsApi:
     def replay_executions_by_query_with_http_info(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         latest_revision: Annotated[Optional[StrictBool], Field(description="If latest revision should be used")] = None,
         _request_timeout: Union[
             None,
@@ -9827,30 +7309,8 @@ class ExecutionsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param latest_revision: If latest revision should be used
         :type latest_revision: bool
         :param _request_timeout: timeout setting for this request. If one
@@ -9877,18 +7337,7 @@ class ExecutionsApi:
 
         _param = self._replay_executions_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
+            filters=filters,
             latest_revision=latest_revision,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -9914,18 +7363,7 @@ class ExecutionsApi:
     def replay_executions_by_query_without_preload_content(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         latest_revision: Annotated[Optional[StrictBool], Field(description="If latest revision should be used")] = None,
         _request_timeout: Union[
             None,
@@ -9945,30 +7383,8 @@ class ExecutionsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param latest_revision: If latest revision should be used
         :type latest_revision: bool
         :param _request_timeout: timeout setting for this request. If one
@@ -9995,18 +7411,7 @@ class ExecutionsApi:
 
         _param = self._replay_executions_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
+            filters=filters,
             latest_revision=latest_revision,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -10024,21 +7429,11 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _replay_executions_by_query_serialize(
         self,
         tenant,
-        delete_executions_by_query_request,
-        q,
-        scope,
-        namespace,
-        flow_id,
-        start_date,
-        end_date,
-        time_range,
-        state,
-        labels,
-        trigger_execution_id,
-        child_filter,
+        filters,
         latest_revision,
         _request_auth,
         _content_type,
@@ -10049,9 +7444,7 @@ class ExecutionsApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
-            'scope': 'csv',
-            'state': 'csv',
-            'labels': 'multi',
+            'filters': 'csv',
         }
 
         _path_params: Dict[str, str] = {}
@@ -10067,67 +7460,9 @@ class ExecutionsApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
-        if q is not None:
+        if filters is not None:
             
-            _query_params.append(('q', q))
-            
-        if scope is not None:
-            
-            _query_params.append(('scope', scope))
-            
-        if namespace is not None:
-            
-            _query_params.append(('namespace', namespace))
-            
-        if flow_id is not None:
-            
-            _query_params.append(('flowId', flow_id))
-            
-        if start_date is not None:
-            if isinstance(start_date, datetime):
-                _query_params.append(
-                    (
-                        'startDate',
-                        start_date.strftime(
-                            self.api_client.configuration.datetime_format
-                        )
-                    )
-                )
-            else:
-                _query_params.append(('startDate', start_date))
-            
-        if end_date is not None:
-            if isinstance(end_date, datetime):
-                _query_params.append(
-                    (
-                        'endDate',
-                        end_date.strftime(
-                            self.api_client.configuration.datetime_format
-                        )
-                    )
-                )
-            else:
-                _query_params.append(('endDate', end_date))
-            
-        if time_range is not None:
-            
-            _query_params.append(('timeRange', time_range))
-            
-        if state is not None:
-            
-            _query_params.append(('state', state))
-            
-        if labels is not None:
-            
-            _query_params.append(('labels', labels))
-            
-        if trigger_execution_id is not None:
-            
-            _query_params.append(('triggerExecutionId', trigger_execution_id))
-            
-        if child_filter is not None:
-            
-            _query_params.append(('childFilter', child_filter.value))
+            _query_params.append(('filters', filters))
             
         if latest_revision is not None:
             
@@ -10136,8 +7471,6 @@ class ExecutionsApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if delete_executions_by_query_request is not None:
-            _body_params = delete_executions_by_query_request
 
 
         # set the HTTP header `Accept`
@@ -10148,19 +7481,6 @@ class ExecutionsApi:
                 ]
             )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -10182,6 +7502,7 @@ class ExecutionsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -10404,6 +7725,7 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _restart_execution_serialize(
         self,
         execution_id,
@@ -10473,6 +7795,7 @@ class ExecutionsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -10686,6 +8009,7 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _restart_executions_by_ids_serialize(
         self,
         tenant,
@@ -10768,22 +8092,12 @@ class ExecutionsApi:
 
 
 
+
     @validate_call
     def restart_executions_by_query(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -10802,30 +8116,8 @@ class ExecutionsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -10850,18 +8142,7 @@ class ExecutionsApi:
 
         _param = self._restart_executions_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -10886,18 +8167,7 @@ class ExecutionsApi:
     def restart_executions_by_query_with_http_info(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -10916,30 +8186,8 @@ class ExecutionsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -10964,18 +8212,7 @@ class ExecutionsApi:
 
         _param = self._restart_executions_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -11000,18 +8237,7 @@ class ExecutionsApi:
     def restart_executions_by_query_without_preload_content(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -11030,30 +8256,8 @@ class ExecutionsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -11078,18 +8282,7 @@ class ExecutionsApi:
 
         _param = self._restart_executions_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -11106,21 +8299,11 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _restart_executions_by_query_serialize(
         self,
         tenant,
-        delete_executions_by_query_request,
-        q,
-        scope,
-        namespace,
-        flow_id,
-        start_date,
-        end_date,
-        time_range,
-        state,
-        labels,
-        trigger_execution_id,
-        child_filter,
+        filters,
         _request_auth,
         _content_type,
         _headers,
@@ -11130,9 +8313,7 @@ class ExecutionsApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
-            'scope': 'csv',
-            'state': 'csv',
-            'labels': 'multi',
+            'filters': 'csv',
         }
 
         _path_params: Dict[str, str] = {}
@@ -11148,73 +8329,13 @@ class ExecutionsApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
-        if q is not None:
+        if filters is not None:
             
-            _query_params.append(('q', q))
-            
-        if scope is not None:
-            
-            _query_params.append(('scope', scope))
-            
-        if namespace is not None:
-            
-            _query_params.append(('namespace', namespace))
-            
-        if flow_id is not None:
-            
-            _query_params.append(('flowId', flow_id))
-            
-        if start_date is not None:
-            if isinstance(start_date, datetime):
-                _query_params.append(
-                    (
-                        'startDate',
-                        start_date.strftime(
-                            self.api_client.configuration.datetime_format
-                        )
-                    )
-                )
-            else:
-                _query_params.append(('startDate', start_date))
-            
-        if end_date is not None:
-            if isinstance(end_date, datetime):
-                _query_params.append(
-                    (
-                        'endDate',
-                        end_date.strftime(
-                            self.api_client.configuration.datetime_format
-                        )
-                    )
-                )
-            else:
-                _query_params.append(('endDate', end_date))
-            
-        if time_range is not None:
-            
-            _query_params.append(('timeRange', time_range))
-            
-        if state is not None:
-            
-            _query_params.append(('state', state))
-            
-        if labels is not None:
-            
-            _query_params.append(('labels', labels))
-            
-        if trigger_execution_id is not None:
-            
-            _query_params.append(('triggerExecutionId', trigger_execution_id))
-            
-        if child_filter is not None:
-            
-            _query_params.append(('childFilter', child_filter.value))
+            _query_params.append(('filters', filters))
             
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if delete_executions_by_query_request is not None:
-            _body_params = delete_executions_by_query_request
 
 
         # set the HTTP header `Accept`
@@ -11225,19 +8346,6 @@ class ExecutionsApi:
                 ]
             )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -11259,6 +8367,7 @@ class ExecutionsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -11320,9 +8429,9 @@ class ExecutionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
             '204': None,
             '409': None,
-            '200': "object",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -11392,9 +8501,9 @@ class ExecutionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
             '204': None,
             '409': None,
-            '200': "object",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -11464,15 +8573,16 @@ class ExecutionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
             '204': None,
             '409': None,
-            '200': "object",
         }
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
         return response_data.response
+
 
 
     def _resume_execution_serialize(
@@ -11553,295 +8663,6 @@ class ExecutionsApi:
             _request_auth=_request_auth
         )
 
-
-
-
-    @validate_call
-    def resume_execution_from_breakpoint(
-        self,
-        execution_id: Annotated[StrictStr, Field(description="The execution id")],
-        tenant: StrictStr,
-        breakpoints: Annotated[Optional[StrictStr], Field(description="\"Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """Resume an execution from a breakpoint (in the 'BREAKPOINT' state).
-
-
-        :param execution_id: The execution id (required)
-        :type execution_id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param breakpoints: \"Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
-        :type breakpoints: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._resume_execution_from_breakpoint_serialize(
-            execution_id=execution_id,
-            tenant=tenant,
-            breakpoints=breakpoints,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '204': None,
-            '409': None,
-            '200': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def resume_execution_from_breakpoint_with_http_info(
-        self,
-        execution_id: Annotated[StrictStr, Field(description="The execution id")],
-        tenant: StrictStr,
-        breakpoints: Annotated[Optional[StrictStr], Field(description="\"Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """Resume an execution from a breakpoint (in the 'BREAKPOINT' state).
-
-
-        :param execution_id: The execution id (required)
-        :type execution_id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param breakpoints: \"Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
-        :type breakpoints: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._resume_execution_from_breakpoint_serialize(
-            execution_id=execution_id,
-            tenant=tenant,
-            breakpoints=breakpoints,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '204': None,
-            '409': None,
-            '200': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def resume_execution_from_breakpoint_without_preload_content(
-        self,
-        execution_id: Annotated[StrictStr, Field(description="The execution id")],
-        tenant: StrictStr,
-        breakpoints: Annotated[Optional[StrictStr], Field(description="\"Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Resume an execution from a breakpoint (in the 'BREAKPOINT' state).
-
-
-        :param execution_id: The execution id (required)
-        :type execution_id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param breakpoints: \"Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
-        :type breakpoints: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._resume_execution_from_breakpoint_serialize(
-            execution_id=execution_id,
-            tenant=tenant,
-            breakpoints=breakpoints,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '204': None,
-            '409': None,
-            '200': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _resume_execution_from_breakpoint_serialize(
-        self,
-        execution_id,
-        tenant,
-        breakpoints,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if execution_id is not None:
-            _path_params['executionId'] = execution_id
-        if tenant is not None:
-            _path_params['tenant'] = tenant
-        # process the query parameters
-        if breakpoints is not None:
-            
-            _query_params.append(('breakpoints', breakpoints))
-            
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'basicAuth', 
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/api/v1/{tenant}/executions/{executionId}/resume-from-breakpoint',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
 
 
 
@@ -12055,6 +8876,7 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _resume_executions_by_ids_serialize(
         self,
         tenant,
@@ -12137,22 +8959,12 @@ class ExecutionsApi:
 
 
 
+
     @validate_call
     def resume_executions_by_query(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -12171,30 +8983,8 @@ class ExecutionsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -12219,18 +9009,7 @@ class ExecutionsApi:
 
         _param = self._resume_executions_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -12255,18 +9034,7 @@ class ExecutionsApi:
     def resume_executions_by_query_with_http_info(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -12285,30 +9053,8 @@ class ExecutionsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -12333,18 +9079,7 @@ class ExecutionsApi:
 
         _param = self._resume_executions_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -12369,18 +9104,7 @@ class ExecutionsApi:
     def resume_executions_by_query_without_preload_content(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -12399,30 +9123,8 @@ class ExecutionsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -12447,18 +9149,7 @@ class ExecutionsApi:
 
         _param = self._resume_executions_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -12475,21 +9166,11 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _resume_executions_by_query_serialize(
         self,
         tenant,
-        delete_executions_by_query_request,
-        q,
-        scope,
-        namespace,
-        flow_id,
-        start_date,
-        end_date,
-        time_range,
-        state,
-        labels,
-        trigger_execution_id,
-        child_filter,
+        filters,
         _request_auth,
         _content_type,
         _headers,
@@ -12499,9 +9180,7 @@ class ExecutionsApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
-            'scope': 'csv',
-            'state': 'csv',
-            'labels': 'multi',
+            'filters': 'csv',
         }
 
         _path_params: Dict[str, str] = {}
@@ -12517,73 +9196,13 @@ class ExecutionsApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
-        if q is not None:
+        if filters is not None:
             
-            _query_params.append(('q', q))
-            
-        if scope is not None:
-            
-            _query_params.append(('scope', scope))
-            
-        if namespace is not None:
-            
-            _query_params.append(('namespace', namespace))
-            
-        if flow_id is not None:
-            
-            _query_params.append(('flowId', flow_id))
-            
-        if start_date is not None:
-            if isinstance(start_date, datetime):
-                _query_params.append(
-                    (
-                        'startDate',
-                        start_date.strftime(
-                            self.api_client.configuration.datetime_format
-                        )
-                    )
-                )
-            else:
-                _query_params.append(('startDate', start_date))
-            
-        if end_date is not None:
-            if isinstance(end_date, datetime):
-                _query_params.append(
-                    (
-                        'endDate',
-                        end_date.strftime(
-                            self.api_client.configuration.datetime_format
-                        )
-                    )
-                )
-            else:
-                _query_params.append(('endDate', end_date))
-            
-        if time_range is not None:
-            
-            _query_params.append(('timeRange', time_range))
-            
-        if state is not None:
-            
-            _query_params.append(('state', state))
-            
-        if labels is not None:
-            
-            _query_params.append(('labels', labels))
-            
-        if trigger_execution_id is not None:
-            
-            _query_params.append(('triggerExecutionId', trigger_execution_id))
-            
-        if child_filter is not None:
-            
-            _query_params.append(('childFilter', child_filter.value))
+            _query_params.append(('filters', filters))
             
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if delete_executions_by_query_request is not None:
-            _body_params = delete_executions_by_query_request
 
 
         # set the HTTP header `Accept`
@@ -12594,19 +9213,6 @@ class ExecutionsApi:
                 ]
             )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -12632,6 +9238,7 @@ class ExecutionsApi:
 
 
 
+
     @validate_call
     def search_executions(
         self,
@@ -12640,17 +9247,6 @@ class ExecutionsApi:
         tenant: StrictStr,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -12677,28 +9273,6 @@ class ExecutionsApi:
         :type sort: List[str]
         :param filters: Filters
         :type filters: List[QueryFilter]
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -12727,17 +9301,6 @@ class ExecutionsApi:
             tenant=tenant,
             sort=sort,
             filters=filters,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -12766,17 +9329,6 @@ class ExecutionsApi:
         tenant: StrictStr,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -12803,28 +9355,6 @@ class ExecutionsApi:
         :type sort: List[str]
         :param filters: Filters
         :type filters: List[QueryFilter]
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -12853,17 +9383,6 @@ class ExecutionsApi:
             tenant=tenant,
             sort=sort,
             filters=filters,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -12892,17 +9411,6 @@ class ExecutionsApi:
         tenant: StrictStr,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -12929,28 +9437,6 @@ class ExecutionsApi:
         :type sort: List[str]
         :param filters: Filters
         :type filters: List[QueryFilter]
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -12979,17 +9465,6 @@ class ExecutionsApi:
             tenant=tenant,
             sort=sort,
             filters=filters,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -13006,6 +9481,7 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _search_executions_serialize(
         self,
         page,
@@ -13013,17 +9489,6 @@ class ExecutionsApi:
         tenant,
         sort,
         filters,
-        q,
-        scope,
-        namespace,
-        flow_id,
-        start_date,
-        end_date,
-        time_range,
-        state,
-        labels,
-        trigger_execution_id,
-        child_filter,
         _request_auth,
         _content_type,
         _headers,
@@ -13035,9 +9500,6 @@ class ExecutionsApi:
         _collection_formats: Dict[str, str] = {
             'sort': 'csv',
             'filters': 'csv',
-            'scope': 'csv',
-            'state': 'csv',
-            'labels': 'multi',
         }
 
         _path_params: Dict[str, str] = {}
@@ -13068,68 +9530,6 @@ class ExecutionsApi:
         if filters is not None:
             
             _query_params.append(('filters', filters))
-            
-        if q is not None:
-            
-            _query_params.append(('q', q))
-            
-        if scope is not None:
-            
-            _query_params.append(('scope', scope))
-            
-        if namespace is not None:
-            
-            _query_params.append(('namespace', namespace))
-            
-        if flow_id is not None:
-            
-            _query_params.append(('flowId', flow_id))
-            
-        if start_date is not None:
-            if isinstance(start_date, datetime):
-                _query_params.append(
-                    (
-                        'startDate',
-                        start_date.strftime(
-                            self.api_client.configuration.datetime_format
-                        )
-                    )
-                )
-            else:
-                _query_params.append(('startDate', start_date))
-            
-        if end_date is not None:
-            if isinstance(end_date, datetime):
-                _query_params.append(
-                    (
-                        'endDate',
-                        end_date.strftime(
-                            self.api_client.configuration.datetime_format
-                        )
-                    )
-                )
-            else:
-                _query_params.append(('endDate', end_date))
-            
-        if time_range is not None:
-            
-            _query_params.append(('timeRange', time_range))
-            
-        if state is not None:
-            
-            _query_params.append(('state', state))
-            
-        if labels is not None:
-            
-            _query_params.append(('labels', labels))
-            
-        if trigger_execution_id is not None:
-            
-            _query_params.append(('triggerExecutionId', trigger_execution_id))
-            
-        if child_filter is not None:
-            
-            _query_params.append(('childFilter', child_filter.value))
             
         # process the header parameters
         # process the form parameters
@@ -13166,851 +9566,6 @@ class ExecutionsApi:
             _request_auth=_request_auth
         )
 
-
-
-
-    @validate_call
-    def search_executions_by_flow_id(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        flow_id: Annotated[StrictStr, Field(description="The flow id")],
-        page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
-        size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> PagedResultsExecution:
-        """Search for executions for a flow
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-        :param flow_id: The flow id (required)
-        :type flow_id: str
-        :param page: The current page (required)
-        :type page: int
-        :param size: The current page size (required)
-        :type size: int
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._search_executions_by_flow_id_serialize(
-            namespace=namespace,
-            flow_id=flow_id,
-            page=page,
-            size=size,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "PagedResultsExecution",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def search_executions_by_flow_id_with_http_info(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        flow_id: Annotated[StrictStr, Field(description="The flow id")],
-        page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
-        size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[PagedResultsExecution]:
-        """Search for executions for a flow
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-        :param flow_id: The flow id (required)
-        :type flow_id: str
-        :param page: The current page (required)
-        :type page: int
-        :param size: The current page size (required)
-        :type size: int
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._search_executions_by_flow_id_serialize(
-            namespace=namespace,
-            flow_id=flow_id,
-            page=page,
-            size=size,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "PagedResultsExecution",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def search_executions_by_flow_id_without_preload_content(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        flow_id: Annotated[StrictStr, Field(description="The flow id")],
-        page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
-        size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Search for executions for a flow
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-        :param flow_id: The flow id (required)
-        :type flow_id: str
-        :param page: The current page (required)
-        :type page: int
-        :param size: The current page size (required)
-        :type size: int
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._search_executions_by_flow_id_serialize(
-            namespace=namespace,
-            flow_id=flow_id,
-            page=page,
-            size=size,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "PagedResultsExecution",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _search_executions_by_flow_id_serialize(
-        self,
-        namespace,
-        flow_id,
-        page,
-        size,
-        tenant,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if tenant is not None:
-            _path_params['tenant'] = tenant
-        # process the query parameters
-        if namespace is not None:
-            
-            _query_params.append(('namespace', namespace))
-            
-        if flow_id is not None:
-            
-            _query_params.append(('flowId', flow_id))
-            
-        if page is not None:
-            
-            _query_params.append(('page', page))
-            
-        if size is not None:
-            
-            _query_params.append(('size', size))
-            
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'basicAuth', 
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/api/v1/{tenant}/executions',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def search_task_run(
-        self,
-        page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
-        size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
-        tenant: StrictStr,
-        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
-        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> PagedResultsTaskRun:
-        """Search for taskruns, only available with the Elasticsearch repository
-
-
-        :param page: The current page (required)
-        :type page: int
-        :param size: The current page size (required)
-        :type size: int
-        :param tenant: (required)
-        :type tenant: str
-        :param sort: The sort of current page
-        :type sort: List[str]
-        :param filters: Filters
-        :type filters: List[QueryFilter]
-        :param q: A string filter
-        :type q: str
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._search_task_run_serialize(
-            page=page,
-            size=size,
-            tenant=tenant,
-            sort=sort,
-            filters=filters,
-            q=q,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "PagedResultsTaskRun",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def search_task_run_with_http_info(
-        self,
-        page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
-        size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
-        tenant: StrictStr,
-        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
-        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[PagedResultsTaskRun]:
-        """Search for taskruns, only available with the Elasticsearch repository
-
-
-        :param page: The current page (required)
-        :type page: int
-        :param size: The current page size (required)
-        :type size: int
-        :param tenant: (required)
-        :type tenant: str
-        :param sort: The sort of current page
-        :type sort: List[str]
-        :param filters: Filters
-        :type filters: List[QueryFilter]
-        :param q: A string filter
-        :type q: str
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._search_task_run_serialize(
-            page=page,
-            size=size,
-            tenant=tenant,
-            sort=sort,
-            filters=filters,
-            q=q,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "PagedResultsTaskRun",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def search_task_run_without_preload_content(
-        self,
-        page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
-        size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
-        tenant: StrictStr,
-        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
-        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Search for taskruns, only available with the Elasticsearch repository
-
-
-        :param page: The current page (required)
-        :type page: int
-        :param size: The current page size (required)
-        :type size: int
-        :param tenant: (required)
-        :type tenant: str
-        :param sort: The sort of current page
-        :type sort: List[str]
-        :param filters: Filters
-        :type filters: List[QueryFilter]
-        :param q: A string filter
-        :type q: str
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._search_task_run_serialize(
-            page=page,
-            size=size,
-            tenant=tenant,
-            sort=sort,
-            filters=filters,
-            q=q,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "PagedResultsTaskRun",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _search_task_run_serialize(
-        self,
-        page,
-        size,
-        tenant,
-        sort,
-        filters,
-        q,
-        namespace,
-        flow_id,
-        start_date,
-        end_date,
-        time_range,
-        state,
-        labels,
-        trigger_execution_id,
-        child_filter,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-            'sort': 'csv',
-            'filters': 'csv',
-            'state': 'csv',
-            'labels': 'multi',
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if tenant is not None:
-            _path_params['tenant'] = tenant
-        # process the query parameters
-        if page is not None:
-            
-            _query_params.append(('page', page))
-            
-        if size is not None:
-            
-            _query_params.append(('size', size))
-            
-        if sort is not None:
-            
-            _query_params.append(('sort', sort))
-            
-        if filters is not None:
-            
-            _query_params.append(('filters', filters))
-            
-        if q is not None:
-            
-            _query_params.append(('q', q))
-            
-        if namespace is not None:
-            
-            _query_params.append(('namespace', namespace))
-            
-        if flow_id is not None:
-            
-            _query_params.append(('flowId', flow_id))
-            
-        if start_date is not None:
-            if isinstance(start_date, datetime):
-                _query_params.append(
-                    (
-                        'startDate',
-                        start_date.strftime(
-                            self.api_client.configuration.datetime_format
-                        )
-                    )
-                )
-            else:
-                _query_params.append(('startDate', start_date))
-            
-        if end_date is not None:
-            if isinstance(end_date, datetime):
-                _query_params.append(
-                    (
-                        'endDate',
-                        end_date.strftime(
-                            self.api_client.configuration.datetime_format
-                        )
-                    )
-                )
-            else:
-                _query_params.append(('endDate', end_date))
-            
-        if time_range is not None:
-            
-            _query_params.append(('timeRange', time_range))
-            
-        if state is not None:
-            
-            _query_params.append(('state', state))
-            
-        if labels is not None:
-            
-            _query_params.append(('labels', labels))
-            
-        if trigger_execution_id is not None:
-            
-            _query_params.append(('triggerExecutionId', trigger_execution_id))
-            
-        if child_filter is not None:
-            
-            _query_params.append(('childFilter', child_filter.value))
-            
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'basicAuth', 
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/api/v1/{tenant}/taskruns/search',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
 
 
 
@@ -14076,9 +9631,9 @@ class ExecutionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '404': None,
-            '400': None,
             '200': "object",
+            '400': None,
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -14152,9 +9707,9 @@ class ExecutionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '404': None,
-            '400': None,
             '200': "object",
+            '400': None,
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -14228,15 +9783,16 @@ class ExecutionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '404': None,
-            '400': None,
             '200': "object",
+            '400': None,
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
         return response_data.response
+
 
 
     def _set_labels_on_terminated_execution_serialize(
@@ -14320,6 +9876,7 @@ class ExecutionsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -14533,6 +10090,7 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _set_labels_on_terminated_executions_by_ids_serialize(
         self,
         tenant,
@@ -14614,22 +10172,13 @@ class ExecutionsApi:
 
 
 
+
     @validate_call
     def set_labels_on_terminated_executions_by_query(
         self,
         tenant: StrictStr,
         label: Annotated[List[Label], Field(description="The labels to add to the execution")],
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -14650,28 +10199,8 @@ class ExecutionsApi:
         :type tenant: str
         :param label: The labels to add to the execution (required)
         :type label: List[Label]
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -14697,17 +10226,7 @@ class ExecutionsApi:
         _param = self._set_labels_on_terminated_executions_by_query_serialize(
             tenant=tenant,
             label=label,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -14733,17 +10252,7 @@ class ExecutionsApi:
         self,
         tenant: StrictStr,
         label: Annotated[List[Label], Field(description="The labels to add to the execution")],
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -14764,28 +10273,8 @@ class ExecutionsApi:
         :type tenant: str
         :param label: The labels to add to the execution (required)
         :type label: List[Label]
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -14811,17 +10300,7 @@ class ExecutionsApi:
         _param = self._set_labels_on_terminated_executions_by_query_serialize(
             tenant=tenant,
             label=label,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -14847,17 +10326,7 @@ class ExecutionsApi:
         self,
         tenant: StrictStr,
         label: Annotated[List[Label], Field(description="The labels to add to the execution")],
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -14878,28 +10347,8 @@ class ExecutionsApi:
         :type tenant: str
         :param label: The labels to add to the execution (required)
         :type label: List[Label]
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -14925,17 +10374,7 @@ class ExecutionsApi:
         _param = self._set_labels_on_terminated_executions_by_query_serialize(
             tenant=tenant,
             label=label,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -14952,21 +10391,12 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _set_labels_on_terminated_executions_by_query_serialize(
         self,
         tenant,
         label,
-        q,
-        scope,
-        namespace,
-        flow_id,
-        start_date,
-        end_date,
-        time_range,
-        state,
-        labels,
-        trigger_execution_id,
-        child_filter,
+        filters,
         _request_auth,
         _content_type,
         _headers,
@@ -14976,9 +10406,8 @@ class ExecutionsApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
-            'scope': 'csv',
-            'state': 'csv',
-            'labels': 'multi',
+            'Label': '',
+            'filters': 'csv',
         }
 
         _path_params: Dict[str, str] = {}
@@ -14994,67 +10423,9 @@ class ExecutionsApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
-        if q is not None:
+        if filters is not None:
             
-            _query_params.append(('q', q))
-            
-        if scope is not None:
-            
-            _query_params.append(('scope', scope))
-            
-        if namespace is not None:
-            
-            _query_params.append(('namespace', namespace))
-            
-        if flow_id is not None:
-            
-            _query_params.append(('flowId', flow_id))
-            
-        if start_date is not None:
-            if isinstance(start_date, datetime):
-                _query_params.append(
-                    (
-                        'startDate',
-                        start_date.strftime(
-                            self.api_client.configuration.datetime_format
-                        )
-                    )
-                )
-            else:
-                _query_params.append(('startDate', start_date))
-            
-        if end_date is not None:
-            if isinstance(end_date, datetime):
-                _query_params.append(
-                    (
-                        'endDate',
-                        end_date.strftime(
-                            self.api_client.configuration.datetime_format
-                        )
-                    )
-                )
-            else:
-                _query_params.append(('endDate', end_date))
-            
-        if time_range is not None:
-            
-            _query_params.append(('timeRange', time_range))
-            
-        if state is not None:
-            
-            _query_params.append(('state', state))
-            
-        if labels is not None:
-            
-            _query_params.append(('labels', labels))
-            
-        if trigger_execution_id is not None:
-            
-            _query_params.append(('triggerExecutionId', trigger_execution_id))
-            
-        if child_filter is not None:
-            
-            _query_params.append(('childFilter', child_filter.value))
+            _query_params.append(('filters', filters))
             
         # process the header parameters
         # process the form parameters
@@ -15106,362 +10477,6 @@ class ExecutionsApi:
             _request_auth=_request_auth
         )
 
-
-
-
-    @validate_call
-    def trigger_execution(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        id: Annotated[StrictStr, Field(description="The flow id")],
-        wait: Annotated[StrictBool, Field(description="If the server will wait the end of the execution")],
-        tenant: StrictStr,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="The labels as a list of 'key:value'")] = None,
-        revision: Annotated[Optional[StrictInt], Field(description="The flow revision or latest if null")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[ExecutionControllerExecutionResponse]:
-        """Trigger a new execution for a flow
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-        :param id: The flow id (required)
-        :type id: str
-        :param wait: If the server will wait the end of the execution (required)
-        :type wait: bool
-        :param tenant: (required)
-        :type tenant: str
-        :param labels: The labels as a list of 'key:value'
-        :type labels: List[str]
-        :param revision: The flow revision or latest if null
-        :type revision: int
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._trigger_execution_serialize(
-            namespace=namespace,
-            id=id,
-            wait=wait,
-            tenant=tenant,
-            labels=labels,
-            revision=revision,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '409': None,
-            '200': "List[ExecutionControllerExecutionResponse]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def trigger_execution_with_http_info(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        id: Annotated[StrictStr, Field(description="The flow id")],
-        wait: Annotated[StrictBool, Field(description="If the server will wait the end of the execution")],
-        tenant: StrictStr,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="The labels as a list of 'key:value'")] = None,
-        revision: Annotated[Optional[StrictInt], Field(description="The flow revision or latest if null")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[ExecutionControllerExecutionResponse]]:
-        """Trigger a new execution for a flow
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-        :param id: The flow id (required)
-        :type id: str
-        :param wait: If the server will wait the end of the execution (required)
-        :type wait: bool
-        :param tenant: (required)
-        :type tenant: str
-        :param labels: The labels as a list of 'key:value'
-        :type labels: List[str]
-        :param revision: The flow revision or latest if null
-        :type revision: int
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._trigger_execution_serialize(
-            namespace=namespace,
-            id=id,
-            wait=wait,
-            tenant=tenant,
-            labels=labels,
-            revision=revision,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '409': None,
-            '200': "List[ExecutionControllerExecutionResponse]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def trigger_execution_without_preload_content(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        id: Annotated[StrictStr, Field(description="The flow id")],
-        wait: Annotated[StrictBool, Field(description="If the server will wait the end of the execution")],
-        tenant: StrictStr,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="The labels as a list of 'key:value'")] = None,
-        revision: Annotated[Optional[StrictInt], Field(description="The flow revision or latest if null")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Trigger a new execution for a flow
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-        :param id: The flow id (required)
-        :type id: str
-        :param wait: If the server will wait the end of the execution (required)
-        :type wait: bool
-        :param tenant: (required)
-        :type tenant: str
-        :param labels: The labels as a list of 'key:value'
-        :type labels: List[str]
-        :param revision: The flow revision or latest if null
-        :type revision: int
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._trigger_execution_serialize(
-            namespace=namespace,
-            id=id,
-            wait=wait,
-            tenant=tenant,
-            labels=labels,
-            revision=revision,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '409': None,
-            '200': "List[ExecutionControllerExecutionResponse]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _trigger_execution_serialize(
-        self,
-        namespace,
-        id,
-        wait,
-        tenant,
-        labels,
-        revision,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-            'labels': 'multi',
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if namespace is not None:
-            _path_params['namespace'] = namespace
-        if id is not None:
-            _path_params['id'] = id
-        if tenant is not None:
-            _path_params['tenant'] = tenant
-        # process the query parameters
-        if labels is not None:
-            
-            _query_params.append(('labels', labels))
-            
-        if wait is not None:
-            
-            _query_params.append(('wait', wait))
-            
-        if revision is not None:
-            
-            _query_params.append(('revision', revision))
-            
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'multipart/form-data'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'basicAuth', 
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/api/v1/{tenant}/executions/trigger/{namespace}/{id}',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
 
 
 
@@ -15696,6 +10711,7 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _trigger_execution_by_get_webhook_serialize(
         self,
         namespace,
@@ -15767,613 +10783,6 @@ class ExecutionsApi:
             _request_auth=_request_auth
         )
 
-
-
-
-    @validate_call
-    def trigger_execution_by_post_webhook(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        id: Annotated[StrictStr, Field(description="The flow id")],
-        key: Annotated[StrictStr, Field(description="The webhook trigger uid")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ExecutionControllerWebhookResponse:
-        """Trigger a new execution by POST webhook trigger
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-        :param id: The flow id (required)
-        :type id: str
-        :param key: The webhook trigger uid (required)
-        :type key: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._trigger_execution_by_post_webhook_serialize(
-            namespace=namespace,
-            id=id,
-            key=key,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ExecutionControllerWebhookResponse",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def trigger_execution_by_post_webhook_with_http_info(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        id: Annotated[StrictStr, Field(description="The flow id")],
-        key: Annotated[StrictStr, Field(description="The webhook trigger uid")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ExecutionControllerWebhookResponse]:
-        """Trigger a new execution by POST webhook trigger
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-        :param id: The flow id (required)
-        :type id: str
-        :param key: The webhook trigger uid (required)
-        :type key: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._trigger_execution_by_post_webhook_serialize(
-            namespace=namespace,
-            id=id,
-            key=key,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ExecutionControllerWebhookResponse",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def trigger_execution_by_post_webhook_without_preload_content(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        id: Annotated[StrictStr, Field(description="The flow id")],
-        key: Annotated[StrictStr, Field(description="The webhook trigger uid")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Trigger a new execution by POST webhook trigger
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-        :param id: The flow id (required)
-        :type id: str
-        :param key: The webhook trigger uid (required)
-        :type key: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._trigger_execution_by_post_webhook_serialize(
-            namespace=namespace,
-            id=id,
-            key=key,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ExecutionControllerWebhookResponse",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _trigger_execution_by_post_webhook_serialize(
-        self,
-        namespace,
-        id,
-        key,
-        tenant,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if namespace is not None:
-            _path_params['namespace'] = namespace
-        if id is not None:
-            _path_params['id'] = id
-        if key is not None:
-            _path_params['key'] = key
-        if tenant is not None:
-            _path_params['tenant'] = tenant
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'basicAuth', 
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def trigger_execution_by_put_webhook(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        id: Annotated[StrictStr, Field(description="The flow id")],
-        key: Annotated[StrictStr, Field(description="The webhook trigger uid")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ExecutionControllerWebhookResponse:
-        """Trigger a new execution by PUT webhook trigger
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-        :param id: The flow id (required)
-        :type id: str
-        :param key: The webhook trigger uid (required)
-        :type key: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._trigger_execution_by_put_webhook_serialize(
-            namespace=namespace,
-            id=id,
-            key=key,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ExecutionControllerWebhookResponse",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def trigger_execution_by_put_webhook_with_http_info(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        id: Annotated[StrictStr, Field(description="The flow id")],
-        key: Annotated[StrictStr, Field(description="The webhook trigger uid")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ExecutionControllerWebhookResponse]:
-        """Trigger a new execution by PUT webhook trigger
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-        :param id: The flow id (required)
-        :type id: str
-        :param key: The webhook trigger uid (required)
-        :type key: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._trigger_execution_by_put_webhook_serialize(
-            namespace=namespace,
-            id=id,
-            key=key,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ExecutionControllerWebhookResponse",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def trigger_execution_by_put_webhook_without_preload_content(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        id: Annotated[StrictStr, Field(description="The flow id")],
-        key: Annotated[StrictStr, Field(description="The webhook trigger uid")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Trigger a new execution by PUT webhook trigger
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-        :param id: The flow id (required)
-        :type id: str
-        :param key: The webhook trigger uid (required)
-        :type key: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._trigger_execution_by_put_webhook_serialize(
-            namespace=namespace,
-            id=id,
-            key=key,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ExecutionControllerWebhookResponse",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _trigger_execution_by_put_webhook_serialize(
-        self,
-        namespace,
-        id,
-        key,
-        tenant,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if namespace is not None:
-            _path_params['namespace'] = namespace
-        if id is not None:
-            _path_params['id'] = id
-        if key is not None:
-            _path_params['key'] = key
-        if tenant is not None:
-            _path_params['tenant'] = tenant
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'basicAuth', 
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='PUT',
-            resource_path='/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
 
 
 
@@ -16596,6 +11005,7 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _unqueue_execution_serialize(
         self,
         execution_id,
@@ -16665,6 +11075,7 @@ class ExecutionsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -16890,6 +11301,7 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _unqueue_executions_by_ids_serialize(
         self,
         state,
@@ -16977,22 +11389,12 @@ class ExecutionsApi:
 
 
 
+
     @validate_call
     def unqueue_executions_by_query(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         new_state: Annotated[Optional[Any], Field(description="The new state of the unqueued executions")] = None,
         _request_timeout: Union[
             None,
@@ -17012,30 +11414,8 @@ class ExecutionsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param new_state: The new state of the unqueued executions
         :type new_state: StateType
         :param _request_timeout: timeout setting for this request. If one
@@ -17062,18 +11442,7 @@ class ExecutionsApi:
 
         _param = self._unqueue_executions_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
+            filters=filters,
             new_state=new_state,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -17099,18 +11468,7 @@ class ExecutionsApi:
     def unqueue_executions_by_query_with_http_info(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         new_state: Annotated[Optional[Any], Field(description="The new state of the unqueued executions")] = None,
         _request_timeout: Union[
             None,
@@ -17130,30 +11488,8 @@ class ExecutionsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param new_state: The new state of the unqueued executions
         :type new_state: StateType
         :param _request_timeout: timeout setting for this request. If one
@@ -17180,18 +11516,7 @@ class ExecutionsApi:
 
         _param = self._unqueue_executions_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
+            filters=filters,
             new_state=new_state,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -17217,18 +11542,7 @@ class ExecutionsApi:
     def unqueue_executions_by_query_without_preload_content(
         self,
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         new_state: Annotated[Optional[Any], Field(description="The new state of the unqueued executions")] = None,
         _request_timeout: Union[
             None,
@@ -17248,30 +11562,8 @@ class ExecutionsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param new_state: The new state of the unqueued executions
         :type new_state: StateType
         :param _request_timeout: timeout setting for this request. If one
@@ -17298,18 +11590,7 @@ class ExecutionsApi:
 
         _param = self._unqueue_executions_by_query_serialize(
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
+            filters=filters,
             new_state=new_state,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -17327,21 +11608,11 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _unqueue_executions_by_query_serialize(
         self,
         tenant,
-        delete_executions_by_query_request,
-        q,
-        scope,
-        namespace,
-        flow_id,
-        start_date,
-        end_date,
-        time_range,
-        state,
-        labels,
-        trigger_execution_id,
-        child_filter,
+        filters,
         new_state,
         _request_auth,
         _content_type,
@@ -17352,9 +11623,7 @@ class ExecutionsApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
-            'scope': 'csv',
-            'state': 'csv',
-            'labels': 'multi',
+            'filters': 'csv',
         }
 
         _path_params: Dict[str, str] = {}
@@ -17370,67 +11639,9 @@ class ExecutionsApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
-        if q is not None:
+        if filters is not None:
             
-            _query_params.append(('q', q))
-            
-        if scope is not None:
-            
-            _query_params.append(('scope', scope))
-            
-        if namespace is not None:
-            
-            _query_params.append(('namespace', namespace))
-            
-        if flow_id is not None:
-            
-            _query_params.append(('flowId', flow_id))
-            
-        if start_date is not None:
-            if isinstance(start_date, datetime):
-                _query_params.append(
-                    (
-                        'startDate',
-                        start_date.strftime(
-                            self.api_client.configuration.datetime_format
-                        )
-                    )
-                )
-            else:
-                _query_params.append(('startDate', start_date))
-            
-        if end_date is not None:
-            if isinstance(end_date, datetime):
-                _query_params.append(
-                    (
-                        'endDate',
-                        end_date.strftime(
-                            self.api_client.configuration.datetime_format
-                        )
-                    )
-                )
-            else:
-                _query_params.append(('endDate', end_date))
-            
-        if time_range is not None:
-            
-            _query_params.append(('timeRange', time_range))
-            
-        if state is not None:
-            
-            _query_params.append(('state', state))
-            
-        if labels is not None:
-            
-            _query_params.append(('labels', labels))
-            
-        if trigger_execution_id is not None:
-            
-            _query_params.append(('triggerExecutionId', trigger_execution_id))
-            
-        if child_filter is not None:
-            
-            _query_params.append(('childFilter', child_filter.value))
+            _query_params.append(('filters', filters))
             
         if new_state is not None:
             
@@ -17439,8 +11650,6 @@ class ExecutionsApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if delete_executions_by_query_request is not None:
-            _body_params = delete_executions_by_query_request
 
 
         # set the HTTP header `Accept`
@@ -17451,19 +11660,6 @@ class ExecutionsApi:
                 ]
             )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -17485,6 +11681,7 @@ class ExecutionsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -17707,6 +11904,7 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _update_execution_status_serialize(
         self,
         execution_id,
@@ -17776,6 +11974,7 @@ class ExecutionsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -18001,6 +12200,7 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _update_executions_status_by_ids_serialize(
         self,
         new_status,
@@ -18088,23 +12288,13 @@ class ExecutionsApi:
 
 
 
+
     @validate_call
     def update_executions_status_by_query(
         self,
         new_status: Annotated[StateType, Field(description="The new state of the executions")],
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -18125,30 +12315,8 @@ class ExecutionsApi:
         :type new_status: StateType
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -18174,18 +12342,7 @@ class ExecutionsApi:
         _param = self._update_executions_status_by_query_serialize(
             new_status=new_status,
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -18212,18 +12369,7 @@ class ExecutionsApi:
         self,
         new_status: Annotated[StateType, Field(description="The new state of the executions")],
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -18244,30 +12390,8 @@ class ExecutionsApi:
         :type new_status: StateType
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -18293,18 +12417,7 @@ class ExecutionsApi:
         _param = self._update_executions_status_by_query_serialize(
             new_status=new_status,
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -18331,18 +12444,7 @@ class ExecutionsApi:
         self,
         new_status: Annotated[StateType, Field(description="The new state of the executions")],
         tenant: StrictStr,
-        delete_executions_by_query_request: DeleteExecutionsByQueryRequest,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        scope: Annotated[Optional[List[FlowScope]], Field(description="The scope of the executions to include")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
-        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
-        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
-        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
-        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
-        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -18363,30 +12465,8 @@ class ExecutionsApi:
         :type new_status: StateType
         :param tenant: (required)
         :type tenant: str
-        :param delete_executions_by_query_request: (required)
-        :type delete_executions_by_query_request: DeleteExecutionsByQueryRequest
-        :param q: A string filter
-        :type q: str
-        :param scope: The scope of the executions to include
-        :type scope: List[FlowScope]
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param flow_id: A flow id filter
-        :type flow_id: str
-        :param start_date: The start datetime
-        :type start_date: datetime
-        :param end_date: The end datetime
-        :type end_date: datetime
-        :param time_range: A time range filter relative to the current time
-        :type time_range: str
-        :param state: A state filter
-        :type state: List[StateType]
-        :param labels: A labels filter as a list of 'key:value'
-        :type labels: List[str]
-        :param trigger_execution_id: The trigger execution id
-        :type trigger_execution_id: str
-        :param child_filter: A execution child filter
-        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param filters: Filters
+        :type filters: List[QueryFilter]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -18412,18 +12492,7 @@ class ExecutionsApi:
         _param = self._update_executions_status_by_query_serialize(
             new_status=new_status,
             tenant=tenant,
-            delete_executions_by_query_request=delete_executions_by_query_request,
-            q=q,
-            scope=scope,
-            namespace=namespace,
-            flow_id=flow_id,
-            start_date=start_date,
-            end_date=end_date,
-            time_range=time_range,
-            state=state,
-            labels=labels,
-            trigger_execution_id=trigger_execution_id,
-            child_filter=child_filter,
+            filters=filters,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -18441,22 +12510,12 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _update_executions_status_by_query_serialize(
         self,
         new_status,
         tenant,
-        delete_executions_by_query_request,
-        q,
-        scope,
-        namespace,
-        flow_id,
-        start_date,
-        end_date,
-        time_range,
-        state,
-        labels,
-        trigger_execution_id,
-        child_filter,
+        filters,
         _request_auth,
         _content_type,
         _headers,
@@ -18466,9 +12525,7 @@ class ExecutionsApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
-            'scope': 'csv',
-            'state': 'csv',
-            'labels': 'multi',
+            'filters': 'csv',
         }
 
         _path_params: Dict[str, str] = {}
@@ -18484,67 +12541,9 @@ class ExecutionsApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
-        if q is not None:
+        if filters is not None:
             
-            _query_params.append(('q', q))
-            
-        if scope is not None:
-            
-            _query_params.append(('scope', scope))
-            
-        if namespace is not None:
-            
-            _query_params.append(('namespace', namespace))
-            
-        if flow_id is not None:
-            
-            _query_params.append(('flowId', flow_id))
-            
-        if start_date is not None:
-            if isinstance(start_date, datetime):
-                _query_params.append(
-                    (
-                        'startDate',
-                        start_date.strftime(
-                            self.api_client.configuration.datetime_format
-                        )
-                    )
-                )
-            else:
-                _query_params.append(('startDate', start_date))
-            
-        if end_date is not None:
-            if isinstance(end_date, datetime):
-                _query_params.append(
-                    (
-                        'endDate',
-                        end_date.strftime(
-                            self.api_client.configuration.datetime_format
-                        )
-                    )
-                )
-            else:
-                _query_params.append(('endDate', end_date))
-            
-        if time_range is not None:
-            
-            _query_params.append(('timeRange', time_range))
-            
-        if state is not None:
-            
-            _query_params.append(('state', state))
-            
-        if labels is not None:
-            
-            _query_params.append(('labels', labels))
-            
-        if trigger_execution_id is not None:
-            
-            _query_params.append(('triggerExecutionId', trigger_execution_id))
-            
-        if child_filter is not None:
-            
-            _query_params.append(('childFilter', child_filter.value))
+            _query_params.append(('filters', filters))
             
         if new_status is not None:
             
@@ -18553,8 +12552,6 @@ class ExecutionsApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if delete_executions_by_query_request is not None:
-            _body_params = delete_executions_by_query_request
 
 
         # set the HTTP header `Accept`
@@ -18565,19 +12562,6 @@ class ExecutionsApi:
                 ]
             )
 
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -18599,6 +12583,7 @@ class ExecutionsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -18821,6 +12806,7 @@ class ExecutionsApi:
         return response_data.response
 
 
+
     def _update_task_run_state_serialize(
         self,
         execution_id,
@@ -18903,637 +12889,6 @@ class ExecutionsApi:
         )
 
 
-
-
-    @validate_call
-    def validate_new_execution_inputs(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        id: Annotated[StrictStr, Field(description="The flow id")],
-        labels: Annotated[List[StrictStr], Field(description="The labels as a list of 'key:value'")],
-        tenant: StrictStr,
-        revision: Annotated[Optional[StrictInt], Field(description="The flow revision or latest if null")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[ExecutionControllerApiValidateExecutionInputsResponse]:
-        """Validate the creation of a new execution for a flow
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-        :param id: The flow id (required)
-        :type id: str
-        :param labels: The labels as a list of 'key:value' (required)
-        :type labels: List[str]
-        :param tenant: (required)
-        :type tenant: str
-        :param revision: The flow revision or latest if null
-        :type revision: int
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._validate_new_execution_inputs_serialize(
-            namespace=namespace,
-            id=id,
-            labels=labels,
-            tenant=tenant,
-            revision=revision,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '409': None,
-            '200': "List[ExecutionControllerApiValidateExecutionInputsResponse]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def validate_new_execution_inputs_with_http_info(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        id: Annotated[StrictStr, Field(description="The flow id")],
-        labels: Annotated[List[StrictStr], Field(description="The labels as a list of 'key:value'")],
-        tenant: StrictStr,
-        revision: Annotated[Optional[StrictInt], Field(description="The flow revision or latest if null")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[ExecutionControllerApiValidateExecutionInputsResponse]]:
-        """Validate the creation of a new execution for a flow
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-        :param id: The flow id (required)
-        :type id: str
-        :param labels: The labels as a list of 'key:value' (required)
-        :type labels: List[str]
-        :param tenant: (required)
-        :type tenant: str
-        :param revision: The flow revision or latest if null
-        :type revision: int
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._validate_new_execution_inputs_serialize(
-            namespace=namespace,
-            id=id,
-            labels=labels,
-            tenant=tenant,
-            revision=revision,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '409': None,
-            '200': "List[ExecutionControllerApiValidateExecutionInputsResponse]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def validate_new_execution_inputs_without_preload_content(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        id: Annotated[StrictStr, Field(description="The flow id")],
-        labels: Annotated[List[StrictStr], Field(description="The labels as a list of 'key:value'")],
-        tenant: StrictStr,
-        revision: Annotated[Optional[StrictInt], Field(description="The flow revision or latest if null")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Validate the creation of a new execution for a flow
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-        :param id: The flow id (required)
-        :type id: str
-        :param labels: The labels as a list of 'key:value' (required)
-        :type labels: List[str]
-        :param tenant: (required)
-        :type tenant: str
-        :param revision: The flow revision or latest if null
-        :type revision: int
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._validate_new_execution_inputs_serialize(
-            namespace=namespace,
-            id=id,
-            labels=labels,
-            tenant=tenant,
-            revision=revision,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '409': None,
-            '200': "List[ExecutionControllerApiValidateExecutionInputsResponse]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _validate_new_execution_inputs_serialize(
-        self,
-        namespace,
-        id,
-        labels,
-        tenant,
-        revision,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-            'labels': 'multi',
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if namespace is not None:
-            _path_params['namespace'] = namespace
-        if id is not None:
-            _path_params['id'] = id
-        if tenant is not None:
-            _path_params['tenant'] = tenant
-        # process the query parameters
-        if labels is not None:
-            
-            _query_params.append(('labels', labels))
-            
-        if revision is not None:
-            
-            _query_params.append(('revision', revision))
-            
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'multipart/form-data'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'basicAuth', 
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/api/v1/{tenant}/executions/{namespace}/{id}/validate',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def validate_resume_execution_inputs(
-        self,
-        execution_id: Annotated[StrictStr, Field(description="The execution id")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[ExecutionControllerApiValidateExecutionInputsResponse]:
-        """Validate inputs to resume a paused execution.
-
-
-        :param execution_id: The execution id (required)
-        :type execution_id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._validate_resume_execution_inputs_serialize(
-            execution_id=execution_id,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '204': None,
-            '409': None,
-            '200': "List[ExecutionControllerApiValidateExecutionInputsResponse]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def validate_resume_execution_inputs_with_http_info(
-        self,
-        execution_id: Annotated[StrictStr, Field(description="The execution id")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[ExecutionControllerApiValidateExecutionInputsResponse]]:
-        """Validate inputs to resume a paused execution.
-
-
-        :param execution_id: The execution id (required)
-        :type execution_id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._validate_resume_execution_inputs_serialize(
-            execution_id=execution_id,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '204': None,
-            '409': None,
-            '200': "List[ExecutionControllerApiValidateExecutionInputsResponse]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def validate_resume_execution_inputs_without_preload_content(
-        self,
-        execution_id: Annotated[StrictStr, Field(description="The execution id")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Validate inputs to resume a paused execution.
-
-
-        :param execution_id: The execution id (required)
-        :type execution_id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._validate_resume_execution_inputs_serialize(
-            execution_id=execution_id,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '204': None,
-            '409': None,
-            '200': "List[ExecutionControllerApiValidateExecutionInputsResponse]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _validate_resume_execution_inputs_serialize(
-        self,
-        execution_id,
-        tenant,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if execution_id is not None:
-            _path_params['executionId'] = execution_id
-        if tenant is not None:
-            _path_params['tenant'] = tenant
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'multipart/form-data'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'basicAuth', 
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/api/v1/{tenant}/executions/{executionId}/resume/validate',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
 
 
     def follow_execution_sse(
