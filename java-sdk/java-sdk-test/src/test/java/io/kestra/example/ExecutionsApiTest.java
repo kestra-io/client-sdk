@@ -224,22 +224,6 @@ public class ExecutionsApiTest {
         assertThat(content).isEqualTo("Hello from file");
     }
     /**
-     * Evaluate a variable expression for this taskrun
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void evalTaskRunExpressionTest() throws ApiException {
-        String executionId = null;
-        String taskRunId = null;
-
-        String body = null;
-        ExecutionControllerEvalResult response = kestraClient().executions().evalTaskRunExpression(executionId, taskRunId, MAIN_TENANT, body);
-
-        // TODO: test validations
-    }
-    /**
      * Follow an execution
      *
      * @throws ApiException
