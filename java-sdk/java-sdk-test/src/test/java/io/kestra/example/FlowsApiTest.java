@@ -112,8 +112,7 @@ public class FlowsApiTest {
         var flow = createSimpleFlow();
 
         var filters = List.of(new QueryFilter().field(QueryFilterField.FLOW_ID).operation(QueryFilterOp.EQUALS).value(flow.getId()));
-        var deleteExecutionsByQueryRequest = new DeleteExecutionsByQueryRequest().filters(filters);
-        kestraClient().flows().deleteFlowsByQuery(MAIN_TENANT, deleteExecutionsByQueryRequest);
+        kestraClient().flows().deleteFlowsByQuery(MAIN_TENANT, filters);
 
         assertFlowDoesNotExist(flow);
     }
@@ -142,7 +141,6 @@ public class FlowsApiTest {
     public void disableFlowsByQueryTest() throws ApiException {
         var flow = createSimpleFlow();
 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = new DeleteExecutionsByQueryRequest();
         String q = null;
         List<FlowScope> scope = null;
         String namespace = null;
@@ -172,7 +170,6 @@ public class FlowsApiTest {
     @Test
     public void enableFlowsByQueryTest() throws ApiException {
 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = new DeleteExecutionsByQueryRequest();
         String q = null;
         List<FlowScope> scope = null;
         String namespace = null;
