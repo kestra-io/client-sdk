@@ -6946,57 +6946,6 @@ paths:
       x-internal: false
       x-accepts:
       - application/json
-  /api/v1/{tenant}/executions/{executionId}/eval/{taskRunId}:
-    post:
-      operationId: evalTaskRunExpression
-      parameters:
-      - description: The execution id
-        explode: false
-        in: path
-        name: executionId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The taskrun id
-        explode: false
-        in: path
-        name: taskRunId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: tenant
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          text/plain:
-            schema:
-              type: string
-        description: The Pebble expression that should be evaluated
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ExecutionController.EvalResult"
-          description: evalTaskRunExpression 200 response
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      summary: Evaluate a variable expression for this taskrun
-      tags:
-      - Executions
-      x-internal: false
-      x-content-type: text/plain
-      x-accepts:
-      - application/json
   /api/v1/{tenant}/executions/{executionId}/file:
     get:
       operationId: downloadFileFromExecution
@@ -17126,10 +17075,6 @@ components:
           type: string
       type: object
     ExecutionController.EvalResult:
-      example:
-        result: result
-        stackTrace: stackTrace
-        error: error
       properties:
         result:
           type: string

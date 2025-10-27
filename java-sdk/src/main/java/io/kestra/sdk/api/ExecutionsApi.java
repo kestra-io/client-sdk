@@ -24,7 +24,6 @@ import io.kestra.sdk.model.BulkErrorResponse;
 import io.kestra.sdk.model.BulkResponse;
 import io.kestra.sdk.model.EventExecution;
 import io.kestra.sdk.model.Execution;
-import io.kestra.sdk.model.ExecutionControllerEvalResult;
 import io.kestra.sdk.model.ExecutionControllerExecutionResponse;
 import io.kestra.sdk.model.ExecutionControllerLastExecutionResponse;
 import io.kestra.sdk.model.ExecutionControllerSetLabelsByIdsRequest;
@@ -590,109 +589,6 @@ import java.util.StringJoiner;
     return apiClient.invokeAPI(
         localVarPath,
         "GET",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
-
-
-
-
-
-
-  /**
-   * Evaluate a variable expression for this taskrun
-   * 
-   * @param executionId The execution id (required)
-   * @param taskRunId The taskrun id (required)
-   * @param tenant  (required)
-   * @param body The Pebble expression that should be evaluated (required)
-   * @return ExecutionControllerEvalResult
-   * @throws ApiException if fails to make API call
-   */
-  public ExecutionControllerEvalResult evalTaskRunExpression(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String taskRunId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body) throws ApiException {
-    return this.evalTaskRunExpression(executionId, taskRunId, tenant, body, Collections.emptyMap());
-  }
-
-
-  /**
-   * Evaluate a variable expression for this taskrun
-   * 
-   * @param executionId The execution id (required)
-   * @param taskRunId The taskrun id (required)
-   * @param tenant  (required)
-   * @param body The Pebble expression that should be evaluated (required)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return ExecutionControllerEvalResult
-   * @throws ApiException if fails to make API call
-   */
-  public ExecutionControllerEvalResult evalTaskRunExpression(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String taskRunId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = body;
-    
-    // verify the required parameter 'executionId' is set
-    if (executionId == null) {
-      throw new ApiException(400, "Missing the required parameter 'executionId' when calling evalTaskRunExpression");
-    }
-    
-    // verify the required parameter 'taskRunId' is set
-    if (taskRunId == null) {
-      throw new ApiException(400, "Missing the required parameter 'taskRunId' when calling evalTaskRunExpression");
-    }
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling evalTaskRunExpression");
-    }
-    
-    // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new ApiException(400, "Missing the required parameter 'body' when calling evalTaskRunExpression");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/executions/{executionId}/eval/{taskRunId}"
-      .replaceAll("\\{" + "executionId" + "\\}", apiClient.escapeString(apiClient.parameterToString(executionId)))
-      .replaceAll("\\{" + "taskRunId" + "\\}", apiClient.escapeString(apiClient.parameterToString(taskRunId)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "text/plain"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<ExecutionControllerEvalResult> localVarReturnType = new TypeReference<ExecutionControllerEvalResult>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "POST",
         localVarQueryParams,
         localVarCollectionQueryParams,
         localVarQueryStringJoiner.toString(),

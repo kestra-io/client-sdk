@@ -13,6 +13,7 @@
     "previewFileFromExecution",
     "listFlowExecutionsByNamespace",
     "listExecutableDistinctNamespaces",
-    "followDependenciesExecutions"
+    "followDependenciesExecutions",
+    "evalTaskRunExpression"
   ]
 }
