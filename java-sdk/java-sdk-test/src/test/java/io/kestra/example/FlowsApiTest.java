@@ -15,20 +15,6 @@ import static org.assertj.core.api.Assertions.*;
 public class FlowsApiTest {
 
     /**
-     *     Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void bulkImportAppsTest() throws ApiException {
-
-        File fileUpload = null;
-        AppsControllerApiBulkImportResponse response = kestraClient().flows().bulkImportApps(MAIN_TENANT, fileUpload);
-
-        // TODO: test validations
-    }
-    /**
      * Update from multiples yaml sources
      *
      * All flow will be created / updated for this namespace. Flow that already created but not in &#x60;flows&#x60; will be deleted if the query delete is &#x60;true&#x60;
@@ -38,15 +24,18 @@ public class FlowsApiTest {
      */
     @Test
     public void bulkUpdateFlowsTest() throws ApiException {
-        var flow = createSimpleFlow();
-        Boolean delete = false;
-        Boolean allowNamespaceChild = false;
+        var flowBody = getSimpleFlow();
+        var flow = kestraClient().flows().createFlow(MAIN_TENANT, flowBody);
+        assertFlowExist(flow);
+        assertThat(flow).extracting(FlowWithSource::getDescription).isEqualTo("simple_flow_description");
 
+        String id = flow.getId();
         String namespace = flow.getNamespace();
-        String body = null;
-        List<FlowInterface> response = kestraClient().flows().bulkUpdateFlows(delete, allowNamespaceChild, MAIN_TENANT, namespace, body);
+        String body = flowBody.replace("simple_flow_description", "simple_flow_description_updated");
 
-        // TODO
+        var response = kestraClient().flows().updateFlow(id, namespace, MAIN_TENANT, body);
+
+        assertThat(response).extracting(UpdateFlow200Response::getDescription).isEqualTo("simple_flow_description_updated");
     }
     /**
      * Create a flow from yaml source

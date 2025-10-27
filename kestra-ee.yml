@@ -2693,7 +2693,7 @@ paths:
   /api/v1/{tenant}/apps/import:
     post:
       tags:
-        - Flows
+        - Apps
       summary: |2
             Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.
             When sending a Yaml that contains one or more apps, a list of index is returned.
@@ -4865,48 +4865,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BulkErrorResponse"
-      security:
-        - bearerAuth: []
-        - basicAuth: []
-  /api/v1/{tenant}/executions/flows/{namespace}/{flowId}:
-    get:
-      tags:
-        - Executions
-      summary: Get flow information's for an execution
-      operationId: getFlowFromExecution
-      parameters:
-        - name: namespace
-          in: path
-          description: The namespace of the flow
-          required: true
-          schema:
-            type: string
-        - name: flowId
-          in: path
-          description: The flow id
-          required: true
-          schema:
-            type: string
-        - name: revision
-          in: query
-          description: The flow revision
-          explode: false
-          schema:
-            type: integer
-            format: int32
-            nullable: true
-        - name: tenant
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: getFlowFromExecution 200 response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/FlowForExecution"
       security:
         - bearerAuth: []
         - basicAuth: []

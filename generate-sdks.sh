@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 VERSION=$1
 LANGUAGES=$2
@@ -29,6 +30,10 @@ if [ -n "$TEMPLATE_FLAG" ]; then
   docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release author template -g "$LANGUAGES" -o /local/templates/$LANGUAGES
   exit 0
 fi
+
+KESTRA_OPENAPI_SDK_CUSTOMIZER_CONF=$(readlink -f ./configurations/kestra-openapi-sdk-customizer.json)
+KESTRA_OPENAPI=$(readlink -f ./kestra-ee.yml)
+sh -c "cd ./generation-helpers/kestra-openapi-sdk-customizer && npm run build && npm start $KESTRA_OPENAPI_SDK_CUSTOMIZER_CONF $KESTRA_OPENAPI"
 
 # Generate Java SDK
 if [[ ",$LANGUAGES," == *",java,"* ]]; then

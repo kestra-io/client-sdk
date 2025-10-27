@@ -3256,8 +3256,8 @@ paths:
             When sending a Yaml that contains one or more apps, a list of index is returned.
             When sending a ZIP archive, a list of files that couldn't be imported is returned.
       tags:
-      - Flows
-      x-internal: false
+      - Apps
+      x-internal: true
       x-content-type: multipart/form-data
       x-accepts:
       - application/json
@@ -5896,59 +5896,6 @@ paths:
       - bearerAuth: []
       - basicAuth: []
       summary: Change executions state by query parameters
-      tags:
-      - Executions
-      x-internal: false
-      x-accepts:
-      - application/json
-  /api/v1/{tenant}/executions/flows/{namespace}/{flowId}:
-    get:
-      operationId: getFlowFromExecution
-      parameters:
-      - description: The namespace of the flow
-        explode: false
-        in: path
-        name: namespace
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The flow id
-        explode: false
-        in: path
-        name: flowId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The flow revision
-        explode: false
-        in: query
-        name: revision
-        required: false
-        schema:
-          format: int32
-          nullable: true
-          type: integer
-        style: form
-      - explode: false
-        in: path
-        name: tenant
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/FlowForExecution"
-          description: getFlowFromExecution 200 response
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      summary: Get flow information's for an execution
       tags:
       - Executions
       x-internal: false
@@ -15991,15 +15938,6 @@ components:
           type: array
       type: object
     AppsController.ApiBulkImportResponse:
-      example:
-        success:
-        - success
-        - success
-        errors:
-        - source: source
-          message: message
-        - source: source
-          message: message
       properties:
         success:
           items:
@@ -16011,9 +15949,6 @@ components:
           type: array
       type: object
     AppsController.ApiBulkImportResponse.Error:
-      example:
-        source: source
-        message: message
       properties:
         source:
           type: string
