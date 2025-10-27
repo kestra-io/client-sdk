@@ -13,17 +13,23 @@ import io.kestra.sdk.model.ExecutionKind;
 import io.kestra.sdk.model.ExecutionRepositoryInterfaceFlowFilter;
 import io.kestra.sdk.model.QueryFilterField;
 import io.kestra.sdk.model.QueryFilterOp;
+import io.kestra.sdk.model.State;
 import java.io.File;
 import io.kestra.sdk.model.FileMetas;
 import io.kestra.sdk.model.FlowForExecution;
 import io.kestra.sdk.model.FlowGraph;
 import io.kestra.sdk.model.Label;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.time.Duration;
 import java.time.OffsetDateTime;
 import io.kestra.sdk.model.PagedResultsExecution;
 import io.kestra.sdk.model.QueryFilter;
 import io.kestra.sdk.model.StateType;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.concurrent.atomic.AtomicReference;
 import org.junit.jupiter.api.Test;
 
 import java.net.URI;
@@ -33,14 +39,15 @@ import java.util.List;
 
 import static io.kestra.example.CommonTestSetup.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ExecutionsApiTest {
 
-    /** Create a flow via YAML with a single scheduled trigger; returns [flowId, triggerId]. */
     private void createSimpleFlow(String flowId, String namespace) throws ApiException {
 
-        String body = """
+        String flow = """
             id: %s
             namespace: %s
 
@@ -50,7 +57,11 @@ public class ExecutionsApiTest {
                 message: Hello World! 🚀
             """.formatted(flowId, namespace);
 
-        kestraClient().flows().createFlow(MAIN_TENANT, body);
+        createSimpleFlow(flow);
+    }
+
+    private void createSimpleFlow(String flow) throws ApiException {
+        kestraClient().flows().createFlow(MAIN_TENANT, flow);
         try {
             Thread.sleep(200L);
         } catch (InterruptedException e) {
@@ -182,13 +193,35 @@ public class ExecutionsApiTest {
      *          if the Api call fails
      */
     @Test
-    public void downloadFileFromExecutionTest() throws ApiException {
-        String executionId = null;
-        URI path = null;
+    public void downloadFileFromExecutionTest() throws ApiException, IOException {
+        String namespace = randomId();
+        String flowId = randomId();
+        String flow = """
+            id: %s
+            namespace: %s
+
+            tasks:
+                - id: write
+                  type: io.kestra.plugin.core.storage.Write
+                  content: "Hello from file"
+                  extension: .txt
+            """.formatted(flowId, namespace);
+        createSimpleFlow(flow);
+        ExecutionControllerExecutionResponse execution = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
+
+        AtomicReference<Execution> executionAtomic = new AtomicReference<>();
+        await().atMost(Duration.ofSeconds(5)).until(() -> {
+            executionAtomic.set(kestraClient().executions().getExecution(execution.getId(), MAIN_TENANT));
+            return executionAtomic.get().getState().getCurrent().equals(StateType.SUCCESS);
+        });
+
+
+        String executionId = executionAtomic.get().getId();
+        URI path = URI.create(executionAtomic.get().getTaskRunList().getFirst().getOutputs().get("uri").toString());
 
         File response = kestraClient().executions().downloadFileFromExecution(executionId, path, MAIN_TENANT);
-
-        // TODO: test validations
+        String content = Files.readString(response.toPath(), StandardCharsets.UTF_8);
+        assertThat(content).isEqualTo("Hello from file");
     }
     /**
      * Evaluate a variable expression for this taskrun
