@@ -1,7 +1,10 @@
 package io.kestra.example;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.model.*;
+import netscape.javascript.JSObject;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -100,7 +103,7 @@ public class FlowsApiTest {
     public void deleteFlowsByQueryTest() throws ApiException {
         var flow = createSimpleFlow();
 
-        var filters = List.of(new QueryFilter().field(QueryFilterField.FLOW_ID).operation(QueryFilterOp.EQUALS).value(flow.getId()));
+        var filters = List.of(new QueryFilter().field(QueryFilterField.NAMESPACE).operation(QueryFilterOp.EQUALS).value(flow.getNamespace()));
         kestraClient().flows().deleteFlowsByQuery(MAIN_TENANT, filters);
 
         assertFlowDoesNotExist(flow);
@@ -457,12 +460,34 @@ public class FlowsApiTest {
      *          if the Api call fails
      */
     @Test
-    public void validateTriggerTest() throws ApiException {
+    public void validateTriggerTest() throws ApiException, JsonProcessingException {
 
-        Object body = null;
-        ValidateConstraintViolation response = kestraClient().flows().validateTrigger(MAIN_TENANT, body);
+        var triggerJson = """
+                {
+                    "id": "monthly",
+                    "type": "io.kestra.plugin.core.trigger.Schedule",
+                    "cron": "0 9 1 * *"
+                }
+            """;
+        ValidateConstraintViolation response = kestraClient().flows().validateTrigger(MAIN_TENANT, new ObjectMapper().readValue(triggerJson, Object.class));
 
-        // TODO: test validations
+        assertThat(response.getConstraints()).isNullOrEmpty();
+        assertThat(response.getWarnings()).isNullOrEmpty();
+    }
+
+    @Test
+    public void validateTriggerTest_invalid() throws ApiException, JsonProcessingException {
+
+        var triggerJson = """
+                {
+                    "id": "monthly",
+                    "type": "io.kestra.plugin.core.trigger.InvalidType",
+                    "cron": "0 9 1 * *"
+                }
+            """;
+        ValidateConstraintViolation response = kestraClient().flows().validateTrigger(MAIN_TENANT, new ObjectMapper().readValue(triggerJson, Object.class));
+
+        assertThat(response.getConstraints()).contains("Invalid type: io.kestra.plugin.core.trigger.InvalidType");
     }
 
     private static FlowWithSource createSimpleFlow() throws ApiException {
