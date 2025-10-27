@@ -395,28 +395,16 @@ public class ExecutionsApiTest {
      *          if the Api call fails
      */
     @Test
-    public void getFlowFromExecutionTest() throws ApiException {
-        String namespace = randomId();
-        String flowId = null;
-
-        Integer revision = null;
-        FlowForExecution response = kestraClient().executions().getFlowFromExecution(namespace, flowId, MAIN_TENANT, revision);
-
-        // TODO: test validations
-    }
-    /**
-     * Get flow information&#39;s for an execution
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
     public void getFlowFromExecutionByIdTest() throws ApiException {
-        String executionId = null;
+        String namespace = randomId();
+        String id = randomId();
+        Execution execution = getExecutionWithFile(id, namespace);
+
+        String executionId = execution.getId();
 
         FlowForExecution response = kestraClient().executions().getFlowFromExecutionById(executionId, MAIN_TENANT);
-
-        // TODO: test validations
+        assertThat(response.getId()).isEqualTo(id);
+        assertThat(response.getNamespace()).isEqualTo(namespace);
     }
     /**
      * Get the latest execution for given flows
@@ -426,11 +414,19 @@ public class ExecutionsApiTest {
      */
     @Test
     public void getLatestExecutionsTest() throws ApiException {
+        String namespace = randomId();
+        String flowId = randomId();
+        Execution execution = getExecutionWithFile(flowId, namespace);
+        ExecutionControllerExecutionResponse execution1 = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
+        String otherFlowId = randomId();
+        Execution otherExecution = getExecutionWithFile(otherFlowId, namespace);
 
-        List<ExecutionRepositoryInterfaceFlowFilter> executionRepositoryInterfaceFlowFilter = null;
+        List<ExecutionRepositoryInterfaceFlowFilter> executionRepositoryInterfaceFlowFilter = List.of(
+            new ExecutionRepositoryInterfaceFlowFilter().id(flowId).namespace(namespace),
+            new ExecutionRepositoryInterfaceFlowFilter().id(otherFlowId).namespace(namespace));
         List<ExecutionControllerLastExecutionResponse> response = kestraClient().executions().getLatestExecutions(MAIN_TENANT, executionRepositoryInterfaceFlowFilter);
-
-        // TODO: test validations
+        assertThat(response).hasSize(2);
+        assertThat(response).extracting(ExecutionControllerLastExecutionResponse::getId).containsExactly(execution1.getId(), otherExecution.getId());
     }
     /**
      * Kill an execution
