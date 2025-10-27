@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -35,12 +34,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class DocumentationWithSchema {
   public static final String JSON_PROPERTY_MARKDOWN = "markdown";
-  @javax.annotation.Nullable
-  private String markdown;
+  @javax.annotation.Nullable  private String markdown;
 
   public static final String JSON_PROPERTY_SCHEMA = "schema";
-  @javax.annotation.Nullable
-  private PluginSchema schema;
+  @javax.annotation.Nullable  private PluginSchema schema;
 
   public DocumentationWithSchema() {
   }
@@ -55,8 +52,7 @@ public class DocumentationWithSchema {
    * Get markdown
    * @return markdown
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_MARKDOWN, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MARKDOWN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getMarkdown() {
@@ -64,7 +60,7 @@ public class DocumentationWithSchema {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_MARKDOWN, required = false)
+  @JsonProperty(JSON_PROPERTY_MARKDOWN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMarkdown(@javax.annotation.Nullable String markdown) {
     this.markdown = markdown;
@@ -80,8 +76,7 @@ public class DocumentationWithSchema {
    * Get schema
    * @return schema
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_SCHEMA, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SCHEMA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public PluginSchema getSchema() {
@@ -89,7 +84,7 @@ public class DocumentationWithSchema {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_SCHEMA, required = false)
+  @JsonProperty(JSON_PROPERTY_SCHEMA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSchema(@javax.annotation.Nullable PluginSchema schema) {
     this.schema = schema;

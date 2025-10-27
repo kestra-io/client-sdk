@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -40,20 +39,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class InstanceControllerApiWorkerGroup {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
-  private String id;
+  @javax.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_KEY = "key";
-  @javax.annotation.Nullable
-  private String key;
+  @javax.annotation.Nullable  private String key;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
-  private String description;
+  @javax.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_ALLOWED_TENANTS = "allowedTenants";
-  @javax.annotation.Nullable
-  private List<String> allowedTenants = new ArrayList<>();
+  @javax.annotation.Nullable  private List<String> allowedTenants = new ArrayList<>();
 
   public InstanceControllerApiWorkerGroup() {
   }
@@ -68,8 +63,7 @@ public class InstanceControllerApiWorkerGroup {
    * The ID of worker group.
    * @return id
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -77,7 +71,7 @@ public class InstanceControllerApiWorkerGroup {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable String id) {
     this.id = id;
@@ -93,8 +87,7 @@ public class InstanceControllerApiWorkerGroup {
    * The key of the worker group.
    * @return key
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_KEY, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_KEY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getKey() {
@@ -102,7 +95,7 @@ public class InstanceControllerApiWorkerGroup {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_KEY, required = false)
+  @JsonProperty(JSON_PROPERTY_KEY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setKey(@javax.annotation.Nullable String key) {
     this.key = key;
@@ -118,8 +111,7 @@ public class InstanceControllerApiWorkerGroup {
    * The description of the worker group.
    * @return description
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -127,7 +119,7 @@ public class InstanceControllerApiWorkerGroup {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
@@ -151,8 +143,7 @@ public class InstanceControllerApiWorkerGroup {
    * Get allowedTenants
    * @return allowedTenants
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ALLOWED_TENANTS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ALLOWED_TENANTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getAllowedTenants() {
@@ -160,7 +151,7 @@ public class InstanceControllerApiWorkerGroup {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ALLOWED_TENANTS, required = false)
+  @JsonProperty(JSON_PROPERTY_ALLOWED_TENANTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAllowedTenants(@javax.annotation.Nullable List<String> allowedTenants) {
     this.allowedTenants = allowedTenants;

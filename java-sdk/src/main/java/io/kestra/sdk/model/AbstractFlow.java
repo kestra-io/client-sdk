@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -50,48 +49,37 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AbstractFlow {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
-  private String id;
+  @javax.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nonnull
-  private String namespace;
+  @javax.annotation.Nonnull  private String namespace;
 
   public static final String JSON_PROPERTY_REVISION = "revision";
-  @javax.annotation.Nullable
-  private Integer revision;
+  @javax.annotation.Nullable  private Integer revision;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
-  private String description;
+  @javax.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_INPUTS = "inputs";
-  @javax.annotation.Nullable
-  private List<InputObject> inputs = new ArrayList<>();
+  @javax.annotation.Nullable  private List<InputObject> inputs = new ArrayList<>();
 
   public static final String JSON_PROPERTY_OUTPUTS = "outputs";
-  @javax.annotation.Nullable
-  private List<Output> outputs = new ArrayList<>();
+  @javax.annotation.Nullable  private List<Output> outputs = new ArrayList<>();
 
   public static final String JSON_PROPERTY_DISABLED = "disabled";
-  @javax.annotation.Nonnull
-  private Boolean disabled;
+  @javax.annotation.Nonnull  private Boolean disabled;
 
   public static final String JSON_PROPERTY_LABELS = "labels";
-  @javax.annotation.Nullable
-  private List<Label> labels = new ArrayList<>();
+  @javax.annotation.Nullable  private List<Label> labels = new ArrayList<>();
 
   public static final String JSON_PROPERTY_VARIABLES = "variables";
-  @javax.annotation.Nullable
-  private Object variables;
+  @javax.annotation.Nullable  private Object variables;
 
   public static final String JSON_PROPERTY_WORKER_GROUP = "workerGroup";
-  @javax.annotation.Nullable
-  private WorkerGroup workerGroup;
+  @javax.annotation.Nullable  private WorkerGroup workerGroup;
 
   public static final String JSON_PROPERTY_DELETED = "deleted";
-  @javax.annotation.Nonnull
-  private Boolean deleted;
+  @javax.annotation.Nonnull  private Boolean deleted;
 
   public AbstractFlow() {
   }
@@ -106,8 +94,7 @@ public class AbstractFlow {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -115,7 +102,7 @@ public class AbstractFlow {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setId(@javax.annotation.Nonnull String id) {
     this.id = id;
@@ -131,8 +118,7 @@ public class AbstractFlow {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getNamespace() {
@@ -140,7 +126,7 @@ public class AbstractFlow {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = true)
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setNamespace(@javax.annotation.Nonnull String namespace) {
     this.namespace = namespace;
@@ -157,8 +143,7 @@ public class AbstractFlow {
    * minimum: 1
    * @return revision
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_REVISION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REVISION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getRevision() {
@@ -166,7 +151,7 @@ public class AbstractFlow {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_REVISION, required = false)
+  @JsonProperty(JSON_PROPERTY_REVISION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRevision(@javax.annotation.Nullable Integer revision) {
     this.revision = revision;
@@ -182,8 +167,7 @@ public class AbstractFlow {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -191,7 +175,7 @@ public class AbstractFlow {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
@@ -215,8 +199,7 @@ public class AbstractFlow {
    * Get inputs
    * @return inputs
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_INPUTS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<InputObject> getInputs() {
@@ -224,7 +207,7 @@ public class AbstractFlow {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_INPUTS, required = false)
+  @JsonProperty(JSON_PROPERTY_INPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setInputs(@javax.annotation.Nullable List<InputObject> inputs) {
     this.inputs = inputs;
@@ -248,8 +231,7 @@ public class AbstractFlow {
    * Get outputs
    * @return outputs
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_OUTPUTS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Output> getOutputs() {
@@ -257,7 +239,7 @@ public class AbstractFlow {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_OUTPUTS, required = false)
+  @JsonProperty(JSON_PROPERTY_OUTPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOutputs(@javax.annotation.Nullable List<Output> outputs) {
     this.outputs = outputs;
@@ -273,8 +255,7 @@ public class AbstractFlow {
    * Get disabled
    * @return disabled
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_DISABLED, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DISABLED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getDisabled() {
@@ -282,7 +263,7 @@ public class AbstractFlow {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DISABLED, required = true)
+  @JsonProperty(JSON_PROPERTY_DISABLED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDisabled(@javax.annotation.Nonnull Boolean disabled) {
     this.disabled = disabled;
@@ -306,8 +287,7 @@ public class AbstractFlow {
    * Labels as a list of Label (key/value pairs) or as a map of string to string.
    * @return labels
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_LABELS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Label> getLabels() {
@@ -315,7 +295,7 @@ public class AbstractFlow {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_LABELS, required = false)
+  @JsonProperty(JSON_PROPERTY_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLabels(@javax.annotation.Nullable List<Label> labels) {
     this.labels = labels;
@@ -331,8 +311,7 @@ public class AbstractFlow {
    * Get variables
    * @return variables
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_VARIABLES, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VARIABLES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Object getVariables() {
@@ -340,7 +319,7 @@ public class AbstractFlow {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_VARIABLES, required = false)
+  @JsonProperty(JSON_PROPERTY_VARIABLES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVariables(@javax.annotation.Nullable Object variables) {
     this.variables = variables;
@@ -356,8 +335,7 @@ public class AbstractFlow {
    * Get workerGroup
    * @return workerGroup
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_WORKER_GROUP, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public WorkerGroup getWorkerGroup() {
@@ -365,7 +343,7 @@ public class AbstractFlow {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_WORKER_GROUP, required = false)
+  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWorkerGroup(@javax.annotation.Nullable WorkerGroup workerGroup) {
     this.workerGroup = workerGroup;
@@ -381,8 +359,7 @@ public class AbstractFlow {
    * Get deleted
    * @return deleted
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_DELETED, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getDeleted() {
@@ -390,7 +367,7 @@ public class AbstractFlow {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DELETED, required = true)
+  @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDeleted(@javax.annotation.Nonnull Boolean deleted) {
     this.deleted = deleted;

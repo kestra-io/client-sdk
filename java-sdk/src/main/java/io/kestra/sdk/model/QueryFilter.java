@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -37,16 +36,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class QueryFilter {
   public static final String JSON_PROPERTY_FIELD = "field";
-  @javax.annotation.Nullable
-  private QueryFilterField field;
+  @javax.annotation.Nullable  private QueryFilterField field;
 
   public static final String JSON_PROPERTY_OPERATION = "operation";
-  @javax.annotation.Nullable
-  private QueryFilterOp operation;
+  @javax.annotation.Nullable  private QueryFilterOp operation;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nullable
-  private Object value;
+  @javax.annotation.Nullable  private Object value;
 
   public QueryFilter() {
   }
@@ -61,8 +57,7 @@ public class QueryFilter {
    * Get field
    * @return field
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_FIELD, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FIELD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public QueryFilterField getField() {
@@ -70,7 +65,7 @@ public class QueryFilter {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_FIELD, required = false)
+  @JsonProperty(JSON_PROPERTY_FIELD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setField(@javax.annotation.Nullable QueryFilterField field) {
     this.field = field;
@@ -86,8 +81,7 @@ public class QueryFilter {
    * Get operation
    * @return operation
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_OPERATION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OPERATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public QueryFilterOp getOperation() {
@@ -95,7 +89,7 @@ public class QueryFilter {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_OPERATION, required = false)
+  @JsonProperty(JSON_PROPERTY_OPERATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOperation(@javax.annotation.Nullable QueryFilterOp operation) {
     this.operation = operation;
@@ -111,8 +105,7 @@ public class QueryFilter {
    * Get value
    * @return value
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_VALUE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Object getValue() {
@@ -120,7 +113,7 @@ public class QueryFilter {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_VALUE, required = false)
+  @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setValue(@javax.annotation.Nullable Object value) {
     this.value = value;

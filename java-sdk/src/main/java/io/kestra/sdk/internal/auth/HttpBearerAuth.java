@@ -17,15 +17,15 @@ import io.kestra.sdk.internal.Pair;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Supplier;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
-public class HttpBearerAuth implements Authentication {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")public class HttpBearerAuth implements Authentication {
   private final String scheme;
   private Supplier<String> tokenSupplier;
 
   public HttpBearerAuth(String scheme) {
-    this.scheme = upperCaseBearer(scheme);
+    this.scheme = scheme;
   }
 
   /**
@@ -57,14 +57,15 @@ public class HttpBearerAuth implements Authentication {
 
   @Override
   public void applyToParams(List<Pair> queryParams, Map<String, String> headerParams, Map<String, String> cookieParams) {
-    String bearerToken = tokenSupplier != null ? tokenSupplier.get() : null;
+    String bearerToken = Optional.ofNullable(tokenSupplier).map(Supplier::get).orElse(null);
     if (bearerToken == null) {
       return;
     }
-    headerParams.put("Authorization", (scheme != null ? scheme + " " : "") + bearerToken);
+
+    headerParams.put("Authorization", (scheme != null ? upperCaseBearer(scheme) + " " : "") + bearerToken);
   }
 
   private static String upperCaseBearer(String scheme) {
-    return "bearer".equalsIgnoreCase(scheme) ? "Bearer" : scheme;
+    return ("bearer".equalsIgnoreCase(scheme)) ? "Bearer" : scheme;
   }
 }

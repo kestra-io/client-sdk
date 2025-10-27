@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -35,12 +34,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMTenantAccessControllerApiAuthentication {
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nullable
-  private String name;
+  @javax.annotation.Nullable  private String name;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nullable
-  private String type;
+  @javax.annotation.Nullable  private String type;
 
   public IAMTenantAccessControllerApiAuthentication() {
   }
@@ -55,8 +52,7 @@ public class IAMTenantAccessControllerApiAuthentication {
    * Get name
    * @return name
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_NAME, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
@@ -64,7 +60,7 @@ public class IAMTenantAccessControllerApiAuthentication {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_NAME, required = false)
+  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setName(@javax.annotation.Nullable String name) {
     this.name = name;
@@ -80,8 +76,7 @@ public class IAMTenantAccessControllerApiAuthentication {
    * Get type
    * @return type
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getType() {
@@ -89,7 +84,7 @@ public class IAMTenantAccessControllerApiAuthentication {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
+  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setType(@javax.annotation.Nullable String type) {
     this.type = type;

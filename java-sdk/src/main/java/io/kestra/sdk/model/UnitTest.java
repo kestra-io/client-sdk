@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -43,28 +42,22 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class UnitTest {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
-  private String id;
+  @javax.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nonnull
-  private String type;
+  @javax.annotation.Nonnull  private String type;
 
   public static final String JSON_PROPERTY_DISABLED = "disabled";
-  @javax.annotation.Nullable
-  private Boolean disabled;
+  @javax.annotation.Nullable  private Boolean disabled;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
-  private String description;
+  @javax.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_FIXTURES = "fixtures";
-  @javax.annotation.Nullable
-  private Fixtures fixtures;
+  @javax.annotation.Nullable  private Fixtures fixtures;
 
   public static final String JSON_PROPERTY_ASSERTIONS = "assertions";
-  @javax.annotation.Nonnull
-  private List<Assertion> assertions = new ArrayList<>();
+  @javax.annotation.Nonnull  private List<Assertion> assertions = new ArrayList<>();
 
   public UnitTest() {
   }
@@ -79,8 +72,7 @@ public class UnitTest {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -88,7 +80,7 @@ public class UnitTest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setId(@javax.annotation.Nonnull String id) {
     this.id = id;
@@ -104,8 +96,7 @@ public class UnitTest {
    * Get type
    * @return type
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getType() {
@@ -113,7 +104,7 @@ public class UnitTest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
+  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setType(@javax.annotation.Nonnull String type) {
     this.type = type;
@@ -129,8 +120,7 @@ public class UnitTest {
    * Get disabled
    * @return disabled
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DISABLED, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getDisabled() {
@@ -138,7 +128,7 @@ public class UnitTest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DISABLED, required = false)
+  @JsonProperty(JSON_PROPERTY_DISABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDisabled(@javax.annotation.Nullable Boolean disabled) {
     this.disabled = disabled;
@@ -154,8 +144,7 @@ public class UnitTest {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -163,7 +152,7 @@ public class UnitTest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
@@ -179,8 +168,7 @@ public class UnitTest {
    * Get fixtures
    * @return fixtures
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_FIXTURES, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FIXTURES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Fixtures getFixtures() {
@@ -188,7 +176,7 @@ public class UnitTest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_FIXTURES, required = false)
+  @JsonProperty(JSON_PROPERTY_FIXTURES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFixtures(@javax.annotation.Nullable Fixtures fixtures) {
     this.fixtures = fixtures;
@@ -212,8 +200,7 @@ public class UnitTest {
    * Get assertions
    * @return assertions
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_ASSERTIONS, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ASSERTIONS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<Assertion> getAssertions() {
@@ -221,7 +208,7 @@ public class UnitTest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ASSERTIONS, required = true)
+  @JsonProperty(JSON_PROPERTY_ASSERTIONS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setAssertions(@javax.annotation.Nonnull List<Assertion> assertions) {
     this.assertions = assertions;

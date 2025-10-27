@@ -7,7 +7,6 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**items** | **String** |  |  [optional] |
 |**id** | **String** |  |  |
 |**executionId** | **String** |  |  |
 |**namespace** | **String** |  |  |

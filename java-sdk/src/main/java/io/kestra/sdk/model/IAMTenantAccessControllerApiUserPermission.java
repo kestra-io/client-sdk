@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -40,12 +39,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMTenantAccessControllerApiUserPermission {
   public static final String JSON_PROPERTY_PERMISSION = "permission";
-  @javax.annotation.Nullable
-  private Permission permission;
+  @javax.annotation.Nullable  private Permission permission;
 
   public static final String JSON_PROPERTY_ACTIONS = "actions";
-  @javax.annotation.Nullable
-  private List<Action> actions = new ArrayList<>();
+  @javax.annotation.Nullable  private List<Action> actions = new ArrayList<>();
 
   public IAMTenantAccessControllerApiUserPermission() {
   }
@@ -60,8 +57,7 @@ public class IAMTenantAccessControllerApiUserPermission {
    * Get permission
    * @return permission
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_PERMISSION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PERMISSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Permission getPermission() {
@@ -69,7 +65,7 @@ public class IAMTenantAccessControllerApiUserPermission {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_PERMISSION, required = false)
+  @JsonProperty(JSON_PROPERTY_PERMISSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPermission(@javax.annotation.Nullable Permission permission) {
     this.permission = permission;
@@ -93,8 +89,7 @@ public class IAMTenantAccessControllerApiUserPermission {
    * Get actions
    * @return actions
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ACTIONS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ACTIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Action> getActions() {
@@ -102,7 +97,7 @@ public class IAMTenantAccessControllerApiUserPermission {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ACTIONS, required = false)
+  @JsonProperty(JSON_PROPERTY_ACTIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setActions(@javax.annotation.Nullable List<Action> actions) {
     this.actions = actions;

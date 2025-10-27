@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -41,12 +40,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class DependsOn {
   public static final String JSON_PROPERTY_INPUTS = "inputs";
-  @javax.annotation.Nullable
-  private JsonNullable<List<String>> inputs = JsonNullable.<List<String>>undefined();
+  @javax.annotation.Nullable  private JsonNullable<List<String>> inputs = JsonNullable.<List<String>>undefined();
 
   public static final String JSON_PROPERTY_CONDITION = "condition";
-  @javax.annotation.Nullable
-  private JsonNullable<String> condition = JsonNullable.<String>undefined();
+  @javax.annotation.Nullable  private JsonNullable<String> condition = JsonNullable.<String>undefined();
 
   public DependsOn() {
   }
@@ -73,21 +70,19 @@ public class DependsOn {
    * Get inputs
    * @return inputs
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public List<String> getInputs() {
         return inputs.orElse(null);
   }
 
-  @JsonProperty(value = JSON_PROPERTY_INPUTS, required = false)
+  @JsonProperty(JSON_PROPERTY_INPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<List<String>> getInputs_JsonNullable() {
     return inputs;
   }
   
-  @JsonProperty(value = JSON_PROPERTY_INPUTS, required = false)
+  @JsonProperty(JSON_PROPERTY_INPUTS)
   public void setInputs_JsonNullable(JsonNullable<List<String>> inputs) {
     this.inputs = inputs;
   }
@@ -106,21 +101,19 @@ public class DependsOn {
    * Get condition
    * @return condition
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public String getCondition() {
         return condition.orElse(null);
   }
 
-  @JsonProperty(value = JSON_PROPERTY_CONDITION, required = false)
+  @JsonProperty(JSON_PROPERTY_CONDITION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<String> getCondition_JsonNullable() {
     return condition;
   }
   
-  @JsonProperty(value = JSON_PROPERTY_CONDITION, required = false)
+  @JsonProperty(JSON_PROPERTY_CONDITION)
   public void setCondition_JsonNullable(JsonNullable<String> condition) {
     this.condition = condition;
   }

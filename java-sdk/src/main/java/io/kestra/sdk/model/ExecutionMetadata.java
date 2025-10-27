@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -35,12 +34,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ExecutionMetadata {
   public static final String JSON_PROPERTY_ATTEMPT_NUMBER = "attemptNumber";
-  @javax.annotation.Nullable
-  private Integer attemptNumber;
+  @javax.annotation.Nullable  private Integer attemptNumber;
 
   public static final String JSON_PROPERTY_ORIGINAL_CREATED_DATE = "originalCreatedDate";
-  @javax.annotation.Nullable
-  private OffsetDateTime originalCreatedDate;
+  @javax.annotation.Nullable  private OffsetDateTime originalCreatedDate;
 
   public ExecutionMetadata() {
   }
@@ -55,8 +52,7 @@ public class ExecutionMetadata {
    * Get attemptNumber
    * @return attemptNumber
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ATTEMPT_NUMBER, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ATTEMPT_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getAttemptNumber() {
@@ -64,7 +60,7 @@ public class ExecutionMetadata {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ATTEMPT_NUMBER, required = false)
+  @JsonProperty(JSON_PROPERTY_ATTEMPT_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAttemptNumber(@javax.annotation.Nullable Integer attemptNumber) {
     this.attemptNumber = attemptNumber;
@@ -80,8 +76,7 @@ public class ExecutionMetadata {
    * Get originalCreatedDate
    * @return originalCreatedDate
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ORIGINAL_CREATED_DATE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ORIGINAL_CREATED_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getOriginalCreatedDate() {
@@ -89,7 +84,7 @@ public class ExecutionMetadata {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ORIGINAL_CREATED_DATE, required = false)
+  @JsonProperty(JSON_PROPERTY_ORIGINAL_CREATED_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOriginalCreatedDate(@javax.annotation.Nullable OffsetDateTime originalCreatedDate) {
     this.originalCreatedDate = originalCreatedDate;

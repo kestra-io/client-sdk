@@ -637,8 +637,8 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **404** | User not found |  -  |
 | **200** | getUser 200 response |  -  |
+| **404** | User not found |  -  |
 
 
 ## impersonate
@@ -714,8 +714,8 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **404** | User not found |  -  |
 | **200** | impersonate 200 response |  -  |
+| **404** | User not found |  -  |
 
 
 ## listApiTokensForUser
@@ -791,8 +791,8 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **404** | User not found |  -  |
 | **200** | listApiTokensForUser 200 response |  -  |
+| **404** | User not found |  -  |
 
 
 ## listUsers
@@ -1339,8 +1339,8 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **404** | Tenant, or group not found |  -  |
 | **200** | updateUser 200 response |  -  |
+| **404** | Tenant, or group not found |  -  |
 
 
 ## updateUserGroups
@@ -1418,6 +1418,6 @@ null (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **204** | User&#39;s groups successfully updated |  -  |
-| **404** | User or one of the groups not found |  -  |
 | **400** | Invalid request payload |  -  |
+| **404** | User or one of the groups not found |  -  |
 

@@ -385,8 +385,6 @@ docs/TriggersApi.md
 docs/Type.md
 docs/UnitTest.md
 docs/UnitTestResult.md
-docs/UpdateFlow200Response.md
-docs/UpdateFlowsInNamespaceFromJson200Response.md
 docs/UsageEE.md
 docs/UserGroup.md
 docs/UserGroupType.md
@@ -805,8 +803,6 @@ src/main/java/io/kestra/sdk/model/TriggerFixture.java
 src/main/java/io/kestra/sdk/model/Type.java
 src/main/java/io/kestra/sdk/model/UnitTest.java
 src/main/java/io/kestra/sdk/model/UnitTestResult.java
-src/main/java/io/kestra/sdk/model/UpdateFlow200Response.java
-src/main/java/io/kestra/sdk/model/UpdateFlowsInNamespaceFromJson200Response.java
 src/main/java/io/kestra/sdk/model/UsageEE.java
 src/main/java/io/kestra/sdk/model/UserGroup.java
 src/main/java/io/kestra/sdk/model/UserGroupType.java

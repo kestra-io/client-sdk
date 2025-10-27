@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -38,12 +37,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Isolation {
   public static final String JSON_PROPERTY_DENIED_SERVICES = "deniedServices";
-  @javax.annotation.Nullable
-  private List<ServiceType> deniedServices = new ArrayList<>();
+  @javax.annotation.Nullable  private List<ServiceType> deniedServices = new ArrayList<>();
 
   public static final String JSON_PROPERTY_ENABLED = "enabled";
-  @javax.annotation.Nullable
-  private Boolean enabled;
+  @javax.annotation.Nullable  private Boolean enabled;
 
   public Isolation() {
   }
@@ -66,8 +63,7 @@ public class Isolation {
    * Get deniedServices
    * @return deniedServices
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DENIED_SERVICES, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DENIED_SERVICES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<ServiceType> getDeniedServices() {
@@ -75,7 +71,7 @@ public class Isolation {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DENIED_SERVICES, required = false)
+  @JsonProperty(JSON_PROPERTY_DENIED_SERVICES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDeniedServices(@javax.annotation.Nullable List<ServiceType> deniedServices) {
     this.deniedServices = deniedServices;
@@ -91,8 +87,7 @@ public class Isolation {
    * Get enabled
    * @return enabled
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ENABLED, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getEnabled() {
@@ -100,7 +95,7 @@ public class Isolation {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ENABLED, required = false)
+  @JsonProperty(JSON_PROPERTY_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEnabled(@javax.annotation.Nullable Boolean enabled) {
     this.enabled = enabled;

@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -44,28 +43,22 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMUserControllerApiUserSummary {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
-  private String id;
+  @javax.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_USERNAME = "username";
-  @javax.annotation.Nullable
-  private String username;
+  @javax.annotation.Nullable  private String username;
 
   public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
-  @javax.annotation.Nullable
-  private String displayName;
+  @javax.annotation.Nullable  private String displayName;
 
   public static final String JSON_PROPERTY_TENANTS = "tenants";
-  @javax.annotation.Nullable
-  private List<ApiTenantSummary> tenants = new ArrayList<>();
+  @javax.annotation.Nullable  private List<ApiTenantSummary> tenants = new ArrayList<>();
 
   public static final String JSON_PROPERTY_AUTHS = "auths";
-  @javax.annotation.Nullable
-  private List<IAMUserControllerApiUserAuth> auths = new ArrayList<>();
+  @javax.annotation.Nullable  private List<IAMUserControllerApiUserAuth> auths = new ArrayList<>();
 
   public static final String JSON_PROPERTY_SUPER_ADMIN = "superAdmin";
-  @javax.annotation.Nullable
-  private Boolean superAdmin;
+  @javax.annotation.Nullable  private Boolean superAdmin;
 
   public IAMUserControllerApiUserSummary() {
   }
@@ -80,8 +73,7 @@ public class IAMUserControllerApiUserSummary {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -89,7 +81,7 @@ public class IAMUserControllerApiUserSummary {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable String id) {
     this.id = id;
@@ -105,8 +97,7 @@ public class IAMUserControllerApiUserSummary {
    * Get username
    * @return username
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_USERNAME, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_USERNAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUsername() {
@@ -114,7 +105,7 @@ public class IAMUserControllerApiUserSummary {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_USERNAME, required = false)
+  @JsonProperty(JSON_PROPERTY_USERNAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUsername(@javax.annotation.Nullable String username) {
     this.username = username;
@@ -130,8 +121,7 @@ public class IAMUserControllerApiUserSummary {
    * Get displayName
    * @return displayName
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DISPLAY_NAME, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDisplayName() {
@@ -139,7 +129,7 @@ public class IAMUserControllerApiUserSummary {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DISPLAY_NAME, required = false)
+  @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDisplayName(@javax.annotation.Nullable String displayName) {
     this.displayName = displayName;
@@ -163,8 +153,7 @@ public class IAMUserControllerApiUserSummary {
    * Get tenants
    * @return tenants
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TENANTS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<ApiTenantSummary> getTenants() {
@@ -172,7 +161,7 @@ public class IAMUserControllerApiUserSummary {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TENANTS, required = false)
+  @JsonProperty(JSON_PROPERTY_TENANTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTenants(@javax.annotation.Nullable List<ApiTenantSummary> tenants) {
     this.tenants = tenants;
@@ -196,8 +185,7 @@ public class IAMUserControllerApiUserSummary {
    * Get auths
    * @return auths
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_AUTHS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_AUTHS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<IAMUserControllerApiUserAuth> getAuths() {
@@ -205,7 +193,7 @@ public class IAMUserControllerApiUserSummary {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_AUTHS, required = false)
+  @JsonProperty(JSON_PROPERTY_AUTHS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAuths(@javax.annotation.Nullable List<IAMUserControllerApiUserAuth> auths) {
     this.auths = auths;
@@ -221,8 +209,7 @@ public class IAMUserControllerApiUserSummary {
    * Get superAdmin
    * @return superAdmin
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_SUPER_ADMIN, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getSuperAdmin() {
@@ -230,7 +217,7 @@ public class IAMUserControllerApiUserSummary {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_SUPER_ADMIN, required = false)
+  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSuperAdmin(@javax.annotation.Nullable Boolean superAdmin) {
     this.superAdmin = superAdmin;

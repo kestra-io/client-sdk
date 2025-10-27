@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -37,8 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TestSuiteControllerRunRequest {
   public static final String JSON_PROPERTY_TEST_CASES = "testCases";
-  @javax.annotation.Nullable
-  private List<String> testCases = new ArrayList<>();
+  @javax.annotation.Nullable  private List<String> testCases = new ArrayList<>();
 
   public TestSuiteControllerRunRequest() {
   }
@@ -61,8 +59,7 @@ public class TestSuiteControllerRunRequest {
    * Get testCases
    * @return testCases
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TEST_CASES, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TEST_CASES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getTestCases() {
@@ -70,7 +67,7 @@ public class TestSuiteControllerRunRequest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TEST_CASES, required = false)
+  @JsonProperty(JSON_PROPERTY_TEST_CASES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTestCases(@javax.annotation.Nullable List<String> testCases) {
     this.testCases = testCases;

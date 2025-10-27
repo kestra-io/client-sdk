@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -35,12 +34,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class MiscControllerPreview {
   public static final String JSON_PROPERTY_INITIAL = "initial";
-  @javax.annotation.Nullable
-  private Integer initial;
+  @javax.annotation.Nullable  private Integer initial;
 
   public static final String JSON_PROPERTY_MAX = "max";
-  @javax.annotation.Nullable
-  private Integer max;
+  @javax.annotation.Nullable  private Integer max;
 
   public MiscControllerPreview() {
   }
@@ -55,8 +52,7 @@ public class MiscControllerPreview {
    * Get initial
    * @return initial
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_INITIAL, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INITIAL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getInitial() {
@@ -64,7 +60,7 @@ public class MiscControllerPreview {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_INITIAL, required = false)
+  @JsonProperty(JSON_PROPERTY_INITIAL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setInitial(@javax.annotation.Nullable Integer initial) {
     this.initial = initial;
@@ -80,8 +76,7 @@ public class MiscControllerPreview {
    * Get max
    * @return max
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_MAX, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MAX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getMax() {
@@ -89,7 +84,7 @@ public class MiscControllerPreview {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_MAX, required = false)
+  @JsonProperty(JSON_PROPERTY_MAX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMax(@javax.annotation.Nullable Integer max) {
     this.max = max;

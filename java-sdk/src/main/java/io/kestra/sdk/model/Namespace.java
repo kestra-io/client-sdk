@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -23,7 +22,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.Isolation;
 import io.kestra.sdk.model.NamespaceAllowedNamespace;
-import io.kestra.sdk.model.NamespaceAllowedTrigger;
 import io.kestra.sdk.model.PluginDefault;
 import io.kestra.sdk.model.WorkerGroup;
 import java.util.ArrayList;
@@ -40,7 +38,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   Namespace.JSON_PROPERTY_ID,
   Namespace.JSON_PROPERTY_DELETED,
-  Namespace.JSON_PROPERTY_ALLOWED_TRIGGERS,
   Namespace.JSON_PROPERTY_STORAGE_ISOLATION,
   Namespace.JSON_PROPERTY_SECRET_ISOLATION,
   Namespace.JSON_PROPERTY_DESCRIPTION,
@@ -58,68 +55,49 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Namespace {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
-  private String id;
+  @javax.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_DELETED = "deleted";
-  @javax.annotation.Nonnull
-  private Boolean deleted;
-
-  public static final String JSON_PROPERTY_ALLOWED_TRIGGERS = "allowedTriggers";
-  @javax.annotation.Nullable
-  private List<NamespaceAllowedTrigger> allowedTriggers = new ArrayList<>();
+  @javax.annotation.Nonnull  private Boolean deleted;
 
   public static final String JSON_PROPERTY_STORAGE_ISOLATION = "storageIsolation";
-  @javax.annotation.Nullable
-  private Isolation storageIsolation;
+  @javax.annotation.Nullable  private Isolation storageIsolation;
 
   public static final String JSON_PROPERTY_SECRET_ISOLATION = "secretIsolation";
-  @javax.annotation.Nullable
-  private Isolation secretIsolation;
+  @javax.annotation.Nullable  private Isolation secretIsolation;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
-  private String description;
+  @javax.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_VARIABLES = "variables";
-  @javax.annotation.Nullable
-  private Map<String, Object> variables = new HashMap<>();
+  @javax.annotation.Nullable  private Map<String, Object> variables = new HashMap<>();
 
   public static final String JSON_PROPERTY_PLUGIN_DEFAULTS = "pluginDefaults";
-  @javax.annotation.Nullable
-  private List<PluginDefault> pluginDefaults = new ArrayList<>();
+  @javax.annotation.Nullable  private List<PluginDefault> pluginDefaults = new ArrayList<>();
 
   public static final String JSON_PROPERTY_ALLOWED_NAMESPACES = "allowedNamespaces";
-  @javax.annotation.Nullable
-  private List<NamespaceAllowedNamespace> allowedNamespaces = new ArrayList<>();
+  @javax.annotation.Nullable  private List<NamespaceAllowedNamespace> allowedNamespaces = new ArrayList<>();
 
   public static final String JSON_PROPERTY_WORKER_GROUP = "workerGroup";
-  @javax.annotation.Nullable
-  private WorkerGroup workerGroup;
+  @javax.annotation.Nullable  private WorkerGroup workerGroup;
 
   public static final String JSON_PROPERTY_STORAGE_TYPE = "storageType";
-  @javax.annotation.Nullable
-  private String storageType;
+  @javax.annotation.Nullable  private String storageType;
 
   public static final String JSON_PROPERTY_STORAGE_CONFIGURATION = "storageConfiguration";
-  @javax.annotation.Nullable
-  private Map<String, Object> storageConfiguration = new HashMap<>();
+  @javax.annotation.Nullable  private Map<String, Object> storageConfiguration = new HashMap<>();
 
   public static final String JSON_PROPERTY_SECRET_TYPE = "secretType";
-  @javax.annotation.Nullable
-  private String secretType;
+  @javax.annotation.Nullable  private String secretType;
 
   public static final String JSON_PROPERTY_SECRET_READ_ONLY = "secretReadOnly";
-  @javax.annotation.Nullable
-  private Boolean secretReadOnly;
+  @javax.annotation.Nullable  private Boolean secretReadOnly;
 
   public static final String JSON_PROPERTY_SECRET_CONFIGURATION = "secretConfiguration";
-  @javax.annotation.Nullable
-  private Map<String, Object> secretConfiguration = new HashMap<>();
+  @javax.annotation.Nullable  private Map<String, Object> secretConfiguration = new HashMap<>();
 
   public static final String JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE = "outputsInInternalStorage";
-  @javax.annotation.Nullable
-  private Boolean outputsInInternalStorage;
+  @javax.annotation.Nullable  private Boolean outputsInInternalStorage;
 
   public Namespace() {
   }
@@ -134,8 +112,7 @@ public class Namespace {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -143,7 +120,7 @@ public class Namespace {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setId(@javax.annotation.Nonnull String id) {
     this.id = id;
@@ -159,8 +136,7 @@ public class Namespace {
    * Get deleted
    * @return deleted
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_DELETED, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getDeleted() {
@@ -168,45 +144,10 @@ public class Namespace {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DELETED, required = true)
+  @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDeleted(@javax.annotation.Nonnull Boolean deleted) {
     this.deleted = deleted;
-  }
-
-  public Namespace allowedTriggers(@javax.annotation.Nullable List<NamespaceAllowedTrigger> allowedTriggers) {
-    
-    this.allowedTriggers = allowedTriggers;
-    return this;
-  }
-
-  public Namespace addAllowedTriggersItem(NamespaceAllowedTrigger allowedTriggersItem) {
-    if (this.allowedTriggers == null) {
-      this.allowedTriggers = new ArrayList<>();
-    }
-    this.allowedTriggers.add(allowedTriggersItem);
-    return this;
-  }
-
-  /**
-   * Get allowedTriggers
-   * @return allowedTriggers
-   * @deprecated
-   */
-  @Deprecated
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ALLOWED_TRIGGERS, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<NamespaceAllowedTrigger> getAllowedTriggers() {
-    return allowedTriggers;
-  }
-
-
-  @JsonProperty(value = JSON_PROPERTY_ALLOWED_TRIGGERS, required = false)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAllowedTriggers(@javax.annotation.Nullable List<NamespaceAllowedTrigger> allowedTriggers) {
-    this.allowedTriggers = allowedTriggers;
   }
 
   public Namespace storageIsolation(@javax.annotation.Nullable Isolation storageIsolation) {
@@ -219,8 +160,7 @@ public class Namespace {
    * Get storageIsolation
    * @return storageIsolation
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_STORAGE_ISOLATION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STORAGE_ISOLATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Isolation getStorageIsolation() {
@@ -228,7 +168,7 @@ public class Namespace {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_STORAGE_ISOLATION, required = false)
+  @JsonProperty(JSON_PROPERTY_STORAGE_ISOLATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStorageIsolation(@javax.annotation.Nullable Isolation storageIsolation) {
     this.storageIsolation = storageIsolation;
@@ -244,8 +184,7 @@ public class Namespace {
    * Get secretIsolation
    * @return secretIsolation
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_SECRET_ISOLATION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRET_ISOLATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Isolation getSecretIsolation() {
@@ -253,7 +192,7 @@ public class Namespace {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_SECRET_ISOLATION, required = false)
+  @JsonProperty(JSON_PROPERTY_SECRET_ISOLATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSecretIsolation(@javax.annotation.Nullable Isolation secretIsolation) {
     this.secretIsolation = secretIsolation;
@@ -269,8 +208,7 @@ public class Namespace {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -278,7 +216,7 @@ public class Namespace {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
@@ -302,8 +240,7 @@ public class Namespace {
    * Get variables
    * @return variables
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_VARIABLES, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VARIABLES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getVariables() {
@@ -311,7 +248,7 @@ public class Namespace {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_VARIABLES, required = false)
+  @JsonProperty(JSON_PROPERTY_VARIABLES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVariables(@javax.annotation.Nullable Map<String, Object> variables) {
     this.variables = variables;
@@ -335,8 +272,7 @@ public class Namespace {
    * Get pluginDefaults
    * @return pluginDefaults
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_PLUGIN_DEFAULTS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PLUGIN_DEFAULTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginDefault> getPluginDefaults() {
@@ -344,7 +280,7 @@ public class Namespace {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_PLUGIN_DEFAULTS, required = false)
+  @JsonProperty(JSON_PROPERTY_PLUGIN_DEFAULTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPluginDefaults(@javax.annotation.Nullable List<PluginDefault> pluginDefaults) {
     this.pluginDefaults = pluginDefaults;
@@ -368,8 +304,7 @@ public class Namespace {
    * Get allowedNamespaces
    * @return allowedNamespaces
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ALLOWED_NAMESPACES, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ALLOWED_NAMESPACES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<NamespaceAllowedNamespace> getAllowedNamespaces() {
@@ -377,7 +312,7 @@ public class Namespace {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ALLOWED_NAMESPACES, required = false)
+  @JsonProperty(JSON_PROPERTY_ALLOWED_NAMESPACES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAllowedNamespaces(@javax.annotation.Nullable List<NamespaceAllowedNamespace> allowedNamespaces) {
     this.allowedNamespaces = allowedNamespaces;
@@ -393,8 +328,7 @@ public class Namespace {
    * Get workerGroup
    * @return workerGroup
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_WORKER_GROUP, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public WorkerGroup getWorkerGroup() {
@@ -402,7 +336,7 @@ public class Namespace {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_WORKER_GROUP, required = false)
+  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWorkerGroup(@javax.annotation.Nullable WorkerGroup workerGroup) {
     this.workerGroup = workerGroup;
@@ -418,8 +352,7 @@ public class Namespace {
    * Get storageType
    * @return storageType
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_STORAGE_TYPE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STORAGE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getStorageType() {
@@ -427,7 +360,7 @@ public class Namespace {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_STORAGE_TYPE, required = false)
+  @JsonProperty(JSON_PROPERTY_STORAGE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStorageType(@javax.annotation.Nullable String storageType) {
     this.storageType = storageType;
@@ -451,8 +384,7 @@ public class Namespace {
    * Get storageConfiguration
    * @return storageConfiguration
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_STORAGE_CONFIGURATION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STORAGE_CONFIGURATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getStorageConfiguration() {
@@ -460,7 +392,7 @@ public class Namespace {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_STORAGE_CONFIGURATION, required = false)
+  @JsonProperty(JSON_PROPERTY_STORAGE_CONFIGURATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStorageConfiguration(@javax.annotation.Nullable Map<String, Object> storageConfiguration) {
     this.storageConfiguration = storageConfiguration;
@@ -476,8 +408,7 @@ public class Namespace {
    * Get secretType
    * @return secretType
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_SECRET_TYPE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRET_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSecretType() {
@@ -485,7 +416,7 @@ public class Namespace {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_SECRET_TYPE, required = false)
+  @JsonProperty(JSON_PROPERTY_SECRET_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSecretType(@javax.annotation.Nullable String secretType) {
     this.secretType = secretType;
@@ -501,8 +432,7 @@ public class Namespace {
    * Get secretReadOnly
    * @return secretReadOnly
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_SECRET_READ_ONLY, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRET_READ_ONLY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getSecretReadOnly() {
@@ -510,7 +440,7 @@ public class Namespace {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_SECRET_READ_ONLY, required = false)
+  @JsonProperty(JSON_PROPERTY_SECRET_READ_ONLY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSecretReadOnly(@javax.annotation.Nullable Boolean secretReadOnly) {
     this.secretReadOnly = secretReadOnly;
@@ -534,8 +464,7 @@ public class Namespace {
    * Get secretConfiguration
    * @return secretConfiguration
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_SECRET_CONFIGURATION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRET_CONFIGURATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getSecretConfiguration() {
@@ -543,7 +472,7 @@ public class Namespace {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_SECRET_CONFIGURATION, required = false)
+  @JsonProperty(JSON_PROPERTY_SECRET_CONFIGURATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSecretConfiguration(@javax.annotation.Nullable Map<String, Object> secretConfiguration) {
     this.secretConfiguration = secretConfiguration;
@@ -559,8 +488,7 @@ public class Namespace {
    * Get outputsInInternalStorage
    * @return outputsInInternalStorage
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getOutputsInInternalStorage() {
@@ -568,7 +496,7 @@ public class Namespace {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE, required = false)
+  @JsonProperty(JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOutputsInInternalStorage(@javax.annotation.Nullable Boolean outputsInInternalStorage) {
     this.outputsInInternalStorage = outputsInInternalStorage;
@@ -585,7 +513,6 @@ public class Namespace {
     Namespace namespace = (Namespace) o;
     return Objects.equals(this.id, namespace.id) &&
         Objects.equals(this.deleted, namespace.deleted) &&
-        Objects.equals(this.allowedTriggers, namespace.allowedTriggers) &&
         Objects.equals(this.storageIsolation, namespace.storageIsolation) &&
         Objects.equals(this.secretIsolation, namespace.secretIsolation) &&
         Objects.equals(this.description, namespace.description) &&
@@ -603,7 +530,7 @@ public class Namespace {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, deleted, allowedTriggers, storageIsolation, secretIsolation, description, variables, pluginDefaults, allowedNamespaces, workerGroup, storageType, storageConfiguration, secretType, secretReadOnly, secretConfiguration, outputsInInternalStorage);
+    return Objects.hash(id, deleted, storageIsolation, secretIsolation, description, variables, pluginDefaults, allowedNamespaces, workerGroup, storageType, storageConfiguration, secretType, secretReadOnly, secretConfiguration, outputsInInternalStorage);
   }
 
   @Override
@@ -612,7 +539,6 @@ public class Namespace {
     sb.append("class Namespace {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
-    sb.append("    allowedTriggers: ").append(toIndentedString(allowedTriggers)).append("\n");
     sb.append("    storageIsolation: ").append(toIndentedString(storageIsolation)).append("\n");
     sb.append("    secretIsolation: ").append(toIndentedString(secretIsolation)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");

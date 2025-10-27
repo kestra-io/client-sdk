@@ -132,7 +132,6 @@ Class | Method | HTTP request | Description
 *ExecutionsApi* | [**deleteExecutionsByQuery**](docs/ExecutionsApi.md#deleteExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/by-query | Delete executions filter by query parameters
 *ExecutionsApi* | [**downloadFileFromExecution**](docs/ExecutionsApi.md#downloadFileFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution
 *ExecutionsApi* | [**evalTaskRunExpression**](docs/ExecutionsApi.md#evalTaskRunExpression) | **POST** /api/v1/{tenant}/executions/{executionId}/eval/{taskRunId} | Evaluate a variable expression for this taskrun
-*ExecutionsApi* | [**followDependenciesExecutions**](docs/ExecutionsApi.md#followDependenciesExecutions) | **GET** /api/v1/{tenant}/executions/{executionId}/follow-dependencies | Follow all execution dependencies executions
 *ExecutionsApi* | [**followExecution**](docs/ExecutionsApi.md#followExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/follow | Follow an execution
 *ExecutionsApi* | [**forceRunByIds**](docs/ExecutionsApi.md#forceRunByIds) | **POST** /api/v1/{tenant}/executions/force-run/by-ids | Force run a list of executions
 *ExecutionsApi* | [**forceRunExecution**](docs/ExecutionsApi.md#forceRunExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/force-run | Force run an execution
@@ -146,12 +145,9 @@ Class | Method | HTTP request | Description
 *ExecutionsApi* | [**killExecution**](docs/ExecutionsApi.md#killExecution) | **DELETE** /api/v1/{tenant}/executions/{executionId}/kill | Kill an execution
 *ExecutionsApi* | [**killExecutionsByIds**](docs/ExecutionsApi.md#killExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/kill/by-ids | Kill a list of executions
 *ExecutionsApi* | [**killExecutionsByQuery**](docs/ExecutionsApi.md#killExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/kill/by-query | Kill executions filter by query parameters
-*ExecutionsApi* | [**listExecutableDistinctNamespaces**](docs/ExecutionsApi.md#listExecutableDistinctNamespaces) | **GET** /api/v1/{tenant}/executions/namespaces | Get all namespaces that have executable flows
-*ExecutionsApi* | [**listFlowExecutionsByNamespace**](docs/ExecutionsApi.md#listFlowExecutionsByNamespace) | **GET** /api/v1/{tenant}/executions/namespaces/{namespace}/flows | Get all flow ids for a namespace. Data returned are FlowForExecution containing minimal information about a Flow for when you are allowed to executing but not reading.
 *ExecutionsApi* | [**pauseExecution**](docs/ExecutionsApi.md#pauseExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/pause | Pause a running execution.
 *ExecutionsApi* | [**pauseExecutionsByIds**](docs/ExecutionsApi.md#pauseExecutionsByIds) | **POST** /api/v1/{tenant}/executions/pause/by-ids | Pause a list of running executions
 *ExecutionsApi* | [**pauseExecutionsByQuery**](docs/ExecutionsApi.md#pauseExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/pause/by-query | Pause executions filter by query parameters
-*ExecutionsApi* | [**previewFileFromExecution**](docs/ExecutionsApi.md#previewFileFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/preview | Get file preview for an execution
 *ExecutionsApi* | [**replayExecution**](docs/ExecutionsApi.md#replayExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/replay | Create a new execution from an old one and start it from a specified task run id
 *ExecutionsApi* | [**replayExecutionWithinputs**](docs/ExecutionsApi.md#replayExecutionWithinputs) | **POST** /api/v1/{tenant}/executions/{executionId}/replay-with-inputs | Create a new execution from an old one and start it from a specified task run id
 *ExecutionsApi* | [**replayExecutionsByIds**](docs/ExecutionsApi.md#replayExecutionsByIds) | **POST** /api/v1/{tenant}/executions/replay/by-ids | Create new executions from old ones. Keep the flow revision
@@ -160,19 +156,13 @@ Class | Method | HTTP request | Description
 *ExecutionsApi* | [**restartExecutionsByIds**](docs/ExecutionsApi.md#restartExecutionsByIds) | **POST** /api/v1/{tenant}/executions/restart/by-ids | Restart a list of executions
 *ExecutionsApi* | [**restartExecutionsByQuery**](docs/ExecutionsApi.md#restartExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/restart/by-query | Restart executions filter by query parameters
 *ExecutionsApi* | [**resumeExecution**](docs/ExecutionsApi.md#resumeExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/resume | Resume a paused execution.
-*ExecutionsApi* | [**resumeExecutionFromBreakpoint**](docs/ExecutionsApi.md#resumeExecutionFromBreakpoint) | **POST** /api/v1/{tenant}/executions/{executionId}/resume-from-breakpoint | Resume an execution from a breakpoint (in the &#39;BREAKPOINT&#39; state).
 *ExecutionsApi* | [**resumeExecutionsByIds**](docs/ExecutionsApi.md#resumeExecutionsByIds) | **POST** /api/v1/{tenant}/executions/resume/by-ids | Resume a list of paused executions
 *ExecutionsApi* | [**resumeExecutionsByQuery**](docs/ExecutionsApi.md#resumeExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/resume/by-query | Resume executions filter by query parameters
 *ExecutionsApi* | [**searchExecutions**](docs/ExecutionsApi.md#searchExecutions) | **GET** /api/v1/{tenant}/executions/search | Search for executions
-*ExecutionsApi* | [**searchExecutionsByFlowId**](docs/ExecutionsApi.md#searchExecutionsByFlowId) | **GET** /api/v1/{tenant}/executions | Search for executions for a flow
-*ExecutionsApi* | [**searchTaskRun**](docs/ExecutionsApi.md#searchTaskRun) | **GET** /api/v1/{tenant}/taskruns/search | Search for taskruns, only available with the Elasticsearch repository
 *ExecutionsApi* | [**setLabelsOnTerminatedExecution**](docs/ExecutionsApi.md#setLabelsOnTerminatedExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/labels | Add or update labels of a terminated execution
 *ExecutionsApi* | [**setLabelsOnTerminatedExecutionsByIds**](docs/ExecutionsApi.md#setLabelsOnTerminatedExecutionsByIds) | **POST** /api/v1/{tenant}/executions/labels/by-ids | Set labels on a list of executions
 *ExecutionsApi* | [**setLabelsOnTerminatedExecutionsByQuery**](docs/ExecutionsApi.md#setLabelsOnTerminatedExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/labels/by-query | Set label on executions filter by query parameters
-*ExecutionsApi* | [**triggerExecution**](docs/ExecutionsApi.md#triggerExecution) | **POST** /api/v1/{tenant}/executions/trigger/{namespace}/{id} | Trigger a new execution for a flow
 *ExecutionsApi* | [**triggerExecutionByGetWebhook**](docs/ExecutionsApi.md#triggerExecutionByGetWebhook) | **GET** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key} | Trigger a new execution by GET webhook trigger
-*ExecutionsApi* | [**triggerExecutionByPostWebhook**](docs/ExecutionsApi.md#triggerExecutionByPostWebhook) | **POST** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key} | Trigger a new execution by POST webhook trigger
-*ExecutionsApi* | [**triggerExecutionByPutWebhook**](docs/ExecutionsApi.md#triggerExecutionByPutWebhook) | **PUT** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key} | Trigger a new execution by PUT webhook trigger
 *ExecutionsApi* | [**unqueueExecution**](docs/ExecutionsApi.md#unqueueExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/unqueue | Unqueue an execution
 *ExecutionsApi* | [**unqueueExecutionsByIds**](docs/ExecutionsApi.md#unqueueExecutionsByIds) | **POST** /api/v1/{tenant}/executions/unqueue/by-ids | Unqueue a list of executions
 *ExecutionsApi* | [**unqueueExecutionsByQuery**](docs/ExecutionsApi.md#unqueueExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/unqueue/by-query | Unqueue executions filter by query parameters
@@ -180,8 +170,6 @@ Class | Method | HTTP request | Description
 *ExecutionsApi* | [**updateExecutionsStatusByIds**](docs/ExecutionsApi.md#updateExecutionsStatusByIds) | **POST** /api/v1/{tenant}/executions/change-status/by-ids | Change executions state by id
 *ExecutionsApi* | [**updateExecutionsStatusByQuery**](docs/ExecutionsApi.md#updateExecutionsStatusByQuery) | **POST** /api/v1/{tenant}/executions/change-status/by-query | Change executions state by query parameters
 *ExecutionsApi* | [**updateTaskRunState**](docs/ExecutionsApi.md#updateTaskRunState) | **POST** /api/v1/{tenant}/executions/{executionId}/state | Change state for a taskrun in an execution
-*ExecutionsApi* | [**validateNewExecutionInputs**](docs/ExecutionsApi.md#validateNewExecutionInputs) | **POST** /api/v1/{tenant}/executions/{namespace}/{id}/validate | Validate the creation of a new execution for a flow
-*ExecutionsApi* | [**validateResumeExecutionInputs**](docs/ExecutionsApi.md#validateResumeExecutionInputs) | **POST** /api/v1/{tenant}/executions/{executionId}/resume/validate | Validate inputs to resume a paused execution.
 *FlowsApi* | [**bulkImportApps**](docs/FlowsApi.md#bulkImportApps) | **POST** /api/v1/{tenant}/apps/import |     Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
 *FlowsApi* | [**bulkUpdateFlows**](docs/FlowsApi.md#bulkUpdateFlows) | **POST** /api/v1/{tenant}/flows/bulk | Update from multiples yaml sources
 *FlowsApi* | [**createFlow**](docs/FlowsApi.md#createFlow) | **POST** /api/v1/{tenant}/flows | Create a flow from yaml source
@@ -206,9 +194,6 @@ Class | Method | HTTP request | Description
 *FlowsApi* | [**listFlowsByNamespace**](docs/FlowsApi.md#listFlowsByNamespace) | **GET** /api/v1/{tenant}/flows/{namespace} | Retrieve all flows from a given namespace
 *FlowsApi* | [**searchFlows**](docs/FlowsApi.md#searchFlows) | **GET** /api/v1/{tenant}/flows/search | Search for flows
 *FlowsApi* | [**searchFlowsBySourceCode**](docs/FlowsApi.md#searchFlowsBySourceCode) | **GET** /api/v1/{tenant}/flows/source | Search for flows source code
-*FlowsApi* | [**updateFlow**](docs/FlowsApi.md#updateFlow) | **PUT** /api/v1/{tenant}/flows/{namespace}/{id} | Update a flow
-*FlowsApi* | [**updateFlowsInNamespaceFromJson**](docs/FlowsApi.md#updateFlowsInNamespaceFromJson) | **POST** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from json object
-*FlowsApi* | [**updateTask**](docs/FlowsApi.md#updateTask) | **PATCH** /api/v1/{tenant}/flows/{namespace}/{id}/{taskId} | Update a single task on a flow
 *FlowsApi* | [**validateFlows**](docs/FlowsApi.md#validateFlows) | **POST** /api/v1/{tenant}/flows/validate | Validate a list of flows
 *FlowsApi* | [**validateTask**](docs/FlowsApi.md#validateTask) | **POST** /api/v1/{tenant}/flows/validate/task | Validate a task
 *FlowsApi* | [**validateTrigger**](docs/FlowsApi.md#validateTrigger) | **POST** /api/v1/{tenant}/flows/validate/trigger | Validate trigger
@@ -677,8 +662,6 @@ Class | Method | HTTP request | Description
  - [Type](docs/Type.md)
  - [UnitTest](docs/UnitTest.md)
  - [UnitTestResult](docs/UnitTestResult.md)
- - [UpdateFlow200Response](docs/UpdateFlow200Response.md)
- - [UpdateFlowsInNamespaceFromJson200Response](docs/UpdateFlowsInNamespaceFromJson200Response.md)
  - [UsageEE](docs/UsageEE.md)
  - [UserGroup](docs/UserGroup.md)
  - [UserGroupType](docs/UserGroupType.md)

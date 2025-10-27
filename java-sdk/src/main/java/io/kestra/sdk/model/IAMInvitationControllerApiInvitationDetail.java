@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -51,48 +50,37 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMInvitationControllerApiInvitationDetail {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
-  private String id;
+  @javax.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_ROLES = "roles";
-  @javax.annotation.Nullable
-  private List<ApiRoleSummary> roles = new ArrayList<>();
+  @javax.annotation.Nullable  private List<ApiRoleSummary> roles = new ArrayList<>();
 
   public static final String JSON_PROPERTY_GROUPS = "groups";
-  @javax.annotation.Nullable
-  private List<ApiGroupSummary> groups = new ArrayList<>();
+  @javax.annotation.Nullable  private List<ApiGroupSummary> groups = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
-  @javax.annotation.Nullable
-  private String tenantId;
+  @javax.annotation.Nullable  private String tenantId;
 
   public static final String JSON_PROPERTY_EMAIL = "email";
-  @javax.annotation.Nullable
-  private String email;
+  @javax.annotation.Nullable  private String email;
 
   public static final String JSON_PROPERTY_STATUS = "status";
-  @javax.annotation.Nullable
-  private InvitationInvitationStatus status;
+  @javax.annotation.Nullable  private InvitationInvitationStatus status;
 
   public static final String JSON_PROPERTY_SENT_AT = "sentAt";
-  @javax.annotation.Nullable
-  private OffsetDateTime sentAt;
+  @javax.annotation.Nullable  private OffsetDateTime sentAt;
 
   public static final String JSON_PROPERTY_EXPIRED_AT = "expiredAt";
-  @javax.annotation.Nullable
-  private OffsetDateTime expiredAt;
+  @javax.annotation.Nullable  private OffsetDateTime expiredAt;
 
   public static final String JSON_PROPERTY_ACCEPTED_AT = "acceptedAt";
-  @javax.annotation.Nullable
-  private OffsetDateTime acceptedAt;
+  @javax.annotation.Nullable  private OffsetDateTime acceptedAt;
 
   public static final String JSON_PROPERTY_SUPER_ADMIN = "superAdmin";
-  @javax.annotation.Nullable
-  private Boolean superAdmin;
+  @javax.annotation.Nullable  private Boolean superAdmin;
 
   public static final String JSON_PROPERTY_LINK = "link";
-  @javax.annotation.Nullable
-  private String link;
+  @javax.annotation.Nullable  private String link;
 
   public IAMInvitationControllerApiInvitationDetail() {
   }
@@ -107,8 +95,7 @@ public class IAMInvitationControllerApiInvitationDetail {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -116,7 +103,7 @@ public class IAMInvitationControllerApiInvitationDetail {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable String id) {
     this.id = id;
@@ -140,8 +127,7 @@ public class IAMInvitationControllerApiInvitationDetail {
    * Get roles
    * @return roles
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ROLES, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ROLES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<ApiRoleSummary> getRoles() {
@@ -149,7 +135,7 @@ public class IAMInvitationControllerApiInvitationDetail {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ROLES, required = false)
+  @JsonProperty(JSON_PROPERTY_ROLES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRoles(@javax.annotation.Nullable List<ApiRoleSummary> roles) {
     this.roles = roles;
@@ -173,8 +159,7 @@ public class IAMInvitationControllerApiInvitationDetail {
    * Get groups
    * @return groups
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_GROUPS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUPS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<ApiGroupSummary> getGroups() {
@@ -182,7 +167,7 @@ public class IAMInvitationControllerApiInvitationDetail {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_GROUPS, required = false)
+  @JsonProperty(JSON_PROPERTY_GROUPS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setGroups(@javax.annotation.Nullable List<ApiGroupSummary> groups) {
     this.groups = groups;
@@ -198,8 +183,7 @@ public class IAMInvitationControllerApiInvitationDetail {
    * Get tenantId
    * @return tenantId
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TENANT_ID, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTenantId() {
@@ -207,7 +191,7 @@ public class IAMInvitationControllerApiInvitationDetail {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TENANT_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_TENANT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTenantId(@javax.annotation.Nullable String tenantId) {
     this.tenantId = tenantId;
@@ -223,8 +207,7 @@ public class IAMInvitationControllerApiInvitationDetail {
    * Get email
    * @return email
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_EMAIL, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EMAIL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getEmail() {
@@ -232,7 +215,7 @@ public class IAMInvitationControllerApiInvitationDetail {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_EMAIL, required = false)
+  @JsonProperty(JSON_PROPERTY_EMAIL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEmail(@javax.annotation.Nullable String email) {
     this.email = email;
@@ -248,8 +231,7 @@ public class IAMInvitationControllerApiInvitationDetail {
    * Get status
    * @return status
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_STATUS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public InvitationInvitationStatus getStatus() {
@@ -257,7 +239,7 @@ public class IAMInvitationControllerApiInvitationDetail {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_STATUS, required = false)
+  @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStatus(@javax.annotation.Nullable InvitationInvitationStatus status) {
     this.status = status;
@@ -273,8 +255,7 @@ public class IAMInvitationControllerApiInvitationDetail {
    * Get sentAt
    * @return sentAt
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_SENT_AT, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SENT_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getSentAt() {
@@ -282,7 +263,7 @@ public class IAMInvitationControllerApiInvitationDetail {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_SENT_AT, required = false)
+  @JsonProperty(JSON_PROPERTY_SENT_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSentAt(@javax.annotation.Nullable OffsetDateTime sentAt) {
     this.sentAt = sentAt;
@@ -298,8 +279,7 @@ public class IAMInvitationControllerApiInvitationDetail {
    * Get expiredAt
    * @return expiredAt
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_EXPIRED_AT, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXPIRED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getExpiredAt() {
@@ -307,7 +287,7 @@ public class IAMInvitationControllerApiInvitationDetail {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_EXPIRED_AT, required = false)
+  @JsonProperty(JSON_PROPERTY_EXPIRED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExpiredAt(@javax.annotation.Nullable OffsetDateTime expiredAt) {
     this.expiredAt = expiredAt;
@@ -323,8 +303,7 @@ public class IAMInvitationControllerApiInvitationDetail {
    * Get acceptedAt
    * @return acceptedAt
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ACCEPTED_AT, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ACCEPTED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getAcceptedAt() {
@@ -332,7 +311,7 @@ public class IAMInvitationControllerApiInvitationDetail {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ACCEPTED_AT, required = false)
+  @JsonProperty(JSON_PROPERTY_ACCEPTED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAcceptedAt(@javax.annotation.Nullable OffsetDateTime acceptedAt) {
     this.acceptedAt = acceptedAt;
@@ -348,8 +327,7 @@ public class IAMInvitationControllerApiInvitationDetail {
    * Get superAdmin
    * @return superAdmin
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_SUPER_ADMIN, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getSuperAdmin() {
@@ -357,7 +335,7 @@ public class IAMInvitationControllerApiInvitationDetail {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_SUPER_ADMIN, required = false)
+  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSuperAdmin(@javax.annotation.Nullable Boolean superAdmin) {
     this.superAdmin = superAdmin;
@@ -373,8 +351,7 @@ public class IAMInvitationControllerApiInvitationDetail {
    * Get link
    * @return link
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_LINK, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LINK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getLink() {
@@ -382,7 +359,7 @@ public class IAMInvitationControllerApiInvitationDetail {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_LINK, required = false)
+  @JsonProperty(JSON_PROPERTY_LINK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLink(@javax.annotation.Nullable String link) {
     this.link = link;

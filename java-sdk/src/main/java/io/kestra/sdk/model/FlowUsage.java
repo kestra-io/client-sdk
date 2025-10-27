@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -39,24 +38,19 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class FlowUsage {
   public static final String JSON_PROPERTY_COUNT = "count";
-  @javax.annotation.Nullable
-  private Integer count;
+  @javax.annotation.Nullable  private Integer count;
 
   public static final String JSON_PROPERTY_NAMESPACES_COUNT = "namespacesCount";
-  @javax.annotation.Nullable
-  private Long namespacesCount;
+  @javax.annotation.Nullable  private Long namespacesCount;
 
   public static final String JSON_PROPERTY_TASK_TYPE_COUNT = "taskTypeCount";
-  @javax.annotation.Nullable
-  private Map<String, Long> taskTypeCount = new HashMap<>();
+  @javax.annotation.Nullable  private Map<String, Long> taskTypeCount = new HashMap<>();
 
   public static final String JSON_PROPERTY_TRIGGER_TYPE_COUNT = "triggerTypeCount";
-  @javax.annotation.Nullable
-  private Map<String, Long> triggerTypeCount = new HashMap<>();
+  @javax.annotation.Nullable  private Map<String, Long> triggerTypeCount = new HashMap<>();
 
   public static final String JSON_PROPERTY_TASK_RUNNER_TYPE_COUNT = "taskRunnerTypeCount";
-  @javax.annotation.Nullable
-  private Map<String, Long> taskRunnerTypeCount = new HashMap<>();
+  @javax.annotation.Nullable  private Map<String, Long> taskRunnerTypeCount = new HashMap<>();
 
   public FlowUsage() {
   }
@@ -71,8 +65,7 @@ public class FlowUsage {
    * Get count
    * @return count
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_COUNT, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getCount() {
@@ -80,7 +73,7 @@ public class FlowUsage {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_COUNT, required = false)
+  @JsonProperty(JSON_PROPERTY_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCount(@javax.annotation.Nullable Integer count) {
     this.count = count;
@@ -96,8 +89,7 @@ public class FlowUsage {
    * Get namespacesCount
    * @return namespacesCount
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_NAMESPACES_COUNT, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACES_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getNamespacesCount() {
@@ -105,7 +97,7 @@ public class FlowUsage {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_NAMESPACES_COUNT, required = false)
+  @JsonProperty(JSON_PROPERTY_NAMESPACES_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNamespacesCount(@javax.annotation.Nullable Long namespacesCount) {
     this.namespacesCount = namespacesCount;
@@ -129,8 +121,7 @@ public class FlowUsage {
    * Get taskTypeCount
    * @return taskTypeCount
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TASK_TYPE_COUNT, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TASK_TYPE_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Long> getTaskTypeCount() {
@@ -138,7 +129,7 @@ public class FlowUsage {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TASK_TYPE_COUNT, required = false)
+  @JsonProperty(JSON_PROPERTY_TASK_TYPE_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTaskTypeCount(@javax.annotation.Nullable Map<String, Long> taskTypeCount) {
     this.taskTypeCount = taskTypeCount;
@@ -162,8 +153,7 @@ public class FlowUsage {
    * Get triggerTypeCount
    * @return triggerTypeCount
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TRIGGER_TYPE_COUNT, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TRIGGER_TYPE_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Long> getTriggerTypeCount() {
@@ -171,7 +161,7 @@ public class FlowUsage {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TRIGGER_TYPE_COUNT, required = false)
+  @JsonProperty(JSON_PROPERTY_TRIGGER_TYPE_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTriggerTypeCount(@javax.annotation.Nullable Map<String, Long> triggerTypeCount) {
     this.triggerTypeCount = triggerTypeCount;
@@ -195,8 +185,7 @@ public class FlowUsage {
    * Get taskRunnerTypeCount
    * @return taskRunnerTypeCount
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TASK_RUNNER_TYPE_COUNT, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TASK_RUNNER_TYPE_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Long> getTaskRunnerTypeCount() {
@@ -204,7 +193,7 @@ public class FlowUsage {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TASK_RUNNER_TYPE_COUNT, required = false)
+  @JsonProperty(JSON_PROPERTY_TASK_RUNNER_TYPE_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTaskRunnerTypeCount(@javax.annotation.Nullable Map<String, Long> taskRunnerTypeCount) {
     this.taskRunnerTypeCount = taskRunnerTypeCount;

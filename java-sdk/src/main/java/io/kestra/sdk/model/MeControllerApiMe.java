@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -45,28 +44,22 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class MeControllerApiMe {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
-  private String id;
+  @javax.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_SUPER_ADMIN = "superAdmin";
-  @javax.annotation.Nullable
-  private Boolean superAdmin;
+  @javax.annotation.Nullable  private Boolean superAdmin;
 
   public static final String JSON_PROPERTY_RESTRICTED = "restricted";
-  @javax.annotation.Nullable
-  private Boolean restricted;
+  @javax.annotation.Nullable  private Boolean restricted;
 
   public static final String JSON_PROPERTY_PROFILE = "profile";
-  @javax.annotation.Nullable
-  private MeControllerApiProfile profile;
+  @javax.annotation.Nullable  private MeControllerApiProfile profile;
 
   public static final String JSON_PROPERTY_AUTHS = "auths";
-  @javax.annotation.Nullable
-  private List<IAMTenantAccessControllerApiAuthentication> auths = new ArrayList<>();
+  @javax.annotation.Nullable  private List<IAMTenantAccessControllerApiAuthentication> auths = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TENANTS = "tenants";
-  @javax.annotation.Nullable
-  private List<MeControllerApiTenant> tenants = new ArrayList<>();
+  @javax.annotation.Nullable  private List<MeControllerApiTenant> tenants = new ArrayList<>();
 
   public MeControllerApiMe() {
   }
@@ -81,8 +74,7 @@ public class MeControllerApiMe {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -90,7 +82,7 @@ public class MeControllerApiMe {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable String id) {
     this.id = id;
@@ -106,8 +98,7 @@ public class MeControllerApiMe {
    * Get superAdmin
    * @return superAdmin
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_SUPER_ADMIN, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getSuperAdmin() {
@@ -115,7 +106,7 @@ public class MeControllerApiMe {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_SUPER_ADMIN, required = false)
+  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSuperAdmin(@javax.annotation.Nullable Boolean superAdmin) {
     this.superAdmin = superAdmin;
@@ -131,8 +122,7 @@ public class MeControllerApiMe {
    * Get restricted
    * @return restricted
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_RESTRICTED, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESTRICTED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getRestricted() {
@@ -140,7 +130,7 @@ public class MeControllerApiMe {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_RESTRICTED, required = false)
+  @JsonProperty(JSON_PROPERTY_RESTRICTED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRestricted(@javax.annotation.Nullable Boolean restricted) {
     this.restricted = restricted;
@@ -156,8 +146,7 @@ public class MeControllerApiMe {
    * Get profile
    * @return profile
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_PROFILE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PROFILE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public MeControllerApiProfile getProfile() {
@@ -165,7 +154,7 @@ public class MeControllerApiMe {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_PROFILE, required = false)
+  @JsonProperty(JSON_PROPERTY_PROFILE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setProfile(@javax.annotation.Nullable MeControllerApiProfile profile) {
     this.profile = profile;
@@ -189,8 +178,7 @@ public class MeControllerApiMe {
    * Get auths
    * @return auths
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_AUTHS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_AUTHS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<IAMTenantAccessControllerApiAuthentication> getAuths() {
@@ -198,7 +186,7 @@ public class MeControllerApiMe {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_AUTHS, required = false)
+  @JsonProperty(JSON_PROPERTY_AUTHS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAuths(@javax.annotation.Nullable List<IAMTenantAccessControllerApiAuthentication> auths) {
     this.auths = auths;
@@ -222,8 +210,7 @@ public class MeControllerApiMe {
    * Get tenants
    * @return tenants
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TENANTS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<MeControllerApiTenant> getTenants() {
@@ -231,7 +218,7 @@ public class MeControllerApiMe {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TENANTS, required = false)
+  @JsonProperty(JSON_PROPERTY_TENANTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTenants(@javax.annotation.Nullable List<MeControllerApiTenant> tenants) {
     this.tenants = tenants;

@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -35,12 +34,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AuthControllerResetPasswordRequest {
   public static final String JSON_PROPERTY_TOKEN = "token";
-  @javax.annotation.Nullable
-  private String token;
+  @javax.annotation.Nullable  private String token;
 
   public static final String JSON_PROPERTY_PASSWORD = "password";
-  @javax.annotation.Nullable
-  private String password;
+  @javax.annotation.Nullable  private String password;
 
   public AuthControllerResetPasswordRequest() {
   }
@@ -55,8 +52,7 @@ public class AuthControllerResetPasswordRequest {
    * Get token
    * @return token
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TOKEN, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TOKEN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getToken() {
@@ -64,7 +60,7 @@ public class AuthControllerResetPasswordRequest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TOKEN, required = false)
+  @JsonProperty(JSON_PROPERTY_TOKEN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setToken(@javax.annotation.Nullable String token) {
     this.token = token;
@@ -80,8 +76,7 @@ public class AuthControllerResetPasswordRequest {
    * Get password
    * @return password
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_PASSWORD, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getPassword() {
@@ -89,7 +84,7 @@ public class AuthControllerResetPasswordRequest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_PASSWORD, required = false)
+  @JsonProperty(JSON_PROPERTY_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPassword(@javax.annotation.Nullable String password) {
     this.password = password;

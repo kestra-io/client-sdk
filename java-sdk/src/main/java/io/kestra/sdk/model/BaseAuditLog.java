@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -44,40 +43,31 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class BaseAuditLog {
   public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
-  @javax.annotation.Nullable
-  private String tenantId;
+  @javax.annotation.Nullable  private String tenantId;
 
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
-  private String id;
+  @javax.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nonnull
-  private CrudEventType type;
+  @javax.annotation.Nonnull  private CrudEventType type;
 
   public static final String JSON_PROPERTY_DETAIL = "detail";
-  @javax.annotation.Nonnull
-  private AuditLogDetail detail;
+  @javax.annotation.Nonnull  private AuditLogDetail detail;
 
   public static final String JSON_PROPERTY_DATE = "date";
-  @javax.annotation.Nonnull
-  private OffsetDateTime date;
+  @javax.annotation.Nonnull  private OffsetDateTime date;
 
   public static final String JSON_PROPERTY_USER_ID = "userId";
-  @javax.annotation.Nonnull
-  private String userId;
+  @javax.annotation.Nonnull  private String userId;
 
   public static final String JSON_PROPERTY_IP_ADDRESS = "ipAddress";
-  @javax.annotation.Nullable
-  private String ipAddress;
+  @javax.annotation.Nullable  private String ipAddress;
 
   public static final String JSON_PROPERTY_IMPERSONATED_BY = "impersonatedBy";
-  @javax.annotation.Nullable
-  private String impersonatedBy;
+  @javax.annotation.Nullable  private String impersonatedBy;
 
   public static final String JSON_PROPERTY_DELETED = "deleted";
-  @javax.annotation.Nullable
-  private Boolean deleted;
+  @javax.annotation.Nullable  private Boolean deleted;
 
   public BaseAuditLog() {
   }
@@ -92,8 +82,7 @@ public class BaseAuditLog {
    * Get tenantId
    * @return tenantId
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TENANT_ID, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTenantId() {
@@ -101,7 +90,7 @@ public class BaseAuditLog {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TENANT_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_TENANT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTenantId(@javax.annotation.Nullable String tenantId) {
     this.tenantId = tenantId;
@@ -117,8 +106,7 @@ public class BaseAuditLog {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -126,7 +114,7 @@ public class BaseAuditLog {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setId(@javax.annotation.Nonnull String id) {
     this.id = id;
@@ -142,8 +130,7 @@ public class BaseAuditLog {
    * Get type
    * @return type
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public CrudEventType getType() {
@@ -151,7 +138,7 @@ public class BaseAuditLog {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
+  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setType(@javax.annotation.Nonnull CrudEventType type) {
     this.type = type;
@@ -167,8 +154,7 @@ public class BaseAuditLog {
    * Get detail
    * @return detail
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_DETAIL, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DETAIL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public AuditLogDetail getDetail() {
@@ -176,7 +162,7 @@ public class BaseAuditLog {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DETAIL, required = true)
+  @JsonProperty(JSON_PROPERTY_DETAIL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDetail(@javax.annotation.Nonnull AuditLogDetail detail) {
     this.detail = detail;
@@ -192,8 +178,7 @@ public class BaseAuditLog {
    * Get date
    * @return date
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_DATE, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public OffsetDateTime getDate() {
@@ -201,7 +186,7 @@ public class BaseAuditLog {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DATE, required = true)
+  @JsonProperty(JSON_PROPERTY_DATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDate(@javax.annotation.Nonnull OffsetDateTime date) {
     this.date = date;
@@ -217,8 +202,7 @@ public class BaseAuditLog {
    * Get userId
    * @return userId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_USER_ID, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_USER_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getUserId() {
@@ -226,7 +210,7 @@ public class BaseAuditLog {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_USER_ID, required = true)
+  @JsonProperty(JSON_PROPERTY_USER_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setUserId(@javax.annotation.Nonnull String userId) {
     this.userId = userId;
@@ -242,8 +226,7 @@ public class BaseAuditLog {
    * Get ipAddress
    * @return ipAddress
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_IP_ADDRESS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getIpAddress() {
@@ -251,7 +234,7 @@ public class BaseAuditLog {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_IP_ADDRESS, required = false)
+  @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIpAddress(@javax.annotation.Nullable String ipAddress) {
     this.ipAddress = ipAddress;
@@ -267,8 +250,7 @@ public class BaseAuditLog {
    * Get impersonatedBy
    * @return impersonatedBy
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_IMPERSONATED_BY, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IMPERSONATED_BY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getImpersonatedBy() {
@@ -276,7 +258,7 @@ public class BaseAuditLog {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_IMPERSONATED_BY, required = false)
+  @JsonProperty(JSON_PROPERTY_IMPERSONATED_BY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setImpersonatedBy(@javax.annotation.Nullable String impersonatedBy) {
     this.impersonatedBy = impersonatedBy;
@@ -292,8 +274,7 @@ public class BaseAuditLog {
    * Get deleted
    * @return deleted
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DELETED, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getDeleted() {
@@ -301,7 +282,7 @@ public class BaseAuditLog {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DELETED, required = false)
+  @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDeleted(@javax.annotation.Nullable Boolean deleted) {
     this.deleted = deleted;

@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -40,24 +39,19 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ExecutionControllerLastExecutionResponse {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
-  private String id;
+  @javax.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_FLOW_ID = "flowId";
-  @javax.annotation.Nullable
-  private String flowId;
+  @javax.annotation.Nullable  private String flowId;
 
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nullable
-  private String namespace;
+  @javax.annotation.Nullable  private String namespace;
 
   public static final String JSON_PROPERTY_START_DATE = "startDate";
-  @javax.annotation.Nullable
-  private OffsetDateTime startDate;
+  @javax.annotation.Nullable  private OffsetDateTime startDate;
 
   public static final String JSON_PROPERTY_STATUS = "status";
-  @javax.annotation.Nullable
-  private StateType status;
+  @javax.annotation.Nullable  private StateType status;
 
   public ExecutionControllerLastExecutionResponse() {
   }
@@ -72,8 +66,7 @@ public class ExecutionControllerLastExecutionResponse {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -81,7 +74,7 @@ public class ExecutionControllerLastExecutionResponse {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable String id) {
     this.id = id;
@@ -97,8 +90,7 @@ public class ExecutionControllerLastExecutionResponse {
    * Get flowId
    * @return flowId
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_FLOW_ID, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FLOW_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFlowId() {
@@ -106,7 +98,7 @@ public class ExecutionControllerLastExecutionResponse {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_FLOW_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_FLOW_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFlowId(@javax.annotation.Nullable String flowId) {
     this.flowId = flowId;
@@ -122,8 +114,7 @@ public class ExecutionControllerLastExecutionResponse {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getNamespace() {
@@ -131,7 +122,7 @@ public class ExecutionControllerLastExecutionResponse {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = false)
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNamespace(@javax.annotation.Nullable String namespace) {
     this.namespace = namespace;
@@ -147,8 +138,7 @@ public class ExecutionControllerLastExecutionResponse {
    * Get startDate
    * @return startDate
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_START_DATE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_START_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getStartDate() {
@@ -156,7 +146,7 @@ public class ExecutionControllerLastExecutionResponse {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_START_DATE, required = false)
+  @JsonProperty(JSON_PROPERTY_START_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStartDate(@javax.annotation.Nullable OffsetDateTime startDate) {
     this.startDate = startDate;
@@ -172,8 +162,7 @@ public class ExecutionControllerLastExecutionResponse {
    * Get status
    * @return status
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_STATUS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public StateType getStatus() {
@@ -181,7 +170,7 @@ public class ExecutionControllerLastExecutionResponse {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_STATUS, required = false)
+  @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStatus(@javax.annotation.Nullable StateType status) {
     this.status = status;

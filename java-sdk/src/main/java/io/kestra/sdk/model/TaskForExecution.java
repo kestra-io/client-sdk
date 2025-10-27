@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -43,28 +42,22 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TaskForExecution {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
-  private String id;
+  @javax.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nonnull
-  private String type;
+  @javax.annotation.Nonnull  private String type;
 
   public static final String JSON_PROPERTY_VERSION = "version";
-  @javax.annotation.Nullable
-  private String version;
+  @javax.annotation.Nullable  private String version;
 
   public static final String JSON_PROPERTY_TASKS = "tasks";
-  @javax.annotation.Nullable
-  private List<TaskForExecution> tasks = new ArrayList<>();
+  @javax.annotation.Nullable  private List<TaskForExecution> tasks = new ArrayList<>();
 
   public static final String JSON_PROPERTY_INPUTS = "inputs";
-  @javax.annotation.Nullable
-  private List<InputObject> inputs = new ArrayList<>();
+  @javax.annotation.Nullable  private List<InputObject> inputs = new ArrayList<>();
 
   public static final String JSON_PROPERTY_SUBFLOW_ID = "subflowId";
-  @javax.annotation.Nullable
-  private ExecutableTaskSubflowId subflowId;
+  @javax.annotation.Nullable  private ExecutableTaskSubflowId subflowId;
 
   public TaskForExecution() {
   }
@@ -79,8 +72,7 @@ public class TaskForExecution {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -88,7 +80,7 @@ public class TaskForExecution {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setId(@javax.annotation.Nonnull String id) {
     this.id = id;
@@ -104,8 +96,7 @@ public class TaskForExecution {
    * Get type
    * @return type
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getType() {
@@ -113,7 +104,7 @@ public class TaskForExecution {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
+  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setType(@javax.annotation.Nonnull String type) {
     this.type = type;
@@ -129,8 +120,7 @@ public class TaskForExecution {
    * Get version
    * @return version
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_VERSION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getVersion() {
@@ -138,7 +128,7 @@ public class TaskForExecution {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_VERSION, required = false)
+  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVersion(@javax.annotation.Nullable String version) {
     this.version = version;
@@ -162,8 +152,7 @@ public class TaskForExecution {
    * Get tasks
    * @return tasks
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TASKS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TASKS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<TaskForExecution> getTasks() {
@@ -171,7 +160,7 @@ public class TaskForExecution {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TASKS, required = false)
+  @JsonProperty(JSON_PROPERTY_TASKS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTasks(@javax.annotation.Nullable List<TaskForExecution> tasks) {
     this.tasks = tasks;
@@ -195,8 +184,7 @@ public class TaskForExecution {
    * Get inputs
    * @return inputs
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_INPUTS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<InputObject> getInputs() {
@@ -204,7 +192,7 @@ public class TaskForExecution {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_INPUTS, required = false)
+  @JsonProperty(JSON_PROPERTY_INPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setInputs(@javax.annotation.Nullable List<InputObject> inputs) {
     this.inputs = inputs;
@@ -220,8 +208,7 @@ public class TaskForExecution {
    * Get subflowId
    * @return subflowId
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_SUBFLOW_ID, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUBFLOW_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ExecutableTaskSubflowId getSubflowId() {
@@ -229,7 +216,7 @@ public class TaskForExecution {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_SUBFLOW_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_SUBFLOW_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSubflowId(@javax.annotation.Nullable ExecutableTaskSubflowId subflowId) {
     this.subflowId = subflowId;

@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -39,12 +38,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TriggerControllerSetDisabledRequest {
   public static final String JSON_PROPERTY_TRIGGERS = "triggers";
-  @javax.annotation.Nonnull
-  private List<Trigger> triggers = new ArrayList<>();
+  @javax.annotation.Nonnull  private List<Trigger> triggers = new ArrayList<>();
 
   public static final String JSON_PROPERTY_DISABLED = "disabled";
-  @javax.annotation.Nonnull
-  private Boolean disabled;
+  @javax.annotation.Nonnull  private Boolean disabled;
 
   public TriggerControllerSetDisabledRequest() {
   }
@@ -67,8 +64,7 @@ public class TriggerControllerSetDisabledRequest {
    * Get triggers
    * @return triggers
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_TRIGGERS, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TRIGGERS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<Trigger> getTriggers() {
@@ -76,7 +72,7 @@ public class TriggerControllerSetDisabledRequest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TRIGGERS, required = true)
+  @JsonProperty(JSON_PROPERTY_TRIGGERS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTriggers(@javax.annotation.Nonnull List<Trigger> triggers) {
     this.triggers = triggers;
@@ -92,8 +88,7 @@ public class TriggerControllerSetDisabledRequest {
    * Get disabled
    * @return disabled
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_DISABLED, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DISABLED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getDisabled() {
@@ -101,7 +96,7 @@ public class TriggerControllerSetDisabledRequest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DISABLED, required = true)
+  @JsonProperty(JSON_PROPERTY_DISABLED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDisabled(@javax.annotation.Nonnull Boolean disabled) {
     this.disabled = disabled;

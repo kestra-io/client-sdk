@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -37,12 +36,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class NamespaceAllowedTrigger {
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nonnull
-  private String namespace;
+  @javax.annotation.Nonnull  private String namespace;
 
   public static final String JSON_PROPERTY_FLOW_ID = "flowId";
-  @javax.annotation.Nullable
-  private String flowId;
+  @javax.annotation.Nullable  private String flowId;
 
   public NamespaceAllowedTrigger() {
   }
@@ -57,8 +54,7 @@ public class NamespaceAllowedTrigger {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getNamespace() {
@@ -66,7 +62,7 @@ public class NamespaceAllowedTrigger {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = true)
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setNamespace(@javax.annotation.Nonnull String namespace) {
     this.namespace = namespace;
@@ -82,8 +78,7 @@ public class NamespaceAllowedTrigger {
    * Get flowId
    * @return flowId
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_FLOW_ID, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FLOW_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFlowId() {
@@ -91,7 +86,7 @@ public class NamespaceAllowedTrigger {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_FLOW_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_FLOW_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFlowId(@javax.annotation.Nullable String flowId) {
     this.flowId = flowId;

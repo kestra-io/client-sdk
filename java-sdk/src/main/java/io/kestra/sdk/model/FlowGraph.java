@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -42,20 +41,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class FlowGraph {
   public static final String JSON_PROPERTY_NODES = "nodes";
-  @javax.annotation.Nullable
-  private List<AbstractGraph> nodes = new ArrayList<>();
+  @javax.annotation.Nullable  private List<AbstractGraph> nodes = new ArrayList<>();
 
   public static final String JSON_PROPERTY_EDGES = "edges";
-  @javax.annotation.Nullable
-  private List<FlowGraphEdge> edges = new ArrayList<>();
+  @javax.annotation.Nullable  private List<FlowGraphEdge> edges = new ArrayList<>();
 
   public static final String JSON_PROPERTY_CLUSTERS = "clusters";
-  @javax.annotation.Nullable
-  private List<FlowGraphCluster> clusters = new ArrayList<>();
+  @javax.annotation.Nullable  private List<FlowGraphCluster> clusters = new ArrayList<>();
 
   public static final String JSON_PROPERTY_FLOWABLES = "flowables";
-  @javax.annotation.Nullable
-  private List<String> flowables = new ArrayList<>();
+  @javax.annotation.Nullable  private List<String> flowables = new ArrayList<>();
 
   public FlowGraph() {
   }
@@ -78,8 +73,7 @@ public class FlowGraph {
    * Get nodes
    * @return nodes
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_NODES, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NODES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<AbstractGraph> getNodes() {
@@ -87,7 +81,7 @@ public class FlowGraph {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_NODES, required = false)
+  @JsonProperty(JSON_PROPERTY_NODES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNodes(@javax.annotation.Nullable List<AbstractGraph> nodes) {
     this.nodes = nodes;
@@ -111,8 +105,7 @@ public class FlowGraph {
    * Get edges
    * @return edges
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_EDGES, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EDGES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<FlowGraphEdge> getEdges() {
@@ -120,7 +113,7 @@ public class FlowGraph {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_EDGES, required = false)
+  @JsonProperty(JSON_PROPERTY_EDGES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEdges(@javax.annotation.Nullable List<FlowGraphEdge> edges) {
     this.edges = edges;
@@ -144,8 +137,7 @@ public class FlowGraph {
    * Get clusters
    * @return clusters
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_CLUSTERS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CLUSTERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<FlowGraphCluster> getClusters() {
@@ -153,7 +145,7 @@ public class FlowGraph {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_CLUSTERS, required = false)
+  @JsonProperty(JSON_PROPERTY_CLUSTERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClusters(@javax.annotation.Nullable List<FlowGraphCluster> clusters) {
     this.clusters = clusters;
@@ -177,8 +169,7 @@ public class FlowGraph {
    * Get flowables
    * @return flowables
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_FLOWABLES, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FLOWABLES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getFlowables() {
@@ -186,7 +177,7 @@ public class FlowGraph {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_FLOWABLES, required = false)
+  @JsonProperty(JSON_PROPERTY_FLOWABLES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFlowables(@javax.annotation.Nullable List<String> flowables) {
     this.flowables = flowables;

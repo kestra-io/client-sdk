@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -36,12 +35,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ExecutionControllerStateRequest {
   public static final String JSON_PROPERTY_TASK_RUN_ID = "taskRunId";
-  @javax.annotation.Nullable
-  private String taskRunId;
+  @javax.annotation.Nullable  private String taskRunId;
 
   public static final String JSON_PROPERTY_STATE = "state";
-  @javax.annotation.Nullable
-  private StateType state;
+  @javax.annotation.Nullable  private StateType state;
 
   public ExecutionControllerStateRequest() {
   }
@@ -56,8 +53,7 @@ public class ExecutionControllerStateRequest {
    * Get taskRunId
    * @return taskRunId
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TASK_RUN_ID, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TASK_RUN_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTaskRunId() {
@@ -65,7 +61,7 @@ public class ExecutionControllerStateRequest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TASK_RUN_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_TASK_RUN_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTaskRunId(@javax.annotation.Nullable String taskRunId) {
     this.taskRunId = taskRunId;
@@ -81,8 +77,7 @@ public class ExecutionControllerStateRequest {
    * Get state
    * @return state
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_STATE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public StateType getState() {
@@ -90,7 +85,7 @@ public class ExecutionControllerStateRequest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_STATE, required = false)
+  @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setState(@javax.annotation.Nullable StateType state) {
     this.state = state;

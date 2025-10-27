@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -33,8 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class DeletedInterface {
   public static final String JSON_PROPERTY_DELETED = "deleted";
-  @javax.annotation.Nullable
-  private Boolean deleted;
+  @javax.annotation.Nullable  private Boolean deleted;
 
   public DeletedInterface() {
   }
@@ -49,8 +47,7 @@ public class DeletedInterface {
    * Get deleted
    * @return deleted
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DELETED, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getDeleted() {
@@ -58,7 +55,7 @@ public class DeletedInterface {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DELETED, required = false)
+  @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDeleted(@javax.annotation.Nullable Boolean deleted) {
     this.deleted = deleted;

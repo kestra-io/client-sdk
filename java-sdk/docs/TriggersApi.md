@@ -729,7 +729,7 @@ public class Example {
 
 ## searchTriggers
 
-> PagedResultsTriggerControllerTriggers searchTriggers(page, size, tenant, sort, filters, q, namespace, workerId, flowId)
+> PagedResultsTriggerControllerTriggers searchTriggers(page, size, tenant, sort, filters)
 
 Search for triggers
 
@@ -764,12 +764,8 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
-        String q = "q_example"; // String | A string filter
-        String namespace = "namespace_example"; // String | A namespace filter prefix
-        String workerId = "workerId_example"; // String | The identifier of the worker currently evaluating the trigger
-        String flowId = "flowId_example"; // String | The flow identifier
         try {
-            PagedResultsTriggerControllerTriggers result = apiInstance.searchTriggers(page, size, tenant, sort, filters, q, namespace, workerId, flowId);
+            PagedResultsTriggerControllerTriggers result = apiInstance.searchTriggers(page, size, tenant, sort, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#searchTriggers");
@@ -792,10 +788,6 @@ public class Example {
 | **tenant** | **String**|  | |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
-| **q** | **String**| A string filter | [optional] |
-| **namespace** | **String**| A namespace filter prefix | [optional] |
-| **workerId** | **String**| The identifier of the worker currently evaluating the trigger | [optional] |
-| **flowId** | **String**| The flow identifier | [optional] |
 
 ### Return type
 

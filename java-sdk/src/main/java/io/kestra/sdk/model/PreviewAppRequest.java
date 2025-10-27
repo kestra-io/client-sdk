@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -35,8 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PreviewAppRequest {
   public static final String JSON_PROPERTY_PARAMETERS = "parameters";
-  @javax.annotation.Nullable
-  private HttpParameters parameters;
+  @javax.annotation.Nullable  private HttpParameters parameters;
 
   public PreviewAppRequest() {
   }
@@ -51,8 +49,7 @@ public class PreviewAppRequest {
    * Get parameters
    * @return parameters
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_PARAMETERS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PARAMETERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public HttpParameters getParameters() {
@@ -60,7 +57,7 @@ public class PreviewAppRequest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_PARAMETERS, required = false)
+  @JsonProperty(JSON_PROPERTY_PARAMETERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setParameters(@javax.annotation.Nullable HttpParameters parameters) {
     this.parameters = parameters;

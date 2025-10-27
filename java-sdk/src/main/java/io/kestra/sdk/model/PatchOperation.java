@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -37,16 +36,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PatchOperation {
   public static final String JSON_PROPERTY_OPERATION = "operation";
-  @javax.annotation.Nullable
-  private PatchOperationType operation;
+  @javax.annotation.Nullable  private PatchOperationType operation;
 
   public static final String JSON_PROPERTY_PATH = "path";
-  @javax.annotation.Nullable
-  private PatchOperationPath path;
+  @javax.annotation.Nullable  private PatchOperationPath path;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nullable
-  private Object value;
+  @javax.annotation.Nullable  private Object value;
 
   public PatchOperation() {
   }
@@ -61,8 +57,7 @@ public class PatchOperation {
    * Get operation
    * @return operation
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_OPERATION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OPERATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public PatchOperationType getOperation() {
@@ -70,7 +65,7 @@ public class PatchOperation {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_OPERATION, required = false)
+  @JsonProperty(JSON_PROPERTY_OPERATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOperation(@javax.annotation.Nullable PatchOperationType operation) {
     this.operation = operation;
@@ -86,8 +81,7 @@ public class PatchOperation {
    * Get path
    * @return path
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_PATH, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PATH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public PatchOperationPath getPath() {
@@ -95,7 +89,7 @@ public class PatchOperation {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_PATH, required = false)
+  @JsonProperty(JSON_PROPERTY_PATH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPath(@javax.annotation.Nullable PatchOperationPath path) {
     this.path = path;
@@ -111,8 +105,7 @@ public class PatchOperation {
    * Get value
    * @return value
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_VALUE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Object getValue() {
@@ -120,7 +113,7 @@ public class PatchOperation {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_VALUE, required = false)
+  @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setValue(@javax.annotation.Nullable Object value) {
     this.value = value;

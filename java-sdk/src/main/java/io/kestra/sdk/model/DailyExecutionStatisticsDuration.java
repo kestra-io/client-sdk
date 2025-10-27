@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -38,24 +37,19 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class DailyExecutionStatisticsDuration {
   public static final String JSON_PROPERTY_MIN = "min";
-  @javax.annotation.Nonnull
-  private String min;
+  @javax.annotation.Nonnull  private String min;
 
   public static final String JSON_PROPERTY_AVG = "avg";
-  @javax.annotation.Nonnull
-  private String avg;
+  @javax.annotation.Nonnull  private String avg;
 
   public static final String JSON_PROPERTY_MAX = "max";
-  @javax.annotation.Nonnull
-  private String max;
+  @javax.annotation.Nonnull  private String max;
 
   public static final String JSON_PROPERTY_SUM = "sum";
-  @javax.annotation.Nonnull
-  private String sum;
+  @javax.annotation.Nonnull  private String sum;
 
   public static final String JSON_PROPERTY_COUNT = "count";
-  @javax.annotation.Nonnull
-  private Long count;
+  @javax.annotation.Nonnull  private Long count;
 
   public DailyExecutionStatisticsDuration() {
   }
@@ -70,8 +64,7 @@ public class DailyExecutionStatisticsDuration {
    * Get min
    * @return min
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_MIN, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_MIN)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getMin() {
@@ -79,7 +72,7 @@ public class DailyExecutionStatisticsDuration {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_MIN, required = true)
+  @JsonProperty(JSON_PROPERTY_MIN)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setMin(@javax.annotation.Nonnull String min) {
     this.min = min;
@@ -95,8 +88,7 @@ public class DailyExecutionStatisticsDuration {
    * Get avg
    * @return avg
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_AVG, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_AVG)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getAvg() {
@@ -104,7 +96,7 @@ public class DailyExecutionStatisticsDuration {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_AVG, required = true)
+  @JsonProperty(JSON_PROPERTY_AVG)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setAvg(@javax.annotation.Nonnull String avg) {
     this.avg = avg;
@@ -120,8 +112,7 @@ public class DailyExecutionStatisticsDuration {
    * Get max
    * @return max
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_MAX, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_MAX)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getMax() {
@@ -129,7 +120,7 @@ public class DailyExecutionStatisticsDuration {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_MAX, required = true)
+  @JsonProperty(JSON_PROPERTY_MAX)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setMax(@javax.annotation.Nonnull String max) {
     this.max = max;
@@ -145,8 +136,7 @@ public class DailyExecutionStatisticsDuration {
    * Get sum
    * @return sum
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_SUM, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_SUM)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getSum() {
@@ -154,7 +144,7 @@ public class DailyExecutionStatisticsDuration {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_SUM, required = true)
+  @JsonProperty(JSON_PROPERTY_SUM)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setSum(@javax.annotation.Nonnull String sum) {
     this.sum = sum;
@@ -170,8 +160,7 @@ public class DailyExecutionStatisticsDuration {
    * Get count
    * @return count
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_COUNT, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_COUNT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Long getCount() {
@@ -179,7 +168,7 @@ public class DailyExecutionStatisticsDuration {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_COUNT, required = true)
+  @JsonProperty(JSON_PROPERTY_COUNT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setCount(@javax.annotation.Nonnull Long count) {
     this.count = count;

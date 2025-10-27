@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -44,36 +43,28 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TestSuite {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
-  private String id;
+  @javax.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
-  private String description;
+  @javax.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nonnull
-  private String namespace;
+  @javax.annotation.Nonnull  private String namespace;
 
   public static final String JSON_PROPERTY_FLOW_ID = "flowId";
-  @javax.annotation.Nonnull
-  private String flowId;
+  @javax.annotation.Nonnull  private String flowId;
 
   public static final String JSON_PROPERTY_SOURCE = "source";
-  @javax.annotation.Nullable
-  private String source;
+  @javax.annotation.Nullable  private String source;
 
   public static final String JSON_PROPERTY_TEST_CASES = "testCases";
-  @javax.annotation.Nonnull
-  private List<UnitTest> testCases = new ArrayList<>();
+  @javax.annotation.Nonnull  private List<UnitTest> testCases = new ArrayList<>();
 
   public static final String JSON_PROPERTY_DELETED = "deleted";
-  @javax.annotation.Nullable
-  private Boolean deleted;
+  @javax.annotation.Nullable  private Boolean deleted;
 
   public static final String JSON_PROPERTY_DISABLED = "disabled";
-  @javax.annotation.Nullable
-  private Boolean disabled;
+  @javax.annotation.Nullable  private Boolean disabled;
 
   public TestSuite() {
   }
@@ -88,8 +79,7 @@ public class TestSuite {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -97,7 +87,7 @@ public class TestSuite {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setId(@javax.annotation.Nonnull String id) {
     this.id = id;
@@ -113,8 +103,7 @@ public class TestSuite {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -122,7 +111,7 @@ public class TestSuite {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
@@ -138,8 +127,7 @@ public class TestSuite {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getNamespace() {
@@ -147,7 +135,7 @@ public class TestSuite {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = true)
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setNamespace(@javax.annotation.Nonnull String namespace) {
     this.namespace = namespace;
@@ -163,8 +151,7 @@ public class TestSuite {
    * Get flowId
    * @return flowId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_FLOW_ID, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_FLOW_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getFlowId() {
@@ -172,7 +159,7 @@ public class TestSuite {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_FLOW_ID, required = true)
+  @JsonProperty(JSON_PROPERTY_FLOW_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setFlowId(@javax.annotation.Nonnull String flowId) {
     this.flowId = flowId;
@@ -188,8 +175,7 @@ public class TestSuite {
    * Get source
    * @return source
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_SOURCE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SOURCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSource() {
@@ -197,7 +183,7 @@ public class TestSuite {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_SOURCE, required = false)
+  @JsonProperty(JSON_PROPERTY_SOURCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSource(@javax.annotation.Nullable String source) {
     this.source = source;
@@ -221,8 +207,7 @@ public class TestSuite {
    * Get testCases
    * @return testCases
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_TEST_CASES, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TEST_CASES)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<UnitTest> getTestCases() {
@@ -230,7 +215,7 @@ public class TestSuite {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TEST_CASES, required = true)
+  @JsonProperty(JSON_PROPERTY_TEST_CASES)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTestCases(@javax.annotation.Nonnull List<UnitTest> testCases) {
     this.testCases = testCases;
@@ -246,8 +231,7 @@ public class TestSuite {
    * Get deleted
    * @return deleted
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DELETED, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getDeleted() {
@@ -255,7 +239,7 @@ public class TestSuite {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DELETED, required = false)
+  @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDeleted(@javax.annotation.Nullable Boolean deleted) {
     this.deleted = deleted;
@@ -271,8 +255,7 @@ public class TestSuite {
    * Get disabled
    * @return disabled
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DISABLED, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getDisabled() {
@@ -280,7 +263,7 @@ public class TestSuite {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DISABLED, required = false)
+  @JsonProperty(JSON_PROPERTY_DISABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDisabled(@javax.annotation.Nullable Boolean disabled) {
     this.disabled = disabled;

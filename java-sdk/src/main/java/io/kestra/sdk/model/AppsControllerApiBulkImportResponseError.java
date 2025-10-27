@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -35,12 +34,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AppsControllerApiBulkImportResponseError {
   public static final String JSON_PROPERTY_SOURCE = "source";
-  @javax.annotation.Nullable
-  private String source;
+  @javax.annotation.Nullable  private String source;
 
   public static final String JSON_PROPERTY_MESSAGE = "message";
-  @javax.annotation.Nullable
-  private String message;
+  @javax.annotation.Nullable  private String message;
 
   public AppsControllerApiBulkImportResponseError() {
   }
@@ -55,8 +52,7 @@ public class AppsControllerApiBulkImportResponseError {
    * Get source
    * @return source
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_SOURCE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SOURCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSource() {
@@ -64,7 +60,7 @@ public class AppsControllerApiBulkImportResponseError {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_SOURCE, required = false)
+  @JsonProperty(JSON_PROPERTY_SOURCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSource(@javax.annotation.Nullable String source) {
     this.source = source;
@@ -80,8 +76,7 @@ public class AppsControllerApiBulkImportResponseError {
    * Get message
    * @return message
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_MESSAGE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getMessage() {
@@ -89,7 +84,7 @@ public class AppsControllerApiBulkImportResponseError {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_MESSAGE, required = false)
+  @JsonProperty(JSON_PROPERTY_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMessage(@javax.annotation.Nullable String message) {
     this.message = message;

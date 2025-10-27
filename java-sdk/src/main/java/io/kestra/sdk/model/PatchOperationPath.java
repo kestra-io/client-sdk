@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -34,8 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PatchOperationPath {
   public static final String JSON_PROPERTY_VALUE_PATH_EXPRESSION = "valuePathExpression";
-  @javax.annotation.Nullable
-  private ValuePathExpression valuePathExpression;
+  @javax.annotation.Nullable  private ValuePathExpression valuePathExpression;
 
   public PatchOperationPath() {
   }
@@ -50,8 +48,7 @@ public class PatchOperationPath {
    * Get valuePathExpression
    * @return valuePathExpression
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_VALUE_PATH_EXPRESSION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE_PATH_EXPRESSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ValuePathExpression getValuePathExpression() {
@@ -59,7 +56,7 @@ public class PatchOperationPath {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_VALUE_PATH_EXPRESSION, required = false)
+  @JsonProperty(JSON_PROPERTY_VALUE_PATH_EXPRESSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setValuePathExpression(@javax.annotation.Nullable ValuePathExpression valuePathExpression) {
     this.valuePathExpression = valuePathExpression;

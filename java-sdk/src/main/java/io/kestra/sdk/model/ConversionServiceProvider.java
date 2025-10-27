@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -33,8 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ConversionServiceProvider {
   public static final String JSON_PROPERTY_CONVERSION_SERVICE = "conversionService";
-  @javax.annotation.Nonnull
-  private Object conversionService;
+  @javax.annotation.Nonnull  private Object conversionService;
 
   public ConversionServiceProvider() {
   }
@@ -49,8 +47,7 @@ public class ConversionServiceProvider {
    * Get conversionService
    * @return conversionService
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_CONVERSION_SERVICE, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_CONVERSION_SERVICE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Object getConversionService() {
@@ -58,7 +55,7 @@ public class ConversionServiceProvider {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_CONVERSION_SERVICE, required = true)
+  @JsonProperty(JSON_PROPERTY_CONVERSION_SERVICE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setConversionService(@javax.annotation.Nonnull Object conversionService) {
     this.conversionService = conversionService;

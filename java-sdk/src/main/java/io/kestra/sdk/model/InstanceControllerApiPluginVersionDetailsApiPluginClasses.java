@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -39,12 +38,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class InstanceControllerApiPluginVersionDetailsApiPluginClasses {
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nullable
-  private String type;
+  @javax.annotation.Nullable  private String type;
 
   public static final String JSON_PROPERTY_CLASSES = "classes";
-  @javax.annotation.Nullable
-  private List<InstanceControllerApiPluginVersionDetailsApiPluginClass> classes = new ArrayList<>();
+  @javax.annotation.Nullable  private List<InstanceControllerApiPluginVersionDetailsApiPluginClass> classes = new ArrayList<>();
 
   public InstanceControllerApiPluginVersionDetailsApiPluginClasses() {
   }
@@ -59,8 +56,7 @@ public class InstanceControllerApiPluginVersionDetailsApiPluginClasses {
    * Get type
    * @return type
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getType() {
@@ -68,7 +64,7 @@ public class InstanceControllerApiPluginVersionDetailsApiPluginClasses {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
+  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setType(@javax.annotation.Nullable String type) {
     this.type = type;
@@ -92,8 +88,7 @@ public class InstanceControllerApiPluginVersionDetailsApiPluginClasses {
    * Get classes
    * @return classes
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_CLASSES, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CLASSES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<InstanceControllerApiPluginVersionDetailsApiPluginClass> getClasses() {
@@ -101,7 +96,7 @@ public class InstanceControllerApiPluginVersionDetailsApiPluginClasses {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_CLASSES, required = false)
+  @JsonProperty(JSON_PROPERTY_CLASSES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClasses(@javax.annotation.Nullable List<InstanceControllerApiPluginVersionDetailsApiPluginClass> classes) {
     this.classes = classes;

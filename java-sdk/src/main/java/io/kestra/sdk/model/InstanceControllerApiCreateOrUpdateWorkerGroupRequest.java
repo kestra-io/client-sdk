@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -39,16 +38,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
   public static final String JSON_PROPERTY_KEY = "key";
-  @javax.annotation.Nonnull
-  private String key;
+  @javax.annotation.Nonnull  private String key;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
-  private String description;
+  @javax.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_ALLOWED_TENANTS = "allowedTenants";
-  @javax.annotation.Nullable
-  private List<String> allowedTenants = new ArrayList<>();
+  @javax.annotation.Nullable  private List<String> allowedTenants = new ArrayList<>();
 
   public InstanceControllerApiCreateOrUpdateWorkerGroupRequest() {
   }
@@ -63,8 +59,7 @@ public class InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
    * The key of the worker group.
    * @return key
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_KEY, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_KEY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getKey() {
@@ -72,7 +67,7 @@ public class InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_KEY, required = true)
+  @JsonProperty(JSON_PROPERTY_KEY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setKey(@javax.annotation.Nonnull String key) {
     this.key = key;
@@ -88,8 +83,7 @@ public class InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
    * The description of the worker group.
    * @return description
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -97,7 +91,7 @@ public class InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
@@ -121,8 +115,7 @@ public class InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
    * Get allowedTenants
    * @return allowedTenants
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ALLOWED_TENANTS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ALLOWED_TENANTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getAllowedTenants() {
@@ -130,7 +123,7 @@ public class InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ALLOWED_TENANTS, required = false)
+  @JsonProperty(JSON_PROPERTY_ALLOWED_TENANTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAllowedTenants(@javax.annotation.Nullable List<String> allowedTenants) {
     this.allowedTenants = allowedTenants;

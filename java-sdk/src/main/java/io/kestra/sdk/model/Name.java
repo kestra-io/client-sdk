@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -34,12 +33,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Name {
   public static final String JSON_PROPERTY_FAMILY_NAME = "familyName";
-  @javax.annotation.Nullable
-  private String familyName;
+  @javax.annotation.Nullable  private String familyName;
 
   public static final String JSON_PROPERTY_GIVEN_NAME = "givenName";
-  @javax.annotation.Nullable
-  private String givenName;
+  @javax.annotation.Nullable  private String givenName;
 
   public Name() {
   }
@@ -54,8 +51,7 @@ public class Name {
    * Get familyName
    * @return familyName
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_FAMILY_NAME, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FAMILY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFamilyName() {
@@ -63,7 +59,7 @@ public class Name {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_FAMILY_NAME, required = false)
+  @JsonProperty(JSON_PROPERTY_FAMILY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFamilyName(@javax.annotation.Nullable String familyName) {
     this.familyName = familyName;
@@ -79,8 +75,7 @@ public class Name {
    * Get givenName
    * @return givenName
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_GIVEN_NAME, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GIVEN_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getGivenName() {
@@ -88,7 +83,7 @@ public class Name {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_GIVEN_NAME, required = false)
+  @JsonProperty(JSON_PROPERTY_GIVEN_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setGivenName(@javax.annotation.Nullable String givenName) {
     this.givenName = givenName;

@@ -212,9 +212,10 @@ public class TriggersApiTest {
         String triggerId = flowId + "_trigger";
         String namespace = "test.triggers." + randomId();
         createFlowWithTrigger(flowId, triggerId, namespace);
+        var filters = List.of(new QueryFilter().field(QueryFilterField.NAMESPACE).operation(QueryFilterOp.EQUALS).value(namespace));
 
         PagedResultsTriggerControllerTriggers page =
-            kestraClient().triggers().searchTriggers(1, 10, MAIN_TENANT, null, null, null, namespace, null, null);
+            kestraClient().triggers().searchTriggers(1, 10, MAIN_TENANT, null, filters);
 
         assertNotNull(page);
     }

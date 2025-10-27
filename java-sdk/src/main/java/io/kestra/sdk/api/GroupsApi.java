@@ -36,12 +36,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.StringJoiner;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
-public class GroupsApi extends BaseApi {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")public class GroupsApi extends BaseApi {
 
   public GroupsApi() {
     super(Configuration.getDefaultApiClient());
@@ -142,6 +140,11 @@ public class GroupsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * List groups for autocomplete
    * 
@@ -223,6 +226,11 @@ public class GroupsApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Create a group
@@ -306,6 +314,11 @@ public class GroupsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Delete a group
    * 
@@ -385,6 +398,11 @@ public class GroupsApi extends BaseApi {
         null
     );
   }
+
+
+
+
+
 
   /**
    * Remove a user from a group
@@ -477,6 +495,11 @@ public class GroupsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Retrieve a group
    * Retrieves details of a specific group by its ID within the current tenant.
@@ -560,6 +583,11 @@ public class GroupsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * List groups by ids
    * 
@@ -641,6 +669,11 @@ public class GroupsApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Search for users in a group
@@ -747,6 +780,11 @@ public class GroupsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Search for groups
    * 
@@ -843,6 +881,11 @@ public class GroupsApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Update a user&#39;s membership type in a group
@@ -942,6 +985,11 @@ public class GroupsApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Update a group
@@ -1073,4 +1121,9 @@ public class GroupsApi extends BaseApi {
         returnType
     );
   }
+
+
+
+
+
 }

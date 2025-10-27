@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -40,16 +39,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TestSuiteServiceRunByQueryRequest {
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nullable
-  private JsonNullable<String> namespace = JsonNullable.<String>undefined();
+  @javax.annotation.Nullable  private JsonNullable<String> namespace = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_FLOW_ID = "flowId";
-  @javax.annotation.Nullable
-  private JsonNullable<String> flowId = JsonNullable.<String>undefined();
+  @javax.annotation.Nullable  private JsonNullable<String> flowId = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_INCLUDE_CHILD_NAMESPACES = "includeChildNamespaces";
-  @javax.annotation.Nonnull
-  private Boolean includeChildNamespaces = true;
+  @javax.annotation.Nonnull  private Boolean includeChildNamespaces = true;
 
   public TestSuiteServiceRunByQueryRequest() {
   }
@@ -64,21 +60,19 @@ public class TestSuiteServiceRunByQueryRequest {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public String getNamespace() {
         return namespace.orElse(null);
   }
 
-  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = false)
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<String> getNamespace_JsonNullable() {
     return namespace;
   }
   
-  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = false)
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   public void setNamespace_JsonNullable(JsonNullable<String> namespace) {
     this.namespace = namespace;
   }
@@ -97,21 +91,19 @@ public class TestSuiteServiceRunByQueryRequest {
    * Get flowId
    * @return flowId
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public String getFlowId() {
         return flowId.orElse(null);
   }
 
-  @JsonProperty(value = JSON_PROPERTY_FLOW_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_FLOW_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<String> getFlowId_JsonNullable() {
     return flowId;
   }
   
-  @JsonProperty(value = JSON_PROPERTY_FLOW_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_FLOW_ID)
   public void setFlowId_JsonNullable(JsonNullable<String> flowId) {
     this.flowId = flowId;
   }
@@ -130,8 +122,7 @@ public class TestSuiteServiceRunByQueryRequest {
    * Should child namespaces be included or not
    * @return includeChildNamespaces
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_INCLUDE_CHILD_NAMESPACES, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_INCLUDE_CHILD_NAMESPACES)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getIncludeChildNamespaces() {
@@ -139,7 +130,7 @@ public class TestSuiteServiceRunByQueryRequest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_INCLUDE_CHILD_NAMESPACES, required = true)
+  @JsonProperty(JSON_PROPERTY_INCLUDE_CHILD_NAMESPACES)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setIncludeChildNamespaces(@javax.annotation.Nonnull Boolean includeChildNamespaces) {
     this.includeChildNamespaces = includeChildNamespaces;

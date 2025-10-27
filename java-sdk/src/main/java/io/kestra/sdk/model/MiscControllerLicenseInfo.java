@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -40,28 +39,22 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class MiscControllerLicenseInfo {
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nullable
-  private String type;
+  @javax.annotation.Nullable  private String type;
 
   public static final String JSON_PROPERTY_EXPIRY = "expiry";
-  @javax.annotation.Nullable
-  private OffsetDateTime expiry;
+  @javax.annotation.Nullable  private OffsetDateTime expiry;
 
   public static final String JSON_PROPERTY_EXPIRED = "expired";
-  @javax.annotation.Nullable
-  private Boolean expired;
+  @javax.annotation.Nullable  private Boolean expired;
 
   public static final String JSON_PROPERTY_MAX_SERVERS = "maxServers";
-  @javax.annotation.Nullable
-  private Integer maxServers;
+  @javax.annotation.Nullable  private Integer maxServers;
 
   public static final String JSON_PROPERTY_STANDALONE = "standalone";
-  @javax.annotation.Nullable
-  private Boolean standalone;
+  @javax.annotation.Nullable  private Boolean standalone;
 
   public static final String JSON_PROPERTY_WORKER_GROUPS = "workerGroups";
-  @javax.annotation.Nullable
-  private Boolean workerGroups;
+  @javax.annotation.Nullable  private Boolean workerGroups;
 
   public MiscControllerLicenseInfo() {
   }
@@ -76,8 +69,7 @@ public class MiscControllerLicenseInfo {
    * Get type
    * @return type
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getType() {
@@ -85,7 +77,7 @@ public class MiscControllerLicenseInfo {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
+  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setType(@javax.annotation.Nullable String type) {
     this.type = type;
@@ -101,8 +93,7 @@ public class MiscControllerLicenseInfo {
    * Get expiry
    * @return expiry
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_EXPIRY, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXPIRY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getExpiry() {
@@ -110,7 +101,7 @@ public class MiscControllerLicenseInfo {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_EXPIRY, required = false)
+  @JsonProperty(JSON_PROPERTY_EXPIRY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExpiry(@javax.annotation.Nullable OffsetDateTime expiry) {
     this.expiry = expiry;
@@ -126,8 +117,7 @@ public class MiscControllerLicenseInfo {
    * Get expired
    * @return expired
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_EXPIRED, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXPIRED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getExpired() {
@@ -135,7 +125,7 @@ public class MiscControllerLicenseInfo {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_EXPIRED, required = false)
+  @JsonProperty(JSON_PROPERTY_EXPIRED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExpired(@javax.annotation.Nullable Boolean expired) {
     this.expired = expired;
@@ -151,8 +141,7 @@ public class MiscControllerLicenseInfo {
    * Get maxServers
    * @return maxServers
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_MAX_SERVERS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MAX_SERVERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getMaxServers() {
@@ -160,7 +149,7 @@ public class MiscControllerLicenseInfo {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_MAX_SERVERS, required = false)
+  @JsonProperty(JSON_PROPERTY_MAX_SERVERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMaxServers(@javax.annotation.Nullable Integer maxServers) {
     this.maxServers = maxServers;
@@ -176,8 +165,7 @@ public class MiscControllerLicenseInfo {
    * Get standalone
    * @return standalone
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_STANDALONE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STANDALONE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getStandalone() {
@@ -185,7 +173,7 @@ public class MiscControllerLicenseInfo {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_STANDALONE, required = false)
+  @JsonProperty(JSON_PROPERTY_STANDALONE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStandalone(@javax.annotation.Nullable Boolean standalone) {
     this.standalone = standalone;
@@ -201,8 +189,7 @@ public class MiscControllerLicenseInfo {
    * Get workerGroups
    * @return workerGroups
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_WORKER_GROUPS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_GROUPS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getWorkerGroups() {
@@ -210,7 +197,7 @@ public class MiscControllerLicenseInfo {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_WORKER_GROUPS, required = false)
+  @JsonProperty(JSON_PROPERTY_WORKER_GROUPS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWorkerGroups(@javax.annotation.Nullable Boolean workerGroups) {
     this.workerGroups = workerGroups;

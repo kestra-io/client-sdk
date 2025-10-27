@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -38,8 +37,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class InstanceControllerApiWorkerGroupList {
   public static final String JSON_PROPERTY_WORKER_GROUPS = "workerGroups";
-  @javax.annotation.Nullable
-  private List<InstanceControllerApiWorkerGroupItem> workerGroups = new ArrayList<>();
+  @javax.annotation.Nullable  private List<InstanceControllerApiWorkerGroupItem> workerGroups = new ArrayList<>();
 
   public InstanceControllerApiWorkerGroupList() {
   }
@@ -62,8 +60,7 @@ public class InstanceControllerApiWorkerGroupList {
    * The list of worker groups.
    * @return workerGroups
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_WORKER_GROUPS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_GROUPS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<InstanceControllerApiWorkerGroupItem> getWorkerGroups() {
@@ -71,7 +68,7 @@ public class InstanceControllerApiWorkerGroupList {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_WORKER_GROUPS, required = false)
+  @JsonProperty(JSON_PROPERTY_WORKER_GROUPS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWorkerGroups(@javax.annotation.Nullable List<InstanceControllerApiWorkerGroupItem> workerGroups) {
     this.workerGroups = workerGroups;

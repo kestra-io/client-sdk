@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -46,36 +45,28 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TestSuiteRunResult {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
-  private String id;
+  @javax.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_TEST_SUITE_ID = "testSuiteId";
-  @javax.annotation.Nonnull
-  private String testSuiteId;
+  @javax.annotation.Nonnull  private String testSuiteId;
 
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nonnull
-  private String namespace;
+  @javax.annotation.Nonnull  private String namespace;
 
   public static final String JSON_PROPERTY_FLOW_ID = "flowId";
-  @javax.annotation.Nonnull
-  private String flowId;
+  @javax.annotation.Nonnull  private String flowId;
 
   public static final String JSON_PROPERTY_STATE = "state";
-  @javax.annotation.Nonnull
-  private TestState state;
+  @javax.annotation.Nonnull  private TestState state;
 
   public static final String JSON_PROPERTY_START_DATE = "startDate";
-  @javax.annotation.Nonnull
-  private OffsetDateTime startDate;
+  @javax.annotation.Nonnull  private OffsetDateTime startDate;
 
   public static final String JSON_PROPERTY_END_DATE = "endDate";
-  @javax.annotation.Nonnull
-  private OffsetDateTime endDate;
+  @javax.annotation.Nonnull  private OffsetDateTime endDate;
 
   public static final String JSON_PROPERTY_RESULTS = "results";
-  @javax.annotation.Nullable
-  private List<UnitTestResult> results = new ArrayList<>();
+  @javax.annotation.Nullable  private List<UnitTestResult> results = new ArrayList<>();
 
   public TestSuiteRunResult() {
   }
@@ -90,8 +81,7 @@ public class TestSuiteRunResult {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -99,7 +89,7 @@ public class TestSuiteRunResult {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setId(@javax.annotation.Nonnull String id) {
     this.id = id;
@@ -115,8 +105,7 @@ public class TestSuiteRunResult {
    * Get testSuiteId
    * @return testSuiteId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_TEST_SUITE_ID, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TEST_SUITE_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getTestSuiteId() {
@@ -124,7 +113,7 @@ public class TestSuiteRunResult {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TEST_SUITE_ID, required = true)
+  @JsonProperty(JSON_PROPERTY_TEST_SUITE_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTestSuiteId(@javax.annotation.Nonnull String testSuiteId) {
     this.testSuiteId = testSuiteId;
@@ -140,8 +129,7 @@ public class TestSuiteRunResult {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getNamespace() {
@@ -149,7 +137,7 @@ public class TestSuiteRunResult {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = true)
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setNamespace(@javax.annotation.Nonnull String namespace) {
     this.namespace = namespace;
@@ -165,8 +153,7 @@ public class TestSuiteRunResult {
    * Get flowId
    * @return flowId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_FLOW_ID, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_FLOW_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getFlowId() {
@@ -174,7 +161,7 @@ public class TestSuiteRunResult {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_FLOW_ID, required = true)
+  @JsonProperty(JSON_PROPERTY_FLOW_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setFlowId(@javax.annotation.Nonnull String flowId) {
     this.flowId = flowId;
@@ -190,8 +177,7 @@ public class TestSuiteRunResult {
    * Get state
    * @return state
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_STATE, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public TestState getState() {
@@ -199,7 +185,7 @@ public class TestSuiteRunResult {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_STATE, required = true)
+  @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setState(@javax.annotation.Nonnull TestState state) {
     this.state = state;
@@ -215,8 +201,7 @@ public class TestSuiteRunResult {
    * Get startDate
    * @return startDate
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_START_DATE, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_START_DATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public OffsetDateTime getStartDate() {
@@ -224,7 +209,7 @@ public class TestSuiteRunResult {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_START_DATE, required = true)
+  @JsonProperty(JSON_PROPERTY_START_DATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setStartDate(@javax.annotation.Nonnull OffsetDateTime startDate) {
     this.startDate = startDate;
@@ -240,8 +225,7 @@ public class TestSuiteRunResult {
    * Get endDate
    * @return endDate
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_END_DATE, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_END_DATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public OffsetDateTime getEndDate() {
@@ -249,7 +233,7 @@ public class TestSuiteRunResult {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_END_DATE, required = true)
+  @JsonProperty(JSON_PROPERTY_END_DATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setEndDate(@javax.annotation.Nonnull OffsetDateTime endDate) {
     this.endDate = endDate;
@@ -273,8 +257,7 @@ public class TestSuiteRunResult {
    * Get results
    * @return results
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_RESULTS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<UnitTestResult> getResults() {
@@ -282,7 +265,7 @@ public class TestSuiteRunResult {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_RESULTS, required = false)
+  @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setResults(@javax.annotation.Nullable List<UnitTestResult> results) {
     this.results = results;

@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -39,12 +38,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class QueryFilterResourceField {
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nullable
-  private String name;
+  @javax.annotation.Nullable  private String name;
 
   public static final String JSON_PROPERTY_FIELDS = "fields";
-  @javax.annotation.Nullable
-  private List<QueryFilterFieldOp> fields = new ArrayList<>();
+  @javax.annotation.Nullable  private List<QueryFilterFieldOp> fields = new ArrayList<>();
 
   public QueryFilterResourceField() {
   }
@@ -59,8 +56,7 @@ public class QueryFilterResourceField {
    * Get name
    * @return name
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_NAME, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
@@ -68,7 +64,7 @@ public class QueryFilterResourceField {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_NAME, required = false)
+  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setName(@javax.annotation.Nullable String name) {
     this.name = name;
@@ -92,8 +88,7 @@ public class QueryFilterResourceField {
    * Get fields
    * @return fields
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_FIELDS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FIELDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<QueryFilterFieldOp> getFields() {
@@ -101,7 +96,7 @@ public class QueryFilterResourceField {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_FIELDS, required = false)
+  @JsonProperty(JSON_PROPERTY_FIELDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFields(@javax.annotation.Nullable List<QueryFilterFieldOp> fields) {
     this.fields = fields;

@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -40,16 +39,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ExecutionControllerApiValidateExecutionInputsResponse {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
-  private String id;
+  @javax.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nullable
-  private String namespace;
+  @javax.annotation.Nullable  private String namespace;
 
   public static final String JSON_PROPERTY_INPUTS = "inputs";
-  @javax.annotation.Nullable
-  private List<ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue> inputs = new ArrayList<>();
+  @javax.annotation.Nullable  private List<ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue> inputs = new ArrayList<>();
 
   public ExecutionControllerApiValidateExecutionInputsResponse() {
   }
@@ -64,8 +60,7 @@ public class ExecutionControllerApiValidateExecutionInputsResponse {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -73,7 +68,7 @@ public class ExecutionControllerApiValidateExecutionInputsResponse {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable String id) {
     this.id = id;
@@ -89,8 +84,7 @@ public class ExecutionControllerApiValidateExecutionInputsResponse {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getNamespace() {
@@ -98,7 +92,7 @@ public class ExecutionControllerApiValidateExecutionInputsResponse {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = false)
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNamespace(@javax.annotation.Nullable String namespace) {
     this.namespace = namespace;
@@ -122,8 +116,7 @@ public class ExecutionControllerApiValidateExecutionInputsResponse {
    * Get inputs
    * @return inputs
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_INPUTS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue> getInputs() {
@@ -131,7 +124,7 @@ public class ExecutionControllerApiValidateExecutionInputsResponse {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_INPUTS, required = false)
+  @JsonProperty(JSON_PROPERTY_INPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setInputs(@javax.annotation.Nullable List<ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue> inputs) {
     this.inputs = inputs;

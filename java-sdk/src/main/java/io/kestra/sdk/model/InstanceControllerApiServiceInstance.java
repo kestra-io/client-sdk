@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -43,28 +42,22 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class InstanceControllerApiServiceInstance {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
-  private String id;
+  @javax.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nullable
-  private ServiceType type;
+  @javax.annotation.Nullable  private ServiceType type;
 
   public static final String JSON_PROPERTY_STATE = "state";
-  @javax.annotation.Nullable
-  private ServiceServiceState state;
+  @javax.annotation.Nullable  private ServiceServiceState state;
 
   public static final String JSON_PROPERTY_SERVER = "server";
-  @javax.annotation.Nullable
-  private InstanceControllerApiServerInstance server;
+  @javax.annotation.Nullable  private InstanceControllerApiServerInstance server;
 
   public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
-  @javax.annotation.Nullable
-  private OffsetDateTime createdAt;
+  @javax.annotation.Nullable  private OffsetDateTime createdAt;
 
   public static final String JSON_PROPERTY_UPDATED_AT = "updatedAt";
-  @javax.annotation.Nullable
-  private OffsetDateTime updatedAt;
+  @javax.annotation.Nullable  private OffsetDateTime updatedAt;
 
   public InstanceControllerApiServiceInstance() {
   }
@@ -79,8 +72,7 @@ public class InstanceControllerApiServiceInstance {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -88,7 +80,7 @@ public class InstanceControllerApiServiceInstance {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable String id) {
     this.id = id;
@@ -104,8 +96,7 @@ public class InstanceControllerApiServiceInstance {
    * Get type
    * @return type
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServiceType getType() {
@@ -113,7 +104,7 @@ public class InstanceControllerApiServiceInstance {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
+  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setType(@javax.annotation.Nullable ServiceType type) {
     this.type = type;
@@ -129,8 +120,7 @@ public class InstanceControllerApiServiceInstance {
    * Get state
    * @return state
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_STATE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServiceServiceState getState() {
@@ -138,7 +128,7 @@ public class InstanceControllerApiServiceInstance {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_STATE, required = false)
+  @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setState(@javax.annotation.Nullable ServiceServiceState state) {
     this.state = state;
@@ -154,8 +144,7 @@ public class InstanceControllerApiServiceInstance {
    * Get server
    * @return server
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_SERVER, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SERVER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public InstanceControllerApiServerInstance getServer() {
@@ -163,7 +152,7 @@ public class InstanceControllerApiServiceInstance {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_SERVER, required = false)
+  @JsonProperty(JSON_PROPERTY_SERVER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setServer(@javax.annotation.Nullable InstanceControllerApiServerInstance server) {
     this.server = server;
@@ -179,8 +168,7 @@ public class InstanceControllerApiServiceInstance {
    * Get createdAt
    * @return createdAt
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_CREATED_AT, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getCreatedAt() {
@@ -188,7 +176,7 @@ public class InstanceControllerApiServiceInstance {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_CREATED_AT, required = false)
+  @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCreatedAt(@javax.annotation.Nullable OffsetDateTime createdAt) {
     this.createdAt = createdAt;
@@ -204,8 +192,7 @@ public class InstanceControllerApiServiceInstance {
    * Get updatedAt
    * @return updatedAt
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_UPDATED_AT, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getUpdatedAt() {
@@ -213,7 +200,7 @@ public class InstanceControllerApiServiceInstance {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_UPDATED_AT, required = false)
+  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUpdatedAt(@javax.annotation.Nullable OffsetDateTime updatedAt) {
     this.updatedAt = updatedAt;

@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -37,16 +36,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AuditLogControllerAuditLogOption {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
-  private String id;
+  @javax.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_DATE = "date";
-  @javax.annotation.Nullable
-  private OffsetDateTime date;
+  @javax.annotation.Nullable  private OffsetDateTime date;
 
   public static final String JSON_PROPERTY_USERNAME = "username";
-  @javax.annotation.Nullable
-  private String username;
+  @javax.annotation.Nullable  private String username;
 
   public AuditLogControllerAuditLogOption() {
   }
@@ -61,8 +57,7 @@ public class AuditLogControllerAuditLogOption {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -70,7 +65,7 @@ public class AuditLogControllerAuditLogOption {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable String id) {
     this.id = id;
@@ -86,8 +81,7 @@ public class AuditLogControllerAuditLogOption {
    * Get date
    * @return date
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DATE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getDate() {
@@ -95,7 +89,7 @@ public class AuditLogControllerAuditLogOption {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DATE, required = false)
+  @JsonProperty(JSON_PROPERTY_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDate(@javax.annotation.Nullable OffsetDateTime date) {
     this.date = date;
@@ -111,8 +105,7 @@ public class AuditLogControllerAuditLogOption {
    * Get username
    * @return username
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_USERNAME, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_USERNAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUsername() {
@@ -120,7 +113,7 @@ public class AuditLogControllerAuditLogOption {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_USERNAME, required = false)
+  @JsonProperty(JSON_PROPERTY_USERNAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUsername(@javax.annotation.Nullable String username) {
     this.username = username;

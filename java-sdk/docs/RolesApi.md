@@ -315,8 +315,8 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **404** | Role not found |  -  |
 | **200** | getRole 200 response |  -  |
+| **404** | Role not found |  -  |
 
 
 ## listRolesFromGivenIds
@@ -553,6 +553,6 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Role successfully updated |  -  |
-| **404** | Role not found |  -  |
 | **403** | Insufficient privileges to update the role |  -  |
+| **404** | Role not found |  -  |
 

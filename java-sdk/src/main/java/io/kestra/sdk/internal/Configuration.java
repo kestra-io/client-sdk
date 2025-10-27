@@ -17,8 +17,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
-public class Configuration {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")public class Configuration {
   public static final String VERSION = "v1.0.5";
 
   private static final AtomicReference<ApiClient> defaultApiClient = new AtomicReference<>();

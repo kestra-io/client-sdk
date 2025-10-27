@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -39,12 +38,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PagedResultsApiGroupSummary {
   public static final String JSON_PROPERTY_RESULTS = "results";
-  @javax.annotation.Nonnull
-  private List<ApiGroupSummary> results = new ArrayList<>();
+  @javax.annotation.Nonnull  private List<ApiGroupSummary> results = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TOTAL = "total";
-  @javax.annotation.Nonnull
-  private Long total;
+  @javax.annotation.Nonnull  private Long total;
 
   public PagedResultsApiGroupSummary() {
   }
@@ -67,8 +64,7 @@ public class PagedResultsApiGroupSummary {
    * Get results
    * @return results
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_RESULTS, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<ApiGroupSummary> getResults() {
@@ -76,7 +72,7 @@ public class PagedResultsApiGroupSummary {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_RESULTS, required = true)
+  @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setResults(@javax.annotation.Nonnull List<ApiGroupSummary> results) {
     this.results = results;
@@ -92,8 +88,7 @@ public class PagedResultsApiGroupSummary {
    * Get total
    * @return total
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_TOTAL, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TOTAL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Long getTotal() {
@@ -101,7 +96,7 @@ public class PagedResultsApiGroupSummary {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TOTAL, required = true)
+  @JsonProperty(JSON_PROPERTY_TOTAL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTotal(@javax.annotation.Nonnull Long total) {
     this.total = total;

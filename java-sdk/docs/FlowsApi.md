@@ -28,9 +28,6 @@ All URIs are relative to *http://localhost*
 | [**listFlowsByNamespace**](FlowsApi.md#listFlowsByNamespace) | **GET** /api/v1/{tenant}/flows/{namespace} | Retrieve all flows from a given namespace |
 | [**searchFlows**](FlowsApi.md#searchFlows) | **GET** /api/v1/{tenant}/flows/search | Search for flows |
 | [**searchFlowsBySourceCode**](FlowsApi.md#searchFlowsBySourceCode) | **GET** /api/v1/{tenant}/flows/source | Search for flows source code |
-| [**updateFlow**](FlowsApi.md#updateFlow) | **PUT** /api/v1/{tenant}/flows/{namespace}/{id} | Update a flow |
-| [**updateFlowsInNamespaceFromJson**](FlowsApi.md#updateFlowsInNamespaceFromJson) | **POST** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from json object |
-| [**updateTask**](FlowsApi.md#updateTask) | **PATCH** /api/v1/{tenant}/flows/{namespace}/{id}/{taskId} | Update a single task on a flow |
 | [**validateFlows**](FlowsApi.md#validateFlows) | **POST** /api/v1/{tenant}/flows/validate | Validate a list of flows |
 | [**validateTask**](FlowsApi.md#validateTask) | **POST** /api/v1/{tenant}/flows/validate/task | Validate a task |
 | [**validateTrigger**](FlowsApi.md#validateTrigger) | **POST** /api/v1/{tenant}/flows/validate/trigger | Validate trigger |
@@ -347,8 +344,8 @@ null (empty response body)
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **204** | On success |  -  |
 | **200** | deleteFlow 200 response |  -  |
+| **204** | On success |  -  |
 
 
 ## deleteFlowsByIds
@@ -429,7 +426,7 @@ public class Example {
 
 ## deleteFlowsByQuery
 
-> BulkResponse deleteFlowsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, labels)
+> BulkResponse deleteFlowsByQuery(tenant, deleteExecutionsByQueryRequest)
 
 Delete flows returned by the query parameters.
 
@@ -461,12 +458,8 @@ public class Example {
         FlowsApi apiInstance = new FlowsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = new DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
-        String q = "q_example"; // String | A string filter
-        List<FlowScope> scope = Arrays.asList(); // List<FlowScope> | The scope of the flows to include
-        String namespace = "namespace_example"; // String | A namespace filter prefix
-        List<String> labels = Arrays.asList(); // List<String> | A labels filter as a list of 'key:value'
         try {
-            BulkResponse result = apiInstance.deleteFlowsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, labels);
+            BulkResponse result = apiInstance.deleteFlowsByQuery(tenant, deleteExecutionsByQueryRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#deleteFlowsByQuery");
@@ -486,10 +479,6 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
 | **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | |
-| **q** | **String**| A string filter | [optional] |
-| **scope** | [**List&lt;FlowScope&gt;**](FlowScope.md)| The scope of the flows to include | [optional] |
-| **namespace** | **String**| A namespace filter prefix | [optional] |
-| **labels** | [**List&lt;String&gt;**](String.md)| A labels filter as a list of &#39;key:value&#39; | [optional] |
 
 ### Return type
 
@@ -589,7 +578,7 @@ public class Example {
 
 ## disableFlowsByQuery
 
-> BulkResponse disableFlowsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, labels)
+> BulkResponse disableFlowsByQuery(tenant, deleteExecutionsByQueryRequest)
 
 Disable flows returned by the query parameters.
 
@@ -621,12 +610,8 @@ public class Example {
         FlowsApi apiInstance = new FlowsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = new DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
-        String q = "q_example"; // String | A string filter
-        List<FlowScope> scope = Arrays.asList(); // List<FlowScope> | The scope of the flows to include
-        String namespace = "namespace_example"; // String | A namespace filter prefix
-        List<String> labels = Arrays.asList(); // List<String> | A labels filter as a list of 'key:value'
         try {
-            BulkResponse result = apiInstance.disableFlowsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, labels);
+            BulkResponse result = apiInstance.disableFlowsByQuery(tenant, deleteExecutionsByQueryRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#disableFlowsByQuery");
@@ -646,10 +631,6 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
 | **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | |
-| **q** | **String**| A string filter | [optional] |
-| **scope** | [**List&lt;FlowScope&gt;**](FlowScope.md)| The scope of the flows to include | [optional] |
-| **namespace** | **String**| A namespace filter prefix | [optional] |
-| **labels** | [**List&lt;String&gt;**](String.md)| A labels filter as a list of &#39;key:value&#39; | [optional] |
 
 ### Return type
 
@@ -749,7 +730,7 @@ public class Example {
 
 ## enableFlowsByQuery
 
-> BulkResponse enableFlowsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, labels)
+> BulkResponse enableFlowsByQuery(tenant, deleteExecutionsByQueryRequest)
 
 Enable flows returned by the query parameters.
 
@@ -781,12 +762,8 @@ public class Example {
         FlowsApi apiInstance = new FlowsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = new DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
-        String q = "q_example"; // String | A string filter
-        List<FlowScope> scope = Arrays.asList(); // List<FlowScope> | The scope of the flows to include
-        String namespace = "namespace_example"; // String | A namespace filter prefix
-        List<String> labels = Arrays.asList(); // List<String> | A labels filter as a list of 'key:value'
         try {
-            BulkResponse result = apiInstance.enableFlowsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, labels);
+            BulkResponse result = apiInstance.enableFlowsByQuery(tenant, deleteExecutionsByQueryRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#enableFlowsByQuery");
@@ -806,10 +783,6 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
 | **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | |
-| **q** | **String**| A string filter | [optional] |
-| **scope** | [**List&lt;FlowScope&gt;**](FlowScope.md)| The scope of the flows to include | [optional] |
-| **namespace** | **String**| A namespace filter prefix | [optional] |
-| **labels** | [**List&lt;String&gt;**](String.md)| A labels filter as a list of &#39;key:value&#39; | [optional] |
 
 ### Return type
 
@@ -909,7 +882,7 @@ public class Example {
 
 ## exportFlowsByQuery
 
-> byte[] exportFlowsByQuery(tenant, filters, q, scope, namespace, labels)
+> byte[] exportFlowsByQuery(tenant, filters)
 
 Export flows as a ZIP archive of yaml sources.
 
@@ -941,12 +914,8 @@ public class Example {
         FlowsApi apiInstance = new FlowsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
-        String q = "q_example"; // String | A string filter
-        List<FlowScope> scope = Arrays.asList(); // List<FlowScope> | The scope of the flows to include
-        String namespace = "namespace_example"; // String | A namespace filter prefix
-        List<String> labels = Arrays.asList(); // List<String> | A labels filter as a list of 'key:value'
         try {
-            byte[] result = apiInstance.exportFlowsByQuery(tenant, filters, q, scope, namespace, labels);
+            byte[] result = apiInstance.exportFlowsByQuery(tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#exportFlowsByQuery");
@@ -966,10 +935,6 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
-| **q** | **String**| A string filter | [optional] |
-| **scope** | [**List&lt;FlowScope&gt;**](FlowScope.md)| The scope of the flows to include | [optional] |
-| **namespace** | **String**| A namespace filter prefix | [optional] |
-| **labels** | [**List&lt;String&gt;**](String.md)| A labels filter as a list of &#39;key:value&#39; | [optional] |
 
 ### Return type
 
@@ -1785,7 +1750,7 @@ public class Example {
 
 ## searchFlows
 
-> PagedResultsFlow searchFlows(page, size, tenant, sort, filters, q, scope, namespace, labels)
+> PagedResultsFlow searchFlows(page, size, tenant, sort, filters)
 
 Search for flows
 
@@ -1820,12 +1785,8 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
-        String q = "q_example"; // String | A string filter
-        List<FlowScope> scope = Arrays.asList(); // List<FlowScope> | The scope of the flows to include
-        String namespace = "namespace_example"; // String | A namespace filter prefix
-        List<String> labels = Arrays.asList(); // List<String> | A labels filter as a list of 'key:value'
         try {
-            PagedResultsFlow result = apiInstance.searchFlows(page, size, tenant, sort, filters, q, scope, namespace, labels);
+            PagedResultsFlow result = apiInstance.searchFlows(page, size, tenant, sort, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#searchFlows");
@@ -1848,10 +1809,6 @@ public class Example {
 | **tenant** | **String**|  | |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
-| **q** | **String**| A string filter | [optional] |
-| **scope** | [**List&lt;FlowScope&gt;**](FlowScope.md)| The scope of the flows to include | [optional] |
-| **namespace** | **String**| A namespace filter prefix | [optional] |
-| **labels** | [**List&lt;String&gt;**](String.md)| A labels filter as a list of &#39;key:value&#39; | [optional] |
 
 ### Return type
 
@@ -1955,250 +1912,6 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | searchFlowsBySourceCode 200 response |  -  |
-
-
-## updateFlow
-
-> UpdateFlow200Response updateFlow(id, namespace, tenant, body)
-
-Update a flow
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.FlowsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
-
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        FlowsApi apiInstance = new FlowsApi(defaultClient);
-        String id = "id_example"; // String | The flow id
-        String namespace = "namespace_example"; // String | The flow namespace
-        String tenant = "tenant_example"; // String | 
-        String body = "body_example"; // String | The flow source code
-        try {
-            UpdateFlow200Response result = apiInstance.updateFlow(id, namespace, tenant, body);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling FlowsApi#updateFlow");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **id** | **String**| The flow id | |
-| **namespace** | **String**| The flow namespace | |
-| **tenant** | **String**|  | |
-| **body** | **String**| The flow source code | |
-
-### Return type
-
-[**UpdateFlow200Response**](UpdateFlow200Response.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/x-yaml
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | On success |  -  |
-
-
-## updateFlowsInNamespaceFromJson
-
-> UpdateFlowsInNamespaceFromJson200Response updateFlowsInNamespaceFromJson(delete, namespace, tenant, flow)
-
-Update a complete namespace from json object
-
-All flow will be created / updated for this namespace. Flow that already created but not in &#x60;flows&#x60; will be deleted if the query delete is &#x60;true&#x60;
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.FlowsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
-
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        FlowsApi apiInstance = new FlowsApi(defaultClient);
-        Boolean delete = true; // Boolean | If missing flow should be deleted
-        String namespace = "namespace_example"; // String | The flow namespace
-        String tenant = "tenant_example"; // String | 
-        List<Flow> flow = Arrays.asList(); // List<Flow> | A list of flows
-        try {
-            UpdateFlowsInNamespaceFromJson200Response result = apiInstance.updateFlowsInNamespaceFromJson(delete, namespace, tenant, flow);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling FlowsApi#updateFlowsInNamespaceFromJson");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **delete** | **Boolean**| If missing flow should be deleted | [default to true] |
-| **namespace** | **String**| The flow namespace | |
-| **tenant** | **String**|  | |
-| **flow** | [**List&lt;Flow&gt;**](Flow.md)| A list of flows | |
-
-### Return type
-
-[**UpdateFlowsInNamespaceFromJson200Response**](UpdateFlowsInNamespaceFromJson200Response.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json, application/x-yaml
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | updateFlowsInNamespaceFromJson 200 response |  -  |
-
-
-## updateTask
-
-> Flow updateTask(namespace, id, taskId, tenant, task)
-
-Update a single task on a flow
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.FlowsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
-
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        FlowsApi apiInstance = new FlowsApi(defaultClient);
-        String namespace = "namespace_example"; // String | The flow namespace
-        String id = "id_example"; // String | The flow id
-        String taskId = "taskId_example"; // String | The task id
-        String tenant = "tenant_example"; // String | 
-        Task task = new Task(); // Task | The task
-        try {
-            Flow result = apiInstance.updateTask(namespace, id, taskId, tenant, task);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling FlowsApi#updateTask");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The flow namespace | |
-| **id** | **String**| The flow id | |
-| **taskId** | **String**| The task id | |
-| **tenant** | **String**|  | |
-| **task** | [**Task**](Task.md)| The task | |
-
-### Return type
-
-[**Flow**](Flow.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | updateTask 200 response |  -  |
 
 
 ## validateFlows

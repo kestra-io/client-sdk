@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -44,20 +43,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMTenantAccessControllerUserApiAutocomplete {
   public static final String JSON_PROPERTY_Q = "q";
-  @javax.annotation.Nullable
-  private JsonNullable<String> q = JsonNullable.<String>undefined();
+  @javax.annotation.Nullable  private JsonNullable<String> q = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_IDS = "ids";
-  @javax.annotation.Nullable
-  private JsonNullable<List<String>> ids = JsonNullable.<List<String>>undefined();
+  @javax.annotation.Nullable  private JsonNullable<List<String>> ids = JsonNullable.<List<String>>undefined();
 
   public static final String JSON_PROPERTY_EXISTING_ONLY = "existingOnly";
-  @javax.annotation.Nullable
-  private Boolean existingOnly;
+  @javax.annotation.Nullable  private Boolean existingOnly;
 
   public static final String JSON_PROPERTY_USERNAME = "username";
-  @javax.annotation.Nullable
-  private JsonNullable<String> username = JsonNullable.<String>undefined();
+  @javax.annotation.Nullable  private JsonNullable<String> username = JsonNullable.<String>undefined();
 
   public IAMTenantAccessControllerUserApiAutocomplete() {
   }
@@ -72,21 +67,19 @@ public class IAMTenantAccessControllerUserApiAutocomplete {
    * Get q
    * @return q
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public String getQ() {
         return q.orElse(null);
   }
 
-  @JsonProperty(value = JSON_PROPERTY_Q, required = false)
+  @JsonProperty(JSON_PROPERTY_Q)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<String> getQ_JsonNullable() {
     return q;
   }
   
-  @JsonProperty(value = JSON_PROPERTY_Q, required = false)
+  @JsonProperty(JSON_PROPERTY_Q)
   public void setQ_JsonNullable(JsonNullable<String> q) {
     this.q = q;
   }
@@ -117,21 +110,19 @@ public class IAMTenantAccessControllerUserApiAutocomplete {
    * Get ids
    * @return ids
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public List<String> getIds() {
         return ids.orElse(null);
   }
 
-  @JsonProperty(value = JSON_PROPERTY_IDS, required = false)
+  @JsonProperty(JSON_PROPERTY_IDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<List<String>> getIds_JsonNullable() {
     return ids;
   }
   
-  @JsonProperty(value = JSON_PROPERTY_IDS, required = false)
+  @JsonProperty(JSON_PROPERTY_IDS)
   public void setIds_JsonNullable(JsonNullable<List<String>> ids) {
     this.ids = ids;
   }
@@ -150,8 +141,7 @@ public class IAMTenantAccessControllerUserApiAutocomplete {
    * Get existingOnly
    * @return existingOnly
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_EXISTING_ONLY, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXISTING_ONLY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getExistingOnly() {
@@ -159,7 +149,7 @@ public class IAMTenantAccessControllerUserApiAutocomplete {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_EXISTING_ONLY, required = false)
+  @JsonProperty(JSON_PROPERTY_EXISTING_ONLY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExistingOnly(@javax.annotation.Nullable Boolean existingOnly) {
     this.existingOnly = existingOnly;
@@ -175,21 +165,19 @@ public class IAMTenantAccessControllerUserApiAutocomplete {
    * Get username
    * @return username
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public String getUsername() {
         return username.orElse(null);
   }
 
-  @JsonProperty(value = JSON_PROPERTY_USERNAME, required = false)
+  @JsonProperty(JSON_PROPERTY_USERNAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<String> getUsername_JsonNullable() {
     return username;
   }
   
-  @JsonProperty(value = JSON_PROPERTY_USERNAME, required = false)
+  @JsonProperty(JSON_PROPERTY_USERNAME)
   public void setUsername_JsonNullable(JsonNullable<String> username) {
     this.username = username;
   }

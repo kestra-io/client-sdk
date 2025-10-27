@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -38,12 +37,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class InstanceControllerApiPluginArtifactListPluginArtifact {
   public static final String JSON_PROPERTY_TOTAL = "total";
-  @javax.annotation.Nullable
-  private Integer total;
+  @javax.annotation.Nullable  private Integer total;
 
   public static final String JSON_PROPERTY_RESULTS = "results";
-  @javax.annotation.Nullable
-  private List<Object> results = new ArrayList<>();
+  @javax.annotation.Nullable  private List<Object> results = new ArrayList<>();
 
   public InstanceControllerApiPluginArtifactListPluginArtifact() {
   }
@@ -58,8 +55,7 @@ public class InstanceControllerApiPluginArtifactListPluginArtifact {
    * Get total
    * @return total
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TOTAL, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TOTAL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getTotal() {
@@ -67,7 +63,7 @@ public class InstanceControllerApiPluginArtifactListPluginArtifact {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TOTAL, required = false)
+  @JsonProperty(JSON_PROPERTY_TOTAL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTotal(@javax.annotation.Nullable Integer total) {
     this.total = total;
@@ -91,8 +87,7 @@ public class InstanceControllerApiPluginArtifactListPluginArtifact {
    * Get results
    * @return results
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_RESULTS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Object> getResults() {
@@ -100,7 +95,7 @@ public class InstanceControllerApiPluginArtifactListPluginArtifact {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_RESULTS, required = false)
+  @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setResults(@javax.annotation.Nullable List<Object> results) {
     this.results = results;

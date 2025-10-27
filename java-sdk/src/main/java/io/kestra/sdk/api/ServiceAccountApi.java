@@ -34,12 +34,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.StringJoiner;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
-public class ServiceAccountApi extends BaseApi {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")public class ServiceAccountApi extends BaseApi {
 
   public ServiceAccountApi() {
     super(Configuration.getDefaultApiClient());
@@ -131,6 +129,11 @@ public class ServiceAccountApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Create new API Token for a specific service account
    * 
@@ -221,6 +224,11 @@ public class ServiceAccountApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Create a service account
    * Superadmin-only. CReate service account with access to multiple tenants.
@@ -294,6 +302,11 @@ public class ServiceAccountApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Create a service account for the given tenant
@@ -377,6 +390,11 @@ public class ServiceAccountApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Delete an API Token for specific service account and token id
    * 
@@ -459,6 +477,11 @@ public class ServiceAccountApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Delete an API Token for specific service account and token id
@@ -551,6 +574,11 @@ public class ServiceAccountApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Delete a service account
    * Superadmin-only. Delete a service account including all its access.
@@ -622,6 +650,11 @@ public class ServiceAccountApi extends BaseApi {
         null
     );
   }
+
+
+
+
+
 
   /**
    * Delete a service account
@@ -703,6 +736,11 @@ public class ServiceAccountApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Get a service account
    * Superadmin-only. Get user account details.
@@ -777,6 +815,11 @@ public class ServiceAccountApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Retrieve a service account
@@ -861,6 +904,11 @@ public class ServiceAccountApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * List API tokens for a specific service account
    * 
@@ -935,6 +983,11 @@ public class ServiceAccountApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * List API tokens for a specific service account
@@ -1018,6 +1071,11 @@ public class ServiceAccountApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * List service accounts. Superadmin-only. 
@@ -1108,6 +1166,11 @@ public class ServiceAccountApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Update service account details
    * Superadmin-only. Updates the details of a service account.
@@ -1190,6 +1253,11 @@ public class ServiceAccountApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Update service account superadmin privileges
    * Superadmin-only. Updates whether a service account is a superadmin.
@@ -1268,6 +1336,11 @@ public class ServiceAccountApi extends BaseApi {
         null
     );
   }
+
+
+
+
+
 
   /**
    * Update a user service account
@@ -1399,4 +1472,9 @@ public class ServiceAccountApi extends BaseApi {
         returnType
     );
   }
+
+
+
+
+
 }

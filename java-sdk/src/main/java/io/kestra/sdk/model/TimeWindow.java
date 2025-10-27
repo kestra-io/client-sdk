@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -34,12 +33,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TimeWindow {
   public static final String JSON_PROPERTY_DEFAULT = "default";
-  @javax.annotation.Nullable
-  private String _default;
+  @javax.annotation.Nullable  private String _default;
 
   public static final String JSON_PROPERTY_MAX = "max";
-  @javax.annotation.Nullable
-  private String max;
+  @javax.annotation.Nullable  private String max;
 
   public TimeWindow() {
   }
@@ -54,8 +51,7 @@ public class TimeWindow {
    * Get _default
    * @return _default
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DEFAULT, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DEFAULT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDefault() {
@@ -63,7 +59,7 @@ public class TimeWindow {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DEFAULT, required = false)
+  @JsonProperty(JSON_PROPERTY_DEFAULT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDefault(@javax.annotation.Nullable String _default) {
     this._default = _default;
@@ -79,8 +75,7 @@ public class TimeWindow {
    * Get max
    * @return max
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_MAX, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MAX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getMax() {
@@ -88,7 +83,7 @@ public class TimeWindow {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_MAX, required = false)
+  @JsonProperty(JSON_PROPERTY_MAX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMax(@javax.annotation.Nullable String max) {
     this.max = max;

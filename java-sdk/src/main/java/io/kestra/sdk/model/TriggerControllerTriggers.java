@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -37,12 +36,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TriggerControllerTriggers {
   public static final String JSON_PROPERTY_ABSTRACT_TRIGGER = "abstractTrigger";
-  @javax.annotation.Nullable
-  private AbstractTrigger abstractTrigger;
+  @javax.annotation.Nullable  private AbstractTrigger abstractTrigger;
 
   public static final String JSON_PROPERTY_TRIGGER_CONTEXT = "triggerContext";
-  @javax.annotation.Nullable
-  private Trigger triggerContext;
+  @javax.annotation.Nullable  private Trigger triggerContext;
 
   public TriggerControllerTriggers() {
   }
@@ -57,8 +54,7 @@ public class TriggerControllerTriggers {
    * Get abstractTrigger
    * @return abstractTrigger
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ABSTRACT_TRIGGER, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ABSTRACT_TRIGGER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public AbstractTrigger getAbstractTrigger() {
@@ -66,7 +62,7 @@ public class TriggerControllerTriggers {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ABSTRACT_TRIGGER, required = false)
+  @JsonProperty(JSON_PROPERTY_ABSTRACT_TRIGGER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAbstractTrigger(@javax.annotation.Nullable AbstractTrigger abstractTrigger) {
     this.abstractTrigger = abstractTrigger;
@@ -82,8 +78,7 @@ public class TriggerControllerTriggers {
    * Get triggerContext
    * @return triggerContext
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TRIGGER_CONTEXT, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TRIGGER_CONTEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Trigger getTriggerContext() {
@@ -91,7 +86,7 @@ public class TriggerControllerTriggers {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TRIGGER_CONTEXT, required = false)
+  @JsonProperty(JSON_PROPERTY_TRIGGER_CONTEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTriggerContext(@javax.annotation.Nullable Trigger triggerContext) {
     this.triggerContext = triggerContext;

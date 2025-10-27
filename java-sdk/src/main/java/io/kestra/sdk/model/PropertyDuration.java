@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -35,12 +34,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PropertyDuration {
   public static final String JSON_PROPERTY_EXPRESSION = "expression";
-  @javax.annotation.Nullable
-  private String expression;
+  @javax.annotation.Nullable  private String expression;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nullable
-  private String value;
+  @javax.annotation.Nullable  private String value;
 
   public PropertyDuration() {
   }
@@ -55,8 +52,7 @@ public class PropertyDuration {
    * Get expression
    * @return expression
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_EXPRESSION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXPRESSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getExpression() {
@@ -64,7 +60,7 @@ public class PropertyDuration {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_EXPRESSION, required = false)
+  @JsonProperty(JSON_PROPERTY_EXPRESSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExpression(@javax.annotation.Nullable String expression) {
     this.expression = expression;
@@ -80,8 +76,7 @@ public class PropertyDuration {
    * Get value
    * @return value
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_VALUE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getValue() {
@@ -89,7 +84,7 @@ public class PropertyDuration {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_VALUE, required = false)
+  @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setValue(@javax.annotation.Nullable String value) {
     this.value = value;

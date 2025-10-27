@@ -7,7 +7,6 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**minLogLevel** | **Level** |  |  [optional] |
 |**id** | **String** |  |  |
 |**type** | **String** |  |  |
 |**version** | **String** |  |  [optional] |
