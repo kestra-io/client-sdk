@@ -40,7 +40,15 @@ public class CommonTestSetup {
     }
 
     public static String getSimpleFlow(){
-        return get(TEST_DATA_PATH + "/flows/simple_flow.yml").replace("simple_flow_id_to_replace_by_random_id", randomId().replace("simple_flow_namespace_to_replace_by_random_id", randomId()));
+        return getSimpleFlowAndId().flowBody;
+    }
+
+    public record FlowBodyAndId(String flowBody, String flowNamespace, String flowId){}
+    public static FlowBodyAndId getSimpleFlowAndId(){
+        var flowId = randomId();
+        var namespace = randomId();
+        var body = get(TEST_DATA_PATH + "/flows/simple_flow.yml").replace("simple_flow_id_to_replace_by_random_id", flowId).replace("simple_flow_namespace_to_replace_by_random_id", namespace);
+        return new FlowBodyAndId(body, namespace, flowId);
     }
 
     public static String get(String filePath) {
