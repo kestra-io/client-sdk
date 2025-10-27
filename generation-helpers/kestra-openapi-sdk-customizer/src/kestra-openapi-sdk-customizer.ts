@@ -3,16 +3,17 @@ import path from "path";
 import yaml from "js-yaml";
 import {sanitizeOpenAPI} from "./openapi-customizer";
 
-async function run(inputPath: string, opts: {
-    removeDeprecatedOperations?: boolean,
-    operationIdsToSkip?: string[]
-} = {}, outputPath?: string) {
+async function run(confPath: string, inputPath: string, outputPath?: string) {
     const absIn = path.resolve(inputPath);
     const out = outputPath || absIn.replace(/\.ya?ml$/i, ".without-deprecated.yml");
 
     const raw = await fs.readFile(absIn, "utf8");
     const spec = yaml.load(raw);
-    const counters = sanitizeOpenAPI(spec, opts);
+
+    const absConf = path.resolve(confPath);
+    const configuration = JSON.parse(await fs.readFile(absConf, "utf8")) as { removeDeprecatedOperations?: boolean, removeDeprecatedParameters?: boolean, operationIdsToSkip?: string[] };
+
+    const counters = sanitizeOpenAPI(spec, configuration);
     const dumped = yaml.dump(spec, {
         lineWidth: 120,
         noRefs: true,
@@ -26,30 +27,19 @@ async function run(inputPath: string, opts: {
     return {out, counters};
 }
 
+const DEFAULT_C0NF = "./configurations/kestra-openapi-sdk-customizer.json";
 const DEFAULT_SPEC = "./kestra-ee.yml";
 
 (async () => {
     const args = process.argv.slice(2);
 
     try {
-        const inputSpecPath = args[0] ?? DEFAULT_SPEC;
-        const {out, counters} = await run(inputSpecPath,
-            {
-                operationIdsToSkip: [
-                    'triggerExecutionByPostWebhook',
-                    'validateNewExecutionInputs',
-                    'validateResumeExecutionInputs',
-                    'triggerExecutionByPutWebhook',
-                    'triggerExecution',
-                    'searchTaskRun',
-                    'searchExecutionsByFlowId',
-                    'resumeExecutionFromBreakpoint',
-                    'previewFileFromExecution',
-                    'listFlowExecutionsByNamespace',
-                    'listExecutableDistinctNamespaces',
-                    'followDependenciesExecutions'
-                ]
-            });
+        const confPath = args[0] ?? DEFAULT_SPEC;
+        const inputSpecPath = args[1] ?? DEFAULT_SPEC;
+        const {out, counters} = await run(
+            confPath,
+            inputSpecPath
+        );
 
         const stat = await fs.stat(out);
         if (!stat || stat.size <= 0) throw new Error("Output file is empty");

@@ -88,11 +88,11 @@ function stripDeprecatedParametersFromOperation(op: any, counters: { removedPara
  * - Remove deprecated parameters from operations and from components.parameters
  * - Optionally remove deprecated operations (if removeDeprecatedOperations = true)
  */
-export function sanitizeOpenAPI(spec: any, opts: { removeDeprecatedOperations?: boolean, operationIdsToSkip?: string[] } = {}) {
+export function sanitizeOpenAPI(spec: any, opts: { removeDeprecatedOperations?: boolean, removeDeprecatedParameters?: boolean, operationIdsToSkip?: string[] } = {}) {
     const counters = { removedProperties: 0, removedParameters: 0, removedOperations: 0 };
-    const { removeDeprecatedOperations = true, operationIdsToSkip = [] } = opts;
+    let { removeDeprecatedOperations = true, removeDeprecatedParameters = true, operationIdsToSkip = [] } = opts;
 
-    console.log(`sanitize OpenAPI spec with params:\n\tremoveDeprecatedOperations: ${removeDeprecatedOperations}\n\toperationIdsToSkip: ${operationIdsToSkip}`)
+    console.log(`sanitize OpenAPI spec with params:\n\tremoveDeprecatedOperations: ${removeDeprecatedOperations}\n\tremoveDeprecatedParameters: ${removeDeprecatedParameters}\n\toperationIdsToSkip: ${operationIdsToSkip}`)
 
     if (!spec || typeof spec !== "object") return counters;
 
@@ -105,7 +105,7 @@ export function sanitizeOpenAPI(spec: any, opts: { removeDeprecatedOperations?: 
     }
 
     // 2) components.parameters
-    if (spec.components && spec.components.parameters && typeof spec.components.parameters === "object") {
+    if (removeDeprecatedParameters && spec.components && spec.components.parameters && typeof spec.components.parameters === "object") {
         for (const name of Object.keys(spec.components.parameters)) {
             const param = spec.components.parameters[name];
             if (param && typeof param === "object" && param.deprecated === true) {
@@ -146,7 +146,9 @@ export function sanitizeOpenAPI(spec: any, opts: { removeDeprecatedOperations?: 
                 }
 
                 // Remove deprecated parameters on operation
-                stripDeprecatedParametersFromOperation(op, counters);
+                if(removeDeprecatedParameters){
+                    stripDeprecatedParametersFromOperation(op, counters);
+                }
 
                 // Also walk explicit op-level schemas for deprecations deep inside
                 if (op.requestBody?.content) {
