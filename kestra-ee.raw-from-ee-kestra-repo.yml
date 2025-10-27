@@ -4815,6 +4815,7 @@ paths:
       - name: q
         in: query
         description: A string filter
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -4822,6 +4823,7 @@ paths:
       - name: scope
         in: query
         description: The scope of the executions to include
+        deprecated: true
         explode: false
         schema:
           type: array
@@ -4831,6 +4833,7 @@ paths:
       - name: namespace
         in: query
         description: A namespace filter prefix
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -4838,6 +4841,7 @@ paths:
       - name: flowId
         in: query
         description: A flow id filter
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -4845,6 +4849,7 @@ paths:
       - name: startDate
         in: query
         description: The start datetime
+        deprecated: true
         schema:
           type: string
           format: date-time
@@ -4852,6 +4857,7 @@ paths:
       - name: endDate
         in: query
         description: The end datetime
+        deprecated: true
         schema:
           type: string
           format: date-time
@@ -4859,6 +4865,7 @@ paths:
       - name: timeRange
         in: query
         description: A time range filter relative to the current time
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -4871,6 +4878,7 @@ paths:
       - name: state
         in: query
         description: A state filter
+        deprecated: true
         explode: false
         schema:
           type: array
@@ -4880,6 +4888,7 @@ paths:
       - name: labels
         in: query
         description: A labels filter as a list of 'key:value'
+        deprecated: true
         schema:
           type: array
           nullable: true
@@ -4888,6 +4897,7 @@ paths:
       - name: triggerExecutionId
         in: query
         description: The trigger execution id
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -4895,6 +4905,7 @@ paths:
       - name: childFilter
         in: query
         description: A execution child filter
+        deprecated: true
         explode: false
         schema:
           nullable: true
@@ -5010,6 +5021,7 @@ paths:
       - name: q
         in: query
         description: A string filter
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -5017,6 +5029,7 @@ paths:
       - name: scope
         in: query
         description: The scope of the executions to include
+        deprecated: true
         explode: false
         schema:
           type: array
@@ -5026,6 +5039,7 @@ paths:
       - name: namespace
         in: query
         description: A namespace filter prefix
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -5033,6 +5047,7 @@ paths:
       - name: flowId
         in: query
         description: A flow id filter
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -5040,6 +5055,7 @@ paths:
       - name: startDate
         in: query
         description: The start datetime
+        deprecated: true
         schema:
           type: string
           format: date-time
@@ -5047,6 +5063,7 @@ paths:
       - name: endDate
         in: query
         description: The end datetime
+        deprecated: true
         schema:
           type: string
           format: date-time
@@ -5054,6 +5071,7 @@ paths:
       - name: timeRange
         in: query
         description: A time range filter relative to the current time
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -5066,6 +5084,7 @@ paths:
       - name: state
         in: query
         description: A state filter
+        deprecated: true
         explode: false
         schema:
           type: array
@@ -5075,6 +5094,7 @@ paths:
       - name: labels
         in: query
         description: A labels filter as a list of 'key:value'
+        deprecated: true
         schema:
           type: array
           nullable: true
@@ -5083,6 +5103,7 @@ paths:
       - name: triggerExecutionId
         in: query
         description: The trigger execution id
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -5090,6 +5111,7 @@ paths:
       - name: childFilter
         in: query
         description: A execution child filter
+        deprecated: true
         explode: false
         schema:
           nullable: true
@@ -5221,6 +5243,7 @@ paths:
       - name: q
         in: query
         description: A string filter
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -5228,6 +5251,7 @@ paths:
       - name: scope
         in: query
         description: The scope of the executions to include
+        deprecated: true
         explode: false
         schema:
           type: array
@@ -5237,6 +5261,7 @@ paths:
       - name: namespace
         in: query
         description: A namespace filter prefix
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -5244,6 +5269,7 @@ paths:
       - name: flowId
         in: query
         description: A flow id filter
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -5251,6 +5277,7 @@ paths:
       - name: startDate
         in: query
         description: The start datetime
+        deprecated: true
         schema:
           type: string
           format: date-time
@@ -5258,6 +5285,7 @@ paths:
       - name: endDate
         in: query
         description: The end datetime
+        deprecated: true
         schema:
           type: string
           format: date-time
@@ -5265,6 +5293,7 @@ paths:
       - name: timeRange
         in: query
         description: A time range filter relative to the current time
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -5277,6 +5306,7 @@ paths:
       - name: state
         in: query
         description: A state filter
+        deprecated: true
         explode: false
         schema:
           type: array
@@ -5286,6 +5316,7 @@ paths:
       - name: labels
         in: query
         description: A labels filter as a list of 'key:value'
+        deprecated: true
         schema:
           type: array
           nullable: true
@@ -5294,6 +5325,7 @@ paths:
       - name: triggerExecutionId
         in: query
         description: The trigger execution id
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -5301,6 +5333,7 @@ paths:
       - name: childFilter
         in: query
         description: A execution child filter
+        deprecated: true
         explode: false
         schema:
           nullable: true
@@ -5377,6 +5410,7 @@ paths:
       - name: q
         in: query
         description: A string filter
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -5384,6 +5418,7 @@ paths:
       - name: scope
         in: query
         description: The scope of the executions to include
+        deprecated: true
         explode: false
         schema:
           type: array
@@ -5393,6 +5428,7 @@ paths:
       - name: namespace
         in: query
         description: A namespace filter prefix
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -5400,6 +5436,7 @@ paths:
       - name: flowId
         in: query
         description: A flow id filter
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -5407,6 +5444,7 @@ paths:
       - name: startDate
         in: query
         description: The start datetime
+        deprecated: true
         schema:
           type: string
           format: date-time
@@ -5414,6 +5452,7 @@ paths:
       - name: endDate
         in: query
         description: The end datetime
+        deprecated: true
         schema:
           type: string
           format: date-time
@@ -5421,6 +5460,7 @@ paths:
       - name: timeRange
         in: query
         description: A time range filter relative to the current time
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -5433,6 +5473,7 @@ paths:
       - name: state
         in: query
         description: A state filter
+        deprecated: true
         explode: false
         schema:
           type: array
@@ -5442,6 +5483,7 @@ paths:
       - name: labels
         in: query
         description: A labels filter as a list of 'key:value'
+        deprecated: true
         schema:
           type: array
           nullable: true
@@ -5450,6 +5492,7 @@ paths:
       - name: triggerExecutionId
         in: query
         description: The trigger execution id
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -5457,6 +5500,7 @@ paths:
       - name: childFilter
         in: query
         description: A execution child filter
+        deprecated: true
         explode: false
         schema:
           nullable: true
@@ -5531,6 +5575,7 @@ paths:
       - name: q
         in: query
         description: A string filter
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -5538,6 +5583,7 @@ paths:
       - name: scope
         in: query
         description: The scope of the executions to include
+        deprecated: true
         explode: false
         schema:
           type: array
@@ -5547,6 +5593,7 @@ paths:
       - name: namespace
         in: query
         description: A namespace filter prefix
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -5554,6 +5601,7 @@ paths:
       - name: flowId
         in: query
         description: A flow id filter
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -5561,6 +5609,7 @@ paths:
       - name: startDate
         in: query
         description: The start datetime
+        deprecated: true
         schema:
           type: string
           format: date-time
@@ -5568,6 +5617,7 @@ paths:
       - name: endDate
         in: query
         description: The end datetime
+        deprecated: true
         schema:
           type: string
           format: date-time
@@ -5575,6 +5625,7 @@ paths:
       - name: timeRange
         in: query
         description: A time range filter relative to the current time
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -5587,6 +5638,7 @@ paths:
       - name: state
         in: query
         description: A state filter
+        deprecated: true
         explode: false
         schema:
           type: array
@@ -5596,6 +5648,7 @@ paths:
       - name: labels
         in: query
         description: A labels filter as a list of 'key:value'
+        deprecated: true
         schema:
           type: array
           nullable: true
@@ -5604,6 +5657,7 @@ paths:
       - name: triggerExecutionId
         in: query
         description: The trigger execution id
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -5611,6 +5665,7 @@ paths:
       - name: childFilter
         in: query
         description: A execution child filter
+        deprecated: true
         explode: false
         schema:
           nullable: true
@@ -5784,6 +5839,7 @@ paths:
       - name: q
         in: query
         description: A string filter
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -5791,6 +5847,7 @@ paths:
       - name: scope
         in: query
         description: The scope of the executions to include
+        deprecated: true
         explode: false
         schema:
           type: array
@@ -5800,6 +5857,7 @@ paths:
       - name: namespace
         in: query
         description: A namespace filter prefix
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -5807,6 +5865,7 @@ paths:
       - name: flowId
         in: query
         description: A flow id filter
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -5814,6 +5873,7 @@ paths:
       - name: startDate
         in: query
         description: The start datetime
+        deprecated: true
         schema:
           type: string
           format: date-time
@@ -5821,6 +5881,7 @@ paths:
       - name: endDate
         in: query
         description: The end datetime
+        deprecated: true
         schema:
           type: string
           format: date-time
@@ -5828,6 +5889,7 @@ paths:
       - name: timeRange
         in: query
         description: A time range filter relative to the current time
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -5840,6 +5902,7 @@ paths:
       - name: state
         in: query
         description: A state filter
+        deprecated: true
         explode: false
         schema:
           type: array
@@ -5849,6 +5912,7 @@ paths:
       - name: labels
         in: query
         description: A labels filter as a list of 'key:value'
+        deprecated: true
         schema:
           type: array
           nullable: true
@@ -5857,6 +5921,7 @@ paths:
       - name: triggerExecutionId
         in: query
         description: The trigger execution id
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -5864,6 +5929,7 @@ paths:
       - name: childFilter
         in: query
         description: A execution child filter
+        deprecated: true
         explode: false
         schema:
           nullable: true
@@ -5949,6 +6015,7 @@ paths:
       - name: q
         in: query
         description: A string filter
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -5956,6 +6023,7 @@ paths:
       - name: scope
         in: query
         description: The scope of the executions to include
+        deprecated: true
         explode: false
         schema:
           type: array
@@ -5965,6 +6033,7 @@ paths:
       - name: namespace
         in: query
         description: A namespace filter prefix
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -5972,6 +6041,7 @@ paths:
       - name: flowId
         in: query
         description: A flow id filter
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -5979,6 +6049,7 @@ paths:
       - name: startDate
         in: query
         description: The start datetime
+        deprecated: true
         schema:
           type: string
           format: date-time
@@ -5986,6 +6057,7 @@ paths:
       - name: endDate
         in: query
         description: The end datetime
+        deprecated: true
         schema:
           type: string
           format: date-time
@@ -5993,6 +6065,7 @@ paths:
       - name: timeRange
         in: query
         description: A time range filter relative to the current time
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -6005,6 +6078,7 @@ paths:
       - name: state
         in: query
         description: A state filter
+        deprecated: true
         explode: false
         schema:
           type: array
@@ -6014,6 +6088,7 @@ paths:
       - name: labels
         in: query
         description: A labels filter as a list of 'key:value'
+        deprecated: true
         schema:
           type: array
           nullable: true
@@ -6022,6 +6097,7 @@ paths:
       - name: triggerExecutionId
         in: query
         description: The trigger execution id
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -6029,6 +6105,7 @@ paths:
       - name: childFilter
         in: query
         description: A execution child filter
+        deprecated: true
         explode: false
         schema:
           nullable: true
@@ -6113,6 +6190,7 @@ paths:
       - name: q
         in: query
         description: A string filter
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -6120,6 +6198,7 @@ paths:
       - name: scope
         in: query
         description: The scope of the executions to include
+        deprecated: true
         explode: false
         schema:
           type: array
@@ -6129,6 +6208,7 @@ paths:
       - name: namespace
         in: query
         description: A namespace filter prefix
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -6136,6 +6216,7 @@ paths:
       - name: flowId
         in: query
         description: A flow id filter
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -6143,6 +6224,7 @@ paths:
       - name: startDate
         in: query
         description: The start datetime
+        deprecated: true
         schema:
           type: string
           format: date-time
@@ -6150,6 +6232,7 @@ paths:
       - name: endDate
         in: query
         description: The end datetime
+        deprecated: true
         schema:
           type: string
           format: date-time
@@ -6157,6 +6240,7 @@ paths:
       - name: timeRange
         in: query
         description: A time range filter relative to the current time
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -6169,6 +6253,7 @@ paths:
       - name: state
         in: query
         description: A state filter
+        deprecated: true
         explode: false
         schema:
           type: array
@@ -6178,6 +6263,7 @@ paths:
       - name: labels
         in: query
         description: A labels filter as a list of 'key:value'
+        deprecated: true
         schema:
           type: array
           nullable: true
@@ -6186,6 +6272,7 @@ paths:
       - name: triggerExecutionId
         in: query
         description: The trigger execution id
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -6193,6 +6280,7 @@ paths:
       - name: childFilter
         in: query
         description: A execution child filter
+        deprecated: true
         explode: false
         schema:
           nullable: true
@@ -6269,6 +6357,7 @@ paths:
       - name: q
         in: query
         description: A string filter
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -6276,6 +6365,7 @@ paths:
       - name: scope
         in: query
         description: The scope of the executions to include
+        deprecated: true
         explode: false
         schema:
           type: array
@@ -6285,6 +6375,7 @@ paths:
       - name: namespace
         in: query
         description: A namespace filter prefix
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -6292,6 +6383,7 @@ paths:
       - name: flowId
         in: query
         description: A flow id filter
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -6299,6 +6391,7 @@ paths:
       - name: startDate
         in: query
         description: The start datetime
+        deprecated: true
         schema:
           type: string
           format: date-time
@@ -6306,6 +6399,7 @@ paths:
       - name: endDate
         in: query
         description: The end datetime
+        deprecated: true
         schema:
           type: string
           format: date-time
@@ -6313,6 +6407,7 @@ paths:
       - name: timeRange
         in: query
         description: A time range filter relative to the current time
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -6325,6 +6420,7 @@ paths:
       - name: state
         in: query
         description: A state filter
+        deprecated: true
         explode: false
         schema:
           type: array
@@ -6334,6 +6430,7 @@ paths:
       - name: labels
         in: query
         description: A labels filter as a list of 'key:value'
+        deprecated: true
         schema:
           type: array
           nullable: true
@@ -6342,6 +6439,7 @@ paths:
       - name: triggerExecutionId
         in: query
         description: The trigger execution id
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -6349,6 +6447,7 @@ paths:
       - name: childFilter
         in: query
         description: A execution child filter
+        deprecated: true
         explode: false
         schema:
           nullable: true
@@ -6662,6 +6761,7 @@ paths:
       - name: q
         in: query
         description: A string filter
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -6669,6 +6769,7 @@ paths:
       - name: scope
         in: query
         description: The scope of the executions to include
+        deprecated: true
         explode: false
         schema:
           type: array
@@ -6678,6 +6779,7 @@ paths:
       - name: namespace
         in: query
         description: A namespace filter prefix
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -6685,6 +6787,7 @@ paths:
       - name: flowId
         in: query
         description: A flow id filter
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -6692,6 +6795,7 @@ paths:
       - name: startDate
         in: query
         description: The start datetime
+        deprecated: true
         schema:
           type: string
           format: date-time
@@ -6699,6 +6803,7 @@ paths:
       - name: endDate
         in: query
         description: The end datetime
+        deprecated: true
         schema:
           type: string
           format: date-time
@@ -6706,6 +6811,7 @@ paths:
       - name: timeRange
         in: query
         description: A time range filter relative to the current time
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -6718,6 +6824,7 @@ paths:
       - name: state
         in: query
         description: A state filter
+        deprecated: true
         explode: false
         schema:
           type: array
@@ -6727,6 +6834,7 @@ paths:
       - name: labels
         in: query
         description: A labels filter as a list of 'key:value'
+        deprecated: true
         schema:
           type: array
           nullable: true
@@ -6735,6 +6843,7 @@ paths:
       - name: triggerExecutionId
         in: query
         description: The trigger execution id
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -6742,6 +6851,7 @@ paths:
       - name: childFilter
         in: query
         description: A execution child filter
+        deprecated: true
         explode: false
         schema:
           nullable: true
@@ -7223,6 +7333,9 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-sdk-customization:
+        x-replace-follow-execution: "true"
+        x-skipped: "true"
   /api/v1/{tenant}/executions/{executionId}/follow-dependencies:
     get:
       tags:
@@ -7268,6 +7381,9 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
+      x-sdk-customization:
+        x-replace-follow-dependencies-execution: "true"
+        x-skipped: "true"
   /api/v1/{tenant}/executions/{executionId}/force-run:
     post:
       tags:
@@ -13991,6 +14107,7 @@ paths:
       - name: q
         in: query
         description: A string filter
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -13998,6 +14115,7 @@ paths:
       - name: namespace
         in: query
         description: A namespace filter prefix
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -14094,6 +14212,7 @@ paths:
       - name: q
         in: query
         description: A string filter
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -14101,6 +14220,7 @@ paths:
       - name: namespace
         in: query
         description: A namespace filter prefix
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -14197,6 +14317,7 @@ paths:
       - name: q
         in: query
         description: A string filter
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -14204,6 +14325,7 @@ paths:
       - name: namespace
         in: query
         description: A namespace filter prefix
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -14364,6 +14486,7 @@ paths:
       - name: q
         in: query
         description: A string filter
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -14371,6 +14494,7 @@ paths:
       - name: namespace
         in: query
         description: A namespace filter prefix
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -14445,6 +14569,7 @@ paths:
       - name: q
         in: query
         description: A string filter
+        deprecated: true
         explode: false
         schema:
           type: string
@@ -14452,6 +14577,7 @@ paths:
       - name: namespace
         in: query
         description: A namespace filter prefix
+        deprecated: true
         explode: false
         schema:
           type: string

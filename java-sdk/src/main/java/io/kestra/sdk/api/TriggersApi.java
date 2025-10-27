@@ -223,13 +223,11 @@ import java.util.StringJoiner;
    * 
    * @param tenant  (required)
    * @param filters Filters (optional)
-   * @param q A string filter (optional)
-   * @param namespace A namespace filter prefix (optional)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace) throws ApiException {
-    return this.deleteBackfillByQuery(tenant, filters, q, namespace, Collections.emptyMap());
+  public Object deleteBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.deleteBackfillByQuery(tenant, filters, Collections.emptyMap());
   }
 
 
@@ -238,13 +236,11 @@ import java.util.StringJoiner;
    * 
    * @param tenant  (required)
    * @param filters Filters (optional)
-   * @param q A string filter (optional)
-   * @param namespace A namespace filter prefix (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, Map<String, String> additionalHeaders) throws ApiException {
+  public Object deleteBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -265,8 +261,6 @@ import java.util.StringJoiner;
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -400,13 +394,11 @@ import java.util.StringJoiner;
    * @param disabled The disabled state (required)
    * @param tenant  (required)
    * @param filters Filters (optional)
-   * @param q A string filter (optional)
-   * @param namespace A namespace filter prefix (optional)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object disabledTriggersByQuery(@javax.annotation.Nonnull Boolean disabled, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace) throws ApiException {
-    return this.disabledTriggersByQuery(disabled, tenant, filters, q, namespace, Collections.emptyMap());
+  public Object disabledTriggersByQuery(@javax.annotation.Nonnull Boolean disabled, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.disabledTriggersByQuery(disabled, tenant, filters, Collections.emptyMap());
   }
 
 
@@ -416,13 +408,11 @@ import java.util.StringJoiner;
    * @param disabled The disabled state (required)
    * @param tenant  (required)
    * @param filters Filters (optional)
-   * @param q A string filter (optional)
-   * @param namespace A namespace filter prefix (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object disabledTriggersByQuery(@javax.annotation.Nonnull Boolean disabled, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, Map<String, String> additionalHeaders) throws ApiException {
+  public Object disabledTriggersByQuery(@javax.annotation.Nonnull Boolean disabled, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'disabled' is set
@@ -448,8 +438,6 @@ import java.util.StringJoiner;
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
     localVarQueryParams.addAll(apiClient.parameterToPair("disabled", disabled));
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -670,13 +658,11 @@ import java.util.StringJoiner;
    * 
    * @param tenant  (required)
    * @param filters Filters (optional)
-   * @param q A string filter (optional)
-   * @param namespace A namespace filter prefix (optional)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object pauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace) throws ApiException {
-    return this.pauseBackfillByQuery(tenant, filters, q, namespace, Collections.emptyMap());
+  public Object pauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.pauseBackfillByQuery(tenant, filters, Collections.emptyMap());
   }
 
 
@@ -685,13 +671,11 @@ import java.util.StringJoiner;
    * 
    * @param tenant  (required)
    * @param filters Filters (optional)
-   * @param q A string filter (optional)
-   * @param namespace A namespace filter prefix (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object pauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, Map<String, String> additionalHeaders) throws ApiException {
+  public Object pauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -712,8 +696,6 @@ import java.util.StringJoiner;
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -1274,13 +1256,11 @@ import java.util.StringJoiner;
    * 
    * @param tenant  (required)
    * @param filters Filters (optional)
-   * @param q A string filter (optional)
-   * @param namespace A namespace filter prefix (optional)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unlockTriggersByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace) throws ApiException {
-    return this.unlockTriggersByQuery(tenant, filters, q, namespace, Collections.emptyMap());
+  public Object unlockTriggersByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.unlockTriggersByQuery(tenant, filters, Collections.emptyMap());
   }
 
 
@@ -1289,13 +1269,11 @@ import java.util.StringJoiner;
    * 
    * @param tenant  (required)
    * @param filters Filters (optional)
-   * @param q A string filter (optional)
-   * @param namespace A namespace filter prefix (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unlockTriggersByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, Map<String, String> additionalHeaders) throws ApiException {
+  public Object unlockTriggersByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -1316,8 +1294,6 @@ import java.util.StringJoiner;
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -1537,13 +1513,11 @@ import java.util.StringJoiner;
    * 
    * @param tenant  (required)
    * @param filters Filters (optional)
-   * @param q A string filter (optional)
-   * @param namespace A namespace filter prefix (optional)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unpauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace) throws ApiException {
-    return this.unpauseBackfillByQuery(tenant, filters, q, namespace, Collections.emptyMap());
+  public Object unpauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.unpauseBackfillByQuery(tenant, filters, Collections.emptyMap());
   }
 
 
@@ -1552,13 +1526,11 @@ import java.util.StringJoiner;
    * 
    * @param tenant  (required)
    * @param filters Filters (optional)
-   * @param q A string filter (optional)
-   * @param namespace A namespace filter prefix (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unpauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, Map<String, String> additionalHeaders) throws ApiException {
+  public Object unpauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -1579,8 +1551,6 @@ import java.util.StringJoiner;
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
