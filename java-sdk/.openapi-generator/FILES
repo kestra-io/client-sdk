@@ -88,7 +88,6 @@ docs/DailyExecutionStatisticsDuration.md
 docs/DailyExecutionStatisticsExecutionCounts.md
 docs/Dashboard.md
 docs/DashboardControllerPreviewRequest.md
-docs/DeleteExecutionsByQueryRequest.md
 docs/DeletedInterface.md
 docs/DependsOn.md
 docs/DocumentationWithSchema.md
@@ -385,6 +384,7 @@ docs/TriggersApi.md
 docs/Type.md
 docs/UnitTest.md
 docs/UnitTestResult.md
+docs/UpdateFlow200Response.md
 docs/UsageEE.md
 docs/UserGroup.md
 docs/UserGroupType.md
@@ -514,7 +514,6 @@ src/main/java/io/kestra/sdk/model/DailyExecutionStatisticsDuration.java
 src/main/java/io/kestra/sdk/model/DailyExecutionStatisticsExecutionCounts.java
 src/main/java/io/kestra/sdk/model/Dashboard.java
 src/main/java/io/kestra/sdk/model/DashboardControllerPreviewRequest.java
-src/main/java/io/kestra/sdk/model/DeleteExecutionsByQueryRequest.java
 src/main/java/io/kestra/sdk/model/DeletedInterface.java
 src/main/java/io/kestra/sdk/model/DependsOn.java
 src/main/java/io/kestra/sdk/model/DocumentationWithSchema.java
@@ -803,6 +802,7 @@ src/main/java/io/kestra/sdk/model/TriggerFixture.java
 src/main/java/io/kestra/sdk/model/Type.java
 src/main/java/io/kestra/sdk/model/UnitTest.java
 src/main/java/io/kestra/sdk/model/UnitTestResult.java
+src/main/java/io/kestra/sdk/model/UpdateFlow200Response.java
 src/main/java/io/kestra/sdk/model/UsageEE.java
 src/main/java/io/kestra/sdk/model/UserGroup.java
 src/main/java/io/kestra/sdk/model/UserGroupType.java

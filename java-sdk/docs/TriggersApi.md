@@ -179,7 +179,7 @@ public class Example {
 
 ## deleteBackfillByQuery
 
-> Object deleteBackfillByQuery(tenant, deleteExecutionsByQueryRequest, q, namespace)
+> Object deleteBackfillByQuery(tenant, filters, q, namespace)
 
 Delete backfill for given triggers
 
@@ -210,11 +210,11 @@ public class Example {
 
         TriggersApi apiInstance = new TriggersApi(defaultClient);
         String tenant = "tenant_example"; // String | 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = new DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         String q = "q_example"; // String | A string filter
         String namespace = "namespace_example"; // String | A namespace filter prefix
         try {
-            Object result = apiInstance.deleteBackfillByQuery(tenant, deleteExecutionsByQueryRequest, q, namespace);
+            Object result = apiInstance.deleteBackfillByQuery(tenant, filters, q, namespace);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#deleteBackfillByQuery");
@@ -233,7 +233,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
 | **q** | **String**| A string filter | [optional] |
 | **namespace** | **String**| A namespace filter prefix | [optional] |
 
@@ -247,7 +247,7 @@ public class Example {
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -335,7 +335,7 @@ public class Example {
 
 ## disabledTriggersByQuery
 
-> Object disabledTriggersByQuery(disabled, tenant, deleteExecutionsByQueryRequest, q, namespace)
+> Object disabledTriggersByQuery(disabled, tenant, filters, q, namespace)
 
 Disable/enable triggers by query parameters
 
@@ -367,11 +367,11 @@ public class Example {
         TriggersApi apiInstance = new TriggersApi(defaultClient);
         Boolean disabled = true; // Boolean | The disabled state
         String tenant = "tenant_example"; // String | 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = new DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         String q = "q_example"; // String | A string filter
         String namespace = "namespace_example"; // String | A namespace filter prefix
         try {
-            Object result = apiInstance.disabledTriggersByQuery(disabled, tenant, deleteExecutionsByQueryRequest, q, namespace);
+            Object result = apiInstance.disabledTriggersByQuery(disabled, tenant, filters, q, namespace);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#disabledTriggersByQuery");
@@ -391,7 +391,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **disabled** | **Boolean**| The disabled state | [default to true] |
 | **tenant** | **String**|  | |
-| **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
 | **q** | **String**| A string filter | [optional] |
 | **namespace** | **String**| A namespace filter prefix | [optional] |
 
@@ -405,7 +405,7 @@ public class Example {
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -569,7 +569,7 @@ public class Example {
 
 ## pauseBackfillByQuery
 
-> Object pauseBackfillByQuery(tenant, deleteExecutionsByQueryRequest, q, namespace)
+> Object pauseBackfillByQuery(tenant, filters, q, namespace)
 
 Pause backfill for given triggers
 
@@ -600,11 +600,11 @@ public class Example {
 
         TriggersApi apiInstance = new TriggersApi(defaultClient);
         String tenant = "tenant_example"; // String | 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = new DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         String q = "q_example"; // String | A string filter
         String namespace = "namespace_example"; // String | A namespace filter prefix
         try {
-            Object result = apiInstance.pauseBackfillByQuery(tenant, deleteExecutionsByQueryRequest, q, namespace);
+            Object result = apiInstance.pauseBackfillByQuery(tenant, filters, q, namespace);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#pauseBackfillByQuery");
@@ -623,7 +623,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
 | **q** | **String**| A string filter | [optional] |
 | **namespace** | **String**| A namespace filter prefix | [optional] |
 
@@ -637,7 +637,7 @@ public class Example {
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -1053,7 +1053,7 @@ public class Example {
 
 ## unlockTriggersByQuery
 
-> Object unlockTriggersByQuery(tenant, deleteExecutionsByQueryRequest, q, namespace)
+> Object unlockTriggersByQuery(tenant, filters, q, namespace)
 
 Unlock triggers by query parameters
 
@@ -1084,11 +1084,11 @@ public class Example {
 
         TriggersApi apiInstance = new TriggersApi(defaultClient);
         String tenant = "tenant_example"; // String | 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = new DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         String q = "q_example"; // String | A string filter
         String namespace = "namespace_example"; // String | A namespace filter prefix
         try {
-            Object result = apiInstance.unlockTriggersByQuery(tenant, deleteExecutionsByQueryRequest, q, namespace);
+            Object result = apiInstance.unlockTriggersByQuery(tenant, filters, q, namespace);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#unlockTriggersByQuery");
@@ -1107,7 +1107,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
 | **q** | **String**| A string filter | [optional] |
 | **namespace** | **String**| A namespace filter prefix | [optional] |
 
@@ -1121,7 +1121,7 @@ public class Example {
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -1285,7 +1285,7 @@ public class Example {
 
 ## unpauseBackfillByQuery
 
-> Object unpauseBackfillByQuery(tenant, deleteExecutionsByQueryRequest, q, namespace)
+> Object unpauseBackfillByQuery(tenant, filters, q, namespace)
 
 Unpause backfill for given triggers
 
@@ -1316,11 +1316,11 @@ public class Example {
 
         TriggersApi apiInstance = new TriggersApi(defaultClient);
         String tenant = "tenant_example"; // String | 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = new DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         String q = "q_example"; // String | A string filter
         String namespace = "namespace_example"; // String | A namespace filter prefix
         try {
-            Object result = apiInstance.unpauseBackfillByQuery(tenant, deleteExecutionsByQueryRequest, q, namespace);
+            Object result = apiInstance.unpauseBackfillByQuery(tenant, filters, q, namespace);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TriggersApi#unpauseBackfillByQuery");
@@ -1339,7 +1339,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
 | **q** | **String**| A string filter | [optional] |
 | **namespace** | **String**| A namespace filter prefix | [optional] |
 
@@ -1353,7 +1353,7 @@ public class Example {
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 

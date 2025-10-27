@@ -39,8 +39,8 @@ public class FlowsApiTest {
     @Test
     public void bulkUpdateFlowsTest() throws ApiException {
         var flow = createSimpleFlow();
-        Boolean delete = null;
-        Boolean allowNamespaceChild = null;
+        Boolean delete = false;
+        Boolean allowNamespaceChild = false;
 
         String namespace = flow.getNamespace();
         String body = null;
@@ -420,9 +420,9 @@ public class FlowsApiTest {
         String id = flow.getId();
         String namespace = flow.getNamespace();
         String body = flowBody.replace("simple_flow_description", "simple_flow_description_updated");
-//        var response = kestraClient().flows().updateFlow(id, namespace, MAIN_TENANT, body);
-// TODO
-//        assertThat(response).extracting(UpdateFlow200Response::getDescription).isEqualTo("simple_flow_description_updated");
+        var response = kestraClient().flows().updateFlow(id, namespace, MAIN_TENANT, body);
+
+        assertThat(response).extracting(UpdateFlow200Response::getDescription).isEqualTo("simple_flow_description_updated");
     }
 
     /**
