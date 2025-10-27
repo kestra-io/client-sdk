@@ -4,9 +4,7 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.model.BulkResponse;
 import io.kestra.sdk.model.DeleteExecutionsByQueryRequest;
 import io.kestra.sdk.model.EventExecution;
-import io.kestra.sdk.model.EventExecutionStatusEvent;
 import io.kestra.sdk.model.Execution;
-import io.kestra.sdk.model.ExecutionControllerApiValidateExecutionInputsResponse;
 import io.kestra.sdk.model.ExecutionControllerEvalResult;
 import io.kestra.sdk.model.ExecutionControllerExecutionResponse;
 import io.kestra.sdk.model.ExecutionControllerLastExecutionResponse;
@@ -24,9 +22,9 @@ import io.kestra.sdk.model.FlowScope;
 import io.kestra.sdk.model.Label;
 import java.time.OffsetDateTime;
 import io.kestra.sdk.model.PagedResultsExecution;
-import io.kestra.sdk.model.PagedResultsTaskRun;
 import io.kestra.sdk.model.QueryFilter;
 import io.kestra.sdk.model.StateType;
+import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import java.net.URI;
@@ -35,11 +33,13 @@ import java.net.URI;
 import java.util.List;
 
 import static io.kestra.example.CommonTestSetup.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ExecutionsApiTest {
 
     /** Create a flow via YAML with a single scheduled trigger; returns [flowId, triggerId]. */
-    private void createSimpleFlowWithTrigger(String flowId, String namespace) throws ApiException {
+    private void createSimpleFlow(String flowId, String namespace) throws ApiException {
 
         String body = """
             id: %s
@@ -59,6 +59,11 @@ public class ExecutionsApiTest {
         }
     }
 
+    public ExecutionControllerExecutionResponse createFlowWithExecution(String flowId, String namespace){
+        createSimpleFlow(flowId, namespace);
+        return kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, ExecutionKind.NORMAL);
+    }
+
     /**
      * Create a new execution for a flow
      *
@@ -69,16 +74,19 @@ public class ExecutionsApiTest {
     public void createExecutionTest() throws ApiException {
         String namespace = randomId();
         String id = randomId();
-        Boolean wait = null;
+        createSimpleFlow(id, namespace);
 
-        List<String> labels = null;
+        Boolean wait = false;
+        List<String> labels = List.of("label1:created");
         Integer revision = null;
         OffsetDateTime scheduleDate = null;
         String breakpoints = null;
-        ExecutionKind kind = null;
+        ExecutionKind kind = ExecutionKind.NORMAL;
         ExecutionControllerExecutionResponse response = kestraClient().executions().createExecution(namespace, id, wait, MAIN_TENANT, labels, revision, scheduleDate, breakpoints, kind);
 
-        // TODO: test validations
+        assertThat(response.getLabels()).contains(new Label().key("label1").value("created"));
+        assertThat(response.getFlowId()).isEqualTo(id);
+        assertThat(response.getNamespace()).isEqualTo(namespace);
     }
     /**
      * Delete an execution
@@ -88,14 +96,23 @@ public class ExecutionsApiTest {
      */
     @Test
     public void deleteExecutionTest() throws ApiException {
-        String executionId = null;
-        Boolean deleteLogs = null;
-        Boolean deleteMetrics = null;
-        Boolean deleteStorage = null;
+        String namespace = randomId();
+        String id = randomId();
+        ExecutionControllerExecutionResponse response = createFlowWithExecution(id, namespace);
+
+        String executionId = response.getId();
+        Boolean deleteLogs = false;
+        Boolean deleteMetrics = false;
+        Boolean deleteStorage = false;
+
+        Execution execution = kestraClient().executions().getExecution(executionId, MAIN_TENANT);
+        assertThat(execution).isNotNull();
 
         kestraClient().executions().deleteExecution(executionId, deleteLogs, deleteMetrics, deleteStorage, MAIN_TENANT);
 
-        // TODO: test validations
+        ApiException apiException = assertThrows(ApiException.class,
+            () -> kestraClient().executions().getExecution(executionId, MAIN_TENANT));
+        assertThat(apiException.getCode()).isEqualTo(404);
     }
     /**
      * Delete a list of executions
@@ -105,15 +122,24 @@ public class ExecutionsApiTest {
      */
     @Test
     public void deleteExecutionsByIdsTest() throws ApiException {
-        Boolean deleteLogs = null;
-        Boolean deleteMetrics = null;
-        Boolean deleteStorage = null;
+        String namespace = randomId();
+        String id = randomId();
+        ExecutionControllerExecutionResponse execution1 = createFlowWithExecution(id, namespace);
+        ExecutionControllerExecutionResponse execution2 = kestraClient().executions().createExecution(namespace, id, false, MAIN_TENANT, null, null, null, null, ExecutionKind.NORMAL);
+        ExecutionControllerExecutionResponse execution3 = kestraClient().executions().createExecution(namespace, id, false, MAIN_TENANT, null, null, null, null, ExecutionKind.NORMAL);
 
-        List<String> requestBody = null;
-        Boolean includeNonTerminated = null;
-        BulkResponse response = kestraClient().executions().deleteExecutionsByIds(deleteLogs, deleteMetrics, deleteStorage, MAIN_TENANT, requestBody, includeNonTerminated);
+        Boolean deleteLogs = false;
+        Boolean deleteMetrics = false;
+        Boolean deleteStorage = false;
 
-        // TODO: test validations
+        List<String> executionIds = List.of(execution1.getId(), execution3.getId());
+        Boolean includeNonTerminated = true;
+        BulkResponse response = kestraClient().executions().deleteExecutionsByIds(deleteLogs, deleteMetrics, deleteStorage, MAIN_TENANT, executionIds, includeNonTerminated);
+
+        assertThat(response.getCount()).isEqualTo(2);
+        assertThrows(ApiException.class, () -> kestraClient().executions().getExecution(execution1.getId(), MAIN_TENANT));
+        assertThrows(ApiException.class, () -> kestraClient().executions().getExecution(execution3.getId(), MAIN_TENANT));
+        assertThat(kestraClient().executions().getExecution(execution2.getId(), MAIN_TENANT)).isNotNull();
     }
     /**
      * Delete executions filter by query parameters
@@ -226,19 +252,8 @@ public class ExecutionsApiTest {
     @Test
     public void forceRunExecutionsByQueryTest() throws ApiException {
 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = null;
-        String q = null;
-        List<FlowScope> scope = null;
-        String namespace = randomId();
-        String flowId = null;
-        OffsetDateTime startDate = null;
-        OffsetDateTime endDate = null;
-        String timeRange = null;
-        List<StateType> state = null;
-        List<String> labels = null;
-        String triggerExecutionId = null;
-        ExecutionRepositoryInterfaceChildFilter childFilter = null;
-        Object response = kestraClient().executions().forceRunExecutionsByQuery(MAIN_TENANT, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter);
+        List<QueryFilter> queryFilters = List.of(new QueryFilter());
+        Object response = kestraClient().executions().forceRunExecutionsByQuery(MAIN_TENANT, queryFilters);
 
         // TODO: test validations
     }
@@ -367,20 +382,9 @@ public class ExecutionsApiTest {
      */
     @Test
     public void killExecutionsByQueryTest() throws ApiException {
+        List<QueryFilter> filters = new ArrayList<>();
 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = null;
-        String q = null;
-        List<FlowScope> scope = null;
-        String namespace = randomId();
-        String flowId = null;
-        OffsetDateTime startDate = null;
-        OffsetDateTime endDate = null;
-        String timeRange = null;
-        List<StateType> state = null;
-        List<String> labels = null;
-        String triggerExecutionId = null;
-        ExecutionRepositoryInterfaceChildFilter childFilter = null;
-        Object response = kestraClient().executions().killExecutionsByQuery(MAIN_TENANT, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter);
+        Object response = kestraClient().executions().killExecutionsByQuery(MAIN_TENANT, filters);
 
         // TODO: test validations
     }
@@ -421,19 +425,9 @@ public class ExecutionsApiTest {
     @Test
     public void pauseExecutionsByQueryTest() throws ApiException {
 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = null;
-        String q = null;
-        List<FlowScope> scope = null;
-        String namespace = randomId();
-        String flowId = null;
-        OffsetDateTime startDate = null;
-        OffsetDateTime endDate = null;
-        String timeRange = null;
-        List<StateType> state = null;
-        List<String> labels = null;
-        String triggerExecutionId = null;
-        ExecutionRepositoryInterfaceChildFilter childFilter = null;
-        Object response = kestraClient().executions().pauseExecutionsByQuery(MAIN_TENANT, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter);
+        List<QueryFilter> filters = new ArrayList<>();
+
+        Object response = kestraClient().executions().pauseExecutionsByQuery(MAIN_TENANT, filters);
 
         // TODO: test validations
     }
@@ -495,20 +489,9 @@ public class ExecutionsApiTest {
     @Test
     public void replayExecutionsByQueryTest() throws ApiException {
 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = null;
-        String q = null;
-        List<FlowScope> scope = null;
-        String namespace = randomId();
-        String flowId = null;
-        OffsetDateTime startDate = null;
-        OffsetDateTime endDate = null;
-        String timeRange = null;
-        List<StateType> state = null;
-        List<String> labels = null;
-        String triggerExecutionId = null;
-        ExecutionRepositoryInterfaceChildFilter childFilter = null;
-        Boolean latestRevision = null;
-        Object response = kestraClient().executions().replayExecutionsByQuery(MAIN_TENANT, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, latestRevision);
+        List<QueryFilter> filters = new ArrayList<>();
+
+        Object response = kestraClient().executions().replayExecutionsByQuery(MAIN_TENANT, filters, true);
 
         // TODO: test validations
     }
@@ -550,19 +533,9 @@ public class ExecutionsApiTest {
     @Test
     public void restartExecutionsByQueryTest() throws ApiException {
 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = null;
-        String q = null;
-        List<FlowScope> scope = null;
-        String namespace = randomId();
-        String flowId = null;
-        OffsetDateTime startDate = null;
-        OffsetDateTime endDate = null;
-        String timeRange = null;
-        List<StateType> state = null;
-        List<String> labels = null;
-        String triggerExecutionId = null;
-        ExecutionRepositoryInterfaceChildFilter childFilter = null;
-        Object response = kestraClient().executions().restartExecutionsByQuery(MAIN_TENANT, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter);
+        List<QueryFilter> filters = new ArrayList<>();
+
+        Object response = kestraClient().executions().restartExecutionsByQuery(MAIN_TENANT, filters);
 
         // TODO: test validations
     }
@@ -603,19 +576,9 @@ public class ExecutionsApiTest {
     @Test
     public void resumeExecutionsByQueryTest() throws ApiException {
 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = null;
-        String q = null;
-        List<FlowScope> scope = null;
-        String namespace = randomId();
-        String flowId = null;
-        OffsetDateTime startDate = null;
-        OffsetDateTime endDate = null;
-        String timeRange = null;
-        List<StateType> state = null;
-        List<String> labels = null;
-        String triggerExecutionId = null;
-        ExecutionRepositoryInterfaceChildFilter childFilter = null;
-        Object response = kestraClient().executions().resumeExecutionsByQuery(MAIN_TENANT, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter);
+        List<QueryFilter> filters = new ArrayList<>();
+
+        Object response = kestraClient().executions().resumeExecutionsByQuery(MAIN_TENANT, filters);
 
         // TODO: test validations
     }
@@ -629,65 +592,10 @@ public class ExecutionsApiTest {
     public void searchExecutionsTest() throws ApiException {
         Integer page = null;
         Integer size = null;
-
         List<String> sort = null;
-        List<QueryFilter> filters = null;
-        String q = null;
-        List<FlowScope> scope = null;
-        String namespace = randomId();
-        String flowId = null;
-        OffsetDateTime startDate = null;
-        OffsetDateTime endDate = null;
-        String timeRange = null;
-        List<StateType> state = null;
-        List<String> labels = null;
-        String triggerExecutionId = null;
-        ExecutionRepositoryInterfaceChildFilter childFilter = null;
-        PagedResultsExecution response = kestraClient().executions().searchExecutions(page, size, MAIN_TENANT, sort, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter);
+        List<QueryFilter> filters = new ArrayList<>();
 
-        // TODO: test validations
-    }
-    /**
-     * Search for executions for a flow
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void searchExecutionsByFlowIdTest() throws ApiException {
-        String namespace = randomId();
-        String flowId = null;
-        Integer page = null;
-        Integer size = null;
-
-//        PagedResultsExecution response = kestraClient().executions().searchExecutionsByFlowId(namespace, flowId, page, size, MAIN_TENANT);
-
-        // TODO: test validations
-    }
-    /**
-     * Search for taskruns, only available with the Elasticsearch repository
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void searchTaskRunTest() throws ApiException {
-        Integer page = null;
-        Integer size = null;
-
-        List<String> sort = null;
-        List<QueryFilter> filters = null;
-        String q = null;
-        String namespace = randomId();
-        String flowId = null;
-        OffsetDateTime startDate = null;
-        OffsetDateTime endDate = null;
-        String timeRange = null;
-        List<StateType> state = null;
-        List<String> labels = null;
-        String triggerExecutionId = null;
-        ExecutionRepositoryInterfaceChildFilter childFilter = null;
-        PagedResultsTaskRun response = kestraClient().executions().searchTaskRun(page, size, MAIN_TENANT, sort, filters, q, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter);
+        PagedResultsExecution response = kestraClient().executions().searchExecutions(page, size, MAIN_TENANT, sort, filters);
 
         // TODO: test validations
     }
@@ -730,36 +638,8 @@ public class ExecutionsApiTest {
     public void setLabelsOnTerminatedExecutionsByQueryTest() throws ApiException {
 
         List<Label> label = null;
-        String q = null;
-        List<FlowScope> scope = null;
-        String namespace = randomId();
-        String flowId = null;
-        OffsetDateTime startDate = null;
-        OffsetDateTime endDate = null;
-        String timeRange = null;
-        List<StateType> state = null;
-        List<String> labels = null;
-        String triggerExecutionId = null;
-        ExecutionRepositoryInterfaceChildFilter childFilter = null;
-        Object response = kestraClient().executions().setLabelsOnTerminatedExecutionsByQuery(MAIN_TENANT, label, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter);
-
-        // TODO: test validations
-    }
-    /**
-     * Trigger a new execution for a flow
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void triggerExecutionTest() throws ApiException {
-        String namespace = randomId();
-        String id = randomId();
-        Boolean wait = null;
-
-        List<String> labels = null;
-        Integer revision = null;
-//        List<ExecutionControllerExecutionResponse> response = kestraClient().executions().triggerExecution(namespace, id, wait, MAIN_TENANT, labels, revision);
+        List<QueryFilter> filters = new ArrayList<>();
+        Object response = kestraClient().executions().setLabelsOnTerminatedExecutionsByQuery(MAIN_TENANT, label, filters);
 
         // TODO: test validations
     }
@@ -818,20 +698,9 @@ public class ExecutionsApiTest {
     @Test
     public void unqueueExecutionsByQueryTest() throws ApiException {
 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = null;
-        String q = null;
-        List<FlowScope> scope = null;
-        String namespace = randomId();
-        String flowId = null;
-        OffsetDateTime startDate = null;
-        OffsetDateTime endDate = null;
-        String timeRange = null;
-        List<StateType> state = null;
-        List<String> labels = null;
-        String triggerExecutionId = null;
-        ExecutionRepositoryInterfaceChildFilter childFilter = null;
+        List<QueryFilter> filters = new ArrayList<>();
         StateType newState = null;
-        Object response = kestraClient().executions().unqueueExecutionsByQuery(MAIN_TENANT, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, newState);
+        Object response = kestraClient().executions().unqueueExecutionsByQuery(MAIN_TENANT, filters, newState);
 
         // TODO: test validations
     }
@@ -874,20 +743,9 @@ public class ExecutionsApiTest {
     @Test
     public void updateExecutionsStatusByQueryTest() throws ApiException {
         StateType newStatus = null;
+        List<QueryFilter> filters = new ArrayList<>();
 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = null;
-        String q = null;
-        List<FlowScope> scope = null;
-        String namespace = randomId();
-        String flowId = null;
-        OffsetDateTime startDate = null;
-        OffsetDateTime endDate = null;
-        String timeRange = null;
-        List<StateType> state = null;
-        List<String> labels = null;
-        String triggerExecutionId = null;
-        ExecutionRepositoryInterfaceChildFilter childFilter = null;
-        BulkResponse response = kestraClient().executions().updateExecutionsStatusByQuery(newStatus, MAIN_TENANT, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter);
+        BulkResponse response = kestraClient().executions().updateExecutionsStatusByQuery(newStatus, MAIN_TENANT, filters);
 
         // TODO: test validations
     }
