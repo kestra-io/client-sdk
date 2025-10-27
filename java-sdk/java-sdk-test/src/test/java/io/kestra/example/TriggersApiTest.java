@@ -114,7 +114,7 @@ public class TriggersApiTest {
             .operation(QueryFilterOp.CONTAINS)
             .value(flowId);
 
-        Object resp = kestraClient().triggers().deleteBackfillByQuery(MAIN_TENANT, List.of(qf), null);
+        Object resp = kestraClient().triggers().deleteBackfillByQuery(MAIN_TENANT, List.of(qf));
         assertNotNull(resp);
     }
 
@@ -146,7 +146,7 @@ public class TriggersApiTest {
             .operation(QueryFilterOp.CONTAINS)
             .value(flowId);
 
-        Object resp = kestraClient().triggers().disabledTriggersByQuery(true, MAIN_TENANT, List.of(qf), null);
+        Object resp = kestraClient().triggers().disabledTriggersByQuery(true, MAIN_TENANT, List.of(qf));
         assertNotNull(resp);
     }
 
@@ -188,7 +188,7 @@ public class TriggersApiTest {
             .operation(QueryFilterOp.CONTAINS)
             .value(flowId);
 
-        Object resp = kestraClient().triggers().pauseBackfillByQuery(MAIN_TENANT, List.of(qf), null);
+        Object resp = kestraClient().triggers().pauseBackfillByQuery(MAIN_TENANT, List.of(qf));
         assertNotNull(resp);
     }
 
@@ -264,7 +264,7 @@ public class TriggersApiTest {
         String namespace = "test.triggers." + randomId();
         createFlowWithTrigger(flowId, triggerId, namespace);
 
-        Object resp = kestraClient().triggers().unlockTriggersByQuery(MAIN_TENANT, List.of(), null);
+        Object resp = kestraClient().triggers().unlockTriggersByQuery(MAIN_TENANT, List.of());
         assertNotNull(resp);
     }
 
@@ -301,7 +301,7 @@ public class TriggersApiTest {
         String namespace = "test.triggers." + randomId();
         createFlowWithTrigger(flowId, triggerId, namespace);
 
-        Object resp = kestraClient().triggers().unpauseBackfillByQuery(MAIN_TENANT, List.of(), null);
+        Object resp = kestraClient().triggers().unpauseBackfillByQuery(MAIN_TENANT, List.of());
         assertNotNull(resp);
     }
 
