@@ -5,7 +5,7 @@ import {sanitizeOpenAPI} from "./openapi-customizer";
 
 async function run(confPath: string, inputPath: string, outputPath?: string) {
     const absIn = path.resolve(inputPath);
-    const out = outputPath || absIn.replace(/\.ya?ml$/i, ".without-deprecated.yml");
+    const out = outputPath || absIn;
 
     const raw = await fs.readFile(absIn, "utf8");
     const spec = yaml.load(raw);
@@ -19,6 +19,7 @@ async function run(confPath: string, inputPath: string, outputPath?: string) {
         noRefs: true,
         quotingType: '"',       // ← forces double quotes
     });
+    await fs.writeFile(absIn.replace(/\.ya?ml$/i, ".raw-from-ee-kestra-repo.yml"), raw, "utf8");
     await fs.writeFile(out, dumped, "utf8");
     // eslint-disable-next-line no-console
     console.log(

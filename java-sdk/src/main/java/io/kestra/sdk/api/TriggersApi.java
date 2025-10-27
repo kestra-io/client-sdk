@@ -20,7 +20,6 @@ import io.kestra.sdk.internal.BaseApi;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.Pair;
 
-import io.kestra.sdk.model.DeleteExecutionsByQueryRequest;
 import io.kestra.sdk.model.PagedResultsTrigger;
 import io.kestra.sdk.model.PagedResultsTriggerControllerTriggers;
 import io.kestra.sdk.model.QueryFilter;
@@ -223,14 +222,14 @@ import java.util.StringJoiner;
    * Delete backfill for given triggers
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param q A string filter (optional)
    * @param namespace A namespace filter prefix (optional)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace) throws ApiException {
-    return this.deleteBackfillByQuery(tenant, deleteExecutionsByQueryRequest, q, namespace, Collections.emptyMap());
+  public Object deleteBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace) throws ApiException {
+    return this.deleteBackfillByQuery(tenant, filters, q, namespace, Collections.emptyMap());
   }
 
 
@@ -238,24 +237,19 @@ import java.util.StringJoiner;
    * Delete backfill for given triggers
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param q A string filter (optional)
    * @param namespace A namespace filter prefix (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object deleteBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling deleteBackfillByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling deleteBackfillByQuery");
     }
     
     // create path and map variables
@@ -270,6 +264,7 @@ import java.util.StringJoiner;
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
     
@@ -283,7 +278,7 @@ import java.util.StringJoiner;
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -404,14 +399,14 @@ import java.util.StringJoiner;
    * 
    * @param disabled The disabled state (required)
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param q A string filter (optional)
    * @param namespace A namespace filter prefix (optional)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object disabledTriggersByQuery(@javax.annotation.Nonnull Boolean disabled, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace) throws ApiException {
-    return this.disabledTriggersByQuery(disabled, tenant, deleteExecutionsByQueryRequest, q, namespace, Collections.emptyMap());
+  public Object disabledTriggersByQuery(@javax.annotation.Nonnull Boolean disabled, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace) throws ApiException {
+    return this.disabledTriggersByQuery(disabled, tenant, filters, q, namespace, Collections.emptyMap());
   }
 
 
@@ -420,15 +415,15 @@ import java.util.StringJoiner;
    * 
    * @param disabled The disabled state (required)
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param q A string filter (optional)
    * @param namespace A namespace filter prefix (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object disabledTriggersByQuery(@javax.annotation.Nonnull Boolean disabled, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object disabledTriggersByQuery(@javax.annotation.Nonnull Boolean disabled, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'disabled' is set
     if (disabled == null) {
@@ -438,11 +433,6 @@ import java.util.StringJoiner;
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling disabledTriggersByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling disabledTriggersByQuery");
     }
     
     // create path and map variables
@@ -457,6 +447,7 @@ import java.util.StringJoiner;
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
     localVarQueryParams.addAll(apiClient.parameterToPair("disabled", disabled));
@@ -471,7 +462,7 @@ import java.util.StringJoiner;
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -678,14 +669,14 @@ import java.util.StringJoiner;
    * Pause backfill for given triggers
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param q A string filter (optional)
    * @param namespace A namespace filter prefix (optional)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object pauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace) throws ApiException {
-    return this.pauseBackfillByQuery(tenant, deleteExecutionsByQueryRequest, q, namespace, Collections.emptyMap());
+  public Object pauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace) throws ApiException {
+    return this.pauseBackfillByQuery(tenant, filters, q, namespace, Collections.emptyMap());
   }
 
 
@@ -693,24 +684,19 @@ import java.util.StringJoiner;
    * Pause backfill for given triggers
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param q A string filter (optional)
    * @param namespace A namespace filter prefix (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object pauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object pauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling pauseBackfillByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling pauseBackfillByQuery");
     }
     
     // create path and map variables
@@ -725,6 +711,7 @@ import java.util.StringJoiner;
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
     
@@ -738,7 +725,7 @@ import java.util.StringJoiner;
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -1286,14 +1273,14 @@ import java.util.StringJoiner;
    * Unlock triggers by query parameters
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param q A string filter (optional)
    * @param namespace A namespace filter prefix (optional)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unlockTriggersByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace) throws ApiException {
-    return this.unlockTriggersByQuery(tenant, deleteExecutionsByQueryRequest, q, namespace, Collections.emptyMap());
+  public Object unlockTriggersByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace) throws ApiException {
+    return this.unlockTriggersByQuery(tenant, filters, q, namespace, Collections.emptyMap());
   }
 
 
@@ -1301,24 +1288,19 @@ import java.util.StringJoiner;
    * Unlock triggers by query parameters
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param q A string filter (optional)
    * @param namespace A namespace filter prefix (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unlockTriggersByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object unlockTriggersByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling unlockTriggersByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling unlockTriggersByQuery");
     }
     
     // create path and map variables
@@ -1333,6 +1315,7 @@ import java.util.StringJoiner;
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
     
@@ -1346,7 +1329,7 @@ import java.util.StringJoiner;
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -1553,14 +1536,14 @@ import java.util.StringJoiner;
    * Unpause backfill for given triggers
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param q A string filter (optional)
    * @param namespace A namespace filter prefix (optional)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unpauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace) throws ApiException {
-    return this.unpauseBackfillByQuery(tenant, deleteExecutionsByQueryRequest, q, namespace, Collections.emptyMap());
+  public Object unpauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace) throws ApiException {
+    return this.unpauseBackfillByQuery(tenant, filters, q, namespace, Collections.emptyMap());
   }
 
 
@@ -1568,24 +1551,19 @@ import java.util.StringJoiner;
    * Unpause backfill for given triggers
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param q A string filter (optional)
    * @param namespace A namespace filter prefix (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unpauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object unpauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling unpauseBackfillByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling unpauseBackfillByQuery");
     }
     
     // create path and map variables
@@ -1600,6 +1578,7 @@ import java.util.StringJoiner;
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
     
@@ -1613,7 +1592,7 @@ import java.util.StringJoiner;
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 

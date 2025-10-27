@@ -311,7 +311,7 @@ public class Example {
 
 ## deleteExecutionsByQuery
 
-> Object deleteExecutionsByQuery(deleteLogs, deleteMetrics, deleteStorage, tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, includeNonTerminated)
+> Object deleteExecutionsByQuery(deleteLogs, deleteMetrics, deleteStorage, tenant, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, includeNonTerminated)
 
 Delete executions filter by query parameters
 
@@ -345,7 +345,7 @@ public class Example {
         Boolean deleteMetrics = true; // Boolean | Whether to delete execution metrics
         Boolean deleteStorage = true; // Boolean | Whether to delete execution files in the internal storage
         String tenant = "tenant_example"; // String | 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = new DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         String q = "q_example"; // String | A string filter
         List<FlowScope> scope = Arrays.asList(); // List<FlowScope> | The scope of the executions to include
         String namespace = "namespace_example"; // String | A namespace filter prefix
@@ -359,7 +359,7 @@ public class Example {
         ExecutionRepositoryInterfaceChildFilter childFilter = ExecutionRepositoryInterfaceChildFilter.fromValue("CHILD"); // ExecutionRepositoryInterfaceChildFilter | A execution child filter
         Boolean includeNonTerminated = false; // Boolean | Whether to delete non-terminated executions
         try {
-            Object result = apiInstance.deleteExecutionsByQuery(deleteLogs, deleteMetrics, deleteStorage, tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, includeNonTerminated);
+            Object result = apiInstance.deleteExecutionsByQuery(deleteLogs, deleteMetrics, deleteStorage, tenant, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, includeNonTerminated);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#deleteExecutionsByQuery");
@@ -381,7 +381,7 @@ public class Example {
 | **deleteMetrics** | **Boolean**| Whether to delete execution metrics | [default to true] |
 | **deleteStorage** | **Boolean**| Whether to delete execution files in the internal storage | [default to true] |
 | **tenant** | **String**|  | |
-| **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
 | **q** | **String**| A string filter | [optional] |
 | **scope** | [**List&lt;FlowScope&gt;**](FlowScope.md)| The scope of the executions to include | [optional] |
 | **namespace** | **String**| A namespace filter prefix | [optional] |
@@ -405,7 +405,7 @@ public class Example {
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -804,7 +804,7 @@ public class Example {
 
 ## forceRunExecutionsByQuery
 
-> Object forceRunExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter)
+> Object forceRunExecutionsByQuery(tenant, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter)
 
 Force run executions filter by query parameters
 
@@ -835,7 +835,7 @@ public class Example {
 
         ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = new DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         String q = "q_example"; // String | A string filter
         List<FlowScope> scope = Arrays.asList(); // List<FlowScope> | The scope of the executions to include
         String namespace = "namespace_example"; // String | A namespace filter prefix
@@ -848,7 +848,7 @@ public class Example {
         String triggerExecutionId = "triggerExecutionId_example"; // String | The trigger execution id
         ExecutionRepositoryInterfaceChildFilter childFilter = ExecutionRepositoryInterfaceChildFilter.fromValue("CHILD"); // ExecutionRepositoryInterfaceChildFilter | A execution child filter
         try {
-            Object result = apiInstance.forceRunExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter);
+            Object result = apiInstance.forceRunExecutionsByQuery(tenant, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#forceRunExecutionsByQuery");
@@ -867,7 +867,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
 | **q** | **String**| A string filter | [optional] |
 | **scope** | [**List&lt;FlowScope&gt;**](FlowScope.md)| The scope of the executions to include | [optional] |
 | **namespace** | **String**| A namespace filter prefix | [optional] |
@@ -890,7 +890,7 @@ public class Example {
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -1524,7 +1524,7 @@ public class Example {
 
 ## killExecutionsByQuery
 
-> Object killExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter)
+> Object killExecutionsByQuery(tenant, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter)
 
 Kill executions filter by query parameters
 
@@ -1555,7 +1555,7 @@ public class Example {
 
         ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = new DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         String q = "q_example"; // String | A string filter
         List<FlowScope> scope = Arrays.asList(); // List<FlowScope> | The scope of the executions to include
         String namespace = "namespace_example"; // String | A namespace filter prefix
@@ -1568,7 +1568,7 @@ public class Example {
         String triggerExecutionId = "triggerExecutionId_example"; // String | The trigger execution id
         ExecutionRepositoryInterfaceChildFilter childFilter = ExecutionRepositoryInterfaceChildFilter.fromValue("CHILD"); // ExecutionRepositoryInterfaceChildFilter | A execution child filter
         try {
-            Object result = apiInstance.killExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter);
+            Object result = apiInstance.killExecutionsByQuery(tenant, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#killExecutionsByQuery");
@@ -1587,7 +1587,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
 | **q** | **String**| A string filter | [optional] |
 | **scope** | [**List&lt;FlowScope&gt;**](FlowScope.md)| The scope of the executions to include | [optional] |
 | **namespace** | **String**| A namespace filter prefix | [optional] |
@@ -1610,7 +1610,7 @@ public class Example {
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -1776,7 +1776,7 @@ public class Example {
 
 ## pauseExecutionsByQuery
 
-> Object pauseExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter)
+> Object pauseExecutionsByQuery(tenant, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter)
 
 Pause executions filter by query parameters
 
@@ -1807,7 +1807,7 @@ public class Example {
 
         ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = new DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         String q = "q_example"; // String | A string filter
         List<FlowScope> scope = Arrays.asList(); // List<FlowScope> | The scope of the executions to include
         String namespace = "namespace_example"; // String | A namespace filter prefix
@@ -1820,7 +1820,7 @@ public class Example {
         String triggerExecutionId = "triggerExecutionId_example"; // String | The trigger execution id
         ExecutionRepositoryInterfaceChildFilter childFilter = ExecutionRepositoryInterfaceChildFilter.fromValue("CHILD"); // ExecutionRepositoryInterfaceChildFilter | A execution child filter
         try {
-            Object result = apiInstance.pauseExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter);
+            Object result = apiInstance.pauseExecutionsByQuery(tenant, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#pauseExecutionsByQuery");
@@ -1839,7 +1839,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
 | **q** | **String**| A string filter | [optional] |
 | **scope** | [**List&lt;FlowScope&gt;**](FlowScope.md)| The scope of the executions to include | [optional] |
 | **namespace** | **String**| A namespace filter prefix | [optional] |
@@ -1862,7 +1862,7 @@ public class Example {
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -2117,7 +2117,7 @@ public class Example {
 
 ## replayExecutionsByQuery
 
-> Object replayExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, latestRevision)
+> Object replayExecutionsByQuery(tenant, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, latestRevision)
 
 Create new executions from old ones filter by query parameters. Keep the flow revision
 
@@ -2148,7 +2148,7 @@ public class Example {
 
         ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = new DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         String q = "q_example"; // String | A string filter
         List<FlowScope> scope = Arrays.asList(); // List<FlowScope> | The scope of the executions to include
         String namespace = "namespace_example"; // String | A namespace filter prefix
@@ -2162,7 +2162,7 @@ public class Example {
         ExecutionRepositoryInterfaceChildFilter childFilter = ExecutionRepositoryInterfaceChildFilter.fromValue("CHILD"); // ExecutionRepositoryInterfaceChildFilter | A execution child filter
         Boolean latestRevision = false; // Boolean | If latest revision should be used
         try {
-            Object result = apiInstance.replayExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, latestRevision);
+            Object result = apiInstance.replayExecutionsByQuery(tenant, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, latestRevision);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#replayExecutionsByQuery");
@@ -2181,7 +2181,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
 | **q** | **String**| A string filter | [optional] |
 | **scope** | [**List&lt;FlowScope&gt;**](FlowScope.md)| The scope of the executions to include | [optional] |
 | **namespace** | **String**| A namespace filter prefix | [optional] |
@@ -2205,7 +2205,7 @@ public class Example {
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -2372,7 +2372,7 @@ public class Example {
 
 ## restartExecutionsByQuery
 
-> Object restartExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter)
+> Object restartExecutionsByQuery(tenant, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter)
 
 Restart executions filter by query parameters
 
@@ -2403,7 +2403,7 @@ public class Example {
 
         ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = new DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         String q = "q_example"; // String | A string filter
         List<FlowScope> scope = Arrays.asList(); // List<FlowScope> | The scope of the executions to include
         String namespace = "namespace_example"; // String | A namespace filter prefix
@@ -2416,7 +2416,7 @@ public class Example {
         String triggerExecutionId = "triggerExecutionId_example"; // String | The trigger execution id
         ExecutionRepositoryInterfaceChildFilter childFilter = ExecutionRepositoryInterfaceChildFilter.fromValue("CHILD"); // ExecutionRepositoryInterfaceChildFilter | A execution child filter
         try {
-            Object result = apiInstance.restartExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter);
+            Object result = apiInstance.restartExecutionsByQuery(tenant, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#restartExecutionsByQuery");
@@ -2435,7 +2435,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
 | **q** | **String**| A string filter | [optional] |
 | **scope** | [**List&lt;FlowScope&gt;**](FlowScope.md)| The scope of the executions to include | [optional] |
 | **namespace** | **String**| A namespace filter prefix | [optional] |
@@ -2458,7 +2458,7 @@ public class Example {
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -2625,7 +2625,7 @@ public class Example {
 
 ## resumeExecutionsByQuery
 
-> Object resumeExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter)
+> Object resumeExecutionsByQuery(tenant, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter)
 
 Resume executions filter by query parameters
 
@@ -2656,7 +2656,7 @@ public class Example {
 
         ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = new DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         String q = "q_example"; // String | A string filter
         List<FlowScope> scope = Arrays.asList(); // List<FlowScope> | The scope of the executions to include
         String namespace = "namespace_example"; // String | A namespace filter prefix
@@ -2669,7 +2669,7 @@ public class Example {
         String triggerExecutionId = "triggerExecutionId_example"; // String | The trigger execution id
         ExecutionRepositoryInterfaceChildFilter childFilter = ExecutionRepositoryInterfaceChildFilter.fromValue("CHILD"); // ExecutionRepositoryInterfaceChildFilter | A execution child filter
         try {
-            Object result = apiInstance.resumeExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter);
+            Object result = apiInstance.resumeExecutionsByQuery(tenant, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#resumeExecutionsByQuery");
@@ -2688,7 +2688,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
 | **q** | **String**| A string filter | [optional] |
 | **scope** | [**List&lt;FlowScope&gt;**](FlowScope.md)| The scope of the executions to include | [optional] |
 | **namespace** | **String**| A namespace filter prefix | [optional] |
@@ -2711,7 +2711,7 @@ public class Example {
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -2962,7 +2962,7 @@ public class Example {
 
 ## setLabelsOnTerminatedExecutionsByQuery
 
-> Object setLabelsOnTerminatedExecutionsByQuery(tenant, label, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter)
+> Object setLabelsOnTerminatedExecutionsByQuery(tenant, label, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter)
 
 Set label on executions filter by query parameters
 
@@ -2993,7 +2993,8 @@ public class Example {
 
         ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
-        List<Label> label = new Label(); // List<Label> | The labels to add to the execution
+        List<Label> label = Arrays.asList(); // List<Label> | The labels to add to the execution
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         String q = "q_example"; // String | A string filter
         List<FlowScope> scope = Arrays.asList(); // List<FlowScope> | The scope of the executions to include
         String namespace = "namespace_example"; // String | A namespace filter prefix
@@ -3006,7 +3007,7 @@ public class Example {
         String triggerExecutionId = "triggerExecutionId_example"; // String | The trigger execution id
         ExecutionRepositoryInterfaceChildFilter childFilter = ExecutionRepositoryInterfaceChildFilter.fromValue("CHILD"); // ExecutionRepositoryInterfaceChildFilter | A execution child filter
         try {
-            Object result = apiInstance.setLabelsOnTerminatedExecutionsByQuery(tenant, label, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter);
+            Object result = apiInstance.setLabelsOnTerminatedExecutionsByQuery(tenant, label, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#setLabelsOnTerminatedExecutionsByQuery");
@@ -3026,6 +3027,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
 | **label** | [**List&lt;Label&gt;**](Label.md)| The labels to add to the execution | |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
 | **q** | **String**| A string filter | [optional] |
 | **scope** | [**List&lt;FlowScope&gt;**](FlowScope.md)| The scope of the executions to include | [optional] |
 | **namespace** | **String**| A namespace filter prefix | [optional] |
@@ -3297,7 +3299,7 @@ public class Example {
 
 ## unqueueExecutionsByQuery
 
-> Object unqueueExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, newState)
+> Object unqueueExecutionsByQuery(tenant, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, newState)
 
 Unqueue executions filter by query parameters
 
@@ -3328,7 +3330,7 @@ public class Example {
 
         ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = new DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         String q = "q_example"; // String | A string filter
         List<FlowScope> scope = Arrays.asList(); // List<FlowScope> | The scope of the executions to include
         String namespace = "namespace_example"; // String | A namespace filter prefix
@@ -3342,7 +3344,7 @@ public class Example {
         ExecutionRepositoryInterfaceChildFilter childFilter = ExecutionRepositoryInterfaceChildFilter.fromValue("CHILD"); // ExecutionRepositoryInterfaceChildFilter | A execution child filter
         StateType newState = StateType.fromValue("CREATED"); // StateType | The new state of the unqueued executions
         try {
-            Object result = apiInstance.unqueueExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, newState);
+            Object result = apiInstance.unqueueExecutionsByQuery(tenant, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, newState);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#unqueueExecutionsByQuery");
@@ -3361,7 +3363,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
 | **q** | **String**| A string filter | [optional] |
 | **scope** | [**List&lt;FlowScope&gt;**](FlowScope.md)| The scope of the executions to include | [optional] |
 | **namespace** | **String**| A namespace filter prefix | [optional] |
@@ -3385,7 +3387,7 @@ public class Example {
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -3554,7 +3556,7 @@ public class Example {
 
 ## updateExecutionsStatusByQuery
 
-> BulkResponse updateExecutionsStatusByQuery(newStatus, tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter)
+> BulkResponse updateExecutionsStatusByQuery(newStatus, tenant, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter)
 
 Change executions state by query parameters
 
@@ -3586,7 +3588,7 @@ public class Example {
         ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         StateType newStatus = StateType.fromValue("CREATED"); // StateType | The new state of the executions
         String tenant = "tenant_example"; // String | 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = new DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         String q = "q_example"; // String | A string filter
         List<FlowScope> scope = Arrays.asList(); // List<FlowScope> | The scope of the executions to include
         String namespace = "namespace_example"; // String | A namespace filter prefix
@@ -3599,7 +3601,7 @@ public class Example {
         String triggerExecutionId = "triggerExecutionId_example"; // String | The trigger execution id
         ExecutionRepositoryInterfaceChildFilter childFilter = ExecutionRepositoryInterfaceChildFilter.fromValue("CHILD"); // ExecutionRepositoryInterfaceChildFilter | A execution child filter
         try {
-            BulkResponse result = apiInstance.updateExecutionsStatusByQuery(newStatus, tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter);
+            BulkResponse result = apiInstance.updateExecutionsStatusByQuery(newStatus, tenant, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#updateExecutionsStatusByQuery");
@@ -3619,7 +3621,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **newStatus** | [**StateType**](.md)| The new state of the executions | [enum: CREATED, RUNNING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT] |
 | **tenant** | **String**|  | |
-| **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
 | **q** | **String**| A string filter | [optional] |
 | **scope** | [**List&lt;FlowScope&gt;**](FlowScope.md)| The scope of the executions to include | [optional] |
 | **namespace** | **String**| A namespace filter prefix | [optional] |
@@ -3642,7 +3644,7 @@ public class Example {
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 

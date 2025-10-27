@@ -194,6 +194,7 @@ Class | Method | HTTP request | Description
 *FlowsApi* | [**listFlowsByNamespace**](docs/FlowsApi.md#listFlowsByNamespace) | **GET** /api/v1/{tenant}/flows/{namespace} | Retrieve all flows from a given namespace
 *FlowsApi* | [**searchFlows**](docs/FlowsApi.md#searchFlows) | **GET** /api/v1/{tenant}/flows/search | Search for flows
 *FlowsApi* | [**searchFlowsBySourceCode**](docs/FlowsApi.md#searchFlowsBySourceCode) | **GET** /api/v1/{tenant}/flows/source | Search for flows source code
+*FlowsApi* | [**updateFlow**](docs/FlowsApi.md#updateFlow) | **PUT** /api/v1/{tenant}/flows/{namespace}/{id} | Update a flow
 *FlowsApi* | [**validateFlows**](docs/FlowsApi.md#validateFlows) | **POST** /api/v1/{tenant}/flows/validate | Validate a list of flows
 *FlowsApi* | [**validateTask**](docs/FlowsApi.md#validateTask) | **POST** /api/v1/{tenant}/flows/validate/task | Validate a task
 *FlowsApi* | [**validateTrigger**](docs/FlowsApi.md#validateTrigger) | **POST** /api/v1/{tenant}/flows/validate/trigger | Validate trigger
@@ -373,7 +374,6 @@ Class | Method | HTTP request | Description
  - [DailyExecutionStatisticsExecutionCounts](docs/DailyExecutionStatisticsExecutionCounts.md)
  - [Dashboard](docs/Dashboard.md)
  - [DashboardControllerPreviewRequest](docs/DashboardControllerPreviewRequest.md)
- - [DeleteExecutionsByQueryRequest](docs/DeleteExecutionsByQueryRequest.md)
  - [DeletedInterface](docs/DeletedInterface.md)
  - [DependsOn](docs/DependsOn.md)
  - [DocumentationWithSchema](docs/DocumentationWithSchema.md)
@@ -662,6 +662,7 @@ Class | Method | HTTP request | Description
  - [Type](docs/Type.md)
  - [UnitTest](docs/UnitTest.md)
  - [UnitTestResult](docs/UnitTestResult.md)
+ - [UpdateFlow200Response](docs/UpdateFlow200Response.md)
  - [UsageEE](docs/UsageEE.md)
  - [UserGroup](docs/UserGroup.md)
  - [UserGroupType](docs/UserGroupType.md)

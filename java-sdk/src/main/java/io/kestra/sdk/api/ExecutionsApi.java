@@ -22,7 +22,6 @@ import io.kestra.sdk.internal.Pair;
 
 import io.kestra.sdk.model.BulkErrorResponse;
 import io.kestra.sdk.model.BulkResponse;
-import io.kestra.sdk.model.DeleteExecutionsByQueryRequest;
 import io.kestra.sdk.model.EventExecution;
 import io.kestra.sdk.model.Execution;
 import io.kestra.sdk.model.ExecutionControllerEvalResult;
@@ -413,7 +412,7 @@ import java.util.StringJoiner;
    * @param deleteMetrics Whether to delete execution metrics (required)
    * @param deleteStorage Whether to delete execution files in the internal storage (required)
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param q A string filter (optional)
    * @param scope The scope of the executions to include (optional)
    * @param namespace A namespace filter prefix (optional)
@@ -429,8 +428,8 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteExecutionsByQuery(@javax.annotation.Nonnull Boolean deleteLogs, @javax.annotation.Nonnull Boolean deleteMetrics, @javax.annotation.Nonnull Boolean deleteStorage, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, @javax.annotation.Nullable Boolean includeNonTerminated) throws ApiException {
-    return this.deleteExecutionsByQuery(deleteLogs, deleteMetrics, deleteStorage, tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, includeNonTerminated, Collections.emptyMap());
+  public Object deleteExecutionsByQuery(@javax.annotation.Nonnull Boolean deleteLogs, @javax.annotation.Nonnull Boolean deleteMetrics, @javax.annotation.Nonnull Boolean deleteStorage, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, @javax.annotation.Nullable Boolean includeNonTerminated) throws ApiException {
+    return this.deleteExecutionsByQuery(deleteLogs, deleteMetrics, deleteStorage, tenant, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, includeNonTerminated, Collections.emptyMap());
   }
 
 
@@ -441,7 +440,7 @@ import java.util.StringJoiner;
    * @param deleteMetrics Whether to delete execution metrics (required)
    * @param deleteStorage Whether to delete execution files in the internal storage (required)
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param q A string filter (optional)
    * @param scope The scope of the executions to include (optional)
    * @param namespace A namespace filter prefix (optional)
@@ -458,8 +457,8 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteExecutionsByQuery(@javax.annotation.Nonnull Boolean deleteLogs, @javax.annotation.Nonnull Boolean deleteMetrics, @javax.annotation.Nonnull Boolean deleteStorage, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, @javax.annotation.Nullable Boolean includeNonTerminated, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object deleteExecutionsByQuery(@javax.annotation.Nonnull Boolean deleteLogs, @javax.annotation.Nonnull Boolean deleteMetrics, @javax.annotation.Nonnull Boolean deleteStorage, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, @javax.annotation.Nullable Boolean includeNonTerminated, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'deleteLogs' is set
     if (deleteLogs == null) {
@@ -481,11 +480,6 @@ import java.util.StringJoiner;
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling deleteExecutionsByQuery");
     }
     
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling deleteExecutionsByQuery");
-    }
-    
     // create path and map variables
     String localVarPath = "/api/v1/{tenant}/executions/by-query"
       .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
@@ -498,6 +492,7 @@ import java.util.StringJoiner;
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
     localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
@@ -524,7 +519,7 @@ import java.util.StringJoiner;
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -752,6 +747,89 @@ import java.util.StringJoiner;
 
 
 
+  /**
+   * Follow an execution
+   * 
+   * @param executionId The execution id (required)
+   * @param tenant  (required)
+   * @return EventExecution
+   * @throws ApiException if fails to make API call
+   */
+  public EventExecution followExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant) throws ApiException {
+    return this.followExecution(executionId, tenant, Collections.emptyMap());
+  }
+
+
+  /**
+   * Follow an execution
+   * 
+   * @param executionId The execution id (required)
+   * @param tenant  (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return EventExecution
+   * @throws ApiException if fails to make API call
+   */
+  public EventExecution followExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'executionId' is set
+    if (executionId == null) {
+      throw new ApiException(400, "Missing the required parameter 'executionId' when calling followExecution");
+    }
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling followExecution");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/executions/{executionId}/follow"
+      .replaceAll("\\{" + "executionId" + "\\}", apiClient.escapeString(apiClient.parameterToString(executionId)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "text/event-stream"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<EventExecution> localVarReturnType = new TypeReference<EventExecution>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "GET",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
 
 
 
@@ -936,7 +1014,7 @@ import java.util.StringJoiner;
    * Force run executions filter by query parameters
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param q A string filter (optional)
    * @param scope The scope of the executions to include (optional)
    * @param namespace A namespace filter prefix (optional)
@@ -951,8 +1029,8 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object forceRunExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
-    return this.forceRunExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
+  public Object forceRunExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
+    return this.forceRunExecutionsByQuery(tenant, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
   }
 
 
@@ -960,7 +1038,7 @@ import java.util.StringJoiner;
    * Force run executions filter by query parameters
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param q A string filter (optional)
    * @param scope The scope of the executions to include (optional)
    * @param namespace A namespace filter prefix (optional)
@@ -976,17 +1054,12 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object forceRunExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object forceRunExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling forceRunExecutionsByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling forceRunExecutionsByQuery");
     }
     
     // create path and map variables
@@ -1001,6 +1074,7 @@ import java.util.StringJoiner;
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
     localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
@@ -1023,7 +1097,7 @@ import java.util.StringJoiner;
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -1788,7 +1862,7 @@ import java.util.StringJoiner;
    * Kill executions filter by query parameters
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param q A string filter (optional)
    * @param scope The scope of the executions to include (optional)
    * @param namespace A namespace filter prefix (optional)
@@ -1803,8 +1877,8 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object killExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
-    return this.killExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
+  public Object killExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
+    return this.killExecutionsByQuery(tenant, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
   }
 
 
@@ -1812,7 +1886,7 @@ import java.util.StringJoiner;
    * Kill executions filter by query parameters
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param q A string filter (optional)
    * @param scope The scope of the executions to include (optional)
    * @param namespace A namespace filter prefix (optional)
@@ -1828,17 +1902,12 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object killExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object killExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling killExecutionsByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling killExecutionsByQuery");
     }
     
     // create path and map variables
@@ -1853,6 +1922,7 @@ import java.util.StringJoiner;
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
     localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
@@ -1875,7 +1945,7 @@ import java.util.StringJoiner;
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -2080,7 +2150,7 @@ import java.util.StringJoiner;
    * Pause executions filter by query parameters
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param q A string filter (optional)
    * @param scope The scope of the executions to include (optional)
    * @param namespace A namespace filter prefix (optional)
@@ -2095,8 +2165,8 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object pauseExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
-    return this.pauseExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
+  public Object pauseExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
+    return this.pauseExecutionsByQuery(tenant, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
   }
 
 
@@ -2104,7 +2174,7 @@ import java.util.StringJoiner;
    * Pause executions filter by query parameters
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param q A string filter (optional)
    * @param scope The scope of the executions to include (optional)
    * @param namespace A namespace filter prefix (optional)
@@ -2120,17 +2190,12 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object pauseExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object pauseExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling pauseExecutionsByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling pauseExecutionsByQuery");
     }
     
     // create path and map variables
@@ -2145,6 +2210,7 @@ import java.util.StringJoiner;
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
     localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
@@ -2167,7 +2233,7 @@ import java.util.StringJoiner;
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -2484,7 +2550,7 @@ import java.util.StringJoiner;
    * Create new executions from old ones filter by query parameters. Keep the flow revision
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param q A string filter (optional)
    * @param scope The scope of the executions to include (optional)
    * @param namespace A namespace filter prefix (optional)
@@ -2500,8 +2566,8 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object replayExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, @javax.annotation.Nullable Boolean latestRevision) throws ApiException {
-    return this.replayExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, latestRevision, Collections.emptyMap());
+  public Object replayExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, @javax.annotation.Nullable Boolean latestRevision) throws ApiException {
+    return this.replayExecutionsByQuery(tenant, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, latestRevision, Collections.emptyMap());
   }
 
 
@@ -2509,7 +2575,7 @@ import java.util.StringJoiner;
    * Create new executions from old ones filter by query parameters. Keep the flow revision
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param q A string filter (optional)
    * @param scope The scope of the executions to include (optional)
    * @param namespace A namespace filter prefix (optional)
@@ -2526,17 +2592,12 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object replayExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, @javax.annotation.Nullable Boolean latestRevision, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object replayExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, @javax.annotation.Nullable Boolean latestRevision, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling replayExecutionsByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling replayExecutionsByQuery");
     }
     
     // create path and map variables
@@ -2551,6 +2612,7 @@ import java.util.StringJoiner;
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
     localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
@@ -2574,7 +2636,7 @@ import java.util.StringJoiner;
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -2785,7 +2847,7 @@ import java.util.StringJoiner;
    * Restart executions filter by query parameters
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param q A string filter (optional)
    * @param scope The scope of the executions to include (optional)
    * @param namespace A namespace filter prefix (optional)
@@ -2800,8 +2862,8 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object restartExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
-    return this.restartExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
+  public Object restartExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
+    return this.restartExecutionsByQuery(tenant, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
   }
 
 
@@ -2809,7 +2871,7 @@ import java.util.StringJoiner;
    * Restart executions filter by query parameters
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param q A string filter (optional)
    * @param scope The scope of the executions to include (optional)
    * @param namespace A namespace filter prefix (optional)
@@ -2825,17 +2887,12 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object restartExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object restartExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling restartExecutionsByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling restartExecutionsByQuery");
     }
     
     // create path and map variables
@@ -2850,6 +2907,7 @@ import java.util.StringJoiner;
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
     localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
@@ -2872,7 +2930,7 @@ import java.util.StringJoiner;
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -3080,7 +3138,7 @@ import java.util.StringJoiner;
    * Resume executions filter by query parameters
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param q A string filter (optional)
    * @param scope The scope of the executions to include (optional)
    * @param namespace A namespace filter prefix (optional)
@@ -3095,8 +3153,8 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object resumeExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
-    return this.resumeExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
+  public Object resumeExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
+    return this.resumeExecutionsByQuery(tenant, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
   }
 
 
@@ -3104,7 +3162,7 @@ import java.util.StringJoiner;
    * Resume executions filter by query parameters
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param q A string filter (optional)
    * @param scope The scope of the executions to include (optional)
    * @param namespace A namespace filter prefix (optional)
@@ -3120,17 +3178,12 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object resumeExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object resumeExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling resumeExecutionsByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling resumeExecutionsByQuery");
     }
     
     // create path and map variables
@@ -3145,6 +3198,7 @@ import java.util.StringJoiner;
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
     localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
@@ -3167,7 +3221,7 @@ import java.util.StringJoiner;
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -3485,6 +3539,7 @@ import java.util.StringJoiner;
    * 
    * @param tenant  (required)
    * @param label The labels to add to the execution (required)
+   * @param filters Filters (optional)
    * @param q A string filter (optional)
    * @param scope The scope of the executions to include (optional)
    * @param namespace A namespace filter prefix (optional)
@@ -3499,8 +3554,8 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object setLabelsOnTerminatedExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Label> label, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
-    return this.setLabelsOnTerminatedExecutionsByQuery(tenant, label, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
+  public Object setLabelsOnTerminatedExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Label> label, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
+    return this.setLabelsOnTerminatedExecutionsByQuery(tenant, label, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
   }
 
 
@@ -3509,6 +3564,7 @@ import java.util.StringJoiner;
    * 
    * @param tenant  (required)
    * @param label The labels to add to the execution (required)
+   * @param filters Filters (optional)
    * @param q A string filter (optional)
    * @param scope The scope of the executions to include (optional)
    * @param namespace A namespace filter prefix (optional)
@@ -3524,7 +3580,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object setLabelsOnTerminatedExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Label> label, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
+  public Object setLabelsOnTerminatedExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Label> label, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = label;
     
     // verify the required parameter 'tenant' is set
@@ -3549,6 +3605,7 @@ import java.util.StringJoiner;
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
     localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
@@ -3899,7 +3956,7 @@ import java.util.StringJoiner;
    * Unqueue executions filter by query parameters
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param q A string filter (optional)
    * @param scope The scope of the executions to include (optional)
    * @param namespace A namespace filter prefix (optional)
@@ -3915,8 +3972,8 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unqueueExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, @javax.annotation.Nullable StateType newState) throws ApiException {
-    return this.unqueueExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, newState, Collections.emptyMap());
+  public Object unqueueExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, @javax.annotation.Nullable StateType newState) throws ApiException {
+    return this.unqueueExecutionsByQuery(tenant, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, newState, Collections.emptyMap());
   }
 
 
@@ -3924,7 +3981,7 @@ import java.util.StringJoiner;
    * Unqueue executions filter by query parameters
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param q A string filter (optional)
    * @param scope The scope of the executions to include (optional)
    * @param namespace A namespace filter prefix (optional)
@@ -3941,17 +3998,12 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unqueueExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, @javax.annotation.Nullable StateType newState, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object unqueueExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, @javax.annotation.Nullable StateType newState, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling unqueueExecutionsByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling unqueueExecutionsByQuery");
     }
     
     // create path and map variables
@@ -3966,6 +4018,7 @@ import java.util.StringJoiner;
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
     localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
@@ -3989,7 +4042,7 @@ import java.util.StringJoiner;
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -4214,7 +4267,7 @@ import java.util.StringJoiner;
    * 
    * @param newStatus The new state of the executions (required)
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param q A string filter (optional)
    * @param scope The scope of the executions to include (optional)
    * @param namespace A namespace filter prefix (optional)
@@ -4229,8 +4282,8 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse updateExecutionsStatusByQuery(@javax.annotation.Nonnull StateType newStatus, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
-    return this.updateExecutionsStatusByQuery(newStatus, tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
+  public BulkResponse updateExecutionsStatusByQuery(@javax.annotation.Nonnull StateType newStatus, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
+    return this.updateExecutionsStatusByQuery(newStatus, tenant, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
   }
 
 
@@ -4239,7 +4292,7 @@ import java.util.StringJoiner;
    * 
    * @param newStatus The new state of the executions (required)
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param q A string filter (optional)
    * @param scope The scope of the executions to include (optional)
    * @param namespace A namespace filter prefix (optional)
@@ -4255,8 +4308,8 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse updateExecutionsStatusByQuery(@javax.annotation.Nonnull StateType newStatus, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public BulkResponse updateExecutionsStatusByQuery(@javax.annotation.Nonnull StateType newStatus, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'newStatus' is set
     if (newStatus == null) {
@@ -4266,11 +4319,6 @@ import java.util.StringJoiner;
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling updateExecutionsStatusByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling updateExecutionsStatusByQuery");
     }
     
     // create path and map variables
@@ -4285,6 +4333,7 @@ import java.util.StringJoiner;
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
     localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
@@ -4308,7 +4357,7 @@ import java.util.StringJoiner;
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 

@@ -5727,6 +5727,17 @@ paths:
     delete:
       operationId: deleteExecutionsByQuery
       parameters:
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: false
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          nullable: true
+          type: array
+        style: form
       - description: A string filter
         explode: false
         in: query
@@ -5884,12 +5895,6 @@ paths:
         schema:
           type: string
         style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/deleteExecutionsByQuery_request"
-        required: true
       responses:
         "200":
           content:
@@ -5904,7 +5909,6 @@ paths:
       tags:
       - Executions
       x-internal: false
-      x-content-type: application/json
       x-accepts:
       - application/json
   /api/v1/{tenant}/executions/change-status/by-ids:
@@ -5962,6 +5966,17 @@ paths:
     post:
       operationId: updateExecutionsStatusByQuery
       parameters:
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: false
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          nullable: true
+          type: array
+        style: form
       - description: A string filter
         explode: false
         in: query
@@ -6090,12 +6105,6 @@ paths:
         schema:
           type: string
         style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/deleteExecutionsByQuery_request"
-        required: true
       responses:
         "200":
           content:
@@ -6116,7 +6125,6 @@ paths:
       tags:
       - Executions
       x-internal: false
-      x-content-type: application/json
       x-accepts:
       - application/json
   /api/v1/{tenant}/executions/flows/{namespace}/{flowId}:
@@ -6219,6 +6227,17 @@ paths:
     post:
       operationId: forceRunExecutionsByQuery
       parameters:
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: false
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          nullable: true
+          type: array
+        style: form
       - description: A string filter
         explode: false
         in: query
@@ -6339,12 +6358,6 @@ paths:
         schema:
           type: string
         style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/deleteExecutionsByQuery_request"
-        required: true
       responses:
         "200":
           content:
@@ -6359,7 +6372,6 @@ paths:
       tags:
       - Executions
       x-internal: false
-      x-content-type: application/json
       x-accepts:
       - application/json
   /api/v1/{tenant}/executions/kill/by-ids:
@@ -6409,6 +6421,17 @@ paths:
     delete:
       operationId: killExecutionsByQuery
       parameters:
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: false
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          nullable: true
+          type: array
+        style: form
       - description: A string filter
         explode: false
         in: query
@@ -6529,12 +6552,6 @@ paths:
         schema:
           type: string
         style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/deleteExecutionsByQuery_request"
-        required: true
       responses:
         "200":
           content:
@@ -6549,7 +6566,6 @@ paths:
       tags:
       - Executions
       x-internal: false
-      x-content-type: application/json
       x-accepts:
       - application/json
   /api/v1/{tenant}/executions/labels/by-ids:
@@ -6597,6 +6613,17 @@ paths:
     post:
       operationId: setLabelsOnTerminatedExecutionsByQuery
       parameters:
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: false
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          nullable: true
+          type: array
+        style: form
       - description: A string filter
         explode: false
         in: query
@@ -6723,13 +6750,6 @@ paths:
             schema:
               items:
                 $ref: "#/components/schemas/Label"
-              properties:
-                filters:
-                  description: Filters
-                  items:
-                    $ref: "#/components/schemas/QueryFilter"
-                  nullable: true
-                  type: array
               type: array
         description: The labels to add to the execution
         required: true
@@ -6835,6 +6855,17 @@ paths:
     post:
       operationId: pauseExecutionsByQuery
       parameters:
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: false
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          nullable: true
+          type: array
+        style: form
       - description: A string filter
         explode: false
         in: query
@@ -6955,12 +6986,6 @@ paths:
         schema:
           type: string
         style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/deleteExecutionsByQuery_request"
-        required: true
       responses:
         "200":
           content:
@@ -6975,7 +7000,6 @@ paths:
       tags:
       - Executions
       x-internal: false
-      x-content-type: application/json
       x-accepts:
       - application/json
   /api/v1/{tenant}/executions/replay/by-ids:
@@ -7035,6 +7059,17 @@ paths:
     post:
       operationId: replayExecutionsByQuery
       parameters:
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: false
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          nullable: true
+          type: array
+        style: form
       - description: A string filter
         explode: false
         in: query
@@ -7165,12 +7200,6 @@ paths:
         schema:
           type: string
         style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/deleteExecutionsByQuery_request"
-        required: true
       responses:
         "200":
           content:
@@ -7186,7 +7215,6 @@ paths:
       tags:
       - Executions
       x-internal: false
-      x-content-type: application/json
       x-accepts:
       - application/json
   /api/v1/{tenant}/executions/restart/by-ids:
@@ -7236,6 +7264,17 @@ paths:
     post:
       operationId: restartExecutionsByQuery
       parameters:
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: false
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          nullable: true
+          type: array
+        style: form
       - description: A string filter
         explode: false
         in: query
@@ -7356,12 +7395,6 @@ paths:
         schema:
           type: string
         style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/deleteExecutionsByQuery_request"
-        required: true
       responses:
         "200":
           content:
@@ -7376,7 +7409,6 @@ paths:
       tags:
       - Executions
       x-internal: false
-      x-content-type: application/json
       x-accepts:
       - application/json
   /api/v1/{tenant}/executions/resume/by-ids:
@@ -7426,6 +7458,17 @@ paths:
     post:
       operationId: resumeExecutionsByQuery
       parameters:
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: false
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          nullable: true
+          type: array
+        style: form
       - description: A string filter
         explode: false
         in: query
@@ -7546,12 +7589,6 @@ paths:
         schema:
           type: string
         style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/deleteExecutionsByQuery_request"
-        required: true
       responses:
         "200":
           content:
@@ -7566,7 +7603,6 @@ paths:
       tags:
       - Executions
       x-internal: false
-      x-content-type: application/json
       x-accepts:
       - application/json
   /api/v1/{tenant}/executions/search:
@@ -7695,6 +7731,17 @@ paths:
     post:
       operationId: unqueueExecutionsByQuery
       parameters:
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: false
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          nullable: true
+          type: array
+        style: form
       - description: A string filter
         explode: false
         in: query
@@ -7825,12 +7872,6 @@ paths:
         schema:
           type: string
         style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/deleteExecutionsByQuery_request"
-        required: true
       responses:
         "200":
           content:
@@ -7845,7 +7886,6 @@ paths:
       tags:
       - Executions
       x-internal: false
-      x-content-type: application/json
       x-accepts:
       - application/json
   /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}:
@@ -8243,9 +8283,6 @@ paths:
       summary: Follow an execution
       tags:
       - Executions
-      x-sdk-customization:
-        x-replace-follow-execution: "true"
-        x-skipped: "true"
       x-internal: false
       x-accepts:
       - text/event-stream
@@ -9045,6 +9082,17 @@ paths:
     delete:
       operationId: deleteFlowsByQuery
       parameters:
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: false
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          nullable: true
+          type: array
+        style: form
       - explode: false
         in: path
         name: tenant
@@ -9052,12 +9100,6 @@ paths:
         schema:
           type: string
         style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/deleteExecutionsByQuery_request"
-        required: true
       responses:
         "200":
           content:
@@ -9072,7 +9114,6 @@ paths:
       tags:
       - Flows
       x-internal: false
-      x-content-type: application/json
       x-accepts:
       - application/json
   /api/v1/{tenant}/flows/disable/by-ids:
@@ -9116,6 +9157,17 @@ paths:
     post:
       operationId: disableFlowsByQuery
       parameters:
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: false
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          nullable: true
+          type: array
+        style: form
       - explode: false
         in: path
         name: tenant
@@ -9123,12 +9175,6 @@ paths:
         schema:
           type: string
         style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/deleteExecutionsByQuery_request"
-        required: true
       responses:
         "200":
           content:
@@ -9143,7 +9189,6 @@ paths:
       tags:
       - Flows
       x-internal: false
-      x-content-type: application/json
       x-accepts:
       - application/json
   /api/v1/{tenant}/flows/distinct-namespaces:
@@ -9225,6 +9270,17 @@ paths:
     post:
       operationId: enableFlowsByQuery
       parameters:
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: false
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          nullable: true
+          type: array
+        style: form
       - explode: false
         in: path
         name: tenant
@@ -9232,12 +9288,6 @@ paths:
         schema:
           type: string
         style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/deleteExecutionsByQuery_request"
-        required: true
       responses:
         "200":
           content:
@@ -9252,7 +9302,6 @@ paths:
       tags:
       - Flows
       x-internal: false
-      x-content-type: application/json
       x-accepts:
       - application/json
   /api/v1/{tenant}/flows/export/by-ids:
@@ -9836,6 +9885,63 @@ paths:
       tags:
       - Flows
       x-internal: false
+      x-accepts:
+      - application/json
+    put:
+      deprecated: false
+      operationId: updateFlow
+      parameters:
+      - description: The flow id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The flow namespace
+        explode: false
+        in: path
+        name: namespace
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/x-yaml:
+            schema:
+              type: string
+            example: null
+          '*/*':
+            schema:
+              $ref: "#/components/schemas/Flow"
+            example: null
+        description: The flow source code
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/updateFlow_200_response"
+              example: null
+          description: On success
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Update a flow
+      tags:
+      - Flows
+      x-internal: false
+      x-content-type: application/x-yaml
       x-accepts:
       - application/json
   /api/v1/{tenant}/flows/{namespace}/{id}/dependencies:
@@ -15655,6 +15761,17 @@ paths:
     post:
       operationId: deleteBackfillByQuery
       parameters:
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: false
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          nullable: true
+          type: array
+        style: form
       - description: A string filter
         explode: false
         in: query
@@ -15680,12 +15797,6 @@ paths:
         schema:
           type: string
         style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/deleteExecutionsByQuery_request"
-        required: true
       responses:
         "200":
           content:
@@ -15700,7 +15811,6 @@ paths:
       tags:
       - Triggers
       x-internal: false
-      x-content-type: application/json
       x-accepts:
       - application/json
   /api/v1/{tenant}/triggers/backfill/delete/by-triggers:
@@ -15777,6 +15887,17 @@ paths:
     post:
       operationId: pauseBackfillByQuery
       parameters:
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: false
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          nullable: true
+          type: array
+        style: form
       - description: A string filter
         explode: false
         in: query
@@ -15802,12 +15923,6 @@ paths:
         schema:
           type: string
         style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/deleteExecutionsByQuery_request"
-        required: true
       responses:
         "200":
           content:
@@ -15822,7 +15937,6 @@ paths:
       tags:
       - Triggers
       x-internal: false
-      x-content-type: application/json
       x-accepts:
       - application/json
   /api/v1/{tenant}/triggers/backfill/pause/by-triggers:
@@ -15899,6 +16013,17 @@ paths:
     post:
       operationId: unpauseBackfillByQuery
       parameters:
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: false
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          nullable: true
+          type: array
+        style: form
       - description: A string filter
         explode: false
         in: query
@@ -15924,12 +16049,6 @@ paths:
         schema:
           type: string
         style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/deleteExecutionsByQuery_request"
-        required: true
       responses:
         "200":
           content:
@@ -15944,7 +16063,6 @@ paths:
       tags:
       - Triggers
       x-internal: false
-      x-content-type: application/json
       x-accepts:
       - application/json
   /api/v1/{tenant}/triggers/backfill/unpause/by-triggers:
@@ -16058,6 +16176,17 @@ paths:
     post:
       operationId: disabledTriggersByQuery
       parameters:
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: false
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          nullable: true
+          type: array
+        style: form
       - description: A string filter
         explode: false
         in: query
@@ -16092,12 +16221,6 @@ paths:
         schema:
           type: string
         style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/deleteExecutionsByQuery_request"
-        required: true
       responses:
         "200":
           content:
@@ -16112,7 +16235,6 @@ paths:
       tags:
       - Triggers
       x-internal: false
-      x-content-type: application/json
       x-accepts:
       - application/json
   /api/v1/{tenant}/triggers/set-disabled/by-triggers:
@@ -16153,6 +16275,17 @@ paths:
     post:
       operationId: unlockTriggersByQuery
       parameters:
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: false
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          nullable: true
+          type: array
+        style: form
       - description: A string filter
         explode: false
         in: query
@@ -16178,12 +16311,6 @@ paths:
         schema:
           type: string
         style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/deleteExecutionsByQuery_request"
-        required: true
       responses:
         "200":
           content:
@@ -16198,7 +16325,6 @@ paths:
       tags:
       - Triggers
       x-internal: false
-      x-content-type: application/json
       x-accepts:
       - application/json
   /api/v1/{tenant}/triggers/unlock/by-triggers:
@@ -26098,15 +26224,10 @@ components:
         parameters:
           $ref: "#/components/schemas/HttpParameters"
       type: object
-    deleteExecutionsByQuery_request:
-      properties:
-        filters:
-          description: Filters
-          items:
-            $ref: "#/components/schemas/QueryFilter"
-          nullable: true
-          type: array
-      type: object
+    updateFlow_200_response:
+      oneOf:
+      - $ref: "#/components/schemas/FlowWithSource"
+      - $ref: "#/components/schemas/Flow"
     createNamespaceFile_request:
       properties:
         fileContent:

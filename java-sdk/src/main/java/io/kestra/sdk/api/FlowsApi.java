@@ -22,7 +22,6 @@ import io.kestra.sdk.internal.Pair;
 
 import io.kestra.sdk.model.AppsControllerApiBulkImportResponse;
 import io.kestra.sdk.model.BulkResponse;
-import io.kestra.sdk.model.DeleteExecutionsByQueryRequest;
 import java.io.File;
 import io.kestra.sdk.model.Flow;
 import io.kestra.sdk.model.FlowControllerTaskValidationType;
@@ -35,6 +34,7 @@ import io.kestra.sdk.model.PagedResultsFlow;
 import io.kestra.sdk.model.PagedResultsSearchResultFlow;
 import io.kestra.sdk.model.QueryFilter;
 import io.kestra.sdk.model.Task;
+import io.kestra.sdk.model.UpdateFlow200Response;
 import io.kestra.sdk.model.ValidateConstraintViolation;
 
 
@@ -511,12 +511,12 @@ import java.util.StringJoiner;
    * Delete flows returned by the query parameters.
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse deleteFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest) throws ApiException {
-    return this.deleteFlowsByQuery(tenant, deleteExecutionsByQueryRequest, Collections.emptyMap());
+  public BulkResponse deleteFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.deleteFlowsByQuery(tenant, filters, Collections.emptyMap());
   }
 
 
@@ -524,22 +524,17 @@ import java.util.StringJoiner;
    * Delete flows returned by the query parameters.
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse deleteFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public BulkResponse deleteFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling deleteFlowsByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling deleteFlowsByQuery");
     }
     
     // create path and map variables
@@ -554,6 +549,7 @@ import java.util.StringJoiner;
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -565,7 +561,7 @@ import java.util.StringJoiner;
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -685,12 +681,12 @@ import java.util.StringJoiner;
    * Disable flows returned by the query parameters.
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse disableFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest) throws ApiException {
-    return this.disableFlowsByQuery(tenant, deleteExecutionsByQueryRequest, Collections.emptyMap());
+  public BulkResponse disableFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.disableFlowsByQuery(tenant, filters, Collections.emptyMap());
   }
 
 
@@ -698,22 +694,17 @@ import java.util.StringJoiner;
    * Disable flows returned by the query parameters.
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse disableFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public BulkResponse disableFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling disableFlowsByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling disableFlowsByQuery");
     }
     
     // create path and map variables
@@ -728,6 +719,7 @@ import java.util.StringJoiner;
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -739,7 +731,7 @@ import java.util.StringJoiner;
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -859,12 +851,12 @@ import java.util.StringJoiner;
    * Enable flows returned by the query parameters.
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse enableFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest) throws ApiException {
-    return this.enableFlowsByQuery(tenant, deleteExecutionsByQueryRequest, Collections.emptyMap());
+  public BulkResponse enableFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.enableFlowsByQuery(tenant, filters, Collections.emptyMap());
   }
 
 
@@ -872,22 +864,17 @@ import java.util.StringJoiner;
    * Enable flows returned by the query parameters.
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
+   * @param filters Filters (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse enableFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public BulkResponse enableFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling enableFlowsByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling enableFlowsByQuery");
     }
     
     // create path and map variables
@@ -902,6 +889,7 @@ import java.util.StringJoiner;
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -913,7 +901,7 @@ import java.util.StringJoiner;
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -2273,6 +2261,109 @@ import java.util.StringJoiner;
     return apiClient.invokeAPI(
         localVarPath,
         "GET",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+
+
+
+
+
+  /**
+   * Update a flow
+   * 
+   * @param id The flow id (required)
+   * @param namespace The flow namespace (required)
+   * @param tenant  (required)
+   * @param body The flow source code (required)
+   * @return UpdateFlow200Response
+   * @throws ApiException if fails to make API call
+   */
+  public UpdateFlow200Response updateFlow(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body) throws ApiException {
+    return this.updateFlow(id, namespace, tenant, body, Collections.emptyMap());
+  }
+
+
+  /**
+   * Update a flow
+   * 
+   * @param id The flow id (required)
+   * @param namespace The flow namespace (required)
+   * @param tenant  (required)
+   * @param body The flow source code (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return UpdateFlow200Response
+   * @throws ApiException if fails to make API call
+   */
+  public UpdateFlow200Response updateFlow(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling updateFlow");
+    }
+    
+    // verify the required parameter 'namespace' is set
+    if (namespace == null) {
+      throw new ApiException(400, "Missing the required parameter 'namespace' when calling updateFlow");
+    }
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling updateFlow");
+    }
+    
+    // verify the required parameter 'body' is set
+    if (body == null) {
+      throw new ApiException(400, "Missing the required parameter 'body' when calling updateFlow");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/flows/{namespace}/{id}"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
+      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/x-yaml"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<UpdateFlow200Response> localVarReturnType = new TypeReference<UpdateFlow200Response>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "PUT",
         localVarQueryParams,
         localVarCollectionQueryParams,
         localVarQueryStringJoiner.toString(),
