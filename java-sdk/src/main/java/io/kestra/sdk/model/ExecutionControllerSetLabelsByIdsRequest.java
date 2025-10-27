@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -39,12 +38,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ExecutionControllerSetLabelsByIdsRequest {
   public static final String JSON_PROPERTY_EXECUTIONS_ID = "executionsId";
-  @javax.annotation.Nullable
-  private List<String> executionsId = new ArrayList<>();
+  @javax.annotation.Nullable  private List<String> executionsId = new ArrayList<>();
 
   public static final String JSON_PROPERTY_EXECUTION_LABELS = "executionLabels";
-  @javax.annotation.Nullable
-  private List<Label> executionLabels = new ArrayList<>();
+  @javax.annotation.Nullable  private List<Label> executionLabels = new ArrayList<>();
 
   public ExecutionControllerSetLabelsByIdsRequest() {
   }
@@ -67,8 +64,7 @@ public class ExecutionControllerSetLabelsByIdsRequest {
    * Get executionsId
    * @return executionsId
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_EXECUTIONS_ID, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXECUTIONS_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getExecutionsId() {
@@ -76,7 +72,7 @@ public class ExecutionControllerSetLabelsByIdsRequest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_EXECUTIONS_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_EXECUTIONS_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExecutionsId(@javax.annotation.Nullable List<String> executionsId) {
     this.executionsId = executionsId;
@@ -100,8 +96,7 @@ public class ExecutionControllerSetLabelsByIdsRequest {
    * Get executionLabels
    * @return executionLabels
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_EXECUTION_LABELS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXECUTION_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Label> getExecutionLabels() {
@@ -109,7 +104,7 @@ public class ExecutionControllerSetLabelsByIdsRequest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_EXECUTION_LABELS, required = false)
+  @JsonProperty(JSON_PROPERTY_EXECUTION_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExecutionLabels(@javax.annotation.Nullable List<Label> executionLabels) {
     this.executionLabels = executionLabels;

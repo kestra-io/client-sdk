@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -38,8 +37,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TestSuiteControllerTestsLastResultResponse {
   public static final String JSON_PROPERTY_RESULTS = "results";
-  @javax.annotation.Nullable
-  private List<TestSuiteRunResult> results = new ArrayList<>();
+  @javax.annotation.Nullable  private List<TestSuiteRunResult> results = new ArrayList<>();
 
   public TestSuiteControllerTestsLastResultResponse() {
   }
@@ -62,8 +60,7 @@ public class TestSuiteControllerTestsLastResultResponse {
    * Get results
    * @return results
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_RESULTS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<TestSuiteRunResult> getResults() {
@@ -71,7 +68,7 @@ public class TestSuiteControllerTestsLastResultResponse {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_RESULTS, required = false)
+  @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setResults(@javax.annotation.Nullable List<TestSuiteRunResult> results) {
     this.results = results;

@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -44,28 +43,22 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMTenantAccessControllerApiUserTenantAccess {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
-  private String id;
+  @javax.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_USERNAME = "username";
-  @javax.annotation.Nullable
-  private String username;
+  @javax.annotation.Nullable  private String username;
 
   public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
-  @javax.annotation.Nullable
-  private String displayName;
+  @javax.annotation.Nullable  private String displayName;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
-  private String description;
+  @javax.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_GROUPS = "groups";
-  @javax.annotation.Nullable
-  private List<IAMTenantAccessControllerApiGroup> groups = new ArrayList<>();
+  @javax.annotation.Nullable  private List<IAMTenantAccessControllerApiGroup> groups = new ArrayList<>();
 
   public static final String JSON_PROPERTY_AUTHS = "auths";
-  @javax.annotation.Nullable
-  private List<IAMTenantAccessControllerApiAuthentication> auths = new ArrayList<>();
+  @javax.annotation.Nullable  private List<IAMTenantAccessControllerApiAuthentication> auths = new ArrayList<>();
 
   public IAMTenantAccessControllerApiUserTenantAccess() {
   }
@@ -80,8 +73,7 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -89,7 +81,7 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable String id) {
     this.id = id;
@@ -105,8 +97,7 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
    * Get username
    * @return username
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_USERNAME, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_USERNAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUsername() {
@@ -114,7 +105,7 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_USERNAME, required = false)
+  @JsonProperty(JSON_PROPERTY_USERNAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUsername(@javax.annotation.Nullable String username) {
     this.username = username;
@@ -130,8 +121,7 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
    * Get displayName
    * @return displayName
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DISPLAY_NAME, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDisplayName() {
@@ -139,7 +129,7 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DISPLAY_NAME, required = false)
+  @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDisplayName(@javax.annotation.Nullable String displayName) {
     this.displayName = displayName;
@@ -155,8 +145,7 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -164,7 +153,7 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
@@ -188,8 +177,7 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
    * Get groups
    * @return groups
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_GROUPS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUPS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<IAMTenantAccessControllerApiGroup> getGroups() {
@@ -197,7 +185,7 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_GROUPS, required = false)
+  @JsonProperty(JSON_PROPERTY_GROUPS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setGroups(@javax.annotation.Nullable List<IAMTenantAccessControllerApiGroup> groups) {
     this.groups = groups;
@@ -221,8 +209,7 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
    * Get auths
    * @return auths
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_AUTHS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_AUTHS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<IAMTenantAccessControllerApiAuthentication> getAuths() {
@@ -230,7 +217,7 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_AUTHS, required = false)
+  @JsonProperty(JSON_PROPERTY_AUTHS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAuths(@javax.annotation.Nullable List<IAMTenantAccessControllerApiAuthentication> auths) {
     this.auths = auths;

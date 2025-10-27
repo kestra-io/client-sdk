@@ -632,8 +632,8 @@ null (empty response body)
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **404** | Service account |  -  |
 | **200** | deleteServiceAccountForTenant 200 response |  -  |
+| **404** | Service account |  -  |
 
 
 ## getServiceAccount
@@ -709,8 +709,8 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **404** | User not found |  -  |
 | **200** | getServiceAccount 200 response |  -  |
+| **404** | User not found |  -  |
 
 
 ## getServiceAccountForTenant
@@ -786,8 +786,8 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **404** | Service account not found |  -  |
 | **200** | getServiceAccountForTenant 200 response |  -  |
+| **404** | Service account not found |  -  |
 
 
 ## listApiTokensForServiceAccount
@@ -1252,6 +1252,6 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **404** | Service account, or group not found |  -  |
 | **200** | updateServiceAccount 200 response |  -  |
+| **404** | Service account, or group not found |  -  |
 

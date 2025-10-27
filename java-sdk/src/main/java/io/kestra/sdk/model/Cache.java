@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -34,12 +33,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Cache {
   public static final String JSON_PROPERTY_ENABLED = "enabled";
-  @javax.annotation.Nonnull
-  private Boolean enabled;
+  @javax.annotation.Nonnull  private Boolean enabled;
 
   public static final String JSON_PROPERTY_TTL = "ttl";
-  @javax.annotation.Nullable
-  private String ttl;
+  @javax.annotation.Nullable  private String ttl;
 
   public Cache() {
   }
@@ -54,8 +51,7 @@ public class Cache {
    * Get enabled
    * @return enabled
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_ENABLED, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ENABLED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getEnabled() {
@@ -63,7 +59,7 @@ public class Cache {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ENABLED, required = true)
+  @JsonProperty(JSON_PROPERTY_ENABLED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setEnabled(@javax.annotation.Nonnull Boolean enabled) {
     this.enabled = enabled;
@@ -79,8 +75,7 @@ public class Cache {
    * Get ttl
    * @return ttl
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TTL, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TTL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTtl() {
@@ -88,7 +83,7 @@ public class Cache {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TTL, required = false)
+  @JsonProperty(JSON_PROPERTY_TTL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTtl(@javax.annotation.Nullable String ttl) {
     this.ttl = ttl;

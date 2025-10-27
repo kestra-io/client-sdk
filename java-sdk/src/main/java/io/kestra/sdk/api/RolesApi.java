@@ -33,12 +33,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.StringJoiner;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
-public class RolesApi extends BaseApi {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")public class RolesApi extends BaseApi {
 
   public RolesApi() {
     super(Configuration.getDefaultApiClient());
@@ -130,6 +128,11 @@ public class RolesApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Create a role
    * 
@@ -212,6 +215,11 @@ public class RolesApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Delete a role
    * 
@@ -291,6 +299,11 @@ public class RolesApi extends BaseApi {
         null
     );
   }
+
+
+
+
+
 
   /**
    * Retrieve a role
@@ -375,6 +388,11 @@ public class RolesApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * List roles by ids
    * 
@@ -456,6 +474,11 @@ public class RolesApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Search for roles
@@ -553,6 +576,11 @@ public class RolesApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Update a role
@@ -684,4 +712,9 @@ public class RolesApi extends BaseApi {
         returnType
     );
   }
+
+
+
+
+
 }

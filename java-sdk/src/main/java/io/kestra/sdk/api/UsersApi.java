@@ -40,12 +40,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.StringJoiner;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
-public class UsersApi extends BaseApi {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")public class UsersApi extends BaseApi {
 
   public UsersApi() {
     super(Configuration.getDefaultApiClient());
@@ -137,6 +135,11 @@ public class UsersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Create new API Token for a specific user
    * Superadmin-only. Create a new API token for a user.
@@ -219,6 +222,11 @@ public class UsersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Create a new user account
    * Superadmin-only. Create a new user account with an optional password based authentication method.
@@ -292,6 +300,11 @@ public class UsersApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Delete an API Token for specific user and token id
@@ -373,6 +386,11 @@ public class UsersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Delete a user refresh token
    * 
@@ -445,6 +463,11 @@ public class UsersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Delete a user
    * Superadmin-only. Delete a user including all its access.
@@ -516,6 +539,11 @@ public class UsersApi extends BaseApi {
         null
     );
   }
+
+
+
+
+
 
   /**
    * Update user password
@@ -600,6 +628,11 @@ public class UsersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Get a user
    * Superadmin-only. Get user account details.
@@ -674,6 +707,11 @@ public class UsersApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Impersonate a user
@@ -750,6 +788,11 @@ public class UsersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * List API tokens for a specific user
    * Superadmin-only. Get all API token existing for a user.
@@ -824,6 +867,11 @@ public class UsersApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Retrieve users
@@ -914,6 +962,11 @@ public class UsersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Update user details
    * Superadmin-only. Updates the the details of a user.
@@ -996,6 +1049,11 @@ public class UsersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Update user demo
    * Superadmin-only. Updates whether a user is for demo.
@@ -1074,6 +1132,11 @@ public class UsersApi extends BaseApi {
         null
     );
   }
+
+
+
+
+
 
   /**
    * Update user password
@@ -1157,6 +1220,11 @@ public class UsersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Update user superadmin privileges
    * Superadmin-only. Updates whether a user is a superadmin.
@@ -1236,6 +1304,11 @@ public class UsersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Update authenticated user password
    * Changes the login password for the authenticated user.
@@ -1309,6 +1382,11 @@ public class UsersApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Update a user account
@@ -1391,6 +1469,11 @@ public class UsersApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Update the list of groups a user belongs to for the given tenant
@@ -1519,4 +1602,9 @@ public class UsersApi extends BaseApi {
         returnType
     );
   }
+
+
+
+
+
 }

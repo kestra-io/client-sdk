@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -52,56 +51,43 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class LogEntry {
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nonnull
-  private String namespace;
+  @javax.annotation.Nonnull  private String namespace;
 
   public static final String JSON_PROPERTY_FLOW_ID = "flowId";
-  @javax.annotation.Nonnull
-  private String flowId;
+  @javax.annotation.Nonnull  private String flowId;
 
   public static final String JSON_PROPERTY_TASK_ID = "taskId";
-  @javax.annotation.Nullable
-  private JsonNullable<String> taskId = JsonNullable.<String>undefined();
+  @javax.annotation.Nullable  private JsonNullable<String> taskId = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_EXECUTION_ID = "executionId";
-  @javax.annotation.Nullable
-  private JsonNullable<String> executionId = JsonNullable.<String>undefined();
+  @javax.annotation.Nullable  private JsonNullable<String> executionId = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_TASK_RUN_ID = "taskRunId";
-  @javax.annotation.Nullable
-  private JsonNullable<String> taskRunId = JsonNullable.<String>undefined();
+  @javax.annotation.Nullable  private JsonNullable<String> taskRunId = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_ATTEMPT_NUMBER = "attemptNumber";
-  @javax.annotation.Nullable
-  private JsonNullable<Integer> attemptNumber = JsonNullable.<Integer>undefined();
+  @javax.annotation.Nullable  private JsonNullable<Integer> attemptNumber = JsonNullable.<Integer>undefined();
 
   public static final String JSON_PROPERTY_TRIGGER_ID = "triggerId";
-  @javax.annotation.Nullable
-  private JsonNullable<String> triggerId = JsonNullable.<String>undefined();
+  @javax.annotation.Nullable  private JsonNullable<String> triggerId = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_TIMESTAMP = "timestamp";
-  @javax.annotation.Nullable
-  private OffsetDateTime timestamp;
+  @javax.annotation.Nullable  private OffsetDateTime timestamp;
 
   public static final String JSON_PROPERTY_LEVEL = "level";
-  @javax.annotation.Nullable
-  private Level level;
+  @javax.annotation.Nullable  private Level level;
 
   public static final String JSON_PROPERTY_THREAD = "thread";
-  @javax.annotation.Nullable
-  private String thread;
+  @javax.annotation.Nullable  private String thread;
 
   public static final String JSON_PROPERTY_MESSAGE = "message";
-  @javax.annotation.Nullable
-  private String message;
+  @javax.annotation.Nullable  private String message;
 
   public static final String JSON_PROPERTY_DELETED = "deleted";
-  @javax.annotation.Nonnull
-  private Boolean deleted;
+  @javax.annotation.Nonnull  private Boolean deleted;
 
   public static final String JSON_PROPERTY_EXECUTION_KIND = "executionKind";
-  @javax.annotation.Nullable
-  private JsonNullable<ExecutionKind> executionKind = JsonNullable.<ExecutionKind>undefined();
+  @javax.annotation.Nullable  private JsonNullable<ExecutionKind> executionKind = JsonNullable.<ExecutionKind>undefined();
 
   public LogEntry() {
   }
@@ -116,8 +102,7 @@ public class LogEntry {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getNamespace() {
@@ -125,7 +110,7 @@ public class LogEntry {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = true)
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setNamespace(@javax.annotation.Nonnull String namespace) {
     this.namespace = namespace;
@@ -141,8 +126,7 @@ public class LogEntry {
    * Get flowId
    * @return flowId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_FLOW_ID, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_FLOW_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getFlowId() {
@@ -150,7 +134,7 @@ public class LogEntry {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_FLOW_ID, required = true)
+  @JsonProperty(JSON_PROPERTY_FLOW_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setFlowId(@javax.annotation.Nonnull String flowId) {
     this.flowId = flowId;
@@ -166,21 +150,19 @@ public class LogEntry {
    * Get taskId
    * @return taskId
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public String getTaskId() {
         return taskId.orElse(null);
   }
 
-  @JsonProperty(value = JSON_PROPERTY_TASK_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_TASK_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<String> getTaskId_JsonNullable() {
     return taskId;
   }
   
-  @JsonProperty(value = JSON_PROPERTY_TASK_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_TASK_ID)
   public void setTaskId_JsonNullable(JsonNullable<String> taskId) {
     this.taskId = taskId;
   }
@@ -199,21 +181,19 @@ public class LogEntry {
    * Get executionId
    * @return executionId
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public String getExecutionId() {
         return executionId.orElse(null);
   }
 
-  @JsonProperty(value = JSON_PROPERTY_EXECUTION_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_EXECUTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<String> getExecutionId_JsonNullable() {
     return executionId;
   }
   
-  @JsonProperty(value = JSON_PROPERTY_EXECUTION_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_EXECUTION_ID)
   public void setExecutionId_JsonNullable(JsonNullable<String> executionId) {
     this.executionId = executionId;
   }
@@ -232,21 +212,19 @@ public class LogEntry {
    * Get taskRunId
    * @return taskRunId
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public String getTaskRunId() {
         return taskRunId.orElse(null);
   }
 
-  @JsonProperty(value = JSON_PROPERTY_TASK_RUN_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_TASK_RUN_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<String> getTaskRunId_JsonNullable() {
     return taskRunId;
   }
   
-  @JsonProperty(value = JSON_PROPERTY_TASK_RUN_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_TASK_RUN_ID)
   public void setTaskRunId_JsonNullable(JsonNullable<String> taskRunId) {
     this.taskRunId = taskRunId;
   }
@@ -265,21 +243,19 @@ public class LogEntry {
    * Get attemptNumber
    * @return attemptNumber
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public Integer getAttemptNumber() {
         return attemptNumber.orElse(null);
   }
 
-  @JsonProperty(value = JSON_PROPERTY_ATTEMPT_NUMBER, required = false)
+  @JsonProperty(JSON_PROPERTY_ATTEMPT_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<Integer> getAttemptNumber_JsonNullable() {
     return attemptNumber;
   }
   
-  @JsonProperty(value = JSON_PROPERTY_ATTEMPT_NUMBER, required = false)
+  @JsonProperty(JSON_PROPERTY_ATTEMPT_NUMBER)
   public void setAttemptNumber_JsonNullable(JsonNullable<Integer> attemptNumber) {
     this.attemptNumber = attemptNumber;
   }
@@ -298,21 +274,19 @@ public class LogEntry {
    * Get triggerId
    * @return triggerId
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public String getTriggerId() {
         return triggerId.orElse(null);
   }
 
-  @JsonProperty(value = JSON_PROPERTY_TRIGGER_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_TRIGGER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<String> getTriggerId_JsonNullable() {
     return triggerId;
   }
   
-  @JsonProperty(value = JSON_PROPERTY_TRIGGER_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_TRIGGER_ID)
   public void setTriggerId_JsonNullable(JsonNullable<String> triggerId) {
     this.triggerId = triggerId;
   }
@@ -331,8 +305,7 @@ public class LogEntry {
    * Get timestamp
    * @return timestamp
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TIMESTAMP, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TIMESTAMP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getTimestamp() {
@@ -340,7 +313,7 @@ public class LogEntry {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TIMESTAMP, required = false)
+  @JsonProperty(JSON_PROPERTY_TIMESTAMP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTimestamp(@javax.annotation.Nullable OffsetDateTime timestamp) {
     this.timestamp = timestamp;
@@ -356,8 +329,7 @@ public class LogEntry {
    * Get level
    * @return level
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_LEVEL, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LEVEL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Level getLevel() {
@@ -365,7 +337,7 @@ public class LogEntry {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_LEVEL, required = false)
+  @JsonProperty(JSON_PROPERTY_LEVEL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLevel(@javax.annotation.Nullable Level level) {
     this.level = level;
@@ -381,8 +353,7 @@ public class LogEntry {
    * Get thread
    * @return thread
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_THREAD, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_THREAD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getThread() {
@@ -390,7 +361,7 @@ public class LogEntry {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_THREAD, required = false)
+  @JsonProperty(JSON_PROPERTY_THREAD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setThread(@javax.annotation.Nullable String thread) {
     this.thread = thread;
@@ -406,8 +377,7 @@ public class LogEntry {
    * Get message
    * @return message
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_MESSAGE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getMessage() {
@@ -415,7 +385,7 @@ public class LogEntry {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_MESSAGE, required = false)
+  @JsonProperty(JSON_PROPERTY_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMessage(@javax.annotation.Nullable String message) {
     this.message = message;
@@ -431,8 +401,7 @@ public class LogEntry {
    * Get deleted
    * @return deleted
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_DELETED, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getDeleted() {
@@ -440,7 +409,7 @@ public class LogEntry {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DELETED, required = true)
+  @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDeleted(@javax.annotation.Nonnull Boolean deleted) {
     this.deleted = deleted;
@@ -456,21 +425,19 @@ public class LogEntry {
    * Get executionKind
    * @return executionKind
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public ExecutionKind getExecutionKind() {
         return executionKind.orElse(null);
   }
 
-  @JsonProperty(value = JSON_PROPERTY_EXECUTION_KIND, required = false)
+  @JsonProperty(JSON_PROPERTY_EXECUTION_KIND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<ExecutionKind> getExecutionKind_JsonNullable() {
     return executionKind;
   }
   
-  @JsonProperty(value = JSON_PROPERTY_EXECUTION_KIND, required = false)
+  @JsonProperty(JSON_PROPERTY_EXECUTION_KIND)
   public void setExecutionKind_JsonNullable(JsonNullable<ExecutionKind> executionKind) {
     this.executionKind = executionKind;
   }

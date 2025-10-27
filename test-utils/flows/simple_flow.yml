@@ -1,8 +1,10 @@
 id: simple_flow_id_to_replace_by_random_id
 namespace: simple_flow_namespace_to_replace_by_random_id
 
+description: simple_flow_description
+
 tasks:
-  - id: hello
+  - id: my_task_1_id
     type: io.kestra.plugin.core.log.Log
     description: this is a *task* documentation
     message: |

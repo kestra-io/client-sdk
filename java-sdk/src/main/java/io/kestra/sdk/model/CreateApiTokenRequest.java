@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -36,20 +35,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class CreateApiTokenRequest {
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nonnull
-  private String name;
+  @javax.annotation.Nonnull  private String name;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
-  private String description;
+  @javax.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_MAX_AGE = "maxAge";
-  @javax.annotation.Nullable
-  private String maxAge;
+  @javax.annotation.Nullable  private String maxAge;
 
   public static final String JSON_PROPERTY_EXTENDED = "extended";
-  @javax.annotation.Nullable
-  private Boolean extended;
+  @javax.annotation.Nullable  private Boolean extended;
 
   public CreateApiTokenRequest() {
   }
@@ -64,8 +59,7 @@ public class CreateApiTokenRequest {
    * Get name
    * @return name
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_NAME, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getName() {
@@ -73,7 +67,7 @@ public class CreateApiTokenRequest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_NAME, required = true)
+  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setName(@javax.annotation.Nonnull String name) {
     this.name = name;
@@ -89,8 +83,7 @@ public class CreateApiTokenRequest {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -98,7 +91,7 @@ public class CreateApiTokenRequest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
@@ -114,8 +107,7 @@ public class CreateApiTokenRequest {
    * Get maxAge
    * @return maxAge
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_MAX_AGE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MAX_AGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getMaxAge() {
@@ -123,7 +115,7 @@ public class CreateApiTokenRequest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_MAX_AGE, required = false)
+  @JsonProperty(JSON_PROPERTY_MAX_AGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMaxAge(@javax.annotation.Nullable String maxAge) {
     this.maxAge = maxAge;
@@ -139,8 +131,7 @@ public class CreateApiTokenRequest {
    * Get extended
    * @return extended
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_EXTENDED, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXTENDED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getExtended() {
@@ -148,7 +139,7 @@ public class CreateApiTokenRequest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_EXTENDED, required = false)
+  @JsonProperty(JSON_PROPERTY_EXTENDED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExtended(@javax.annotation.Nullable Boolean extended) {
     this.extended = extended;

@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -58,64 +57,49 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class FlowInterface {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
-  private String id;
+  @javax.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nullable
-  private String namespace;
+  @javax.annotation.Nullable  private String namespace;
 
   public static final String JSON_PROPERTY_REVISION = "revision";
-  @javax.annotation.Nullable
-  private Integer revision;
+  @javax.annotation.Nullable  private Integer revision;
 
   public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
-  @javax.annotation.Nullable
-  private String tenantId;
+  @javax.annotation.Nullable  private String tenantId;
 
   public static final String JSON_PROPERTY_DELETED = "deleted";
-  @javax.annotation.Nullable
-  private Boolean deleted;
+  @javax.annotation.Nullable  private Boolean deleted;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
-  private String description;
+  @javax.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_DISABLED = "disabled";
-  @javax.annotation.Nullable
-  private Boolean disabled;
+  @javax.annotation.Nullable  private Boolean disabled;
 
   public static final String JSON_PROPERTY_LABELS = "labels";
-  @javax.annotation.Nullable
-  private List<Label> labels = new ArrayList<>();
+  @javax.annotation.Nullable  private List<Label> labels = new ArrayList<>();
 
   public static final String JSON_PROPERTY_INPUTS = "inputs";
-  @javax.annotation.Nullable
-  private List<InputObject> inputs = new ArrayList<>();
+  @javax.annotation.Nullable  private List<InputObject> inputs = new ArrayList<>();
 
   public static final String JSON_PROPERTY_OUTPUTS = "outputs";
-  @javax.annotation.Nullable
-  private List<Output> outputs = new ArrayList<>();
+  @javax.annotation.Nullable  private List<Output> outputs = new ArrayList<>();
 
   public static final String JSON_PROPERTY_VARIABLES = "variables";
-  @javax.annotation.Nullable
-  private Map<String, Object> variables = new HashMap<>();
+  @javax.annotation.Nullable  private Map<String, Object> variables = new HashMap<>();
 
   public static final String JSON_PROPERTY_WORKER_GROUP = "workerGroup";
-  @javax.annotation.Nullable
-  private WorkerGroup workerGroup;
+  @javax.annotation.Nullable  private WorkerGroup workerGroup;
 
   public static final String JSON_PROPERTY_CONCURRENCY = "concurrency";
-  @javax.annotation.Nullable
-  private Concurrency concurrency;
+  @javax.annotation.Nullable  private Concurrency concurrency;
 
   public static final String JSON_PROPERTY_SLA = "sla";
-  @javax.annotation.Nullable
-  private List<SLA> sla = new ArrayList<>();
+  @javax.annotation.Nullable  private List<SLA> sla = new ArrayList<>();
 
   public static final String JSON_PROPERTY_SOURCE = "source";
-  @javax.annotation.Nullable
-  private String source;
+  @javax.annotation.Nullable  private String source;
 
   public FlowInterface() {
   }
@@ -130,8 +114,7 @@ public class FlowInterface {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -139,7 +122,7 @@ public class FlowInterface {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable String id) {
     this.id = id;
@@ -155,8 +138,7 @@ public class FlowInterface {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getNamespace() {
@@ -164,7 +146,7 @@ public class FlowInterface {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = false)
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNamespace(@javax.annotation.Nullable String namespace) {
     this.namespace = namespace;
@@ -180,8 +162,7 @@ public class FlowInterface {
    * Get revision
    * @return revision
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_REVISION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REVISION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getRevision() {
@@ -189,7 +170,7 @@ public class FlowInterface {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_REVISION, required = false)
+  @JsonProperty(JSON_PROPERTY_REVISION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRevision(@javax.annotation.Nullable Integer revision) {
     this.revision = revision;
@@ -205,8 +186,7 @@ public class FlowInterface {
    * Get tenantId
    * @return tenantId
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TENANT_ID, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTenantId() {
@@ -214,7 +194,7 @@ public class FlowInterface {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TENANT_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_TENANT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTenantId(@javax.annotation.Nullable String tenantId) {
     this.tenantId = tenantId;
@@ -230,8 +210,7 @@ public class FlowInterface {
    * Get deleted
    * @return deleted
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DELETED, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getDeleted() {
@@ -239,7 +218,7 @@ public class FlowInterface {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DELETED, required = false)
+  @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDeleted(@javax.annotation.Nullable Boolean deleted) {
     this.deleted = deleted;
@@ -255,8 +234,7 @@ public class FlowInterface {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -264,7 +242,7 @@ public class FlowInterface {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
@@ -280,8 +258,7 @@ public class FlowInterface {
    * Get disabled
    * @return disabled
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DISABLED, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getDisabled() {
@@ -289,7 +266,7 @@ public class FlowInterface {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DISABLED, required = false)
+  @JsonProperty(JSON_PROPERTY_DISABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDisabled(@javax.annotation.Nullable Boolean disabled) {
     this.disabled = disabled;
@@ -313,8 +290,7 @@ public class FlowInterface {
    * Get labels
    * @return labels
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_LABELS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Label> getLabels() {
@@ -322,7 +298,7 @@ public class FlowInterface {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_LABELS, required = false)
+  @JsonProperty(JSON_PROPERTY_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLabels(@javax.annotation.Nullable List<Label> labels) {
     this.labels = labels;
@@ -346,8 +322,7 @@ public class FlowInterface {
    * Get inputs
    * @return inputs
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_INPUTS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<InputObject> getInputs() {
@@ -355,7 +330,7 @@ public class FlowInterface {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_INPUTS, required = false)
+  @JsonProperty(JSON_PROPERTY_INPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setInputs(@javax.annotation.Nullable List<InputObject> inputs) {
     this.inputs = inputs;
@@ -379,8 +354,7 @@ public class FlowInterface {
    * Get outputs
    * @return outputs
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_OUTPUTS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Output> getOutputs() {
@@ -388,7 +362,7 @@ public class FlowInterface {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_OUTPUTS, required = false)
+  @JsonProperty(JSON_PROPERTY_OUTPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOutputs(@javax.annotation.Nullable List<Output> outputs) {
     this.outputs = outputs;
@@ -412,8 +386,7 @@ public class FlowInterface {
    * Get variables
    * @return variables
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_VARIABLES, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VARIABLES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getVariables() {
@@ -421,7 +394,7 @@ public class FlowInterface {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_VARIABLES, required = false)
+  @JsonProperty(JSON_PROPERTY_VARIABLES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVariables(@javax.annotation.Nullable Map<String, Object> variables) {
     this.variables = variables;
@@ -437,8 +410,7 @@ public class FlowInterface {
    * Get workerGroup
    * @return workerGroup
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_WORKER_GROUP, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public WorkerGroup getWorkerGroup() {
@@ -446,7 +418,7 @@ public class FlowInterface {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_WORKER_GROUP, required = false)
+  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWorkerGroup(@javax.annotation.Nullable WorkerGroup workerGroup) {
     this.workerGroup = workerGroup;
@@ -462,8 +434,7 @@ public class FlowInterface {
    * Get concurrency
    * @return concurrency
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_CONCURRENCY, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CONCURRENCY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Concurrency getConcurrency() {
@@ -471,7 +442,7 @@ public class FlowInterface {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_CONCURRENCY, required = false)
+  @JsonProperty(JSON_PROPERTY_CONCURRENCY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConcurrency(@javax.annotation.Nullable Concurrency concurrency) {
     this.concurrency = concurrency;
@@ -495,8 +466,7 @@ public class FlowInterface {
    * Get sla
    * @return sla
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_SLA, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SLA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<SLA> getSla() {
@@ -504,7 +474,7 @@ public class FlowInterface {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_SLA, required = false)
+  @JsonProperty(JSON_PROPERTY_SLA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSla(@javax.annotation.Nullable List<SLA> sla) {
     this.sla = sla;
@@ -520,8 +490,7 @@ public class FlowInterface {
    * Get source
    * @return source
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_SOURCE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SOURCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSource() {
@@ -529,7 +498,7 @@ public class FlowInterface {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_SOURCE, required = false)
+  @JsonProperty(JSON_PROPERTY_SOURCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSource(@javax.annotation.Nullable String source) {
     this.source = source;

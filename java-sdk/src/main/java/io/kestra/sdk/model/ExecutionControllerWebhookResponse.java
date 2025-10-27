@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -52,44 +51,34 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ExecutionControllerWebhookResponse {
   public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
-  @javax.annotation.Nullable
-  private String tenantId;
+  @javax.annotation.Nullable  private String tenantId;
 
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
-  private String id;
+  @javax.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nullable
-  private String namespace;
+  @javax.annotation.Nullable  private String namespace;
 
   public static final String JSON_PROPERTY_FLOW_ID = "flowId";
-  @javax.annotation.Nullable
-  private String flowId;
+  @javax.annotation.Nullable  private String flowId;
 
   public static final String JSON_PROPERTY_FLOW_REVISION = "flowRevision";
-  @javax.annotation.Nullable
-  private Integer flowRevision;
+  @javax.annotation.Nullable  private Integer flowRevision;
 
   public static final String JSON_PROPERTY_TRIGGER = "trigger";
-  @javax.annotation.Nullable
-  private ExecutionTrigger trigger;
+  @javax.annotation.Nullable  private ExecutionTrigger trigger;
 
   public static final String JSON_PROPERTY_OUTPUTS = "outputs";
-  @javax.annotation.Nullable
-  private Map<String, Object> outputs = new HashMap<>();
+  @javax.annotation.Nullable  private Map<String, Object> outputs = new HashMap<>();
 
   public static final String JSON_PROPERTY_LABELS = "labels";
-  @javax.annotation.Nullable
-  private List<Label> labels = new ArrayList<>();
+  @javax.annotation.Nullable  private List<Label> labels = new ArrayList<>();
 
   public static final String JSON_PROPERTY_STATE = "state";
-  @javax.annotation.Nullable
-  private State state;
+  @javax.annotation.Nullable  private State state;
 
   public static final String JSON_PROPERTY_URL = "url";
-  @javax.annotation.Nullable
-  private URI url;
+  @javax.annotation.Nullable  private URI url;
 
   public ExecutionControllerWebhookResponse() {
   }
@@ -104,8 +93,7 @@ public class ExecutionControllerWebhookResponse {
    * Get tenantId
    * @return tenantId
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TENANT_ID, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTenantId() {
@@ -113,7 +101,7 @@ public class ExecutionControllerWebhookResponse {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TENANT_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_TENANT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTenantId(@javax.annotation.Nullable String tenantId) {
     this.tenantId = tenantId;
@@ -129,8 +117,7 @@ public class ExecutionControllerWebhookResponse {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -138,7 +125,7 @@ public class ExecutionControllerWebhookResponse {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable String id) {
     this.id = id;
@@ -154,8 +141,7 @@ public class ExecutionControllerWebhookResponse {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getNamespace() {
@@ -163,7 +149,7 @@ public class ExecutionControllerWebhookResponse {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = false)
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNamespace(@javax.annotation.Nullable String namespace) {
     this.namespace = namespace;
@@ -179,8 +165,7 @@ public class ExecutionControllerWebhookResponse {
    * Get flowId
    * @return flowId
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_FLOW_ID, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FLOW_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFlowId() {
@@ -188,7 +173,7 @@ public class ExecutionControllerWebhookResponse {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_FLOW_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_FLOW_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFlowId(@javax.annotation.Nullable String flowId) {
     this.flowId = flowId;
@@ -204,8 +189,7 @@ public class ExecutionControllerWebhookResponse {
    * Get flowRevision
    * @return flowRevision
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_FLOW_REVISION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FLOW_REVISION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getFlowRevision() {
@@ -213,7 +197,7 @@ public class ExecutionControllerWebhookResponse {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_FLOW_REVISION, required = false)
+  @JsonProperty(JSON_PROPERTY_FLOW_REVISION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFlowRevision(@javax.annotation.Nullable Integer flowRevision) {
     this.flowRevision = flowRevision;
@@ -229,8 +213,7 @@ public class ExecutionControllerWebhookResponse {
    * Get trigger
    * @return trigger
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TRIGGER, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TRIGGER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ExecutionTrigger getTrigger() {
@@ -238,7 +221,7 @@ public class ExecutionControllerWebhookResponse {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TRIGGER, required = false)
+  @JsonProperty(JSON_PROPERTY_TRIGGER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTrigger(@javax.annotation.Nullable ExecutionTrigger trigger) {
     this.trigger = trigger;
@@ -262,8 +245,7 @@ public class ExecutionControllerWebhookResponse {
    * Get outputs
    * @return outputs
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_OUTPUTS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getOutputs() {
@@ -271,7 +253,7 @@ public class ExecutionControllerWebhookResponse {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_OUTPUTS, required = false)
+  @JsonProperty(JSON_PROPERTY_OUTPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOutputs(@javax.annotation.Nullable Map<String, Object> outputs) {
     this.outputs = outputs;
@@ -295,8 +277,7 @@ public class ExecutionControllerWebhookResponse {
    * Get labels
    * @return labels
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_LABELS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Label> getLabels() {
@@ -304,7 +285,7 @@ public class ExecutionControllerWebhookResponse {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_LABELS, required = false)
+  @JsonProperty(JSON_PROPERTY_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLabels(@javax.annotation.Nullable List<Label> labels) {
     this.labels = labels;
@@ -320,8 +301,7 @@ public class ExecutionControllerWebhookResponse {
    * Get state
    * @return state
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_STATE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public State getState() {
@@ -329,7 +309,7 @@ public class ExecutionControllerWebhookResponse {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_STATE, required = false)
+  @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setState(@javax.annotation.Nullable State state) {
     this.state = state;
@@ -345,8 +325,7 @@ public class ExecutionControllerWebhookResponse {
    * Get url
    * @return url
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_URL, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public URI getUrl() {
@@ -354,7 +333,7 @@ public class ExecutionControllerWebhookResponse {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_URL, required = false)
+  @JsonProperty(JSON_PROPERTY_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUrl(@javax.annotation.Nullable URI url) {
     this.url = url;

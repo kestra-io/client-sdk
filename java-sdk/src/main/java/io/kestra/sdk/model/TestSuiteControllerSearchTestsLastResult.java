@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -38,8 +37,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TestSuiteControllerSearchTestsLastResult {
   public static final String JSON_PROPERTY_TEST_SUITE_IDS = "testSuiteIds";
-  @javax.annotation.Nullable
-  private List<TestSuiteControllerTestSuiteApiId> testSuiteIds = new ArrayList<>();
+  @javax.annotation.Nullable  private List<TestSuiteControllerTestSuiteApiId> testSuiteIds = new ArrayList<>();
 
   public TestSuiteControllerSearchTestsLastResult() {
   }
@@ -62,8 +60,7 @@ public class TestSuiteControllerSearchTestsLastResult {
    * Get testSuiteIds
    * @return testSuiteIds
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TEST_SUITE_IDS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TEST_SUITE_IDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<TestSuiteControllerTestSuiteApiId> getTestSuiteIds() {
@@ -71,7 +68,7 @@ public class TestSuiteControllerSearchTestsLastResult {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TEST_SUITE_IDS, required = false)
+  @JsonProperty(JSON_PROPERTY_TEST_SUITE_IDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTestSuiteIds(@javax.annotation.Nullable List<TestSuiteControllerTestSuiteApiId> testSuiteIds) {
     this.testSuiteIds = testSuiteIds;

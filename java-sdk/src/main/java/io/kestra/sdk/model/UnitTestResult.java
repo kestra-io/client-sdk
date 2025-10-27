@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -48,36 +47,28 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class UnitTestResult {
   public static final String JSON_PROPERTY_TEST_ID = "testId";
-  @javax.annotation.Nonnull
-  private String testId;
+  @javax.annotation.Nonnull  private String testId;
 
   public static final String JSON_PROPERTY_TEST_TYPE = "testType";
-  @javax.annotation.Nonnull
-  private String testType;
+  @javax.annotation.Nonnull  private String testType;
 
   public static final String JSON_PROPERTY_EXECUTION_ID = "executionId";
-  @javax.annotation.Nullable
-  private String executionId;
+  @javax.annotation.Nullable  private String executionId;
 
   public static final String JSON_PROPERTY_URL = "url";
-  @javax.annotation.Nullable
-  private URI url;
+  @javax.annotation.Nullable  private URI url;
 
   public static final String JSON_PROPERTY_STATE = "state";
-  @javax.annotation.Nonnull
-  private TestState state;
+  @javax.annotation.Nonnull  private TestState state;
 
   public static final String JSON_PROPERTY_ASSERTION_RESULTS = "assertionResults";
-  @javax.annotation.Nonnull
-  private List<AssertionResult> assertionResults = new ArrayList<>();
+  @javax.annotation.Nonnull  private List<AssertionResult> assertionResults = new ArrayList<>();
 
   public static final String JSON_PROPERTY_ERRORS = "errors";
-  @javax.annotation.Nonnull
-  private List<AssertionRunError> errors = new ArrayList<>();
+  @javax.annotation.Nonnull  private List<AssertionRunError> errors = new ArrayList<>();
 
   public static final String JSON_PROPERTY_FIXTURES = "fixtures";
-  @javax.annotation.Nullable
-  private Fixtures fixtures;
+  @javax.annotation.Nullable  private Fixtures fixtures;
 
   public UnitTestResult() {
   }
@@ -92,8 +83,7 @@ public class UnitTestResult {
    * Get testId
    * @return testId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_TEST_ID, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TEST_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getTestId() {
@@ -101,7 +91,7 @@ public class UnitTestResult {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TEST_ID, required = true)
+  @JsonProperty(JSON_PROPERTY_TEST_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTestId(@javax.annotation.Nonnull String testId) {
     this.testId = testId;
@@ -117,8 +107,7 @@ public class UnitTestResult {
    * Get testType
    * @return testType
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_TEST_TYPE, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TEST_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getTestType() {
@@ -126,7 +115,7 @@ public class UnitTestResult {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TEST_TYPE, required = true)
+  @JsonProperty(JSON_PROPERTY_TEST_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTestType(@javax.annotation.Nonnull String testType) {
     this.testType = testType;
@@ -142,8 +131,7 @@ public class UnitTestResult {
    * Get executionId
    * @return executionId
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_EXECUTION_ID, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXECUTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getExecutionId() {
@@ -151,7 +139,7 @@ public class UnitTestResult {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_EXECUTION_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_EXECUTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExecutionId(@javax.annotation.Nullable String executionId) {
     this.executionId = executionId;
@@ -167,8 +155,7 @@ public class UnitTestResult {
    * Get url
    * @return url
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_URL, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public URI getUrl() {
@@ -176,7 +163,7 @@ public class UnitTestResult {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_URL, required = false)
+  @JsonProperty(JSON_PROPERTY_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUrl(@javax.annotation.Nullable URI url) {
     this.url = url;
@@ -192,8 +179,7 @@ public class UnitTestResult {
    * Get state
    * @return state
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_STATE, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public TestState getState() {
@@ -201,7 +187,7 @@ public class UnitTestResult {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_STATE, required = true)
+  @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setState(@javax.annotation.Nonnull TestState state) {
     this.state = state;
@@ -225,8 +211,7 @@ public class UnitTestResult {
    * Get assertionResults
    * @return assertionResults
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_ASSERTION_RESULTS, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ASSERTION_RESULTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<AssertionResult> getAssertionResults() {
@@ -234,7 +219,7 @@ public class UnitTestResult {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ASSERTION_RESULTS, required = true)
+  @JsonProperty(JSON_PROPERTY_ASSERTION_RESULTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setAssertionResults(@javax.annotation.Nonnull List<AssertionResult> assertionResults) {
     this.assertionResults = assertionResults;
@@ -258,8 +243,7 @@ public class UnitTestResult {
    * Get errors
    * @return errors
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_ERRORS, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ERRORS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<AssertionRunError> getErrors() {
@@ -267,7 +251,7 @@ public class UnitTestResult {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ERRORS, required = true)
+  @JsonProperty(JSON_PROPERTY_ERRORS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setErrors(@javax.annotation.Nonnull List<AssertionRunError> errors) {
     this.errors = errors;
@@ -283,8 +267,7 @@ public class UnitTestResult {
    * Get fixtures
    * @return fixtures
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_FIXTURES, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FIXTURES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Fixtures getFixtures() {
@@ -292,7 +275,7 @@ public class UnitTestResult {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_FIXTURES, required = false)
+  @JsonProperty(JSON_PROPERTY_FIXTURES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFixtures(@javax.annotation.Nullable Fixtures fixtures) {
     this.fixtures = fixtures;

@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -35,12 +34,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ResourceTypeSchemaExtensionConfiguration {
   public static final String JSON_PROPERTY_SCHEMA_URN = "schemaUrn";
-  @javax.annotation.Nullable
-  private String schemaUrn;
+  @javax.annotation.Nullable  private String schemaUrn;
 
   public static final String JSON_PROPERTY_REQUIRED = "required";
-  @javax.annotation.Nullable
-  private Boolean required;
+  @javax.annotation.Nullable  private Boolean required;
 
   public ResourceTypeSchemaExtensionConfiguration() {
   }
@@ -55,8 +52,7 @@ public class ResourceTypeSchemaExtensionConfiguration {
    * Get schemaUrn
    * @return schemaUrn
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_SCHEMA_URN, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SCHEMA_URN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSchemaUrn() {
@@ -64,7 +60,7 @@ public class ResourceTypeSchemaExtensionConfiguration {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_SCHEMA_URN, required = false)
+  @JsonProperty(JSON_PROPERTY_SCHEMA_URN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSchemaUrn(@javax.annotation.Nullable String schemaUrn) {
     this.schemaUrn = schemaUrn;
@@ -80,8 +76,7 @@ public class ResourceTypeSchemaExtensionConfiguration {
    * Get required
    * @return required
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_REQUIRED, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REQUIRED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getRequired() {
@@ -89,7 +84,7 @@ public class ResourceTypeSchemaExtensionConfiguration {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_REQUIRED, required = false)
+  @JsonProperty(JSON_PROPERTY_REQUIRED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRequired(@javax.annotation.Nullable Boolean required) {
     this.required = required;

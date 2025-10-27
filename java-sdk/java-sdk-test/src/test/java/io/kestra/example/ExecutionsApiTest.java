@@ -38,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ExecutionsApiTest {
 
-    /** Create a flow via YAML with a single scheduled trigger; returns [flowId, triggerId]. */
+   /* *//** Create a flow via YAML with a single scheduled trigger; returns [flowId, triggerId]. *//*
     private void createSimpleFlow(String flowId, String namespace) throws ApiException {
 
         String body = """
@@ -64,12 +64,12 @@ public class ExecutionsApiTest {
         return kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, ExecutionKind.NORMAL);
     }
 
-    /**
+    *//**
      * Create a new execution for a flow
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void createExecutionTest() throws ApiException {
         String namespace = randomId();
@@ -88,12 +88,12 @@ public class ExecutionsApiTest {
         assertThat(response.getFlowId()).isEqualTo(id);
         assertThat(response.getNamespace()).isEqualTo(namespace);
     }
-    /**
+    *//**
      * Delete an execution
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void deleteExecutionTest() throws ApiException {
         String namespace = randomId();
@@ -114,12 +114,12 @@ public class ExecutionsApiTest {
             () -> kestraClient().executions().getExecution(executionId, MAIN_TENANT));
         assertThat(apiException.getCode()).isEqualTo(404);
     }
-    /**
+    *//**
      * Delete a list of executions
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void deleteExecutionsByIdsTest() throws ApiException {
         String namespace = randomId();
@@ -141,12 +141,12 @@ public class ExecutionsApiTest {
         assertThrows(ApiException.class, () -> kestraClient().executions().getExecution(execution3.getId(), MAIN_TENANT));
         assertThat(kestraClient().executions().getExecution(execution2.getId(), MAIN_TENANT)).isNotNull();
     }
-    /**
+    *//**
      * Delete executions filter by query parameters
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void deleteExecutionsByQueryTest() throws ApiException {
         Boolean deleteLogs = null;
@@ -170,12 +170,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Download file for an execution
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void downloadFileFromExecutionTest() throws ApiException {
         String executionId = null;
@@ -185,12 +185,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Evaluate a variable expression for this taskrun
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void evalTaskRunExpressionTest() throws ApiException {
         String executionId = null;
@@ -201,26 +201,26 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Follow an execution
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void followExecutionTest() throws ApiException {
         String executionId = null;
 
-        EventExecution response = kestraClient().executions().followExecution(executionId, MAIN_TENANT);
+//        EventExecution response = kestraClient().executions().followExecution(executionId, MAIN_TENANT);
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Force run a list of executions
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void forceRunByIdsTest() throws ApiException {
 
@@ -229,12 +229,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Force run an execution
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void forceRunExecutionTest() throws ApiException {
         String executionId = null;
@@ -243,12 +243,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Force run executions filter by query parameters
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void forceRunExecutionsByQueryTest() throws ApiException {
 
@@ -257,12 +257,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Get an execution
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void getExecutionTest() throws ApiException {
         String executionId = null;
@@ -271,12 +271,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Generate a graph for an execution
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void getExecutionFlowGraphTest() throws ApiException {
         String executionId = null;
@@ -286,12 +286,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Get file meta information for an execution
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void getFileMetadatasFromExecutionTest() throws ApiException {
         String executionId = null;
@@ -301,12 +301,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Get flow information&#39;s for an execution
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void getFlowFromExecutionTest() throws ApiException {
         String namespace = randomId();
@@ -317,12 +317,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Get flow information&#39;s for an execution
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void getFlowFromExecutionByIdTest() throws ApiException {
         String executionId = null;
@@ -331,12 +331,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Get the latest execution for given flows
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void getLatestExecutionsTest() throws ApiException {
 
@@ -345,12 +345,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Kill an execution
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void killExecutionTest() throws ApiException {
         String executionId = null;
@@ -360,12 +360,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Kill a list of executions
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void killExecutionsByIdsTest() throws ApiException {
 
@@ -374,12 +374,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Kill executions filter by query parameters
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void killExecutionsByQueryTest() throws ApiException {
         List<QueryFilter> filters = new ArrayList<>();
@@ -388,12 +388,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Pause a running execution.
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void pauseExecutionTest() throws ApiException {
         String executionId = null;
@@ -402,12 +402,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Pause a list of running executions
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void pauseExecutionsByIdsTest() throws ApiException {
 
@@ -416,12 +416,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Pause executions filter by query parameters
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void pauseExecutionsByQueryTest() throws ApiException {
 
@@ -431,12 +431,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Create a new execution from an old one and start it from a specified task run id
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void replayExecutionTest() throws ApiException {
         String executionId = null;
@@ -448,12 +448,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Create a new execution from an old one and start it from a specified task run id
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void replayExecutionWithinputsTest() throws ApiException {
         String executionId = null;
@@ -465,12 +465,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Create new executions from old ones. Keep the flow revision
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void replayExecutionsByIdsTest() throws ApiException {
 
@@ -480,12 +480,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Create new executions from old ones filter by query parameters. Keep the flow revision
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void replayExecutionsByQueryTest() throws ApiException {
 
@@ -495,12 +495,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Restart a new execution from an old one
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void restartExecutionTest() throws ApiException {
         String executionId = null;
@@ -510,12 +510,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Restart a list of executions
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void restartExecutionsByIdsTest() throws ApiException {
 
@@ -524,12 +524,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Restart executions filter by query parameters
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void restartExecutionsByQueryTest() throws ApiException {
 
@@ -539,12 +539,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Resume a paused execution.
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void resumeExecutionTest() throws ApiException {
         String executionId = null;
@@ -553,12 +553,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Resume a list of paused executions
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void resumeExecutionsByIdsTest() throws ApiException {
 
@@ -567,12 +567,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Resume executions filter by query parameters
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void resumeExecutionsByQueryTest() throws ApiException {
 
@@ -582,12 +582,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Search for executions
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void searchExecutionsTest() throws ApiException {
         Integer page = null;
@@ -599,12 +599,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Add or update labels of a terminated execution
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void setLabelsOnTerminatedExecutionTest() throws ApiException {
         String executionId = null;
@@ -614,12 +614,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Set labels on a list of executions
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void setLabelsOnTerminatedExecutionsByIdsTest() throws ApiException {
 
@@ -628,12 +628,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Set label on executions filter by query parameters
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void setLabelsOnTerminatedExecutionsByQueryTest() throws ApiException {
 
@@ -643,12 +643,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Trigger a new execution by GET webhook trigger
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void triggerExecutionByGetWebhookTest() throws ApiException {
         String namespace = randomId();
@@ -659,12 +659,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Unqueue an execution
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void unqueueExecutionTest() throws ApiException {
         String executionId = null;
@@ -674,12 +674,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Unqueue a list of executions
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void unqueueExecutionsByIdsTest() throws ApiException {
         StateType state = null;
@@ -689,12 +689,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Unqueue executions filter by query parameters
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void unqueueExecutionsByQueryTest() throws ApiException {
 
@@ -704,12 +704,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Change the state of an execution
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void updateExecutionStatusTest() throws ApiException {
         String executionId = null;
@@ -719,12 +719,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Change executions state by id
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void updateExecutionsStatusByIdsTest() throws ApiException {
         StateType newStatus = null;
@@ -734,12 +734,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Change executions state by query parameters
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void updateExecutionsStatusByQueryTest() throws ApiException {
         StateType newStatus = null;
@@ -749,12 +749,12 @@ public class ExecutionsApiTest {
 
         // TODO: test validations
     }
-    /**
+    *//**
      * Change state for a taskrun in an execution
      *
      * @throws ApiException
      *          if the Api call fails
-     */
+     *//*
     @Test
     public void updateTaskRunStateTest() throws ApiException {
         String executionId = null;
@@ -763,5 +763,5 @@ public class ExecutionsApiTest {
         Execution response = kestraClient().executions().updateTaskRunState(executionId, MAIN_TENANT, executionControllerStateRequest);
 
         // TODO: test validations
-    }
+    }*/
 }

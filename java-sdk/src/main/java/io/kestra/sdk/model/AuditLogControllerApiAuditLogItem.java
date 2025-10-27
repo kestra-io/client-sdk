@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -37,12 +36,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AuditLogControllerApiAuditLogItem {
   public static final String JSON_PROPERTY_AUDIT_LOG = "auditLog";
-  @javax.annotation.Nullable
-  private AuditLog auditLog;
+  @javax.annotation.Nullable  private AuditLog auditLog;
 
   public static final String JSON_PROPERTY_USER = "user";
-  @javax.annotation.Nullable
-  private ApiUser user;
+  @javax.annotation.Nullable  private ApiUser user;
 
   public AuditLogControllerApiAuditLogItem() {
   }
@@ -57,8 +54,7 @@ public class AuditLogControllerApiAuditLogItem {
    * Get auditLog
    * @return auditLog
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_AUDIT_LOG, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_AUDIT_LOG)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public AuditLog getAuditLog() {
@@ -66,7 +62,7 @@ public class AuditLogControllerApiAuditLogItem {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_AUDIT_LOG, required = false)
+  @JsonProperty(JSON_PROPERTY_AUDIT_LOG)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAuditLog(@javax.annotation.Nullable AuditLog auditLog) {
     this.auditLog = auditLog;
@@ -82,8 +78,7 @@ public class AuditLogControllerApiAuditLogItem {
    * Get user
    * @return user
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_USER, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_USER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ApiUser getUser() {
@@ -91,7 +86,7 @@ public class AuditLogControllerApiAuditLogItem {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_USER, required = false)
+  @JsonProperty(JSON_PROPERTY_USER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUser(@javax.annotation.Nullable ApiUser user) {
     this.user = user;

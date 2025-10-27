@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -35,12 +34,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AuditLogControllerAuditLogDiff {
   public static final String JSON_PROPERTY_BEFORE = "before";
-  @javax.annotation.Nullable
-  private String before;
+  @javax.annotation.Nullable  private String before;
 
   public static final String JSON_PROPERTY_AFTER = "after";
-  @javax.annotation.Nullable
-  private String after;
+  @javax.annotation.Nullable  private String after;
 
   public AuditLogControllerAuditLogDiff() {
   }
@@ -55,8 +52,7 @@ public class AuditLogControllerAuditLogDiff {
    * Get before
    * @return before
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_BEFORE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_BEFORE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getBefore() {
@@ -64,7 +60,7 @@ public class AuditLogControllerAuditLogDiff {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_BEFORE, required = false)
+  @JsonProperty(JSON_PROPERTY_BEFORE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBefore(@javax.annotation.Nullable String before) {
     this.before = before;
@@ -80,8 +76,7 @@ public class AuditLogControllerAuditLogDiff {
    * Get after
    * @return after
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_AFTER, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_AFTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getAfter() {
@@ -89,7 +84,7 @@ public class AuditLogControllerAuditLogDiff {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_AFTER, required = false)
+  @JsonProperty(JSON_PROPERTY_AFTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAfter(@javax.annotation.Nullable String after) {
     this.after = after;

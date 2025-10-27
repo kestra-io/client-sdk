@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -38,12 +37,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ExecutionUsage {
   public static final String JSON_PROPERTY_DAILY_EXECUTIONS_COUNT = "dailyExecutionsCount";
-  @javax.annotation.Nullable
-  private List<DailyExecutionStatistics> dailyExecutionsCount = new ArrayList<>();
+  @javax.annotation.Nullable  private List<DailyExecutionStatistics> dailyExecutionsCount = new ArrayList<>();
 
   public static final String JSON_PROPERTY_DAILY_TASK_RUNS_COUNT = "dailyTaskRunsCount";
-  @javax.annotation.Nullable
-  private List<DailyExecutionStatistics> dailyTaskRunsCount = new ArrayList<>();
+  @javax.annotation.Nullable  private List<DailyExecutionStatistics> dailyTaskRunsCount = new ArrayList<>();
 
   public ExecutionUsage() {
   }
@@ -66,8 +63,7 @@ public class ExecutionUsage {
    * Get dailyExecutionsCount
    * @return dailyExecutionsCount
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DAILY_EXECUTIONS_COUNT, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DAILY_EXECUTIONS_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<DailyExecutionStatistics> getDailyExecutionsCount() {
@@ -75,7 +71,7 @@ public class ExecutionUsage {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DAILY_EXECUTIONS_COUNT, required = false)
+  @JsonProperty(JSON_PROPERTY_DAILY_EXECUTIONS_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDailyExecutionsCount(@javax.annotation.Nullable List<DailyExecutionStatistics> dailyExecutionsCount) {
     this.dailyExecutionsCount = dailyExecutionsCount;
@@ -99,8 +95,7 @@ public class ExecutionUsage {
    * Get dailyTaskRunsCount
    * @return dailyTaskRunsCount
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DAILY_TASK_RUNS_COUNT, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DAILY_TASK_RUNS_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<DailyExecutionStatistics> getDailyTaskRunsCount() {
@@ -108,7 +103,7 @@ public class ExecutionUsage {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DAILY_TASK_RUNS_COUNT, required = false)
+  @JsonProperty(JSON_PROPERTY_DAILY_TASK_RUNS_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDailyTaskRunsCount(@javax.annotation.Nullable List<DailyExecutionStatistics> dailyTaskRunsCount) {
     this.dailyTaskRunsCount = dailyTaskRunsCount;

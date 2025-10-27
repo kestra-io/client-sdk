@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -40,12 +39,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class DashboardControllerPreviewRequest {
   public static final String JSON_PROPERTY_CHART = "chart";
-  @javax.annotation.Nonnull
-  private String chart;
+  @javax.annotation.Nonnull  private String chart;
 
   public static final String JSON_PROPERTY_GLOBAL_FILTER = "globalFilter";
-  @javax.annotation.Nullable
-  private JsonNullable<ChartFiltersOverrides> globalFilter = JsonNullable.<ChartFiltersOverrides>undefined();
+  @javax.annotation.Nullable  private JsonNullable<ChartFiltersOverrides> globalFilter = JsonNullable.<ChartFiltersOverrides>undefined();
 
   public DashboardControllerPreviewRequest() {
   }
@@ -60,8 +57,7 @@ public class DashboardControllerPreviewRequest {
    * Get chart
    * @return chart
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_CHART, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_CHART)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getChart() {
@@ -69,7 +65,7 @@ public class DashboardControllerPreviewRequest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_CHART, required = true)
+  @JsonProperty(JSON_PROPERTY_CHART)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setChart(@javax.annotation.Nonnull String chart) {
     this.chart = chart;
@@ -85,21 +81,19 @@ public class DashboardControllerPreviewRequest {
    * Get globalFilter
    * @return globalFilter
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public ChartFiltersOverrides getGlobalFilter() {
         return globalFilter.orElse(null);
   }
 
-  @JsonProperty(value = JSON_PROPERTY_GLOBAL_FILTER, required = false)
+  @JsonProperty(JSON_PROPERTY_GLOBAL_FILTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<ChartFiltersOverrides> getGlobalFilter_JsonNullable() {
     return globalFilter;
   }
   
-  @JsonProperty(value = JSON_PROPERTY_GLOBAL_FILTER, required = false)
+  @JsonProperty(JSON_PROPERTY_GLOBAL_FILTER)
   public void setGlobalFilter_JsonNullable(JsonNullable<ChartFiltersOverrides> globalFilter) {
     this.globalFilter = globalFilter;
   }

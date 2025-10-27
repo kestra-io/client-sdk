@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -34,12 +33,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class BulkErrorResponse {
   public static final String JSON_PROPERTY_MESSAGE = "message";
-  @javax.annotation.Nullable
-  private String message;
+  @javax.annotation.Nullable  private String message;
 
   public static final String JSON_PROPERTY_INVALIDS = "invalids";
-  @javax.annotation.Nullable
-  private Object invalids;
+  @javax.annotation.Nullable  private Object invalids;
 
   public BulkErrorResponse() {
   }
@@ -54,8 +51,7 @@ public class BulkErrorResponse {
    * Get message
    * @return message
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_MESSAGE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getMessage() {
@@ -63,7 +59,7 @@ public class BulkErrorResponse {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_MESSAGE, required = false)
+  @JsonProperty(JSON_PROPERTY_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMessage(@javax.annotation.Nullable String message) {
     this.message = message;
@@ -79,8 +75,7 @@ public class BulkErrorResponse {
    * Get invalids
    * @return invalids
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_INVALIDS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INVALIDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Object getInvalids() {
@@ -88,7 +83,7 @@ public class BulkErrorResponse {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_INVALIDS, required = false)
+  @JsonProperty(JSON_PROPERTY_INVALIDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setInvalids(@javax.annotation.Nullable Object invalids) {
     this.invalids = invalids;

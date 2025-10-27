@@ -30,12 +30,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.StringJoiner;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
-public class KvApi extends BaseApi {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")public class KvApi extends BaseApi {
 
   public KvApi() {
     super(Configuration.getDefaultApiClient());
@@ -136,6 +134,11 @@ public class KvApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Bulk-delete multiple key/value pairs from the given namespace.
    * 
@@ -225,6 +228,11 @@ public class KvApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Get value for a key
@@ -317,6 +325,11 @@ public class KvApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * List all keys for a namespace
    * 
@@ -400,6 +413,11 @@ public class KvApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * List all keys for inherited namespaces
    * 
@@ -482,6 +500,11 @@ public class KvApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Puts a key-value pair in store
@@ -618,4 +641,9 @@ public class KvApi extends BaseApi {
         returnType
     );
   }
+
+
+
+
+
 }

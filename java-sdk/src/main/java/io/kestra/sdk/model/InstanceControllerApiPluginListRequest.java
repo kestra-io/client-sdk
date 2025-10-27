@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -37,8 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class InstanceControllerApiPluginListRequest {
   public static final String JSON_PROPERTY_PLUGINS = "plugins";
-  @javax.annotation.Nullable
-  private List<String> plugins = new ArrayList<>();
+  @javax.annotation.Nullable  private List<String> plugins = new ArrayList<>();
 
   public InstanceControllerApiPluginListRequest() {
   }
@@ -61,8 +59,7 @@ public class InstanceControllerApiPluginListRequest {
    * Get plugins
    * @return plugins
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_PLUGINS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PLUGINS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getPlugins() {
@@ -70,7 +67,7 @@ public class InstanceControllerApiPluginListRequest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_PLUGINS, required = false)
+  @JsonProperty(JSON_PROPERTY_PLUGINS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPlugins(@javax.annotation.Nullable List<String> plugins) {
     this.plugins = plugins;

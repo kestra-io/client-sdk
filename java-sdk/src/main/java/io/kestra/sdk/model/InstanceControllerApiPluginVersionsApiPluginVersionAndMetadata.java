@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -36,12 +35,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata {
   public static final String JSON_PROPERTY_VERSION = "version";
-  @javax.annotation.Nullable
-  private String version;
+  @javax.annotation.Nullable  private String version;
 
   public static final String JSON_PROPERTY_METADATA = "metadata";
-  @javax.annotation.Nullable
-  private PluginArtifactMetadata metadata;
+  @javax.annotation.Nullable  private PluginArtifactMetadata metadata;
 
   public InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata() {
   }
@@ -56,8 +53,7 @@ public class InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata {
    * Get version
    * @return version
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_VERSION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getVersion() {
@@ -65,7 +61,7 @@ public class InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_VERSION, required = false)
+  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVersion(@javax.annotation.Nullable String version) {
     this.version = version;
@@ -81,8 +77,7 @@ public class InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata {
    * Get metadata
    * @return metadata
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_METADATA, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_METADATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public PluginArtifactMetadata getMetadata() {
@@ -90,7 +85,7 @@ public class InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_METADATA, required = false)
+  @JsonProperty(JSON_PROPERTY_METADATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMetadata(@javax.annotation.Nullable PluginArtifactMetadata metadata) {
     this.metadata = metadata;

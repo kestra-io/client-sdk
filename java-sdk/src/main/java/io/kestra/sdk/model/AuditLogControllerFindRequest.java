@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -44,16 +43,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AuditLogControllerFindRequest {
   public static final String JSON_PROPERTY_RESOURCE = "resource";
-  @javax.annotation.Nullable
-  private ResourceType1 resource;
+  @javax.annotation.Nullable  private ResourceType1 resource;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nullable
-  private JsonNullable<CrudEventType> type = JsonNullable.<CrudEventType>undefined();
+  @javax.annotation.Nullable  private JsonNullable<CrudEventType> type = JsonNullable.<CrudEventType>undefined();
 
   public static final String JSON_PROPERTY_DETAIL = "detail";
-  @javax.annotation.Nullable
-  private Map<String, Object> detail = new HashMap<>();
+  @javax.annotation.Nullable  private Map<String, Object> detail = new HashMap<>();
 
   public AuditLogControllerFindRequest() {
   }
@@ -68,8 +64,7 @@ public class AuditLogControllerFindRequest {
    * Get resource
    * @return resource
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_RESOURCE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESOURCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ResourceType1 getResource() {
@@ -77,7 +72,7 @@ public class AuditLogControllerFindRequest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_RESOURCE, required = false)
+  @JsonProperty(JSON_PROPERTY_RESOURCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setResource(@javax.annotation.Nullable ResourceType1 resource) {
     this.resource = resource;
@@ -93,21 +88,19 @@ public class AuditLogControllerFindRequest {
    * Get type
    * @return type
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public CrudEventType getType() {
         return type.orElse(null);
   }
 
-  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
+  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<CrudEventType> getType_JsonNullable() {
     return type;
   }
   
-  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
+  @JsonProperty(JSON_PROPERTY_TYPE)
   public void setType_JsonNullable(JsonNullable<CrudEventType> type) {
     this.type = type;
   }
@@ -134,8 +127,7 @@ public class AuditLogControllerFindRequest {
    * Get detail
    * @return detail
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DETAIL, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DETAIL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getDetail() {
@@ -143,7 +135,7 @@ public class AuditLogControllerFindRequest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DETAIL, required = false)
+  @JsonProperty(JSON_PROPERTY_DETAIL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDetail(@javax.annotation.Nullable Map<String, Object> detail) {
     this.detail = detail;

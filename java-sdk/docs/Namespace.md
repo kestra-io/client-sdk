@@ -10,7 +10,6 @@ A namespace is a logical grouping of flows and tasks. It is used to organize and
 |------------ | ------------- | ------------- | -------------|
 |**id** | **String** |  |  |
 |**deleted** | **Boolean** |  |  |
-|**allowedTriggers** | [**List&lt;NamespaceAllowedTrigger&gt;**](NamespaceAllowedTrigger.md) |  |  [optional] |
 |**storageIsolation** | [**Isolation**](Isolation.md) |  |  [optional] |
 |**secretIsolation** | [**Isolation**](Isolation.md) |  |  [optional] |
 |**description** | **String** |  |  [optional] |

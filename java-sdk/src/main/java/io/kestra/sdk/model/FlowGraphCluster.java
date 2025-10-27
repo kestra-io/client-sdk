@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -42,24 +41,19 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class FlowGraphCluster {
   public static final String JSON_PROPERTY_CLUSTER = "cluster";
-  @javax.annotation.Nullable
-  private AbstractGraph cluster;
+  @javax.annotation.Nullable  private AbstractGraph cluster;
 
   public static final String JSON_PROPERTY_NODES = "nodes";
-  @javax.annotation.Nullable
-  private List<String> nodes = new ArrayList<>();
+  @javax.annotation.Nullable  private List<String> nodes = new ArrayList<>();
 
   public static final String JSON_PROPERTY_PARENTS = "parents";
-  @javax.annotation.Nullable
-  private List<String> parents = new ArrayList<>();
+  @javax.annotation.Nullable  private List<String> parents = new ArrayList<>();
 
   public static final String JSON_PROPERTY_START = "start";
-  @javax.annotation.Nullable
-  private String start;
+  @javax.annotation.Nullable  private String start;
 
   public static final String JSON_PROPERTY_END = "end";
-  @javax.annotation.Nullable
-  private String end;
+  @javax.annotation.Nullable  private String end;
 
   public FlowGraphCluster() {
   }
@@ -74,8 +68,7 @@ public class FlowGraphCluster {
    * Get cluster
    * @return cluster
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_CLUSTER, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CLUSTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public AbstractGraph getCluster() {
@@ -83,7 +76,7 @@ public class FlowGraphCluster {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_CLUSTER, required = false)
+  @JsonProperty(JSON_PROPERTY_CLUSTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCluster(@javax.annotation.Nullable AbstractGraph cluster) {
     this.cluster = cluster;
@@ -107,8 +100,7 @@ public class FlowGraphCluster {
    * Get nodes
    * @return nodes
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_NODES, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NODES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getNodes() {
@@ -116,7 +108,7 @@ public class FlowGraphCluster {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_NODES, required = false)
+  @JsonProperty(JSON_PROPERTY_NODES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNodes(@javax.annotation.Nullable List<String> nodes) {
     this.nodes = nodes;
@@ -140,8 +132,7 @@ public class FlowGraphCluster {
    * Get parents
    * @return parents
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_PARENTS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PARENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getParents() {
@@ -149,7 +140,7 @@ public class FlowGraphCluster {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_PARENTS, required = false)
+  @JsonProperty(JSON_PROPERTY_PARENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setParents(@javax.annotation.Nullable List<String> parents) {
     this.parents = parents;
@@ -165,8 +156,7 @@ public class FlowGraphCluster {
    * Get start
    * @return start
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_START, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_START)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getStart() {
@@ -174,7 +164,7 @@ public class FlowGraphCluster {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_START, required = false)
+  @JsonProperty(JSON_PROPERTY_START)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStart(@javax.annotation.Nullable String start) {
     this.start = start;
@@ -190,8 +180,7 @@ public class FlowGraphCluster {
    * Get end
    * @return end
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_END, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_END)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getEnd() {
@@ -199,7 +188,7 @@ public class FlowGraphCluster {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_END, required = false)
+  @JsonProperty(JSON_PROPERTY_END)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEnd(@javax.annotation.Nullable String end) {
     this.end = end;

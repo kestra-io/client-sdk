@@ -1293,7 +1293,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/MeController.ApiMe"
           description: patchCurrentUser 200 response
       security:
       - bearerAuth: []
@@ -1314,7 +1314,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiTokenList"
           description: listApiTokensForCurrentUser 200 response
       security:
       - bearerAuth: []
@@ -1338,7 +1338,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/CreateApiTokenResponse"
           description: createApiTokenForCurrentUser 200 response
       security:
       - bearerAuth: []
@@ -1923,14 +1923,14 @@ paths:
           type: string
         style: simple
       responses:
-        "404":
-          description: User not found
         "200":
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/IAMServiceAccountController.ApiServiceAccountDetail"
           description: getServiceAccount 200 response
+        "404":
+          description: User not found
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -2483,14 +2483,14 @@ paths:
           type: string
         style: simple
       responses:
-        "404":
-          description: User not found
         "200":
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/IAMUserController.ApiUser"
           description: getUser 200 response
+        "404":
+          description: User not found
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -2556,14 +2556,14 @@ paths:
               $ref: "#/components/schemas/IAMUserController.ApiCreateOrUpdateUserRequest"
         required: true
       responses:
-        "404":
-          description: "Tenant, or group not found"
         "200":
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/IAMUserController.ApiUser"
           description: updateUser 200 response
+        "404":
+          description: "Tenant, or group not found"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -2588,14 +2588,14 @@ paths:
           type: string
         style: simple
       responses:
-        "404":
-          description: User not found
         "200":
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiTokenList"
           description: listApiTokensForUser 200 response
+        "404":
+          description: User not found
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -2731,14 +2731,14 @@ paths:
           type: string
         style: simple
       responses:
-        "404":
-          description: User not found
         "200":
           content:
             application/json:
               schema:
                 type: object
           description: impersonate 200 response
+        "404":
+          description: User not found
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -5643,71 +5643,6 @@ paths:
       x-internal: true
       x-accepts:
       - application/json
-  /api/v1/{tenant}/executions:
-    get:
-      operationId: searchExecutionsByFlowId
-      parameters:
-      - description: The flow namespace
-        explode: false
-        in: query
-        name: namespace
-        required: true
-        schema:
-          type: string
-        style: form
-      - description: The flow id
-        explode: false
-        in: query
-        name: flowId
-        required: true
-        schema:
-          type: string
-        style: form
-      - description: The current page
-        explode: false
-        in: query
-        name: page
-        required: true
-        schema:
-          default: 1
-          format: int32
-          minimum: 1
-          type: integer
-        style: form
-      - description: The current page size
-        explode: false
-        in: query
-        name: size
-        required: true
-        schema:
-          default: 10
-          format: int32
-          minimum: 1
-          type: integer
-        style: form
-      - explode: false
-        in: path
-        name: tenant
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/PagedResults_Execution_"
-          description: searchExecutionsByFlowId 200 response
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      summary: Search for executions for a flow
-      tags:
-      - Executions
-      x-internal: false
-      x-accepts:
-      - application/json
   /api/v1/{tenant}/executions/by-ids:
     delete:
       operationId: deleteExecutionsByIds
@@ -6853,74 +6788,6 @@ paths:
       x-content-type: application/json
       x-accepts:
       - application/json
-  /api/v1/{tenant}/executions/namespaces:
-    get:
-      operationId: listExecutableDistinctNamespaces
-      parameters:
-      - explode: false
-        in: path
-        name: tenant
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  type: string
-                type: array
-          description: listExecutableDistinctNamespaces 200 response
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      summary: Get all namespaces that have executable flows
-      tags:
-      - Executions
-      x-internal: false
-      x-accepts:
-      - application/json
-  /api/v1/{tenant}/executions/namespaces/{namespace}/flows:
-    get:
-      operationId: listFlowExecutionsByNamespace
-      parameters:
-      - description: The namespace
-        explode: false
-        in: path
-        name: namespace
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: tenant
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: "#/components/schemas/FlowForExecution"
-                type: array
-          description: listFlowExecutionsByNamespace 200 response
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      summary: Get all flow ids for a namespace. Data returned are FlowForExecution
-        containing minimal information about a Flow for when you are allowed to executing
-        but not reading.
-      tags:
-      - Executions
-      x-internal: false
-      x-accepts:
-      - application/json
   /api/v1/{tenant}/executions/pause/by-ids:
     post:
       operationId: pauseExecutionsByIds
@@ -7750,130 +7617,6 @@ paths:
           nullable: true
           type: array
         style: form
-      - deprecated: true
-        description: A string filter
-        explode: false
-        in: query
-        name: q
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: The scope of the executions to include
-        explode: false
-        in: query
-        name: scope
-        required: false
-        schema:
-          items:
-            $ref: "#/components/schemas/FlowScope"
-          nullable: true
-          type: array
-        style: form
-      - deprecated: true
-        description: A namespace filter prefix
-        explode: false
-        in: query
-        name: namespace
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: A flow id filter
-        explode: false
-        in: query
-        name: flowId
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: The start datetime
-        explode: true
-        in: query
-        name: startDate
-        required: false
-        schema:
-          format: date-time
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: The end datetime
-        explode: true
-        in: query
-        name: endDate
-        required: false
-        schema:
-          format: date-time
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: A time range filter relative to the current time
-        examples:
-          Filter last 5 minutes:
-            value: PT5M
-          Filter last 24 hours:
-            value: P1D
-        explode: false
-        in: query
-        name: timeRange
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: A state filter
-        explode: false
-        in: query
-        name: state
-        required: false
-        schema:
-          items:
-            $ref: "#/components/schemas/State.Type"
-          nullable: true
-          type: array
-        style: form
-      - deprecated: true
-        description: A labels filter as a list of 'key:value'
-        explode: true
-        in: query
-        name: labels
-        required: false
-        schema:
-          items:
-            type: string
-          nullable: true
-          type: array
-        style: form
-      - deprecated: true
-        description: The trigger execution id
-        explode: false
-        in: query
-        name: triggerExecutionId
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: A execution child filter
-        explode: false
-        in: query
-        name: childFilter
-        required: false
-        schema:
-          allOf:
-          - $ref: "#/components/schemas/ExecutionRepositoryInterface.ChildFilter"
-          nullable: true
-        style: form
       - explode: false
         in: path
         name: tenant
@@ -7895,93 +7638,6 @@ paths:
       tags:
       - Executions
       x-internal: false
-      x-accepts:
-      - application/json
-  /api/v1/{tenant}/executions/trigger/{namespace}/{id}:
-    post:
-      operationId: triggerExecution
-      parameters:
-      - description: The flow namespace
-        explode: false
-        in: path
-        name: namespace
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The flow id
-        explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The labels as a list of 'key:value'
-        explode: true
-        in: query
-        name: labels
-        required: false
-        schema:
-          items:
-            type: string
-          nullable: true
-          type: array
-        style: form
-      - description: If the server will wait the end of the execution
-        explode: false
-        in: query
-        name: wait
-        required: true
-        schema:
-          default: false
-          type: boolean
-        style: form
-      - description: The flow revision or latest if null
-        explode: false
-        in: query
-        name: revision
-        required: false
-        schema:
-          format: int32
-          nullable: true
-          type: integer
-        style: form
-      - explode: false
-        in: path
-        name: tenant
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              items:
-                format: binary
-                type: string
-              type: array
-        description: The inputs
-      responses:
-        "409":
-          description: if the flow is disabled
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: "#/components/schemas/ExecutionController.ExecutionResponse"
-                type: array
-          description: triggerExecution 200 response
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      summary: Trigger a new execution for a flow
-      tags:
-      - Executions
-      x-internal: false
-      x-content-type: multipart/form-data
       x-accepts:
       - application/json
   /api/v1/{tenant}/executions/unqueue/by-ids:
@@ -8243,106 +7899,6 @@ paths:
       x-internal: false
       x-accepts:
       - application/json
-    post:
-      operationId: triggerExecutionByPostWebhook
-      parameters:
-      - description: The flow namespace
-        explode: false
-        in: path
-        name: namespace
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The flow id
-        explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The webhook trigger uid
-        explode: false
-        in: path
-        name: key
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: tenant
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ExecutionController.WebhookResponse"
-          description: triggerExecutionByPostWebhook 200 response
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      summary: Trigger a new execution by POST webhook trigger
-      tags:
-      - Executions
-      x-internal: false
-      x-accepts:
-      - application/json
-    put:
-      operationId: triggerExecutionByPutWebhook
-      parameters:
-      - description: The flow namespace
-        explode: false
-        in: path
-        name: namespace
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The flow id
-        explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The webhook trigger uid
-        explode: false
-        in: path
-        name: key
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: tenant
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ExecutionController.WebhookResponse"
-          description: triggerExecutionByPutWebhook 200 response
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      summary: Trigger a new execution by PUT webhook trigger
-      tags:
-      - Executions
-      x-internal: false
-      x-accepts:
-      - application/json
   /api/v1/{tenant}/executions/{executionId}:
     delete:
       operationId: deleteExecution
@@ -8390,10 +7946,10 @@ paths:
           type: string
         style: simple
       responses:
-        "204":
-          description: On success
         "200":
           description: deleteExecution 200 response
+        "204":
+          description: On success
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -8620,69 +8176,6 @@ paths:
       x-internal: false
       x-accepts:
       - application/json
-  /api/v1/{tenant}/executions/{executionId}/file/preview:
-    get:
-      operationId: previewFileFromExecution
-      parameters:
-      - description: The execution id
-        explode: false
-        in: path
-        name: executionId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The internal storage uri
-        explode: false
-        in: query
-        name: path
-        required: true
-        schema:
-          format: uri
-          type: string
-        style: form
-      - description: The max row returns
-        explode: false
-        in: query
-        name: maxRows
-        required: true
-        schema:
-          format: int32
-          type: integer
-        style: form
-      - description: The file encoding as Java charset name. Defaults to UTF-8
-        example: ISO-8859-1
-        explode: false
-        in: query
-        name: encoding
-        required: true
-        schema:
-          default: UTF-8
-          type: string
-        style: form
-      - explode: false
-        in: path
-        name: tenant
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                type: object
-          description: previewFileFromExecution 200 response
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      summary: Get file preview for an execution
-      tags:
-      - Executions
-      x-internal: false
-      x-accepts:
-      - application/json
   /api/v1/{tenant}/executions/{executionId}/flow:
     get:
       operationId: getFlowFromExecutionById
@@ -8750,60 +8243,9 @@ paths:
       summary: Follow an execution
       tags:
       - Executions
-      x-internal: false
-      x-accepts:
-      - text/event-stream
-  /api/v1/{tenant}/executions/{executionId}/follow-dependencies:
-    get:
-      operationId: followDependenciesExecutions
-      parameters:
-      - description: The execution id
-        explode: false
-        in: path
-        name: executionId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: "If true, list only destination dependencies, otherwise list\
-          \ also source dependencies"
-        explode: false
-        in: query
-        name: destinationOnly
-        required: true
-        schema:
-          default: false
-          type: boolean
-        style: form
-      - description: "If true, expand all dependencies recursively"
-        explode: false
-        in: query
-        name: expandAll
-        required: true
-        schema:
-          default: false
-          type: boolean
-        style: form
-      - explode: false
-        in: path
-        name: tenant
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            text/event-stream:
-              schema:
-                $ref: "#/components/schemas/Event_ExecutionStatusEvent_"
-          description: followDependenciesExecutions 200 response
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      summary: Follow all execution dependencies executions
-      tags:
-      - Executions
+      x-sdk-customization:
+        x-replace-follow-execution: "true"
+        x-skipped: "true"
       x-internal: false
       x-accepts:
       - text/event-stream
@@ -8918,18 +8360,18 @@ paths:
           type: string
         style: simple
       responses:
-        "202":
-          description: Execution kill was requested successfully
-        "409":
-          description: if the executions is already finished
-        "404":
-          description: if the executions is not found
         "200":
           content:
             text/json:
               schema:
                 type: object
           description: killExecution 200 response
+        "202":
+          description: Execution kill was requested successfully
+        "404":
+          description: if the executions is not found
+        "409":
+          description: if the executions is already finished
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -8968,16 +8410,16 @@ paths:
         description: The labels to add to the execution
         required: true
       responses:
-        "404":
-          description: If the execution cannot be found
-        "400":
-          description: If the execution is not terminated
         "200":
           content:
             application/json:
               schema:
                 type: object
           description: setLabelsOnTerminatedExecution 200 response
+        "400":
+          description: If the execution is not terminated
+        "404":
+          description: If the execution cannot be found
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -9008,12 +8450,12 @@ paths:
           type: string
         style: simple
       responses:
+        "200":
+          description: pauseExecution 200 response
         "204":
           description: On success
         "409":
           description: if the executions is not running
-        "200":
-          description: pauseExecution 200 response
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -9239,118 +8681,20 @@ paths:
         description: The inputs
         required: true
       responses:
-        "204":
-          description: On success
-        "409":
-          description: if the executions is not paused
         "200":
           content:
             application/json:
               schema:
                 type: object
           description: resumeExecution 200 response
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      summary: Resume a paused execution.
-      tags:
-      - Executions
-      x-internal: false
-      x-content-type: multipart/form-data
-      x-accepts:
-      - application/json
-  /api/v1/{tenant}/executions/{executionId}/resume-from-breakpoint:
-    post:
-      operationId: resumeExecutionFromBreakpoint
-      parameters:
-      - description: The execution id
-        explode: false
-        in: path
-        name: executionId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: "\"Set a list of breakpoints at specific tasks 'id.value', separated\
-          \ by a coma."
-        explode: false
-        in: query
-        name: breakpoints
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
-      - explode: false
-        in: path
-        name: tenant
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "204":
-          description: On success
-        "409":
-          description: If the executions is not in the 'BREAKPOINT' state or has no
-            breakpoint
-        "200":
-          description: resumeExecutionFromBreakpoint 200 response
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      summary: Resume an execution from a breakpoint (in the 'BREAKPOINT' state).
-      tags:
-      - Executions
-      x-internal: false
-      x-accepts:
-      - application/json
-  /api/v1/{tenant}/executions/{executionId}/resume/validate:
-    post:
-      operationId: validateResumeExecutionInputs
-      parameters:
-      - description: The execution id
-        explode: false
-        in: path
-        name: executionId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: tenant
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              items:
-                format: binary
-                type: string
-              type: array
-        description: The inputs
-        required: true
-      responses:
         "204":
           description: On success
         "409":
           description: if the executions is not paused
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: "#/components/schemas/ExecutionController.ApiValidateExecutionInputsResponse"
-                type: array
-          description: validateResumeExecutionInputs 200 response
       security:
       - bearerAuth: []
       - basicAuth: []
-      summary: Validate inputs to resume a paused execution.
+      summary: Resume a paused execution.
       tags:
       - Executions
       x-internal: false
@@ -9540,96 +8884,18 @@ paths:
               type: array
         description: The inputs
       responses:
-        "409":
-          description: if the flow is disabled
         "200":
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ExecutionController.ExecutionResponse"
           description: On execution created
+        "409":
+          description: if the flow is disabled
       security:
       - bearerAuth: []
       - basicAuth: []
       summary: Create a new execution for a flow
-      tags:
-      - Executions
-      x-internal: false
-      x-content-type: multipart/form-data
-      x-accepts:
-      - application/json
-  /api/v1/{tenant}/executions/{namespace}/{id}/validate:
-    post:
-      operationId: validateNewExecutionInputs
-      parameters:
-      - description: The flow namespace
-        explode: false
-        in: path
-        name: namespace
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The flow id
-        explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The labels as a list of 'key:value'
-        explode: true
-        in: query
-        name: labels
-        required: true
-        schema:
-          items:
-            type: string
-          type: array
-        style: form
-      - description: The flow revision or latest if null
-        explode: false
-        in: query
-        name: revision
-        required: false
-        schema:
-          format: int32
-          nullable: true
-          type: integer
-        style: form
-      - explode: false
-        in: path
-        name: tenant
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              items:
-                format: binary
-                type: string
-              type: array
-        description: The inputs
-        required: true
-      responses:
-        "409":
-          description: if the flow is disabled
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: "#/components/schemas/ExecutionController.ApiValidateExecutionInputsResponse"
-                type: array
-          description: validateNewExecutionInputs 200 response
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      summary: Validate the creation of a new execution for a flow
       tags:
       - Executions
       x-internal: false
@@ -9779,50 +9045,6 @@ paths:
     delete:
       operationId: deleteFlowsByQuery
       parameters:
-      - deprecated: true
-        description: A string filter
-        explode: false
-        in: query
-        name: q
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: The scope of the flows to include
-        explode: false
-        in: query
-        name: scope
-        required: false
-        schema:
-          items:
-            $ref: "#/components/schemas/FlowScope"
-          nullable: true
-          type: array
-        style: form
-      - deprecated: true
-        description: A namespace filter prefix
-        explode: false
-        in: query
-        name: namespace
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: A labels filter as a list of 'key:value'
-        explode: true
-        in: query
-        name: labels
-        required: false
-        schema:
-          items:
-            type: string
-          nullable: true
-          type: array
-        style: form
       - explode: false
         in: path
         name: tenant
@@ -9894,50 +9116,6 @@ paths:
     post:
       operationId: disableFlowsByQuery
       parameters:
-      - deprecated: true
-        description: A string filter
-        explode: false
-        in: query
-        name: q
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: The scope of the flows to include
-        explode: false
-        in: query
-        name: scope
-        required: false
-        schema:
-          items:
-            $ref: "#/components/schemas/FlowScope"
-          nullable: true
-          type: array
-        style: form
-      - deprecated: true
-        description: A namespace filter prefix
-        explode: false
-        in: query
-        name: namespace
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: A labels filter as a list of 'key:value'
-        explode: true
-        in: query
-        name: labels
-        required: false
-        schema:
-          items:
-            type: string
-          nullable: true
-          type: array
-        style: form
       - explode: false
         in: path
         name: tenant
@@ -10047,50 +9225,6 @@ paths:
     post:
       operationId: enableFlowsByQuery
       parameters:
-      - deprecated: true
-        description: A string filter
-        explode: false
-        in: query
-        name: q
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: The scope of the flows to include
-        explode: false
-        in: query
-        name: scope
-        required: false
-        schema:
-          items:
-            $ref: "#/components/schemas/FlowScope"
-          nullable: true
-          type: array
-        style: form
-      - deprecated: true
-        description: A namespace filter prefix
-        explode: false
-        in: query
-        name: namespace
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: A labels filter as a list of 'key:value'
-        explode: true
-        in: query
-        name: labels
-        required: false
-        schema:
-          items:
-            type: string
-          nullable: true
-          type: array
-        style: form
       - explode: false
         in: path
         name: tenant
@@ -10171,50 +9305,6 @@ paths:
         schema:
           items:
             $ref: "#/components/schemas/QueryFilter"
-          nullable: true
-          type: array
-        style: form
-      - deprecated: true
-        description: A string filter
-        explode: false
-        in: query
-        name: q
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: The scope of the flows to include
-        explode: false
-        in: query
-        name: scope
-        required: false
-        schema:
-          items:
-            $ref: "#/components/schemas/FlowScope"
-          nullable: true
-          type: array
-        style: form
-      - deprecated: true
-        description: A namespace filter prefix
-        explode: false
-        in: query
-        name: namespace
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: A labels filter as a list of 'key:value'
-        explode: true
-        in: query
-        name: labels
-        required: false
-        schema:
-          items:
-            type: string
           nullable: true
           type: array
         style: form
@@ -10377,50 +9467,6 @@ paths:
         schema:
           items:
             $ref: "#/components/schemas/QueryFilter"
-          nullable: true
-          type: array
-        style: form
-      - deprecated: true
-        description: A string filter
-        explode: false
-        in: query
-        name: q
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: The scope of the flows to include
-        explode: false
-        in: query
-        name: scope
-        required: false
-        schema:
-          items:
-            $ref: "#/components/schemas/FlowScope"
-          nullable: true
-          type: array
-        style: form
-      - deprecated: true
-        description: A namespace filter prefix
-        explode: false
-        in: query
-        name: namespace
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: A labels filter as a list of 'key:value'
-        explode: true
-        in: query
-        name: labels
-        required: false
-        schema:
-          items:
-            type: string
           nullable: true
           type: array
         style: form
@@ -10681,68 +9727,6 @@ paths:
       x-internal: false
       x-accepts:
       - application/json
-    post:
-      deprecated: true
-      description: |-
-        All flow will be created / updated for this namespace.
-        Flow that already created but not in `flows` will be deleted if the query delete is `true`
-      operationId: updateFlowsInNamespaceFromJson
-      parameters:
-      - description: If missing flow should be deleted
-        explode: false
-        in: query
-        name: delete
-        required: true
-        schema:
-          default: true
-          type: boolean
-        style: form
-      - description: The flow namespace
-        explode: false
-        in: path
-        name: namespace
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: tenant
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              items:
-                $ref: "#/components/schemas/Flow"
-              type: array
-          application/x-yaml:
-            schema:
-              type: string
-            example: null
-        description: A list of flows
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/updateFlowsInNamespaceFromJson_200_response"
-              example: null
-          description: updateFlowsInNamespaceFromJson 200 response
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      summary: Update a complete namespace from json object
-      tags:
-      - Flows
-      x-internal: false
-      x-content-type: application/json
-      x-accepts:
-      - application/json
   /api/v1/{tenant}/flows/{namespace}/{id}:
     delete:
       operationId: deleteFlow
@@ -10771,10 +9755,10 @@ paths:
           type: string
         style: simple
       responses:
-        "204":
-          description: On success
         "200":
           description: deleteFlow 200 response
+        "204":
+          description: On success
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -10852,63 +9836,6 @@ paths:
       tags:
       - Flows
       x-internal: false
-      x-accepts:
-      - application/json
-    put:
-      deprecated: true
-      operationId: updateFlow
-      parameters:
-      - description: The flow id
-        explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The flow namespace
-        explode: false
-        in: path
-        name: namespace
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: tenant
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/x-yaml:
-            schema:
-              type: string
-            example: null
-          '*/*':
-            schema:
-              $ref: "#/components/schemas/Flow"
-            example: null
-        description: The flow source code
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/updateFlow_200_response"
-              example: null
-          description: On success
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      summary: Update a flow
-      tags:
-      - Flows
-      x-internal: false
-      x-content-type: application/x-yaml
       x-accepts:
       - application/json
   /api/v1/{tenant}/flows/{namespace}/{id}/dependencies:
@@ -11141,66 +10068,6 @@ paths:
       tags:
       - Flows
       x-internal: false
-      x-accepts:
-      - application/json
-  /api/v1/{tenant}/flows/{namespace}/{id}/{taskId}:
-    patch:
-      deprecated: true
-      operationId: updateTask
-      parameters:
-      - description: The flow namespace
-        explode: false
-        in: path
-        name: namespace
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The flow id
-        explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The task id
-        explode: false
-        in: path
-        name: taskId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: tenant
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Task"
-        description: The task
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Flow"
-          description: updateTask 200 response
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      summary: Update a single task on a flow
-      tags:
-      - Flows
-      x-internal: false
-      x-content-type: application/json
       x-accepts:
       - application/json
   /api/v1/{tenant}/groups:
@@ -11807,6 +10674,12 @@ paths:
           type: string
         style: simple
       responses:
+        "200":
+          content:
+            application/scim+json:
+              schema:
+                $ref: "#/components/schemas/ScimResource"
+          description: OK response
         "400":
           description: Bad Request
         "404":
@@ -11815,12 +10688,6 @@ paths:
           description: Internal Server Error
         "501":
           description: Not Implemented
-        "200":
-          content:
-            application/scim+json:
-              schema:
-                $ref: "#/components/schemas/ScimResource"
-          description: OK response
       tags:
       - SCIM-Groups
       x-internal: true
@@ -11913,18 +10780,18 @@ paths:
               $ref: "#/components/schemas/SearchRequest"
         required: true
       responses:
-        "400":
-          description: Bad Request
-        "500":
-          description: Internal Server Error
-        "501":
-          description: Not Implemented
         "200":
           content:
             application/scim+json:
               schema:
                 $ref: "#/components/schemas/ScimResource"
           description: OK response
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+        "501":
+          description: Not Implemented
       tags:
       - SCIM-Groups
       x-internal: true
@@ -12015,6 +10882,12 @@ paths:
           type: string
         style: simple
       responses:
+        "200":
+          content:
+            application/scim+json:
+              schema:
+                $ref: "#/components/schemas/ScimResource"
+          description: OK response
         "400":
           description: Bad Request
         "404":
@@ -12023,12 +10896,6 @@ paths:
           description: Internal Server Error
         "501":
           description: Not Implemented
-        "200":
-          content:
-            application/scim+json:
-              schema:
-                $ref: "#/components/schemas/ScimResource"
-          description: OK response
       tags:
       - SCIM-Groups
       x-internal: true
@@ -12146,18 +11013,18 @@ paths:
               $ref: "#/components/schemas/ScimResource"
         required: true
       responses:
-        "400":
-          description: Bad Request
-        "500":
-          description: Internal Server Error
-        "501":
-          description: Not Implemented
         "200":
           content:
             application/scim+json:
               schema:
                 $ref: "#/components/schemas/ScimResource"
           description: OK response
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+        "501":
+          description: Not Implemented
       tags:
       - SCIM-Groups
       x-internal: true
@@ -12416,6 +11283,12 @@ paths:
           type: string
         style: simple
       responses:
+        "200":
+          content:
+            application/scim+json:
+              schema:
+                $ref: "#/components/schemas/ScimResource"
+          description: OK response
         "400":
           description: Bad Request
         "404":
@@ -12424,12 +11297,6 @@ paths:
           description: Internal Server Error
         "501":
           description: Not Implemented
-        "200":
-          content:
-            application/scim+json:
-              schema:
-                $ref: "#/components/schemas/ScimResource"
-          description: OK response
       tags:
       - SCIM-Users
       x-internal: true
@@ -12522,18 +11389,18 @@ paths:
               $ref: "#/components/schemas/SearchRequest"
         required: true
       responses:
-        "400":
-          description: Bad Request
-        "500":
-          description: Internal Server Error
-        "501":
-          description: Not Implemented
         "200":
           content:
             application/scim+json:
               schema:
                 $ref: "#/components/schemas/ScimResource"
           description: OK response
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+        "501":
+          description: Not Implemented
       tags:
       - SCIM-Users
       x-internal: true
@@ -12624,6 +11491,12 @@ paths:
           type: string
         style: simple
       responses:
+        "200":
+          content:
+            application/scim+json:
+              schema:
+                $ref: "#/components/schemas/ScimResource"
+          description: OK response
         "400":
           description: Bad Request
         "404":
@@ -12632,12 +11505,6 @@ paths:
           description: Internal Server Error
         "501":
           description: Not Implemented
-        "200":
-          content:
-            application/scim+json:
-              schema:
-                $ref: "#/components/schemas/ScimResource"
-          description: OK response
       tags:
       - SCIM-Users
       x-internal: true
@@ -12755,18 +11622,18 @@ paths:
               $ref: "#/components/schemas/ScimResource"
         required: true
       responses:
-        "400":
-          description: Bad Request
-        "500":
-          description: Internal Server Error
-        "501":
-          description: Not Implemented
         "200":
           content:
             application/scim+json:
               schema:
                 $ref: "#/components/schemas/ScimResource"
           description: OK response
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+        "501":
+          description: Not Implemented
       tags:
       - SCIM-Users
       x-internal: true
@@ -12985,14 +11852,14 @@ paths:
           type: string
         style: simple
       responses:
-        "404":
-          description: Invitation not found
         "200":
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/IAMInvitationController.ApiInvitationDetail"
           description: getInvitation 200 response
+        "404":
+          description: Invitation not found
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -13049,79 +11916,6 @@ paths:
             $ref: "#/components/schemas/QueryFilter"
           nullable: true
           type: array
-        style: form
-      - deprecated: true
-        description: A string filter
-        explode: false
-        in: query
-        name: q
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: A namespace filter prefix
-        explode: false
-        in: query
-        name: namespace
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: A flow id filter
-        explode: false
-        in: query
-        name: flowId
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: A trigger id filter
-        explode: false
-        in: query
-        name: triggerId
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: The min log level filter
-        explode: false
-        in: query
-        name: minLevel
-        required: false
-        schema:
-          allOf:
-          - $ref: "#/components/schemas/Level"
-          nullable: true
-        style: form
-      - deprecated: true
-        description: The start datetime
-        explode: true
-        in: query
-        name: startDate
-        required: false
-        schema:
-          format: date-time
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: The end datetime
-        explode: true
-        in: query
-        name: endDate
-        required: false
-        schema:
-          format: date-time
-          nullable: true
-          type: string
         style: form
       - explode: false
         in: path
@@ -15346,14 +14140,14 @@ paths:
           type: string
         style: simple
       responses:
-        "404":
-          description: Role not found
         "200":
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/IAMRoleController.ApiRoleDetail"
           description: getRole 200 response
+        "404":
+          description: Role not found
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -15394,10 +14188,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/IAMRoleController.ApiRoleDetail"
           description: Role successfully updated
-        "404":
-          description: Role not found
         "403":
           description: Insufficient privileges to update the role
+        "404":
+          description: Role not found
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -15671,10 +14465,10 @@ paths:
           type: string
         style: simple
       responses:
-        "404":
-          description: Service account
         "200":
           description: deleteServiceAccountForTenant 200 response
+        "404":
+          description: Service account
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -15703,14 +14497,14 @@ paths:
           type: string
         style: simple
       responses:
-        "404":
-          description: Service account not found
         "200":
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/IAMServiceAccountController.ApiServiceAccountResponse"
           description: getServiceAccountForTenant 200 response
+        "404":
+          description: Service account not found
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -15746,14 +14540,14 @@ paths:
         description: The user
         required: true
       responses:
-        "404":
-          description: "Service account, or group not found"
         "200":
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/IAMServiceAccountController.ApiServiceAccountResponse"
           description: updateServiceAccount 200 response
+        "404":
+          description: "Service account, or group not found"
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -15921,189 +14715,6 @@ paths:
       x-internal: true
       x-accepts:
       - application/octet-stream
-  /api/v1/{tenant}/taskruns/search:
-    get:
-      operationId: searchTaskRun
-      parameters:
-      - description: The current page
-        explode: false
-        in: query
-        name: page
-        required: true
-        schema:
-          default: 1
-          format: int32
-          minimum: 1
-          type: integer
-        style: form
-      - description: The current page size
-        explode: false
-        in: query
-        name: size
-        required: true
-        schema:
-          default: 10
-          format: int32
-          minimum: 1
-          type: integer
-        style: form
-      - description: The sort of current page
-        explode: false
-        in: query
-        name: sort
-        required: false
-        schema:
-          items:
-            type: string
-          nullable: true
-          type: array
-        style: form
-      - description: Filters
-        explode: false
-        in: query
-        name: filters
-        required: false
-        schema:
-          items:
-            $ref: "#/components/schemas/QueryFilter"
-          nullable: true
-          type: array
-        style: form
-      - deprecated: true
-        description: A string filter
-        explode: false
-        in: query
-        name: q
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: A namespace filter prefix
-        explode: false
-        in: query
-        name: namespace
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: A flow id filter
-        explode: false
-        in: query
-        name: flowId
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: The start datetime
-        explode: true
-        in: query
-        name: startDate
-        required: false
-        schema:
-          format: date-time
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: The end datetime
-        explode: true
-        in: query
-        name: endDate
-        required: false
-        schema:
-          format: date-time
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: A time range filter relative to the current time
-        examples:
-          Filter last 5 minutes:
-            value: PT5M
-          Filter last 24 hours:
-            value: P1D
-        explode: false
-        in: query
-        name: timeRange
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: A state filter
-        explode: false
-        in: query
-        name: state
-        required: false
-        schema:
-          items:
-            $ref: "#/components/schemas/State.Type"
-          nullable: true
-          type: array
-        style: form
-      - deprecated: true
-        description: A labels filter as a list of 'key:value'
-        explode: true
-        in: query
-        name: labels
-        required: false
-        schema:
-          items:
-            type: string
-          nullable: true
-          type: array
-        style: form
-      - deprecated: true
-        description: The trigger execution id
-        explode: false
-        in: query
-        name: triggerExecutionId
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: A execution child filter
-        explode: false
-        in: query
-        name: childFilter
-        required: false
-        schema:
-          allOf:
-          - $ref: "#/components/schemas/ExecutionRepositoryInterface.ChildFilter"
-          nullable: true
-        style: form
-      - explode: false
-        in: path
-        name: tenant
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/PagedResults_TaskRun_"
-          description: searchTaskRun 200 response
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      summary: "Search for taskruns, only available with the Elasticsearch repository"
-      tags:
-      - Executions
-      x-internal: false
-      x-accepts:
-      - application/json
   /api/v1/{tenant}/tenant-access:
     get:
       operationId: listTenantAccess
@@ -17420,46 +16031,6 @@ paths:
           nullable: true
           type: array
         style: form
-      - deprecated: true
-        description: A string filter
-        explode: false
-        in: query
-        name: q
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: A namespace filter prefix
-        explode: false
-        in: query
-        name: namespace
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: The identifier of the worker currently evaluating the trigger
-        explode: false
-        in: query
-        name: workerId
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
-      - deprecated: true
-        description: The flow identifier
-        explode: false
-        in: query
-        name: flowId
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
       - explode: false
         in: path
         name: tenant
@@ -17937,10 +16508,10 @@ paths:
       responses:
         "204":
           description: User's groups successfully updated
-        "404":
-          description: User or one of the groups not found
         "400":
           description: Invalid request payload
+        "404":
+          description: User or one of the groups not found
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -18045,14 +16616,6 @@ components:
       - AFTER_EXECUTION
       type: string
     AbstractMetricEntry_Object_:
-      example:
-        name: name
-        description: description
-        type: type
-        value: "{}"
-        tags:
-          key: tags
-        timestamp: 2000-01-23T04:56:07.000+00:00
       properties:
         type:
           type: string
@@ -18076,32 +16639,27 @@ components:
       type: object
     AbstractTrigger:
       example:
-        minLogLevel: ""
+        logLevel: null
         stopAfter:
         - CREATED
         - CREATED
         description: description
+        disabled: false
+        id: id
+        workerGroup:
+          fallback: FAIL
+          key: key
         type: type
+        conditions:
+        - type: type
+        - type: type
         logToFile: true
         version: version
         labels:
         - The_labels_to_pass_to_the_execution_created_
         - The_labels_to_pass_to_the_execution_created_
         failOnTriggerError: true
-        logLevel: null
-        disabled: false
-        id: id
-        workerGroup:
-          fallback: FAIL
-          key: key
-        conditions:
-        - type: type
-        - type: type
       properties:
-        minLogLevel:
-          allOf:
-          - $ref: "#/components/schemas/Level"
-          deprecated: true
         id:
           minLength: 1
           pattern: "^[a-zA-Z0-9][a-zA-Z0-9_-]*"
@@ -19436,28 +17994,12 @@ components:
             - date: 2000-01-23T04:56:07.000+00:00
               state: null
             startDate: 2000-01-23T04:56:07.000+00:00
-          items: items
           flowId: flowId
           value: value
           taskId: taskId
           attempts:
           - workerId: workerId
             logFile: https://openapi-generator.tech
-            metrics:
-            - name: name
-              description: description
-              type: type
-              value: "{}"
-              tags:
-                key: tags
-              timestamp: 2000-01-23T04:56:07.000+00:00
-            - name: name
-              description: description
-              type: type
-              value: "{}"
-              tags:
-                key: tags
-              timestamp: 2000-01-23T04:56:07.000+00:00
             state:
               duration: duration
               current: CREATED
@@ -19470,21 +18012,6 @@ components:
               startDate: 2000-01-23T04:56:07.000+00:00
           - workerId: workerId
             logFile: https://openapi-generator.tech
-            metrics:
-            - name: name
-              description: description
-              type: type
-              value: "{}"
-              tags:
-                key: tags
-              timestamp: 2000-01-23T04:56:07.000+00:00
-            - name: name
-              description: description
-              type: type
-              value: "{}"
-              tags:
-                key: tags
-              timestamp: 2000-01-23T04:56:07.000+00:00
             state:
               duration: duration
               current: CREATED
@@ -19514,28 +18041,12 @@ components:
             - date: 2000-01-23T04:56:07.000+00:00
               state: null
             startDate: 2000-01-23T04:56:07.000+00:00
-          items: items
           flowId: flowId
           value: value
           taskId: taskId
           attempts:
           - workerId: workerId
             logFile: https://openapi-generator.tech
-            metrics:
-            - name: name
-              description: description
-              type: type
-              value: "{}"
-              tags:
-                key: tags
-              timestamp: 2000-01-23T04:56:07.000+00:00
-            - name: name
-              description: description
-              type: type
-              value: "{}"
-              tags:
-                key: tags
-              timestamp: 2000-01-23T04:56:07.000+00:00
             state:
               duration: duration
               current: CREATED
@@ -19548,21 +18059,6 @@ components:
               startDate: 2000-01-23T04:56:07.000+00:00
           - workerId: workerId
             logFile: https://openapi-generator.tech
-            metrics:
-            - name: name
-              description: description
-              type: type
-              value: "{}"
-              tags:
-                key: tags
-              timestamp: 2000-01-23T04:56:07.000+00:00
-            - name: name
-              description: description
-              type: type
-              value: "{}"
-              tags:
-                key: tags
-              timestamp: 2000-01-23T04:56:07.000+00:00
             state:
               duration: duration
               current: CREATED
@@ -19690,40 +18186,6 @@ components:
       - state
       type: object
     ExecutionController.ApiValidateExecutionInputsResponse:
-      example:
-        inputs:
-        - input:
-            dependsOn: ""
-            defaults: ""
-            displayName: displayName
-            name: name
-            description: description
-            id: id
-            type: ""
-            required: true
-          isDefault: true
-          value: "{}"
-          enabled: true
-          errors:
-          - message: message
-          - message: message
-        - input:
-            dependsOn: ""
-            defaults: ""
-            displayName: displayName
-            name: name
-            description: description
-            id: id
-            type: ""
-            required: true
-          isDefault: true
-          value: "{}"
-          enabled: true
-          errors:
-          - message: message
-          - message: message
-        namespace: namespace
-        id: id
       properties:
         id:
           type: string
@@ -19735,22 +18197,6 @@ components:
           type: array
       type: object
     ExecutionController.ApiValidateExecutionInputsResponse.ApiInputAndValue:
-      example:
-        input:
-          dependsOn: ""
-          defaults: ""
-          displayName: displayName
-          name: name
-          description: description
-          id: id
-          type: ""
-          required: true
-        isDefault: true
-        value: "{}"
-        enabled: true
-        errors:
-        - message: message
-        - message: message
       properties:
         input:
           $ref: "#/components/schemas/Input_Object_"
@@ -19766,8 +18212,6 @@ components:
           type: array
       type: object
     ExecutionController.ApiValidateExecutionInputsResponse.ApiInputError:
-      example:
-        message: message
       properties:
         message:
           type: string
@@ -19832,28 +18276,12 @@ components:
             - date: 2000-01-23T04:56:07.000+00:00
               state: null
             startDate: 2000-01-23T04:56:07.000+00:00
-          items: items
           flowId: flowId
           value: value
           taskId: taskId
           attempts:
           - workerId: workerId
             logFile: https://openapi-generator.tech
-            metrics:
-            - name: name
-              description: description
-              type: type
-              value: "{}"
-              tags:
-                key: tags
-              timestamp: 2000-01-23T04:56:07.000+00:00
-            - name: name
-              description: description
-              type: type
-              value: "{}"
-              tags:
-                key: tags
-              timestamp: 2000-01-23T04:56:07.000+00:00
             state:
               duration: duration
               current: CREATED
@@ -19866,21 +18294,6 @@ components:
               startDate: 2000-01-23T04:56:07.000+00:00
           - workerId: workerId
             logFile: https://openapi-generator.tech
-            metrics:
-            - name: name
-              description: description
-              type: type
-              value: "{}"
-              tags:
-                key: tags
-              timestamp: 2000-01-23T04:56:07.000+00:00
-            - name: name
-              description: description
-              type: type
-              value: "{}"
-              tags:
-                key: tags
-              timestamp: 2000-01-23T04:56:07.000+00:00
             state:
               duration: duration
               current: CREATED
@@ -19910,28 +18323,12 @@ components:
             - date: 2000-01-23T04:56:07.000+00:00
               state: null
             startDate: 2000-01-23T04:56:07.000+00:00
-          items: items
           flowId: flowId
           value: value
           taskId: taskId
           attempts:
           - workerId: workerId
             logFile: https://openapi-generator.tech
-            metrics:
-            - name: name
-              description: description
-              type: type
-              value: "{}"
-              tags:
-                key: tags
-              timestamp: 2000-01-23T04:56:07.000+00:00
-            - name: name
-              description: description
-              type: type
-              value: "{}"
-              tags:
-                key: tags
-              timestamp: 2000-01-23T04:56:07.000+00:00
             state:
               duration: duration
               current: CREATED
@@ -19944,21 +18341,6 @@ components:
               startDate: 2000-01-23T04:56:07.000+00:00
           - workerId: workerId
             logFile: https://openapi-generator.tech
-            metrics:
-            - name: name
-              description: description
-              type: type
-              value: "{}"
-              tags:
-                key: tags
-              timestamp: 2000-01-23T04:56:07.000+00:00
-            - name: name
-              description: description
-              type: type
-              value: "{}"
-              tags:
-                key: tags
-              timestamp: 2000-01-23T04:56:07.000+00:00
             state:
               duration: duration
               current: CREATED
@@ -20299,11 +18681,6 @@ components:
             items:
               $ref: "#/components/schemas/Task"
             type: array
-          taskDefaults:
-            deprecated: true
-            items:
-              $ref: "#/components/schemas/PluginDefault"
-            type: array
           variables:
             $ref: "#/components/schemas/Flow_allOf_variables"
           tasks:
@@ -20315,11 +18692,6 @@ components:
           errors:
             items:
               $ref: "#/components/schemas/Task"
-            type: array
-          listeners:
-            deprecated: true
-            items:
-              $ref: "#/components/schemas/Listener"
             type: array
           afterExecution:
             items:
@@ -20365,102 +18737,10 @@ components:
           value: "{}"
           required: true
         variables: null
-        listeners:
-        - description: description
-          conditions:
-          - type: type
-          - type: type
-          tasks:
-          - taskCache:
-              ttl: ttl
-              enabled: true
-            description: description
-            type: type
-            logToFile: true
-            version: version
-            timeout:
-              expression: expression
-              value: value
-            allowWarning: true
-            allowFailure: true
-            logLevel: ERROR
-            runIf: runIf
-            disabled: true
-            id: id
-            workerGroup:
-              fallback: FAIL
-              key: key
-            retry: "{}"
-          - taskCache:
-              ttl: ttl
-              enabled: true
-            description: description
-            type: type
-            logToFile: true
-            version: version
-            timeout:
-              expression: expression
-              value: value
-            allowWarning: true
-            allowFailure: true
-            logLevel: ERROR
-            runIf: runIf
-            disabled: true
-            id: id
-            workerGroup:
-              fallback: FAIL
-              key: key
-            retry: "{}"
-        - description: description
-          conditions:
-          - type: type
-          - type: type
-          tasks:
-          - taskCache:
-              ttl: ttl
-              enabled: true
-            description: description
-            type: type
-            logToFile: true
-            version: version
-            timeout:
-              expression: expression
-              value: value
-            allowWarning: true
-            allowFailure: true
-            logLevel: ERROR
-            runIf: runIf
-            disabled: true
-            id: id
-            workerGroup:
-              fallback: FAIL
-              key: key
-            retry: "{}"
-          - taskCache:
-              ttl: ttl
-              enabled: true
-            description: description
-            type: type
-            logToFile: true
-            version: version
-            timeout:
-              expression: expression
-              value: value
-            allowWarning: true
-            allowFailure: true
-            logLevel: ERROR
-            runIf: runIf
-            disabled: true
-            id: id
-            workerGroup:
-              fallback: FAIL
-              key: key
-            retry: "{}"
         inputs:
         - dependsOn: ""
           defaults: ""
           displayName: displayName
-          name: name
           description: description
           id: id
           type: ""
@@ -20468,7 +18748,6 @@ components:
         - dependsOn: ""
           defaults: ""
           displayName: displayName
-          name: name
           description: description
           id: id
           type: ""
@@ -20570,48 +18849,46 @@ components:
             key: key
           retry: "{}"
         triggers:
-        - minLogLevel: ""
+        - logLevel: null
           stopAfter:
           - CREATED
           - CREATED
           description: description
+          disabled: false
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
           type: type
+          conditions:
+          - type: type
+          - type: type
           logToFile: true
           version: version
           labels:
           - The_labels_to_pass_to_the_execution_created_
           - The_labels_to_pass_to_the_execution_created_
           failOnTriggerError: true
-          logLevel: null
+        - logLevel: null
+          stopAfter:
+          - CREATED
+          - CREATED
+          description: description
           disabled: false
           id: id
           workerGroup:
             fallback: FAIL
             key: key
+          type: type
           conditions:
           - type: type
           - type: type
-        - minLogLevel: ""
-          stopAfter:
-          - CREATED
-          - CREATED
-          description: description
-          type: type
           logToFile: true
           version: version
           labels:
           - The_labels_to_pass_to_the_execution_created_
           - The_labels_to_pass_to_the_execution_created_
           failOnTriggerError: true
-          logLevel: null
-          disabled: false
-          id: id
-          workerGroup:
-            fallback: FAIL
-            key: key
-          conditions:
-          - type: type
-          - type: type
         pluginDefaults:
         - forced: true
           values: "{}"
@@ -20629,13 +18906,6 @@ components:
           limit: 1
           behavior: QUEUE
         deleted: true
-        taskDefaults:
-        - forced: true
-          values: "{}"
-          type: type
-        - forced: true
-          values: "{}"
-          type: type
         namespace: namespace
         disabled: true
         id: id
@@ -20820,7 +19090,6 @@ components:
         - dependsOn: ""
           defaults: ""
           displayName: displayName
-          name: name
           description: description
           id: id
           type: ""
@@ -20828,7 +19097,6 @@ components:
         - dependsOn: ""
           defaults: ""
           displayName: displayName
-          name: name
           description: description
           id: id
           type: ""
@@ -20838,7 +19106,6 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
-            name: name
             description: description
             id: id
             type: ""
@@ -20846,7 +19113,6 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
-            name: name
             description: description
             id: id
             type: ""
@@ -20865,7 +19131,6 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
-            name: name
             description: description
             id: id
             type: ""
@@ -20873,7 +19138,6 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
-            name: name
             description: description
             id: id
             type: ""
@@ -20894,7 +19158,6 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
-            name: name
             description: description
             id: id
             type: ""
@@ -20902,7 +19165,6 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
-            name: name
             description: description
             id: id
             type: ""
@@ -20921,7 +19183,6 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
-            name: name
             description: description
             id: id
             type: ""
@@ -20929,7 +19190,6 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
-            name: name
             description: description
             id: id
             type: ""
@@ -20969,7 +19229,6 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
-            name: name
             description: description
             id: id
             type: ""
@@ -20977,7 +19236,6 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
-            name: name
             description: description
             id: id
             type: ""
@@ -20996,7 +19254,6 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
-            name: name
             description: description
             id: id
             type: ""
@@ -21004,7 +19261,6 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
-            name: name
             description: description
             id: id
             type: ""
@@ -21024,7 +19280,6 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
-            name: name
             description: description
             id: id
             type: ""
@@ -21032,7 +19287,6 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
-            name: name
             description: description
             id: id
             type: ""
@@ -21051,7 +19305,6 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
-            name: name
             description: description
             id: id
             type: ""
@@ -21059,7 +19312,6 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
-            name: name
             description: description
             id: id
             type: ""
@@ -21275,7 +19527,6 @@ components:
         - dependsOn: ""
           defaults: ""
           displayName: displayName
-          name: name
           description: description
           id: id
           type: ""
@@ -21283,7 +19534,6 @@ components:
         - dependsOn: ""
           defaults: ""
           displayName: displayName
-          name: name
           description: description
           id: id
           type: ""
@@ -21478,102 +19728,10 @@ components:
           value: "{}"
           required: true
         variables: null
-        listeners:
-        - description: description
-          conditions:
-          - type: type
-          - type: type
-          tasks:
-          - taskCache:
-              ttl: ttl
-              enabled: true
-            description: description
-            type: type
-            logToFile: true
-            version: version
-            timeout:
-              expression: expression
-              value: value
-            allowWarning: true
-            allowFailure: true
-            logLevel: ERROR
-            runIf: runIf
-            disabled: true
-            id: id
-            workerGroup:
-              fallback: FAIL
-              key: key
-            retry: "{}"
-          - taskCache:
-              ttl: ttl
-              enabled: true
-            description: description
-            type: type
-            logToFile: true
-            version: version
-            timeout:
-              expression: expression
-              value: value
-            allowWarning: true
-            allowFailure: true
-            logLevel: ERROR
-            runIf: runIf
-            disabled: true
-            id: id
-            workerGroup:
-              fallback: FAIL
-              key: key
-            retry: "{}"
-        - description: description
-          conditions:
-          - type: type
-          - type: type
-          tasks:
-          - taskCache:
-              ttl: ttl
-              enabled: true
-            description: description
-            type: type
-            logToFile: true
-            version: version
-            timeout:
-              expression: expression
-              value: value
-            allowWarning: true
-            allowFailure: true
-            logLevel: ERROR
-            runIf: runIf
-            disabled: true
-            id: id
-            workerGroup:
-              fallback: FAIL
-              key: key
-            retry: "{}"
-          - taskCache:
-              ttl: ttl
-              enabled: true
-            description: description
-            type: type
-            logToFile: true
-            version: version
-            timeout:
-              expression: expression
-              value: value
-            allowWarning: true
-            allowFailure: true
-            logLevel: ERROR
-            runIf: runIf
-            disabled: true
-            id: id
-            workerGroup:
-              fallback: FAIL
-              key: key
-            retry: "{}"
         inputs:
         - dependsOn: ""
           defaults: ""
           displayName: displayName
-          name: name
           description: description
           id: id
           type: ""
@@ -21581,7 +19739,6 @@ components:
         - dependsOn: ""
           defaults: ""
           displayName: displayName
-          name: name
           description: description
           id: id
           type: ""
@@ -21683,48 +19840,46 @@ components:
             key: key
           retry: "{}"
         triggers:
-        - minLogLevel: ""
+        - logLevel: null
           stopAfter:
           - CREATED
           - CREATED
           description: description
+          disabled: false
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
           type: type
+          conditions:
+          - type: type
+          - type: type
           logToFile: true
           version: version
           labels:
           - The_labels_to_pass_to_the_execution_created_
           - The_labels_to_pass_to_the_execution_created_
           failOnTriggerError: true
-          logLevel: null
+        - logLevel: null
+          stopAfter:
+          - CREATED
+          - CREATED
+          description: description
           disabled: false
           id: id
           workerGroup:
             fallback: FAIL
             key: key
+          type: type
           conditions:
           - type: type
           - type: type
-        - minLogLevel: ""
-          stopAfter:
-          - CREATED
-          - CREATED
-          description: description
-          type: type
           logToFile: true
           version: version
           labels:
           - The_labels_to_pass_to_the_execution_created_
           - The_labels_to_pass_to_the_execution_created_
           failOnTriggerError: true
-          logLevel: null
-          disabled: false
-          id: id
-          workerGroup:
-            fallback: FAIL
-            key: key
-          conditions:
-          - type: type
-          - type: type
         pluginDefaults:
         - forced: true
           values: "{}"
@@ -21742,13 +19897,6 @@ components:
           limit: 1
           behavior: QUEUE
         deleted: true
-        taskDefaults:
-        - forced: true
-          values: "{}"
-          type: type
-        - forced: true
-          values: "{}"
-          type: type
         namespace: namespace
         disabled: true
         id: id
@@ -22617,15 +20765,11 @@ components:
         dependsOn: ""
         defaults: ""
         displayName: displayName
-        name: name
         description: description
         id: id
         type: ""
         required: true
       properties:
-        name:
-          deprecated: true
-          type: string
         id:
           minLength: 1
           pattern: "^[a-zA-Z0-9][.a-zA-Z0-9_-]*"
@@ -23034,52 +21178,6 @@ components:
       - TRACE
       type: string
     Listener:
-      example:
-        description: description
-        conditions:
-        - type: type
-        - type: type
-        tasks:
-        - taskCache:
-            ttl: ttl
-            enabled: true
-          description: description
-          type: type
-          logToFile: true
-          version: version
-          timeout:
-            expression: expression
-            value: value
-          allowWarning: true
-          allowFailure: true
-          logLevel: ERROR
-          runIf: runIf
-          disabled: true
-          id: id
-          workerGroup:
-            fallback: FAIL
-            key: key
-          retry: "{}"
-        - taskCache:
-            ttl: ttl
-            enabled: true
-          description: description
-          type: type
-          logToFile: true
-          version: version
-          timeout:
-            expression: expression
-            value: value
-          allowWarning: true
-          allowFailure: true
-          logLevel: ERROR
-          runIf: runIf
-          disabled: true
-          id: id
-          workerGroup:
-            fallback: FAIL
-            key: key
-          retry: "{}"
       properties:
         description:
           type: string
@@ -23497,11 +21595,6 @@ components:
         - namespace: namespace
         - namespace: namespace
         deleted: true
-        allowedTriggers:
-        - namespace: namespace
-          flowId: flowId
-        - namespace: namespace
-          flowId: flowId
         storageConfiguration:
           key: "{}"
         secretType: secretType
@@ -23517,11 +21610,6 @@ components:
           type: string
         deleted:
           type: boolean
-        allowedTriggers:
-          deprecated: true
-          items:
-            $ref: "#/components/schemas/Namespace.AllowedTrigger"
-          type: array
         storageIsolation:
           $ref: "#/components/schemas/Isolation"
         secretIsolation:
@@ -23573,9 +21661,6 @@ components:
       type: object
     Namespace.AllowedTrigger:
       deprecated: true
-      example:
-        namespace: namespace
-        flowId: flowId
       properties:
         namespace:
           type: string
@@ -23794,28 +21879,12 @@ components:
               - date: 2000-01-23T04:56:07.000+00:00
                 state: null
               startDate: 2000-01-23T04:56:07.000+00:00
-            items: items
             flowId: flowId
             value: value
             taskId: taskId
             attempts:
             - workerId: workerId
               logFile: https://openapi-generator.tech
-              metrics:
-              - name: name
-                description: description
-                type: type
-                value: "{}"
-                tags:
-                  key: tags
-                timestamp: 2000-01-23T04:56:07.000+00:00
-              - name: name
-                description: description
-                type: type
-                value: "{}"
-                tags:
-                  key: tags
-                timestamp: 2000-01-23T04:56:07.000+00:00
               state:
                 duration: duration
                 current: CREATED
@@ -23828,21 +21897,6 @@ components:
                 startDate: 2000-01-23T04:56:07.000+00:00
             - workerId: workerId
               logFile: https://openapi-generator.tech
-              metrics:
-              - name: name
-                description: description
-                type: type
-                value: "{}"
-                tags:
-                  key: tags
-                timestamp: 2000-01-23T04:56:07.000+00:00
-              - name: name
-                description: description
-                type: type
-                value: "{}"
-                tags:
-                  key: tags
-                timestamp: 2000-01-23T04:56:07.000+00:00
               state:
                 duration: duration
                 current: CREATED
@@ -23872,28 +21926,12 @@ components:
               - date: 2000-01-23T04:56:07.000+00:00
                 state: null
               startDate: 2000-01-23T04:56:07.000+00:00
-            items: items
             flowId: flowId
             value: value
             taskId: taskId
             attempts:
             - workerId: workerId
               logFile: https://openapi-generator.tech
-              metrics:
-              - name: name
-                description: description
-                type: type
-                value: "{}"
-                tags:
-                  key: tags
-                timestamp: 2000-01-23T04:56:07.000+00:00
-              - name: name
-                description: description
-                type: type
-                value: "{}"
-                tags:
-                  key: tags
-                timestamp: 2000-01-23T04:56:07.000+00:00
               state:
                 duration: duration
                 current: CREATED
@@ -23906,21 +21944,6 @@ components:
                 startDate: 2000-01-23T04:56:07.000+00:00
             - workerId: workerId
               logFile: https://openapi-generator.tech
-              metrics:
-              - name: name
-                description: description
-                type: type
-                value: "{}"
-                tags:
-                  key: tags
-                timestamp: 2000-01-23T04:56:07.000+00:00
-              - name: name
-                description: description
-                type: type
-                value: "{}"
-                tags:
-                  key: tags
-                timestamp: 2000-01-23T04:56:07.000+00:00
               state:
                 duration: duration
                 current: CREATED
@@ -24013,28 +22036,12 @@ components:
               - date: 2000-01-23T04:56:07.000+00:00
                 state: null
               startDate: 2000-01-23T04:56:07.000+00:00
-            items: items
             flowId: flowId
             value: value
             taskId: taskId
             attempts:
             - workerId: workerId
               logFile: https://openapi-generator.tech
-              metrics:
-              - name: name
-                description: description
-                type: type
-                value: "{}"
-                tags:
-                  key: tags
-                timestamp: 2000-01-23T04:56:07.000+00:00
-              - name: name
-                description: description
-                type: type
-                value: "{}"
-                tags:
-                  key: tags
-                timestamp: 2000-01-23T04:56:07.000+00:00
               state:
                 duration: duration
                 current: CREATED
@@ -24047,21 +22054,6 @@ components:
                 startDate: 2000-01-23T04:56:07.000+00:00
             - workerId: workerId
               logFile: https://openapi-generator.tech
-              metrics:
-              - name: name
-                description: description
-                type: type
-                value: "{}"
-                tags:
-                  key: tags
-                timestamp: 2000-01-23T04:56:07.000+00:00
-              - name: name
-                description: description
-                type: type
-                value: "{}"
-                tags:
-                  key: tags
-                timestamp: 2000-01-23T04:56:07.000+00:00
               state:
                 duration: duration
                 current: CREATED
@@ -24091,28 +22083,12 @@ components:
               - date: 2000-01-23T04:56:07.000+00:00
                 state: null
               startDate: 2000-01-23T04:56:07.000+00:00
-            items: items
             flowId: flowId
             value: value
             taskId: taskId
             attempts:
             - workerId: workerId
               logFile: https://openapi-generator.tech
-              metrics:
-              - name: name
-                description: description
-                type: type
-                value: "{}"
-                tags:
-                  key: tags
-                timestamp: 2000-01-23T04:56:07.000+00:00
-              - name: name
-                description: description
-                type: type
-                value: "{}"
-                tags:
-                  key: tags
-                timestamp: 2000-01-23T04:56:07.000+00:00
               state:
                 duration: duration
                 current: CREATED
@@ -24125,21 +22101,6 @@ components:
                 startDate: 2000-01-23T04:56:07.000+00:00
             - workerId: workerId
               logFile: https://openapi-generator.tech
-              metrics:
-              - name: name
-                description: description
-                type: type
-                value: "{}"
-                tags:
-                  key: tags
-                timestamp: 2000-01-23T04:56:07.000+00:00
-              - name: name
-                description: description
-                type: type
-                value: "{}"
-                tags:
-                  key: tags
-                timestamp: 2000-01-23T04:56:07.000+00:00
               state:
                 duration: duration
                 current: CREATED
@@ -24226,102 +22187,10 @@ components:
             value: "{}"
             required: true
           variables: null
-          listeners:
-          - description: description
-            conditions:
-            - type: type
-            - type: type
-            tasks:
-            - taskCache:
-                ttl: ttl
-                enabled: true
-              description: description
-              type: type
-              logToFile: true
-              version: version
-              timeout:
-                expression: expression
-                value: value
-              allowWarning: true
-              allowFailure: true
-              logLevel: ERROR
-              runIf: runIf
-              disabled: true
-              id: id
-              workerGroup:
-                fallback: FAIL
-                key: key
-              retry: "{}"
-            - taskCache:
-                ttl: ttl
-                enabled: true
-              description: description
-              type: type
-              logToFile: true
-              version: version
-              timeout:
-                expression: expression
-                value: value
-              allowWarning: true
-              allowFailure: true
-              logLevel: ERROR
-              runIf: runIf
-              disabled: true
-              id: id
-              workerGroup:
-                fallback: FAIL
-                key: key
-              retry: "{}"
-          - description: description
-            conditions:
-            - type: type
-            - type: type
-            tasks:
-            - taskCache:
-                ttl: ttl
-                enabled: true
-              description: description
-              type: type
-              logToFile: true
-              version: version
-              timeout:
-                expression: expression
-                value: value
-              allowWarning: true
-              allowFailure: true
-              logLevel: ERROR
-              runIf: runIf
-              disabled: true
-              id: id
-              workerGroup:
-                fallback: FAIL
-                key: key
-              retry: "{}"
-            - taskCache:
-                ttl: ttl
-                enabled: true
-              description: description
-              type: type
-              logToFile: true
-              version: version
-              timeout:
-                expression: expression
-                value: value
-              allowWarning: true
-              allowFailure: true
-              logLevel: ERROR
-              runIf: runIf
-              disabled: true
-              id: id
-              workerGroup:
-                fallback: FAIL
-                key: key
-              retry: "{}"
           inputs:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
-            name: name
             description: description
             id: id
             type: ""
@@ -24329,7 +22198,6 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
-            name: name
             description: description
             id: id
             type: ""
@@ -24431,48 +22299,46 @@ components:
               key: key
             retry: "{}"
           triggers:
-          - minLogLevel: ""
+          - logLevel: null
             stopAfter:
             - CREATED
             - CREATED
             description: description
+            disabled: false
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
             type: type
+            conditions:
+            - type: type
+            - type: type
             logToFile: true
             version: version
             labels:
             - The_labels_to_pass_to_the_execution_created_
             - The_labels_to_pass_to_the_execution_created_
             failOnTriggerError: true
-            logLevel: null
+          - logLevel: null
+            stopAfter:
+            - CREATED
+            - CREATED
+            description: description
             disabled: false
             id: id
             workerGroup:
               fallback: FAIL
               key: key
+            type: type
             conditions:
             - type: type
             - type: type
-          - minLogLevel: ""
-            stopAfter:
-            - CREATED
-            - CREATED
-            description: description
-            type: type
             logToFile: true
             version: version
             labels:
             - The_labels_to_pass_to_the_execution_created_
             - The_labels_to_pass_to_the_execution_created_
             failOnTriggerError: true
-            logLevel: null
-            disabled: false
-            id: id
-            workerGroup:
-              fallback: FAIL
-              key: key
-            conditions:
-            - type: type
-            - type: type
           pluginDefaults:
           - forced: true
             values: "{}"
@@ -24490,13 +22356,6 @@ components:
             limit: 1
             behavior: QUEUE
           deleted: true
-          taskDefaults:
-          - forced: true
-            values: "{}"
-            type: type
-          - forced: true
-            values: "{}"
-            type: type
           namespace: namespace
           disabled: true
           id: id
@@ -24600,102 +22459,10 @@ components:
             value: "{}"
             required: true
           variables: null
-          listeners:
-          - description: description
-            conditions:
-            - type: type
-            - type: type
-            tasks:
-            - taskCache:
-                ttl: ttl
-                enabled: true
-              description: description
-              type: type
-              logToFile: true
-              version: version
-              timeout:
-                expression: expression
-                value: value
-              allowWarning: true
-              allowFailure: true
-              logLevel: ERROR
-              runIf: runIf
-              disabled: true
-              id: id
-              workerGroup:
-                fallback: FAIL
-                key: key
-              retry: "{}"
-            - taskCache:
-                ttl: ttl
-                enabled: true
-              description: description
-              type: type
-              logToFile: true
-              version: version
-              timeout:
-                expression: expression
-                value: value
-              allowWarning: true
-              allowFailure: true
-              logLevel: ERROR
-              runIf: runIf
-              disabled: true
-              id: id
-              workerGroup:
-                fallback: FAIL
-                key: key
-              retry: "{}"
-          - description: description
-            conditions:
-            - type: type
-            - type: type
-            tasks:
-            - taskCache:
-                ttl: ttl
-                enabled: true
-              description: description
-              type: type
-              logToFile: true
-              version: version
-              timeout:
-                expression: expression
-                value: value
-              allowWarning: true
-              allowFailure: true
-              logLevel: ERROR
-              runIf: runIf
-              disabled: true
-              id: id
-              workerGroup:
-                fallback: FAIL
-                key: key
-              retry: "{}"
-            - taskCache:
-                ttl: ttl
-                enabled: true
-              description: description
-              type: type
-              logToFile: true
-              version: version
-              timeout:
-                expression: expression
-                value: value
-              allowWarning: true
-              allowFailure: true
-              logLevel: ERROR
-              runIf: runIf
-              disabled: true
-              id: id
-              workerGroup:
-                fallback: FAIL
-                key: key
-              retry: "{}"
           inputs:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
-            name: name
             description: description
             id: id
             type: ""
@@ -24703,7 +22470,6 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
-            name: name
             description: description
             id: id
             type: ""
@@ -24805,48 +22571,46 @@ components:
               key: key
             retry: "{}"
           triggers:
-          - minLogLevel: ""
+          - logLevel: null
             stopAfter:
             - CREATED
             - CREATED
             description: description
+            disabled: false
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
             type: type
+            conditions:
+            - type: type
+            - type: type
             logToFile: true
             version: version
             labels:
             - The_labels_to_pass_to_the_execution_created_
             - The_labels_to_pass_to_the_execution_created_
             failOnTriggerError: true
-            logLevel: null
+          - logLevel: null
+            stopAfter:
+            - CREATED
+            - CREATED
+            description: description
             disabled: false
             id: id
             workerGroup:
               fallback: FAIL
               key: key
+            type: type
             conditions:
             - type: type
             - type: type
-          - minLogLevel: ""
-            stopAfter:
-            - CREATED
-            - CREATED
-            description: description
-            type: type
             logToFile: true
             version: version
             labels:
             - The_labels_to_pass_to_the_execution_created_
             - The_labels_to_pass_to_the_execution_created_
             failOnTriggerError: true
-            logLevel: null
-            disabled: false
-            id: id
-            workerGroup:
-              fallback: FAIL
-              key: key
-            conditions:
-            - type: type
-            - type: type
           pluginDefaults:
           - forced: true
             values: "{}"
@@ -24864,13 +22628,6 @@ components:
             limit: 1
             behavior: QUEUE
           deleted: true
-          taskDefaults:
-          - forced: true
-            values: "{}"
-            type: type
-          - forced: true
-            values: "{}"
-            type: type
           namespace: namespace
           disabled: true
           id: id
@@ -25231,11 +22988,6 @@ components:
           - namespace: namespace
           - namespace: namespace
           deleted: true
-          allowedTriggers:
-          - namespace: namespace
-            flowId: flowId
-          - namespace: namespace
-            flowId: flowId
           storageConfiguration:
             key: "{}"
           secretType: secretType
@@ -25272,11 +23024,6 @@ components:
           - namespace: namespace
           - namespace: namespace
           deleted: true
-          allowedTriggers:
-          - namespace: namespace
-            flowId: flowId
-          - namespace: namespace
-            flowId: flowId
           storageConfiguration:
             key: "{}"
           secretType: secretType
@@ -25317,102 +23064,10 @@ components:
               value: "{}"
               required: true
             variables: null
-            listeners:
-            - description: description
-              conditions:
-              - type: type
-              - type: type
-              tasks:
-              - taskCache:
-                  ttl: ttl
-                  enabled: true
-                description: description
-                type: type
-                logToFile: true
-                version: version
-                timeout:
-                  expression: expression
-                  value: value
-                allowWarning: true
-                allowFailure: true
-                logLevel: ERROR
-                runIf: runIf
-                disabled: true
-                id: id
-                workerGroup:
-                  fallback: FAIL
-                  key: key
-                retry: "{}"
-              - taskCache:
-                  ttl: ttl
-                  enabled: true
-                description: description
-                type: type
-                logToFile: true
-                version: version
-                timeout:
-                  expression: expression
-                  value: value
-                allowWarning: true
-                allowFailure: true
-                logLevel: ERROR
-                runIf: runIf
-                disabled: true
-                id: id
-                workerGroup:
-                  fallback: FAIL
-                  key: key
-                retry: "{}"
-            - description: description
-              conditions:
-              - type: type
-              - type: type
-              tasks:
-              - taskCache:
-                  ttl: ttl
-                  enabled: true
-                description: description
-                type: type
-                logToFile: true
-                version: version
-                timeout:
-                  expression: expression
-                  value: value
-                allowWarning: true
-                allowFailure: true
-                logLevel: ERROR
-                runIf: runIf
-                disabled: true
-                id: id
-                workerGroup:
-                  fallback: FAIL
-                  key: key
-                retry: "{}"
-              - taskCache:
-                  ttl: ttl
-                  enabled: true
-                description: description
-                type: type
-                logToFile: true
-                version: version
-                timeout:
-                  expression: expression
-                  value: value
-                allowWarning: true
-                allowFailure: true
-                logLevel: ERROR
-                runIf: runIf
-                disabled: true
-                id: id
-                workerGroup:
-                  fallback: FAIL
-                  key: key
-                retry: "{}"
             inputs:
             - dependsOn: ""
               defaults: ""
               displayName: displayName
-              name: name
               description: description
               id: id
               type: ""
@@ -25420,7 +23075,6 @@ components:
             - dependsOn: ""
               defaults: ""
               displayName: displayName
-              name: name
               description: description
               id: id
               type: ""
@@ -25522,48 +23176,46 @@ components:
                 key: key
               retry: "{}"
             triggers:
-            - minLogLevel: ""
+            - logLevel: null
               stopAfter:
               - CREATED
               - CREATED
               description: description
+              disabled: false
+              id: id
+              workerGroup:
+                fallback: FAIL
+                key: key
               type: type
+              conditions:
+              - type: type
+              - type: type
               logToFile: true
               version: version
               labels:
               - The_labels_to_pass_to_the_execution_created_
               - The_labels_to_pass_to_the_execution_created_
               failOnTriggerError: true
-              logLevel: null
+            - logLevel: null
+              stopAfter:
+              - CREATED
+              - CREATED
+              description: description
               disabled: false
               id: id
               workerGroup:
                 fallback: FAIL
                 key: key
+              type: type
               conditions:
               - type: type
               - type: type
-            - minLogLevel: ""
-              stopAfter:
-              - CREATED
-              - CREATED
-              description: description
-              type: type
               logToFile: true
               version: version
               labels:
               - The_labels_to_pass_to_the_execution_created_
               - The_labels_to_pass_to_the_execution_created_
               failOnTriggerError: true
-              logLevel: null
-              disabled: false
-              id: id
-              workerGroup:
-                fallback: FAIL
-                key: key
-              conditions:
-              - type: type
-              - type: type
             pluginDefaults:
             - forced: true
               values: "{}"
@@ -25581,13 +23233,6 @@ components:
               limit: 1
               behavior: QUEUE
             deleted: true
-            taskDefaults:
-            - forced: true
-              values: "{}"
-              type: type
-            - forced: true
-              values: "{}"
-              type: type
             namespace: namespace
             disabled: true
             id: id
@@ -25695,102 +23340,10 @@ components:
               value: "{}"
               required: true
             variables: null
-            listeners:
-            - description: description
-              conditions:
-              - type: type
-              - type: type
-              tasks:
-              - taskCache:
-                  ttl: ttl
-                  enabled: true
-                description: description
-                type: type
-                logToFile: true
-                version: version
-                timeout:
-                  expression: expression
-                  value: value
-                allowWarning: true
-                allowFailure: true
-                logLevel: ERROR
-                runIf: runIf
-                disabled: true
-                id: id
-                workerGroup:
-                  fallback: FAIL
-                  key: key
-                retry: "{}"
-              - taskCache:
-                  ttl: ttl
-                  enabled: true
-                description: description
-                type: type
-                logToFile: true
-                version: version
-                timeout:
-                  expression: expression
-                  value: value
-                allowWarning: true
-                allowFailure: true
-                logLevel: ERROR
-                runIf: runIf
-                disabled: true
-                id: id
-                workerGroup:
-                  fallback: FAIL
-                  key: key
-                retry: "{}"
-            - description: description
-              conditions:
-              - type: type
-              - type: type
-              tasks:
-              - taskCache:
-                  ttl: ttl
-                  enabled: true
-                description: description
-                type: type
-                logToFile: true
-                version: version
-                timeout:
-                  expression: expression
-                  value: value
-                allowWarning: true
-                allowFailure: true
-                logLevel: ERROR
-                runIf: runIf
-                disabled: true
-                id: id
-                workerGroup:
-                  fallback: FAIL
-                  key: key
-                retry: "{}"
-              - taskCache:
-                  ttl: ttl
-                  enabled: true
-                description: description
-                type: type
-                logToFile: true
-                version: version
-                timeout:
-                  expression: expression
-                  value: value
-                allowWarning: true
-                allowFailure: true
-                logLevel: ERROR
-                runIf: runIf
-                disabled: true
-                id: id
-                workerGroup:
-                  fallback: FAIL
-                  key: key
-                retry: "{}"
             inputs:
             - dependsOn: ""
               defaults: ""
               displayName: displayName
-              name: name
               description: description
               id: id
               type: ""
@@ -25798,7 +23351,6 @@ components:
             - dependsOn: ""
               defaults: ""
               displayName: displayName
-              name: name
               description: description
               id: id
               type: ""
@@ -25900,48 +23452,46 @@ components:
                 key: key
               retry: "{}"
             triggers:
-            - minLogLevel: ""
+            - logLevel: null
               stopAfter:
               - CREATED
               - CREATED
               description: description
+              disabled: false
+              id: id
+              workerGroup:
+                fallback: FAIL
+                key: key
               type: type
+              conditions:
+              - type: type
+              - type: type
               logToFile: true
               version: version
               labels:
               - The_labels_to_pass_to_the_execution_created_
               - The_labels_to_pass_to_the_execution_created_
               failOnTriggerError: true
-              logLevel: null
+            - logLevel: null
+              stopAfter:
+              - CREATED
+              - CREATED
+              description: description
               disabled: false
               id: id
               workerGroup:
                 fallback: FAIL
                 key: key
+              type: type
               conditions:
               - type: type
               - type: type
-            - minLogLevel: ""
-              stopAfter:
-              - CREATED
-              - CREATED
-              description: description
-              type: type
               logToFile: true
               version: version
               labels:
               - The_labels_to_pass_to_the_execution_created_
               - The_labels_to_pass_to_the_execution_created_
               failOnTriggerError: true
-              logLevel: null
-              disabled: false
-              id: id
-              workerGroup:
-                fallback: FAIL
-                key: key
-              conditions:
-              - type: type
-              - type: type
             pluginDefaults:
             - forced: true
               values: "{}"
@@ -25959,13 +23509,6 @@ components:
               limit: 1
               behavior: QUEUE
             deleted: true
-            taskDefaults:
-            - forced: true
-              values: "{}"
-              type: type
-            - forced: true
-              values: "{}"
-              type: type
             namespace: namespace
             disabled: true
             id: id
@@ -26071,165 +23614,6 @@ components:
       - total
       type: object
     PagedResults_TaskRun_:
-      example:
-        total: 0
-        results:
-        - outputs:
-            key: "{}"
-          parentTaskRunId: parentTaskRunId
-          executionId: executionId
-          forceExecution: true
-          namespace: namespace
-          iteration: 6
-          dynamic: true
-          id: id
-          state:
-            duration: duration
-            current: CREATED
-            endDate: 2000-01-23T04:56:07.000+00:00
-            histories:
-            - date: 2000-01-23T04:56:07.000+00:00
-              state: null
-            - date: 2000-01-23T04:56:07.000+00:00
-              state: null
-            startDate: 2000-01-23T04:56:07.000+00:00
-          items: items
-          flowId: flowId
-          value: value
-          taskId: taskId
-          attempts:
-          - workerId: workerId
-            logFile: https://openapi-generator.tech
-            metrics:
-            - name: name
-              description: description
-              type: type
-              value: "{}"
-              tags:
-                key: tags
-              timestamp: 2000-01-23T04:56:07.000+00:00
-            - name: name
-              description: description
-              type: type
-              value: "{}"
-              tags:
-                key: tags
-              timestamp: 2000-01-23T04:56:07.000+00:00
-            state:
-              duration: duration
-              current: CREATED
-              endDate: 2000-01-23T04:56:07.000+00:00
-              histories:
-              - date: 2000-01-23T04:56:07.000+00:00
-                state: null
-              - date: 2000-01-23T04:56:07.000+00:00
-                state: null
-              startDate: 2000-01-23T04:56:07.000+00:00
-          - workerId: workerId
-            logFile: https://openapi-generator.tech
-            metrics:
-            - name: name
-              description: description
-              type: type
-              value: "{}"
-              tags:
-                key: tags
-              timestamp: 2000-01-23T04:56:07.000+00:00
-            - name: name
-              description: description
-              type: type
-              value: "{}"
-              tags:
-                key: tags
-              timestamp: 2000-01-23T04:56:07.000+00:00
-            state:
-              duration: duration
-              current: CREATED
-              endDate: 2000-01-23T04:56:07.000+00:00
-              histories:
-              - date: 2000-01-23T04:56:07.000+00:00
-                state: null
-              - date: 2000-01-23T04:56:07.000+00:00
-                state: null
-              startDate: 2000-01-23T04:56:07.000+00:00
-        - outputs:
-            key: "{}"
-          parentTaskRunId: parentTaskRunId
-          executionId: executionId
-          forceExecution: true
-          namespace: namespace
-          iteration: 6
-          dynamic: true
-          id: id
-          state:
-            duration: duration
-            current: CREATED
-            endDate: 2000-01-23T04:56:07.000+00:00
-            histories:
-            - date: 2000-01-23T04:56:07.000+00:00
-              state: null
-            - date: 2000-01-23T04:56:07.000+00:00
-              state: null
-            startDate: 2000-01-23T04:56:07.000+00:00
-          items: items
-          flowId: flowId
-          value: value
-          taskId: taskId
-          attempts:
-          - workerId: workerId
-            logFile: https://openapi-generator.tech
-            metrics:
-            - name: name
-              description: description
-              type: type
-              value: "{}"
-              tags:
-                key: tags
-              timestamp: 2000-01-23T04:56:07.000+00:00
-            - name: name
-              description: description
-              type: type
-              value: "{}"
-              tags:
-                key: tags
-              timestamp: 2000-01-23T04:56:07.000+00:00
-            state:
-              duration: duration
-              current: CREATED
-              endDate: 2000-01-23T04:56:07.000+00:00
-              histories:
-              - date: 2000-01-23T04:56:07.000+00:00
-                state: null
-              - date: 2000-01-23T04:56:07.000+00:00
-                state: null
-              startDate: 2000-01-23T04:56:07.000+00:00
-          - workerId: workerId
-            logFile: https://openapi-generator.tech
-            metrics:
-            - name: name
-              description: description
-              type: type
-              value: "{}"
-              tags:
-                key: tags
-              timestamp: 2000-01-23T04:56:07.000+00:00
-            - name: name
-              description: description
-              type: type
-              value: "{}"
-              tags:
-                key: tags
-              timestamp: 2000-01-23T04:56:07.000+00:00
-            state:
-              duration: duration
-              current: CREATED
-              endDate: 2000-01-23T04:56:07.000+00:00
-              histories:
-              - date: 2000-01-23T04:56:07.000+00:00
-                state: null
-              - date: 2000-01-23T04:56:07.000+00:00
-                state: null
-              startDate: 2000-01-23T04:56:07.000+00:00
       properties:
         results:
           items:
@@ -26302,27 +23686,26 @@ components:
             disabled: false
             flowId: flowId
           abstractTrigger:
-            minLogLevel: ""
+            logLevel: null
             stopAfter:
             - CREATED
             - CREATED
             description: description
+            disabled: false
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
             type: type
+            conditions:
+            - type: type
+            - type: type
             logToFile: true
             version: version
             labels:
             - The_labels_to_pass_to_the_execution_created_
             - The_labels_to_pass_to_the_execution_created_
             failOnTriggerError: true
-            logLevel: null
-            disabled: false
-            id: id
-            workerGroup:
-              fallback: FAIL
-              key: key
-            conditions:
-            - type: type
-            - type: type
         - triggerContext:
             date: 2000-01-23T04:56:07.000+00:00
             workerId: workerId
@@ -26340,27 +23723,26 @@ components:
             disabled: false
             flowId: flowId
           abstractTrigger:
-            minLogLevel: ""
+            logLevel: null
             stopAfter:
             - CREATED
             - CREATED
             description: description
+            disabled: false
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
             type: type
+            conditions:
+            - type: type
+            - type: type
             logToFile: true
             version: version
             labels:
             - The_labels_to_pass_to_the_execution_created_
             - The_labels_to_pass_to_the_execution_created_
             failOnTriggerError: true
-            logLevel: null
-            disabled: false
-            id: id
-            workerGroup:
-              fallback: FAIL
-              key: key
-            conditions:
-            - type: type
-            - type: type
       properties:
         results:
           items:
@@ -27277,102 +24659,10 @@ components:
             value: "{}"
             required: true
           variables: null
-          listeners:
-          - description: description
-            conditions:
-            - type: type
-            - type: type
-            tasks:
-            - taskCache:
-                ttl: ttl
-                enabled: true
-              description: description
-              type: type
-              logToFile: true
-              version: version
-              timeout:
-                expression: expression
-                value: value
-              allowWarning: true
-              allowFailure: true
-              logLevel: ERROR
-              runIf: runIf
-              disabled: true
-              id: id
-              workerGroup:
-                fallback: FAIL
-                key: key
-              retry: "{}"
-            - taskCache:
-                ttl: ttl
-                enabled: true
-              description: description
-              type: type
-              logToFile: true
-              version: version
-              timeout:
-                expression: expression
-                value: value
-              allowWarning: true
-              allowFailure: true
-              logLevel: ERROR
-              runIf: runIf
-              disabled: true
-              id: id
-              workerGroup:
-                fallback: FAIL
-                key: key
-              retry: "{}"
-          - description: description
-            conditions:
-            - type: type
-            - type: type
-            tasks:
-            - taskCache:
-                ttl: ttl
-                enabled: true
-              description: description
-              type: type
-              logToFile: true
-              version: version
-              timeout:
-                expression: expression
-                value: value
-              allowWarning: true
-              allowFailure: true
-              logLevel: ERROR
-              runIf: runIf
-              disabled: true
-              id: id
-              workerGroup:
-                fallback: FAIL
-                key: key
-              retry: "{}"
-            - taskCache:
-                ttl: ttl
-                enabled: true
-              description: description
-              type: type
-              logToFile: true
-              version: version
-              timeout:
-                expression: expression
-                value: value
-              allowWarning: true
-              allowFailure: true
-              logLevel: ERROR
-              runIf: runIf
-              disabled: true
-              id: id
-              workerGroup:
-                fallback: FAIL
-                key: key
-              retry: "{}"
           inputs:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
-            name: name
             description: description
             id: id
             type: ""
@@ -27380,7 +24670,6 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
-            name: name
             description: description
             id: id
             type: ""
@@ -27482,48 +24771,46 @@ components:
               key: key
             retry: "{}"
           triggers:
-          - minLogLevel: ""
+          - logLevel: null
             stopAfter:
             - CREATED
             - CREATED
             description: description
+            disabled: false
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
             type: type
+            conditions:
+            - type: type
+            - type: type
             logToFile: true
             version: version
             labels:
             - The_labels_to_pass_to_the_execution_created_
             - The_labels_to_pass_to_the_execution_created_
             failOnTriggerError: true
-            logLevel: null
+          - logLevel: null
+            stopAfter:
+            - CREATED
+            - CREATED
+            description: description
             disabled: false
             id: id
             workerGroup:
               fallback: FAIL
               key: key
+            type: type
             conditions:
             - type: type
             - type: type
-          - minLogLevel: ""
-            stopAfter:
-            - CREATED
-            - CREATED
-            description: description
-            type: type
             logToFile: true
             version: version
             labels:
             - The_labels_to_pass_to_the_execution_created_
             - The_labels_to_pass_to_the_execution_created_
             failOnTriggerError: true
-            logLevel: null
-            disabled: false
-            id: id
-            workerGroup:
-              fallback: FAIL
-              key: key
-            conditions:
-            - type: type
-            - type: type
           pluginDefaults:
           - forced: true
             values: "{}"
@@ -27541,13 +24828,6 @@ components:
             limit: 1
             behavior: QUEUE
           deleted: true
-          taskDefaults:
-          - forced: true
-            values: "{}"
-            type: type
-          - forced: true
-            values: "{}"
-            type: type
           namespace: namespace
           disabled: true
           id: id
@@ -28056,7 +25336,6 @@ components:
         - dependsOn: ""
           defaults: ""
           displayName: displayName
-          name: name
           description: description
           id: id
           type: ""
@@ -28064,7 +25343,6 @@ components:
         - dependsOn: ""
           defaults: ""
           displayName: displayName
-          name: name
           description: description
           id: id
           type: ""
@@ -28128,28 +25406,12 @@ components:
           - date: 2000-01-23T04:56:07.000+00:00
             state: null
           startDate: 2000-01-23T04:56:07.000+00:00
-        items: items
         flowId: flowId
         value: value
         taskId: taskId
         attempts:
         - workerId: workerId
           logFile: https://openapi-generator.tech
-          metrics:
-          - name: name
-            description: description
-            type: type
-            value: "{}"
-            tags:
-              key: tags
-            timestamp: 2000-01-23T04:56:07.000+00:00
-          - name: name
-            description: description
-            type: type
-            value: "{}"
-            tags:
-              key: tags
-            timestamp: 2000-01-23T04:56:07.000+00:00
           state:
             duration: duration
             current: CREATED
@@ -28162,21 +25424,6 @@ components:
             startDate: 2000-01-23T04:56:07.000+00:00
         - workerId: workerId
           logFile: https://openapi-generator.tech
-          metrics:
-          - name: name
-            description: description
-            type: type
-            value: "{}"
-            tags:
-              key: tags
-            timestamp: 2000-01-23T04:56:07.000+00:00
-          - name: name
-            description: description
-            type: type
-            value: "{}"
-            tags:
-              key: tags
-            timestamp: 2000-01-23T04:56:07.000+00:00
           state:
             duration: duration
             current: CREATED
@@ -28188,9 +25435,6 @@ components:
               state: null
             startDate: 2000-01-23T04:56:07.000+00:00
       properties:
-        items:
-          deprecated: true
-          type: string
         id:
           type: string
         executionId:
@@ -28235,21 +25479,6 @@ components:
       example:
         workerId: workerId
         logFile: https://openapi-generator.tech
-        metrics:
-        - name: name
-          description: description
-          type: type
-          value: "{}"
-          tags:
-            key: tags
-          timestamp: 2000-01-23T04:56:07.000+00:00
-        - name: name
-          description: description
-          type: type
-          value: "{}"
-          tags:
-            key: tags
-          timestamp: 2000-01-23T04:56:07.000+00:00
         state:
           duration: duration
           current: CREATED
@@ -28261,11 +25490,6 @@ components:
             state: null
           startDate: 2000-01-23T04:56:07.000+00:00
       properties:
-        metrics:
-          deprecated: true
-          items:
-            $ref: "#/components/schemas/AbstractMetricEntry_Object_"
-          type: array
         state:
           $ref: "#/components/schemas/State"
         workerId:
@@ -28586,27 +25810,26 @@ components:
           disabled: false
           flowId: flowId
         abstractTrigger:
-          minLogLevel: ""
+          logLevel: null
           stopAfter:
           - CREATED
           - CREATED
           description: description
+          disabled: false
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
           type: type
+          conditions:
+          - type: type
+          - type: type
           logToFile: true
           version: version
           labels:
           - The_labels_to_pass_to_the_execution_created_
           - The_labels_to_pass_to_the_execution_created_
           failOnTriggerError: true
-          logLevel: null
-          disabled: false
-          id: id
-          workerGroup:
-            fallback: FAIL
-            key: key
-          conditions:
-          - type: type
-          - type: type
       properties:
         abstractTrigger:
           $ref: "#/components/schemas/AbstractTrigger"
@@ -28884,18 +26107,6 @@ components:
           nullable: true
           type: array
       type: object
-    updateFlowsInNamespaceFromJson_200_response:
-      oneOf:
-      - items:
-          $ref: "#/components/schemas/Flow"
-        type: array
-      - items:
-          $ref: "#/components/schemas/FlowInterface"
-        type: array
-    updateFlow_200_response:
-      oneOf:
-      - $ref: "#/components/schemas/FlowWithSource"
-      - $ref: "#/components/schemas/Flow"
     createNamespaceFile_request:
       properties:
         fileContent:

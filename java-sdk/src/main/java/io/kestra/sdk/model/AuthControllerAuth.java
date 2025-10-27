@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -40,20 +39,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AuthControllerAuth {
   public static final String JSON_PROPERTY_LOGIN_PASSWORD = "loginPassword";
-  @javax.annotation.Nullable
-  private Boolean loginPassword;
+  @javax.annotation.Nullable  private Boolean loginPassword;
 
   public static final String JSON_PROPERTY_MAILS_ENABLED = "mailsEnabled";
-  @javax.annotation.Nullable
-  private Boolean mailsEnabled;
+  @javax.annotation.Nullable  private Boolean mailsEnabled;
 
   public static final String JSON_PROPERTY_PASSWORDLESS = "passwordless";
-  @javax.annotation.Nullable
-  private Boolean passwordless;
+  @javax.annotation.Nullable  private Boolean passwordless;
 
   public static final String JSON_PROPERTY_OAUTHS = "oauths";
-  @javax.annotation.Nullable
-  private List<String> oauths = new ArrayList<>();
+  @javax.annotation.Nullable  private List<String> oauths = new ArrayList<>();
 
   public AuthControllerAuth() {
   }
@@ -68,8 +63,7 @@ public class AuthControllerAuth {
    * Get loginPassword
    * @return loginPassword
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_LOGIN_PASSWORD, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LOGIN_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getLoginPassword() {
@@ -77,7 +71,7 @@ public class AuthControllerAuth {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_LOGIN_PASSWORD, required = false)
+  @JsonProperty(JSON_PROPERTY_LOGIN_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLoginPassword(@javax.annotation.Nullable Boolean loginPassword) {
     this.loginPassword = loginPassword;
@@ -93,8 +87,7 @@ public class AuthControllerAuth {
    * Get mailsEnabled
    * @return mailsEnabled
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_MAILS_ENABLED, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MAILS_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getMailsEnabled() {
@@ -102,7 +95,7 @@ public class AuthControllerAuth {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_MAILS_ENABLED, required = false)
+  @JsonProperty(JSON_PROPERTY_MAILS_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMailsEnabled(@javax.annotation.Nullable Boolean mailsEnabled) {
     this.mailsEnabled = mailsEnabled;
@@ -118,8 +111,7 @@ public class AuthControllerAuth {
    * Get passwordless
    * @return passwordless
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_PASSWORDLESS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PASSWORDLESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getPasswordless() {
@@ -127,7 +119,7 @@ public class AuthControllerAuth {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_PASSWORDLESS, required = false)
+  @JsonProperty(JSON_PROPERTY_PASSWORDLESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPasswordless(@javax.annotation.Nullable Boolean passwordless) {
     this.passwordless = passwordless;
@@ -151,8 +143,7 @@ public class AuthControllerAuth {
    * Get oauths
    * @return oauths
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_OAUTHS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OAUTHS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getOauths() {
@@ -160,7 +151,7 @@ public class AuthControllerAuth {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_OAUTHS, required = false)
+  @JsonProperty(JSON_PROPERTY_OAUTHS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOauths(@javax.annotation.Nullable List<String> oauths) {
     this.oauths = oauths;

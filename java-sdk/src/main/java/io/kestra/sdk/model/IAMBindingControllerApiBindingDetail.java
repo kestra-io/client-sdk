@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -47,28 +46,22 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMBindingControllerApiBindingDetail {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
-  private String id;
+  @javax.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nullable
-  private BindingType type;
+  @javax.annotation.Nullable  private BindingType type;
 
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nullable
-  private JsonNullable<String> namespace = JsonNullable.<String>undefined();
+  @javax.annotation.Nullable  private JsonNullable<String> namespace = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_ROLE = "role";
-  @javax.annotation.Nullable
-  private IAMBindingControllerApiRole role;
+  @javax.annotation.Nullable  private IAMBindingControllerApiRole role;
 
   public static final String JSON_PROPERTY_GROUP = "group";
-  @javax.annotation.Nullable
-  private JsonNullable<IAMBindingControllerApiBindingGroup> group = JsonNullable.<IAMBindingControllerApiBindingGroup>undefined();
+  @javax.annotation.Nullable  private JsonNullable<IAMBindingControllerApiBindingGroup> group = JsonNullable.<IAMBindingControllerApiBindingGroup>undefined();
 
   public static final String JSON_PROPERTY_USER = "user";
-  @javax.annotation.Nullable
-  private JsonNullable<IAMBindingControllerApiBindingUser> user = JsonNullable.<IAMBindingControllerApiBindingUser>undefined();
+  @javax.annotation.Nullable  private JsonNullable<IAMBindingControllerApiBindingUser> user = JsonNullable.<IAMBindingControllerApiBindingUser>undefined();
 
   public IAMBindingControllerApiBindingDetail() {
   }
@@ -83,8 +76,7 @@ public class IAMBindingControllerApiBindingDetail {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -92,7 +84,7 @@ public class IAMBindingControllerApiBindingDetail {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable String id) {
     this.id = id;
@@ -108,8 +100,7 @@ public class IAMBindingControllerApiBindingDetail {
    * Get type
    * @return type
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public BindingType getType() {
@@ -117,7 +108,7 @@ public class IAMBindingControllerApiBindingDetail {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
+  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setType(@javax.annotation.Nullable BindingType type) {
     this.type = type;
@@ -133,21 +124,19 @@ public class IAMBindingControllerApiBindingDetail {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public String getNamespace() {
         return namespace.orElse(null);
   }
 
-  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = false)
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<String> getNamespace_JsonNullable() {
     return namespace;
   }
   
-  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = false)
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   public void setNamespace_JsonNullable(JsonNullable<String> namespace) {
     this.namespace = namespace;
   }
@@ -166,8 +155,7 @@ public class IAMBindingControllerApiBindingDetail {
    * Get role
    * @return role
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ROLE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ROLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public IAMBindingControllerApiRole getRole() {
@@ -175,7 +163,7 @@ public class IAMBindingControllerApiBindingDetail {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ROLE, required = false)
+  @JsonProperty(JSON_PROPERTY_ROLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRole(@javax.annotation.Nullable IAMBindingControllerApiRole role) {
     this.role = role;
@@ -191,21 +179,19 @@ public class IAMBindingControllerApiBindingDetail {
    * Get group
    * @return group
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public IAMBindingControllerApiBindingGroup getGroup() {
         return group.orElse(null);
   }
 
-  @JsonProperty(value = JSON_PROPERTY_GROUP, required = false)
+  @JsonProperty(JSON_PROPERTY_GROUP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<IAMBindingControllerApiBindingGroup> getGroup_JsonNullable() {
     return group;
   }
   
-  @JsonProperty(value = JSON_PROPERTY_GROUP, required = false)
+  @JsonProperty(JSON_PROPERTY_GROUP)
   public void setGroup_JsonNullable(JsonNullable<IAMBindingControllerApiBindingGroup> group) {
     this.group = group;
   }
@@ -224,21 +210,19 @@ public class IAMBindingControllerApiBindingDetail {
    * Get user
    * @return user
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public IAMBindingControllerApiBindingUser getUser() {
         return user.orElse(null);
   }
 
-  @JsonProperty(value = JSON_PROPERTY_USER, required = false)
+  @JsonProperty(JSON_PROPERTY_USER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<IAMBindingControllerApiBindingUser> getUser_JsonNullable() {
     return user;
   }
   
-  @JsonProperty(value = JSON_PROPERTY_USER, required = false)
+  @JsonProperty(JSON_PROPERTY_USER)
   public void setUser_JsonNullable(JsonNullable<IAMBindingControllerApiBindingUser> user) {
     this.user = user;
   }

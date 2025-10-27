@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -42,40 +41,31 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ApiToken {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
-  private String id;
+  @javax.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nullable
-  private String name;
+  @javax.annotation.Nullable  private String name;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
-  private String description;
+  @javax.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_PREFIX = "prefix";
-  @javax.annotation.Nullable
-  private String prefix;
+  @javax.annotation.Nullable  private String prefix;
 
   public static final String JSON_PROPERTY_IAT = "iat";
-  @javax.annotation.Nullable
-  private OffsetDateTime iat;
+  @javax.annotation.Nullable  private OffsetDateTime iat;
 
   public static final String JSON_PROPERTY_EXP = "exp";
-  @javax.annotation.Nullable
-  private OffsetDateTime exp;
+  @javax.annotation.Nullable  private OffsetDateTime exp;
 
   public static final String JSON_PROPERTY_LAST_USED = "lastUsed";
-  @javax.annotation.Nullable
-  private OffsetDateTime lastUsed;
+  @javax.annotation.Nullable  private OffsetDateTime lastUsed;
 
   public static final String JSON_PROPERTY_EXTENDED = "extended";
-  @javax.annotation.Nullable
-  private Boolean extended;
+  @javax.annotation.Nullable  private Boolean extended;
 
   public static final String JSON_PROPERTY_EXPIRED = "expired";
-  @javax.annotation.Nullable
-  private Boolean expired;
+  @javax.annotation.Nullable  private Boolean expired;
 
   public ApiToken() {
   }
@@ -90,8 +80,7 @@ public class ApiToken {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -99,7 +88,7 @@ public class ApiToken {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable String id) {
     this.id = id;
@@ -115,8 +104,7 @@ public class ApiToken {
    * Get name
    * @return name
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_NAME, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
@@ -124,7 +112,7 @@ public class ApiToken {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_NAME, required = false)
+  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setName(@javax.annotation.Nullable String name) {
     this.name = name;
@@ -140,8 +128,7 @@ public class ApiToken {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -149,7 +136,7 @@ public class ApiToken {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
@@ -165,8 +152,7 @@ public class ApiToken {
    * Get prefix
    * @return prefix
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_PREFIX, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PREFIX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getPrefix() {
@@ -174,7 +160,7 @@ public class ApiToken {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_PREFIX, required = false)
+  @JsonProperty(JSON_PROPERTY_PREFIX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPrefix(@javax.annotation.Nullable String prefix) {
     this.prefix = prefix;
@@ -190,8 +176,7 @@ public class ApiToken {
    * Get iat
    * @return iat
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_IAT, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IAT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getIat() {
@@ -199,7 +184,7 @@ public class ApiToken {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_IAT, required = false)
+  @JsonProperty(JSON_PROPERTY_IAT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIat(@javax.annotation.Nullable OffsetDateTime iat) {
     this.iat = iat;
@@ -215,8 +200,7 @@ public class ApiToken {
    * Get exp
    * @return exp
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_EXP, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getExp() {
@@ -224,7 +208,7 @@ public class ApiToken {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_EXP, required = false)
+  @JsonProperty(JSON_PROPERTY_EXP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExp(@javax.annotation.Nullable OffsetDateTime exp) {
     this.exp = exp;
@@ -240,8 +224,7 @@ public class ApiToken {
    * Get lastUsed
    * @return lastUsed
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_LAST_USED, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LAST_USED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getLastUsed() {
@@ -249,7 +232,7 @@ public class ApiToken {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_LAST_USED, required = false)
+  @JsonProperty(JSON_PROPERTY_LAST_USED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLastUsed(@javax.annotation.Nullable OffsetDateTime lastUsed) {
     this.lastUsed = lastUsed;
@@ -265,8 +248,7 @@ public class ApiToken {
    * Get extended
    * @return extended
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_EXTENDED, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXTENDED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getExtended() {
@@ -274,7 +256,7 @@ public class ApiToken {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_EXTENDED, required = false)
+  @JsonProperty(JSON_PROPERTY_EXTENDED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExtended(@javax.annotation.Nullable Boolean extended) {
     this.extended = extended;
@@ -290,8 +272,7 @@ public class ApiToken {
    * Get expired
    * @return expired
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_EXPIRED, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXPIRED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getExpired() {
@@ -299,7 +280,7 @@ public class ApiToken {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_EXPIRED, required = false)
+  @JsonProperty(JSON_PROPERTY_EXPIRED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExpired(@javax.annotation.Nullable Boolean expired) {
     this.expired = expired;

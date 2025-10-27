@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
-import java.util.Map;
 
 public class BasicSDKUsageExample {
     private static final Logger logger = LoggerFactory.getLogger(BasicSDKUsageExample.class);
@@ -19,7 +18,7 @@ public class BasicSDKUsageExample {
 
     public static List<Flow> listFlows() {
         try {
-            var flows = kestraClient.flows().searchFlows(1, 50, MAIN_TENANT, null, null, null, null, null, null, Map.of());
+            var flows = kestraClient.flows().searchFlows(1, 50, MAIN_TENANT, null, List.of());
             logger.debug("{}", flows);
             return flows.getResults();
         } catch (

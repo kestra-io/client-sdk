@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -37,16 +36,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PluginSchema {
   public static final String JSON_PROPERTY_PROPERTIES = "properties";
-  @javax.annotation.Nullable
-  private Map<String, Object> properties = new HashMap<>();
+  @javax.annotation.Nullable  private Map<String, Object> properties = new HashMap<>();
 
   public static final String JSON_PROPERTY_OUTPUTS = "outputs";
-  @javax.annotation.Nullable
-  private Map<String, Object> outputs = new HashMap<>();
+  @javax.annotation.Nullable  private Map<String, Object> outputs = new HashMap<>();
 
   public static final String JSON_PROPERTY_DEFINITIONS = "definitions";
-  @javax.annotation.Nullable
-  private Map<String, Object> definitions = new HashMap<>();
+  @javax.annotation.Nullable  private Map<String, Object> definitions = new HashMap<>();
 
   public PluginSchema() {
   }
@@ -69,8 +65,7 @@ public class PluginSchema {
    * Get properties
    * @return properties
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_PROPERTIES, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PROPERTIES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getProperties() {
@@ -78,7 +73,7 @@ public class PluginSchema {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_PROPERTIES, required = false)
+  @JsonProperty(JSON_PROPERTY_PROPERTIES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setProperties(@javax.annotation.Nullable Map<String, Object> properties) {
     this.properties = properties;
@@ -102,8 +97,7 @@ public class PluginSchema {
    * Get outputs
    * @return outputs
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_OUTPUTS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getOutputs() {
@@ -111,7 +105,7 @@ public class PluginSchema {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_OUTPUTS, required = false)
+  @JsonProperty(JSON_PROPERTY_OUTPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOutputs(@javax.annotation.Nullable Map<String, Object> outputs) {
     this.outputs = outputs;
@@ -135,8 +129,7 @@ public class PluginSchema {
    * Get definitions
    * @return definitions
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DEFINITIONS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DEFINITIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getDefinitions() {
@@ -144,7 +137,7 @@ public class PluginSchema {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DEFINITIONS, required = false)
+  @JsonProperty(JSON_PROPERTY_DEFINITIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDefinitions(@javax.annotation.Nullable Map<String, Object> definitions) {
     this.definitions = definitions;

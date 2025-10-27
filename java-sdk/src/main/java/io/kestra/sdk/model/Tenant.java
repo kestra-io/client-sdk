@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -49,56 +48,43 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Tenant {
   public static final String JSON_PROPERTY_STORAGE_ISOLATION = "storageIsolation";
-  @javax.annotation.Nullable
-  private Isolation storageIsolation;
+  @javax.annotation.Nullable  private Isolation storageIsolation;
 
   public static final String JSON_PROPERTY_SECRET_ISOLATION = "secretIsolation";
-  @javax.annotation.Nullable
-  private Isolation secretIsolation;
+  @javax.annotation.Nullable  private Isolation secretIsolation;
 
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
-  private String id;
+  @javax.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nonnull
-  private String name;
+  @javax.annotation.Nonnull  private String name;
 
   public static final String JSON_PROPERTY_DELETED = "deleted";
-  @javax.annotation.Nonnull
-  private Boolean deleted;
+  @javax.annotation.Nonnull  private Boolean deleted;
 
   public static final String JSON_PROPERTY_WORKER_GROUP = "workerGroup";
-  @javax.annotation.Nullable
-  private WorkerGroup workerGroup;
+  @javax.annotation.Nullable  private WorkerGroup workerGroup;
 
   public static final String JSON_PROPERTY_STORAGE_TYPE = "storageType";
-  @javax.annotation.Nullable
-  private String storageType;
+  @javax.annotation.Nullable  private String storageType;
 
   public static final String JSON_PROPERTY_STORAGE_CONFIGURATION = "storageConfiguration";
-  @javax.annotation.Nullable
-  private Map<String, Object> storageConfiguration = new HashMap<>();
+  @javax.annotation.Nullable  private Map<String, Object> storageConfiguration = new HashMap<>();
 
   public static final String JSON_PROPERTY_SECRET_TYPE = "secretType";
-  @javax.annotation.Nullable
-  private String secretType;
+  @javax.annotation.Nullable  private String secretType;
 
   public static final String JSON_PROPERTY_SECRET_READ_ONLY = "secretReadOnly";
-  @javax.annotation.Nullable
-  private Boolean secretReadOnly;
+  @javax.annotation.Nullable  private Boolean secretReadOnly;
 
   public static final String JSON_PROPERTY_SECRET_CONFIGURATION = "secretConfiguration";
-  @javax.annotation.Nullable
-  private Map<String, Object> secretConfiguration = new HashMap<>();
+  @javax.annotation.Nullable  private Map<String, Object> secretConfiguration = new HashMap<>();
 
   public static final String JSON_PROPERTY_REQUIRE_EXISTING_NAMESPACE = "requireExistingNamespace";
-  @javax.annotation.Nullable
-  private Boolean requireExistingNamespace;
+  @javax.annotation.Nullable  private Boolean requireExistingNamespace;
 
   public static final String JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE = "outputsInInternalStorage";
-  @javax.annotation.Nullable
-  private Boolean outputsInInternalStorage;
+  @javax.annotation.Nullable  private Boolean outputsInInternalStorage;
 
   public Tenant() {
   }
@@ -113,8 +99,7 @@ public class Tenant {
    * Get storageIsolation
    * @return storageIsolation
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_STORAGE_ISOLATION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STORAGE_ISOLATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Isolation getStorageIsolation() {
@@ -122,7 +107,7 @@ public class Tenant {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_STORAGE_ISOLATION, required = false)
+  @JsonProperty(JSON_PROPERTY_STORAGE_ISOLATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStorageIsolation(@javax.annotation.Nullable Isolation storageIsolation) {
     this.storageIsolation = storageIsolation;
@@ -138,8 +123,7 @@ public class Tenant {
    * Get secretIsolation
    * @return secretIsolation
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_SECRET_ISOLATION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRET_ISOLATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Isolation getSecretIsolation() {
@@ -147,7 +131,7 @@ public class Tenant {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_SECRET_ISOLATION, required = false)
+  @JsonProperty(JSON_PROPERTY_SECRET_ISOLATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSecretIsolation(@javax.annotation.Nullable Isolation secretIsolation) {
     this.secretIsolation = secretIsolation;
@@ -163,8 +147,7 @@ public class Tenant {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -172,7 +155,7 @@ public class Tenant {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setId(@javax.annotation.Nonnull String id) {
     this.id = id;
@@ -188,8 +171,7 @@ public class Tenant {
    * Get name
    * @return name
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_NAME, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getName() {
@@ -197,7 +179,7 @@ public class Tenant {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_NAME, required = true)
+  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setName(@javax.annotation.Nonnull String name) {
     this.name = name;
@@ -213,8 +195,7 @@ public class Tenant {
    * Get deleted
    * @return deleted
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_DELETED, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getDeleted() {
@@ -222,7 +203,7 @@ public class Tenant {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DELETED, required = true)
+  @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDeleted(@javax.annotation.Nonnull Boolean deleted) {
     this.deleted = deleted;
@@ -238,8 +219,7 @@ public class Tenant {
    * Get workerGroup
    * @return workerGroup
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_WORKER_GROUP, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public WorkerGroup getWorkerGroup() {
@@ -247,7 +227,7 @@ public class Tenant {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_WORKER_GROUP, required = false)
+  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWorkerGroup(@javax.annotation.Nullable WorkerGroup workerGroup) {
     this.workerGroup = workerGroup;
@@ -263,8 +243,7 @@ public class Tenant {
    * Get storageType
    * @return storageType
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_STORAGE_TYPE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STORAGE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getStorageType() {
@@ -272,7 +251,7 @@ public class Tenant {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_STORAGE_TYPE, required = false)
+  @JsonProperty(JSON_PROPERTY_STORAGE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStorageType(@javax.annotation.Nullable String storageType) {
     this.storageType = storageType;
@@ -296,8 +275,7 @@ public class Tenant {
    * Get storageConfiguration
    * @return storageConfiguration
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_STORAGE_CONFIGURATION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STORAGE_CONFIGURATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getStorageConfiguration() {
@@ -305,7 +283,7 @@ public class Tenant {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_STORAGE_CONFIGURATION, required = false)
+  @JsonProperty(JSON_PROPERTY_STORAGE_CONFIGURATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStorageConfiguration(@javax.annotation.Nullable Map<String, Object> storageConfiguration) {
     this.storageConfiguration = storageConfiguration;
@@ -321,8 +299,7 @@ public class Tenant {
    * Get secretType
    * @return secretType
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_SECRET_TYPE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRET_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSecretType() {
@@ -330,7 +307,7 @@ public class Tenant {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_SECRET_TYPE, required = false)
+  @JsonProperty(JSON_PROPERTY_SECRET_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSecretType(@javax.annotation.Nullable String secretType) {
     this.secretType = secretType;
@@ -346,8 +323,7 @@ public class Tenant {
    * Get secretReadOnly
    * @return secretReadOnly
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_SECRET_READ_ONLY, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRET_READ_ONLY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getSecretReadOnly() {
@@ -355,7 +331,7 @@ public class Tenant {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_SECRET_READ_ONLY, required = false)
+  @JsonProperty(JSON_PROPERTY_SECRET_READ_ONLY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSecretReadOnly(@javax.annotation.Nullable Boolean secretReadOnly) {
     this.secretReadOnly = secretReadOnly;
@@ -379,8 +355,7 @@ public class Tenant {
    * Get secretConfiguration
    * @return secretConfiguration
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_SECRET_CONFIGURATION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRET_CONFIGURATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getSecretConfiguration() {
@@ -388,7 +363,7 @@ public class Tenant {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_SECRET_CONFIGURATION, required = false)
+  @JsonProperty(JSON_PROPERTY_SECRET_CONFIGURATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSecretConfiguration(@javax.annotation.Nullable Map<String, Object> secretConfiguration) {
     this.secretConfiguration = secretConfiguration;
@@ -404,8 +379,7 @@ public class Tenant {
    * Get requireExistingNamespace
    * @return requireExistingNamespace
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_REQUIRE_EXISTING_NAMESPACE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REQUIRE_EXISTING_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getRequireExistingNamespace() {
@@ -413,7 +387,7 @@ public class Tenant {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_REQUIRE_EXISTING_NAMESPACE, required = false)
+  @JsonProperty(JSON_PROPERTY_REQUIRE_EXISTING_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRequireExistingNamespace(@javax.annotation.Nullable Boolean requireExistingNamespace) {
     this.requireExistingNamespace = requireExistingNamespace;
@@ -429,8 +403,7 @@ public class Tenant {
    * Get outputsInInternalStorage
    * @return outputsInInternalStorage
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getOutputsInInternalStorage() {
@@ -438,7 +411,7 @@ public class Tenant {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE, required = false)
+  @JsonProperty(JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOutputsInInternalStorage(@javax.annotation.Nullable Boolean outputsInInternalStorage) {
     this.outputsInInternalStorage = outputsInInternalStorage;

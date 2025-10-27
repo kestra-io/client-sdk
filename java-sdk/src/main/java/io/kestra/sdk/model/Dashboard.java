@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -42,24 +41,19 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Dashboard {
   public static final String JSON_PROPERTY_TITLE = "title";
-  @javax.annotation.Nonnull
-  private String title;
+  @javax.annotation.Nonnull  private String title;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
-  private String description;
+  @javax.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_TIME_WINDOW = "timeWindow";
-  @javax.annotation.Nullable
-  private TimeWindow timeWindow;
+  @javax.annotation.Nullable  private TimeWindow timeWindow;
 
   public static final String JSON_PROPERTY_CHARTS = "charts";
-  @javax.annotation.Nullable
-  private List<ChartChartOption> charts = new ArrayList<>();
+  @javax.annotation.Nullable  private List<ChartChartOption> charts = new ArrayList<>();
 
   public static final String JSON_PROPERTY_SOURCE_CODE = "sourceCode";
-  @javax.annotation.Nullable
-  private String sourceCode;
+  @javax.annotation.Nullable  private String sourceCode;
 
   public Dashboard() {
   }
@@ -74,8 +68,7 @@ public class Dashboard {
    * Get title
    * @return title
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_TITLE, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TITLE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getTitle() {
@@ -83,7 +76,7 @@ public class Dashboard {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TITLE, required = true)
+  @JsonProperty(JSON_PROPERTY_TITLE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTitle(@javax.annotation.Nonnull String title) {
     this.title = title;
@@ -99,8 +92,7 @@ public class Dashboard {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -108,7 +100,7 @@ public class Dashboard {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
@@ -124,8 +116,7 @@ public class Dashboard {
    * Get timeWindow
    * @return timeWindow
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TIME_WINDOW, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TIME_WINDOW)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public TimeWindow getTimeWindow() {
@@ -133,7 +124,7 @@ public class Dashboard {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TIME_WINDOW, required = false)
+  @JsonProperty(JSON_PROPERTY_TIME_WINDOW)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTimeWindow(@javax.annotation.Nullable TimeWindow timeWindow) {
     this.timeWindow = timeWindow;
@@ -157,8 +148,7 @@ public class Dashboard {
    * Get charts
    * @return charts
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_CHARTS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CHARTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<ChartChartOption> getCharts() {
@@ -166,7 +156,7 @@ public class Dashboard {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_CHARTS, required = false)
+  @JsonProperty(JSON_PROPERTY_CHARTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCharts(@javax.annotation.Nullable List<ChartChartOption> charts) {
     this.charts = charts;
@@ -182,8 +172,7 @@ public class Dashboard {
    * Get sourceCode
    * @return sourceCode
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_SOURCE_CODE, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SOURCE_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSourceCode() {
@@ -191,7 +180,7 @@ public class Dashboard {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_SOURCE_CODE, required = false)
+  @JsonProperty(JSON_PROPERTY_SOURCE_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSourceCode(@javax.annotation.Nullable String sourceCode) {
     this.sourceCode = sourceCode;

@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -35,12 +34,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ConvertibleMultiValuesString {
   public static final String JSON_PROPERTY_CONVERSION_SERVICE = "conversionService";
-  @javax.annotation.Nonnull
-  private Object conversionService;
+  @javax.annotation.Nonnull  private Object conversionService;
 
   public static final String JSON_PROPERTY_EMPTY = "empty";
-  @javax.annotation.Nullable
-  private Boolean empty;
+  @javax.annotation.Nullable  private Boolean empty;
 
   public ConvertibleMultiValuesString() {
   }
@@ -55,8 +52,7 @@ public class ConvertibleMultiValuesString {
    * Get conversionService
    * @return conversionService
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_CONVERSION_SERVICE, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_CONVERSION_SERVICE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Object getConversionService() {
@@ -64,7 +60,7 @@ public class ConvertibleMultiValuesString {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_CONVERSION_SERVICE, required = true)
+  @JsonProperty(JSON_PROPERTY_CONVERSION_SERVICE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setConversionService(@javax.annotation.Nonnull Object conversionService) {
     this.conversionService = conversionService;
@@ -80,8 +76,7 @@ public class ConvertibleMultiValuesString {
    * Get empty
    * @return empty
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_EMPTY, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EMPTY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getEmpty() {
@@ -89,7 +84,7 @@ public class ConvertibleMultiValuesString {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_EMPTY, required = false)
+  @JsonProperty(JSON_PROPERTY_EMPTY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEmpty(@javax.annotation.Nullable Boolean empty) {
     this.empty = empty;

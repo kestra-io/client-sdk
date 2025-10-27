@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -37,8 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMUserGroupControllerApiUpdateUserGroupsRequest {
   public static final String JSON_PROPERTY_GROUP_IDS = "groupIds";
-  @javax.annotation.Nullable
-  private List<String> groupIds = new ArrayList<>();
+  @javax.annotation.Nullable  private List<String> groupIds = new ArrayList<>();
 
   public IAMUserGroupControllerApiUpdateUserGroupsRequest() {
   }
@@ -61,8 +59,7 @@ public class IAMUserGroupControllerApiUpdateUserGroupsRequest {
    * Get groupIds
    * @return groupIds
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_GROUP_IDS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUP_IDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getGroupIds() {
@@ -70,7 +67,7 @@ public class IAMUserGroupControllerApiUpdateUserGroupsRequest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_GROUP_IDS, required = false)
+  @JsonProperty(JSON_PROPERTY_GROUP_IDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setGroupIds(@javax.annotation.Nullable List<String> groupIds) {
     this.groupIds = groupIds;

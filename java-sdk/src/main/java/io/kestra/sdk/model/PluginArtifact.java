@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -39,28 +38,22 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PluginArtifact {
   public static final String JSON_PROPERTY_GROUP_ID = "groupId";
-  @javax.annotation.Nullable
-  private String groupId;
+  @javax.annotation.Nullable  private String groupId;
 
   public static final String JSON_PROPERTY_ARTIFACT_ID = "artifactId";
-  @javax.annotation.Nullable
-  private String artifactId;
+  @javax.annotation.Nullable  private String artifactId;
 
   public static final String JSON_PROPERTY_EXTENSION = "extension";
-  @javax.annotation.Nullable
-  private String extension;
+  @javax.annotation.Nullable  private String extension;
 
   public static final String JSON_PROPERTY_CLASSIFIER = "classifier";
-  @javax.annotation.Nullable
-  private String classifier;
+  @javax.annotation.Nullable  private String classifier;
 
   public static final String JSON_PROPERTY_VERSION = "version";
-  @javax.annotation.Nullable
-  private String version;
+  @javax.annotation.Nullable  private String version;
 
   public static final String JSON_PROPERTY_URI = "uri";
-  @javax.annotation.Nullable
-  private URI uri;
+  @javax.annotation.Nullable  private URI uri;
 
   public PluginArtifact() {
   }
@@ -75,8 +68,7 @@ public class PluginArtifact {
    * Get groupId
    * @return groupId
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_GROUP_ID, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUP_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getGroupId() {
@@ -84,7 +76,7 @@ public class PluginArtifact {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_GROUP_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_GROUP_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setGroupId(@javax.annotation.Nullable String groupId) {
     this.groupId = groupId;
@@ -100,8 +92,7 @@ public class PluginArtifact {
    * Get artifactId
    * @return artifactId
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ARTIFACT_ID, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ARTIFACT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getArtifactId() {
@@ -109,7 +100,7 @@ public class PluginArtifact {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ARTIFACT_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ARTIFACT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setArtifactId(@javax.annotation.Nullable String artifactId) {
     this.artifactId = artifactId;
@@ -125,8 +116,7 @@ public class PluginArtifact {
    * Get extension
    * @return extension
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_EXTENSION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXTENSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getExtension() {
@@ -134,7 +124,7 @@ public class PluginArtifact {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_EXTENSION, required = false)
+  @JsonProperty(JSON_PROPERTY_EXTENSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExtension(@javax.annotation.Nullable String extension) {
     this.extension = extension;
@@ -150,8 +140,7 @@ public class PluginArtifact {
    * Get classifier
    * @return classifier
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_CLASSIFIER, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CLASSIFIER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getClassifier() {
@@ -159,7 +148,7 @@ public class PluginArtifact {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_CLASSIFIER, required = false)
+  @JsonProperty(JSON_PROPERTY_CLASSIFIER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setClassifier(@javax.annotation.Nullable String classifier) {
     this.classifier = classifier;
@@ -175,8 +164,7 @@ public class PluginArtifact {
    * Get version
    * @return version
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_VERSION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getVersion() {
@@ -184,7 +172,7 @@ public class PluginArtifact {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_VERSION, required = false)
+  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVersion(@javax.annotation.Nullable String version) {
     this.version = version;
@@ -200,8 +188,7 @@ public class PluginArtifact {
    * Get uri
    * @return uri
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_URI, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_URI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public URI getUri() {
@@ -209,7 +196,7 @@ public class PluginArtifact {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_URI, required = false)
+  @JsonProperty(JSON_PROPERTY_URI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUri(@javax.annotation.Nullable URI uri) {
     this.uri = uri;

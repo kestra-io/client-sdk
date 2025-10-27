@@ -32,12 +32,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.StringJoiner;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
-public class TriggersApi extends BaseApi {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")public class TriggersApi extends BaseApi {
 
   public TriggersApi() {
     super(Configuration.getDefaultApiClient());
@@ -129,6 +127,11 @@ public class TriggersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Delete backfill for given triggers
    * 
@@ -210,6 +213,11 @@ public class TriggersApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Delete backfill for given triggers
@@ -299,6 +307,11 @@ public class TriggersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Disable/enable given triggers
    * 
@@ -380,6 +393,11 @@ public class TriggersApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Disable/enable triggers by query parameters
@@ -477,6 +495,11 @@ public class TriggersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Pause a backfill
    * 
@@ -559,6 +582,11 @@ public class TriggersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Pause backfill for given triggers
    * 
@@ -640,6 +668,11 @@ public class TriggersApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Pause backfill for given triggers
@@ -728,6 +761,11 @@ public class TriggersApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Restart a trigger
@@ -828,6 +866,11 @@ public class TriggersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Search for triggers
    * 
@@ -836,15 +879,11 @@ public class TriggersApi extends BaseApi {
    * @param tenant  (required)
    * @param sort The sort of current page (optional)
    * @param filters Filters (optional)
-   * @param q A string filter (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param workerId The identifier of the worker currently evaluating the trigger (optional)
-   * @param flowId The flow identifier (optional)
    * @return PagedResultsTriggerControllerTriggers
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsTriggerControllerTriggers searchTriggers(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String workerId, @javax.annotation.Nullable String flowId) throws ApiException {
-    return this.searchTriggers(page, size, tenant, sort, filters, q, namespace, workerId, flowId, Collections.emptyMap());
+  public PagedResultsTriggerControllerTriggers searchTriggers(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.searchTriggers(page, size, tenant, sort, filters, Collections.emptyMap());
   }
 
 
@@ -856,15 +895,11 @@ public class TriggersApi extends BaseApi {
    * @param tenant  (required)
    * @param sort The sort of current page (optional)
    * @param filters Filters (optional)
-   * @param q A string filter (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param workerId The identifier of the worker currently evaluating the trigger (optional)
-   * @param flowId The flow identifier (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return PagedResultsTriggerControllerTriggers
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsTriggerControllerTriggers searchTriggers(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String workerId, @javax.annotation.Nullable String flowId, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsTriggerControllerTriggers searchTriggers(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'page' is set
@@ -898,10 +933,6 @@ public class TriggersApi extends BaseApi {
     localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarQueryParams.addAll(apiClient.parameterToPair("workerId", workerId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -936,6 +967,11 @@ public class TriggersApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Get all triggers for a flow
@@ -1050,6 +1086,11 @@ public class TriggersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Unlock a trigger
    * 
@@ -1149,6 +1190,11 @@ public class TriggersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Unlock given triggers
    * 
@@ -1230,6 +1276,11 @@ public class TriggersApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Unlock triggers by query parameters
@@ -1319,6 +1370,11 @@ public class TriggersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Unpause a backfill
    * 
@@ -1401,6 +1457,11 @@ public class TriggersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Unpause backfill for given triggers
    * 
@@ -1482,6 +1543,11 @@ public class TriggersApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Unpause backfill for given triggers
@@ -1570,6 +1636,11 @@ public class TriggersApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Update a trigger
@@ -1693,4 +1764,9 @@ public class TriggersApi extends BaseApi {
         returnType
     );
   }
+
+
+
+
+
 }

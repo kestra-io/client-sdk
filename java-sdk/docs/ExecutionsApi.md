@@ -10,7 +10,6 @@ All URIs are relative to *http://localhost*
 | [**deleteExecutionsByQuery**](ExecutionsApi.md#deleteExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/by-query | Delete executions filter by query parameters |
 | [**downloadFileFromExecution**](ExecutionsApi.md#downloadFileFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution |
 | [**evalTaskRunExpression**](ExecutionsApi.md#evalTaskRunExpression) | **POST** /api/v1/{tenant}/executions/{executionId}/eval/{taskRunId} | Evaluate a variable expression for this taskrun |
-| [**followDependenciesExecutions**](ExecutionsApi.md#followDependenciesExecutions) | **GET** /api/v1/{tenant}/executions/{executionId}/follow-dependencies | Follow all execution dependencies executions |
 | [**followExecution**](ExecutionsApi.md#followExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/follow | Follow an execution |
 | [**forceRunByIds**](ExecutionsApi.md#forceRunByIds) | **POST** /api/v1/{tenant}/executions/force-run/by-ids | Force run a list of executions |
 | [**forceRunExecution**](ExecutionsApi.md#forceRunExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/force-run | Force run an execution |
@@ -24,12 +23,9 @@ All URIs are relative to *http://localhost*
 | [**killExecution**](ExecutionsApi.md#killExecution) | **DELETE** /api/v1/{tenant}/executions/{executionId}/kill | Kill an execution |
 | [**killExecutionsByIds**](ExecutionsApi.md#killExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/kill/by-ids | Kill a list of executions |
 | [**killExecutionsByQuery**](ExecutionsApi.md#killExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/kill/by-query | Kill executions filter by query parameters |
-| [**listExecutableDistinctNamespaces**](ExecutionsApi.md#listExecutableDistinctNamespaces) | **GET** /api/v1/{tenant}/executions/namespaces | Get all namespaces that have executable flows |
-| [**listFlowExecutionsByNamespace**](ExecutionsApi.md#listFlowExecutionsByNamespace) | **GET** /api/v1/{tenant}/executions/namespaces/{namespace}/flows | Get all flow ids for a namespace. Data returned are FlowForExecution containing minimal information about a Flow for when you are allowed to executing but not reading. |
 | [**pauseExecution**](ExecutionsApi.md#pauseExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/pause | Pause a running execution. |
 | [**pauseExecutionsByIds**](ExecutionsApi.md#pauseExecutionsByIds) | **POST** /api/v1/{tenant}/executions/pause/by-ids | Pause a list of running executions |
 | [**pauseExecutionsByQuery**](ExecutionsApi.md#pauseExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/pause/by-query | Pause executions filter by query parameters |
-| [**previewFileFromExecution**](ExecutionsApi.md#previewFileFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/preview | Get file preview for an execution |
 | [**replayExecution**](ExecutionsApi.md#replayExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/replay | Create a new execution from an old one and start it from a specified task run id |
 | [**replayExecutionWithinputs**](ExecutionsApi.md#replayExecutionWithinputs) | **POST** /api/v1/{tenant}/executions/{executionId}/replay-with-inputs | Create a new execution from an old one and start it from a specified task run id |
 | [**replayExecutionsByIds**](ExecutionsApi.md#replayExecutionsByIds) | **POST** /api/v1/{tenant}/executions/replay/by-ids | Create new executions from old ones. Keep the flow revision |
@@ -38,19 +34,13 @@ All URIs are relative to *http://localhost*
 | [**restartExecutionsByIds**](ExecutionsApi.md#restartExecutionsByIds) | **POST** /api/v1/{tenant}/executions/restart/by-ids | Restart a list of executions |
 | [**restartExecutionsByQuery**](ExecutionsApi.md#restartExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/restart/by-query | Restart executions filter by query parameters |
 | [**resumeExecution**](ExecutionsApi.md#resumeExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/resume | Resume a paused execution. |
-| [**resumeExecutionFromBreakpoint**](ExecutionsApi.md#resumeExecutionFromBreakpoint) | **POST** /api/v1/{tenant}/executions/{executionId}/resume-from-breakpoint | Resume an execution from a breakpoint (in the &#39;BREAKPOINT&#39; state). |
 | [**resumeExecutionsByIds**](ExecutionsApi.md#resumeExecutionsByIds) | **POST** /api/v1/{tenant}/executions/resume/by-ids | Resume a list of paused executions |
 | [**resumeExecutionsByQuery**](ExecutionsApi.md#resumeExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/resume/by-query | Resume executions filter by query parameters |
 | [**searchExecutions**](ExecutionsApi.md#searchExecutions) | **GET** /api/v1/{tenant}/executions/search | Search for executions |
-| [**searchExecutionsByFlowId**](ExecutionsApi.md#searchExecutionsByFlowId) | **GET** /api/v1/{tenant}/executions | Search for executions for a flow |
-| [**searchTaskRun**](ExecutionsApi.md#searchTaskRun) | **GET** /api/v1/{tenant}/taskruns/search | Search for taskruns, only available with the Elasticsearch repository |
 | [**setLabelsOnTerminatedExecution**](ExecutionsApi.md#setLabelsOnTerminatedExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/labels | Add or update labels of a terminated execution |
 | [**setLabelsOnTerminatedExecutionsByIds**](ExecutionsApi.md#setLabelsOnTerminatedExecutionsByIds) | **POST** /api/v1/{tenant}/executions/labels/by-ids | Set labels on a list of executions |
 | [**setLabelsOnTerminatedExecutionsByQuery**](ExecutionsApi.md#setLabelsOnTerminatedExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/labels/by-query | Set label on executions filter by query parameters |
-| [**triggerExecution**](ExecutionsApi.md#triggerExecution) | **POST** /api/v1/{tenant}/executions/trigger/{namespace}/{id} | Trigger a new execution for a flow |
 | [**triggerExecutionByGetWebhook**](ExecutionsApi.md#triggerExecutionByGetWebhook) | **GET** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key} | Trigger a new execution by GET webhook trigger |
-| [**triggerExecutionByPostWebhook**](ExecutionsApi.md#triggerExecutionByPostWebhook) | **POST** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key} | Trigger a new execution by POST webhook trigger |
-| [**triggerExecutionByPutWebhook**](ExecutionsApi.md#triggerExecutionByPutWebhook) | **PUT** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key} | Trigger a new execution by PUT webhook trigger |
 | [**unqueueExecution**](ExecutionsApi.md#unqueueExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/unqueue | Unqueue an execution |
 | [**unqueueExecutionsByIds**](ExecutionsApi.md#unqueueExecutionsByIds) | **POST** /api/v1/{tenant}/executions/unqueue/by-ids | Unqueue a list of executions |
 | [**unqueueExecutionsByQuery**](ExecutionsApi.md#unqueueExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/unqueue/by-query | Unqueue executions filter by query parameters |
@@ -58,8 +48,6 @@ All URIs are relative to *http://localhost*
 | [**updateExecutionsStatusByIds**](ExecutionsApi.md#updateExecutionsStatusByIds) | **POST** /api/v1/{tenant}/executions/change-status/by-ids | Change executions state by id |
 | [**updateExecutionsStatusByQuery**](ExecutionsApi.md#updateExecutionsStatusByQuery) | **POST** /api/v1/{tenant}/executions/change-status/by-query | Change executions state by query parameters |
 | [**updateTaskRunState**](ExecutionsApi.md#updateTaskRunState) | **POST** /api/v1/{tenant}/executions/{executionId}/state | Change state for a taskrun in an execution |
-| [**validateNewExecutionInputs**](ExecutionsApi.md#validateNewExecutionInputs) | **POST** /api/v1/{tenant}/executions/{namespace}/{id}/validate | Validate the creation of a new execution for a flow |
-| [**validateResumeExecutionInputs**](ExecutionsApi.md#validateResumeExecutionInputs) | **POST** /api/v1/{tenant}/executions/{executionId}/resume/validate | Validate inputs to resume a paused execution. |
 
 
 
@@ -150,8 +138,8 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **409** | if the flow is disabled |  -  |
 | **200** | On execution created |  -  |
+| **409** | if the flow is disabled |  -  |
 
 
 ## deleteExecution
@@ -232,8 +220,8 @@ null (empty response body)
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **204** | On success |  -  |
 | **200** | deleteExecution 200 response |  -  |
+| **204** | On success |  -  |
 
 
 ## deleteExecutionsByIds
@@ -583,86 +571,6 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | evalTaskRunExpression 200 response |  -  |
-
-
-## followDependenciesExecutions
-
-> EventExecutionStatusEvent followDependenciesExecutions(executionId, destinationOnly, expandAll, tenant)
-
-Follow all execution dependencies executions
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
-
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
-        String executionId = "executionId_example"; // String | The execution id
-        Boolean destinationOnly = false; // Boolean | If true, list only destination dependencies, otherwise list also source dependencies
-        Boolean expandAll = false; // Boolean | If true, expand all dependencies recursively
-        String tenant = "tenant_example"; // String | 
-        try {
-            EventExecutionStatusEvent result = apiInstance.followDependenciesExecutions(executionId, destinationOnly, expandAll, tenant);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#followDependenciesExecutions");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **executionId** | **String**| The execution id | |
-| **destinationOnly** | **Boolean**| If true, list only destination dependencies, otherwise list also source dependencies | [default to false] |
-| **expandAll** | **Boolean**| If true, expand all dependencies recursively | [default to false] |
-| **tenant** | **String**|  | |
-
-### Return type
-
-[**EventExecutionStatusEvent**](EventExecutionStatusEvent.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: text/event-stream
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | followDependenciesExecutions 200 response |  -  |
 
 
 ## followExecution
@@ -1531,10 +1439,10 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **202** | Execution kill was requested successfully |  -  |
-| **409** | if the executions is already finished |  -  |
-| **404** | if the executions is not found |  -  |
 | **200** | killExecution 200 response |  -  |
+| **202** | Execution kill was requested successfully |  -  |
+| **404** | if the executions is not found |  -  |
+| **409** | if the executions is already finished |  -  |
 
 
 ## killExecutionsByIds
@@ -1712,156 +1620,6 @@ public class Example {
 | **200** | killExecutionsByQuery 200 response |  -  |
 
 
-## listExecutableDistinctNamespaces
-
-> List&lt;String&gt; listExecutableDistinctNamespaces(tenant)
-
-Get all namespaces that have executable flows
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
-
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
-        String tenant = "tenant_example"; // String | 
-        try {
-            List<String> result = apiInstance.listExecutableDistinctNamespaces(tenant);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#listExecutableDistinctNamespaces");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **tenant** | **String**|  | |
-
-### Return type
-
-**List&lt;String&gt;**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | listExecutableDistinctNamespaces 200 response |  -  |
-
-
-## listFlowExecutionsByNamespace
-
-> List&lt;FlowForExecution&gt; listFlowExecutionsByNamespace(namespace, tenant)
-
-Get all flow ids for a namespace. Data returned are FlowForExecution containing minimal information about a Flow for when you are allowed to executing but not reading.
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
-
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
-        String namespace = "namespace_example"; // String | The namespace
-        String tenant = "tenant_example"; // String | 
-        try {
-            List<FlowForExecution> result = apiInstance.listFlowExecutionsByNamespace(namespace, tenant);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#listFlowExecutionsByNamespace");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace | |
-| **tenant** | **String**|  | |
-
-### Return type
-
-[**List&lt;FlowForExecution&gt;**](FlowForExecution.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | listFlowExecutionsByNamespace 200 response |  -  |
-
-
 ## pauseExecution
 
 > pauseExecution(executionId, tenant)
@@ -1934,9 +1692,9 @@ null (empty response body)
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+| **200** | pauseExecution 200 response |  -  |
 | **204** | On success |  -  |
 | **409** | if the executions is not running |  -  |
-| **200** | pauseExecution 200 response |  -  |
 
 
 ## pauseExecutionsByIds
@@ -2112,88 +1870,6 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | pauseExecutionsByQuery 200 response |  -  |
-
-
-## previewFileFromExecution
-
-> Object previewFileFromExecution(executionId, path, maxRows, encoding, tenant)
-
-Get file preview for an execution
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
-
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
-        String executionId = "executionId_example"; // String | The execution id
-        URI path = new URI(); // URI | The internal storage uri
-        Integer maxRows = 56; // Integer | The max row returns
-        String encoding = "UTF-8"; // String | The file encoding as Java charset name. Defaults to UTF-8
-        String tenant = "tenant_example"; // String | 
-        try {
-            Object result = apiInstance.previewFileFromExecution(executionId, path, maxRows, encoding, tenant);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#previewFileFromExecution");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **executionId** | **String**| The execution id | |
-| **path** | **URI**| The internal storage uri | |
-| **maxRows** | **Integer**| The max row returns | |
-| **encoding** | **String**| The file encoding as Java charset name. Defaults to UTF-8 | [default to UTF-8] |
-| **tenant** | **String**|  | |
-
-### Return type
-
-**Object**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | previewFileFromExecution 200 response |  -  |
 
 
 ## replayExecution
@@ -2865,88 +2541,9 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+| **200** | resumeExecution 200 response |  -  |
 | **204** | On success |  -  |
 | **409** | if the executions is not paused |  -  |
-| **200** | resumeExecution 200 response |  -  |
-
-
-## resumeExecutionFromBreakpoint
-
-> resumeExecutionFromBreakpoint(executionId, tenant, breakpoints)
-
-Resume an execution from a breakpoint (in the &#39;BREAKPOINT&#39; state).
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
-
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
-        String executionId = "executionId_example"; // String | The execution id
-        String tenant = "tenant_example"; // String | 
-        String breakpoints = "breakpoints_example"; // String | \"Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
-        try {
-            apiInstance.resumeExecutionFromBreakpoint(executionId, tenant, breakpoints);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#resumeExecutionFromBreakpoint");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **executionId** | **String**| The execution id | |
-| **tenant** | **String**|  | |
-| **breakpoints** | **String**| \&quot;Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] |
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **204** | On success |  -  |
-| **409** | If the executions is not in the &#39;BREAKPOINT&#39; state or has no breakpoint |  -  |
-| **200** | resumeExecutionFromBreakpoint 200 response |  -  |
 
 
 ## resumeExecutionsByIds
@@ -3126,7 +2723,7 @@ public class Example {
 
 ## searchExecutions
 
-> PagedResultsExecution searchExecutions(page, size, tenant, sort, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter)
+> PagedResultsExecution searchExecutions(page, size, tenant, sort, filters)
 
 Search for executions
 
@@ -3161,19 +2758,8 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
-        String q = "q_example"; // String | A string filter
-        List<FlowScope> scope = Arrays.asList(); // List<FlowScope> | The scope of the executions to include
-        String namespace = "namespace_example"; // String | A namespace filter prefix
-        String flowId = "flowId_example"; // String | A flow id filter
-        OffsetDateTime startDate = OffsetDateTime.now(); // OffsetDateTime | The start datetime
-        OffsetDateTime endDate = OffsetDateTime.now(); // OffsetDateTime | The end datetime
-        String timeRange = "PT5M"; // String | A time range filter relative to the current time
-        List<StateType> state = Arrays.asList(); // List<StateType> | A state filter
-        List<String> labels = Arrays.asList(); // List<String> | A labels filter as a list of 'key:value'
-        String triggerExecutionId = "triggerExecutionId_example"; // String | The trigger execution id
-        ExecutionRepositoryInterfaceChildFilter childFilter = ExecutionRepositoryInterfaceChildFilter.fromValue("CHILD"); // ExecutionRepositoryInterfaceChildFilter | A execution child filter
         try {
-            PagedResultsExecution result = apiInstance.searchExecutions(page, size, tenant, sort, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter);
+            PagedResultsExecution result = apiInstance.searchExecutions(page, size, tenant, sort, filters);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#searchExecutions");
@@ -3196,17 +2782,6 @@ public class Example {
 | **tenant** | **String**|  | |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
-| **q** | **String**| A string filter | [optional] |
-| **scope** | [**List&lt;FlowScope&gt;**](FlowScope.md)| The scope of the executions to include | [optional] |
-| **namespace** | **String**| A namespace filter prefix | [optional] |
-| **flowId** | **String**| A flow id filter | [optional] |
-| **startDate** | **OffsetDateTime**| The start datetime | [optional] |
-| **endDate** | **OffsetDateTime**| The end datetime | [optional] |
-| **timeRange** | **String**| A time range filter relative to the current time | [optional] |
-| **state** | [**List&lt;StateType&gt;**](StateType.md)| A state filter | [optional] |
-| **labels** | [**List&lt;String&gt;**](String.md)| A labels filter as a list of &#39;key:value&#39; | [optional] |
-| **triggerExecutionId** | **String**| The trigger execution id | [optional] |
-| **childFilter** | [**ExecutionRepositoryInterfaceChildFilter**](.md)| A execution child filter | [optional] [enum: CHILD, MAIN] |
 
 ### Return type
 
@@ -3226,190 +2801,6 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | searchExecutions 200 response |  -  |
-
-
-## searchExecutionsByFlowId
-
-> PagedResultsExecution searchExecutionsByFlowId(namespace, flowId, page, size, tenant)
-
-Search for executions for a flow
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
-
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
-        String namespace = "namespace_example"; // String | The flow namespace
-        String flowId = "flowId_example"; // String | The flow id
-        Integer page = 1; // Integer | The current page
-        Integer size = 10; // Integer | The current page size
-        String tenant = "tenant_example"; // String | 
-        try {
-            PagedResultsExecution result = apiInstance.searchExecutionsByFlowId(namespace, flowId, page, size, tenant);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#searchExecutionsByFlowId");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The flow namespace | |
-| **flowId** | **String**| The flow id | |
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 10] |
-| **tenant** | **String**|  | |
-
-### Return type
-
-[**PagedResultsExecution**](PagedResultsExecution.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | searchExecutionsByFlowId 200 response |  -  |
-
-
-## searchTaskRun
-
-> PagedResultsTaskRun searchTaskRun(page, size, tenant, sort, filters, q, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter)
-
-Search for taskruns, only available with the Elasticsearch repository
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
-
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
-        Integer page = 1; // Integer | The current page
-        Integer size = 10; // Integer | The current page size
-        String tenant = "tenant_example"; // String | 
-        List<String> sort = Arrays.asList(); // List<String> | The sort of current page
-        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
-        String q = "q_example"; // String | A string filter
-        String namespace = "namespace_example"; // String | A namespace filter prefix
-        String flowId = "flowId_example"; // String | A flow id filter
-        OffsetDateTime startDate = OffsetDateTime.now(); // OffsetDateTime | The start datetime
-        OffsetDateTime endDate = OffsetDateTime.now(); // OffsetDateTime | The end datetime
-        String timeRange = "PT5M"; // String | A time range filter relative to the current time
-        List<StateType> state = Arrays.asList(); // List<StateType> | A state filter
-        List<String> labels = Arrays.asList(); // List<String> | A labels filter as a list of 'key:value'
-        String triggerExecutionId = "triggerExecutionId_example"; // String | The trigger execution id
-        ExecutionRepositoryInterfaceChildFilter childFilter = ExecutionRepositoryInterfaceChildFilter.fromValue("CHILD"); // ExecutionRepositoryInterfaceChildFilter | A execution child filter
-        try {
-            PagedResultsTaskRun result = apiInstance.searchTaskRun(page, size, tenant, sort, filters, q, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#searchTaskRun");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 10] |
-| **tenant** | **String**|  | |
-| **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
-| **q** | **String**| A string filter | [optional] |
-| **namespace** | **String**| A namespace filter prefix | [optional] |
-| **flowId** | **String**| A flow id filter | [optional] |
-| **startDate** | **OffsetDateTime**| The start datetime | [optional] |
-| **endDate** | **OffsetDateTime**| The end datetime | [optional] |
-| **timeRange** | **String**| A time range filter relative to the current time | [optional] |
-| **state** | [**List&lt;StateType&gt;**](StateType.md)| A state filter | [optional] |
-| **labels** | [**List&lt;String&gt;**](String.md)| A labels filter as a list of &#39;key:value&#39; | [optional] |
-| **triggerExecutionId** | **String**| The trigger execution id | [optional] |
-| **childFilter** | [**ExecutionRepositoryInterfaceChildFilter**](.md)| A execution child filter | [optional] [enum: CHILD, MAIN] |
-
-### Return type
-
-[**PagedResultsTaskRun**](PagedResultsTaskRun.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | searchTaskRun 200 response |  -  |
 
 
 ## setLabelsOnTerminatedExecution
@@ -3487,9 +2878,9 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **404** | If the execution cannot be found |  -  |
-| **400** | If the execution is not terminated |  -  |
 | **200** | setLabelsOnTerminatedExecution 200 response |  -  |
+| **400** | If the execution is not terminated |  -  |
+| **404** | If the execution cannot be found |  -  |
 
 
 ## setLabelsOnTerminatedExecutionsByIds
@@ -3667,91 +3058,6 @@ public class Example {
 | **200** | setLabelsOnTerminatedExecutionsByQuery 200 response |  -  |
 
 
-## triggerExecution
-
-> List&lt;ExecutionControllerExecutionResponse&gt; triggerExecution(namespace, id, wait, tenant, labels, revision)
-
-Trigger a new execution for a flow
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
-
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
-        String namespace = "namespace_example"; // String | The flow namespace
-        String id = "id_example"; // String | The flow id
-        Boolean wait = false; // Boolean | If the server will wait the end of the execution
-        String tenant = "tenant_example"; // String | 
-        List<String> labels = Arrays.asList(); // List<String> | The labels as a list of 'key:value'
-        Integer revision = 56; // Integer | The flow revision or latest if null
-        try {
-            List<ExecutionControllerExecutionResponse> result = apiInstance.triggerExecution(namespace, id, wait, tenant, labels, revision);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#triggerExecution");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The flow namespace | |
-| **id** | **String**| The flow id | |
-| **wait** | **Boolean**| If the server will wait the end of the execution | [default to false] |
-| **tenant** | **String**|  | |
-| **labels** | [**List&lt;String&gt;**](String.md)| The labels as a list of &#39;key:value&#39; | [optional] |
-| **revision** | **Integer**| The flow revision or latest if null | [optional] |
-
-### Return type
-
-[**List&lt;ExecutionControllerExecutionResponse&gt;**](ExecutionControllerExecutionResponse.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: multipart/form-data
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **409** | if the flow is disabled |  -  |
-| **200** | triggerExecution 200 response |  -  |
-
-
 ## triggerExecutionByGetWebhook
 
 > ExecutionControllerWebhookResponse triggerExecutionByGetWebhook(namespace, id, key, tenant)
@@ -3830,166 +3136,6 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | triggerExecutionByGetWebhook 200 response |  -  |
-
-
-## triggerExecutionByPostWebhook
-
-> ExecutionControllerWebhookResponse triggerExecutionByPostWebhook(namespace, id, key, tenant)
-
-Trigger a new execution by POST webhook trigger
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
-
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
-        String namespace = "namespace_example"; // String | The flow namespace
-        String id = "id_example"; // String | The flow id
-        String key = "key_example"; // String | The webhook trigger uid
-        String tenant = "tenant_example"; // String | 
-        try {
-            ExecutionControllerWebhookResponse result = apiInstance.triggerExecutionByPostWebhook(namespace, id, key, tenant);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#triggerExecutionByPostWebhook");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The flow namespace | |
-| **id** | **String**| The flow id | |
-| **key** | **String**| The webhook trigger uid | |
-| **tenant** | **String**|  | |
-
-### Return type
-
-[**ExecutionControllerWebhookResponse**](ExecutionControllerWebhookResponse.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | triggerExecutionByPostWebhook 200 response |  -  |
-
-
-## triggerExecutionByPutWebhook
-
-> ExecutionControllerWebhookResponse triggerExecutionByPutWebhook(namespace, id, key, tenant)
-
-Trigger a new execution by PUT webhook trigger
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
-
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
-        String namespace = "namespace_example"; // String | The flow namespace
-        String id = "id_example"; // String | The flow id
-        String key = "key_example"; // String | The webhook trigger uid
-        String tenant = "tenant_example"; // String | 
-        try {
-            ExecutionControllerWebhookResponse result = apiInstance.triggerExecutionByPutWebhook(namespace, id, key, tenant);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#triggerExecutionByPutWebhook");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The flow namespace | |
-| **id** | **String**| The flow id | |
-| **key** | **String**| The webhook trigger uid | |
-| **tenant** | **String**|  | |
-
-### Return type
-
-[**ExecutionControllerWebhookResponse**](ExecutionControllerWebhookResponse.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | triggerExecutionByPutWebhook 200 response |  -  |
 
 
 ## unqueueExecution
@@ -4583,165 +3729,4 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | updateTaskRunState 200 response |  -  |
-
-
-## validateNewExecutionInputs
-
-> List&lt;ExecutionControllerApiValidateExecutionInputsResponse&gt; validateNewExecutionInputs(namespace, id, labels, tenant, revision)
-
-Validate the creation of a new execution for a flow
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
-
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
-        String namespace = "namespace_example"; // String | The flow namespace
-        String id = "id_example"; // String | The flow id
-        List<String> labels = Arrays.asList(); // List<String> | The labels as a list of 'key:value'
-        String tenant = "tenant_example"; // String | 
-        Integer revision = 56; // Integer | The flow revision or latest if null
-        try {
-            List<ExecutionControllerApiValidateExecutionInputsResponse> result = apiInstance.validateNewExecutionInputs(namespace, id, labels, tenant, revision);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#validateNewExecutionInputs");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The flow namespace | |
-| **id** | **String**| The flow id | |
-| **labels** | [**List&lt;String&gt;**](String.md)| The labels as a list of &#39;key:value&#39; | |
-| **tenant** | **String**|  | |
-| **revision** | **Integer**| The flow revision or latest if null | [optional] |
-
-### Return type
-
-[**List&lt;ExecutionControllerApiValidateExecutionInputsResponse&gt;**](ExecutionControllerApiValidateExecutionInputsResponse.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: multipart/form-data
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **409** | if the flow is disabled |  -  |
-| **200** | validateNewExecutionInputs 200 response |  -  |
-
-
-## validateResumeExecutionInputs
-
-> List&lt;ExecutionControllerApiValidateExecutionInputsResponse&gt; validateResumeExecutionInputs(executionId, tenant)
-
-Validate inputs to resume a paused execution.
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
-
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
-        String executionId = "executionId_example"; // String | The execution id
-        String tenant = "tenant_example"; // String | 
-        try {
-            List<ExecutionControllerApiValidateExecutionInputsResponse> result = apiInstance.validateResumeExecutionInputs(executionId, tenant);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#validateResumeExecutionInputs");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **executionId** | **String**| The execution id | |
-| **tenant** | **String**|  | |
-
-### Return type
-
-[**List&lt;ExecutionControllerApiValidateExecutionInputsResponse&gt;**](ExecutionControllerApiValidateExecutionInputsResponse.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: multipart/form-data
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **204** | On success |  -  |
-| **409** | if the executions is not paused |  -  |
-| **200** | validateResumeExecutionInputs 200 response |  -  |
 

@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -36,16 +35,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AppResponse {
   public static final String JSON_PROPERTY_DISPATCH = "dispatch";
-  @javax.annotation.Nullable
-  private String dispatch;
+  @javax.annotation.Nullable  private String dispatch;
 
   public static final String JSON_PROPERTY_STREAM = "stream";
-  @javax.annotation.Nullable
-  private String stream;
+  @javax.annotation.Nullable  private String stream;
 
   public static final String JSON_PROPERTY_LAYOUT = "layout";
-  @javax.annotation.Nullable
-  private AppResponseUILayout layout;
+  @javax.annotation.Nullable  private AppResponseUILayout layout;
 
   public AppResponse() {
   }
@@ -60,8 +56,7 @@ public class AppResponse {
    * Get dispatch
    * @return dispatch
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DISPATCH, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISPATCH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDispatch() {
@@ -69,7 +64,7 @@ public class AppResponse {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DISPATCH, required = false)
+  @JsonProperty(JSON_PROPERTY_DISPATCH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDispatch(@javax.annotation.Nullable String dispatch) {
     this.dispatch = dispatch;
@@ -85,8 +80,7 @@ public class AppResponse {
    * Get stream
    * @return stream
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_STREAM, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STREAM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getStream() {
@@ -94,7 +88,7 @@ public class AppResponse {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_STREAM, required = false)
+  @JsonProperty(JSON_PROPERTY_STREAM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStream(@javax.annotation.Nullable String stream) {
     this.stream = stream;
@@ -110,8 +104,7 @@ public class AppResponse {
    * Get layout
    * @return layout
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_LAYOUT, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LAYOUT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public AppResponseUILayout getLayout() {
@@ -119,7 +112,7 @@ public class AppResponse {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_LAYOUT, required = false)
+  @JsonProperty(JSON_PROPERTY_LAYOUT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLayout(@javax.annotation.Nullable AppResponseUILayout layout) {
     this.layout = layout;

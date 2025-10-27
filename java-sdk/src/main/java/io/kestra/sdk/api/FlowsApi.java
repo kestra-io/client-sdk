@@ -28,7 +28,6 @@ import io.kestra.sdk.model.Flow;
 import io.kestra.sdk.model.FlowControllerTaskValidationType;
 import io.kestra.sdk.model.FlowGraph;
 import io.kestra.sdk.model.FlowInterface;
-import io.kestra.sdk.model.FlowScope;
 import io.kestra.sdk.model.FlowTopologyGraph;
 import io.kestra.sdk.model.FlowWithSource;
 import io.kestra.sdk.model.IdWithNamespace;
@@ -36,8 +35,6 @@ import io.kestra.sdk.model.PagedResultsFlow;
 import io.kestra.sdk.model.PagedResultsSearchResultFlow;
 import io.kestra.sdk.model.QueryFilter;
 import io.kestra.sdk.model.Task;
-import io.kestra.sdk.model.UpdateFlow200Response;
-import io.kestra.sdk.model.UpdateFlowsInNamespaceFromJson200Response;
 import io.kestra.sdk.model.ValidateConstraintViolation;
 
 
@@ -45,12 +42,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.StringJoiner;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
-public class FlowsApi extends BaseApi {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")public class FlowsApi extends BaseApi {
 
   public FlowsApi() {
     super(Configuration.getDefaultApiClient());
@@ -138,6 +133,11 @@ public class FlowsApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Update from multiples yaml sources
@@ -235,6 +235,11 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Create a flow from yaml source
    * 
@@ -316,6 +321,11 @@ public class FlowsApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Delete a flow
@@ -405,6 +415,11 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Delete flows by their IDs.
    * 
@@ -487,20 +502,21 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Delete flows returned by the query parameters.
    * 
    * @param tenant  (required)
    * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the flows to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse deleteFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable List<String> labels) throws ApiException {
-    return this.deleteFlowsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, labels, Collections.emptyMap());
+  public BulkResponse deleteFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest) throws ApiException {
+    return this.deleteFlowsByQuery(tenant, deleteExecutionsByQueryRequest, Collections.emptyMap());
   }
 
 
@@ -509,15 +525,11 @@ public class FlowsApi extends BaseApi {
    * 
    * @param tenant  (required)
    * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the flows to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse deleteFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable List<String> labels, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse deleteFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = deleteExecutionsByQueryRequest;
     
     // verify the required parameter 'tenant' is set
@@ -542,10 +554,6 @@ public class FlowsApi extends BaseApi {
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -580,6 +588,11 @@ public class FlowsApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Disable flows by their IDs.
@@ -663,20 +676,21 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Disable flows returned by the query parameters.
    * 
    * @param tenant  (required)
    * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the flows to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse disableFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable List<String> labels) throws ApiException {
-    return this.disableFlowsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, labels, Collections.emptyMap());
+  public BulkResponse disableFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest) throws ApiException {
+    return this.disableFlowsByQuery(tenant, deleteExecutionsByQueryRequest, Collections.emptyMap());
   }
 
 
@@ -685,15 +699,11 @@ public class FlowsApi extends BaseApi {
    * 
    * @param tenant  (required)
    * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the flows to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse disableFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable List<String> labels, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse disableFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = deleteExecutionsByQueryRequest;
     
     // verify the required parameter 'tenant' is set
@@ -718,10 +728,6 @@ public class FlowsApi extends BaseApi {
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -756,6 +762,11 @@ public class FlowsApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Enable flows by their IDs.
@@ -839,20 +850,21 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Enable flows returned by the query parameters.
    * 
    * @param tenant  (required)
    * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the flows to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse enableFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable List<String> labels) throws ApiException {
-    return this.enableFlowsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, labels, Collections.emptyMap());
+  public BulkResponse enableFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest) throws ApiException {
+    return this.enableFlowsByQuery(tenant, deleteExecutionsByQueryRequest, Collections.emptyMap());
   }
 
 
@@ -861,15 +873,11 @@ public class FlowsApi extends BaseApi {
    * 
    * @param tenant  (required)
    * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the flows to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse enableFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable List<String> labels, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse enableFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = deleteExecutionsByQueryRequest;
     
     // verify the required parameter 'tenant' is set
@@ -894,10 +902,6 @@ public class FlowsApi extends BaseApi {
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -932,6 +936,11 @@ public class FlowsApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Export flows as a ZIP archive of yaml sources.
@@ -1015,20 +1024,21 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Export flows as a ZIP archive of yaml sources.
    * 
    * @param tenant  (required)
    * @param filters Filters (optional)
-   * @param q A string filter (optional)
-   * @param scope The scope of the flows to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
    * @return byte[]
    * @throws ApiException if fails to make API call
    */
-  public byte[] exportFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable List<String> labels) throws ApiException {
-    return this.exportFlowsByQuery(tenant, filters, q, scope, namespace, labels, Collections.emptyMap());
+  public byte[] exportFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.exportFlowsByQuery(tenant, filters, Collections.emptyMap());
   }
 
 
@@ -1037,15 +1047,11 @@ public class FlowsApi extends BaseApi {
    * 
    * @param tenant  (required)
    * @param filters Filters (optional)
-   * @param q A string filter (optional)
-   * @param scope The scope of the flows to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return byte[]
    * @throws ApiException if fails to make API call
    */
-  public byte[] exportFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable List<String> labels, Map<String, String> additionalHeaders) throws ApiException {
+  public byte[] exportFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -1066,10 +1072,6 @@ public class FlowsApi extends BaseApi {
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -1104,6 +1106,11 @@ public class FlowsApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Generate a graph for a flow
@@ -1202,6 +1209,11 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Generate a graph for a flow source
    * 
@@ -1286,6 +1298,11 @@ public class FlowsApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Get a flow
@@ -1397,6 +1414,11 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Get flow dependencies
    * 
@@ -1504,6 +1526,11 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Retrieve flow dependencies
    * 
@@ -1594,6 +1621,11 @@ public class FlowsApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Get a flow task
@@ -1697,6 +1729,11 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    *     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
    * 
@@ -1776,6 +1813,11 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * List all distinct namespaces
    * 
@@ -1853,6 +1895,11 @@ public class FlowsApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Get revisions for a flow
@@ -1945,6 +1992,11 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Retrieve all flows from a given namespace
    * 
@@ -2028,6 +2080,11 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Search for flows
    * 
@@ -2036,15 +2093,11 @@ public class FlowsApi extends BaseApi {
    * @param tenant  (required)
    * @param sort The sort of current page (optional)
    * @param filters Filters (optional)
-   * @param q A string filter (optional)
-   * @param scope The scope of the flows to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
    * @return PagedResultsFlow
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsFlow searchFlows(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable List<String> labels) throws ApiException {
-    return this.searchFlows(page, size, tenant, sort, filters, q, scope, namespace, labels, Collections.emptyMap());
+  public PagedResultsFlow searchFlows(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.searchFlows(page, size, tenant, sort, filters, Collections.emptyMap());
   }
 
 
@@ -2056,15 +2109,11 @@ public class FlowsApi extends BaseApi {
    * @param tenant  (required)
    * @param sort The sort of current page (optional)
    * @param filters Filters (optional)
-   * @param q A string filter (optional)
-   * @param scope The scope of the flows to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return PagedResultsFlow
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsFlow searchFlows(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable List<String> labels, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsFlow searchFlows(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'page' is set
@@ -2098,10 +2147,6 @@ public class FlowsApi extends BaseApi {
     localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -2136,6 +2181,11 @@ public class FlowsApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Search for flows source code
@@ -2237,319 +2287,10 @@ public class FlowsApi extends BaseApi {
     );
   }
 
-  /**
-   * Update a flow
-   * 
-   * @param id The flow id (required)
-   * @param namespace The flow namespace (required)
-   * @param tenant  (required)
-   * @param body The flow source code (required)
-   * @return UpdateFlow200Response
-   * @throws ApiException if fails to make API call
-   * @deprecated
-   */
-  @Deprecated
-  public UpdateFlow200Response updateFlow(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body) throws ApiException {
-    return this.updateFlow(id, namespace, tenant, body, Collections.emptyMap());
-  }
 
 
-  /**
-   * Update a flow
-   * 
-   * @param id The flow id (required)
-   * @param namespace The flow namespace (required)
-   * @param tenant  (required)
-   * @param body The flow source code (required)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return UpdateFlow200Response
-   * @throws ApiException if fails to make API call
-   * @deprecated
-   */
-  @Deprecated
-  public UpdateFlow200Response updateFlow(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = body;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling updateFlow");
-    }
-    
-    // verify the required parameter 'namespace' is set
-    if (namespace == null) {
-      throw new ApiException(400, "Missing the required parameter 'namespace' when calling updateFlow");
-    }
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling updateFlow");
-    }
-    
-    // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new ApiException(400, "Missing the required parameter 'body' when calling updateFlow");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/flows/{namespace}/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
-      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/x-yaml"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<UpdateFlow200Response> localVarReturnType = new TypeReference<UpdateFlow200Response>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "PUT",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
-
-  /**
-   * Update a complete namespace from json object
-   * All flow will be created / updated for this namespace. Flow that already created but not in &#x60;flows&#x60; will be deleted if the query delete is &#x60;true&#x60;
-   * @param delete If missing flow should be deleted (required)
-   * @param namespace The flow namespace (required)
-   * @param tenant  (required)
-   * @param flow A list of flows (required)
-   * @return UpdateFlowsInNamespaceFromJson200Response
-   * @throws ApiException if fails to make API call
-   * @deprecated
-   */
-  @Deprecated
-  public UpdateFlowsInNamespaceFromJson200Response updateFlowsInNamespaceFromJson(@javax.annotation.Nonnull Boolean delete, @javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Flow> flow) throws ApiException {
-    return this.updateFlowsInNamespaceFromJson(delete, namespace, tenant, flow, Collections.emptyMap());
-  }
 
 
-  /**
-   * Update a complete namespace from json object
-   * All flow will be created / updated for this namespace. Flow that already created but not in &#x60;flows&#x60; will be deleted if the query delete is &#x60;true&#x60;
-   * @param delete If missing flow should be deleted (required)
-   * @param namespace The flow namespace (required)
-   * @param tenant  (required)
-   * @param flow A list of flows (required)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return UpdateFlowsInNamespaceFromJson200Response
-   * @throws ApiException if fails to make API call
-   * @deprecated
-   */
-  @Deprecated
-  public UpdateFlowsInNamespaceFromJson200Response updateFlowsInNamespaceFromJson(@javax.annotation.Nonnull Boolean delete, @javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Flow> flow, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = flow;
-    
-    // verify the required parameter 'delete' is set
-    if (delete == null) {
-      throw new ApiException(400, "Missing the required parameter 'delete' when calling updateFlowsInNamespaceFromJson");
-    }
-    
-    // verify the required parameter 'namespace' is set
-    if (namespace == null) {
-      throw new ApiException(400, "Missing the required parameter 'namespace' when calling updateFlowsInNamespaceFromJson");
-    }
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling updateFlowsInNamespaceFromJson");
-    }
-    
-    // verify the required parameter 'flow' is set
-    if (flow == null) {
-      throw new ApiException(400, "Missing the required parameter 'flow' when calling updateFlowsInNamespaceFromJson");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/flows/{namespace}"
-      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPair("delete", delete));
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json", "application/x-yaml"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<UpdateFlowsInNamespaceFromJson200Response> localVarReturnType = new TypeReference<UpdateFlowsInNamespaceFromJson200Response>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "POST",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
-
-  /**
-   * Update a single task on a flow
-   * 
-   * @param namespace The flow namespace (required)
-   * @param id The flow id (required)
-   * @param taskId The task id (required)
-   * @param tenant  (required)
-   * @param task The task (required)
-   * @return Flow
-   * @throws ApiException if fails to make API call
-   * @deprecated
-   */
-  @Deprecated
-  public Flow updateTask(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String taskId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Task task) throws ApiException {
-    return this.updateTask(namespace, id, taskId, tenant, task, Collections.emptyMap());
-  }
-
-
-  /**
-   * Update a single task on a flow
-   * 
-   * @param namespace The flow namespace (required)
-   * @param id The flow id (required)
-   * @param taskId The task id (required)
-   * @param tenant  (required)
-   * @param task The task (required)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return Flow
-   * @throws ApiException if fails to make API call
-   * @deprecated
-   */
-  @Deprecated
-  public Flow updateTask(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String taskId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Task task, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = task;
-    
-    // verify the required parameter 'namespace' is set
-    if (namespace == null) {
-      throw new ApiException(400, "Missing the required parameter 'namespace' when calling updateTask");
-    }
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling updateTask");
-    }
-    
-    // verify the required parameter 'taskId' is set
-    if (taskId == null) {
-      throw new ApiException(400, "Missing the required parameter 'taskId' when calling updateTask");
-    }
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling updateTask");
-    }
-    
-    // verify the required parameter 'task' is set
-    if (task == null) {
-      throw new ApiException(400, "Missing the required parameter 'task' when calling updateTask");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/flows/{namespace}/{id}/{taskId}"
-      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
-      .replaceAll("\\{" + "taskId" + "\\}", apiClient.escapeString(apiClient.parameterToString(taskId)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<Flow> localVarReturnType = new TypeReference<Flow>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "PATCH",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
 
   /**
    * Validate a list of flows
@@ -2632,6 +2373,11 @@ public class FlowsApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Validate a task
@@ -2722,6 +2468,11 @@ public class FlowsApi extends BaseApi {
         localVarReturnType
     );
   }
+
+
+
+
+
 
   /**
    * Validate trigger
@@ -2845,4 +2596,9 @@ public class FlowsApi extends BaseApi {
         returnType
     );
   }
+
+
+
+
+
 }

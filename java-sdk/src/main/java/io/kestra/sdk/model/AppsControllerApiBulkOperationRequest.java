@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -37,8 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AppsControllerApiBulkOperationRequest {
   public static final String JSON_PROPERTY_UIDS = "uids";
-  @javax.annotation.Nullable
-  private List<String> uids = new ArrayList<>();
+  @javax.annotation.Nullable  private List<String> uids = new ArrayList<>();
 
   public AppsControllerApiBulkOperationRequest() {
   }
@@ -61,8 +59,7 @@ public class AppsControllerApiBulkOperationRequest {
    * Get uids
    * @return uids
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_UIDS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UIDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getUids() {
@@ -70,7 +67,7 @@ public class AppsControllerApiBulkOperationRequest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_UIDS, required = false)
+  @JsonProperty(JSON_PROPERTY_UIDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUids(@javax.annotation.Nullable List<String> uids) {
     this.uids = uids;

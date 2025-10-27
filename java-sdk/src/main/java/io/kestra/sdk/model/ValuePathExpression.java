@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -35,12 +34,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ValuePathExpression {
   public static final String JSON_PROPERTY_ATTRIBUTE_PATH = "attributePath";
-  @javax.annotation.Nullable
-  private AttributeReference attributePath;
+  @javax.annotation.Nullable  private AttributeReference attributePath;
 
   public static final String JSON_PROPERTY_ATTRIBUTE_EXPRESSION = "attributeExpression";
-  @javax.annotation.Nullable
-  private Object attributeExpression;
+  @javax.annotation.Nullable  private Object attributeExpression;
 
   public ValuePathExpression() {
   }
@@ -55,8 +52,7 @@ public class ValuePathExpression {
    * Get attributePath
    * @return attributePath
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ATTRIBUTE_PATH, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ATTRIBUTE_PATH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public AttributeReference getAttributePath() {
@@ -64,7 +60,7 @@ public class ValuePathExpression {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ATTRIBUTE_PATH, required = false)
+  @JsonProperty(JSON_PROPERTY_ATTRIBUTE_PATH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAttributePath(@javax.annotation.Nullable AttributeReference attributePath) {
     this.attributePath = attributePath;
@@ -80,8 +76,7 @@ public class ValuePathExpression {
    * Get attributeExpression
    * @return attributeExpression
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ATTRIBUTE_EXPRESSION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ATTRIBUTE_EXPRESSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Object getAttributeExpression() {
@@ -89,7 +84,7 @@ public class ValuePathExpression {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ATTRIBUTE_EXPRESSION, required = false)
+  @JsonProperty(JSON_PROPERTY_ATTRIBUTE_EXPRESSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAttributeExpression(@javax.annotation.Nullable Object attributeExpression) {
     this.attributeExpression = attributeExpression;

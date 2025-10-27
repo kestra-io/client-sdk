@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -35,12 +34,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class MeControllerApiUpdatePasswordRequest {
   public static final String JSON_PROPERTY_OLD_PASSWORD = "oldPassword";
-  @javax.annotation.Nullable
-  private String oldPassword;
+  @javax.annotation.Nullable  private String oldPassword;
 
   public static final String JSON_PROPERTY_NEW_PASSWORD = "newPassword";
-  @javax.annotation.Nullable
-  private String newPassword;
+  @javax.annotation.Nullable  private String newPassword;
 
   public MeControllerApiUpdatePasswordRequest() {
   }
@@ -55,8 +52,7 @@ public class MeControllerApiUpdatePasswordRequest {
    * Get oldPassword
    * @return oldPassword
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_OLD_PASSWORD, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OLD_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getOldPassword() {
@@ -64,7 +60,7 @@ public class MeControllerApiUpdatePasswordRequest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_OLD_PASSWORD, required = false)
+  @JsonProperty(JSON_PROPERTY_OLD_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOldPassword(@javax.annotation.Nullable String oldPassword) {
     this.oldPassword = oldPassword;
@@ -80,8 +76,7 @@ public class MeControllerApiUpdatePasswordRequest {
    * Get newPassword
    * @return newPassword
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_NEW_PASSWORD, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NEW_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getNewPassword() {
@@ -89,7 +84,7 @@ public class MeControllerApiUpdatePasswordRequest {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_NEW_PASSWORD, required = false)
+  @JsonProperty(JSON_PROPERTY_NEW_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNewPassword(@javax.annotation.Nullable String newPassword) {
     this.newPassword = newPassword;

@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -44,36 +43,28 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class BlueprintWithFlow {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
-  private String id;
+  @javax.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_TITLE = "title";
-  @javax.annotation.Nonnull
-  private String title;
+  @javax.annotation.Nonnull  private String title;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
-  private String description;
+  @javax.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_TAGS = "tags";
-  @javax.annotation.Nullable
-  private List<String> tags = new ArrayList<>();
+  @javax.annotation.Nullable  private List<String> tags = new ArrayList<>();
 
   public static final String JSON_PROPERTY_INCLUDED_TASKS = "includedTasks";
-  @javax.annotation.Nullable
-  private List<String> includedTasks = new ArrayList<>();
+  @javax.annotation.Nullable  private List<String> includedTasks = new ArrayList<>();
 
   public static final String JSON_PROPERTY_PUBLISHED_AT = "publishedAt";
-  @javax.annotation.Nullable
-  private OffsetDateTime publishedAt;
+  @javax.annotation.Nullable  private OffsetDateTime publishedAt;
 
   public static final String JSON_PROPERTY_DELETED = "deleted";
-  @javax.annotation.Nonnull
-  private Boolean deleted;
+  @javax.annotation.Nonnull  private Boolean deleted;
 
   public static final String JSON_PROPERTY_FLOW = "flow";
-  @javax.annotation.Nonnull
-  private String flow;
+  @javax.annotation.Nonnull  private String flow;
 
   public BlueprintWithFlow() {
   }
@@ -88,8 +79,7 @@ public class BlueprintWithFlow {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -97,7 +87,7 @@ public class BlueprintWithFlow {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable String id) {
     this.id = id;
@@ -113,8 +103,7 @@ public class BlueprintWithFlow {
    * Get title
    * @return title
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_TITLE, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TITLE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getTitle() {
@@ -122,7 +111,7 @@ public class BlueprintWithFlow {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TITLE, required = true)
+  @JsonProperty(JSON_PROPERTY_TITLE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTitle(@javax.annotation.Nonnull String title) {
     this.title = title;
@@ -138,8 +127,7 @@ public class BlueprintWithFlow {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -147,7 +135,7 @@ public class BlueprintWithFlow {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
@@ -171,8 +159,7 @@ public class BlueprintWithFlow {
    * Get tags
    * @return tags
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TAGS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TAGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getTags() {
@@ -180,7 +167,7 @@ public class BlueprintWithFlow {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TAGS, required = false)
+  @JsonProperty(JSON_PROPERTY_TAGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTags(@javax.annotation.Nullable List<String> tags) {
     this.tags = tags;
@@ -204,8 +191,7 @@ public class BlueprintWithFlow {
    * Get includedTasks
    * @return includedTasks
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_INCLUDED_TASKS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INCLUDED_TASKS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getIncludedTasks() {
@@ -213,7 +199,7 @@ public class BlueprintWithFlow {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_INCLUDED_TASKS, required = false)
+  @JsonProperty(JSON_PROPERTY_INCLUDED_TASKS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIncludedTasks(@javax.annotation.Nullable List<String> includedTasks) {
     this.includedTasks = includedTasks;
@@ -229,8 +215,7 @@ public class BlueprintWithFlow {
    * Get publishedAt
    * @return publishedAt
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_PUBLISHED_AT, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PUBLISHED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getPublishedAt() {
@@ -238,7 +223,7 @@ public class BlueprintWithFlow {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_PUBLISHED_AT, required = false)
+  @JsonProperty(JSON_PROPERTY_PUBLISHED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPublishedAt(@javax.annotation.Nullable OffsetDateTime publishedAt) {
     this.publishedAt = publishedAt;
@@ -254,8 +239,7 @@ public class BlueprintWithFlow {
    * Get deleted
    * @return deleted
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_DELETED, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getDeleted() {
@@ -263,7 +247,7 @@ public class BlueprintWithFlow {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_DELETED, required = true)
+  @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDeleted(@javax.annotation.Nonnull Boolean deleted) {
     this.deleted = deleted;
@@ -279,8 +263,7 @@ public class BlueprintWithFlow {
    * Get flow
    * @return flow
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_FLOW, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_FLOW)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getFlow() {
@@ -288,7 +271,7 @@ public class BlueprintWithFlow {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_FLOW, required = true)
+  @JsonProperty(JSON_PROPERTY_FLOW)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setFlow(@javax.annotation.Nonnull String flow) {
     this.flow = flow;

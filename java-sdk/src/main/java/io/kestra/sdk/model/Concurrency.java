@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -35,12 +34,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Concurrency {
   public static final String JSON_PROPERTY_LIMIT = "limit";
-  @javax.annotation.Nonnull
-  private Integer limit;
+  @javax.annotation.Nonnull  private Integer limit;
 
   public static final String JSON_PROPERTY_BEHAVIOR = "behavior";
-  @javax.annotation.Nonnull
-  private ConcurrencyBehavior behavior;
+  @javax.annotation.Nonnull  private ConcurrencyBehavior behavior;
 
   public Concurrency() {
   }
@@ -56,8 +53,7 @@ public class Concurrency {
    * minimum: 1
    * @return limit
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_LIMIT, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_LIMIT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Integer getLimit() {
@@ -65,7 +61,7 @@ public class Concurrency {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_LIMIT, required = true)
+  @JsonProperty(JSON_PROPERTY_LIMIT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setLimit(@javax.annotation.Nonnull Integer limit) {
     this.limit = limit;
@@ -81,8 +77,7 @@ public class Concurrency {
    * Get behavior
    * @return behavior
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_BEHAVIOR, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_BEHAVIOR)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public ConcurrencyBehavior getBehavior() {
@@ -90,7 +85,7 @@ public class Concurrency {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_BEHAVIOR, required = true)
+  @JsonProperty(JSON_PROPERTY_BEHAVIOR)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setBehavior(@javax.annotation.Nonnull ConcurrencyBehavior behavior) {
     this.behavior = behavior;

@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -43,20 +42,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Fixtures {
   public static final String JSON_PROPERTY_INPUTS = "inputs";
-  @javax.annotation.Nullable
-  private Map<String, Object> inputs = new HashMap<>();
+  @javax.annotation.Nullable  private Map<String, Object> inputs = new HashMap<>();
 
   public static final String JSON_PROPERTY_FILES = "files";
-  @javax.annotation.Nullable
-  private Map<String, String> files = new HashMap<>();
+  @javax.annotation.Nullable  private Map<String, String> files = new HashMap<>();
 
   public static final String JSON_PROPERTY_TASKS = "tasks";
-  @javax.annotation.Nullable
-  private List<TaskFixture> tasks = new ArrayList<>();
+  @javax.annotation.Nullable  private List<TaskFixture> tasks = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TRIGGER = "trigger";
-  @javax.annotation.Nullable
-  private TriggerFixture trigger;
+  @javax.annotation.Nullable  private TriggerFixture trigger;
 
   public Fixtures() {
   }
@@ -79,8 +74,7 @@ public class Fixtures {
    * Get inputs
    * @return inputs
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_INPUTS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INPUTS)
   @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getInputs() {
@@ -88,7 +82,7 @@ public class Fixtures {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_INPUTS, required = false)
+  @JsonProperty(JSON_PROPERTY_INPUTS)
   @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
   public void setInputs(@javax.annotation.Nullable Map<String, Object> inputs) {
     this.inputs = inputs;
@@ -112,8 +106,7 @@ public class Fixtures {
    * Get files
    * @return files
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_FILES, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FILES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, String> getFiles() {
@@ -121,7 +114,7 @@ public class Fixtures {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_FILES, required = false)
+  @JsonProperty(JSON_PROPERTY_FILES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFiles(@javax.annotation.Nullable Map<String, String> files) {
     this.files = files;
@@ -145,8 +138,7 @@ public class Fixtures {
    * Get tasks
    * @return tasks
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TASKS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TASKS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<TaskFixture> getTasks() {
@@ -154,7 +146,7 @@ public class Fixtures {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TASKS, required = false)
+  @JsonProperty(JSON_PROPERTY_TASKS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTasks(@javax.annotation.Nullable List<TaskFixture> tasks) {
     this.tasks = tasks;
@@ -170,8 +162,7 @@ public class Fixtures {
    * Get trigger
    * @return trigger
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TRIGGER, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TRIGGER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public TriggerFixture getTrigger() {
@@ -179,7 +170,7 @@ public class Fixtures {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TRIGGER, required = false)
+  @JsonProperty(JSON_PROPERTY_TRIGGER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTrigger(@javax.annotation.Nullable TriggerFixture trigger) {
     this.trigger = trigger;

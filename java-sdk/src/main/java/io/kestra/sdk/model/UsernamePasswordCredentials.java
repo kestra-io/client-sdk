@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -40,20 +39,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class UsernamePasswordCredentials {
   public static final String JSON_PROPERTY_USERNAME = "username";
-  @javax.annotation.Nonnull
-  private String username;
+  @javax.annotation.Nonnull  private String username;
 
   public static final String JSON_PROPERTY_PASSWORD = "password";
-  @javax.annotation.Nonnull
-  private String password;
+  @javax.annotation.Nonnull  private String password;
 
   public static final String JSON_PROPERTY_IDENTITY = "identity";
-  @javax.annotation.Nullable
-  private JsonNullable<String> identity = JsonNullable.<String>undefined();
+  @javax.annotation.Nullable  private JsonNullable<String> identity = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_SECRET = "secret";
-  @javax.annotation.Nullable
-  private JsonNullable<String> secret = JsonNullable.<String>undefined();
+  @javax.annotation.Nullable  private JsonNullable<String> secret = JsonNullable.<String>undefined();
 
   public UsernamePasswordCredentials() {
   }
@@ -68,8 +63,7 @@ public class UsernamePasswordCredentials {
    * Get username
    * @return username
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_USERNAME, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_USERNAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getUsername() {
@@ -77,7 +71,7 @@ public class UsernamePasswordCredentials {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_USERNAME, required = true)
+  @JsonProperty(JSON_PROPERTY_USERNAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setUsername(@javax.annotation.Nonnull String username) {
     this.username = username;
@@ -93,8 +87,7 @@ public class UsernamePasswordCredentials {
    * Get password
    * @return password
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_PASSWORD, required = true)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getPassword() {
@@ -102,7 +95,7 @@ public class UsernamePasswordCredentials {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_PASSWORD, required = true)
+  @JsonProperty(JSON_PROPERTY_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setPassword(@javax.annotation.Nonnull String password) {
     this.password = password;
@@ -118,21 +111,19 @@ public class UsernamePasswordCredentials {
    * Get identity
    * @return identity
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public String getIdentity() {
         return identity.orElse(null);
   }
 
-  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<String> getIdentity_JsonNullable() {
     return identity;
   }
   
-  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
   public void setIdentity_JsonNullable(JsonNullable<String> identity) {
     this.identity = identity;
   }
@@ -151,21 +142,19 @@ public class UsernamePasswordCredentials {
    * Get secret
    * @return secret
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public String getSecret() {
         return secret.orElse(null);
   }
 
-  @JsonProperty(value = JSON_PROPERTY_SECRET, required = false)
+  @JsonProperty(JSON_PROPERTY_SECRET)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<String> getSecret_JsonNullable() {
     return secret;
   }
   
-  @JsonProperty(value = JSON_PROPERTY_SECRET, required = false)
+  @JsonProperty(JSON_PROPERTY_SECRET)
   public void setSecret_JsonNullable(JsonNullable<String> secret) {
     this.secret = secret;
   }

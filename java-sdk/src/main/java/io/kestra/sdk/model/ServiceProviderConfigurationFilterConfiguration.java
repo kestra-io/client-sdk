@@ -15,7 +15,6 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -35,12 +34,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ServiceProviderConfigurationFilterConfiguration {
   public static final String JSON_PROPERTY_SUPPORTED = "supported";
-  @javax.annotation.Nullable
-  private Boolean supported;
+  @javax.annotation.Nullable  private Boolean supported;
 
   public static final String JSON_PROPERTY_MAX_RESULTS = "maxResults";
-  @javax.annotation.Nullable
-  private Integer maxResults;
+  @javax.annotation.Nullable  private Integer maxResults;
 
   public ServiceProviderConfigurationFilterConfiguration() {
   }
@@ -55,8 +52,7 @@ public class ServiceProviderConfigurationFilterConfiguration {
    * Get supported
    * @return supported
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_SUPPORTED, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPPORTED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getSupported() {
@@ -64,7 +60,7 @@ public class ServiceProviderConfigurationFilterConfiguration {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_SUPPORTED, required = false)
+  @JsonProperty(JSON_PROPERTY_SUPPORTED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSupported(@javax.annotation.Nullable Boolean supported) {
     this.supported = supported;
@@ -80,8 +76,7 @@ public class ServiceProviderConfigurationFilterConfiguration {
    * Get maxResults
    * @return maxResults
    */
-  @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_MAX_RESULTS, required = false)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MAX_RESULTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getMaxResults() {
@@ -89,7 +84,7 @@ public class ServiceProviderConfigurationFilterConfiguration {
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_MAX_RESULTS, required = false)
+  @JsonProperty(JSON_PROPERTY_MAX_RESULTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMaxResults(@javax.annotation.Nullable Integer maxResults) {
     this.maxResults = maxResults;
