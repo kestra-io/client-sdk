@@ -9,7 +9,6 @@ All URIs are relative to *http://localhost*
 | [**deleteExecutionsByIds**](ExecutionsApi.md#deleteExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/by-ids | Delete a list of executions |
 | [**deleteExecutionsByQuery**](ExecutionsApi.md#deleteExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/by-query | Delete executions filter by query parameters |
 | [**downloadFileFromExecution**](ExecutionsApi.md#downloadFileFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution |
-| [**evalTaskRunExpression**](ExecutionsApi.md#evalTaskRunExpression) | **POST** /api/v1/{tenant}/executions/{executionId}/eval/{taskRunId} | Evaluate a variable expression for this taskrun |
 | [**followExecution**](ExecutionsApi.md#followExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/follow | Follow an execution |
 | [**forceRunByIds**](ExecutionsApi.md#forceRunByIds) | **POST** /api/v1/{tenant}/executions/force-run/by-ids | Force run a list of executions |
 | [**forceRunExecution**](ExecutionsApi.md#forceRunExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/force-run | Force run an execution |
@@ -469,86 +468,6 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | downloadFileFromExecution 200 response |  -  |
-
-
-## evalTaskRunExpression
-
-> ExecutionControllerEvalResult evalTaskRunExpression(executionId, taskRunId, tenant, body)
-
-Evaluate a variable expression for this taskrun
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
-
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
-        String executionId = "executionId_example"; // String | The execution id
-        String taskRunId = "taskRunId_example"; // String | The taskrun id
-        String tenant = "tenant_example"; // String | 
-        String body = "body_example"; // String | The Pebble expression that should be evaluated
-        try {
-            ExecutionControllerEvalResult result = apiInstance.evalTaskRunExpression(executionId, taskRunId, tenant, body);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#evalTaskRunExpression");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **executionId** | **String**| The execution id | |
-| **taskRunId** | **String**| The taskrun id | |
-| **tenant** | **String**|  | |
-| **body** | **String**| The Pebble expression that should be evaluated | |
-
-### Return type
-
-[**ExecutionControllerEvalResult**](ExecutionControllerEvalResult.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: text/plain
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | evalTaskRunExpression 200 response |  -  |
 
 
 ## followExecution
