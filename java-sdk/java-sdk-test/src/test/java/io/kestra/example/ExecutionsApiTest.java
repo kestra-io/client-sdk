@@ -114,6 +114,18 @@ public class ExecutionsApiTest {
         createSimpleFlow(flow);
     }
 
+    private Execution createdSuccessExecution() {
+        String namespace = randomId();
+        String flowId = randomId();
+        ExecutionControllerExecutionResponse execution = createFlowWithExecution(flowId, namespace);
+        AtomicReference<Execution> executionAtomicReference = new AtomicReference<>();
+        await().atMost(Duration.ofSeconds(1)).until(() -> {
+            executionAtomicReference.set(kestraClient().executions().getExecution(execution.getId(), MAIN_TENANT));
+            return executionAtomicReference.get().getState().getCurrent().equals(StateType.SUCCESS);
+        });
+        return executionAtomicReference.get();
+    }
+
     /**
      * Create a new execution for a flow
      *
@@ -547,15 +559,18 @@ public class ExecutionsApiTest {
      */
     @Test
     public void replayExecutionTest() throws ApiException {
-        String executionId = null;
+        Execution exec = createdSuccessExecution();
+
+        String executionId = exec.getId();
 
         String taskRunId = null;
         Integer revision = null;
         String breakpoints = null;
         Execution response = kestraClient().executions().replayExecution(executionId, MAIN_TENANT, taskRunId, revision, breakpoints);
-
-        // TODO: test validations
+        assertThat(response.getState().getCurrent()).isEqualTo(StateType.CREATED);
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(response.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.SUCCESS));
     }
+
     /**
      * Create a new execution from an old one and start it from a specified task run id
      *
@@ -581,12 +596,13 @@ public class ExecutionsApiTest {
      */
     @Test
     public void replayExecutionsByIdsTest() throws ApiException {
+        Execution exec = createdSuccessExecution();
+        Execution otherExec = createdSuccessExecution();
 
-        List<String> requestBody = null;
+        List<String> requestBody = List.of(exec.getId(), otherExec.getId());
         Boolean latestRevision = null;
         BulkResponse response = kestraClient().executions().replayExecutionsByIds(MAIN_TENANT, requestBody, latestRevision);
-
-        // TODO: test validations
+        assertThat(response.getCount()).isEqualTo(2);
     }
     /**
      * Create new executions from old ones filter by query parameters. Keep the flow revision
@@ -596,12 +612,16 @@ public class ExecutionsApiTest {
      */
     @Test
     public void replayExecutionsByQueryTest() throws ApiException {
+        Execution exec = createdSuccessExecution();
+        Execution otherExec = createdSuccessExecution();
 
-        List<QueryFilter> filters = new ArrayList<>();
+        List<QueryFilter> filters = List.of(new QueryFilter()
+            .field(QueryFilterField.FLOW_ID)
+            .operation(QueryFilterOp.EQUALS)
+            .value(exec.getFlowId()));
 
-//        Object response = kestraClient().executions().replayExecutionsByQuery(MAIN_TENANT, filters, true); FIXME NICO
-
-        // TODO: test validations
+        Object response = kestraClient().executions().replayExecutionsByQuery(MAIN_TENANT, filters, true);
+        assertThat(response).isInstanceOf(LinkedHashMap.class).extracting("count").isEqualTo(1);
     }
     /**
      * Restart a new execution from an old one
