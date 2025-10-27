@@ -138,7 +138,6 @@ Class | Method | HTTP request | Description
 *ExecutionsApi* | [**getExecution**](docs/ExecutionsApi.md#getExecution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution
 *ExecutionsApi* | [**getExecutionFlowGraph**](docs/ExecutionsApi.md#getExecutionFlowGraph) | **GET** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution
 *ExecutionsApi* | [**getFileMetadatasFromExecution**](docs/ExecutionsApi.md#getFileMetadatasFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution
-*ExecutionsApi* | [**getFlowFromExecution**](docs/ExecutionsApi.md#getFlowFromExecution) | **GET** /api/v1/{tenant}/executions/flows/{namespace}/{flowId} | Get flow information&#39;s for an execution
 *ExecutionsApi* | [**getFlowFromExecutionById**](docs/ExecutionsApi.md#getFlowFromExecutionById) | **GET** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution
 *ExecutionsApi* | [**getLatestExecutions**](docs/ExecutionsApi.md#getLatestExecutions) | **POST** /api/v1/{tenant}/executions/latest | Get the latest execution for given flows
 *ExecutionsApi* | [**killExecution**](docs/ExecutionsApi.md#killExecution) | **DELETE** /api/v1/{tenant}/executions/{executionId}/kill | Kill an execution
@@ -169,7 +168,6 @@ Class | Method | HTTP request | Description
 *ExecutionsApi* | [**updateExecutionsStatusByIds**](docs/ExecutionsApi.md#updateExecutionsStatusByIds) | **POST** /api/v1/{tenant}/executions/change-status/by-ids | Change executions state by id
 *ExecutionsApi* | [**updateExecutionsStatusByQuery**](docs/ExecutionsApi.md#updateExecutionsStatusByQuery) | **POST** /api/v1/{tenant}/executions/change-status/by-query | Change executions state by query parameters
 *ExecutionsApi* | [**updateTaskRunState**](docs/ExecutionsApi.md#updateTaskRunState) | **POST** /api/v1/{tenant}/executions/{executionId}/state | Change state for a taskrun in an execution
-*FlowsApi* | [**bulkImportApps**](docs/FlowsApi.md#bulkImportApps) | **POST** /api/v1/{tenant}/apps/import |     Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
 *FlowsApi* | [**bulkUpdateFlows**](docs/FlowsApi.md#bulkUpdateFlows) | **POST** /api/v1/{tenant}/flows/bulk | Update from multiples yaml sources
 *FlowsApi* | [**createFlow**](docs/FlowsApi.md#createFlow) | **POST** /api/v1/{tenant}/flows | Create a flow from yaml source
 *FlowsApi* | [**deleteFlow**](docs/FlowsApi.md#deleteFlow) | **DELETE** /api/v1/{tenant}/flows/{namespace}/{id} | Delete a flow

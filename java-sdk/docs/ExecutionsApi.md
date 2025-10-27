@@ -16,7 +16,6 @@ All URIs are relative to *http://localhost*
 | [**getExecution**](ExecutionsApi.md#getExecution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution |
 | [**getExecutionFlowGraph**](ExecutionsApi.md#getExecutionFlowGraph) | **GET** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution |
 | [**getFileMetadatasFromExecution**](ExecutionsApi.md#getFileMetadatasFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution |
-| [**getFlowFromExecution**](ExecutionsApi.md#getFlowFromExecution) | **GET** /api/v1/{tenant}/executions/flows/{namespace}/{flowId} | Get flow information&#39;s for an execution |
 | [**getFlowFromExecutionById**](ExecutionsApi.md#getFlowFromExecutionById) | **GET** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution |
 | [**getLatestExecutions**](ExecutionsApi.md#getLatestExecutions) | **POST** /api/v1/{tenant}/executions/latest | Get the latest execution for given flows |
 | [**killExecution**](ExecutionsApi.md#killExecution) | **DELETE** /api/v1/{tenant}/executions/{executionId}/kill | Kill an execution |
@@ -1005,86 +1004,6 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | getFileMetadatasFromExecution 200 response |  -  |
-
-
-## getFlowFromExecution
-
-> FlowForExecution getFlowFromExecution(namespace, flowId, tenant, revision)
-
-Get flow information&#39;s for an execution
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
-
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
-        String namespace = "namespace_example"; // String | The namespace of the flow
-        String flowId = "flowId_example"; // String | The flow id
-        String tenant = "tenant_example"; // String | 
-        Integer revision = 56; // Integer | The flow revision
-        try {
-            FlowForExecution result = apiInstance.getFlowFromExecution(namespace, flowId, tenant, revision);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#getFlowFromExecution");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace of the flow | |
-| **flowId** | **String**| The flow id | |
-| **tenant** | **String**|  | |
-| **revision** | **Integer**| The flow revision | [optional] |
-
-### Return type
-
-[**FlowForExecution**](FlowForExecution.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | getFlowFromExecution 200 response |  -  |
 
 
 ## getFlowFromExecutionById

@@ -20,7 +20,6 @@ import io.kestra.sdk.internal.BaseApi;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.Pair;
 
-import io.kestra.sdk.model.AppsControllerApiBulkImportResponse;
 import io.kestra.sdk.model.BulkResponse;
 import java.io.File;
 import io.kestra.sdk.model.Flow;
@@ -54,90 +53,6 @@ import java.util.StringJoiner;
   public FlowsApi(ApiClient apiClient) {
     super(apiClient);
   }
-
-  /**
-   *     Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
-   * 
-   * @param tenant  (required)
-   * @param fileUpload The file to import, can be a ZIP archive or a multi-objects YAML file (optional)
-   * @return AppsControllerApiBulkImportResponse
-   * @throws ApiException if fails to make API call
-   */
-  public AppsControllerApiBulkImportResponse bulkImportApps(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable File fileUpload) throws ApiException {
-    return this.bulkImportApps(tenant, fileUpload, Collections.emptyMap());
-  }
-
-
-  /**
-   *     Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
-   * 
-   * @param tenant  (required)
-   * @param fileUpload The file to import, can be a ZIP archive or a multi-objects YAML file (optional)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return AppsControllerApiBulkImportResponse
-   * @throws ApiException if fails to make API call
-   */
-  public AppsControllerApiBulkImportResponse bulkImportApps(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable File fileUpload, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling bulkImportApps");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/apps/import"
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    if (fileUpload != null)
-      localVarFormParams.put("fileUpload", fileUpload);
-
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "multipart/form-data"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<AppsControllerApiBulkImportResponse> localVarReturnType = new TypeReference<AppsControllerApiBulkImportResponse>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "POST",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
-
-
-
-
-
 
   /**
    * Update from multiples yaml sources

@@ -36,6 +36,10 @@ if [ -n "$TEMPLATE_FLAG" ]; then
   exit 0
 fi
 
+KESTRA_OPENAPI_SDK_CUSTOMIZER_CONF=$(readlink -f ./configurations/kestra-openapi-sdk-customizer.json)
+KESTRA_OPENAPI=$(readlink -f ./kestra-ee.yml)
+sh -c "cd ./generation-helpers/kestra-openapi-sdk-customizer && npm run build && npm start $KESTRA_OPENAPI_SDK_CUSTOMIZER_CONF $KESTRA_OPENAPI"
+
 # Generate Java SDK
 if [[ ",$LANGUAGES," == *",java,"* ]]; then
 rm -rf ./java-sdk/docs

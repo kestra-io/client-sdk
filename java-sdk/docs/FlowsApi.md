@@ -4,7 +4,6 @@ All URIs are relative to *http://localhost*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**bulkImportApps**](FlowsApi.md#bulkImportApps) | **POST** /api/v1/{tenant}/apps/import |     Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned.  |
 | [**bulkUpdateFlows**](FlowsApi.md#bulkUpdateFlows) | **POST** /api/v1/{tenant}/flows/bulk | Update from multiples yaml sources |
 | [**createFlow**](FlowsApi.md#createFlow) | **POST** /api/v1/{tenant}/flows | Create a flow from yaml source |
 | [**deleteFlow**](FlowsApi.md#deleteFlow) | **DELETE** /api/v1/{tenant}/flows/{namespace}/{id} | Delete a flow |
@@ -33,82 +32,6 @@ All URIs are relative to *http://localhost*
 | [**validateTask**](FlowsApi.md#validateTask) | **POST** /api/v1/{tenant}/flows/validate/task | Validate a task |
 | [**validateTrigger**](FlowsApi.md#validateTrigger) | **POST** /api/v1/{tenant}/flows/validate/trigger | Validate trigger |
 
-
-
-## bulkImportApps
-
-> AppsControllerApiBulkImportResponse bulkImportApps(tenant, fileUpload)
-
-    Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.FlowsApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
-
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        FlowsApi apiInstance = new FlowsApi(defaultClient);
-        String tenant = "tenant_example"; // String | 
-        File fileUpload = new File("/path/to/file"); // File | The file to import, can be a ZIP archive or a multi-objects YAML file
-        try {
-            AppsControllerApiBulkImportResponse result = apiInstance.bulkImportApps(tenant, fileUpload);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling FlowsApi#bulkImportApps");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **tenant** | **String**|  | |
-| **fileUpload** | **File**| The file to import, can be a ZIP archive or a multi-objects YAML file | [optional] |
-
-### Return type
-
-[**AppsControllerApiBulkImportResponse**](AppsControllerApiBulkImportResponse.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: multipart/form-data
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | On success |  -  |
 
 
 ## bulkUpdateFlows
