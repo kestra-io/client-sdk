@@ -2394,7 +2394,7 @@ import java.util.StringJoiner;
    * @return ValidateConstraintViolation
    * @throws ApiException if fails to make API call
    */
-  public ValidateConstraintViolation validateTask(@javax.annotation.Nonnull FlowControllerTaskValidationType section, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body) throws ApiException {
+  public ValidateConstraintViolation validateTask(@javax.annotation.Nonnull FlowControllerTaskValidationType section, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Object body) throws ApiException {
     return this.validateTask(section, tenant, body, Collections.emptyMap());
   }
 
@@ -2409,7 +2409,7 @@ import java.util.StringJoiner;
    * @return ValidateConstraintViolation
    * @throws ApiException if fails to make API call
    */
-  public ValidateConstraintViolation validateTask(@javax.annotation.Nonnull FlowControllerTaskValidationType section, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
+  public ValidateConstraintViolation validateTask(@javax.annotation.Nonnull FlowControllerTaskValidationType section, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Object body, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'section' is set

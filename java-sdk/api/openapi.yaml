@@ -8449,7 +8449,7 @@ paths:
         content:
           application/x-yaml:
             schema:
-              type: string
+              type: object
           application/json:
             schema:
               type: object
