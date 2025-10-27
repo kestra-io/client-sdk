@@ -11,8 +11,8 @@ __version__ = "{{packageVersion}}"
 __all__ = [
     {{#apiInfo}}{{#apis}}"{{classname}}",
     {{/apis}}{{/apiInfo}}"ApiResponse",
+    "ApiClient",
     "Configuration",
-    "KestraClient",
     "OpenApiException",
     "ApiTypeError",
     "ApiValueError",
@@ -47,4 +47,3 @@ else:
 
 __import__('sys').setrecursionlimit({{{.}}})
 {{/recursionLimit}}
-from kestrapy.kestra_client import KestraClient as KestraClient

@@ -26,7 +26,7 @@ BASE_PKG=io.kestra.sdk
 
 if [ -n "$TEMPLATE_FLAG" ]; then
   echo "Generating templates"
-  docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release author template -g "$LANGUAGES" -o /local/templates/python
+  docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release author template -g "$LANGUAGES" -o /local/templates/$LANGUAGES
   exit 0
 fi
 
@@ -39,7 +39,8 @@ rm -rf ./java-sdk/src/main/java/io/kestra/sdk/model
 
 docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release generate \
      -c /local/configurations/java-config.yml --artifact-version $VERSION \
-      --skip-validate-spec
+      --skip-validate-spec \
+      --template-dir=/local/templates/java
 
 find ./java-sdk/src/main/java -type f -name "*.java" -exec sed -i.bak 's/Map<Task>/List<Task>/g' {} + && find ./java-sdk/src/main/java -name "*.bak" -delete
 echo "version=$VERSION" > ./java-sdk/gradle.properties
@@ -51,7 +52,7 @@ docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/ope
     -c /local/configurations/python-config.yml \
     --skip-validate-spec \
     --additional-properties=packageVersion=$VERSION \
-    --template-dir=/local/templates/python \
+    --template-dir=/local/templates/python
 
 sed $SED_INPLACE -E 's/^license = .*/license = "Apache-2.0"/' python-sdk/pyproject.toml
 sed $SED_INPLACE -E 's/^requires-python = .*/requires-python = ">=3.9"/' python-sdk/pyproject.toml
@@ -65,7 +66,8 @@ if [[ ",$LANGUAGES," == *",javascript,"* ]]; then
 docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release generate \
     -c /local/configurations/javascript-config.yml \
     --skip-validate-spec \
-    --additional-properties=projectVersion=$VERSION
+    --additional-properties=projectVersion=$VERSION \
+    --template-dir=/local/templates/javascript
 fi
 
 # Generate GoLang SDK
@@ -73,7 +75,8 @@ if [[ ",$LANGUAGES," == *",go,"* ]]; then
 docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release generate \
       -c /local/configurations/go-config.yml \
       --skip-validate-spec \
-      --additional-properties=packageVersion=$VERSION
+      --additional-properties=packageVersion=$VERSION \
+    --template-dir=/local/templates/go
 # these generated structs collides between api_cluster.go and api_maintenance.go, needs to be improved TODO
 sed $SED_INPLACE.bak -e 's/ApiEnterMaintenanceRequest/ApiClusterEnterMaintenanceRequest/g' ./go-sdk/api_cluster.go && rm ./go-sdk/api_cluster.go.bak
 sed $SED_INPLACE.bak -e 's/ApiExitMaintenanceRequest/ApiClusterExitMaintenanceRequest/g' ./go-sdk/api_cluster.go && rm ./go-sdk/api_cluster.go.bak
