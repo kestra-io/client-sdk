@@ -113,9 +113,8 @@ public class TriggersApiTest {
             .field(QueryFilterField.TRIGGER_ID)
             .operation(QueryFilterOp.CONTAINS)
             .value(flowId);
-        DeleteExecutionsByQueryRequest req = new DeleteExecutionsByQueryRequest().filters(List.of(qf));
 
-        Object resp = kestraClient().triggers().deleteBackfillByQuery(MAIN_TENANT, req, null, namespace);
+        Object resp = kestraClient().triggers().deleteBackfillByQuery(MAIN_TENANT, List.of(qf), null, namespace);
         assertNotNull(resp);
     }
 
@@ -146,9 +145,8 @@ public class TriggersApiTest {
             .field(QueryFilterField.TRIGGER_ID)
             .operation(QueryFilterOp.CONTAINS)
             .value(flowId);
-        DeleteExecutionsByQueryRequest req = new DeleteExecutionsByQueryRequest().filters(List.of(qf));
 
-        Object resp = kestraClient().triggers().disabledTriggersByQuery(true, MAIN_TENANT, req, null, namespace);
+        Object resp = kestraClient().triggers().disabledTriggersByQuery(true, MAIN_TENANT, List.of(qf), null, namespace);
         assertNotNull(resp);
     }
 
@@ -189,9 +187,8 @@ public class TriggersApiTest {
             .field(QueryFilterField.TRIGGER_ID)
             .operation(QueryFilterOp.CONTAINS)
             .value(flowId);
-        DeleteExecutionsByQueryRequest req = new DeleteExecutionsByQueryRequest().filters(List.of(qf));
 
-        Object resp = kestraClient().triggers().pauseBackfillByQuery(MAIN_TENANT, req, null, namespace);
+        Object resp = kestraClient().triggers().pauseBackfillByQuery(MAIN_TENANT, List.of(qf), null, namespace);
         assertNotNull(resp);
     }
 
@@ -267,8 +264,7 @@ public class TriggersApiTest {
         String namespace = "test.triggers." + randomId();
         createFlowWithTrigger(flowId, triggerId, namespace);
 
-        DeleteExecutionsByQueryRequest req = new DeleteExecutionsByQueryRequest(); // empty, like Python
-        Object resp = kestraClient().triggers().unlockTriggersByQuery(MAIN_TENANT, req, null, namespace);
+        Object resp = kestraClient().triggers().unlockTriggersByQuery(MAIN_TENANT, List.of(), null, namespace);
         assertNotNull(resp);
     }
 
@@ -305,8 +301,7 @@ public class TriggersApiTest {
         String namespace = "test.triggers." + randomId();
         createFlowWithTrigger(flowId, triggerId, namespace);
 
-        DeleteExecutionsByQueryRequest req = new DeleteExecutionsByQueryRequest();
-        Object resp = kestraClient().triggers().unpauseBackfillByQuery(MAIN_TENANT, req, null, namespace);
+        Object resp = kestraClient().triggers().unpauseBackfillByQuery(MAIN_TENANT, List.of(), null, namespace);
         assertNotNull(resp);
     }
 
