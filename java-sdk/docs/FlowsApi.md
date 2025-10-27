@@ -2028,7 +2028,7 @@ public class Example {
         FlowsApi apiInstance = new FlowsApi(defaultClient);
         FlowControllerTaskValidationType section = FlowControllerTaskValidationType.fromValue("TASKS"); // FlowControllerTaskValidationType | The type of task
         String tenant = "tenant_example"; // String | 
-        String body = "body_example"; // String | A task definition that can be from tasks or triggers
+        Object body = null; // Object | A task definition that can be from tasks or triggers
         try {
             ValidateConstraintViolation result = apiInstance.validateTask(section, tenant, body);
             System.out.println(result);
@@ -2050,7 +2050,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **section** | [**FlowControllerTaskValidationType**](.md)| The type of task | [enum: TASKS, TRIGGERS] |
 | **tenant** | **String**|  | |
-| **body** | **String**| A task definition that can be from tasks or triggers | |
+| **body** | **Object**| A task definition that can be from tasks or triggers | |
 
 ### Return type
 

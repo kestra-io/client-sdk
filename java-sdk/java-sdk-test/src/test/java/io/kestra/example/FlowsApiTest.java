@@ -16,7 +16,7 @@ import static io.kestra.example.CommonTestSetup.*;
 import static org.assertj.core.api.Assertions.*;
 
 public class FlowsApiTest {
-
+    public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     /**
      * Update from multiples yaml sources
      *
@@ -445,13 +445,35 @@ public class FlowsApiTest {
      *          if the Api call fails
      */
     @Test
-    public void validateTaskTest() throws ApiException {
-        FlowControllerTaskValidationType section = null;
+    public void validateTaskTest() throws ApiException, JsonProcessingException {
+        FlowControllerTaskValidationType section = FlowControllerTaskValidationType.TASKS;
 
-        String body = null;
-        ValidateConstraintViolation response = kestraClient().flows().validateTask(section, MAIN_TENANT, body);
+        var taskJson = """
+            {
+              "id": "task_one",
+              "type": "io.kestra.plugin.core.log.Log",
+              "message": "strange---string"
+            }
+            """;
+        ValidateConstraintViolation response = kestraClient().flows().validateTask(section, MAIN_TENANT, OBJECT_MAPPER.readValue(taskJson, Object.class));
 
-        // TODO: test validations
+        assertThat(response.getConstraints()).isNullOrEmpty();
+        assertThat(response.getWarnings()).isNullOrEmpty();
+    }
+    @Test
+    public void validateTaskTest_invalid() throws ApiException, JsonProcessingException {
+        FlowControllerTaskValidationType section = FlowControllerTaskValidationType.TASKS;
+
+        var taskJson = """
+            {
+              "id": "task_one",
+              "type": "io.kestra.plugin.core.log.InvalidTask",
+              "message": "strange---string"
+            }
+            """;
+        ValidateConstraintViolation response = kestraClient().flows().validateTask(section, MAIN_TENANT, OBJECT_MAPPER.readValue(taskJson, Object.class));
+
+        assertThat(response.getConstraints()).contains("Invalid type: io.kestra.plugin.core.log.InvalidTask");
     }
     /**
      * Validate trigger
@@ -469,7 +491,7 @@ public class FlowsApiTest {
                     "cron": "0 9 1 * *"
                 }
             """;
-        ValidateConstraintViolation response = kestraClient().flows().validateTrigger(MAIN_TENANT, new ObjectMapper().readValue(triggerJson, Object.class));
+        ValidateConstraintViolation response = kestraClient().flows().validateTrigger(MAIN_TENANT, OBJECT_MAPPER.readValue(triggerJson, Object.class));
 
         assertThat(response.getConstraints()).isNullOrEmpty();
         assertThat(response.getWarnings()).isNullOrEmpty();
@@ -485,7 +507,7 @@ public class FlowsApiTest {
                     "cron": "0 9 1 * *"
                 }
             """;
-        ValidateConstraintViolation response = kestraClient().flows().validateTrigger(MAIN_TENANT, new ObjectMapper().readValue(triggerJson, Object.class));
+        ValidateConstraintViolation response = kestraClient().flows().validateTrigger(MAIN_TENANT, OBJECT_MAPPER.readValue(triggerJson, Object.class));
 
         assertThat(response.getConstraints()).contains("Invalid type: io.kestra.plugin.core.trigger.InvalidType");
     }
