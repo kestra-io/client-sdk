@@ -393,13 +393,15 @@ public class FlowsApiTest {
     @Test
     public void searchFlowsBySourceCodeTest() throws ApiException {
         var flow = createSimpleFlow();
-        Integer page = null;
-        Integer size = null;
+        Integer page = 1;
+        Integer size = 10000;
 
         List<String> sort = null;
-        String q = null;
+        String q = flow.getId();
         String namespace = flow.getNamespace();
         PagedResultsSearchResultFlow response = kestraClient().flows().searchFlowsBySourceCode(page, size, MAIN_TENANT, sort, q, namespace);
+
+        assertThat(response.getResults().stream().map(x -> x.getModel().getId())).containsOnly(flow.getId());
     }
     /**
      * Update a flow
