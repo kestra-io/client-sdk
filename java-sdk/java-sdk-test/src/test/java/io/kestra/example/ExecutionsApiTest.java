@@ -97,6 +97,23 @@ public class ExecutionsApiTest {
         return executionAtomic.get();
     }
 
+    private void createSleepConcurrencyFlow(String flowId, String namespace) {
+        String flow = """
+            id: %s
+            namespace: %s
+
+            concurrency:
+              behavior: QUEUE
+              limit: 1
+
+            tasks:
+              - id: sleep
+                type: io.kestra.plugin.core.flow.Sleep
+                duration: PT2S
+            """.formatted(flowId, namespace);
+        createSimpleFlow(flow);
+    }
+
     /**
      * Create a new execution for a flow
      *
@@ -239,20 +256,7 @@ public class ExecutionsApiTest {
     public void forceRunByIdsTest() throws ApiException {
         String namespace = randomId();
         String flowId = randomId();
-        String flow = """
-            id: %s
-            namespace: %s
-
-            concurrency:
-              behavior: QUEUE
-              limit: 1
-
-            tasks:
-              - id: sleep
-                type: io.kestra.plugin.core.flow.Sleep
-                duration: PT2S
-            """.formatted(flowId, namespace);
-        createSimpleFlow(flow);
+        createSleepConcurrencyFlow(flowId, namespace);
         ExecutionControllerExecutionResponse execution = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
         await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(execution.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.RUNNING));
         ExecutionControllerExecutionResponse executionQueued = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
@@ -273,20 +277,7 @@ public class ExecutionsApiTest {
     public void forceRunExecutionTest() throws ApiException {
         String namespace = randomId();
         String flowId = randomId();
-        String flow = """
-            id: %s
-            namespace: %s
-
-            concurrency:
-              behavior: QUEUE
-              limit: 1
-
-            tasks:
-              - id: sleep
-                type: io.kestra.plugin.core.flow.Sleep
-                duration: PT2S
-            """.formatted(flowId, namespace);
-        createSimpleFlow(flow);
+        createSleepConcurrencyFlow(flowId, namespace);
         ExecutionControllerExecutionResponse execution = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
         await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(execution.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.RUNNING));
         ExecutionControllerExecutionResponse executionQueued = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
@@ -307,20 +298,7 @@ public class ExecutionsApiTest {
     public void forceRunExecutionsByQueryTest() throws ApiException {
         String namespace = randomId();
         String flowId = randomId();
-        String flow = """
-            id: %s
-            namespace: %s
-
-            concurrency:
-              behavior: QUEUE
-              limit: 1
-
-            tasks:
-              - id: sleep
-                type: io.kestra.plugin.core.flow.Sleep
-                duration: PT2S
-            """.formatted(flowId, namespace);
-        createSimpleFlow(flow);
+        createSleepConcurrencyFlow(flowId, namespace);
         ExecutionControllerExecutionResponse execution = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
         await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(execution.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.RUNNING));
         ExecutionControllerExecutionResponse executionQueued = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
@@ -335,6 +313,7 @@ public class ExecutionsApiTest {
         assertThat(response).isInstanceOf(LinkedHashMap.class).extracting("count").isEqualTo(2);
         assertThat(kestraClient().executions().getExecution(executionQueued.getId(), MAIN_TENANT).getState().getCurrent()).isEqualTo(StateType.RUNNING);
     }
+
     /**
      * Get an execution
      *
@@ -436,12 +415,16 @@ public class ExecutionsApiTest {
      */
     @Test
     public void killExecutionTest() throws ApiException {
-        String executionId = null;
-        Boolean isOnKillCascade = null;
+        String namespace = randomId();
+        String flowId = randomId();
+        createSleepConcurrencyFlow(flowId, namespace);
+        ExecutionControllerExecutionResponse execution = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
 
-        Object response = kestraClient().executions().killExecution(executionId, isOnKillCascade, MAIN_TENANT);
+        String executionId = execution.getId();
+        Boolean isOnKillCascade = true;
 
-        // TODO: test validations
+        kestraClient().executions().killExecution(executionId, isOnKillCascade, MAIN_TENANT);
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(execution.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.KILLED));
     }
     /**
      * Kill a list of executions
@@ -451,11 +434,19 @@ public class ExecutionsApiTest {
      */
     @Test
     public void killExecutionsByIdsTest() throws ApiException {
+        String namespace = randomId();
+        String flowId = randomId();
+        createSleepConcurrencyFlow(flowId, namespace);
+        ExecutionControllerExecutionResponse execution1 = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
+        ExecutionControllerExecutionResponse execution2 = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
+        ExecutionControllerExecutionResponse execution3 = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
 
-        List<String> requestBody = null;
+        List<String> requestBody = List.of(execution2.getId(), execution3.getId());
         BulkResponse response = kestraClient().executions().killExecutionsByIds(MAIN_TENANT, requestBody);
-
-        // TODO: test validations
+        assertThat(response.getCount()).isEqualTo(2);
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(execution2.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.KILLED));
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(execution3.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.KILLED));
+        await().atMost(Duration.ofSeconds(3)).until(() -> kestraClient().executions().getExecution(execution1.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.SUCCESS));
     }
     /**
      * Kill executions filter by query parameters
@@ -465,11 +456,25 @@ public class ExecutionsApiTest {
      */
     @Test
     public void killExecutionsByQueryTest() throws ApiException {
-        List<QueryFilter> filters = new ArrayList<>();
+        String namespace = randomId();
+        String flowId = randomId();
+        createSleepConcurrencyFlow(flowId, namespace);
+        String anotherFlowId = randomId();
+        createSleepConcurrencyFlow(anotherFlowId, namespace);
+        ExecutionControllerExecutionResponse execution1 = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
+        ExecutionControllerExecutionResponse execution2 = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
+        ExecutionControllerExecutionResponse anotherExec = kestraClient().executions().createExecution(namespace, anotherFlowId, false, MAIN_TENANT, null, null, null, null, null);
 
-//        Object response = kestraClient().executions().killExecutionsByQuery(MAIN_TENANT, filters); FIXME NICO
+        List<QueryFilter> filters = List.of(new QueryFilter()
+            .field(QueryFilterField.FLOW_ID)
+            .operation(QueryFilterOp.EQUALS)
+            .value(flowId));
 
-        // TODO: test validations
+        Object response = kestraClient().executions().killExecutionsByQuery(MAIN_TENANT, filters);
+        assertThat(response).isInstanceOf(LinkedHashMap.class).extracting("count").isEqualTo(2);
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(execution1.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.KILLED));
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(execution2.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.KILLED));
+        await().atMost(Duration.ofSeconds(3)).until(() -> kestraClient().executions().getExecution(anotherExec.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.SUCCESS));
     }
     /**
      * Pause a running execution.
