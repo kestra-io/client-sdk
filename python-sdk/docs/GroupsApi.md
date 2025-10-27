@@ -26,6 +26,8 @@ Adds the specified user to the given group. If the user does not already have ac
 
 ### Example
 
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -33,16 +35,39 @@ from kestrapy.models.iam_group_controller_api_group_member import IAMGroupContro
 from kestrapy.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = kestrapy.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = kestrapy.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization (Bearer): bearerAuth
+configuration = kestrapy.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
+    api_instance = kestrapy.GroupsApi(api_client)
     id = 'id_example' # str | The ID of the group
     user_id = 'user_id_example' # str | The ID of the user to add to the group
     tenant = 'tenant_example' # str | 
 
     try:
         # Add a user to a group
-        api_response = api_client.add_user_to_group(id, user_id, tenant)
+        api_response = api_instance.add_user_to_group(id, user_id, tenant)
         print("The response of GroupsApi->add_user_to_group:\n")
         pprint(api_response)
     except Exception as e:
@@ -90,6 +115,8 @@ List groups for autocomplete
 
 ### Example
 
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -98,15 +125,38 @@ from kestrapy.models.api_group_summary import ApiGroupSummary
 from kestrapy.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = kestrapy.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = kestrapy.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization (Bearer): bearerAuth
+configuration = kestrapy.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
+    api_instance = kestrapy.GroupsApi(api_client)
     tenant = 'tenant_example' # str | 
     api_autocomplete = kestrapy.ApiAutocomplete() # ApiAutocomplete | Autocomplete request
 
     try:
         # List groups for autocomplete
-        api_response = api_client.autocomplete_groups(tenant, api_autocomplete)
+        api_response = api_instance.autocomplete_groups(tenant, api_autocomplete)
         print("The response of GroupsApi->autocomplete_groups:\n")
         pprint(api_response)
     except Exception as e:
@@ -151,6 +201,8 @@ Create a group
 
 ### Example
 
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -159,15 +211,38 @@ from kestrapy.models.iam_group_controller_api_group_detail import IAMGroupContro
 from kestrapy.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = kestrapy.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = kestrapy.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization (Bearer): bearerAuth
+configuration = kestrapy.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
+    api_instance = kestrapy.GroupsApi(api_client)
     tenant = 'tenant_example' # str | 
     iam_group_controller_api_create_group_request = kestrapy.IAMGroupControllerApiCreateGroupRequest() # IAMGroupControllerApiCreateGroupRequest | The group
 
     try:
         # Create a group
-        api_response = api_client.create_group(tenant, iam_group_controller_api_create_group_request)
+        api_response = api_instance.create_group(tenant, iam_group_controller_api_create_group_request)
         print("The response of GroupsApi->create_group:\n")
         pprint(api_response)
     except Exception as e:
@@ -213,21 +288,46 @@ Delete a group
 
 ### Example
 
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
 from kestrapy.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = kestrapy.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = kestrapy.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization (Bearer): bearerAuth
+configuration = kestrapy.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
+    api_instance = kestrapy.GroupsApi(api_client)
     id = 'id_example' # str | The group id
     tenant = 'tenant_example' # str | 
 
     try:
         # Delete a group
-        api_client.delete_group(id, tenant)
+        api_instance.delete_group(id, tenant)
     except Exception as e:
         print("Exception when calling GroupsApi->delete_group: %s\n" % e)
 ```
@@ -273,6 +373,8 @@ Removes the specified user from the given group. If the user has no other group 
 
 ### Example
 
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -280,16 +382,39 @@ from kestrapy.models.iam_group_controller_api_group_member import IAMGroupContro
 from kestrapy.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = kestrapy.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = kestrapy.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization (Bearer): bearerAuth
+configuration = kestrapy.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
+    api_instance = kestrapy.GroupsApi(api_client)
     id = 'id_example' # str | The ID of the group
     user_id = 'user_id_example' # str | The ID of the user to remove from the group
     tenant = 'tenant_example' # str | 
 
     try:
         # Remove a user from a group
-        api_response = api_client.delete_user_from_group(id, user_id, tenant)
+        api_response = api_instance.delete_user_from_group(id, user_id, tenant)
         print("The response of GroupsApi->delete_user_from_group:\n")
         pprint(api_response)
     except Exception as e:
@@ -339,6 +464,8 @@ Retrieves details of a specific group by its ID within the current tenant.
 
 ### Example
 
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -346,15 +473,38 @@ from kestrapy.models.iam_group_controller_api_group_detail import IAMGroupContro
 from kestrapy.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = kestrapy.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = kestrapy.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization (Bearer): bearerAuth
+configuration = kestrapy.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
+    api_instance = kestrapy.GroupsApi(api_client)
     id = 'id_example' # str | The group id
     tenant = 'tenant_example' # str | 
 
     try:
         # Retrieve a group
-        api_response = api_client.get_group(id, tenant)
+        api_response = api_instance.get_group(id, tenant)
         print("The response of GroupsApi->get_group:\n")
         pprint(api_response)
     except Exception as e:
@@ -400,6 +550,8 @@ List groups by ids
 
 ### Example
 
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -408,15 +560,38 @@ from kestrapy.models.api_ids import ApiIds
 from kestrapy.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = kestrapy.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = kestrapy.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization (Bearer): bearerAuth
+configuration = kestrapy.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
+    api_instance = kestrapy.GroupsApi(api_client)
     tenant = 'tenant_example' # str | 
     api_ids = kestrapy.ApiIds() # ApiIds | The ids that must be present on results
 
     try:
         # List groups by ids
-        api_response = api_client.list_group_ids(tenant, api_ids)
+        api_response = api_instance.list_group_ids(tenant, api_ids)
         print("The response of GroupsApi->list_group_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -461,6 +636,8 @@ Search for users in a group
 
 ### Example
 
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -468,9 +645,32 @@ from kestrapy.models.paged_results_iam_group_controller_api_group_member import 
 from kestrapy.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = kestrapy.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = kestrapy.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization (Bearer): bearerAuth
+configuration = kestrapy.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
+    api_instance = kestrapy.GroupsApi(api_client)
     id = 'id_example' # str | The group id
     page = 1 # int | The current page (default to 1)
     size = 10 # int | The current page size (default to 10)
@@ -480,7 +680,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Search for users in a group
-        api_response = api_client.search_group_members(id, page, size, tenant, q=q, sort=sort)
+        api_response = api_instance.search_group_members(id, page, size, tenant, q=q, sort=sort)
         print("The response of GroupsApi->search_group_members:\n")
         pprint(api_response)
     except Exception as e:
@@ -529,6 +729,8 @@ Search for groups
 
 ### Example
 
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -536,9 +738,32 @@ from kestrapy.models.paged_results_api_group_summary import PagedResultsApiGroup
 from kestrapy.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = kestrapy.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = kestrapy.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization (Bearer): bearerAuth
+configuration = kestrapy.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
+    api_instance = kestrapy.GroupsApi(api_client)
     page = 1 # int | The current page (default to 1)
     size = 10 # int | The current page size (default to 10)
     tenant = 'tenant_example' # str | 
@@ -547,7 +772,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Search for groups
-        api_response = api_client.search_groups(page, size, tenant, q=q, sort=sort)
+        api_response = api_instance.search_groups(page, size, tenant, q=q, sort=sort)
         print("The response of GroupsApi->search_groups:\n")
         pprint(api_response)
     except Exception as e:
@@ -597,6 +822,8 @@ Allows a group owner or an authorized user to change the role of a user within a
 
 ### Example
 
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -605,9 +832,32 @@ from kestrapy.models.iam_group_controller_api_group_member import IAMGroupContro
 from kestrapy.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = kestrapy.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = kestrapy.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization (Bearer): bearerAuth
+configuration = kestrapy.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
+    api_instance = kestrapy.GroupsApi(api_client)
     id = 'id_example' # str | The ID of the group
     user_id = 'user_id_example' # str | The ID of the user whose membership is being updated
     membership = kestrapy.GroupIdentifierMembership() # GroupIdentifierMembership | The new membership type to assign to the user.
@@ -615,7 +865,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Update a user's membership type in a group
-        api_response = api_client.set_user_membership_for_group(id, user_id, membership, tenant)
+        api_response = api_instance.set_user_membership_for_group(id, user_id, membership, tenant)
         print("The response of GroupsApi->set_user_membership_for_group:\n")
         pprint(api_response)
     except Exception as e:
@@ -664,6 +914,8 @@ Update a group
 
 ### Example
 
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -672,16 +924,39 @@ from kestrapy.models.iam_group_controller_api_update_group_request import IAMGro
 from kestrapy.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = kestrapy.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = kestrapy.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization (Bearer): bearerAuth
+configuration = kestrapy.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
+    api_instance = kestrapy.GroupsApi(api_client)
     id = 'id_example' # str | The group id
     tenant = 'tenant_example' # str | 
     iam_group_controller_api_update_group_request = kestrapy.IAMGroupControllerApiUpdateGroupRequest() # IAMGroupControllerApiUpdateGroupRequest | The group
 
     try:
         # Update a group
-        api_response = api_client.update_group(id, tenant, iam_group_controller_api_update_group_request)
+        api_response = api_instance.update_group(id, tenant, iam_group_controller_api_update_group_request)
         print("The response of GroupsApi->update_group:\n")
         pprint(api_response)
     except Exception as e:

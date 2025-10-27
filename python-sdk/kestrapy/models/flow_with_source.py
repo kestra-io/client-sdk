@@ -24,7 +24,6 @@ from kestrapy.models.abstract_trigger import AbstractTrigger
 from kestrapy.models.concurrency import Concurrency
 from kestrapy.models.input_object import InputObject
 from kestrapy.models.label import Label
-from kestrapy.models.listener import Listener
 from kestrapy.models.output import Output
 from kestrapy.models.plugin_default import PluginDefault
 from kestrapy.models.sla import SLA
@@ -49,10 +48,8 @@ class FlowWithSource(BaseModel):
     worker_group: Optional[WorkerGroup] = Field(default=None, alias="workerGroup")
     deleted: StrictBool
     var_finally: Optional[List[Task]] = Field(default=None, alias="finally")
-    task_defaults: Optional[List[PluginDefault]] = Field(default=None, alias="taskDefaults")
     tasks: Annotated[List[Task], Field(min_length=1)]
     errors: Optional[List[Task]] = None
-    listeners: Optional[List[Listener]] = None
     after_execution: Optional[List[Task]] = Field(default=None, alias="afterExecution")
     triggers: Optional[List[AbstractTrigger]] = None
     plugin_defaults: Optional[List[PluginDefault]] = Field(default=None, alias="pluginDefaults")
@@ -60,7 +57,7 @@ class FlowWithSource(BaseModel):
     retry: Optional[Dict[str, Any]] = None
     sla: Optional[List[SLA]] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "namespace", "revision", "description", "inputs", "outputs", "disabled", "labels", "variables", "workerGroup", "deleted", "finally", "taskDefaults", "tasks", "errors", "listeners", "afterExecution", "triggers", "pluginDefaults", "concurrency", "retry", "sla"]
+    __properties: ClassVar[List[str]] = ["id", "namespace", "revision", "description", "inputs", "outputs", "disabled", "labels", "variables", "workerGroup", "deleted", "finally", "tasks", "errors", "afterExecution", "triggers", "pluginDefaults", "concurrency", "retry", "sla"]
 
     @field_validator('id')
     def id_validate_regular_expression(cls, value):
@@ -148,13 +145,6 @@ class FlowWithSource(BaseModel):
                 if _item_var_finally:
                     _items.append(_item_var_finally.to_dict())
             _dict['finally'] = _items
-        # override the default output from pydantic by calling `to_dict()` of each item in task_defaults (list)
-        _items = []
-        if self.task_defaults:
-            for _item_task_defaults in self.task_defaults:
-                if _item_task_defaults:
-                    _items.append(_item_task_defaults.to_dict())
-            _dict['taskDefaults'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in tasks (list)
         _items = []
         if self.tasks:
@@ -169,13 +159,6 @@ class FlowWithSource(BaseModel):
                 if _item_errors:
                     _items.append(_item_errors.to_dict())
             _dict['errors'] = _items
-        # override the default output from pydantic by calling `to_dict()` of each item in listeners (list)
-        _items = []
-        if self.listeners:
-            for _item_listeners in self.listeners:
-                if _item_listeners:
-                    _items.append(_item_listeners.to_dict())
-            _dict['listeners'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in after_execution (list)
         _items = []
         if self.after_execution:
@@ -236,10 +219,8 @@ class FlowWithSource(BaseModel):
             "workerGroup": WorkerGroup.from_dict(obj["workerGroup"]) if obj.get("workerGroup") is not None else None,
             "deleted": obj.get("deleted"),
             "finally": [Task.from_dict(_item) for _item in obj["finally"]] if obj.get("finally") is not None else None,
-            "taskDefaults": [PluginDefault.from_dict(_item) for _item in obj["taskDefaults"]] if obj.get("taskDefaults") is not None else None,
             "tasks": [Task.from_dict(_item) for _item in obj["tasks"]] if obj.get("tasks") is not None else None,
             "errors": [Task.from_dict(_item) for _item in obj["errors"]] if obj.get("errors") is not None else None,
-            "listeners": [Listener.from_dict(_item) for _item in obj["listeners"]] if obj.get("listeners") is not None else None,
             "afterExecution": [Task.from_dict(_item) for _item in obj["afterExecution"]] if obj.get("afterExecution") is not None else None,
             "triggers": [AbstractTrigger.from_dict(_item) for _item in obj["triggers"]] if obj.get("triggers") is not None else None,
             "pluginDefaults": [PluginDefault.from_dict(_item) for _item in obj["pluginDefaults"]] if obj.get("pluginDefaults") is not None else None,

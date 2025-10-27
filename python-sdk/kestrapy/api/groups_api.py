@@ -10,6 +10,12 @@
 
     Do not edit the class manually.
 """  # noqa: E501
+# Custom imports
+import requests
+import sseclient
+import json
+from typing import Generator
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -46,7 +52,6 @@ class GroupsApi:
         if api_client is None:
             api_client = ApiClient.get_default()
         self.api_client = api_client
-
 
     @validate_call
     def add_user_to_group(
@@ -275,6 +280,7 @@ class GroupsApi:
         return response_data.response
 
 
+
     def _add_user_to_group_serialize(
         self,
         id,
@@ -342,6 +348,7 @@ class GroupsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -552,6 +559,7 @@ class GroupsApi:
         return response_data.response
 
 
+
     def _autocomplete_groups_serialize(
         self,
         tenant,
@@ -629,6 +637,7 @@ class GroupsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -842,6 +851,7 @@ class GroupsApi:
         return response_data.response
 
 
+
     def _create_group_serialize(
         self,
         tenant,
@@ -919,6 +929,7 @@ class GroupsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -1132,6 +1143,7 @@ class GroupsApi:
         return response_data.response
 
 
+
     def _delete_group_serialize(
         self,
         id,
@@ -1189,6 +1201,7 @@ class GroupsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -1420,6 +1433,7 @@ class GroupsApi:
         return response_data.response
 
 
+
     def _delete_user_from_group_serialize(
         self,
         id,
@@ -1487,6 +1501,7 @@ class GroupsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -1703,6 +1718,7 @@ class GroupsApi:
         return response_data.response
 
 
+
     def _get_group_serialize(
         self,
         id,
@@ -1767,6 +1783,7 @@ class GroupsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -1977,6 +1994,7 @@ class GroupsApi:
         return response_data.response
 
 
+
     def _list_group_ids_serialize(
         self,
         tenant,
@@ -2054,6 +2072,7 @@ class GroupsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -2312,6 +2331,7 @@ class GroupsApi:
         return response_data.response
 
 
+
     def _search_group_members_serialize(
         self,
         id,
@@ -2397,6 +2417,7 @@ class GroupsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -2643,6 +2664,7 @@ class GroupsApi:
         return response_data.response
 
 
+
     def _search_groups_serialize(
         self,
         page,
@@ -2725,6 +2747,7 @@ class GroupsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -2968,6 +2991,7 @@ class GroupsApi:
         return response_data.response
 
 
+
     def _set_user_membership_for_group_serialize(
         self,
         id,
@@ -3040,6 +3064,7 @@ class GroupsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -3268,6 +3293,7 @@ class GroupsApi:
         return response_data.response
 
 
+
     def _update_group_serialize(
         self,
         id,
@@ -3348,5 +3374,7 @@ class GroupsApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
+
 
 

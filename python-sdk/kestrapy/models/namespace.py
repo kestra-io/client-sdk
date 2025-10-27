@@ -22,7 +22,6 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from kestrapy.models.isolation import Isolation
 from kestrapy.models.namespace_allowed_namespace import NamespaceAllowedNamespace
-from kestrapy.models.namespace_allowed_trigger import NamespaceAllowedTrigger
 from kestrapy.models.plugin_default import PluginDefault
 from kestrapy.models.worker_group import WorkerGroup
 from typing import Optional, Set
@@ -34,7 +33,6 @@ class Namespace(BaseModel):
     """ # noqa: E501
     id: Annotated[str, Field(strict=True)]
     deleted: StrictBool
-    allowed_triggers: Optional[List[NamespaceAllowedTrigger]] = Field(default=None, alias="allowedTriggers")
     storage_isolation: Optional[Isolation] = Field(default=None, alias="storageIsolation")
     secret_isolation: Optional[Isolation] = Field(default=None, alias="secretIsolation")
     description: Optional[StrictStr] = None

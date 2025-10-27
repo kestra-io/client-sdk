@@ -5,7 +5,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | **str** |  | [optional] 
 **id** | **str** |  | 
 **execution_id** | **str** |  | 
 **namespace** | **str** |  | 

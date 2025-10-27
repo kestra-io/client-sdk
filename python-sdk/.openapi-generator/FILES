@@ -86,7 +86,6 @@ docs/DailyExecutionStatisticsDuration.md
 docs/DailyExecutionStatisticsExecutionCounts.md
 docs/Dashboard.md
 docs/DashboardControllerPreviewRequest.md
-docs/DeleteExecutionsByQueryRequest.md
 docs/DeletedInterface.md
 docs/DependsOn.md
 docs/DocumentationWithSchema.md
@@ -384,7 +383,6 @@ docs/Type.md
 docs/UnitTest.md
 docs/UnitTestResult.md
 docs/UpdateFlow200Response.md
-docs/UpdateFlowsInNamespaceFromJson200Response.md
 docs/UsageEE.md
 docs/UserGroup.md
 docs/UserGroupType.md
@@ -497,7 +495,6 @@ kestrapy/models/daily_execution_statistics_duration.py
 kestrapy/models/daily_execution_statistics_execution_counts.py
 kestrapy/models/dashboard.py
 kestrapy/models/dashboard_controller_preview_request.py
-kestrapy/models/delete_executions_by_query_request.py
 kestrapy/models/deleted_interface.py
 kestrapy/models/depends_on.py
 kestrapy/models/documentation_with_schema.py
@@ -787,7 +784,6 @@ kestrapy/models/type.py
 kestrapy/models/unit_test.py
 kestrapy/models/unit_test_result.py
 kestrapy/models/update_flow200_response.py
-kestrapy/models/update_flows_in_namespace_from_json200_response.py
 kestrapy/models/usage_ee.py
 kestrapy/models/user_group.py
 kestrapy/models/user_group_type.py

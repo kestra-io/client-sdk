@@ -10,6 +10,12 @@
 
     Do not edit the class manually.
 """  # noqa: E501
+# Custom imports
+import requests
+import sseclient
+import json
+from typing import Generator
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -44,7 +50,6 @@ class ServiceAccountApi:
         if api_client is None:
             api_client = ApiClient.get_default()
         self.api_client = api_client
-
 
     @validate_call
     def create_api_tokens_for_service_account(
@@ -252,6 +257,7 @@ class ServiceAccountApi:
         return response_data.response
 
 
+
     def _create_api_tokens_for_service_account_serialize(
         self,
         id,
@@ -329,6 +335,7 @@ class ServiceAccountApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -551,6 +558,7 @@ class ServiceAccountApi:
         return response_data.response
 
 
+
     def _create_api_tokens_for_service_account_with_tenant_serialize(
         self,
         id,
@@ -631,6 +639,7 @@ class ServiceAccountApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -832,6 +841,7 @@ class ServiceAccountApi:
         return response_data.response
 
 
+
     def _create_service_account_serialize(
         self,
         iam_service_account_controller_api_create_service_account_request,
@@ -906,6 +916,7 @@ class ServiceAccountApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -1119,6 +1130,7 @@ class ServiceAccountApi:
         return response_data.response
 
 
+
     def _create_service_account_for_tenant_serialize(
         self,
         tenant,
@@ -1196,6 +1208,7 @@ class ServiceAccountApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -1406,6 +1419,7 @@ class ServiceAccountApi:
         return response_data.response
 
 
+
     def _delete_api_token_for_service_account_serialize(
         self,
         id,
@@ -1470,6 +1484,7 @@ class ServiceAccountApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -1692,6 +1707,7 @@ class ServiceAccountApi:
         return response_data.response
 
 
+
     def _delete_api_token_for_service_account_with_tenant_serialize(
         self,
         id,
@@ -1759,6 +1775,7 @@ class ServiceAccountApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -1963,6 +1980,7 @@ class ServiceAccountApi:
         return response_data.response
 
 
+
     def _delete_service_account_serialize(
         self,
         id,
@@ -2017,6 +2035,7 @@ class ServiceAccountApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -2078,8 +2097,8 @@ class ServiceAccountApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '404': None,
             '200': None,
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2149,8 +2168,8 @@ class ServiceAccountApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '404': None,
             '200': None,
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2220,14 +2239,15 @@ class ServiceAccountApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '404': None,
             '200': None,
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
         return response_data.response
+
 
 
     def _delete_service_account_for_tenant_serialize(
@@ -2291,6 +2311,7 @@ class ServiceAccountApi:
 
 
 
+
     @validate_call
     def get_service_account(
         self,
@@ -2345,8 +2366,8 @@ class ServiceAccountApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '404': None,
             '200': "IAMServiceAccountControllerApiServiceAccountDetail",
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2413,8 +2434,8 @@ class ServiceAccountApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '404': None,
             '200': "IAMServiceAccountControllerApiServiceAccountDetail",
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2481,14 +2502,15 @@ class ServiceAccountApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '404': None,
             '200': "IAMServiceAccountControllerApiServiceAccountDetail",
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
         return response_data.response
+
 
 
     def _get_service_account_serialize(
@@ -2556,6 +2578,7 @@ class ServiceAccountApi:
 
 
 
+
     @validate_call
     def get_service_account_for_tenant(
         self,
@@ -2613,8 +2636,8 @@ class ServiceAccountApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '404': None,
             '200': "IAMServiceAccountControllerApiServiceAccountResponse",
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2684,8 +2707,8 @@ class ServiceAccountApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '404': None,
             '200': "IAMServiceAccountControllerApiServiceAccountResponse",
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2755,14 +2778,15 @@ class ServiceAccountApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '404': None,
             '200': "IAMServiceAccountControllerApiServiceAccountResponse",
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
         return response_data.response
+
 
 
     def _get_service_account_for_tenant_serialize(
@@ -2829,6 +2853,7 @@ class ServiceAccountApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -3027,6 +3052,7 @@ class ServiceAccountApi:
         return response_data.response
 
 
+
     def _list_api_tokens_for_service_account_serialize(
         self,
         id,
@@ -3088,6 +3114,7 @@ class ServiceAccountApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -3298,6 +3325,7 @@ class ServiceAccountApi:
         return response_data.response
 
 
+
     def _list_api_tokens_for_service_account_with_tenant_serialize(
         self,
         id,
@@ -3362,6 +3390,7 @@ class ServiceAccountApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -3599,6 +3628,7 @@ class ServiceAccountApi:
         return response_data.response
 
 
+
     def _list_service_accounts_serialize(
         self,
         page,
@@ -3678,6 +3708,7 @@ class ServiceAccountApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -3891,6 +3922,7 @@ class ServiceAccountApi:
         return response_data.response
 
 
+
     def _patch_service_account_details_serialize(
         self,
         id,
@@ -3968,6 +4000,7 @@ class ServiceAccountApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -4184,6 +4217,7 @@ class ServiceAccountApi:
         return response_data.response
 
 
+
     def _patch_service_account_super_admin_serialize(
         self,
         id,
@@ -4258,6 +4292,7 @@ class ServiceAccountApi:
 
 
 
+
     @validate_call
     def update_service_account(
         self,
@@ -4319,8 +4354,8 @@ class ServiceAccountApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '404': None,
             '200': "IAMServiceAccountControllerApiServiceAccountResponse",
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4394,8 +4429,8 @@ class ServiceAccountApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '404': None,
             '200': "IAMServiceAccountControllerApiServiceAccountResponse",
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4469,14 +4504,15 @@ class ServiceAccountApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '404': None,
             '200': "IAMServiceAccountControllerApiServiceAccountResponse",
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
         return response_data.response
+
 
 
     def _update_service_account_serialize(
@@ -4559,5 +4595,7 @@ class ServiceAccountApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
+
 
 

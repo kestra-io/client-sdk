@@ -10,6 +10,12 @@
 
     Do not edit the class manually.
 """  # noqa: E501
+# Custom imports
+import requests
+import sseclient
+import json
+from typing import Generator
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -40,7 +46,6 @@ class KVApi:
         if api_client is None:
             api_client = ApiClient.get_default()
         self.api_client = api_client
-
 
     @validate_call
     def delete_key_value(
@@ -260,6 +265,7 @@ class KVApi:
         return response_data.response
 
 
+
     def _delete_key_value_serialize(
         self,
         namespace,
@@ -327,6 +333,7 @@ class KVApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -549,6 +556,7 @@ class KVApi:
         return response_data.response
 
 
+
     def _delete_key_values_serialize(
         self,
         namespace,
@@ -629,6 +637,7 @@ class KVApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -851,6 +860,7 @@ class KVApi:
         return response_data.response
 
 
+
     def _get_key_value_serialize(
         self,
         namespace,
@@ -918,6 +928,7 @@ class KVApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -1128,6 +1139,7 @@ class KVApi:
         return response_data.response
 
 
+
     def _list_keys_serialize(
         self,
         namespace,
@@ -1192,6 +1204,7 @@ class KVApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -1402,6 +1415,7 @@ class KVApi:
         return response_data.response
 
 
+
     def _list_keys_with_inheritence_serialize(
         self,
         namespace,
@@ -1466,6 +1480,7 @@ class KVApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -1700,6 +1715,7 @@ class KVApi:
         return response_data.response
 
 
+
     def _set_key_value_serialize(
         self,
         namespace,
@@ -1777,5 +1793,7 @@ class KVApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
+
 
 

@@ -5,7 +5,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** |  | [optional] 
 **id** | **str** |  | 
 **type** | [**Type**](Type.md) |  | 
 **description** | **str** |  | [optional] 

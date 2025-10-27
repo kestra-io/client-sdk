@@ -10,6 +10,12 @@
 
     Do not edit the class manually.
 """  # noqa: E501
+# Custom imports
+import requests
+import sseclient
+import json
+from typing import Generator
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -45,7 +51,6 @@ class NamespacesApi:
         if api_client is None:
             api_client = ApiClient.get_default()
         self.api_client = api_client
-
 
     @validate_call
     def autocomplete_namespaces(
@@ -256,6 +261,7 @@ class NamespacesApi:
         return response_data.response
 
 
+
     def _autocomplete_namespaces_serialize(
         self,
         tenant,
@@ -333,6 +339,7 @@ class NamespacesApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -543,6 +550,7 @@ class NamespacesApi:
         return response_data.response
 
 
+
     def _create_namespace_serialize(
         self,
         tenant,
@@ -620,6 +628,7 @@ class NamespacesApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -830,6 +839,7 @@ class NamespacesApi:
         return response_data.response
 
 
+
     def _delete_namespace_serialize(
         self,
         id,
@@ -887,6 +897,7 @@ class NamespacesApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -1109,6 +1120,7 @@ class NamespacesApi:
         return response_data.response
 
 
+
     def _delete_secret_serialize(
         self,
         namespace,
@@ -1169,6 +1181,7 @@ class NamespacesApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -1379,6 +1392,7 @@ class NamespacesApi:
         return response_data.response
 
 
+
     def _get_inherited_secrets_serialize(
         self,
         namespace,
@@ -1443,6 +1457,7 @@ class NamespacesApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -1653,6 +1668,7 @@ class NamespacesApi:
         return response_data.response
 
 
+
     def _get_namespace_serialize(
         self,
         id,
@@ -1717,6 +1733,7 @@ class NamespacesApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -1927,6 +1944,7 @@ class NamespacesApi:
         return response_data.response
 
 
+
     def _inherited_plugin_defaults_serialize(
         self,
         id,
@@ -1991,6 +2009,7 @@ class NamespacesApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -2201,6 +2220,7 @@ class NamespacesApi:
         return response_data.response
 
 
+
     def _inherited_variables_serialize(
         self,
         id,
@@ -2265,6 +2285,7 @@ class NamespacesApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -2523,6 +2544,7 @@ class NamespacesApi:
         return response_data.response
 
 
+
     def _list_namespace_secrets_serialize(
         self,
         namespace,
@@ -2609,6 +2631,7 @@ class NamespacesApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -2843,6 +2866,7 @@ class NamespacesApi:
         return response_data.response
 
 
+
     def _patch_secret_serialize(
         self,
         namespace,
@@ -2926,6 +2950,7 @@ class NamespacesApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -3148,6 +3173,7 @@ class NamespacesApi:
         return response_data.response
 
 
+
     def _put_secrets_serialize(
         self,
         namespace,
@@ -3228,6 +3254,7 @@ class NamespacesApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -3486,6 +3513,7 @@ class NamespacesApi:
         return response_data.response
 
 
+
     def _search_namespaces_serialize(
         self,
         page,
@@ -3573,6 +3601,7 @@ class NamespacesApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -3795,6 +3824,7 @@ class NamespacesApi:
         return response_data.response
 
 
+
     def _update_namespace_serialize(
         self,
         id,
@@ -3875,5 +3905,7 @@ class NamespacesApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
+
 
 

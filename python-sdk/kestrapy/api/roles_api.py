@@ -10,6 +10,12 @@
 
     Do not edit the class manually.
 """  # noqa: E501
+# Custom imports
+import requests
+import sseclient
+import json
+from typing import Generator
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -43,7 +49,6 @@ class RolesApi:
         if api_client is None:
             api_client = ApiClient.get_default()
         self.api_client = api_client
-
 
     @validate_call
     def autocomplete_roles(
@@ -251,6 +256,7 @@ class RolesApi:
         return response_data.response
 
 
+
     def _autocomplete_roles_serialize(
         self,
         tenant,
@@ -328,6 +334,7 @@ class RolesApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -541,6 +548,7 @@ class RolesApi:
         return response_data.response
 
 
+
     def _create_role_serialize(
         self,
         tenant,
@@ -618,6 +626,7 @@ class RolesApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -828,6 +837,7 @@ class RolesApi:
         return response_data.response
 
 
+
     def _delete_role_serialize(
         self,
         id,
@@ -889,6 +899,7 @@ class RolesApi:
 
 
 
+
     @validate_call
     def get_role(
         self,
@@ -946,8 +957,8 @@ class RolesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '404': None,
             '200': "IAMRoleControllerApiRoleDetail",
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1017,8 +1028,8 @@ class RolesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '404': None,
             '200': "IAMRoleControllerApiRoleDetail",
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1088,14 +1099,15 @@ class RolesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '404': None,
             '200': "IAMRoleControllerApiRoleDetail",
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
         return response_data.response
+
 
 
     def _get_role_serialize(
@@ -1162,6 +1174,7 @@ class RolesApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -1372,6 +1385,7 @@ class RolesApi:
         return response_data.response
 
 
+
     def _list_roles_from_given_ids_serialize(
         self,
         tenant,
@@ -1449,6 +1463,7 @@ class RolesApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
 
 
 
@@ -1695,6 +1710,7 @@ class RolesApi:
         return response_data.response
 
 
+
     def _search_roles_serialize(
         self,
         page,
@@ -1781,6 +1797,7 @@ class RolesApi:
 
 
 
+
     @validate_call
     def update_role(
         self,
@@ -1843,8 +1860,8 @@ class RolesApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "IAMRoleControllerApiRoleDetail",
-            '404': None,
             '403': None,
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1919,8 +1936,8 @@ class RolesApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "IAMRoleControllerApiRoleDetail",
-            '404': None,
             '403': None,
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1995,14 +2012,15 @@ class RolesApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "IAMRoleControllerApiRoleDetail",
-            '404': None,
             '403': None,
+            '404': None,
         }
         response_data = self.api_client.call_api(
             *_param,
             _request_timeout=_request_timeout
         )
         return response_data.response
+
 
 
     def _update_role_serialize(
@@ -2085,5 +2103,7 @@ class RolesApi:
             _host=_host,
             _request_auth=_request_auth
         )
+
+
 
 

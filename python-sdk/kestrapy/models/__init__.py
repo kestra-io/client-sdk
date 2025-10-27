@@ -96,7 +96,6 @@ from kestrapy.models.daily_execution_statistics_duration import DailyExecutionSt
 from kestrapy.models.daily_execution_statistics_execution_counts import DailyExecutionStatisticsExecutionCounts
 from kestrapy.models.dashboard import Dashboard
 from kestrapy.models.dashboard_controller_preview_request import DashboardControllerPreviewRequest
-from kestrapy.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
 from kestrapy.models.deleted_interface import DeletedInterface
 from kestrapy.models.depends_on import DependsOn
 from kestrapy.models.documentation_with_schema import DocumentationWithSchema
@@ -386,7 +385,6 @@ from kestrapy.models.type import Type
 from kestrapy.models.unit_test import UnitTest
 from kestrapy.models.unit_test_result import UnitTestResult
 from kestrapy.models.update_flow200_response import UpdateFlow200Response
-from kestrapy.models.update_flows_in_namespace_from_json200_response import UpdateFlowsInNamespaceFromJson200Response
 from kestrapy.models.usage_ee import UsageEE
 from kestrapy.models.user_group import UserGroup
 from kestrapy.models.user_group_type import UserGroupType

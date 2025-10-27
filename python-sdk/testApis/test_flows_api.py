@@ -13,30 +13,48 @@
 
 
 import unittest
-import yaml
-from pathlib import Path
 from kestrapy import Configuration, KestraClient
+from typing import Optional
+import uuid
+from kestrapy import (
+    IdWithNamespace,
+    QueryFilter,
+    QueryFilterField,
+    QueryFilterOp,
+)
+from kestrapy.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
 
 class TestFlowsApi(unittest.TestCase):
     """FlowsApi unit test stubs"""
 
     def setUp(self) -> None:
         configuration = Configuration()
-        configuration.host = "http://localhost:9902"
+        configuration.host = "http://localhost:8080"
         configuration.username = "root@root.com"
         configuration.password = "Root!1234"
 
         self.kestra_client = KestraClient(configuration)
+        self.tenant = "main"
 
     def tearDown(self) -> None:
         pass
 
-    def test_bulk_import_apps(self) -> None:
-        """Test case for bulk_import_apps
+    def create_flow(self, flow_id: Optional[str] = None, namespace: str = "test.flows") -> str:
+        """Helper to create a simple flow from a YAML source and return its id."""
+        if flow_id is None:
+            # include test method name to avoid collisions
+            flow_id = f"{self._testMethodName}_{uuid.uuid4().hex[:6]}"
 
-            Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn't be imported is returned. 
-        """
-        pass
+        body = f"""id: {flow_id}
+namespace: {namespace}
+
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.flow.Sleep
+    duration: PT1S
+"""
+        created = self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
+        return getattr(created, 'id', flow_id)
 
     def test_bulk_update_flows(self) -> None:
         """Test case for bulk_update_flows
@@ -45,110 +63,361 @@ class TestFlowsApi(unittest.TestCase):
         """
         pass
 
+    def test_create_complete_flow(self) -> None:
+        """Test case for create_complete_flow
+
+        Create a complete flow from json object
+        """
+        body = """id: flow_complete
+namespace: tests
+
+description: Let's `write` some **markdown**
+
+labels:
+  team: data
+  owner: kestrel
+  project: falco
+  environment: dev
+  country: US
+
+inputs:
+  - id: user
+    type: STRING
+    required: false
+    defaults: Kestrel
+    description: This is an optional input — if not set at runtime, it will use the default value Kestrel
+
+  - id: run_task
+    type: BOOL
+    defaults: true
+
+  - id: pokemon
+    type: MULTISELECT
+    displayName: Choose your favorite Pokemon
+    description: You can pick more than one!
+    values:
+      - Pikachu
+      - Charizard
+      - Bulbasaur
+      - Psyduck
+      - Squirtle
+      - Mewtwo
+      - Snorlax
+    dependsOn:
+      inputs:
+        - run_task
+      condition: "{{ inputs.run_task }}"
+
+  - id: bird
+    type: SELECT
+    displayName: Choose your favorite Falco bird
+    values:
+      - Kestrel
+      - Merlin
+      - Peregrine Falcon
+      - American Kestrel
+    dependsOn:
+      inputs:
+        - user
+      condition: "{{ inputs.user == 'Kestrel' }}"
+
+variables:
+  first: 1
+  second: "{{ vars.first }} < 2"
+
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.log.Log
+    description: this is a *task* documentation
+    message: |
+      The variables we used are {{ vars.first }} and {{ render(vars.second) }}.
+      The input is {{ inputs.user }} and the task was started at {{ taskrun.startDate }} from flow {{ flow.id }}.
+
+  - id: run_if_true
+    type: io.kestra.plugin.core.debug.Return
+    format: Hello World!
+    runIf: "{{ inputs.run_task }}"
+
+  - id: fallback
+    type: io.kestra.plugin.core.debug.Return
+    format: fallback output
+
+finally:
+  - id: finally_log
+    type: io.kestra.plugin.core.log.Log
+    message: "This task runs after all the tasks are run, irrespective of whether the tasks ran successfully or failed. Execution {{ execution.state }}" # Execution RUNNING
+
+afterExecution:
+  - id: afterExecution_log
+    type: io.kestra.plugin.core.log.Log
+    message: "This task runs after the flow execution is complete. Execution {{ execution.state }}" # Execution FAILED / SUCCESS
+
+outputs:
+  - id: flow_output
+    type: STRING
+    value: "{{ tasks.run_if_true.state != 'SKIPPED' ? outputs.run_if_true.value : outputs.fallback.value }}"
+
+pluginDefaults:
+  - type: io.kestra.plugin.core.log.Log
+    values:
+      level: TRACE
+
+triggers:
+  - id: monthly
+    type: io.kestra.plugin.core.trigger.Schedule
+    cron: "0 9 1 * *" # 1st of each month at 9am
+"""
+
+        created = self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
+
+        assert created.id == "flow_complete"
+
     def test_create_flow(self) -> None:
         """Test case for create_flow
 
         Create a flow from yaml source
         """
-        pass
+        flow_id = f"{self._testMethodName}_flow"
+        created_id = self.create_flow(flow_id=flow_id)
+        assert created_id == flow_id
 
     def test_delete_flow(self) -> None:
         """Test case for delete_flow
 
         Delete a flow
         """
-        pass
+        flow_id = f"{self._testMethodName}_flow"
+        created_id = self.create_flow(flow_id=flow_id)
+
+        # delete using correct parameter name 'id'
+        self.kestra_client.flows.delete_flow(namespace="test.flows", id=created_id, tenant=self.tenant)
+
+        # get_flow requires source and allow_deleted parameters
+        with self.assertRaises(Exception):
+            self.kestra_client.flows.get_flow(namespace="test.flows", id=created_id, source=False, allow_deleted=False, tenant=self.tenant)
 
     def test_delete_flows_by_ids(self) -> None:
         """Test case for delete_flows_by_ids
 
         Delete flows by their IDs.
         """
-        pass
+        # create two flows with ids derived from test name
+        f1 = f"{self._testMethodName}_1"
+        f2 = f"{self._testMethodName}_2"
+        id1 = self.create_flow(flow_id=f1)
+        id2 = self.create_flow(flow_id=f2)
+
+        req = [IdWithNamespace(id=id1, namespace="test.flows"), IdWithNamespace(id=id2, namespace="test.flows")]
+        resp = self.kestra_client.flows.delete_flows_by_ids(tenant=self.tenant, id_with_namespace=req)
+        # expect a BulkResponse-like object or no exception
+        assert resp is not None
+
+        with self.assertRaises(Exception):
+            self.kestra_client.flows.get_flow(namespace="test.flows", id=id1, source=False, allow_deleted=False, tenant=self.tenant)
+        with self.assertRaises(Exception):
+            self.kestra_client.flows.get_flow(namespace="test.flows", id=id2, source=False, allow_deleted=False, tenant=self.tenant)
 
     def test_delete_flows_by_query(self) -> None:
         """Test case for delete_flows_by_query
 
         Delete flows returned by the query parameters.
         """
-        pass
+        base = f"{self._testMethodName}"
+        namespace = "test_delete_flows_by_query"
+        id_a = self.create_flow(flow_id=f"{base}_a", namespace=namespace)
+        id_b = self.create_flow(flow_id=f"{base}_b", namespace=namespace)
+
+        qf = QueryFilter(field=QueryFilterField.NAMESPACE, operation=QueryFilterOp.CONTAINS, value={"value": namespace})
+
+        resp = self.kestra_client.flows.delete_flows_by_query(tenant=self.tenant, filters=[qf])
+        assert resp is not None
+
+        with self.assertRaises(Exception):
+            self.kestra_client.flows.get_flow(namespace=namespace, id=id_a, source=False, allow_deleted=False, tenant=self.tenant)
+        with self.assertRaises(Exception):
+            self.kestra_client.flows.get_flow(namespace=namespace, id=id_b, source=False, allow_deleted=False, tenant=self.tenant)
 
     def test_disable_flows_by_ids(self) -> None:
         """Test case for disable_flows_by_ids
 
         Disable flows by their IDs.
         """
-        pass
+        f1 = f"{self._testMethodName}_1"
+        f2 = f"{self._testMethodName}_2"
+        id1 = self.create_flow(flow_id=f1)
+        id2 = self.create_flow(flow_id=f2)
+
+        items = [IdWithNamespace(id=id1, namespace="test.flows"), IdWithNamespace(id=id2, namespace="test.flows")]
+        resp = self.kestra_client.flows.disable_flows_by_ids(tenant=self.tenant, id_with_namespace=items)
+        assert resp is not None
 
     def test_disable_flows_by_query(self) -> None:
         """Test case for disable_flows_by_query
 
         Disable flows returned by the query parameters.
         """
-        pass
+        base = f"{self._testMethodName}"
+        namespace = "test_delete_flows_by_query"
+        id_a = self.create_flow(flow_id=f"{base}_a", namespace=namespace)
+        id_b = self.create_flow(flow_id=f"{base}_b", namespace=namespace)
+
+        qf = QueryFilter(field=QueryFilterField.NAMESPACE, operation=QueryFilterOp.CONTAINS, value={"value": namespace})
+        req = DeleteExecutionsByQueryRequest(filters=[qf])
+
+        resp = self.kestra_client.flows.disable_flows_by_query(tenant=self.tenant, filters=[qf])
+        assert resp is not None
 
     def test_enable_flows_by_ids(self) -> None:
         """Test case for enable_flows_by_ids
 
         Enable flows by their IDs.
         """
-        pass
+        f1 = f"{self._testMethodName}_1"
+        f2 = f"{self._testMethodName}_2"
+        id1 = self.create_flow(flow_id=f1)
+        id2 = self.create_flow(flow_id=f2)
+
+        items = [IdWithNamespace(id=id1, namespace="test.flows"), IdWithNamespace(id=id2, namespace="test.flows")]
+        resp = self.kestra_client.flows.enable_flows_by_ids(tenant=self.tenant, id_with_namespace=items)
+        assert resp is not None
 
     def test_enable_flows_by_query(self) -> None:
         """Test case for enable_flows_by_query
 
         Enable flows returned by the query parameters.
         """
-        pass
+        base = f"{self._testMethodName}"
+        namespace = "test_delete_flows_by_query"
+        id_a = self.create_flow(flow_id=f"{base}_a", namespace=namespace)
+        id_b = self.create_flow(flow_id=f"{base}_b", namespace=namespace)
+
+        qf = QueryFilter(field=QueryFilterField.NAMESPACE, operation=QueryFilterOp.CONTAINS, value={"value": namespace})
+        req = DeleteExecutionsByQueryRequest(filters=[qf])
+
+        # enable_flows_by_query expects a DeleteExecutionsByQueryRequest in this SDK
+        resp = self.kestra_client.flows.enable_flows_by_query(tenant=self.tenant, filters=[qf])
+        assert resp is not None
 
     def test_export_flows_by_ids(self) -> None:
         """Test case for export_flows_by_ids
 
         Export flows as a ZIP archive of yaml sources.
         """
-        pass
+        f1 = f"{self._testMethodName}_1"
+        f2 = f"{self._testMethodName}_2"
+        id1 = self.create_flow(flow_id=f1)
+        id2 = self.create_flow(flow_id=f2)
+
+        items = [IdWithNamespace(id=id1, namespace="test.flows"), IdWithNamespace(id=id2, namespace="test.flows")]
+        resp = self.kestra_client.flows.export_flows_by_ids(tenant=self.tenant, id_with_namespace=items)
+        assert resp is not None
+        assert isinstance(resp, (bytes, bytearray))
 
     def test_export_flows_by_query(self) -> None:
         """Test case for export_flows_by_query
 
         Export flows as a ZIP archive of yaml sources.
         """
-        pass
+        base = f"{self._testMethodName}"
+        namespace = f"{self._testMethodName}"
+        id_a = self.create_flow(flow_id=f"{base}_a", namespace=namespace)
+        id_b = self.create_flow(flow_id=f"{base}_b", namespace=namespace)
+
+        qf = QueryFilter(field=QueryFilterField.QUERY, operation=QueryFilterOp.EQUALS, value={"value": base})
+        resp = self.kestra_client.flows.export_flows_by_query(tenant=self.tenant, filters=[qf])
+        # expect a binary zip-like response (bytearray/bytes)
+        assert resp is not None
+        assert isinstance(resp, (bytes, bytearray))
 
     def test_generate_flow_graph(self) -> None:
         """Test case for generate_flow_graph
 
         Generate a graph for a flow
         """
-        pass
+        flow_id = f"{self._testMethodName}_flow"
+        created_id = self.create_flow(flow_id=flow_id)
+
+        resp = self.kestra_client.flows.generate_flow_graph(namespace="test.flows", id=created_id, tenant=self.tenant)
+        assert resp is not None
 
     def test_generate_flow_graph_from_source(self) -> None:
         """Test case for generate_flow_graph_from_source
 
         Generate a graph for a flow source
         """
-        pass
+        flow_id = f"{self._testMethodName}_flow"
+        body = f"""id: {flow_id}
+namespace: test.flows
+
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.flow.Sleep
+    duration: PT1S
+"""
+        resp = self.kestra_client.flows.generate_flow_graph_from_source(tenant=self.tenant, body=body)
+        assert resp is not None
 
     def test_get_flow(self) -> None:
         """Test case for get_flow
 
         Get a flow
         """
-        pass
+        flow_id = f"{self._testMethodName}_flow"
+        created_id = self.create_flow(flow_id=flow_id)
+
+        fetched = self.kestra_client.flows.get_flow(namespace="test.flows", id=created_id, source=False, allow_deleted=False, tenant=self.tenant)
+        fetched_id = getattr(fetched, 'id', None) if not isinstance(fetched, dict) else fetched.get('id')
+        assert fetched_id == created_id
 
     def test_get_flow_dependencies(self) -> None:
         """Test case for get_flow_dependencies
 
         Get flow dependencies
         """
-        pass
+        namespace = f"{self._testMethodName}"
+        flow_id = f"{self._testMethodName}_flow"
+        created_id = self.create_flow(flow_id=flow_id, namespace=namespace)
+
+        subflow_id = f"{self._testMethodName}_subflow"
+        body = f"""id: {subflow_id}
+namespace: {namespace}
+
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.flow.Subflow
+    namespace: {namespace}
+    flowId: {flow_id}
+"""
+        subflow = self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
+
+        deps = self.kestra_client.flows.get_flow_dependencies(namespace=namespace, id=created_id, destination_only=False, expand_all=False, tenant=self.tenant)
+        assert deps is not None
+        assert len(deps.nodes) > 0
 
     def test_get_flow_dependencies_from_namespace(self) -> None:
         """Test case for get_flow_dependencies_from_namespace
 
         Retrieve flow dependencies
         """
-        pass
+        namespace = f"{self._testMethodName}"
+        flow_id = f"{self._testMethodName}_flow"
+        created_id = self.create_flow(flow_id=flow_id, namespace=namespace)
+
+        subflow_id = f"{self._testMethodName}_subflow"
+        body = f"""id: {subflow_id}
+namespace: {namespace}
+
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.flow.Subflow
+    namespace: {namespace}
+    flowId: {flow_id}
+    
+"""
+        subflow = self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
+        deps = self.kestra_client.flows.get_flow_dependencies_from_namespace(namespace=namespace, destination_only=False, tenant=self.tenant)
+        assert deps is not None
+        assert len(deps.nodes) > 0
 
     def test_get_task_from_flow(self) -> None:
         """Test case for get_task_from_flow
