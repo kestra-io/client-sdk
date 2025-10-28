@@ -537,11 +537,7 @@ public class ExecutionsApiTest {
      */
     @Test
     public void pauseExecutionTest() throws ApiException {
-        String namespace = randomId();
-        String flowId = randomId();
-        createSleepConcurrencyFlow(flowId, namespace);
-        ExecutionControllerExecutionResponse execution = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
-
+        Execution execution = createdExecution(SLEEP_CONCURRENCY_FLOW, StateType.RUNNING);
         String executionId = execution.getId();
 
         kestraClient().executions().pauseExecution(executionId, MAIN_TENANT);
@@ -555,15 +551,16 @@ public class ExecutionsApiTest {
      */
     @Test
     public void pauseExecutionsByIdsTest() throws ApiException {
-        String namespace = randomId();
-        String flowId = randomId();
-        createSleepConcurrencyFlow(flowId, namespace);
-        ExecutionControllerExecutionResponse execution = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
+        Execution exec1 = createdExecution(SLEEP_CONCURRENCY_FLOW, StateType.RUNNING);
+        Execution exec2 = createdExecution(SLEEP_CONCURRENCY_FLOW, StateType.RUNNING);
+        Execution otherExec = createdExecution(SLEEP_CONCURRENCY_FLOW, StateType.RUNNING);
 
-        List<String> requestBody = List.of(execution.getId());
+        List<String> requestBody = List.of(exec1.getId(), exec2.getId());
         BulkResponse response = kestraClient().executions().pauseExecutionsByIds(MAIN_TENANT, requestBody);
-        assertThat(response.getCount()).isEqualTo(1);
-        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(execution.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.PAUSED));
+        assertThat(response.getCount()).isEqualTo(2);
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(exec1.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.PAUSED));
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(exec2.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.PAUSED));
+
     }
     /**
      * Pause executions filter by query parameters
@@ -573,24 +570,20 @@ public class ExecutionsApiTest {
      */
     @Test
     public void pauseExecutionsByQueryTest() throws ApiException {
-        String namespace = randomId();
-        String flowId = randomId();
-        createSleepConcurrencyFlow(flowId, namespace);
-        ExecutionControllerExecutionResponse execution = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
-        String otherFlowId = randomId();
-        createSleepConcurrencyFlow(otherFlowId, namespace);
-        ExecutionControllerExecutionResponse otherExecution = kestraClient().executions().createExecution(namespace, otherFlowId, false, MAIN_TENANT, null, null, null, null, null);
-
+        Execution exec1 = createdExecution(SLEEP_CONCURRENCY_FLOW, StateType.RUNNING);
+        Execution exec2 = createdExecution(SLEEP_CONCURRENCY_FLOW, StateType.RUNNING);
+        Execution otherExec = createdExecution(SLEEP_CONCURRENCY_FLOW, StateType.RUNNING);
 
         List<QueryFilter> filters = List.of(new QueryFilter()
-            .field(QueryFilterField.FLOW_ID)
-            .operation(QueryFilterOp.EQUALS)
-            .value(flowId));
+            .field(QueryFilterField.NAMESPACE)
+            .operation(QueryFilterOp.IN)
+            .value(List.of(exec1.getNamespace(), exec2.getNamespace())));
 
         Object response = kestraClient().executions().pauseExecutionsByQuery(MAIN_TENANT, filters);
-        assertThat(response).isInstanceOf(LinkedHashMap.class).extracting("count").isEqualTo(1);
-        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(execution.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.PAUSED));
-        await().atMost(Duration.ofSeconds(3)).until(() -> kestraClient().executions().getExecution(otherExecution.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.SUCCESS));
+        assertThat(response).isInstanceOf(LinkedHashMap.class).extracting("count").isEqualTo(2);
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(exec1.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.PAUSED));
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(exec2.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.PAUSED));
+        await().atMost(Duration.ofSeconds(3)).until(() -> kestraClient().executions().getExecution(otherExec.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.SUCCESS));
     }
     /**
      * Create a new execution from an old one and start it from a specified task run id
