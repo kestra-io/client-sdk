@@ -1,3 +1,4 @@
+# python
 # coding: utf-8
 
 """
@@ -15,6 +16,9 @@
 import unittest
 
 from kestrapy import Configuration, KestraClient
+from typing import Optional
+import uuid
+from kestrapy import QueryFilter, QueryFilterField, QueryFilterOp
 
 
 class TestExecutionsApi(unittest.TestCase):
@@ -22,42 +26,111 @@ class TestExecutionsApi(unittest.TestCase):
 
     def setUp(self) -> None:
         configuration = Configuration()
-        configuration.host = "http://localhost:9902"
+        configuration.host = "http://localhost:8080"
         configuration.username = "root@root.com"
         configuration.password = "Root!1234"
 
         self.kestra_client = KestraClient(configuration)
+        self.tenant = "main"
 
     def tearDown(self) -> None:
         pass
+
+    def create_flow(self, flow_id: Optional[str] = None, namespace: str = "test.executions") -> str:
+        """Helper to create a simple flow from a YAML source and return its id."""
+        if flow_id is None:
+            flow_id = f"{self._testMethodName}"
+
+        body = f"""id: {flow_id}
+namespace: {namespace}
+
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.flow.Sleep
+    duration: PT1S
+"""
+        created = self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
+        return getattr(created, 'id', flow_id)
 
     def test_create_execution(self) -> None:
         """Test case for create_execution
 
         Create a new execution for a flow
         """
-        pass
+        namespace = f"test_create_execution_ns"
+        flow_id = f"{self._testMethodName}_flow"
+        self.create_flow(flow_id=flow_id, namespace=namespace)
+
+        # call SDK with expected parameter names: id and wait
+        resp = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        assert resp is not None
+        exec_id = getattr(resp, 'id', None)
+        assert exec_id is not None
 
     def test_delete_execution(self) -> None:
         """Test case for delete_execution
 
         Delete an execution
         """
-        pass
+        namespace = f"test_delete_execution_ns"
+        flow_id = f"{self._testMethodName}_flow"
+        self.create_flow(flow_id=flow_id, namespace=namespace)
+
+        created = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec_id = getattr(created, 'id', None)
+        assert exec_id is not None
+
+        self.kestra_client.executions.delete_execution(execution_id=exec_id, tenant=self.tenant)
+
+        with self.assertRaises(Exception):
+            self.kestra_client.executions.get_execution(id=exec_id, tenant=self.tenant)
 
     def test_delete_executions_by_ids(self) -> None:
         """Test case for delete_executions_by_ids
 
         Delete a list of executions
         """
-        pass
+        namespace = f"test_delete_executions_by_ids_ns"
+        f1 = f"{self._testMethodName}_1"
+        f2 = f"{self._testMethodName}_2"
+        self.create_flow(flow_id=f1, namespace=namespace)
+        self.create_flow(flow_id=f2, namespace=namespace)
+
+        c1 = self.kestra_client.executions.create_execution(namespace=namespace, id=f1, wait=False, tenant=self.tenant)
+        c2 = self.kestra_client.executions.create_execution(namespace=namespace, id=f2, wait=False, tenant=self.tenant)
+        id1 = getattr(c1, 'id', None)
+        id2 = getattr(c2, 'id', None)
+        assert id1 is not None
+        assert id2 is not None
+
+        resp = self.kestra_client.executions.delete_executions_by_ids(tenant=self.tenant, request_body=[id1, id2], include_non_terminated=True)
+        assert resp is not None
+
+        with self.assertRaises(Exception):
+            self.kestra_client.executions.get_execution(id=id1, tenant=self.tenant)
+        with self.assertRaises(Exception):
+            self.kestra_client.executions.get_execution(id=id2, tenant=self.tenant)
 
     def test_delete_executions_by_query(self) -> None:
         """Test case for delete_executions_by_query
 
         Delete executions filter by query parameters
         """
-        pass
+        base = f"{self._testMethodName}"
+        namespace = f"test_delete_executions_by_query_ns"
+        flow_id = f"{base}_flow"
+        self.create_flow(flow_id=flow_id, namespace=namespace)
+
+        created = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec_id = getattr(created, 'id', None)
+        assert exec_id is not None
+
+        qf = QueryFilter(field=QueryFilterField.NAMESPACE, operation=QueryFilterOp.CONTAINS, value={"value": namespace})
+        resp = self.kestra_client.executions.delete_executions_by_query(tenant=self.tenant, filters=[qf], include_non_terminated=True)
+        assert resp is not None
+
+        with self.assertRaises(Exception):
+            self.kestra_client.executions.get_execution(id=exec_id, tenant=self.tenant)
 
     def test_download_file_from_execution(self) -> None:
         """Test case for download_file_from_execution
@@ -258,7 +331,7 @@ class TestExecutionsApi(unittest.TestCase):
     def test_restart_executions_by_query(self) -> None:
         """Test case for restart_executions_by_query
 
-        Restart executions filter by query parameters
+        Restart executions filter by query parameters.
         """
         pass
 
@@ -328,7 +401,7 @@ class TestExecutionsApi(unittest.TestCase):
     def test_set_labels_on_terminated_executions_by_query(self) -> None:
         """Test case for set_labels_on_terminated_executions_by_query
 
-        Set label on executions filter by query parameters
+        Set label on executions filter by query parameters.
         """
         pass
 

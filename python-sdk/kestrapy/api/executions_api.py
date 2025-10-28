@@ -487,10 +487,10 @@ class ExecutionsApi:
     def delete_execution(
         self,
         execution_id: Annotated[StrictStr, Field(description="The execution id")],
-        delete_logs: Annotated[StrictBool, Field(description="Whether to delete execution logs")],
-        delete_metrics: Annotated[StrictBool, Field(description="Whether to delete execution metrics")],
-        delete_storage: Annotated[StrictBool, Field(description="Whether to delete execution files in the internal storage")],
         tenant: StrictStr,
+        delete_logs: Annotated[Optional[StrictBool], Field(description="Whether to delete execution logs")] = None,
+        delete_metrics: Annotated[Optional[StrictBool], Field(description="Whether to delete execution metrics")] = None,
+        delete_storage: Annotated[Optional[StrictBool], Field(description="Whether to delete execution files in the internal storage")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -509,14 +509,14 @@ class ExecutionsApi:
 
         :param execution_id: The execution id (required)
         :type execution_id: str
-        :param delete_logs: Whether to delete execution logs (required)
-        :type delete_logs: bool
-        :param delete_metrics: Whether to delete execution metrics (required)
-        :type delete_metrics: bool
-        :param delete_storage: Whether to delete execution files in the internal storage (required)
-        :type delete_storage: bool
         :param tenant: (required)
         :type tenant: str
+        :param delete_logs: Whether to delete execution logs
+        :type delete_logs: bool
+        :param delete_metrics: Whether to delete execution metrics
+        :type delete_metrics: bool
+        :param delete_storage: Whether to delete execution files in the internal storage
+        :type delete_storage: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -541,10 +541,10 @@ class ExecutionsApi:
 
         _param = self._delete_execution_serialize(
             execution_id=execution_id,
+            tenant=tenant,
             delete_logs=delete_logs,
             delete_metrics=delete_metrics,
             delete_storage=delete_storage,
-            tenant=tenant,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -570,10 +570,10 @@ class ExecutionsApi:
     def delete_execution_with_http_info(
         self,
         execution_id: Annotated[StrictStr, Field(description="The execution id")],
-        delete_logs: Annotated[StrictBool, Field(description="Whether to delete execution logs")],
-        delete_metrics: Annotated[StrictBool, Field(description="Whether to delete execution metrics")],
-        delete_storage: Annotated[StrictBool, Field(description="Whether to delete execution files in the internal storage")],
         tenant: StrictStr,
+        delete_logs: Annotated[Optional[StrictBool], Field(description="Whether to delete execution logs")] = None,
+        delete_metrics: Annotated[Optional[StrictBool], Field(description="Whether to delete execution metrics")] = None,
+        delete_storage: Annotated[Optional[StrictBool], Field(description="Whether to delete execution files in the internal storage")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -592,14 +592,14 @@ class ExecutionsApi:
 
         :param execution_id: The execution id (required)
         :type execution_id: str
-        :param delete_logs: Whether to delete execution logs (required)
-        :type delete_logs: bool
-        :param delete_metrics: Whether to delete execution metrics (required)
-        :type delete_metrics: bool
-        :param delete_storage: Whether to delete execution files in the internal storage (required)
-        :type delete_storage: bool
         :param tenant: (required)
         :type tenant: str
+        :param delete_logs: Whether to delete execution logs
+        :type delete_logs: bool
+        :param delete_metrics: Whether to delete execution metrics
+        :type delete_metrics: bool
+        :param delete_storage: Whether to delete execution files in the internal storage
+        :type delete_storage: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -624,10 +624,10 @@ class ExecutionsApi:
 
         _param = self._delete_execution_serialize(
             execution_id=execution_id,
+            tenant=tenant,
             delete_logs=delete_logs,
             delete_metrics=delete_metrics,
             delete_storage=delete_storage,
-            tenant=tenant,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -653,10 +653,10 @@ class ExecutionsApi:
     def delete_execution_without_preload_content(
         self,
         execution_id: Annotated[StrictStr, Field(description="The execution id")],
-        delete_logs: Annotated[StrictBool, Field(description="Whether to delete execution logs")],
-        delete_metrics: Annotated[StrictBool, Field(description="Whether to delete execution metrics")],
-        delete_storage: Annotated[StrictBool, Field(description="Whether to delete execution files in the internal storage")],
         tenant: StrictStr,
+        delete_logs: Annotated[Optional[StrictBool], Field(description="Whether to delete execution logs")] = None,
+        delete_metrics: Annotated[Optional[StrictBool], Field(description="Whether to delete execution metrics")] = None,
+        delete_storage: Annotated[Optional[StrictBool], Field(description="Whether to delete execution files in the internal storage")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -675,14 +675,14 @@ class ExecutionsApi:
 
         :param execution_id: The execution id (required)
         :type execution_id: str
-        :param delete_logs: Whether to delete execution logs (required)
-        :type delete_logs: bool
-        :param delete_metrics: Whether to delete execution metrics (required)
-        :type delete_metrics: bool
-        :param delete_storage: Whether to delete execution files in the internal storage (required)
-        :type delete_storage: bool
         :param tenant: (required)
         :type tenant: str
+        :param delete_logs: Whether to delete execution logs
+        :type delete_logs: bool
+        :param delete_metrics: Whether to delete execution metrics
+        :type delete_metrics: bool
+        :param delete_storage: Whether to delete execution files in the internal storage
+        :type delete_storage: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -707,10 +707,10 @@ class ExecutionsApi:
 
         _param = self._delete_execution_serialize(
             execution_id=execution_id,
+            tenant=tenant,
             delete_logs=delete_logs,
             delete_metrics=delete_metrics,
             delete_storage=delete_storage,
-            tenant=tenant,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -732,10 +732,10 @@ class ExecutionsApi:
     def _delete_execution_serialize(
         self,
         execution_id,
+        tenant,
         delete_logs,
         delete_metrics,
         delete_storage,
-        tenant,
         _request_auth,
         _content_type,
         _headers,
@@ -809,12 +809,12 @@ class ExecutionsApi:
     @validate_call
     def delete_executions_by_ids(
         self,
-        delete_logs: Annotated[StrictBool, Field(description="Whether to delete execution logs")],
-        delete_metrics: Annotated[StrictBool, Field(description="Whether to delete execution metrics")],
-        delete_storage: Annotated[StrictBool, Field(description="Whether to delete execution files in the internal storage")],
         tenant: StrictStr,
         request_body: Annotated[List[StrictStr], Field(description="The execution id")],
         include_non_terminated: Annotated[Optional[StrictBool], Field(description="Whether to delete non-terminated executions")] = None,
+        delete_logs: Annotated[Optional[StrictBool], Field(description="Whether to delete execution logs")] = None,
+        delete_metrics: Annotated[Optional[StrictBool], Field(description="Whether to delete execution metrics")] = None,
+        delete_storage: Annotated[Optional[StrictBool], Field(description="Whether to delete execution files in the internal storage")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -831,18 +831,18 @@ class ExecutionsApi:
         """Delete a list of executions
 
 
-        :param delete_logs: Whether to delete execution logs (required)
-        :type delete_logs: bool
-        :param delete_metrics: Whether to delete execution metrics (required)
-        :type delete_metrics: bool
-        :param delete_storage: Whether to delete execution files in the internal storage (required)
-        :type delete_storage: bool
         :param tenant: (required)
         :type tenant: str
         :param request_body: The execution id (required)
         :type request_body: List[str]
         :param include_non_terminated: Whether to delete non-terminated executions
         :type include_non_terminated: bool
+        :param delete_logs: Whether to delete execution logs
+        :type delete_logs: bool
+        :param delete_metrics: Whether to delete execution metrics
+        :type delete_metrics: bool
+        :param delete_storage: Whether to delete execution files in the internal storage
+        :type delete_storage: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -866,12 +866,12 @@ class ExecutionsApi:
         """ # noqa: E501
 
         _param = self._delete_executions_by_ids_serialize(
-            delete_logs=delete_logs,
-            delete_metrics=delete_metrics,
-            delete_storage=delete_storage,
             tenant=tenant,
             request_body=request_body,
             include_non_terminated=include_non_terminated,
+            delete_logs=delete_logs,
+            delete_metrics=delete_metrics,
+            delete_storage=delete_storage,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -896,12 +896,12 @@ class ExecutionsApi:
     @validate_call
     def delete_executions_by_ids_with_http_info(
         self,
-        delete_logs: Annotated[StrictBool, Field(description="Whether to delete execution logs")],
-        delete_metrics: Annotated[StrictBool, Field(description="Whether to delete execution metrics")],
-        delete_storage: Annotated[StrictBool, Field(description="Whether to delete execution files in the internal storage")],
         tenant: StrictStr,
         request_body: Annotated[List[StrictStr], Field(description="The execution id")],
         include_non_terminated: Annotated[Optional[StrictBool], Field(description="Whether to delete non-terminated executions")] = None,
+        delete_logs: Annotated[Optional[StrictBool], Field(description="Whether to delete execution logs")] = None,
+        delete_metrics: Annotated[Optional[StrictBool], Field(description="Whether to delete execution metrics")] = None,
+        delete_storage: Annotated[Optional[StrictBool], Field(description="Whether to delete execution files in the internal storage")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -918,18 +918,18 @@ class ExecutionsApi:
         """Delete a list of executions
 
 
-        :param delete_logs: Whether to delete execution logs (required)
-        :type delete_logs: bool
-        :param delete_metrics: Whether to delete execution metrics (required)
-        :type delete_metrics: bool
-        :param delete_storage: Whether to delete execution files in the internal storage (required)
-        :type delete_storage: bool
         :param tenant: (required)
         :type tenant: str
         :param request_body: The execution id (required)
         :type request_body: List[str]
         :param include_non_terminated: Whether to delete non-terminated executions
         :type include_non_terminated: bool
+        :param delete_logs: Whether to delete execution logs
+        :type delete_logs: bool
+        :param delete_metrics: Whether to delete execution metrics
+        :type delete_metrics: bool
+        :param delete_storage: Whether to delete execution files in the internal storage
+        :type delete_storage: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -953,12 +953,12 @@ class ExecutionsApi:
         """ # noqa: E501
 
         _param = self._delete_executions_by_ids_serialize(
-            delete_logs=delete_logs,
-            delete_metrics=delete_metrics,
-            delete_storage=delete_storage,
             tenant=tenant,
             request_body=request_body,
             include_non_terminated=include_non_terminated,
+            delete_logs=delete_logs,
+            delete_metrics=delete_metrics,
+            delete_storage=delete_storage,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -983,12 +983,12 @@ class ExecutionsApi:
     @validate_call
     def delete_executions_by_ids_without_preload_content(
         self,
-        delete_logs: Annotated[StrictBool, Field(description="Whether to delete execution logs")],
-        delete_metrics: Annotated[StrictBool, Field(description="Whether to delete execution metrics")],
-        delete_storage: Annotated[StrictBool, Field(description="Whether to delete execution files in the internal storage")],
         tenant: StrictStr,
         request_body: Annotated[List[StrictStr], Field(description="The execution id")],
         include_non_terminated: Annotated[Optional[StrictBool], Field(description="Whether to delete non-terminated executions")] = None,
+        delete_logs: Annotated[Optional[StrictBool], Field(description="Whether to delete execution logs")] = None,
+        delete_metrics: Annotated[Optional[StrictBool], Field(description="Whether to delete execution metrics")] = None,
+        delete_storage: Annotated[Optional[StrictBool], Field(description="Whether to delete execution files in the internal storage")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1005,18 +1005,18 @@ class ExecutionsApi:
         """Delete a list of executions
 
 
-        :param delete_logs: Whether to delete execution logs (required)
-        :type delete_logs: bool
-        :param delete_metrics: Whether to delete execution metrics (required)
-        :type delete_metrics: bool
-        :param delete_storage: Whether to delete execution files in the internal storage (required)
-        :type delete_storage: bool
         :param tenant: (required)
         :type tenant: str
         :param request_body: The execution id (required)
         :type request_body: List[str]
         :param include_non_terminated: Whether to delete non-terminated executions
         :type include_non_terminated: bool
+        :param delete_logs: Whether to delete execution logs
+        :type delete_logs: bool
+        :param delete_metrics: Whether to delete execution metrics
+        :type delete_metrics: bool
+        :param delete_storage: Whether to delete execution files in the internal storage
+        :type delete_storage: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1040,12 +1040,12 @@ class ExecutionsApi:
         """ # noqa: E501
 
         _param = self._delete_executions_by_ids_serialize(
-            delete_logs=delete_logs,
-            delete_metrics=delete_metrics,
-            delete_storage=delete_storage,
             tenant=tenant,
             request_body=request_body,
             include_non_terminated=include_non_terminated,
+            delete_logs=delete_logs,
+            delete_metrics=delete_metrics,
+            delete_storage=delete_storage,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1066,12 +1066,12 @@ class ExecutionsApi:
 
     def _delete_executions_by_ids_serialize(
         self,
-        delete_logs,
-        delete_metrics,
-        delete_storage,
         tenant,
         request_body,
         include_non_terminated,
+        delete_logs,
+        delete_metrics,
+        delete_storage,
         _request_auth,
         _content_type,
         _headers,
@@ -1170,12 +1170,12 @@ class ExecutionsApi:
     @validate_call
     def delete_executions_by_query(
         self,
-        delete_logs: Annotated[StrictBool, Field(description="Whether to delete execution logs")],
-        delete_metrics: Annotated[StrictBool, Field(description="Whether to delete execution metrics")],
-        delete_storage: Annotated[StrictBool, Field(description="Whether to delete execution files in the internal storage")],
         tenant: StrictStr,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         include_non_terminated: Annotated[Optional[StrictBool], Field(description="Whether to delete non-terminated executions")] = None,
+        delete_logs: Annotated[Optional[StrictBool], Field(description="Whether to delete execution logs")] = None,
+        delete_metrics: Annotated[Optional[StrictBool], Field(description="Whether to delete execution metrics")] = None,
+        delete_storage: Annotated[Optional[StrictBool], Field(description="Whether to delete execution files in the internal storage")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1192,18 +1192,18 @@ class ExecutionsApi:
         """Delete executions filter by query parameters
 
 
-        :param delete_logs: Whether to delete execution logs (required)
-        :type delete_logs: bool
-        :param delete_metrics: Whether to delete execution metrics (required)
-        :type delete_metrics: bool
-        :param delete_storage: Whether to delete execution files in the internal storage (required)
-        :type delete_storage: bool
         :param tenant: (required)
         :type tenant: str
         :param filters: Filters
         :type filters: List[QueryFilter]
         :param include_non_terminated: Whether to delete non-terminated executions
         :type include_non_terminated: bool
+        :param delete_logs: Whether to delete execution logs
+        :type delete_logs: bool
+        :param delete_metrics: Whether to delete execution metrics
+        :type delete_metrics: bool
+        :param delete_storage: Whether to delete execution files in the internal storage
+        :type delete_storage: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1227,12 +1227,12 @@ class ExecutionsApi:
         """ # noqa: E501
 
         _param = self._delete_executions_by_query_serialize(
-            delete_logs=delete_logs,
-            delete_metrics=delete_metrics,
-            delete_storage=delete_storage,
             tenant=tenant,
             filters=filters,
             include_non_terminated=include_non_terminated,
+            delete_logs=delete_logs,
+            delete_metrics=delete_metrics,
+            delete_storage=delete_storage,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1256,12 +1256,12 @@ class ExecutionsApi:
     @validate_call
     def delete_executions_by_query_with_http_info(
         self,
-        delete_logs: Annotated[StrictBool, Field(description="Whether to delete execution logs")],
-        delete_metrics: Annotated[StrictBool, Field(description="Whether to delete execution metrics")],
-        delete_storage: Annotated[StrictBool, Field(description="Whether to delete execution files in the internal storage")],
         tenant: StrictStr,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         include_non_terminated: Annotated[Optional[StrictBool], Field(description="Whether to delete non-terminated executions")] = None,
+        delete_logs: Annotated[Optional[StrictBool], Field(description="Whether to delete execution logs")] = None,
+        delete_metrics: Annotated[Optional[StrictBool], Field(description="Whether to delete execution metrics")] = None,
+        delete_storage: Annotated[Optional[StrictBool], Field(description="Whether to delete execution files in the internal storage")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1278,18 +1278,18 @@ class ExecutionsApi:
         """Delete executions filter by query parameters
 
 
-        :param delete_logs: Whether to delete execution logs (required)
-        :type delete_logs: bool
-        :param delete_metrics: Whether to delete execution metrics (required)
-        :type delete_metrics: bool
-        :param delete_storage: Whether to delete execution files in the internal storage (required)
-        :type delete_storage: bool
         :param tenant: (required)
         :type tenant: str
         :param filters: Filters
         :type filters: List[QueryFilter]
         :param include_non_terminated: Whether to delete non-terminated executions
         :type include_non_terminated: bool
+        :param delete_logs: Whether to delete execution logs
+        :type delete_logs: bool
+        :param delete_metrics: Whether to delete execution metrics
+        :type delete_metrics: bool
+        :param delete_storage: Whether to delete execution files in the internal storage
+        :type delete_storage: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1313,12 +1313,12 @@ class ExecutionsApi:
         """ # noqa: E501
 
         _param = self._delete_executions_by_query_serialize(
-            delete_logs=delete_logs,
-            delete_metrics=delete_metrics,
-            delete_storage=delete_storage,
             tenant=tenant,
             filters=filters,
             include_non_terminated=include_non_terminated,
+            delete_logs=delete_logs,
+            delete_metrics=delete_metrics,
+            delete_storage=delete_storage,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1342,12 +1342,12 @@ class ExecutionsApi:
     @validate_call
     def delete_executions_by_query_without_preload_content(
         self,
-        delete_logs: Annotated[StrictBool, Field(description="Whether to delete execution logs")],
-        delete_metrics: Annotated[StrictBool, Field(description="Whether to delete execution metrics")],
-        delete_storage: Annotated[StrictBool, Field(description="Whether to delete execution files in the internal storage")],
         tenant: StrictStr,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
         include_non_terminated: Annotated[Optional[StrictBool], Field(description="Whether to delete non-terminated executions")] = None,
+        delete_logs: Annotated[Optional[StrictBool], Field(description="Whether to delete execution logs")] = None,
+        delete_metrics: Annotated[Optional[StrictBool], Field(description="Whether to delete execution metrics")] = None,
+        delete_storage: Annotated[Optional[StrictBool], Field(description="Whether to delete execution files in the internal storage")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1364,18 +1364,18 @@ class ExecutionsApi:
         """Delete executions filter by query parameters
 
 
-        :param delete_logs: Whether to delete execution logs (required)
-        :type delete_logs: bool
-        :param delete_metrics: Whether to delete execution metrics (required)
-        :type delete_metrics: bool
-        :param delete_storage: Whether to delete execution files in the internal storage (required)
-        :type delete_storage: bool
         :param tenant: (required)
         :type tenant: str
         :param filters: Filters
         :type filters: List[QueryFilter]
         :param include_non_terminated: Whether to delete non-terminated executions
         :type include_non_terminated: bool
+        :param delete_logs: Whether to delete execution logs
+        :type delete_logs: bool
+        :param delete_metrics: Whether to delete execution metrics
+        :type delete_metrics: bool
+        :param delete_storage: Whether to delete execution files in the internal storage
+        :type delete_storage: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1399,12 +1399,12 @@ class ExecutionsApi:
         """ # noqa: E501
 
         _param = self._delete_executions_by_query_serialize(
-            delete_logs=delete_logs,
-            delete_metrics=delete_metrics,
-            delete_storage=delete_storage,
             tenant=tenant,
             filters=filters,
             include_non_terminated=include_non_terminated,
+            delete_logs=delete_logs,
+            delete_metrics=delete_metrics,
+            delete_storage=delete_storage,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1424,12 +1424,12 @@ class ExecutionsApi:
 
     def _delete_executions_by_query_serialize(
         self,
-        delete_logs,
-        delete_metrics,
-        delete_storage,
         tenant,
         filters,
         include_non_terminated,
+        delete_logs,
+        delete_metrics,
+        delete_storage,
         _request_auth,
         _content_type,
         _headers,

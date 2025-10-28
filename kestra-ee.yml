@@ -4666,7 +4666,7 @@ paths:
         - name: deleteLogs
           in: query
           description: Whether to delete execution logs
-          required: true
+          required: false
           explode: false
           schema:
             type: boolean
@@ -4674,7 +4674,7 @@ paths:
         - name: deleteMetrics
           in: query
           description: Whether to delete execution metrics
-          required: true
+          required: false
           explode: false
           schema:
             type: boolean
@@ -4682,7 +4682,7 @@ paths:
         - name: deleteStorage
           in: query
           description: Whether to delete execution files in the internal storage
-          required: true
+          required: false
           explode: false
           schema:
             type: boolean
@@ -4744,7 +4744,7 @@ paths:
         - name: deleteLogs
           in: query
           description: Whether to delete execution logs
-          required: true
+          required: false
           explode: false
           schema:
             type: boolean
@@ -4752,7 +4752,7 @@ paths:
         - name: deleteMetrics
           in: query
           description: Whether to delete execution metrics
-          required: true
+          required: false
           explode: false
           schema:
             type: boolean
@@ -4760,7 +4760,7 @@ paths:
         - name: deleteStorage
           in: query
           description: Whether to delete execution files in the internal storage
-          required: true
+          required: false
           explode: false
           schema:
             type: boolean
@@ -5625,7 +5625,7 @@ paths:
         - name: deleteLogs
           in: query
           description: Whether to delete execution logs
-          required: true
+          required: false
           explode: false
           schema:
             type: boolean
@@ -5633,7 +5633,7 @@ paths:
         - name: deleteMetrics
           in: query
           description: Whether to delete execution metrics
-          required: true
+          required: false
           explode: false
           schema:
             type: boolean
@@ -5641,7 +5641,7 @@ paths:
         - name: deleteStorage
           in: query
           description: Whether to delete execution files in the internal storage
-          required: true
+          required: false
           explode: false
           schema:
             type: boolean
