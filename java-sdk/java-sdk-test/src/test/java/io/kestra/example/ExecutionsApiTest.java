@@ -10,6 +10,7 @@ import io.kestra.sdk.model.ExecutionControllerStateRequest;
 import io.kestra.sdk.model.ExecutionControllerWebhookResponse;
 import io.kestra.sdk.model.ExecutionKind;
 import io.kestra.sdk.model.ExecutionRepositoryInterfaceFlowFilter;
+import io.kestra.sdk.model.FlowWithSource;
 import io.kestra.sdk.model.QueryFilterField;
 import io.kestra.sdk.model.QueryFilterOp;
 import java.io.File;
@@ -44,28 +45,69 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ExecutionsApiTest {
 
+    public static final String FAILED_FLOW = """
+        id: %s
+        namespace: %s
+
+        tasks:
+          - id: fail
+            type: io.kestra.plugin.core.execution.Fail
+        """;
+    public static final String SLEEP_CONCURRENCY_FLOW = """
+        id: %s
+        namespace: %s
+
+        concurrency:
+          behavior: QUEUE
+          limit: 1
+
+        tasks:
+          - id: sleep
+            type: io.kestra.plugin.core.flow.Sleep
+            duration: PT2S
+        """;
+    public static final String FILE_FLOW = """
+        id: %s
+        namespace: %s
+
+        tasks:
+            - id: write
+              type: io.kestra.plugin.core.storage.Write
+              content: "Hello from file"
+              extension: .txt
+        """;
+    public static final String LOG_FLOW = """
+        id: %s
+        namespace: %s
+
+        tasks:
+          - id: hello
+            type: io.kestra.plugin.core.log.Log
+            message: Hello World! 🚀
+        """;
+    public static final String PAUSE_FLOW = """
+        id: %s
+        namespace: %s
+
+        tasks:
+          - id: pause_flow
+            type: io.kestra.plugin.core.flow.Pause
+            delay: PT2S
+        """;
+
     private void createSimpleFlow(String flowId, String namespace) throws ApiException {
-
-        String flow = """
-            id: %s
-            namespace: %s
-
-            tasks:
-              - id: hello
-                type: io.kestra.plugin.core.log.Log
-                message: Hello World! 🚀
-            """.formatted(flowId, namespace);
-
+        String flow = LOG_FLOW.formatted(flowId, namespace);
         createSimpleFlow(flow);
     }
 
-    private void createSimpleFlow(String flow) throws ApiException {
-        kestraClient().flows().createFlow(MAIN_TENANT, flow);
+    private FlowWithSource createSimpleFlow(String flow) throws ApiException {
+        FlowWithSource flowWithSource = kestraClient().flows().createFlow(MAIN_TENANT, flow);
         try {
             Thread.sleep(200L);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        return flowWithSource;
     }
 
     public ExecutionControllerExecutionResponse createFlowWithExecution(String flowId, String namespace){
@@ -73,21 +115,14 @@ public class ExecutionsApiTest {
         return kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
     }
 
-    private Execution getExecutionWithFile(String flowId,
-        String namespace) {
-        String flow = """
-            id: %s
-            namespace: %s
+    public ExecutionControllerExecutionResponse createFlowWithExecution(String flow){
+        FlowWithSource simpleFlow = createSimpleFlow(flow);
+        return kestraClient().executions().createExecution(simpleFlow.getNamespace(), simpleFlow.getId(), false, MAIN_TENANT, null, null, null, null, null);
+    }
 
-            tasks:
-                - id: write
-                  type: io.kestra.plugin.core.storage.Write
-                  content: "Hello from file"
-                  extension: .txt
-            """.formatted(flowId, namespace);
-        createSimpleFlow(flow);
-        ExecutionControllerExecutionResponse execution = kestraClient().executions().createExecution(
-            namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
+    private Execution getExecutionWithFile(String flowId, String namespace) {
+        String flow = FILE_FLOW.formatted(flowId, namespace);
+        ExecutionControllerExecutionResponse execution = createFlowWithExecution(flow);
 
         AtomicReference<Execution> executionAtomic = new AtomicReference<>();
         await().atMost(Duration.ofSeconds(5)).until(() -> {
@@ -98,51 +133,18 @@ public class ExecutionsApiTest {
     }
 
     private void createSleepConcurrencyFlow(String flowId, String namespace) {
-        String flow = """
-            id: %s
-            namespace: %s
-
-            concurrency:
-              behavior: QUEUE
-              limit: 1
-
-            tasks:
-              - id: sleep
-                type: io.kestra.plugin.core.flow.Sleep
-                duration: PT2S
-            """.formatted(flowId, namespace);
+        String flow = SLEEP_CONCURRENCY_FLOW.formatted(flowId, namespace);
         createSimpleFlow(flow);
     }
 
-    private Execution createdSuccessExecution() {
+    private Execution createdExecution(String flow, StateType state) {
         String namespace = randomId();
         String flowId = randomId();
-        ExecutionControllerExecutionResponse execution = createFlowWithExecution(flowId, namespace);
+        ExecutionControllerExecutionResponse execution = createFlowWithExecution(flow.formatted(flowId, namespace));
         AtomicReference<Execution> executionAtomicReference = new AtomicReference<>();
         await().atMost(Duration.ofSeconds(1)).until(() -> {
             executionAtomicReference.set(kestraClient().executions().getExecution(execution.getId(), MAIN_TENANT));
-            return executionAtomicReference.get().getState().getCurrent().equals(StateType.SUCCESS);
-        });
-        return executionAtomicReference.get();
-    }
-
-    private Execution createdFailedExecution() {
-        String namespace = randomId();
-        String flowId = randomId();
-        String flow = """
-            id: %s
-            namespace: %s
-
-            tasks:
-              - id: fail
-                type: io.kestra.plugin.core.execution.Fail
-            """.formatted(flowId, namespace);
-        createSimpleFlow(flow);
-        ExecutionControllerExecutionResponse execution = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
-        AtomicReference<Execution> executionAtomicReference = new AtomicReference<>();
-        await().atMost(Duration.ofSeconds(1)).until(() -> {
-            executionAtomicReference.set(kestraClient().executions().getExecution(execution.getId(), MAIN_TENANT));
-            return executionAtomicReference.get().getState().getCurrent().equals(StateType.FAILED);
+            return executionAtomicReference.get().getState().getCurrent().equals(state);
         });
         return executionAtomicReference.get();
     }
@@ -580,7 +582,7 @@ public class ExecutionsApiTest {
      */
     @Test
     public void replayExecutionTest() throws ApiException {
-        Execution exec = createdSuccessExecution();
+        Execution exec = createdExecution(LOG_FLOW, StateType.SUCCESS);
 
         String executionId = exec.getId();
 
@@ -617,8 +619,8 @@ public class ExecutionsApiTest {
      */
     @Test
     public void replayExecutionsByIdsTest() throws ApiException {
-        Execution exec = createdSuccessExecution();
-        Execution otherExec = createdSuccessExecution();
+        Execution exec = createdExecution(LOG_FLOW, StateType.SUCCESS);
+        Execution otherExec = createdExecution(LOG_FLOW, StateType.SUCCESS);
 
         List<String> requestBody = List.of(exec.getId(), otherExec.getId());
         Boolean latestRevision = null;
@@ -633,8 +635,8 @@ public class ExecutionsApiTest {
      */
     @Test
     public void replayExecutionsByQueryTest() throws ApiException {
-        Execution exec = createdSuccessExecution();
-        Execution otherExec = createdSuccessExecution();
+        Execution exec = createdExecution(LOG_FLOW, StateType.SUCCESS);
+        Execution otherExec = createdExecution(LOG_FLOW, StateType.SUCCESS);
 
         List<QueryFilter> filters = List.of(new QueryFilter()
             .field(QueryFilterField.FLOW_ID)
@@ -652,7 +654,7 @@ public class ExecutionsApiTest {
      */
     @Test
     public void restartExecutionTest() throws ApiException {
-        Execution exec = createdFailedExecution();
+        Execution exec = createdExecution(FAILED_FLOW, StateType.FAILED);
         String executionId = exec.getId();
 
         Integer revision = null;
@@ -667,9 +669,9 @@ public class ExecutionsApiTest {
      */
     @Test
     public void restartExecutionsByIdsTest() throws ApiException {
-        Execution exec1 = createdFailedExecution();
-        Execution exec2 = createdFailedExecution();
-        Execution otherExec = createdFailedExecution();
+        Execution exec1 = createdExecution(FAILED_FLOW, StateType.FAILED);
+        Execution exec2 = createdExecution(FAILED_FLOW, StateType.FAILED);
+        Execution otherExec = createdExecution(FAILED_FLOW, StateType.FAILED);
 
         List<String> requestBody = List.of(exec1.getId(), exec2.getId());
         BulkResponse response = kestraClient().executions().restartExecutionsByIds(MAIN_TENANT, requestBody);
@@ -684,9 +686,9 @@ public class ExecutionsApiTest {
      */
     @Test
     public void restartExecutionsByQueryTest() throws ApiException {
-        Execution exec1 = createdFailedExecution();
-        Execution exec2 = createdFailedExecution();
-        Execution otherExec = createdFailedExecution();
+        Execution exec1 = createdExecution(FAILED_FLOW, StateType.FAILED);
+        Execution exec2 = createdExecution(FAILED_FLOW, StateType.FAILED);
+        Execution otherExec = createdExecution(FAILED_FLOW, StateType.FAILED);
 
         List<QueryFilter> filters = List.of(new QueryFilter().field(QueryFilterField.NAMESPACE)
             .operation(QueryFilterOp.IN)
@@ -703,11 +705,11 @@ public class ExecutionsApiTest {
      */
     @Test
     public void resumeExecutionTest() throws ApiException {
-        String executionId = null;
+        Execution exec = createdExecution(PAUSE_FLOW, StateType.PAUSED);
+        String executionId = exec.getId();
 
-        Object response = kestraClient().executions().resumeExecution(executionId, MAIN_TENANT);
-
-        // TODO: test validations
+        kestraClient().executions().resumeExecution(executionId, MAIN_TENANT);
+        await().atMost(Duration.ofMillis(500)).until(() -> kestraClient().executions().getExecution(executionId, MAIN_TENANT).getState().getCurrent().equals(StateType.SUCCESS));
     }
     /**
      * Resume a list of paused executions
@@ -717,11 +719,14 @@ public class ExecutionsApiTest {
      */
     @Test
     public void resumeExecutionsByIdsTest() throws ApiException {
-
-        List<String> requestBody = null;
+        Execution exec1 = createdExecution(PAUSE_FLOW, StateType.PAUSED);
+        Execution exec2 = createdExecution(PAUSE_FLOW, StateType.PAUSED);
+        Execution otherExec = createdExecution(PAUSE_FLOW, StateType.PAUSED);
+        List<String> requestBody = List.of(exec1.getId(), exec2.getId());
         BulkResponse response = kestraClient().executions().resumeExecutionsByIds(MAIN_TENANT, requestBody);
-
-        // TODO: test validations
+        assertThat(response.getCount()).isEqualTo(2);
+        await().atMost(Duration.ofMillis(500)).until(() -> kestraClient().executions().getExecution(exec1.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.SUCCESS));
+        await().atMost(Duration.ofMillis(500)).until(() -> kestraClient().executions().getExecution(exec2.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.SUCCESS));
     }
     /**
      * Resume executions filter by query parameters
@@ -731,12 +736,18 @@ public class ExecutionsApiTest {
      */
     @Test
     public void resumeExecutionsByQueryTest() throws ApiException {
+        Execution exec1 = createdExecution(PAUSE_FLOW, StateType.PAUSED);
+        Execution exec2 = createdExecution(PAUSE_FLOW, StateType.PAUSED);
+        Execution otherExec = createdExecution(PAUSE_FLOW, StateType.PAUSED);
 
-        List<QueryFilter> filters = new ArrayList<>();
+        List<QueryFilter> filters = List.of(new QueryFilter().field(QueryFilterField.NAMESPACE)
+            .operation(QueryFilterOp.IN)
+            .value(List.of(exec1.getNamespace(), exec2.getNamespace())));
 
-//        Object response = kestraClient().executions().resumeExecutionsByQuery(MAIN_TENANT, filters); FIXME NICO
-
-        // TODO: test validations
+        Object response = kestraClient().executions().resumeExecutionsByQuery(MAIN_TENANT, filters);
+        assertThat(response).isInstanceOf(LinkedHashMap.class).extracting("count").isEqualTo(2);
+        await().atMost(Duration.ofMillis(500)).until(() -> kestraClient().executions().getExecution(exec1.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.SUCCESS));
+        await().atMost(Duration.ofMillis(500)).until(() -> kestraClient().executions().getExecution(exec2.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.SUCCESS));
     }
     /**
      * Search for executions
