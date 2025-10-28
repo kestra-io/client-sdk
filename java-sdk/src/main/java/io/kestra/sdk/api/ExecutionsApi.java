@@ -71,12 +71,12 @@ import java.util.StringJoiner;
    * @param scheduleDate Schedule the flow on a specific date (optional)
    * @param breakpoints Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
    * @param kind Specific execution kind (optional)
-   * @param inputs  (optional)
+   * @param _file  (optional)
    * @return ExecutionControllerExecutionResponse
    * @throws ApiException if fails to make API call
    */
-  public ExecutionControllerExecutionResponse createExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable OffsetDateTime scheduleDate, @javax.annotation.Nullable String breakpoints, @javax.annotation.Nullable ExecutionKind kind, @javax.annotation.Nullable List<File> inputs) throws ApiException {
-    return this.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind, inputs, Collections.emptyMap());
+  public ExecutionControllerExecutionResponse createExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable OffsetDateTime scheduleDate, @javax.annotation.Nullable String breakpoints, @javax.annotation.Nullable ExecutionKind kind, @javax.annotation.Nullable List<Object> _file) throws ApiException {
+    return this.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind, _file, Collections.emptyMap());
   }
 
 
@@ -92,12 +92,12 @@ import java.util.StringJoiner;
    * @param scheduleDate Schedule the flow on a specific date (optional)
    * @param breakpoints Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
    * @param kind Specific execution kind (optional)
-   * @param inputs  (optional)
+   * @param _file  (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return ExecutionControllerExecutionResponse
    * @throws ApiException if fails to make API call
    */
-  public ExecutionControllerExecutionResponse createExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable OffsetDateTime scheduleDate, @javax.annotation.Nullable String breakpoints, @javax.annotation.Nullable ExecutionKind kind, @javax.annotation.Nullable List<File> inputs, Map<String, String> additionalHeaders) throws ApiException {
+  public ExecutionControllerExecutionResponse createExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable OffsetDateTime scheduleDate, @javax.annotation.Nullable String breakpoints, @javax.annotation.Nullable ExecutionKind kind, @javax.annotation.Nullable List<Object> _file, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -144,8 +144,8 @@ import java.util.StringJoiner;
     localVarHeaderParams.putAll(additionalHeaders);
 
     
-    if (inputs != null)
-      localVarFormParams.put("inputs", inputs);
+    if (_file != null)
+      localVarFormParams.put("file", _file);
 
     final String[] localVarAccepts = {
       "application/json"
