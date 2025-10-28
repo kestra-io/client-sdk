@@ -1,10 +1,7 @@
 package io.kestra.example;
 
 import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.model.KVControllerApiDeleteBulkRequest;
-import io.kestra.sdk.model.KVControllerApiDeleteBulkResponse;
-import io.kestra.sdk.model.KVControllerTypedValue;
-import io.kestra.sdk.model.KVEntry;
+import io.kestra.sdk.model.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -12,6 +9,7 @@ import java.util.List;
 import static io.kestra.example.CommonTestSetup.MAIN_TENANT;
 import static io.kestra.example.CommonTestSetup.kestraClient;
 import static io.kestra.example.CommonTestSetup.randomId;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class KvApiTest {
@@ -31,8 +29,9 @@ public class KvApiTest {
         kestraClient().kv().setKeyValue(CHILD_NAMESPACE, key, MAIN_TENANT, value);
 
         // get & assert
-        KVControllerTypedValue fetched = kestraClient().kv().getKeyValue(CHILD_NAMESPACE, key, MAIN_TENANT);
-        assertNotNull(fetched, "Fetched value should not be null");
+        var fetched = kestraClient().kv().getKeyValue(CHILD_NAMESPACE, key, MAIN_TENANT);
+        assertThat(fetched).extracting(KVControllerTypedValue::getType).isEqualTo(KVType.STRING);
+        assertThat(fetched).extracting(KVControllerTypedValue::getValue).isEqualTo("hello-kestra");
 
         // cleanup (best-effort)
         try {
@@ -50,9 +49,15 @@ public class KvApiTest {
 
         kestraClient().kv().setKeyValue(CHILD_NAMESPACE, key, MAIN_TENANT, value);
 
-        KVControllerTypedValue fetched = kestraClient().kv().getKeyValue(CHILD_NAMESPACE, key, MAIN_TENANT);
-        assertNotNull(fetched);
+        var fetched = kestraClient().kv().getKeyValue(CHILD_NAMESPACE, key, MAIN_TENANT);
+        assertThat(fetched).extracting(KVControllerTypedValue::getType).isEqualTo(KVType.STRING);
+        assertThat(fetched).extracting(KVControllerTypedValue::getValue).isEqualTo("value-get");
     }
+
+    // TODO more tests on differents types
+    // TODO test json
+    // TODO test date
+    // TODO test number
 
     /**
      * List all keys for a namespace

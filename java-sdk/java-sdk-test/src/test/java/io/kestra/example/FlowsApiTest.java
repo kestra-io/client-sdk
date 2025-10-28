@@ -40,7 +40,7 @@ public class FlowsApiTest {
 
         var response = kestraClient().flows().updateFlow(id, namespace, MAIN_TENANT, body);
 
-        assertThat(response).extracting(UpdateFlow200Response::getDescription).isEqualTo("simple_flow_description_updated");
+        assertThat(response).extracting(FlowWithSource::getDescription).isEqualTo("simple_flow_description_updated");
     }
     /**
      * Create a flow from yaml source
@@ -421,7 +421,7 @@ public class FlowsApiTest {
         String body = flowBody.replace("simple_flow_description", "simple_flow_description_updated");
         var response = kestraClient().flows().updateFlow(id, namespace, MAIN_TENANT, body);
 
-        assertThat(response).extracting(UpdateFlow200Response::getDescription).isEqualTo("simple_flow_description_updated");
+        assertThat(response).extracting(FlowWithSource::getDescription).isEqualTo("simple_flow_description_updated");
     }
 
     /**

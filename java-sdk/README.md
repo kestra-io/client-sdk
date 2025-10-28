@@ -192,6 +192,7 @@ Class | Method | HTTP request | Description
 *FlowsApi* | [**searchFlows**](docs/FlowsApi.md#searchFlows) | **GET** /api/v1/{tenant}/flows/search | Search for flows
 *FlowsApi* | [**searchFlowsBySourceCode**](docs/FlowsApi.md#searchFlowsBySourceCode) | **GET** /api/v1/{tenant}/flows/source | Search for flows source code
 *FlowsApi* | [**updateFlow**](docs/FlowsApi.md#updateFlow) | **PUT** /api/v1/{tenant}/flows/{namespace}/{id} | Update a flow
+*FlowsApi* | [**updateFlowsInNamespace**](docs/FlowsApi.md#updateFlowsInNamespace) | **POST** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from yaml source
 *FlowsApi* | [**validateFlows**](docs/FlowsApi.md#validateFlows) | **POST** /api/v1/{tenant}/flows/validate | Validate a list of flows
 *FlowsApi* | [**validateTask**](docs/FlowsApi.md#validateTask) | **POST** /api/v1/{tenant}/flows/validate/task | Validate a task
 *FlowsApi* | [**validateTrigger**](docs/FlowsApi.md#validateTrigger) | **POST** /api/v1/{tenant}/flows/validate/trigger | Validate trigger
@@ -489,7 +490,6 @@ Class | Method | HTTP request | Description
  - [KVControllerApiDeleteBulkRequest](docs/KVControllerApiDeleteBulkRequest.md)
  - [KVControllerApiDeleteBulkResponse](docs/KVControllerApiDeleteBulkResponse.md)
  - [KVControllerTypedValue](docs/KVControllerTypedValue.md)
- - [KVControllerTypedValueValue](docs/KVControllerTypedValueValue.md)
  - [KVEntry](docs/KVEntry.md)
  - [KVType](docs/KVType.md)
  - [Label](docs/Label.md)
@@ -659,7 +659,6 @@ Class | Method | HTTP request | Description
  - [Type](docs/Type.md)
  - [UnitTest](docs/UnitTest.md)
  - [UnitTestResult](docs/UnitTestResult.md)
- - [UpdateFlow200Response](docs/UpdateFlow200Response.md)
  - [UsageEE](docs/UsageEE.md)
  - [UserGroup](docs/UserGroup.md)
  - [UserGroupType](docs/UserGroupType.md)

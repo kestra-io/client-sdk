@@ -28,6 +28,7 @@ All URIs are relative to *http://localhost*
 | [**searchFlows**](FlowsApi.md#searchFlows) | **GET** /api/v1/{tenant}/flows/search | Search for flows |
 | [**searchFlowsBySourceCode**](FlowsApi.md#searchFlowsBySourceCode) | **GET** /api/v1/{tenant}/flows/source | Search for flows source code |
 | [**updateFlow**](FlowsApi.md#updateFlow) | **PUT** /api/v1/{tenant}/flows/{namespace}/{id} | Update a flow |
+| [**updateFlowsInNamespace**](FlowsApi.md#updateFlowsInNamespace) | **POST** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from yaml source |
 | [**validateFlows**](FlowsApi.md#validateFlows) | **POST** /api/v1/{tenant}/flows/validate | Validate a list of flows |
 | [**validateTask**](FlowsApi.md#validateTask) | **POST** /api/v1/{tenant}/flows/validate/task | Validate a task |
 | [**validateTrigger**](FlowsApi.md#validateTrigger) | **POST** /api/v1/{tenant}/flows/validate/trigger | Validate trigger |
@@ -1840,7 +1841,7 @@ public class Example {
 
 ## updateFlow
 
-> UpdateFlow200Response updateFlow(id, namespace, tenant, body)
+> FlowWithSource updateFlow(namespace, id, tenant, body)
 
 Update a flow
 
@@ -1870,12 +1871,12 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         FlowsApi apiInstance = new FlowsApi(defaultClient);
-        String id = "id_example"; // String | The flow id
         String namespace = "namespace_example"; // String | The flow namespace
+        String id = "id_example"; // String | The flow id
         String tenant = "tenant_example"; // String | 
         String body = "body_example"; // String | The flow source code
         try {
-            UpdateFlow200Response result = apiInstance.updateFlow(id, namespace, tenant, body);
+            FlowWithSource result = apiInstance.updateFlow(namespace, id, tenant, body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#updateFlow");
@@ -1893,14 +1894,14 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **id** | **String**| The flow id | |
 | **namespace** | **String**| The flow namespace | |
+| **id** | **String**| The flow id | |
 | **tenant** | **String**|  | |
 | **body** | **String**| The flow source code | |
 
 ### Return type
 
-[**UpdateFlow200Response**](UpdateFlow200Response.md)
+[**FlowWithSource**](FlowWithSource.md)
 
 ### Authorization
 
@@ -1916,6 +1917,88 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | On success |  -  |
+
+
+## updateFlowsInNamespace
+
+> List&lt;FlowInterface&gt; updateFlowsInNamespace(namespace, delete, tenant, body)
+
+Update a complete namespace from yaml source
+
+All flow will be created / updated for this namespace. Flow that already created but not in &#x60;flows&#x60; will be deleted if the query delete is &#x60;true&#x60;
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.FlowsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost");
+        
+        // Configure HTTP basic authorization: basicAuth
+        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
+        basicAuth.setUsername("YOUR USERNAME");
+        basicAuth.setPassword("YOUR PASSWORD");
+
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        FlowsApi apiInstance = new FlowsApi(defaultClient);
+        String namespace = "namespace_example"; // String | The flow namespace
+        Boolean delete = true; // Boolean | If missing flow should be deleted
+        String tenant = "tenant_example"; // String | 
+        String body = "body_example"; // String | A list of flows source code
+        try {
+            List<FlowInterface> result = apiInstance.updateFlowsInNamespace(namespace, delete, tenant, body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling FlowsApi#updateFlowsInNamespace");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **namespace** | **String**| The flow namespace | |
+| **delete** | **Boolean**| If missing flow should be deleted | [default to true] |
+| **tenant** | **String**|  | |
+| **body** | **String**| A list of flows source code | |
+
+### Return type
+
+[**List&lt;FlowInterface&gt;**](FlowInterface.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-yaml
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | updateFlowsInNamespace 200 response |  -  |
 
 
 ## validateFlows

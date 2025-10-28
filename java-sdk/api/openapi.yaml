@@ -5661,7 +5661,7 @@ paths:
         explode: false
         in: query
         name: deleteLogs
-        required: true
+        required: false
         schema:
           default: true
           type: boolean
@@ -5670,7 +5670,7 @@ paths:
         explode: false
         in: query
         name: deleteMetrics
-        required: true
+        required: false
         schema:
           default: true
           type: boolean
@@ -5679,7 +5679,7 @@ paths:
         explode: false
         in: query
         name: deleteStorage
-        required: true
+        required: false
         schema:
           default: true
           type: boolean
@@ -5752,7 +5752,7 @@ paths:
         explode: false
         in: query
         name: deleteLogs
-        required: true
+        required: false
         schema:
           default: true
           type: boolean
@@ -5761,7 +5761,7 @@ paths:
         explode: false
         in: query
         name: deleteMetrics
-        required: true
+        required: false
         schema:
           default: true
           type: boolean
@@ -5770,7 +5770,7 @@ paths:
         explode: false
         in: query
         name: deleteStorage
-        required: true
+        required: false
         schema:
           default: true
           type: boolean
@@ -6772,7 +6772,7 @@ paths:
         explode: false
         in: query
         name: deleteLogs
-        required: true
+        required: false
         schema:
           default: true
           type: boolean
@@ -6781,7 +6781,7 @@ paths:
         explode: false
         in: query
         name: deleteMetrics
-        required: true
+        required: false
         schema:
           default: true
           type: boolean
@@ -6790,7 +6790,7 @@ paths:
         explode: false
         in: query
         name: deleteStorage
-        required: true
+        required: false
         schema:
           default: true
           type: boolean
@@ -8545,6 +8545,62 @@ paths:
       x-internal: false
       x-accepts:
       - application/json
+    post:
+      description: |-
+        All flow will be created / updated for this namespace.
+        Flow that already created but not in `flows` will be deleted if the query delete is `true`
+      operationId: updateFlowsInNamespace
+      parameters:
+      - description: The flow namespace
+        explode: false
+        in: path
+        name: namespace
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: If missing flow should be deleted
+        explode: false
+        in: query
+        name: delete
+        required: true
+        schema:
+          default: true
+          type: boolean
+        style: form
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/x-yaml:
+            schema:
+              type: string
+        description: A list of flows source code
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/FlowInterface"
+                type: array
+          description: updateFlowsInNamespace 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Update a complete namespace from yaml source
+      tags:
+      - Flows
+      x-internal: false
+      x-content-type: application/x-yaml
+      x-accepts:
+      - application/json
   /api/v1/{tenant}/flows/{namespace}/{id}:
     delete:
       operationId: deleteFlow
@@ -8657,21 +8713,20 @@ paths:
       x-accepts:
       - application/json
     put:
-      deprecated: false
       operationId: updateFlow
       parameters:
-      - description: The flow id
-        explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
       - description: The flow namespace
         explode: false
         in: path
         name: namespace
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The flow id
+        explode: false
+        in: path
+        name: id
         required: true
         schema:
           type: string
@@ -8688,11 +8743,6 @@ paths:
           application/x-yaml:
             schema:
               type: string
-            example: null
-          '*/*':
-            schema:
-              $ref: "#/components/schemas/Flow"
-            example: null
         description: The flow source code
         required: true
       responses:
@@ -8700,8 +8750,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/updateFlow_200_response"
-              example: null
+                $ref: "#/components/schemas/FlowWithSource"
           description: On success
       security:
       - bearerAuth: []
@@ -19898,7 +19947,7 @@ components:
         type:
           $ref: "#/components/schemas/KVType"
         value:
-          $ref: "#/components/schemas/KVController_TypedValue_value"
+          type: object
       type: object
     KVEntry:
       example:
@@ -24887,10 +24936,6 @@ components:
         parameters:
           $ref: "#/components/schemas/HttpParameters"
       type: object
-    updateFlow_200_response:
-      oneOf:
-      - $ref: "#/components/schemas/FlowWithSource"
-      - $ref: "#/components/schemas/Flow"
     createNamespaceFile_request:
       properties:
         fileContent:
@@ -25152,10 +25197,6 @@ components:
             type: string
           type: array
       type: object
-    KVController_TypedValue_value:
-      anyOf:
-      - type: object
-      - type: string
     Output_value:
       oneOf:
       - type: object

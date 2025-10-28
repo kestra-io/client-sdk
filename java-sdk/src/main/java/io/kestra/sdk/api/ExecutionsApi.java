@@ -183,14 +183,14 @@ import java.util.StringJoiner;
    * Delete an execution
    * 
    * @param executionId The execution id (required)
-   * @param deleteLogs Whether to delete execution logs (required)
-   * @param deleteMetrics Whether to delete execution metrics (required)
-   * @param deleteStorage Whether to delete execution files in the internal storage (required)
    * @param tenant  (required)
+   * @param deleteLogs Whether to delete execution logs (optional, default to true)
+   * @param deleteMetrics Whether to delete execution metrics (optional, default to true)
+   * @param deleteStorage Whether to delete execution files in the internal storage (optional, default to true)
    * @throws ApiException if fails to make API call
    */
-  public void deleteExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull Boolean deleteLogs, @javax.annotation.Nonnull Boolean deleteMetrics, @javax.annotation.Nonnull Boolean deleteStorage, @javax.annotation.Nonnull String tenant) throws ApiException {
-    this.deleteExecution(executionId, deleteLogs, deleteMetrics, deleteStorage, tenant, Collections.emptyMap());
+  public void deleteExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage) throws ApiException {
+    this.deleteExecution(executionId, tenant, deleteLogs, deleteMetrics, deleteStorage, Collections.emptyMap());
   }
 
 
@@ -198,34 +198,19 @@ import java.util.StringJoiner;
    * Delete an execution
    * 
    * @param executionId The execution id (required)
-   * @param deleteLogs Whether to delete execution logs (required)
-   * @param deleteMetrics Whether to delete execution metrics (required)
-   * @param deleteStorage Whether to delete execution files in the internal storage (required)
    * @param tenant  (required)
+   * @param deleteLogs Whether to delete execution logs (optional, default to true)
+   * @param deleteMetrics Whether to delete execution metrics (optional, default to true)
+   * @param deleteStorage Whether to delete execution files in the internal storage (optional, default to true)
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void deleteExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull Boolean deleteLogs, @javax.annotation.Nonnull Boolean deleteMetrics, @javax.annotation.Nonnull Boolean deleteStorage, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public void deleteExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
     if (executionId == null) {
       throw new ApiException(400, "Missing the required parameter 'executionId' when calling deleteExecution");
-    }
-    
-    // verify the required parameter 'deleteLogs' is set
-    if (deleteLogs == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteLogs' when calling deleteExecution");
-    }
-    
-    // verify the required parameter 'deleteMetrics' is set
-    if (deleteMetrics == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteMetrics' when calling deleteExecution");
-    }
-    
-    // verify the required parameter 'deleteStorage' is set
-    if (deleteStorage == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteStorage' when calling deleteExecution");
     }
     
     // verify the required parameter 'tenant' is set
@@ -291,50 +276,35 @@ import java.util.StringJoiner;
   /**
    * Delete a list of executions
    * 
-   * @param deleteLogs Whether to delete execution logs (required)
-   * @param deleteMetrics Whether to delete execution metrics (required)
-   * @param deleteStorage Whether to delete execution files in the internal storage (required)
    * @param tenant  (required)
    * @param requestBody The execution id (required)
    * @param includeNonTerminated Whether to delete non-terminated executions (optional, default to false)
+   * @param deleteLogs Whether to delete execution logs (optional, default to true)
+   * @param deleteMetrics Whether to delete execution metrics (optional, default to true)
+   * @param deleteStorage Whether to delete execution files in the internal storage (optional, default to true)
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse deleteExecutionsByIds(@javax.annotation.Nonnull Boolean deleteLogs, @javax.annotation.Nonnull Boolean deleteMetrics, @javax.annotation.Nonnull Boolean deleteStorage, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, @javax.annotation.Nullable Boolean includeNonTerminated) throws ApiException {
-    return this.deleteExecutionsByIds(deleteLogs, deleteMetrics, deleteStorage, tenant, requestBody, includeNonTerminated, Collections.emptyMap());
+  public BulkResponse deleteExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, @javax.annotation.Nullable Boolean includeNonTerminated, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage) throws ApiException {
+    return this.deleteExecutionsByIds(tenant, requestBody, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage, Collections.emptyMap());
   }
 
 
   /**
    * Delete a list of executions
    * 
-   * @param deleteLogs Whether to delete execution logs (required)
-   * @param deleteMetrics Whether to delete execution metrics (required)
-   * @param deleteStorage Whether to delete execution files in the internal storage (required)
    * @param tenant  (required)
    * @param requestBody The execution id (required)
    * @param includeNonTerminated Whether to delete non-terminated executions (optional, default to false)
+   * @param deleteLogs Whether to delete execution logs (optional, default to true)
+   * @param deleteMetrics Whether to delete execution metrics (optional, default to true)
+   * @param deleteStorage Whether to delete execution files in the internal storage (optional, default to true)
    * @param additionalHeaders additionalHeaders for this call
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse deleteExecutionsByIds(@javax.annotation.Nonnull Boolean deleteLogs, @javax.annotation.Nonnull Boolean deleteMetrics, @javax.annotation.Nonnull Boolean deleteStorage, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, @javax.annotation.Nullable Boolean includeNonTerminated, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse deleteExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, @javax.annotation.Nullable Boolean includeNonTerminated, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = requestBody;
-    
-    // verify the required parameter 'deleteLogs' is set
-    if (deleteLogs == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteLogs' when calling deleteExecutionsByIds");
-    }
-    
-    // verify the required parameter 'deleteMetrics' is set
-    if (deleteMetrics == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteMetrics' when calling deleteExecutionsByIds");
-    }
-    
-    // verify the required parameter 'deleteStorage' is set
-    if (deleteStorage == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteStorage' when calling deleteExecutionsByIds");
-    }
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
@@ -405,50 +375,35 @@ import java.util.StringJoiner;
   /**
    * Delete executions filter by query parameters
    * 
-   * @param deleteLogs Whether to delete execution logs (required)
-   * @param deleteMetrics Whether to delete execution metrics (required)
-   * @param deleteStorage Whether to delete execution files in the internal storage (required)
    * @param tenant  (required)
    * @param filters Filters (optional)
    * @param includeNonTerminated Whether to delete non-terminated executions (optional, default to false)
+   * @param deleteLogs Whether to delete execution logs (optional, default to true)
+   * @param deleteMetrics Whether to delete execution metrics (optional, default to true)
+   * @param deleteStorage Whether to delete execution files in the internal storage (optional, default to true)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteExecutionsByQuery(@javax.annotation.Nonnull Boolean deleteLogs, @javax.annotation.Nonnull Boolean deleteMetrics, @javax.annotation.Nonnull Boolean deleteStorage, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable Boolean includeNonTerminated) throws ApiException {
-    return this.deleteExecutionsByQuery(deleteLogs, deleteMetrics, deleteStorage, tenant, filters, includeNonTerminated, Collections.emptyMap());
+  public Object deleteExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable Boolean includeNonTerminated, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage) throws ApiException {
+    return this.deleteExecutionsByQuery(tenant, filters, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage, Collections.emptyMap());
   }
 
 
   /**
    * Delete executions filter by query parameters
    * 
-   * @param deleteLogs Whether to delete execution logs (required)
-   * @param deleteMetrics Whether to delete execution metrics (required)
-   * @param deleteStorage Whether to delete execution files in the internal storage (required)
    * @param tenant  (required)
    * @param filters Filters (optional)
    * @param includeNonTerminated Whether to delete non-terminated executions (optional, default to false)
+   * @param deleteLogs Whether to delete execution logs (optional, default to true)
+   * @param deleteMetrics Whether to delete execution metrics (optional, default to true)
+   * @param deleteStorage Whether to delete execution files in the internal storage (optional, default to true)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteExecutionsByQuery(@javax.annotation.Nonnull Boolean deleteLogs, @javax.annotation.Nonnull Boolean deleteMetrics, @javax.annotation.Nonnull Boolean deleteStorage, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable Boolean includeNonTerminated, Map<String, String> additionalHeaders) throws ApiException {
+  public Object deleteExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable Boolean includeNonTerminated, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
-    
-    // verify the required parameter 'deleteLogs' is set
-    if (deleteLogs == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteLogs' when calling deleteExecutionsByQuery");
-    }
-    
-    // verify the required parameter 'deleteMetrics' is set
-    if (deleteMetrics == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteMetrics' when calling deleteExecutionsByQuery");
-    }
-    
-    // verify the required parameter 'deleteStorage' is set
-    if (deleteStorage == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteStorage' when calling deleteExecutionsByQuery");
-    }
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
