@@ -16,7 +16,6 @@ Method | HTTP request | Description
 [**get_execution**](ExecutionsApi.md#get_execution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution
 [**get_execution_flow_graph**](ExecutionsApi.md#get_execution_flow_graph) | **GET** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution
 [**get_file_metadatas_from_execution**](ExecutionsApi.md#get_file_metadatas_from_execution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution
-[**get_flow_from_execution**](ExecutionsApi.md#get_flow_from_execution) | **GET** /api/v1/{tenant}/executions/flows/{namespace}/{flowId} | Get flow information&#39;s for an execution
 [**get_flow_from_execution_by_id**](ExecutionsApi.md#get_flow_from_execution_by_id) | **GET** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution
 [**get_latest_executions**](ExecutionsApi.md#get_latest_executions) | **POST** /api/v1/{tenant}/executions/latest | Get the latest execution for given flows
 [**kill_execution**](ExecutionsApi.md#kill_execution) | **DELETE** /api/v1/{tenant}/executions/{executionId}/kill | Kill an execution
@@ -1108,95 +1107,6 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | getFileMetadatasFromExecution 200 response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_flow_from_execution**
-> FlowForExecution get_flow_from_execution(namespace, flow_id, tenant, revision=revision)
-
-Get flow information's for an execution
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-import kestrapy
-from kestrapy.models.flow_for_execution import FlowForExecution
-from kestrapy.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
-# Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
-    namespace = 'namespace_example' # str | The namespace of the flow
-    flow_id = 'flow_id_example' # str | The flow id
-    tenant = 'tenant_example' # str | 
-    revision = 56 # int | The flow revision (optional)
-
-    try:
-        # Get flow information's for an execution
-        api_response = api_instance.get_flow_from_execution(namespace, flow_id, tenant, revision=revision)
-        print("The response of ExecutionsApi->get_flow_from_execution:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling ExecutionsApi->get_flow_from_execution: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **namespace** | **str**| The namespace of the flow | 
- **flow_id** | **str**| The flow id | 
- **tenant** | **str**|  | 
- **revision** | **int**| The flow revision | [optional] 
-
-### Return type
-
-[**FlowForExecution**](FlowForExecution.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | getFlowFromExecution 200 response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

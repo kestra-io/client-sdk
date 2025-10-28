@@ -121,7 +121,6 @@ Class | Method | HTTP request | Description
 *ExecutionsApi* | [**get_execution**](docs/ExecutionsApi.md#get_execution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution
 *ExecutionsApi* | [**get_execution_flow_graph**](docs/ExecutionsApi.md#get_execution_flow_graph) | **GET** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution
 *ExecutionsApi* | [**get_file_metadatas_from_execution**](docs/ExecutionsApi.md#get_file_metadatas_from_execution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution
-*ExecutionsApi* | [**get_flow_from_execution**](docs/ExecutionsApi.md#get_flow_from_execution) | **GET** /api/v1/{tenant}/executions/flows/{namespace}/{flowId} | Get flow information&#39;s for an execution
 *ExecutionsApi* | [**get_flow_from_execution_by_id**](docs/ExecutionsApi.md#get_flow_from_execution_by_id) | **GET** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution
 *ExecutionsApi* | [**get_latest_executions**](docs/ExecutionsApi.md#get_latest_executions) | **POST** /api/v1/{tenant}/executions/latest | Get the latest execution for given flows
 *ExecutionsApi* | [**kill_execution**](docs/ExecutionsApi.md#kill_execution) | **DELETE** /api/v1/{tenant}/executions/{executionId}/kill | Kill an execution
@@ -152,7 +151,6 @@ Class | Method | HTTP request | Description
 *ExecutionsApi* | [**update_executions_status_by_ids**](docs/ExecutionsApi.md#update_executions_status_by_ids) | **POST** /api/v1/{tenant}/executions/change-status/by-ids | Change executions state by id
 *ExecutionsApi* | [**update_executions_status_by_query**](docs/ExecutionsApi.md#update_executions_status_by_query) | **POST** /api/v1/{tenant}/executions/change-status/by-query | Change executions state by query parameters
 *ExecutionsApi* | [**update_task_run_state**](docs/ExecutionsApi.md#update_task_run_state) | **POST** /api/v1/{tenant}/executions/{executionId}/state | Change state for a taskrun in an execution
-*FlowsApi* | [**bulk_import_apps**](docs/FlowsApi.md#bulk_import_apps) | **POST** /api/v1/{tenant}/apps/import |     Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
 *FlowsApi* | [**bulk_update_flows**](docs/FlowsApi.md#bulk_update_flows) | **POST** /api/v1/{tenant}/flows/bulk | Update from multiples yaml sources
 *FlowsApi* | [**create_flow**](docs/FlowsApi.md#create_flow) | **POST** /api/v1/{tenant}/flows | Create a flow from yaml source
 *FlowsApi* | [**delete_flow**](docs/FlowsApi.md#delete_flow) | **DELETE** /api/v1/{tenant}/flows/{namespace}/{id} | Delete a flow
@@ -177,6 +175,7 @@ Class | Method | HTTP request | Description
 *FlowsApi* | [**search_flows**](docs/FlowsApi.md#search_flows) | **GET** /api/v1/{tenant}/flows/search | Search for flows
 *FlowsApi* | [**search_flows_by_source_code**](docs/FlowsApi.md#search_flows_by_source_code) | **GET** /api/v1/{tenant}/flows/source | Search for flows source code
 *FlowsApi* | [**update_flow**](docs/FlowsApi.md#update_flow) | **PUT** /api/v1/{tenant}/flows/{namespace}/{id} | Update a flow
+*FlowsApi* | [**update_flows_in_namespace**](docs/FlowsApi.md#update_flows_in_namespace) | **POST** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from yaml source
 *FlowsApi* | [**validate_flows**](docs/FlowsApi.md#validate_flows) | **POST** /api/v1/{tenant}/flows/validate | Validate a list of flows
 *FlowsApi* | [**validate_task**](docs/FlowsApi.md#validate_task) | **POST** /api/v1/{tenant}/flows/validate/task | Validate a task
 *FlowsApi* | [**validate_trigger**](docs/FlowsApi.md#validate_trigger) | **POST** /api/v1/{tenant}/flows/validate/trigger | Validate trigger
@@ -644,7 +643,6 @@ Class | Method | HTTP request | Description
  - [Type](docs/Type.md)
  - [UnitTest](docs/UnitTest.md)
  - [UnitTestResult](docs/UnitTestResult.md)
- - [UpdateFlow200Response](docs/UpdateFlow200Response.md)
  - [UsageEE](docs/UsageEE.md)
  - [UserGroup](docs/UserGroup.md)
  - [UserGroupType](docs/UserGroupType.md)

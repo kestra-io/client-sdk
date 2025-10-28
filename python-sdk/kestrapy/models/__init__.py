@@ -384,7 +384,6 @@ from kestrapy.models.trigger_fixture import TriggerFixture
 from kestrapy.models.type import Type
 from kestrapy.models.unit_test import UnitTest
 from kestrapy.models.unit_test_result import UnitTestResult
-from kestrapy.models.update_flow200_response import UpdateFlow200Response
 from kestrapy.models.usage_ee import UsageEE
 from kestrapy.models.user_group import UserGroup
 from kestrapy.models.user_group_type import UserGroupType
