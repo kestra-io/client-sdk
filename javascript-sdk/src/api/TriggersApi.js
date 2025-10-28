@@ -13,7 +13,6 @@
 
 
 import ApiClient from "../ApiClient";
-import DeleteExecutionsByQueryRequest from '../model/DeleteExecutionsByQueryRequest';
 import PagedResultsTrigger from '../model/PagedResultsTrigger';
 import PagedResultsTriggerControllerTriggers from '../model/PagedResultsTriggerControllerTriggers';
 import QueryFilter from '../model/QueryFilter';
@@ -39,6 +38,9 @@ export default class TriggersApi {
     }
 
 
+
+
+            
 
     /**
      * Delete a backfill
@@ -92,6 +94,15 @@ export default class TriggersApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Delete backfill for given triggers
      * @param {String} tenant 
@@ -144,33 +155,35 @@ export default class TriggersApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Delete backfill for given triggers
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {String} [namespace] A namespace filter prefix
+     * @param {Array.<module:model/QueryFilter>} [filters] Filters
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    deleteBackfillByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts) {
+    deleteBackfillByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
-      let postBody = deleteExecutionsByQueryRequest;
+      let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling deleteBackfillByQuery");
-      }
-      // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-      if (deleteExecutionsByQueryRequest === undefined || deleteExecutionsByQueryRequest === null) {
-        throw new Error("Missing the required parameter 'deleteExecutionsByQueryRequest' when calling deleteBackfillByQuery");
       }
 
       let pathParams = {
         'tenant': tenant
       };
       let queryParams = {
-        'q': opts['q'],
-        'namespace': opts['namespace']
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
       };
       let headerParams = {
       };
@@ -178,7 +191,7 @@ export default class TriggersApi {
       };
 
       let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
+      let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = Object;
       return this.apiClient.callApi(
@@ -191,19 +204,26 @@ export default class TriggersApi {
     /**
      * Delete backfill for given triggers
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} opts.q A string filter
-     * @param {String} opts.namespace A namespace filter prefix
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
-    deleteBackfillByQuery(tenant, deleteExecutionsByQueryRequest, opts) {
-      return this.deleteBackfillByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts)
+    deleteBackfillByQuery(tenant, opts) {
+      return this.deleteBackfillByQueryWithHttpInfo(tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Disable/enable given triggers
@@ -257,19 +277,26 @@ export default class TriggersApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Disable/enable triggers by query parameters
      * @param {Boolean} disabled The disabled state
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {String} [namespace] A namespace filter prefix
+     * @param {Array.<module:model/QueryFilter>} [filters] Filters
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    disabledTriggersByQueryWithHttpInfo(disabled, tenant, deleteExecutionsByQueryRequest, opts) {
+    disabledTriggersByQueryWithHttpInfo(disabled, tenant, opts) {
       opts = opts || {};
-      let postBody = deleteExecutionsByQueryRequest;
+      let postBody = null;
       // verify the required parameter 'disabled' is set
       if (disabled === undefined || disabled === null) {
         throw new Error("Missing the required parameter 'disabled' when calling disabledTriggersByQuery");
@@ -278,17 +305,12 @@ export default class TriggersApi {
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling disabledTriggersByQuery");
       }
-      // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-      if (deleteExecutionsByQueryRequest === undefined || deleteExecutionsByQueryRequest === null) {
-        throw new Error("Missing the required parameter 'deleteExecutionsByQueryRequest' when calling disabledTriggersByQuery");
-      }
 
       let pathParams = {
         'tenant': tenant
       };
       let queryParams = {
-        'q': opts['q'],
-        'namespace': opts['namespace'],
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv'),
         'disabled': disabled
       };
       let headerParams = {
@@ -297,7 +319,7 @@ export default class TriggersApi {
       };
 
       let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
+      let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = Object;
       return this.apiClient.callApi(
@@ -311,19 +333,26 @@ export default class TriggersApi {
      * Disable/enable triggers by query parameters
      * @param {Boolean} disabled The disabled state
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} opts.q A string filter
-     * @param {String} opts.namespace A namespace filter prefix
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
-    disabledTriggersByQuery(disabled, tenant, deleteExecutionsByQueryRequest, opts) {
-      return this.disabledTriggersByQueryWithHttpInfo(disabled, tenant, deleteExecutionsByQueryRequest, opts)
+    disabledTriggersByQuery(disabled, tenant, opts) {
+      return this.disabledTriggersByQueryWithHttpInfo(disabled, tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Pause a backfill
@@ -377,6 +406,15 @@ export default class TriggersApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Pause backfill for given triggers
      * @param {String} tenant 
@@ -429,33 +467,35 @@ export default class TriggersApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Pause backfill for given triggers
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {String} [namespace] A namespace filter prefix
+     * @param {Array.<module:model/QueryFilter>} [filters] Filters
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    pauseBackfillByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts) {
+    pauseBackfillByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
-      let postBody = deleteExecutionsByQueryRequest;
+      let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling pauseBackfillByQuery");
-      }
-      // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-      if (deleteExecutionsByQueryRequest === undefined || deleteExecutionsByQueryRequest === null) {
-        throw new Error("Missing the required parameter 'deleteExecutionsByQueryRequest' when calling pauseBackfillByQuery");
       }
 
       let pathParams = {
         'tenant': tenant
       };
       let queryParams = {
-        'q': opts['q'],
-        'namespace': opts['namespace']
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
       };
       let headerParams = {
       };
@@ -463,7 +503,7 @@ export default class TriggersApi {
       };
 
       let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
+      let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = Object;
       return this.apiClient.callApi(
@@ -476,19 +516,26 @@ export default class TriggersApi {
     /**
      * Pause backfill for given triggers
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} opts.q A string filter
-     * @param {String} opts.namespace A namespace filter prefix
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
-    pauseBackfillByQuery(tenant, deleteExecutionsByQueryRequest, opts) {
-      return this.pauseBackfillByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts)
+    pauseBackfillByQuery(tenant, opts) {
+      return this.pauseBackfillByQueryWithHttpInfo(tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Restart a trigger
@@ -557,6 +604,15 @@ export default class TriggersApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Search for triggers
      * @param {Number} page The current page
@@ -565,10 +621,6 @@ export default class TriggersApi {
      * @param {Object} opts Optional parameters
      * @param {Array.<String>} [sort] The sort of current page
      * @param {Array.<module:model/QueryFilter>} [filters] Filters
-     * @param {String} [q] A string filter
-     * @param {String} [namespace] A namespace filter prefix
-     * @param {String} [workerId] The identifier of the worker currently evaluating the trigger
-     * @param {String} [flowId] The flow identifier
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsTriggerControllerTriggers} and HTTP response
      */
     searchTriggersWithHttpInfo(page, size, tenant, opts) {
@@ -594,11 +646,7 @@ export default class TriggersApi {
         'page': page,
         'size': size,
         'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
-        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv'),
-        'q': opts['q'],
-        'namespace': opts['namespace'],
-        'workerId': opts['workerId'],
-        'flowId': opts['flowId']
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
       };
       let headerParams = {
       };
@@ -624,10 +672,6 @@ export default class TriggersApi {
      * @param {Object} opts Optional parameters
      * @param {Array.<String>} opts.sort The sort of current page
      * @param {Array.<module:model/QueryFilter>} opts.filters Filters
-     * @param {String} opts.q A string filter
-     * @param {String} opts.namespace A namespace filter prefix
-     * @param {String} opts.workerId The identifier of the worker currently evaluating the trigger
-     * @param {String} opts.flowId The flow identifier
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsTriggerControllerTriggers}
      */
     searchTriggers(page, size, tenant, opts) {
@@ -637,6 +681,15 @@ export default class TriggersApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Get all triggers for a flow
@@ -721,6 +774,15 @@ export default class TriggersApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Unlock a trigger
      * @param {String} namespace The namespace
@@ -788,6 +850,15 @@ export default class TriggersApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Unlock given triggers
      * @param {String} tenant 
@@ -840,33 +911,35 @@ export default class TriggersApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Unlock triggers by query parameters
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {String} [namespace] A namespace filter prefix
+     * @param {Array.<module:model/QueryFilter>} [filters] Filters
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    unlockTriggersByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts) {
+    unlockTriggersByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
-      let postBody = deleteExecutionsByQueryRequest;
+      let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling unlockTriggersByQuery");
-      }
-      // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-      if (deleteExecutionsByQueryRequest === undefined || deleteExecutionsByQueryRequest === null) {
-        throw new Error("Missing the required parameter 'deleteExecutionsByQueryRequest' when calling unlockTriggersByQuery");
       }
 
       let pathParams = {
         'tenant': tenant
       };
       let queryParams = {
-        'q': opts['q'],
-        'namespace': opts['namespace']
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
       };
       let headerParams = {
       };
@@ -874,7 +947,7 @@ export default class TriggersApi {
       };
 
       let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
+      let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = Object;
       return this.apiClient.callApi(
@@ -887,19 +960,26 @@ export default class TriggersApi {
     /**
      * Unlock triggers by query parameters
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} opts.q A string filter
-     * @param {String} opts.namespace A namespace filter prefix
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
-    unlockTriggersByQuery(tenant, deleteExecutionsByQueryRequest, opts) {
-      return this.unlockTriggersByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts)
+    unlockTriggersByQuery(tenant, opts) {
+      return this.unlockTriggersByQueryWithHttpInfo(tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Unpause a backfill
@@ -953,6 +1033,15 @@ export default class TriggersApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Unpause backfill for given triggers
      * @param {String} tenant 
@@ -1005,33 +1094,35 @@ export default class TriggersApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Unpause backfill for given triggers
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {String} [namespace] A namespace filter prefix
+     * @param {Array.<module:model/QueryFilter>} [filters] Filters
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    unpauseBackfillByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts) {
+    unpauseBackfillByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
-      let postBody = deleteExecutionsByQueryRequest;
+      let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling unpauseBackfillByQuery");
-      }
-      // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-      if (deleteExecutionsByQueryRequest === undefined || deleteExecutionsByQueryRequest === null) {
-        throw new Error("Missing the required parameter 'deleteExecutionsByQueryRequest' when calling unpauseBackfillByQuery");
       }
 
       let pathParams = {
         'tenant': tenant
       };
       let queryParams = {
-        'q': opts['q'],
-        'namespace': opts['namespace']
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
       };
       let headerParams = {
       };
@@ -1039,7 +1130,7 @@ export default class TriggersApi {
       };
 
       let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
+      let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = Object;
       return this.apiClient.callApi(
@@ -1052,19 +1143,26 @@ export default class TriggersApi {
     /**
      * Unpause backfill for given triggers
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} opts.q A string filter
-     * @param {String} opts.namespace A namespace filter prefix
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
-    unpauseBackfillByQuery(tenant, deleteExecutionsByQueryRequest, opts) {
-      return this.unpauseBackfillByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts)
+    unpauseBackfillByQuery(tenant, opts) {
+      return this.unpauseBackfillByQueryWithHttpInfo(tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Update a trigger
@@ -1116,6 +1214,12 @@ export default class TriggersApi {
           return response_and_data.data;
         });
     }
+
+
+
+
+
+
 
 
 }

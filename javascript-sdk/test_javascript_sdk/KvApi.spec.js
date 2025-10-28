@@ -44,7 +44,8 @@ describe('KVApi', () => {
         expect(entries.some(e => e.key === key)).toBeTruthy();
     });
 
-    it('list_keys_with_inheritence: List all keys for inherited namespaces', async () => {
+    // FIXME re-enable when new Kestra EE is available
+    xit('list_keys_with_inheritence: List all keys for inherited namespaces', async () => {
         const key = 'test_list_keys_with_inheritence';
         const value = 'value-inherited';
 
@@ -79,7 +80,7 @@ describe('KVApi', () => {
         const resp = await kestraClient().kvApi.deleteKeyValues( namespace, MAIN_TENANT, req );
 
         expect(resp).not.toBeNull();
-
+        var debug = await kestraClient().kvApi.getKeyValue( namespace, key1, MAIN_TENANT );
         for (const k of [key1, key2]) {
             await expect(
                 kestraClient().kvApi.getKeyValue( namespace, k, MAIN_TENANT )

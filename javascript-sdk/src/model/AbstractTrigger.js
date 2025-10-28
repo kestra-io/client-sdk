@@ -57,9 +57,6 @@ class AbstractTrigger {
         if (data) {
             obj = obj || new AbstractTrigger();
 
-            if (data.hasOwnProperty('minLogLevel')) {
-                obj['minLogLevel'] = ApiClient.convertToType(data['minLogLevel'], Level);
-            }
             if (data.hasOwnProperty('id')) {
                 obj['id'] = ApiClient.convertToType(data['id'], 'String');
             }
@@ -158,11 +155,6 @@ class AbstractTrigger {
 }
 
 AbstractTrigger.RequiredProperties = ["id", "type"];
-
-/**
- * @member {module:model/Level} minLogLevel
- */
-AbstractTrigger.prototype['minLogLevel'] = undefined;
 
 /**
  * @member {String} id

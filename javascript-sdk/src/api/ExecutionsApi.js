@@ -15,27 +15,20 @@
 import ApiClient from "../ApiClient";
 import BulkErrorResponse from '../model/BulkErrorResponse';
 import BulkResponse from '../model/BulkResponse';
-import DeleteExecutionsByQueryRequest from '../model/DeleteExecutionsByQueryRequest';
 import EventExecution from '../model/EventExecution';
-import EventExecutionStatusEvent from '../model/EventExecutionStatusEvent';
 import Execution from '../model/Execution';
-import ExecutionControllerApiValidateExecutionInputsResponse from '../model/ExecutionControllerApiValidateExecutionInputsResponse';
-import ExecutionControllerEvalResult from '../model/ExecutionControllerEvalResult';
 import ExecutionControllerExecutionResponse from '../model/ExecutionControllerExecutionResponse';
 import ExecutionControllerLastExecutionResponse from '../model/ExecutionControllerLastExecutionResponse';
 import ExecutionControllerSetLabelsByIdsRequest from '../model/ExecutionControllerSetLabelsByIdsRequest';
 import ExecutionControllerStateRequest from '../model/ExecutionControllerStateRequest';
 import ExecutionControllerWebhookResponse from '../model/ExecutionControllerWebhookResponse';
 import ExecutionKind from '../model/ExecutionKind';
-import ExecutionRepositoryInterfaceChildFilter from '../model/ExecutionRepositoryInterfaceChildFilter';
 import ExecutionRepositoryInterfaceFlowFilter from '../model/ExecutionRepositoryInterfaceFlowFilter';
 import FileMetas from '../model/FileMetas';
 import FlowForExecution from '../model/FlowForExecution';
 import FlowGraph from '../model/FlowGraph';
-import FlowScope from '../model/FlowScope';
 import Label from '../model/Label';
 import PagedResultsExecution from '../model/PagedResultsExecution';
-import PagedResultsTaskRun from '../model/PagedResultsTaskRun';
 import QueryFilter from '../model/QueryFilter';
 import StateType from '../model/StateType';
 
@@ -58,6 +51,9 @@ export default class ExecutionsApi {
     }
 
 
+
+
+            
 
     /**
      * Create a new execution for a flow
@@ -144,32 +140,31 @@ export default class ExecutionsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Delete an execution
      * @param {String} executionId The execution id
-     * @param {Boolean} deleteLogs Whether to delete execution logs
-     * @param {Boolean} deleteMetrics Whether to delete execution metrics
-     * @param {Boolean} deleteStorage Whether to delete execution files in the internal storage
      * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Boolean} [deleteLogs = true)] Whether to delete execution logs
+     * @param {Boolean} [deleteMetrics = true)] Whether to delete execution metrics
+     * @param {Boolean} [deleteStorage = true)] Whether to delete execution files in the internal storage
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteExecutionWithHttpInfo(executionId, deleteLogs, deleteMetrics, deleteStorage, tenant) {
+    deleteExecutionWithHttpInfo(executionId, tenant, opts) {
+      opts = opts || {};
       let postBody = null;
       // verify the required parameter 'executionId' is set
       if (executionId === undefined || executionId === null) {
         throw new Error("Missing the required parameter 'executionId' when calling deleteExecution");
-      }
-      // verify the required parameter 'deleteLogs' is set
-      if (deleteLogs === undefined || deleteLogs === null) {
-        throw new Error("Missing the required parameter 'deleteLogs' when calling deleteExecution");
-      }
-      // verify the required parameter 'deleteMetrics' is set
-      if (deleteMetrics === undefined || deleteMetrics === null) {
-        throw new Error("Missing the required parameter 'deleteMetrics' when calling deleteExecution");
-      }
-      // verify the required parameter 'deleteStorage' is set
-      if (deleteStorage === undefined || deleteStorage === null) {
-        throw new Error("Missing the required parameter 'deleteStorage' when calling deleteExecution");
       }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -181,9 +176,9 @@ export default class ExecutionsApi {
         'tenant': tenant
       };
       let queryParams = {
-        'deleteLogs': deleteLogs,
-        'deleteMetrics': deleteMetrics,
-        'deleteStorage': deleteStorage
+        'deleteLogs': opts['deleteLogs'],
+        'deleteMetrics': opts['deleteMetrics'],
+        'deleteStorage': opts['deleteStorage']
       };
       let headerParams = {
       };
@@ -204,46 +199,44 @@ export default class ExecutionsApi {
     /**
      * Delete an execution
      * @param {String} executionId The execution id
-     * @param {Boolean} deleteLogs Whether to delete execution logs
-     * @param {Boolean} deleteMetrics Whether to delete execution metrics
-     * @param {Boolean} deleteStorage Whether to delete execution files in the internal storage
      * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.deleteLogs Whether to delete execution logs (default to true)
+     * @param {Boolean} opts.deleteMetrics Whether to delete execution metrics (default to true)
+     * @param {Boolean} opts.deleteStorage Whether to delete execution files in the internal storage (default to true)
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    deleteExecution(executionId, deleteLogs, deleteMetrics, deleteStorage, tenant) {
-      return this.deleteExecutionWithHttpInfo(executionId, deleteLogs, deleteMetrics, deleteStorage, tenant)
+    deleteExecution(executionId, tenant, opts) {
+      return this.deleteExecutionWithHttpInfo(executionId, tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Delete a list of executions
-     * @param {Boolean} deleteLogs Whether to delete execution logs
-     * @param {Boolean} deleteMetrics Whether to delete execution metrics
-     * @param {Boolean} deleteStorage Whether to delete execution files in the internal storage
      * @param {String} tenant 
      * @param {Array.<String>} requestBody The execution id
      * @param {Object} opts Optional parameters
      * @param {Boolean} [includeNonTerminated = false)] Whether to delete non-terminated executions
+     * @param {Boolean} [deleteLogs = true)] Whether to delete execution logs
+     * @param {Boolean} [deleteMetrics = true)] Whether to delete execution metrics
+     * @param {Boolean} [deleteStorage = true)] Whether to delete execution files in the internal storage
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
      */
-    deleteExecutionsByIdsWithHttpInfo(deleteLogs, deleteMetrics, deleteStorage, tenant, requestBody, opts) {
+    deleteExecutionsByIdsWithHttpInfo(tenant, requestBody, opts) {
       opts = opts || {};
       let postBody = requestBody;
-      // verify the required parameter 'deleteLogs' is set
-      if (deleteLogs === undefined || deleteLogs === null) {
-        throw new Error("Missing the required parameter 'deleteLogs' when calling deleteExecutionsByIds");
-      }
-      // verify the required parameter 'deleteMetrics' is set
-      if (deleteMetrics === undefined || deleteMetrics === null) {
-        throw new Error("Missing the required parameter 'deleteMetrics' when calling deleteExecutionsByIds");
-      }
-      // verify the required parameter 'deleteStorage' is set
-      if (deleteStorage === undefined || deleteStorage === null) {
-        throw new Error("Missing the required parameter 'deleteStorage' when calling deleteExecutionsByIds");
-      }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling deleteExecutionsByIds");
@@ -258,9 +251,9 @@ export default class ExecutionsApi {
       };
       let queryParams = {
         'includeNonTerminated': opts['includeNonTerminated'],
-        'deleteLogs': deleteLogs,
-        'deleteMetrics': deleteMetrics,
-        'deleteStorage': deleteStorage
+        'deleteLogs': opts['deleteLogs'],
+        'deleteMetrics': opts['deleteMetrics'],
+        'deleteStorage': opts['deleteStorage']
       };
       let headerParams = {
       };
@@ -280,88 +273,60 @@ export default class ExecutionsApi {
 
     /**
      * Delete a list of executions
-     * @param {Boolean} deleteLogs Whether to delete execution logs
-     * @param {Boolean} deleteMetrics Whether to delete execution metrics
-     * @param {Boolean} deleteStorage Whether to delete execution files in the internal storage
      * @param {String} tenant 
      * @param {Array.<String>} requestBody The execution id
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.includeNonTerminated Whether to delete non-terminated executions (default to false)
+     * @param {Boolean} opts.deleteLogs Whether to delete execution logs (default to true)
+     * @param {Boolean} opts.deleteMetrics Whether to delete execution metrics (default to true)
+     * @param {Boolean} opts.deleteStorage Whether to delete execution files in the internal storage (default to true)
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
      */
-    deleteExecutionsByIds(deleteLogs, deleteMetrics, deleteStorage, tenant, requestBody, opts) {
-      return this.deleteExecutionsByIdsWithHttpInfo(deleteLogs, deleteMetrics, deleteStorage, tenant, requestBody, opts)
+    deleteExecutionsByIds(tenant, requestBody, opts) {
+      return this.deleteExecutionsByIdsWithHttpInfo(tenant, requestBody, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Delete executions filter by query parameters
-     * @param {Boolean} deleteLogs Whether to delete execution logs
-     * @param {Boolean} deleteMetrics Whether to delete execution metrics
-     * @param {Boolean} deleteStorage Whether to delete execution files in the internal storage
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {Array.<module:model/FlowScope>} [scope] The scope of the executions to include
-     * @param {String} [namespace] A namespace filter prefix
-     * @param {String} [flowId] A flow id filter
-     * @param {Date} [startDate] The start datetime
-     * @param {Date} [endDate] The end datetime
-     * @param {String} [timeRange] A time range filter relative to the current time
-     * @param {Array.<module:model/StateType>} [state] A state filter
-     * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
-     * @param {String} [triggerExecutionId] The trigger execution id
-     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} [childFilter] A execution child filter
+     * @param {Array.<module:model/QueryFilter>} [filters] Filters
      * @param {Boolean} [includeNonTerminated = false)] Whether to delete non-terminated executions
+     * @param {Boolean} [deleteLogs = true)] Whether to delete execution logs
+     * @param {Boolean} [deleteMetrics = true)] Whether to delete execution metrics
+     * @param {Boolean} [deleteStorage = true)] Whether to delete execution files in the internal storage
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    deleteExecutionsByQueryWithHttpInfo(deleteLogs, deleteMetrics, deleteStorage, tenant, deleteExecutionsByQueryRequest, opts) {
+    deleteExecutionsByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
-      let postBody = deleteExecutionsByQueryRequest;
-      // verify the required parameter 'deleteLogs' is set
-      if (deleteLogs === undefined || deleteLogs === null) {
-        throw new Error("Missing the required parameter 'deleteLogs' when calling deleteExecutionsByQuery");
-      }
-      // verify the required parameter 'deleteMetrics' is set
-      if (deleteMetrics === undefined || deleteMetrics === null) {
-        throw new Error("Missing the required parameter 'deleteMetrics' when calling deleteExecutionsByQuery");
-      }
-      // verify the required parameter 'deleteStorage' is set
-      if (deleteStorage === undefined || deleteStorage === null) {
-        throw new Error("Missing the required parameter 'deleteStorage' when calling deleteExecutionsByQuery");
-      }
+      let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling deleteExecutionsByQuery");
-      }
-      // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-      if (deleteExecutionsByQueryRequest === undefined || deleteExecutionsByQueryRequest === null) {
-        throw new Error("Missing the required parameter 'deleteExecutionsByQueryRequest' when calling deleteExecutionsByQuery");
       }
 
       let pathParams = {
         'tenant': tenant
       };
       let queryParams = {
-        'q': opts['q'],
-        'scope': this.apiClient.buildCollectionParam(opts['scope'], 'csv'),
-        'namespace': opts['namespace'],
-        'flowId': opts['flowId'],
-        'startDate': opts['startDate'],
-        'endDate': opts['endDate'],
-        'timeRange': opts['timeRange'],
-        'state': this.apiClient.buildCollectionParam(opts['state'], 'csv'),
-        'labels': this.apiClient.buildCollectionParam(opts['labels'], 'multi'),
-        'triggerExecutionId': opts['triggerExecutionId'],
-        'childFilter': opts['childFilter'],
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv'),
         'includeNonTerminated': opts['includeNonTerminated'],
-        'deleteLogs': deleteLogs,
-        'deleteMetrics': deleteMetrics,
-        'deleteStorage': deleteStorage
+        'deleteLogs': opts['deleteLogs'],
+        'deleteMetrics': opts['deleteMetrics'],
+        'deleteStorage': opts['deleteStorage']
       };
       let headerParams = {
       };
@@ -369,7 +334,7 @@ export default class ExecutionsApi {
       };
 
       let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
+      let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = Object;
       return this.apiClient.callApi(
@@ -381,33 +346,31 @@ export default class ExecutionsApi {
 
     /**
      * Delete executions filter by query parameters
-     * @param {Boolean} deleteLogs Whether to delete execution logs
-     * @param {Boolean} deleteMetrics Whether to delete execution metrics
-     * @param {Boolean} deleteStorage Whether to delete execution files in the internal storage
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} opts.q A string filter
-     * @param {Array.<module:model/FlowScope>} opts.scope The scope of the executions to include
-     * @param {String} opts.namespace A namespace filter prefix
-     * @param {String} opts.flowId A flow id filter
-     * @param {Date} opts.startDate The start datetime
-     * @param {Date} opts.endDate The end datetime
-     * @param {String} opts.timeRange A time range filter relative to the current time
-     * @param {Array.<module:model/StateType>} opts.state A state filter
-     * @param {Array.<String>} opts.labels A labels filter as a list of 'key:value'
-     * @param {String} opts.triggerExecutionId The trigger execution id
-     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} opts.childFilter A execution child filter
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
      * @param {Boolean} opts.includeNonTerminated Whether to delete non-terminated executions (default to false)
+     * @param {Boolean} opts.deleteLogs Whether to delete execution logs (default to true)
+     * @param {Boolean} opts.deleteMetrics Whether to delete execution metrics (default to true)
+     * @param {Boolean} opts.deleteStorage Whether to delete execution files in the internal storage (default to true)
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
-    deleteExecutionsByQuery(deleteLogs, deleteMetrics, deleteStorage, tenant, deleteExecutionsByQueryRequest, opts) {
-      return this.deleteExecutionsByQueryWithHttpInfo(deleteLogs, deleteMetrics, deleteStorage, tenant, deleteExecutionsByQueryRequest, opts)
+    deleteExecutionsByQuery(tenant, opts) {
+      return this.deleteExecutionsByQueryWithHttpInfo(tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Download file for an execution
@@ -469,191 +432,21 @@ export default class ExecutionsApi {
     }
 
 
-    /**
-     * Evaluate a variable expression for this taskrun
-     * @param {String} executionId The execution id
-     * @param {String} taskRunId The taskrun id
-     * @param {String} tenant 
-     * @param {String} body The Pebble expression that should be evaluated
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ExecutionControllerEvalResult} and HTTP response
-     */
-    evalTaskRunExpressionWithHttpInfo(executionId, taskRunId, tenant, body) {
-      let postBody = body;
-      // verify the required parameter 'executionId' is set
-      if (executionId === undefined || executionId === null) {
-        throw new Error("Missing the required parameter 'executionId' when calling evalTaskRunExpression");
-      }
-      // verify the required parameter 'taskRunId' is set
-      if (taskRunId === undefined || taskRunId === null) {
-        throw new Error("Missing the required parameter 'taskRunId' when calling evalTaskRunExpression");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling evalTaskRunExpression");
-      }
-      // verify the required parameter 'body' is set
-      if (body === undefined || body === null) {
-        throw new Error("Missing the required parameter 'body' when calling evalTaskRunExpression");
-      }
-
-      let pathParams = {
-        'executionId': executionId,
-        'taskRunId': taskRunId,
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['text/plain'];
-      let accepts = ['application/json'];
-      let returnType = ExecutionControllerEvalResult;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/executions/{executionId}/eval/{taskRunId}', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * Evaluate a variable expression for this taskrun
-     * @param {String} executionId The execution id
-     * @param {String} taskRunId The taskrun id
-     * @param {String} tenant 
-     * @param {String} body The Pebble expression that should be evaluated
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ExecutionControllerEvalResult}
-     */
-    evalTaskRunExpression(executionId, taskRunId, tenant, body) {
-      return this.evalTaskRunExpressionWithHttpInfo(executionId, taskRunId, tenant, body)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
 
 
-    /**
-     * Follow all execution dependencies executions
-     * @param {String} executionId The execution id
-     * @param {Boolean} destinationOnly If true, list only destination dependencies, otherwise list also source dependencies
-     * @param {Boolean} expandAll If true, expand all dependencies recursively
-     * @param {String} tenant 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/EventExecutionStatusEvent} and HTTP response
-     */
-    followDependenciesExecutionsWithHttpInfo(executionId, destinationOnly, expandAll, tenant) {
-      let postBody = null;
-      // verify the required parameter 'executionId' is set
-      if (executionId === undefined || executionId === null) {
-        throw new Error("Missing the required parameter 'executionId' when calling followDependenciesExecutions");
-      }
-      // verify the required parameter 'destinationOnly' is set
-      if (destinationOnly === undefined || destinationOnly === null) {
-        throw new Error("Missing the required parameter 'destinationOnly' when calling followDependenciesExecutions");
-      }
-      // verify the required parameter 'expandAll' is set
-      if (expandAll === undefined || expandAll === null) {
-        throw new Error("Missing the required parameter 'expandAll' when calling followDependenciesExecutions");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling followDependenciesExecutions");
-      }
-
-      let pathParams = {
-        'executionId': executionId,
-        'tenant': tenant
-      };
-      let queryParams = {
-        'destinationOnly': destinationOnly,
-        'expandAll': expandAll
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['text/event-stream'];
-      let returnType = EventExecutionStatusEvent;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/executions/{executionId}/follow-dependencies', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * Follow all execution dependencies executions
-     * @param {String} executionId The execution id
-     * @param {Boolean} destinationOnly If true, list only destination dependencies, otherwise list also source dependencies
-     * @param {Boolean} expandAll If true, expand all dependencies recursively
-     * @param {String} tenant 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/EventExecutionStatusEvent}
-     */
-    followDependenciesExecutions(executionId, destinationOnly, expandAll, tenant) {
-      return this.followDependenciesExecutionsWithHttpInfo(executionId, destinationOnly, expandAll, tenant)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
 
 
-    /**
-     * Follow an execution
-     * @param {String} executionId The execution id
-     * @param {String} tenant 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/EventExecution} and HTTP response
-     */
-    followExecutionWithHttpInfo(executionId, tenant) {
-      let postBody = null;
-      // verify the required parameter 'executionId' is set
-      if (executionId === undefined || executionId === null) {
-        throw new Error("Missing the required parameter 'executionId' when calling followExecution");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling followExecution");
-      }
 
-      let pathParams = {
-        'executionId': executionId,
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
 
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['text/event-stream'];
-      let returnType = EventExecution;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/executions/{executionId}/follow', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
 
-    /**
-     * Follow an execution
-     * @param {String} executionId The execution id
-     * @param {String} tenant 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/EventExecution}
-     */
-    followExecution(executionId, tenant) {
-      return this.followExecutionWithHttpInfo(executionId, tenant)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
 
+
+
+
+
+
+
+            
 
     /**
      * Force run a list of executions
@@ -706,6 +499,15 @@ export default class ExecutionsApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Force run an execution
@@ -760,51 +562,35 @@ export default class ExecutionsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Force run executions filter by query parameters
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {Array.<module:model/FlowScope>} [scope] The scope of the executions to include
-     * @param {String} [namespace] A namespace filter prefix
-     * @param {String} [flowId] A flow id filter
-     * @param {Date} [startDate] The start datetime
-     * @param {Date} [endDate] The end datetime
-     * @param {String} [timeRange] A time range filter relative to the current time
-     * @param {Array.<module:model/StateType>} [state] A state filter
-     * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
-     * @param {String} [triggerExecutionId] The trigger execution id
-     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} [childFilter] A execution child filter
+     * @param {Array.<module:model/QueryFilter>} [filters] Filters
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    forceRunExecutionsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts) {
+    forceRunExecutionsByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
-      let postBody = deleteExecutionsByQueryRequest;
+      let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling forceRunExecutionsByQuery");
-      }
-      // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-      if (deleteExecutionsByQueryRequest === undefined || deleteExecutionsByQueryRequest === null) {
-        throw new Error("Missing the required parameter 'deleteExecutionsByQueryRequest' when calling forceRunExecutionsByQuery");
       }
 
       let pathParams = {
         'tenant': tenant
       };
       let queryParams = {
-        'q': opts['q'],
-        'scope': this.apiClient.buildCollectionParam(opts['scope'], 'csv'),
-        'namespace': opts['namespace'],
-        'flowId': opts['flowId'],
-        'startDate': opts['startDate'],
-        'endDate': opts['endDate'],
-        'timeRange': opts['timeRange'],
-        'state': this.apiClient.buildCollectionParam(opts['state'], 'csv'),
-        'labels': this.apiClient.buildCollectionParam(opts['labels'], 'multi'),
-        'triggerExecutionId': opts['triggerExecutionId'],
-        'childFilter': opts['childFilter']
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
       };
       let headerParams = {
       };
@@ -812,7 +598,7 @@ export default class ExecutionsApi {
       };
 
       let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
+      let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = Object;
       return this.apiClient.callApi(
@@ -825,28 +611,26 @@ export default class ExecutionsApi {
     /**
      * Force run executions filter by query parameters
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} opts.q A string filter
-     * @param {Array.<module:model/FlowScope>} opts.scope The scope of the executions to include
-     * @param {String} opts.namespace A namespace filter prefix
-     * @param {String} opts.flowId A flow id filter
-     * @param {Date} opts.startDate The start datetime
-     * @param {Date} opts.endDate The end datetime
-     * @param {String} opts.timeRange A time range filter relative to the current time
-     * @param {Array.<module:model/StateType>} opts.state A state filter
-     * @param {Array.<String>} opts.labels A labels filter as a list of 'key:value'
-     * @param {String} opts.triggerExecutionId The trigger execution id
-     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} opts.childFilter A execution child filter
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
-    forceRunExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts) {
-      return this.forceRunExecutionsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts)
+    forceRunExecutionsByQuery(tenant, opts) {
+      return this.forceRunExecutionsByQueryWithHttpInfo(tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Get an execution
@@ -900,6 +684,15 @@ export default class ExecutionsApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Generate a graph for an execution
@@ -959,6 +752,15 @@ export default class ExecutionsApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Get file meta information for an execution
@@ -1020,71 +822,14 @@ export default class ExecutionsApi {
     }
 
 
-    /**
-     * Get flow information's for an execution
-     * @param {String} namespace The namespace of the flow
-     * @param {String} flowId The flow id
-     * @param {String} tenant 
-     * @param {Object} opts Optional parameters
-     * @param {Number} [revision] The flow revision
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/FlowForExecution} and HTTP response
-     */
-    getFlowFromExecutionWithHttpInfo(namespace, flowId, tenant, opts) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'namespace' is set
-      if (namespace === undefined || namespace === null) {
-        throw new Error("Missing the required parameter 'namespace' when calling getFlowFromExecution");
-      }
-      // verify the required parameter 'flowId' is set
-      if (flowId === undefined || flowId === null) {
-        throw new Error("Missing the required parameter 'flowId' when calling getFlowFromExecution");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling getFlowFromExecution");
-      }
 
-      let pathParams = {
-        'namespace': namespace,
-        'flowId': flowId,
-        'tenant': tenant
-      };
-      let queryParams = {
-        'revision': opts['revision']
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
 
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = FlowForExecution;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/executions/flows/{namespace}/{flowId}', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
 
-    /**
-     * Get flow information's for an execution
-     * @param {String} namespace The namespace of the flow
-     * @param {String} flowId The flow id
-     * @param {String} tenant 
-     * @param {Object} opts Optional parameters
-     * @param {Number} opts.revision The flow revision
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/FlowForExecution}
-     */
-    getFlowFromExecution(namespace, flowId, tenant, opts) {
-      return this.getFlowFromExecutionWithHttpInfo(namespace, flowId, tenant, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
 
+
+
+
+            
 
     /**
      * Get flow information's for an execution
@@ -1139,6 +884,15 @@ export default class ExecutionsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Get the latest execution for given flows
      * @param {String} tenant 
@@ -1190,6 +944,15 @@ export default class ExecutionsApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Kill an execution
@@ -1251,6 +1014,15 @@ export default class ExecutionsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Kill a list of executions
      * @param {String} tenant 
@@ -1303,51 +1075,35 @@ export default class ExecutionsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Kill executions filter by query parameters
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {Array.<module:model/FlowScope>} [scope] The scope of the executions to include
-     * @param {String} [namespace] A namespace filter prefix
-     * @param {String} [flowId] A flow id filter
-     * @param {Date} [startDate] The start datetime
-     * @param {Date} [endDate] The end datetime
-     * @param {String} [timeRange] A time range filter relative to the current time
-     * @param {Array.<module:model/StateType>} [state] A state filter
-     * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
-     * @param {String} [triggerExecutionId] The trigger execution id
-     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} [childFilter] A execution child filter
+     * @param {Array.<module:model/QueryFilter>} [filters] Filters
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    killExecutionsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts) {
+    killExecutionsByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
-      let postBody = deleteExecutionsByQueryRequest;
+      let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling killExecutionsByQuery");
-      }
-      // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-      if (deleteExecutionsByQueryRequest === undefined || deleteExecutionsByQueryRequest === null) {
-        throw new Error("Missing the required parameter 'deleteExecutionsByQueryRequest' when calling killExecutionsByQuery");
       }
 
       let pathParams = {
         'tenant': tenant
       };
       let queryParams = {
-        'q': opts['q'],
-        'scope': this.apiClient.buildCollectionParam(opts['scope'], 'csv'),
-        'namespace': opts['namespace'],
-        'flowId': opts['flowId'],
-        'startDate': opts['startDate'],
-        'endDate': opts['endDate'],
-        'timeRange': opts['timeRange'],
-        'state': this.apiClient.buildCollectionParam(opts['state'], 'csv'),
-        'labels': this.apiClient.buildCollectionParam(opts['labels'], 'multi'),
-        'triggerExecutionId': opts['triggerExecutionId'],
-        'childFilter': opts['childFilter']
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
       };
       let headerParams = {
       };
@@ -1355,7 +1111,7 @@ export default class ExecutionsApi {
       };
 
       let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
+      let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = Object;
       return this.apiClient.callApi(
@@ -1368,127 +1124,26 @@ export default class ExecutionsApi {
     /**
      * Kill executions filter by query parameters
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} opts.q A string filter
-     * @param {Array.<module:model/FlowScope>} opts.scope The scope of the executions to include
-     * @param {String} opts.namespace A namespace filter prefix
-     * @param {String} opts.flowId A flow id filter
-     * @param {Date} opts.startDate The start datetime
-     * @param {Date} opts.endDate The end datetime
-     * @param {String} opts.timeRange A time range filter relative to the current time
-     * @param {Array.<module:model/StateType>} opts.state A state filter
-     * @param {Array.<String>} opts.labels A labels filter as a list of 'key:value'
-     * @param {String} opts.triggerExecutionId The trigger execution id
-     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} opts.childFilter A execution child filter
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
-    killExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts) {
-      return this.killExecutionsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts)
+    killExecutionsByQuery(tenant, opts) {
+      return this.killExecutionsByQueryWithHttpInfo(tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
     }
 
 
-    /**
-     * Get all namespaces that have executable flows
-     * @param {String} tenant 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<String>} and HTTP response
-     */
-    listExecutableDistinctNamespacesWithHttpInfo(tenant) {
-      let postBody = null;
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling listExecutableDistinctNamespaces");
-      }
-
-      let pathParams = {
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = ['String'];
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/executions/namespaces', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * Get all namespaces that have executable flows
-     * @param {String} tenant 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<String>}
-     */
-    listExecutableDistinctNamespaces(tenant) {
-      return this.listExecutableDistinctNamespacesWithHttpInfo(tenant)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
 
 
-    /**
-     * Get all flow ids for a namespace. Data returned are FlowForExecution containing minimal information about a Flow for when you are allowed to executing but not reading.
-     * @param {String} namespace The namespace
-     * @param {String} tenant 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/FlowForExecution>} and HTTP response
-     */
-    listFlowExecutionsByNamespaceWithHttpInfo(namespace, tenant) {
-      let postBody = null;
-      // verify the required parameter 'namespace' is set
-      if (namespace === undefined || namespace === null) {
-        throw new Error("Missing the required parameter 'namespace' when calling listFlowExecutionsByNamespace");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling listFlowExecutionsByNamespace");
-      }
 
-      let pathParams = {
-        'namespace': namespace,
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
 
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = [FlowForExecution];
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/executions/namespaces/{namespace}/flows', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
 
-    /**
-     * Get all flow ids for a namespace. Data returned are FlowForExecution containing minimal information about a Flow for when you are allowed to executing but not reading.
-     * @param {String} namespace The namespace
-     * @param {String} tenant 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/FlowForExecution>}
-     */
-    listFlowExecutionsByNamespace(namespace, tenant) {
-      return this.listFlowExecutionsByNamespaceWithHttpInfo(namespace, tenant)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
 
+
+            
 
     /**
      * Pause a running execution.
@@ -1543,6 +1198,15 @@ export default class ExecutionsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Pause a list of running executions
      * @param {String} tenant 
@@ -1595,51 +1259,35 @@ export default class ExecutionsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Pause executions filter by query parameters
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {Array.<module:model/FlowScope>} [scope] The scope of the executions to include
-     * @param {String} [namespace] A namespace filter prefix
-     * @param {String} [flowId] A flow id filter
-     * @param {Date} [startDate] The start datetime
-     * @param {Date} [endDate] The end datetime
-     * @param {String} [timeRange] A time range filter relative to the current time
-     * @param {Array.<module:model/StateType>} [state] A state filter
-     * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
-     * @param {String} [triggerExecutionId] The trigger execution id
-     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} [childFilter] A execution child filter
+     * @param {Array.<module:model/QueryFilter>} [filters] Filters
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    pauseExecutionsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts) {
+    pauseExecutionsByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
-      let postBody = deleteExecutionsByQueryRequest;
+      let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling pauseExecutionsByQuery");
-      }
-      // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-      if (deleteExecutionsByQueryRequest === undefined || deleteExecutionsByQueryRequest === null) {
-        throw new Error("Missing the required parameter 'deleteExecutionsByQueryRequest' when calling pauseExecutionsByQuery");
       }
 
       let pathParams = {
         'tenant': tenant
       };
       let queryParams = {
-        'q': opts['q'],
-        'scope': this.apiClient.buildCollectionParam(opts['scope'], 'csv'),
-        'namespace': opts['namespace'],
-        'flowId': opts['flowId'],
-        'startDate': opts['startDate'],
-        'endDate': opts['endDate'],
-        'timeRange': opts['timeRange'],
-        'state': this.apiClient.buildCollectionParam(opts['state'], 'csv'),
-        'labels': this.apiClient.buildCollectionParam(opts['labels'], 'multi'),
-        'triggerExecutionId': opts['triggerExecutionId'],
-        'childFilter': opts['childFilter']
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
       };
       let headerParams = {
       };
@@ -1647,7 +1295,7 @@ export default class ExecutionsApi {
       };
 
       let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
+      let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = Object;
       return this.apiClient.callApi(
@@ -1660,102 +1308,26 @@ export default class ExecutionsApi {
     /**
      * Pause executions filter by query parameters
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} opts.q A string filter
-     * @param {Array.<module:model/FlowScope>} opts.scope The scope of the executions to include
-     * @param {String} opts.namespace A namespace filter prefix
-     * @param {String} opts.flowId A flow id filter
-     * @param {Date} opts.startDate The start datetime
-     * @param {Date} opts.endDate The end datetime
-     * @param {String} opts.timeRange A time range filter relative to the current time
-     * @param {Array.<module:model/StateType>} opts.state A state filter
-     * @param {Array.<String>} opts.labels A labels filter as a list of 'key:value'
-     * @param {String} opts.triggerExecutionId The trigger execution id
-     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} opts.childFilter A execution child filter
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
-    pauseExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts) {
-      return this.pauseExecutionsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts)
+    pauseExecutionsByQuery(tenant, opts) {
+      return this.pauseExecutionsByQueryWithHttpInfo(tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
     }
 
 
-    /**
-     * Get file preview for an execution
-     * @param {String} executionId The execution id
-     * @param {String} path The internal storage uri
-     * @param {Number} maxRows The max row returns
-     * @param {String} encoding The file encoding as Java charset name. Defaults to UTF-8
-     * @param {String} tenant 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
-     */
-    previewFileFromExecutionWithHttpInfo(executionId, path, maxRows, encoding, tenant) {
-      let postBody = null;
-      // verify the required parameter 'executionId' is set
-      if (executionId === undefined || executionId === null) {
-        throw new Error("Missing the required parameter 'executionId' when calling previewFileFromExecution");
-      }
-      // verify the required parameter 'path' is set
-      if (path === undefined || path === null) {
-        throw new Error("Missing the required parameter 'path' when calling previewFileFromExecution");
-      }
-      // verify the required parameter 'maxRows' is set
-      if (maxRows === undefined || maxRows === null) {
-        throw new Error("Missing the required parameter 'maxRows' when calling previewFileFromExecution");
-      }
-      // verify the required parameter 'encoding' is set
-      if (encoding === undefined || encoding === null) {
-        throw new Error("Missing the required parameter 'encoding' when calling previewFileFromExecution");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling previewFileFromExecution");
-      }
 
-      let pathParams = {
-        'executionId': executionId,
-        'tenant': tenant
-      };
-      let queryParams = {
-        'path': path,
-        'maxRows': maxRows,
-        'encoding': encoding
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
 
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = Object;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/executions/{executionId}/file/preview', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
 
-    /**
-     * Get file preview for an execution
-     * @param {String} executionId The execution id
-     * @param {String} path The internal storage uri
-     * @param {Number} maxRows The max row returns
-     * @param {String} encoding The file encoding as Java charset name. Defaults to UTF-8
-     * @param {String} tenant 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
-     */
-    previewFileFromExecution(executionId, path, maxRows, encoding, tenant) {
-      return this.previewFileFromExecutionWithHttpInfo(executionId, path, maxRows, encoding, tenant)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
 
+
+
+
+            
 
     /**
      * Create a new execution from an old one and start it from a specified task run id
@@ -1822,6 +1394,15 @@ export default class ExecutionsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Create a new execution from an old one and start it from a specified task run id
      * @param {String} executionId the original execution id to clone
@@ -1887,6 +1468,15 @@ export default class ExecutionsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Create new executions from old ones. Keep the flow revision
      * @param {String} tenant 
@@ -1945,52 +1535,36 @@ export default class ExecutionsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Create new executions from old ones filter by query parameters. Keep the flow revision
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {Array.<module:model/FlowScope>} [scope] The scope of the executions to include
-     * @param {String} [namespace] A namespace filter prefix
-     * @param {String} [flowId] A flow id filter
-     * @param {Date} [startDate] The start datetime
-     * @param {Date} [endDate] The end datetime
-     * @param {String} [timeRange] A time range filter relative to the current time
-     * @param {Array.<module:model/StateType>} [state] A state filter
-     * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
-     * @param {String} [triggerExecutionId] The trigger execution id
-     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} [childFilter] A execution child filter
+     * @param {Array.<module:model/QueryFilter>} [filters] Filters
      * @param {Boolean} [latestRevision = false)] If latest revision should be used
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    replayExecutionsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts) {
+    replayExecutionsByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
-      let postBody = deleteExecutionsByQueryRequest;
+      let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling replayExecutionsByQuery");
-      }
-      // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-      if (deleteExecutionsByQueryRequest === undefined || deleteExecutionsByQueryRequest === null) {
-        throw new Error("Missing the required parameter 'deleteExecutionsByQueryRequest' when calling replayExecutionsByQuery");
       }
 
       let pathParams = {
         'tenant': tenant
       };
       let queryParams = {
-        'q': opts['q'],
-        'scope': this.apiClient.buildCollectionParam(opts['scope'], 'csv'),
-        'namespace': opts['namespace'],
-        'flowId': opts['flowId'],
-        'startDate': opts['startDate'],
-        'endDate': opts['endDate'],
-        'timeRange': opts['timeRange'],
-        'state': this.apiClient.buildCollectionParam(opts['state'], 'csv'),
-        'labels': this.apiClient.buildCollectionParam(opts['labels'], 'multi'),
-        'triggerExecutionId': opts['triggerExecutionId'],
-        'childFilter': opts['childFilter'],
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv'),
         'latestRevision': opts['latestRevision']
       };
       let headerParams = {
@@ -1999,7 +1573,7 @@ export default class ExecutionsApi {
       };
 
       let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
+      let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = Object;
       return this.apiClient.callApi(
@@ -2012,29 +1586,27 @@ export default class ExecutionsApi {
     /**
      * Create new executions from old ones filter by query parameters. Keep the flow revision
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} opts.q A string filter
-     * @param {Array.<module:model/FlowScope>} opts.scope The scope of the executions to include
-     * @param {String} opts.namespace A namespace filter prefix
-     * @param {String} opts.flowId A flow id filter
-     * @param {Date} opts.startDate The start datetime
-     * @param {Date} opts.endDate The end datetime
-     * @param {String} opts.timeRange A time range filter relative to the current time
-     * @param {Array.<module:model/StateType>} opts.state A state filter
-     * @param {Array.<String>} opts.labels A labels filter as a list of 'key:value'
-     * @param {String} opts.triggerExecutionId The trigger execution id
-     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} opts.childFilter A execution child filter
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
      * @param {Boolean} opts.latestRevision If latest revision should be used (default to false)
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
-    replayExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts) {
-      return this.replayExecutionsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts)
+    replayExecutionsByQuery(tenant, opts) {
+      return this.replayExecutionsByQueryWithHttpInfo(tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Restart a new execution from an old one
@@ -2095,6 +1667,15 @@ export default class ExecutionsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Restart a list of executions
      * @param {String} tenant 
@@ -2147,51 +1728,35 @@ export default class ExecutionsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Restart executions filter by query parameters
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {Array.<module:model/FlowScope>} [scope] The scope of the executions to include
-     * @param {String} [namespace] A namespace filter prefix
-     * @param {String} [flowId] A flow id filter
-     * @param {Date} [startDate] The start datetime
-     * @param {Date} [endDate] The end datetime
-     * @param {String} [timeRange] A time range filter relative to the current time
-     * @param {Array.<module:model/StateType>} [state] A state filter
-     * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
-     * @param {String} [triggerExecutionId] The trigger execution id
-     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} [childFilter] A execution child filter
+     * @param {Array.<module:model/QueryFilter>} [filters] Filters
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    restartExecutionsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts) {
+    restartExecutionsByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
-      let postBody = deleteExecutionsByQueryRequest;
+      let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling restartExecutionsByQuery");
-      }
-      // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-      if (deleteExecutionsByQueryRequest === undefined || deleteExecutionsByQueryRequest === null) {
-        throw new Error("Missing the required parameter 'deleteExecutionsByQueryRequest' when calling restartExecutionsByQuery");
       }
 
       let pathParams = {
         'tenant': tenant
       };
       let queryParams = {
-        'q': opts['q'],
-        'scope': this.apiClient.buildCollectionParam(opts['scope'], 'csv'),
-        'namespace': opts['namespace'],
-        'flowId': opts['flowId'],
-        'startDate': opts['startDate'],
-        'endDate': opts['endDate'],
-        'timeRange': opts['timeRange'],
-        'state': this.apiClient.buildCollectionParam(opts['state'], 'csv'),
-        'labels': this.apiClient.buildCollectionParam(opts['labels'], 'multi'),
-        'triggerExecutionId': opts['triggerExecutionId'],
-        'childFilter': opts['childFilter']
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
       };
       let headerParams = {
       };
@@ -2199,7 +1764,7 @@ export default class ExecutionsApi {
       };
 
       let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
+      let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = Object;
       return this.apiClient.callApi(
@@ -2212,28 +1777,26 @@ export default class ExecutionsApi {
     /**
      * Restart executions filter by query parameters
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} opts.q A string filter
-     * @param {Array.<module:model/FlowScope>} opts.scope The scope of the executions to include
-     * @param {String} opts.namespace A namespace filter prefix
-     * @param {String} opts.flowId A flow id filter
-     * @param {Date} opts.startDate The start datetime
-     * @param {Date} opts.endDate The end datetime
-     * @param {String} opts.timeRange A time range filter relative to the current time
-     * @param {Array.<module:model/StateType>} opts.state A state filter
-     * @param {Array.<String>} opts.labels A labels filter as a list of 'key:value'
-     * @param {String} opts.triggerExecutionId The trigger execution id
-     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} opts.childFilter A execution child filter
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
-    restartExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts) {
-      return this.restartExecutionsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts)
+    restartExecutionsByQuery(tenant, opts) {
+      return this.restartExecutionsByQueryWithHttpInfo(tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Resume a paused execution.
@@ -2288,64 +1851,14 @@ export default class ExecutionsApi {
     }
 
 
-    /**
-     * Resume an execution from a breakpoint (in the 'BREAKPOINT' state).
-     * @param {String} executionId The execution id
-     * @param {String} tenant 
-     * @param {Object} opts Optional parameters
-     * @param {String} [breakpoints] \"Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
-     */
-    resumeExecutionFromBreakpointWithHttpInfo(executionId, tenant, opts) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'executionId' is set
-      if (executionId === undefined || executionId === null) {
-        throw new Error("Missing the required parameter 'executionId' when calling resumeExecutionFromBreakpoint");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling resumeExecutionFromBreakpoint");
-      }
 
-      let pathParams = {
-        'executionId': executionId,
-        'tenant': tenant
-      };
-      let queryParams = {
-        'breakpoints': opts['breakpoints']
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
 
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = [];
-      let returnType = null;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/executions/{executionId}/resume-from-breakpoint', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
 
-    /**
-     * Resume an execution from a breakpoint (in the 'BREAKPOINT' state).
-     * @param {String} executionId The execution id
-     * @param {String} tenant 
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.breakpoints \"Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
-     */
-    resumeExecutionFromBreakpoint(executionId, tenant, opts) {
-      return this.resumeExecutionFromBreakpointWithHttpInfo(executionId, tenant, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
 
+
+
+
+            
 
     /**
      * Resume a list of paused executions
@@ -2399,51 +1912,35 @@ export default class ExecutionsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Resume executions filter by query parameters
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {Array.<module:model/FlowScope>} [scope] The scope of the executions to include
-     * @param {String} [namespace] A namespace filter prefix
-     * @param {String} [flowId] A flow id filter
-     * @param {Date} [startDate] The start datetime
-     * @param {Date} [endDate] The end datetime
-     * @param {String} [timeRange] A time range filter relative to the current time
-     * @param {Array.<module:model/StateType>} [state] A state filter
-     * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
-     * @param {String} [triggerExecutionId] The trigger execution id
-     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} [childFilter] A execution child filter
+     * @param {Array.<module:model/QueryFilter>} [filters] Filters
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    resumeExecutionsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts) {
+    resumeExecutionsByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
-      let postBody = deleteExecutionsByQueryRequest;
+      let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling resumeExecutionsByQuery");
-      }
-      // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-      if (deleteExecutionsByQueryRequest === undefined || deleteExecutionsByQueryRequest === null) {
-        throw new Error("Missing the required parameter 'deleteExecutionsByQueryRequest' when calling resumeExecutionsByQuery");
       }
 
       let pathParams = {
         'tenant': tenant
       };
       let queryParams = {
-        'q': opts['q'],
-        'scope': this.apiClient.buildCollectionParam(opts['scope'], 'csv'),
-        'namespace': opts['namespace'],
-        'flowId': opts['flowId'],
-        'startDate': opts['startDate'],
-        'endDate': opts['endDate'],
-        'timeRange': opts['timeRange'],
-        'state': this.apiClient.buildCollectionParam(opts['state'], 'csv'),
-        'labels': this.apiClient.buildCollectionParam(opts['labels'], 'multi'),
-        'triggerExecutionId': opts['triggerExecutionId'],
-        'childFilter': opts['childFilter']
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
       };
       let headerParams = {
       };
@@ -2451,7 +1948,7 @@ export default class ExecutionsApi {
       };
 
       let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
+      let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = Object;
       return this.apiClient.callApi(
@@ -2464,28 +1961,26 @@ export default class ExecutionsApi {
     /**
      * Resume executions filter by query parameters
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} opts.q A string filter
-     * @param {Array.<module:model/FlowScope>} opts.scope The scope of the executions to include
-     * @param {String} opts.namespace A namespace filter prefix
-     * @param {String} opts.flowId A flow id filter
-     * @param {Date} opts.startDate The start datetime
-     * @param {Date} opts.endDate The end datetime
-     * @param {String} opts.timeRange A time range filter relative to the current time
-     * @param {Array.<module:model/StateType>} opts.state A state filter
-     * @param {Array.<String>} opts.labels A labels filter as a list of 'key:value'
-     * @param {String} opts.triggerExecutionId The trigger execution id
-     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} opts.childFilter A execution child filter
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
-    resumeExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts) {
-      return this.resumeExecutionsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts)
+    resumeExecutionsByQuery(tenant, opts) {
+      return this.resumeExecutionsByQueryWithHttpInfo(tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Search for executions
@@ -2495,17 +1990,6 @@ export default class ExecutionsApi {
      * @param {Object} opts Optional parameters
      * @param {Array.<String>} [sort] The sort of current page
      * @param {Array.<module:model/QueryFilter>} [filters] Filters
-     * @param {String} [q] A string filter
-     * @param {Array.<module:model/FlowScope>} [scope] The scope of the executions to include
-     * @param {String} [namespace] A namespace filter prefix
-     * @param {String} [flowId] A flow id filter
-     * @param {Date} [startDate] The start datetime
-     * @param {Date} [endDate] The end datetime
-     * @param {String} [timeRange] A time range filter relative to the current time
-     * @param {Array.<module:model/StateType>} [state] A state filter
-     * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
-     * @param {String} [triggerExecutionId] The trigger execution id
-     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} [childFilter] A execution child filter
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsExecution} and HTTP response
      */
     searchExecutionsWithHttpInfo(page, size, tenant, opts) {
@@ -2531,18 +2015,7 @@ export default class ExecutionsApi {
         'page': page,
         'size': size,
         'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
-        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv'),
-        'q': opts['q'],
-        'scope': this.apiClient.buildCollectionParam(opts['scope'], 'csv'),
-        'namespace': opts['namespace'],
-        'flowId': opts['flowId'],
-        'startDate': opts['startDate'],
-        'endDate': opts['endDate'],
-        'timeRange': opts['timeRange'],
-        'state': this.apiClient.buildCollectionParam(opts['state'], 'csv'),
-        'labels': this.apiClient.buildCollectionParam(opts['labels'], 'multi'),
-        'triggerExecutionId': opts['triggerExecutionId'],
-        'childFilter': opts['childFilter']
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
       };
       let headerParams = {
       };
@@ -2568,17 +2041,6 @@ export default class ExecutionsApi {
      * @param {Object} opts Optional parameters
      * @param {Array.<String>} opts.sort The sort of current page
      * @param {Array.<module:model/QueryFilter>} opts.filters Filters
-     * @param {String} opts.q A string filter
-     * @param {Array.<module:model/FlowScope>} opts.scope The scope of the executions to include
-     * @param {String} opts.namespace A namespace filter prefix
-     * @param {String} opts.flowId A flow id filter
-     * @param {Date} opts.startDate The start datetime
-     * @param {Date} opts.endDate The end datetime
-     * @param {String} opts.timeRange A time range filter relative to the current time
-     * @param {Array.<module:model/StateType>} opts.state A state filter
-     * @param {Array.<String>} opts.labels A labels filter as a list of 'key:value'
-     * @param {String} opts.triggerExecutionId The trigger execution id
-     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} opts.childFilter A execution child filter
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsExecution}
      */
     searchExecutions(page, size, tenant, opts) {
@@ -2589,178 +2051,14 @@ export default class ExecutionsApi {
     }
 
 
-    /**
-     * Search for executions for a flow
-     * @param {String} namespace The flow namespace
-     * @param {String} flowId The flow id
-     * @param {Number} page The current page
-     * @param {Number} size The current page size
-     * @param {String} tenant 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsExecution} and HTTP response
-     */
-    searchExecutionsByFlowIdWithHttpInfo(namespace, flowId, page, size, tenant) {
-      let postBody = null;
-      // verify the required parameter 'namespace' is set
-      if (namespace === undefined || namespace === null) {
-        throw new Error("Missing the required parameter 'namespace' when calling searchExecutionsByFlowId");
-      }
-      // verify the required parameter 'flowId' is set
-      if (flowId === undefined || flowId === null) {
-        throw new Error("Missing the required parameter 'flowId' when calling searchExecutionsByFlowId");
-      }
-      // verify the required parameter 'page' is set
-      if (page === undefined || page === null) {
-        throw new Error("Missing the required parameter 'page' when calling searchExecutionsByFlowId");
-      }
-      // verify the required parameter 'size' is set
-      if (size === undefined || size === null) {
-        throw new Error("Missing the required parameter 'size' when calling searchExecutionsByFlowId");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling searchExecutionsByFlowId");
-      }
-
-      let pathParams = {
-        'tenant': tenant
-      };
-      let queryParams = {
-        'namespace': namespace,
-        'flowId': flowId,
-        'page': page,
-        'size': size
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = PagedResultsExecution;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/executions', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * Search for executions for a flow
-     * @param {String} namespace The flow namespace
-     * @param {String} flowId The flow id
-     * @param {Number} page The current page
-     * @param {Number} size The current page size
-     * @param {String} tenant 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsExecution}
-     */
-    searchExecutionsByFlowId(namespace, flowId, page, size, tenant) {
-      return this.searchExecutionsByFlowIdWithHttpInfo(namespace, flowId, page, size, tenant)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
 
 
-    /**
-     * Search for taskruns, only available with the Elasticsearch repository
-     * @param {Number} page The current page
-     * @param {Number} size The current page size
-     * @param {String} tenant 
-     * @param {Object} opts Optional parameters
-     * @param {Array.<String>} [sort] The sort of current page
-     * @param {Array.<module:model/QueryFilter>} [filters] Filters
-     * @param {String} [q] A string filter
-     * @param {String} [namespace] A namespace filter prefix
-     * @param {String} [flowId] A flow id filter
-     * @param {Date} [startDate] The start datetime
-     * @param {Date} [endDate] The end datetime
-     * @param {String} [timeRange] A time range filter relative to the current time
-     * @param {Array.<module:model/StateType>} [state] A state filter
-     * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
-     * @param {String} [triggerExecutionId] The trigger execution id
-     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} [childFilter] A execution child filter
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsTaskRun} and HTTP response
-     */
-    searchTaskRunWithHttpInfo(page, size, tenant, opts) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'page' is set
-      if (page === undefined || page === null) {
-        throw new Error("Missing the required parameter 'page' when calling searchTaskRun");
-      }
-      // verify the required parameter 'size' is set
-      if (size === undefined || size === null) {
-        throw new Error("Missing the required parameter 'size' when calling searchTaskRun");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling searchTaskRun");
-      }
 
-      let pathParams = {
-        'tenant': tenant
-      };
-      let queryParams = {
-        'page': page,
-        'size': size,
-        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
-        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv'),
-        'q': opts['q'],
-        'namespace': opts['namespace'],
-        'flowId': opts['flowId'],
-        'startDate': opts['startDate'],
-        'endDate': opts['endDate'],
-        'timeRange': opts['timeRange'],
-        'state': this.apiClient.buildCollectionParam(opts['state'], 'csv'),
-        'labels': this.apiClient.buildCollectionParam(opts['labels'], 'multi'),
-        'triggerExecutionId': opts['triggerExecutionId'],
-        'childFilter': opts['childFilter']
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
 
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = PagedResultsTaskRun;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/taskruns/search', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
 
-    /**
-     * Search for taskruns, only available with the Elasticsearch repository
-     * @param {Number} page The current page
-     * @param {Number} size The current page size
-     * @param {String} tenant 
-     * @param {Object} opts Optional parameters
-     * @param {Array.<String>} opts.sort The sort of current page
-     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
-     * @param {String} opts.q A string filter
-     * @param {String} opts.namespace A namespace filter prefix
-     * @param {String} opts.flowId A flow id filter
-     * @param {Date} opts.startDate The start datetime
-     * @param {Date} opts.endDate The end datetime
-     * @param {String} opts.timeRange A time range filter relative to the current time
-     * @param {Array.<module:model/StateType>} opts.state A state filter
-     * @param {Array.<String>} opts.labels A labels filter as a list of 'key:value'
-     * @param {String} opts.triggerExecutionId The trigger execution id
-     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} opts.childFilter A execution child filter
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsTaskRun}
-     */
-    searchTaskRun(page, size, tenant, opts) {
-      return this.searchTaskRunWithHttpInfo(page, size, tenant, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
 
+
+            
 
     /**
      * Add or update labels of a terminated execution
@@ -2821,6 +2119,15 @@ export default class ExecutionsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Set labels on a list of executions
      * @param {String} tenant 
@@ -2873,22 +2180,21 @@ export default class ExecutionsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Set label on executions filter by query parameters
      * @param {String} tenant 
-     * @param {module:model/Label} label The labels to add to the execution
+     * @param {Array.<module:model/Label>} label The labels to add to the execution
      * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {Array.<module:model/FlowScope>} [scope] The scope of the executions to include
-     * @param {String} [namespace] A namespace filter prefix
-     * @param {String} [flowId] A flow id filter
-     * @param {Date} [startDate] The start datetime
-     * @param {Date} [endDate] The end datetime
-     * @param {String} [timeRange] A time range filter relative to the current time
-     * @param {Array.<module:model/StateType>} [state] A state filter
-     * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
-     * @param {String} [triggerExecutionId] The trigger execution id
-     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} [childFilter] A execution child filter
+     * @param {Array.<module:model/QueryFilter>} [filters] Filters
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
     setLabelsOnTerminatedExecutionsByQueryWithHttpInfo(tenant, label, opts) {
@@ -2907,17 +2213,7 @@ export default class ExecutionsApi {
         'tenant': tenant
       };
       let queryParams = {
-        'q': opts['q'],
-        'scope': this.apiClient.buildCollectionParam(opts['scope'], 'csv'),
-        'namespace': opts['namespace'],
-        'flowId': opts['flowId'],
-        'startDate': opts['startDate'],
-        'endDate': opts['endDate'],
-        'timeRange': opts['timeRange'],
-        'state': this.apiClient.buildCollectionParam(opts['state'], 'csv'),
-        'labels': this.apiClient.buildCollectionParam(opts['labels'], 'multi'),
-        'triggerExecutionId': opts['triggerExecutionId'],
-        'childFilter': opts['childFilter']
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
       };
       let headerParams = {
       };
@@ -2938,19 +2234,9 @@ export default class ExecutionsApi {
     /**
      * Set label on executions filter by query parameters
      * @param {String} tenant 
-     * @param {module:model/Label} label The labels to add to the execution
+     * @param {Array.<module:model/Label>} label The labels to add to the execution
      * @param {Object} opts Optional parameters
-     * @param {String} opts.q A string filter
-     * @param {Array.<module:model/FlowScope>} opts.scope The scope of the executions to include
-     * @param {String} opts.namespace A namespace filter prefix
-     * @param {String} opts.flowId A flow id filter
-     * @param {Date} opts.startDate The start datetime
-     * @param {Date} opts.endDate The end datetime
-     * @param {String} opts.timeRange A time range filter relative to the current time
-     * @param {Array.<module:model/StateType>} opts.state A state filter
-     * @param {Array.<String>} opts.labels A labels filter as a list of 'key:value'
-     * @param {String} opts.triggerExecutionId The trigger execution id
-     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} opts.childFilter A execution child filter
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
     setLabelsOnTerminatedExecutionsByQuery(tenant, label, opts) {
@@ -2961,81 +2247,14 @@ export default class ExecutionsApi {
     }
 
 
-    /**
-     * Trigger a new execution for a flow
-     * @param {String} namespace The flow namespace
-     * @param {String} id The flow id
-     * @param {Boolean} wait If the server will wait the end of the execution
-     * @param {String} tenant 
-     * @param {Object} opts Optional parameters
-     * @param {Array.<String>} [labels] The labels as a list of 'key:value'
-     * @param {Number} [revision] The flow revision or latest if null
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ExecutionControllerExecutionResponse>} and HTTP response
-     */
-    triggerExecutionWithHttpInfo(namespace, id, wait, tenant, opts) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'namespace' is set
-      if (namespace === undefined || namespace === null) {
-        throw new Error("Missing the required parameter 'namespace' when calling triggerExecution");
-      }
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling triggerExecution");
-      }
-      // verify the required parameter 'wait' is set
-      if (wait === undefined || wait === null) {
-        throw new Error("Missing the required parameter 'wait' when calling triggerExecution");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling triggerExecution");
-      }
 
-      let pathParams = {
-        'namespace': namespace,
-        'id': id,
-        'tenant': tenant
-      };
-      let queryParams = {
-        'labels': this.apiClient.buildCollectionParam(opts['labels'], 'multi'),
-        'wait': wait,
-        'revision': opts['revision']
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
 
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['multipart/form-data'];
-      let accepts = ['application/json'];
-      let returnType = [ExecutionControllerExecutionResponse];
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/executions/trigger/{namespace}/{id}', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
 
-    /**
-     * Trigger a new execution for a flow
-     * @param {String} namespace The flow namespace
-     * @param {String} id The flow id
-     * @param {Boolean} wait If the server will wait the end of the execution
-     * @param {String} tenant 
-     * @param {Object} opts Optional parameters
-     * @param {Array.<String>} opts.labels The labels as a list of 'key:value'
-     * @param {Number} opts.revision The flow revision or latest if null
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ExecutionControllerExecutionResponse>}
-     */
-    triggerExecution(namespace, id, wait, tenant, opts) {
-      return this.triggerExecutionWithHttpInfo(namespace, id, wait, tenant, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
 
+
+
+
+            
 
     /**
      * Trigger a new execution by GET webhook trigger
@@ -3104,139 +2323,14 @@ export default class ExecutionsApi {
     }
 
 
-    /**
-     * Trigger a new execution by POST webhook trigger
-     * @param {String} namespace The flow namespace
-     * @param {String} id The flow id
-     * @param {String} key The webhook trigger uid
-     * @param {String} tenant 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ExecutionControllerWebhookResponse} and HTTP response
-     */
-    triggerExecutionByPostWebhookWithHttpInfo(namespace, id, key, tenant) {
-      let postBody = null;
-      // verify the required parameter 'namespace' is set
-      if (namespace === undefined || namespace === null) {
-        throw new Error("Missing the required parameter 'namespace' when calling triggerExecutionByPostWebhook");
-      }
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling triggerExecutionByPostWebhook");
-      }
-      // verify the required parameter 'key' is set
-      if (key === undefined || key === null) {
-        throw new Error("Missing the required parameter 'key' when calling triggerExecutionByPostWebhook");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling triggerExecutionByPostWebhook");
-      }
-
-      let pathParams = {
-        'namespace': namespace,
-        'id': id,
-        'key': key,
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = ExecutionControllerWebhookResponse;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * Trigger a new execution by POST webhook trigger
-     * @param {String} namespace The flow namespace
-     * @param {String} id The flow id
-     * @param {String} key The webhook trigger uid
-     * @param {String} tenant 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ExecutionControllerWebhookResponse}
-     */
-    triggerExecutionByPostWebhook(namespace, id, key, tenant) {
-      return this.triggerExecutionByPostWebhookWithHttpInfo(namespace, id, key, tenant)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
 
 
-    /**
-     * Trigger a new execution by PUT webhook trigger
-     * @param {String} namespace The flow namespace
-     * @param {String} id The flow id
-     * @param {String} key The webhook trigger uid
-     * @param {String} tenant 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ExecutionControllerWebhookResponse} and HTTP response
-     */
-    triggerExecutionByPutWebhookWithHttpInfo(namespace, id, key, tenant) {
-      let postBody = null;
-      // verify the required parameter 'namespace' is set
-      if (namespace === undefined || namespace === null) {
-        throw new Error("Missing the required parameter 'namespace' when calling triggerExecutionByPutWebhook");
-      }
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling triggerExecutionByPutWebhook");
-      }
-      // verify the required parameter 'key' is set
-      if (key === undefined || key === null) {
-        throw new Error("Missing the required parameter 'key' when calling triggerExecutionByPutWebhook");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling triggerExecutionByPutWebhook");
-      }
 
-      let pathParams = {
-        'namespace': namespace,
-        'id': id,
-        'key': key,
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
 
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = ExecutionControllerWebhookResponse;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
 
-    /**
-     * Trigger a new execution by PUT webhook trigger
-     * @param {String} namespace The flow namespace
-     * @param {String} id The flow id
-     * @param {String} key The webhook trigger uid
-     * @param {String} tenant 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ExecutionControllerWebhookResponse}
-     */
-    triggerExecutionByPutWebhook(namespace, id, key, tenant) {
-      return this.triggerExecutionByPutWebhookWithHttpInfo(namespace, id, key, tenant)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
 
+
+            
 
     /**
      * Unqueue an execution
@@ -3298,6 +2392,15 @@ export default class ExecutionsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Unqueue a list of executions
      * @param {module:model/StateType} state The new state of the unqueued executions
@@ -3357,52 +2460,36 @@ export default class ExecutionsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Unqueue executions filter by query parameters
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {Array.<module:model/FlowScope>} [scope] The scope of the executions to include
-     * @param {String} [namespace] A namespace filter prefix
-     * @param {String} [flowId] A flow id filter
-     * @param {Date} [startDate] The start datetime
-     * @param {Date} [endDate] The end datetime
-     * @param {String} [timeRange] A time range filter relative to the current time
-     * @param {Array.<module:model/StateType>} [state] A state filter
-     * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
-     * @param {String} [triggerExecutionId] The trigger execution id
-     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} [childFilter] A execution child filter
+     * @param {Array.<module:model/QueryFilter>} [filters] Filters
      * @param {module:model/StateType} [newState] The new state of the unqueued executions
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    unqueueExecutionsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts) {
+    unqueueExecutionsByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
-      let postBody = deleteExecutionsByQueryRequest;
+      let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling unqueueExecutionsByQuery");
-      }
-      // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-      if (deleteExecutionsByQueryRequest === undefined || deleteExecutionsByQueryRequest === null) {
-        throw new Error("Missing the required parameter 'deleteExecutionsByQueryRequest' when calling unqueueExecutionsByQuery");
       }
 
       let pathParams = {
         'tenant': tenant
       };
       let queryParams = {
-        'q': opts['q'],
-        'scope': this.apiClient.buildCollectionParam(opts['scope'], 'csv'),
-        'namespace': opts['namespace'],
-        'flowId': opts['flowId'],
-        'startDate': opts['startDate'],
-        'endDate': opts['endDate'],
-        'timeRange': opts['timeRange'],
-        'state': this.apiClient.buildCollectionParam(opts['state'], 'csv'),
-        'labels': this.apiClient.buildCollectionParam(opts['labels'], 'multi'),
-        'triggerExecutionId': opts['triggerExecutionId'],
-        'childFilter': opts['childFilter'],
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv'),
         'newState': opts['newState']
       };
       let headerParams = {
@@ -3411,7 +2498,7 @@ export default class ExecutionsApi {
       };
 
       let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
+      let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = Object;
       return this.apiClient.callApi(
@@ -3424,29 +2511,27 @@ export default class ExecutionsApi {
     /**
      * Unqueue executions filter by query parameters
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} opts.q A string filter
-     * @param {Array.<module:model/FlowScope>} opts.scope The scope of the executions to include
-     * @param {String} opts.namespace A namespace filter prefix
-     * @param {String} opts.flowId A flow id filter
-     * @param {Date} opts.startDate The start datetime
-     * @param {Date} opts.endDate The end datetime
-     * @param {String} opts.timeRange A time range filter relative to the current time
-     * @param {Array.<module:model/StateType>} opts.state A state filter
-     * @param {Array.<String>} opts.labels A labels filter as a list of 'key:value'
-     * @param {String} opts.triggerExecutionId The trigger execution id
-     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} opts.childFilter A execution child filter
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
      * @param {module:model/StateType} opts.newState The new state of the unqueued executions
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
-    unqueueExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts) {
-      return this.unqueueExecutionsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts)
+    unqueueExecutionsByQuery(tenant, opts) {
+      return this.unqueueExecutionsByQueryWithHttpInfo(tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Change the state of an execution
@@ -3508,6 +2593,15 @@ export default class ExecutionsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Change executions state by id
      * @param {module:model/StateType} newStatus The new state of the executions
@@ -3567,28 +2661,26 @@ export default class ExecutionsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Change executions state by query parameters
      * @param {module:model/StateType} newStatus The new state of the executions
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {Array.<module:model/FlowScope>} [scope] The scope of the executions to include
-     * @param {String} [namespace] A namespace filter prefix
-     * @param {String} [flowId] A flow id filter
-     * @param {Date} [startDate] The start datetime
-     * @param {Date} [endDate] The end datetime
-     * @param {String} [timeRange] A time range filter relative to the current time
-     * @param {Array.<module:model/StateType>} [state] A state filter
-     * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
-     * @param {String} [triggerExecutionId] The trigger execution id
-     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} [childFilter] A execution child filter
+     * @param {Array.<module:model/QueryFilter>} [filters] Filters
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
      */
-    updateExecutionsStatusByQueryWithHttpInfo(newStatus, tenant, deleteExecutionsByQueryRequest, opts) {
+    updateExecutionsStatusByQueryWithHttpInfo(newStatus, tenant, opts) {
       opts = opts || {};
-      let postBody = deleteExecutionsByQueryRequest;
+      let postBody = null;
       // verify the required parameter 'newStatus' is set
       if (newStatus === undefined || newStatus === null) {
         throw new Error("Missing the required parameter 'newStatus' when calling updateExecutionsStatusByQuery");
@@ -3597,26 +2689,12 @@ export default class ExecutionsApi {
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling updateExecutionsStatusByQuery");
       }
-      // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-      if (deleteExecutionsByQueryRequest === undefined || deleteExecutionsByQueryRequest === null) {
-        throw new Error("Missing the required parameter 'deleteExecutionsByQueryRequest' when calling updateExecutionsStatusByQuery");
-      }
 
       let pathParams = {
         'tenant': tenant
       };
       let queryParams = {
-        'q': opts['q'],
-        'scope': this.apiClient.buildCollectionParam(opts['scope'], 'csv'),
-        'namespace': opts['namespace'],
-        'flowId': opts['flowId'],
-        'startDate': opts['startDate'],
-        'endDate': opts['endDate'],
-        'timeRange': opts['timeRange'],
-        'state': this.apiClient.buildCollectionParam(opts['state'], 'csv'),
-        'labels': this.apiClient.buildCollectionParam(opts['labels'], 'multi'),
-        'triggerExecutionId': opts['triggerExecutionId'],
-        'childFilter': opts['childFilter'],
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv'),
         'newStatus': newStatus
       };
       let headerParams = {
@@ -3625,7 +2703,7 @@ export default class ExecutionsApi {
       };
 
       let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
+      let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = BulkResponse;
       return this.apiClient.callApi(
@@ -3639,28 +2717,26 @@ export default class ExecutionsApi {
      * Change executions state by query parameters
      * @param {module:model/StateType} newStatus The new state of the executions
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} opts.q A string filter
-     * @param {Array.<module:model/FlowScope>} opts.scope The scope of the executions to include
-     * @param {String} opts.namespace A namespace filter prefix
-     * @param {String} opts.flowId A flow id filter
-     * @param {Date} opts.startDate The start datetime
-     * @param {Date} opts.endDate The end datetime
-     * @param {String} opts.timeRange A time range filter relative to the current time
-     * @param {Array.<module:model/StateType>} opts.state A state filter
-     * @param {Array.<String>} opts.labels A labels filter as a list of 'key:value'
-     * @param {String} opts.triggerExecutionId The trigger execution id
-     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} opts.childFilter A execution child filter
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
      */
-    updateExecutionsStatusByQuery(newStatus, tenant, deleteExecutionsByQueryRequest, opts) {
-      return this.updateExecutionsStatusByQueryWithHttpInfo(newStatus, tenant, deleteExecutionsByQueryRequest, opts)
+    updateExecutionsStatusByQuery(newStatus, tenant, opts) {
+      return this.updateExecutionsStatusByQueryWithHttpInfo(newStatus, tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Change state for a taskrun in an execution
@@ -3721,130 +2797,10 @@ export default class ExecutionsApi {
     }
 
 
-    /**
-     * Validate the creation of a new execution for a flow
-     * @param {String} namespace The flow namespace
-     * @param {String} id The flow id
-     * @param {Array.<String>} labels The labels as a list of 'key:value'
-     * @param {String} tenant 
-     * @param {Object} opts Optional parameters
-     * @param {Number} [revision] The flow revision or latest if null
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ExecutionControllerApiValidateExecutionInputsResponse>} and HTTP response
-     */
-    validateNewExecutionInputsWithHttpInfo(namespace, id, labels, tenant, opts) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'namespace' is set
-      if (namespace === undefined || namespace === null) {
-        throw new Error("Missing the required parameter 'namespace' when calling validateNewExecutionInputs");
-      }
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling validateNewExecutionInputs");
-      }
-      // verify the required parameter 'labels' is set
-      if (labels === undefined || labels === null) {
-        throw new Error("Missing the required parameter 'labels' when calling validateNewExecutionInputs");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling validateNewExecutionInputs");
-      }
-
-      let pathParams = {
-        'namespace': namespace,
-        'id': id,
-        'tenant': tenant
-      };
-      let queryParams = {
-        'labels': this.apiClient.buildCollectionParam(labels, 'multi'),
-        'revision': opts['revision']
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['multipart/form-data'];
-      let accepts = ['application/json'];
-      let returnType = [ExecutionControllerApiValidateExecutionInputsResponse];
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/executions/{namespace}/{id}/validate', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * Validate the creation of a new execution for a flow
-     * @param {String} namespace The flow namespace
-     * @param {String} id The flow id
-     * @param {Array.<String>} labels The labels as a list of 'key:value'
-     * @param {String} tenant 
-     * @param {Object} opts Optional parameters
-     * @param {Number} opts.revision The flow revision or latest if null
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ExecutionControllerApiValidateExecutionInputsResponse>}
-     */
-    validateNewExecutionInputs(namespace, id, labels, tenant, opts) {
-      return this.validateNewExecutionInputsWithHttpInfo(namespace, id, labels, tenant, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
 
 
-    /**
-     * Validate inputs to resume a paused execution.
-     * @param {String} executionId The execution id
-     * @param {String} tenant 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ExecutionControllerApiValidateExecutionInputsResponse>} and HTTP response
-     */
-    validateResumeExecutionInputsWithHttpInfo(executionId, tenant) {
-      let postBody = null;
-      // verify the required parameter 'executionId' is set
-      if (executionId === undefined || executionId === null) {
-        throw new Error("Missing the required parameter 'executionId' when calling validateResumeExecutionInputs");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling validateResumeExecutionInputs");
-      }
 
-      let pathParams = {
-        'executionId': executionId,
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
 
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['multipart/form-data'];
-      let accepts = ['application/json'];
-      let returnType = [ExecutionControllerApiValidateExecutionInputsResponse];
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/executions/{executionId}/resume/validate', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * Validate inputs to resume a paused execution.
-     * @param {String} executionId The execution id
-     * @param {String} tenant 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ExecutionControllerApiValidateExecutionInputsResponse>}
-     */
-    validateResumeExecutionInputs(executionId, tenant) {
-      return this.validateResumeExecutionInputsWithHttpInfo(executionId, tenant)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
 
 
 }

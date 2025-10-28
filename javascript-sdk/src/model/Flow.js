@@ -17,7 +17,6 @@ import AbstractTrigger from './AbstractTrigger';
 import Concurrency from './Concurrency';
 import InputObject from './InputObject';
 import Label from './Label';
-import Listener from './Listener';
 import Output from './Output';
 import PluginDefault from './PluginDefault';
 import SLA from './SLA';
@@ -106,17 +105,11 @@ class Flow {
             if (data.hasOwnProperty('finally')) {
                 obj['finally'] = ApiClient.convertToType(data['finally'], [Task]);
             }
-            if (data.hasOwnProperty('taskDefaults')) {
-                obj['taskDefaults'] = ApiClient.convertToType(data['taskDefaults'], [PluginDefault]);
-            }
             if (data.hasOwnProperty('tasks')) {
                 obj['tasks'] = ApiClient.convertToType(data['tasks'], [Task]);
             }
             if (data.hasOwnProperty('errors')) {
                 obj['errors'] = ApiClient.convertToType(data['errors'], [Task]);
-            }
-            if (data.hasOwnProperty('listeners')) {
-                obj['listeners'] = ApiClient.convertToType(data['listeners'], [Listener]);
             }
             if (data.hasOwnProperty('afterExecution')) {
                 obj['afterExecution'] = ApiClient.convertToType(data['afterExecution'], [Task]);
@@ -208,16 +201,6 @@ class Flow {
                 Task.validateJSON(item);
             };
         }
-        if (data['taskDefaults']) { // data not null
-            // ensure the json data is an array
-            if (!Array.isArray(data['taskDefaults'])) {
-                throw new Error("Expected the field `taskDefaults` to be an array in the JSON data but got " + data['taskDefaults']);
-            }
-            // validate the optional field `taskDefaults` (array)
-            for (const item of data['taskDefaults']) {
-                PluginDefault.validateJSON(item);
-            };
-        }
         if (data['tasks']) { // data not null
             // ensure the json data is an array
             if (!Array.isArray(data['tasks'])) {
@@ -236,16 +219,6 @@ class Flow {
             // validate the optional field `errors` (array)
             for (const item of data['errors']) {
                 Task.validateJSON(item);
-            };
-        }
-        if (data['listeners']) { // data not null
-            // ensure the json data is an array
-            if (!Array.isArray(data['listeners'])) {
-                throw new Error("Expected the field `listeners` to be an array in the JSON data but got " + data['listeners']);
-            }
-            // validate the optional field `listeners` (array)
-            for (const item of data['listeners']) {
-                Listener.validateJSON(item);
             };
         }
         if (data['afterExecution']) { // data not null
@@ -364,11 +337,6 @@ Flow.prototype['deleted'] = undefined;
 Flow.prototype['finally'] = undefined;
 
 /**
- * @member {Array.<module:model/PluginDefault>} taskDefaults
- */
-Flow.prototype['taskDefaults'] = undefined;
-
-/**
  * @member {Array.<module:model/Task>} tasks
  */
 Flow.prototype['tasks'] = undefined;
@@ -377,11 +345,6 @@ Flow.prototype['tasks'] = undefined;
  * @member {Array.<module:model/Task>} errors
  */
 Flow.prototype['errors'] = undefined;
-
-/**
- * @member {Array.<module:model/Listener>} listeners
- */
-Flow.prototype['listeners'] = undefined;
 
 /**
  * @member {Array.<module:model/Task>} afterExecution

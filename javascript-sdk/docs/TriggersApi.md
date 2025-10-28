@@ -131,7 +131,7 @@ Name | Type | Description  | Notes
 
 ## deleteBackfillByQuery
 
-> Object deleteBackfillByQuery(tenant, deleteExecutionsByQueryRequest, opts)
+> Object deleteBackfillByQuery(tenant, opts)
 
 Delete backfill for given triggers
 
@@ -150,12 +150,10 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraIoKestraSdk.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
-  'q': "q_example", // String | A string filter
-  'namespace': "namespace_example" // String | A namespace filter prefix
+  'filters': [new KestraIoKestraSdk.QueryFilter()] // [QueryFilter] | Filters
 };
-apiInstance.deleteBackfillByQuery(tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+apiInstance.deleteBackfillByQuery(tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -169,9 +167,7 @@ apiInstance.deleteBackfillByQuery(tenant, deleteExecutionsByQueryRequest, opts).
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **String**|  | 
- **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | 
- **q** | **String**| A string filter | [optional] 
- **namespace** | **String**| A namespace filter prefix | [optional] 
+ **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
@@ -183,7 +179,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -241,7 +237,7 @@ Name | Type | Description  | Notes
 
 ## disabledTriggersByQuery
 
-> Object disabledTriggersByQuery(disabled, tenant, deleteExecutionsByQueryRequest, opts)
+> Object disabledTriggersByQuery(disabled, tenant, opts)
 
 Disable/enable triggers by query parameters
 
@@ -261,12 +257,10 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let disabled = true; // Boolean | The disabled state
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraIoKestraSdk.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
-  'q': "q_example", // String | A string filter
-  'namespace': "namespace_example" // String | A namespace filter prefix
+  'filters': [new KestraIoKestraSdk.QueryFilter()] // [QueryFilter] | Filters
 };
-apiInstance.disabledTriggersByQuery(disabled, tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+apiInstance.disabledTriggersByQuery(disabled, tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -281,9 +275,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **disabled** | **Boolean**| The disabled state | [default to true]
  **tenant** | **String**|  | 
- **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | 
- **q** | **String**| A string filter | [optional] 
- **namespace** | **String**| A namespace filter prefix | [optional] 
+ **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
@@ -295,7 +287,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -405,7 +397,7 @@ Name | Type | Description  | Notes
 
 ## pauseBackfillByQuery
 
-> Object pauseBackfillByQuery(tenant, deleteExecutionsByQueryRequest, opts)
+> Object pauseBackfillByQuery(tenant, opts)
 
 Pause backfill for given triggers
 
@@ -424,12 +416,10 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraIoKestraSdk.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
-  'q': "q_example", // String | A string filter
-  'namespace': "namespace_example" // String | A namespace filter prefix
+  'filters': [new KestraIoKestraSdk.QueryFilter()] // [QueryFilter] | Filters
 };
-apiInstance.pauseBackfillByQuery(tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+apiInstance.pauseBackfillByQuery(tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -443,9 +433,7 @@ apiInstance.pauseBackfillByQuery(tenant, deleteExecutionsByQueryRequest, opts).t
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **String**|  | 
- **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | 
- **q** | **String**| A string filter | [optional] 
- **namespace** | **String**| A namespace filter prefix | [optional] 
+ **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
@@ -457,7 +445,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -542,11 +530,7 @@ let size = 10; // Number | The current page size
 let tenant = "tenant_example"; // String | 
 let opts = {
   'sort': ["null"], // [String] | The sort of current page
-  'filters': [new KestraIoKestraSdk.QueryFilter()], // [QueryFilter] | Filters
-  'q': "q_example", // String | A string filter
-  'namespace': "namespace_example", // String | A namespace filter prefix
-  'workerId': "workerId_example", // String | The identifier of the worker currently evaluating the trigger
-  'flowId': "flowId_example" // String | The flow identifier
+  'filters': [new KestraIoKestraSdk.QueryFilter()] // [QueryFilter] | Filters
 };
 apiInstance.searchTriggers(page, size, tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -566,10 +550,6 @@ Name | Type | Description  | Notes
  **tenant** | **String**|  | 
  **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
  **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
- **q** | **String**| A string filter | [optional] 
- **namespace** | **String**| A namespace filter prefix | [optional] 
- **workerId** | **String**| The identifier of the worker currently evaluating the trigger | [optional] 
- **flowId** | **String**| The flow identifier | [optional] 
 
 ### Return type
 
@@ -759,7 +739,7 @@ Name | Type | Description  | Notes
 
 ## unlockTriggersByQuery
 
-> Object unlockTriggersByQuery(tenant, deleteExecutionsByQueryRequest, opts)
+> Object unlockTriggersByQuery(tenant, opts)
 
 Unlock triggers by query parameters
 
@@ -778,12 +758,10 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraIoKestraSdk.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
-  'q': "q_example", // String | A string filter
-  'namespace': "namespace_example" // String | A namespace filter prefix
+  'filters': [new KestraIoKestraSdk.QueryFilter()] // [QueryFilter] | Filters
 };
-apiInstance.unlockTriggersByQuery(tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+apiInstance.unlockTriggersByQuery(tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -797,9 +775,7 @@ apiInstance.unlockTriggersByQuery(tenant, deleteExecutionsByQueryRequest, opts).
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **String**|  | 
- **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | 
- **q** | **String**| A string filter | [optional] 
- **namespace** | **String**| A namespace filter prefix | [optional] 
+ **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
@@ -811,7 +787,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -921,7 +897,7 @@ Name | Type | Description  | Notes
 
 ## unpauseBackfillByQuery
 
-> Object unpauseBackfillByQuery(tenant, deleteExecutionsByQueryRequest, opts)
+> Object unpauseBackfillByQuery(tenant, opts)
 
 Unpause backfill for given triggers
 
@@ -940,12 +916,10 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraIoKestraSdk.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
-  'q': "q_example", // String | A string filter
-  'namespace': "namespace_example" // String | A namespace filter prefix
+  'filters': [new KestraIoKestraSdk.QueryFilter()] // [QueryFilter] | Filters
 };
-apiInstance.unpauseBackfillByQuery(tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+apiInstance.unpauseBackfillByQuery(tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -959,9 +933,7 @@ apiInstance.unpauseBackfillByQuery(tenant, deleteExecutionsByQueryRequest, opts)
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **String**|  | 
- **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | 
- **q** | **String**| A string filter | [optional] 
- **namespace** | **String**| A namespace filter prefix | [optional] 
+ **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
@@ -973,7 +945,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 

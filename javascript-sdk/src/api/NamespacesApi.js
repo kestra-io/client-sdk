@@ -43,6 +43,9 @@ export default class NamespacesApi {
 
 
 
+
+            
+
     /**
      * List namespaces for autocomplete
      * Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
@@ -97,6 +100,15 @@ export default class NamespacesApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Create a namespace
      * @param {String} tenant 
@@ -148,6 +160,15 @@ export default class NamespacesApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Delete a namespace
@@ -201,6 +222,15 @@ export default class NamespacesApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Delete a secret for a namespace
@@ -262,6 +292,15 @@ export default class NamespacesApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * List inherited secrets
      * @param {String} namespace The namespace id
@@ -314,6 +353,15 @@ export default class NamespacesApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Get a namespace
@@ -368,6 +416,15 @@ export default class NamespacesApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * List inherited plugin defaults
      * @param {String} id The namespace id
@@ -421,6 +478,15 @@ export default class NamespacesApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * List inherited variables
      * @param {String} id The namespace id
@@ -473,6 +539,15 @@ export default class NamespacesApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Get secrets for a namespace
@@ -554,6 +629,15 @@ export default class NamespacesApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Patch a secret metadata for a namespace
      * @param {String} namespace The namespace id
@@ -620,6 +704,15 @@ export default class NamespacesApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Update secrets for a namespace
      * @param {String} namespace The namespace id
@@ -678,6 +771,15 @@ export default class NamespacesApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Search for namespaces
@@ -755,6 +857,15 @@ export default class NamespacesApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Update a namespace
      * @param {String} id The namespace id
@@ -812,6 +923,12 @@ export default class NamespacesApi {
           return response_and_data.data;
         });
     }
+
+
+
+
+
+
 
 
 }

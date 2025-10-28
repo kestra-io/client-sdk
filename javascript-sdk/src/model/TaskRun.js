@@ -61,9 +61,6 @@ class TaskRun {
         if (data) {
             obj = obj || new TaskRun();
 
-            if (data.hasOwnProperty('items')) {
-                obj['items'] = ApiClient.convertToType(data['items'], 'String');
-            }
             if (data.hasOwnProperty('id')) {
                 obj['id'] = ApiClient.convertToType(data['id'], 'String');
             }
@@ -120,10 +117,6 @@ class TaskRun {
             }
         }
         // ensure the json data is a string
-        if (data['items'] && !(typeof data['items'] === 'string' || data['items'] instanceof String)) {
-            throw new Error("Expected the field `items` to be a primitive type in the JSON string but got " + data['items']);
-        }
-        // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
         }
@@ -173,11 +166,6 @@ class TaskRun {
 }
 
 TaskRun.RequiredProperties = ["id", "executionId", "namespace", "flowId", "taskId", "state"];
-
-/**
- * @member {String} items
- */
-TaskRun.prototype['items'] = undefined;
 
 /**
  * @member {String} id

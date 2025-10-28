@@ -54,9 +54,6 @@ class InputObject {
         if (data) {
             obj = obj || new InputObject();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
             if (data.hasOwnProperty('id')) {
                 obj['id'] = ApiClient.convertToType(data['id'], 'String');
             }
@@ -95,10 +92,6 @@ class InputObject {
             }
         }
         // ensure the json data is a string
-        if (data['name'] && !(typeof data['name'] === 'string' || data['name'] instanceof String)) {
-            throw new Error("Expected the field `name` to be a primitive type in the JSON string but got " + data['name']);
-        }
-        // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
         }
@@ -126,11 +119,6 @@ class InputObject {
 }
 
 InputObject.RequiredProperties = ["id", "type"];
-
-/**
- * @member {String} name
- */
-InputObject.prototype['name'] = undefined;
 
 /**
  * @member {String} id

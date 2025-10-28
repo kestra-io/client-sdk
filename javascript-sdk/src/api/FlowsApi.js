@@ -13,14 +13,11 @@
 
 
 import ApiClient from "../ApiClient";
-import AppsControllerApiBulkImportResponse from '../model/AppsControllerApiBulkImportResponse';
 import BulkResponse from '../model/BulkResponse';
-import DeleteExecutionsByQueryRequest from '../model/DeleteExecutionsByQueryRequest';
 import Flow from '../model/Flow';
 import FlowControllerTaskValidationType from '../model/FlowControllerTaskValidationType';
 import FlowGraph from '../model/FlowGraph';
 import FlowInterface from '../model/FlowInterface';
-import FlowScope from '../model/FlowScope';
 import FlowTopologyGraph from '../model/FlowTopologyGraph';
 import FlowWithSource from '../model/FlowWithSource';
 import IdWithNamespace from '../model/IdWithNamespace';
@@ -28,8 +25,6 @@ import PagedResultsFlow from '../model/PagedResultsFlow';
 import PagedResultsSearchResultFlow from '../model/PagedResultsSearchResultFlow';
 import QueryFilter from '../model/QueryFilter';
 import Task from '../model/Task';
-import UpdateFlow200Response from '../model/UpdateFlow200Response';
-import UpdateFlowsInNamespaceFromJson200Response from '../model/UpdateFlowsInNamespaceFromJson200Response';
 import ValidateConstraintViolation from '../model/ValidateConstraintViolation';
 
 /**
@@ -52,57 +47,8 @@ export default class FlowsApi {
 
 
 
-    /**
-     *     Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn't be imported is returned. 
-     * @param {String} tenant 
-     * @param {Object} opts Optional parameters
-     * @param {File} [fileUpload] The file to import, can be a ZIP archive or a multi-objects YAML file
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AppsControllerApiBulkImportResponse} and HTTP response
-     */
-    bulkImportAppsWithHttpInfo(tenant, opts) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling bulkImportApps");
-      }
 
-      let pathParams = {
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-        'fileUpload': opts['fileUpload']
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['multipart/form-data'];
-      let accepts = ['application/json'];
-      let returnType = AppsControllerApiBulkImportResponse;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/apps/import', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     *     Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn't be imported is returned. 
-     * @param {String} tenant 
-     * @param {Object} opts Optional parameters
-     * @param {File} opts.fileUpload The file to import, can be a ZIP archive or a multi-objects YAML file
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AppsControllerApiBulkImportResponse}
-     */
-    bulkImportApps(tenant, opts) {
-      return this.bulkImportAppsWithHttpInfo(tenant, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
+            
 
     /**
      * Update from multiples yaml sources
@@ -174,6 +120,15 @@ export default class FlowsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Create a flow from yaml source
      * @param {String} tenant 
@@ -225,6 +180,15 @@ export default class FlowsApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Delete a flow
@@ -286,6 +250,15 @@ export default class FlowsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Delete flows by their IDs.
      * @param {String} tenant 
@@ -338,37 +311,35 @@ export default class FlowsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Delete flows returned by the query parameters.
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {Array.<module:model/FlowScope>} [scope] The scope of the flows to include
-     * @param {String} [namespace] A namespace filter prefix
-     * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
+     * @param {Array.<module:model/QueryFilter>} [filters] Filters
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
      */
-    deleteFlowsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts) {
+    deleteFlowsByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
-      let postBody = deleteExecutionsByQueryRequest;
+      let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling deleteFlowsByQuery");
-      }
-      // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-      if (deleteExecutionsByQueryRequest === undefined || deleteExecutionsByQueryRequest === null) {
-        throw new Error("Missing the required parameter 'deleteExecutionsByQueryRequest' when calling deleteFlowsByQuery");
       }
 
       let pathParams = {
         'tenant': tenant
       };
       let queryParams = {
-        'q': opts['q'],
-        'scope': this.apiClient.buildCollectionParam(opts['scope'], 'csv'),
-        'namespace': opts['namespace'],
-        'labels': this.apiClient.buildCollectionParam(opts['labels'], 'multi')
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
       };
       let headerParams = {
       };
@@ -376,7 +347,7 @@ export default class FlowsApi {
       };
 
       let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
+      let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = BulkResponse;
       return this.apiClient.callApi(
@@ -389,21 +360,26 @@ export default class FlowsApi {
     /**
      * Delete flows returned by the query parameters.
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} opts.q A string filter
-     * @param {Array.<module:model/FlowScope>} opts.scope The scope of the flows to include
-     * @param {String} opts.namespace A namespace filter prefix
-     * @param {Array.<String>} opts.labels A labels filter as a list of 'key:value'
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
      */
-    deleteFlowsByQuery(tenant, deleteExecutionsByQueryRequest, opts) {
-      return this.deleteFlowsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts)
+    deleteFlowsByQuery(tenant, opts) {
+      return this.deleteFlowsByQueryWithHttpInfo(tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Disable flows by their IDs.
@@ -457,37 +433,35 @@ export default class FlowsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Disable flows returned by the query parameters.
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {Array.<module:model/FlowScope>} [scope] The scope of the flows to include
-     * @param {String} [namespace] A namespace filter prefix
-     * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
+     * @param {Array.<module:model/QueryFilter>} [filters] Filters
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
      */
-    disableFlowsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts) {
+    disableFlowsByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
-      let postBody = deleteExecutionsByQueryRequest;
+      let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling disableFlowsByQuery");
-      }
-      // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-      if (deleteExecutionsByQueryRequest === undefined || deleteExecutionsByQueryRequest === null) {
-        throw new Error("Missing the required parameter 'deleteExecutionsByQueryRequest' when calling disableFlowsByQuery");
       }
 
       let pathParams = {
         'tenant': tenant
       };
       let queryParams = {
-        'q': opts['q'],
-        'scope': this.apiClient.buildCollectionParam(opts['scope'], 'csv'),
-        'namespace': opts['namespace'],
-        'labels': this.apiClient.buildCollectionParam(opts['labels'], 'multi')
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
       };
       let headerParams = {
       };
@@ -495,7 +469,7 @@ export default class FlowsApi {
       };
 
       let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
+      let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = BulkResponse;
       return this.apiClient.callApi(
@@ -508,21 +482,26 @@ export default class FlowsApi {
     /**
      * Disable flows returned by the query parameters.
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} opts.q A string filter
-     * @param {Array.<module:model/FlowScope>} opts.scope The scope of the flows to include
-     * @param {String} opts.namespace A namespace filter prefix
-     * @param {Array.<String>} opts.labels A labels filter as a list of 'key:value'
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
      */
-    disableFlowsByQuery(tenant, deleteExecutionsByQueryRequest, opts) {
-      return this.disableFlowsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts)
+    disableFlowsByQuery(tenant, opts) {
+      return this.disableFlowsByQueryWithHttpInfo(tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Enable flows by their IDs.
@@ -576,37 +555,35 @@ export default class FlowsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Enable flows returned by the query parameters.
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {Array.<module:model/FlowScope>} [scope] The scope of the flows to include
-     * @param {String} [namespace] A namespace filter prefix
-     * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
+     * @param {Array.<module:model/QueryFilter>} [filters] Filters
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
      */
-    enableFlowsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts) {
+    enableFlowsByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
-      let postBody = deleteExecutionsByQueryRequest;
+      let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling enableFlowsByQuery");
-      }
-      // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-      if (deleteExecutionsByQueryRequest === undefined || deleteExecutionsByQueryRequest === null) {
-        throw new Error("Missing the required parameter 'deleteExecutionsByQueryRequest' when calling enableFlowsByQuery");
       }
 
       let pathParams = {
         'tenant': tenant
       };
       let queryParams = {
-        'q': opts['q'],
-        'scope': this.apiClient.buildCollectionParam(opts['scope'], 'csv'),
-        'namespace': opts['namespace'],
-        'labels': this.apiClient.buildCollectionParam(opts['labels'], 'multi')
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
       };
       let headerParams = {
       };
@@ -614,7 +591,7 @@ export default class FlowsApi {
       };
 
       let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
+      let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = BulkResponse;
       return this.apiClient.callApi(
@@ -627,21 +604,26 @@ export default class FlowsApi {
     /**
      * Enable flows returned by the query parameters.
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} opts.q A string filter
-     * @param {Array.<module:model/FlowScope>} opts.scope The scope of the flows to include
-     * @param {String} opts.namespace A namespace filter prefix
-     * @param {Array.<String>} opts.labels A labels filter as a list of 'key:value'
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
      */
-    enableFlowsByQuery(tenant, deleteExecutionsByQueryRequest, opts) {
-      return this.enableFlowsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts)
+    enableFlowsByQuery(tenant, opts) {
+      return this.enableFlowsByQueryWithHttpInfo(tenant, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Export flows as a ZIP archive of yaml sources.
@@ -695,15 +677,20 @@ export default class FlowsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Export flows as a ZIP archive of yaml sources.
      * @param {String} tenant 
      * @param {Object} opts Optional parameters
      * @param {Array.<module:model/QueryFilter>} [filters] Filters
-     * @param {String} [q] A string filter
-     * @param {Array.<module:model/FlowScope>} [scope] The scope of the flows to include
-     * @param {String} [namespace] A namespace filter prefix
-     * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Blob} and HTTP response
      */
     exportFlowsByQueryWithHttpInfo(tenant, opts) {
@@ -718,11 +705,7 @@ export default class FlowsApi {
         'tenant': tenant
       };
       let queryParams = {
-        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv'),
-        'q': opts['q'],
-        'scope': this.apiClient.buildCollectionParam(opts['scope'], 'csv'),
-        'namespace': opts['namespace'],
-        'labels': this.apiClient.buildCollectionParam(opts['labels'], 'multi')
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
       };
       let headerParams = {
       };
@@ -745,10 +728,6 @@ export default class FlowsApi {
      * @param {String} tenant 
      * @param {Object} opts Optional parameters
      * @param {Array.<module:model/QueryFilter>} opts.filters Filters
-     * @param {String} opts.q A string filter
-     * @param {Array.<module:model/FlowScope>} opts.scope The scope of the flows to include
-     * @param {String} opts.namespace A namespace filter prefix
-     * @param {Array.<String>} opts.labels A labels filter as a list of 'key:value'
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Blob}
      */
     exportFlowsByQuery(tenant, opts) {
@@ -758,6 +737,15 @@ export default class FlowsApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Generate a graph for a flow
@@ -828,6 +816,15 @@ export default class FlowsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Generate a graph for a flow source
      * @param {String} tenant 
@@ -885,6 +882,15 @@ export default class FlowsApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Get a flow
@@ -966,6 +972,15 @@ export default class FlowsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Get flow dependencies
      * @param {String} namespace The flow namespace
@@ -1040,6 +1055,15 @@ export default class FlowsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Retrieve flow dependencies
      * @param {String} namespace The flow namespace
@@ -1099,6 +1123,15 @@ export default class FlowsApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Get a flow task
@@ -1173,6 +1206,15 @@ export default class FlowsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      *     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn't be imported is returned. 
      * @param {String} tenant 
@@ -1225,6 +1267,15 @@ export default class FlowsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * List all distinct namespaces
      * @param {String} tenant 
@@ -1276,6 +1327,15 @@ export default class FlowsApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Get revisions for a flow
@@ -1337,6 +1397,15 @@ export default class FlowsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Retrieve all flows from a given namespace
      * @param {String} namespace Namespace to filter flows
@@ -1390,6 +1459,15 @@ export default class FlowsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Search for flows
      * @param {Number} page The current page
@@ -1398,10 +1476,6 @@ export default class FlowsApi {
      * @param {Object} opts Optional parameters
      * @param {Array.<String>} [sort] The sort of current page
      * @param {Array.<module:model/QueryFilter>} [filters] Filters
-     * @param {String} [q] A string filter
-     * @param {Array.<module:model/FlowScope>} [scope] The scope of the flows to include
-     * @param {String} [namespace] A namespace filter prefix
-     * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsFlow} and HTTP response
      */
     searchFlowsWithHttpInfo(page, size, tenant, opts) {
@@ -1427,11 +1501,7 @@ export default class FlowsApi {
         'page': page,
         'size': size,
         'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
-        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv'),
-        'q': opts['q'],
-        'scope': this.apiClient.buildCollectionParam(opts['scope'], 'csv'),
-        'namespace': opts['namespace'],
-        'labels': this.apiClient.buildCollectionParam(opts['labels'], 'multi')
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
       };
       let headerParams = {
       };
@@ -1457,10 +1527,6 @@ export default class FlowsApi {
      * @param {Object} opts Optional parameters
      * @param {Array.<String>} opts.sort The sort of current page
      * @param {Array.<module:model/QueryFilter>} opts.filters Filters
-     * @param {String} opts.q A string filter
-     * @param {Array.<module:model/FlowScope>} opts.scope The scope of the flows to include
-     * @param {String} opts.namespace A namespace filter prefix
-     * @param {Array.<String>} opts.labels A labels filter as a list of 'key:value'
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsFlow}
      */
     searchFlows(page, size, tenant, opts) {
@@ -1470,6 +1536,15 @@ export default class FlowsApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Search for flows source code
@@ -1543,23 +1618,32 @@ export default class FlowsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Update a flow
-     * @param {String} id The flow id
      * @param {String} namespace The flow namespace
+     * @param {String} id The flow id
      * @param {String} tenant 
      * @param {String} body The flow source code
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/UpdateFlow200Response} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/FlowWithSource} and HTTP response
      */
-    updateFlowWithHttpInfo(id, namespace, tenant, body) {
+    updateFlowWithHttpInfo(namespace, id, tenant, body) {
       let postBody = body;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling updateFlow");
-      }
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
         throw new Error("Missing the required parameter 'namespace' when calling updateFlow");
+      }
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling updateFlow");
       }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -1571,8 +1655,8 @@ export default class FlowsApi {
       }
 
       let pathParams = {
-        'id': id,
         'namespace': namespace,
+        'id': id,
         'tenant': tenant
       };
       let queryParams = {
@@ -1585,7 +1669,7 @@ export default class FlowsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = ['application/x-yaml'];
       let accepts = ['application/json'];
-      let returnType = UpdateFlow200Response;
+      let returnType = FlowWithSource;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/flows/{namespace}/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1595,46 +1679,55 @@ export default class FlowsApi {
 
     /**
      * Update a flow
-     * @param {String} id The flow id
      * @param {String} namespace The flow namespace
+     * @param {String} id The flow id
      * @param {String} tenant 
      * @param {String} body The flow source code
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UpdateFlow200Response}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/FlowWithSource}
      */
-    updateFlow(id, namespace, tenant, body) {
-      return this.updateFlowWithHttpInfo(id, namespace, tenant, body)
+    updateFlow(namespace, id, tenant, body) {
+      return this.updateFlowWithHttpInfo(namespace, id, tenant, body)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
-     * Update a complete namespace from json object
+     * Update a complete namespace from yaml source
      * All flow will be created / updated for this namespace. Flow that already created but not in `flows` will be deleted if the query delete is `true`
-     * @param {Boolean} _delete If missing flow should be deleted
      * @param {String} namespace The flow namespace
+     * @param {Boolean} _delete If missing flow should be deleted
      * @param {String} tenant 
-     * @param {Array.<module:model/Flow>} flow A list of flows
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/UpdateFlowsInNamespaceFromJson200Response} and HTTP response
+     * @param {String} body A list of flows source code
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/FlowInterface>} and HTTP response
      */
-    updateFlowsInNamespaceFromJsonWithHttpInfo(_delete, namespace, tenant, flow) {
-      let postBody = flow;
-      // verify the required parameter '_delete' is set
-      if (_delete === undefined || _delete === null) {
-        throw new Error("Missing the required parameter '_delete' when calling updateFlowsInNamespaceFromJson");
-      }
+    updateFlowsInNamespaceWithHttpInfo(namespace, _delete, tenant, body) {
+      let postBody = body;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
-        throw new Error("Missing the required parameter 'namespace' when calling updateFlowsInNamespaceFromJson");
+        throw new Error("Missing the required parameter 'namespace' when calling updateFlowsInNamespace");
+      }
+      // verify the required parameter '_delete' is set
+      if (_delete === undefined || _delete === null) {
+        throw new Error("Missing the required parameter '_delete' when calling updateFlowsInNamespace");
       }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling updateFlowsInNamespaceFromJson");
+        throw new Error("Missing the required parameter 'tenant' when calling updateFlowsInNamespace");
       }
-      // verify the required parameter 'flow' is set
-      if (flow === undefined || flow === null) {
-        throw new Error("Missing the required parameter 'flow' when calling updateFlowsInNamespaceFromJson");
+      // verify the required parameter 'body' is set
+      if (body === undefined || body === null) {
+        throw new Error("Missing the required parameter 'body' when calling updateFlowsInNamespace");
       }
 
       let pathParams = {
@@ -1650,9 +1743,9 @@ export default class FlowsApi {
       };
 
       let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json', 'application/x-yaml'];
+      let contentTypes = ['application/x-yaml'];
       let accepts = ['application/json'];
-      let returnType = UpdateFlowsInNamespaceFromJson200Response;
+      let returnType = [FlowInterface];
       return this.apiClient.callApi(
         '/api/v1/{tenant}/flows/{namespace}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1661,94 +1754,30 @@ export default class FlowsApi {
     }
 
     /**
-     * Update a complete namespace from json object
+     * Update a complete namespace from yaml source
      * All flow will be created / updated for this namespace. Flow that already created but not in `flows` will be deleted if the query delete is `true`
+     * @param {String} namespace The flow namespace
      * @param {Boolean} _delete If missing flow should be deleted
-     * @param {String} namespace The flow namespace
      * @param {String} tenant 
-     * @param {Array.<module:model/Flow>} flow A list of flows
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UpdateFlowsInNamespaceFromJson200Response}
+     * @param {String} body A list of flows source code
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/FlowInterface>}
      */
-    updateFlowsInNamespaceFromJson(_delete, namespace, tenant, flow) {
-      return this.updateFlowsInNamespaceFromJsonWithHttpInfo(_delete, namespace, tenant, flow)
+    updateFlowsInNamespace(namespace, _delete, tenant, body) {
+      return this.updateFlowsInNamespaceWithHttpInfo(namespace, _delete, tenant, body)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
     }
 
 
-    /**
-     * Update a single task on a flow
-     * @param {String} namespace The flow namespace
-     * @param {String} id The flow id
-     * @param {String} taskId The task id
-     * @param {String} tenant 
-     * @param {module:model/Task} task The task
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Flow} and HTTP response
-     */
-    updateTaskWithHttpInfo(namespace, id, taskId, tenant, task) {
-      let postBody = task;
-      // verify the required parameter 'namespace' is set
-      if (namespace === undefined || namespace === null) {
-        throw new Error("Missing the required parameter 'namespace' when calling updateTask");
-      }
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling updateTask");
-      }
-      // verify the required parameter 'taskId' is set
-      if (taskId === undefined || taskId === null) {
-        throw new Error("Missing the required parameter 'taskId' when calling updateTask");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling updateTask");
-      }
-      // verify the required parameter 'task' is set
-      if (task === undefined || task === null) {
-        throw new Error("Missing the required parameter 'task' when calling updateTask");
-      }
 
-      let pathParams = {
-        'namespace': namespace,
-        'id': id,
-        'taskId': taskId,
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
 
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = Flow;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/flows/{namespace}/{id}/{taskId}', 'PATCH',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
 
-    /**
-     * Update a single task on a flow
-     * @param {String} namespace The flow namespace
-     * @param {String} id The flow id
-     * @param {String} taskId The task id
-     * @param {String} tenant 
-     * @param {module:model/Task} task The task
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Flow}
-     */
-    updateTask(namespace, id, taskId, tenant, task) {
-      return this.updateTaskWithHttpInfo(namespace, id, taskId, tenant, task)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
 
+
+
+
+            
 
     /**
      * Validate a list of flows
@@ -1802,11 +1831,20 @@ export default class FlowsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Validate a task
      * @param {module:model/FlowControllerTaskValidationType} section The type of task
      * @param {String} tenant 
-     * @param {String} body A task definition that can be from tasks or triggers
+     * @param {Object.<String, Object>} body A task definition that can be from tasks or triggers
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ValidateConstraintViolation} and HTTP response
      */
     validateTaskWithHttpInfo(section, tenant, body) {
@@ -1850,7 +1888,7 @@ export default class FlowsApi {
      * Validate a task
      * @param {module:model/FlowControllerTaskValidationType} section The type of task
      * @param {String} tenant 
-     * @param {String} body A task definition that can be from tasks or triggers
+     * @param {Object.<String, Object>} body A task definition that can be from tasks or triggers
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ValidateConstraintViolation}
      */
     validateTask(section, tenant, body) {
@@ -1860,6 +1898,15 @@ export default class FlowsApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Validate trigger
@@ -1911,6 +1958,12 @@ export default class FlowsApi {
           return response_and_data.data;
         });
     }
+
+
+
+
+
+
 
 
 }

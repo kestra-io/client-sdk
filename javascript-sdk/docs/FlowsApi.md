@@ -4,7 +4,6 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**bulkImportApps**](FlowsApi.md#bulkImportApps) | **POST** /api/v1/{tenant}/apps/import |     Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
 [**bulkUpdateFlows**](FlowsApi.md#bulkUpdateFlows) | **POST** /api/v1/{tenant}/flows/bulk | Update from multiples yaml sources
 [**createFlow**](FlowsApi.md#createFlow) | **POST** /api/v1/{tenant}/flows | Create a flow from yaml source
 [**deleteFlow**](FlowsApi.md#deleteFlow) | **DELETE** /api/v1/{tenant}/flows/{namespace}/{id} | Delete a flow
@@ -29,66 +28,11 @@ Method | HTTP request | Description
 [**searchFlows**](FlowsApi.md#searchFlows) | **GET** /api/v1/{tenant}/flows/search | Search for flows
 [**searchFlowsBySourceCode**](FlowsApi.md#searchFlowsBySourceCode) | **GET** /api/v1/{tenant}/flows/source | Search for flows source code
 [**updateFlow**](FlowsApi.md#updateFlow) | **PUT** /api/v1/{tenant}/flows/{namespace}/{id} | Update a flow
-[**updateFlowsInNamespaceFromJson**](FlowsApi.md#updateFlowsInNamespaceFromJson) | **POST** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from json object
-[**updateTask**](FlowsApi.md#updateTask) | **PATCH** /api/v1/{tenant}/flows/{namespace}/{id}/{taskId} | Update a single task on a flow
+[**updateFlowsInNamespace**](FlowsApi.md#updateFlowsInNamespace) | **POST** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from yaml source
 [**validateFlows**](FlowsApi.md#validateFlows) | **POST** /api/v1/{tenant}/flows/validate | Validate a list of flows
 [**validateTask**](FlowsApi.md#validateTask) | **POST** /api/v1/{tenant}/flows/validate/task | Validate a task
 [**validateTrigger**](FlowsApi.md#validateTrigger) | **POST** /api/v1/{tenant}/flows/validate/trigger | Validate trigger
 
-
-
-## bulkImportApps
-
-> AppsControllerApiBulkImportResponse bulkImportApps(tenant, opts)
-
-    Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
-
-### Example
-
-```javascript
-import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
-let defaultClient = KestraIoKestraSdk.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraIoKestraSdk.FlowsApi();
-let tenant = "tenant_example"; // String | 
-let opts = {
-  'fileUpload': "/path/to/file" // File | The file to import, can be a ZIP archive or a multi-objects YAML file
-};
-apiInstance.bulkImportApps(tenant, opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **tenant** | **String**|  | 
- **fileUpload** | **File**| The file to import, can be a ZIP archive or a multi-objects YAML file | [optional] 
-
-### Return type
-
-[**AppsControllerApiBulkImportResponse**](AppsControllerApiBulkImportResponse.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: multipart/form-data
-- **Accept**: application/json
 
 
 ## bulkUpdateFlows
@@ -313,7 +257,7 @@ Name | Type | Description  | Notes
 
 ## deleteFlowsByQuery
 
-> BulkResponse deleteFlowsByQuery(tenant, deleteExecutionsByQueryRequest, opts)
+> BulkResponse deleteFlowsByQuery(tenant, opts)
 
 Delete flows returned by the query parameters.
 
@@ -332,14 +276,10 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.FlowsApi();
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraIoKestraSdk.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
-  'q': "q_example", // String | A string filter
-  'scope': [new KestraIoKestraSdk.FlowScope()], // [FlowScope] | The scope of the flows to include
-  'namespace': "namespace_example", // String | A namespace filter prefix
-  'labels': ["null"] // [String] | A labels filter as a list of 'key:value'
+  'filters': [new KestraIoKestraSdk.QueryFilter()] // [QueryFilter] | Filters
 };
-apiInstance.deleteFlowsByQuery(tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+apiInstance.deleteFlowsByQuery(tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -353,11 +293,7 @@ apiInstance.deleteFlowsByQuery(tenant, deleteExecutionsByQueryRequest, opts).the
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **String**|  | 
- **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | 
- **q** | **String**| A string filter | [optional] 
- **scope** | [**[FlowScope]**](FlowScope.md)| The scope of the flows to include | [optional] 
- **namespace** | **String**| A namespace filter prefix | [optional] 
- **labels** | [**[String]**](String.md)| A labels filter as a list of &#39;key:value&#39; | [optional] 
+ **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
@@ -369,7 +305,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -427,7 +363,7 @@ Name | Type | Description  | Notes
 
 ## disableFlowsByQuery
 
-> BulkResponse disableFlowsByQuery(tenant, deleteExecutionsByQueryRequest, opts)
+> BulkResponse disableFlowsByQuery(tenant, opts)
 
 Disable flows returned by the query parameters.
 
@@ -446,14 +382,10 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.FlowsApi();
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraIoKestraSdk.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
-  'q': "q_example", // String | A string filter
-  'scope': [new KestraIoKestraSdk.FlowScope()], // [FlowScope] | The scope of the flows to include
-  'namespace': "namespace_example", // String | A namespace filter prefix
-  'labels': ["null"] // [String] | A labels filter as a list of 'key:value'
+  'filters': [new KestraIoKestraSdk.QueryFilter()] // [QueryFilter] | Filters
 };
-apiInstance.disableFlowsByQuery(tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+apiInstance.disableFlowsByQuery(tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -467,11 +399,7 @@ apiInstance.disableFlowsByQuery(tenant, deleteExecutionsByQueryRequest, opts).th
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **String**|  | 
- **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | 
- **q** | **String**| A string filter | [optional] 
- **scope** | [**[FlowScope]**](FlowScope.md)| The scope of the flows to include | [optional] 
- **namespace** | **String**| A namespace filter prefix | [optional] 
- **labels** | [**[String]**](String.md)| A labels filter as a list of &#39;key:value&#39; | [optional] 
+ **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
@@ -483,7 +411,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -541,7 +469,7 @@ Name | Type | Description  | Notes
 
 ## enableFlowsByQuery
 
-> BulkResponse enableFlowsByQuery(tenant, deleteExecutionsByQueryRequest, opts)
+> BulkResponse enableFlowsByQuery(tenant, opts)
 
 Enable flows returned by the query parameters.
 
@@ -560,14 +488,10 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.FlowsApi();
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraIoKestraSdk.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
-  'q': "q_example", // String | A string filter
-  'scope': [new KestraIoKestraSdk.FlowScope()], // [FlowScope] | The scope of the flows to include
-  'namespace': "namespace_example", // String | A namespace filter prefix
-  'labels': ["null"] // [String] | A labels filter as a list of 'key:value'
+  'filters': [new KestraIoKestraSdk.QueryFilter()] // [QueryFilter] | Filters
 };
-apiInstance.enableFlowsByQuery(tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+apiInstance.enableFlowsByQuery(tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -581,11 +505,7 @@ apiInstance.enableFlowsByQuery(tenant, deleteExecutionsByQueryRequest, opts).the
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **String**|  | 
- **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | 
- **q** | **String**| A string filter | [optional] 
- **scope** | [**[FlowScope]**](FlowScope.md)| The scope of the flows to include | [optional] 
- **namespace** | **String**| A namespace filter prefix | [optional] 
- **labels** | [**[String]**](String.md)| A labels filter as a list of &#39;key:value&#39; | [optional] 
+ **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
@@ -597,7 +517,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -675,11 +595,7 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.FlowsApi();
 let tenant = "tenant_example"; // String | 
 let opts = {
-  'filters': [new KestraIoKestraSdk.QueryFilter()], // [QueryFilter] | Filters
-  'q': "q_example", // String | A string filter
-  'scope': [new KestraIoKestraSdk.FlowScope()], // [FlowScope] | The scope of the flows to include
-  'namespace': "namespace_example", // String | A namespace filter prefix
-  'labels': ["null"] // [String] | A labels filter as a list of 'key:value'
+  'filters': [new KestraIoKestraSdk.QueryFilter()] // [QueryFilter] | Filters
 };
 apiInstance.exportFlowsByQuery(tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -696,10 +612,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **String**|  | 
  **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
- **q** | **String**| A string filter | [optional] 
- **scope** | [**[FlowScope]**](FlowScope.md)| The scope of the flows to include | [optional] 
- **namespace** | **String**| A namespace filter prefix | [optional] 
- **labels** | [**[String]**](String.md)| A labels filter as a list of &#39;key:value&#39; | [optional] 
 
 ### Return type
 
@@ -1304,11 +1216,7 @@ let size = 10; // Number | The current page size
 let tenant = "tenant_example"; // String | 
 let opts = {
   'sort': ["null"], // [String] | The sort of current page
-  'filters': [new KestraIoKestraSdk.QueryFilter()], // [QueryFilter] | Filters
-  'q': "q_example", // String | A string filter
-  'scope': [new KestraIoKestraSdk.FlowScope()], // [FlowScope] | The scope of the flows to include
-  'namespace': "namespace_example", // String | A namespace filter prefix
-  'labels': ["null"] // [String] | A labels filter as a list of 'key:value'
+  'filters': [new KestraIoKestraSdk.QueryFilter()] // [QueryFilter] | Filters
 };
 apiInstance.searchFlows(page, size, tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1328,10 +1236,6 @@ Name | Type | Description  | Notes
  **tenant** | **String**|  | 
  **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
  **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
- **q** | **String**| A string filter | [optional] 
- **scope** | [**[FlowScope]**](FlowScope.md)| The scope of the flows to include | [optional] 
- **namespace** | **String**| A namespace filter prefix | [optional] 
- **labels** | [**[String]**](String.md)| A labels filter as a list of &#39;key:value&#39; | [optional] 
 
 ### Return type
 
@@ -1411,7 +1315,7 @@ Name | Type | Description  | Notes
 
 ## updateFlow
 
-> UpdateFlow200Response updateFlow(id, namespace, tenant, body)
+> FlowWithSource updateFlow(namespace, id, tenant, body)
 
 Update a flow
 
@@ -1429,11 +1333,11 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.FlowsApi();
-let id = "id_example"; // String | The flow id
 let namespace = "namespace_example"; // String | The flow namespace
+let id = "id_example"; // String | The flow id
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | The flow source code
-apiInstance.updateFlow(id, namespace, tenant, body).then((data) => {
+apiInstance.updateFlow(namespace, id, tenant, body).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -1446,14 +1350,14 @@ apiInstance.updateFlow(id, namespace, tenant, body).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| The flow id | 
  **namespace** | **String**| The flow namespace | 
+ **id** | **String**| The flow id | 
  **tenant** | **String**|  | 
  **body** | **String**| The flow source code | 
 
 ### Return type
 
-[**UpdateFlow200Response**](UpdateFlow200Response.md)
+[**FlowWithSource**](FlowWithSource.md)
 
 ### Authorization
 
@@ -1465,11 +1369,11 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## updateFlowsInNamespaceFromJson
+## updateFlowsInNamespace
 
-> UpdateFlowsInNamespaceFromJson200Response updateFlowsInNamespaceFromJson(_delete, namespace, tenant, flow)
+> [FlowInterface] updateFlowsInNamespace(namespace, _delete, tenant, body)
 
-Update a complete namespace from json object
+Update a complete namespace from yaml source
 
 All flow will be created / updated for this namespace. Flow that already created but not in &#x60;flows&#x60; will be deleted if the query delete is &#x60;true&#x60;
 
@@ -1487,11 +1391,11 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.FlowsApi();
+let namespace = "namespace_example"; // String | The flow namespace
 let _delete = true; // Boolean | If missing flow should be deleted
-let namespace = "namespace_example"; // String | The flow namespace
 let tenant = "tenant_example"; // String | 
-let flow = [new KestraIoKestraSdk.Flow()]; // [Flow] | A list of flows
-apiInstance.updateFlowsInNamespaceFromJson(_delete, namespace, tenant, flow).then((data) => {
+let body = "body_example"; // String | A list of flows source code
+apiInstance.updateFlowsInNamespace(namespace, _delete, tenant, body).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -1504,14 +1408,14 @@ apiInstance.updateFlowsInNamespaceFromJson(_delete, namespace, tenant, flow).the
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **namespace** | **String**| The flow namespace | 
  **_delete** | **Boolean**| If missing flow should be deleted | [default to true]
- **namespace** | **String**| The flow namespace | 
  **tenant** | **String**|  | 
- **flow** | [**[Flow]**](Flow.md)| A list of flows | 
+ **body** | **String**| A list of flows source code | 
 
 ### Return type
 
-[**UpdateFlowsInNamespaceFromJson200Response**](UpdateFlowsInNamespaceFromJson200Response.md)
+[**[FlowInterface]**](FlowInterface.md)
 
 ### Authorization
 
@@ -1519,65 +1423,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json, application/x-yaml
-- **Accept**: application/json
-
-
-## updateTask
-
-> Flow updateTask(namespace, id, taskId, tenant, task)
-
-Update a single task on a flow
-
-### Example
-
-```javascript
-import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
-let defaultClient = KestraIoKestraSdk.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraIoKestraSdk.FlowsApi();
-let namespace = "namespace_example"; // String | The flow namespace
-let id = "id_example"; // String | The flow id
-let taskId = "taskId_example"; // String | The task id
-let tenant = "tenant_example"; // String | 
-let task = new KestraIoKestraSdk.Task(); // Task | The task
-apiInstance.updateTask(namespace, id, taskId, tenant, task).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **namespace** | **String**| The flow namespace | 
- **id** | **String**| The flow id | 
- **taskId** | **String**| The task id | 
- **tenant** | **String**|  | 
- **task** | [**Task**](Task.md)| The task | 
-
-### Return type
-
-[**Flow**](Flow.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
+- **Content-Type**: application/x-yaml
 - **Accept**: application/json
 
 
@@ -1655,7 +1501,7 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.FlowsApi();
 let section = new KestraIoKestraSdk.FlowControllerTaskValidationType(); // FlowControllerTaskValidationType | The type of task
 let tenant = "tenant_example"; // String | 
-let body = "body_example"; // String | A task definition that can be from tasks or triggers
+let body = {key: null}; // Object | A task definition that can be from tasks or triggers
 apiInstance.validateTask(section, tenant, body).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
@@ -1671,7 +1517,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **section** | [**FlowControllerTaskValidationType**](.md)| The type of task | 
  **tenant** | **String**|  | 
- **body** | **String**| A task definition that can be from tasks or triggers | 
+ **body** | **Object**| A task definition that can be from tasks or triggers | 
 
 ### Return type
 

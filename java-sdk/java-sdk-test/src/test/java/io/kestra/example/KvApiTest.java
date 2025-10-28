@@ -2,6 +2,7 @@ package io.kestra.example;
 
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.model.*;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -63,6 +64,7 @@ public class KvApiTest {
      * List all keys for a namespace
      */
     @Test
+    @Disabled // FIXME re-enable when new Kestra EE is available
     public void listKeysTest() throws ApiException {
         String key = "test_list_keys_" + randomId();
         String value = "value-list";
