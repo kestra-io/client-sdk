@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.model.*;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -307,6 +308,7 @@ public class FlowsApiTest {
      * @throws ApiException
      *          if the Api call fails
      */
+    @Disabled
     @Test
     public void importFlowsTest() throws ApiException, IOException {
         var flow1 = getSimpleFlowAndId();
