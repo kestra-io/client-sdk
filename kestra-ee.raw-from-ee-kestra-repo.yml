@@ -17770,8 +17770,6 @@ components:
             $ref: "#/components/schemas/TaskRunAttempt"
         outputs:
           type: object
-          additionalProperties:
-            type: object
           nullable: true
         state:
           $ref: "#/components/schemas/State"
