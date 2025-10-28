@@ -983,12 +983,13 @@ public class ExecutionsApiTest {
      */
     @Test
     public void updateExecutionStatusTest() throws ApiException {
-        String executionId = null;
-        StateType status = null;
+        Execution exec = createdExecution(LOG_FLOW, StateType.SUCCESS);
+        String executionId = exec.getId();
+        StateType status = StateType.CANCELLED;
 
         Execution response = kestraClient().executions().updateExecutionStatus(executionId, status, MAIN_TENANT);
-
-        // TODO: test validations
+        assertThat(response.getState().getCurrent()).isEqualTo(status);
+        assertThat(kestraClient().executions().getExecution(executionId, MAIN_TENANT).getState().getCurrent()).isEqualTo(status);
     }
     /**
      * Change executions state by id
@@ -998,12 +999,18 @@ public class ExecutionsApiTest {
      */
     @Test
     public void updateExecutionsStatusByIdsTest() throws ApiException {
-        StateType newStatus = null;
+        Execution exec1 = createdExecution(LOG_FLOW, StateType.SUCCESS);
+        Execution exec2 = createdExecution(LOG_FLOW, StateType.SUCCESS);
+        Execution otherExec = createdExecution(LOG_FLOW, StateType.SUCCESS);
+        StateType newStatus = StateType.CANCELLED;
 
-        List<String> requestBody = null;
+        List<String> requestBody = List.of(exec1.getId(), exec2.getId());
         BulkResponse response = kestraClient().executions().updateExecutionsStatusByIds(newStatus, MAIN_TENANT, requestBody);
 
-        // TODO: test validations
+        assertThat(response.getCount()).isEqualTo(2);
+        assertThat(kestraClient().executions().getExecution(exec1.getId(), MAIN_TENANT).getState().getCurrent()).isEqualTo(newStatus);
+        assertThat(kestraClient().executions().getExecution(exec2.getId(), MAIN_TENANT).getState().getCurrent()).isEqualTo(newStatus);
+        assertThat(kestraClient().executions().getExecution(otherExec.getId(), MAIN_TENANT).getState().getCurrent()).isEqualTo(StateType.SUCCESS);
     }
     /**
      * Change executions state by query parameters
@@ -1013,12 +1020,20 @@ public class ExecutionsApiTest {
      */
     @Test
     public void updateExecutionsStatusByQueryTest() throws ApiException {
-        StateType newStatus = null;
-        List<QueryFilter> filters = new ArrayList<>();
+        Execution exec1 = createdExecution(LOG_FLOW, StateType.SUCCESS);
+        Execution exec2 = createdExecution(LOG_FLOW, StateType.SUCCESS);
+        Execution otherExec = createdExecution(LOG_FLOW, StateType.SUCCESS);
+        StateType newStatus = StateType.CANCELLED;
+        List<QueryFilter> filters = List.of(new QueryFilter().field(QueryFilterField.NAMESPACE)
+            .operation(QueryFilterOp.IN)
+            .value(List.of(exec1.getNamespace(), exec2.getNamespace())));
 
-//        BulkResponse response = kestraClient().executions().updateExecutionsStatusByQuery(newStatus, MAIN_TENANT, filters); FIXME NICO
+        BulkResponse response = kestraClient().executions().updateExecutionsStatusByQuery(newStatus, MAIN_TENANT, filters);
 
-        // TODO: test validations
+        assertThat(response.getCount()).isEqualTo(2);
+        assertThat(kestraClient().executions().getExecution(exec1.getId(), MAIN_TENANT).getState().getCurrent()).isEqualTo(newStatus);
+        assertThat(kestraClient().executions().getExecution(exec2.getId(), MAIN_TENANT).getState().getCurrent()).isEqualTo(newStatus);
+        assertThat(kestraClient().executions().getExecution(otherExec.getId(), MAIN_TENANT).getState().getCurrent()).isEqualTo(StateType.SUCCESS);
     }
     /**
      * Change state for a taskrun in an execution
