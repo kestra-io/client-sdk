@@ -94,6 +94,20 @@ public class ExecutionsApiTest {
             type: io.kestra.plugin.core.flow.Pause
             delay: PT2S
         """;
+    public static final String WEBHOOK_FLOW = """
+        id: %s
+        namespace: %s
+
+        tasks:
+          - id: out
+            type: io.kestra.plugin.core.debug.Return
+            format: "{{trigger | json }}"
+
+        triggers:
+          - id: webhook
+            type: io.kestra.plugin.core.trigger.Webhook
+            key: a-secret-key
+        """;
 
     private void createSimpleFlow(String flowId, String namespace) throws ApiException {
         String flow = LOG_FLOW.formatted(flowId, namespace);
@@ -141,9 +155,13 @@ public class ExecutionsApiTest {
         String namespace = randomId();
         String flowId = randomId();
         ExecutionControllerExecutionResponse execution = createFlowWithExecution(flow.formatted(flowId, namespace));
+        return awaitExecution(state, execution.getId());
+    }
+
+    private static Execution awaitExecution(StateType state,String executionId) {
         AtomicReference<Execution> executionAtomicReference = new AtomicReference<>();
         await().atMost(Duration.ofSeconds(1)).until(() -> {
-            executionAtomicReference.set(kestraClient().executions().getExecution(execution.getId(), MAIN_TENANT));
+            executionAtomicReference.set(kestraClient().executions().getExecution(executionId, MAIN_TENANT));
             return executionAtomicReference.get().getState().getCurrent().equals(state);
         });
         return executionAtomicReference.get();
@@ -871,11 +889,12 @@ public class ExecutionsApiTest {
     public void triggerExecutionByGetWebhookTest() throws ApiException {
         String namespace = randomId();
         String id = randomId();
-        String key = null;
+        createSimpleFlow(WEBHOOK_FLOW.formatted(id, namespace));
+        String key = "a-secret-key";
 
         ExecutionControllerWebhookResponse response = kestraClient().executions().triggerExecutionByGetWebhook(namespace, id, key, MAIN_TENANT);
-
-        // TODO: test validations
+        assertThat(response).isNotNull();
+        awaitExecution(StateType.SUCCESS, response.getId());
     }
     /**
      * Unqueue an execution
