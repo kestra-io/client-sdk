@@ -126,6 +126,27 @@ public class ExecutionsApiTest {
         return executionAtomicReference.get();
     }
 
+    private Execution createdFailedExecution() {
+        String namespace = randomId();
+        String flowId = randomId();
+        String flow = """
+            id: %s
+            namespace: %s
+
+            tasks:
+              - id: fail
+                type: io.kestra.plugin.core.execution.Fail
+            """.formatted(flowId, namespace);
+        createSimpleFlow(flow);
+        ExecutionControllerExecutionResponse execution = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
+        AtomicReference<Execution> executionAtomicReference = new AtomicReference<>();
+        await().atMost(Duration.ofSeconds(1)).until(() -> {
+            executionAtomicReference.set(kestraClient().executions().getExecution(execution.getId(), MAIN_TENANT));
+            return executionAtomicReference.get().getState().getCurrent().equals(StateType.FAILED);
+        });
+        return executionAtomicReference.get();
+    }
+
     /**
      * Create a new execution for a flow
      *
@@ -631,12 +652,12 @@ public class ExecutionsApiTest {
      */
     @Test
     public void restartExecutionTest() throws ApiException {
-        String executionId = null;
+        Execution exec = createdFailedExecution();
+        String executionId = exec.getId();
 
         Integer revision = null;
         Execution response = kestraClient().executions().restartExecution(executionId, MAIN_TENANT, revision);
-
-        // TODO: test validations
+        assertThat(response.getState().getCurrent()).isEqualTo(StateType.RESTARTED);
     }
     /**
      * Restart a list of executions
@@ -646,11 +667,14 @@ public class ExecutionsApiTest {
      */
     @Test
     public void restartExecutionsByIdsTest() throws ApiException {
+        Execution exec1 = createdFailedExecution();
+        Execution exec2 = createdFailedExecution();
+        Execution otherExec = createdFailedExecution();
 
-        List<String> requestBody = null;
+        List<String> requestBody = List.of(exec1.getId(), exec2.getId());
         BulkResponse response = kestraClient().executions().restartExecutionsByIds(MAIN_TENANT, requestBody);
 
-        // TODO: test validations
+        assertThat(response.getCount()).isEqualTo(2);
     }
     /**
      * Restart executions filter by query parameters
@@ -660,12 +684,16 @@ public class ExecutionsApiTest {
      */
     @Test
     public void restartExecutionsByQueryTest() throws ApiException {
+        Execution exec1 = createdFailedExecution();
+        Execution exec2 = createdFailedExecution();
+        Execution otherExec = createdFailedExecution();
 
-        List<QueryFilter> filters = new ArrayList<>();
+        List<QueryFilter> filters = List.of(new QueryFilter().field(QueryFilterField.NAMESPACE)
+            .operation(QueryFilterOp.IN)
+            .value(List.of(exec1.getNamespace(), exec2.getNamespace())));
 
-//        Object response = kestraClient().executions().restartExecutionsByQuery(MAIN_TENANT, filters); FIXME NICO
-
-        // TODO: test validations
+        Object response = kestraClient().executions().restartExecutionsByQuery(MAIN_TENANT, filters);
+        assertThat(response).isInstanceOf(LinkedHashMap.class).extracting("count").isEqualTo(2);
     }
     /**
      * Resume a paused execution.
