@@ -16754,15 +16754,12 @@ components:
       type: object
     Execution:
       example:
-        outputs:
-          key: "{}"
-        variables:
-          key: "{}"
+        outputs: "{}"
+        variables: "{}"
         metadata:
           attemptNumber: 1
           originalCreatedDate: 2000-01-23T04:56:07.000+00:00
-        inputs:
-          key: "{}"
+        inputs: "{}"
         kind: ""
         trigger:
           variables:
@@ -16928,16 +16925,10 @@ components:
             $ref: "#/components/schemas/TaskRun"
           type: array
         inputs:
-          additionalProperties:
-            type: object
           type: object
         outputs:
-          additionalProperties:
-            type: object
           type: object
         variables:
-          additionalProperties:
-            type: object
           type: object
         state:
           $ref: "#/components/schemas/State"
@@ -17030,15 +17021,12 @@ components:
             type: string
         type: object
       example:
-        outputs:
-          key: "{}"
-        variables:
-          key: "{}"
+        outputs: "{}"
+        variables: "{}"
         metadata:
           attemptNumber: 1
           originalCreatedDate: 2000-01-23T04:56:07.000+00:00
-        inputs:
-          key: "{}"
+        inputs: "{}"
         kind: ""
         trigger:
           variables:
@@ -19897,7 +19885,7 @@ components:
         type:
           $ref: "#/components/schemas/KVType"
         value:
-          type: object
+          $ref: "#/components/schemas/KVController_TypedValue_value"
       type: object
     KVEntry:
       example:
@@ -20631,15 +20619,12 @@ components:
       example:
         total: 5
         results:
-        - outputs:
-            key: "{}"
-          variables:
-            key: "{}"
+        - outputs: "{}"
+          variables: "{}"
           metadata:
             attemptNumber: 1
             originalCreatedDate: 2000-01-23T04:56:07.000+00:00
-          inputs:
-            key: "{}"
+          inputs: "{}"
           kind: ""
           trigger:
             variables:
@@ -20786,15 +20771,12 @@ components:
           - id: id
             value: value
           flowId: flowId
-        - outputs:
-            key: "{}"
-          variables:
-            key: "{}"
+        - outputs: "{}"
+          variables: "{}"
           metadata:
             attemptNumber: 1
             originalCreatedDate: 2000-01-23T04:56:07.000+00:00
-          inputs:
-            key: "{}"
+          inputs: "{}"
           kind: ""
           trigger:
             variables:
@@ -25148,6 +25130,10 @@ components:
             type: string
           type: array
       type: object
+    KVController_TypedValue_value:
+      anyOf:
+      - type: object
+      - type: string
     Output_value:
       oneOf:
       - type: object

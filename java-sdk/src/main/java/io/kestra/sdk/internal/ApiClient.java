@@ -21,7 +21,6 @@ import java.time.OffsetDateTime;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
-import java.util.stream.Collectors;
 import org.openapitools.jackson.nullable.JsonNullableModule;
 
 import org.apache.hc.client5.http.cookie.BasicCookieStore;
@@ -567,7 +566,7 @@ public class ApiClient extends JavaTimeFormatter {
                                 .append("[")
                                 .append(entry.getKey())
                                 .append("]")
-                                .toString(), convertValueToString(entry.getValue())));
+                                .toString(), entry.getValue().toString()));
                         }
                     } else {
                         throw new ApiException(400, "Filter LABEL value must be instance of Map<String, Object>");
@@ -579,13 +578,12 @@ public class ApiClient extends JavaTimeFormatter {
                         .append("][")
                         .append(queryFilter.getOperation())
                         .append("]")
-                        .toString(), convertValueToString(queryFilter.getValue())));
+                        .toString(), queryFilter.getValue().toString()));
                 }
             } else {
                 throw new ApiException(400, "Filter parameters must be instance of QueryFilter");
             }
         }
-        return params;
     }
 
     // create the params based on the collection format
@@ -618,14 +616,6 @@ public class ApiClient extends JavaTimeFormatter {
     params.add(new Pair(name, sb.substring(delimiter.length())));
 
     return params;
-  }
-
-  private String convertValueToString(Object value){
-      if (value instanceof List<?> list) {
-          return list.stream().map(Object::toString).collect(Collectors.joining(","));
-      } else {
-          return value.toString();
-      }
   }
 
   /**

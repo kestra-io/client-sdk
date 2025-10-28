@@ -13,9 +13,9 @@
 |**flowId** | **String** |  |  |
 |**flowRevision** | **Integer** |  |  |
 |**taskRunList** | [**List&lt;TaskRun&gt;**](TaskRun.md) |  |  [optional] |
-|**inputs** | **Map&lt;String, Object&gt;** |  |  [optional] |
-|**outputs** | **Map&lt;String, Object&gt;** |  |  [optional] |
-|**variables** | **Map&lt;String, Object&gt;** |  |  [optional] |
+|**inputs** | **Object** |  |  [optional] |
+|**outputs** | **Object** |  |  [optional] |
+|**variables** | **Object** |  |  [optional] |
 |**state** | [**State**](State.md) |  |  |
 |**parentId** | **String** |  |  [optional] |
 |**originalId** | **String** |  |  [optional] |

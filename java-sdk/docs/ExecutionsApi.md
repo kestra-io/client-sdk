@@ -50,7 +50,7 @@ All URIs are relative to *http://localhost*
 
 ## createExecution
 
-> ExecutionControllerExecutionResponse createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind, inputs)
+> ExecutionControllerExecutionResponse createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind, _file)
 
 Create a new execution for a flow
 
@@ -89,9 +89,9 @@ public class Example {
         OffsetDateTime scheduleDate = OffsetDateTime.now(); // OffsetDateTime | Schedule the flow on a specific date
         String breakpoints = "breakpoints_example"; // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
         ExecutionKind kind = ExecutionKind.fromValue("NORMAL"); // ExecutionKind | Specific execution kind
-        List<File> inputs = Arrays.asList(); // List<File> | 
+        List<Object> _file = Arrays.asList(null); // List<Object> | 
         try {
-            ExecutionControllerExecutionResponse result = apiInstance.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind, inputs);
+            ExecutionControllerExecutionResponse result = apiInstance.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind, _file);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#createExecution");
@@ -118,7 +118,7 @@ public class Example {
 | **scheduleDate** | **OffsetDateTime**| Schedule the flow on a specific date | [optional] |
 | **breakpoints** | **String**| Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] |
 | **kind** | [**ExecutionKind**](.md)| Specific execution kind | [optional] [enum: NORMAL, TEST, PLAYGROUND] |
-| **inputs** | **List&lt;File&gt;**|  | [optional] |
+| **_file** | [**List&lt;Object&gt;**](Object.md)|  | [optional] |
 
 ### Return type
 

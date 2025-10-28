@@ -32,9 +32,7 @@ import java.net.URI;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -90,13 +88,13 @@ public class ExecutionControllerExecutionResponse {
   @javax.annotation.Nullable  private List<TaskRun> taskRunList = new ArrayList<>();
 
   public static final String JSON_PROPERTY_INPUTS = "inputs";
-  @javax.annotation.Nullable  private Map<String, Object> inputs = new HashMap<>();
+  @javax.annotation.Nullable  private Object inputs;
 
   public static final String JSON_PROPERTY_OUTPUTS = "outputs";
-  @javax.annotation.Nullable  private Map<String, Object> outputs = new HashMap<>();
+  @javax.annotation.Nullable  private Object outputs;
 
   public static final String JSON_PROPERTY_VARIABLES = "variables";
-  @javax.annotation.Nullable  private Map<String, Object> variables = new HashMap<>();
+  @javax.annotation.Nullable  private Object variables;
 
   public static final String JSON_PROPERTY_STATE = "state";
   @javax.annotation.Nonnull  private State state;
@@ -297,17 +295,9 @@ public class ExecutionControllerExecutionResponse {
     this.taskRunList = taskRunList;
   }
 
-  public ExecutionControllerExecutionResponse inputs(@javax.annotation.Nullable Map<String, Object> inputs) {
+  public ExecutionControllerExecutionResponse inputs(@javax.annotation.Nullable Object inputs) {
     
     this.inputs = inputs;
-    return this;
-  }
-
-  public ExecutionControllerExecutionResponse putInputsItem(String key, Object inputsItem) {
-    if (this.inputs == null) {
-      this.inputs = new HashMap<>();
-    }
-    this.inputs.put(key, inputsItem);
     return this;
   }
 
@@ -318,28 +308,20 @@ public class ExecutionControllerExecutionResponse {
   @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Map<String, Object> getInputs() {
+  public Object getInputs() {
     return inputs;
   }
 
 
   @JsonProperty(JSON_PROPERTY_INPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setInputs(@javax.annotation.Nullable Map<String, Object> inputs) {
+  public void setInputs(@javax.annotation.Nullable Object inputs) {
     this.inputs = inputs;
   }
 
-  public ExecutionControllerExecutionResponse outputs(@javax.annotation.Nullable Map<String, Object> outputs) {
+  public ExecutionControllerExecutionResponse outputs(@javax.annotation.Nullable Object outputs) {
     
     this.outputs = outputs;
-    return this;
-  }
-
-  public ExecutionControllerExecutionResponse putOutputsItem(String key, Object outputsItem) {
-    if (this.outputs == null) {
-      this.outputs = new HashMap<>();
-    }
-    this.outputs.put(key, outputsItem);
     return this;
   }
 
@@ -350,28 +332,20 @@ public class ExecutionControllerExecutionResponse {
   @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Map<String, Object> getOutputs() {
+  public Object getOutputs() {
     return outputs;
   }
 
 
   @JsonProperty(JSON_PROPERTY_OUTPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOutputs(@javax.annotation.Nullable Map<String, Object> outputs) {
+  public void setOutputs(@javax.annotation.Nullable Object outputs) {
     this.outputs = outputs;
   }
 
-  public ExecutionControllerExecutionResponse variables(@javax.annotation.Nullable Map<String, Object> variables) {
+  public ExecutionControllerExecutionResponse variables(@javax.annotation.Nullable Object variables) {
     
     this.variables = variables;
-    return this;
-  }
-
-  public ExecutionControllerExecutionResponse putVariablesItem(String key, Object variablesItem) {
-    if (this.variables == null) {
-      this.variables = new HashMap<>();
-    }
-    this.variables.put(key, variablesItem);
     return this;
   }
 
@@ -382,14 +356,14 @@ public class ExecutionControllerExecutionResponse {
   @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VARIABLES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Map<String, Object> getVariables() {
+  public Object getVariables() {
     return variables;
   }
 
 
   @JsonProperty(JSON_PROPERTY_VARIABLES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVariables(@javax.annotation.Nullable Map<String, Object> variables) {
+  public void setVariables(@javax.annotation.Nullable Object variables) {
     this.variables = variables;
   }
 

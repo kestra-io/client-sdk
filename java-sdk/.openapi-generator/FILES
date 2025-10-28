@@ -69,6 +69,7 @@ docs/BlueprintControllerKind.md
 docs/BlueprintWithFlow.md
 docs/Breakpoint.md
 docs/BulkErrorResponse.md
+docs/BulkImportAppsRequest.md
 docs/BulkResponse.md
 docs/Cache.md
 docs/ChartChartOption.md
@@ -81,6 +82,8 @@ docs/ConvertibleMultiValuesString.md
 docs/ConvertibleValuesListString.md
 docs/CreateApiTokenRequest.md
 docs/CreateApiTokenResponse.md
+docs/CreateExecutionRequest.md
+docs/CreateNamespaceFileRequest.md
 docs/CreateSecurityIntegrationRequest.md
 docs/CrudEventType.md
 docs/DailyExecutionStatistics.md
@@ -347,6 +350,7 @@ docs/ServiceProviderConfigurationFilterConfiguration.md
 docs/ServiceProviderConfigurationSupportedConfiguration.md
 docs/ServiceServiceState.md
 docs/ServiceType.md
+docs/SetLogoRequest.md
 docs/SetupConfiguration.md
 docs/SetupConfigurationSetupData.md
 docs/SortOrder.md
@@ -383,6 +387,7 @@ docs/TriggersApi.md
 docs/Type.md
 docs/UnitTest.md
 docs/UnitTestResult.md
+docs/UploadVersionedPluginsRequest.md
 docs/UsageEE.md
 docs/UserGroup.md
 docs/UserGroupType.md
@@ -493,6 +498,7 @@ src/main/java/io/kestra/sdk/model/BlueprintControllerKind.java
 src/main/java/io/kestra/sdk/model/BlueprintWithFlow.java
 src/main/java/io/kestra/sdk/model/Breakpoint.java
 src/main/java/io/kestra/sdk/model/BulkErrorResponse.java
+src/main/java/io/kestra/sdk/model/BulkImportAppsRequest.java
 src/main/java/io/kestra/sdk/model/BulkResponse.java
 src/main/java/io/kestra/sdk/model/Cache.java
 src/main/java/io/kestra/sdk/model/ChartChartOption.java
@@ -505,6 +511,8 @@ src/main/java/io/kestra/sdk/model/ConvertibleMultiValuesString.java
 src/main/java/io/kestra/sdk/model/ConvertibleValuesListString.java
 src/main/java/io/kestra/sdk/model/CreateApiTokenRequest.java
 src/main/java/io/kestra/sdk/model/CreateApiTokenResponse.java
+src/main/java/io/kestra/sdk/model/CreateExecutionRequest.java
+src/main/java/io/kestra/sdk/model/CreateNamespaceFileRequest.java
 src/main/java/io/kestra/sdk/model/CreateSecurityIntegrationRequest.java
 src/main/java/io/kestra/sdk/model/CrudEventType.java
 src/main/java/io/kestra/sdk/model/DailyExecutionStatistics.java
@@ -764,6 +772,7 @@ src/main/java/io/kestra/sdk/model/ServiceProviderConfigurationFilterConfiguratio
 src/main/java/io/kestra/sdk/model/ServiceProviderConfigurationSupportedConfiguration.java
 src/main/java/io/kestra/sdk/model/ServiceServiceState.java
 src/main/java/io/kestra/sdk/model/ServiceType.java
+src/main/java/io/kestra/sdk/model/SetLogoRequest.java
 src/main/java/io/kestra/sdk/model/SetupConfiguration.java
 src/main/java/io/kestra/sdk/model/SetupConfigurationSetupData.java
 src/main/java/io/kestra/sdk/model/SortOrder.java
@@ -799,6 +808,7 @@ src/main/java/io/kestra/sdk/model/TriggerFixture.java
 src/main/java/io/kestra/sdk/model/Type.java
 src/main/java/io/kestra/sdk/model/UnitTest.java
 src/main/java/io/kestra/sdk/model/UnitTestResult.java
+src/main/java/io/kestra/sdk/model/UploadVersionedPluginsRequest.java
 src/main/java/io/kestra/sdk/model/UsageEE.java
 src/main/java/io/kestra/sdk/model/UserGroup.java
 src/main/java/io/kestra/sdk/model/UserGroupType.java

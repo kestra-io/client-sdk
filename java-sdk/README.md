@@ -105,9 +105,9 @@ public class ExecutionsApiExample {
         OffsetDateTime scheduleDate = OffsetDateTime.now(); // OffsetDateTime | Schedule the flow on a specific date
         String breakpoints = "breakpoints_example"; // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
         ExecutionKind kind = ExecutionKind.fromValue("NORMAL"); // ExecutionKind | Specific execution kind
-        List<File> inputs = Arrays.asList(); // List<File> | 
+        List<Object> _file = Arrays.asList(null); // List<Object> | 
         try {
-            ExecutionControllerExecutionResponse result = apiInstance.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind, inputs);
+            ExecutionControllerExecutionResponse result = apiInstance.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind, _file);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#createExecution");
@@ -353,6 +353,7 @@ Class | Method | HTTP request | Description
  - [BlueprintWithFlow](docs/BlueprintWithFlow.md)
  - [Breakpoint](docs/Breakpoint.md)
  - [BulkErrorResponse](docs/BulkErrorResponse.md)
+ - [BulkImportAppsRequest](docs/BulkImportAppsRequest.md)
  - [BulkResponse](docs/BulkResponse.md)
  - [Cache](docs/Cache.md)
  - [ChartChartOption](docs/ChartChartOption.md)
@@ -365,6 +366,8 @@ Class | Method | HTTP request | Description
  - [ConvertibleValuesListString](docs/ConvertibleValuesListString.md)
  - [CreateApiTokenRequest](docs/CreateApiTokenRequest.md)
  - [CreateApiTokenResponse](docs/CreateApiTokenResponse.md)
+ - [CreateExecutionRequest](docs/CreateExecutionRequest.md)
+ - [CreateNamespaceFileRequest](docs/CreateNamespaceFileRequest.md)
  - [CreateSecurityIntegrationRequest](docs/CreateSecurityIntegrationRequest.md)
  - [CrudEventType](docs/CrudEventType.md)
  - [DailyExecutionStatistics](docs/DailyExecutionStatistics.md)
@@ -624,6 +627,7 @@ Class | Method | HTTP request | Description
  - [ServiceProviderConfigurationSupportedConfiguration](docs/ServiceProviderConfigurationSupportedConfiguration.md)
  - [ServiceServiceState](docs/ServiceServiceState.md)
  - [ServiceType](docs/ServiceType.md)
+ - [SetLogoRequest](docs/SetLogoRequest.md)
  - [SetupConfiguration](docs/SetupConfiguration.md)
  - [SetupConfigurationSetupData](docs/SetupConfigurationSetupData.md)
  - [SortOrder](docs/SortOrder.md)
@@ -659,6 +663,7 @@ Class | Method | HTTP request | Description
  - [Type](docs/Type.md)
  - [UnitTest](docs/UnitTest.md)
  - [UnitTestResult](docs/UnitTestResult.md)
+ - [UploadVersionedPluginsRequest](docs/UploadVersionedPluginsRequest.md)
  - [UsageEE](docs/UsageEE.md)
  - [UserGroup](docs/UserGroup.md)
  - [UserGroupType](docs/UserGroupType.md)
