@@ -792,12 +792,17 @@ public class ExecutionsApiTest {
      */
     @Test
     public void setLabelsOnTerminatedExecutionTest() throws ApiException {
-        String executionId = null;
+        Execution exec = createdExecution(LOG_FLOW, StateType.SUCCESS);
+        String executionId = exec.getId();
 
-        List<Label> label = null;
+        Label labelFoo = new Label().key("foo").value("bar");
+        Label labelTerminated = new Label().key("terminated").value("yes");
+        List<Label> label = List.of(labelFoo, labelTerminated);
+
         Object response = kestraClient().executions().setLabelsOnTerminatedExecution(executionId, MAIN_TENANT, label);
-
-        // TODO: test validations
+        assertNotNull(response);
+        Execution execWithLabel = kestraClient().executions().getExecution(executionId, MAIN_TENANT);
+        assertThat(execWithLabel.getLabels()).contains(labelFoo, labelTerminated);
     }
     /**
      * Set labels on a list of executions
@@ -807,11 +812,26 @@ public class ExecutionsApiTest {
      */
     @Test
     public void setLabelsOnTerminatedExecutionsByIdsTest() throws ApiException {
+        Execution exec1 = createdExecution(LOG_FLOW, StateType.SUCCESS);
+        Execution exec2 = createdExecution(LOG_FLOW, StateType.SUCCESS);
+        Execution otherExec = createdExecution(LOG_FLOW, StateType.SUCCESS);
 
-        ExecutionControllerSetLabelsByIdsRequest executionControllerSetLabelsByIdsRequest = null;
+        Label labelFoo = new Label().key("foo").value("bar");
+        Label labelTerminated = new Label().key("terminated").value("yes");
+        List<Label> labels = List.of(labelFoo, labelTerminated);
+
+        ExecutionControllerSetLabelsByIdsRequest executionControllerSetLabelsByIdsRequest = new ExecutionControllerSetLabelsByIdsRequest()
+            .executionsId(List.of(exec1.getId(), exec2.getId()))
+            .executionLabels(labels);
         BulkResponse response = kestraClient().executions().setLabelsOnTerminatedExecutionsByIds(MAIN_TENANT, executionControllerSetLabelsByIdsRequest);
 
-        // TODO: test validations
+        assertThat(response.getCount()).isEqualTo(2);
+        Execution exec1WithLabel = kestraClient().executions().getExecution(exec1.getId(), MAIN_TENANT);
+        assertThat(exec1WithLabel.getLabels()).contains(labelFoo, labelTerminated);
+        Execution exec2WithLabel = kestraClient().executions().getExecution(exec2.getId(), MAIN_TENANT);
+        assertThat(exec2WithLabel.getLabels()).contains(labelFoo, labelTerminated);
+        Execution otherExecWithLabel = kestraClient().executions().getExecution(otherExec.getId(), MAIN_TENANT);
+        assertThat(otherExecWithLabel.getLabels()).doesNotContain(labelFoo, labelTerminated);
     }
     /**
      * Set label on executions filter by query parameters
@@ -821,12 +841,25 @@ public class ExecutionsApiTest {
      */
     @Test
     public void setLabelsOnTerminatedExecutionsByQueryTest() throws ApiException {
+        Execution exec1 = createdExecution(LOG_FLOW, StateType.SUCCESS);
+        Execution exec2 = createdExecution(LOG_FLOW, StateType.SUCCESS);
+        Execution otherExec = createdExecution(LOG_FLOW, StateType.SUCCESS);
 
-        List<Label> label = null;
-        List<QueryFilter> filters = new ArrayList<>();
-//        Object response = kestraClient().executions().setLabelsOnTerminatedExecutionsByQuery(MAIN_TENANT, label, filters); FIXME NICO
+        Label labelFoo = new Label().key("foo").value("bar");
+        Label labelTerminated = new Label().key("terminated").value("yes");
+        List<Label> labels = List.of(labelFoo, labelTerminated);
+        List<QueryFilter> filters = List.of(new QueryFilter().field(QueryFilterField.NAMESPACE)
+            .operation(QueryFilterOp.IN)
+            .value(List.of(exec1.getNamespace(), exec2.getNamespace())));
 
-        // TODO: test validations
+        Object response = kestraClient().executions().setLabelsOnTerminatedExecutionsByQuery(MAIN_TENANT, labels, filters);
+        assertThat(response).isInstanceOf(LinkedHashMap.class).extracting("count").isEqualTo(2);
+        Execution exec1WithLabel = kestraClient().executions().getExecution(exec1.getId(), MAIN_TENANT);
+        assertThat(exec1WithLabel.getLabels()).contains(labelFoo, labelTerminated);
+        Execution exec2WithLabel = kestraClient().executions().getExecution(exec2.getId(), MAIN_TENANT);
+        assertThat(exec2WithLabel.getLabels()).contains(labelFoo, labelTerminated);
+        Execution otherExecWithLabel = kestraClient().executions().getExecution(otherExec.getId(), MAIN_TENANT);
+        assertThat(otherExecWithLabel.getLabels()).doesNotContain(labelFoo, labelTerminated);
     }
     /**
      * Trigger a new execution by GET webhook trigger
