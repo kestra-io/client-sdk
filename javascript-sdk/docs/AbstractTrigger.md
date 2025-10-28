@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**minLogLevel** | [**Level**](Level.md) |  | [optional] 
 **id** | **String** |  | 
 **type** | **String** |  | 
 **version** | **String** |  | [optional] 

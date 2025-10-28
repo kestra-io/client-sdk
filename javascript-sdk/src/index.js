@@ -96,7 +96,6 @@ import DailyExecutionStatisticsDuration from './model/DailyExecutionStatisticsDu
 import DailyExecutionStatisticsExecutionCounts from './model/DailyExecutionStatisticsExecutionCounts';
 import Dashboard from './model/Dashboard';
 import DashboardControllerPreviewRequest from './model/DashboardControllerPreviewRequest';
-import DeleteExecutionsByQueryRequest from './model/DeleteExecutionsByQueryRequest';
 import DeletedInterface from './model/DeletedInterface';
 import DependsOn from './model/DependsOn';
 import DocumentationWithSchema from './model/DocumentationWithSchema';
@@ -215,7 +214,6 @@ import Isolation from './model/Isolation';
 import KVControllerApiDeleteBulkRequest from './model/KVControllerApiDeleteBulkRequest';
 import KVControllerApiDeleteBulkResponse from './model/KVControllerApiDeleteBulkResponse';
 import KVControllerTypedValue from './model/KVControllerTypedValue';
-import KVControllerTypedValueValue from './model/KVControllerTypedValueValue';
 import KVEntry from './model/KVEntry';
 import KVType from './model/KVType';
 import Label from './model/Label';
@@ -385,8 +383,6 @@ import TriggerFixture from './model/TriggerFixture';
 import Type from './model/Type';
 import UnitTest from './model/UnitTest';
 import UnitTestResult from './model/UnitTestResult';
-import UpdateFlow200Response from './model/UpdateFlow200Response';
-import UpdateFlowsInNamespaceFromJson200Response from './model/UpdateFlowsInNamespaceFromJson200Response';
 import UsageEE from './model/UsageEE';
 import UserGroup from './model/UserGroup';
 import UserGroupType from './model/UserGroupType';
@@ -944,12 +940,6 @@ export {
      * @property {module:model/DashboardControllerPreviewRequest}
      */
     DashboardControllerPreviewRequest,
-
-    /**
-     * The DeleteExecutionsByQueryRequest model constructor.
-     * @property {module:model/DeleteExecutionsByQueryRequest}
-     */
-    DeleteExecutionsByQueryRequest,
 
     /**
      * The DeletedInterface model constructor.
@@ -1658,12 +1648,6 @@ export {
      * @property {module:model/KVControllerTypedValue}
      */
     KVControllerTypedValue,
-
-    /**
-     * The KVControllerTypedValueValue model constructor.
-     * @property {module:model/KVControllerTypedValueValue}
-     */
-    KVControllerTypedValueValue,
 
     /**
      * The KVEntry model constructor.
@@ -2678,18 +2662,6 @@ export {
      * @property {module:model/UnitTestResult}
      */
     UnitTestResult,
-
-    /**
-     * The UpdateFlow200Response model constructor.
-     * @property {module:model/UpdateFlow200Response}
-     */
-    UpdateFlow200Response,
-
-    /**
-     * The UpdateFlowsInNamespaceFromJson200Response model constructor.
-     * @property {module:model/UpdateFlowsInNamespaceFromJson200Response}
-     */
-    UpdateFlowsInNamespaceFromJson200Response,
 
     /**
      * The UsageEE model constructor.

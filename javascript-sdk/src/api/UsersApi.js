@@ -48,6 +48,9 @@ export default class UsersApi {
 
 
 
+
+            
+
     /**
      * List users for autocomplete
      * @param {String} tenant 
@@ -99,6 +102,15 @@ export default class UsersApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Create new API Token for a specific user
@@ -154,6 +166,15 @@ export default class UsersApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Create a new user account
      * Superadmin-only. Create a new user account with an optional password based authentication method.
@@ -200,6 +221,15 @@ export default class UsersApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Delete an API Token for specific user and token id
@@ -256,6 +286,15 @@ export default class UsersApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Delete a user refresh token
      * @param {String} id The user id
@@ -301,6 +340,15 @@ export default class UsersApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Delete a user
@@ -349,6 +397,15 @@ export default class UsersApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Update user password
@@ -405,6 +462,15 @@ export default class UsersApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Get a user
      * Superadmin-only. Get user account details.
@@ -452,6 +518,15 @@ export default class UsersApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Impersonate a user
@@ -501,6 +576,15 @@ export default class UsersApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * List API tokens for a specific user
      * Superadmin-only. Get all API token existing for a user.
@@ -548,6 +632,15 @@ export default class UsersApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Retrieve users
@@ -611,6 +704,15 @@ export default class UsersApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Update user details
      * Superadmin-only. Updates the the details of a user.
@@ -664,6 +766,15 @@ export default class UsersApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Update user demo
@@ -719,6 +830,15 @@ export default class UsersApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Update user password
      * Superadmin-only. Updates whether a user is a superadmin.
@@ -772,6 +892,15 @@ export default class UsersApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Update user superadmin privileges
@@ -827,6 +956,15 @@ export default class UsersApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Update authenticated user password
      * Changes the login password for the authenticated user.
@@ -873,6 +1011,15 @@ export default class UsersApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Update a user account
@@ -927,6 +1074,15 @@ export default class UsersApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Update the list of groups a user belongs to for the given tenant
@@ -985,6 +1141,12 @@ export default class UsersApi {
           return response_and_data.data;
         });
     }
+
+
+
+
+
+
 
 
 }

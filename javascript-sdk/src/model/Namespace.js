@@ -14,7 +14,6 @@
 import ApiClient from '../ApiClient';
 import Isolation from './Isolation';
 import NamespaceAllowedNamespace from './NamespaceAllowedNamespace';
-import NamespaceAllowedTrigger from './NamespaceAllowedTrigger';
 import NamespaceLight from './NamespaceLight';
 import PluginDefault from './PluginDefault';
 import WorkerGroup from './WorkerGroup';
@@ -65,9 +64,6 @@ class Namespace {
             }
             if (data.hasOwnProperty('deleted')) {
                 obj['deleted'] = ApiClient.convertToType(data['deleted'], 'Boolean');
-            }
-            if (data.hasOwnProperty('allowedTriggers')) {
-                obj['allowedTriggers'] = ApiClient.convertToType(data['allowedTriggers'], [NamespaceAllowedTrigger]);
             }
             if (data.hasOwnProperty('storageIsolation')) {
                 obj['storageIsolation'] = Isolation.constructFromObject(data['storageIsolation']);
@@ -127,16 +123,6 @@ class Namespace {
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
-        }
-        if (data['allowedTriggers']) { // data not null
-            // ensure the json data is an array
-            if (!Array.isArray(data['allowedTriggers'])) {
-                throw new Error("Expected the field `allowedTriggers` to be an array in the JSON data but got " + data['allowedTriggers']);
-            }
-            // validate the optional field `allowedTriggers` (array)
-            for (const item of data['allowedTriggers']) {
-                NamespaceAllowedTrigger.validateJSON(item);
-            };
         }
         // validate the optional field `storageIsolation`
         if (data['storageIsolation']) { // data not null
@@ -200,11 +186,6 @@ Namespace.prototype['id'] = undefined;
  * @member {Boolean} deleted
  */
 Namespace.prototype['deleted'] = undefined;
-
-/**
- * @member {Array.<module:model/NamespaceAllowedTrigger>} allowedTriggers
- */
-Namespace.prototype['allowedTriggers'] = undefined;
 
 /**
  * @member {module:model/Isolation} storageIsolation

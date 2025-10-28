@@ -41,6 +41,9 @@ export default class RolesApi {
 
 
 
+
+            
+
     /**
      * List roles for autocomplete
      * @param {String} tenant 
@@ -93,6 +96,15 @@ export default class RolesApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Create a role
      * @param {String} tenant 
@@ -144,6 +156,15 @@ export default class RolesApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Delete a role
@@ -198,6 +219,15 @@ export default class RolesApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Retrieve a role
      * @param {String} id The role id
@@ -251,6 +281,15 @@ export default class RolesApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * List roles by ids
      * @param {String} tenant 
@@ -302,6 +341,15 @@ export default class RolesApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Search for roles
@@ -372,6 +420,15 @@ export default class RolesApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Update a role
      * @param {String} id The role id
@@ -429,6 +486,12 @@ export default class RolesApi {
           return response_and_data.data;
         });
     }
+
+
+
+
+
+
 
 
 }

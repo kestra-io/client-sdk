@@ -42,6 +42,9 @@ export default class ServiceAccountApi {
 
 
 
+
+            
+
     /**
      * Create new API Token for a specific service account
      * @param {String} id The user id
@@ -93,6 +96,15 @@ export default class ServiceAccountApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Create new API Token for a specific service account
@@ -153,6 +165,15 @@ export default class ServiceAccountApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Create a service account
      * Superadmin-only. CReate service account with access to multiple tenants.
@@ -199,6 +220,15 @@ export default class ServiceAccountApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Create a service account for the given tenant
@@ -252,6 +282,15 @@ export default class ServiceAccountApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Delete an API Token for specific service account and token id
      * @param {String} id The user id
@@ -304,6 +343,15 @@ export default class ServiceAccountApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Delete an API Token for specific service account and token id
@@ -365,6 +413,15 @@ export default class ServiceAccountApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Delete a service account
      * Superadmin-only. Delete a service account including all its access.
@@ -412,6 +469,15 @@ export default class ServiceAccountApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Delete a service account
@@ -466,6 +532,15 @@ export default class ServiceAccountApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Get a service account
      * Superadmin-only. Get user account details.
@@ -513,6 +588,15 @@ export default class ServiceAccountApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Retrieve a service account
@@ -567,6 +651,15 @@ export default class ServiceAccountApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * List API tokens for a specific service account
      * @param {String} id The user id
@@ -612,6 +705,15 @@ export default class ServiceAccountApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * List API tokens for a specific service account
@@ -665,6 +767,15 @@ export default class ServiceAccountApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * List service accounts. Superadmin-only. 
@@ -728,6 +839,15 @@ export default class ServiceAccountApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Update service account details
      * Superadmin-only. Updates the details of a service account.
@@ -782,6 +902,15 @@ export default class ServiceAccountApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Update service account superadmin privileges
      * Superadmin-only. Updates whether a service account is a superadmin.
@@ -835,6 +964,15 @@ export default class ServiceAccountApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Update a user service account
@@ -893,6 +1031,12 @@ export default class ServiceAccountApi {
           return response_and_data.data;
         });
     }
+
+
+
+
+
+
 
 
 }

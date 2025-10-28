@@ -38,6 +38,9 @@ export default class KVApi {
 
 
 
+
+            
+
     /**
      * Delete a key-value pair
      * @param {String} namespace The namespace id
@@ -98,6 +101,15 @@ export default class KVApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Bulk-delete multiple key/value pairs from the given namespace.
      * @param {String} namespace The namespace id
@@ -156,6 +168,15 @@ export default class KVApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Get value for a key
@@ -217,6 +238,15 @@ export default class KVApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * List all keys for a namespace
      * @param {String} namespace The namespace id
@@ -270,6 +300,15 @@ export default class KVApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * List all keys for inherited namespaces
      * @param {String} namespace The namespace id
@@ -322,6 +361,15 @@ export default class KVApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Puts a key-value pair in store
@@ -387,6 +435,12 @@ export default class KVApi {
           return response_and_data.data;
         });
     }
+
+
+
+
+
+
 
 
 }

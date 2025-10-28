@@ -44,6 +44,9 @@ export default class GroupsApi {
 
 
 
+
+            
+
     /**
      * Add a user to a group
      * Adds the specified user to the given group. If the user does not already have access to the tenant, tenant access will be created automatically.
@@ -106,6 +109,15 @@ export default class GroupsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * List groups for autocomplete
      * @param {String} tenant 
@@ -157,6 +169,15 @@ export default class GroupsApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Create a group
@@ -210,6 +231,15 @@ export default class GroupsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Delete a group
      * @param {String} id The group id
@@ -262,6 +292,15 @@ export default class GroupsApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Remove a user from a group
@@ -325,6 +364,15 @@ export default class GroupsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Retrieve a group
      * Retrieves details of a specific group by its ID within the current tenant.
@@ -380,6 +428,15 @@ export default class GroupsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * List groups by ids
      * @param {String} tenant 
@@ -431,6 +488,15 @@ export default class GroupsApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Search for users in a group
@@ -508,6 +574,15 @@ export default class GroupsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Search for groups
      * @param {Number} page The current page
@@ -576,6 +651,15 @@ export default class GroupsApi {
         });
     }
 
+
+
+
+
+
+
+
+
+            
 
     /**
      * Update a user's membership type in a group
@@ -646,6 +730,15 @@ export default class GroupsApi {
     }
 
 
+
+
+
+
+
+
+
+            
+
     /**
      * Update a group
      * @param {String} id The group id
@@ -703,6 +796,12 @@ export default class GroupsApi {
           return response_and_data.data;
         });
     }
+
+
+
+
+
+
 
 
 }

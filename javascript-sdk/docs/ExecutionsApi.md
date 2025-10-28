@@ -9,8 +9,6 @@ Method | HTTP request | Description
 [**deleteExecutionsByIds**](ExecutionsApi.md#deleteExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/by-ids | Delete a list of executions
 [**deleteExecutionsByQuery**](ExecutionsApi.md#deleteExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/by-query | Delete executions filter by query parameters
 [**downloadFileFromExecution**](ExecutionsApi.md#downloadFileFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution
-[**evalTaskRunExpression**](ExecutionsApi.md#evalTaskRunExpression) | **POST** /api/v1/{tenant}/executions/{executionId}/eval/{taskRunId} | Evaluate a variable expression for this taskrun
-[**followDependenciesExecutions**](ExecutionsApi.md#followDependenciesExecutions) | **GET** /api/v1/{tenant}/executions/{executionId}/follow-dependencies | Follow all execution dependencies executions
 [**followExecution**](ExecutionsApi.md#followExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/follow | Follow an execution
 [**forceRunByIds**](ExecutionsApi.md#forceRunByIds) | **POST** /api/v1/{tenant}/executions/force-run/by-ids | Force run a list of executions
 [**forceRunExecution**](ExecutionsApi.md#forceRunExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/force-run | Force run an execution
@@ -18,18 +16,14 @@ Method | HTTP request | Description
 [**getExecution**](ExecutionsApi.md#getExecution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution
 [**getExecutionFlowGraph**](ExecutionsApi.md#getExecutionFlowGraph) | **GET** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution
 [**getFileMetadatasFromExecution**](ExecutionsApi.md#getFileMetadatasFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution
-[**getFlowFromExecution**](ExecutionsApi.md#getFlowFromExecution) | **GET** /api/v1/{tenant}/executions/flows/{namespace}/{flowId} | Get flow information&#39;s for an execution
 [**getFlowFromExecutionById**](ExecutionsApi.md#getFlowFromExecutionById) | **GET** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution
 [**getLatestExecutions**](ExecutionsApi.md#getLatestExecutions) | **POST** /api/v1/{tenant}/executions/latest | Get the latest execution for given flows
 [**killExecution**](ExecutionsApi.md#killExecution) | **DELETE** /api/v1/{tenant}/executions/{executionId}/kill | Kill an execution
 [**killExecutionsByIds**](ExecutionsApi.md#killExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/kill/by-ids | Kill a list of executions
 [**killExecutionsByQuery**](ExecutionsApi.md#killExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/kill/by-query | Kill executions filter by query parameters
-[**listExecutableDistinctNamespaces**](ExecutionsApi.md#listExecutableDistinctNamespaces) | **GET** /api/v1/{tenant}/executions/namespaces | Get all namespaces that have executable flows
-[**listFlowExecutionsByNamespace**](ExecutionsApi.md#listFlowExecutionsByNamespace) | **GET** /api/v1/{tenant}/executions/namespaces/{namespace}/flows | Get all flow ids for a namespace. Data returned are FlowForExecution containing minimal information about a Flow for when you are allowed to executing but not reading.
 [**pauseExecution**](ExecutionsApi.md#pauseExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/pause | Pause a running execution.
 [**pauseExecutionsByIds**](ExecutionsApi.md#pauseExecutionsByIds) | **POST** /api/v1/{tenant}/executions/pause/by-ids | Pause a list of running executions
 [**pauseExecutionsByQuery**](ExecutionsApi.md#pauseExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/pause/by-query | Pause executions filter by query parameters
-[**previewFileFromExecution**](ExecutionsApi.md#previewFileFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/preview | Get file preview for an execution
 [**replayExecution**](ExecutionsApi.md#replayExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/replay | Create a new execution from an old one and start it from a specified task run id
 [**replayExecutionWithinputs**](ExecutionsApi.md#replayExecutionWithinputs) | **POST** /api/v1/{tenant}/executions/{executionId}/replay-with-inputs | Create a new execution from an old one and start it from a specified task run id
 [**replayExecutionsByIds**](ExecutionsApi.md#replayExecutionsByIds) | **POST** /api/v1/{tenant}/executions/replay/by-ids | Create new executions from old ones. Keep the flow revision
@@ -38,19 +32,13 @@ Method | HTTP request | Description
 [**restartExecutionsByIds**](ExecutionsApi.md#restartExecutionsByIds) | **POST** /api/v1/{tenant}/executions/restart/by-ids | Restart a list of executions
 [**restartExecutionsByQuery**](ExecutionsApi.md#restartExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/restart/by-query | Restart executions filter by query parameters
 [**resumeExecution**](ExecutionsApi.md#resumeExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/resume | Resume a paused execution.
-[**resumeExecutionFromBreakpoint**](ExecutionsApi.md#resumeExecutionFromBreakpoint) | **POST** /api/v1/{tenant}/executions/{executionId}/resume-from-breakpoint | Resume an execution from a breakpoint (in the &#39;BREAKPOINT&#39; state).
 [**resumeExecutionsByIds**](ExecutionsApi.md#resumeExecutionsByIds) | **POST** /api/v1/{tenant}/executions/resume/by-ids | Resume a list of paused executions
 [**resumeExecutionsByQuery**](ExecutionsApi.md#resumeExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/resume/by-query | Resume executions filter by query parameters
 [**searchExecutions**](ExecutionsApi.md#searchExecutions) | **GET** /api/v1/{tenant}/executions/search | Search for executions
-[**searchExecutionsByFlowId**](ExecutionsApi.md#searchExecutionsByFlowId) | **GET** /api/v1/{tenant}/executions | Search for executions for a flow
-[**searchTaskRun**](ExecutionsApi.md#searchTaskRun) | **GET** /api/v1/{tenant}/taskruns/search | Search for taskruns, only available with the Elasticsearch repository
 [**setLabelsOnTerminatedExecution**](ExecutionsApi.md#setLabelsOnTerminatedExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/labels | Add or update labels of a terminated execution
 [**setLabelsOnTerminatedExecutionsByIds**](ExecutionsApi.md#setLabelsOnTerminatedExecutionsByIds) | **POST** /api/v1/{tenant}/executions/labels/by-ids | Set labels on a list of executions
 [**setLabelsOnTerminatedExecutionsByQuery**](ExecutionsApi.md#setLabelsOnTerminatedExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/labels/by-query | Set label on executions filter by query parameters
-[**triggerExecution**](ExecutionsApi.md#triggerExecution) | **POST** /api/v1/{tenant}/executions/trigger/{namespace}/{id} | Trigger a new execution for a flow
 [**triggerExecutionByGetWebhook**](ExecutionsApi.md#triggerExecutionByGetWebhook) | **GET** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key} | Trigger a new execution by GET webhook trigger
-[**triggerExecutionByPostWebhook**](ExecutionsApi.md#triggerExecutionByPostWebhook) | **POST** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key} | Trigger a new execution by POST webhook trigger
-[**triggerExecutionByPutWebhook**](ExecutionsApi.md#triggerExecutionByPutWebhook) | **PUT** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key} | Trigger a new execution by PUT webhook trigger
 [**unqueueExecution**](ExecutionsApi.md#unqueueExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/unqueue | Unqueue an execution
 [**unqueueExecutionsByIds**](ExecutionsApi.md#unqueueExecutionsByIds) | **POST** /api/v1/{tenant}/executions/unqueue/by-ids | Unqueue a list of executions
 [**unqueueExecutionsByQuery**](ExecutionsApi.md#unqueueExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/unqueue/by-query | Unqueue executions filter by query parameters
@@ -58,8 +46,6 @@ Method | HTTP request | Description
 [**updateExecutionsStatusByIds**](ExecutionsApi.md#updateExecutionsStatusByIds) | **POST** /api/v1/{tenant}/executions/change-status/by-ids | Change executions state by id
 [**updateExecutionsStatusByQuery**](ExecutionsApi.md#updateExecutionsStatusByQuery) | **POST** /api/v1/{tenant}/executions/change-status/by-query | Change executions state by query parameters
 [**updateTaskRunState**](ExecutionsApi.md#updateTaskRunState) | **POST** /api/v1/{tenant}/executions/{executionId}/state | Change state for a taskrun in an execution
-[**validateNewExecutionInputs**](ExecutionsApi.md#validateNewExecutionInputs) | **POST** /api/v1/{tenant}/executions/{namespace}/{id}/validate | Validate the creation of a new execution for a flow
-[**validateResumeExecutionInputs**](ExecutionsApi.md#validateResumeExecutionInputs) | **POST** /api/v1/{tenant}/executions/{executionId}/resume/validate | Validate inputs to resume a paused execution.
 
 
 
@@ -133,7 +119,7 @@ Name | Type | Description  | Notes
 
 ## deleteExecution
 
-> deleteExecution(executionId, deleteLogs, deleteMetrics, deleteStorage, tenant)
+> deleteExecution(executionId, tenant, opts)
 
 Delete an execution
 
@@ -152,11 +138,13 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
-let deleteLogs = true; // Boolean | Whether to delete execution logs
-let deleteMetrics = true; // Boolean | Whether to delete execution metrics
-let deleteStorage = true; // Boolean | Whether to delete execution files in the internal storage
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteExecution(executionId, deleteLogs, deleteMetrics, deleteStorage, tenant).then(() => {
+let opts = {
+  'deleteLogs': true, // Boolean | Whether to delete execution logs
+  'deleteMetrics': true, // Boolean | Whether to delete execution metrics
+  'deleteStorage': true // Boolean | Whether to delete execution files in the internal storage
+};
+apiInstance.deleteExecution(executionId, tenant, opts).then(() => {
   console.log('API called successfully.');
 }, (error) => {
   console.error(error);
@@ -170,10 +158,10 @@ apiInstance.deleteExecution(executionId, deleteLogs, deleteMetrics, deleteStorag
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **executionId** | **String**| The execution id | 
- **deleteLogs** | **Boolean**| Whether to delete execution logs | [default to true]
- **deleteMetrics** | **Boolean**| Whether to delete execution metrics | [default to true]
- **deleteStorage** | **Boolean**| Whether to delete execution files in the internal storage | [default to true]
  **tenant** | **String**|  | 
+ **deleteLogs** | **Boolean**| Whether to delete execution logs | [optional] [default to true]
+ **deleteMetrics** | **Boolean**| Whether to delete execution metrics | [optional] [default to true]
+ **deleteStorage** | **Boolean**| Whether to delete execution files in the internal storage | [optional] [default to true]
 
 ### Return type
 
@@ -191,7 +179,7 @@ null (empty response body)
 
 ## deleteExecutionsByIds
 
-> BulkResponse deleteExecutionsByIds(deleteLogs, deleteMetrics, deleteStorage, tenant, requestBody, opts)
+> BulkResponse deleteExecutionsByIds(tenant, requestBody, opts)
 
 Delete a list of executions
 
@@ -209,15 +197,15 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
-let deleteLogs = true; // Boolean | Whether to delete execution logs
-let deleteMetrics = true; // Boolean | Whether to delete execution metrics
-let deleteStorage = true; // Boolean | Whether to delete execution files in the internal storage
 let tenant = "tenant_example"; // String | 
 let requestBody = ["null"]; // [String] | The execution id
 let opts = {
-  'includeNonTerminated': false // Boolean | Whether to delete non-terminated executions
+  'includeNonTerminated': false, // Boolean | Whether to delete non-terminated executions
+  'deleteLogs': true, // Boolean | Whether to delete execution logs
+  'deleteMetrics': true, // Boolean | Whether to delete execution metrics
+  'deleteStorage': true // Boolean | Whether to delete execution files in the internal storage
 };
-apiInstance.deleteExecutionsByIds(deleteLogs, deleteMetrics, deleteStorage, tenant, requestBody, opts).then((data) => {
+apiInstance.deleteExecutionsByIds(tenant, requestBody, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -230,12 +218,12 @@ apiInstance.deleteExecutionsByIds(deleteLogs, deleteMetrics, deleteStorage, tena
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **deleteLogs** | **Boolean**| Whether to delete execution logs | [default to true]
- **deleteMetrics** | **Boolean**| Whether to delete execution metrics | [default to true]
- **deleteStorage** | **Boolean**| Whether to delete execution files in the internal storage | [default to true]
  **tenant** | **String**|  | 
  **requestBody** | [**[String]**](String.md)| The execution id | 
  **includeNonTerminated** | **Boolean**| Whether to delete non-terminated executions | [optional] [default to false]
+ **deleteLogs** | **Boolean**| Whether to delete execution logs | [optional] [default to true]
+ **deleteMetrics** | **Boolean**| Whether to delete execution metrics | [optional] [default to true]
+ **deleteStorage** | **Boolean**| Whether to delete execution files in the internal storage | [optional] [default to true]
 
 ### Return type
 
@@ -253,7 +241,7 @@ Name | Type | Description  | Notes
 
 ## deleteExecutionsByQuery
 
-> Object deleteExecutionsByQuery(deleteLogs, deleteMetrics, deleteStorage, tenant, deleteExecutionsByQueryRequest, opts)
+> Object deleteExecutionsByQuery(tenant, opts)
 
 Delete executions filter by query parameters
 
@@ -271,26 +259,15 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
-let deleteLogs = true; // Boolean | Whether to delete execution logs
-let deleteMetrics = true; // Boolean | Whether to delete execution metrics
-let deleteStorage = true; // Boolean | Whether to delete execution files in the internal storage
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraIoKestraSdk.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
-  'q': "q_example", // String | A string filter
-  'scope': [new KestraIoKestraSdk.FlowScope()], // [FlowScope] | The scope of the executions to include
-  'namespace': "namespace_example", // String | A namespace filter prefix
-  'flowId': "flowId_example", // String | A flow id filter
-  'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
-  'endDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The end datetime
-  'timeRange': "PT5M", // String | A time range filter relative to the current time
-  'state': [new KestraIoKestraSdk.StateType()], // [StateType] | A state filter
-  'labels': ["null"], // [String] | A labels filter as a list of 'key:value'
-  'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
-  'childFilter': new KestraIoKestraSdk.ExecutionRepositoryInterfaceChildFilter(), // ExecutionRepositoryInterfaceChildFilter | A execution child filter
-  'includeNonTerminated': false // Boolean | Whether to delete non-terminated executions
+  'filters': [new KestraIoKestraSdk.QueryFilter()], // [QueryFilter] | Filters
+  'includeNonTerminated': false, // Boolean | Whether to delete non-terminated executions
+  'deleteLogs': true, // Boolean | Whether to delete execution logs
+  'deleteMetrics': true, // Boolean | Whether to delete execution metrics
+  'deleteStorage': true // Boolean | Whether to delete execution files in the internal storage
 };
-apiInstance.deleteExecutionsByQuery(deleteLogs, deleteMetrics, deleteStorage, tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+apiInstance.deleteExecutionsByQuery(tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -303,23 +280,12 @@ apiInstance.deleteExecutionsByQuery(deleteLogs, deleteMetrics, deleteStorage, te
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **deleteLogs** | **Boolean**| Whether to delete execution logs | [default to true]
- **deleteMetrics** | **Boolean**| Whether to delete execution metrics | [default to true]
- **deleteStorage** | **Boolean**| Whether to delete execution files in the internal storage | [default to true]
  **tenant** | **String**|  | 
- **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | 
- **q** | **String**| A string filter | [optional] 
- **scope** | [**[FlowScope]**](FlowScope.md)| The scope of the executions to include | [optional] 
- **namespace** | **String**| A namespace filter prefix | [optional] 
- **flowId** | **String**| A flow id filter | [optional] 
- **startDate** | **Date**| The start datetime | [optional] 
- **endDate** | **Date**| The end datetime | [optional] 
- **timeRange** | **String**| A time range filter relative to the current time | [optional] 
- **state** | [**[StateType]**](StateType.md)| A state filter | [optional] 
- **labels** | [**[String]**](String.md)| A labels filter as a list of &#39;key:value&#39; | [optional] 
- **triggerExecutionId** | **String**| The trigger execution id | [optional] 
- **childFilter** | [**ExecutionRepositoryInterfaceChildFilter**](.md)| A execution child filter | [optional] 
+ **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
  **includeNonTerminated** | **Boolean**| Whether to delete non-terminated executions | [optional] [default to false]
+ **deleteLogs** | **Boolean**| Whether to delete execution logs | [optional] [default to true]
+ **deleteMetrics** | **Boolean**| Whether to delete execution metrics | [optional] [default to true]
+ **deleteStorage** | **Boolean**| Whether to delete execution files in the internal storage | [optional] [default to true]
 
 ### Return type
 
@@ -331,7 +297,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -387,118 +353,6 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/octet-stream
-
-
-## evalTaskRunExpression
-
-> ExecutionControllerEvalResult evalTaskRunExpression(executionId, taskRunId, tenant, body)
-
-Evaluate a variable expression for this taskrun
-
-### Example
-
-```javascript
-import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
-let defaultClient = KestraIoKestraSdk.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
-let executionId = "executionId_example"; // String | The execution id
-let taskRunId = "taskRunId_example"; // String | The taskrun id
-let tenant = "tenant_example"; // String | 
-let body = "body_example"; // String | The Pebble expression that should be evaluated
-apiInstance.evalTaskRunExpression(executionId, taskRunId, tenant, body).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **executionId** | **String**| The execution id | 
- **taskRunId** | **String**| The taskrun id | 
- **tenant** | **String**|  | 
- **body** | **String**| The Pebble expression that should be evaluated | 
-
-### Return type
-
-[**ExecutionControllerEvalResult**](ExecutionControllerEvalResult.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: text/plain
-- **Accept**: application/json
-
-
-## followDependenciesExecutions
-
-> EventExecutionStatusEvent followDependenciesExecutions(executionId, destinationOnly, expandAll, tenant)
-
-Follow all execution dependencies executions
-
-### Example
-
-```javascript
-import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
-let defaultClient = KestraIoKestraSdk.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
-let executionId = "executionId_example"; // String | The execution id
-let destinationOnly = false; // Boolean | If true, list only destination dependencies, otherwise list also source dependencies
-let expandAll = false; // Boolean | If true, expand all dependencies recursively
-let tenant = "tenant_example"; // String | 
-apiInstance.followDependenciesExecutions(executionId, destinationOnly, expandAll, tenant).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **executionId** | **String**| The execution id | 
- **destinationOnly** | **Boolean**| If true, list only destination dependencies, otherwise list also source dependencies | [default to false]
- **expandAll** | **Boolean**| If true, expand all dependencies recursively | [default to false]
- **tenant** | **String**|  | 
-
-### Return type
-
-[**EventExecutionStatusEvent**](EventExecutionStatusEvent.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: text/event-stream
 
 
 ## followExecution
@@ -659,7 +513,7 @@ Name | Type | Description  | Notes
 
 ## forceRunExecutionsByQuery
 
-> Object forceRunExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts)
+> Object forceRunExecutionsByQuery(tenant, opts)
 
 Force run executions filter by query parameters
 
@@ -678,21 +532,10 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraIoKestraSdk.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
-  'q': "q_example", // String | A string filter
-  'scope': [new KestraIoKestraSdk.FlowScope()], // [FlowScope] | The scope of the executions to include
-  'namespace': "namespace_example", // String | A namespace filter prefix
-  'flowId': "flowId_example", // String | A flow id filter
-  'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
-  'endDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The end datetime
-  'timeRange': "PT5M", // String | A time range filter relative to the current time
-  'state': [new KestraIoKestraSdk.StateType()], // [StateType] | A state filter
-  'labels': ["null"], // [String] | A labels filter as a list of 'key:value'
-  'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
-  'childFilter': new KestraIoKestraSdk.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
+  'filters': [new KestraIoKestraSdk.QueryFilter()] // [QueryFilter] | Filters
 };
-apiInstance.forceRunExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+apiInstance.forceRunExecutionsByQuery(tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -706,18 +549,7 @@ apiInstance.forceRunExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, op
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **String**|  | 
- **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | 
- **q** | **String**| A string filter | [optional] 
- **scope** | [**[FlowScope]**](FlowScope.md)| The scope of the executions to include | [optional] 
- **namespace** | **String**| A namespace filter prefix | [optional] 
- **flowId** | **String**| A flow id filter | [optional] 
- **startDate** | **Date**| The start datetime | [optional] 
- **endDate** | **Date**| The end datetime | [optional] 
- **timeRange** | **String**| A time range filter relative to the current time | [optional] 
- **state** | [**[StateType]**](StateType.md)| A state filter | [optional] 
- **labels** | [**[String]**](String.md)| A labels filter as a list of &#39;key:value&#39; | [optional] 
- **triggerExecutionId** | **String**| The trigger execution id | [optional] 
- **childFilter** | [**ExecutionRepositoryInterfaceChildFilter**](.md)| A execution child filter | [optional] 
+ **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
@@ -729,7 +561,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -884,64 +716,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**FileMetas**](FileMetas.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## getFlowFromExecution
-
-> FlowForExecution getFlowFromExecution(namespace, flowId, tenant, opts)
-
-Get flow information&#39;s for an execution
-
-### Example
-
-```javascript
-import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
-let defaultClient = KestraIoKestraSdk.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
-let namespace = "namespace_example"; // String | The namespace of the flow
-let flowId = "flowId_example"; // String | The flow id
-let tenant = "tenant_example"; // String | 
-let opts = {
-  'revision': 56 // Number | The flow revision
-};
-apiInstance.getFlowFromExecution(namespace, flowId, tenant, opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **namespace** | **String**| The namespace of the flow | 
- **flowId** | **String**| The flow id | 
- **tenant** | **String**|  | 
- **revision** | **Number**| The flow revision | [optional] 
-
-### Return type
-
-[**FlowForExecution**](FlowForExecution.md)
 
 ### Authorization
 
@@ -1165,7 +939,7 @@ Name | Type | Description  | Notes
 
 ## killExecutionsByQuery
 
-> Object killExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts)
+> Object killExecutionsByQuery(tenant, opts)
 
 Kill executions filter by query parameters
 
@@ -1184,21 +958,10 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraIoKestraSdk.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
-  'q': "q_example", // String | A string filter
-  'scope': [new KestraIoKestraSdk.FlowScope()], // [FlowScope] | The scope of the executions to include
-  'namespace': "namespace_example", // String | A namespace filter prefix
-  'flowId': "flowId_example", // String | A flow id filter
-  'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
-  'endDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The end datetime
-  'timeRange': "PT5M", // String | A time range filter relative to the current time
-  'state': [new KestraIoKestraSdk.StateType()], // [StateType] | A state filter
-  'labels': ["null"], // [String] | A labels filter as a list of 'key:value'
-  'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
-  'childFilter': new KestraIoKestraSdk.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
+  'filters': [new KestraIoKestraSdk.QueryFilter()] // [QueryFilter] | Filters
 };
-apiInstance.killExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+apiInstance.killExecutionsByQuery(tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -1212,124 +975,11 @@ apiInstance.killExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts).
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **String**|  | 
- **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | 
- **q** | **String**| A string filter | [optional] 
- **scope** | [**[FlowScope]**](FlowScope.md)| The scope of the executions to include | [optional] 
- **namespace** | **String**| A namespace filter prefix | [optional] 
- **flowId** | **String**| A flow id filter | [optional] 
- **startDate** | **Date**| The start datetime | [optional] 
- **endDate** | **Date**| The end datetime | [optional] 
- **timeRange** | **String**| A time range filter relative to the current time | [optional] 
- **state** | [**[StateType]**](StateType.md)| A state filter | [optional] 
- **labels** | [**[String]**](String.md)| A labels filter as a list of &#39;key:value&#39; | [optional] 
- **triggerExecutionId** | **String**| The trigger execution id | [optional] 
- **childFilter** | [**ExecutionRepositoryInterfaceChildFilter**](.md)| A execution child filter | [optional] 
+ **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
 **Object**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## listExecutableDistinctNamespaces
-
-> [String] listExecutableDistinctNamespaces(tenant)
-
-Get all namespaces that have executable flows
-
-### Example
-
-```javascript
-import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
-let defaultClient = KestraIoKestraSdk.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
-let tenant = "tenant_example"; // String | 
-apiInstance.listExecutableDistinctNamespaces(tenant).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **tenant** | **String**|  | 
-
-### Return type
-
-**[String]**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## listFlowExecutionsByNamespace
-
-> [FlowForExecution] listFlowExecutionsByNamespace(namespace, tenant)
-
-Get all flow ids for a namespace. Data returned are FlowForExecution containing minimal information about a Flow for when you are allowed to executing but not reading.
-
-### Example
-
-```javascript
-import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
-let defaultClient = KestraIoKestraSdk.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
-let namespace = "namespace_example"; // String | The namespace
-let tenant = "tenant_example"; // String | 
-apiInstance.listFlowExecutionsByNamespace(namespace, tenant).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **namespace** | **String**| The namespace | 
- **tenant** | **String**|  | 
-
-### Return type
-
-[**[FlowForExecution]**](FlowForExecution.md)
 
 ### Authorization
 
@@ -1447,7 +1097,7 @@ Name | Type | Description  | Notes
 
 ## pauseExecutionsByQuery
 
-> Object pauseExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts)
+> Object pauseExecutionsByQuery(tenant, opts)
 
 Pause executions filter by query parameters
 
@@ -1466,21 +1116,10 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraIoKestraSdk.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
-  'q': "q_example", // String | A string filter
-  'scope': [new KestraIoKestraSdk.FlowScope()], // [FlowScope] | The scope of the executions to include
-  'namespace': "namespace_example", // String | A namespace filter prefix
-  'flowId': "flowId_example", // String | A flow id filter
-  'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
-  'endDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The end datetime
-  'timeRange': "PT5M", // String | A time range filter relative to the current time
-  'state': [new KestraIoKestraSdk.StateType()], // [StateType] | A state filter
-  'labels': ["null"], // [String] | A labels filter as a list of 'key:value'
-  'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
-  'childFilter': new KestraIoKestraSdk.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
+  'filters': [new KestraIoKestraSdk.QueryFilter()] // [QueryFilter] | Filters
 };
-apiInstance.pauseExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+apiInstance.pauseExecutionsByQuery(tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -1494,76 +1133,7 @@ apiInstance.pauseExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts)
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **String**|  | 
- **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | 
- **q** | **String**| A string filter | [optional] 
- **scope** | [**[FlowScope]**](FlowScope.md)| The scope of the executions to include | [optional] 
- **namespace** | **String**| A namespace filter prefix | [optional] 
- **flowId** | **String**| A flow id filter | [optional] 
- **startDate** | **Date**| The start datetime | [optional] 
- **endDate** | **Date**| The end datetime | [optional] 
- **timeRange** | **String**| A time range filter relative to the current time | [optional] 
- **state** | [**[StateType]**](StateType.md)| A state filter | [optional] 
- **labels** | [**[String]**](String.md)| A labels filter as a list of &#39;key:value&#39; | [optional] 
- **triggerExecutionId** | **String**| The trigger execution id | [optional] 
- **childFilter** | [**ExecutionRepositoryInterfaceChildFilter**](.md)| A execution child filter | [optional] 
-
-### Return type
-
-**Object**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## previewFileFromExecution
-
-> Object previewFileFromExecution(executionId, path, maxRows, encoding, tenant)
-
-Get file preview for an execution
-
-### Example
-
-```javascript
-import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
-let defaultClient = KestraIoKestraSdk.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
-let executionId = "executionId_example"; // String | The execution id
-let path = "path_example"; // String | The internal storage uri
-let maxRows = 56; // Number | The max row returns
-let encoding = "ISO-8859-1"; // String | The file encoding as Java charset name. Defaults to UTF-8
-let tenant = "tenant_example"; // String | 
-apiInstance.previewFileFromExecution(executionId, path, maxRows, encoding, tenant).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **executionId** | **String**| The execution id | 
- **path** | **String**| The internal storage uri | 
- **maxRows** | **Number**| The max row returns | 
- **encoding** | **String**| The file encoding as Java charset name. Defaults to UTF-8 | [default to &#39;UTF-8&#39;]
- **tenant** | **String**|  | 
+ **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
@@ -1757,7 +1327,7 @@ Name | Type | Description  | Notes
 
 ## replayExecutionsByQuery
 
-> Object replayExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts)
+> Object replayExecutionsByQuery(tenant, opts)
 
 Create new executions from old ones filter by query parameters. Keep the flow revision
 
@@ -1776,22 +1346,11 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraIoKestraSdk.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
-  'q': "q_example", // String | A string filter
-  'scope': [new KestraIoKestraSdk.FlowScope()], // [FlowScope] | The scope of the executions to include
-  'namespace': "namespace_example", // String | A namespace filter prefix
-  'flowId': "flowId_example", // String | A flow id filter
-  'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
-  'endDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The end datetime
-  'timeRange': "PT5M", // String | A time range filter relative to the current time
-  'state': [new KestraIoKestraSdk.StateType()], // [StateType] | A state filter
-  'labels': ["null"], // [String] | A labels filter as a list of 'key:value'
-  'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
-  'childFilter': new KestraIoKestraSdk.ExecutionRepositoryInterfaceChildFilter(), // ExecutionRepositoryInterfaceChildFilter | A execution child filter
+  'filters': [new KestraIoKestraSdk.QueryFilter()], // [QueryFilter] | Filters
   'latestRevision': false // Boolean | If latest revision should be used
 };
-apiInstance.replayExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+apiInstance.replayExecutionsByQuery(tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -1805,18 +1364,7 @@ apiInstance.replayExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **String**|  | 
- **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | 
- **q** | **String**| A string filter | [optional] 
- **scope** | [**[FlowScope]**](FlowScope.md)| The scope of the executions to include | [optional] 
- **namespace** | **String**| A namespace filter prefix | [optional] 
- **flowId** | **String**| A flow id filter | [optional] 
- **startDate** | **Date**| The start datetime | [optional] 
- **endDate** | **Date**| The end datetime | [optional] 
- **timeRange** | **String**| A time range filter relative to the current time | [optional] 
- **state** | [**[StateType]**](StateType.md)| A state filter | [optional] 
- **labels** | [**[String]**](String.md)| A labels filter as a list of &#39;key:value&#39; | [optional] 
- **triggerExecutionId** | **String**| The trigger execution id | [optional] 
- **childFilter** | [**ExecutionRepositoryInterfaceChildFilter**](.md)| A execution child filter | [optional] 
+ **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
  **latestRevision** | **Boolean**| If latest revision should be used | [optional] [default to false]
 
 ### Return type
@@ -1829,7 +1377,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -1943,7 +1491,7 @@ Name | Type | Description  | Notes
 
 ## restartExecutionsByQuery
 
-> Object restartExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts)
+> Object restartExecutionsByQuery(tenant, opts)
 
 Restart executions filter by query parameters
 
@@ -1962,21 +1510,10 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraIoKestraSdk.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
-  'q': "q_example", // String | A string filter
-  'scope': [new KestraIoKestraSdk.FlowScope()], // [FlowScope] | The scope of the executions to include
-  'namespace': "namespace_example", // String | A namespace filter prefix
-  'flowId': "flowId_example", // String | A flow id filter
-  'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
-  'endDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The end datetime
-  'timeRange': "PT5M", // String | A time range filter relative to the current time
-  'state': [new KestraIoKestraSdk.StateType()], // [StateType] | A state filter
-  'labels': ["null"], // [String] | A labels filter as a list of 'key:value'
-  'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
-  'childFilter': new KestraIoKestraSdk.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
+  'filters': [new KestraIoKestraSdk.QueryFilter()] // [QueryFilter] | Filters
 };
-apiInstance.restartExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+apiInstance.restartExecutionsByQuery(tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -1990,18 +1527,7 @@ apiInstance.restartExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opt
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **String**|  | 
- **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | 
- **q** | **String**| A string filter | [optional] 
- **scope** | [**[FlowScope]**](FlowScope.md)| The scope of the executions to include | [optional] 
- **namespace** | **String**| A namespace filter prefix | [optional] 
- **flowId** | **String**| A flow id filter | [optional] 
- **startDate** | **Date**| The start datetime | [optional] 
- **endDate** | **Date**| The end datetime | [optional] 
- **timeRange** | **String**| A time range filter relative to the current time | [optional] 
- **state** | [**[StateType]**](StateType.md)| A state filter | [optional] 
- **labels** | [**[String]**](String.md)| A labels filter as a list of &#39;key:value&#39; | [optional] 
- **triggerExecutionId** | **String**| The trigger execution id | [optional] 
- **childFilter** | [**ExecutionRepositoryInterfaceChildFilter**](.md)| A execution child filter | [optional] 
+ **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
@@ -2013,7 +1539,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -2067,62 +1593,6 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: multipart/form-data
 - **Accept**: application/json
-
-
-## resumeExecutionFromBreakpoint
-
-> resumeExecutionFromBreakpoint(executionId, tenant, opts)
-
-Resume an execution from a breakpoint (in the &#39;BREAKPOINT&#39; state).
-
-### Example
-
-```javascript
-import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
-let defaultClient = KestraIoKestraSdk.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
-let executionId = "executionId_example"; // String | The execution id
-let tenant = "tenant_example"; // String | 
-let opts = {
-  'breakpoints': "breakpoints_example" // String | \"Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
-};
-apiInstance.resumeExecutionFromBreakpoint(executionId, tenant, opts).then(() => {
-  console.log('API called successfully.');
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **executionId** | **String**| The execution id | 
- **tenant** | **String**|  | 
- **breakpoints** | **String**| \&quot;Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] 
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
 
 
 ## resumeExecutionsByIds
@@ -2179,7 +1649,7 @@ Name | Type | Description  | Notes
 
 ## resumeExecutionsByQuery
 
-> Object resumeExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts)
+> Object resumeExecutionsByQuery(tenant, opts)
 
 Resume executions filter by query parameters
 
@@ -2198,21 +1668,10 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraIoKestraSdk.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
-  'q': "q_example", // String | A string filter
-  'scope': [new KestraIoKestraSdk.FlowScope()], // [FlowScope] | The scope of the executions to include
-  'namespace': "namespace_example", // String | A namespace filter prefix
-  'flowId': "flowId_example", // String | A flow id filter
-  'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
-  'endDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The end datetime
-  'timeRange': "PT5M", // String | A time range filter relative to the current time
-  'state': [new KestraIoKestraSdk.StateType()], // [StateType] | A state filter
-  'labels': ["null"], // [String] | A labels filter as a list of 'key:value'
-  'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
-  'childFilter': new KestraIoKestraSdk.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
+  'filters': [new KestraIoKestraSdk.QueryFilter()] // [QueryFilter] | Filters
 };
-apiInstance.resumeExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+apiInstance.resumeExecutionsByQuery(tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -2226,18 +1685,7 @@ apiInstance.resumeExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **String**|  | 
- **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | 
- **q** | **String**| A string filter | [optional] 
- **scope** | [**[FlowScope]**](FlowScope.md)| The scope of the executions to include | [optional] 
- **namespace** | **String**| A namespace filter prefix | [optional] 
- **flowId** | **String**| A flow id filter | [optional] 
- **startDate** | **Date**| The start datetime | [optional] 
- **endDate** | **Date**| The end datetime | [optional] 
- **timeRange** | **String**| A time range filter relative to the current time | [optional] 
- **state** | [**[StateType]**](StateType.md)| A state filter | [optional] 
- **labels** | [**[String]**](String.md)| A labels filter as a list of &#39;key:value&#39; | [optional] 
- **triggerExecutionId** | **String**| The trigger execution id | [optional] 
- **childFilter** | [**ExecutionRepositoryInterfaceChildFilter**](.md)| A execution child filter | [optional] 
+ **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
@@ -2249,7 +1697,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -2278,18 +1726,7 @@ let size = 10; // Number | The current page size
 let tenant = "tenant_example"; // String | 
 let opts = {
   'sort': ["null"], // [String] | The sort of current page
-  'filters': [new KestraIoKestraSdk.QueryFilter()], // [QueryFilter] | Filters
-  'q': "q_example", // String | A string filter
-  'scope': [new KestraIoKestraSdk.FlowScope()], // [FlowScope] | The scope of the executions to include
-  'namespace': "namespace_example", // String | A namespace filter prefix
-  'flowId': "flowId_example", // String | A flow id filter
-  'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
-  'endDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The end datetime
-  'timeRange': "PT5M", // String | A time range filter relative to the current time
-  'state': [new KestraIoKestraSdk.StateType()], // [StateType] | A state filter
-  'labels': ["null"], // [String] | A labels filter as a list of 'key:value'
-  'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
-  'childFilter': new KestraIoKestraSdk.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
+  'filters': [new KestraIoKestraSdk.QueryFilter()] // [QueryFilter] | Filters
 };
 apiInstance.searchExecutions(page, size, tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -2309,159 +1746,10 @@ Name | Type | Description  | Notes
  **tenant** | **String**|  | 
  **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
  **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
- **q** | **String**| A string filter | [optional] 
- **scope** | [**[FlowScope]**](FlowScope.md)| The scope of the executions to include | [optional] 
- **namespace** | **String**| A namespace filter prefix | [optional] 
- **flowId** | **String**| A flow id filter | [optional] 
- **startDate** | **Date**| The start datetime | [optional] 
- **endDate** | **Date**| The end datetime | [optional] 
- **timeRange** | **String**| A time range filter relative to the current time | [optional] 
- **state** | [**[StateType]**](StateType.md)| A state filter | [optional] 
- **labels** | [**[String]**](String.md)| A labels filter as a list of &#39;key:value&#39; | [optional] 
- **triggerExecutionId** | **String**| The trigger execution id | [optional] 
- **childFilter** | [**ExecutionRepositoryInterfaceChildFilter**](.md)| A execution child filter | [optional] 
 
 ### Return type
 
 [**PagedResultsExecution**](PagedResultsExecution.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## searchExecutionsByFlowId
-
-> PagedResultsExecution searchExecutionsByFlowId(namespace, flowId, page, size, tenant)
-
-Search for executions for a flow
-
-### Example
-
-```javascript
-import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
-let defaultClient = KestraIoKestraSdk.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
-let namespace = "namespace_example"; // String | The flow namespace
-let flowId = "flowId_example"; // String | The flow id
-let page = 1; // Number | The current page
-let size = 10; // Number | The current page size
-let tenant = "tenant_example"; // String | 
-apiInstance.searchExecutionsByFlowId(namespace, flowId, page, size, tenant).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **namespace** | **String**| The flow namespace | 
- **flowId** | **String**| The flow id | 
- **page** | **Number**| The current page | [default to 1]
- **size** | **Number**| The current page size | [default to 10]
- **tenant** | **String**|  | 
-
-### Return type
-
-[**PagedResultsExecution**](PagedResultsExecution.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## searchTaskRun
-
-> PagedResultsTaskRun searchTaskRun(page, size, tenant, opts)
-
-Search for taskruns, only available with the Elasticsearch repository
-
-### Example
-
-```javascript
-import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
-let defaultClient = KestraIoKestraSdk.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
-let page = 1; // Number | The current page
-let size = 10; // Number | The current page size
-let tenant = "tenant_example"; // String | 
-let opts = {
-  'sort': ["null"], // [String] | The sort of current page
-  'filters': [new KestraIoKestraSdk.QueryFilter()], // [QueryFilter] | Filters
-  'q': "q_example", // String | A string filter
-  'namespace': "namespace_example", // String | A namespace filter prefix
-  'flowId': "flowId_example", // String | A flow id filter
-  'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
-  'endDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The end datetime
-  'timeRange': "PT5M", // String | A time range filter relative to the current time
-  'state': [new KestraIoKestraSdk.StateType()], // [StateType] | A state filter
-  'labels': ["null"], // [String] | A labels filter as a list of 'key:value'
-  'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
-  'childFilter': new KestraIoKestraSdk.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
-};
-apiInstance.searchTaskRun(page, size, tenant, opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **page** | **Number**| The current page | [default to 1]
- **size** | **Number**| The current page size | [default to 10]
- **tenant** | **String**|  | 
- **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
- **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
- **q** | **String**| A string filter | [optional] 
- **namespace** | **String**| A namespace filter prefix | [optional] 
- **flowId** | **String**| A flow id filter | [optional] 
- **startDate** | **Date**| The start datetime | [optional] 
- **endDate** | **Date**| The end datetime | [optional] 
- **timeRange** | **String**| A time range filter relative to the current time | [optional] 
- **state** | [**[StateType]**](StateType.md)| A state filter | [optional] 
- **labels** | [**[String]**](String.md)| A labels filter as a list of &#39;key:value&#39; | [optional] 
- **triggerExecutionId** | **String**| The trigger execution id | [optional] 
- **childFilter** | [**ExecutionRepositoryInterfaceChildFilter**](.md)| A execution child filter | [optional] 
-
-### Return type
-
-[**PagedResultsTaskRun**](PagedResultsTaskRun.md)
 
 ### Authorization
 
@@ -2600,19 +1888,9 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
-let label = new KestraIoKestraSdk.Label(); // [Label] | The labels to add to the execution
+let label = [new KestraIoKestraSdk.Label()]; // [Label] | The labels to add to the execution
 let opts = {
-  'q': "q_example", // String | A string filter
-  'scope': [new KestraIoKestraSdk.FlowScope()], // [FlowScope] | The scope of the executions to include
-  'namespace': "namespace_example", // String | A namespace filter prefix
-  'flowId': "flowId_example", // String | A flow id filter
-  'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
-  'endDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The end datetime
-  'timeRange': "PT5M", // String | A time range filter relative to the current time
-  'state': [new KestraIoKestraSdk.StateType()], // [StateType] | A state filter
-  'labels': ["null"], // [String] | A labels filter as a list of 'key:value'
-  'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
-  'childFilter': new KestraIoKestraSdk.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
+  'filters': [new KestraIoKestraSdk.QueryFilter()] // [QueryFilter] | Filters
 };
 apiInstance.setLabelsOnTerminatedExecutionsByQuery(tenant, label, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -2629,17 +1907,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **String**|  | 
  **label** | [**[Label]**](Label.md)| The labels to add to the execution | 
- **q** | **String**| A string filter | [optional] 
- **scope** | [**[FlowScope]**](FlowScope.md)| The scope of the executions to include | [optional] 
- **namespace** | **String**| A namespace filter prefix | [optional] 
- **flowId** | **String**| A flow id filter | [optional] 
- **startDate** | **Date**| The start datetime | [optional] 
- **endDate** | **Date**| The end datetime | [optional] 
- **timeRange** | **String**| A time range filter relative to the current time | [optional] 
- **state** | [**[StateType]**](StateType.md)| A state filter | [optional] 
- **labels** | [**[String]**](String.md)| A labels filter as a list of &#39;key:value&#39; | [optional] 
- **triggerExecutionId** | **String**| The trigger execution id | [optional] 
- **childFilter** | [**ExecutionRepositoryInterfaceChildFilter**](.md)| A execution child filter | [optional] 
+ **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
@@ -2652,68 +1920,6 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## triggerExecution
-
-> [ExecutionControllerExecutionResponse] triggerExecution(namespace, id, wait, tenant, opts)
-
-Trigger a new execution for a flow
-
-### Example
-
-```javascript
-import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
-let defaultClient = KestraIoKestraSdk.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
-let namespace = "namespace_example"; // String | The flow namespace
-let id = "id_example"; // String | The flow id
-let wait = false; // Boolean | If the server will wait the end of the execution
-let tenant = "tenant_example"; // String | 
-let opts = {
-  'labels': ["null"], // [String] | The labels as a list of 'key:value'
-  'revision': 56 // Number | The flow revision or latest if null
-};
-apiInstance.triggerExecution(namespace, id, wait, tenant, opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **namespace** | **String**| The flow namespace | 
- **id** | **String**| The flow id | 
- **wait** | **Boolean**| If the server will wait the end of the execution | [default to false]
- **tenant** | **String**|  | 
- **labels** | [**[String]**](String.md)| The labels as a list of &#39;key:value&#39; | [optional] 
- **revision** | **Number**| The flow revision or latest if null | [optional] 
-
-### Return type
-
-[**[ExecutionControllerExecutionResponse]**](ExecutionControllerExecutionResponse.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: multipart/form-data
 - **Accept**: application/json
 
 
@@ -2742,118 +1948,6 @@ let id = "id_example"; // String | The flow id
 let key = "key_example"; // String | The webhook trigger uid
 let tenant = "tenant_example"; // String | 
 apiInstance.triggerExecutionByGetWebhook(namespace, id, key, tenant).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **namespace** | **String**| The flow namespace | 
- **id** | **String**| The flow id | 
- **key** | **String**| The webhook trigger uid | 
- **tenant** | **String**|  | 
-
-### Return type
-
-[**ExecutionControllerWebhookResponse**](ExecutionControllerWebhookResponse.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## triggerExecutionByPostWebhook
-
-> ExecutionControllerWebhookResponse triggerExecutionByPostWebhook(namespace, id, key, tenant)
-
-Trigger a new execution by POST webhook trigger
-
-### Example
-
-```javascript
-import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
-let defaultClient = KestraIoKestraSdk.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
-let namespace = "namespace_example"; // String | The flow namespace
-let id = "id_example"; // String | The flow id
-let key = "key_example"; // String | The webhook trigger uid
-let tenant = "tenant_example"; // String | 
-apiInstance.triggerExecutionByPostWebhook(namespace, id, key, tenant).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **namespace** | **String**| The flow namespace | 
- **id** | **String**| The flow id | 
- **key** | **String**| The webhook trigger uid | 
- **tenant** | **String**|  | 
-
-### Return type
-
-[**ExecutionControllerWebhookResponse**](ExecutionControllerWebhookResponse.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## triggerExecutionByPutWebhook
-
-> ExecutionControllerWebhookResponse triggerExecutionByPutWebhook(namespace, id, key, tenant)
-
-Trigger a new execution by PUT webhook trigger
-
-### Example
-
-```javascript
-import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
-let defaultClient = KestraIoKestraSdk.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
-let namespace = "namespace_example"; // String | The flow namespace
-let id = "id_example"; // String | The flow id
-let key = "key_example"; // String | The webhook trigger uid
-let tenant = "tenant_example"; // String | 
-apiInstance.triggerExecutionByPutWebhook(namespace, id, key, tenant).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -2995,7 +2089,7 @@ Name | Type | Description  | Notes
 
 ## unqueueExecutionsByQuery
 
-> Object unqueueExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts)
+> Object unqueueExecutionsByQuery(tenant, opts)
 
 Unqueue executions filter by query parameters
 
@@ -3014,22 +2108,11 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraIoKestraSdk.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
-  'q': "q_example", // String | A string filter
-  'scope': [new KestraIoKestraSdk.FlowScope()], // [FlowScope] | The scope of the executions to include
-  'namespace': "namespace_example", // String | A namespace filter prefix
-  'flowId': "flowId_example", // String | A flow id filter
-  'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
-  'endDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The end datetime
-  'timeRange': "PT5M", // String | A time range filter relative to the current time
-  'state': [new KestraIoKestraSdk.StateType()], // [StateType] | A state filter
-  'labels': ["null"], // [String] | A labels filter as a list of 'key:value'
-  'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
-  'childFilter': new KestraIoKestraSdk.ExecutionRepositoryInterfaceChildFilter(), // ExecutionRepositoryInterfaceChildFilter | A execution child filter
+  'filters': [new KestraIoKestraSdk.QueryFilter()], // [QueryFilter] | Filters
   'newState': new KestraIoKestraSdk.StateType() // StateType | The new state of the unqueued executions
 };
-apiInstance.unqueueExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+apiInstance.unqueueExecutionsByQuery(tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -3043,18 +2126,7 @@ apiInstance.unqueueExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opt
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **String**|  | 
- **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | 
- **q** | **String**| A string filter | [optional] 
- **scope** | [**[FlowScope]**](FlowScope.md)| The scope of the executions to include | [optional] 
- **namespace** | **String**| A namespace filter prefix | [optional] 
- **flowId** | **String**| A flow id filter | [optional] 
- **startDate** | **Date**| The start datetime | [optional] 
- **endDate** | **Date**| The end datetime | [optional] 
- **timeRange** | **String**| A time range filter relative to the current time | [optional] 
- **state** | [**[StateType]**](StateType.md)| A state filter | [optional] 
- **labels** | [**[String]**](String.md)| A labels filter as a list of &#39;key:value&#39; | [optional] 
- **triggerExecutionId** | **String**| The trigger execution id | [optional] 
- **childFilter** | [**ExecutionRepositoryInterfaceChildFilter**](.md)| A execution child filter | [optional] 
+ **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
  **newState** | [**StateType**](.md)| The new state of the unqueued executions | [optional] 
 
 ### Return type
@@ -3067,7 +2139,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -3181,7 +2253,7 @@ Name | Type | Description  | Notes
 
 ## updateExecutionsStatusByQuery
 
-> BulkResponse updateExecutionsStatusByQuery(newStatus, tenant, deleteExecutionsByQueryRequest, opts)
+> BulkResponse updateExecutionsStatusByQuery(newStatus, tenant, opts)
 
 Change executions state by query parameters
 
@@ -3201,21 +2273,10 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
 let newStatus = new KestraIoKestraSdk.StateType(); // StateType | The new state of the executions
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraIoKestraSdk.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
-  'q': "q_example", // String | A string filter
-  'scope': [new KestraIoKestraSdk.FlowScope()], // [FlowScope] | The scope of the executions to include
-  'namespace': "namespace_example", // String | A namespace filter prefix
-  'flowId': "flowId_example", // String | A flow id filter
-  'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
-  'endDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The end datetime
-  'timeRange': "PT5M", // String | A time range filter relative to the current time
-  'state': [new KestraIoKestraSdk.StateType()], // [StateType] | A state filter
-  'labels': ["null"], // [String] | A labels filter as a list of 'key:value'
-  'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
-  'childFilter': new KestraIoKestraSdk.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
+  'filters': [new KestraIoKestraSdk.QueryFilter()] // [QueryFilter] | Filters
 };
-apiInstance.updateExecutionsStatusByQuery(newStatus, tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+apiInstance.updateExecutionsStatusByQuery(newStatus, tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -3230,18 +2291,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **newStatus** | [**StateType**](.md)| The new state of the executions | 
  **tenant** | **String**|  | 
- **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | 
- **q** | **String**| A string filter | [optional] 
- **scope** | [**[FlowScope]**](FlowScope.md)| The scope of the executions to include | [optional] 
- **namespace** | **String**| A namespace filter prefix | [optional] 
- **flowId** | **String**| A flow id filter | [optional] 
- **startDate** | **Date**| The start datetime | [optional] 
- **endDate** | **Date**| The end datetime | [optional] 
- **timeRange** | **String**| A time range filter relative to the current time | [optional] 
- **state** | [**[StateType]**](StateType.md)| A state filter | [optional] 
- **labels** | [**[String]**](String.md)| A labels filter as a list of &#39;key:value&#39; | [optional] 
- **triggerExecutionId** | **String**| The trigger execution id | [optional] 
- **childFilter** | [**ExecutionRepositoryInterfaceChildFilter**](.md)| A execution child filter | [optional] 
+ **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
@@ -3253,7 +2303,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -3308,117 +2358,5 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## validateNewExecutionInputs
-
-> [ExecutionControllerApiValidateExecutionInputsResponse] validateNewExecutionInputs(namespace, id, labels, tenant, opts)
-
-Validate the creation of a new execution for a flow
-
-### Example
-
-```javascript
-import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
-let defaultClient = KestraIoKestraSdk.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
-let namespace = "namespace_example"; // String | The flow namespace
-let id = "id_example"; // String | The flow id
-let labels = ["null"]; // [String] | The labels as a list of 'key:value'
-let tenant = "tenant_example"; // String | 
-let opts = {
-  'revision': 56 // Number | The flow revision or latest if null
-};
-apiInstance.validateNewExecutionInputs(namespace, id, labels, tenant, opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **namespace** | **String**| The flow namespace | 
- **id** | **String**| The flow id | 
- **labels** | [**[String]**](String.md)| The labels as a list of &#39;key:value&#39; | 
- **tenant** | **String**|  | 
- **revision** | **Number**| The flow revision or latest if null | [optional] 
-
-### Return type
-
-[**[ExecutionControllerApiValidateExecutionInputsResponse]**](ExecutionControllerApiValidateExecutionInputsResponse.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: multipart/form-data
-- **Accept**: application/json
-
-
-## validateResumeExecutionInputs
-
-> [ExecutionControllerApiValidateExecutionInputsResponse] validateResumeExecutionInputs(executionId, tenant)
-
-Validate inputs to resume a paused execution.
-
-### Example
-
-```javascript
-import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
-let defaultClient = KestraIoKestraSdk.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
-let executionId = "executionId_example"; // String | The execution id
-let tenant = "tenant_example"; // String | 
-apiInstance.validateResumeExecutionInputs(executionId, tenant).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **executionId** | **String**| The execution id | 
- **tenant** | **String**|  | 
-
-### Return type
-
-[**[ExecutionControllerApiValidateExecutionInputsResponse]**](ExecutionControllerApiValidateExecutionInputsResponse.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: multipart/form-data
 - **Accept**: application/json
 

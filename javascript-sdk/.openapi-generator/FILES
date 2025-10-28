@@ -85,7 +85,6 @@ docs/DailyExecutionStatisticsDuration.md
 docs/DailyExecutionStatisticsExecutionCounts.md
 docs/Dashboard.md
 docs/DashboardControllerPreviewRequest.md
-docs/DeleteExecutionsByQueryRequest.md
 docs/DeletedInterface.md
 docs/DependsOn.md
 docs/DocumentationWithSchema.md
@@ -208,7 +207,6 @@ docs/KVApi.md
 docs/KVControllerApiDeleteBulkRequest.md
 docs/KVControllerApiDeleteBulkResponse.md
 docs/KVControllerTypedValue.md
-docs/KVControllerTypedValueValue.md
 docs/KVEntry.md
 docs/KVType.md
 docs/Label.md
@@ -382,8 +380,6 @@ docs/TriggersApi.md
 docs/Type.md
 docs/UnitTest.md
 docs/UnitTestResult.md
-docs/UpdateFlow200Response.md
-docs/UpdateFlowsInNamespaceFromJson200Response.md
 docs/UsageEE.md
 docs/UserGroup.md
 docs/UserGroupType.md
@@ -493,7 +489,6 @@ src/model/DailyExecutionStatisticsDuration.js
 src/model/DailyExecutionStatisticsExecutionCounts.js
 src/model/Dashboard.js
 src/model/DashboardControllerPreviewRequest.js
-src/model/DeleteExecutionsByQueryRequest.js
 src/model/DeletedInterface.js
 src/model/DependsOn.js
 src/model/DocumentationWithSchema.js
@@ -612,7 +607,6 @@ src/model/Isolation.js
 src/model/KVControllerApiDeleteBulkRequest.js
 src/model/KVControllerApiDeleteBulkResponse.js
 src/model/KVControllerTypedValue.js
-src/model/KVControllerTypedValueValue.js
 src/model/KVEntry.js
 src/model/KVType.js
 src/model/Label.js
@@ -782,8 +776,6 @@ src/model/TriggerFixture.js
 src/model/Type.js
 src/model/UnitTest.js
 src/model/UnitTestResult.js
-src/model/UpdateFlow200Response.js
-src/model/UpdateFlowsInNamespaceFromJson200Response.js
 src/model/UsageEE.js
 src/model/UserGroup.js
 src/model/UserGroupType.js
@@ -795,5 +787,3 @@ src/model/ValuePathExpression.js
 src/model/WorkerGroup.js
 src/model/WorkerGroupFallback.js
 src/model/WorkerTaskRestartStrategy.js
-test/api/RolesApi.spec.js
-test/api/UsersApi.spec.js

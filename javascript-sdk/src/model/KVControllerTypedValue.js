@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import KVControllerTypedValueValue from './KVControllerTypedValueValue';
 import KVType from './KVType';
 
 /**
@@ -53,7 +52,7 @@ class KVControllerTypedValue {
                 obj['type'] = KVType.constructFromObject(data['type']);
             }
             if (data.hasOwnProperty('value')) {
-                obj['value'] = KVControllerTypedValueValue.constructFromObject(data['value']);
+                obj['value'] = ApiClient.convertToType(data['value'], Object);
             }
         }
         return obj;
@@ -65,10 +64,6 @@ class KVControllerTypedValue {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>KVControllerTypedValue</code>.
      */
     static validateJSON(data) {
-        // validate the optional field `value`
-        if (data['value']) { // data not null
-          KVControllerTypedValueValue.validateJSON(data['value']);
-        }
 
         return true;
     }
@@ -84,7 +79,7 @@ class KVControllerTypedValue {
 KVControllerTypedValue.prototype['type'] = undefined;
 
 /**
- * @member {module:model/KVControllerTypedValueValue} value
+ * @member {Object} value
  */
 KVControllerTypedValue.prototype['value'] = undefined;
 

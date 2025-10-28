@@ -143,8 +143,6 @@ Class | Method | HTTP request | Description
 *KestraIoKestraSdk.ExecutionsApi* | [**deleteExecutionsByIds**](docs/ExecutionsApi.md#deleteExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/by-ids | Delete a list of executions
 *KestraIoKestraSdk.ExecutionsApi* | [**deleteExecutionsByQuery**](docs/ExecutionsApi.md#deleteExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/by-query | Delete executions filter by query parameters
 *KestraIoKestraSdk.ExecutionsApi* | [**downloadFileFromExecution**](docs/ExecutionsApi.md#downloadFileFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution
-*KestraIoKestraSdk.ExecutionsApi* | [**evalTaskRunExpression**](docs/ExecutionsApi.md#evalTaskRunExpression) | **POST** /api/v1/{tenant}/executions/{executionId}/eval/{taskRunId} | Evaluate a variable expression for this taskrun
-*KestraIoKestraSdk.ExecutionsApi* | [**followDependenciesExecutions**](docs/ExecutionsApi.md#followDependenciesExecutions) | **GET** /api/v1/{tenant}/executions/{executionId}/follow-dependencies | Follow all execution dependencies executions
 *KestraIoKestraSdk.ExecutionsApi* | [**followExecution**](docs/ExecutionsApi.md#followExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/follow | Follow an execution
 *KestraIoKestraSdk.ExecutionsApi* | [**forceRunByIds**](docs/ExecutionsApi.md#forceRunByIds) | **POST** /api/v1/{tenant}/executions/force-run/by-ids | Force run a list of executions
 *KestraIoKestraSdk.ExecutionsApi* | [**forceRunExecution**](docs/ExecutionsApi.md#forceRunExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/force-run | Force run an execution
@@ -152,18 +150,14 @@ Class | Method | HTTP request | Description
 *KestraIoKestraSdk.ExecutionsApi* | [**getExecution**](docs/ExecutionsApi.md#getExecution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution
 *KestraIoKestraSdk.ExecutionsApi* | [**getExecutionFlowGraph**](docs/ExecutionsApi.md#getExecutionFlowGraph) | **GET** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution
 *KestraIoKestraSdk.ExecutionsApi* | [**getFileMetadatasFromExecution**](docs/ExecutionsApi.md#getFileMetadatasFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution
-*KestraIoKestraSdk.ExecutionsApi* | [**getFlowFromExecution**](docs/ExecutionsApi.md#getFlowFromExecution) | **GET** /api/v1/{tenant}/executions/flows/{namespace}/{flowId} | Get flow information&#39;s for an execution
 *KestraIoKestraSdk.ExecutionsApi* | [**getFlowFromExecutionById**](docs/ExecutionsApi.md#getFlowFromExecutionById) | **GET** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution
 *KestraIoKestraSdk.ExecutionsApi* | [**getLatestExecutions**](docs/ExecutionsApi.md#getLatestExecutions) | **POST** /api/v1/{tenant}/executions/latest | Get the latest execution for given flows
 *KestraIoKestraSdk.ExecutionsApi* | [**killExecution**](docs/ExecutionsApi.md#killExecution) | **DELETE** /api/v1/{tenant}/executions/{executionId}/kill | Kill an execution
 *KestraIoKestraSdk.ExecutionsApi* | [**killExecutionsByIds**](docs/ExecutionsApi.md#killExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/kill/by-ids | Kill a list of executions
 *KestraIoKestraSdk.ExecutionsApi* | [**killExecutionsByQuery**](docs/ExecutionsApi.md#killExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/kill/by-query | Kill executions filter by query parameters
-*KestraIoKestraSdk.ExecutionsApi* | [**listExecutableDistinctNamespaces**](docs/ExecutionsApi.md#listExecutableDistinctNamespaces) | **GET** /api/v1/{tenant}/executions/namespaces | Get all namespaces that have executable flows
-*KestraIoKestraSdk.ExecutionsApi* | [**listFlowExecutionsByNamespace**](docs/ExecutionsApi.md#listFlowExecutionsByNamespace) | **GET** /api/v1/{tenant}/executions/namespaces/{namespace}/flows | Get all flow ids for a namespace. Data returned are FlowForExecution containing minimal information about a Flow for when you are allowed to executing but not reading.
 *KestraIoKestraSdk.ExecutionsApi* | [**pauseExecution**](docs/ExecutionsApi.md#pauseExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/pause | Pause a running execution.
 *KestraIoKestraSdk.ExecutionsApi* | [**pauseExecutionsByIds**](docs/ExecutionsApi.md#pauseExecutionsByIds) | **POST** /api/v1/{tenant}/executions/pause/by-ids | Pause a list of running executions
 *KestraIoKestraSdk.ExecutionsApi* | [**pauseExecutionsByQuery**](docs/ExecutionsApi.md#pauseExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/pause/by-query | Pause executions filter by query parameters
-*KestraIoKestraSdk.ExecutionsApi* | [**previewFileFromExecution**](docs/ExecutionsApi.md#previewFileFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/preview | Get file preview for an execution
 *KestraIoKestraSdk.ExecutionsApi* | [**replayExecution**](docs/ExecutionsApi.md#replayExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/replay | Create a new execution from an old one and start it from a specified task run id
 *KestraIoKestraSdk.ExecutionsApi* | [**replayExecutionWithinputs**](docs/ExecutionsApi.md#replayExecutionWithinputs) | **POST** /api/v1/{tenant}/executions/{executionId}/replay-with-inputs | Create a new execution from an old one and start it from a specified task run id
 *KestraIoKestraSdk.ExecutionsApi* | [**replayExecutionsByIds**](docs/ExecutionsApi.md#replayExecutionsByIds) | **POST** /api/v1/{tenant}/executions/replay/by-ids | Create new executions from old ones. Keep the flow revision
@@ -172,19 +166,13 @@ Class | Method | HTTP request | Description
 *KestraIoKestraSdk.ExecutionsApi* | [**restartExecutionsByIds**](docs/ExecutionsApi.md#restartExecutionsByIds) | **POST** /api/v1/{tenant}/executions/restart/by-ids | Restart a list of executions
 *KestraIoKestraSdk.ExecutionsApi* | [**restartExecutionsByQuery**](docs/ExecutionsApi.md#restartExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/restart/by-query | Restart executions filter by query parameters
 *KestraIoKestraSdk.ExecutionsApi* | [**resumeExecution**](docs/ExecutionsApi.md#resumeExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/resume | Resume a paused execution.
-*KestraIoKestraSdk.ExecutionsApi* | [**resumeExecutionFromBreakpoint**](docs/ExecutionsApi.md#resumeExecutionFromBreakpoint) | **POST** /api/v1/{tenant}/executions/{executionId}/resume-from-breakpoint | Resume an execution from a breakpoint (in the &#39;BREAKPOINT&#39; state).
 *KestraIoKestraSdk.ExecutionsApi* | [**resumeExecutionsByIds**](docs/ExecutionsApi.md#resumeExecutionsByIds) | **POST** /api/v1/{tenant}/executions/resume/by-ids | Resume a list of paused executions
 *KestraIoKestraSdk.ExecutionsApi* | [**resumeExecutionsByQuery**](docs/ExecutionsApi.md#resumeExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/resume/by-query | Resume executions filter by query parameters
 *KestraIoKestraSdk.ExecutionsApi* | [**searchExecutions**](docs/ExecutionsApi.md#searchExecutions) | **GET** /api/v1/{tenant}/executions/search | Search for executions
-*KestraIoKestraSdk.ExecutionsApi* | [**searchExecutionsByFlowId**](docs/ExecutionsApi.md#searchExecutionsByFlowId) | **GET** /api/v1/{tenant}/executions | Search for executions for a flow
-*KestraIoKestraSdk.ExecutionsApi* | [**searchTaskRun**](docs/ExecutionsApi.md#searchTaskRun) | **GET** /api/v1/{tenant}/taskruns/search | Search for taskruns, only available with the Elasticsearch repository
 *KestraIoKestraSdk.ExecutionsApi* | [**setLabelsOnTerminatedExecution**](docs/ExecutionsApi.md#setLabelsOnTerminatedExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/labels | Add or update labels of a terminated execution
 *KestraIoKestraSdk.ExecutionsApi* | [**setLabelsOnTerminatedExecutionsByIds**](docs/ExecutionsApi.md#setLabelsOnTerminatedExecutionsByIds) | **POST** /api/v1/{tenant}/executions/labels/by-ids | Set labels on a list of executions
 *KestraIoKestraSdk.ExecutionsApi* | [**setLabelsOnTerminatedExecutionsByQuery**](docs/ExecutionsApi.md#setLabelsOnTerminatedExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/labels/by-query | Set label on executions filter by query parameters
-*KestraIoKestraSdk.ExecutionsApi* | [**triggerExecution**](docs/ExecutionsApi.md#triggerExecution) | **POST** /api/v1/{tenant}/executions/trigger/{namespace}/{id} | Trigger a new execution for a flow
 *KestraIoKestraSdk.ExecutionsApi* | [**triggerExecutionByGetWebhook**](docs/ExecutionsApi.md#triggerExecutionByGetWebhook) | **GET** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key} | Trigger a new execution by GET webhook trigger
-*KestraIoKestraSdk.ExecutionsApi* | [**triggerExecutionByPostWebhook**](docs/ExecutionsApi.md#triggerExecutionByPostWebhook) | **POST** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key} | Trigger a new execution by POST webhook trigger
-*KestraIoKestraSdk.ExecutionsApi* | [**triggerExecutionByPutWebhook**](docs/ExecutionsApi.md#triggerExecutionByPutWebhook) | **PUT** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key} | Trigger a new execution by PUT webhook trigger
 *KestraIoKestraSdk.ExecutionsApi* | [**unqueueExecution**](docs/ExecutionsApi.md#unqueueExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/unqueue | Unqueue an execution
 *KestraIoKestraSdk.ExecutionsApi* | [**unqueueExecutionsByIds**](docs/ExecutionsApi.md#unqueueExecutionsByIds) | **POST** /api/v1/{tenant}/executions/unqueue/by-ids | Unqueue a list of executions
 *KestraIoKestraSdk.ExecutionsApi* | [**unqueueExecutionsByQuery**](docs/ExecutionsApi.md#unqueueExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/unqueue/by-query | Unqueue executions filter by query parameters
@@ -192,9 +180,6 @@ Class | Method | HTTP request | Description
 *KestraIoKestraSdk.ExecutionsApi* | [**updateExecutionsStatusByIds**](docs/ExecutionsApi.md#updateExecutionsStatusByIds) | **POST** /api/v1/{tenant}/executions/change-status/by-ids | Change executions state by id
 *KestraIoKestraSdk.ExecutionsApi* | [**updateExecutionsStatusByQuery**](docs/ExecutionsApi.md#updateExecutionsStatusByQuery) | **POST** /api/v1/{tenant}/executions/change-status/by-query | Change executions state by query parameters
 *KestraIoKestraSdk.ExecutionsApi* | [**updateTaskRunState**](docs/ExecutionsApi.md#updateTaskRunState) | **POST** /api/v1/{tenant}/executions/{executionId}/state | Change state for a taskrun in an execution
-*KestraIoKestraSdk.ExecutionsApi* | [**validateNewExecutionInputs**](docs/ExecutionsApi.md#validateNewExecutionInputs) | **POST** /api/v1/{tenant}/executions/{namespace}/{id}/validate | Validate the creation of a new execution for a flow
-*KestraIoKestraSdk.ExecutionsApi* | [**validateResumeExecutionInputs**](docs/ExecutionsApi.md#validateResumeExecutionInputs) | **POST** /api/v1/{tenant}/executions/{executionId}/resume/validate | Validate inputs to resume a paused execution.
-*KestraIoKestraSdk.FlowsApi* | [**bulkImportApps**](docs/FlowsApi.md#bulkImportApps) | **POST** /api/v1/{tenant}/apps/import |     Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
 *KestraIoKestraSdk.FlowsApi* | [**bulkUpdateFlows**](docs/FlowsApi.md#bulkUpdateFlows) | **POST** /api/v1/{tenant}/flows/bulk | Update from multiples yaml sources
 *KestraIoKestraSdk.FlowsApi* | [**createFlow**](docs/FlowsApi.md#createFlow) | **POST** /api/v1/{tenant}/flows | Create a flow from yaml source
 *KestraIoKestraSdk.FlowsApi* | [**deleteFlow**](docs/FlowsApi.md#deleteFlow) | **DELETE** /api/v1/{tenant}/flows/{namespace}/{id} | Delete a flow
@@ -219,8 +204,7 @@ Class | Method | HTTP request | Description
 *KestraIoKestraSdk.FlowsApi* | [**searchFlows**](docs/FlowsApi.md#searchFlows) | **GET** /api/v1/{tenant}/flows/search | Search for flows
 *KestraIoKestraSdk.FlowsApi* | [**searchFlowsBySourceCode**](docs/FlowsApi.md#searchFlowsBySourceCode) | **GET** /api/v1/{tenant}/flows/source | Search for flows source code
 *KestraIoKestraSdk.FlowsApi* | [**updateFlow**](docs/FlowsApi.md#updateFlow) | **PUT** /api/v1/{tenant}/flows/{namespace}/{id} | Update a flow
-*KestraIoKestraSdk.FlowsApi* | [**updateFlowsInNamespaceFromJson**](docs/FlowsApi.md#updateFlowsInNamespaceFromJson) | **POST** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from json object
-*KestraIoKestraSdk.FlowsApi* | [**updateTask**](docs/FlowsApi.md#updateTask) | **PATCH** /api/v1/{tenant}/flows/{namespace}/{id}/{taskId} | Update a single task on a flow
+*KestraIoKestraSdk.FlowsApi* | [**updateFlowsInNamespace**](docs/FlowsApi.md#updateFlowsInNamespace) | **POST** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from yaml source
 *KestraIoKestraSdk.FlowsApi* | [**validateFlows**](docs/FlowsApi.md#validateFlows) | **POST** /api/v1/{tenant}/flows/validate | Validate a list of flows
 *KestraIoKestraSdk.FlowsApi* | [**validateTask**](docs/FlowsApi.md#validateTask) | **POST** /api/v1/{tenant}/flows/validate/task | Validate a task
 *KestraIoKestraSdk.FlowsApi* | [**validateTrigger**](docs/FlowsApi.md#validateTrigger) | **POST** /api/v1/{tenant}/flows/validate/trigger | Validate trigger
@@ -400,7 +384,6 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.DailyExecutionStatisticsExecutionCounts](docs/DailyExecutionStatisticsExecutionCounts.md)
  - [KestraIoKestraSdk.Dashboard](docs/Dashboard.md)
  - [KestraIoKestraSdk.DashboardControllerPreviewRequest](docs/DashboardControllerPreviewRequest.md)
- - [KestraIoKestraSdk.DeleteExecutionsByQueryRequest](docs/DeleteExecutionsByQueryRequest.md)
  - [KestraIoKestraSdk.DeletedInterface](docs/DeletedInterface.md)
  - [KestraIoKestraSdk.DependsOn](docs/DependsOn.md)
  - [KestraIoKestraSdk.DocumentationWithSchema](docs/DocumentationWithSchema.md)
@@ -519,7 +502,6 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.KVControllerApiDeleteBulkRequest](docs/KVControllerApiDeleteBulkRequest.md)
  - [KestraIoKestraSdk.KVControllerApiDeleteBulkResponse](docs/KVControllerApiDeleteBulkResponse.md)
  - [KestraIoKestraSdk.KVControllerTypedValue](docs/KVControllerTypedValue.md)
- - [KestraIoKestraSdk.KVControllerTypedValueValue](docs/KVControllerTypedValueValue.md)
  - [KestraIoKestraSdk.KVEntry](docs/KVEntry.md)
  - [KestraIoKestraSdk.KVType](docs/KVType.md)
  - [KestraIoKestraSdk.Label](docs/Label.md)
@@ -689,8 +671,6 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.Type](docs/Type.md)
  - [KestraIoKestraSdk.UnitTest](docs/UnitTest.md)
  - [KestraIoKestraSdk.UnitTestResult](docs/UnitTestResult.md)
- - [KestraIoKestraSdk.UpdateFlow200Response](docs/UpdateFlow200Response.md)
- - [KestraIoKestraSdk.UpdateFlowsInNamespaceFromJson200Response](docs/UpdateFlowsInNamespaceFromJson200Response.md)
  - [KestraIoKestraSdk.UsageEE](docs/UsageEE.md)
  - [KestraIoKestraSdk.UserGroup](docs/UserGroup.md)
  - [KestraIoKestraSdk.UserGroupType](docs/UserGroupType.md)
