@@ -1035,19 +1035,4 @@ public class ExecutionsApiTest {
         assertThat(kestraClient().executions().getExecution(exec2.getId(), MAIN_TENANT).getState().getCurrent()).isEqualTo(newStatus);
         assertThat(kestraClient().executions().getExecution(otherExec.getId(), MAIN_TENANT).getState().getCurrent()).isEqualTo(StateType.SUCCESS);
     }
-    /**
-     * Change state for a taskrun in an execution
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void updateTaskRunStateTest() throws ApiException {
-        String executionId = null;
-
-        ExecutionControllerStateRequest executionControllerStateRequest = null;
-        Execution response = kestraClient().executions().updateTaskRunState(executionId, MAIN_TENANT, executionControllerStateRequest);
-
-        // TODO: test validations
-    }
 }
