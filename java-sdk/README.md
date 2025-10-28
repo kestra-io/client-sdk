@@ -105,8 +105,9 @@ public class ExecutionsApiExample {
         OffsetDateTime scheduleDate = OffsetDateTime.now(); // OffsetDateTime | Schedule the flow on a specific date
         String breakpoints = "breakpoints_example"; // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
         ExecutionKind kind = ExecutionKind.fromValue("NORMAL"); // ExecutionKind | Specific execution kind
+        List<File> inputs = Arrays.asList(); // List<File> | 
         try {
-            ExecutionControllerExecutionResponse result = apiInstance.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind);
+            ExecutionControllerExecutionResponse result = apiInstance.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind, inputs);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#createExecution");
@@ -167,7 +168,6 @@ Class | Method | HTTP request | Description
 *ExecutionsApi* | [**updateExecutionStatus**](docs/ExecutionsApi.md#updateExecutionStatus) | **POST** /api/v1/{tenant}/executions/{executionId}/change-status | Change the state of an execution
 *ExecutionsApi* | [**updateExecutionsStatusByIds**](docs/ExecutionsApi.md#updateExecutionsStatusByIds) | **POST** /api/v1/{tenant}/executions/change-status/by-ids | Change executions state by id
 *ExecutionsApi* | [**updateExecutionsStatusByQuery**](docs/ExecutionsApi.md#updateExecutionsStatusByQuery) | **POST** /api/v1/{tenant}/executions/change-status/by-query | Change executions state by query parameters
-*ExecutionsApi* | [**updateTaskRunState**](docs/ExecutionsApi.md#updateTaskRunState) | **POST** /api/v1/{tenant}/executions/{executionId}/state | Change state for a taskrun in an execution
 *FlowsApi* | [**bulkUpdateFlows**](docs/FlowsApi.md#bulkUpdateFlows) | **POST** /api/v1/{tenant}/flows/bulk | Update from multiples yaml sources
 *FlowsApi* | [**createFlow**](docs/FlowsApi.md#createFlow) | **POST** /api/v1/{tenant}/flows | Create a flow from yaml source
 *FlowsApi* | [**deleteFlow**](docs/FlowsApi.md#deleteFlow) | **DELETE** /api/v1/{tenant}/flows/{namespace}/{id} | Delete a flow

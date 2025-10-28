@@ -15,6 +15,7 @@
     "listExecutableDistinctNamespaces",
     "followDependenciesExecutions",
     "evalTaskRunExpression",
-    "getFlowFromExecution"
+    "getFlowFromExecution",
+    "updateTaskRunState"
   ]
 }

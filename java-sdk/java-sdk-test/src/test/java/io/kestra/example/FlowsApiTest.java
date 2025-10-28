@@ -38,9 +38,9 @@ public class FlowsApiTest {
         String namespace = flow.getNamespace();
         String body = flowBody.replace("simple_flow_description", "simple_flow_description_updated");
 
-        var response = kestraClient().flows().updateFlow(id, namespace, MAIN_TENANT, body);
+        var response = kestraClient().flows().bulkUpdateFlows(false, false, MAIN_TENANT, namespace, body);
 
-        assertThat(response).extracting(FlowWithSource::getDescription).isEqualTo("simple_flow_description_updated");
+        assertThat(response).first().extracting(FlowInterface::getDescription).isEqualTo("simple_flow_description_updated");
     }
     /**
      * Create a flow from yaml source
@@ -419,7 +419,7 @@ public class FlowsApiTest {
         String id = flow.getId();
         String namespace = flow.getNamespace();
         String body = flowBody.replace("simple_flow_description", "simple_flow_description_updated");
-        var response = kestraClient().flows().updateFlow(id, namespace, MAIN_TENANT, body);
+        var response = kestraClient().flows().updateFlow(namespace, id, MAIN_TENANT, body);
 
         assertThat(response).extracting(FlowWithSource::getDescription).isEqualTo("simple_flow_description_updated");
     }

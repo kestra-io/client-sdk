@@ -27,7 +27,6 @@ import io.kestra.sdk.model.Execution;
 import io.kestra.sdk.model.ExecutionControllerExecutionResponse;
 import io.kestra.sdk.model.ExecutionControllerLastExecutionResponse;
 import io.kestra.sdk.model.ExecutionControllerSetLabelsByIdsRequest;
-import io.kestra.sdk.model.ExecutionControllerStateRequest;
 import io.kestra.sdk.model.ExecutionControllerWebhookResponse;
 import io.kestra.sdk.model.ExecutionKind;
 import io.kestra.sdk.model.ExecutionRepositoryInterfaceFlowFilter;
@@ -72,11 +71,12 @@ import java.util.StringJoiner;
    * @param scheduleDate Schedule the flow on a specific date (optional)
    * @param breakpoints Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
    * @param kind Specific execution kind (optional)
+   * @param inputs  (optional)
    * @return ExecutionControllerExecutionResponse
    * @throws ApiException if fails to make API call
    */
-  public ExecutionControllerExecutionResponse createExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable OffsetDateTime scheduleDate, @javax.annotation.Nullable String breakpoints, @javax.annotation.Nullable ExecutionKind kind) throws ApiException {
-    return this.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind, Collections.emptyMap());
+  public ExecutionControllerExecutionResponse createExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable OffsetDateTime scheduleDate, @javax.annotation.Nullable String breakpoints, @javax.annotation.Nullable ExecutionKind kind, @javax.annotation.Nullable List<File> inputs) throws ApiException {
+    return this.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind, inputs, Collections.emptyMap());
   }
 
 
@@ -92,11 +92,12 @@ import java.util.StringJoiner;
    * @param scheduleDate Schedule the flow on a specific date (optional)
    * @param breakpoints Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
    * @param kind Specific execution kind (optional)
+   * @param inputs  (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return ExecutionControllerExecutionResponse
    * @throws ApiException if fails to make API call
    */
-  public ExecutionControllerExecutionResponse createExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable OffsetDateTime scheduleDate, @javax.annotation.Nullable String breakpoints, @javax.annotation.Nullable ExecutionKind kind, Map<String, String> additionalHeaders) throws ApiException {
+  public ExecutionControllerExecutionResponse createExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable OffsetDateTime scheduleDate, @javax.annotation.Nullable String breakpoints, @javax.annotation.Nullable ExecutionKind kind, @javax.annotation.Nullable List<File> inputs, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -143,7 +144,9 @@ import java.util.StringJoiner;
     localVarHeaderParams.putAll(additionalHeaders);
 
     
-    
+    if (inputs != null)
+      localVarFormParams.put("inputs", inputs);
+
     final String[] localVarAccepts = {
       "application/json"
     };
@@ -3718,101 +3721,6 @@ import java.util.StringJoiner;
     );
   }
 
-
-
-
-
-
-  /**
-   * Change state for a taskrun in an execution
-   * 
-   * @param executionId The execution id (required)
-   * @param tenant  (required)
-   * @param executionControllerStateRequest the taskRun id and state to apply (required)
-   * @return Execution
-   * @throws ApiException if fails to make API call
-   */
-  public Execution updateTaskRunState(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ExecutionControllerStateRequest executionControllerStateRequest) throws ApiException {
-    return this.updateTaskRunState(executionId, tenant, executionControllerStateRequest, Collections.emptyMap());
-  }
-
-
-  /**
-   * Change state for a taskrun in an execution
-   * 
-   * @param executionId The execution id (required)
-   * @param tenant  (required)
-   * @param executionControllerStateRequest the taskRun id and state to apply (required)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return Execution
-   * @throws ApiException if fails to make API call
-   */
-  public Execution updateTaskRunState(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ExecutionControllerStateRequest executionControllerStateRequest, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = executionControllerStateRequest;
-    
-    // verify the required parameter 'executionId' is set
-    if (executionId == null) {
-      throw new ApiException(400, "Missing the required parameter 'executionId' when calling updateTaskRunState");
-    }
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling updateTaskRunState");
-    }
-    
-    // verify the required parameter 'executionControllerStateRequest' is set
-    if (executionControllerStateRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'executionControllerStateRequest' when calling updateTaskRunState");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/executions/{executionId}/state"
-      .replaceAll("\\{" + "executionId" + "\\}", apiClient.escapeString(apiClient.parameterToString(executionId)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<Execution> localVarReturnType = new TypeReference<Execution>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "POST",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
-
   @Override
   public <T> T invokeAPI(String url, String method, Object request, TypeReference<T> returnType, Map<String, String> additionalHeaders) throws ApiException {
     String localVarPath = url.replace(apiClient.getBaseURL(), "");
@@ -3831,7 +3739,7 @@ import java.util.StringJoiner;
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 

@@ -7507,49 +7507,6 @@ paths:
       x-content-type: multipart/form-data
       x-accepts:
       - application/json
-  /api/v1/{tenant}/executions/{executionId}/state:
-    post:
-      operationId: updateTaskRunState
-      parameters:
-      - description: The execution id
-        explode: false
-        in: path
-        name: executionId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: tenant
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ExecutionController.StateRequest"
-        description: the taskRun id and state to apply
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Execution"
-          description: updateTaskRunState 200 response
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      summary: Change state for a taskrun in an execution
-      tags:
-      - Executions
-      x-internal: false
-      x-content-type: application/json
-      x-accepts:
-      - application/json
   /api/v1/{tenant}/executions/{executionId}/unqueue:
     post:
       operationId: unqueueExecution
@@ -7684,10 +7641,7 @@ paths:
         content:
           multipart/form-data:
             schema:
-              items:
-                format: binary
-                type: string
-              type: array
+              $ref: "#/components/schemas/createExecution_request"
         description: The inputs
       responses:
         "200":
@@ -16817,8 +16771,7 @@ components:
           id: id
           type: type
         taskRunList:
-        - outputs:
-            key: "{}"
+        - outputs: "{}"
           parentTaskRunId: parentTaskRunId
           executionId: executionId
           forceExecution: true
@@ -16864,8 +16817,7 @@ components:
               - date: 2000-01-23T04:56:07.000+00:00
                 state: null
               startDate: 2000-01-23T04:56:07.000+00:00
-        - outputs:
-            key: "{}"
+        - outputs: "{}"
           parentTaskRunId: parentTaskRunId
           executionId: executionId
           forceExecution: true
@@ -17095,8 +17047,7 @@ components:
           id: id
           type: type
         taskRunList:
-        - outputs:
-            key: "{}"
+        - outputs: "{}"
           parentTaskRunId: parentTaskRunId
           executionId: executionId
           forceExecution: true
@@ -17142,8 +17093,7 @@ components:
               - date: 2000-01-23T04:56:07.000+00:00
                 state: null
               startDate: 2000-01-23T04:56:07.000+00:00
-        - outputs:
-            key: "{}"
+        - outputs: "{}"
           parentTaskRunId: parentTaskRunId
           executionId: executionId
           forceExecution: true
@@ -20698,8 +20648,7 @@ components:
             id: id
             type: type
           taskRunList:
-          - outputs:
-              key: "{}"
+          - outputs: "{}"
             parentTaskRunId: parentTaskRunId
             executionId: executionId
             forceExecution: true
@@ -20745,8 +20694,7 @@ components:
                 - date: 2000-01-23T04:56:07.000+00:00
                   state: null
                 startDate: 2000-01-23T04:56:07.000+00:00
-          - outputs:
-              key: "{}"
+          - outputs: "{}"
             parentTaskRunId: parentTaskRunId
             executionId: executionId
             forceExecution: true
@@ -20855,8 +20803,7 @@ components:
             id: id
             type: type
           taskRunList:
-          - outputs:
-              key: "{}"
+          - outputs: "{}"
             parentTaskRunId: parentTaskRunId
             executionId: executionId
             forceExecution: true
@@ -20902,8 +20849,7 @@ components:
                 - date: 2000-01-23T04:56:07.000+00:00
                   state: null
                 startDate: 2000-01-23T04:56:07.000+00:00
-          - outputs:
-              key: "{}"
+          - outputs: "{}"
             parentTaskRunId: parentTaskRunId
             executionId: executionId
             forceExecution: true
@@ -24225,8 +24171,7 @@ components:
       type: object
     TaskRun:
       example:
-        outputs:
-          key: "{}"
+        outputs: "{}"
         parentTaskRunId: parentTaskRunId
         executionId: executionId
         forceExecution: true
@@ -24292,8 +24237,6 @@ components:
             $ref: "#/components/schemas/TaskRunAttempt"
           type: array
         outputs:
-          additionalProperties:
-            type: object
           nullable: true
           type: object
         state:
@@ -24935,6 +24878,14 @@ components:
       properties:
         parameters:
           $ref: "#/components/schemas/HttpParameters"
+      type: object
+    createExecution_request:
+      properties:
+        inputs:
+          items:
+            format: binary
+            type: string
+          type: array
       type: object
     createNamespaceFile_request:
       properties:
