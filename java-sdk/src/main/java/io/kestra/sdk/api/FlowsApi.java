@@ -33,7 +33,6 @@ import io.kestra.sdk.model.PagedResultsFlow;
 import io.kestra.sdk.model.PagedResultsSearchResultFlow;
 import io.kestra.sdk.model.QueryFilter;
 import io.kestra.sdk.model.Task;
-import io.kestra.sdk.model.UpdateFlow200Response;
 import io.kestra.sdk.model.ValidateConstraintViolation;
 
 
@@ -2198,40 +2197,40 @@ import java.util.StringJoiner;
   /**
    * Update a flow
    * 
-   * @param id The flow id (required)
    * @param namespace The flow namespace (required)
+   * @param id The flow id (required)
    * @param tenant  (required)
    * @param body The flow source code (required)
-   * @return UpdateFlow200Response
+   * @return FlowWithSource
    * @throws ApiException if fails to make API call
    */
-  public UpdateFlow200Response updateFlow(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body) throws ApiException {
-    return this.updateFlow(id, namespace, tenant, body, Collections.emptyMap());
+  public FlowWithSource updateFlow(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body) throws ApiException {
+    return this.updateFlow(namespace, id, tenant, body, Collections.emptyMap());
   }
 
 
   /**
    * Update a flow
    * 
-   * @param id The flow id (required)
    * @param namespace The flow namespace (required)
+   * @param id The flow id (required)
    * @param tenant  (required)
    * @param body The flow source code (required)
    * @param additionalHeaders additionalHeaders for this call
-   * @return UpdateFlow200Response
+   * @return FlowWithSource
    * @throws ApiException if fails to make API call
    */
-  public UpdateFlow200Response updateFlow(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
+  public FlowWithSource updateFlow(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = body;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling updateFlow");
-    }
     
     // verify the required parameter 'namespace' is set
     if (namespace == null) {
       throw new ApiException(400, "Missing the required parameter 'namespace' when calling updateFlow");
+    }
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling updateFlow");
     }
     
     // verify the required parameter 'tenant' is set
@@ -2246,8 +2245,8 @@ import java.util.StringJoiner;
     
     // create path and map variables
     String localVarPath = "/api/v1/{tenant}/flows/{namespace}/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
       .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
       .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
 
     StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
@@ -2275,10 +2274,113 @@ import java.util.StringJoiner;
 
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
-    TypeReference<UpdateFlow200Response> localVarReturnType = new TypeReference<UpdateFlow200Response>() {};
+    TypeReference<FlowWithSource> localVarReturnType = new TypeReference<FlowWithSource>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "PUT",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+
+
+
+
+
+  /**
+   * Update a complete namespace from yaml source
+   * All flow will be created / updated for this namespace. Flow that already created but not in &#x60;flows&#x60; will be deleted if the query delete is &#x60;true&#x60;
+   * @param namespace The flow namespace (required)
+   * @param delete If missing flow should be deleted (required)
+   * @param tenant  (required)
+   * @param body A list of flows source code (required)
+   * @return List&lt;FlowInterface&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<FlowInterface> updateFlowsInNamespace(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull Boolean delete, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body) throws ApiException {
+    return this.updateFlowsInNamespace(namespace, delete, tenant, body, Collections.emptyMap());
+  }
+
+
+  /**
+   * Update a complete namespace from yaml source
+   * All flow will be created / updated for this namespace. Flow that already created but not in &#x60;flows&#x60; will be deleted if the query delete is &#x60;true&#x60;
+   * @param namespace The flow namespace (required)
+   * @param delete If missing flow should be deleted (required)
+   * @param tenant  (required)
+   * @param body A list of flows source code (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return List&lt;FlowInterface&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<FlowInterface> updateFlowsInNamespace(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull Boolean delete, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'namespace' is set
+    if (namespace == null) {
+      throw new ApiException(400, "Missing the required parameter 'namespace' when calling updateFlowsInNamespace");
+    }
+    
+    // verify the required parameter 'delete' is set
+    if (delete == null) {
+      throw new ApiException(400, "Missing the required parameter 'delete' when calling updateFlowsInNamespace");
+    }
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling updateFlowsInNamespace");
+    }
+    
+    // verify the required parameter 'body' is set
+    if (body == null) {
+      throw new ApiException(400, "Missing the required parameter 'body' when calling updateFlowsInNamespace");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/flows/{namespace}"
+      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPair("delete", delete));
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/x-yaml"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<List<FlowInterface>> localVarReturnType = new TypeReference<List<FlowInterface>>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "POST",
         localVarQueryParams,
         localVarCollectionQueryParams,
         localVarQueryStringJoiner.toString(),

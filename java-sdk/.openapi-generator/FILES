@@ -209,7 +209,6 @@ docs/Isolation.md
 docs/KVControllerApiDeleteBulkRequest.md
 docs/KVControllerApiDeleteBulkResponse.md
 docs/KVControllerTypedValue.md
-docs/KVControllerTypedValueValue.md
 docs/KVEntry.md
 docs/KVType.md
 docs/KvApi.md
@@ -384,7 +383,6 @@ docs/TriggersApi.md
 docs/Type.md
 docs/UnitTest.md
 docs/UnitTestResult.md
-docs/UpdateFlow200Response.md
 docs/UsageEE.md
 docs/UserGroup.md
 docs/UserGroupType.md
@@ -632,7 +630,6 @@ src/main/java/io/kestra/sdk/model/Isolation.java
 src/main/java/io/kestra/sdk/model/KVControllerApiDeleteBulkRequest.java
 src/main/java/io/kestra/sdk/model/KVControllerApiDeleteBulkResponse.java
 src/main/java/io/kestra/sdk/model/KVControllerTypedValue.java
-src/main/java/io/kestra/sdk/model/KVControllerTypedValueValue.java
 src/main/java/io/kestra/sdk/model/KVEntry.java
 src/main/java/io/kestra/sdk/model/KVType.java
 src/main/java/io/kestra/sdk/model/Label.java
@@ -802,7 +799,6 @@ src/main/java/io/kestra/sdk/model/TriggerFixture.java
 src/main/java/io/kestra/sdk/model/Type.java
 src/main/java/io/kestra/sdk/model/UnitTest.java
 src/main/java/io/kestra/sdk/model/UnitTestResult.java
-src/main/java/io/kestra/sdk/model/UpdateFlow200Response.java
 src/main/java/io/kestra/sdk/model/UsageEE.java
 src/main/java/io/kestra/sdk/model/UserGroup.java
 src/main/java/io/kestra/sdk/model/UserGroupType.java

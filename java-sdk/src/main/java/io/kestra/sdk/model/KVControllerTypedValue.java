@@ -20,7 +20,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.kestra.sdk.model.KVControllerTypedValueValue;
 import io.kestra.sdk.model.KVType;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -39,7 +38,7 @@ public class KVControllerTypedValue {
   @javax.annotation.Nullable  private KVType type;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nullable  private KVControllerTypedValueValue value;
+  @javax.annotation.Nullable  private Object value;
 
   public KVControllerTypedValue() {
   }
@@ -68,7 +67,7 @@ public class KVControllerTypedValue {
     this.type = type;
   }
 
-  public KVControllerTypedValue value(@javax.annotation.Nullable KVControllerTypedValueValue value) {
+  public KVControllerTypedValue value(@javax.annotation.Nullable Object value) {
     
     this.value = value;
     return this;
@@ -81,14 +80,14 @@ public class KVControllerTypedValue {
   @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public KVControllerTypedValueValue getValue() {
+  public Object getValue() {
     return value;
   }
 
 
   @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setValue(@javax.annotation.Nullable KVControllerTypedValueValue value) {
+  public void setValue(@javax.annotation.Nullable Object value) {
     this.value = value;
   }
 

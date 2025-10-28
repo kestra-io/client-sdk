@@ -142,7 +142,7 @@ public class Example {
 
 ## deleteExecution
 
-> deleteExecution(executionId, deleteLogs, deleteMetrics, deleteStorage, tenant)
+> deleteExecution(executionId, tenant, deleteLogs, deleteMetrics, deleteStorage)
 
 Delete an execution
 
@@ -173,12 +173,12 @@ public class Example {
 
         ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String executionId = "executionId_example"; // String | The execution id
+        String tenant = "tenant_example"; // String | 
         Boolean deleteLogs = true; // Boolean | Whether to delete execution logs
         Boolean deleteMetrics = true; // Boolean | Whether to delete execution metrics
         Boolean deleteStorage = true; // Boolean | Whether to delete execution files in the internal storage
-        String tenant = "tenant_example"; // String | 
         try {
-            apiInstance.deleteExecution(executionId, deleteLogs, deleteMetrics, deleteStorage, tenant);
+            apiInstance.deleteExecution(executionId, tenant, deleteLogs, deleteMetrics, deleteStorage);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#deleteExecution");
             System.err.println("Status code: " + e.getCode());
@@ -196,10 +196,10 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **executionId** | **String**| The execution id | |
-| **deleteLogs** | **Boolean**| Whether to delete execution logs | [default to true] |
-| **deleteMetrics** | **Boolean**| Whether to delete execution metrics | [default to true] |
-| **deleteStorage** | **Boolean**| Whether to delete execution files in the internal storage | [default to true] |
 | **tenant** | **String**|  | |
+| **deleteLogs** | **Boolean**| Whether to delete execution logs | [optional] [default to true] |
+| **deleteMetrics** | **Boolean**| Whether to delete execution metrics | [optional] [default to true] |
+| **deleteStorage** | **Boolean**| Whether to delete execution files in the internal storage | [optional] [default to true] |
 
 ### Return type
 
@@ -224,7 +224,7 @@ null (empty response body)
 
 ## deleteExecutionsByIds
 
-> BulkResponse deleteExecutionsByIds(deleteLogs, deleteMetrics, deleteStorage, tenant, requestBody, includeNonTerminated)
+> BulkResponse deleteExecutionsByIds(tenant, requestBody, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage)
 
 Delete a list of executions
 
@@ -254,14 +254,14 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
-        Boolean deleteLogs = true; // Boolean | Whether to delete execution logs
-        Boolean deleteMetrics = true; // Boolean | Whether to delete execution metrics
-        Boolean deleteStorage = true; // Boolean | Whether to delete execution files in the internal storage
         String tenant = "tenant_example"; // String | 
         List<String> requestBody = Arrays.asList(); // List<String> | The execution id
         Boolean includeNonTerminated = false; // Boolean | Whether to delete non-terminated executions
+        Boolean deleteLogs = true; // Boolean | Whether to delete execution logs
+        Boolean deleteMetrics = true; // Boolean | Whether to delete execution metrics
+        Boolean deleteStorage = true; // Boolean | Whether to delete execution files in the internal storage
         try {
-            BulkResponse result = apiInstance.deleteExecutionsByIds(deleteLogs, deleteMetrics, deleteStorage, tenant, requestBody, includeNonTerminated);
+            BulkResponse result = apiInstance.deleteExecutionsByIds(tenant, requestBody, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#deleteExecutionsByIds");
@@ -279,12 +279,12 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **deleteLogs** | **Boolean**| Whether to delete execution logs | [default to true] |
-| **deleteMetrics** | **Boolean**| Whether to delete execution metrics | [default to true] |
-| **deleteStorage** | **Boolean**| Whether to delete execution files in the internal storage | [default to true] |
 | **tenant** | **String**|  | |
 | **requestBody** | [**List&lt;String&gt;**](String.md)| The execution id | |
 | **includeNonTerminated** | **Boolean**| Whether to delete non-terminated executions | [optional] [default to false] |
+| **deleteLogs** | **Boolean**| Whether to delete execution logs | [optional] [default to true] |
+| **deleteMetrics** | **Boolean**| Whether to delete execution metrics | [optional] [default to true] |
+| **deleteStorage** | **Boolean**| Whether to delete execution files in the internal storage | [optional] [default to true] |
 
 ### Return type
 
@@ -309,7 +309,7 @@ public class Example {
 
 ## deleteExecutionsByQuery
 
-> Object deleteExecutionsByQuery(deleteLogs, deleteMetrics, deleteStorage, tenant, filters, includeNonTerminated)
+> Object deleteExecutionsByQuery(tenant, filters, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage)
 
 Delete executions filter by query parameters
 
@@ -339,14 +339,14 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
-        Boolean deleteLogs = true; // Boolean | Whether to delete execution logs
-        Boolean deleteMetrics = true; // Boolean | Whether to delete execution metrics
-        Boolean deleteStorage = true; // Boolean | Whether to delete execution files in the internal storage
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         Boolean includeNonTerminated = false; // Boolean | Whether to delete non-terminated executions
+        Boolean deleteLogs = true; // Boolean | Whether to delete execution logs
+        Boolean deleteMetrics = true; // Boolean | Whether to delete execution metrics
+        Boolean deleteStorage = true; // Boolean | Whether to delete execution files in the internal storage
         try {
-            Object result = apiInstance.deleteExecutionsByQuery(deleteLogs, deleteMetrics, deleteStorage, tenant, filters, includeNonTerminated);
+            Object result = apiInstance.deleteExecutionsByQuery(tenant, filters, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#deleteExecutionsByQuery");
@@ -364,12 +364,12 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **deleteLogs** | **Boolean**| Whether to delete execution logs | [default to true] |
-| **deleteMetrics** | **Boolean**| Whether to delete execution metrics | [default to true] |
-| **deleteStorage** | **Boolean**| Whether to delete execution files in the internal storage | [default to true] |
 | **tenant** | **String**|  | |
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
 | **includeNonTerminated** | **Boolean**| Whether to delete non-terminated executions | [optional] [default to false] |
+| **deleteLogs** | **Boolean**| Whether to delete execution logs | [optional] [default to true] |
+| **deleteMetrics** | **Boolean**| Whether to delete execution metrics | [optional] [default to true] |
+| **deleteStorage** | **Boolean**| Whether to delete execution files in the internal storage | [optional] [default to true] |
 
 ### Return type
 

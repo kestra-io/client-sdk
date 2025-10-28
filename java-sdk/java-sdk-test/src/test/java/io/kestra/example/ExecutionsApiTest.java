@@ -193,7 +193,7 @@ public class ExecutionsApiTest {
         Execution execution = kestraClient().executions().getExecution(executionId, MAIN_TENANT);
         assertThat(execution).isNotNull();
 
-        kestraClient().executions().deleteExecution(executionId, deleteLogs, deleteMetrics, deleteStorage, MAIN_TENANT);
+        kestraClient().executions().deleteExecution(executionId, MAIN_TENANT, deleteLogs, deleteMetrics, deleteStorage);
 
         ApiException apiException = assertThrows(ApiException.class,
             () -> kestraClient().executions().getExecution(executionId, MAIN_TENANT));
@@ -219,7 +219,7 @@ public class ExecutionsApiTest {
 
         List<String> executionIds = List.of(execution1.getId(), execution3.getId());
         Boolean includeNonTerminated = true;
-        BulkResponse response = kestraClient().executions().deleteExecutionsByIds(deleteLogs, deleteMetrics, deleteStorage, MAIN_TENANT, executionIds, includeNonTerminated);
+        BulkResponse response = kestraClient().executions().deleteExecutionsByIds(MAIN_TENANT, executionIds, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage);
 
         assertThat(response.getCount()).isEqualTo(2);
         assertThrows(ApiException.class, () -> kestraClient().executions().getExecution(execution1.getId(), MAIN_TENANT));
@@ -253,7 +253,7 @@ public class ExecutionsApiTest {
             .operation(QueryFilterOp.EQUALS)
             .value(namespace1));
 
-        Object response = kestraClient().executions().deleteExecutionsByQuery(deleteLogs, deleteMetrics, deleteStorage, MAIN_TENANT, filters, includeNonTerminated);
+        Object response = kestraClient().executions().deleteExecutionsByQuery(MAIN_TENANT, filters, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage);
 
         assertThat(response).isInstanceOf(LinkedHashMap.class).extracting("count").isEqualTo(2);
 
