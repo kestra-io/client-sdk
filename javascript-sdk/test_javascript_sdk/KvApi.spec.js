@@ -45,7 +45,7 @@ describe('KVApi', () => {
     });
 
     // FIXME re-enable when new Kestra EE is available
-    xit('list_keys_with_inheritence: List all keys for inherited namespaces', async () => {
+    it.skip('list_keys_with_inheritence: List all keys for inherited namespaces', async () => {
         const key = 'test_list_keys_with_inheritence';
         const value = 'value-inherited';
 
