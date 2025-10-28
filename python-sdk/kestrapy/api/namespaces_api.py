@@ -57,6 +57,8 @@ class NamespacesApi:
         self,
         tenant: StrictStr,
         api_autocomplete: ApiAutocomplete,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -76,8 +78,17 @@ class NamespacesApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param api_autocomplete: (required)
+                :param api_autocomplete: (required)
         :type api_autocomplete: ApiAutocomplete
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -103,6 +114,8 @@ class NamespacesApi:
         _param = self._autocomplete_namespaces_serialize(
             tenant=tenant,
             api_autocomplete=api_autocomplete,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -128,6 +141,8 @@ class NamespacesApi:
         self,
         tenant: StrictStr,
         api_autocomplete: ApiAutocomplete,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -147,8 +162,17 @@ class NamespacesApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param api_autocomplete: (required)
+                :param api_autocomplete: (required)
         :type api_autocomplete: ApiAutocomplete
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -174,6 +198,8 @@ class NamespacesApi:
         _param = self._autocomplete_namespaces_serialize(
             tenant=tenant,
             api_autocomplete=api_autocomplete,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -194,78 +220,12 @@ class NamespacesApi:
         )
 
 
-    @validate_call
-    def autocomplete_namespaces_without_preload_content(
-        self,
-        tenant: StrictStr,
-        api_autocomplete: ApiAutocomplete,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """List namespaces for autocomplete
-
-        Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
-
-        :param tenant: (required)
-        :type tenant: str
-        :param api_autocomplete: (required)
-        :type api_autocomplete: ApiAutocomplete
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._autocomplete_namespaces_serialize(
-            tenant=tenant,
-            api_autocomplete=api_autocomplete,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[str]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _autocomplete_namespaces_serialize(
         self,
         tenant,
         api_autocomplete,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -295,6 +255,19 @@ class NamespacesApi:
         # process the body parameter
         if api_autocomplete is not None:
             _body_params = api_autocomplete
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -349,6 +322,8 @@ class NamespacesApi:
         self,
         tenant: StrictStr,
         namespace: Annotated[Namespace, Field(description="The namespace")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -367,8 +342,17 @@ class NamespacesApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param namespace: The namespace (required)
+                :param namespace: The namespace (required)
         :type namespace: Namespace
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -394,6 +378,8 @@ class NamespacesApi:
         _param = self._create_namespace_serialize(
             tenant=tenant,
             namespace=namespace,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -419,6 +405,8 @@ class NamespacesApi:
         self,
         tenant: StrictStr,
         namespace: Annotated[Namespace, Field(description="The namespace")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -437,8 +425,17 @@ class NamespacesApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param namespace: The namespace (required)
+                :param namespace: The namespace (required)
         :type namespace: Namespace
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -464,6 +461,8 @@ class NamespacesApi:
         _param = self._create_namespace_serialize(
             tenant=tenant,
             namespace=namespace,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -484,77 +483,12 @@ class NamespacesApi:
         )
 
 
-    @validate_call
-    def create_namespace_without_preload_content(
-        self,
-        tenant: StrictStr,
-        namespace: Annotated[Namespace, Field(description="The namespace")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Create a namespace
-
-
-        :param tenant: (required)
-        :type tenant: str
-        :param namespace: The namespace (required)
-        :type namespace: Namespace
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._create_namespace_serialize(
-            tenant=tenant,
-            namespace=namespace,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Namespace",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _create_namespace_serialize(
         self,
         tenant,
         namespace,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -584,6 +518,19 @@ class NamespacesApi:
         # process the body parameter
         if namespace is not None:
             _body_params = namespace
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -638,6 +585,8 @@ class NamespacesApi:
         self,
         id: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -656,8 +605,17 @@ class NamespacesApi:
 
         :param id: The namespace id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -683,6 +641,8 @@ class NamespacesApi:
         _param = self._delete_namespace_serialize(
             id=id,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -708,6 +668,8 @@ class NamespacesApi:
         self,
         id: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -726,8 +688,17 @@ class NamespacesApi:
 
         :param id: The namespace id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -753,6 +724,8 @@ class NamespacesApi:
         _param = self._delete_namespace_serialize(
             id=id,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -773,77 +746,12 @@ class NamespacesApi:
         )
 
 
-    @validate_call
-    def delete_namespace_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The namespace id")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Delete a namespace
-
-
-        :param id: The namespace id (required)
-        :type id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._delete_namespace_serialize(
-            id=id,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '204': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _delete_namespace_serialize(
         self,
         id,
         tenant,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -873,6 +781,19 @@ class NamespacesApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
 
@@ -908,6 +829,8 @@ class NamespacesApi:
         namespace: Annotated[StrictStr, Field(description="The namespace id")],
         key: Annotated[StrictStr, Field(description="The secret key")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -926,10 +849,19 @@ class NamespacesApi:
 
         :param namespace: The namespace id (required)
         :type namespace: str
-        :param key: The secret key (required)
+                :param key: The secret key (required)
         :type key: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -956,6 +888,8 @@ class NamespacesApi:
             namespace=namespace,
             key=key,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -982,6 +916,8 @@ class NamespacesApi:
         namespace: Annotated[StrictStr, Field(description="The namespace id")],
         key: Annotated[StrictStr, Field(description="The secret key")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1000,10 +936,19 @@ class NamespacesApi:
 
         :param namespace: The namespace id (required)
         :type namespace: str
-        :param key: The secret key (required)
+                :param key: The secret key (required)
         :type key: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1030,6 +975,8 @@ class NamespacesApi:
             namespace=namespace,
             key=key,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1050,82 +997,13 @@ class NamespacesApi:
         )
 
 
-    @validate_call
-    def delete_secret_without_preload_content(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The namespace id")],
-        key: Annotated[StrictStr, Field(description="The secret key")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Delete a secret for a namespace
-
-
-        :param namespace: The namespace id (required)
-        :type namespace: str
-        :param key: The secret key (required)
-        :type key: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._delete_secret_serialize(
-            namespace=namespace,
-            key=key,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _delete_secret_serialize(
         self,
         namespace,
         key,
         tenant,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -1157,6 +1035,19 @@ class NamespacesApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
 
@@ -1191,6 +1082,8 @@ class NamespacesApi:
         self,
         namespace: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1209,8 +1102,17 @@ class NamespacesApi:
 
         :param namespace: The namespace id (required)
         :type namespace: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1236,6 +1138,8 @@ class NamespacesApi:
         _param = self._get_inherited_secrets_serialize(
             namespace=namespace,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1261,6 +1165,8 @@ class NamespacesApi:
         self,
         namespace: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1279,8 +1185,17 @@ class NamespacesApi:
 
         :param namespace: The namespace id (required)
         :type namespace: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1306,6 +1221,8 @@ class NamespacesApi:
         _param = self._get_inherited_secrets_serialize(
             namespace=namespace,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1326,77 +1243,12 @@ class NamespacesApi:
         )
 
 
-    @validate_call
-    def get_inherited_secrets_without_preload_content(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The namespace id")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """List inherited secrets
-
-
-        :param namespace: The namespace id (required)
-        :type namespace: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._get_inherited_secrets_serialize(
-            namespace=namespace,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Dict[str, List[str]]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _get_inherited_secrets_serialize(
         self,
         namespace,
         tenant,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -1426,6 +1278,19 @@ class NamespacesApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -1467,6 +1332,8 @@ class NamespacesApi:
         self,
         id: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1485,8 +1352,17 @@ class NamespacesApi:
 
         :param id: The namespace id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1512,6 +1388,8 @@ class NamespacesApi:
         _param = self._get_namespace_serialize(
             id=id,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1537,6 +1415,8 @@ class NamespacesApi:
         self,
         id: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1555,8 +1435,17 @@ class NamespacesApi:
 
         :param id: The namespace id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1582,6 +1471,8 @@ class NamespacesApi:
         _param = self._get_namespace_serialize(
             id=id,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1602,77 +1493,12 @@ class NamespacesApi:
         )
 
 
-    @validate_call
-    def get_namespace_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The namespace id")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Get a namespace
-
-
-        :param id: The namespace id (required)
-        :type id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._get_namespace_serialize(
-            id=id,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Namespace",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _get_namespace_serialize(
         self,
         id,
         tenant,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -1702,6 +1528,19 @@ class NamespacesApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -1743,6 +1582,8 @@ class NamespacesApi:
         self,
         id: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1761,8 +1602,17 @@ class NamespacesApi:
 
         :param id: The namespace id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1788,6 +1638,8 @@ class NamespacesApi:
         _param = self._inherited_plugin_defaults_serialize(
             id=id,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1813,6 +1665,8 @@ class NamespacesApi:
         self,
         id: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1831,8 +1685,17 @@ class NamespacesApi:
 
         :param id: The namespace id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1858,6 +1721,8 @@ class NamespacesApi:
         _param = self._inherited_plugin_defaults_serialize(
             id=id,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1878,77 +1743,12 @@ class NamespacesApi:
         )
 
 
-    @validate_call
-    def inherited_plugin_defaults_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The namespace id")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """List inherited plugin defaults
-
-
-        :param id: The namespace id (required)
-        :type id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._inherited_plugin_defaults_serialize(
-            id=id,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[PluginDefault]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _inherited_plugin_defaults_serialize(
         self,
         id,
         tenant,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -1978,6 +1778,19 @@ class NamespacesApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -2019,6 +1832,8 @@ class NamespacesApi:
         self,
         id: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2037,8 +1852,17 @@ class NamespacesApi:
 
         :param id: The namespace id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2064,6 +1888,8 @@ class NamespacesApi:
         _param = self._inherited_variables_serialize(
             id=id,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2089,6 +1915,8 @@ class NamespacesApi:
         self,
         id: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2107,8 +1935,17 @@ class NamespacesApi:
 
         :param id: The namespace id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2134,6 +1971,8 @@ class NamespacesApi:
         _param = self._inherited_variables_serialize(
             id=id,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2154,77 +1993,12 @@ class NamespacesApi:
         )
 
 
-    @validate_call
-    def inherited_variables_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The namespace id")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """List inherited variables
-
-
-        :param id: The namespace id (required)
-        :type id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._inherited_variables_serialize(
-            id=id,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Dict[str, object]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _inherited_variables_serialize(
         self,
         id,
         tenant,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -2254,6 +2028,19 @@ class NamespacesApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -2299,6 +2086,8 @@ class NamespacesApi:
         filters: Annotated[List[QueryFilter], Field(description="Filters")],
         tenant: StrictStr,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2317,16 +2106,25 @@ class NamespacesApi:
 
         :param namespace: The namespace id (required)
         :type namespace: str
-        :param page: The current page (required)
+                :param page: The current page (required)
         :type page: int
-        :param size: The current page size (required)
+                :param size: The current page size (required)
         :type size: int
-        :param filters: Filters (required)
+                :param filters: Filters (required)
         :type filters: List[QueryFilter]
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param sort: The sort of current page
+                :param sort: The sort of current page
         :type sort: List[str]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2356,6 +2154,8 @@ class NamespacesApi:
             filters=filters,
             tenant=tenant,
             sort=sort,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2385,6 +2185,8 @@ class NamespacesApi:
         filters: Annotated[List[QueryFilter], Field(description="Filters")],
         tenant: StrictStr,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2403,16 +2205,25 @@ class NamespacesApi:
 
         :param namespace: The namespace id (required)
         :type namespace: str
-        :param page: The current page (required)
+                :param page: The current page (required)
         :type page: int
-        :param size: The current page size (required)
+                :param size: The current page size (required)
         :type size: int
-        :param filters: Filters (required)
+                :param filters: Filters (required)
         :type filters: List[QueryFilter]
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param sort: The sort of current page
+                :param sort: The sort of current page
         :type sort: List[str]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2442,6 +2253,8 @@ class NamespacesApi:
             filters=filters,
             tenant=tenant,
             sort=sort,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2462,89 +2275,6 @@ class NamespacesApi:
         )
 
 
-    @validate_call
-    def list_namespace_secrets_without_preload_content(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The namespace id")],
-        page: Annotated[StrictInt, Field(description="The current page")],
-        size: Annotated[StrictInt, Field(description="The current page size")],
-        filters: Annotated[List[QueryFilter], Field(description="Filters")],
-        tenant: StrictStr,
-        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Get secrets for a namespace
-
-
-        :param namespace: The namespace id (required)
-        :type namespace: str
-        :param page: The current page (required)
-        :type page: int
-        :param size: The current page size (required)
-        :type size: int
-        :param filters: Filters (required)
-        :type filters: List[QueryFilter]
-        :param tenant: (required)
-        :type tenant: str
-        :param sort: The sort of current page
-        :type sort: List[str]
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._list_namespace_secrets_serialize(
-            namespace=namespace,
-            page=page,
-            size=size,
-            filters=filters,
-            tenant=tenant,
-            sort=sort,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ApiSecretListResponse",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _list_namespace_secrets_serialize(
         self,
         namespace,
@@ -2553,6 +2283,8 @@ class NamespacesApi:
         filters,
         tenant,
         sort,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -2601,6 +2333,19 @@ class NamespacesApi:
         # process the form parameters
         # process the body parameter
 
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
+
 
         # set the HTTP header `Accept`
         if 'Accept' not in _header_params:
@@ -2643,6 +2388,8 @@ class NamespacesApi:
         key: Annotated[StrictStr, Field(description="The secret key")],
         tenant: StrictStr,
         api_secret_meta_ee: ApiSecretMetaEE,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2661,12 +2408,21 @@ class NamespacesApi:
 
         :param namespace: The namespace id (required)
         :type namespace: str
-        :param key: The secret key (required)
+                :param key: The secret key (required)
         :type key: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param api_secret_meta_ee: (required)
+                :param api_secret_meta_ee: (required)
         :type api_secret_meta_ee: ApiSecretMetaEE
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2694,6 +2450,8 @@ class NamespacesApi:
             key=key,
             tenant=tenant,
             api_secret_meta_ee=api_secret_meta_ee,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2721,6 +2479,8 @@ class NamespacesApi:
         key: Annotated[StrictStr, Field(description="The secret key")],
         tenant: StrictStr,
         api_secret_meta_ee: ApiSecretMetaEE,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2739,12 +2499,21 @@ class NamespacesApi:
 
         :param namespace: The namespace id (required)
         :type namespace: str
-        :param key: The secret key (required)
+                :param key: The secret key (required)
         :type key: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param api_secret_meta_ee: (required)
+                :param api_secret_meta_ee: (required)
         :type api_secret_meta_ee: ApiSecretMetaEE
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2772,6 +2541,8 @@ class NamespacesApi:
             key=key,
             tenant=tenant,
             api_secret_meta_ee=api_secret_meta_ee,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2792,87 +2563,14 @@ class NamespacesApi:
         )
 
 
-    @validate_call
-    def patch_secret_without_preload_content(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The namespace id")],
-        key: Annotated[StrictStr, Field(description="The secret key")],
-        tenant: StrictStr,
-        api_secret_meta_ee: ApiSecretMetaEE,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Patch a secret metadata for a namespace
-
-
-        :param namespace: The namespace id (required)
-        :type namespace: str
-        :param key: The secret key (required)
-        :type key: str
-        :param tenant: (required)
-        :type tenant: str
-        :param api_secret_meta_ee: (required)
-        :type api_secret_meta_ee: ApiSecretMetaEE
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._patch_secret_serialize(
-            namespace=namespace,
-            key=key,
-            tenant=tenant,
-            api_secret_meta_ee=api_secret_meta_ee,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[ApiSecretMeta]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _patch_secret_serialize(
         self,
         namespace,
         key,
         tenant,
         api_secret_meta_ee,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -2906,6 +2604,19 @@ class NamespacesApi:
         # process the body parameter
         if api_secret_meta_ee is not None:
             _body_params = api_secret_meta_ee
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -2961,6 +2672,8 @@ class NamespacesApi:
         namespace: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
         api_secret_value: ApiSecretValue,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2979,10 +2692,19 @@ class NamespacesApi:
 
         :param namespace: The namespace id (required)
         :type namespace: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param api_secret_value: (required)
+                :param api_secret_value: (required)
         :type api_secret_value: ApiSecretValue
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3009,6 +2731,8 @@ class NamespacesApi:
             namespace=namespace,
             tenant=tenant,
             api_secret_value=api_secret_value,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3035,6 +2759,8 @@ class NamespacesApi:
         namespace: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
         api_secret_value: ApiSecretValue,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3053,10 +2779,19 @@ class NamespacesApi:
 
         :param namespace: The namespace id (required)
         :type namespace: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param api_secret_value: (required)
+                :param api_secret_value: (required)
         :type api_secret_value: ApiSecretValue
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3083,6 +2818,8 @@ class NamespacesApi:
             namespace=namespace,
             tenant=tenant,
             api_secret_value=api_secret_value,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3103,82 +2840,13 @@ class NamespacesApi:
         )
 
 
-    @validate_call
-    def put_secrets_without_preload_content(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The namespace id")],
-        tenant: StrictStr,
-        api_secret_value: ApiSecretValue,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Update secrets for a namespace
-
-
-        :param namespace: The namespace id (required)
-        :type namespace: str
-        :param tenant: (required)
-        :type tenant: str
-        :param api_secret_value: (required)
-        :type api_secret_value: ApiSecretValue
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._put_secrets_serialize(
-            namespace=namespace,
-            tenant=tenant,
-            api_secret_value=api_secret_value,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[ApiSecretMeta]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _put_secrets_serialize(
         self,
         namespace,
         tenant,
         api_secret_value,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -3210,6 +2878,19 @@ class NamespacesApi:
         # process the body parameter
         if api_secret_value is not None:
             _body_params = api_secret_value
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -3268,6 +2949,8 @@ class NamespacesApi:
         tenant: StrictStr,
         q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3286,16 +2969,25 @@ class NamespacesApi:
 
         :param page: The current page (required)
         :type page: int
-        :param size: The current page size (required)
+                :param size: The current page size (required)
         :type size: int
-        :param existing: Return only existing namespace (required)
+                :param existing: Return only existing namespace (required)
         :type existing: bool
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param q: A string filter
+                :param q: A string filter
         :type q: str
-        :param sort: The sort of current page
+                :param sort: The sort of current page
         :type sort: List[str]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3325,6 +3017,8 @@ class NamespacesApi:
             tenant=tenant,
             q=q,
             sort=sort,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3354,6 +3048,8 @@ class NamespacesApi:
         tenant: StrictStr,
         q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3372,16 +3068,25 @@ class NamespacesApi:
 
         :param page: The current page (required)
         :type page: int
-        :param size: The current page size (required)
+                :param size: The current page size (required)
         :type size: int
-        :param existing: Return only existing namespace (required)
+                :param existing: Return only existing namespace (required)
         :type existing: bool
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param q: A string filter
+                :param q: A string filter
         :type q: str
-        :param sort: The sort of current page
+                :param sort: The sort of current page
         :type sort: List[str]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3411,6 +3116,8 @@ class NamespacesApi:
             tenant=tenant,
             q=q,
             sort=sort,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3431,89 +3138,6 @@ class NamespacesApi:
         )
 
 
-    @validate_call
-    def search_namespaces_without_preload_content(
-        self,
-        page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
-        size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
-        existing: Annotated[StrictBool, Field(description="Return only existing namespace")],
-        tenant: StrictStr,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Search for namespaces
-
-
-        :param page: The current page (required)
-        :type page: int
-        :param size: The current page size (required)
-        :type size: int
-        :param existing: Return only existing namespace (required)
-        :type existing: bool
-        :param tenant: (required)
-        :type tenant: str
-        :param q: A string filter
-        :type q: str
-        :param sort: The sort of current page
-        :type sort: List[str]
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._search_namespaces_serialize(
-            page=page,
-            size=size,
-            existing=existing,
-            tenant=tenant,
-            q=q,
-            sort=sort,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "PagedResultsNamespace",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _search_namespaces_serialize(
         self,
         page,
@@ -3522,6 +3146,8 @@ class NamespacesApi:
         tenant,
         q,
         sort,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -3571,6 +3197,19 @@ class NamespacesApi:
         # process the form parameters
         # process the body parameter
 
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
+
 
         # set the HTTP header `Accept`
         if 'Accept' not in _header_params:
@@ -3612,6 +3251,8 @@ class NamespacesApi:
         id: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
         namespace: Annotated[Namespace, Field(description="The namespace")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3630,10 +3271,19 @@ class NamespacesApi:
 
         :param id: The namespace id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param namespace: The namespace (required)
+                :param namespace: The namespace (required)
         :type namespace: Namespace
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3660,6 +3310,8 @@ class NamespacesApi:
             id=id,
             tenant=tenant,
             namespace=namespace,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3686,6 +3338,8 @@ class NamespacesApi:
         id: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
         namespace: Annotated[Namespace, Field(description="The namespace")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3704,10 +3358,19 @@ class NamespacesApi:
 
         :param id: The namespace id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param namespace: The namespace (required)
+                :param namespace: The namespace (required)
         :type namespace: Namespace
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3734,6 +3397,8 @@ class NamespacesApi:
             id=id,
             tenant=tenant,
             namespace=namespace,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3754,82 +3419,13 @@ class NamespacesApi:
         )
 
 
-    @validate_call
-    def update_namespace_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The namespace id")],
-        tenant: StrictStr,
-        namespace: Annotated[Namespace, Field(description="The namespace")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Update a namespace
-
-
-        :param id: The namespace id (required)
-        :type id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param namespace: The namespace (required)
-        :type namespace: Namespace
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._update_namespace_serialize(
-            id=id,
-            tenant=tenant,
-            namespace=namespace,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Namespace",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _update_namespace_serialize(
         self,
         id,
         tenant,
         namespace,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -3861,6 +3457,19 @@ class NamespacesApi:
         # process the body parameter
         if namespace is not None:
             _body_params = namespace
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`

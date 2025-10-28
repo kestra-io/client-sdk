@@ -41,61 +41,6 @@ function stripDeprecatedFromSchema(schema: any, counters: { removedProperties: n
 }
 
 /**
- * Replace the requestBody of operations identified by operationIds with the provided requestBodyTemplate.
- */
-function replaceRequestBodyForOperationIds(
-    spec: any,
-    operationIds: string[] | Set<string>
-): { replaced: number; notFound: string[] } {
-    const ids = operationIds instanceof Set ? operationIds : new Set(operationIds);
-    let replaced = 0;
-    const notFound = new Set(ids);
-
-    if (!spec || typeof spec !== 'object' || !spec.paths) {
-        return { replaced: 0, notFound: Array.from(notFound) };
-    }
-
-    for (const pathKey of Object.keys(spec.paths)) {
-        const pathItem = spec.paths[pathKey];
-        if (!pathItem || typeof pathItem !== 'object') continue;
-
-        for (const opKey of Object.keys(pathItem)) {
-            const operation = (pathItem as any)[opKey];
-            if (!operation || typeof operation !== 'object' || !operation.operationId) continue;
-
-            if (ids.has(operation.operationId)) {
-                // clone template to avoid shared references
-                (pathItem as any)[opKey].requestBody = JSON.parse(JSON.stringify(multipartInputsRequestBody));
-                replaced++;
-                notFound.delete(operation.operationId);
-            }
-        }
-    }
-
-    return { replaced, notFound: Array.from(notFound) };
-}
-
-const multipartInputsRequestBody = {
-    description: 'The inputs',
-    content: {
-        'multipart/form-data': {
-            schema: {
-                type: 'object',
-                properties: {
-                    inputs: {
-                        type: 'array',
-                        items: {
-                            type: 'string',
-                            format: 'binary'
-                        }
-                    }
-                }
-            }
-        }
-    }
-};
-
-/**
  * Remove deprecated parameters from an operation object (parameters: [...]).
  */
 function stripDeprecatedParametersFromOperation(op: any, counters: { removedParameters: number }) {
@@ -231,12 +176,6 @@ export function sanitizeOpenAPI(spec: any, opts: { removeDeprecatedOperations?: 
                 delete spec.paths[p];
             }
         }
-    }
-
-    // 4) Replace requestBody for specific operationIds
-    if (operationIdsToSkip && operationIdsToSkip.length > 0) {
-        const { replaced, notFound } = replaceRequestBodyForOperationIds(spec, ['createExecution']);
-        console.debug(`Replaced requestBody for ${replaced} operations. Not found: ${notFound.join(", ")}`);
     }
 
     return counters;

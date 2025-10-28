@@ -66,18 +66,6 @@ class {{classname}}:
             response_types_map=_response_types_map,
         )
 
-
-    @validate_call
-    {{#async}}async {{/async}}def {{operationId}}_without_preload_content{{>partial_api_args}} -> RESTResponseType:
-{{>partial_api}}
-
-        response_data = {{#async}}await {{/async}}self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
     {{/vendorExtensions.x-sdk-customization.x-skipped}}
 
     def _{{operationId}}_serialize(
@@ -85,6 +73,8 @@ class {{classname}}:
         {{#allParams}}
         {{paramName}},
         {{/allParams}}
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -167,7 +157,7 @@ class {{classname}}:
             {{#isFile}}
             _files['{{{baseName}}}'] = {{paramName}}
             {{/isFile}}
-            {{^isFile}}
+            {{^isFile}}dd
             _form_params.append(('{{{baseName}}}', {{paramName}}))
             {{/isFile}}
 {{/formParams}}
@@ -189,6 +179,19 @@ class {{classname}}:
             _body_params = {{paramName}}
             {{/isBinary}}
 {{/bodyParam}}
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
         {{#constantParams}}
         {{#isQueryParam}}

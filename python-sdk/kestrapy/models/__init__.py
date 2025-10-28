@@ -77,6 +77,7 @@ from kestrapy.models.blueprint_controller_kind import BlueprintControllerKind
 from kestrapy.models.blueprint_with_flow import BlueprintWithFlow
 from kestrapy.models.breakpoint import Breakpoint
 from kestrapy.models.bulk_error_response import BulkErrorResponse
+from kestrapy.models.bulk_import_apps_request import BulkImportAppsRequest
 from kestrapy.models.bulk_response import BulkResponse
 from kestrapy.models.cache import Cache
 from kestrapy.models.chart_chart_option import ChartChartOption
@@ -89,6 +90,8 @@ from kestrapy.models.convertible_multi_values_string import ConvertibleMultiValu
 from kestrapy.models.convertible_values_list_string import ConvertibleValuesListString
 from kestrapy.models.create_api_token_request import CreateApiTokenRequest
 from kestrapy.models.create_api_token_response import CreateApiTokenResponse
+from kestrapy.models.create_execution_request import CreateExecutionRequest
+from kestrapy.models.create_namespace_file_request import CreateNamespaceFileRequest
 from kestrapy.models.create_security_integration_request import CreateSecurityIntegrationRequest
 from kestrapy.models.crud_event_type import CrudEventType
 from kestrapy.models.daily_execution_statistics import DailyExecutionStatistics
@@ -214,7 +217,6 @@ from kestrapy.models.isolation import Isolation
 from kestrapy.models.kv_controller_api_delete_bulk_request import KVControllerApiDeleteBulkRequest
 from kestrapy.models.kv_controller_api_delete_bulk_response import KVControllerApiDeleteBulkResponse
 from kestrapy.models.kv_controller_typed_value import KVControllerTypedValue
-from kestrapy.models.kv_controller_typed_value_value import KVControllerTypedValueValue
 from kestrapy.models.kv_entry import KVEntry
 from kestrapy.models.kv_type import KVType
 from kestrapy.models.label import Label
@@ -349,6 +351,7 @@ from kestrapy.models.service_provider_configuration_filter_configuration import 
 from kestrapy.models.service_provider_configuration_supported_configuration import ServiceProviderConfigurationSupportedConfiguration
 from kestrapy.models.service_service_state import ServiceServiceState
 from kestrapy.models.service_type import ServiceType
+from kestrapy.models.set_logo_request import SetLogoRequest
 from kestrapy.models.setup_configuration import SetupConfiguration
 from kestrapy.models.setup_configuration_setup_data import SetupConfigurationSetupData
 from kestrapy.models.sort_order import SortOrder
@@ -384,6 +387,7 @@ from kestrapy.models.trigger_fixture import TriggerFixture
 from kestrapy.models.type import Type
 from kestrapy.models.unit_test import UnitTest
 from kestrapy.models.unit_test_result import UnitTestResult
+from kestrapy.models.upload_versioned_plugins_request import UploadVersionedPluginsRequest
 from kestrapy.models.usage_ee import UsageEE
 from kestrapy.models.user_group import UserGroup
 from kestrapy.models.user_group_type import UserGroupType

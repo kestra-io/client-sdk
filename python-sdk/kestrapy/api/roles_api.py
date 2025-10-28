@@ -55,6 +55,8 @@ class RolesApi:
         self,
         tenant: StrictStr,
         api_autocomplete: Annotated[ApiAutocomplete, Field(description="Autocomplete request")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -73,8 +75,17 @@ class RolesApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param api_autocomplete: Autocomplete request (required)
+                :param api_autocomplete: Autocomplete request (required)
         :type api_autocomplete: ApiAutocomplete
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -100,6 +111,8 @@ class RolesApi:
         _param = self._autocomplete_roles_serialize(
             tenant=tenant,
             api_autocomplete=api_autocomplete,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -125,6 +138,8 @@ class RolesApi:
         self,
         tenant: StrictStr,
         api_autocomplete: Annotated[ApiAutocomplete, Field(description="Autocomplete request")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -143,8 +158,17 @@ class RolesApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param api_autocomplete: Autocomplete request (required)
+                :param api_autocomplete: Autocomplete request (required)
         :type api_autocomplete: ApiAutocomplete
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -170,6 +194,8 @@ class RolesApi:
         _param = self._autocomplete_roles_serialize(
             tenant=tenant,
             api_autocomplete=api_autocomplete,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -190,77 +216,12 @@ class RolesApi:
         )
 
 
-    @validate_call
-    def autocomplete_roles_without_preload_content(
-        self,
-        tenant: StrictStr,
-        api_autocomplete: Annotated[ApiAutocomplete, Field(description="Autocomplete request")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """List roles for autocomplete
-
-
-        :param tenant: (required)
-        :type tenant: str
-        :param api_autocomplete: Autocomplete request (required)
-        :type api_autocomplete: ApiAutocomplete
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._autocomplete_roles_serialize(
-            tenant=tenant,
-            api_autocomplete=api_autocomplete,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[ApiRoleSummary]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _autocomplete_roles_serialize(
         self,
         tenant,
         api_autocomplete,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -290,6 +251,19 @@ class RolesApi:
         # process the body parameter
         if api_autocomplete is not None:
             _body_params = api_autocomplete
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -344,6 +318,8 @@ class RolesApi:
         self,
         tenant: StrictStr,
         iam_role_controller_api_role_create_or_update_request: IAMRoleControllerApiRoleCreateOrUpdateRequest,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -362,8 +338,17 @@ class RolesApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param iam_role_controller_api_role_create_or_update_request: (required)
+                :param iam_role_controller_api_role_create_or_update_request: (required)
         :type iam_role_controller_api_role_create_or_update_request: IAMRoleControllerApiRoleCreateOrUpdateRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -389,6 +374,8 @@ class RolesApi:
         _param = self._create_role_serialize(
             tenant=tenant,
             iam_role_controller_api_role_create_or_update_request=iam_role_controller_api_role_create_or_update_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -415,6 +402,8 @@ class RolesApi:
         self,
         tenant: StrictStr,
         iam_role_controller_api_role_create_or_update_request: IAMRoleControllerApiRoleCreateOrUpdateRequest,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -433,8 +422,17 @@ class RolesApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param iam_role_controller_api_role_create_or_update_request: (required)
+                :param iam_role_controller_api_role_create_or_update_request: (required)
         :type iam_role_controller_api_role_create_or_update_request: IAMRoleControllerApiRoleCreateOrUpdateRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -460,6 +458,8 @@ class RolesApi:
         _param = self._create_role_serialize(
             tenant=tenant,
             iam_role_controller_api_role_create_or_update_request=iam_role_controller_api_role_create_or_update_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -481,78 +481,12 @@ class RolesApi:
         )
 
 
-    @validate_call
-    def create_role_without_preload_content(
-        self,
-        tenant: StrictStr,
-        iam_role_controller_api_role_create_or_update_request: IAMRoleControllerApiRoleCreateOrUpdateRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Create a role
-
-
-        :param tenant: (required)
-        :type tenant: str
-        :param iam_role_controller_api_role_create_or_update_request: (required)
-        :type iam_role_controller_api_role_create_or_update_request: IAMRoleControllerApiRoleCreateOrUpdateRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._create_role_serialize(
-            tenant=tenant,
-            iam_role_controller_api_role_create_or_update_request=iam_role_controller_api_role_create_or_update_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "IAMRoleControllerApiRoleDetail",
-            '403': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _create_role_serialize(
         self,
         tenant,
         iam_role_controller_api_role_create_or_update_request,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -582,6 +516,19 @@ class RolesApi:
         # process the body parameter
         if iam_role_controller_api_role_create_or_update_request is not None:
             _body_params = iam_role_controller_api_role_create_or_update_request
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -636,6 +583,8 @@ class RolesApi:
         self,
         id: Annotated[StrictStr, Field(description="The role id")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -654,8 +603,17 @@ class RolesApi:
 
         :param id: The role id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -681,6 +639,8 @@ class RolesApi:
         _param = self._delete_role_serialize(
             id=id,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -706,6 +666,8 @@ class RolesApi:
         self,
         id: Annotated[StrictStr, Field(description="The role id")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -724,8 +686,17 @@ class RolesApi:
 
         :param id: The role id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -751,6 +722,8 @@ class RolesApi:
         _param = self._delete_role_serialize(
             id=id,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -771,77 +744,12 @@ class RolesApi:
         )
 
 
-    @validate_call
-    def delete_role_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The role id")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Delete a role
-
-
-        :param id: The role id (required)
-        :type id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._delete_role_serialize(
-            id=id,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '204': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _delete_role_serialize(
         self,
         id,
         tenant,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -871,6 +779,19 @@ class RolesApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
 
@@ -905,6 +826,8 @@ class RolesApi:
         self,
         id: Annotated[StrictStr, Field(description="The role id")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -923,8 +846,17 @@ class RolesApi:
 
         :param id: The role id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -950,6 +882,8 @@ class RolesApi:
         _param = self._get_role_serialize(
             id=id,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -976,6 +910,8 @@ class RolesApi:
         self,
         id: Annotated[StrictStr, Field(description="The role id")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -994,8 +930,17 @@ class RolesApi:
 
         :param id: The role id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1021,6 +966,8 @@ class RolesApi:
         _param = self._get_role_serialize(
             id=id,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1042,78 +989,12 @@ class RolesApi:
         )
 
 
-    @validate_call
-    def get_role_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The role id")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Retrieve a role
-
-
-        :param id: The role id (required)
-        :type id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._get_role_serialize(
-            id=id,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "IAMRoleControllerApiRoleDetail",
-            '404': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _get_role_serialize(
         self,
         id,
         tenant,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -1143,6 +1024,19 @@ class RolesApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -1184,6 +1078,8 @@ class RolesApi:
         self,
         tenant: StrictStr,
         api_ids: Annotated[ApiIds, Field(description="The ids that must be present on results")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1202,8 +1098,17 @@ class RolesApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param api_ids: The ids that must be present on results (required)
+                :param api_ids: The ids that must be present on results (required)
         :type api_ids: ApiIds
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1229,6 +1134,8 @@ class RolesApi:
         _param = self._list_roles_from_given_ids_serialize(
             tenant=tenant,
             api_ids=api_ids,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1254,6 +1161,8 @@ class RolesApi:
         self,
         tenant: StrictStr,
         api_ids: Annotated[ApiIds, Field(description="The ids that must be present on results")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1272,8 +1181,17 @@ class RolesApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param api_ids: The ids that must be present on results (required)
+                :param api_ids: The ids that must be present on results (required)
         :type api_ids: ApiIds
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1299,6 +1217,8 @@ class RolesApi:
         _param = self._list_roles_from_given_ids_serialize(
             tenant=tenant,
             api_ids=api_ids,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1319,77 +1239,12 @@ class RolesApi:
         )
 
 
-    @validate_call
-    def list_roles_from_given_ids_without_preload_content(
-        self,
-        tenant: StrictStr,
-        api_ids: Annotated[ApiIds, Field(description="The ids that must be present on results")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """List roles by ids
-
-
-        :param tenant: (required)
-        :type tenant: str
-        :param api_ids: The ids that must be present on results (required)
-        :type api_ids: ApiIds
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._list_roles_from_given_ids_serialize(
-            tenant=tenant,
-            api_ids=api_ids,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[Role]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _list_roles_from_given_ids_serialize(
         self,
         tenant,
         api_ids,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -1419,6 +1274,19 @@ class RolesApi:
         # process the body parameter
         if api_ids is not None:
             _body_params = api_ids
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -1476,6 +1344,8 @@ class RolesApi:
         tenant: StrictStr,
         q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1494,14 +1364,23 @@ class RolesApi:
 
         :param page: The current page (required)
         :type page: int
-        :param size: The current page size (required)
+                :param size: The current page size (required)
         :type size: int
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param q: A string filter
+                :param q: A string filter
         :type q: str
-        :param sort: The sort of current page
+                :param sort: The sort of current page
         :type sort: List[str]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1530,6 +1409,8 @@ class RolesApi:
             tenant=tenant,
             q=q,
             sort=sort,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1558,6 +1439,8 @@ class RolesApi:
         tenant: StrictStr,
         q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1576,14 +1459,23 @@ class RolesApi:
 
         :param page: The current page (required)
         :type page: int
-        :param size: The current page size (required)
+                :param size: The current page size (required)
         :type size: int
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param q: A string filter
+                :param q: A string filter
         :type q: str
-        :param sort: The sort of current page
+                :param sort: The sort of current page
         :type sort: List[str]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1612,6 +1504,8 @@ class RolesApi:
             tenant=tenant,
             q=q,
             sort=sort,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1632,85 +1526,6 @@ class RolesApi:
         )
 
 
-    @validate_call
-    def search_roles_without_preload_content(
-        self,
-        page: Annotated[StrictInt, Field(description="The current page")],
-        size: Annotated[StrictInt, Field(description="The current page size")],
-        tenant: StrictStr,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Search for roles
-
-
-        :param page: The current page (required)
-        :type page: int
-        :param size: The current page size (required)
-        :type size: int
-        :param tenant: (required)
-        :type tenant: str
-        :param q: A string filter
-        :type q: str
-        :param sort: The sort of current page
-        :type sort: List[str]
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._search_roles_serialize(
-            page=page,
-            size=size,
-            tenant=tenant,
-            q=q,
-            sort=sort,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "PagedResultsApiRoleSummary",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _search_roles_serialize(
         self,
         page,
@@ -1718,6 +1533,8 @@ class RolesApi:
         tenant,
         q,
         sort,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -1763,6 +1580,19 @@ class RolesApi:
         # process the form parameters
         # process the body parameter
 
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
+
 
         # set the HTTP header `Accept`
         if 'Accept' not in _header_params:
@@ -1804,6 +1634,8 @@ class RolesApi:
         id: Annotated[StrictStr, Field(description="The role id")],
         tenant: StrictStr,
         iam_role_controller_api_role_create_or_update_request: IAMRoleControllerApiRoleCreateOrUpdateRequest,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1822,10 +1654,19 @@ class RolesApi:
 
         :param id: The role id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param iam_role_controller_api_role_create_or_update_request: (required)
+                :param iam_role_controller_api_role_create_or_update_request: (required)
         :type iam_role_controller_api_role_create_or_update_request: IAMRoleControllerApiRoleCreateOrUpdateRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1852,6 +1693,8 @@ class RolesApi:
             id=id,
             tenant=tenant,
             iam_role_controller_api_role_create_or_update_request=iam_role_controller_api_role_create_or_update_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1880,6 +1723,8 @@ class RolesApi:
         id: Annotated[StrictStr, Field(description="The role id")],
         tenant: StrictStr,
         iam_role_controller_api_role_create_or_update_request: IAMRoleControllerApiRoleCreateOrUpdateRequest,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1898,10 +1743,19 @@ class RolesApi:
 
         :param id: The role id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param iam_role_controller_api_role_create_or_update_request: (required)
+                :param iam_role_controller_api_role_create_or_update_request: (required)
         :type iam_role_controller_api_role_create_or_update_request: IAMRoleControllerApiRoleCreateOrUpdateRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1928,6 +1782,8 @@ class RolesApi:
             id=id,
             tenant=tenant,
             iam_role_controller_api_role_create_or_update_request=iam_role_controller_api_role_create_or_update_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1950,84 +1806,13 @@ class RolesApi:
         )
 
 
-    @validate_call
-    def update_role_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The role id")],
-        tenant: StrictStr,
-        iam_role_controller_api_role_create_or_update_request: IAMRoleControllerApiRoleCreateOrUpdateRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Update a role
-
-
-        :param id: The role id (required)
-        :type id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param iam_role_controller_api_role_create_or_update_request: (required)
-        :type iam_role_controller_api_role_create_or_update_request: IAMRoleControllerApiRoleCreateOrUpdateRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._update_role_serialize(
-            id=id,
-            tenant=tenant,
-            iam_role_controller_api_role_create_or_update_request=iam_role_controller_api_role_create_or_update_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "IAMRoleControllerApiRoleDetail",
-            '403': None,
-            '404': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _update_role_serialize(
         self,
         id,
         tenant,
         iam_role_controller_api_role_create_or_update_request,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -2059,6 +1844,19 @@ class RolesApi:
         # process the body parameter
         if iam_role_controller_api_role_create_or_update_request is not None:
             _body_params = iam_role_controller_api_role_create_or_update_request
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
