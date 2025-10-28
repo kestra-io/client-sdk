@@ -6336,10 +6336,13 @@ paths:
         content:
           multipart/form-data:
             schema:
-              type: array
-              items:
-                type: string
-                format: binary
+              type: object
+              properties:
+                inputs:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
       responses:
         "200":
           description: On execution created

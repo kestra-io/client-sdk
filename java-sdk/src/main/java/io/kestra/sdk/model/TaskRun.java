@@ -24,9 +24,7 @@ import io.kestra.sdk.model.State;
 import io.kestra.sdk.model.TaskRunAttempt;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -79,7 +77,7 @@ public class TaskRun {
   @javax.annotation.Nullable  private List<TaskRunAttempt> attempts = new ArrayList<>();
 
   public static final String JSON_PROPERTY_OUTPUTS = "outputs";
-  @javax.annotation.Nullable  private JsonNullable<Map<String, Object>> outputs = JsonNullable.<Map<String, Object>>undefined();
+  @javax.annotation.Nullable  private JsonNullable<Object> outputs = JsonNullable.<Object>undefined();
 
   public static final String JSON_PROPERTY_STATE = "state";
   @javax.annotation.Nonnull  private State state;
@@ -296,21 +294,9 @@ public class TaskRun {
     this.attempts = attempts;
   }
 
-  public TaskRun outputs(@javax.annotation.Nullable Map<String, Object> outputs) {
-    this.outputs = JsonNullable.<Map<String, Object>>of(outputs);
+  public TaskRun outputs(@javax.annotation.Nullable Object outputs) {
+    this.outputs = JsonNullable.<Object>of(outputs);
     
-    return this;
-  }
-
-  public TaskRun putOutputsItem(String key, Object outputsItem) {
-    if (this.outputs == null || !this.outputs.isPresent()) {
-      this.outputs = JsonNullable.<Map<String, Object>>of(new HashMap<>());
-    }
-    try {
-      this.outputs.get().put(key, outputsItem);
-    } catch (java.util.NoSuchElementException e) {
-      // this can never happen, as we make sure above that the value is present
-    }
     return this;
   }
 
@@ -320,23 +306,23 @@ public class TaskRun {
    */
   @javax.annotation.Nullable  @JsonIgnore
 
-  public Map<String, Object> getOutputs() {
+  public Object getOutputs() {
         return outputs.orElse(null);
   }
 
   @JsonProperty(JSON_PROPERTY_OUTPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public JsonNullable<Map<String, Object>> getOutputs_JsonNullable() {
+  public JsonNullable<Object> getOutputs_JsonNullable() {
     return outputs;
   }
   
   @JsonProperty(JSON_PROPERTY_OUTPUTS)
-  public void setOutputs_JsonNullable(JsonNullable<Map<String, Object>> outputs) {
+  public void setOutputs_JsonNullable(JsonNullable<Object> outputs) {
     this.outputs = outputs;
   }
 
-  public void setOutputs(@javax.annotation.Nullable Map<String, Object> outputs) {
-    this.outputs = JsonNullable.<Map<String, Object>>of(outputs);
+  public void setOutputs(@javax.annotation.Nullable Object outputs) {
+    this.outputs = JsonNullable.<Object>of(outputs);
   }
 
   public TaskRun state(@javax.annotation.Nonnull State state) {
