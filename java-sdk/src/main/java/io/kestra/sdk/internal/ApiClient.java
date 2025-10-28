@@ -585,6 +585,7 @@ public class ApiClient extends JavaTimeFormatter {
                 throw new ApiException(400, "Filter parameters must be instance of QueryFilter");
             }
         }
+        return params;
     }
 
     // create the params based on the collection format

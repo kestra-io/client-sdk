@@ -757,14 +757,32 @@ public class ExecutionsApiTest {
      */
     @Test
     public void searchExecutionsTest() throws ApiException {
-        Integer page = null;
-        Integer size = null;
-        List<String> sort = null;
-        List<QueryFilter> filters = new ArrayList<>();
+        String namespace = randomId();
+        String flowId = randomId();
+        ExecutionControllerExecutionResponse exec1 = createFlowWithExecution(flowId, namespace);
+        ExecutionControllerExecutionResponse exec2 = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
+        ExecutionControllerExecutionResponse exec3 = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
+        ExecutionControllerExecutionResponse exec4 = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
+        ExecutionControllerExecutionResponse exec5 = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
+        Execution otherExec = createdExecution(LOG_FLOW, StateType.SUCCESS);
+
+        Integer page = 1;
+        Integer size = 2;
+        List<String> sort = List.of("state.startDate:asc");
+        List<QueryFilter> filters = List.of(new QueryFilter().field(QueryFilterField.NAMESPACE)
+            .operation(QueryFilterOp.EQUALS)
+            .value(List.of(namespace)));
 
         PagedResultsExecution response = kestraClient().executions().searchExecutions(page, size, MAIN_TENANT, sort, filters);
+        assertThat(response.getTotal()).isEqualTo(5);
+        assertThat(response.getResults().size()).isEqualTo(2);
+        assertThat(response.getResults().getFirst().getId()).isEqualTo(exec1.getId());
+        assertThat(response.getResults().getLast().getId()).isEqualTo(exec2.getId());
 
-        // TODO: test validations
+        response = kestraClient().executions().searchExecutions(3, size, MAIN_TENANT, sort, filters);
+        assertThat(response.getTotal()).isEqualTo(5);
+        assertThat(response.getResults().size()).isEqualTo(1);
+        assertThat(response.getResults().getFirst().getId()).isEqualTo(exec5.getId());
     }
     /**
      * Add or update labels of a terminated execution
