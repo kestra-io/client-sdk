@@ -149,7 +149,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_execution**
-> delete_execution(execution_id, delete_logs, delete_metrics, delete_storage, tenant)
+> delete_execution(execution_id, tenant, delete_logs=delete_logs, delete_metrics=delete_metrics, delete_storage=delete_storage)
 
 Delete an execution
 
@@ -190,14 +190,14 @@ with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
-    delete_logs = True # bool | Whether to delete execution logs (default to True)
-    delete_metrics = True # bool | Whether to delete execution metrics (default to True)
-    delete_storage = True # bool | Whether to delete execution files in the internal storage (default to True)
     tenant = 'tenant_example' # str | 
+    delete_logs = True # bool | Whether to delete execution logs (optional) (default to True)
+    delete_metrics = True # bool | Whether to delete execution metrics (optional) (default to True)
+    delete_storage = True # bool | Whether to delete execution files in the internal storage (optional) (default to True)
 
     try:
         # Delete an execution
-        api_instance.delete_execution(execution_id, delete_logs, delete_metrics, delete_storage, tenant)
+        api_instance.delete_execution(execution_id, tenant, delete_logs=delete_logs, delete_metrics=delete_metrics, delete_storage=delete_storage)
     except Exception as e:
         print("Exception when calling ExecutionsApi->delete_execution: %s\n" % e)
 ```
@@ -210,10 +210,10 @@ with kestrapy.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **execution_id** | **str**| The execution id | 
- **delete_logs** | **bool**| Whether to delete execution logs | [default to True]
- **delete_metrics** | **bool**| Whether to delete execution metrics | [default to True]
- **delete_storage** | **bool**| Whether to delete execution files in the internal storage | [default to True]
  **tenant** | **str**|  | 
+ **delete_logs** | **bool**| Whether to delete execution logs | [optional] [default to True]
+ **delete_metrics** | **bool**| Whether to delete execution metrics | [optional] [default to True]
+ **delete_storage** | **bool**| Whether to delete execution files in the internal storage | [optional] [default to True]
 
 ### Return type
 
@@ -238,7 +238,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_executions_by_ids**
-> BulkResponse delete_executions_by_ids(delete_logs, delete_metrics, delete_storage, tenant, request_body, include_non_terminated=include_non_terminated)
+> BulkResponse delete_executions_by_ids(tenant, request_body, include_non_terminated=include_non_terminated, delete_logs=delete_logs, delete_metrics=delete_metrics, delete_storage=delete_storage)
 
 Delete a list of executions
 
@@ -279,16 +279,16 @@ configuration = kestrapy.Configuration(
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = kestrapy.ExecutionsApi(api_client)
-    delete_logs = True # bool | Whether to delete execution logs (default to True)
-    delete_metrics = True # bool | Whether to delete execution metrics (default to True)
-    delete_storage = True # bool | Whether to delete execution files in the internal storage (default to True)
     tenant = 'tenant_example' # str | 
     request_body = ['request_body_example'] # List[str] | The execution id
     include_non_terminated = False # bool | Whether to delete non-terminated executions (optional) (default to False)
+    delete_logs = True # bool | Whether to delete execution logs (optional) (default to True)
+    delete_metrics = True # bool | Whether to delete execution metrics (optional) (default to True)
+    delete_storage = True # bool | Whether to delete execution files in the internal storage (optional) (default to True)
 
     try:
         # Delete a list of executions
-        api_response = api_instance.delete_executions_by_ids(delete_logs, delete_metrics, delete_storage, tenant, request_body, include_non_terminated=include_non_terminated)
+        api_response = api_instance.delete_executions_by_ids(tenant, request_body, include_non_terminated=include_non_terminated, delete_logs=delete_logs, delete_metrics=delete_metrics, delete_storage=delete_storage)
         print("The response of ExecutionsApi->delete_executions_by_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -302,12 +302,12 @@ with kestrapy.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **delete_logs** | **bool**| Whether to delete execution logs | [default to True]
- **delete_metrics** | **bool**| Whether to delete execution metrics | [default to True]
- **delete_storage** | **bool**| Whether to delete execution files in the internal storage | [default to True]
  **tenant** | **str**|  | 
  **request_body** | [**List[str]**](str.md)| The execution id | 
  **include_non_terminated** | **bool**| Whether to delete non-terminated executions | [optional] [default to False]
+ **delete_logs** | **bool**| Whether to delete execution logs | [optional] [default to True]
+ **delete_metrics** | **bool**| Whether to delete execution metrics | [optional] [default to True]
+ **delete_storage** | **bool**| Whether to delete execution files in the internal storage | [optional] [default to True]
 
 ### Return type
 
@@ -332,7 +332,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_executions_by_query**
-> object delete_executions_by_query(delete_logs, delete_metrics, delete_storage, tenant, filters=filters, include_non_terminated=include_non_terminated)
+> object delete_executions_by_query(tenant, filters=filters, include_non_terminated=include_non_terminated, delete_logs=delete_logs, delete_metrics=delete_metrics, delete_storage=delete_storage)
 
 Delete executions filter by query parameters
 
@@ -373,16 +373,16 @@ configuration = kestrapy.Configuration(
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = kestrapy.ExecutionsApi(api_client)
-    delete_logs = True # bool | Whether to delete execution logs (default to True)
-    delete_metrics = True # bool | Whether to delete execution metrics (default to True)
-    delete_storage = True # bool | Whether to delete execution files in the internal storage (default to True)
     tenant = 'tenant_example' # str | 
     filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters (optional)
     include_non_terminated = False # bool | Whether to delete non-terminated executions (optional) (default to False)
+    delete_logs = True # bool | Whether to delete execution logs (optional) (default to True)
+    delete_metrics = True # bool | Whether to delete execution metrics (optional) (default to True)
+    delete_storage = True # bool | Whether to delete execution files in the internal storage (optional) (default to True)
 
     try:
         # Delete executions filter by query parameters
-        api_response = api_instance.delete_executions_by_query(delete_logs, delete_metrics, delete_storage, tenant, filters=filters, include_non_terminated=include_non_terminated)
+        api_response = api_instance.delete_executions_by_query(tenant, filters=filters, include_non_terminated=include_non_terminated, delete_logs=delete_logs, delete_metrics=delete_metrics, delete_storage=delete_storage)
         print("The response of ExecutionsApi->delete_executions_by_query:\n")
         pprint(api_response)
     except Exception as e:
@@ -396,12 +396,12 @@ with kestrapy.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **delete_logs** | **bool**| Whether to delete execution logs | [default to True]
- **delete_metrics** | **bool**| Whether to delete execution metrics | [default to True]
- **delete_storage** | **bool**| Whether to delete execution files in the internal storage | [default to True]
  **tenant** | **str**|  | 
  **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
  **include_non_terminated** | **bool**| Whether to delete non-terminated executions | [optional] [default to False]
+ **delete_logs** | **bool**| Whether to delete execution logs | [optional] [default to True]
+ **delete_metrics** | **bool**| Whether to delete execution metrics | [optional] [default to True]
+ **delete_storage** | **bool**| Whether to delete execution files in the internal storage | [optional] [default to True]
 
 ### Return type
 
