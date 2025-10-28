@@ -64,7 +64,6 @@ public class KvApiTest {
      * List all keys for a namespace
      */
     @Test
-    @Disabled // FIXME re-enable when new Kestra EE is available
     public void listKeysTest() throws ApiException {
         String key = "test_list_keys_" + randomId();
         String value = "value-list";
@@ -79,6 +78,7 @@ public class KvApiTest {
     /**
      * List all keys for inherited namespaces
      */
+    @Disabled // FIXME re-enable when new Kestra EE is available
     @Test
     public void listKeysWithInheritenceTest() throws ApiException {
         String key = "test_list_keys_with_inheritence_" + randomId();
