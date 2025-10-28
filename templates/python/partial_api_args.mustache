@@ -3,6 +3,8 @@
         {{#allParams}}
         {{paramName}}: {{{vendorExtensions.x-py-typing}}}{{^required}} = None{{/required}},
         {{/allParams}}
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],

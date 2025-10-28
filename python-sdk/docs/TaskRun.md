@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **parent_task_run_id** | **str** |  | [optional] 
 **value** | **str** |  | [optional] 
 **attempts** | [**List[TaskRunAttempt]**](TaskRunAttempt.md) |  | [optional] 
-**outputs** | **Dict[str, object]** |  | [optional] 
+**outputs** | **object** |  | [optional] 
 **state** | [**State**](State.md) |  | 
 **iteration** | **int** |  | [optional] 
 **dynamic** | **bool** |  | [optional] 

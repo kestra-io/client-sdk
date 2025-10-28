@@ -100,6 +100,7 @@ __all__ = [
     "BlueprintWithFlow",
     "Breakpoint",
     "BulkErrorResponse",
+    "BulkImportAppsRequest",
     "BulkResponse",
     "Cache",
     "ChartChartOption",
@@ -112,6 +113,8 @@ __all__ = [
     "ConvertibleValuesListString",
     "CreateApiTokenRequest",
     "CreateApiTokenResponse",
+    "CreateExecutionRequest",
+    "CreateNamespaceFileRequest",
     "CreateSecurityIntegrationRequest",
     "CrudEventType",
     "DailyExecutionStatistics",
@@ -237,7 +240,6 @@ __all__ = [
     "KVControllerApiDeleteBulkRequest",
     "KVControllerApiDeleteBulkResponse",
     "KVControllerTypedValue",
-    "KVControllerTypedValueValue",
     "KVEntry",
     "KVType",
     "Label",
@@ -372,6 +374,7 @@ __all__ = [
     "ServiceProviderConfigurationSupportedConfiguration",
     "ServiceServiceState",
     "ServiceType",
+    "SetLogoRequest",
     "SetupConfiguration",
     "SetupConfigurationSetupData",
     "SortOrder",
@@ -407,6 +410,7 @@ __all__ = [
     "Type",
     "UnitTest",
     "UnitTestResult",
+    "UploadVersionedPluginsRequest",
     "UsageEE",
     "UserGroup",
     "UserGroupType",
@@ -507,6 +511,7 @@ from kestrapy.models.blueprint_controller_kind import BlueprintControllerKind as
 from kestrapy.models.blueprint_with_flow import BlueprintWithFlow as BlueprintWithFlow
 from kestrapy.models.breakpoint import Breakpoint as Breakpoint
 from kestrapy.models.bulk_error_response import BulkErrorResponse as BulkErrorResponse
+from kestrapy.models.bulk_import_apps_request import BulkImportAppsRequest as BulkImportAppsRequest
 from kestrapy.models.bulk_response import BulkResponse as BulkResponse
 from kestrapy.models.cache import Cache as Cache
 from kestrapy.models.chart_chart_option import ChartChartOption as ChartChartOption
@@ -519,6 +524,8 @@ from kestrapy.models.convertible_multi_values_string import ConvertibleMultiValu
 from kestrapy.models.convertible_values_list_string import ConvertibleValuesListString as ConvertibleValuesListString
 from kestrapy.models.create_api_token_request import CreateApiTokenRequest as CreateApiTokenRequest
 from kestrapy.models.create_api_token_response import CreateApiTokenResponse as CreateApiTokenResponse
+from kestrapy.models.create_execution_request import CreateExecutionRequest as CreateExecutionRequest
+from kestrapy.models.create_namespace_file_request import CreateNamespaceFileRequest as CreateNamespaceFileRequest
 from kestrapy.models.create_security_integration_request import CreateSecurityIntegrationRequest as CreateSecurityIntegrationRequest
 from kestrapy.models.crud_event_type import CrudEventType as CrudEventType
 from kestrapy.models.daily_execution_statistics import DailyExecutionStatistics as DailyExecutionStatistics
@@ -644,7 +651,6 @@ from kestrapy.models.isolation import Isolation as Isolation
 from kestrapy.models.kv_controller_api_delete_bulk_request import KVControllerApiDeleteBulkRequest as KVControllerApiDeleteBulkRequest
 from kestrapy.models.kv_controller_api_delete_bulk_response import KVControllerApiDeleteBulkResponse as KVControllerApiDeleteBulkResponse
 from kestrapy.models.kv_controller_typed_value import KVControllerTypedValue as KVControllerTypedValue
-from kestrapy.models.kv_controller_typed_value_value import KVControllerTypedValueValue as KVControllerTypedValueValue
 from kestrapy.models.kv_entry import KVEntry as KVEntry
 from kestrapy.models.kv_type import KVType as KVType
 from kestrapy.models.label import Label as Label
@@ -779,6 +785,7 @@ from kestrapy.models.service_provider_configuration_filter_configuration import 
 from kestrapy.models.service_provider_configuration_supported_configuration import ServiceProviderConfigurationSupportedConfiguration as ServiceProviderConfigurationSupportedConfiguration
 from kestrapy.models.service_service_state import ServiceServiceState as ServiceServiceState
 from kestrapy.models.service_type import ServiceType as ServiceType
+from kestrapy.models.set_logo_request import SetLogoRequest as SetLogoRequest
 from kestrapy.models.setup_configuration import SetupConfiguration as SetupConfiguration
 from kestrapy.models.setup_configuration_setup_data import SetupConfigurationSetupData as SetupConfigurationSetupData
 from kestrapy.models.sort_order import SortOrder as SortOrder
@@ -814,6 +821,7 @@ from kestrapy.models.trigger_fixture import TriggerFixture as TriggerFixture
 from kestrapy.models.type import Type as Type
 from kestrapy.models.unit_test import UnitTest as UnitTest
 from kestrapy.models.unit_test_result import UnitTestResult as UnitTestResult
+from kestrapy.models.upload_versioned_plugins_request import UploadVersionedPluginsRequest as UploadVersionedPluginsRequest
 from kestrapy.models.usage_ee import UsageEE as UsageEE
 from kestrapy.models.user_group import UserGroup as UserGroup
 from kestrapy.models.user_group_type import UserGroupType as UserGroupType

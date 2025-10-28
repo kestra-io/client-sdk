@@ -62,6 +62,8 @@ class UsersApi:
         self,
         tenant: StrictStr,
         iam_tenant_access_controller_user_api_autocomplete: Annotated[IAMTenantAccessControllerUserApiAutocomplete, Field(description="Autocomplete request")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -80,8 +82,17 @@ class UsersApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param iam_tenant_access_controller_user_api_autocomplete: Autocomplete request (required)
+                :param iam_tenant_access_controller_user_api_autocomplete: Autocomplete request (required)
         :type iam_tenant_access_controller_user_api_autocomplete: IAMTenantAccessControllerUserApiAutocomplete
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -107,6 +118,8 @@ class UsersApi:
         _param = self._autocomplete_users_serialize(
             tenant=tenant,
             iam_tenant_access_controller_user_api_autocomplete=iam_tenant_access_controller_user_api_autocomplete,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -132,6 +145,8 @@ class UsersApi:
         self,
         tenant: StrictStr,
         iam_tenant_access_controller_user_api_autocomplete: Annotated[IAMTenantAccessControllerUserApiAutocomplete, Field(description="Autocomplete request")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -150,8 +165,17 @@ class UsersApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param iam_tenant_access_controller_user_api_autocomplete: Autocomplete request (required)
+                :param iam_tenant_access_controller_user_api_autocomplete: Autocomplete request (required)
         :type iam_tenant_access_controller_user_api_autocomplete: IAMTenantAccessControllerUserApiAutocomplete
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -177,6 +201,8 @@ class UsersApi:
         _param = self._autocomplete_users_serialize(
             tenant=tenant,
             iam_tenant_access_controller_user_api_autocomplete=iam_tenant_access_controller_user_api_autocomplete,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -197,77 +223,12 @@ class UsersApi:
         )
 
 
-    @validate_call
-    def autocomplete_users_without_preload_content(
-        self,
-        tenant: StrictStr,
-        iam_tenant_access_controller_user_api_autocomplete: Annotated[IAMTenantAccessControllerUserApiAutocomplete, Field(description="Autocomplete request")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """List users for autocomplete
-
-
-        :param tenant: (required)
-        :type tenant: str
-        :param iam_tenant_access_controller_user_api_autocomplete: Autocomplete request (required)
-        :type iam_tenant_access_controller_user_api_autocomplete: IAMTenantAccessControllerUserApiAutocomplete
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._autocomplete_users_serialize(
-            tenant=tenant,
-            iam_tenant_access_controller_user_api_autocomplete=iam_tenant_access_controller_user_api_autocomplete,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[IAMTenantAccessControllerApiUserTenantAccess]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _autocomplete_users_serialize(
         self,
         tenant,
         iam_tenant_access_controller_user_api_autocomplete,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -297,6 +258,19 @@ class UsersApi:
         # process the body parameter
         if iam_tenant_access_controller_user_api_autocomplete is not None:
             _body_params = iam_tenant_access_controller_user_api_autocomplete
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -351,6 +325,8 @@ class UsersApi:
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
         create_api_token_request: Annotated[CreateApiTokenRequest, Field(description="The create api-token request")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -370,8 +346,17 @@ class UsersApi:
 
         :param id: The user id (required)
         :type id: str
-        :param create_api_token_request: The create api-token request (required)
+                :param create_api_token_request: The create api-token request (required)
         :type create_api_token_request: CreateApiTokenRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -397,6 +382,8 @@ class UsersApi:
         _param = self._create_api_tokens_for_user_serialize(
             id=id,
             create_api_token_request=create_api_token_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -423,6 +410,8 @@ class UsersApi:
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
         create_api_token_request: Annotated[CreateApiTokenRequest, Field(description="The create api-token request")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -442,8 +431,17 @@ class UsersApi:
 
         :param id: The user id (required)
         :type id: str
-        :param create_api_token_request: The create api-token request (required)
+                :param create_api_token_request: The create api-token request (required)
         :type create_api_token_request: CreateApiTokenRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -469,6 +467,8 @@ class UsersApi:
         _param = self._create_api_tokens_for_user_serialize(
             id=id,
             create_api_token_request=create_api_token_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -490,79 +490,12 @@ class UsersApi:
         )
 
 
-    @validate_call
-    def create_api_tokens_for_user_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The user id")],
-        create_api_token_request: Annotated[CreateApiTokenRequest, Field(description="The create api-token request")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Create new API Token for a specific user
-
-        Superadmin-only. Create a new API token for a user.
-
-        :param id: The user id (required)
-        :type id: str
-        :param create_api_token_request: The create api-token request (required)
-        :type create_api_token_request: CreateApiTokenRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._create_api_tokens_for_user_serialize(
-            id=id,
-            create_api_token_request=create_api_token_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '201': "CreateApiTokenResponse",
-            '404': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _create_api_tokens_for_user_serialize(
         self,
         id,
         create_api_token_request,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -592,6 +525,19 @@ class UsersApi:
         # process the body parameter
         if create_api_token_request is not None:
             _body_params = create_api_token_request
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -645,6 +591,8 @@ class UsersApi:
     def create_user(
         self,
         iam_user_controller_api_create_or_update_user_request: IAMUserControllerApiCreateOrUpdateUserRequest,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -664,6 +612,15 @@ class UsersApi:
 
         :param iam_user_controller_api_create_or_update_user_request: (required)
         :type iam_user_controller_api_create_or_update_user_request: IAMUserControllerApiCreateOrUpdateUserRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -688,6 +645,8 @@ class UsersApi:
 
         _param = self._create_user_serialize(
             iam_user_controller_api_create_or_update_user_request=iam_user_controller_api_create_or_update_user_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -713,6 +672,8 @@ class UsersApi:
     def create_user_with_http_info(
         self,
         iam_user_controller_api_create_or_update_user_request: IAMUserControllerApiCreateOrUpdateUserRequest,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -732,6 +693,15 @@ class UsersApi:
 
         :param iam_user_controller_api_create_or_update_user_request: (required)
         :type iam_user_controller_api_create_or_update_user_request: IAMUserControllerApiCreateOrUpdateUserRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -756,6 +726,8 @@ class UsersApi:
 
         _param = self._create_user_serialize(
             iam_user_controller_api_create_or_update_user_request=iam_user_controller_api_create_or_update_user_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -777,74 +749,11 @@ class UsersApi:
         )
 
 
-    @validate_call
-    def create_user_without_preload_content(
-        self,
-        iam_user_controller_api_create_or_update_user_request: IAMUserControllerApiCreateOrUpdateUserRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Create a new user account
-
-        Superadmin-only. Create a new user account with an optional password based authentication method.
-
-        :param iam_user_controller_api_create_or_update_user_request: (required)
-        :type iam_user_controller_api_create_or_update_user_request: IAMUserControllerApiCreateOrUpdateUserRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._create_user_serialize(
-            iam_user_controller_api_create_or_update_user_request=iam_user_controller_api_create_or_update_user_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '201': "IAMUserControllerApiUser",
-            '404': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _create_user_serialize(
         self,
         iam_user_controller_api_create_or_update_user_request,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -872,6 +781,19 @@ class UsersApi:
         # process the body parameter
         if iam_user_controller_api_create_or_update_user_request is not None:
             _body_params = iam_user_controller_api_create_or_update_user_request
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -926,6 +848,8 @@ class UsersApi:
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
         token_id: Annotated[StrictStr, Field(description="The token id")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -945,8 +869,17 @@ class UsersApi:
 
         :param id: The user id (required)
         :type id: str
-        :param token_id: The token id (required)
+                :param token_id: The token id (required)
         :type token_id: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -972,6 +905,8 @@ class UsersApi:
         _param = self._delete_api_token_for_user_serialize(
             id=id,
             token_id=token_id,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -998,6 +933,8 @@ class UsersApi:
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
         token_id: Annotated[StrictStr, Field(description="The token id")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1017,8 +954,17 @@ class UsersApi:
 
         :param id: The user id (required)
         :type id: str
-        :param token_id: The token id (required)
+                :param token_id: The token id (required)
         :type token_id: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1044,6 +990,8 @@ class UsersApi:
         _param = self._delete_api_token_for_user_serialize(
             id=id,
             token_id=token_id,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1065,79 +1013,12 @@ class UsersApi:
         )
 
 
-    @validate_call
-    def delete_api_token_for_user_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The user id")],
-        token_id: Annotated[StrictStr, Field(description="The token id")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Delete an API Token for specific user and token id
-
-        Superadmin-only. Delete an API token for a user.
-
-        :param id: The user id (required)
-        :type id: str
-        :param token_id: The token id (required)
-        :type token_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._delete_api_token_for_user_serialize(
-            id=id,
-            token_id=token_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '204': None,
-            '404': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _delete_api_token_for_user_serialize(
         self,
         id,
         token_id,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -1167,6 +1048,19 @@ class UsersApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
 
@@ -1200,6 +1094,8 @@ class UsersApi:
     def delete_refresh_token(
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1218,6 +1114,15 @@ class UsersApi:
 
         :param id: The user id (required)
         :type id: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1242,6 +1147,8 @@ class UsersApi:
 
         _param = self._delete_refresh_token_serialize(
             id=id,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1267,6 +1174,8 @@ class UsersApi:
     def delete_refresh_token_with_http_info(
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1285,6 +1194,15 @@ class UsersApi:
 
         :param id: The user id (required)
         :type id: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1309,6 +1227,8 @@ class UsersApi:
 
         _param = self._delete_refresh_token_serialize(
             id=id,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1330,73 +1250,11 @@ class UsersApi:
         )
 
 
-    @validate_call
-    def delete_refresh_token_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The user id")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Delete a user refresh token
-
-
-        :param id: The user id (required)
-        :type id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._delete_refresh_token_serialize(
-            id=id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '204': None,
-            '404': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _delete_refresh_token_serialize(
         self,
         id,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -1424,6 +1282,19 @@ class UsersApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
 
@@ -1457,6 +1328,8 @@ class UsersApi:
     def delete_user(
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1476,6 +1349,15 @@ class UsersApi:
 
         :param id: The user id (required)
         :type id: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1500,6 +1382,8 @@ class UsersApi:
 
         _param = self._delete_user_serialize(
             id=id,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1525,6 +1409,8 @@ class UsersApi:
     def delete_user_with_http_info(
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1544,6 +1430,15 @@ class UsersApi:
 
         :param id: The user id (required)
         :type id: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1568,6 +1463,8 @@ class UsersApi:
 
         _param = self._delete_user_serialize(
             id=id,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1589,74 +1486,11 @@ class UsersApi:
         )
 
 
-    @validate_call
-    def delete_user_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The user id")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Delete a user
-
-        Superadmin-only. Delete a user including all its access.
-
-        :param id: The user id (required)
-        :type id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._delete_user_serialize(
-            id=id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '204': None,
-            '404': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _delete_user_serialize(
         self,
         id,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -1684,6 +1518,19 @@ class UsersApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
 
@@ -1718,6 +1565,8 @@ class UsersApi:
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
         auth: Annotated[StrictStr, Field(description="The user auth method id")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1737,8 +1586,17 @@ class UsersApi:
 
         :param id: The user id (required)
         :type id: str
-        :param auth: The user auth method id (required)
+                :param auth: The user auth method id (required)
         :type auth: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1764,6 +1622,8 @@ class UsersApi:
         _param = self._delete_user_auth_method_serialize(
             id=id,
             auth=auth,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1790,6 +1650,8 @@ class UsersApi:
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
         auth: Annotated[StrictStr, Field(description="The user auth method id")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1809,8 +1671,17 @@ class UsersApi:
 
         :param id: The user id (required)
         :type id: str
-        :param auth: The user auth method id (required)
+                :param auth: The user auth method id (required)
         :type auth: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1836,6 +1707,8 @@ class UsersApi:
         _param = self._delete_user_auth_method_serialize(
             id=id,
             auth=auth,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1857,79 +1730,12 @@ class UsersApi:
         )
 
 
-    @validate_call
-    def delete_user_auth_method_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The user id")],
-        auth: Annotated[StrictStr, Field(description="The user auth method id")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Update user password
-
-        Superadmin-only. Updates whether a user is a superadmin.
-
-        :param id: The user id (required)
-        :type id: str
-        :param auth: The user auth method id (required)
-        :type auth: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._delete_user_auth_method_serialize(
-            id=id,
-            auth=auth,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "IAMUserControllerApiUser",
-            '404': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _delete_user_auth_method_serialize(
         self,
         id,
         auth,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -1959,6 +1765,19 @@ class UsersApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -1999,6 +1818,8 @@ class UsersApi:
     def get_user(
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2018,6 +1839,15 @@ class UsersApi:
 
         :param id: The user id (required)
         :type id: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2042,6 +1872,8 @@ class UsersApi:
 
         _param = self._get_user_serialize(
             id=id,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2067,6 +1899,8 @@ class UsersApi:
     def get_user_with_http_info(
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2086,6 +1920,15 @@ class UsersApi:
 
         :param id: The user id (required)
         :type id: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2110,6 +1953,8 @@ class UsersApi:
 
         _param = self._get_user_serialize(
             id=id,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2131,74 +1976,11 @@ class UsersApi:
         )
 
 
-    @validate_call
-    def get_user_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The user id")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Get a user
-
-        Superadmin-only. Get user account details.
-
-        :param id: The user id (required)
-        :type id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._get_user_serialize(
-            id=id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "IAMUserControllerApiUser",
-            '404': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _get_user_serialize(
         self,
         id,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -2226,6 +2008,19 @@ class UsersApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -2266,6 +2061,8 @@ class UsersApi:
     def impersonate(
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2285,6 +2082,15 @@ class UsersApi:
 
         :param id: The user id (required)
         :type id: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2309,6 +2115,8 @@ class UsersApi:
 
         _param = self._impersonate_serialize(
             id=id,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2334,6 +2142,8 @@ class UsersApi:
     def impersonate_with_http_info(
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2353,6 +2163,15 @@ class UsersApi:
 
         :param id: The user id (required)
         :type id: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2377,6 +2196,8 @@ class UsersApi:
 
         _param = self._impersonate_serialize(
             id=id,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2398,74 +2219,11 @@ class UsersApi:
         )
 
 
-    @validate_call
-    def impersonate_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The user id")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Impersonate a user
-
-        Superadmin-only. Allows an admin to impersonate another user.
-
-        :param id: The user id (required)
-        :type id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._impersonate_serialize(
-            id=id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
-            '404': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _impersonate_serialize(
         self,
         id,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -2493,6 +2251,19 @@ class UsersApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -2533,6 +2304,8 @@ class UsersApi:
     def list_api_tokens_for_user(
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2552,6 +2325,15 @@ class UsersApi:
 
         :param id: The user id (required)
         :type id: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2576,6 +2358,8 @@ class UsersApi:
 
         _param = self._list_api_tokens_for_user_serialize(
             id=id,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2601,6 +2385,8 @@ class UsersApi:
     def list_api_tokens_for_user_with_http_info(
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2620,6 +2406,15 @@ class UsersApi:
 
         :param id: The user id (required)
         :type id: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2644,6 +2439,8 @@ class UsersApi:
 
         _param = self._list_api_tokens_for_user_serialize(
             id=id,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2665,74 +2462,11 @@ class UsersApi:
         )
 
 
-    @validate_call
-    def list_api_tokens_for_user_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The user id")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """List API tokens for a specific user
-
-        Superadmin-only. Get all API token existing for a user.
-
-        :param id: The user id (required)
-        :type id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._list_api_tokens_for_user_serialize(
-            id=id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ApiTokenList",
-            '404': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _list_api_tokens_for_user_serialize(
         self,
         id,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -2760,6 +2494,19 @@ class UsersApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -2803,6 +2550,8 @@ class UsersApi:
         size: Annotated[StrictInt, Field(description="The current page size")],
         q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2821,12 +2570,21 @@ class UsersApi:
 
         :param page: The current page (required)
         :type page: int
-        :param size: The current page size (required)
+                :param size: The current page size (required)
         :type size: int
-        :param q: A string filter
+                :param q: A string filter
         :type q: str
-        :param sort: The sort of current page
+                :param sort: The sort of current page
         :type sort: List[str]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2854,6 +2612,8 @@ class UsersApi:
             size=size,
             q=q,
             sort=sort,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2881,6 +2641,8 @@ class UsersApi:
         size: Annotated[StrictInt, Field(description="The current page size")],
         q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2899,12 +2661,21 @@ class UsersApi:
 
         :param page: The current page (required)
         :type page: int
-        :param size: The current page size (required)
+                :param size: The current page size (required)
         :type size: int
-        :param q: A string filter
+                :param q: A string filter
         :type q: str
-        :param sort: The sort of current page
+                :param sort: The sort of current page
         :type sort: List[str]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2932,6 +2703,8 @@ class UsersApi:
             size=size,
             q=q,
             sort=sort,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2952,87 +2725,14 @@ class UsersApi:
         )
 
 
-    @validate_call
-    def list_users_without_preload_content(
-        self,
-        page: Annotated[StrictInt, Field(description="The current page")],
-        size: Annotated[StrictInt, Field(description="The current page size")],
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Retrieve users
-
-
-        :param page: The current page (required)
-        :type page: int
-        :param size: The current page size (required)
-        :type size: int
-        :param q: A string filter
-        :type q: str
-        :param sort: The sort of current page
-        :type sort: List[str]
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._list_users_serialize(
-            page=page,
-            size=size,
-            q=q,
-            sort=sort,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "PagedResultsIAMUserControllerApiUserSummary",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _list_users_serialize(
         self,
         page,
         size,
         q,
         sort,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -3076,6 +2776,19 @@ class UsersApi:
         # process the form parameters
         # process the body parameter
 
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
+
 
         # set the HTTP header `Accept`
         if 'Accept' not in _header_params:
@@ -3116,6 +2829,8 @@ class UsersApi:
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
         me_controller_api_user_details_request: Annotated[MeControllerApiUserDetailsRequest, Field(description="The user details")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3135,8 +2850,17 @@ class UsersApi:
 
         :param id: The user id (required)
         :type id: str
-        :param me_controller_api_user_details_request: The user details (required)
+                :param me_controller_api_user_details_request: The user details (required)
         :type me_controller_api_user_details_request: MeControllerApiUserDetailsRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3162,6 +2886,8 @@ class UsersApi:
         _param = self._patch_user_serialize(
             id=id,
             me_controller_api_user_details_request=me_controller_api_user_details_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3187,6 +2913,8 @@ class UsersApi:
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
         me_controller_api_user_details_request: Annotated[MeControllerApiUserDetailsRequest, Field(description="The user details")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3206,8 +2934,17 @@ class UsersApi:
 
         :param id: The user id (required)
         :type id: str
-        :param me_controller_api_user_details_request: The user details (required)
+                :param me_controller_api_user_details_request: The user details (required)
         :type me_controller_api_user_details_request: MeControllerApiUserDetailsRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3233,6 +2970,8 @@ class UsersApi:
         _param = self._patch_user_serialize(
             id=id,
             me_controller_api_user_details_request=me_controller_api_user_details_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3253,78 +2992,12 @@ class UsersApi:
         )
 
 
-    @validate_call
-    def patch_user_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The user id")],
-        me_controller_api_user_details_request: Annotated[MeControllerApiUserDetailsRequest, Field(description="The user details")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Update user details
-
-        Superadmin-only. Updates the the details of a user.
-
-        :param id: The user id (required)
-        :type id: str
-        :param me_controller_api_user_details_request: The user details (required)
-        :type me_controller_api_user_details_request: MeControllerApiUserDetailsRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._patch_user_serialize(
-            id=id,
-            me_controller_api_user_details_request=me_controller_api_user_details_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "IAMUserControllerApiUser",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _patch_user_serialize(
         self,
         id,
         me_controller_api_user_details_request,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -3354,6 +3027,19 @@ class UsersApi:
         # process the body parameter
         if me_controller_api_user_details_request is not None:
             _body_params = me_controller_api_user_details_request
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -3408,6 +3094,8 @@ class UsersApi:
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
         iam_user_controller_api_patch_restricted_request: IAMUserControllerApiPatchRestrictedRequest,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3427,8 +3115,17 @@ class UsersApi:
 
         :param id: The user id (required)
         :type id: str
-        :param iam_user_controller_api_patch_restricted_request: (required)
+                :param iam_user_controller_api_patch_restricted_request: (required)
         :type iam_user_controller_api_patch_restricted_request: IAMUserControllerApiPatchRestrictedRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3454,6 +3151,8 @@ class UsersApi:
         _param = self._patch_user_demo_serialize(
             id=id,
             iam_user_controller_api_patch_restricted_request=iam_user_controller_api_patch_restricted_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3480,6 +3179,8 @@ class UsersApi:
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
         iam_user_controller_api_patch_restricted_request: IAMUserControllerApiPatchRestrictedRequest,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3499,8 +3200,17 @@ class UsersApi:
 
         :param id: The user id (required)
         :type id: str
-        :param iam_user_controller_api_patch_restricted_request: (required)
+                :param iam_user_controller_api_patch_restricted_request: (required)
         :type iam_user_controller_api_patch_restricted_request: IAMUserControllerApiPatchRestrictedRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3526,6 +3236,8 @@ class UsersApi:
         _param = self._patch_user_demo_serialize(
             id=id,
             iam_user_controller_api_patch_restricted_request=iam_user_controller_api_patch_restricted_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3547,79 +3259,12 @@ class UsersApi:
         )
 
 
-    @validate_call
-    def patch_user_demo_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The user id")],
-        iam_user_controller_api_patch_restricted_request: IAMUserControllerApiPatchRestrictedRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Update user demo
-
-        Superadmin-only. Updates whether a user is for demo.
-
-        :param id: The user id (required)
-        :type id: str
-        :param iam_user_controller_api_patch_restricted_request: (required)
-        :type iam_user_controller_api_patch_restricted_request: IAMUserControllerApiPatchRestrictedRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._patch_user_demo_serialize(
-            id=id,
-            iam_user_controller_api_patch_restricted_request=iam_user_controller_api_patch_restricted_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
-            '404': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _patch_user_demo_serialize(
         self,
         id,
         iam_user_controller_api_patch_restricted_request,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -3649,6 +3294,19 @@ class UsersApi:
         # process the body parameter
         if iam_user_controller_api_patch_restricted_request is not None:
             _body_params = iam_user_controller_api_patch_restricted_request
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
 
@@ -3696,6 +3354,8 @@ class UsersApi:
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
         iam_user_controller_api_patch_user_password_request: IAMUserControllerApiPatchUserPasswordRequest,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3715,8 +3375,17 @@ class UsersApi:
 
         :param id: The user id (required)
         :type id: str
-        :param iam_user_controller_api_patch_user_password_request: (required)
+                :param iam_user_controller_api_patch_user_password_request: (required)
         :type iam_user_controller_api_patch_user_password_request: IAMUserControllerApiPatchUserPasswordRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3742,6 +3411,8 @@ class UsersApi:
         _param = self._patch_user_password_serialize(
             id=id,
             iam_user_controller_api_patch_user_password_request=iam_user_controller_api_patch_user_password_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3768,6 +3439,8 @@ class UsersApi:
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
         iam_user_controller_api_patch_user_password_request: IAMUserControllerApiPatchUserPasswordRequest,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3787,8 +3460,17 @@ class UsersApi:
 
         :param id: The user id (required)
         :type id: str
-        :param iam_user_controller_api_patch_user_password_request: (required)
+                :param iam_user_controller_api_patch_user_password_request: (required)
         :type iam_user_controller_api_patch_user_password_request: IAMUserControllerApiPatchUserPasswordRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3814,6 +3496,8 @@ class UsersApi:
         _param = self._patch_user_password_serialize(
             id=id,
             iam_user_controller_api_patch_user_password_request=iam_user_controller_api_patch_user_password_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3835,79 +3519,12 @@ class UsersApi:
         )
 
 
-    @validate_call
-    def patch_user_password_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The user id")],
-        iam_user_controller_api_patch_user_password_request: IAMUserControllerApiPatchUserPasswordRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Update user password
-
-        Superadmin-only. Updates whether a user is a superadmin.
-
-        :param id: The user id (required)
-        :type id: str
-        :param iam_user_controller_api_patch_user_password_request: (required)
-        :type iam_user_controller_api_patch_user_password_request: IAMUserControllerApiPatchUserPasswordRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._patch_user_password_serialize(
-            id=id,
-            iam_user_controller_api_patch_user_password_request=iam_user_controller_api_patch_user_password_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "IAMUserControllerApiUser",
-            '404': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _patch_user_password_serialize(
         self,
         id,
         iam_user_controller_api_patch_user_password_request,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -3937,6 +3554,19 @@ class UsersApi:
         # process the body parameter
         if iam_user_controller_api_patch_user_password_request is not None:
             _body_params = iam_user_controller_api_patch_user_password_request
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -3991,6 +3621,8 @@ class UsersApi:
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
         api_patch_super_admin_request: ApiPatchSuperAdminRequest,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4010,8 +3642,17 @@ class UsersApi:
 
         :param id: The user id (required)
         :type id: str
-        :param api_patch_super_admin_request: (required)
+                :param api_patch_super_admin_request: (required)
         :type api_patch_super_admin_request: ApiPatchSuperAdminRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4037,6 +3678,8 @@ class UsersApi:
         _param = self._patch_user_super_admin_serialize(
             id=id,
             api_patch_super_admin_request=api_patch_super_admin_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4063,6 +3706,8 @@ class UsersApi:
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
         api_patch_super_admin_request: ApiPatchSuperAdminRequest,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4082,8 +3727,17 @@ class UsersApi:
 
         :param id: The user id (required)
         :type id: str
-        :param api_patch_super_admin_request: (required)
+                :param api_patch_super_admin_request: (required)
         :type api_patch_super_admin_request: ApiPatchSuperAdminRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4109,6 +3763,8 @@ class UsersApi:
         _param = self._patch_user_super_admin_serialize(
             id=id,
             api_patch_super_admin_request=api_patch_super_admin_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4130,79 +3786,12 @@ class UsersApi:
         )
 
 
-    @validate_call
-    def patch_user_super_admin_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The user id")],
-        api_patch_super_admin_request: ApiPatchSuperAdminRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Update user superadmin privileges
-
-        Superadmin-only. Updates whether a user is a superadmin.
-
-        :param id: The user id (required)
-        :type id: str
-        :param api_patch_super_admin_request: (required)
-        :type api_patch_super_admin_request: ApiPatchSuperAdminRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._patch_user_super_admin_serialize(
-            id=id,
-            api_patch_super_admin_request=api_patch_super_admin_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
-            '404': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _patch_user_super_admin_serialize(
         self,
         id,
         api_patch_super_admin_request,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -4232,6 +3821,19 @@ class UsersApi:
         # process the body parameter
         if api_patch_super_admin_request is not None:
             _body_params = api_patch_super_admin_request
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
 
@@ -4278,6 +3880,8 @@ class UsersApi:
     def update_current_user_password(
         self,
         me_controller_api_update_password_request: MeControllerApiUpdatePasswordRequest,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4297,6 +3901,15 @@ class UsersApi:
 
         :param me_controller_api_update_password_request: (required)
         :type me_controller_api_update_password_request: MeControllerApiUpdatePasswordRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4321,6 +3934,8 @@ class UsersApi:
 
         _param = self._update_current_user_password_serialize(
             me_controller_api_update_password_request=me_controller_api_update_password_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4345,6 +3960,8 @@ class UsersApi:
     def update_current_user_password_with_http_info(
         self,
         me_controller_api_update_password_request: MeControllerApiUpdatePasswordRequest,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4364,6 +3981,15 @@ class UsersApi:
 
         :param me_controller_api_update_password_request: (required)
         :type me_controller_api_update_password_request: MeControllerApiUpdatePasswordRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4388,6 +4014,8 @@ class UsersApi:
 
         _param = self._update_current_user_password_serialize(
             me_controller_api_update_password_request=me_controller_api_update_password_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4408,73 +4036,11 @@ class UsersApi:
         )
 
 
-    @validate_call
-    def update_current_user_password_without_preload_content(
-        self,
-        me_controller_api_update_password_request: MeControllerApiUpdatePasswordRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Update authenticated user password
-
-        Changes the login password for the authenticated user.
-
-        :param me_controller_api_update_password_request: (required)
-        :type me_controller_api_update_password_request: MeControllerApiUpdatePasswordRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._update_current_user_password_serialize(
-            me_controller_api_update_password_request=me_controller_api_update_password_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _update_current_user_password_serialize(
         self,
         me_controller_api_update_password_request,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -4502,6 +4068,19 @@ class UsersApi:
         # process the body parameter
         if me_controller_api_update_password_request is not None:
             _body_params = me_controller_api_update_password_request
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -4556,6 +4135,8 @@ class UsersApi:
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
         iam_user_controller_api_create_or_update_user_request: IAMUserControllerApiCreateOrUpdateUserRequest,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4575,8 +4156,17 @@ class UsersApi:
 
         :param id: The user id (required)
         :type id: str
-        :param iam_user_controller_api_create_or_update_user_request: (required)
+                :param iam_user_controller_api_create_or_update_user_request: (required)
         :type iam_user_controller_api_create_or_update_user_request: IAMUserControllerApiCreateOrUpdateUserRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4602,6 +4192,8 @@ class UsersApi:
         _param = self._update_user_serialize(
             id=id,
             iam_user_controller_api_create_or_update_user_request=iam_user_controller_api_create_or_update_user_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4628,6 +4220,8 @@ class UsersApi:
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
         iam_user_controller_api_create_or_update_user_request: IAMUserControllerApiCreateOrUpdateUserRequest,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4647,8 +4241,17 @@ class UsersApi:
 
         :param id: The user id (required)
         :type id: str
-        :param iam_user_controller_api_create_or_update_user_request: (required)
+                :param iam_user_controller_api_create_or_update_user_request: (required)
         :type iam_user_controller_api_create_or_update_user_request: IAMUserControllerApiCreateOrUpdateUserRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4674,6 +4277,8 @@ class UsersApi:
         _param = self._update_user_serialize(
             id=id,
             iam_user_controller_api_create_or_update_user_request=iam_user_controller_api_create_or_update_user_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4695,79 +4300,12 @@ class UsersApi:
         )
 
 
-    @validate_call
-    def update_user_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The user id")],
-        iam_user_controller_api_create_or_update_user_request: IAMUserControllerApiCreateOrUpdateUserRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Update a user account
-
-        Superadmin-only. Update an existing user account with an optional password based authentication method.
-
-        :param id: The user id (required)
-        :type id: str
-        :param iam_user_controller_api_create_or_update_user_request: (required)
-        :type iam_user_controller_api_create_or_update_user_request: IAMUserControllerApiCreateOrUpdateUserRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._update_user_serialize(
-            id=id,
-            iam_user_controller_api_create_or_update_user_request=iam_user_controller_api_create_or_update_user_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "IAMUserControllerApiUser",
-            '404': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _update_user_serialize(
         self,
         id,
         iam_user_controller_api_create_or_update_user_request,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -4797,6 +4335,19 @@ class UsersApi:
         # process the body parameter
         if iam_user_controller_api_create_or_update_user_request is not None:
             _body_params = iam_user_controller_api_create_or_update_user_request
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -4852,6 +4403,8 @@ class UsersApi:
         id: Annotated[StrictStr, Field(description="The user ID")],
         tenant: StrictStr,
         iam_user_group_controller_api_update_user_groups_request: IAMUserGroupControllerApiUpdateUserGroupsRequest,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4870,10 +4423,19 @@ class UsersApi:
 
         :param id: The user ID (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param iam_user_group_controller_api_update_user_groups_request: (required)
+                :param iam_user_group_controller_api_update_user_groups_request: (required)
         :type iam_user_group_controller_api_update_user_groups_request: IAMUserGroupControllerApiUpdateUserGroupsRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4900,6 +4462,8 @@ class UsersApi:
             id=id,
             tenant=tenant,
             iam_user_group_controller_api_update_user_groups_request=iam_user_group_controller_api_update_user_groups_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4928,6 +4492,8 @@ class UsersApi:
         id: Annotated[StrictStr, Field(description="The user ID")],
         tenant: StrictStr,
         iam_user_group_controller_api_update_user_groups_request: IAMUserGroupControllerApiUpdateUserGroupsRequest,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4946,10 +4512,19 @@ class UsersApi:
 
         :param id: The user ID (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param iam_user_group_controller_api_update_user_groups_request: (required)
+                :param iam_user_group_controller_api_update_user_groups_request: (required)
         :type iam_user_group_controller_api_update_user_groups_request: IAMUserGroupControllerApiUpdateUserGroupsRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4976,6 +4551,8 @@ class UsersApi:
             id=id,
             tenant=tenant,
             iam_user_group_controller_api_update_user_groups_request=iam_user_group_controller_api_update_user_groups_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4998,84 +4575,13 @@ class UsersApi:
         )
 
 
-    @validate_call
-    def update_user_groups_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The user ID")],
-        tenant: StrictStr,
-        iam_user_group_controller_api_update_user_groups_request: IAMUserGroupControllerApiUpdateUserGroupsRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Update the list of groups a user belongs to for the given tenant
-
-
-        :param id: The user ID (required)
-        :type id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param iam_user_group_controller_api_update_user_groups_request: (required)
-        :type iam_user_group_controller_api_update_user_groups_request: IAMUserGroupControllerApiUpdateUserGroupsRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._update_user_groups_serialize(
-            id=id,
-            tenant=tenant,
-            iam_user_group_controller_api_update_user_groups_request=iam_user_group_controller_api_update_user_groups_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '204': None,
-            '400': None,
-            '404': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _update_user_groups_serialize(
         self,
         id,
         tenant,
         iam_user_group_controller_api_update_user_groups_request,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -5107,6 +4613,19 @@ class UsersApi:
         # process the body parameter
         if iam_user_group_controller_api_update_user_groups_request is not None:
             _body_params = iam_user_group_controller_api_update_user_groups_request
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
 

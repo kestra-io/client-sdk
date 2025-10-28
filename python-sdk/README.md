@@ -92,10 +92,11 @@ with kestrapy.ApiClient(configuration) as api_client:
     schedule_date = '2013-10-20T19:20:30+01:00' # datetime | Schedule the flow on a specific date (optional)
     breakpoints = 'breakpoints_example' # str | Set a list of breakpoints at specific tasks 'id.value', separated by a coma. (optional)
     kind = kestrapy.ExecutionKind() # ExecutionKind | Specific execution kind (optional)
+    file = None # List[object] |  (optional)
 
     try:
         # Create a new execution for a flow
-        api_response = api_instance.create_execution(namespace, id, wait, tenant, labels=labels, revision=revision, schedule_date=schedule_date, breakpoints=breakpoints, kind=kind)
+        api_response = api_instance.create_execution(namespace, id, wait, tenant, labels=labels, revision=revision, schedule_date=schedule_date, breakpoints=breakpoints, kind=kind, file=file)
         print("The response of ExecutionsApi->create_execution:\n")
         pprint(api_response)
     except ApiException as e:
@@ -150,7 +151,6 @@ Class | Method | HTTP request | Description
 *ExecutionsApi* | [**update_execution_status**](docs/ExecutionsApi.md#update_execution_status) | **POST** /api/v1/{tenant}/executions/{executionId}/change-status | Change the state of an execution
 *ExecutionsApi* | [**update_executions_status_by_ids**](docs/ExecutionsApi.md#update_executions_status_by_ids) | **POST** /api/v1/{tenant}/executions/change-status/by-ids | Change executions state by id
 *ExecutionsApi* | [**update_executions_status_by_query**](docs/ExecutionsApi.md#update_executions_status_by_query) | **POST** /api/v1/{tenant}/executions/change-status/by-query | Change executions state by query parameters
-*ExecutionsApi* | [**update_task_run_state**](docs/ExecutionsApi.md#update_task_run_state) | **POST** /api/v1/{tenant}/executions/{executionId}/state | Change state for a taskrun in an execution
 *FlowsApi* | [**bulk_update_flows**](docs/FlowsApi.md#bulk_update_flows) | **POST** /api/v1/{tenant}/flows/bulk | Update from multiples yaml sources
 *FlowsApi* | [**create_flow**](docs/FlowsApi.md#create_flow) | **POST** /api/v1/{tenant}/flows | Create a flow from yaml source
 *FlowsApi* | [**delete_flow**](docs/FlowsApi.md#delete_flow) | **DELETE** /api/v1/{tenant}/flows/{namespace}/{id} | Delete a flow
@@ -336,6 +336,7 @@ Class | Method | HTTP request | Description
  - [BlueprintWithFlow](docs/BlueprintWithFlow.md)
  - [Breakpoint](docs/Breakpoint.md)
  - [BulkErrorResponse](docs/BulkErrorResponse.md)
+ - [BulkImportAppsRequest](docs/BulkImportAppsRequest.md)
  - [BulkResponse](docs/BulkResponse.md)
  - [Cache](docs/Cache.md)
  - [ChartChartOption](docs/ChartChartOption.md)
@@ -348,6 +349,8 @@ Class | Method | HTTP request | Description
  - [ConvertibleValuesListString](docs/ConvertibleValuesListString.md)
  - [CreateApiTokenRequest](docs/CreateApiTokenRequest.md)
  - [CreateApiTokenResponse](docs/CreateApiTokenResponse.md)
+ - [CreateExecutionRequest](docs/CreateExecutionRequest.md)
+ - [CreateNamespaceFileRequest](docs/CreateNamespaceFileRequest.md)
  - [CreateSecurityIntegrationRequest](docs/CreateSecurityIntegrationRequest.md)
  - [CrudEventType](docs/CrudEventType.md)
  - [DailyExecutionStatistics](docs/DailyExecutionStatistics.md)
@@ -473,7 +476,6 @@ Class | Method | HTTP request | Description
  - [KVControllerApiDeleteBulkRequest](docs/KVControllerApiDeleteBulkRequest.md)
  - [KVControllerApiDeleteBulkResponse](docs/KVControllerApiDeleteBulkResponse.md)
  - [KVControllerTypedValue](docs/KVControllerTypedValue.md)
- - [KVControllerTypedValueValue](docs/KVControllerTypedValueValue.md)
  - [KVEntry](docs/KVEntry.md)
  - [KVType](docs/KVType.md)
  - [Label](docs/Label.md)
@@ -608,6 +610,7 @@ Class | Method | HTTP request | Description
  - [ServiceProviderConfigurationSupportedConfiguration](docs/ServiceProviderConfigurationSupportedConfiguration.md)
  - [ServiceServiceState](docs/ServiceServiceState.md)
  - [ServiceType](docs/ServiceType.md)
+ - [SetLogoRequest](docs/SetLogoRequest.md)
  - [SetupConfiguration](docs/SetupConfiguration.md)
  - [SetupConfigurationSetupData](docs/SetupConfigurationSetupData.md)
  - [SortOrder](docs/SortOrder.md)
@@ -643,6 +646,7 @@ Class | Method | HTTP request | Description
  - [Type](docs/Type.md)
  - [UnitTest](docs/UnitTest.md)
  - [UnitTestResult](docs/UnitTestResult.md)
+ - [UploadVersionedPluginsRequest](docs/UploadVersionedPluginsRequest.md)
  - [UsageEE](docs/UsageEE.md)
  - [UserGroup](docs/UserGroup.md)
  - [UserGroupType](docs/UserGroupType.md)

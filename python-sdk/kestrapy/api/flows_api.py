@@ -64,6 +64,8 @@ class FlowsApi:
         tenant: StrictStr,
         namespace: Annotated[Optional[StrictStr], Field(description="The namespace where to update flows")] = None,
         body: Annotated[Optional[StrictStr], Field(description="A list of flows source code splitted with \"---\"")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -83,14 +85,23 @@ class FlowsApi:
 
         :param delete: If missing flow should be deleted (required)
         :type delete: bool
-        :param allow_namespace_child: If namespace child should are allowed to be updated (required)
+                :param allow_namespace_child: If namespace child should are allowed to be updated (required)
         :type allow_namespace_child: bool
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param namespace: The namespace where to update flows
+                :param namespace: The namespace where to update flows
         :type namespace: str
-        :param body: A list of flows source code splitted with \"---\"
+                :param body: A list of flows source code splitted with \"---\"
         :type body: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -119,6 +130,8 @@ class FlowsApi:
             tenant=tenant,
             namespace=namespace,
             body=body,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -147,6 +160,8 @@ class FlowsApi:
         tenant: StrictStr,
         namespace: Annotated[Optional[StrictStr], Field(description="The namespace where to update flows")] = None,
         body: Annotated[Optional[StrictStr], Field(description="A list of flows source code splitted with \"---\"")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -166,14 +181,23 @@ class FlowsApi:
 
         :param delete: If missing flow should be deleted (required)
         :type delete: bool
-        :param allow_namespace_child: If namespace child should are allowed to be updated (required)
+                :param allow_namespace_child: If namespace child should are allowed to be updated (required)
         :type allow_namespace_child: bool
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param namespace: The namespace where to update flows
+                :param namespace: The namespace where to update flows
         :type namespace: str
-        :param body: A list of flows source code splitted with \"---\"
+                :param body: A list of flows source code splitted with \"---\"
         :type body: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -202,6 +226,8 @@ class FlowsApi:
             tenant=tenant,
             namespace=namespace,
             body=body,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -222,86 +248,6 @@ class FlowsApi:
         )
 
 
-    @validate_call
-    def bulk_update_flows_without_preload_content(
-        self,
-        delete: Annotated[StrictBool, Field(description="If missing flow should be deleted")],
-        allow_namespace_child: Annotated[StrictBool, Field(description="If namespace child should are allowed to be updated")],
-        tenant: StrictStr,
-        namespace: Annotated[Optional[StrictStr], Field(description="The namespace where to update flows")] = None,
-        body: Annotated[Optional[StrictStr], Field(description="A list of flows source code splitted with \"---\"")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Update from multiples yaml sources
-
-        All flow will be created / updated for this namespace. Flow that already created but not in `flows` will be deleted if the query delete is `true`
-
-        :param delete: If missing flow should be deleted (required)
-        :type delete: bool
-        :param allow_namespace_child: If namespace child should are allowed to be updated (required)
-        :type allow_namespace_child: bool
-        :param tenant: (required)
-        :type tenant: str
-        :param namespace: The namespace where to update flows
-        :type namespace: str
-        :param body: A list of flows source code splitted with \"---\"
-        :type body: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._bulk_update_flows_serialize(
-            delete=delete,
-            allow_namespace_child=allow_namespace_child,
-            tenant=tenant,
-            namespace=namespace,
-            body=body,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[FlowInterface]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _bulk_update_flows_serialize(
         self,
         delete,
@@ -309,6 +255,8 @@ class FlowsApi:
         tenant,
         namespace,
         body,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -350,6 +298,19 @@ class FlowsApi:
         # process the body parameter
         if body is not None:
             _body_params = body
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -404,6 +365,8 @@ class FlowsApi:
         self,
         tenant: StrictStr,
         body: Annotated[StrictStr, Field(description="The flow source code")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -422,8 +385,17 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param body: The flow source code (required)
+                :param body: The flow source code (required)
         :type body: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -449,6 +421,8 @@ class FlowsApi:
         _param = self._create_flow_serialize(
             tenant=tenant,
             body=body,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -474,6 +448,8 @@ class FlowsApi:
         self,
         tenant: StrictStr,
         body: Annotated[StrictStr, Field(description="The flow source code")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -492,8 +468,17 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param body: The flow source code (required)
+                :param body: The flow source code (required)
         :type body: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -519,6 +504,8 @@ class FlowsApi:
         _param = self._create_flow_serialize(
             tenant=tenant,
             body=body,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -539,77 +526,12 @@ class FlowsApi:
         )
 
 
-    @validate_call
-    def create_flow_without_preload_content(
-        self,
-        tenant: StrictStr,
-        body: Annotated[StrictStr, Field(description="The flow source code")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Create a flow from yaml source
-
-
-        :param tenant: (required)
-        :type tenant: str
-        :param body: The flow source code (required)
-        :type body: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._create_flow_serialize(
-            tenant=tenant,
-            body=body,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "FlowWithSource",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _create_flow_serialize(
         self,
         tenant,
         body,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -639,6 +561,19 @@ class FlowsApi:
         # process the body parameter
         if body is not None:
             _body_params = body
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -694,6 +629,8 @@ class FlowsApi:
         namespace: Annotated[StrictStr, Field(description="The flow namespace")],
         id: Annotated[StrictStr, Field(description="The flow id")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -712,10 +649,19 @@ class FlowsApi:
 
         :param namespace: The flow namespace (required)
         :type namespace: str
-        :param id: The flow id (required)
+                :param id: The flow id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -742,6 +688,8 @@ class FlowsApi:
             namespace=namespace,
             id=id,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -769,6 +717,8 @@ class FlowsApi:
         namespace: Annotated[StrictStr, Field(description="The flow namespace")],
         id: Annotated[StrictStr, Field(description="The flow id")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -787,10 +737,19 @@ class FlowsApi:
 
         :param namespace: The flow namespace (required)
         :type namespace: str
-        :param id: The flow id (required)
+                :param id: The flow id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -817,6 +776,8 @@ class FlowsApi:
             namespace=namespace,
             id=id,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -838,83 +799,13 @@ class FlowsApi:
         )
 
 
-    @validate_call
-    def delete_flow_without_preload_content(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        id: Annotated[StrictStr, Field(description="The flow id")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Delete a flow
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-        :param id: The flow id (required)
-        :type id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._delete_flow_serialize(
-            namespace=namespace,
-            id=id,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
-            '204': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _delete_flow_serialize(
         self,
         namespace,
         id,
         tenant,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -946,6 +837,19 @@ class FlowsApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
 
@@ -980,6 +884,8 @@ class FlowsApi:
         self,
         tenant: StrictStr,
         id_with_namespace: Annotated[List[IdWithNamespace], Field(description="A list of tuple flow ID and namespace as flow identifiers")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -998,8 +904,17 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param id_with_namespace: A list of tuple flow ID and namespace as flow identifiers (required)
+                :param id_with_namespace: A list of tuple flow ID and namespace as flow identifiers (required)
         :type id_with_namespace: List[IdWithNamespace]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1025,6 +940,8 @@ class FlowsApi:
         _param = self._delete_flows_by_ids_serialize(
             tenant=tenant,
             id_with_namespace=id_with_namespace,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1050,6 +967,8 @@ class FlowsApi:
         self,
         tenant: StrictStr,
         id_with_namespace: Annotated[List[IdWithNamespace], Field(description="A list of tuple flow ID and namespace as flow identifiers")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1068,8 +987,17 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param id_with_namespace: A list of tuple flow ID and namespace as flow identifiers (required)
+                :param id_with_namespace: A list of tuple flow ID and namespace as flow identifiers (required)
         :type id_with_namespace: List[IdWithNamespace]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1095,6 +1023,8 @@ class FlowsApi:
         _param = self._delete_flows_by_ids_serialize(
             tenant=tenant,
             id_with_namespace=id_with_namespace,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1115,77 +1045,12 @@ class FlowsApi:
         )
 
 
-    @validate_call
-    def delete_flows_by_ids_without_preload_content(
-        self,
-        tenant: StrictStr,
-        id_with_namespace: Annotated[List[IdWithNamespace], Field(description="A list of tuple flow ID and namespace as flow identifiers")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Delete flows by their IDs.
-
-
-        :param tenant: (required)
-        :type tenant: str
-        :param id_with_namespace: A list of tuple flow ID and namespace as flow identifiers (required)
-        :type id_with_namespace: List[IdWithNamespace]
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._delete_flows_by_ids_serialize(
-            tenant=tenant,
-            id_with_namespace=id_with_namespace,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "BulkResponse",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _delete_flows_by_ids_serialize(
         self,
         tenant,
         id_with_namespace,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -1216,6 +1081,19 @@ class FlowsApi:
         # process the body parameter
         if id_with_namespace is not None:
             _body_params = id_with_namespace
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -1270,6 +1148,8 @@ class FlowsApi:
         self,
         tenant: StrictStr,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1288,8 +1168,17 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param filters: Filters
+                :param filters: Filters
         :type filters: List[QueryFilter]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1315,6 +1204,8 @@ class FlowsApi:
         _param = self._delete_flows_by_query_serialize(
             tenant=tenant,
             filters=filters,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1340,6 +1231,8 @@ class FlowsApi:
         self,
         tenant: StrictStr,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1358,8 +1251,17 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param filters: Filters
+                :param filters: Filters
         :type filters: List[QueryFilter]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1385,6 +1287,8 @@ class FlowsApi:
         _param = self._delete_flows_by_query_serialize(
             tenant=tenant,
             filters=filters,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1405,77 +1309,12 @@ class FlowsApi:
         )
 
 
-    @validate_call
-    def delete_flows_by_query_without_preload_content(
-        self,
-        tenant: StrictStr,
-        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Delete flows returned by the query parameters.
-
-
-        :param tenant: (required)
-        :type tenant: str
-        :param filters: Filters
-        :type filters: List[QueryFilter]
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._delete_flows_by_query_serialize(
-            tenant=tenant,
-            filters=filters,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "BulkResponse",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _delete_flows_by_query_serialize(
         self,
         tenant,
         filters,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -1508,6 +1347,19 @@ class FlowsApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -1549,6 +1401,8 @@ class FlowsApi:
         self,
         tenant: StrictStr,
         id_with_namespace: Annotated[List[IdWithNamespace], Field(description="A list of tuple flow ID and namespace as flow identifiers")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1567,8 +1421,17 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param id_with_namespace: A list of tuple flow ID and namespace as flow identifiers (required)
+                :param id_with_namespace: A list of tuple flow ID and namespace as flow identifiers (required)
         :type id_with_namespace: List[IdWithNamespace]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1594,6 +1457,8 @@ class FlowsApi:
         _param = self._disable_flows_by_ids_serialize(
             tenant=tenant,
             id_with_namespace=id_with_namespace,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1619,6 +1484,8 @@ class FlowsApi:
         self,
         tenant: StrictStr,
         id_with_namespace: Annotated[List[IdWithNamespace], Field(description="A list of tuple flow ID and namespace as flow identifiers")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1637,8 +1504,17 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param id_with_namespace: A list of tuple flow ID and namespace as flow identifiers (required)
+                :param id_with_namespace: A list of tuple flow ID and namespace as flow identifiers (required)
         :type id_with_namespace: List[IdWithNamespace]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1664,6 +1540,8 @@ class FlowsApi:
         _param = self._disable_flows_by_ids_serialize(
             tenant=tenant,
             id_with_namespace=id_with_namespace,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1684,77 +1562,12 @@ class FlowsApi:
         )
 
 
-    @validate_call
-    def disable_flows_by_ids_without_preload_content(
-        self,
-        tenant: StrictStr,
-        id_with_namespace: Annotated[List[IdWithNamespace], Field(description="A list of tuple flow ID and namespace as flow identifiers")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Disable flows by their IDs.
-
-
-        :param tenant: (required)
-        :type tenant: str
-        :param id_with_namespace: A list of tuple flow ID and namespace as flow identifiers (required)
-        :type id_with_namespace: List[IdWithNamespace]
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._disable_flows_by_ids_serialize(
-            tenant=tenant,
-            id_with_namespace=id_with_namespace,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "BulkResponse",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _disable_flows_by_ids_serialize(
         self,
         tenant,
         id_with_namespace,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -1785,6 +1598,19 @@ class FlowsApi:
         # process the body parameter
         if id_with_namespace is not None:
             _body_params = id_with_namespace
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -1839,6 +1665,8 @@ class FlowsApi:
         self,
         tenant: StrictStr,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1857,8 +1685,17 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param filters: Filters
+                :param filters: Filters
         :type filters: List[QueryFilter]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1884,6 +1721,8 @@ class FlowsApi:
         _param = self._disable_flows_by_query_serialize(
             tenant=tenant,
             filters=filters,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1909,6 +1748,8 @@ class FlowsApi:
         self,
         tenant: StrictStr,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1927,8 +1768,17 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param filters: Filters
+                :param filters: Filters
         :type filters: List[QueryFilter]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1954,6 +1804,8 @@ class FlowsApi:
         _param = self._disable_flows_by_query_serialize(
             tenant=tenant,
             filters=filters,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1974,77 +1826,12 @@ class FlowsApi:
         )
 
 
-    @validate_call
-    def disable_flows_by_query_without_preload_content(
-        self,
-        tenant: StrictStr,
-        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Disable flows returned by the query parameters.
-
-
-        :param tenant: (required)
-        :type tenant: str
-        :param filters: Filters
-        :type filters: List[QueryFilter]
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._disable_flows_by_query_serialize(
-            tenant=tenant,
-            filters=filters,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "BulkResponse",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _disable_flows_by_query_serialize(
         self,
         tenant,
         filters,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -2077,6 +1864,19 @@ class FlowsApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -2118,6 +1918,8 @@ class FlowsApi:
         self,
         tenant: StrictStr,
         id_with_namespace: Annotated[List[IdWithNamespace], Field(description="A list of tuple flow ID and namespace as flow identifiers")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2136,8 +1938,17 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param id_with_namespace: A list of tuple flow ID and namespace as flow identifiers (required)
+                :param id_with_namespace: A list of tuple flow ID and namespace as flow identifiers (required)
         :type id_with_namespace: List[IdWithNamespace]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2163,6 +1974,8 @@ class FlowsApi:
         _param = self._enable_flows_by_ids_serialize(
             tenant=tenant,
             id_with_namespace=id_with_namespace,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2188,6 +2001,8 @@ class FlowsApi:
         self,
         tenant: StrictStr,
         id_with_namespace: Annotated[List[IdWithNamespace], Field(description="A list of tuple flow ID and namespace as flow identifiers")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2206,8 +2021,17 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param id_with_namespace: A list of tuple flow ID and namespace as flow identifiers (required)
+                :param id_with_namespace: A list of tuple flow ID and namespace as flow identifiers (required)
         :type id_with_namespace: List[IdWithNamespace]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2233,6 +2057,8 @@ class FlowsApi:
         _param = self._enable_flows_by_ids_serialize(
             tenant=tenant,
             id_with_namespace=id_with_namespace,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2253,77 +2079,12 @@ class FlowsApi:
         )
 
 
-    @validate_call
-    def enable_flows_by_ids_without_preload_content(
-        self,
-        tenant: StrictStr,
-        id_with_namespace: Annotated[List[IdWithNamespace], Field(description="A list of tuple flow ID and namespace as flow identifiers")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Enable flows by their IDs.
-
-
-        :param tenant: (required)
-        :type tenant: str
-        :param id_with_namespace: A list of tuple flow ID and namespace as flow identifiers (required)
-        :type id_with_namespace: List[IdWithNamespace]
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._enable_flows_by_ids_serialize(
-            tenant=tenant,
-            id_with_namespace=id_with_namespace,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "BulkResponse",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _enable_flows_by_ids_serialize(
         self,
         tenant,
         id_with_namespace,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -2354,6 +2115,19 @@ class FlowsApi:
         # process the body parameter
         if id_with_namespace is not None:
             _body_params = id_with_namespace
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -2408,6 +2182,8 @@ class FlowsApi:
         self,
         tenant: StrictStr,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2426,8 +2202,17 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param filters: Filters
+                :param filters: Filters
         :type filters: List[QueryFilter]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2453,6 +2238,8 @@ class FlowsApi:
         _param = self._enable_flows_by_query_serialize(
             tenant=tenant,
             filters=filters,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2478,6 +2265,8 @@ class FlowsApi:
         self,
         tenant: StrictStr,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2496,8 +2285,17 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param filters: Filters
+                :param filters: Filters
         :type filters: List[QueryFilter]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2523,6 +2321,8 @@ class FlowsApi:
         _param = self._enable_flows_by_query_serialize(
             tenant=tenant,
             filters=filters,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2543,77 +2343,12 @@ class FlowsApi:
         )
 
 
-    @validate_call
-    def enable_flows_by_query_without_preload_content(
-        self,
-        tenant: StrictStr,
-        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Enable flows returned by the query parameters.
-
-
-        :param tenant: (required)
-        :type tenant: str
-        :param filters: Filters
-        :type filters: List[QueryFilter]
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._enable_flows_by_query_serialize(
-            tenant=tenant,
-            filters=filters,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "BulkResponse",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _enable_flows_by_query_serialize(
         self,
         tenant,
         filters,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -2646,6 +2381,19 @@ class FlowsApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -2687,6 +2435,8 @@ class FlowsApi:
         self,
         tenant: StrictStr,
         id_with_namespace: Annotated[List[IdWithNamespace], Field(description="A list of tuple flow ID and namespace as flow identifiers")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2705,8 +2455,17 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param id_with_namespace: A list of tuple flow ID and namespace as flow identifiers (required)
+                :param id_with_namespace: A list of tuple flow ID and namespace as flow identifiers (required)
         :type id_with_namespace: List[IdWithNamespace]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2732,6 +2491,8 @@ class FlowsApi:
         _param = self._export_flows_by_ids_serialize(
             tenant=tenant,
             id_with_namespace=id_with_namespace,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2757,6 +2518,8 @@ class FlowsApi:
         self,
         tenant: StrictStr,
         id_with_namespace: Annotated[List[IdWithNamespace], Field(description="A list of tuple flow ID and namespace as flow identifiers")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2775,8 +2538,17 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param id_with_namespace: A list of tuple flow ID and namespace as flow identifiers (required)
+                :param id_with_namespace: A list of tuple flow ID and namespace as flow identifiers (required)
         :type id_with_namespace: List[IdWithNamespace]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2802,6 +2574,8 @@ class FlowsApi:
         _param = self._export_flows_by_ids_serialize(
             tenant=tenant,
             id_with_namespace=id_with_namespace,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2822,77 +2596,12 @@ class FlowsApi:
         )
 
 
-    @validate_call
-    def export_flows_by_ids_without_preload_content(
-        self,
-        tenant: StrictStr,
-        id_with_namespace: Annotated[List[IdWithNamespace], Field(description="A list of tuple flow ID and namespace as flow identifiers")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Export flows as a ZIP archive of yaml sources.
-
-
-        :param tenant: (required)
-        :type tenant: str
-        :param id_with_namespace: A list of tuple flow ID and namespace as flow identifiers (required)
-        :type id_with_namespace: List[IdWithNamespace]
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._export_flows_by_ids_serialize(
-            tenant=tenant,
-            id_with_namespace=id_with_namespace,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "bytearray",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _export_flows_by_ids_serialize(
         self,
         tenant,
         id_with_namespace,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -2923,6 +2632,19 @@ class FlowsApi:
         # process the body parameter
         if id_with_namespace is not None:
             _body_params = id_with_namespace
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -2977,6 +2699,8 @@ class FlowsApi:
         self,
         tenant: StrictStr,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2995,8 +2719,17 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param filters: Filters
+                :param filters: Filters
         :type filters: List[QueryFilter]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3022,6 +2755,8 @@ class FlowsApi:
         _param = self._export_flows_by_query_serialize(
             tenant=tenant,
             filters=filters,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3047,6 +2782,8 @@ class FlowsApi:
         self,
         tenant: StrictStr,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3065,8 +2802,17 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param filters: Filters
+                :param filters: Filters
         :type filters: List[QueryFilter]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3092,6 +2838,8 @@ class FlowsApi:
         _param = self._export_flows_by_query_serialize(
             tenant=tenant,
             filters=filters,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3112,77 +2860,12 @@ class FlowsApi:
         )
 
 
-    @validate_call
-    def export_flows_by_query_without_preload_content(
-        self,
-        tenant: StrictStr,
-        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Export flows as a ZIP archive of yaml sources.
-
-
-        :param tenant: (required)
-        :type tenant: str
-        :param filters: Filters
-        :type filters: List[QueryFilter]
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._export_flows_by_query_serialize(
-            tenant=tenant,
-            filters=filters,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "bytearray",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _export_flows_by_query_serialize(
         self,
         tenant,
         filters,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -3215,6 +2898,19 @@ class FlowsApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -3259,6 +2955,8 @@ class FlowsApi:
         tenant: StrictStr,
         revision: Annotated[Optional[StrictInt], Field(description="The flow revision")] = None,
         subflows: Annotated[Optional[List[StrictStr]], Field(description="The subflow tasks to display")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3277,14 +2975,23 @@ class FlowsApi:
 
         :param namespace: The flow namespace (required)
         :type namespace: str
-        :param id: The flow id (required)
+                :param id: The flow id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param revision: The flow revision
+                :param revision: The flow revision
         :type revision: int
-        :param subflows: The subflow tasks to display
+                :param subflows: The subflow tasks to display
         :type subflows: List[str]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3313,6 +3020,8 @@ class FlowsApi:
             tenant=tenant,
             revision=revision,
             subflows=subflows,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3341,6 +3050,8 @@ class FlowsApi:
         tenant: StrictStr,
         revision: Annotated[Optional[StrictInt], Field(description="The flow revision")] = None,
         subflows: Annotated[Optional[List[StrictStr]], Field(description="The subflow tasks to display")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3359,14 +3070,23 @@ class FlowsApi:
 
         :param namespace: The flow namespace (required)
         :type namespace: str
-        :param id: The flow id (required)
+                :param id: The flow id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param revision: The flow revision
+                :param revision: The flow revision
         :type revision: int
-        :param subflows: The subflow tasks to display
+                :param subflows: The subflow tasks to display
         :type subflows: List[str]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3395,6 +3115,8 @@ class FlowsApi:
             tenant=tenant,
             revision=revision,
             subflows=subflows,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3415,85 +3137,6 @@ class FlowsApi:
         )
 
 
-    @validate_call
-    def generate_flow_graph_without_preload_content(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        id: Annotated[StrictStr, Field(description="The flow id")],
-        tenant: StrictStr,
-        revision: Annotated[Optional[StrictInt], Field(description="The flow revision")] = None,
-        subflows: Annotated[Optional[List[StrictStr]], Field(description="The subflow tasks to display")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Generate a graph for a flow
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-        :param id: The flow id (required)
-        :type id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param revision: The flow revision
-        :type revision: int
-        :param subflows: The subflow tasks to display
-        :type subflows: List[str]
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._generate_flow_graph_serialize(
-            namespace=namespace,
-            id=id,
-            tenant=tenant,
-            revision=revision,
-            subflows=subflows,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "FlowGraph",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _generate_flow_graph_serialize(
         self,
         namespace,
@@ -3501,6 +3144,8 @@ class FlowsApi:
         tenant,
         revision,
         subflows,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -3541,6 +3186,19 @@ class FlowsApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -3583,6 +3241,8 @@ class FlowsApi:
         tenant: StrictStr,
         body: Annotated[StrictStr, Field(description="The flow source code")],
         subflows: Annotated[Optional[List[StrictStr]], Field(description="The subflow tasks to display")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3601,10 +3261,19 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param body: The flow source code (required)
+                :param body: The flow source code (required)
         :type body: str
-        :param subflows: The subflow tasks to display
+                :param subflows: The subflow tasks to display
         :type subflows: List[str]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3631,6 +3300,8 @@ class FlowsApi:
             tenant=tenant,
             body=body,
             subflows=subflows,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3657,6 +3328,8 @@ class FlowsApi:
         tenant: StrictStr,
         body: Annotated[StrictStr, Field(description="The flow source code")],
         subflows: Annotated[Optional[List[StrictStr]], Field(description="The subflow tasks to display")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3675,10 +3348,19 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param body: The flow source code (required)
+                :param body: The flow source code (required)
         :type body: str
-        :param subflows: The subflow tasks to display
+                :param subflows: The subflow tasks to display
         :type subflows: List[str]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3705,6 +3387,8 @@ class FlowsApi:
             tenant=tenant,
             body=body,
             subflows=subflows,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3725,82 +3409,13 @@ class FlowsApi:
         )
 
 
-    @validate_call
-    def generate_flow_graph_from_source_without_preload_content(
-        self,
-        tenant: StrictStr,
-        body: Annotated[StrictStr, Field(description="The flow source code")],
-        subflows: Annotated[Optional[List[StrictStr]], Field(description="The subflow tasks to display")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Generate a graph for a flow source
-
-
-        :param tenant: (required)
-        :type tenant: str
-        :param body: The flow source code (required)
-        :type body: str
-        :param subflows: The subflow tasks to display
-        :type subflows: List[str]
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._generate_flow_graph_from_source_serialize(
-            tenant=tenant,
-            body=body,
-            subflows=subflows,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "FlowGraph",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _generate_flow_graph_from_source_serialize(
         self,
         tenant,
         body,
         subflows,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -3835,6 +3450,19 @@ class FlowsApi:
         # process the body parameter
         if body is not None:
             _body_params = body
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -3893,6 +3521,8 @@ class FlowsApi:
         allow_deleted: Annotated[StrictBool, Field(description="Get flow even if deleted")],
         tenant: StrictStr,
         revision: Annotated[Optional[StrictInt], Field(description="Get latest revision by default")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3911,16 +3541,25 @@ class FlowsApi:
 
         :param namespace: The flow namespace (required)
         :type namespace: str
-        :param id: The flow id (required)
+                :param id: The flow id (required)
         :type id: str
-        :param source: Include the source code (required)
+                :param source: Include the source code (required)
         :type source: bool
-        :param allow_deleted: Get flow even if deleted (required)
+                :param allow_deleted: Get flow even if deleted (required)
         :type allow_deleted: bool
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param revision: Get latest revision by default
+                :param revision: Get latest revision by default
         :type revision: int
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3950,6 +3589,8 @@ class FlowsApi:
             allow_deleted=allow_deleted,
             tenant=tenant,
             revision=revision,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3979,6 +3620,8 @@ class FlowsApi:
         allow_deleted: Annotated[StrictBool, Field(description="Get flow even if deleted")],
         tenant: StrictStr,
         revision: Annotated[Optional[StrictInt], Field(description="Get latest revision by default")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3997,16 +3640,25 @@ class FlowsApi:
 
         :param namespace: The flow namespace (required)
         :type namespace: str
-        :param id: The flow id (required)
+                :param id: The flow id (required)
         :type id: str
-        :param source: Include the source code (required)
+                :param source: Include the source code (required)
         :type source: bool
-        :param allow_deleted: Get flow even if deleted (required)
+                :param allow_deleted: Get flow even if deleted (required)
         :type allow_deleted: bool
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param revision: Get latest revision by default
+                :param revision: Get latest revision by default
         :type revision: int
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4036,6 +3688,8 @@ class FlowsApi:
             allow_deleted=allow_deleted,
             tenant=tenant,
             revision=revision,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4056,89 +3710,6 @@ class FlowsApi:
         )
 
 
-    @validate_call
-    def get_flow_without_preload_content(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        id: Annotated[StrictStr, Field(description="The flow id")],
-        source: Annotated[StrictBool, Field(description="Include the source code")],
-        allow_deleted: Annotated[StrictBool, Field(description="Get flow even if deleted")],
-        tenant: StrictStr,
-        revision: Annotated[Optional[StrictInt], Field(description="Get latest revision by default")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Get a flow
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-        :param id: The flow id (required)
-        :type id: str
-        :param source: Include the source code (required)
-        :type source: bool
-        :param allow_deleted: Get flow even if deleted (required)
-        :type allow_deleted: bool
-        :param tenant: (required)
-        :type tenant: str
-        :param revision: Get latest revision by default
-        :type revision: int
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._get_flow_serialize(
-            namespace=namespace,
-            id=id,
-            source=source,
-            allow_deleted=allow_deleted,
-            tenant=tenant,
-            revision=revision,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _get_flow_serialize(
         self,
         namespace,
@@ -4147,6 +3718,8 @@ class FlowsApi:
         allow_deleted,
         tenant,
         revision,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -4191,6 +3764,19 @@ class FlowsApi:
         # process the form parameters
         # process the body parameter
 
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
+
 
         # set the HTTP header `Accept`
         if 'Accept' not in _header_params:
@@ -4234,6 +3820,8 @@ class FlowsApi:
         destination_only: Annotated[StrictBool, Field(description="If true, list only destination dependencies, otherwise list also source dependencies")],
         expand_all: Annotated[StrictBool, Field(description="If true, expand all dependencies recursively")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4252,14 +3840,23 @@ class FlowsApi:
 
         :param namespace: The flow namespace (required)
         :type namespace: str
-        :param id: The flow id (required)
+                :param id: The flow id (required)
         :type id: str
-        :param destination_only: If true, list only destination dependencies, otherwise list also source dependencies (required)
+                :param destination_only: If true, list only destination dependencies, otherwise list also source dependencies (required)
         :type destination_only: bool
-        :param expand_all: If true, expand all dependencies recursively (required)
+                :param expand_all: If true, expand all dependencies recursively (required)
         :type expand_all: bool
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4288,6 +3885,8 @@ class FlowsApi:
             destination_only=destination_only,
             expand_all=expand_all,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4316,6 +3915,8 @@ class FlowsApi:
         destination_only: Annotated[StrictBool, Field(description="If true, list only destination dependencies, otherwise list also source dependencies")],
         expand_all: Annotated[StrictBool, Field(description="If true, expand all dependencies recursively")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4334,14 +3935,23 @@ class FlowsApi:
 
         :param namespace: The flow namespace (required)
         :type namespace: str
-        :param id: The flow id (required)
+                :param id: The flow id (required)
         :type id: str
-        :param destination_only: If true, list only destination dependencies, otherwise list also source dependencies (required)
+                :param destination_only: If true, list only destination dependencies, otherwise list also source dependencies (required)
         :type destination_only: bool
-        :param expand_all: If true, expand all dependencies recursively (required)
+                :param expand_all: If true, expand all dependencies recursively (required)
         :type expand_all: bool
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4370,6 +3980,8 @@ class FlowsApi:
             destination_only=destination_only,
             expand_all=expand_all,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4390,85 +4002,6 @@ class FlowsApi:
         )
 
 
-    @validate_call
-    def get_flow_dependencies_without_preload_content(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        id: Annotated[StrictStr, Field(description="The flow id")],
-        destination_only: Annotated[StrictBool, Field(description="If true, list only destination dependencies, otherwise list also source dependencies")],
-        expand_all: Annotated[StrictBool, Field(description="If true, expand all dependencies recursively")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Get flow dependencies
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-        :param id: The flow id (required)
-        :type id: str
-        :param destination_only: If true, list only destination dependencies, otherwise list also source dependencies (required)
-        :type destination_only: bool
-        :param expand_all: If true, expand all dependencies recursively (required)
-        :type expand_all: bool
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._get_flow_dependencies_serialize(
-            namespace=namespace,
-            id=id,
-            destination_only=destination_only,
-            expand_all=expand_all,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "FlowTopologyGraph",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _get_flow_dependencies_serialize(
         self,
         namespace,
@@ -4476,6 +4009,8 @@ class FlowsApi:
         destination_only,
         expand_all,
         tenant,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -4515,6 +4050,19 @@ class FlowsApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -4557,6 +4105,8 @@ class FlowsApi:
         namespace: Annotated[StrictStr, Field(description="The flow namespace")],
         destination_only: Annotated[StrictBool, Field(description="if true, list only destination dependencies, otherwise list also source dependencies")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4575,10 +4125,19 @@ class FlowsApi:
 
         :param namespace: The flow namespace (required)
         :type namespace: str
-        :param destination_only: if true, list only destination dependencies, otherwise list also source dependencies (required)
+                :param destination_only: if true, list only destination dependencies, otherwise list also source dependencies (required)
         :type destination_only: bool
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4605,6 +4164,8 @@ class FlowsApi:
             namespace=namespace,
             destination_only=destination_only,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4631,6 +4192,8 @@ class FlowsApi:
         namespace: Annotated[StrictStr, Field(description="The flow namespace")],
         destination_only: Annotated[StrictBool, Field(description="if true, list only destination dependencies, otherwise list also source dependencies")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4649,10 +4212,19 @@ class FlowsApi:
 
         :param namespace: The flow namespace (required)
         :type namespace: str
-        :param destination_only: if true, list only destination dependencies, otherwise list also source dependencies (required)
+                :param destination_only: if true, list only destination dependencies, otherwise list also source dependencies (required)
         :type destination_only: bool
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4679,6 +4251,8 @@ class FlowsApi:
             namespace=namespace,
             destination_only=destination_only,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4699,82 +4273,13 @@ class FlowsApi:
         )
 
 
-    @validate_call
-    def get_flow_dependencies_from_namespace_without_preload_content(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        destination_only: Annotated[StrictBool, Field(description="if true, list only destination dependencies, otherwise list also source dependencies")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Retrieve flow dependencies
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-        :param destination_only: if true, list only destination dependencies, otherwise list also source dependencies (required)
-        :type destination_only: bool
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._get_flow_dependencies_from_namespace_serialize(
-            namespace=namespace,
-            destination_only=destination_only,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "FlowTopologyGraph",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _get_flow_dependencies_from_namespace_serialize(
         self,
         namespace,
         destination_only,
         tenant,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -4808,6 +4313,19 @@ class FlowsApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -4852,6 +4370,8 @@ class FlowsApi:
         task_id: Annotated[StrictStr, Field(description="The task id")],
         tenant: StrictStr,
         revision: Annotated[Optional[StrictInt], Field(description="The flow revision")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4870,14 +4390,23 @@ class FlowsApi:
 
         :param namespace: The flow namespace (required)
         :type namespace: str
-        :param id: The flow id (required)
+                :param id: The flow id (required)
         :type id: str
-        :param task_id: The task id (required)
+                :param task_id: The task id (required)
         :type task_id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param revision: The flow revision
+                :param revision: The flow revision
         :type revision: int
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4906,6 +4435,8 @@ class FlowsApi:
             task_id=task_id,
             tenant=tenant,
             revision=revision,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4934,6 +4465,8 @@ class FlowsApi:
         task_id: Annotated[StrictStr, Field(description="The task id")],
         tenant: StrictStr,
         revision: Annotated[Optional[StrictInt], Field(description="The flow revision")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4952,14 +4485,23 @@ class FlowsApi:
 
         :param namespace: The flow namespace (required)
         :type namespace: str
-        :param id: The flow id (required)
+                :param id: The flow id (required)
         :type id: str
-        :param task_id: The task id (required)
+                :param task_id: The task id (required)
         :type task_id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param revision: The flow revision
+                :param revision: The flow revision
         :type revision: int
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4988,6 +4530,8 @@ class FlowsApi:
             task_id=task_id,
             tenant=tenant,
             revision=revision,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -5008,85 +4552,6 @@ class FlowsApi:
         )
 
 
-    @validate_call
-    def get_task_from_flow_without_preload_content(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        id: Annotated[StrictStr, Field(description="The flow id")],
-        task_id: Annotated[StrictStr, Field(description="The task id")],
-        tenant: StrictStr,
-        revision: Annotated[Optional[StrictInt], Field(description="The flow revision")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Get a flow task
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-        :param id: The flow id (required)
-        :type id: str
-        :param task_id: The task id (required)
-        :type task_id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param revision: The flow revision
-        :type revision: int
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._get_task_from_flow_serialize(
-            namespace=namespace,
-            id=id,
-            task_id=task_id,
-            tenant=tenant,
-            revision=revision,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Task",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _get_task_from_flow_serialize(
         self,
         namespace,
@@ -5094,6 +4559,8 @@ class FlowsApi:
         task_id,
         tenant,
         revision,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -5131,6 +4598,19 @@ class FlowsApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -5172,6 +4652,8 @@ class FlowsApi:
         self,
         tenant: StrictStr,
         file_upload: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The file to import, can be a ZIP archive or a multi-objects YAML file")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -5190,8 +4672,17 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param file_upload: The file to import, can be a ZIP archive or a multi-objects YAML file
+                :param file_upload: The file to import, can be a ZIP archive or a multi-objects YAML file
         :type file_upload: bytearray
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -5217,6 +4708,8 @@ class FlowsApi:
         _param = self._import_flows_serialize(
             tenant=tenant,
             file_upload=file_upload,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -5242,6 +4735,8 @@ class FlowsApi:
         self,
         tenant: StrictStr,
         file_upload: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The file to import, can be a ZIP archive or a multi-objects YAML file")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -5260,8 +4755,17 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param file_upload: The file to import, can be a ZIP archive or a multi-objects YAML file
+                :param file_upload: The file to import, can be a ZIP archive or a multi-objects YAML file
         :type file_upload: bytearray
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -5287,6 +4791,8 @@ class FlowsApi:
         _param = self._import_flows_serialize(
             tenant=tenant,
             file_upload=file_upload,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -5307,77 +4813,12 @@ class FlowsApi:
         )
 
 
-    @validate_call
-    def import_flows_without_preload_content(
-        self,
-        tenant: StrictStr,
-        file_upload: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="The file to import, can be a ZIP archive or a multi-objects YAML file")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """    Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn't be imported is returned. 
-
-
-        :param tenant: (required)
-        :type tenant: str
-        :param file_upload: The file to import, can be a ZIP archive or a multi-objects YAML file
-        :type file_upload: bytearray
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._import_flows_serialize(
-            tenant=tenant,
-            file_upload=file_upload,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[str]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _import_flows_serialize(
         self,
         tenant,
         file_upload,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -5406,7 +4847,20 @@ class FlowsApi:
         # process the form parameters
         if file_upload is not None:
             _files['fileUpload'] = file_upload
-        # process the body parameter
+                    # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -5461,6 +4915,8 @@ class FlowsApi:
         self,
         tenant: StrictStr,
         q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -5479,8 +4935,17 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param q: A string filter
+                :param q: A string filter
         :type q: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -5506,6 +4971,8 @@ class FlowsApi:
         _param = self._list_distinct_namespaces_serialize(
             tenant=tenant,
             q=q,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -5531,6 +4998,8 @@ class FlowsApi:
         self,
         tenant: StrictStr,
         q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -5549,8 +5018,17 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param q: A string filter
+                :param q: A string filter
         :type q: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -5576,6 +5054,8 @@ class FlowsApi:
         _param = self._list_distinct_namespaces_serialize(
             tenant=tenant,
             q=q,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -5596,77 +5076,12 @@ class FlowsApi:
         )
 
 
-    @validate_call
-    def list_distinct_namespaces_without_preload_content(
-        self,
-        tenant: StrictStr,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """List all distinct namespaces
-
-
-        :param tenant: (required)
-        :type tenant: str
-        :param q: A string filter
-        :type q: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._list_distinct_namespaces_serialize(
-            tenant=tenant,
-            q=q,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[str]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _list_distinct_namespaces_serialize(
         self,
         tenant,
         q,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -5698,6 +5113,19 @@ class FlowsApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -5740,6 +5168,8 @@ class FlowsApi:
         namespace: Annotated[StrictStr, Field(description="The flow namespace")],
         id: Annotated[StrictStr, Field(description="The flow id")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -5758,10 +5188,19 @@ class FlowsApi:
 
         :param namespace: The flow namespace (required)
         :type namespace: str
-        :param id: The flow id (required)
+                :param id: The flow id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -5788,6 +5227,8 @@ class FlowsApi:
             namespace=namespace,
             id=id,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -5814,6 +5255,8 @@ class FlowsApi:
         namespace: Annotated[StrictStr, Field(description="The flow namespace")],
         id: Annotated[StrictStr, Field(description="The flow id")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -5832,10 +5275,19 @@ class FlowsApi:
 
         :param namespace: The flow namespace (required)
         :type namespace: str
-        :param id: The flow id (required)
+                :param id: The flow id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -5862,6 +5314,8 @@ class FlowsApi:
             namespace=namespace,
             id=id,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -5882,82 +5336,13 @@ class FlowsApi:
         )
 
 
-    @validate_call
-    def list_flow_revisions_without_preload_content(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        id: Annotated[StrictStr, Field(description="The flow id")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Get revisions for a flow
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-        :param id: The flow id (required)
-        :type id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._list_flow_revisions_serialize(
-            namespace=namespace,
-            id=id,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[FlowWithSource]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _list_flow_revisions_serialize(
         self,
         namespace,
         id,
         tenant,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -5989,6 +5374,19 @@ class FlowsApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -6030,6 +5428,8 @@ class FlowsApi:
         self,
         namespace: Annotated[StrictStr, Field(description="Namespace to filter flows")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -6048,8 +5448,17 @@ class FlowsApi:
 
         :param namespace: Namespace to filter flows (required)
         :type namespace: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -6075,6 +5484,8 @@ class FlowsApi:
         _param = self._list_flows_by_namespace_serialize(
             namespace=namespace,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -6100,6 +5511,8 @@ class FlowsApi:
         self,
         namespace: Annotated[StrictStr, Field(description="Namespace to filter flows")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -6118,8 +5531,17 @@ class FlowsApi:
 
         :param namespace: Namespace to filter flows (required)
         :type namespace: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -6145,6 +5567,8 @@ class FlowsApi:
         _param = self._list_flows_by_namespace_serialize(
             namespace=namespace,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -6165,77 +5589,12 @@ class FlowsApi:
         )
 
 
-    @validate_call
-    def list_flows_by_namespace_without_preload_content(
-        self,
-        namespace: Annotated[StrictStr, Field(description="Namespace to filter flows")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Retrieve all flows from a given namespace
-
-
-        :param namespace: Namespace to filter flows (required)
-        :type namespace: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._list_flows_by_namespace_serialize(
-            namespace=namespace,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[Flow]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _list_flows_by_namespace_serialize(
         self,
         namespace,
         tenant,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -6265,6 +5624,19 @@ class FlowsApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -6309,6 +5681,8 @@ class FlowsApi:
         tenant: StrictStr,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -6327,14 +5701,23 @@ class FlowsApi:
 
         :param page: The current page (required)
         :type page: int
-        :param size: The current page size (required)
+                :param size: The current page size (required)
         :type size: int
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param sort: The sort of current page
+                :param sort: The sort of current page
         :type sort: List[str]
-        :param filters: Filters
+                :param filters: Filters
         :type filters: List[QueryFilter]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -6363,6 +5746,8 @@ class FlowsApi:
             tenant=tenant,
             sort=sort,
             filters=filters,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -6391,6 +5776,8 @@ class FlowsApi:
         tenant: StrictStr,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -6409,14 +5796,23 @@ class FlowsApi:
 
         :param page: The current page (required)
         :type page: int
-        :param size: The current page size (required)
+                :param size: The current page size (required)
         :type size: int
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param sort: The sort of current page
+                :param sort: The sort of current page
         :type sort: List[str]
-        :param filters: Filters
+                :param filters: Filters
         :type filters: List[QueryFilter]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -6445,6 +5841,8 @@ class FlowsApi:
             tenant=tenant,
             sort=sort,
             filters=filters,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -6465,85 +5863,6 @@ class FlowsApi:
         )
 
 
-    @validate_call
-    def search_flows_without_preload_content(
-        self,
-        page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
-        size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
-        tenant: StrictStr,
-        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
-        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Search for flows
-
-
-        :param page: The current page (required)
-        :type page: int
-        :param size: The current page size (required)
-        :type size: int
-        :param tenant: (required)
-        :type tenant: str
-        :param sort: The sort of current page
-        :type sort: List[str]
-        :param filters: Filters
-        :type filters: List[QueryFilter]
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._search_flows_serialize(
-            page=page,
-            size=size,
-            tenant=tenant,
-            sort=sort,
-            filters=filters,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "PagedResultsFlow",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _search_flows_serialize(
         self,
         page,
@@ -6551,6 +5870,8 @@ class FlowsApi:
         tenant,
         sort,
         filters,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -6597,6 +5918,19 @@ class FlowsApi:
         # process the form parameters
         # process the body parameter
 
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
+
 
         # set the HTTP header `Accept`
         if 'Accept' not in _header_params:
@@ -6641,6 +5975,8 @@ class FlowsApi:
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
         namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -6659,16 +5995,25 @@ class FlowsApi:
 
         :param page: The current page (required)
         :type page: int
-        :param size: The current page size (required)
+                :param size: The current page size (required)
         :type size: int
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param sort: The sort of current page
+                :param sort: The sort of current page
         :type sort: List[str]
-        :param q: A string filter
+                :param q: A string filter
         :type q: str
-        :param namespace: A namespace filter prefix
+                :param namespace: A namespace filter prefix
         :type namespace: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -6698,6 +6043,8 @@ class FlowsApi:
             sort=sort,
             q=q,
             namespace=namespace,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -6727,6 +6074,8 @@ class FlowsApi:
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
         namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -6745,16 +6094,25 @@ class FlowsApi:
 
         :param page: The current page (required)
         :type page: int
-        :param size: The current page size (required)
+                :param size: The current page size (required)
         :type size: int
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param sort: The sort of current page
+                :param sort: The sort of current page
         :type sort: List[str]
-        :param q: A string filter
+                :param q: A string filter
         :type q: str
-        :param namespace: A namespace filter prefix
+                :param namespace: A namespace filter prefix
         :type namespace: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -6784,6 +6142,8 @@ class FlowsApi:
             sort=sort,
             q=q,
             namespace=namespace,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -6804,89 +6164,6 @@ class FlowsApi:
         )
 
 
-    @validate_call
-    def search_flows_by_source_code_without_preload_content(
-        self,
-        page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
-        size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
-        tenant: StrictStr,
-        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Search for flows source code
-
-
-        :param page: The current page (required)
-        :type page: int
-        :param size: The current page size (required)
-        :type size: int
-        :param tenant: (required)
-        :type tenant: str
-        :param sort: The sort of current page
-        :type sort: List[str]
-        :param q: A string filter
-        :type q: str
-        :param namespace: A namespace filter prefix
-        :type namespace: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._search_flows_by_source_code_serialize(
-            page=page,
-            size=size,
-            tenant=tenant,
-            sort=sort,
-            q=q,
-            namespace=namespace,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "PagedResultsSearchResultFlow",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _search_flows_by_source_code_serialize(
         self,
         page,
@@ -6895,6 +6172,8 @@ class FlowsApi:
         sort,
         q,
         namespace,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -6944,6 +6223,19 @@ class FlowsApi:
         # process the form parameters
         # process the body parameter
 
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
+
 
         # set the HTTP header `Accept`
         if 'Accept' not in _header_params:
@@ -6986,6 +6278,8 @@ class FlowsApi:
         id: Annotated[StrictStr, Field(description="The flow id")],
         tenant: StrictStr,
         body: Annotated[StrictStr, Field(description="The flow source code")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -7004,12 +6298,21 @@ class FlowsApi:
 
         :param namespace: The flow namespace (required)
         :type namespace: str
-        :param id: The flow id (required)
+                :param id: The flow id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param body: The flow source code (required)
+                :param body: The flow source code (required)
         :type body: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -7037,6 +6340,8 @@ class FlowsApi:
             id=id,
             tenant=tenant,
             body=body,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -7064,6 +6369,8 @@ class FlowsApi:
         id: Annotated[StrictStr, Field(description="The flow id")],
         tenant: StrictStr,
         body: Annotated[StrictStr, Field(description="The flow source code")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -7082,12 +6389,21 @@ class FlowsApi:
 
         :param namespace: The flow namespace (required)
         :type namespace: str
-        :param id: The flow id (required)
+                :param id: The flow id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param body: The flow source code (required)
+                :param body: The flow source code (required)
         :type body: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -7115,6 +6431,8 @@ class FlowsApi:
             id=id,
             tenant=tenant,
             body=body,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -7135,87 +6453,14 @@ class FlowsApi:
         )
 
 
-    @validate_call
-    def update_flow_without_preload_content(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        id: Annotated[StrictStr, Field(description="The flow id")],
-        tenant: StrictStr,
-        body: Annotated[StrictStr, Field(description="The flow source code")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Update a flow
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-        :param id: The flow id (required)
-        :type id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param body: The flow source code (required)
-        :type body: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._update_flow_serialize(
-            namespace=namespace,
-            id=id,
-            tenant=tenant,
-            body=body,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "FlowWithSource",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _update_flow_serialize(
         self,
         namespace,
         id,
         tenant,
         body,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -7249,6 +6494,19 @@ class FlowsApi:
         # process the body parameter
         if body is not None:
             _body_params = body
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -7305,6 +6563,8 @@ class FlowsApi:
         delete: Annotated[StrictBool, Field(description="If missing flow should be deleted")],
         tenant: StrictStr,
         body: Annotated[StrictStr, Field(description="A list of flows source code")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -7324,12 +6584,21 @@ class FlowsApi:
 
         :param namespace: The flow namespace (required)
         :type namespace: str
-        :param delete: If missing flow should be deleted (required)
+                :param delete: If missing flow should be deleted (required)
         :type delete: bool
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param body: A list of flows source code (required)
+                :param body: A list of flows source code (required)
         :type body: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -7357,6 +6626,8 @@ class FlowsApi:
             delete=delete,
             tenant=tenant,
             body=body,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -7384,6 +6655,8 @@ class FlowsApi:
         delete: Annotated[StrictBool, Field(description="If missing flow should be deleted")],
         tenant: StrictStr,
         body: Annotated[StrictStr, Field(description="A list of flows source code")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -7403,12 +6676,21 @@ class FlowsApi:
 
         :param namespace: The flow namespace (required)
         :type namespace: str
-        :param delete: If missing flow should be deleted (required)
+                :param delete: If missing flow should be deleted (required)
         :type delete: bool
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param body: A list of flows source code (required)
+                :param body: A list of flows source code (required)
         :type body: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -7436,6 +6718,8 @@ class FlowsApi:
             delete=delete,
             tenant=tenant,
             body=body,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -7456,88 +6740,14 @@ class FlowsApi:
         )
 
 
-    @validate_call
-    def update_flows_in_namespace_without_preload_content(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        delete: Annotated[StrictBool, Field(description="If missing flow should be deleted")],
-        tenant: StrictStr,
-        body: Annotated[StrictStr, Field(description="A list of flows source code")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Update a complete namespace from yaml source
-
-        All flow will be created / updated for this namespace. Flow that already created but not in `flows` will be deleted if the query delete is `true`
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-        :param delete: If missing flow should be deleted (required)
-        :type delete: bool
-        :param tenant: (required)
-        :type tenant: str
-        :param body: A list of flows source code (required)
-        :type body: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._update_flows_in_namespace_serialize(
-            namespace=namespace,
-            delete=delete,
-            tenant=tenant,
-            body=body,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[FlowInterface]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _update_flows_in_namespace_serialize(
         self,
         namespace,
         delete,
         tenant,
         body,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -7573,6 +6783,19 @@ class FlowsApi:
         # process the body parameter
         if body is not None:
             _body_params = body
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -7627,6 +6850,8 @@ class FlowsApi:
         self,
         tenant: StrictStr,
         body: Annotated[StrictStr, Field(description="A list of flows source code in a single string")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -7645,8 +6870,17 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param body: A list of flows source code in a single string (required)
+                :param body: A list of flows source code in a single string (required)
         :type body: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -7672,6 +6906,8 @@ class FlowsApi:
         _param = self._validate_flows_serialize(
             tenant=tenant,
             body=body,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -7697,6 +6933,8 @@ class FlowsApi:
         self,
         tenant: StrictStr,
         body: Annotated[StrictStr, Field(description="A list of flows source code in a single string")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -7715,8 +6953,17 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param body: A list of flows source code in a single string (required)
+                :param body: A list of flows source code in a single string (required)
         :type body: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -7742,6 +6989,8 @@ class FlowsApi:
         _param = self._validate_flows_serialize(
             tenant=tenant,
             body=body,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -7762,77 +7011,12 @@ class FlowsApi:
         )
 
 
-    @validate_call
-    def validate_flows_without_preload_content(
-        self,
-        tenant: StrictStr,
-        body: Annotated[StrictStr, Field(description="A list of flows source code in a single string")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Validate a list of flows
-
-
-        :param tenant: (required)
-        :type tenant: str
-        :param body: A list of flows source code in a single string (required)
-        :type body: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._validate_flows_serialize(
-            tenant=tenant,
-            body=body,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[ValidateConstraintViolation]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _validate_flows_serialize(
         self,
         tenant,
         body,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -7862,6 +7046,19 @@ class FlowsApi:
         # process the body parameter
         if body is not None:
             _body_params = body
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -7917,6 +7114,8 @@ class FlowsApi:
         section: Annotated[FlowControllerTaskValidationType, Field(description="The type of task")],
         tenant: StrictStr,
         body: Annotated[Dict[str, Any], Field(description="A task definition that can be from tasks or triggers")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -7935,10 +7134,19 @@ class FlowsApi:
 
         :param section: The type of task (required)
         :type section: FlowControllerTaskValidationType
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param body: A task definition that can be from tasks or triggers (required)
+                :param body: A task definition that can be from tasks or triggers (required)
         :type body: object
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -7965,6 +7173,8 @@ class FlowsApi:
             section=section,
             tenant=tenant,
             body=body,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -7991,6 +7201,8 @@ class FlowsApi:
         section: Annotated[FlowControllerTaskValidationType, Field(description="The type of task")],
         tenant: StrictStr,
         body: Annotated[Dict[str, Any], Field(description="A task definition that can be from tasks or triggers")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -8009,10 +7221,19 @@ class FlowsApi:
 
         :param section: The type of task (required)
         :type section: FlowControllerTaskValidationType
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param body: A task definition that can be from tasks or triggers (required)
+                :param body: A task definition that can be from tasks or triggers (required)
         :type body: object
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -8039,6 +7260,8 @@ class FlowsApi:
             section=section,
             tenant=tenant,
             body=body,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -8059,82 +7282,13 @@ class FlowsApi:
         )
 
 
-    @validate_call
-    def validate_task_without_preload_content(
-        self,
-        section: Annotated[FlowControllerTaskValidationType, Field(description="The type of task")],
-        tenant: StrictStr,
-        body: Annotated[Dict[str, Any], Field(description="A task definition that can be from tasks or triggers")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Validate a task
-
-
-        :param section: The type of task (required)
-        :type section: FlowControllerTaskValidationType
-        :param tenant: (required)
-        :type tenant: str
-        :param body: A task definition that can be from tasks or triggers (required)
-        :type body: object
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._validate_task_serialize(
-            section=section,
-            tenant=tenant,
-            body=body,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ValidateConstraintViolation",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _validate_task_serialize(
         self,
         section,
         tenant,
         body,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -8168,6 +7322,19 @@ class FlowsApi:
         # process the body parameter
         if body is not None:
             _body_params = body
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -8223,6 +7390,8 @@ class FlowsApi:
         self,
         tenant: StrictStr,
         body: Annotated[Dict[str, Any], Field(description="The trigger")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -8241,8 +7410,17 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param body: The trigger (required)
+                :param body: The trigger (required)
         :type body: object
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -8268,6 +7446,8 @@ class FlowsApi:
         _param = self._validate_trigger_serialize(
             tenant=tenant,
             body=body,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -8293,6 +7473,8 @@ class FlowsApi:
         self,
         tenant: StrictStr,
         body: Annotated[Dict[str, Any], Field(description="The trigger")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -8311,8 +7493,17 @@ class FlowsApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param body: The trigger (required)
+                :param body: The trigger (required)
         :type body: object
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -8338,6 +7529,8 @@ class FlowsApi:
         _param = self._validate_trigger_serialize(
             tenant=tenant,
             body=body,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -8358,77 +7551,12 @@ class FlowsApi:
         )
 
 
-    @validate_call
-    def validate_trigger_without_preload_content(
-        self,
-        tenant: StrictStr,
-        body: Annotated[Dict[str, Any], Field(description="The trigger")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Validate trigger
-
-
-        :param tenant: (required)
-        :type tenant: str
-        :param body: The trigger (required)
-        :type body: object
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._validate_trigger_serialize(
-            tenant=tenant,
-            body=body,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ValidateConstraintViolation",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _validate_trigger_serialize(
         self,
         tenant,
         body,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -8458,6 +7586,19 @@ class FlowsApi:
         # process the body parameter
         if body is not None:
             _body_params = body
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`

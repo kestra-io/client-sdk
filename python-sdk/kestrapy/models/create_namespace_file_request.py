@@ -17,32 +17,18 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from kestrapy.models.state import State
-from kestrapy.models.task_run_attempt import TaskRunAttempt
+from pydantic import BaseModel, ConfigDict, Field, StrictBytes, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional, Tuple, Union
 from typing import Optional, Set
 from typing_extensions import Self
 
-class TaskRun(BaseModel):
+class CreateNamespaceFileRequest(BaseModel):
     """
-    TaskRun
+    CreateNamespaceFileRequest
     """ # noqa: E501
-    id: StrictStr
-    execution_id: StrictStr = Field(alias="executionId")
-    namespace: StrictStr
-    flow_id: StrictStr = Field(alias="flowId")
-    task_id: StrictStr = Field(alias="taskId")
-    parent_task_run_id: Optional[StrictStr] = Field(default=None, alias="parentTaskRunId")
-    value: Optional[StrictStr] = None
-    attempts: Optional[List[TaskRunAttempt]] = None
-    outputs: Optional[Dict[str, Any]] = None
-    state: State
-    iteration: Optional[StrictInt] = None
-    dynamic: Optional[StrictBool] = None
-    force_execution: Optional[StrictBool] = Field(default=None, alias="forceExecution")
+    file_content: Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]] = Field(default=None, description="The file to upload", alias="fileContent")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "executionId", "namespace", "flowId", "taskId", "parentTaskRunId", "value", "attempts", "outputs", "state", "iteration", "dynamic", "forceExecution"]
+    __properties: ClassVar[List[str]] = ["fileContent"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -62,7 +48,7 @@ class TaskRun(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of TaskRun from a JSON string"""
+        """Create an instance of CreateNamespaceFileRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -85,31 +71,16 @@ class TaskRun(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of each item in attempts (list)
-        _items = []
-        if self.attempts:
-            for _item_attempts in self.attempts:
-                if _item_attempts:
-                    _items.append(_item_attempts.to_dict())
-            _dict['attempts'] = _items
-        # override the default output from pydantic by calling `to_dict()` of state
-        if self.state:
-            _dict['state'] = self.state.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
                 _dict[_key] = _value
 
-        # set to None if outputs (nullable) is None
-        # and model_fields_set contains the field
-        if self.outputs is None and "outputs" in self.model_fields_set:
-            _dict['outputs'] = None
-
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of TaskRun from a dict"""
+        """Create an instance of CreateNamespaceFileRequest from a dict"""
         if obj is None:
             return None
 
@@ -117,19 +88,7 @@ class TaskRun(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "id": obj.get("id"),
-            "executionId": obj.get("executionId"),
-            "namespace": obj.get("namespace"),
-            "flowId": obj.get("flowId"),
-            "taskId": obj.get("taskId"),
-            "parentTaskRunId": obj.get("parentTaskRunId"),
-            "value": obj.get("value"),
-            "attempts": [TaskRunAttempt.from_dict(_item) for _item in obj["attempts"]] if obj.get("attempts") is not None else None,
-            "outputs": obj.get("outputs"),
-            "state": State.from_dict(obj["state"]) if obj.get("state") is not None else None,
-            "iteration": obj.get("iteration"),
-            "dynamic": obj.get("dynamic"),
-            "forceExecution": obj.get("forceExecution")
+            "fileContent": obj.get("fileContent")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

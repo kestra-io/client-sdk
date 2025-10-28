@@ -56,6 +56,8 @@ class ServiceAccountApi:
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
         create_api_token_request: Annotated[CreateApiTokenRequest, Field(description="The create api-token request")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -74,8 +76,17 @@ class ServiceAccountApi:
 
         :param id: The user id (required)
         :type id: str
-        :param create_api_token_request: The create api-token request (required)
+                :param create_api_token_request: The create api-token request (required)
         :type create_api_token_request: CreateApiTokenRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -101,6 +112,8 @@ class ServiceAccountApi:
         _param = self._create_api_tokens_for_service_account_serialize(
             id=id,
             create_api_token_request=create_api_token_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -126,6 +139,8 @@ class ServiceAccountApi:
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
         create_api_token_request: Annotated[CreateApiTokenRequest, Field(description="The create api-token request")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -144,8 +159,17 @@ class ServiceAccountApi:
 
         :param id: The user id (required)
         :type id: str
-        :param create_api_token_request: The create api-token request (required)
+                :param create_api_token_request: The create api-token request (required)
         :type create_api_token_request: CreateApiTokenRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -171,6 +195,8 @@ class ServiceAccountApi:
         _param = self._create_api_tokens_for_service_account_serialize(
             id=id,
             create_api_token_request=create_api_token_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -191,77 +217,12 @@ class ServiceAccountApi:
         )
 
 
-    @validate_call
-    def create_api_tokens_for_service_account_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The user id")],
-        create_api_token_request: Annotated[CreateApiTokenRequest, Field(description="The create api-token request")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Create new API Token for a specific service account
-
-
-        :param id: The user id (required)
-        :type id: str
-        :param create_api_token_request: The create api-token request (required)
-        :type create_api_token_request: CreateApiTokenRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._create_api_tokens_for_service_account_serialize(
-            id=id,
-            create_api_token_request=create_api_token_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _create_api_tokens_for_service_account_serialize(
         self,
         id,
         create_api_token_request,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -291,6 +252,19 @@ class ServiceAccountApi:
         # process the body parameter
         if create_api_token_request is not None:
             _body_params = create_api_token_request
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -346,6 +320,8 @@ class ServiceAccountApi:
         id: Annotated[StrictStr, Field(description="The user id")],
         tenant: StrictStr,
         create_api_token_request: Annotated[CreateApiTokenRequest, Field(description="The create api-token request")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -364,10 +340,19 @@ class ServiceAccountApi:
 
         :param id: The user id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param create_api_token_request: The create api-token request (required)
+                :param create_api_token_request: The create api-token request (required)
         :type create_api_token_request: CreateApiTokenRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -394,6 +379,8 @@ class ServiceAccountApi:
             id=id,
             tenant=tenant,
             create_api_token_request=create_api_token_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -420,6 +407,8 @@ class ServiceAccountApi:
         id: Annotated[StrictStr, Field(description="The user id")],
         tenant: StrictStr,
         create_api_token_request: Annotated[CreateApiTokenRequest, Field(description="The create api-token request")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -438,10 +427,19 @@ class ServiceAccountApi:
 
         :param id: The user id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param create_api_token_request: The create api-token request (required)
+                :param create_api_token_request: The create api-token request (required)
         :type create_api_token_request: CreateApiTokenRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -468,6 +466,8 @@ class ServiceAccountApi:
             id=id,
             tenant=tenant,
             create_api_token_request=create_api_token_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -488,82 +488,13 @@ class ServiceAccountApi:
         )
 
 
-    @validate_call
-    def create_api_tokens_for_service_account_with_tenant_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The user id")],
-        tenant: StrictStr,
-        create_api_token_request: Annotated[CreateApiTokenRequest, Field(description="The create api-token request")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Create new API Token for a specific service account
-
-
-        :param id: The user id (required)
-        :type id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param create_api_token_request: The create api-token request (required)
-        :type create_api_token_request: CreateApiTokenRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._create_api_tokens_for_service_account_with_tenant_serialize(
-            id=id,
-            tenant=tenant,
-            create_api_token_request=create_api_token_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _create_api_tokens_for_service_account_with_tenant_serialize(
         self,
         id,
         tenant,
         create_api_token_request,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -595,6 +526,19 @@ class ServiceAccountApi:
         # process the body parameter
         if create_api_token_request is not None:
             _body_params = create_api_token_request
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -648,6 +592,8 @@ class ServiceAccountApi:
     def create_service_account(
         self,
         iam_service_account_controller_api_create_service_account_request: Annotated[IAMServiceAccountControllerApiCreateServiceAccountRequest, Field(description="The service account")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -667,6 +613,15 @@ class ServiceAccountApi:
 
         :param iam_service_account_controller_api_create_service_account_request: The service account (required)
         :type iam_service_account_controller_api_create_service_account_request: IAMServiceAccountControllerApiCreateServiceAccountRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -691,6 +646,8 @@ class ServiceAccountApi:
 
         _param = self._create_service_account_serialize(
             iam_service_account_controller_api_create_service_account_request=iam_service_account_controller_api_create_service_account_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -715,6 +672,8 @@ class ServiceAccountApi:
     def create_service_account_with_http_info(
         self,
         iam_service_account_controller_api_create_service_account_request: Annotated[IAMServiceAccountControllerApiCreateServiceAccountRequest, Field(description="The service account")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -734,6 +693,15 @@ class ServiceAccountApi:
 
         :param iam_service_account_controller_api_create_service_account_request: The service account (required)
         :type iam_service_account_controller_api_create_service_account_request: IAMServiceAccountControllerApiCreateServiceAccountRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -758,6 +726,8 @@ class ServiceAccountApi:
 
         _param = self._create_service_account_serialize(
             iam_service_account_controller_api_create_service_account_request=iam_service_account_controller_api_create_service_account_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -778,73 +748,11 @@ class ServiceAccountApi:
         )
 
 
-    @validate_call
-    def create_service_account_without_preload_content(
-        self,
-        iam_service_account_controller_api_create_service_account_request: Annotated[IAMServiceAccountControllerApiCreateServiceAccountRequest, Field(description="The service account")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Create a service account
-
-        Superadmin-only. CReate service account with access to multiple tenants.
-
-        :param iam_service_account_controller_api_create_service_account_request: The service account (required)
-        :type iam_service_account_controller_api_create_service_account_request: IAMServiceAccountControllerApiCreateServiceAccountRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._create_service_account_serialize(
-            iam_service_account_controller_api_create_service_account_request=iam_service_account_controller_api_create_service_account_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "IAMServiceAccountControllerApiServiceAccountDetail",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _create_service_account_serialize(
         self,
         iam_service_account_controller_api_create_service_account_request,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -872,6 +780,19 @@ class ServiceAccountApi:
         # process the body parameter
         if iam_service_account_controller_api_create_service_account_request is not None:
             _body_params = iam_service_account_controller_api_create_service_account_request
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -926,6 +847,8 @@ class ServiceAccountApi:
         self,
         tenant: StrictStr,
         iam_service_account_controller_api_service_account_request: Annotated[IAMServiceAccountControllerApiServiceAccountRequest, Field(description="The service account")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -944,8 +867,17 @@ class ServiceAccountApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param iam_service_account_controller_api_service_account_request: The service account (required)
+                :param iam_service_account_controller_api_service_account_request: The service account (required)
         :type iam_service_account_controller_api_service_account_request: IAMServiceAccountControllerApiServiceAccountRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -971,6 +903,8 @@ class ServiceAccountApi:
         _param = self._create_service_account_for_tenant_serialize(
             tenant=tenant,
             iam_service_account_controller_api_service_account_request=iam_service_account_controller_api_service_account_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -997,6 +931,8 @@ class ServiceAccountApi:
         self,
         tenant: StrictStr,
         iam_service_account_controller_api_service_account_request: Annotated[IAMServiceAccountControllerApiServiceAccountRequest, Field(description="The service account")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1015,8 +951,17 @@ class ServiceAccountApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param iam_service_account_controller_api_service_account_request: The service account (required)
+                :param iam_service_account_controller_api_service_account_request: The service account (required)
         :type iam_service_account_controller_api_service_account_request: IAMServiceAccountControllerApiServiceAccountRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1042,6 +987,8 @@ class ServiceAccountApi:
         _param = self._create_service_account_for_tenant_serialize(
             tenant=tenant,
             iam_service_account_controller_api_service_account_request=iam_service_account_controller_api_service_account_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1063,78 +1010,12 @@ class ServiceAccountApi:
         )
 
 
-    @validate_call
-    def create_service_account_for_tenant_without_preload_content(
-        self,
-        tenant: StrictStr,
-        iam_service_account_controller_api_service_account_request: Annotated[IAMServiceAccountControllerApiServiceAccountRequest, Field(description="The service account")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Create a service account for the given tenant
-
-
-        :param tenant: (required)
-        :type tenant: str
-        :param iam_service_account_controller_api_service_account_request: The service account (required)
-        :type iam_service_account_controller_api_service_account_request: IAMServiceAccountControllerApiServiceAccountRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._create_service_account_for_tenant_serialize(
-            tenant=tenant,
-            iam_service_account_controller_api_service_account_request=iam_service_account_controller_api_service_account_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "IAMServiceAccountControllerApiServiceAccountResponse",
-            '404': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _create_service_account_for_tenant_serialize(
         self,
         tenant,
         iam_service_account_controller_api_service_account_request,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -1164,6 +1045,19 @@ class ServiceAccountApi:
         # process the body parameter
         if iam_service_account_controller_api_service_account_request is not None:
             _body_params = iam_service_account_controller_api_service_account_request
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -1218,6 +1112,8 @@ class ServiceAccountApi:
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
         token_id: Annotated[StrictStr, Field(description="The token id")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1236,8 +1132,17 @@ class ServiceAccountApi:
 
         :param id: The user id (required)
         :type id: str
-        :param token_id: The token id (required)
+                :param token_id: The token id (required)
         :type token_id: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1263,6 +1168,8 @@ class ServiceAccountApi:
         _param = self._delete_api_token_for_service_account_serialize(
             id=id,
             token_id=token_id,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1288,6 +1195,8 @@ class ServiceAccountApi:
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
         token_id: Annotated[StrictStr, Field(description="The token id")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1306,8 +1215,17 @@ class ServiceAccountApi:
 
         :param id: The user id (required)
         :type id: str
-        :param token_id: The token id (required)
+                :param token_id: The token id (required)
         :type token_id: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1333,6 +1251,8 @@ class ServiceAccountApi:
         _param = self._delete_api_token_for_service_account_serialize(
             id=id,
             token_id=token_id,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1353,77 +1273,12 @@ class ServiceAccountApi:
         )
 
 
-    @validate_call
-    def delete_api_token_for_service_account_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The user id")],
-        token_id: Annotated[StrictStr, Field(description="The token id")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Delete an API Token for specific service account and token id
-
-
-        :param id: The user id (required)
-        :type id: str
-        :param token_id: The token id (required)
-        :type token_id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._delete_api_token_for_service_account_serialize(
-            id=id,
-            token_id=token_id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _delete_api_token_for_service_account_serialize(
         self,
         id,
         token_id,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -1453,6 +1308,19 @@ class ServiceAccountApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -1495,6 +1363,8 @@ class ServiceAccountApi:
         id: Annotated[StrictStr, Field(description="The user id")],
         token_id: Annotated[StrictStr, Field(description="The token id")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1513,10 +1383,19 @@ class ServiceAccountApi:
 
         :param id: The user id (required)
         :type id: str
-        :param token_id: The token id (required)
+                :param token_id: The token id (required)
         :type token_id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1543,6 +1422,8 @@ class ServiceAccountApi:
             id=id,
             token_id=token_id,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1569,6 +1450,8 @@ class ServiceAccountApi:
         id: Annotated[StrictStr, Field(description="The user id")],
         token_id: Annotated[StrictStr, Field(description="The token id")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1587,10 +1470,19 @@ class ServiceAccountApi:
 
         :param id: The user id (required)
         :type id: str
-        :param token_id: The token id (required)
+                :param token_id: The token id (required)
         :type token_id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1617,6 +1509,8 @@ class ServiceAccountApi:
             id=id,
             token_id=token_id,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1637,82 +1531,13 @@ class ServiceAccountApi:
         )
 
 
-    @validate_call
-    def delete_api_token_for_service_account_with_tenant_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The user id")],
-        token_id: Annotated[StrictStr, Field(description="The token id")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Delete an API Token for specific service account and token id
-
-
-        :param id: The user id (required)
-        :type id: str
-        :param token_id: The token id (required)
-        :type token_id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._delete_api_token_for_service_account_with_tenant_serialize(
-            id=id,
-            token_id=token_id,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _delete_api_token_for_service_account_with_tenant_serialize(
         self,
         id,
         token_id,
         tenant,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -1744,6 +1569,19 @@ class ServiceAccountApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -1784,6 +1622,8 @@ class ServiceAccountApi:
     def delete_service_account(
         self,
         id: Annotated[StrictStr, Field(description="The service account id")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1803,6 +1643,15 @@ class ServiceAccountApi:
 
         :param id: The service account id (required)
         :type id: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1827,6 +1676,8 @@ class ServiceAccountApi:
 
         _param = self._delete_service_account_serialize(
             id=id,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1852,6 +1703,8 @@ class ServiceAccountApi:
     def delete_service_account_with_http_info(
         self,
         id: Annotated[StrictStr, Field(description="The service account id")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1871,6 +1724,15 @@ class ServiceAccountApi:
 
         :param id: The service account id (required)
         :type id: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1895,6 +1757,8 @@ class ServiceAccountApi:
 
         _param = self._delete_service_account_serialize(
             id=id,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1916,74 +1780,11 @@ class ServiceAccountApi:
         )
 
 
-    @validate_call
-    def delete_service_account_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The service account id")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Delete a service account
-
-        Superadmin-only. Delete a service account including all its access.
-
-        :param id: The service account id (required)
-        :type id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._delete_service_account_serialize(
-            id=id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '204': None,
-            '404': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _delete_service_account_serialize(
         self,
         id,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -2011,6 +1812,19 @@ class ServiceAccountApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
 
@@ -2045,6 +1859,8 @@ class ServiceAccountApi:
         self,
         id: Annotated[StrictStr, Field(description="The service account id")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2063,8 +1879,17 @@ class ServiceAccountApi:
 
         :param id: The service account id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2090,6 +1915,8 @@ class ServiceAccountApi:
         _param = self._delete_service_account_for_tenant_serialize(
             id=id,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2116,6 +1943,8 @@ class ServiceAccountApi:
         self,
         id: Annotated[StrictStr, Field(description="The service account id")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2134,8 +1963,17 @@ class ServiceAccountApi:
 
         :param id: The service account id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2161,6 +1999,8 @@ class ServiceAccountApi:
         _param = self._delete_service_account_for_tenant_serialize(
             id=id,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2182,78 +2022,12 @@ class ServiceAccountApi:
         )
 
 
-    @validate_call
-    def delete_service_account_for_tenant_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The service account id")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Delete a service account
-
-
-        :param id: The service account id (required)
-        :type id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._delete_service_account_for_tenant_serialize(
-            id=id,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
-            '404': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _delete_service_account_for_tenant_serialize(
         self,
         id,
         tenant,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -2283,6 +2057,19 @@ class ServiceAccountApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
 
@@ -2316,6 +2103,8 @@ class ServiceAccountApi:
     def get_service_account(
         self,
         id: Annotated[StrictStr, Field(description="The service account id")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2335,6 +2124,15 @@ class ServiceAccountApi:
 
         :param id: The service account id (required)
         :type id: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2359,6 +2157,8 @@ class ServiceAccountApi:
 
         _param = self._get_service_account_serialize(
             id=id,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2384,6 +2184,8 @@ class ServiceAccountApi:
     def get_service_account_with_http_info(
         self,
         id: Annotated[StrictStr, Field(description="The service account id")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2403,6 +2205,15 @@ class ServiceAccountApi:
 
         :param id: The service account id (required)
         :type id: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2427,6 +2238,8 @@ class ServiceAccountApi:
 
         _param = self._get_service_account_serialize(
             id=id,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2448,74 +2261,11 @@ class ServiceAccountApi:
         )
 
 
-    @validate_call
-    def get_service_account_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The service account id")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Get a service account
-
-        Superadmin-only. Get user account details.
-
-        :param id: The service account id (required)
-        :type id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._get_service_account_serialize(
-            id=id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "IAMServiceAccountControllerApiServiceAccountDetail",
-            '404': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _get_service_account_serialize(
         self,
         id,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -2543,6 +2293,19 @@ class ServiceAccountApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -2584,6 +2347,8 @@ class ServiceAccountApi:
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2602,8 +2367,17 @@ class ServiceAccountApi:
 
         :param id: The user id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2629,6 +2403,8 @@ class ServiceAccountApi:
         _param = self._get_service_account_for_tenant_serialize(
             id=id,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2655,6 +2431,8 @@ class ServiceAccountApi:
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2673,8 +2451,17 @@ class ServiceAccountApi:
 
         :param id: The user id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2700,6 +2487,8 @@ class ServiceAccountApi:
         _param = self._get_service_account_for_tenant_serialize(
             id=id,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2721,78 +2510,12 @@ class ServiceAccountApi:
         )
 
 
-    @validate_call
-    def get_service_account_for_tenant_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The user id")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Retrieve a service account
-
-
-        :param id: The user id (required)
-        :type id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._get_service_account_for_tenant_serialize(
-            id=id,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "IAMServiceAccountControllerApiServiceAccountResponse",
-            '404': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _get_service_account_for_tenant_serialize(
         self,
         id,
         tenant,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -2822,6 +2545,19 @@ class ServiceAccountApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -2862,6 +2598,8 @@ class ServiceAccountApi:
     def list_api_tokens_for_service_account(
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2880,6 +2618,15 @@ class ServiceAccountApi:
 
         :param id: The user id (required)
         :type id: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2904,6 +2651,8 @@ class ServiceAccountApi:
 
         _param = self._list_api_tokens_for_service_account_serialize(
             id=id,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2928,6 +2677,8 @@ class ServiceAccountApi:
     def list_api_tokens_for_service_account_with_http_info(
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2946,6 +2697,15 @@ class ServiceAccountApi:
 
         :param id: The user id (required)
         :type id: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2970,6 +2730,8 @@ class ServiceAccountApi:
 
         _param = self._list_api_tokens_for_service_account_serialize(
             id=id,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2990,72 +2752,11 @@ class ServiceAccountApi:
         )
 
 
-    @validate_call
-    def list_api_tokens_for_service_account_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The user id")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """List API tokens for a specific service account
-
-
-        :param id: The user id (required)
-        :type id: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._list_api_tokens_for_service_account_serialize(
-            id=id,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _list_api_tokens_for_service_account_serialize(
         self,
         id,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -3083,6 +2784,19 @@ class ServiceAccountApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -3124,6 +2838,8 @@ class ServiceAccountApi:
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3142,8 +2858,17 @@ class ServiceAccountApi:
 
         :param id: The user id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3169,6 +2894,8 @@ class ServiceAccountApi:
         _param = self._list_api_tokens_for_service_account_with_tenant_serialize(
             id=id,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3194,6 +2921,8 @@ class ServiceAccountApi:
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
         tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3212,8 +2941,17 @@ class ServiceAccountApi:
 
         :param id: The user id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3239,6 +2977,8 @@ class ServiceAccountApi:
         _param = self._list_api_tokens_for_service_account_with_tenant_serialize(
             id=id,
             tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3259,77 +2999,12 @@ class ServiceAccountApi:
         )
 
 
-    @validate_call
-    def list_api_tokens_for_service_account_with_tenant_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The user id")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """List API tokens for a specific service account
-
-
-        :param id: The user id (required)
-        :type id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._list_api_tokens_for_service_account_with_tenant_serialize(
-            id=id,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _list_api_tokens_for_service_account_with_tenant_serialize(
         self,
         id,
         tenant,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -3359,6 +3034,19 @@ class ServiceAccountApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -3402,6 +3090,8 @@ class ServiceAccountApi:
         size: Annotated[StrictInt, Field(description="The current page size")],
         q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3420,12 +3110,21 @@ class ServiceAccountApi:
 
         :param page: The current page (required)
         :type page: int
-        :param size: The current page size (required)
+                :param size: The current page size (required)
         :type size: int
-        :param q: A string filter
+                :param q: A string filter
         :type q: str
-        :param sort: The sort of current page
+                :param sort: The sort of current page
         :type sort: List[str]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3453,6 +3152,8 @@ class ServiceAccountApi:
             size=size,
             q=q,
             sort=sort,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3481,6 +3182,8 @@ class ServiceAccountApi:
         size: Annotated[StrictInt, Field(description="The current page size")],
         q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3499,12 +3202,21 @@ class ServiceAccountApi:
 
         :param page: The current page (required)
         :type page: int
-        :param size: The current page size (required)
+                :param size: The current page size (required)
         :type size: int
-        :param q: A string filter
+                :param q: A string filter
         :type q: str
-        :param sort: The sort of current page
+                :param sort: The sort of current page
         :type sort: List[str]
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3532,6 +3244,8 @@ class ServiceAccountApi:
             size=size,
             q=q,
             sort=sort,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3553,88 +3267,14 @@ class ServiceAccountApi:
         )
 
 
-    @validate_call
-    def list_service_accounts_without_preload_content(
-        self,
-        page: Annotated[StrictInt, Field(description="The current page")],
-        size: Annotated[StrictInt, Field(description="The current page size")],
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """List service accounts. Superadmin-only. 
-
-
-        :param page: The current page (required)
-        :type page: int
-        :param size: The current page size (required)
-        :type size: int
-        :param q: A string filter
-        :type q: str
-        :param sort: The sort of current page
-        :type sort: List[str]
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._list_service_accounts_serialize(
-            page=page,
-            size=size,
-            q=q,
-            sort=sort,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "PagedResultsIAMServiceAccountControllerApiServiceAccountDetail",
-            '404': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _list_service_accounts_serialize(
         self,
         page,
         size,
         q,
         sort,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -3678,6 +3318,19 @@ class ServiceAccountApi:
         # process the form parameters
         # process the body parameter
 
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
+
 
         # set the HTTP header `Accept`
         if 'Accept' not in _header_params:
@@ -3718,6 +3371,8 @@ class ServiceAccountApi:
         self,
         id: Annotated[StrictStr, Field(description="The service account id")],
         iam_service_account_controller_api_patch_service_account_request: Annotated[IAMServiceAccountControllerApiPatchServiceAccountRequest, Field(description="The service account details")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3737,8 +3392,17 @@ class ServiceAccountApi:
 
         :param id: The service account id (required)
         :type id: str
-        :param iam_service_account_controller_api_patch_service_account_request: The service account details (required)
+                :param iam_service_account_controller_api_patch_service_account_request: The service account details (required)
         :type iam_service_account_controller_api_patch_service_account_request: IAMServiceAccountControllerApiPatchServiceAccountRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3764,6 +3428,8 @@ class ServiceAccountApi:
         _param = self._patch_service_account_details_serialize(
             id=id,
             iam_service_account_controller_api_patch_service_account_request=iam_service_account_controller_api_patch_service_account_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3789,6 +3455,8 @@ class ServiceAccountApi:
         self,
         id: Annotated[StrictStr, Field(description="The service account id")],
         iam_service_account_controller_api_patch_service_account_request: Annotated[IAMServiceAccountControllerApiPatchServiceAccountRequest, Field(description="The service account details")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3808,8 +3476,17 @@ class ServiceAccountApi:
 
         :param id: The service account id (required)
         :type id: str
-        :param iam_service_account_controller_api_patch_service_account_request: The service account details (required)
+                :param iam_service_account_controller_api_patch_service_account_request: The service account details (required)
         :type iam_service_account_controller_api_patch_service_account_request: IAMServiceAccountControllerApiPatchServiceAccountRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3835,6 +3512,8 @@ class ServiceAccountApi:
         _param = self._patch_service_account_details_serialize(
             id=id,
             iam_service_account_controller_api_patch_service_account_request=iam_service_account_controller_api_patch_service_account_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3855,78 +3534,12 @@ class ServiceAccountApi:
         )
 
 
-    @validate_call
-    def patch_service_account_details_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The service account id")],
-        iam_service_account_controller_api_patch_service_account_request: Annotated[IAMServiceAccountControllerApiPatchServiceAccountRequest, Field(description="The service account details")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Update service account details
-
-        Superadmin-only. Updates the details of a service account.
-
-        :param id: The service account id (required)
-        :type id: str
-        :param iam_service_account_controller_api_patch_service_account_request: The service account details (required)
-        :type iam_service_account_controller_api_patch_service_account_request: IAMServiceAccountControllerApiPatchServiceAccountRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._patch_service_account_details_serialize(
-            id=id,
-            iam_service_account_controller_api_patch_service_account_request=iam_service_account_controller_api_patch_service_account_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "IAMServiceAccountControllerApiServiceAccountDetail",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _patch_service_account_details_serialize(
         self,
         id,
         iam_service_account_controller_api_patch_service_account_request,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -3956,6 +3569,19 @@ class ServiceAccountApi:
         # process the body parameter
         if iam_service_account_controller_api_patch_service_account_request is not None:
             _body_params = iam_service_account_controller_api_patch_service_account_request
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`
@@ -4010,6 +3636,8 @@ class ServiceAccountApi:
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
         api_patch_super_admin_request: ApiPatchSuperAdminRequest,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4029,8 +3657,17 @@ class ServiceAccountApi:
 
         :param id: The user id (required)
         :type id: str
-        :param api_patch_super_admin_request: (required)
+                :param api_patch_super_admin_request: (required)
         :type api_patch_super_admin_request: ApiPatchSuperAdminRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4056,6 +3693,8 @@ class ServiceAccountApi:
         _param = self._patch_service_account_super_admin_serialize(
             id=id,
             api_patch_super_admin_request=api_patch_super_admin_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4082,6 +3721,8 @@ class ServiceAccountApi:
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
         api_patch_super_admin_request: ApiPatchSuperAdminRequest,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4101,8 +3742,17 @@ class ServiceAccountApi:
 
         :param id: The user id (required)
         :type id: str
-        :param api_patch_super_admin_request: (required)
+                :param api_patch_super_admin_request: (required)
         :type api_patch_super_admin_request: ApiPatchSuperAdminRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4128,6 +3778,8 @@ class ServiceAccountApi:
         _param = self._patch_service_account_super_admin_serialize(
             id=id,
             api_patch_super_admin_request=api_patch_super_admin_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4149,79 +3801,12 @@ class ServiceAccountApi:
         )
 
 
-    @validate_call
-    def patch_service_account_super_admin_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The user id")],
-        api_patch_super_admin_request: ApiPatchSuperAdminRequest,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Update service account superadmin privileges
-
-        Superadmin-only. Updates whether a service account is a superadmin.
-
-        :param id: The user id (required)
-        :type id: str
-        :param api_patch_super_admin_request: (required)
-        :type api_patch_super_admin_request: ApiPatchSuperAdminRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._patch_service_account_super_admin_serialize(
-            id=id,
-            api_patch_super_admin_request=api_patch_super_admin_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
-            '404': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _patch_service_account_super_admin_serialize(
         self,
         id,
         api_patch_super_admin_request,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -4251,6 +3836,19 @@ class ServiceAccountApi:
         # process the body parameter
         if api_patch_super_admin_request is not None:
             _body_params = api_patch_super_admin_request
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
 
@@ -4299,6 +3897,8 @@ class ServiceAccountApi:
         id: Annotated[StrictStr, Field(description="The user id")],
         tenant: StrictStr,
         iam_service_account_controller_api_service_account_request: Annotated[IAMServiceAccountControllerApiServiceAccountRequest, Field(description="The user")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4317,10 +3917,19 @@ class ServiceAccountApi:
 
         :param id: The user id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param iam_service_account_controller_api_service_account_request: The user (required)
+                :param iam_service_account_controller_api_service_account_request: The user (required)
         :type iam_service_account_controller_api_service_account_request: IAMServiceAccountControllerApiServiceAccountRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4347,6 +3956,8 @@ class ServiceAccountApi:
             id=id,
             tenant=tenant,
             iam_service_account_controller_api_service_account_request=iam_service_account_controller_api_service_account_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4374,6 +3985,8 @@ class ServiceAccountApi:
         id: Annotated[StrictStr, Field(description="The user id")],
         tenant: StrictStr,
         iam_service_account_controller_api_service_account_request: Annotated[IAMServiceAccountControllerApiServiceAccountRequest, Field(description="The user")],
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4392,10 +4005,19 @@ class ServiceAccountApi:
 
         :param id: The user id (required)
         :type id: str
-        :param tenant: (required)
+                :param tenant: (required)
         :type tenant: str
-        :param iam_service_account_controller_api_service_account_request: The user (required)
+                :param iam_service_account_controller_api_service_account_request: The user (required)
         :type iam_service_account_controller_api_service_account_request: IAMServiceAccountControllerApiServiceAccountRequest
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4422,6 +4044,8 @@ class ServiceAccountApi:
             id=id,
             tenant=tenant,
             iam_service_account_controller_api_service_account_request=iam_service_account_controller_api_service_account_request,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4443,83 +4067,13 @@ class ServiceAccountApi:
         )
 
 
-    @validate_call
-    def update_service_account_without_preload_content(
-        self,
-        id: Annotated[StrictStr, Field(description="The user id")],
-        tenant: StrictStr,
-        iam_service_account_controller_api_service_account_request: Annotated[IAMServiceAccountControllerApiServiceAccountRequest, Field(description="The user")],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Update a user service account
-
-
-        :param id: The user id (required)
-        :type id: str
-        :param tenant: (required)
-        :type tenant: str
-        :param iam_service_account_controller_api_service_account_request: The user (required)
-        :type iam_service_account_controller_api_service_account_request: IAMServiceAccountControllerApiServiceAccountRequest
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._update_service_account_serialize(
-            id=id,
-            tenant=tenant,
-            iam_service_account_controller_api_service_account_request=iam_service_account_controller_api_service_account_request,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "IAMServiceAccountControllerApiServiceAccountResponse",
-            '404': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-
     def _update_service_account_serialize(
         self,
         id,
         tenant,
         iam_service_account_controller_api_service_account_request,
+        multipart_form_datas,
+        files,
         _request_auth,
         _content_type,
         _headers,
@@ -4551,6 +4105,19 @@ class ServiceAccountApi:
         # process the body parameter
         if iam_service_account_controller_api_service_account_request is not None:
             _body_params = iam_service_account_controller_api_service_account_request
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
 
 
         # set the HTTP header `Accept`

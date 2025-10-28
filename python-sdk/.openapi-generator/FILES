@@ -67,6 +67,7 @@ docs/BlueprintControllerKind.md
 docs/BlueprintWithFlow.md
 docs/Breakpoint.md
 docs/BulkErrorResponse.md
+docs/BulkImportAppsRequest.md
 docs/BulkResponse.md
 docs/Cache.md
 docs/ChartChartOption.md
@@ -79,6 +80,8 @@ docs/ConvertibleMultiValuesString.md
 docs/ConvertibleValuesListString.md
 docs/CreateApiTokenRequest.md
 docs/CreateApiTokenResponse.md
+docs/CreateExecutionRequest.md
+docs/CreateNamespaceFileRequest.md
 docs/CreateSecurityIntegrationRequest.md
 docs/CrudEventType.md
 docs/DailyExecutionStatistics.md
@@ -208,7 +211,6 @@ docs/KVApi.md
 docs/KVControllerApiDeleteBulkRequest.md
 docs/KVControllerApiDeleteBulkResponse.md
 docs/KVControllerTypedValue.md
-docs/KVControllerTypedValueValue.md
 docs/KVEntry.md
 docs/KVType.md
 docs/Label.md
@@ -346,6 +348,7 @@ docs/ServiceProviderConfigurationFilterConfiguration.md
 docs/ServiceProviderConfigurationSupportedConfiguration.md
 docs/ServiceServiceState.md
 docs/ServiceType.md
+docs/SetLogoRequest.md
 docs/SetupConfiguration.md
 docs/SetupConfigurationSetupData.md
 docs/SortOrder.md
@@ -382,6 +385,7 @@ docs/TriggersApi.md
 docs/Type.md
 docs/UnitTest.md
 docs/UnitTestResult.md
+docs/UploadVersionedPluginsRequest.md
 docs/UsageEE.md
 docs/UserGroup.md
 docs/UserGroupType.md
@@ -475,6 +479,7 @@ kestrapy/models/blueprint_controller_kind.py
 kestrapy/models/blueprint_with_flow.py
 kestrapy/models/breakpoint.py
 kestrapy/models/bulk_error_response.py
+kestrapy/models/bulk_import_apps_request.py
 kestrapy/models/bulk_response.py
 kestrapy/models/cache.py
 kestrapy/models/chart_chart_option.py
@@ -487,6 +492,8 @@ kestrapy/models/convertible_multi_values_string.py
 kestrapy/models/convertible_values_list_string.py
 kestrapy/models/create_api_token_request.py
 kestrapy/models/create_api_token_response.py
+kestrapy/models/create_execution_request.py
+kestrapy/models/create_namespace_file_request.py
 kestrapy/models/create_security_integration_request.py
 kestrapy/models/crud_event_type.py
 kestrapy/models/daily_execution_statistics.py
@@ -612,7 +619,6 @@ kestrapy/models/isolation.py
 kestrapy/models/kv_controller_api_delete_bulk_request.py
 kestrapy/models/kv_controller_api_delete_bulk_response.py
 kestrapy/models/kv_controller_typed_value.py
-kestrapy/models/kv_controller_typed_value_value.py
 kestrapy/models/kv_entry.py
 kestrapy/models/kv_type.py
 kestrapy/models/label.py
@@ -743,6 +749,7 @@ kestrapy/models/service_provider_configuration_filter_configuration.py
 kestrapy/models/service_provider_configuration_supported_configuration.py
 kestrapy/models/service_service_state.py
 kestrapy/models/service_type.py
+kestrapy/models/set_logo_request.py
 kestrapy/models/setup_configuration.py
 kestrapy/models/setup_configuration_setup_data.py
 kestrapy/models/sla.py
@@ -782,6 +789,7 @@ kestrapy/models/trigger_fixture.py
 kestrapy/models/type.py
 kestrapy/models/unit_test.py
 kestrapy/models/unit_test_result.py
+kestrapy/models/upload_versioned_plugins_request.py
 kestrapy/models/usage_ee.py
 kestrapy/models/user_group.py
 kestrapy/models/user_group_type.py

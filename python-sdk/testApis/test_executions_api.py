@@ -17,8 +17,9 @@ import unittest
 
 from kestrapy import Configuration, KestraClient
 from typing import Optional
-import uuid
 from kestrapy import QueryFilter, QueryFilterField, QueryFilterOp
+import os
+import time
 
 
 class TestExecutionsApi(unittest.TestCase):
@@ -44,10 +45,34 @@ class TestExecutionsApi(unittest.TestCase):
         body = f"""id: {flow_id}
 namespace: {namespace}
 
+inputs:
+  - id: inp
+    type: STRING
+    defaults: 'hello'
+
 tasks:
   - id: hello
     type: io.kestra.plugin.core.flow.Sleep
     duration: PT1S
+"""
+        created = self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
+        return getattr(created, 'id', flow_id)
+
+    def create_flow_with_file(self, flow_id: Optional[str] = None, namespace: str = "test.executions") -> str:
+        """Helper to create a flow that writes a file and returns its id.
+        Resource name follows the test method name if flow_id is None.
+        """
+        if flow_id is None:
+            flow_id = f"{self._testMethodName}"
+
+        body = f"""id: {flow_id}
+namespace: {namespace}
+
+tasks:
+  - id: write
+    type: io.kestra.plugin.core.storage.Write
+    content: "Hello from file"
+    extension: .txt
 """
         created = self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
         return getattr(created, 'id', flow_id)
@@ -62,7 +87,7 @@ tasks:
         self.create_flow(flow_id=flow_id, namespace=namespace)
 
         # call SDK with expected parameter names: id and wait
-        resp = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        resp = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant, multipart_form_datas={"inp": "override"})
         assert resp is not None
         exec_id = getattr(resp, 'id', None)
         assert exec_id is not None
@@ -137,7 +162,45 @@ tasks:
 
         Download file for an execution
         """
-        pass
+        namespace = f"test_download_file_from_execution_ns"
+        # per instruction resource name equals the test name
+        flow_id = "test_download_file_from_execution"
+        self.create_flow_with_file(flow_id=flow_id, namespace=namespace)
+
+        # create execution without waiting to avoid immediate model deserialization issues
+        created = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec_id = getattr(created, 'id', None)
+        assert exec_id is not None
+
+        time.sleep(2)
+
+        execution = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+
+        # defensive extraction of the uri
+        task_runs = getattr(execution, 'task_run_list', None) or []
+        assert len(task_runs) > 0
+        first = task_runs[0]
+        outputs = getattr(first, 'outputs', {}) or {}
+        uri = outputs.get('uri') if isinstance(outputs, dict) else None
+        assert uri is not None
+
+        # Call the download API
+        resp = self.kestra_client.executions.download_file_from_execution(execution_id=exec_id, path=uri, tenant=self.tenant)
+        # handle several possible return types
+        content = None
+        if isinstance(resp, (bytes, bytearray)):
+            content = resp.decode('utf-8')
+        elif hasattr(resp, 'read'):
+            # file-like
+            data = resp.read()
+            content = data.decode('utf-8') if isinstance(data, (bytes, bytearray)) else str(data)
+        elif isinstance(resp, str) and os.path.exists(resp):
+            with open(resp, 'r', encoding='utf-8') as f:
+                content = f.read()
+        else:
+            content = str(resp)
+
+        assert "Hello from file" in content
 
     def test_eval_task_run_expression(self) -> None:
         """Test case for eval_task_run_expression

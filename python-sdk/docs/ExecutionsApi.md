@@ -45,11 +45,10 @@ Method | HTTP request | Description
 [**update_execution_status**](ExecutionsApi.md#update_execution_status) | **POST** /api/v1/{tenant}/executions/{executionId}/change-status | Change the state of an execution
 [**update_executions_status_by_ids**](ExecutionsApi.md#update_executions_status_by_ids) | **POST** /api/v1/{tenant}/executions/change-status/by-ids | Change executions state by id
 [**update_executions_status_by_query**](ExecutionsApi.md#update_executions_status_by_query) | **POST** /api/v1/{tenant}/executions/change-status/by-query | Change executions state by query parameters
-[**update_task_run_state**](ExecutionsApi.md#update_task_run_state) | **POST** /api/v1/{tenant}/executions/{executionId}/state | Change state for a taskrun in an execution
 
 
 # **create_execution**
-> ExecutionControllerExecutionResponse create_execution(namespace, id, wait, tenant, labels=labels, revision=revision, schedule_date=schedule_date, breakpoints=breakpoints, kind=kind)
+> ExecutionControllerExecutionResponse create_execution(namespace, id, wait, tenant, labels=labels, revision=revision, schedule_date=schedule_date, breakpoints=breakpoints, kind=kind, file=file)
 
 Create a new execution for a flow
 
@@ -99,10 +98,11 @@ with kestrapy.ApiClient(configuration) as api_client:
     schedule_date = '2013-10-20T19:20:30+01:00' # datetime | Schedule the flow on a specific date (optional)
     breakpoints = 'breakpoints_example' # str | Set a list of breakpoints at specific tasks 'id.value', separated by a coma. (optional)
     kind = kestrapy.ExecutionKind() # ExecutionKind | Specific execution kind (optional)
+    file = None # List[object] |  (optional)
 
     try:
         # Create a new execution for a flow
-        api_response = api_instance.create_execution(namespace, id, wait, tenant, labels=labels, revision=revision, schedule_date=schedule_date, breakpoints=breakpoints, kind=kind)
+        api_response = api_instance.create_execution(namespace, id, wait, tenant, labels=labels, revision=revision, schedule_date=schedule_date, breakpoints=breakpoints, kind=kind, file=file)
         print("The response of ExecutionsApi->create_execution:\n")
         pprint(api_response)
     except Exception as e:
@@ -125,6 +125,7 @@ Name | Type | Description  | Notes
  **schedule_date** | **datetime**| Schedule the flow on a specific date | [optional] 
  **breakpoints** | **str**| Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] 
  **kind** | [**ExecutionKind**](.md)| Specific execution kind | [optional] 
+ **file** | [**List[object]**](object.md)|  | [optional] 
 
 ### Return type
 
@@ -3641,94 +3642,6 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | On success |  -  |
 **422** | Changed state with errors |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **update_task_run_state**
-> Execution update_task_run_state(execution_id, tenant, execution_controller_state_request)
-
-Change state for a taskrun in an execution
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-import kestrapy
-from kestrapy.models.execution import Execution
-from kestrapy.models.execution_controller_state_request import ExecutionControllerStateRequest
-from kestrapy.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
-# Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
-    execution_id = 'execution_id_example' # str | The execution id
-    tenant = 'tenant_example' # str | 
-    execution_controller_state_request = kestrapy.ExecutionControllerStateRequest() # ExecutionControllerStateRequest | the taskRun id and state to apply
-
-    try:
-        # Change state for a taskrun in an execution
-        api_response = api_instance.update_task_run_state(execution_id, tenant, execution_controller_state_request)
-        print("The response of ExecutionsApi->update_task_run_state:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling ExecutionsApi->update_task_run_state: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **execution_id** | **str**| The execution id | 
- **tenant** | **str**|  | 
- **execution_controller_state_request** | [**ExecutionControllerStateRequest**](ExecutionControllerStateRequest.md)| the taskRun id and state to apply | 
-
-### Return type
-
-[**Execution**](Execution.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | updateTaskRunState 200 response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
