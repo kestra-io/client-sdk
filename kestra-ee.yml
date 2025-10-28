@@ -7054,6 +7054,53 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+    post:
+      tags:
+        - Flows
+      summary: Update a complete namespace from yaml source
+      description: |-
+        All flow will be created / updated for this namespace.
+        Flow that already created but not in `flows` will be deleted if the query delete is `true`
+      operationId: updateFlowsInNamespace
+      parameters:
+        - name: namespace
+          in: path
+          description: The flow namespace
+          required: true
+          schema:
+            type: string
+        - name: delete
+          in: query
+          description: If missing flow should be deleted
+          required: true
+          explode: false
+          schema:
+            type: boolean
+            default: true
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: A list of flows source code
+        content:
+          application/x-yaml:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: updateFlowsInNamespace 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/FlowInterface"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/flows/{namespace}/{id}:
     get:
       tags:
@@ -7118,15 +7165,15 @@ paths:
       summary: Update a flow
       operationId: updateFlow
       parameters:
-        - name: id
-          in: path
-          description: The flow id
-          required: true
-          schema:
-            type: string
         - name: namespace
           in: path
           description: The flow namespace
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: The flow id
           required: true
           schema:
             type: string
@@ -7141,11 +7188,6 @@ paths:
           application/x-yaml:
             schema:
               type: string
-            example: null
-          "*/*":
-            schema:
-              $ref: "#/components/schemas/Flow"
-            example: null
         required: true
       responses:
         "200":
@@ -7153,11 +7195,7 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                  - $ref: "#/components/schemas/FlowWithSource"
-                  - $ref: "#/components/schemas/Flow"
-              example: null
-      deprecated: false
+                $ref: "#/components/schemas/FlowWithSource"
       security:
         - bearerAuth: []
         - basicAuth: []

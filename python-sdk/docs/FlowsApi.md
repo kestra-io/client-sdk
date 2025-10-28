@@ -4,7 +4,6 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**bulk_import_apps**](FlowsApi.md#bulk_import_apps) | **POST** /api/v1/{tenant}/apps/import |     Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
 [**bulk_update_flows**](FlowsApi.md#bulk_update_flows) | **POST** /api/v1/{tenant}/flows/bulk | Update from multiples yaml sources
 [**create_flow**](FlowsApi.md#create_flow) | **POST** /api/v1/{tenant}/flows | Create a flow from yaml source
 [**delete_flow**](FlowsApi.md#delete_flow) | **DELETE** /api/v1/{tenant}/flows/{namespace}/{id} | Delete a flow
@@ -29,95 +28,11 @@ Method | HTTP request | Description
 [**search_flows**](FlowsApi.md#search_flows) | **GET** /api/v1/{tenant}/flows/search | Search for flows
 [**search_flows_by_source_code**](FlowsApi.md#search_flows_by_source_code) | **GET** /api/v1/{tenant}/flows/source | Search for flows source code
 [**update_flow**](FlowsApi.md#update_flow) | **PUT** /api/v1/{tenant}/flows/{namespace}/{id} | Update a flow
+[**update_flows_in_namespace**](FlowsApi.md#update_flows_in_namespace) | **POST** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from yaml source
 [**validate_flows**](FlowsApi.md#validate_flows) | **POST** /api/v1/{tenant}/flows/validate | Validate a list of flows
 [**validate_task**](FlowsApi.md#validate_task) | **POST** /api/v1/{tenant}/flows/validate/task | Validate a task
 [**validate_trigger**](FlowsApi.md#validate_trigger) | **POST** /api/v1/{tenant}/flows/validate/trigger | Validate trigger
 
-
-# **bulk_import_apps**
-> AppsControllerApiBulkImportResponse bulk_import_apps(tenant, file_upload=file_upload)
-
-    Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn't be imported is returned. 
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-import kestrapy
-from kestrapy.models.apps_controller_api_bulk_import_response import AppsControllerApiBulkImportResponse
-from kestrapy.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
-# Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
-    tenant = 'tenant_example' # str | 
-    file_upload = None # bytearray | The file to import, can be a ZIP archive or a multi-objects YAML file (optional)
-
-    try:
-        #     Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn't be imported is returned. 
-        api_response = api_instance.bulk_import_apps(tenant, file_upload=file_upload)
-        print("The response of FlowsApi->bulk_import_apps:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling FlowsApi->bulk_import_apps: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **tenant** | **str**|  | 
- **file_upload** | **bytearray**| The file to import, can be a ZIP archive or a multi-objects YAML file | [optional] 
-
-### Return type
-
-[**AppsControllerApiBulkImportResponse**](AppsControllerApiBulkImportResponse.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: multipart/form-data
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | On success |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_update_flows**
 > List[FlowInterface] bulk_update_flows(delete, allow_namespace_child, tenant, namespace=namespace, body=body)
@@ -2134,7 +2049,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_flow**
-> UpdateFlow200Response update_flow(id, namespace, tenant, body)
+> FlowWithSource update_flow(namespace, id, tenant, body)
 
 Update a flow
 
@@ -2145,7 +2060,7 @@ Update a flow
 
 ```python
 import kestrapy
-from kestrapy.models.update_flow200_response import UpdateFlow200Response
+from kestrapy.models.flow_with_source import FlowWithSource
 from kestrapy.rest import ApiException
 from pprint import pprint
 
@@ -2175,14 +2090,14 @@ configuration = kestrapy.Configuration(
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = kestrapy.FlowsApi(api_client)
-    id = 'id_example' # str | The flow id
     namespace = 'namespace_example' # str | The flow namespace
+    id = 'id_example' # str | The flow id
     tenant = 'tenant_example' # str | 
     body = 'body_example' # str | The flow source code
 
     try:
         # Update a flow
-        api_response = api_instance.update_flow(id, namespace, tenant, body)
+        api_response = api_instance.update_flow(namespace, id, tenant, body)
         print("The response of FlowsApi->update_flow:\n")
         pprint(api_response)
     except Exception as e:
@@ -2196,14 +2111,14 @@ with kestrapy.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| The flow id | 
  **namespace** | **str**| The flow namespace | 
+ **id** | **str**| The flow id | 
  **tenant** | **str**|  | 
  **body** | **str**| The flow source code | 
 
 ### Return type
 
-[**UpdateFlow200Response**](UpdateFlow200Response.md)
+[**FlowWithSource**](FlowWithSource.md)
 
 ### Authorization
 
@@ -2219,6 +2134,98 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | On success |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **update_flows_in_namespace**
+> List[FlowInterface] update_flows_in_namespace(namespace, delete, tenant, body)
+
+Update a complete namespace from yaml source
+
+All flow will be created / updated for this namespace.
+Flow that already created but not in `flows` will be deleted if the query delete is `true`
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+import kestrapy
+from kestrapy.models.flow_interface import FlowInterface
+from kestrapy.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = kestrapy.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = kestrapy.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization (Bearer): bearerAuth
+configuration = kestrapy.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with kestrapy.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = kestrapy.FlowsApi(api_client)
+    namespace = 'namespace_example' # str | The flow namespace
+    delete = True # bool | If missing flow should be deleted (default to True)
+    tenant = 'tenant_example' # str | 
+    body = 'body_example' # str | A list of flows source code
+
+    try:
+        # Update a complete namespace from yaml source
+        api_response = api_instance.update_flows_in_namespace(namespace, delete, tenant, body)
+        print("The response of FlowsApi->update_flows_in_namespace:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling FlowsApi->update_flows_in_namespace: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **namespace** | **str**| The flow namespace | 
+ **delete** | **bool**| If missing flow should be deleted | [default to True]
+ **tenant** | **str**|  | 
+ **body** | **str**| A list of flows source code | 
+
+### Return type
+
+[**List[FlowInterface]**](FlowInterface.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-yaml
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | updateFlowsInNamespace 200 response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2352,7 +2359,7 @@ with kestrapy.ApiClient(configuration) as api_client:
     api_instance = kestrapy.FlowsApi(api_client)
     section = kestrapy.FlowControllerTaskValidationType() # FlowControllerTaskValidationType | The type of task
     tenant = 'tenant_example' # str | 
-    body = 'body_example' # str | A task definition that can be from tasks or triggers
+    body = None # object | A task definition that can be from tasks or triggers
 
     try:
         # Validate a task
@@ -2372,7 +2379,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **section** | [**FlowControllerTaskValidationType**](.md)| The type of task | 
  **tenant** | **str**|  | 
- **body** | **str**| A task definition that can be from tasks or triggers | 
+ **body** | **object**| A task definition that can be from tasks or triggers | 
 
 ### Return type
 

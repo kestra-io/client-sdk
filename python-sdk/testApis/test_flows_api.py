@@ -13,8 +13,9 @@
 
 
 import unittest
-from kestrapy import Configuration, KestraClient
+from kestrapy import Configuration, KestraClient, FlowControllerTaskValidationType
 from typing import Optional
+import time
 import uuid
 from kestrapy import (
     IdWithNamespace,
@@ -389,6 +390,7 @@ tasks:
     flowId: {flow_id}
 """
         subflow = self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
+        time.sleep(0.1)
 
         deps = self.kestra_client.flows.get_flow_dependencies(namespace=namespace, id=created_id, destination_only=False, expand_all=False, tenant=self.tenant)
         assert deps is not None
@@ -401,7 +403,7 @@ tasks:
         """
         namespace = f"{self._testMethodName}"
         flow_id = f"{self._testMethodName}_flow"
-        created_id = self.create_flow(flow_id=flow_id, namespace=namespace)
+        self.create_flow(flow_id=flow_id, namespace=namespace)
 
         subflow_id = f"{self._testMethodName}_subflow"
         body = f"""id: {subflow_id}
@@ -414,7 +416,9 @@ tasks:
     flowId: {flow_id}
     
 """
-        subflow = self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
+        self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
+
+        time.sleep(0.1)
         deps = self.kestra_client.flows.get_flow_dependencies_from_namespace(namespace=namespace, destination_only=False, tenant=self.tenant)
         assert deps is not None
         assert len(deps.nodes) > 0
@@ -445,70 +449,187 @@ tasks:
 
         Get revisions for a flow
         """
-        pass
+        flow_id = f"{self._testMethodName}_flow"
+        created_id = self.create_flow(flow_id=flow_id)
+
+        # update the flow to create a new revision
+        body_updated = f"""id: {flow_id}
+namespace: test.flows
+
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.log.Log
+    message: "updated message"
+"""
+        self.kestra_client.flows.update_flow(id=created_id, namespace="test.flows", tenant=self.tenant, body=body_updated)
+
+        revisions = self.kestra_client.flows.list_flow_revisions(namespace="test.flows", id=created_id, tenant=self.tenant)
+        assert revisions is not None
+        assert len(revisions) >= 1
 
     def test_list_flows_by_namespace(self) -> None:
         """Test case for list_flows_by_namespace
 
         Retrieve all flows from a given namespace
         """
-        pass
+        namespace = f"test.list_ns.{uuid.uuid4().hex[:6]}"
+        f1 = f"{self._testMethodName}_1"
+        f2 = f"{self._testMethodName}_2"
+        id1 = self.create_flow(flow_id=f1, namespace=namespace)
+        id2 = self.create_flow(flow_id=f2, namespace=namespace)
+
+        flows = self.kestra_client.flows.list_flows_by_namespace(namespace=namespace, tenant=self.tenant)
+        assert flows is not None
+        ids = {getattr(f, 'id', None) for f in flows}
+        assert id1 in ids
+        assert id2 in ids
 
     def test_search_flows(self) -> None:
         """Test case for search_flows
 
         Search for flows
         """
-        pass
+        base = f"{self._testMethodName}_{uuid.uuid4().hex[:6]}"
+        namespace = f"search_ns_{uuid.uuid4().hex[:4]}"
+        created_id = self.create_flow(flow_id=base, namespace=namespace)
+
+        qf = QueryFilter(field=QueryFilterField.QUERY, operation=QueryFilterOp.EQUALS, value={"value": base})
+        results = self.kestra_client.flows.search_flows(page=1, size=10, tenant=self.tenant, filters=[qf])
+        assert results is not None
+        assert hasattr(results, 'results')
+        assert results.total >= 1
+        found_ids = {getattr(r, 'id', None) for r in results.results}
+        assert created_id in found_ids
 
     def test_search_flows_by_source_code(self) -> None:
         """Test case for search_flows_by_source_code
 
         Search for flows source code
         """
-        pass
+        unique_text = f"unique-search-{uuid.uuid4().hex[:6]}"
+        flow_id = f"{self._testMethodName}_flow"
+        namespace = f"src_ns_{uuid.uuid4().hex[:4]}"
+        body = f"""id: {flow_id}
+namespace: {namespace}
+
+description: {unique_text}
+
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.flow.Sleep
+    duration: PT1S
+"""
+        created = self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
+        created_id = getattr(created, 'id', flow_id)
+
+        results = self.kestra_client.flows.search_flows_by_source_code(page=1, size=10, tenant=self.tenant, q=unique_text, namespace=namespace)
+        assert results is not None
+        assert hasattr(results, 'results')
+        assert results.total >= 1
+        found_ids = {r.model.id for r in results.results if getattr(r, 'model', None) is not None}
+        assert created_id in found_ids
 
     def test_update_flow(self) -> None:
         """Test case for update_flow
 
         Update a flow
         """
-        pass
+        flow_id = f"{self._testMethodName}_flow"
+        namespace = f"update_ns_{uuid.uuid4().hex[:4]}"
+        created_id = self.create_flow(flow_id=flow_id, namespace=namespace)
 
-    def test_update_flows_in_namespace_from_json(self) -> None:
-        """Test case for update_flows_in_namespace_from_json
+        body_updated = f"""id: {flow_id}
+namespace: {namespace}
 
-        Update a complete namespace from json object
-        """
-        pass
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.log.Log
+    message: "updated message"
+"""
+        resp = self.kestra_client.flows.update_flow(id=created_id, namespace=namespace, tenant=self.tenant, body=body_updated)
+        assert resp is not None
+
+        fetched = self.kestra_client.flows.get_flow(namespace=namespace, id=created_id, source=False, allow_deleted=False, tenant=self.tenant)
+
+        assert any(t['type'] == 'io.kestra.plugin.core.log.Log' for t in fetched['tasks'])
 
     def test_update_task(self) -> None:
         """Test case for update_task
 
         Update a single task on a flow
         """
-        pass
+        flow_id = f"{self._testMethodName}_flow"
+        namespace = f"task_update_ns_{uuid.uuid4().hex[:4]}"
+        created_id = self.create_flow(flow_id=flow_id, namespace=namespace)
+
+        # update the flow to change the task implementation
+        body_updated = f"""id: {flow_id}
+namespace: {namespace}
+
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.log.Log
+    message: "task updated via flow update"
+"""
+        self.kestra_client.flows.update_flow(id=created_id, namespace=namespace, tenant=self.tenant, body=body_updated)
+
+        # fetch the single task and verify the change
+        task = self.kestra_client.flows.get_task_from_flow(namespace=namespace, id=created_id, task_id="hello", tenant=self.tenant)
+        assert task is not None
+        assert getattr(task, 'additional_properties', None)["message"] == 'task updated via flow update'
 
     def test_validate_flows(self) -> None:
         """Test case for validate_flows
 
         Validate a list of flows
         """
-        pass
+        body = f"""id: {self._testMethodName}
+namespace: {self._testMethodName}
+
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.log.Log
+    message: "task updated via flow update"
+"""
+        self.kestra_client.flows.validate_flows(
+            tenant=self.tenant,
+            body=body
+        )
 
     def test_validate_task(self) -> None:
         """Test case for validate_task
 
         Validate a task
         """
-        pass
+        trigger_dict = {
+            "id": "hello",
+            "type": "io.kestra.plugin.core.log.Log",
+            "message": "hello world"
+        }
+        validate_response = self.kestra_client.flows.validate_task(
+            section=FlowControllerTaskValidationType.TASKS,
+            tenant=self.tenant,
+            body=trigger_dict
+        )
+        assert validate_response.constraints is None
+        assert validate_response.warnings is None
 
     def test_validate_trigger(self) -> None:
         """Test case for validate_trigger
 
         Validate trigger
         """
-        pass
+        trigger_dict = {
+            "id": "schedule",
+            "type": "io.kestra.plugin.core.trigger.Schedule",
+            "cron": "*/15 * * * *"
+        }
+        validate_response = self.kestra_client.flows.validate_trigger(
+            tenant=self.tenant,
+            body=trigger_dict
+        )
+        assert validate_response.constraints is None
+        assert validate_response.warnings is None
 
 
 if __name__ == '__main__':

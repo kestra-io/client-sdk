@@ -407,7 +407,6 @@ __all__ = [
     "Type",
     "UnitTest",
     "UnitTestResult",
-    "UpdateFlow200Response",
     "UsageEE",
     "UserGroup",
     "UserGroupType",
@@ -815,7 +814,6 @@ from kestrapy.models.trigger_fixture import TriggerFixture as TriggerFixture
 from kestrapy.models.type import Type as Type
 from kestrapy.models.unit_test import UnitTest as UnitTest
 from kestrapy.models.unit_test_result import UnitTestResult as UnitTestResult
-from kestrapy.models.update_flow200_response import UpdateFlow200Response as UpdateFlow200Response
 from kestrapy.models.usage_ee import UsageEE as UsageEE
 from kestrapy.models.user_group import UserGroup as UserGroup
 from kestrapy.models.user_group_type import UserGroupType as UserGroupType

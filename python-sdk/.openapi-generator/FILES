@@ -382,7 +382,6 @@ docs/TriggersApi.md
 docs/Type.md
 docs/UnitTest.md
 docs/UnitTestResult.md
-docs/UpdateFlow200Response.md
 docs/UsageEE.md
 docs/UserGroup.md
 docs/UserGroupType.md
@@ -783,7 +782,6 @@ kestrapy/models/trigger_fixture.py
 kestrapy/models/type.py
 kestrapy/models/unit_test.py
 kestrapy/models/unit_test_result.py
-kestrapy/models/update_flow200_response.py
 kestrapy/models/usage_ee.py
 kestrapy/models/user_group.py
 kestrapy/models/user_group_type.py
