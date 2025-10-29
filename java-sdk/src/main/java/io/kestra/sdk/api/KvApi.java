@@ -578,7 +578,7 @@ import java.util.StringJoiner;
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json", "text/plain"
+      "text/plain"
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -619,7 +619,7 @@ import java.util.StringJoiner;
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json", "text/plain"
+      "text/plain"
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 

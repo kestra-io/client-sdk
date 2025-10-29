@@ -21,7 +21,6 @@ import java.time.OffsetDateTime;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
-import java.util.stream.Collectors;
 import org.openapitools.jackson.nullable.JsonNullableModule;
 
 import org.apache.hc.client5.http.cookie.BasicCookieStore;
@@ -62,6 +61,7 @@ import java.util.TimeZone;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import java.net.URLEncoder;
 
@@ -620,15 +620,14 @@ public class ApiClient extends JavaTimeFormatter {
     return params;
   }
 
-  private String convertValueToString(Object value){
-      if (value instanceof List<?> list) {
-          return list.stream().map(Object::toString).collect(Collectors.joining(","));
-      } else {
-          return value.toString();
-      }
-  }
-
-  /**
+    private String convertValueToString(Object value){
+        if (value instanceof List<?> list) {
+            return list.stream().map(Object::toString).collect(Collectors.joining(","));
+        } else {
+            return value.toString();
+        }
+    }
+                                                /**
    * Check if the given MIME is a JSON MIME.
    * JSON MIME examples:
    *   application/json
@@ -790,6 +789,8 @@ public class ApiClient extends JavaTimeFormatter {
       return new UrlEncodedFormEntity(formValues, contentType.getCharset());
     } else if (isYamlMime(mimeType)) {
         return new StringEntity((String) obj, contentType.withCharset(StandardCharsets.UTF_8));
+    } else if (mimeType.equals(ContentType.TEXT_PLAIN.getMimeType())) {
+        return new StringEntity((String)obj, contentType.withCharset(StandardCharsets.UTF_8));
     } else {
       // Handle files with unknown content type
       if (obj instanceof File) {

@@ -468,7 +468,7 @@ null (empty response body)
 
 ### HTTP request headers
 
-- **Content-Type**: application/json, text/plain
+- **Content-Type**: text/plain
 - **Accept**: Not defined
 
 
