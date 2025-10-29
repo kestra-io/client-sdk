@@ -10256,9 +10256,6 @@ paths:
       requestBody:
         description: The value of the key
         content:
-          application/json:
-            schema:
-              type: string
           text/plain:
             schema:
               type: string

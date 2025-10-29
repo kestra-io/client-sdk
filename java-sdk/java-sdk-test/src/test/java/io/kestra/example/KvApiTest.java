@@ -7,9 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static io.kestra.example.CommonTestSetup.MAIN_TENANT;
-import static io.kestra.example.CommonTestSetup.kestraClient;
-import static io.kestra.example.CommonTestSetup.randomId;
+import static io.kestra.example.CommonTestSetup.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,26 +16,94 @@ public class KvApiTest {
     private static final String CHILD_NAMESPACE = "test.namespace";
     private static final String PARENT_NAMESPACE = "test";
 
-    /**
-     * Puts a key-value pair in store
-     */
     @Test
-    public void setKeyValueTest() throws ApiException {
+    public void setKeyValueTest_string() throws ApiException {
+        var namespace = randomId();
         String key = "test_set_key_value_" + randomId();
-        String value = "hello-kestra";
+        String value = "\"hello-kestra\"";
 
         // set value
-        kestraClient().kv().setKeyValue(CHILD_NAMESPACE, key, MAIN_TENANT, value);
+        kestraClient().kv().setKeyValue(namespace, key, MAIN_TENANT, value);
 
         // get & assert
-        var fetched = kestraClient().kv().getKeyValue(CHILD_NAMESPACE, key, MAIN_TENANT);
+        var fetched = kestraClient().kv().getKeyValue(namespace, key, MAIN_TENANT);
         assertThat(fetched).extracting(KVControllerTypedValue::getType).isEqualTo(KVType.STRING);
         assertThat(fetched).extracting(KVControllerTypedValue::getValue).isEqualTo("hello-kestra");
+    }
 
-        // cleanup (best-effort)
-        try {
-            kestraClient().kv().deleteKeyValue(CHILD_NAMESPACE, key, MAIN_TENANT);
-        } catch (Exception ignored) {}
+    @Test
+    public void setKeyValueTest_boolean() throws ApiException {
+        var namespace = randomId();
+        String key = "test_set_key_value_" + randomId();
+        var value = "true";
+
+        // set value
+        kestraClient().kv().setKeyValue(namespace, key, MAIN_TENANT, value);
+
+        // get & assert
+        var fetched = kestraClient().kv().getKeyValue(namespace, key, MAIN_TENANT);
+        assertThat(fetched).extracting(KVControllerTypedValue::getType).isEqualTo(KVType.BOOLEAN);
+        assertThat(fetched).extracting(KVControllerTypedValue::getValue).isEqualTo(true);
+    }
+
+    @Test
+    public void setKeyValueTest_number() throws ApiException {
+        var namespace = randomId();
+        String key = "test_set_key_value_" + randomId();
+        var value = "42";
+
+        // set value
+        kestraClient().kv().setKeyValue(namespace, key, MAIN_TENANT, value);
+
+        // get & assert
+        var fetched = kestraClient().kv().getKeyValue(namespace, key, MAIN_TENANT);
+        assertThat(fetched).extracting(KVControllerTypedValue::getType).isEqualTo(KVType.NUMBER);
+        assertThat(fetched).extracting(KVControllerTypedValue::getValue).isEqualTo(42);
+    }
+
+    @Test
+    public void setKeyValueTest_duration() throws ApiException {
+        var namespace = randomId();
+        String key = "test_set_key_value_" + randomId();
+        var value = "PT15M";
+
+        // set value
+        kestraClient().kv().setKeyValue(namespace, key, MAIN_TENANT, value);
+
+        // get & assert
+        var fetched = kestraClient().kv().getKeyValue(namespace, key, MAIN_TENANT);
+        assertThat(fetched).extracting(KVControllerTypedValue::getType).isEqualTo(KVType.DURATION);
+        assertThat(fetched).extracting(KVControllerTypedValue::getValue).isEqualTo("PT15M");
+    }
+
+    @Test
+    public void setKeyValueTest_date() throws ApiException {
+        var namespace = randomId();
+        String key = "test_set_key_value_" + randomId();
+        var value = "2025-10-13";
+
+        // set value
+        kestraClient().kv().setKeyValue(namespace, key, MAIN_TENANT, value);
+
+        // get & assert
+        var fetched = kestraClient().kv().getKeyValue(namespace, key, MAIN_TENANT);
+        assertThat(fetched).extracting(KVControllerTypedValue::getType).isEqualTo(KVType.DATE);
+        assertThat(fetched).extracting(KVControllerTypedValue::getValue).isEqualTo("2025-10-13");
+    }
+
+    @Test
+    public void setKeyValueTest_datetime() throws ApiException {
+        var namespace = randomId();
+        String key = "test_set_key_value_" + randomId();
+        var value = "2025-10-14T18:02:08.000Z";
+
+        // set value
+        kestraClient().kv().setKeyValue(namespace, key, MAIN_TENANT, value);
+
+        // get & assert
+        var fetched = kestraClient().kv().getKeyValue(namespace, key, MAIN_TENANT);
+        assertThat(fetched).extracting(KVControllerTypedValue::getType).isEqualTo(KVType.DATETIME);
+        assertThat(fetched).extracting(KVControllerTypedValue::getValue).isEqualTo("2025-10-14T18:02:08Z");
     }
 
     /**
@@ -46,7 +112,7 @@ public class KvApiTest {
     @Test
     public void getKeyValueTest() throws ApiException {
         String key = "test_get_key_value_" + randomId();
-        String value = "value-get";
+        String value = "\"value-get\"";
 
         kestraClient().kv().setKeyValue(CHILD_NAMESPACE, key, MAIN_TENANT, value);
 
@@ -54,11 +120,6 @@ public class KvApiTest {
         assertThat(fetched).extracting(KVControllerTypedValue::getType).isEqualTo(KVType.STRING);
         assertThat(fetched).extracting(KVControllerTypedValue::getValue).isEqualTo("value-get");
     }
-
-    // TODO more tests on differents types
-    // TODO test json
-    // TODO test date
-    // TODO test number
 
     /**
      * List all keys for a namespace

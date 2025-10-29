@@ -7388,11 +7388,12 @@ paths:
         content:
           multipart/form-data:
             schema:
+              additionalProperties: true
               items:
                 format: binary
                 type: string
               type: array
-        description: The inputs
+        description: The inputs (multipart map)
         required: true
       responses:
         "200":
@@ -12561,9 +12562,6 @@ paths:
         style: simple
       requestBody:
         content:
-          application/json:
-            schema:
-              type: string
           text/plain:
             schema:
               type: string
@@ -12579,7 +12577,7 @@ paths:
       tags:
       - KV
       x-internal: false
-      x-content-type: application/json
+      x-content-type: text/plain
       x-accepts:
       - application/json
   /api/v1/{tenant}/namespaces/{namespace}/secrets:
@@ -19885,7 +19883,7 @@ components:
         type:
           $ref: "#/components/schemas/KVType"
         value:
-          $ref: "#/components/schemas/KVController_TypedValue_value"
+          type: object
       type: object
     KVEntry:
       example:
@@ -24744,9 +24742,11 @@ components:
       properties:
         username:
           minLength: 1
+          nullable: true
           type: string
         password:
           minLength: 1
+          nullable: true
           type: string
         identity:
           nullable: true
@@ -24863,10 +24863,8 @@ components:
       type: object
     createExecution_request:
       properties:
-        inputs:
-          items:
-            format: binary
-            type: string
+        file:
+          items: {}
           type: array
       type: object
     createNamespaceFile_request:
@@ -25130,10 +25128,6 @@ components:
             type: string
           type: array
       type: object
-    KVController_TypedValue_value:
-      anyOf:
-      - type: object
-      - type: string
     Output_value:
       oneOf:
       - type: object
