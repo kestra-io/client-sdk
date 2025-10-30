@@ -80,7 +80,6 @@ docs/ConvertibleMultiValuesString.md
 docs/ConvertibleValuesListString.md
 docs/CreateApiTokenRequest.md
 docs/CreateApiTokenResponse.md
-docs/CreateExecutionRequest.md
 docs/CreateNamespaceFileRequest.md
 docs/CreateSecurityIntegrationRequest.md
 docs/CrudEventType.md
@@ -492,7 +491,6 @@ kestrapy/models/convertible_multi_values_string.py
 kestrapy/models/convertible_values_list_string.py
 kestrapy/models/create_api_token_request.py
 kestrapy/models/create_api_token_response.py
-kestrapy/models/create_execution_request.py
 kestrapy/models/create_namespace_file_request.py
 kestrapy/models/create_security_integration_request.py
 kestrapy/models/crud_event_type.py

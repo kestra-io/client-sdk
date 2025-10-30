@@ -1,4 +1,4 @@
-# python
+
 # coding: utf-8
 
 """
@@ -15,10 +15,9 @@
 
 import unittest
 
-from kestrapy import Configuration, KestraClient
+from kestrapy import Configuration, KestraClient, State
 from typing import Optional
-from kestrapy import QueryFilter, QueryFilterField, QueryFilterOp
-import os
+from kestrapy import QueryFilter, QueryFilterField, QueryFilterOp, ExecutionControllerSetLabelsByIdsRequest, Label, StateType
 import time
 
 
@@ -52,8 +51,8 @@ inputs:
 
 tasks:
   - id: hello
-    type: io.kestra.plugin.core.flow.Sleep
-    duration: PT1S
+    type: io.kestra.plugin.core.log.Log
+    message: "hello {{inputs.inp}}"
 """
         created = self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
         return getattr(created, 'id', flow_id)
@@ -77,6 +76,85 @@ tasks:
         created = self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
         return getattr(created, 'id', flow_id)
 
+    def create_flow_sleeping(self, flow_id: Optional[str] = None, namespace: str = "test.executions", sleep_duration: str = "PT10S") -> str:
+        """Helper to create a flow that sleeps and returns its id.
+        Resource name follows the test method name if flow_id is None.
+        """
+        if flow_id is None:
+            flow_id = f"{self._testMethodName}"
+
+        body = f"""id: {flow_id}
+namespace: {namespace}
+
+tasks:
+  - id: sleep
+    type: io.kestra.plugin.core.flow.Sleep
+    duration: {sleep_duration}
+"""
+        created = self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
+        return getattr(created, 'id', flow_id)
+
+    def create_flow_failing(self, flow_id: Optional[str] = None, namespace: str = "test.executions") -> str:
+        """Helper to create a flow that fails and returns its id.
+        Resource name follows the test method name if flow_id is None.
+        """
+        if flow_id is None:
+            flow_id = f"{self._testMethodName}"
+
+        body = f"""id: {flow_id}
+inputs:
+  - id: key
+    type: STRING
+    defaults: 'value'
+namespace: {namespace}
+
+tasks:
+  - id: fail
+    type: io.kestra.plugin.core.execution.Fail
+"""
+        created = self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
+        return getattr(created, 'id', flow_id)
+
+    def create_flow_pausing(self, flow_id: Optional[str] = None, namespace: str = "test.executions") -> str:
+        """Helper to create a flow that pauses and returns its id.
+        Resource name follows the test method name if flow_id is None.
+        """
+        if flow_id is None:
+            flow_id = f"{self._testMethodName}"
+
+        body = f"""id: {flow_id}
+namespace: {namespace}
+
+tasks:
+  - id: pause
+    type: io.kestra.plugin.core.flow.Pause
+"""
+        created = self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
+        return getattr(created, 'id', flow_id)
+
+    def create_flow_webhook(self, flow_id: str, namespace: str):
+        """
+        Create a flow with a Webhook trigger (key: a-secret-key) and a Return task
+        that returns the trigger payload. Mirrors the Java `WEBHOOK_FLOW`.
+        """
+        flow = f"""id: {flow_id}
+namespace: {namespace}
+
+tasks:
+  - id: out
+    type: io.kestra.plugin.core.debug.Return
+    format: "{{{{trigger | json }}}}"
+
+triggers:
+  - id: webhook
+    type: io.kestra.plugin.core.trigger.Webhook
+    key: a-secret-key
+"""
+        created = self.kestra_client.flows.create_flow(self.tenant, flow)
+        return created
+
+
+
     def test_create_execution(self) -> None:
         """Test case for create_execution
 
@@ -86,7 +164,6 @@ tasks:
         flow_id = f"{self._testMethodName}_flow"
         self.create_flow(flow_id=flow_id, namespace=namespace)
 
-        # call SDK with expected parameter names: id and wait
         resp = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant, multipart_form_datas={"inp": "override"})
         assert resp is not None
         exec_id = getattr(resp, 'id', None)
@@ -121,10 +198,10 @@ tasks:
         self.create_flow(flow_id=f1, namespace=namespace)
         self.create_flow(flow_id=f2, namespace=namespace)
 
-        c1 = self.kestra_client.executions.create_execution(namespace=namespace, id=f1, wait=False, tenant=self.tenant)
-        c2 = self.kestra_client.executions.create_execution(namespace=namespace, id=f2, wait=False, tenant=self.tenant)
-        id1 = getattr(c1, 'id', None)
-        id2 = getattr(c2, 'id', None)
+        exec_flow1 = self.kestra_client.executions.create_execution(namespace=namespace, id=f1, wait=False, tenant=self.tenant)
+        exec_flow2 = self.kestra_client.executions.create_execution(namespace=namespace, id=f2, wait=False, tenant=self.tenant)
+        id1 = getattr(exec_flow1, 'id', None)
+        id2 = getattr(exec_flow2, 'id', None)
         assert id1 is not None
         assert id2 is not None
 
@@ -163,11 +240,9 @@ tasks:
         Download file for an execution
         """
         namespace = f"test_download_file_from_execution_ns"
-        # per instruction resource name equals the test name
         flow_id = "test_download_file_from_execution"
         self.create_flow_with_file(flow_id=flow_id, namespace=namespace)
 
-        # create execution without waiting to avoid immediate model deserialization issues
         created = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
         exec_id = getattr(created, 'id', None)
         assert exec_id is not None
@@ -176,7 +251,6 @@ tasks:
 
         execution = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
 
-        # defensive extraction of the uri
         task_runs = getattr(execution, 'task_run_list', None) or []
         assert len(task_runs) > 0
         first = task_runs[0]
@@ -184,380 +258,1157 @@ tasks:
         uri = outputs.get('uri') if isinstance(outputs, dict) else None
         assert uri is not None
 
-        # Call the download API
         resp = self.kestra_client.executions.download_file_from_execution(execution_id=exec_id, path=uri, tenant=self.tenant)
-        # handle several possible return types
         content = None
         if isinstance(resp, (bytes, bytearray)):
             content = resp.decode('utf-8')
-        elif hasattr(resp, 'read'):
-            # file-like
-            data = resp.read()
-            content = data.decode('utf-8') if isinstance(data, (bytes, bytearray)) else str(data)
-        elif isinstance(resp, str) and os.path.exists(resp):
-            with open(resp, 'r', encoding='utf-8') as f:
-                content = f.read()
-        else:
-            content = str(resp)
 
         assert "Hello from file" in content
 
-    def test_eval_task_run_expression(self) -> None:
-        """Test case for eval_task_run_expression
-
-        Evaluate a variable expression for this taskrun
-        """
-        pass
 
     def test_follow_dependencies_executions(self) -> None:
         """Test case for follow_dependencies_executions
 
         Follow all execution dependencies executions
         """
-        pass
+        namespace = f"test_follow_dependencies_executions_ns"
+        flow_id = f"{self._testMethodName}_flow"
+        self.create_flow(flow_id=flow_id, namespace=namespace)
+
+        created = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec_id = getattr(created, 'id', None)
+        assert exec_id is not None
+
+        following = self.kestra_client.executions.follow_dependencies_executions(execution_id=exec_id, tenant=self.tenant)
+
+        got_event = False
+        for event in following:
+            assert event is not None
+            got_event = True
+            break
+
+        assert got_event
 
     def test_follow_execution(self) -> None:
         """Test case for follow_execution
 
         Follow an execution
         """
-        pass
+        namespace = f"test_follow_execution_ns"
+        flow_id = f"{self._testMethodName}_flow"
+        self.create_flow(flow_id=flow_id, namespace=namespace)
+
+        created = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec_id = getattr(created, 'id', None)
+        assert exec_id is not None
+
+        following = self.kestra_client.executions.follow_execution(execution_id=exec_id, tenant=self.tenant)
+
+        got_event = False
+        for event in following:
+            assert event is not None
+            got_event = True
+            break
+
+        assert got_event
 
     def test_force_run_by_ids(self) -> None:
         """Test case for force_run_by_ids
 
         Force run a list of executions
         """
-        pass
+        namespace = f"test_force_run_by_ids_ns"
+        flow_id = f"{self._testMethodName}_flow"
+
+        body = f"""id: {flow_id}
+namespace: {namespace}
+
+concurrency:
+  behavior: QUEUE
+  limit: 1
+
+tasks:
+  - id: sleep
+    type: io.kestra.plugin.core.flow.Sleep
+    duration: PT2S
+"""
+        self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
+
+        first = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        first_id = getattr(first, 'id', None)
+        assert first_id is not None
+
+        for _ in range(10):
+            st = self.kestra_client.executions.get_execution(execution_id=first_id, tenant=self.tenant)
+            if getattr(getattr(st, 'state', None), 'current', None) == 'RUNNING':
+                break
+            time.sleep(0.2)
+
+        queued = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        queued_id = getattr(queued, 'id', None)
+        assert queued_id is not None
+
+        for _ in range(10):
+            st = self.kestra_client.executions.get_execution(execution_id=queued_id, tenant=self.tenant)
+            if getattr(getattr(st, 'state', None), 'current', None) == 'QUEUED':
+                break
+            time.sleep(0.2)
+
+        resp = self.kestra_client.executions.force_run_by_ids(tenant=self.tenant, request_body=[queued_id])
+        assert resp is not None
+
+        for _ in range(10):
+            st = self.kestra_client.executions.get_execution(execution_id=queued_id, tenant=self.tenant)
+            if getattr(getattr(st, 'state', None), 'current', None) == 'RUNNING':
+                break
+            time.sleep(0.2)
+        assert getattr(getattr(self.kestra_client.executions.get_execution(execution_id=queued_id, tenant=self.tenant), 'state', None), 'current', None) == 'RUNNING'
 
     def test_force_run_execution(self) -> None:
         """Test case for force_run_execution
 
         Force run an execution
         """
-        pass
+        namespace = f"test_force_run_execution_ns"
+        flow_id = f"{self._testMethodName}_flow"
+
+        body = f"""id: {flow_id}
+namespace: {namespace}
+
+concurrency:
+  behavior: QUEUE
+  limit: 1
+
+tasks:
+  - id: sleep
+    type: io.kestra.plugin.core.flow.Sleep
+    duration: PT2S
+"""
+        self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
+
+        first = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        first_id = getattr(first, 'id', None)
+        assert first_id is not None
+
+        for _ in range(10):
+            st = self.kestra_client.executions.get_execution(execution_id=first_id, tenant=self.tenant)
+            if getattr(getattr(st, 'state', None), 'current', None) == 'RUNNING':
+                break
+            time.sleep(0.2)
+
+        queued = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        queued_id = getattr(queued, 'id', None)
+        assert queued_id is not None
+
+        for _ in range(10):
+            st = self.kestra_client.executions.get_execution(execution_id=queued_id, tenant=self.tenant)
+            if getattr(getattr(st, 'state', None), 'current', None) == 'QUEUED':
+                break
+            time.sleep(0.2)
+
+        resp = self.kestra_client.executions.force_run_execution(execution_id=queued_id, tenant=self.tenant)
+        assert resp is not None
+
+        for _ in range(10):
+            st = self.kestra_client.executions.get_execution(execution_id=queued_id, tenant=self.tenant)
+            if getattr(getattr(st, 'state', None), 'current', None) == 'RUNNING':
+                break
+            time.sleep(0.2)
+        assert getattr(getattr(self.kestra_client.executions.get_execution(execution_id=queued_id, tenant=self.tenant), 'state', None), 'current', None) == 'RUNNING'
 
     def test_force_run_executions_by_query(self) -> None:
         """Test case for force_run_executions_by_query
 
         Force run executions filter by query parameters
         """
-        pass
+        namespace = f"test_force_run_executions_by_query_ns"
+        flow_id = f"{self._testMethodName}_flow"
+
+        body = f"""id: {flow_id}
+namespace: {namespace}
+
+concurrency:
+  behavior: QUEUE
+  limit: 1
+
+tasks:
+  - id: sleep
+    type: io.kestra.plugin.core.flow.Sleep
+    duration: PT2S
+    """
+        self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
+
+        first = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        first_id = getattr(first, 'id', None)
+        assert first_id is not None
+
+        for _ in range(10):
+            st = self.kestra_client.executions.get_execution(execution_id=first_id, tenant=self.tenant)
+            if getattr(getattr(st, 'state', None), 'current', None) == 'RUNNING':
+                break
+            time.sleep(0.2)
+
+        queued = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        queued_id = getattr(queued, 'id', None)
+        assert queued_id is not None
+
+        for _ in range(10):
+            st = self.kestra_client.executions.get_execution(execution_id=queued_id, tenant=self.tenant)
+            if getattr(getattr(st, 'state', None), 'current', None) == 'QUEUED':
+                break
+            time.sleep(0.2)
+
+        qf = QueryFilter(field=QueryFilterField.NAMESPACE, operation=QueryFilterOp.CONTAINS, value={"value": namespace})
+        resp = self.kestra_client.executions.force_run_executions_by_query(tenant=self.tenant, filters=[qf])
+        assert resp is not None
 
     def test_get_execution(self) -> None:
         """Test case for get_execution
 
         Get an execution
         """
-        pass
+        namespace = f"test_get_execution_ns"
+        flow_id = f"{self._testMethodName}_flow"
+        self.create_flow(flow_id=flow_id, namespace=namespace)
+
+        created = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec_id = getattr(created, 'id', None)
+        assert exec_id is not None
+
+        resp = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+        assert resp is not None
+        assert getattr(resp, 'id', None) == exec_id
 
     def test_get_execution_flow_graph(self) -> None:
         """Test case for get_execution_flow_graph
 
         Generate a graph for an execution
         """
-        pass
+        namespace = f"test_get_execution_flow_graph_ns"
+        flow_id = f"{self._testMethodName}_flow"
+        self.create_flow(flow_id=flow_id, namespace=namespace)
+
+        created = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec_id = getattr(created, 'id', None)
+        assert exec_id is not None
+
+        time.sleep(0.5)
+
+        resp = self.kestra_client.executions.get_execution_flow_graph(execution_id=exec_id, tenant=self.tenant, subflows=None)
+        assert resp is not None
 
     def test_get_file_metadatas_from_execution(self) -> None:
         """Test case for get_file_metadatas_from_execution
 
         Get file meta information for an execution
         """
-        pass
+        namespace = f"test_get_file_metadatas_from_execution_ns"
+        flow_id = f"{self._testMethodName}_flow"
+
+        self.create_flow_with_file(flow_id=flow_id, namespace=namespace)
+        exec_resp = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec_id = getattr(exec_resp, 'id', None)
+        assert exec_id is not None
+
+        for _ in range(50):
+            st = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+            if getattr(getattr(st, 'state', None), 'current', None) == 'SUCCESS':
+                break
+            time.sleep(0.2)
+
+        execution = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+        path = None
+        for tr in getattr(execution, 'task_run_list', []) or []:
+            outputs = getattr(tr, 'outputs', None) or {}
+            if 'uri' in outputs:
+                path = outputs['uri']
+                break
+        assert path is not None
+
+        resp = self.kestra_client.executions.get_file_metadatas_from_execution(execution_id=exec_id, path=path, tenant=self.tenant)
+        assert getattr(resp, 'size', None) == 15
 
     def test_get_flow_from_execution(self) -> None:
         """Test case for get_flow_from_execution
 
         Get flow information's for an execution
         """
-        pass
+        namespace = f"test_get_flow_from_execution_ns"
+        flow_id = f"{self._testMethodName}_flow"
+
+        self.create_flow(flow_id=flow_id, namespace=namespace)
+        exec_resp = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec_id = getattr(exec_resp, 'id', None)
+        assert exec_id is not None
+
+        for _ in range(50):
+            st = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+            if getattr(getattr(st, 'state', None), 'current', None) == 'SUCCESS':
+                break
+            time.sleep(0.2)
+
+        resp = self.kestra_client.executions.get_flow_from_execution(flow_id=flow_id, namespace=namespace, tenant=self.tenant)
+        assert getattr(resp, 'id', None) == flow_id
+        assert getattr(resp, 'namespace', None) == namespace
 
     def test_get_flow_from_execution_by_id(self) -> None:
         """Test case for get_flow_from_execution_by_id
 
         Get flow information's for an execution
         """
-        pass
+        namespace = f"test_get_flow_from_execution_by_id_ns"
+        flow_id = f"{self._testMethodName}_flow"
+
+        self.create_flow(flow_id=flow_id, namespace=namespace)
+        exec_resp = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec_id = getattr(exec_resp, 'id', None)
+        assert exec_id is not None
+
+        for _ in range(50):
+            st = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+            if getattr(getattr(st, 'state', None), 'current', None) == 'SUCCESS':
+                break
+            time.sleep(0.2)
+
+        resp = self.kestra_client.executions.get_flow_from_execution_by_id(execution_id=exec_id, tenant=self.tenant)
+        assert getattr(resp, 'id', None) == flow_id
+        assert getattr(resp, 'namespace', None) == namespace
 
     def test_get_latest_executions(self) -> None:
         """Test case for get_latest_executions
 
         Get the latest execution for given flows
         """
-        pass
+        namespace = f"test_get_latest_executions_ns"
+        flow_id = f"{self._testMethodName}_flow"
+        other_flow_id = f"{self._testMethodName}_other_flow"
 
+        self.create_flow(flow_id=flow_id, namespace=namespace)
+        first = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+
+        second = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        self.create_flow(flow_id=other_flow_id, namespace=namespace)
+        other = self.kestra_client.executions.create_execution(namespace=namespace, id=other_flow_id, wait=False, tenant=self.tenant)
+
+        time.sleep(0.2)
+
+        request_body = [
+            {"id": flow_id, "namespace": namespace},
+            {"id": other_flow_id, "namespace": namespace},
+        ]
+        resp = self.kestra_client.executions.get_latest_executions(
+            execution_repository_interface_flow_filter=request_body,
+            tenant=self.tenant,
+        )
+        assert resp is not None
+        try:
+            length = len(resp)
+        except Exception:
+            length = getattr(resp, '__len__', lambda: 0)()
+        assert length == 2
+
+
+    
     def test_kill_execution(self) -> None:
         """Test case for kill_execution
 
         Kill an execution
         """
-        pass
+        namespace = f"test_kill_execution_ns"
+        flow_id = f"{self._testMethodName}_flow"
+
+        self.create_flow_sleeping(flow_id=flow_id, namespace=namespace, sleep_duration="PT30S")
+
+        created = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec_id = getattr(created, 'id', None)
+        assert exec_id is not None
+
+        time.sleep(0.5)
+
+        self.kestra_client.executions.kill_execution(execution_id=exec_id, tenant=self.tenant, is_on_kill_cascade=False)
+
+        time.sleep(0.5)
+
+        st = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+        cur = getattr(getattr(st, 'state', None), 'current', None)
+        assert cur in ('KILLED', 'FAILED', 'ABORTED', 'TERMINATED')
 
     def test_kill_executions_by_ids(self) -> None:
         """Test case for kill_executions_by_ids
 
         Kill a list of executions
         """
-        pass
+        namespace = f"test_kill_executions_by_ids_ns"
+        f1 = f"{self._testMethodName}_1"
+        f2 = f"{self._testMethodName}_2"
+
+
+        self.create_flow_sleeping(flow_id=f1, namespace=namespace, sleep_duration="PT10S")
+
+        self.create_flow_sleeping(flow_id=f2, namespace=namespace, sleep_duration="PT10S")
+
+        exec_flow1 = self.kestra_client.executions.create_execution(namespace=namespace, id=f1, wait=False, tenant=self.tenant)
+        exec_flow2 = self.kestra_client.executions.create_execution(namespace=namespace, id=f2, wait=False, tenant=self.tenant)
+
+        id1 = getattr(exec_flow1, 'id', None)
+        id2 = getattr(exec_flow2, 'id', None)
+        assert id1 is not None
+        assert id2 is not None
+
+        time.sleep(0.5)
+
+        self.kestra_client.executions.kill_executions_by_ids(tenant=self.tenant, request_body=[id1, id2])
+
+        time.sleep(0.5)
+
+        for target in (id1, id2):
+            st = self.kestra_client.executions.get_execution(execution_id=target, tenant=self.tenant)
+            cur = getattr(getattr(st, 'state', None), 'current', None)
+            assert cur in ('KILLED', 'FAILED', 'ABORTED', 'TERMINATED')
 
     def test_kill_executions_by_query(self) -> None:
         """Test case for kill_executions_by_query
 
         Kill executions filter by query parameters
         """
-        pass
+        namespace = f"test_kill_executions_by_query_ns"
+        flow_id = f"{self._testMethodName}_flow"
 
-    def test_list_executable_distinct_namespaces(self) -> None:
-        """Test case for list_executable_distinct_namespaces
+        self.create_flow_sleeping(flow_id=flow_id, namespace=namespace, sleep_duration="PT10S")
 
-        Get all namespaces that have executable flows
-        """
-        pass
+        created = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec_id = getattr(created, 'id', None)
+        assert exec_id is not None
 
-    def test_list_flow_executions_by_namespace(self) -> None:
-        """Test case for list_flow_executions_by_namespace
+        time.sleep(0.5)
 
-        Get all flow ids for a namespace. Data returned are FlowForExecution containing minimal information about a Flow for when you are allowed to executing but not reading.
-        """
-        pass
+        qf = QueryFilter(field=QueryFilterField.NAMESPACE, operation=QueryFilterOp.CONTAINS, value={"value": namespace})
+        self.kestra_client.executions.kill_executions_by_query(tenant=self.tenant, filters=[qf])
+
+        time.sleep(0.5)
+
+        st = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+        cur = getattr(getattr(st, 'state', None), 'current', None)
+        assert cur in ('KILLED', 'FAILED', 'ABORTED', 'TERMINATED')
 
     def test_pause_execution(self) -> None:
         """Test case for pause_execution
 
         Pause a running execution.
         """
-        pass
+        namespace = f"test_pause_execution_ns"
+        flow_id = f"{self._testMethodName}_flow"
+
+        self.create_flow_sleeping(flow_id=flow_id, namespace=namespace, sleep_duration="PT30S")
+
+        created = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec_id = getattr(created, 'id', None)
+        assert exec_id is not None
+
+        time.sleep(0.2)
+
+        self.kestra_client.executions.pause_execution(execution_id=exec_id, tenant=self.tenant)
+
+        time.sleep(0.2)
+
+        st = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+        assert getattr(getattr(st, 'state', None), 'current', None) == 'PAUSED'
 
     def test_pause_executions_by_ids(self) -> None:
         """Test case for pause_executions_by_ids
 
         Pause a list of running executions
         """
-        pass
+        namespace = f"test_pause_executions_by_ids_ns"
+        f1 = f"{self._testMethodName}_1"
+        f2 = f"{self._testMethodName}_2"
+
+        self.create_flow_sleeping(flow_id=f1, namespace=namespace, sleep_duration="PT10S")
+
+        self.create_flow_sleeping(flow_id=f2, namespace=namespace, sleep_duration="PT10S")
+
+        exec_flow1 = self.kestra_client.executions.create_execution(namespace=namespace, id=f1, wait=False, tenant=self.tenant)
+        exec_flow2 = self.kestra_client.executions.create_execution(namespace=namespace, id=f2, wait=False, tenant=self.tenant)
+        id1 = getattr(exec_flow1, 'id', None)
+        id2 = getattr(exec_flow2, 'id', None)
+        assert id1 is not None
+        assert id2 is not None
+
+        time.sleep(0.5)
+
+        self.kestra_client.executions.pause_executions_by_ids(tenant=self.tenant, request_body=[id1, id2])
+
+        for target in (id1, id2):
+            time.sleep(0.5)
+            st = self.kestra_client.executions.get_execution(execution_id=target, tenant=self.tenant)
+            assert getattr(getattr(st, 'state', None), 'current', None) == 'PAUSED'
 
     def test_pause_executions_by_query(self) -> None:
         """Test case for pause_executions_by_query
 
         Pause executions filter by query parameters
         """
-        pass
+        namespace = f"test_pause_executions_by_query_ns"
+        flow_id = f"{self._testMethodName}_flow"
 
-    def test_preview_file_from_execution(self) -> None:
-        """Test case for preview_file_from_execution
+        self.create_flow_sleeping(flow_id=flow_id, namespace=namespace, sleep_duration="PT10S")
 
-        Get file preview for an execution
-        """
-        pass
+        created = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec_id = getattr(created, 'id', None)
+        assert exec_id is not None
+
+        time.sleep(0.5)
+
+        qf = QueryFilter(field=QueryFilterField.NAMESPACE, operation=QueryFilterOp.CONTAINS, value={"value": namespace})
+        resp = self.kestra_client.executions.pause_executions_by_query(tenant=self.tenant, filters=[qf])
+        assert resp is not None
+
+        time.sleep(0.5)
+        st = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+        assert getattr(getattr(st, 'state', None), 'current', None) == 'PAUSED'
 
     def test_replay_execution(self) -> None:
         """Test case for replay_execution
 
         Create a new execution from an old one and start it from a specified task run id
         """
-        pass
+        namespace = f"test_replay_execution_ns"
+        flow_id = f"{self._testMethodName}_flow"
+        self.create_flow_failing(flow_id=flow_id, namespace=namespace)
+
+        exec_resp = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec_id = getattr(exec_resp, 'id', None)
+        assert exec_id is not None
+
+        time.sleep(0.5)
+
+        execution = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+        task_run_id = None
+        for tr in getattr(execution, 'task_run_list', []) or []:
+            task_run_id = getattr(tr, 'id', None)
+            if task_run_id:
+                break
+        assert task_run_id is not None
+
+        resp = self.kestra_client.executions.replay_execution(execution_id=exec_id, tenant=self.tenant, task_run_id=task_run_id)
+        assert resp is not None
+        new_exec_id = getattr(resp, 'id', None)
+        assert new_exec_id is not None
+
 
     def test_replay_execution_withinputs(self) -> None:
         """Test case for replay_execution_withinputs
 
         Create a new execution from an old one and start it from a specified task run id
         """
-        pass
+        namespace = f"test_replay_execution_withinputs_ns"
+        flow_id = f"{self._testMethodName}_flow"
+        self.create_flow_failing(flow_id=flow_id, namespace=namespace)
+
+        exec_resp = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec_id = getattr(exec_resp, 'id', None)
+        assert exec_id is not None
+
+        time.sleep(0.5)
+
+        execution = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+        task_run_id = None
+        for tr in getattr(execution, 'task_run_list', []) or []:
+            task_run_id = getattr(tr, 'id', None)
+            if task_run_id:
+                break
+        assert task_run_id is not None
+
+        resp = self.kestra_client.executions.replay_execution_withinputs(
+            execution_id=exec_id,
+            tenant=self.tenant,
+            task_run_id=task_run_id,
+            multipart_form_datas={"inp": "replayed"}
+        )
+        assert resp is not None
+        new_exec_id = getattr(resp, 'id', None)
+        assert new_exec_id is not None
+
 
     def test_replay_executions_by_ids(self) -> None:
         """Test case for replay_executions_by_ids
 
         Create new executions from old ones. Keep the flow revision
         """
-        pass
+        namespace = f"test_replay_executions_by_ids_ns"
+        flow_id = f"{self._testMethodName}_flow"
+        self.create_flow_failing(flow_id=flow_id, namespace=namespace)
+
+        created = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec_id = getattr(created, 'id', None)
+        assert exec_id is not None
+
+        time.sleep(0.5)
+
+        resp = self.kestra_client.executions.replay_executions_by_ids(tenant=self.tenant, request_body=[exec_id])
+        assert resp is not None
+
 
     def test_replay_executions_by_query(self) -> None:
         """Test case for replay_executions_by_query
 
         Create new executions from old ones filter by query parameters. Keep the flow revision
         """
-        pass
+        namespace = f"test_replay_executions_by_query_ns"
+        flow_id = f"{self._testMethodName}_flow"
+        self.create_flow_failing(flow_id=flow_id, namespace=namespace)
+
+        created = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec_id = getattr(created, 'id', None)
+        assert exec_id is not None
+
+        time.sleep(0.5)
+
+        qf = QueryFilter(field=QueryFilterField.NAMESPACE, operation=QueryFilterOp.CONTAINS, value={"value": namespace})
+        resp = self.kestra_client.executions.replay_executions_by_query(tenant=self.tenant, filters=[qf])
+        assert resp is not None
 
     def test_restart_execution(self) -> None:
         """Test case for restart_execution
 
         Restart a new execution from an old one
         """
-        pass
+        namespace = f"test_restart_execution_ns"
+        flow_id = f"{self._testMethodName}_flow"
+        self.create_flow_failing(flow_id=flow_id, namespace=namespace)
+
+        exec_resp = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec_id = getattr(exec_resp, 'id', None)
+        assert exec_id is not None
+
+        time.sleep(0.5)
+
+        self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+
+        resp = self.kestra_client.executions.restart_execution(execution_id=exec_id, tenant=self.tenant)
+        assert resp is not None
+        new_exec_id = getattr(resp, 'id', None)
+        assert new_exec_id is not None
+
 
     def test_restart_executions_by_ids(self) -> None:
         """Test case for restart_executions_by_ids
 
         Restart a list of executions
         """
-        pass
+        namespace = f"test_restart_executions_by_ids_ns"
+        flow_id = f"{self._testMethodName}_flow"
+        self.create_flow_failing(flow_id=flow_id, namespace=namespace)
+
+        created = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec_id = getattr(created, 'id', None)
+        assert exec_id is not None
+
+        time.sleep(0.5)
+
+        resp = self.kestra_client.executions.restart_executions_by_ids(tenant=self.tenant, request_body=[exec_id])
+        assert resp is not None
+
 
     def test_restart_executions_by_query(self) -> None:
         """Test case for restart_executions_by_query
 
         Restart executions filter by query parameters.
         """
-        pass
+        namespace = f"test_restart_executions_by_query_ns"
+        flow_id = f"{self._testMethodName}_flow"
+        self.create_flow_failing(flow_id=flow_id, namespace=namespace)
+
+        created = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec_id = getattr(created, 'id', None)
+        assert exec_id is not None
+
+        time.sleep(0.5)
+
+        qf = QueryFilter(field=QueryFilterField.NAMESPACE, operation=QueryFilterOp.CONTAINS, value={"value": namespace})
+        resp = self.kestra_client.executions.restart_executions_by_query(tenant=self.tenant, filters=[qf])
+        assert resp is not None
+
 
     def test_resume_execution(self) -> None:
         """Test case for resume_execution
 
         Resume a paused execution.
         """
-        pass
+        namespace = f"test_resume_execution_ns"
+        flow_id = f"{self._testMethodName}_flow"
+        self.create_flow_pausing(flow_id=flow_id, namespace=namespace)
 
-    def test_resume_execution_from_breakpoint(self) -> None:
-        """Test case for resume_execution_from_breakpoint
+        created = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec_id = getattr(created, 'id', None)
+        assert exec_id is not None
 
-        Resume an execution from a breakpoint (in the 'BREAKPOINT' state).
-        """
-        pass
+        time.sleep(0.5)
+
+        self.kestra_client.executions.resume_execution(execution_id=exec_id, tenant=self.tenant)
+
+        exec = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+        cur = getattr(getattr(exec, 'state', None), 'current', None)
+        assert cur not in ('PAUSED', 'BREAKPOINT')
 
     def test_resume_executions_by_ids(self) -> None:
         """Test case for resume_executions_by_ids
 
         Resume a list of paused executions
         """
-        pass
+        namespace = f"test_resume_executions_by_ids_ns"
+        flow_id = f"{self._testMethodName}_flow"
+        self.create_flow_pausing(flow_id=flow_id, namespace=namespace)
+
+        created = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec_id = getattr(created, 'id', None)
+        assert exec_id is not None
+
+        time.sleep(0.5)
+
+        resp = self.kestra_client.executions.resume_executions_by_ids(tenant=self.tenant, request_body=[exec_id])
+        assert resp is not None
+
+        time.sleep(0.5)
+
+        st = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+        cur = getattr(getattr(st, 'state', None), 'current', None)
+        assert cur not in ('PAUSED', 'BREAKPOINT')
+
 
     def test_resume_executions_by_query(self) -> None:
         """Test case for resume_executions_by_query
 
         Resume executions filter by query parameters
         """
-        pass
+        namespace = f"test_resume_executions_by_query_ns"
+        flow_id = f"{self._testMethodName}_flow"
+        self.create_flow_pausing(flow_id=flow_id, namespace=namespace)
+
+        created = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec_id = getattr(created, 'id', None)
+        assert exec_id is not None
+
+
+        time.sleep(0.5)
+
+        qf = QueryFilter(field=QueryFilterField.NAMESPACE, operation=QueryFilterOp.CONTAINS, value={"value": namespace})
+        resp = self.kestra_client.executions.resume_executions_by_query(tenant=self.tenant, filters=[qf])
+        assert resp is not None
+
+        time.sleep(0.5)
+
+        st = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+        cur = getattr(getattr(st, 'state', None), 'current', None)
+
+        assert cur not in ('PAUSED', 'BREAKPOINT')
+
 
     def test_search_executions(self) -> None:
         """Test case for search_executions
 
         Search for executions
         """
-        pass
+        namespace = f"test_search_executions_ns"
+        flow_id = f"{self._testMethodName}_flow"
+        self.create_flow(flow_id=flow_id, namespace=namespace)
+
+        created = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec_id = getattr(created, 'id', None)
+        assert exec_id is not None
+
+        time.sleep(0.5)
+
+        qf = QueryFilter(field=QueryFilterField.NAMESPACE, operation=QueryFilterOp.CONTAINS, value={"value": namespace})
+        resp = self.kestra_client.executions.search_executions(tenant=self.tenant, filters=[qf], page=1, size=10)
+        assert resp is not None
+        assert len(resp.results) > 0
+
 
     def test_search_executions_by_flow_id(self) -> None:
         """Test case for search_executions_by_flow_id
 
         Search for executions for a flow
         """
-        pass
+        namespace = f"test_search_executions_by_flow_id_ns"
+        flow_id = f"{self._testMethodName}_flow"
+        self.create_flow(flow_id=flow_id, namespace=namespace)
 
-    def test_search_task_run(self) -> None:
-        """Test case for search_task_run
+        created = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec_id = getattr(created, 'id', None)
+        assert exec_id is not None
 
-        Search for taskruns, only available with the Elasticsearch repository
-        """
-        pass
+        time.sleep(0.5)
+
+        resp = self.kestra_client.executions.search_executions_by_flow_id(flow_id=flow_id, namespace=namespace, tenant=self.tenant, page=1, size=10)
+        assert resp is not None
+        assert len(resp.results) > 0
+
 
     def test_set_labels_on_terminated_execution(self) -> None:
         """Test case for set_labels_on_terminated_execution
 
         Add or update labels of a terminated execution
         """
-        pass
+        namespace = f"test_set_labels_on_terminated_execution_ns"
+        flow_id = f"{self._testMethodName}_flow"
+        self.create_flow(flow_id=flow_id, namespace=namespace)
+
+        created = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec_id = getattr(created, 'id', None)
+        assert exec_id is not None
+
+        time.sleep(0.5)
+
+        resp = self.kestra_client.executions.set_labels_on_terminated_execution(
+            execution_id=exec_id,
+            tenant=self.tenant,
+            label=[Label(key="test_set_labels_on_terminated_execution", value="yes")]
+        )
+        assert resp is not None
+
 
     def test_set_labels_on_terminated_executions_by_ids(self) -> None:
         """Test case for set_labels_on_terminated_executions_by_ids
 
         Set labels on a list of executions
         """
-        pass
+        namespace = f"test_set_labels_on_terminated_executions_by_ids_ns"
+        flow_id = f"{self._testMethodName}_flow"
+        self.create_flow(flow_id=flow_id, namespace=namespace)
+
+        created = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec_id = getattr(created, 'id', None)
+        assert exec_id is not None
+
+        time.sleep(0.5)
+
+        body = ExecutionControllerSetLabelsByIdsRequest(
+            executions_id=[exec_id],
+            execution_labels=[Label(key="test_set_labels_on_terminated_executions_by_ids", value="yes")]
+        )
+
+        resp = self.kestra_client.executions.set_labels_on_terminated_executions_by_ids(
+            tenant=self.tenant,
+            execution_controller_set_labels_by_ids_request=body
+        )
+        assert resp is not None
+
 
     def test_set_labels_on_terminated_executions_by_query(self) -> None:
-        """Test case for set_labels_on_terminated_executions_by_query
+        """Test ca\ase for set_labels_on_terminated_executions_by_query
 
         Set label on executions filter by query parameters.
         """
-        pass
+        namespace = f"test_set_labels_on_terminated_executions_by_query_ns"
+        flow_id = f"{self._testMethodName}_flow"
+        self.create_flow(flow_id=flow_id, namespace=namespace)
 
-    def test_trigger_execution(self) -> None:
-        """Test case for trigger_execution
+        created = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec_id = getattr(created, 'id', None)
+        assert exec_id is not None
 
-        Trigger a new execution for a flow
-        """
-        pass
+        time.sleep(0.5)
+
+        qf = QueryFilter(field=QueryFilterField.NAMESPACE, operation=QueryFilterOp.CONTAINS, value={"value": namespace})
+        resp = self.kestra_client.executions.set_labels_on_terminated_executions_by_query(
+            tenant=self.tenant,
+            filters=[qf],
+            label=[Label(key="test_set_labels_on_terminated_executions_by_query", value="yes")]
+        )
+        assert resp is not None
 
     def test_trigger_execution_by_get_webhook(self) -> None:
         """Test case for trigger_execution_by_get_webhook
 
-        Trigger a new execution by GET webhook trigger
+        Trigger a new execution by GET webhook trigger using the webhook flow helper
         """
-        pass
+        namespace = f"test_trigger_execution_by_get_webhook_ns"
+        flow_id = f"{self._testMethodName}_flow"
+        # create the webhook flow using the helper
+        self.create_flow_webhook(flow_id=flow_id, namespace=namespace)
 
-    def test_trigger_execution_by_post_webhook(self) -> None:
-        """Test case for trigger_execution_by_post_webhook
+        key = "a-secret-key"
+        resp = self.kestra_client.executions.trigger_execution_by_get_webhook(namespace=namespace, id=flow_id, key=key, tenant=self.tenant)
+        assert resp is not None
 
-        Trigger a new execution by POST webhook trigger
-        """
-        pass
+        exec_id = getattr(resp, "id", None)
+        assert exec_id is not None
 
-    def test_trigger_execution_by_put_webhook(self) -> None:
-        """Test case for trigger_execution_by_put_webhook
+        time.sleep(0.5)
 
-        Trigger a new execution by PUT webhook trigger
-        """
-        pass
+        st = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+        cur = getattr(getattr(st, "state", None), "current", None)
+        assert cur == "SUCCESS"
 
     def test_unqueue_execution(self) -> None:
         """Test case for unqueue_execution
 
         Unqueue an execution
         """
-        pass
+        namespace = f"test_unqueue_execution_ns"
+        flow_id = f"{self._testMethodName}_flow"
+
+        body = f"""id: {flow_id}
+namespace: {namespace}
+
+concurrency:
+  behavior: QUEUE
+  limit: 1
+
+tasks:
+  - id: sleep
+    type: io.kestra.plugin.core.flow.Sleep
+    duration: PT2S
+"""
+        self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
+
+        first = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        first_id = getattr(first, 'id', None)
+        assert first_id is not None
+
+        for _ in range(10):
+            st = self.kestra_client.executions.get_execution(execution_id=first_id, tenant=self.tenant)
+            if getattr(getattr(st, 'state', None), 'current', None) == 'RUNNING':
+                break
+            time.sleep(0.2)
+
+        queued = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        queued_id = getattr(queued, 'id', None)
+        assert queued_id is not None
+
+        for _ in range(10):
+            st = self.kestra_client.executions.get_execution(execution_id=queued_id, tenant=self.tenant)
+            if getattr(getattr(st, 'state', None), 'current', None) == 'QUEUED':
+                break
+            time.sleep(0.2)
+
+        resp = self.kestra_client.executions.unqueue_execution(execution_id=queued_id, state='RUNNING', tenant=self.tenant)
+        assert resp is not None
+
+        for _ in range(10):
+            st = self.kestra_client.executions.get_execution(execution_id=queued_id, tenant=self.tenant)
+            if getattr(getattr(st, 'state', None), 'current', None) == 'RUNNING':
+                break
+            time.sleep(0.2)
+        assert getattr(getattr(self.kestra_client.executions.get_execution(execution_id=queued_id, tenant=self.tenant), 'state', None), 'current', None) == 'RUNNING'
+
 
     def test_unqueue_executions_by_ids(self) -> None:
         """Test case for unqueue_executions_by_ids
 
         Unqueue a list of executions
         """
-        pass
+        namespace = f"test_unqueue_executions_by_ids_ns"
+        flow_id = f"{self._testMethodName}_flow"
+
+        body = f"""id: {flow_id}
+namespace: {namespace}
+
+concurrency:
+  behavior: QUEUE
+  limit: 1
+
+tasks:
+  - id: sleep
+    type: io.kestra.plugin.core.flow.Sleep
+    duration: PT2S
+"""
+        self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
+
+        first = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        first_id = getattr(first, 'id', None)
+        assert first_id is not None
+
+        for _ in range(10):
+            st = self.kestra_client.executions.get_execution(execution_id=first_id, tenant=self.tenant)
+            if getattr(getattr(st, 'state', None), 'current', None) == 'RUNNING':
+                break
+            time.sleep(0.2)
+
+        queued1 = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        queued1_id = getattr(queued1, 'id', None)
+        assert queued1_id is not None
+
+        queued2 = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        queued2_id = getattr(queued2, 'id', None)
+        assert queued2_id is not None
+
+        time.sleep(0.5)
+
+        resp = self.kestra_client.executions.unqueue_executions_by_ids(state='RUNNING', tenant=self.tenant, request_body=[queued1_id, queued2_id])
+        assert resp is not None
+
+        time.sleep(0.5)
+
+        assert getattr(getattr(self.kestra_client.executions.get_execution(execution_id=queued1_id, tenant=self.tenant), 'state', None), 'current', None) == 'RUNNING'
+        assert getattr(getattr(self.kestra_client.executions.get_execution(execution_id=queued2_id, tenant=self.tenant), 'state', None), 'current', None) == 'RUNNING'
+
 
     def test_unqueue_executions_by_query(self) -> None:
         """Test case for unqueue_executions_by_query
 
         Unqueue executions filter by query parameters
         """
-        pass
+        namespace = f"test_unqueue_executions_by_query_ns"
+        flow_id = f"{self._testMethodName}_flow"
+
+        body = f"""id: {flow_id}
+namespace: {namespace}
+
+concurrency:
+  behavior: QUEUE
+  limit: 1
+
+tasks:
+  - id: sleep
+    type: io.kestra.plugin.core.flow.Sleep
+    duration: PT30S
+"""
+        self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
+
+        first = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        first_id = getattr(first, 'id', None)
+        assert first_id is not None
+
+        time.sleep(0.5)
+
+        queued1 = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        queued1_id = getattr(queued1, 'id', None)
+        assert queued1_id is not None
+
+        queued2 = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        queued2_id = getattr(queued2, 'id', None)
+        assert queued2_id is not None
+
+        time.sleep(0.5)
+
+        filters = [QueryFilter(field=QueryFilterField.QUERY, operation=QueryFilterOp.EQUALS, value={"value": queued1_id})]
+
+        resp = self.kestra_client.executions.unqueue_executions_by_query(tenant=self.tenant, filters=filters, new_state=StateType.RUNNING)
+        assert resp is not None
+
+        time.sleep(0.5)
+
+        assert getattr(getattr(self.kestra_client.executions.get_execution(execution_id=queued1_id, tenant=self.tenant), 'state', None), 'current', None) == 'RUNNING'
+
 
     def test_update_execution_status(self) -> None:
         """Test case for update_execution_status
 
         Change the state of an execution
         """
-        pass
+        namespace = f"test_update_execution_status_ns"
+        flow_id = f"{self._testMethodName}_flow"
+
+        body = f"""id: {flow_id}
+namespace: {namespace}
+
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.log.Log
+    message: Hello World!
+"""
+        self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
+
+        resp = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec_id = getattr(resp, "id", None)
+        assert exec_id is not None
+
+        time.sleep(0.5)
+
+        updated = self.kestra_client.executions.update_execution_status(execution_id=exec_id, status="CANCELLED", tenant=self.tenant)
+        assert updated is not None
+        assert getattr(getattr(updated, "state", None), "current", None) == "CANCELLED"
+
+        st = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+        assert getattr(getattr(st, "state", None), "current", None) == "CANCELLED"
+
 
     def test_update_executions_status_by_ids(self) -> None:
         """Test case for update_executions_status_by_ids
 
         Change executions state by id
         """
-        pass
+        namespace = f"test_update_executions_status_by_ids_ns"
+        flow_id = f"{self._testMethodName}_flow"
+
+        body = f"""id: {flow_id}
+namespace: {namespace}
+
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.log.Log
+    message: Hello World!
+"""
+        self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
+
+        exec1 = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec1_id = getattr(exec1, "id", None)
+        assert exec1_id is not None
+
+        time.sleep(0.5)
+
+        exec2 = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec2_id = getattr(exec2, "id", None)
+        assert exec2_id is not None
+
+        other = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        other_id = getattr(other, "id", None)
+        assert other_id is not None
+
+        time.sleep(0.5)
+
+        resp = self.kestra_client.executions.update_executions_status_by_ids(new_status="CANCELLED", tenant=self.tenant, request_body=[exec2_id, other_id])
+        assert resp is not None
+
+        time.sleep(0.5)
+
+        assert getattr(getattr(self.kestra_client.executions.get_execution(execution_id=exec2_id, tenant=self.tenant), "state", None), "current", None) == "CANCELLED"
+        assert getattr(getattr(self.kestra_client.executions.get_execution(execution_id=other_id, tenant=self.tenant), "state", None), "current", None) == "CANCELLED"
+
 
     def test_update_executions_status_by_query(self) -> None:
         """Test case for update_executions_status_by_query
 
         Change executions state by query parameters
         """
-        pass
+        namespace = f"test_update_executions_status_by_query_ns"
+        flow_id = f"{self._testMethodName}_flow"
 
-    def test_update_task_run_state(self) -> None:
-        """Test case for update_task_run_state
+        body = f"""id: {flow_id}
+namespace: {namespace}
 
-        Change state for a taskrun in an execution
-        """
-        pass
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.log.Log
+    message: Hello World!
+"""
+        self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
 
-    def test_validate_new_execution_inputs(self) -> None:
-        """Test case for validate_new_execution_inputs
+        exec1 = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec1_id = getattr(exec1, "id", None)
+        assert exec1_id is not None
 
-        Validate the creation of a new execution for a flow
-        """
-        pass
+        time.sleep(0.5)
 
-    def test_validate_resume_execution_inputs(self) -> None:
-        """Test case for validate_resume_execution_inputs
+        exec2 = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        exec2_id = getattr(exec2, "id", None)
+        assert exec2_id is not None
 
-        Validate inputs to resume a paused execution.
-        """
-        pass
+        other = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant)
+        other_id = getattr(other, "id", None)
+        assert other_id is not None
+
+        time.sleep(0.5)
+
+        filters = [QueryFilter(field=QueryFilterField.FLOW_ID, operation=QueryFilterOp.EQUALS, value={"value": flow_id})]
+        resp = self.kestra_client.executions.update_executions_status_by_query(new_status="CANCELLED", tenant=self.tenant, filters=filters)
+        assert resp is not None
+
+        time.sleep(0.5)
+
+        assert getattr(getattr(self.kestra_client.executions.get_execution(execution_id=exec2_id, tenant=self.tenant), "state", None), "current", None) == "CANCELLED"
 
 
 if __name__ == '__main__':

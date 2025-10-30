@@ -27,8 +27,8 @@ class UsernamePasswordCredentials(BaseModel):
     """
     UsernamePasswordCredentials
     """ # noqa: E501
-    username: Optional[Annotated[str, Field(min_length=1, strict=True)]]
-    password: Optional[Annotated[str, Field(min_length=1, strict=True)]]
+    username: Annotated[str, Field(min_length=1, strict=True)]
+    password: Annotated[str, Field(min_length=1, strict=True)]
     identity: Optional[StrictStr] = None
     secret: Optional[StrictStr] = None
     additional_properties: Dict[str, Any] = {}
@@ -79,16 +79,6 @@ class UsernamePasswordCredentials(BaseModel):
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
                 _dict[_key] = _value
-
-        # set to None if username (nullable) is None
-        # and model_fields_set contains the field
-        if self.username is None and "username" in self.model_fields_set:
-            _dict['username'] = None
-
-        # set to None if password (nullable) is None
-        # and model_fields_set contains the field
-        if self.password is None and "password" in self.model_fields_set:
-            _dict['password'] = None
 
         # set to None if identity (nullable) is None
         # and model_fields_set contains the field

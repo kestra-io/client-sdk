@@ -113,7 +113,6 @@ __all__ = [
     "ConvertibleValuesListString",
     "CreateApiTokenRequest",
     "CreateApiTokenResponse",
-    "CreateExecutionRequest",
     "CreateNamespaceFileRequest",
     "CreateSecurityIntegrationRequest",
     "CrudEventType",
@@ -524,7 +523,6 @@ from kestrapy.models.convertible_multi_values_string import ConvertibleMultiValu
 from kestrapy.models.convertible_values_list_string import ConvertibleValuesListString as ConvertibleValuesListString
 from kestrapy.models.create_api_token_request import CreateApiTokenRequest as CreateApiTokenRequest
 from kestrapy.models.create_api_token_response import CreateApiTokenResponse as CreateApiTokenResponse
-from kestrapy.models.create_execution_request import CreateExecutionRequest as CreateExecutionRequest
 from kestrapy.models.create_namespace_file_request import CreateNamespaceFileRequest as CreateNamespaceFileRequest
 from kestrapy.models.create_security_integration_request import CreateSecurityIntegrationRequest as CreateSecurityIntegrationRequest
 from kestrapy.models.crud_event_type import CrudEventType as CrudEventType

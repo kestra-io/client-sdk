@@ -273,6 +273,8 @@ class {{classname}}:
         _method, final_url, header_params, _body, _post_params = self._follow_execution_serialize(
             execution_id=execution_id,
             tenant=tenant,
+            multipart_form_datas=None,
+            files=None,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -332,6 +334,8 @@ class {{classname}}:
             tenant=tenant,
             destination_only=destination_only,
             expand_all=expand_all,
+            multipart_form_datas=None,
+            files=None,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
