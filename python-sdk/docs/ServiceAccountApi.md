@@ -69,7 +69,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Create new API Token for a specific service account
-        api_response = api_instance.create_api_tokens_for_service_account(id, create_api_token_request)
+        api_response = kestra_client.serviceaccountapi.create_api_tokens_for_service_account(id, create_api_token_request)
         print("The response of ServiceAccountApi->create_api_tokens_for_service_account:\n")
         pprint(api_response)
     except Exception as e:
@@ -155,7 +155,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Create new API Token for a specific service account
-        api_response = api_instance.create_api_tokens_for_service_account_with_tenant(id, tenant, create_api_token_request)
+        api_response = kestra_client.serviceaccountapi.create_api_tokens_for_service_account_with_tenant(id, tenant, create_api_token_request)
         print("The response of ServiceAccountApi->create_api_tokens_for_service_account_with_tenant:\n")
         pprint(api_response)
     except Exception as e:
@@ -243,7 +243,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Create a service account
-        api_response = api_instance.create_service_account(iam_service_account_controller_api_create_service_account_request)
+        api_response = kestra_client.serviceaccountapi.create_service_account(iam_service_account_controller_api_create_service_account_request)
         print("The response of ServiceAccountApi->create_service_account:\n")
         pprint(api_response)
     except Exception as e:
@@ -328,7 +328,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Create a service account for the given tenant
-        api_response = api_instance.create_service_account_for_tenant(tenant, iam_service_account_controller_api_service_account_request)
+        api_response = kestra_client.serviceaccountapi.create_service_account_for_tenant(tenant, iam_service_account_controller_api_service_account_request)
         print("The response of ServiceAccountApi->create_service_account_for_tenant:\n")
         pprint(api_response)
     except Exception as e:
@@ -413,7 +413,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Delete an API Token for specific service account and token id
-        api_response = api_instance.delete_api_token_for_service_account(id, token_id)
+        api_response = kestra_client.serviceaccountapi.delete_api_token_for_service_account(id, token_id)
         print("The response of ServiceAccountApi->delete_api_token_for_service_account:\n")
         pprint(api_response)
     except Exception as e:
@@ -498,7 +498,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Delete an API Token for specific service account and token id
-        api_response = api_instance.delete_api_token_for_service_account_with_tenant(id, token_id, tenant)
+        api_response = kestra_client.serviceaccountapi.delete_api_token_for_service_account_with_tenant(id, token_id, tenant)
         print("The response of ServiceAccountApi->delete_api_token_for_service_account_with_tenant:\n")
         pprint(api_response)
     except Exception as e:
@@ -584,7 +584,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Delete a service account
-        api_instance.delete_service_account(id)
+        kestra_client.serviceaccountapi.delete_service_account(id)
     except Exception as e:
         print("Exception when calling ServiceAccountApi->delete_service_account: %s\n" % e)
 ```
@@ -666,7 +666,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Delete a service account
-        api_instance.delete_service_account_for_tenant(id, tenant)
+        kestra_client.serviceaccountapi.delete_service_account_for_tenant(id, tenant)
     except Exception as e:
         print("Exception when calling ServiceAccountApi->delete_service_account_for_tenant: %s\n" % e)
 ```
@@ -751,7 +751,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Get a service account
-        api_response = api_instance.get_service_account(id)
+        api_response = kestra_client.serviceaccountapi.get_service_account(id)
         print("The response of ServiceAccountApi->get_service_account:\n")
         pprint(api_response)
     except Exception as e:
@@ -836,7 +836,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Retrieve a service account
-        api_response = api_instance.get_service_account_for_tenant(id, tenant)
+        api_response = kestra_client.serviceaccountapi.get_service_account_for_tenant(id, tenant)
         print("The response of ServiceAccountApi->get_service_account_for_tenant:\n")
         pprint(api_response)
     except Exception as e:
@@ -920,7 +920,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # List API tokens for a specific service account
-        api_response = api_instance.list_api_tokens_for_service_account(id)
+        api_response = kestra_client.serviceaccountapi.list_api_tokens_for_service_account(id)
         print("The response of ServiceAccountApi->list_api_tokens_for_service_account:\n")
         pprint(api_response)
     except Exception as e:
@@ -1003,7 +1003,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # List API tokens for a specific service account
-        api_response = api_instance.list_api_tokens_for_service_account_with_tenant(id, tenant)
+        api_response = kestra_client.serviceaccountapi.list_api_tokens_for_service_account_with_tenant(id, tenant)
         print("The response of ServiceAccountApi->list_api_tokens_for_service_account_with_tenant:\n")
         pprint(api_response)
     except Exception as e:
@@ -1090,7 +1090,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # List service accounts. Superadmin-only. 
-        api_response = api_instance.list_service_accounts(page, size, q=q, sort=sort)
+        api_response = kestra_client.serviceaccountapi.list_service_accounts(page, size, q=q, sort=sort)
         print("The response of ServiceAccountApi->list_service_accounts:\n")
         pprint(api_response)
     except Exception as e:
@@ -1181,7 +1181,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Update service account details
-        api_response = api_instance.patch_service_account_details(id, iam_service_account_controller_api_patch_service_account_request)
+        api_response = kestra_client.serviceaccountapi.patch_service_account_details(id, iam_service_account_controller_api_patch_service_account_request)
         print("The response of ServiceAccountApi->patch_service_account_details:\n")
         pprint(api_response)
     except Exception as e:
@@ -1268,7 +1268,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Update service account superadmin privileges
-        api_instance.patch_service_account_super_admin(id, api_patch_super_admin_request)
+        kestra_client.serviceaccountapi.patch_service_account_super_admin(id, api_patch_super_admin_request)
     except Exception as e:
         print("Exception when calling ServiceAccountApi->patch_service_account_super_admin: %s\n" % e)
 ```
@@ -1354,7 +1354,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Update a user service account
-        api_response = api_instance.update_service_account(id, tenant, iam_service_account_controller_api_service_account_request)
+        api_response = kestra_client.serviceaccountapi.update_service_account(id, tenant, iam_service_account_controller_api_service_account_request)
         print("The response of ServiceAccountApi->update_service_account:\n")
         pprint(api_response)
     except Exception as e:

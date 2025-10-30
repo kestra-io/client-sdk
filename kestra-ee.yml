@@ -4648,6 +4648,62 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/FlowTopologyGraph"
+  /api/v1/{tenant}/executions:
+    get:
+      tags:
+        - Executions
+      summary: Search for executions for a flow
+      operationId: searchExecutionsByFlowId
+      parameters:
+        - name: namespace
+          in: query
+          description: The flow namespace
+          required: true
+          explode: false
+          schema:
+            type: string
+        - name: flowId
+          in: query
+          description: The flow id
+          required: true
+          explode: false
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: The current page
+          required: true
+          explode: false
+          schema:
+            minimum: 1
+            type: integer
+            format: int32
+            default: 1
+        - name: size
+          in: query
+          description: The current page size
+          required: true
+          explode: false
+          schema:
+            minimum: 1
+            type: integer
+            format: int32
+            default: 10
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: searchExecutionsByFlowId 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_Execution_"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/executions/by-ids:
     delete:
       tags:
@@ -4865,6 +4921,48 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BulkErrorResponse"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/{tenant}/executions/flows/{namespace}/{flowId}:
+    get:
+      tags:
+        - Executions
+      summary: Get flow information's for an execution
+      operationId: getFlowFromExecution
+      parameters:
+        - name: namespace
+          in: path
+          description: The namespace of the flow
+          required: true
+          schema:
+            type: string
+        - name: flowId
+          in: path
+          description: The flow id
+          required: true
+          schema:
+            type: string
+        - name: revision
+          in: query
+          description: The flow revision
+          explode: false
+          schema:
+            type: integer
+            format: int32
+            nullable: true
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: getFlowFromExecution 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FlowForExecution"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -5826,6 +5924,53 @@ paths:
       x-sdk-customization:
         x-replace-follow-execution: "true"
         x-skipped: "true"
+  /api/v1/{tenant}/executions/{executionId}/follow-dependencies:
+    get:
+      tags:
+        - Executions
+      summary: Follow all execution dependencies executions
+      operationId: followDependenciesExecutions
+      parameters:
+        - name: executionId
+          in: path
+          description: The execution id
+          required: true
+          schema:
+            type: string
+        - name: destinationOnly
+          in: query
+          description: If true, list only destination dependencies, otherwise list also source dependencies
+          required: true
+          explode: false
+          schema:
+            type: boolean
+            default: false
+        - name: expandAll
+          in: query
+          description: If true, expand all dependencies recursively
+          required: true
+          explode: false
+          schema:
+            type: boolean
+            default: false
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: followDependenciesExecutions 200 response
+          content:
+            text/event-stream:
+              schema:
+                $ref: "#/components/schemas/Event_ExecutionStatusEvent_"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+      x-sdk-customization:
+        x-replace-follow-dependencies-execution: "true"
+        x-skipped: "true"
   /api/v1/{tenant}/executions/{executionId}/force-run:
     post:
       tags:
@@ -6302,11 +6447,10 @@ paths:
         content:
           multipart/form-data:
             schema:
-              type: object
-              properties:
-                file:
-                  type: array
-                  items: {}
+              type: array
+              items:
+                type: string
+                format: binary
       responses:
         "200":
           description: On execution created
@@ -18182,11 +18326,9 @@ components:
         username:
           minLength: 1
           type: string
-          nullable: true
         password:
           minLength: 1
           type: string
-          nullable: true
         identity:
           type: string
           nullable: true

@@ -59,11 +59,8 @@ docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/ope
     --additional-properties=packageVersion=$VERSION \
     --template-dir=/local/templates/python
 
-sed $SED_INPLACE -E 's/^license = .*/license = "Apache-2.0"/' python-sdk/pyproject.toml
-sed $SED_INPLACE -E 's/^requires-python = .*/requires-python = ">=3.9"/' python-sdk/pyproject.toml
 sed $SED_INPLACE -E '/from kestrapy\.models\.list\[label\] import List\[Label\]/d' python-sdk/kestrapy/api/executions_api.py
 echo "from kestrapy.kestra_client import KestraClient as KestraClient" >> python-sdk/kestrapy/__init__.py
-sh generation-helpers/python/inject_sse_method.sh # Inject SSE method in the client for follow execution endpoint
 fi
 
 # Generate Javascript SDK

@@ -1,7 +1,3 @@
-import requests
-import sseclient
-import json
-from typing import Generator
 # coding: utf-8
 
 """
@@ -32,6 +28,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 from kestrapy.models.bulk_response import BulkResponse
 from kestrapy.models.event_execution import EventExecution
+from kestrapy.models.event_execution_status_event import EventExecutionStatusEvent
 from kestrapy.models.execution import Execution
 from kestrapy.models.execution_controller_execution_response import ExecutionControllerExecutionResponse
 from kestrapy.models.execution_controller_last_execution_response import ExecutionControllerLastExecutionResponse
@@ -75,7 +72,6 @@ class ExecutionsApi:
         schedule_date: Annotated[Optional[datetime], Field(description="Schedule the flow on a specific date")] = None,
         breakpoints: Annotated[Optional[StrictStr], Field(description="Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
         kind: Annotated[Optional[Any], Field(description="Specific execution kind")] = None,
-        file: Optional[List[Any]] = None,
         multipart_form_datas: Optional[Dict[str, Any]] = None,
         files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
@@ -112,8 +108,6 @@ class ExecutionsApi:
         :type breakpoints: str
                 :param kind: Specific execution kind
         :type kind: ExecutionKind
-                :param file:
-        :type file: List[object]
         ,
         :param multipart_form_datas: for HTTP methods that accept
                                      multipart form data, this
@@ -155,7 +149,6 @@ class ExecutionsApi:
             schedule_date=schedule_date,
             breakpoints=breakpoints,
             kind=kind,
-            file=file,
             multipart_form_datas=multipart_form_datas,
             files=files,
             _request_auth=_request_auth,
@@ -191,7 +184,6 @@ class ExecutionsApi:
         schedule_date: Annotated[Optional[datetime], Field(description="Schedule the flow on a specific date")] = None,
         breakpoints: Annotated[Optional[StrictStr], Field(description="Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
         kind: Annotated[Optional[Any], Field(description="Specific execution kind")] = None,
-        file: Optional[List[Any]] = None,
         multipart_form_datas: Optional[Dict[str, Any]] = None,
         files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
@@ -228,8 +220,6 @@ class ExecutionsApi:
         :type breakpoints: str
                 :param kind: Specific execution kind
         :type kind: ExecutionKind
-                :param file:
-        :type file: List[object]
         ,
         :param multipart_form_datas: for HTTP methods that accept
                                      multipart form data, this
@@ -271,7 +261,6 @@ class ExecutionsApi:
             schedule_date=schedule_date,
             breakpoints=breakpoints,
             kind=kind,
-            file=file,
             multipart_form_datas=multipart_form_datas,
             files=files,
             _request_auth=_request_auth,
@@ -306,7 +295,6 @@ class ExecutionsApi:
         schedule_date,
         breakpoints,
         kind,
-        file,
         multipart_form_datas,
         files,
         _request_auth,
@@ -319,7 +307,6 @@ class ExecutionsApi:
 
         _collection_formats: Dict[str, str] = {
             'labels': 'multi',
-            'file': 'csv',
         }
 
         _path_params: Dict[str, str] = {}
@@ -374,9 +361,6 @@ class ExecutionsApi:
             
         # process the header parameters
         # process the form parameters
-        if file is not None:
-            dd
-            _form_params.append(('file', file))
         # process the body parameter
 
         # process multipart form data
@@ -1611,6 +1595,158 @@ class ExecutionsApi:
 
 
 
+    def _follow_dependencies_executions_serialize(
+        self,
+        execution_id,
+        destination_only,
+        expand_all,
+        tenant,
+        multipart_form_datas,
+        files,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if execution_id is not None:
+            _path_params['executionId'] = execution_id
+        if tenant is not None:
+            _path_params['tenant'] = tenant
+        # process the query parameters
+        if destination_only is not None:
+            
+            _query_params.append(('destinationOnly', destination_only))
+            
+        if expand_all is not None:
+            
+            _query_params.append(('expandAll', expand_all))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'text/event-stream'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/v1/{tenant}/executions/{executionId}/follow-dependencies',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+    @validate_call
+    def follow_dependencies_executions(
+            self,
+            execution_id: Annotated[StrictStr, Field(description="The execution id")],
+            tenant: StrictStr,
+            destination_only: Annotated[Optional[StrictBool], Field(description="If true, list only destination dependencies, otherwise list also source dependencies")] = None,
+            expand_all: Annotated[Optional[StrictBool], Field(description="If true, expand all dependencies recursively")] = None,
+            _request_timeout: Optional[Union[float, Tuple[float, float]]] = None,
+            _request_auth: Optional[Dict[StrictStr, Any]] = None,
+            _content_type: Optional[StrictStr] = None,
+            _headers: Optional[Dict[StrictStr, Any]] = None,
+            _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> Generator[Dict[str, Any], None, None]:
+        """
+        Follow an execution using SSE.
+
+        This method establishes a persistent connection and yields
+        EventExecution objects as they are streamed from the server,
+        allowing to follow an execution in realtime.
+        """
+
+        _method, final_url, header_params, _body, _post_params = self._follow_dependencies_executions_serialize(
+            execution_id=execution_id,
+            tenant=tenant,
+            destination_only=destination_only,
+            expand_all=expand_all,
+            multipart_form_datas=None,
+            files=None,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        header_params['Accept'] = 'text/event-stream'
+
+        try:
+            response = requests.get(
+                final_url,
+                headers=header_params,
+                stream=True,
+                timeout=_request_timeout
+            )
+
+            response.raise_for_status()
+
+            client = sseclient.SSEClient(response)
+
+            for event in client.events():
+                if event.data is None or event.data == "":
+                    continue
+
+                yield json.loads(event.data)
+
+        except requests.exceptions.RequestException as e:
+            print(f"SSE connection failed: {e}")
+            raise e
+
+
+
     def _follow_execution_serialize(
         self,
         execution_id,
@@ -1713,6 +1849,8 @@ class ExecutionsApi:
         _method, final_url, header_params, _body, _post_params = self._follow_execution_serialize(
             execution_id=execution_id,
             tenant=tenant,
+            multipart_form_datas=None,
+            files=None,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3276,6 +3414,280 @@ class ExecutionsApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/api/v1/{tenant}/executions/{executionId}/file/metas',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+
+    @validate_call
+    def get_flow_from_execution(
+        self,
+        namespace: Annotated[StrictStr, Field(description="The namespace of the flow")],
+        flow_id: Annotated[StrictStr, Field(description="The flow id")],
+        tenant: StrictStr,
+        revision: Annotated[Optional[StrictInt], Field(description="The flow revision")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> FlowForExecution:
+        """Get flow information's for an execution
+
+
+        :param namespace: The namespace of the flow (required)
+        :type namespace: str
+                :param flow_id: The flow id (required)
+        :type flow_id: str
+                :param tenant: (required)
+        :type tenant: str
+                :param revision: The flow revision
+        :type revision: int
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_flow_from_execution_serialize(
+            namespace=namespace,
+            flow_id=flow_id,
+            tenant=tenant,
+            revision=revision,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "FlowForExecution",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_flow_from_execution_with_http_info(
+        self,
+        namespace: Annotated[StrictStr, Field(description="The namespace of the flow")],
+        flow_id: Annotated[StrictStr, Field(description="The flow id")],
+        tenant: StrictStr,
+        revision: Annotated[Optional[StrictInt], Field(description="The flow revision")] = None,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[FlowForExecution]:
+        """Get flow information's for an execution
+
+
+        :param namespace: The namespace of the flow (required)
+        :type namespace: str
+                :param flow_id: The flow id (required)
+        :type flow_id: str
+                :param tenant: (required)
+        :type tenant: str
+                :param revision: The flow revision
+        :type revision: int
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_flow_from_execution_serialize(
+            namespace=namespace,
+            flow_id=flow_id,
+            tenant=tenant,
+            revision=revision,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "FlowForExecution",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    def _get_flow_from_execution_serialize(
+        self,
+        namespace,
+        flow_id,
+        tenant,
+        revision,
+        multipart_form_datas,
+        files,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if namespace is not None:
+            _path_params['namespace'] = namespace
+        if flow_id is not None:
+            _path_params['flowId'] = flow_id
+        if tenant is not None:
+            _path_params['tenant'] = tenant
+        # process the query parameters
+        if revision is not None:
+            
+            _query_params.append(('revision', revision))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/v1/{tenant}/executions/flows/{namespace}/{flowId}',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -8358,6 +8770,297 @@ class ExecutionsApi:
 
 
     @validate_call
+    def search_executions_by_flow_id(
+        self,
+        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        flow_id: Annotated[StrictStr, Field(description="The flow id")],
+        page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
+        size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
+        tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> PagedResultsExecution:
+        """Search for executions for a flow
+
+
+        :param namespace: The flow namespace (required)
+        :type namespace: str
+                :param flow_id: The flow id (required)
+        :type flow_id: str
+                :param page: The current page (required)
+        :type page: int
+                :param size: The current page size (required)
+        :type size: int
+                :param tenant: (required)
+        :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._search_executions_by_flow_id_serialize(
+            namespace=namespace,
+            flow_id=flow_id,
+            page=page,
+            size=size,
+            tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "PagedResultsExecution",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def search_executions_by_flow_id_with_http_info(
+        self,
+        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        flow_id: Annotated[StrictStr, Field(description="The flow id")],
+        page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
+        size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
+        tenant: StrictStr,
+        multipart_form_datas: Optional[Dict[str, Any]] = None,
+        files: Optional[Dict[str, Any]] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[PagedResultsExecution]:
+        """Search for executions for a flow
+
+
+        :param namespace: The flow namespace (required)
+        :type namespace: str
+                :param flow_id: The flow id (required)
+        :type flow_id: str
+                :param page: The current page (required)
+        :type page: int
+                :param size: The current page size (required)
+        :type size: int
+                :param tenant: (required)
+        :type tenant: str
+        ,
+        :param multipart_form_datas: for HTTP methods that accept
+                                     multipart form data, this
+                                     dictionary contains the form
+                                     parameters and their values.
+        :param files: for HTTP methods that accept
+                      multipart form data, this
+                      dictionary contains the form
+                      file parameters and their values.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._search_executions_by_flow_id_serialize(
+            namespace=namespace,
+            flow_id=flow_id,
+            page=page,
+            size=size,
+            tenant=tenant,
+            multipart_form_datas=multipart_form_datas,
+            files=files,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "PagedResultsExecution",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    def _search_executions_by_flow_id_serialize(
+        self,
+        namespace,
+        flow_id,
+        page,
+        size,
+        tenant,
+        multipart_form_datas,
+        files,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if tenant is not None:
+            _path_params['tenant'] = tenant
+        # process the query parameters
+        if namespace is not None:
+            
+            _query_params.append(('namespace', namespace))
+            
+        if flow_id is not None:
+            
+            _query_params.append(('flowId', flow_id))
+            
+        if page is not None:
+            
+            _query_params.append(('page', page))
+            
+        if size is not None:
+            
+            _query_params.append(('size', size))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+        # process multipart form data
+        if multipart_form_datas is not None:
+            for key, value in multipart_form_datas.items():
+                if isinstance(value, (list, tuple)):
+                    _form_params.extend([(key, v) for v in value])
+                else:
+                    _form_params.append((key, value))
+        # process files
+        if files is not None:
+            for key, value in files.items():
+                _files[key] = value
+
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/v1/{tenant}/executions',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+
+    @validate_call
     def set_labels_on_terminated_execution(
         self,
         execution_id: Annotated[StrictStr, Field(description="The execution id")],
@@ -11068,53 +11771,3 @@ class ExecutionsApi:
 
 
 
-    def follow_execution_sse(
-            self,
-            execution_id: Annotated[StrictStr, Field(description="The execution id")],
-            tenant: StrictStr,
-            _request_timeout: Optional[Union[float, Tuple[float, float]]] = None,
-            _request_auth: Optional[Dict[StrictStr, Any]] = None,
-            _content_type: Optional[StrictStr] = None,
-            _headers: Optional[Dict[StrictStr, Any]] = None,
-            _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> Generator[Dict[str, Any], None, None]:
-        """
-        Follow an execution using SSE.
-
-        This method establishes a persistent connection and yields
-        EventExecution objects as they are streamed from the server,
-        allowing to follow an execution in realtime.
-        """
-
-        _method, final_url, header_params, _body, _post_params = self._follow_execution_serialize(
-            execution_id=execution_id,
-            tenant=tenant,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        header_params['Accept'] = 'text/event-stream'
-
-        try:
-            response = requests.get(
-                final_url,
-                headers=header_params,
-                stream=True,
-                timeout=_request_timeout
-            )
-
-            response.raise_for_status()
-
-            client = sseclient.SSEClient(response)
-
-            for event in client.events():
-                if event.data is None or event.data == "":
-                    continue
-
-                yield json.loads(event.data)
-
-        except requests.exceptions.RequestException as e:
-            print(f"SSE connection failed: {e}")
-            raise e
