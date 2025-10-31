@@ -4,7 +4,6 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**bulk_import_apps**](FlowsApi.md#bulk_import_apps) | **POST** /api/v1/{tenant}/apps/import |     Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
 [**bulk_update_flows**](FlowsApi.md#bulk_update_flows) | **POST** /api/v1/{tenant}/flows/bulk | Update from multiples yaml sources
 [**create_flow**](FlowsApi.md#create_flow) | **POST** /api/v1/{tenant}/flows | Create a flow from yaml source
 [**delete_flow**](FlowsApi.md#delete_flow) | **DELETE** /api/v1/{tenant}/flows/{namespace}/{id} | Delete a flow
@@ -29,97 +28,11 @@ Method | HTTP request | Description
 [**search_flows**](FlowsApi.md#search_flows) | **GET** /api/v1/{tenant}/flows/search | Search for flows
 [**search_flows_by_source_code**](FlowsApi.md#search_flows_by_source_code) | **GET** /api/v1/{tenant}/flows/source | Search for flows source code
 [**update_flow**](FlowsApi.md#update_flow) | **PUT** /api/v1/{tenant}/flows/{namespace}/{id} | Update a flow
-[**update_flows_in_namespace_from_json**](FlowsApi.md#update_flows_in_namespace_from_json) | **POST** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from json object
-[**update_task**](FlowsApi.md#update_task) | **PATCH** /api/v1/{tenant}/flows/{namespace}/{id}/{taskId} | Update a single task on a flow
+[**update_flows_in_namespace**](FlowsApi.md#update_flows_in_namespace) | **POST** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from yaml source
 [**validate_flows**](FlowsApi.md#validate_flows) | **POST** /api/v1/{tenant}/flows/validate | Validate a list of flows
 [**validate_task**](FlowsApi.md#validate_task) | **POST** /api/v1/{tenant}/flows/validate/task | Validate a task
 [**validate_trigger**](FlowsApi.md#validate_trigger) | **POST** /api/v1/{tenant}/flows/validate/trigger | Validate trigger
 
-
-# **bulk_import_apps**
-> AppsControllerApiBulkImportResponse bulk_import_apps(tenant, file_upload=file_upload)
-
-    Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn't be imported is returned. 
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-import kestrapy
-from kestrapy.models.apps_controller_api_bulk_import_response import AppsControllerApiBulkImportResponse
-from kestrapy.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
-# Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
-    tenant = 'tenant_example' # str | 
-    file_upload = None # bytearray | The file to import, can be a ZIP archive or a multi-objects YAML file (optional)
-
-    try:
-        #     Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn't be imported is returned. 
-        api_response = api_instance.bulk_import_apps(tenant, file_upload=file_upload)
-        print("The response of FlowsApi->bulk_import_apps:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling FlowsApi->bulk_import_apps: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **tenant** | **str**|  | 
- **file_upload** | **bytearray**| The file to import, can be a ZIP archive or a multi-objects YAML file | [optional] 
-
-### Return type
-
-[**AppsControllerApiBulkImportResponse**](AppsControllerApiBulkImportResponse.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: multipart/form-data
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | On success |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_update_flows**
 > List[FlowInterface] bulk_update_flows(delete, allow_namespace_child, tenant, namespace=namespace, body=body)
@@ -174,7 +87,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Update from multiples yaml sources
-        api_response = api_instance.bulk_update_flows(delete, allow_namespace_child, tenant, namespace=namespace, body=body)
+        api_response = kestra_client.flowsapi.bulk_update_flows(delete, allow_namespace_child, tenant, namespace=namespace, body=body)
         print("The response of FlowsApi->bulk_update_flows:\n")
         pprint(api_response)
     except Exception as e:
@@ -262,7 +175,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Create a flow from yaml source
-        api_response = api_instance.create_flow(tenant, body)
+        api_response = kestra_client.flowsapi.create_flow(tenant, body)
         print("The response of FlowsApi->create_flow:\n")
         pprint(api_response)
     except Exception as e:
@@ -347,7 +260,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Delete a flow
-        api_instance.delete_flow(namespace, id, tenant)
+        kestra_client.flowsapi.delete_flow(namespace, id, tenant)
     except Exception as e:
         print("Exception when calling FlowsApi->delete_flow: %s\n" % e)
 ```
@@ -380,8 +293,8 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | On success |  -  |
 **200** | deleteFlow 200 response |  -  |
+**204** | On success |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -433,7 +346,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Delete flows by their IDs.
-        api_response = api_instance.delete_flows_by_ids(tenant, id_with_namespace)
+        api_response = kestra_client.flowsapi.delete_flows_by_ids(tenant, id_with_namespace)
         print("The response of FlowsApi->delete_flows_by_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -472,7 +385,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_flows_by_query**
-> BulkResponse delete_flows_by_query(tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, labels=labels)
+> BulkResponse delete_flows_by_query(tenant, filters=filters)
 
 Delete flows returned by the query parameters.
 
@@ -484,8 +397,7 @@ Delete flows returned by the query parameters.
 ```python
 import kestrapy
 from kestrapy.models.bulk_response import BulkResponse
-from kestrapy.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
-from kestrapy.models.flow_scope import FlowScope
+from kestrapy.models.query_filter import QueryFilter
 from kestrapy.rest import ApiException
 from pprint import pprint
 
@@ -516,15 +428,11 @@ with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = kestrapy.FlowsApi(api_client)
     tenant = 'tenant_example' # str | 
-    delete_executions_by_query_request = kestrapy.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
-    q = 'q_example' # str | A string filter (optional)
-    scope = [kestrapy.FlowScope()] # List[FlowScope] | The scope of the flows to include (optional)
-    namespace = 'namespace_example' # str | A namespace filter prefix (optional)
-    labels = ['labels_example'] # List[str] | A labels filter as a list of 'key:value' (optional)
+    filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters (optional)
 
     try:
         # Delete flows returned by the query parameters.
-        api_response = api_instance.delete_flows_by_query(tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, labels=labels)
+        api_response = kestra_client.flowsapi.delete_flows_by_query(tenant, filters=filters)
         print("The response of FlowsApi->delete_flows_by_query:\n")
         pprint(api_response)
     except Exception as e:
@@ -539,11 +447,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **delete_executions_by_query_request** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | 
- **q** | **str**| A string filter | [optional] 
- **scope** | [**List[FlowScope]**](FlowScope.md)| The scope of the flows to include | [optional] 
- **namespace** | **str**| A namespace filter prefix | [optional] 
- **labels** | [**List[str]**](str.md)| A labels filter as a list of &#39;key:value&#39; | [optional] 
+ **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
@@ -555,7 +459,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 ### HTTP response details
@@ -614,7 +518,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Disable flows by their IDs.
-        api_response = api_instance.disable_flows_by_ids(tenant, id_with_namespace)
+        api_response = kestra_client.flowsapi.disable_flows_by_ids(tenant, id_with_namespace)
         print("The response of FlowsApi->disable_flows_by_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -653,7 +557,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **disable_flows_by_query**
-> BulkResponse disable_flows_by_query(tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, labels=labels)
+> BulkResponse disable_flows_by_query(tenant, filters=filters)
 
 Disable flows returned by the query parameters.
 
@@ -665,8 +569,7 @@ Disable flows returned by the query parameters.
 ```python
 import kestrapy
 from kestrapy.models.bulk_response import BulkResponse
-from kestrapy.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
-from kestrapy.models.flow_scope import FlowScope
+from kestrapy.models.query_filter import QueryFilter
 from kestrapy.rest import ApiException
 from pprint import pprint
 
@@ -697,15 +600,11 @@ with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = kestrapy.FlowsApi(api_client)
     tenant = 'tenant_example' # str | 
-    delete_executions_by_query_request = kestrapy.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
-    q = 'q_example' # str | A string filter (optional)
-    scope = [kestrapy.FlowScope()] # List[FlowScope] | The scope of the flows to include (optional)
-    namespace = 'namespace_example' # str | A namespace filter prefix (optional)
-    labels = ['labels_example'] # List[str] | A labels filter as a list of 'key:value' (optional)
+    filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters (optional)
 
     try:
         # Disable flows returned by the query parameters.
-        api_response = api_instance.disable_flows_by_query(tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, labels=labels)
+        api_response = kestra_client.flowsapi.disable_flows_by_query(tenant, filters=filters)
         print("The response of FlowsApi->disable_flows_by_query:\n")
         pprint(api_response)
     except Exception as e:
@@ -720,11 +619,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **delete_executions_by_query_request** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | 
- **q** | **str**| A string filter | [optional] 
- **scope** | [**List[FlowScope]**](FlowScope.md)| The scope of the flows to include | [optional] 
- **namespace** | **str**| A namespace filter prefix | [optional] 
- **labels** | [**List[str]**](str.md)| A labels filter as a list of &#39;key:value&#39; | [optional] 
+ **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
@@ -736,7 +631,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 ### HTTP response details
@@ -795,7 +690,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Enable flows by their IDs.
-        api_response = api_instance.enable_flows_by_ids(tenant, id_with_namespace)
+        api_response = kestra_client.flowsapi.enable_flows_by_ids(tenant, id_with_namespace)
         print("The response of FlowsApi->enable_flows_by_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -834,7 +729,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **enable_flows_by_query**
-> BulkResponse enable_flows_by_query(tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, labels=labels)
+> BulkResponse enable_flows_by_query(tenant, filters=filters)
 
 Enable flows returned by the query parameters.
 
@@ -846,8 +741,7 @@ Enable flows returned by the query parameters.
 ```python
 import kestrapy
 from kestrapy.models.bulk_response import BulkResponse
-from kestrapy.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
-from kestrapy.models.flow_scope import FlowScope
+from kestrapy.models.query_filter import QueryFilter
 from kestrapy.rest import ApiException
 from pprint import pprint
 
@@ -878,15 +772,11 @@ with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = kestrapy.FlowsApi(api_client)
     tenant = 'tenant_example' # str | 
-    delete_executions_by_query_request = kestrapy.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
-    q = 'q_example' # str | A string filter (optional)
-    scope = [kestrapy.FlowScope()] # List[FlowScope] | The scope of the flows to include (optional)
-    namespace = 'namespace_example' # str | A namespace filter prefix (optional)
-    labels = ['labels_example'] # List[str] | A labels filter as a list of 'key:value' (optional)
+    filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters (optional)
 
     try:
         # Enable flows returned by the query parameters.
-        api_response = api_instance.enable_flows_by_query(tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, labels=labels)
+        api_response = kestra_client.flowsapi.enable_flows_by_query(tenant, filters=filters)
         print("The response of FlowsApi->enable_flows_by_query:\n")
         pprint(api_response)
     except Exception as e:
@@ -901,11 +791,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **delete_executions_by_query_request** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | 
- **q** | **str**| A string filter | [optional] 
- **scope** | [**List[FlowScope]**](FlowScope.md)| The scope of the flows to include | [optional] 
- **namespace** | **str**| A namespace filter prefix | [optional] 
- **labels** | [**List[str]**](str.md)| A labels filter as a list of &#39;key:value&#39; | [optional] 
+ **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
@@ -917,7 +803,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 ### HTTP response details
@@ -975,7 +861,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Export flows as a ZIP archive of yaml sources.
-        api_response = api_instance.export_flows_by_ids(tenant, id_with_namespace)
+        api_response = kestra_client.flowsapi.export_flows_by_ids(tenant, id_with_namespace)
         print("The response of FlowsApi->export_flows_by_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -1014,7 +900,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **export_flows_by_query**
-> bytearray export_flows_by_query(tenant, filters=filters, q=q, scope=scope, namespace=namespace, labels=labels)
+> bytearray export_flows_by_query(tenant, filters=filters)
 
 Export flows as a ZIP archive of yaml sources.
 
@@ -1025,7 +911,6 @@ Export flows as a ZIP archive of yaml sources.
 
 ```python
 import kestrapy
-from kestrapy.models.flow_scope import FlowScope
 from kestrapy.models.query_filter import QueryFilter
 from kestrapy.rest import ApiException
 from pprint import pprint
@@ -1058,14 +943,10 @@ with kestrapy.ApiClient(configuration) as api_client:
     api_instance = kestrapy.FlowsApi(api_client)
     tenant = 'tenant_example' # str | 
     filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters (optional)
-    q = 'q_example' # str | A string filter (optional)
-    scope = [kestrapy.FlowScope()] # List[FlowScope] | The scope of the flows to include (optional)
-    namespace = 'namespace_example' # str | A namespace filter prefix (optional)
-    labels = ['labels_example'] # List[str] | A labels filter as a list of 'key:value' (optional)
 
     try:
         # Export flows as a ZIP archive of yaml sources.
-        api_response = api_instance.export_flows_by_query(tenant, filters=filters, q=q, scope=scope, namespace=namespace, labels=labels)
+        api_response = kestra_client.flowsapi.export_flows_by_query(tenant, filters=filters)
         print("The response of FlowsApi->export_flows_by_query:\n")
         pprint(api_response)
     except Exception as e:
@@ -1081,10 +962,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
  **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
- **q** | **str**| A string filter | [optional] 
- **scope** | [**List[FlowScope]**](FlowScope.md)| The scope of the flows to include | [optional] 
- **namespace** | **str**| A namespace filter prefix | [optional] 
- **labels** | [**List[str]**](str.md)| A labels filter as a list of &#39;key:value&#39; | [optional] 
 
 ### Return type
 
@@ -1157,7 +1034,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Generate a graph for a flow
-        api_response = api_instance.generate_flow_graph(namespace, id, tenant, revision=revision, subflows=subflows)
+        api_response = kestra_client.flowsapi.generate_flow_graph(namespace, id, tenant, revision=revision, subflows=subflows)
         print("The response of FlowsApi->generate_flow_graph:\n")
         pprint(api_response)
     except Exception as e:
@@ -1246,7 +1123,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Generate a graph for a flow source
-        api_response = api_instance.generate_flow_graph_from_source(tenant, body, subflows=subflows)
+        api_response = kestra_client.flowsapi.generate_flow_graph_from_source(tenant, body, subflows=subflows)
         print("The response of FlowsApi->generate_flow_graph_from_source:\n")
         pprint(api_response)
     except Exception as e:
@@ -1335,7 +1212,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Get a flow
-        api_response = api_instance.get_flow(namespace, id, source, allow_deleted, tenant, revision=revision)
+        api_response = kestra_client.flowsapi.get_flow(namespace, id, source, allow_deleted, tenant, revision=revision)
         print("The response of FlowsApi->get_flow:\n")
         pprint(api_response)
     except Exception as e:
@@ -1427,7 +1304,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Get flow dependencies
-        api_response = api_instance.get_flow_dependencies(namespace, id, destination_only, expand_all, tenant)
+        api_response = kestra_client.flowsapi.get_flow_dependencies(namespace, id, destination_only, expand_all, tenant)
         print("The response of FlowsApi->get_flow_dependencies:\n")
         pprint(api_response)
     except Exception as e:
@@ -1516,7 +1393,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Retrieve flow dependencies
-        api_response = api_instance.get_flow_dependencies_from_namespace(namespace, destination_only, tenant)
+        api_response = kestra_client.flowsapi.get_flow_dependencies_from_namespace(namespace, destination_only, tenant)
         print("The response of FlowsApi->get_flow_dependencies_from_namespace:\n")
         pprint(api_response)
     except Exception as e:
@@ -1605,7 +1482,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Get a flow task
-        api_response = api_instance.get_task_from_flow(namespace, id, task_id, tenant, revision=revision)
+        api_response = kestra_client.flowsapi.get_task_from_flow(namespace, id, task_id, tenant, revision=revision)
         print("The response of FlowsApi->get_task_from_flow:\n")
         pprint(api_response)
     except Exception as e:
@@ -1692,7 +1569,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         #     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn't be imported is returned. 
-        api_response = api_instance.import_flows(tenant, file_upload=file_upload)
+        api_response = kestra_client.flowsapi.import_flows(tenant, file_upload=file_upload)
         print("The response of FlowsApi->import_flows:\n")
         pprint(api_response)
     except Exception as e:
@@ -1776,7 +1653,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # List all distinct namespaces
-        api_response = api_instance.list_distinct_namespaces(tenant, q=q)
+        api_response = kestra_client.flowsapi.list_distinct_namespaces(tenant, q=q)
         print("The response of FlowsApi->list_distinct_namespaces:\n")
         pprint(api_response)
     except Exception as e:
@@ -1862,7 +1739,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Get revisions for a flow
-        api_response = api_instance.list_flow_revisions(namespace, id, tenant)
+        api_response = kestra_client.flowsapi.list_flow_revisions(namespace, id, tenant)
         print("The response of FlowsApi->list_flow_revisions:\n")
         pprint(api_response)
     except Exception as e:
@@ -1948,7 +1825,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Retrieve all flows from a given namespace
-        api_response = api_instance.list_flows_by_namespace(namespace, tenant)
+        api_response = kestra_client.flowsapi.list_flows_by_namespace(namespace, tenant)
         print("The response of FlowsApi->list_flows_by_namespace:\n")
         pprint(api_response)
     except Exception as e:
@@ -1987,7 +1864,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **search_flows**
-> PagedResultsFlow search_flows(page, size, tenant, sort=sort, filters=filters, q=q, scope=scope, namespace=namespace, labels=labels)
+> PagedResultsFlow search_flows(page, size, tenant, sort=sort, filters=filters)
 
 Search for flows
 
@@ -1998,7 +1875,6 @@ Search for flows
 
 ```python
 import kestrapy
-from kestrapy.models.flow_scope import FlowScope
 from kestrapy.models.paged_results_flow import PagedResultsFlow
 from kestrapy.models.query_filter import QueryFilter
 from kestrapy.rest import ApiException
@@ -2035,14 +1911,10 @@ with kestrapy.ApiClient(configuration) as api_client:
     tenant = 'tenant_example' # str | 
     sort = ['sort_example'] # List[str] | The sort of current page (optional)
     filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters (optional)
-    q = 'q_example' # str | A string filter (optional)
-    scope = [kestrapy.FlowScope()] # List[FlowScope] | The scope of the flows to include (optional)
-    namespace = 'namespace_example' # str | A namespace filter prefix (optional)
-    labels = ['labels_example'] # List[str] | A labels filter as a list of 'key:value' (optional)
 
     try:
         # Search for flows
-        api_response = api_instance.search_flows(page, size, tenant, sort=sort, filters=filters, q=q, scope=scope, namespace=namespace, labels=labels)
+        api_response = kestra_client.flowsapi.search_flows(page, size, tenant, sort=sort, filters=filters)
         print("The response of FlowsApi->search_flows:\n")
         pprint(api_response)
     except Exception as e:
@@ -2061,10 +1933,6 @@ Name | Type | Description  | Notes
  **tenant** | **str**|  | 
  **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
  **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
- **q** | **str**| A string filter | [optional] 
- **scope** | [**List[FlowScope]**](FlowScope.md)| The scope of the flows to include | [optional] 
- **namespace** | **str**| A namespace filter prefix | [optional] 
- **labels** | [**List[str]**](str.md)| A labels filter as a list of &#39;key:value&#39; | [optional] 
 
 ### Return type
 
@@ -2138,7 +2006,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Search for flows source code
-        api_response = api_instance.search_flows_by_source_code(page, size, tenant, sort=sort, q=q, namespace=namespace)
+        api_response = kestra_client.flowsapi.search_flows_by_source_code(page, size, tenant, sort=sort, q=q, namespace=namespace)
         print("The response of FlowsApi->search_flows_by_source_code:\n")
         pprint(api_response)
     except Exception as e:
@@ -2181,7 +2049,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_flow**
-> FlowWithSource update_flow(id, namespace, tenant, body)
+> FlowWithSource update_flow(namespace, id, tenant, body)
 
 Update a flow
 
@@ -2222,14 +2090,14 @@ configuration = kestrapy.Configuration(
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = kestrapy.FlowsApi(api_client)
-    id = 'id_example' # str | The flow id
     namespace = 'namespace_example' # str | The flow namespace
+    id = 'id_example' # str | The flow id
     tenant = 'tenant_example' # str | 
     body = 'body_example' # str | The flow source code
 
     try:
         # Update a flow
-        api_response = api_instance.update_flow(id, namespace, tenant, body)
+        api_response = kestra_client.flowsapi.update_flow(namespace, id, tenant, body)
         print("The response of FlowsApi->update_flow:\n")
         pprint(api_response)
     except Exception as e:
@@ -2243,8 +2111,8 @@ with kestrapy.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| The flow id | 
  **namespace** | **str**| The flow namespace | 
+ **id** | **str**| The flow id | 
  **tenant** | **str**|  | 
  **body** | **str**| The flow source code | 
 
@@ -2269,10 +2137,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update_flows_in_namespace_from_json**
-> UpdateFlowsInNamespaceFromJson200Response update_flows_in_namespace_from_json(delete, namespace, tenant, flow)
+# **update_flows_in_namespace**
+> List[FlowInterface] update_flows_in_namespace(namespace, delete, tenant, body)
 
-Update a complete namespace from json object
+Update a complete namespace from yaml source
 
 All flow will be created / updated for this namespace.
 Flow that already created but not in `flows` will be deleted if the query delete is `true`
@@ -2284,8 +2152,7 @@ Flow that already created but not in `flows` will be deleted if the query delete
 
 ```python
 import kestrapy
-from kestrapy.models.flow import Flow
-from kestrapy.models.update_flows_in_namespace_from_json200_response import UpdateFlowsInNamespaceFromJson200Response
+from kestrapy.models.flow_interface import FlowInterface
 from kestrapy.rest import ApiException
 from pprint import pprint
 
@@ -2315,18 +2182,18 @@ configuration = kestrapy.Configuration(
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = kestrapy.FlowsApi(api_client)
+    namespace = 'namespace_example' # str | The flow namespace
     delete = True # bool | If missing flow should be deleted (default to True)
-    namespace = 'namespace_example' # str | The flow namespace
     tenant = 'tenant_example' # str | 
-    flow = [kestrapy.Flow()] # List[Flow] | A list of flows
+    body = 'body_example' # str | A list of flows source code
 
     try:
-        # Update a complete namespace from json object
-        api_response = api_instance.update_flows_in_namespace_from_json(delete, namespace, tenant, flow)
-        print("The response of FlowsApi->update_flows_in_namespace_from_json:\n")
+        # Update a complete namespace from yaml source
+        api_response = kestra_client.flowsapi.update_flows_in_namespace(namespace, delete, tenant, body)
+        print("The response of FlowsApi->update_flows_in_namespace:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling FlowsApi->update_flows_in_namespace_from_json: %s\n" % e)
+        print("Exception when calling FlowsApi->update_flows_in_namespace: %s\n" % e)
 ```
 
 
@@ -2336,14 +2203,14 @@ with kestrapy.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **namespace** | **str**| The flow namespace | 
  **delete** | **bool**| If missing flow should be deleted | [default to True]
- **namespace** | **str**| The flow namespace | 
  **tenant** | **str**|  | 
- **flow** | [**List[Flow]**](Flow.md)| A list of flows | 
+ **body** | **str**| A list of flows source code | 
 
 ### Return type
 
-[**UpdateFlowsInNamespaceFromJson200Response**](UpdateFlowsInNamespaceFromJson200Response.md)
+[**List[FlowInterface]**](FlowInterface.md)
 
 ### Authorization
 
@@ -2351,106 +2218,14 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, application/x-yaml
+ - **Content-Type**: application/x-yaml
  - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | updateFlowsInNamespaceFromJson 200 response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **update_task**
-> Flow update_task(namespace, id, task_id, tenant, task)
-
-Update a single task on a flow
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-import kestrapy
-from kestrapy.models.flow import Flow
-from kestrapy.models.task import Task
-from kestrapy.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
-# Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
-    namespace = 'namespace_example' # str | The flow namespace
-    id = 'id_example' # str | The flow id
-    task_id = 'task_id_example' # str | The task id
-    tenant = 'tenant_example' # str | 
-    task = kestrapy.Task() # Task | The task
-
-    try:
-        # Update a single task on a flow
-        api_response = api_instance.update_task(namespace, id, task_id, tenant, task)
-        print("The response of FlowsApi->update_task:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling FlowsApi->update_task: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **namespace** | **str**| The flow namespace | 
- **id** | **str**| The flow id | 
- **task_id** | **str**| The task id | 
- **tenant** | **str**|  | 
- **task** | [**Task**](Task.md)| The task | 
-
-### Return type
-
-[**Flow**](Flow.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | updateTask 200 response |  -  |
+**200** | updateFlowsInNamespace 200 response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2501,7 +2276,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Validate a list of flows
-        api_response = api_instance.validate_flows(tenant, body)
+        api_response = kestra_client.flowsapi.validate_flows(tenant, body)
         print("The response of FlowsApi->validate_flows:\n")
         pprint(api_response)
     except Exception as e:
@@ -2584,11 +2359,11 @@ with kestrapy.ApiClient(configuration) as api_client:
     api_instance = kestrapy.FlowsApi(api_client)
     section = kestrapy.FlowControllerTaskValidationType() # FlowControllerTaskValidationType | The type of task
     tenant = 'tenant_example' # str | 
-    body = 'body_example' # str | A task definition that can be from tasks or triggers
+    body = None # object | A task definition that can be from tasks or triggers
 
     try:
         # Validate a task
-        api_response = api_instance.validate_task(section, tenant, body)
+        api_response = kestra_client.flowsapi.validate_task(section, tenant, body)
         print("The response of FlowsApi->validate_task:\n")
         pprint(api_response)
     except Exception as e:
@@ -2604,7 +2379,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **section** | [**FlowControllerTaskValidationType**](.md)| The type of task | 
  **tenant** | **str**|  | 
- **body** | **str**| A task definition that can be from tasks or triggers | 
+ **body** | **object**| A task definition that can be from tasks or triggers | 
 
 ### Return type
 
@@ -2674,7 +2449,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Validate trigger
-        api_response = api_instance.validate_trigger(tenant, body)
+        api_response = kestra_client.flowsapi.validate_trigger(tenant, body)
         print("The response of FlowsApi->validate_trigger:\n")
         pprint(api_response)
     except Exception as e:

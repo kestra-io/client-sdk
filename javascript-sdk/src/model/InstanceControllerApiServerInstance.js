@@ -17,20 +17,16 @@ import ServerInstanceType from './ServerInstanceType';
 /**
  * The InstanceControllerApiServerInstance model module.
  * @module model/InstanceControllerApiServerInstance
- * @version 1.0.0
+ * @version v1.0.5
  */
 class InstanceControllerApiServerInstance {
     /**
      * Constructs a new <code>InstanceControllerApiServerInstance</code>.
      * @alias module:model/InstanceControllerApiServerInstance
-     * @param id {String} 
-     * @param type {module:model/ServerInstanceType} 
-     * @param version {String} 
-     * @param hostname {String} 
      */
-    constructor(id, type, version, hostname) { 
+    constructor() { 
         
-        InstanceControllerApiServerInstance.initialize(this, id, type, version, hostname);
+        InstanceControllerApiServerInstance.initialize(this);
     }
 
     /**
@@ -38,11 +34,7 @@ class InstanceControllerApiServerInstance {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, type, version, hostname) { 
-        obj['id'] = id;
-        obj['type'] = type;
-        obj['version'] = version;
-        obj['hostname'] = hostname;
+    static initialize(obj) { 
     }
 
     /**
@@ -78,12 +70,6 @@ class InstanceControllerApiServerInstance {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>InstanceControllerApiServerInstance</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of InstanceControllerApiServerInstance.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -103,7 +89,7 @@ class InstanceControllerApiServerInstance {
 
 }
 
-InstanceControllerApiServerInstance.RequiredProperties = ["id", "type", "version", "hostname"];
+
 
 /**
  * @member {String} id

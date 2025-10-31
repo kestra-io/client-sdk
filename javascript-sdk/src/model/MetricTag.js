@@ -16,18 +16,16 @@ import ApiClient from '../ApiClient';
 /**
  * The MetricTag model module.
  * @module model/MetricTag
- * @version 1.0.0
+ * @version v1.0.5
  */
 class MetricTag {
     /**
      * Constructs a new <code>MetricTag</code>.
      * @alias module:model/MetricTag
-     * @param key {String} 
-     * @param value {String} 
      */
-    constructor(key, value) { 
+    constructor() { 
         
-        MetricTag.initialize(this, key, value);
+        MetricTag.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class MetricTag {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, key, value) { 
-        obj['key'] = key;
-        obj['value'] = value;
+    static initialize(obj) { 
     }
 
     /**
@@ -67,12 +63,6 @@ class MetricTag {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>MetricTag</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of MetricTag.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['key'] && !(typeof data['key'] === 'string' || data['key'] instanceof String)) {
             throw new Error("Expected the field `key` to be a primitive type in the JSON string but got " + data['key']);
@@ -88,7 +78,7 @@ class MetricTag {
 
 }
 
-MetricTag.RequiredProperties = ["key", "value"];
+
 
 /**
  * @member {String} key

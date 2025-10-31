@@ -16,18 +16,17 @@ import ApiClient from '../ApiClient';
 /**
  * The NamespaceAllowedTrigger model module.
  * @module model/NamespaceAllowedTrigger
- * @version 1.0.0
+ * @version v1.0.5
  */
 class NamespaceAllowedTrigger {
     /**
      * Constructs a new <code>NamespaceAllowedTrigger</code>.
      * @alias module:model/NamespaceAllowedTrigger
      * @param namespace {String} 
-     * @param flowId {String} 
      */
-    constructor(namespace, flowId) { 
+    constructor(namespace) { 
         
-        NamespaceAllowedTrigger.initialize(this, namespace, flowId);
+        NamespaceAllowedTrigger.initialize(this, namespace);
     }
 
     /**
@@ -35,9 +34,8 @@ class NamespaceAllowedTrigger {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, namespace, flowId) { 
+    static initialize(obj, namespace) { 
         obj['namespace'] = namespace;
-        obj['flowId'] = flowId;
     }
 
     /**
@@ -88,7 +86,7 @@ class NamespaceAllowedTrigger {
 
 }
 
-NamespaceAllowedTrigger.RequiredProperties = ["namespace", "flowId"];
+NamespaceAllowedTrigger.RequiredProperties = ["namespace"];
 
 /**
  * @member {String} namespace

@@ -30,15 +30,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ApiSecretTag.JSON_PROPERTY_KEY,
   ApiSecretTag.JSON_PROPERTY_VALUE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ApiSecretTag {
   public static final String JSON_PROPERTY_KEY = "key";
-  @javax.annotation.Nonnull
-  private String key;
+  @javax.annotation.Nonnull  private String key;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nonnull
-  private String value;
+  @javax.annotation.Nonnull  private String value;
 
   public ApiSecretTag() {
   }
@@ -53,8 +51,7 @@ public class ApiSecretTag {
    * Get key
    * @return key
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_KEY)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_KEY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getKey() {
@@ -78,8 +75,7 @@ public class ApiSecretTag {
    * Get value
    * @return value
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_VALUE)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getValue() {

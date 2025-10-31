@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**testCases** | **List&lt;String&gt;** |  |  |
+|**testCases** | **List&lt;String&gt;** |  |  [optional] |
 
 
 

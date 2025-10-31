@@ -41,6 +41,13 @@ export default class ResourceType1 {
 
     
         /**
+         * value: "BLUEPRINT"
+         * @const
+         */
+        "BLUEPRINT" = "BLUEPRINT";
+
+    
+        /**
          * value: "BINDING"
          * @const
          */
@@ -69,6 +76,13 @@ export default class ResourceType1 {
 
     
         /**
+         * value: "KV_STORE"
+         * @const
+         */
+        "KV_STORE" = "KV_STORE";
+
+    
+        /**
          * value: "GROUP"
          * @const
          */
@@ -87,6 +101,13 @@ export default class ResourceType1 {
          * @const
          */
         "NAMESPACE" = "NAMESPACE";
+
+    
+        /**
+         * value: "NAMESPACE_FILE"
+         * @const
+         */
+        "NAMESPACE_FILE" = "NAMESPACE_FILE";
 
     
         /**
@@ -122,6 +143,13 @@ export default class ResourceType1 {
          * @const
          */
         "TEMPLATE" = "TEMPLATE";
+
+    
+        /**
+         * value: "TRIGGER"
+         * @const
+         */
+        "TRIGGER" = "TRIGGER";
 
     
         /**

@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Version** | **string** |  | 
-**Metadata** | [**PluginArtifactMetadata**](PluginArtifactMetadata.md) |  | 
+**Version** | Pointer to **string** |  | [optional] 
+**Metadata** | Pointer to [**PluginArtifactMetadata**](PluginArtifactMetadata.md) |  | [optional] 
 
 ## Methods
 
 ### NewInstanceControllerApiPluginVersionsApiPluginVersionAndMetadata
 
-`func NewInstanceControllerApiPluginVersionsApiPluginVersionAndMetadata(version string, metadata PluginArtifactMetadata, ) *InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata`
+`func NewInstanceControllerApiPluginVersionsApiPluginVersionAndMetadata() *InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata`
 
 NewInstanceControllerApiPluginVersionsApiPluginVersionAndMetadata instantiates a new InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata object
 This constructor will assign default values to properties that have it defined,
@@ -45,6 +45,11 @@ and a boolean to check if the value has been set.
 
 SetVersion sets Version field to given value.
 
+### HasVersion
+
+`func (o *InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata) HasVersion() bool`
+
+HasVersion returns a boolean if a field has been set.
 
 ### GetMetadata
 
@@ -65,6 +70,11 @@ and a boolean to check if the value has been set.
 
 SetMetadata sets Metadata field to given value.
 
+### HasMetadata
+
+`func (o *InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata) HasMetadata() bool`
+
+HasMetadata returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

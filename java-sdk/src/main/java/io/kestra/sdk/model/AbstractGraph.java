@@ -32,19 +32,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AbstractGraph.JSON_PROPERTY_TYPE,
   AbstractGraph.JSON_PROPERTY_BRANCH_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AbstractGraph {
   public static final String JSON_PROPERTY_UID = "uid";
-  @javax.annotation.Nullable
-  private String uid;
+  @javax.annotation.Nullable  private String uid;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nullable
-  private String type;
+  @javax.annotation.Nullable  private String type;
 
   public static final String JSON_PROPERTY_BRANCH_TYPE = "branchType";
-  @javax.annotation.Nullable
-  private AbstractGraphBranchType branchType;
+  @javax.annotation.Nullable  private AbstractGraphBranchType branchType;
 
   public AbstractGraph() {
   }
@@ -59,8 +56,7 @@ public class AbstractGraph {
    * Get uid
    * @return uid
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_UID)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUid() {
@@ -84,8 +80,7 @@ public class AbstractGraph {
    * Get type
    * @return type
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getType() {
@@ -109,8 +104,7 @@ public class AbstractGraph {
    * Get branchType
    * @return branchType
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_BRANCH_TYPE)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_BRANCH_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public AbstractGraphBranchType getBranchType() {

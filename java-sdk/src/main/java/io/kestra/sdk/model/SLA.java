@@ -20,8 +20,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.kestra.sdk.model.FlowWithSourceAllOfLabels;
 import io.kestra.sdk.model.SLABehavior;
+import io.kestra.sdk.model.SLALabels;
 import io.kestra.sdk.model.SLAType;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -35,23 +35,19 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   SLA.JSON_PROPERTY_BEHAVIOR,
   SLA.JSON_PROPERTY_LABELS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class SLA {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
-  private String id;
+  @javax.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nonnull
-  private SLAType type;
+  @javax.annotation.Nonnull  private SLAType type;
 
   public static final String JSON_PROPERTY_BEHAVIOR = "behavior";
-  @javax.annotation.Nonnull
-  private SLABehavior behavior;
+  @javax.annotation.Nonnull  private SLABehavior behavior;
 
   public static final String JSON_PROPERTY_LABELS = "labels";
-  @javax.annotation.Nullable
-  private FlowWithSourceAllOfLabels labels;
+  @javax.annotation.Nullable  private SLALabels labels;
 
   public SLA() {
   }
@@ -66,8 +62,7 @@ public class SLA {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -91,8 +86,7 @@ public class SLA {
    * Get type
    * @return type
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public SLAType getType() {
@@ -116,8 +110,7 @@ public class SLA {
    * Get behavior
    * @return behavior
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_BEHAVIOR)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_BEHAVIOR)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public SLABehavior getBehavior() {
@@ -131,7 +124,7 @@ public class SLA {
     this.behavior = behavior;
   }
 
-  public SLA labels(@javax.annotation.Nullable FlowWithSourceAllOfLabels labels) {
+  public SLA labels(@javax.annotation.Nullable SLALabels labels) {
     
     this.labels = labels;
     return this;
@@ -141,18 +134,17 @@ public class SLA {
    * Get labels
    * @return labels
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LABELS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public FlowWithSourceAllOfLabels getLabels() {
+  public SLALabels getLabels() {
     return labels;
   }
 
 
   @JsonProperty(JSON_PROPERTY_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLabels(@javax.annotation.Nullable FlowWithSourceAllOfLabels labels) {
+  public void setLabels(@javax.annotation.Nullable SLALabels labels) {
     this.labels = labels;
   }
 

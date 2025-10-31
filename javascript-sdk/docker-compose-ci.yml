@@ -1,7 +1,7 @@
 services:
   kestra:
     container_name: javascript-sdk-test-kestra
-    image: "kestra/kestra:${KESTRA_VERSION}-no-plugins"
+    image: "europe-west1-docker.pkg.dev/kestra-host/docker/kestra-ee:${KESTRA_VERSION}-no-plugins"
     pull_policy: always
     user: "root"
     command: server standalone
@@ -13,23 +13,9 @@ services:
       start_period: 5s
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - ../test-utils/docker-setup/application.yml:/app/confs/application.yml:ro
+      - ../test-utils/docker-setup/application-secrets.yml:/app/secrets/application-secrets.yml:ro
     environment:
-      KESTRA_CONFIGURATION: |
-        kestra:
-          server:
-            basicAuth:
-              username: admin@kestra.io
-              password: Admin1234
-          repository:
-            type: h2
-          storage:
-            type: local
-            local:
-              basePath: "/app/storage"
-          queue:
-            type: h2
-          tasks:
-            tmpDir:
-              path: /tmp/kestra-wd/tmp
+      MICRONAUT_CONFIG_FILES: /app/confs/application.yml,/app/secrets/application-secrets.yml
     ports:
       - "9903:8080"

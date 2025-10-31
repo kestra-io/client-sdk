@@ -7,9 +7,9 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**source** | **String** |  |  |
-|**target** | **String** |  |  |
-|**relation** | **FlowRelation** |  |  |
+|**source** | **String** |  |  [optional] |
+|**target** | **String** |  |  [optional] |
+|**relation** | **FlowRelation** |  |  [optional] |
 
 
 

@@ -33,15 +33,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MiscControllerApiUsage.JSON_PROPERTY_EXECUTIONS
 })
 @JsonTypeName("MiscController.ApiUsage")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class MiscControllerApiUsage {
   public static final String JSON_PROPERTY_FLOWS = "flows";
-  @javax.annotation.Nullable
-  private FlowUsage flows;
+  @javax.annotation.Nullable  private FlowUsage flows;
 
   public static final String JSON_PROPERTY_EXECUTIONS = "executions";
-  @javax.annotation.Nullable
-  private ExecutionUsage executions;
+  @javax.annotation.Nullable  private ExecutionUsage executions;
 
   public MiscControllerApiUsage() {
   }
@@ -56,8 +54,7 @@ public class MiscControllerApiUsage {
    * Get flows
    * @return flows
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FLOWS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FLOWS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public FlowUsage getFlows() {
@@ -81,8 +78,7 @@ public class MiscControllerApiUsage {
    * Get executions
    * @return executions
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_EXECUTIONS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXECUTIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ExecutionUsage getExecutions() {

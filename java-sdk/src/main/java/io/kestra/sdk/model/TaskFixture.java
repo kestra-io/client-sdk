@@ -37,27 +37,22 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TaskFixture.JSON_PROPERTY_OUTPUTS,
   TaskFixture.JSON_PROPERTY_DESCRIPTION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TaskFixture {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
-  private String id;
+  @javax.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nullable
-  private String value;
+  @javax.annotation.Nullable  private String value;
 
   public static final String JSON_PROPERTY_STATE = "state";
-  @javax.annotation.Nullable
-  private StateType state;
+  @javax.annotation.Nullable  private StateType state;
 
   public static final String JSON_PROPERTY_OUTPUTS = "outputs";
-  @javax.annotation.Nullable
-  private Map<String, Object> outputs = new HashMap<>();
+  @javax.annotation.Nullable  private Map<String, Object> outputs = new HashMap<>();
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
-  private String description;
+  @javax.annotation.Nullable  private String description;
 
   public TaskFixture() {
   }
@@ -72,8 +67,7 @@ public class TaskFixture {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -97,8 +91,7 @@ public class TaskFixture {
    * Get value
    * @return value
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_VALUE)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getValue() {
@@ -122,8 +115,7 @@ public class TaskFixture {
    * Get state
    * @return state
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_STATE)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public StateType getState() {
@@ -155,8 +147,7 @@ public class TaskFixture {
    * Get outputs
    * @return outputs
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_OUTPUTS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getOutputs() {
@@ -180,8 +171,7 @@ public class TaskFixture {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {

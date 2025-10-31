@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**total** | **Number** |  | 
-**results** | **[Object]** |  | 
+**total** | **Number** |  | [optional] 
+**results** | **[Object]** |  | [optional] 
 
 

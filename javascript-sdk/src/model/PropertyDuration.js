@@ -16,26 +16,50 @@ import ApiClient from '../ApiClient';
 /**
  * The PropertyDuration model module.
  * @module model/PropertyDuration
- * @version 1.0.0
+ * @version v1.0.5
  */
 class PropertyDuration {
     /**
      * Constructs a new <code>PropertyDuration</code>.
      * @alias module:model/PropertyDuration
-     * @param expression {String} 
+     * @param {(module:model/Object|module:model/String)} instance The actual instance to initialize PropertyDuration.
      */
-    constructor(expression) { 
-        
-        PropertyDuration.initialize(this, expression);
-    }
+    constructor(instance = null) {
+        if (instance === null) {
+            this.actualInstance = null;
+            return;
+        }
+        var match = 0;
+        var errorMessages = [];
+        try {
+            this.actualInstance = instance;
+            match++;
+        } catch(err) {
+            // json data failed to deserialize into Object
+            errorMessages.push("Failed to construct Object: " + err)
+        }
 
-    /**
-     * Initializes the fields of this object.
-     * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
-     * Only for internal use.
-     */
-    static initialize(obj, expression) { 
-        obj['expression'] = expression;
+        try {
+            // validate string
+            if (!(typeof instance === 'string')) {
+                throw new Error("Invalid value. Must be string. Input: " + JSON.stringify(instance));
+            }
+            this.actualInstance = instance;
+            match++;
+        } catch(err) {
+            // json data failed to deserialize into String
+            errorMessages.push("Failed to construct String: " + err)
+        }
+
+        if (match > 1) {
+            throw new Error("Multiple matches found constructing `PropertyDuration` with oneOf schemas Object, String. Input: " + JSON.stringify(instance));
+        } else if (match === 0) {
+            this.actualInstance = null; // clear the actual instance in case there are multiple matches
+            throw new Error("No match found constructing `PropertyDuration` with oneOf schemas Object, String. Details: " +
+                            errorMessages.join(", "));
+        } else { // only 1 match
+            // the input is valid
+        }
     }
 
     /**
@@ -46,47 +70,42 @@ class PropertyDuration {
      * @return {module:model/PropertyDuration} The populated <code>PropertyDuration</code> instance.
      */
     static constructFromObject(data, obj) {
-        if (data) {
-            obj = obj || new PropertyDuration();
-
-            if (data.hasOwnProperty('expression')) {
-                obj['expression'] = ApiClient.convertToType(data['expression'], 'String');
-            }
-            if (data.hasOwnProperty('value')) {
-                obj['value'] = ApiClient.convertToType(data['value'], 'String');
-            }
-        }
-        return obj;
+        return new PropertyDuration(data);
     }
 
     /**
-     * Validates the JSON data with respect to <code>PropertyDuration</code>.
-     * @param {Object} data The plain JavaScript object bearing properties of interest.
-     * @return {boolean} to indicate whether the JSON data is valid with respect to <code>PropertyDuration</code>.
+     * Gets the actual instance, which can be <code>Object</code>, <code>String</code>.
+     * @return {(module:model/Object|module:model/String)} The actual instance.
      */
-    static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of PropertyDuration.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
-        // ensure the json data is a string
-        if (data['expression'] && !(typeof data['expression'] === 'string' || data['expression'] instanceof String)) {
-            throw new Error("Expected the field `expression` to be a primitive type in the JSON string but got " + data['expression']);
-        }
-        // ensure the json data is a string
-        if (data['value'] && !(typeof data['value'] === 'string' || data['value'] instanceof String)) {
-            throw new Error("Expected the field `value` to be a primitive type in the JSON string but got " + data['value']);
-        }
-
-        return true;
+    getActualInstance() {
+        return this.actualInstance;
     }
 
+    /**
+     * Sets the actual instance, which can be <code>Object</code>, <code>String</code>.
+     * @param {(module:model/Object|module:model/String)} obj The actual instance.
+     */
+    setActualInstance(obj) {
+       this.actualInstance = PropertyDuration.constructFromObject(obj).getActualInstance();
+    }
 
+    /**
+     * Returns the JSON representation of the actual instance.
+     * @return {string}
+     */
+    toJSON = function(){
+        return this.getActualInstance();
+    }
+
+    /**
+     * Create an instance of PropertyDuration from a JSON string.
+     * @param {string} json_string JSON string.
+     * @return {module:model/PropertyDuration} An instance of PropertyDuration.
+     */
+    static fromJSON = function(json_string){
+        return PropertyDuration.constructFromObject(JSON.parse(json_string));
+    }
 }
-
-PropertyDuration.RequiredProperties = ["expression"];
 
 /**
  * @member {String} expression
@@ -99,9 +118,7 @@ PropertyDuration.prototype['expression'] = undefined;
 PropertyDuration.prototype['value'] = undefined;
 
 
-
-
-
+PropertyDuration.OneOf = ["Object", "String"];
 
 export default PropertyDuration;
 

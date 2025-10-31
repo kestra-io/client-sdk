@@ -13,157 +13,122 @@ package kestra_api_client
 import (
 	"encoding/json"
 	"fmt"
+	"gopkg.in/validator.v2"
 )
 
-// checks if the PropertyDuration type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &PropertyDuration{}
-
-// PropertyDuration struct for PropertyDuration
+// PropertyDuration - struct for PropertyDuration
 type PropertyDuration struct {
-	Expression           string  `json:"expression"`
-	Value                *string `json:"value,omitempty"`
-	AdditionalProperties map[string]interface{}
+	MapmapOfStringAny *map[string]interface{}
+	String            *string
 }
 
-type _PropertyDuration PropertyDuration
-
-// NewPropertyDuration instantiates a new PropertyDuration object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewPropertyDuration(expression string) *PropertyDuration {
-	this := PropertyDuration{}
-	this.Expression = expression
-	return &this
-}
-
-// NewPropertyDurationWithDefaults instantiates a new PropertyDuration object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewPropertyDurationWithDefaults() *PropertyDuration {
-	this := PropertyDuration{}
-	return &this
-}
-
-// GetExpression returns the Expression field value
-func (o *PropertyDuration) GetExpression() string {
-	if o == nil {
-		var ret string
-		return ret
+// map[string]interface{}AsPropertyDuration is a convenience function that returns map[string]interface{} wrapped in PropertyDuration
+func MapmapOfStringAnyAsPropertyDuration(v *map[string]interface{}) PropertyDuration {
+	return PropertyDuration{
+		MapmapOfStringAny: v,
 	}
-
-	return o.Expression
 }
 
-// GetExpressionOk returns a tuple with the Expression field value
-// and a boolean to check if the value has been set.
-func (o *PropertyDuration) GetExpressionOk() (*string, bool) {
-	if o == nil {
-		return nil, false
+// stringAsPropertyDuration is a convenience function that returns string wrapped in PropertyDuration
+func StringAsPropertyDuration(v *string) PropertyDuration {
+	return PropertyDuration{
+		String: v,
 	}
-	return &o.Expression, true
 }
 
-// SetExpression sets field value
-func (o *PropertyDuration) SetExpression(v string) {
-	o.Expression = v
-}
-
-// GetValue returns the Value field value if set, zero value otherwise.
-func (o *PropertyDuration) GetValue() string {
-	if o == nil || IsNil(o.Value) {
-		var ret string
-		return ret
-	}
-	return *o.Value
-}
-
-// GetValueOk returns a tuple with the Value field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PropertyDuration) GetValueOk() (*string, bool) {
-	if o == nil || IsNil(o.Value) {
-		return nil, false
-	}
-	return o.Value, true
-}
-
-// HasValue returns a boolean if a field has been set.
-func (o *PropertyDuration) HasValue() bool {
-	if o != nil && !IsNil(o.Value) {
-		return true
-	}
-
-	return false
-}
-
-// SetValue gets a reference to the given string and assigns it to the Value field.
-func (o *PropertyDuration) SetValue(v string) {
-	o.Value = &v
-}
-
-func (o PropertyDuration) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
-func (o PropertyDuration) ToMap() (map[string]interface{}, error) {
-	toSerialize := map[string]interface{}{}
-	toSerialize["expression"] = o.Expression
-	if !IsNil(o.Value) {
-		toSerialize["value"] = o.Value
-	}
-
-	for key, value := range o.AdditionalProperties {
-		toSerialize[key] = value
-	}
-
-	return toSerialize, nil
-}
-
-func (o *PropertyDuration) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"expression",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
+// Unmarshal JSON data into one of the pointers in the struct
+func (dst *PropertyDuration) UnmarshalJSON(data []byte) error {
+	var err error
+	match := 0
+	// try to unmarshal data into MapmapOfStringAny
+	err = newStrictDecoder(data).Decode(&dst.MapmapOfStringAny)
+	if err == nil {
+		jsonMapmapOfStringAny, _ := json.Marshal(dst.MapmapOfStringAny)
+		if string(jsonMapmapOfStringAny) == "{}" { // empty struct
+			dst.MapmapOfStringAny = nil
+		} else {
+			if err = validator.Validate(dst.MapmapOfStringAny); err != nil {
+				dst.MapmapOfStringAny = nil
+			} else {
+				match++
+			}
 		}
+	} else {
+		dst.MapmapOfStringAny = nil
 	}
 
-	varPropertyDuration := _PropertyDuration{}
-
-	err = json.Unmarshal(data, &varPropertyDuration)
-
-	if err != nil {
-		return err
+	// try to unmarshal data into String
+	err = newStrictDecoder(data).Decode(&dst.String)
+	if err == nil {
+		jsonString, _ := json.Marshal(dst.String)
+		if string(jsonString) == "{}" { // empty struct
+			dst.String = nil
+		} else {
+			if err = validator.Validate(dst.String); err != nil {
+				dst.String = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.String = nil
 	}
 
-	*o = PropertyDuration(varPropertyDuration)
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.MapmapOfStringAny = nil
+		dst.String = nil
 
-	additionalProperties := make(map[string]interface{})
+		return fmt.Errorf("data matches more than one schema in oneOf(PropertyDuration)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("data failed to match schemas in oneOf(PropertyDuration)")
+	}
+}
 
-	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "expression")
-		delete(additionalProperties, "value")
-		o.AdditionalProperties = additionalProperties
+// Marshal data from the first non-nil pointers in the struct to JSON
+func (src PropertyDuration) MarshalJSON() ([]byte, error) {
+	if src.MapmapOfStringAny != nil {
+		return json.Marshal(&src.MapmapOfStringAny)
 	}
 
-	return err
+	if src.String != nil {
+		return json.Marshal(&src.String)
+	}
+
+	return nil, nil // no data in oneOf schemas
+}
+
+// Get the actual instance
+func (obj *PropertyDuration) GetActualInstance() interface{} {
+	if obj == nil {
+		return nil
+	}
+	if obj.MapmapOfStringAny != nil {
+		return obj.MapmapOfStringAny
+	}
+
+	if obj.String != nil {
+		return obj.String
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj PropertyDuration) GetActualInstanceValue() interface{} {
+	if obj.MapmapOfStringAny != nil {
+		return *obj.MapmapOfStringAny
+	}
+
+	if obj.String != nil {
+		return *obj.String
+	}
+
+	// all schemas are nil
+	return nil
 }
 
 type NullablePropertyDuration struct {

@@ -42,7 +42,9 @@ public enum CrudEventType {
   
   LOGIN_FAILURE("LOGIN_FAILURE"),
   
-  ACCOUNT_LOCKED("ACCOUNT_LOCKED");
+  ACCOUNT_LOCKED("ACCOUNT_LOCKED"),
+  
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;
 
@@ -67,7 +69,7 @@ public enum CrudEventType {
         return b;
       }
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    return UNKNOWN_DEFAULT_OPEN_API;
   }
 }
 

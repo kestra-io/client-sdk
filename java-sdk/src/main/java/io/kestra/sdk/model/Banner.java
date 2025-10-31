@@ -41,35 +41,28 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Banner.JSON_PROPERTY_TENANT_ID,
   Banner.JSON_PROPERTY_ACTIVE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Banner {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
-  private String id;
+  @javax.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_MESSAGE = "message";
-  @javax.annotation.Nonnull
-  private String message;
+  @javax.annotation.Nonnull  private String message;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nullable
-  private BannerType type;
+  @javax.annotation.Nullable  private BannerType type;
 
   public static final String JSON_PROPERTY_START_DATE = "startDate";
-  @javax.annotation.Nullable
-  private JsonNullable<OffsetDateTime> startDate = JsonNullable.<OffsetDateTime>undefined();
+  @javax.annotation.Nullable  private JsonNullable<OffsetDateTime> startDate = JsonNullable.<OffsetDateTime>undefined();
 
   public static final String JSON_PROPERTY_END_DATE = "endDate";
-  @javax.annotation.Nullable
-  private JsonNullable<OffsetDateTime> endDate = JsonNullable.<OffsetDateTime>undefined();
+  @javax.annotation.Nullable  private JsonNullable<OffsetDateTime> endDate = JsonNullable.<OffsetDateTime>undefined();
 
   public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
-  @javax.annotation.Nullable
-  private JsonNullable<String> tenantId = JsonNullable.<String>undefined();
+  @javax.annotation.Nullable  private JsonNullable<String> tenantId = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_ACTIVE = "active";
-  @javax.annotation.Nullable
-  private Boolean active;
+  @javax.annotation.Nullable  private Boolean active;
 
   public Banner() {
   }
@@ -84,8 +77,7 @@ public class Banner {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ID)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -109,8 +101,7 @@ public class Banner {
    * Get message
    * @return message
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_MESSAGE)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getMessage() {
@@ -134,8 +125,7 @@ public class Banner {
    * Get type
    * @return type
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public BannerType getType() {
@@ -159,8 +149,7 @@ public class Banner {
    * Get startDate
    * @return startDate
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public OffsetDateTime getStartDate() {
         return startDate.orElse(null);
@@ -168,7 +157,6 @@ public class Banner {
 
   @JsonProperty(JSON_PROPERTY_START_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<OffsetDateTime> getStartDate_JsonNullable() {
     return startDate;
   }
@@ -192,8 +180,7 @@ public class Banner {
    * Get endDate
    * @return endDate
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public OffsetDateTime getEndDate() {
         return endDate.orElse(null);
@@ -201,7 +188,6 @@ public class Banner {
 
   @JsonProperty(JSON_PROPERTY_END_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<OffsetDateTime> getEndDate_JsonNullable() {
     return endDate;
   }
@@ -225,8 +211,7 @@ public class Banner {
    * Get tenantId
    * @return tenantId
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public String getTenantId() {
         return tenantId.orElse(null);
@@ -234,7 +219,6 @@ public class Banner {
 
   @JsonProperty(JSON_PROPERTY_TENANT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<String> getTenantId_JsonNullable() {
     return tenantId;
   }
@@ -258,8 +242,7 @@ public class Banner {
    * Get active
    * @return active
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ACTIVE)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ACTIVE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getActive() {

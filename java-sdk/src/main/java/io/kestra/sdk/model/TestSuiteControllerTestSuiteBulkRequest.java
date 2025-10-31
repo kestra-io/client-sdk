@@ -34,11 +34,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TestSuiteControllerTestSuiteBulkRequest.JSON_PROPERTY_IDS
 })
 @JsonTypeName("TestSuiteController.TestSuiteBulkRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TestSuiteControllerTestSuiteBulkRequest {
   public static final String JSON_PROPERTY_IDS = "ids";
-  @javax.annotation.Nonnull
-  private List<TestSuiteControllerTestSuiteApiId> ids = new ArrayList<>();
+  @javax.annotation.Nonnull  private List<TestSuiteControllerTestSuiteApiId> ids = new ArrayList<>();
 
   public TestSuiteControllerTestSuiteBulkRequest() {
   }
@@ -61,8 +60,7 @@ public class TestSuiteControllerTestSuiteBulkRequest {
    * Get ids
    * @return ids
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_IDS)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_IDS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<TestSuiteControllerTestSuiteApiId> getIds() {

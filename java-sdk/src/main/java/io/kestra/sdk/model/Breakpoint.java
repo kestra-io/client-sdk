@@ -34,15 +34,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Breakpoint.JSON_PROPERTY_ID,
   Breakpoint.JSON_PROPERTY_VALUE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Breakpoint {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
-  private String id;
+  @javax.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nullable
-  private JsonNullable<String> value = JsonNullable.<String>undefined();
+  @javax.annotation.Nullable  private JsonNullable<String> value = JsonNullable.<String>undefined();
 
   public Breakpoint() {
   }
@@ -57,8 +55,7 @@ public class Breakpoint {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -82,8 +79,7 @@ public class Breakpoint {
    * Get value
    * @return value
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public String getValue() {
         return value.orElse(null);
@@ -91,7 +87,6 @@ public class Breakpoint {
 
   @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<String> getValue_JsonNullable() {
     return value;
   }

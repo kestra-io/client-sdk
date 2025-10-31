@@ -20,11 +20,11 @@ var _ MappedNullable = &Binding{}
 
 // Binding struct for Binding
 type Binding struct {
-	Id                   string      `json:"id"`
+	Id                   *string     `json:"id,omitempty"`
 	Type                 BindingType `json:"type"`
 	ExternalId           string      `json:"externalId"`
 	RoleId               string      `json:"roleId"`
-	NamespaceId          string      `json:"namespaceId"`
+	NamespaceId          *string     `json:"namespaceId,omitempty"`
 	Deleted              bool        `json:"deleted"`
 	AdditionalProperties map[string]interface{}
 }
@@ -35,13 +35,11 @@ type _Binding Binding
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBinding(id string, type_ BindingType, externalId string, roleId string, namespaceId string, deleted bool) *Binding {
+func NewBinding(type_ BindingType, externalId string, roleId string, deleted bool) *Binding {
 	this := Binding{}
-	this.Id = id
 	this.Type = type_
 	this.ExternalId = externalId
 	this.RoleId = roleId
-	this.NamespaceId = namespaceId
 	this.Deleted = deleted
 	return &this
 }
@@ -54,28 +52,36 @@ func NewBindingWithDefaults() *Binding {
 	return &this
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *Binding) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Binding) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *Binding) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *Binding) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
 // GetType returns the Type field value
@@ -150,28 +156,36 @@ func (o *Binding) SetRoleId(v string) {
 	o.RoleId = v
 }
 
-// GetNamespaceId returns the NamespaceId field value
+// GetNamespaceId returns the NamespaceId field value if set, zero value otherwise.
 func (o *Binding) GetNamespaceId() string {
-	if o == nil {
+	if o == nil || IsNil(o.NamespaceId) {
 		var ret string
 		return ret
 	}
-
-	return o.NamespaceId
+	return *o.NamespaceId
 }
 
-// GetNamespaceIdOk returns a tuple with the NamespaceId field value
+// GetNamespaceIdOk returns a tuple with the NamespaceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Binding) GetNamespaceIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.NamespaceId) {
 		return nil, false
 	}
-	return &o.NamespaceId, true
+	return o.NamespaceId, true
 }
 
-// SetNamespaceId sets field value
+// HasNamespaceId returns a boolean if a field has been set.
+func (o *Binding) HasNamespaceId() bool {
+	if o != nil && !IsNil(o.NamespaceId) {
+		return true
+	}
+
+	return false
+}
+
+// SetNamespaceId gets a reference to the given string and assigns it to the NamespaceId field.
 func (o *Binding) SetNamespaceId(v string) {
-	o.NamespaceId = v
+	o.NamespaceId = &v
 }
 
 // GetDeleted returns the Deleted field value
@@ -208,11 +222,15 @@ func (o Binding) MarshalJSON() ([]byte, error) {
 
 func (o Binding) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["id"] = o.Id
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
 	toSerialize["type"] = o.Type
 	toSerialize["externalId"] = o.ExternalId
 	toSerialize["roleId"] = o.RoleId
-	toSerialize["namespaceId"] = o.NamespaceId
+	if !IsNil(o.NamespaceId) {
+		toSerialize["namespaceId"] = o.NamespaceId
+	}
 	toSerialize["deleted"] = o.Deleted
 
 	for key, value := range o.AdditionalProperties {
@@ -227,11 +245,9 @@ func (o *Binding) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"id",
 		"type",
 		"externalId",
 		"roleId",
-		"namespaceId",
 		"deleted",
 	}
 

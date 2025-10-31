@@ -30,15 +30,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AssertionRunError.JSON_PROPERTY_MESSAGE,
   AssertionRunError.JSON_PROPERTY_DETAILS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AssertionRunError {
   public static final String JSON_PROPERTY_MESSAGE = "message";
-  @javax.annotation.Nonnull
-  private String message;
+  @javax.annotation.Nonnull  private String message;
 
   public static final String JSON_PROPERTY_DETAILS = "details";
-  @javax.annotation.Nonnull
-  private String details;
+  @javax.annotation.Nullable  private String details;
 
   public AssertionRunError() {
   }
@@ -53,8 +51,7 @@ public class AssertionRunError {
    * Get message
    * @return message
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_MESSAGE)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getMessage() {
@@ -68,7 +65,7 @@ public class AssertionRunError {
     this.message = message;
   }
 
-  public AssertionRunError details(@javax.annotation.Nonnull String details) {
+  public AssertionRunError details(@javax.annotation.Nullable String details) {
     
     this.details = details;
     return this;
@@ -78,9 +75,8 @@ public class AssertionRunError {
    * Get details
    * @return details
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DETAILS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DETAILS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDetails() {
     return details;
@@ -88,8 +84,8 @@ public class AssertionRunError {
 
 
   @JsonProperty(JSON_PROPERTY_DETAILS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDetails(@javax.annotation.Nonnull String details) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDetails(@javax.annotation.Nullable String details) {
     this.details = details;
   }
 

@@ -33,20 +33,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TriggerControllerTriggers.JSON_PROPERTY_TRIGGER_CONTEXT
 })
 @JsonTypeName("TriggerController.Triggers")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TriggerControllerTriggers {
   public static final String JSON_PROPERTY_ABSTRACT_TRIGGER = "abstractTrigger";
-  @javax.annotation.Nonnull
-  private AbstractTrigger abstractTrigger;
+  @javax.annotation.Nullable  private AbstractTrigger abstractTrigger;
 
   public static final String JSON_PROPERTY_TRIGGER_CONTEXT = "triggerContext";
-  @javax.annotation.Nonnull
-  private Trigger triggerContext;
+  @javax.annotation.Nullable  private Trigger triggerContext;
 
   public TriggerControllerTriggers() {
   }
 
-  public TriggerControllerTriggers abstractTrigger(@javax.annotation.Nonnull AbstractTrigger abstractTrigger) {
+  public TriggerControllerTriggers abstractTrigger(@javax.annotation.Nullable AbstractTrigger abstractTrigger) {
     
     this.abstractTrigger = abstractTrigger;
     return this;
@@ -56,9 +54,8 @@ public class TriggerControllerTriggers {
    * Get abstractTrigger
    * @return abstractTrigger
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ABSTRACT_TRIGGER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ABSTRACT_TRIGGER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public AbstractTrigger getAbstractTrigger() {
     return abstractTrigger;
@@ -66,12 +63,12 @@ public class TriggerControllerTriggers {
 
 
   @JsonProperty(JSON_PROPERTY_ABSTRACT_TRIGGER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setAbstractTrigger(@javax.annotation.Nonnull AbstractTrigger abstractTrigger) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAbstractTrigger(@javax.annotation.Nullable AbstractTrigger abstractTrigger) {
     this.abstractTrigger = abstractTrigger;
   }
 
-  public TriggerControllerTriggers triggerContext(@javax.annotation.Nonnull Trigger triggerContext) {
+  public TriggerControllerTriggers triggerContext(@javax.annotation.Nullable Trigger triggerContext) {
     
     this.triggerContext = triggerContext;
     return this;
@@ -81,9 +78,8 @@ public class TriggerControllerTriggers {
    * Get triggerContext
    * @return triggerContext
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TRIGGER_CONTEXT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TRIGGER_CONTEXT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Trigger getTriggerContext() {
     return triggerContext;
@@ -91,8 +87,8 @@ public class TriggerControllerTriggers {
 
 
   @JsonProperty(JSON_PROPERTY_TRIGGER_CONTEXT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTriggerContext(@javax.annotation.Nonnull Trigger triggerContext) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTriggerContext(@javax.annotation.Nullable Trigger triggerContext) {
     this.triggerContext = triggerContext;
   }
 

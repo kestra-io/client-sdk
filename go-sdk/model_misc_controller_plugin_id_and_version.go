@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the MiscControllerPluginIdAndVersion type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &MiscControllerPluginIdAndVersion{}
 
 // MiscControllerPluginIdAndVersion struct for MiscControllerPluginIdAndVersion
 type MiscControllerPluginIdAndVersion struct {
-	Id                   string `json:"id"`
-	Version              string `json:"version"`
+	Id                   *string `json:"id,omitempty"`
+	Version              *string `json:"version,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,10 +30,8 @@ type _MiscControllerPluginIdAndVersion MiscControllerPluginIdAndVersion
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMiscControllerPluginIdAndVersion(id string, version string) *MiscControllerPluginIdAndVersion {
+func NewMiscControllerPluginIdAndVersion() *MiscControllerPluginIdAndVersion {
 	this := MiscControllerPluginIdAndVersion{}
-	this.Id = id
-	this.Version = version
 	return &this
 }
 
@@ -46,52 +43,68 @@ func NewMiscControllerPluginIdAndVersionWithDefaults() *MiscControllerPluginIdAn
 	return &this
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *MiscControllerPluginIdAndVersion) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MiscControllerPluginIdAndVersion) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *MiscControllerPluginIdAndVersion) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *MiscControllerPluginIdAndVersion) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
-// GetVersion returns the Version field value
+// GetVersion returns the Version field value if set, zero value otherwise.
 func (o *MiscControllerPluginIdAndVersion) GetVersion() string {
-	if o == nil {
+	if o == nil || IsNil(o.Version) {
 		var ret string
 		return ret
 	}
-
-	return o.Version
+	return *o.Version
 }
 
-// GetVersionOk returns a tuple with the Version field value
+// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MiscControllerPluginIdAndVersion) GetVersionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
-	return &o.Version, true
+	return o.Version, true
 }
 
-// SetVersion sets field value
+// HasVersion returns a boolean if a field has been set.
+func (o *MiscControllerPluginIdAndVersion) HasVersion() bool {
+	if o != nil && !IsNil(o.Version) {
+		return true
+	}
+
+	return false
+}
+
+// SetVersion gets a reference to the given string and assigns it to the Version field.
 func (o *MiscControllerPluginIdAndVersion) SetVersion(v string) {
-	o.Version = v
+	o.Version = &v
 }
 
 func (o MiscControllerPluginIdAndVersion) MarshalJSON() ([]byte, error) {
@@ -104,8 +117,12 @@ func (o MiscControllerPluginIdAndVersion) MarshalJSON() ([]byte, error) {
 
 func (o MiscControllerPluginIdAndVersion) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["id"] = o.Id
-	toSerialize["version"] = o.Version
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Version) {
+		toSerialize["version"] = o.Version
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -115,28 +132,6 @@ func (o MiscControllerPluginIdAndVersion) ToMap() (map[string]interface{}, error
 }
 
 func (o *MiscControllerPluginIdAndVersion) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"id",
-		"version",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varMiscControllerPluginIdAndVersion := _MiscControllerPluginIdAndVersion{}
 
 	err = json.Unmarshal(data, &varMiscControllerPluginIdAndVersion)

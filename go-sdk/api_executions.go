@@ -75,7 +75,7 @@ func (r ApiCreateExecutionRequest) Kind(kind ExecutionKind) ApiCreateExecutionRe
 	return r
 }
 
-func (r ApiCreateExecutionRequest) Execute() ([]ExecutionControllerExecutionResponse, *http.Response, error) {
+func (r ApiCreateExecutionRequest) Execute() (*ExecutionControllerExecutionResponse, *http.Response, error) {
 	return r.ApiService.CreateExecutionExecute(r)
 }
 
@@ -100,13 +100,13 @@ func (a *ExecutionsAPIService) CreateExecution(ctx context.Context, namespace st
 
 // Execute executes the request
 //
-//	@return []ExecutionControllerExecutionResponse
-func (a *ExecutionsAPIService) CreateExecutionExecute(r ApiCreateExecutionRequest) ([]ExecutionControllerExecutionResponse, *http.Response, error) {
+//	@return ExecutionControllerExecutionResponse
+func (a *ExecutionsAPIService) CreateExecutionExecute(r ApiCreateExecutionRequest) (*ExecutionControllerExecutionResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []ExecutionControllerExecutionResponse
+		localVarReturnValue *ExecutionControllerExecutionResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.CreateExecution")
@@ -2186,7 +2186,7 @@ func (r ApiGetFlowFromExecutionByIdRequest) Execute() (*FlowForExecution, *http.
 GetFlowFromExecutionById Get flow information's for an execution
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param executionId The execution that you want flow information's
+	@param executionId The execution that you want flow informations
 	@param tenant
 	@return ApiGetFlowFromExecutionByIdRequest
 */

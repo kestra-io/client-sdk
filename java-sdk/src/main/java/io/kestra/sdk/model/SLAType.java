@@ -28,7 +28,9 @@ public enum SLAType {
   
   MAX_DURATION("MAX_DURATION"),
   
-  EXECUTION_ASSERTION("EXECUTION_ASSERTION");
+  EXECUTION_ASSERTION("EXECUTION_ASSERTION"),
+  
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;
 
@@ -53,7 +55,7 @@ public enum SLAType {
         return b;
       }
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    return UNKNOWN_DEFAULT_OPEN_API;
   }
 }
 

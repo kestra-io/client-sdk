@@ -31,20 +31,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MiscControllerPluginIdAndVersion.JSON_PROPERTY_VERSION
 })
 @JsonTypeName("MiscController.PluginIdAndVersion")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class MiscControllerPluginIdAndVersion {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
-  private String id;
+  @javax.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_VERSION = "version";
-  @javax.annotation.Nonnull
-  private String version;
+  @javax.annotation.Nullable  private String version;
 
   public MiscControllerPluginIdAndVersion() {
   }
 
-  public MiscControllerPluginIdAndVersion id(@javax.annotation.Nonnull String id) {
+  public MiscControllerPluginIdAndVersion id(@javax.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -54,9 +52,8 @@ public class MiscControllerPluginIdAndVersion {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
     return id;
@@ -64,12 +61,12 @@ public class MiscControllerPluginIdAndVersion {
 
 
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(@javax.annotation.Nonnull String id) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@javax.annotation.Nullable String id) {
     this.id = id;
   }
 
-  public MiscControllerPluginIdAndVersion version(@javax.annotation.Nonnull String version) {
+  public MiscControllerPluginIdAndVersion version(@javax.annotation.Nullable String version) {
     
     this.version = version;
     return this;
@@ -79,9 +76,8 @@ public class MiscControllerPluginIdAndVersion {
    * Get version
    * @return version
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_VERSION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getVersion() {
     return version;
@@ -89,8 +85,8 @@ public class MiscControllerPluginIdAndVersion {
 
 
   @JsonProperty(JSON_PROPERTY_VERSION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setVersion(@javax.annotation.Nonnull String version) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVersion(@javax.annotation.Nullable String version) {
     this.version = version;
   }
 

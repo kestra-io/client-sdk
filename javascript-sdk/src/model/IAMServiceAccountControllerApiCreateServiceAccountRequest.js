@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The IAMServiceAccountControllerApiCreateServiceAccountRequest model module.
  * @module model/IAMServiceAccountControllerApiCreateServiceAccountRequest
- * @version 1.0.0
+ * @version v1.0.5
  */
 class IAMServiceAccountControllerApiCreateServiceAccountRequest {
     /**
@@ -24,13 +24,10 @@ class IAMServiceAccountControllerApiCreateServiceAccountRequest {
      * Request payload for updating service account details
      * @alias module:model/IAMServiceAccountControllerApiCreateServiceAccountRequest
      * @param name {String} 
-     * @param description {String} 
-     * @param superAdmin {Boolean} 
-     * @param tenants {Array.<String>} 
      */
-    constructor(name, description, superAdmin, tenants) { 
+    constructor(name) { 
         
-        IAMServiceAccountControllerApiCreateServiceAccountRequest.initialize(this, name, description, superAdmin, tenants);
+        IAMServiceAccountControllerApiCreateServiceAccountRequest.initialize(this, name);
     }
 
     /**
@@ -38,11 +35,8 @@ class IAMServiceAccountControllerApiCreateServiceAccountRequest {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, description, superAdmin, tenants) { 
+    static initialize(obj, name) { 
         obj['name'] = name;
-        obj['description'] = description;
-        obj['superAdmin'] = superAdmin;
-        obj['tenants'] = tenants;
     }
 
     /**
@@ -103,7 +97,7 @@ class IAMServiceAccountControllerApiCreateServiceAccountRequest {
 
 }
 
-IAMServiceAccountControllerApiCreateServiceAccountRequest.RequiredProperties = ["name", "description", "superAdmin", "tenants"];
+IAMServiceAccountControllerApiCreateServiceAccountRequest.RequiredProperties = ["name"];
 
 /**
  * @member {String} name

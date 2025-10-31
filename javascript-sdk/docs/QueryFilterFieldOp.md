@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** |  | 
-**value** | **String** |  | 
-**operations** | [**[QueryFilterOperation]**](QueryFilterOperation.md) |  | 
+**name** | **String** |  | [optional] 
+**value** | **String** |  | [optional] 
+**operations** | [**[QueryFilterOperation]**](QueryFilterOperation.md) |  | [optional] 
 
 

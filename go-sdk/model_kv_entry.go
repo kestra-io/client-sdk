@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 	"time"
 )
 
@@ -21,10 +20,10 @@ var _ MappedNullable = &KVEntry{}
 
 // KVEntry struct for KVEntry
 type KVEntry struct {
-	Key                  string         `json:"key"`
+	Key                  *string        `json:"key,omitempty"`
 	Description          NullableString `json:"description,omitempty"`
-	CreationDate         time.Time      `json:"creationDate"`
-	UpdateDate           time.Time      `json:"updateDate"`
+	CreationDate         *time.Time     `json:"creationDate,omitempty"`
+	UpdateDate           *time.Time     `json:"updateDate,omitempty"`
 	ExpirationDate       NullableTime   `json:"expirationDate,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -35,11 +34,8 @@ type _KVEntry KVEntry
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewKVEntry(key string, creationDate time.Time, updateDate time.Time) *KVEntry {
+func NewKVEntry() *KVEntry {
 	this := KVEntry{}
-	this.Key = key
-	this.CreationDate = creationDate
-	this.UpdateDate = updateDate
 	return &this
 }
 
@@ -51,28 +47,36 @@ func NewKVEntryWithDefaults() *KVEntry {
 	return &this
 }
 
-// GetKey returns the Key field value
+// GetKey returns the Key field value if set, zero value otherwise.
 func (o *KVEntry) GetKey() string {
-	if o == nil {
+	if o == nil || IsNil(o.Key) {
 		var ret string
 		return ret
 	}
-
-	return o.Key
+	return *o.Key
 }
 
-// GetKeyOk returns a tuple with the Key field value
+// GetKeyOk returns a tuple with the Key field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KVEntry) GetKeyOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Key) {
 		return nil, false
 	}
-	return &o.Key, true
+	return o.Key, true
 }
 
-// SetKey sets field value
+// HasKey returns a boolean if a field has been set.
+func (o *KVEntry) HasKey() bool {
+	if o != nil && !IsNil(o.Key) {
+		return true
+	}
+
+	return false
+}
+
+// SetKey gets a reference to the given string and assigns it to the Key field.
 func (o *KVEntry) SetKey(v string) {
-	o.Key = v
+	o.Key = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -118,52 +122,68 @@ func (o *KVEntry) UnsetDescription() {
 	o.Description.Unset()
 }
 
-// GetCreationDate returns the CreationDate field value
+// GetCreationDate returns the CreationDate field value if set, zero value otherwise.
 func (o *KVEntry) GetCreationDate() time.Time {
-	if o == nil {
+	if o == nil || IsNil(o.CreationDate) {
 		var ret time.Time
 		return ret
 	}
-
-	return o.CreationDate
+	return *o.CreationDate
 }
 
-// GetCreationDateOk returns a tuple with the CreationDate field value
+// GetCreationDateOk returns a tuple with the CreationDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KVEntry) GetCreationDateOk() (*time.Time, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CreationDate) {
 		return nil, false
 	}
-	return &o.CreationDate, true
+	return o.CreationDate, true
 }
 
-// SetCreationDate sets field value
+// HasCreationDate returns a boolean if a field has been set.
+func (o *KVEntry) HasCreationDate() bool {
+	if o != nil && !IsNil(o.CreationDate) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreationDate gets a reference to the given time.Time and assigns it to the CreationDate field.
 func (o *KVEntry) SetCreationDate(v time.Time) {
-	o.CreationDate = v
+	o.CreationDate = &v
 }
 
-// GetUpdateDate returns the UpdateDate field value
+// GetUpdateDate returns the UpdateDate field value if set, zero value otherwise.
 func (o *KVEntry) GetUpdateDate() time.Time {
-	if o == nil {
+	if o == nil || IsNil(o.UpdateDate) {
 		var ret time.Time
 		return ret
 	}
-
-	return o.UpdateDate
+	return *o.UpdateDate
 }
 
-// GetUpdateDateOk returns a tuple with the UpdateDate field value
+// GetUpdateDateOk returns a tuple with the UpdateDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KVEntry) GetUpdateDateOk() (*time.Time, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.UpdateDate) {
 		return nil, false
 	}
-	return &o.UpdateDate, true
+	return o.UpdateDate, true
 }
 
-// SetUpdateDate sets field value
+// HasUpdateDate returns a boolean if a field has been set.
+func (o *KVEntry) HasUpdateDate() bool {
+	if o != nil && !IsNil(o.UpdateDate) {
+		return true
+	}
+
+	return false
+}
+
+// SetUpdateDate gets a reference to the given time.Time and assigns it to the UpdateDate field.
 func (o *KVEntry) SetUpdateDate(v time.Time) {
-	o.UpdateDate = v
+	o.UpdateDate = &v
 }
 
 // GetExpirationDate returns the ExpirationDate field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -219,12 +239,18 @@ func (o KVEntry) MarshalJSON() ([]byte, error) {
 
 func (o KVEntry) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["key"] = o.Key
+	if !IsNil(o.Key) {
+		toSerialize["key"] = o.Key
+	}
 	if o.Description.IsSet() {
 		toSerialize["description"] = o.Description.Get()
 	}
-	toSerialize["creationDate"] = o.CreationDate
-	toSerialize["updateDate"] = o.UpdateDate
+	if !IsNil(o.CreationDate) {
+		toSerialize["creationDate"] = o.CreationDate
+	}
+	if !IsNil(o.UpdateDate) {
+		toSerialize["updateDate"] = o.UpdateDate
+	}
 	if o.ExpirationDate.IsSet() {
 		toSerialize["expirationDate"] = o.ExpirationDate.Get()
 	}
@@ -237,29 +263,6 @@ func (o KVEntry) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *KVEntry) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"key",
-		"creationDate",
-		"updateDate",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varKVEntry := _KVEntry{}
 
 	err = json.Unmarshal(data, &varKVEntry)

@@ -29,11 +29,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   ConversionServiceProvider.JSON_PROPERTY_CONVERSION_SERVICE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ConversionServiceProvider {
   public static final String JSON_PROPERTY_CONVERSION_SERVICE = "conversionService";
-  @javax.annotation.Nonnull
-  private Object conversionService;
+  @javax.annotation.Nonnull  private Object conversionService;
 
   public ConversionServiceProvider() {
   }
@@ -48,8 +47,7 @@ public class ConversionServiceProvider {
    * Get conversionService
    * @return conversionService
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_CONVERSION_SERVICE)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_CONVERSION_SERVICE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Object getConversionService() {

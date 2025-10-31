@@ -32,11 +32,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   LeftSidebarConfiguration.JSON_PROPERTY_DISABLED_MENUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class LeftSidebarConfiguration {
   public static final String JSON_PROPERTY_DISABLED_MENUS = "disabledMenus";
-  @javax.annotation.Nullable
-  private List<String> disabledMenus = new ArrayList<>();
+  @javax.annotation.Nullable  private List<String> disabledMenus = new ArrayList<>();
 
   public LeftSidebarConfiguration() {
   }
@@ -59,8 +58,7 @@ public class LeftSidebarConfiguration {
    * Get disabledMenus
    * @return disabledMenus
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DISABLED_MENUS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISABLED_MENUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getDisabledMenus() {

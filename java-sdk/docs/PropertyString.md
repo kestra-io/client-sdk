@@ -1,14 +1,10 @@
 
 
-# PropertyString
+# Interface PropertyString
 
+## Implementing Classes
 
-## Properties
-
-| Name | Type | Description | Notes |
-|------------ | ------------- | ------------- | -------------|
-|**expression** | **String** |  |  |
-|**value** | **String** |  |  [optional] |
-
+* Object
+* String
 
 

@@ -30,15 +30,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Cache.JSON_PROPERTY_ENABLED,
   Cache.JSON_PROPERTY_TTL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Cache {
   public static final String JSON_PROPERTY_ENABLED = "enabled";
-  @javax.annotation.Nonnull
-  private Boolean enabled;
+  @javax.annotation.Nonnull  private Boolean enabled;
 
   public static final String JSON_PROPERTY_TTL = "ttl";
-  @javax.annotation.Nullable
-  private String ttl;
+  @javax.annotation.Nullable  private String ttl;
 
   public Cache() {
   }
@@ -53,8 +51,7 @@ public class Cache {
    * Get enabled
    * @return enabled
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ENABLED)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ENABLED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getEnabled() {
@@ -78,8 +75,7 @@ public class Cache {
    * Get ttl
    * @return ttl
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TTL)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TTL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTtl() {

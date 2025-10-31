@@ -31,15 +31,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Concurrency.JSON_PROPERTY_LIMIT,
   Concurrency.JSON_PROPERTY_BEHAVIOR
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Concurrency {
   public static final String JSON_PROPERTY_LIMIT = "limit";
-  @javax.annotation.Nonnull
-  private Integer limit;
+  @javax.annotation.Nonnull  private Integer limit;
 
   public static final String JSON_PROPERTY_BEHAVIOR = "behavior";
-  @javax.annotation.Nonnull
-  private ConcurrencyBehavior behavior;
+  @javax.annotation.Nonnull  private ConcurrencyBehavior behavior;
 
   public Concurrency() {
   }
@@ -55,8 +53,7 @@ public class Concurrency {
    * minimum: 1
    * @return limit
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_LIMIT)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_LIMIT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Integer getLimit() {
@@ -80,8 +77,7 @@ public class Concurrency {
    * Get behavior
    * @return behavior
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_BEHAVIOR)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_BEHAVIOR)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public ConcurrencyBehavior getBehavior() {

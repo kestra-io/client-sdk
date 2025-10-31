@@ -30,11 +30,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMUserControllerApiPatchUserPasswordRequest.JSON_PROPERTY_PASSWORD
 })
 @JsonTypeName("IAMUserController.ApiPatchUserPasswordRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMUserControllerApiPatchUserPasswordRequest {
   public static final String JSON_PROPERTY_PASSWORD = "password";
-  @javax.annotation.Nonnull
-  private String password;
+  @javax.annotation.Nonnull  private String password;
 
   public IAMUserControllerApiPatchUserPasswordRequest() {
   }
@@ -49,8 +48,7 @@ public class IAMUserControllerApiPatchUserPasswordRequest {
    * Get password
    * @return password
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_PASSWORD)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getPassword() {

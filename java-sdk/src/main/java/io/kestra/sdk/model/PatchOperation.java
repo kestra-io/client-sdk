@@ -33,19 +33,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PatchOperation.JSON_PROPERTY_PATH,
   PatchOperation.JSON_PROPERTY_VALUE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PatchOperation {
   public static final String JSON_PROPERTY_OPERATION = "operation";
-  @javax.annotation.Nullable
-  private PatchOperationType operation;
+  @javax.annotation.Nullable  private PatchOperationType operation;
 
   public static final String JSON_PROPERTY_PATH = "path";
-  @javax.annotation.Nullable
-  private PatchOperationPath path;
+  @javax.annotation.Nullable  private PatchOperationPath path;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nullable
-  private Object value;
+  @javax.annotation.Nullable  private Object value;
 
   public PatchOperation() {
   }
@@ -60,8 +57,7 @@ public class PatchOperation {
    * Get operation
    * @return operation
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_OPERATION)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OPERATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public PatchOperationType getOperation() {
@@ -85,8 +81,7 @@ public class PatchOperation {
    * Get path
    * @return path
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PATH)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PATH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public PatchOperationPath getPath() {
@@ -110,8 +105,7 @@ public class PatchOperation {
    * Get value
    * @return value
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_VALUE)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Object getValue() {

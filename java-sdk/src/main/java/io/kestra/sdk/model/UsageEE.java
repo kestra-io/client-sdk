@@ -40,31 +40,25 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   UsageEE.JSON_PROPERTY_FLOWS,
   UsageEE.JSON_PROPERTY_EXECUTIONS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class UsageEE {
   public static final String JSON_PROPERTY_GROUPS = "groups";
-  @javax.annotation.Nullable
-  private GroupUsage groups;
+  @javax.annotation.Nullable  private GroupUsage groups;
 
   public static final String JSON_PROPERTY_USERS = "users";
-  @javax.annotation.Nullable
-  private UserUsage users;
+  @javax.annotation.Nullable  private UserUsage users;
 
   public static final String JSON_PROPERTY_ROLES = "roles";
-  @javax.annotation.Nullable
-  private RoleUsage roles;
+  @javax.annotation.Nullable  private RoleUsage roles;
 
   public static final String JSON_PROPERTY_TENANTS = "tenants";
-  @javax.annotation.Nullable
-  private TenantUsage tenants;
+  @javax.annotation.Nullable  private TenantUsage tenants;
 
   public static final String JSON_PROPERTY_FLOWS = "flows";
-  @javax.annotation.Nullable
-  private FlowUsage flows;
+  @javax.annotation.Nullable  private FlowUsage flows;
 
   public static final String JSON_PROPERTY_EXECUTIONS = "executions";
-  @javax.annotation.Nullable
-  private ExecutionUsage executions;
+  @javax.annotation.Nullable  private ExecutionUsage executions;
 
   public UsageEE() {
   }
@@ -79,8 +73,7 @@ public class UsageEE {
    * Get groups
    * @return groups
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_GROUPS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUPS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public GroupUsage getGroups() {
@@ -104,8 +97,7 @@ public class UsageEE {
    * Get users
    * @return users
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_USERS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_USERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public UserUsage getUsers() {
@@ -129,8 +121,7 @@ public class UsageEE {
    * Get roles
    * @return roles
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ROLES)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ROLES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public RoleUsage getRoles() {
@@ -154,8 +145,7 @@ public class UsageEE {
    * Get tenants
    * @return tenants
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TENANTS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public TenantUsage getTenants() {
@@ -179,8 +169,7 @@ public class UsageEE {
    * Get flows
    * @return flows
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FLOWS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FLOWS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public FlowUsage getFlows() {
@@ -204,8 +193,7 @@ public class UsageEE {
    * Get executions
    * @return executions
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_EXECUTIONS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXECUTIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ExecutionUsage getExecutions() {

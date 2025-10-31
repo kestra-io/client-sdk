@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**valuePathExpression** | [**ValuePathExpression**](ValuePathExpression.md) |  |  |
+|**valuePathExpression** | [**ValuePathExpression**](ValuePathExpression.md) |  |  [optional] |
 
 
 

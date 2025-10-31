@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**plugins** | **[String]** |  | 
+**plugins** | **[String]** |  | [optional] 
 
 

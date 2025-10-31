@@ -30,15 +30,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TimeWindow.JSON_PROPERTY_DEFAULT,
   TimeWindow.JSON_PROPERTY_MAX
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TimeWindow {
   public static final String JSON_PROPERTY_DEFAULT = "default";
-  @javax.annotation.Nullable
-  private String _default;
+  @javax.annotation.Nullable  private String _default;
 
   public static final String JSON_PROPERTY_MAX = "max";
-  @javax.annotation.Nullable
-  private String max;
+  @javax.annotation.Nullable  private String max;
 
   public TimeWindow() {
   }
@@ -53,8 +51,7 @@ public class TimeWindow {
    * Get _default
    * @return _default
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DEFAULT)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DEFAULT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDefault() {
@@ -78,8 +75,7 @@ public class TimeWindow {
    * Get max
    * @return max
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_MAX)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MAX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getMax() {

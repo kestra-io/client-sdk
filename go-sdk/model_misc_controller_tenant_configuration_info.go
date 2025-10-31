@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the MiscControllerTenantConfigurationInfo type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &MiscControllerTenantConfigurationInfo{}
 
 // MiscControllerTenantConfigurationInfo struct for MiscControllerTenantConfigurationInfo
 type MiscControllerTenantConfigurationInfo struct {
-	StorageByTenant      bool `json:"storageByTenant"`
-	SecretByTenant       bool `json:"secretByTenant"`
+	StorageByTenant      *bool `json:"storageByTenant,omitempty"`
+	SecretByTenant       *bool `json:"secretByTenant,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,10 +30,8 @@ type _MiscControllerTenantConfigurationInfo MiscControllerTenantConfigurationInf
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMiscControllerTenantConfigurationInfo(storageByTenant bool, secretByTenant bool) *MiscControllerTenantConfigurationInfo {
+func NewMiscControllerTenantConfigurationInfo() *MiscControllerTenantConfigurationInfo {
 	this := MiscControllerTenantConfigurationInfo{}
-	this.StorageByTenant = storageByTenant
-	this.SecretByTenant = secretByTenant
 	return &this
 }
 
@@ -46,52 +43,68 @@ func NewMiscControllerTenantConfigurationInfoWithDefaults() *MiscControllerTenan
 	return &this
 }
 
-// GetStorageByTenant returns the StorageByTenant field value
+// GetStorageByTenant returns the StorageByTenant field value if set, zero value otherwise.
 func (o *MiscControllerTenantConfigurationInfo) GetStorageByTenant() bool {
-	if o == nil {
+	if o == nil || IsNil(o.StorageByTenant) {
 		var ret bool
 		return ret
 	}
-
-	return o.StorageByTenant
+	return *o.StorageByTenant
 }
 
-// GetStorageByTenantOk returns a tuple with the StorageByTenant field value
+// GetStorageByTenantOk returns a tuple with the StorageByTenant field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MiscControllerTenantConfigurationInfo) GetStorageByTenantOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.StorageByTenant) {
 		return nil, false
 	}
-	return &o.StorageByTenant, true
+	return o.StorageByTenant, true
 }
 
-// SetStorageByTenant sets field value
+// HasStorageByTenant returns a boolean if a field has been set.
+func (o *MiscControllerTenantConfigurationInfo) HasStorageByTenant() bool {
+	if o != nil && !IsNil(o.StorageByTenant) {
+		return true
+	}
+
+	return false
+}
+
+// SetStorageByTenant gets a reference to the given bool and assigns it to the StorageByTenant field.
 func (o *MiscControllerTenantConfigurationInfo) SetStorageByTenant(v bool) {
-	o.StorageByTenant = v
+	o.StorageByTenant = &v
 }
 
-// GetSecretByTenant returns the SecretByTenant field value
+// GetSecretByTenant returns the SecretByTenant field value if set, zero value otherwise.
 func (o *MiscControllerTenantConfigurationInfo) GetSecretByTenant() bool {
-	if o == nil {
+	if o == nil || IsNil(o.SecretByTenant) {
 		var ret bool
 		return ret
 	}
-
-	return o.SecretByTenant
+	return *o.SecretByTenant
 }
 
-// GetSecretByTenantOk returns a tuple with the SecretByTenant field value
+// GetSecretByTenantOk returns a tuple with the SecretByTenant field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MiscControllerTenantConfigurationInfo) GetSecretByTenantOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.SecretByTenant) {
 		return nil, false
 	}
-	return &o.SecretByTenant, true
+	return o.SecretByTenant, true
 }
 
-// SetSecretByTenant sets field value
+// HasSecretByTenant returns a boolean if a field has been set.
+func (o *MiscControllerTenantConfigurationInfo) HasSecretByTenant() bool {
+	if o != nil && !IsNil(o.SecretByTenant) {
+		return true
+	}
+
+	return false
+}
+
+// SetSecretByTenant gets a reference to the given bool and assigns it to the SecretByTenant field.
 func (o *MiscControllerTenantConfigurationInfo) SetSecretByTenant(v bool) {
-	o.SecretByTenant = v
+	o.SecretByTenant = &v
 }
 
 func (o MiscControllerTenantConfigurationInfo) MarshalJSON() ([]byte, error) {
@@ -104,8 +117,12 @@ func (o MiscControllerTenantConfigurationInfo) MarshalJSON() ([]byte, error) {
 
 func (o MiscControllerTenantConfigurationInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["storageByTenant"] = o.StorageByTenant
-	toSerialize["secretByTenant"] = o.SecretByTenant
+	if !IsNil(o.StorageByTenant) {
+		toSerialize["storageByTenant"] = o.StorageByTenant
+	}
+	if !IsNil(o.SecretByTenant) {
+		toSerialize["secretByTenant"] = o.SecretByTenant
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -115,28 +132,6 @@ func (o MiscControllerTenantConfigurationInfo) ToMap() (map[string]interface{}, 
 }
 
 func (o *MiscControllerTenantConfigurationInfo) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"storageByTenant",
-		"secretByTenant",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varMiscControllerTenantConfigurationInfo := _MiscControllerTenantConfigurationInfo{}
 
 	err = json.Unmarshal(data, &varMiscControllerTenantConfigurationInfo)

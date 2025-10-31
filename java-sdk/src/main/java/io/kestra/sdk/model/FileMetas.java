@@ -29,11 +29,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   FileMetas.JSON_PROPERTY_SIZE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class FileMetas {
   public static final String JSON_PROPERTY_SIZE = "size";
-  @javax.annotation.Nonnull
-  private Long size;
+  @javax.annotation.Nonnull  private Long size;
 
   public FileMetas() {
   }
@@ -48,8 +47,7 @@ public class FileMetas {
    * Get size
    * @return size
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_SIZE)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_SIZE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Long getSize() {

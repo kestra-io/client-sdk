@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**name** | **String** |  |  |
-|**fields** | [**List&lt;QueryFilterFieldOp&gt;**](QueryFilterFieldOp.md) |  |  |
+|**name** | **String** |  |  [optional] |
+|**fields** | [**List&lt;QueryFilterFieldOp&gt;**](QueryFilterFieldOp.md) |  |  [optional] |
 
 
 

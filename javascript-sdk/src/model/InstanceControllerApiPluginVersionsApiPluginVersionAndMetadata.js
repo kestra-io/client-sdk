@@ -17,18 +17,16 @@ import PluginArtifactMetadata from './PluginArtifactMetadata';
 /**
  * The InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata model module.
  * @module model/InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata
- * @version 1.0.0
+ * @version v1.0.5
  */
 class InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata {
     /**
      * Constructs a new <code>InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata</code>.
      * @alias module:model/InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata
-     * @param version {String} 
-     * @param metadata {module:model/PluginArtifactMetadata} 
      */
-    constructor(version, metadata) { 
+    constructor() { 
         
-        InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata.initialize(this, version, metadata);
+        InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata.initialize(this);
     }
 
     /**
@@ -36,9 +34,7 @@ class InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, version, metadata) { 
-        obj['version'] = version;
-        obj['metadata'] = metadata;
+    static initialize(obj) { 
     }
 
     /**
@@ -68,12 +64,6 @@ class InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['version'] && !(typeof data['version'] === 'string' || data['version'] instanceof String)) {
             throw new Error("Expected the field `version` to be a primitive type in the JSON string but got " + data['version']);
@@ -89,7 +79,7 @@ class InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata {
 
 }
 
-InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata.RequiredProperties = ["version", "metadata"];
+
 
 /**
  * @member {String} version

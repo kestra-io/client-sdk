@@ -12,6 +12,13 @@
 
 package io.kestra.sdk.api;
 
+// Custom imports for injected code
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import reactor.core.publisher.Flux;
+import java.io.BufferedReader;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import io.kestra.sdk.internal.ApiException;
@@ -38,8 +45,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
-public class NamespacesApi extends BaseApi {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")public class NamespacesApi extends BaseApi {
 
   public NamespacesApi() {
     super(Configuration.getDefaultApiClient());
@@ -58,9 +64,12 @@ public class NamespacesApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public List<String> autocompleteNamespaces(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiAutocomplete apiAutocomplete) throws ApiException {
-    return this.autocompleteNamespaces(tenant, apiAutocomplete, Collections.emptyMap());
+    return this.autocompleteNamespaces(tenant, apiAutocomplete, Collections.emptyMap(), null);
   }
 
+  public List<String> autocompleteNamespaces(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiAutocomplete apiAutocomplete, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.autocompleteNamespaces(tenant, apiAutocomplete, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * List namespaces for autocomplete
@@ -71,7 +80,7 @@ public class NamespacesApi extends BaseApi {
    * @return List&lt;String&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<String> autocompleteNamespaces(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiAutocomplete apiAutocomplete, Map<String, String> additionalHeaders) throws ApiException {
+  public List<String> autocompleteNamespaces(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiAutocomplete apiAutocomplete, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = apiAutocomplete;
     
     // verify the required parameter 'tenant' is set
@@ -94,7 +103,7 @@ public class NamespacesApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -131,6 +140,11 @@ public class NamespacesApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Create a namespace
    * 
@@ -140,9 +154,12 @@ public class NamespacesApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public Namespace createNamespace(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Namespace namespace) throws ApiException {
-    return this.createNamespace(tenant, namespace, Collections.emptyMap());
+    return this.createNamespace(tenant, namespace, Collections.emptyMap(), null);
   }
 
+  public Namespace createNamespace(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Namespace namespace, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.createNamespace(tenant, namespace, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Create a namespace
@@ -153,7 +170,7 @@ public class NamespacesApi extends BaseApi {
    * @return Namespace
    * @throws ApiException if fails to make API call
    */
-  public Namespace createNamespace(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Namespace namespace, Map<String, String> additionalHeaders) throws ApiException {
+  public Namespace createNamespace(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Namespace namespace, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = namespace;
     
     // verify the required parameter 'tenant' is set
@@ -176,7 +193,7 @@ public class NamespacesApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -213,6 +230,11 @@ public class NamespacesApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Delete a namespace
    * 
@@ -221,9 +243,12 @@ public class NamespacesApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public void deleteNamespace(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant) throws ApiException {
-    this.deleteNamespace(id, tenant, Collections.emptyMap());
+    this.deleteNamespace(id, tenant, Collections.emptyMap(), null);
   }
 
+  public void deleteNamespace(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  this.deleteNamespace(id, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Delete a namespace
@@ -233,7 +258,7 @@ public class NamespacesApi extends BaseApi {
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void deleteNamespace(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public void deleteNamespace(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -257,7 +282,7 @@ public class NamespacesApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -293,19 +318,26 @@ public class NamespacesApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Delete a secret for a namespace
    * 
    * @param namespace The namespace id (required)
    * @param key The secret key (required)
    * @param tenant  (required)
-   * @return List&lt;String&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<String> deleteSecret(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.deleteSecret(namespace, key, tenant, Collections.emptyMap());
+  public void deleteSecret(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant) throws ApiException {
+    this.deleteSecret(namespace, key, tenant, Collections.emptyMap(), null);
   }
 
+  public void deleteSecret(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  this.deleteSecret(namespace, key, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Delete a secret for a namespace
@@ -314,10 +346,9 @@ public class NamespacesApi extends BaseApi {
    * @param key The secret key (required)
    * @param tenant  (required)
    * @param additionalHeaders additionalHeaders for this call
-   * @return List&lt;String&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<String> deleteSecret(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public void deleteSecret(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -347,7 +378,7 @@ public class NamespacesApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -355,7 +386,7 @@ public class NamespacesApi extends BaseApi {
     
     
     final String[] localVarAccepts = {
-      "application/json"
+      
     };
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
@@ -366,8 +397,7 @@ public class NamespacesApi extends BaseApi {
 
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
-    TypeReference<List<String>> localVarReturnType = new TypeReference<List<String>>() {};
-    return apiClient.invokeAPI(
+    apiClient.invokeAPI(
         localVarPath,
         "DELETE",
         localVarQueryParams,
@@ -380,9 +410,14 @@ public class NamespacesApi extends BaseApi {
         localVarAccept,
         localVarContentType,
         localVarAuthNames,
-        localVarReturnType
+        null
     );
   }
+
+
+
+
+
 
   /**
    * List inherited secrets
@@ -393,9 +428,12 @@ public class NamespacesApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public Map<String, List<String>> getInheritedSecrets(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.getInheritedSecrets(namespace, tenant, Collections.emptyMap());
+    return this.getInheritedSecrets(namespace, tenant, Collections.emptyMap(), null);
   }
 
+  public Map<String, List<String>> getInheritedSecrets(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.getInheritedSecrets(namespace, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * List inherited secrets
@@ -406,7 +444,7 @@ public class NamespacesApi extends BaseApi {
    * @return Map&lt;String, List&lt;String&gt;&gt;
    * @throws ApiException if fails to make API call
    */
-  public Map<String, List<String>> getInheritedSecrets(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Map<String, List<String>> getInheritedSecrets(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -430,7 +468,7 @@ public class NamespacesApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -467,6 +505,11 @@ public class NamespacesApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Get a namespace
    * 
@@ -476,9 +519,12 @@ public class NamespacesApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public Namespace getNamespace(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.getNamespace(id, tenant, Collections.emptyMap());
+    return this.getNamespace(id, tenant, Collections.emptyMap(), null);
   }
 
+  public Namespace getNamespace(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.getNamespace(id, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Get a namespace
@@ -489,7 +535,7 @@ public class NamespacesApi extends BaseApi {
    * @return Namespace
    * @throws ApiException if fails to make API call
    */
-  public Namespace getNamespace(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Namespace getNamespace(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -513,7 +559,7 @@ public class NamespacesApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -550,6 +596,11 @@ public class NamespacesApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * List inherited plugin defaults
    * 
@@ -559,9 +610,12 @@ public class NamespacesApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public List<PluginDefault> inheritedPluginDefaults(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.inheritedPluginDefaults(id, tenant, Collections.emptyMap());
+    return this.inheritedPluginDefaults(id, tenant, Collections.emptyMap(), null);
   }
 
+  public List<PluginDefault> inheritedPluginDefaults(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.inheritedPluginDefaults(id, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * List inherited plugin defaults
@@ -572,7 +626,7 @@ public class NamespacesApi extends BaseApi {
    * @return List&lt;PluginDefault&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<PluginDefault> inheritedPluginDefaults(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public List<PluginDefault> inheritedPluginDefaults(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -596,7 +650,7 @@ public class NamespacesApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -633,6 +687,11 @@ public class NamespacesApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * List inherited variables
    * 
@@ -642,9 +701,12 @@ public class NamespacesApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public Map<String, Object> inheritedVariables(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.inheritedVariables(id, tenant, Collections.emptyMap());
+    return this.inheritedVariables(id, tenant, Collections.emptyMap(), null);
   }
 
+  public Map<String, Object> inheritedVariables(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.inheritedVariables(id, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * List inherited variables
@@ -655,7 +717,7 @@ public class NamespacesApi extends BaseApi {
    * @return Map&lt;String, Object&gt;
    * @throws ApiException if fails to make API call
    */
-  public Map<String, Object> inheritedVariables(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Map<String, Object> inheritedVariables(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -679,7 +741,7 @@ public class NamespacesApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -716,6 +778,11 @@ public class NamespacesApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Get secrets for a namespace
    * 
@@ -729,9 +796,12 @@ public class NamespacesApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public ApiSecretListResponse listNamespaceSecrets(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull List<QueryFilter> filters, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort) throws ApiException {
-    return this.listNamespaceSecrets(namespace, page, size, filters, tenant, sort, Collections.emptyMap());
+    return this.listNamespaceSecrets(namespace, page, size, filters, tenant, sort, Collections.emptyMap(), null);
   }
 
+  public ApiSecretListResponse listNamespaceSecrets(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull List<QueryFilter> filters, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.listNamespaceSecrets(namespace, page, size, filters, tenant, sort, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Get secrets for a namespace
@@ -746,7 +816,7 @@ public class NamespacesApi extends BaseApi {
    * @return ApiSecretListResponse
    * @throws ApiException if fails to make API call
    */
-  public ApiSecretListResponse listNamespaceSecrets(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull List<QueryFilter> filters, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
+  public ApiSecretListResponse listNamespaceSecrets(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull List<QueryFilter> filters, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -785,7 +855,7 @@ public class NamespacesApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
     localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
@@ -826,33 +896,41 @@ public class NamespacesApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Patch a secret metadata for a namespace
    * 
    * @param namespace The namespace id (required)
+   * @param key The secret key (required)
    * @param tenant  (required)
-   * @param key  (required)
    * @param apiSecretMetaEE  (required)
    * @return List&lt;ApiSecretMeta&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<ApiSecretMeta> patchSecret(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull ApiSecretMetaEE apiSecretMetaEE) throws ApiException {
-    return this.patchSecret(namespace, tenant, key, apiSecretMetaEE, Collections.emptyMap());
+  public List<ApiSecretMeta> patchSecret(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiSecretMetaEE apiSecretMetaEE) throws ApiException {
+    return this.patchSecret(namespace, key, tenant, apiSecretMetaEE, Collections.emptyMap(), null);
   }
 
+  public List<ApiSecretMeta> patchSecret(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiSecretMetaEE apiSecretMetaEE, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.patchSecret(namespace, key, tenant, apiSecretMetaEE, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Patch a secret metadata for a namespace
    * 
    * @param namespace The namespace id (required)
+   * @param key The secret key (required)
    * @param tenant  (required)
-   * @param key  (required)
    * @param apiSecretMetaEE  (required)
    * @param additionalHeaders additionalHeaders for this call
    * @return List&lt;ApiSecretMeta&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<ApiSecretMeta> patchSecret(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull ApiSecretMetaEE apiSecretMetaEE, Map<String, String> additionalHeaders) throws ApiException {
+  public List<ApiSecretMeta> patchSecret(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiSecretMetaEE apiSecretMetaEE, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = apiSecretMetaEE;
     
     // verify the required parameter 'namespace' is set
@@ -860,14 +938,14 @@ public class NamespacesApi extends BaseApi {
       throw new ApiException(400, "Missing the required parameter 'namespace' when calling patchSecret");
     }
     
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling patchSecret");
-    }
-    
     // verify the required parameter 'key' is set
     if (key == null) {
       throw new ApiException(400, "Missing the required parameter 'key' when calling patchSecret");
+    }
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling patchSecret");
     }
     
     // verify the required parameter 'apiSecretMetaEE' is set
@@ -878,8 +956,8 @@ public class NamespacesApi extends BaseApi {
     // create path and map variables
     String localVarPath = "/api/v1/{tenant}/namespaces/{namespace}/secrets/{key}"
       .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)))
-      .replaceAll("\\{" + "key" + "\\}", apiClient.escapeString(apiClient.parameterToString(key)));
+      .replaceAll("\\{" + "key" + "\\}", apiClient.escapeString(apiClient.parameterToString(key)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
 
     StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
     String localVarQueryParameterBaseName;
@@ -887,7 +965,7 @@ public class NamespacesApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -924,6 +1002,11 @@ public class NamespacesApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Update secrets for a namespace
    * 
@@ -934,9 +1017,12 @@ public class NamespacesApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public List<ApiSecretMeta> putSecrets(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiSecretValue apiSecretValue) throws ApiException {
-    return this.putSecrets(namespace, tenant, apiSecretValue, Collections.emptyMap());
+    return this.putSecrets(namespace, tenant, apiSecretValue, Collections.emptyMap(), null);
   }
 
+  public List<ApiSecretMeta> putSecrets(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiSecretValue apiSecretValue, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.putSecrets(namespace, tenant, apiSecretValue, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Update secrets for a namespace
@@ -948,7 +1034,7 @@ public class NamespacesApi extends BaseApi {
    * @return List&lt;ApiSecretMeta&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<ApiSecretMeta> putSecrets(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiSecretValue apiSecretValue, Map<String, String> additionalHeaders) throws ApiException {
+  public List<ApiSecretMeta> putSecrets(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiSecretValue apiSecretValue, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = apiSecretValue;
     
     // verify the required parameter 'namespace' is set
@@ -977,7 +1063,7 @@ public class NamespacesApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -1014,6 +1100,11 @@ public class NamespacesApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Search for namespaces
    * 
@@ -1027,9 +1118,12 @@ public class NamespacesApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public PagedResultsNamespace searchNamespaces(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull Boolean existing, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort) throws ApiException {
-    return this.searchNamespaces(page, size, existing, tenant, q, sort, Collections.emptyMap());
+    return this.searchNamespaces(page, size, existing, tenant, q, sort, Collections.emptyMap(), null);
   }
 
+  public PagedResultsNamespace searchNamespaces(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull Boolean existing, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.searchNamespaces(page, size, existing, tenant, q, sort, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Search for namespaces
@@ -1044,7 +1138,7 @@ public class NamespacesApi extends BaseApi {
    * @return PagedResultsNamespace
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsNamespace searchNamespaces(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull Boolean existing, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsNamespace searchNamespaces(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull Boolean existing, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'page' is set
@@ -1077,7 +1171,7 @@ public class NamespacesApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
@@ -1119,6 +1213,11 @@ public class NamespacesApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Update a namespace
    * 
@@ -1129,9 +1228,12 @@ public class NamespacesApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public Namespace updateNamespace(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Namespace namespace) throws ApiException {
-    return this.updateNamespace(id, tenant, namespace, Collections.emptyMap());
+    return this.updateNamespace(id, tenant, namespace, Collections.emptyMap(), null);
   }
 
+  public Namespace updateNamespace(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Namespace namespace, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.updateNamespace(id, tenant, namespace, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Update a namespace
@@ -1143,7 +1245,7 @@ public class NamespacesApi extends BaseApi {
    * @return Namespace
    * @throws ApiException if fails to make API call
    */
-  public Namespace updateNamespace(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Namespace namespace, Map<String, String> additionalHeaders) throws ApiException {
+  public Namespace updateNamespace(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Namespace namespace, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = namespace;
     
     // verify the required parameter 'id' is set
@@ -1172,7 +1274,7 @@ public class NamespacesApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -1249,4 +1351,9 @@ public class NamespacesApi extends BaseApi {
         returnType
     );
   }
+
+
+
+
+
 }

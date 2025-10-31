@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**tenantId** | **String** |  | 
-**groupId** | **String** |  | 
-**membership** | [**GroupIdentifierMembership**](GroupIdentifierMembership.md) |  | 
-**managedExternally** | **Boolean** |  | 
+**tenantId** | **String** |  | [optional] 
+**groupId** | **String** |  | [optional] 
+**membership** | [**GroupIdentifierMembership**](GroupIdentifierMembership.md) |  | [optional] 
+**managedExternally** | **Boolean** |  | [optional] 
 
 

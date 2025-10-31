@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**version** | **String** |  | 
-**metadata** | [**PluginArtifactMetadata**](PluginArtifactMetadata.md) |  | 
+**version** | **String** |  | [optional] 
+**metadata** | [**PluginArtifactMetadata**](PluginArtifactMetadata.md) |  | [optional] 
 
 

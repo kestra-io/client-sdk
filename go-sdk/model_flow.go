@@ -26,13 +26,14 @@ type Flow struct {
 	Description *string       `json:"description,omitempty"`
 	Inputs      []InputObject `json:"inputs,omitempty"`
 	// Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages.
-	Outputs     []Output                          `json:"outputs,omitempty"`
-	Disabled    bool                              `json:"disabled"`
-	Labels      *FlowAllOfLabels                  `json:"labels,omitempty"`
-	Variables   map[string]map[string]interface{} `json:"variables,omitempty"`
-	WorkerGroup *WorkerGroup                      `json:"workerGroup,omitempty"`
-	Deleted     bool                              `json:"deleted"`
-	Finally     []Task                            `json:"finally,omitempty"`
+	Outputs  []Output `json:"outputs,omitempty"`
+	Disabled bool     `json:"disabled"`
+	// Labels as a list of Label (key/value pairs) or as a map of string to string.
+	Labels      []Label                `json:"labels,omitempty"`
+	Variables   map[string]interface{} `json:"variables,omitempty"`
+	WorkerGroup *WorkerGroup           `json:"workerGroup,omitempty"`
+	Deleted     bool                   `json:"deleted"`
+	Finally     []Task                 `json:"finally,omitempty"`
 	// Deprecated
 	TaskDefaults []PluginDefault `json:"taskDefaults,omitempty"`
 	Tasks        []Task          `json:"tasks"`
@@ -273,17 +274,17 @@ func (o *Flow) SetDisabled(v bool) {
 }
 
 // GetLabels returns the Labels field value if set, zero value otherwise.
-func (o *Flow) GetLabels() FlowAllOfLabels {
+func (o *Flow) GetLabels() []Label {
 	if o == nil || IsNil(o.Labels) {
-		var ret FlowAllOfLabels
+		var ret []Label
 		return ret
 	}
-	return *o.Labels
+	return o.Labels
 }
 
 // GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Flow) GetLabelsOk() (*FlowAllOfLabels, bool) {
+func (o *Flow) GetLabelsOk() ([]Label, bool) {
 	if o == nil || IsNil(o.Labels) {
 		return nil, false
 	}
@@ -299,15 +300,15 @@ func (o *Flow) HasLabels() bool {
 	return false
 }
 
-// SetLabels gets a reference to the given FlowAllOfLabels and assigns it to the Labels field.
-func (o *Flow) SetLabels(v FlowAllOfLabels) {
-	o.Labels = &v
+// SetLabels gets a reference to the given []Label and assigns it to the Labels field.
+func (o *Flow) SetLabels(v []Label) {
+	o.Labels = v
 }
 
 // GetVariables returns the Variables field value if set, zero value otherwise.
-func (o *Flow) GetVariables() map[string]map[string]interface{} {
+func (o *Flow) GetVariables() map[string]interface{} {
 	if o == nil || IsNil(o.Variables) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Variables
@@ -315,9 +316,9 @@ func (o *Flow) GetVariables() map[string]map[string]interface{} {
 
 // GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Flow) GetVariablesOk() (map[string]map[string]interface{}, bool) {
+func (o *Flow) GetVariablesOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Variables) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.Variables, true
 }
@@ -331,8 +332,8 @@ func (o *Flow) HasVariables() bool {
 	return false
 }
 
-// SetVariables gets a reference to the given map[string]map[string]interface{} and assigns it to the Variables field.
-func (o *Flow) SetVariables(v map[string]map[string]interface{}) {
+// SetVariables gets a reference to the given map[string]interface{} and assigns it to the Variables field.
+func (o *Flow) SetVariables(v map[string]interface{}) {
 	o.Variables = v
 }
 

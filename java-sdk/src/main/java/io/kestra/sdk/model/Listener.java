@@ -36,24 +36,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Listener.JSON_PROPERTY_CONDITIONS,
   Listener.JSON_PROPERTY_TASKS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Listener {
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nonnull
-  private String description;
+  @javax.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_CONDITIONS = "conditions";
-  @javax.annotation.Nonnull
-  private List<Condition> conditions = new ArrayList<>();
+  @javax.annotation.Nullable  private List<Condition> conditions = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TASKS = "tasks";
-  @javax.annotation.Nonnull
-  private List<Task> tasks = new ArrayList<>();
+  @javax.annotation.Nonnull  private List<Task> tasks = new ArrayList<>();
 
   public Listener() {
   }
 
-  public Listener description(@javax.annotation.Nonnull String description) {
+  public Listener description(@javax.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -63,9 +60,8 @@ public class Listener {
    * Get description
    * @return description
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
     return description;
@@ -73,12 +69,12 @@ public class Listener {
 
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDescription(@javax.annotation.Nonnull String description) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
   }
 
-  public Listener conditions(@javax.annotation.Nonnull List<Condition> conditions) {
+  public Listener conditions(@javax.annotation.Nullable List<Condition> conditions) {
     
     this.conditions = conditions;
     return this;
@@ -96,9 +92,8 @@ public class Listener {
    * Get conditions
    * @return conditions
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_CONDITIONS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CONDITIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Condition> getConditions() {
     return conditions;
@@ -106,8 +101,8 @@ public class Listener {
 
 
   @JsonProperty(JSON_PROPERTY_CONDITIONS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setConditions(@javax.annotation.Nonnull List<Condition> conditions) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setConditions(@javax.annotation.Nullable List<Condition> conditions) {
     this.conditions = conditions;
   }
 
@@ -129,8 +124,7 @@ public class Listener {
    * Get tasks
    * @return tasks
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TASKS)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TASKS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<Task> getTasks() {

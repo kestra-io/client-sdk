@@ -30,7 +30,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * InputObject
  */
 @JsonPropertyOrder({
-  InputObject.JSON_PROPERTY_NAME,
   InputObject.JSON_PROPERTY_ID,
   InputObject.JSON_PROPERTY_TYPE,
   InputObject.JSON_PROPERTY_DESCRIPTION,
@@ -40,68 +39,30 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InputObject.JSON_PROPERTY_DISPLAY_NAME
 })
 @JsonTypeName("Input_Object_")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class InputObject {
-  public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nullable
-  private String name;
-
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
-  private String id;
+  @javax.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nonnull
-  private Type type;
+  @javax.annotation.Nonnull  private Type type;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
-  private String description;
+  @javax.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_DEPENDS_ON = "dependsOn";
-  @javax.annotation.Nullable
-  private DependsOn dependsOn;
+  @javax.annotation.Nullable  private DependsOn dependsOn;
 
   public static final String JSON_PROPERTY_REQUIRED = "required";
-  @javax.annotation.Nullable
-  private Boolean required;
+  @javax.annotation.Nullable  private Boolean required;
 
   public static final String JSON_PROPERTY_DEFAULTS = "defaults";
-  @javax.annotation.Nullable
-  private String defaults;
+  @javax.annotation.Nullable  private String defaults;
 
   public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
-  @javax.annotation.Nullable
-  private String displayName;
+  @javax.annotation.Nullable  private String displayName;
 
   public InputObject() {
-  }
-
-  public InputObject name(@javax.annotation.Nullable String name) {
-    
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Get name
-   * @return name
-   * @deprecated
-   */
-  @Deprecated
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getName() {
-    return name;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(@javax.annotation.Nullable String name) {
-    this.name = name;
   }
 
   public InputObject id(@javax.annotation.Nonnull String id) {
@@ -114,8 +75,7 @@ public class InputObject {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -139,8 +99,7 @@ public class InputObject {
    * Get type
    * @return type
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Type getType() {
@@ -164,8 +123,7 @@ public class InputObject {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -189,8 +147,7 @@ public class InputObject {
    * Get dependsOn
    * @return dependsOn
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DEPENDS_ON)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DEPENDS_ON)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public DependsOn getDependsOn() {
@@ -214,8 +171,7 @@ public class InputObject {
    * Get required
    * @return required
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_REQUIRED)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REQUIRED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getRequired() {
@@ -239,8 +195,7 @@ public class InputObject {
    * Get defaults
    * @return defaults
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DEFAULTS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DEFAULTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDefaults() {
@@ -264,8 +219,7 @@ public class InputObject {
    * Get displayName
    * @return displayName
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDisplayName() {
@@ -288,8 +242,7 @@ public class InputObject {
       return false;
     }
     InputObject inputObject = (InputObject) o;
-    return Objects.equals(this.name, inputObject.name) &&
-        Objects.equals(this.id, inputObject.id) &&
+    return Objects.equals(this.id, inputObject.id) &&
         Objects.equals(this.type, inputObject.type) &&
         Objects.equals(this.description, inputObject.description) &&
         Objects.equals(this.dependsOn, inputObject.dependsOn) &&
@@ -300,14 +253,13 @@ public class InputObject {
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, id, type, description, dependsOn, required, defaults, displayName);
+    return Objects.hash(id, type, description, dependsOn, required, defaults, displayName);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class InputObject {\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");

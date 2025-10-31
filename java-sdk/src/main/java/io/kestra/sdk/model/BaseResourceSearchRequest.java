@@ -33,11 +33,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   BaseResourceSearchRequest.JSON_PROPERTY_SCHEMAS
 })
 @JsonTypeName("BaseResource_SearchRequest_")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class BaseResourceSearchRequest {
   public static final String JSON_PROPERTY_SCHEMAS = "schemas";
-  @javax.annotation.Nullable
-  private List<String> schemas = new ArrayList<>();
+  @javax.annotation.Nullable  private List<String> schemas = new ArrayList<>();
 
   public BaseResourceSearchRequest() {
   }
@@ -60,8 +59,7 @@ public class BaseResourceSearchRequest {
    * Get schemas
    * @return schemas
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SCHEMAS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SCHEMAS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getSchemas() {

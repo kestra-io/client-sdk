@@ -41,9 +41,9 @@ class Execution(BaseModel):
     flow_id: StrictStr = Field(alias="flowId")
     flow_revision: StrictInt = Field(alias="flowRevision")
     task_run_list: Optional[List[TaskRun]] = Field(default=None, alias="taskRunList")
-    inputs: Optional[Dict[str, Dict[str, Any]]] = None
-    outputs: Optional[Dict[str, Dict[str, Any]]] = None
-    variables: Optional[Dict[str, Dict[str, Any]]] = None
+    inputs: Optional[Dict[str, Any]] = None
+    outputs: Optional[Dict[str, Any]] = None
+    variables: Optional[Dict[str, Any]] = None
     state: State
     parent_id: Optional[StrictStr] = Field(default=None, alias="parentId")
     original_id: Optional[StrictStr] = Field(default=None, alias="originalId")

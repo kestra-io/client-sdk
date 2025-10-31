@@ -30,7 +30,6 @@ class InputObject(BaseModel):
     """
     InputObject
     """ # noqa: E501
-    name: Optional[StrictStr] = None
     id: Annotated[str, Field(min_length=1, strict=True)]
     type: Type
     description: Optional[StrictStr] = None
@@ -39,7 +38,7 @@ class InputObject(BaseModel):
     defaults: Optional[PropertyObject] = None
     display_name: Optional[StrictStr] = Field(default=None, alias="displayName")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["name", "id", "type", "description", "dependsOn", "required", "defaults", "displayName"]
+    __properties: ClassVar[List[str]] = ["id", "type", "description", "dependsOn", "required", "defaults", "displayName"]
 
     @field_validator('id')
     def id_validate_regular_expression(cls, value):
@@ -112,7 +111,6 @@ class InputObject(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "name": obj.get("name"),
             "id": obj.get("id"),
             "type": obj.get("type"),
             "description": obj.get("description"),

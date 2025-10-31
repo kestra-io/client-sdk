@@ -33,19 +33,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PluginSchema.JSON_PROPERTY_OUTPUTS,
   PluginSchema.JSON_PROPERTY_DEFINITIONS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PluginSchema {
   public static final String JSON_PROPERTY_PROPERTIES = "properties";
-  @javax.annotation.Nullable
-  private Map<String, Object> properties = new HashMap<>();
+  @javax.annotation.Nullable  private Map<String, Object> properties = new HashMap<>();
 
   public static final String JSON_PROPERTY_OUTPUTS = "outputs";
-  @javax.annotation.Nullable
-  private Map<String, Object> outputs = new HashMap<>();
+  @javax.annotation.Nullable  private Map<String, Object> outputs = new HashMap<>();
 
   public static final String JSON_PROPERTY_DEFINITIONS = "definitions";
-  @javax.annotation.Nullable
-  private Map<String, Object> definitions = new HashMap<>();
+  @javax.annotation.Nullable  private Map<String, Object> definitions = new HashMap<>();
 
   public PluginSchema() {
   }
@@ -68,8 +65,7 @@ public class PluginSchema {
    * Get properties
    * @return properties
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PROPERTIES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getProperties() {
@@ -101,8 +97,7 @@ public class PluginSchema {
    * Get outputs
    * @return outputs
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_OUTPUTS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getOutputs() {
@@ -134,8 +129,7 @@ public class PluginSchema {
    * Get definitions
    * @return definitions
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DEFINITIONS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DEFINITIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getDefinitions() {

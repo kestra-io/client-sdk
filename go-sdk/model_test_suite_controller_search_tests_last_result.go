@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the TestSuiteControllerSearchTestsLastResult type satisfies the MappedNullable interface at compile time
@@ -20,7 +19,7 @@ var _ MappedNullable = &TestSuiteControllerSearchTestsLastResult{}
 
 // TestSuiteControllerSearchTestsLastResult struct for TestSuiteControllerSearchTestsLastResult
 type TestSuiteControllerSearchTestsLastResult struct {
-	TestSuiteIds         []TestSuiteControllerTestSuiteApiId `json:"testSuiteIds"`
+	TestSuiteIds         []TestSuiteControllerTestSuiteApiId `json:"testSuiteIds,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -30,9 +29,8 @@ type _TestSuiteControllerSearchTestsLastResult TestSuiteControllerSearchTestsLas
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTestSuiteControllerSearchTestsLastResult(testSuiteIds []TestSuiteControllerTestSuiteApiId) *TestSuiteControllerSearchTestsLastResult {
+func NewTestSuiteControllerSearchTestsLastResult() *TestSuiteControllerSearchTestsLastResult {
 	this := TestSuiteControllerSearchTestsLastResult{}
-	this.TestSuiteIds = testSuiteIds
 	return &this
 }
 
@@ -44,26 +42,34 @@ func NewTestSuiteControllerSearchTestsLastResultWithDefaults() *TestSuiteControl
 	return &this
 }
 
-// GetTestSuiteIds returns the TestSuiteIds field value
+// GetTestSuiteIds returns the TestSuiteIds field value if set, zero value otherwise.
 func (o *TestSuiteControllerSearchTestsLastResult) GetTestSuiteIds() []TestSuiteControllerTestSuiteApiId {
-	if o == nil {
+	if o == nil || IsNil(o.TestSuiteIds) {
 		var ret []TestSuiteControllerTestSuiteApiId
 		return ret
 	}
-
 	return o.TestSuiteIds
 }
 
-// GetTestSuiteIdsOk returns a tuple with the TestSuiteIds field value
+// GetTestSuiteIdsOk returns a tuple with the TestSuiteIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TestSuiteControllerSearchTestsLastResult) GetTestSuiteIdsOk() ([]TestSuiteControllerTestSuiteApiId, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.TestSuiteIds) {
 		return nil, false
 	}
 	return o.TestSuiteIds, true
 }
 
-// SetTestSuiteIds sets field value
+// HasTestSuiteIds returns a boolean if a field has been set.
+func (o *TestSuiteControllerSearchTestsLastResult) HasTestSuiteIds() bool {
+	if o != nil && !IsNil(o.TestSuiteIds) {
+		return true
+	}
+
+	return false
+}
+
+// SetTestSuiteIds gets a reference to the given []TestSuiteControllerTestSuiteApiId and assigns it to the TestSuiteIds field.
 func (o *TestSuiteControllerSearchTestsLastResult) SetTestSuiteIds(v []TestSuiteControllerTestSuiteApiId) {
 	o.TestSuiteIds = v
 }
@@ -78,7 +84,9 @@ func (o TestSuiteControllerSearchTestsLastResult) MarshalJSON() ([]byte, error) 
 
 func (o TestSuiteControllerSearchTestsLastResult) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["testSuiteIds"] = o.TestSuiteIds
+	if !IsNil(o.TestSuiteIds) {
+		toSerialize["testSuiteIds"] = o.TestSuiteIds
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -88,27 +96,6 @@ func (o TestSuiteControllerSearchTestsLastResult) ToMap() (map[string]interface{
 }
 
 func (o *TestSuiteControllerSearchTestsLastResult) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"testSuiteIds",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varTestSuiteControllerSearchTestsLastResult := _TestSuiteControllerSearchTestsLastResult{}
 
 	err = json.Unmarshal(data, &varTestSuiteControllerSearchTestsLastResult)

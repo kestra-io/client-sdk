@@ -24,21 +24,19 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
- * Label
+ * A key/value pair that can be attached to a Flow or Execution. Labels are often used to organize and categorize objects.
  */
 @JsonPropertyOrder({
   Label.JSON_PROPERTY_KEY,
   Label.JSON_PROPERTY_VALUE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Label {
   public static final String JSON_PROPERTY_KEY = "key";
-  @javax.annotation.Nonnull
-  private String key;
+  @javax.annotation.Nonnull  private String key;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nonnull
-  private String value;
+  @javax.annotation.Nonnull  private String value;
 
   public Label() {
   }
@@ -53,8 +51,7 @@ public class Label {
    * Get key
    * @return key
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_KEY)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_KEY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getKey() {
@@ -78,8 +75,7 @@ public class Label {
    * Get value
    * @return value
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_VALUE)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getValue() {

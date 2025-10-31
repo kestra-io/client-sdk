@@ -4,19 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | **String** |  | [optional] 
 **id** | **String** |  | 
 **executionId** | **String** |  | 
 **namespace** | **String** |  | 
 **flowId** | **String** |  | 
 **taskId** | **String** |  | 
-**parentTaskRunId** | **String** |  | 
-**value** | **String** |  | 
-**attempts** | [**[TaskRunAttempt]**](TaskRunAttempt.md) |  | 
-**outputs** | **{String: Object}** |  | 
+**parentTaskRunId** | **String** |  | [optional] 
+**value** | **String** |  | [optional] 
+**attempts** | [**[TaskRunAttempt]**](TaskRunAttempt.md) |  | [optional] 
+**outputs** | **{String: Object}** |  | [optional] 
 **state** | [**State**](State.md) |  | 
-**iteration** | **Number** |  | 
-**dynamic** | **Boolean** |  | 
+**iteration** | **Number** |  | [optional] 
+**dynamic** | **Boolean** |  | [optional] 
 **forceExecution** | **Boolean** |  | [optional] 
 
 

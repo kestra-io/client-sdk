@@ -35,6 +35,8 @@ from kestrapy.models.api_secret_tag import ApiSecretTag
 from kestrapy.models.api_secret_value import ApiSecretValue
 from kestrapy.models.api_tenant import ApiTenant
 from kestrapy.models.api_tenant_summary import ApiTenantSummary
+from kestrapy.models.api_token import ApiToken
+from kestrapy.models.api_token_list import ApiTokenList
 from kestrapy.models.api_user import ApiUser
 from kestrapy.models.app_response import AppResponse
 from kestrapy.models.app_response_ui_layout import AppResponseUILayout
@@ -75,6 +77,7 @@ from kestrapy.models.blueprint_controller_kind import BlueprintControllerKind
 from kestrapy.models.blueprint_with_flow import BlueprintWithFlow
 from kestrapy.models.breakpoint import Breakpoint
 from kestrapy.models.bulk_error_response import BulkErrorResponse
+from kestrapy.models.bulk_import_apps_request import BulkImportAppsRequest
 from kestrapy.models.bulk_response import BulkResponse
 from kestrapy.models.cache import Cache
 from kestrapy.models.chart_chart_option import ChartChartOption
@@ -87,6 +90,7 @@ from kestrapy.models.convertible_multi_values_string import ConvertibleMultiValu
 from kestrapy.models.convertible_values_list_string import ConvertibleValuesListString
 from kestrapy.models.create_api_token_request import CreateApiTokenRequest
 from kestrapy.models.create_api_token_response import CreateApiTokenResponse
+from kestrapy.models.create_namespace_file_request import CreateNamespaceFileRequest
 from kestrapy.models.create_security_integration_request import CreateSecurityIntegrationRequest
 from kestrapy.models.crud_event_type import CrudEventType
 from kestrapy.models.daily_execution_statistics import DailyExecutionStatistics
@@ -94,7 +98,6 @@ from kestrapy.models.daily_execution_statistics_duration import DailyExecutionSt
 from kestrapy.models.daily_execution_statistics_execution_counts import DailyExecutionStatisticsExecutionCounts
 from kestrapy.models.dashboard import Dashboard
 from kestrapy.models.dashboard_controller_preview_request import DashboardControllerPreviewRequest
-from kestrapy.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
 from kestrapy.models.deleted_interface import DeletedInterface
 from kestrapy.models.depends_on import DependsOn
 from kestrapy.models.documentation_with_schema import DocumentationWithSchema
@@ -347,6 +350,7 @@ from kestrapy.models.service_provider_configuration_filter_configuration import 
 from kestrapy.models.service_provider_configuration_supported_configuration import ServiceProviderConfigurationSupportedConfiguration
 from kestrapy.models.service_service_state import ServiceServiceState
 from kestrapy.models.service_type import ServiceType
+from kestrapy.models.set_logo_request import SetLogoRequest
 from kestrapy.models.setup_configuration import SetupConfiguration
 from kestrapy.models.setup_configuration_setup_data import SetupConfigurationSetupData
 from kestrapy.models.sort_order import SortOrder
@@ -382,7 +386,7 @@ from kestrapy.models.trigger_fixture import TriggerFixture
 from kestrapy.models.type import Type
 from kestrapy.models.unit_test import UnitTest
 from kestrapy.models.unit_test_result import UnitTestResult
-from kestrapy.models.update_flows_in_namespace_from_json200_response import UpdateFlowsInNamespaceFromJson200Response
+from kestrapy.models.upload_versioned_plugins_request import UploadVersionedPluginsRequest
 from kestrapy.models.usage_ee import UsageEE
 from kestrapy.models.user_group import UserGroup
 from kestrapy.models.user_group_type import UserGroupType

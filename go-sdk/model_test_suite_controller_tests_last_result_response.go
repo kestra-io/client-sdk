@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the TestSuiteControllerTestsLastResultResponse type satisfies the MappedNullable interface at compile time
@@ -20,7 +19,7 @@ var _ MappedNullable = &TestSuiteControllerTestsLastResultResponse{}
 
 // TestSuiteControllerTestsLastResultResponse struct for TestSuiteControllerTestsLastResultResponse
 type TestSuiteControllerTestsLastResultResponse struct {
-	Results              []TestSuiteRunResult `json:"results"`
+	Results              []TestSuiteRunResult `json:"results,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -30,9 +29,8 @@ type _TestSuiteControllerTestsLastResultResponse TestSuiteControllerTestsLastRes
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTestSuiteControllerTestsLastResultResponse(results []TestSuiteRunResult) *TestSuiteControllerTestsLastResultResponse {
+func NewTestSuiteControllerTestsLastResultResponse() *TestSuiteControllerTestsLastResultResponse {
 	this := TestSuiteControllerTestsLastResultResponse{}
-	this.Results = results
 	return &this
 }
 
@@ -44,26 +42,34 @@ func NewTestSuiteControllerTestsLastResultResponseWithDefaults() *TestSuiteContr
 	return &this
 }
 
-// GetResults returns the Results field value
+// GetResults returns the Results field value if set, zero value otherwise.
 func (o *TestSuiteControllerTestsLastResultResponse) GetResults() []TestSuiteRunResult {
-	if o == nil {
+	if o == nil || IsNil(o.Results) {
 		var ret []TestSuiteRunResult
 		return ret
 	}
-
 	return o.Results
 }
 
-// GetResultsOk returns a tuple with the Results field value
+// GetResultsOk returns a tuple with the Results field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TestSuiteControllerTestsLastResultResponse) GetResultsOk() ([]TestSuiteRunResult, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Results) {
 		return nil, false
 	}
 	return o.Results, true
 }
 
-// SetResults sets field value
+// HasResults returns a boolean if a field has been set.
+func (o *TestSuiteControllerTestsLastResultResponse) HasResults() bool {
+	if o != nil && !IsNil(o.Results) {
+		return true
+	}
+
+	return false
+}
+
+// SetResults gets a reference to the given []TestSuiteRunResult and assigns it to the Results field.
 func (o *TestSuiteControllerTestsLastResultResponse) SetResults(v []TestSuiteRunResult) {
 	o.Results = v
 }
@@ -78,7 +84,9 @@ func (o TestSuiteControllerTestsLastResultResponse) MarshalJSON() ([]byte, error
 
 func (o TestSuiteControllerTestsLastResultResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["results"] = o.Results
+	if !IsNil(o.Results) {
+		toSerialize["results"] = o.Results
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -88,27 +96,6 @@ func (o TestSuiteControllerTestsLastResultResponse) ToMap() (map[string]interfac
 }
 
 func (o *TestSuiteControllerTestsLastResultResponse) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"results",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varTestSuiteControllerTestsLastResultResponse := _TestSuiteControllerTestsLastResultResponse{}
 
 	err = json.Unmarshal(data, &varTestSuiteControllerTestsLastResultResponse)

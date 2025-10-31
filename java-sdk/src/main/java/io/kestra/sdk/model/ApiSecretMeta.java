@@ -29,11 +29,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   ApiSecretMeta.JSON_PROPERTY_KEY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ApiSecretMeta {
   public static final String JSON_PROPERTY_KEY = "key";
-  @javax.annotation.Nonnull
-  private String key;
+  @javax.annotation.Nonnull  private String key;
 
   public ApiSecretMeta() {
   }
@@ -48,8 +47,7 @@ public class ApiSecretMeta {
    * Get key
    * @return key
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_KEY)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_KEY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getKey() {

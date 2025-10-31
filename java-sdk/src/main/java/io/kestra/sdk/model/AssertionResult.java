@@ -35,35 +35,28 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AssertionResult.JSON_PROPERTY_DESCRIPTION,
   AssertionResult.JSON_PROPERTY_ERROR_MESSAGE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AssertionResult {
   public static final String JSON_PROPERTY_OPERATOR = "operator";
-  @javax.annotation.Nonnull
-  private String operator;
+  @javax.annotation.Nonnull  private String operator;
 
   public static final String JSON_PROPERTY_EXPECTED = "expected";
-  @javax.annotation.Nonnull
-  private Object expected;
+  @javax.annotation.Nonnull  private Object expected;
 
   public static final String JSON_PROPERTY_ACTUAL = "actual";
-  @javax.annotation.Nonnull
-  private Object actual;
+  @javax.annotation.Nonnull  private Object actual;
 
   public static final String JSON_PROPERTY_IS_SUCCESS = "isSuccess";
-  @javax.annotation.Nonnull
-  private Boolean isSuccess;
+  @javax.annotation.Nonnull  private Boolean isSuccess;
 
   public static final String JSON_PROPERTY_TASK_ID = "taskId";
-  @javax.annotation.Nonnull
-  private String taskId;
+  @javax.annotation.Nullable  private String taskId;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nonnull
-  private String description;
+  @javax.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_ERROR_MESSAGE = "errorMessage";
-  @javax.annotation.Nonnull
-  private String errorMessage;
+  @javax.annotation.Nullable  private String errorMessage;
 
   public AssertionResult() {
   }
@@ -78,8 +71,7 @@ public class AssertionResult {
    * Get operator
    * @return operator
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_OPERATOR)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_OPERATOR)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getOperator() {
@@ -103,8 +95,7 @@ public class AssertionResult {
    * Get expected
    * @return expected
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_EXPECTED)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_EXPECTED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Object getExpected() {
@@ -128,8 +119,7 @@ public class AssertionResult {
    * Get actual
    * @return actual
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ACTUAL)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ACTUAL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Object getActual() {
@@ -153,8 +143,7 @@ public class AssertionResult {
    * Get isSuccess
    * @return isSuccess
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_IS_SUCCESS)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_IS_SUCCESS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getIsSuccess() {
@@ -168,7 +157,7 @@ public class AssertionResult {
     this.isSuccess = isSuccess;
   }
 
-  public AssertionResult taskId(@javax.annotation.Nonnull String taskId) {
+  public AssertionResult taskId(@javax.annotation.Nullable String taskId) {
     
     this.taskId = taskId;
     return this;
@@ -178,9 +167,8 @@ public class AssertionResult {
    * Get taskId
    * @return taskId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TASK_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TASK_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTaskId() {
     return taskId;
@@ -188,12 +176,12 @@ public class AssertionResult {
 
 
   @JsonProperty(JSON_PROPERTY_TASK_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTaskId(@javax.annotation.Nonnull String taskId) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTaskId(@javax.annotation.Nullable String taskId) {
     this.taskId = taskId;
   }
 
-  public AssertionResult description(@javax.annotation.Nonnull String description) {
+  public AssertionResult description(@javax.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -203,9 +191,8 @@ public class AssertionResult {
    * Get description
    * @return description
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
     return description;
@@ -213,12 +200,12 @@ public class AssertionResult {
 
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDescription(@javax.annotation.Nonnull String description) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
   }
 
-  public AssertionResult errorMessage(@javax.annotation.Nonnull String errorMessage) {
+  public AssertionResult errorMessage(@javax.annotation.Nullable String errorMessage) {
     
     this.errorMessage = errorMessage;
     return this;
@@ -228,9 +215,8 @@ public class AssertionResult {
    * Get errorMessage
    * @return errorMessage
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ERROR_MESSAGE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ERROR_MESSAGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getErrorMessage() {
     return errorMessage;
@@ -238,8 +224,8 @@ public class AssertionResult {
 
 
   @JsonProperty(JSON_PROPERTY_ERROR_MESSAGE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setErrorMessage(@javax.annotation.Nonnull String errorMessage) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setErrorMessage(@javax.annotation.Nullable String errorMessage) {
     this.errorMessage = errorMessage;
   }
 

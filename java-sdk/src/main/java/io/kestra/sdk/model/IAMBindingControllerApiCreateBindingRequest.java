@@ -38,23 +38,19 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMBindingControllerApiCreateBindingRequest.JSON_PROPERTY_NAMESPACE_ID
 })
 @JsonTypeName("IAMBindingController.ApiCreateBindingRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMBindingControllerApiCreateBindingRequest {
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nonnull
-  private BindingType type;
+  @javax.annotation.Nonnull  private BindingType type;
 
   public static final String JSON_PROPERTY_EXTERNAL_ID = "externalId";
-  @javax.annotation.Nonnull
-  private String externalId;
+  @javax.annotation.Nonnull  private String externalId;
 
   public static final String JSON_PROPERTY_ROLE_ID = "roleId";
-  @javax.annotation.Nonnull
-  private String roleId;
+  @javax.annotation.Nonnull  private String roleId;
 
   public static final String JSON_PROPERTY_NAMESPACE_ID = "namespaceId";
-  @javax.annotation.Nullable
-  private JsonNullable<String> namespaceId = JsonNullable.<String>undefined();
+  @javax.annotation.Nullable  private JsonNullable<String> namespaceId = JsonNullable.<String>undefined();
 
   public IAMBindingControllerApiCreateBindingRequest() {
   }
@@ -69,8 +65,7 @@ public class IAMBindingControllerApiCreateBindingRequest {
    * Get type
    * @return type
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public BindingType getType() {
@@ -94,8 +89,7 @@ public class IAMBindingControllerApiCreateBindingRequest {
    * Get externalId
    * @return externalId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getExternalId() {
@@ -119,8 +113,7 @@ public class IAMBindingControllerApiCreateBindingRequest {
    * Get roleId
    * @return roleId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ROLE_ID)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ROLE_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getRoleId() {
@@ -144,8 +137,7 @@ public class IAMBindingControllerApiCreateBindingRequest {
    * Get namespaceId
    * @return namespaceId
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public String getNamespaceId() {
         return namespaceId.orElse(null);
@@ -153,7 +145,6 @@ public class IAMBindingControllerApiCreateBindingRequest {
 
   @JsonProperty(JSON_PROPERTY_NAMESPACE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<String> getNamespaceId_JsonNullable() {
     return namespaceId;
   }

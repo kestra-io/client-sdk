@@ -30,6 +30,7 @@ from pydantic import SecretStr
 from kestrapy.configuration import Configuration
 from kestrapy.api_response import ApiResponse, T as ApiResponseT
 import kestrapy.models
+from kestrapy.models import QueryFilter
 from kestrapy import rest
 from kestrapy.exceptions import (
     ApiValueError,
@@ -91,7 +92,7 @@ class ApiClient:
             self.default_headers[header_name] = header_value
         self.cookie = cookie
         # Set default User-Agent.
-        self.user_agent = 'OpenAPI-Generator/v1.0.4/python'
+        self.user_agent = 'OpenAPI-Generator/v1.0.5/python'
         self.client_side_validation = configuration.client_side_validation
 
     def __enter__(self):
@@ -473,6 +474,19 @@ class ApiClient:
         else:
             return self.__deserialize_model(data, klass)
 
+    def _to_camel_case(self, s: str) -> str:
+        """Convert UPPER_SNAKE or snake_case to lowerCamelCase.
+
+        Examples: FLOW_ID -> flowId, START_DATE -> startDate, LABELS -> labels
+        """
+        if s is None:
+            return s
+        # normalize to lower, split on underscore
+        parts = str(s).lower().split('_')
+        if not parts:
+            return s
+        return parts[0] + ''.join(p.capitalize() for p in parts[1:])
+
     def parameters_to_tuples(self, params, collection_formats):
         """Get parameters as list of tuples, formatting collections.
 
@@ -484,6 +498,47 @@ class ApiClient:
         if collection_formats is None:
             collection_formats = {}
         for k, v in params.items() if isinstance(params, dict) else params:
+            # Special handling for QueryFilter-like 'filters' parameter
+            if k == 'filters' and isinstance(v, list):
+                # v is expected to be a list of QueryFilter model instances or dicts
+                if not v:
+                    continue
+                first = v[0]
+                # if first is not a QueryFilter or dict-like, raise
+                if not isinstance(first, (QueryFilter, dict)) and not hasattr(first, 'to_dict'):
+                    raise ApiException(status=400, reason="Filter parameters must be instance of QueryFilter")
+
+                for elem in v:
+                    # allow either model instances or dicts
+                    if isinstance(elem, QueryFilter) or hasattr(elem, 'to_dict'):
+                        elem_dict = self.sanitize_for_serialization(elem)
+                    elif isinstance(elem, dict):
+                        elem_dict = elem
+                    else:
+                        raise ApiException(status=400, reason="Filter parameters must be instance of QueryFilter")
+
+                    _raw = elem.get('field')
+                    field = 'q' if _raw.lower() == 'query' else _raw
+                    operation = elem_dict.get('operation')
+                    value = elem_dict.get('value')
+
+                    if field is None or operation is None:
+                        raise ApiValueError('Filter elements must contain field and operation')
+
+                    # LABELS: value should be a dict of key->value entries
+                    if field == 'LABELS':
+                        if not isinstance(value, dict):
+                            raise ApiException(status=400, reason="Filter LABEL value must be instance of dict")
+                        for entry_k, entry_v in value.items():
+                            new_params.append((f"filters[{field}][{operation}][{entry_k}]", entry_v))
+                    else:
+                        # unwrap common {'value': actual} shape
+                        if isinstance(value, dict) and 'value' in value:
+                            actual = value.get('value')
+                        else:
+                            actual = value
+                        new_params.append((f"filters[{field}][{operation}]", actual))
+                continue
             if k in collection_formats:
                 collection_format = collection_formats[k]
                 if collection_format == 'multi':
@@ -520,7 +575,37 @@ class ApiClient:
                 v = str(v)
             if isinstance(v, dict):
                 v = json.dumps(v)
+            # Special handling for QueryFilter-like 'filters' parameter
+            if k == 'filters' and isinstance(v, list):
+                if not v:
+                    continue
+                first = v[0]
+                if not isinstance(first, (QueryFilter, dict)) and not hasattr(first, 'to_dict'):
+                    raise ApiException(status=400, reason="Filter parameters must be instance of QueryFilter")
 
+                for elem in v:
+                    if not isinstance(elem, dict):
+                        elem = self.sanitize_for_serialization(elem)
+                    _raw = elem.get('field')
+                    field = 'q' if _raw.lower() == 'query' else _raw
+                    operation = elem.get('operation')
+                    value = elem.get('value')
+                    operation = elem.get('operation')
+                    value = elem.get('value')
+
+                    if field is None or operation is None:
+                        raise ApiValueError('Filter elements must contain field and operation')
+
+                    if field == 'LABELS' and isinstance(value, dict):
+                        for entry_k, entry_v in value.items():
+                            new_params.append((f"filters[{field}][{operation}][{entry_k}]", quote(str(entry_v))))
+                    else:
+                        if isinstance(value, dict) and 'value' in value:
+                            actual = value.get('value')
+                        else:
+                            actual = value
+                        new_params.append((f"filters[{self._to_camel_case(field)}][{operation}]", quote(str(actual))))
+                continue
             if k in collection_formats:
                 collection_format = collection_formats[k]
                 if collection_format == 'multi':

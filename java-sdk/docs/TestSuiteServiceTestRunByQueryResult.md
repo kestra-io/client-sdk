@@ -7,11 +7,11 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**requestMade** | [**TestSuiteServiceRunByQueryRequest**](TestSuiteServiceRunByQueryRequest.md) |  |  |
-|**tenantId** | **String** |  |  |
-|**numberOfTestSuitesToBeRun** | **Integer** |  |  |
-|**numberOfTestCasesToBeRun** | **Integer** |  |  |
-|**results** | [**List&lt;TestSuiteRunResult&gt;**](TestSuiteRunResult.md) |  |  |
+|**requestMade** | [**TestSuiteServiceRunByQueryRequest**](TestSuiteServiceRunByQueryRequest.md) |  |  [optional] |
+|**tenantId** | **String** |  |  [optional] |
+|**numberOfTestSuitesToBeRun** | **Integer** |  |  [optional] |
+|**numberOfTestCasesToBeRun** | **Integer** |  |  [optional] |
+|**results** | [**List&lt;TestSuiteRunResult&gt;**](TestSuiteRunResult.md) |  |  [optional] |
 
 
 

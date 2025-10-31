@@ -7,11 +7,11 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**input** | [**InputObject**](InputObject.md) |  |  |
-|**value** | **Object** |  |  |
-|**enabled** | **Boolean** |  |  |
-|**isDefault** | **Boolean** |  |  |
-|**errors** | [**List&lt;ExecutionControllerApiValidateExecutionInputsResponseApiInputError&gt;**](ExecutionControllerApiValidateExecutionInputsResponseApiInputError.md) |  |  |
+|**input** | [**InputObject**](InputObject.md) |  |  [optional] |
+|**value** | **Object** |  |  [optional] |
+|**enabled** | **Boolean** |  |  [optional] |
+|**isDefault** | **Boolean** |  |  [optional] |
+|**errors** | [**List&lt;ExecutionControllerApiValidateExecutionInputsResponseApiInputError&gt;**](ExecutionControllerApiValidateExecutionInputsResponseApiInputError.md) |  |  [optional] |
 
 
 

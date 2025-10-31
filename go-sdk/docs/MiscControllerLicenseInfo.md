@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
-**Expiry** | **time.Time** |  | 
-**Expired** | **bool** |  | 
-**MaxServers** | **int32** |  | 
-**Standalone** | **bool** |  | 
-**WorkerGroups** | **bool** |  | 
+**Type** | Pointer to **string** |  | [optional] 
+**Expiry** | Pointer to **time.Time** |  | [optional] 
+**Expired** | Pointer to **bool** |  | [optional] 
+**MaxServers** | Pointer to **int32** |  | [optional] 
+**Standalone** | Pointer to **bool** |  | [optional] 
+**WorkerGroups** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
 ### NewMiscControllerLicenseInfo
 
-`func NewMiscControllerLicenseInfo(type_ string, expiry time.Time, expired bool, maxServers int32, standalone bool, workerGroups bool, ) *MiscControllerLicenseInfo`
+`func NewMiscControllerLicenseInfo() *MiscControllerLicenseInfo`
 
 NewMiscControllerLicenseInfo instantiates a new MiscControllerLicenseInfo object
 This constructor will assign default values to properties that have it defined,
@@ -49,6 +49,11 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
+### HasType
+
+`func (o *MiscControllerLicenseInfo) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetExpiry
 
@@ -69,6 +74,11 @@ and a boolean to check if the value has been set.
 
 SetExpiry sets Expiry field to given value.
 
+### HasExpiry
+
+`func (o *MiscControllerLicenseInfo) HasExpiry() bool`
+
+HasExpiry returns a boolean if a field has been set.
 
 ### GetExpired
 
@@ -89,6 +99,11 @@ and a boolean to check if the value has been set.
 
 SetExpired sets Expired field to given value.
 
+### HasExpired
+
+`func (o *MiscControllerLicenseInfo) HasExpired() bool`
+
+HasExpired returns a boolean if a field has been set.
 
 ### GetMaxServers
 
@@ -109,6 +124,11 @@ and a boolean to check if the value has been set.
 
 SetMaxServers sets MaxServers field to given value.
 
+### HasMaxServers
+
+`func (o *MiscControllerLicenseInfo) HasMaxServers() bool`
+
+HasMaxServers returns a boolean if a field has been set.
 
 ### GetStandalone
 
@@ -129,6 +149,11 @@ and a boolean to check if the value has been set.
 
 SetStandalone sets Standalone field to given value.
 
+### HasStandalone
+
+`func (o *MiscControllerLicenseInfo) HasStandalone() bool`
+
+HasStandalone returns a boolean if a field has been set.
 
 ### GetWorkerGroups
 
@@ -149,6 +174,11 @@ and a boolean to check if the value has been set.
 
 SetWorkerGroups sets WorkerGroups field to given value.
 
+### HasWorkerGroups
+
+`func (o *MiscControllerLicenseInfo) HasWorkerGroups() bool`
+
+HasWorkerGroups returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -38,31 +38,25 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AbstractMetricEntryObject.JSON_PROPERTY_TIMESTAMP
 })
 @JsonTypeName("AbstractMetricEntry_Object_")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AbstractMetricEntryObject {
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nullable
-  private String type;
+  @javax.annotation.Nullable  private String type;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nullable
-  private Object value;
+  @javax.annotation.Nullable  private Object value;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nonnull
-  private String name;
+  @javax.annotation.Nonnull  private String name;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
-  private String description;
+  @javax.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_TAGS = "tags";
-  @javax.annotation.Nullable
-  private Map<String, String> tags = new HashMap<>();
+  @javax.annotation.Nullable  private Map<String, String> tags = new HashMap<>();
 
   public static final String JSON_PROPERTY_TIMESTAMP = "timestamp";
-  @javax.annotation.Nullable
-  private OffsetDateTime timestamp;
+  @javax.annotation.Nullable  private OffsetDateTime timestamp;
 
   public AbstractMetricEntryObject() {
   }
@@ -77,8 +71,7 @@ public class AbstractMetricEntryObject {
    * Get type
    * @return type
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getType() {
@@ -102,8 +95,7 @@ public class AbstractMetricEntryObject {
    * Get value
    * @return value
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_VALUE)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Object getValue() {
@@ -127,8 +119,7 @@ public class AbstractMetricEntryObject {
    * Get name
    * @return name
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getName() {
@@ -152,8 +143,7 @@ public class AbstractMetricEntryObject {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -185,8 +175,7 @@ public class AbstractMetricEntryObject {
    * Get tags
    * @return tags
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TAGS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TAGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, String> getTags() {
@@ -210,8 +199,7 @@ public class AbstractMetricEntryObject {
    * Get timestamp
    * @return timestamp
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TIMESTAMP)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TIMESTAMP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getTimestamp() {

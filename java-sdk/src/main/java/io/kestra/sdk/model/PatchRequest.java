@@ -34,15 +34,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PatchRequest.JSON_PROPERTY_SCHEMAS,
   PatchRequest.JSON_PROPERTY_PATCH_OPERATION_LIST
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PatchRequest {
   public static final String JSON_PROPERTY_SCHEMAS = "schemas";
-  @javax.annotation.Nullable
-  private List<String> schemas = new ArrayList<>();
+  @javax.annotation.Nullable  private List<String> schemas = new ArrayList<>();
 
   public static final String JSON_PROPERTY_PATCH_OPERATION_LIST = "patchOperationList";
-  @javax.annotation.Nullable
-  private List<PatchOperation> patchOperationList = new ArrayList<>();
+  @javax.annotation.Nullable  private List<PatchOperation> patchOperationList = new ArrayList<>();
 
   public PatchRequest() {
   }
@@ -65,8 +63,7 @@ public class PatchRequest {
    * Get schemas
    * @return schemas
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SCHEMAS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SCHEMAS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getSchemas() {
@@ -98,8 +95,7 @@ public class PatchRequest {
    * Get patchOperationList
    * @return patchOperationList
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PATCH_OPERATION_LIST)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PATCH_OPERATION_LIST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PatchOperation> getPatchOperationList() {

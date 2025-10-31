@@ -52,71 +52,55 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   SchemaAttribute.JSON_PROPERTY_SCIM_RESOURCE_ID_REFERENCE
 })
 @JsonTypeName("Schema.Attribute")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class SchemaAttribute {
   public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
-  @javax.annotation.Nullable
-  private List<SchemaAttribute> attributes = new ArrayList<>();
+  @javax.annotation.Nullable  private List<SchemaAttribute> attributes = new ArrayList<>();
 
   public static final String JSON_PROPERTY_URN = "urn";
-  @javax.annotation.Nullable
-  private String urn;
+  @javax.annotation.Nullable  private String urn;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nullable
-  private String name;
+  @javax.annotation.Nullable  private String name;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nullable
-  private SchemaAttributeType type;
+  @javax.annotation.Nullable  private SchemaAttributeType type;
 
   public static final String JSON_PROPERTY_SUB_ATTRIBUTES = "subAttributes";
-  @javax.annotation.Nullable
-  private List<SchemaAttribute> subAttributes = new ArrayList<>();
+  @javax.annotation.Nullable  private List<SchemaAttribute> subAttributes = new ArrayList<>();
 
   public static final String JSON_PROPERTY_MULTI_VALUED = "multiValued";
-  @javax.annotation.Nullable
-  private Boolean multiValued;
+  @javax.annotation.Nullable  private Boolean multiValued;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
-  private String description;
+  @javax.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_REQUIRED = "required";
-  @javax.annotation.Nullable
-  private Boolean required;
+  @javax.annotation.Nullable  private Boolean required;
 
   public static final String JSON_PROPERTY_CANONICAL_VALUES = "canonicalValues";
-  @javax.annotation.Nullable
-  private List<String> canonicalValues = new ArrayList<>();
+  @javax.annotation.Nullable  private List<String> canonicalValues = new ArrayList<>();
 
   public static final String JSON_PROPERTY_CASE_EXACT = "caseExact";
-  @javax.annotation.Nullable
-  private Boolean caseExact;
+  @javax.annotation.Nullable  private Boolean caseExact;
 
   public static final String JSON_PROPERTY_MUTABILITY = "mutability";
-  @javax.annotation.Nullable
-  private SchemaAttributeMutability mutability;
+  @javax.annotation.Nullable  private SchemaAttributeMutability mutability;
 
   public static final String JSON_PROPERTY_RETURNED = "returned";
-  @javax.annotation.Nullable
-  private SchemaAttributeReturned returned;
+  @javax.annotation.Nullable  private SchemaAttributeReturned returned;
 
   public static final String JSON_PROPERTY_UNIQUENESS = "uniqueness";
-  @javax.annotation.Nullable
-  private SchemaAttributeUniqueness uniqueness;
+  @javax.annotation.Nullable  private SchemaAttributeUniqueness uniqueness;
 
   public static final String JSON_PROPERTY_REFERENCE_TYPES = "referenceTypes";
-  @javax.annotation.Nullable
-  private List<String> referenceTypes = new ArrayList<>();
+  @javax.annotation.Nullable  private List<String> referenceTypes = new ArrayList<>();
 
   public static final String JSON_PROPERTY_ACCESSOR = "accessor";
-  @javax.annotation.Nullable
-  private Object accessor;
+  @javax.annotation.Nullable  private Object accessor;
 
   public static final String JSON_PROPERTY_SCIM_RESOURCE_ID_REFERENCE = "scimResourceIdReference";
-  @javax.annotation.Nullable
-  private Boolean scimResourceIdReference;
+  @javax.annotation.Nullable  private Boolean scimResourceIdReference;
 
   public SchemaAttribute() {
   }
@@ -139,8 +123,7 @@ public class SchemaAttribute {
    * Get attributes
    * @return attributes
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<SchemaAttribute> getAttributes() {
@@ -164,8 +147,7 @@ public class SchemaAttribute {
    * Get urn
    * @return urn
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_URN)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_URN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUrn() {
@@ -189,8 +171,7 @@ public class SchemaAttribute {
    * Get name
    * @return name
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
@@ -214,8 +195,7 @@ public class SchemaAttribute {
    * Get type
    * @return type
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public SchemaAttributeType getType() {
@@ -247,8 +227,7 @@ public class SchemaAttribute {
    * Get subAttributes
    * @return subAttributes
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SUB_ATTRIBUTES)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUB_ATTRIBUTES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<SchemaAttribute> getSubAttributes() {
@@ -272,8 +251,7 @@ public class SchemaAttribute {
    * Get multiValued
    * @return multiValued
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_MULTI_VALUED)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MULTI_VALUED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getMultiValued() {
@@ -297,8 +275,7 @@ public class SchemaAttribute {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -322,8 +299,7 @@ public class SchemaAttribute {
    * Get required
    * @return required
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_REQUIRED)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REQUIRED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getRequired() {
@@ -355,8 +331,7 @@ public class SchemaAttribute {
    * Get canonicalValues
    * @return canonicalValues
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CANONICAL_VALUES)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CANONICAL_VALUES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getCanonicalValues() {
@@ -380,8 +355,7 @@ public class SchemaAttribute {
    * Get caseExact
    * @return caseExact
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CASE_EXACT)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CASE_EXACT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getCaseExact() {
@@ -405,8 +379,7 @@ public class SchemaAttribute {
    * Get mutability
    * @return mutability
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_MUTABILITY)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MUTABILITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public SchemaAttributeMutability getMutability() {
@@ -430,8 +403,7 @@ public class SchemaAttribute {
    * Get returned
    * @return returned
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_RETURNED)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RETURNED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public SchemaAttributeReturned getReturned() {
@@ -455,8 +427,7 @@ public class SchemaAttribute {
    * Get uniqueness
    * @return uniqueness
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_UNIQUENESS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UNIQUENESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public SchemaAttributeUniqueness getUniqueness() {
@@ -488,8 +459,7 @@ public class SchemaAttribute {
    * Get referenceTypes
    * @return referenceTypes
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_REFERENCE_TYPES)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REFERENCE_TYPES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getReferenceTypes() {
@@ -513,8 +483,7 @@ public class SchemaAttribute {
    * Get accessor
    * @return accessor
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ACCESSOR)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ACCESSOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Object getAccessor() {
@@ -538,8 +507,7 @@ public class SchemaAttribute {
    * Get scimResourceIdReference
    * @return scimResourceIdReference
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SCIM_RESOURCE_ID_REFERENCE)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SCIM_RESOURCE_ID_REFERENCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getScimResourceIdReference() {

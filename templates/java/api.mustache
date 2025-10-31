@@ -40,6 +40,7 @@ public class {{classname}} {
   }
 
   {{#operation}}
+  {{^vendorExtensions.x-sdk-customization.x-skipped}}
   /**
    * {{summary}}
    * {{notes}}
@@ -115,6 +116,21 @@ public class {{classname}} {
     apiClient.invokeAPI(localVarPath, "{{httpMethod}}", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
     {{/returnType}}
   }
+  {{/vendorExtensions.x-sdk-customization.x-skipped}}
+
+
+  {{#vendorExtensions.x-sdk-customization.x-replace-follow-execution}}
+
+  {{/vendorExtensions.x-sdk-customization.x-replace-follow-execution}}
+
+
+  {{#vendorExtensions.x-sdk-customization.x-replace-follow-dependencies-execution}}
+
+  {{/vendorExtensions.x-sdk-customization.x-replace-follow-dependencies-execution}}
+
   {{/operation}}
+
+
+
 }
 {{/operations}}

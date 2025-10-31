@@ -37,31 +37,25 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FileAttributes.JSON_PROPERTY_SIZE,
   FileAttributes.JSON_PROPERTY_METADATA
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class FileAttributes {
   public static final String JSON_PROPERTY_FILE_NAME = "fileName";
-  @javax.annotation.Nullable
-  private String fileName;
+  @javax.annotation.Nullable  private String fileName;
 
   public static final String JSON_PROPERTY_LAST_MODIFIED_TIME = "lastModifiedTime";
-  @javax.annotation.Nullable
-  private Long lastModifiedTime;
+  @javax.annotation.Nullable  private Long lastModifiedTime;
 
   public static final String JSON_PROPERTY_CREATION_TIME = "creationTime";
-  @javax.annotation.Nullable
-  private Long creationTime;
+  @javax.annotation.Nullable  private Long creationTime;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nullable
-  private FileAttributesFileType type;
+  @javax.annotation.Nullable  private FileAttributesFileType type;
 
   public static final String JSON_PROPERTY_SIZE = "size";
-  @javax.annotation.Nullable
-  private Long size;
+  @javax.annotation.Nullable  private Long size;
 
   public static final String JSON_PROPERTY_METADATA = "metadata";
-  @javax.annotation.Nullable
-  private Map<String, String> metadata = new HashMap<>();
+  @javax.annotation.Nullable  private Map<String, String> metadata = new HashMap<>();
 
   public FileAttributes() {
   }
@@ -76,8 +70,7 @@ public class FileAttributes {
    * Get fileName
    * @return fileName
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FILE_NAME)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FILE_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFileName() {
@@ -101,8 +94,7 @@ public class FileAttributes {
    * Get lastModifiedTime
    * @return lastModifiedTime
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LAST_MODIFIED_TIME)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LAST_MODIFIED_TIME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getLastModifiedTime() {
@@ -126,8 +118,7 @@ public class FileAttributes {
    * Get creationTime
    * @return creationTime
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CREATION_TIME)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CREATION_TIME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getCreationTime() {
@@ -151,8 +142,7 @@ public class FileAttributes {
    * Get type
    * @return type
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public FileAttributesFileType getType() {
@@ -176,8 +166,7 @@ public class FileAttributes {
    * Get size
    * @return size
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SIZE)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SIZE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getSize() {
@@ -209,8 +198,7 @@ public class FileAttributes {
    * Get metadata
    * @return metadata
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_METADATA)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_METADATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, String> getMetadata() {

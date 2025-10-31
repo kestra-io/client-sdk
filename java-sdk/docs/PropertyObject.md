@@ -1,14 +1,10 @@
 
 
-# PropertyObject
+# Interface PropertyObject
 
+## Implementing Classes
 
-## Properties
-
-| Name | Type | Description | Notes |
-|------------ | ------------- | ------------- | -------------|
-|**expression** | **String** |  |  |
-|**value** | **Object** |  |  [optional] |
-
+* Object
+* String
 
 

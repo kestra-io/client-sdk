@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the IAMGroupControllerApiGroupMembership type satisfies the MappedNullable interface at compile time
@@ -20,10 +19,10 @@ var _ MappedNullable = &IAMGroupControllerApiGroupMembership{}
 
 // IAMGroupControllerApiGroupMembership struct for IAMGroupControllerApiGroupMembership
 type IAMGroupControllerApiGroupMembership struct {
-	Id                   string                    `json:"id"`
-	Name                 string                    `json:"name"`
-	External             bool                      `json:"external"`
-	Membership           GroupIdentifierMembership `json:"membership"`
+	Id                   *string                    `json:"id,omitempty"`
+	Name                 *string                    `json:"name,omitempty"`
+	External             *bool                      `json:"external,omitempty"`
+	Membership           *GroupIdentifierMembership `json:"membership,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -33,12 +32,8 @@ type _IAMGroupControllerApiGroupMembership IAMGroupControllerApiGroupMembership
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIAMGroupControllerApiGroupMembership(id string, name string, external bool, membership GroupIdentifierMembership) *IAMGroupControllerApiGroupMembership {
+func NewIAMGroupControllerApiGroupMembership() *IAMGroupControllerApiGroupMembership {
 	this := IAMGroupControllerApiGroupMembership{}
-	this.Id = id
-	this.Name = name
-	this.External = external
-	this.Membership = membership
 	return &this
 }
 
@@ -50,100 +45,132 @@ func NewIAMGroupControllerApiGroupMembershipWithDefaults() *IAMGroupControllerAp
 	return &this
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *IAMGroupControllerApiGroupMembership) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMGroupControllerApiGroupMembership) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *IAMGroupControllerApiGroupMembership) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *IAMGroupControllerApiGroupMembership) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
-// GetName returns the Name field value
+// GetName returns the Name field value if set, zero value otherwise.
 func (o *IAMGroupControllerApiGroupMembership) GetName() string {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
-
-	return o.Name
+	return *o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMGroupControllerApiGroupMembership) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.Name, true
 }
 
-// SetName sets field value
+// HasName returns a boolean if a field has been set.
+func (o *IAMGroupControllerApiGroupMembership) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
 func (o *IAMGroupControllerApiGroupMembership) SetName(v string) {
-	o.Name = v
+	o.Name = &v
 }
 
-// GetExternal returns the External field value
+// GetExternal returns the External field value if set, zero value otherwise.
 func (o *IAMGroupControllerApiGroupMembership) GetExternal() bool {
-	if o == nil {
+	if o == nil || IsNil(o.External) {
 		var ret bool
 		return ret
 	}
-
-	return o.External
+	return *o.External
 }
 
-// GetExternalOk returns a tuple with the External field value
+// GetExternalOk returns a tuple with the External field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMGroupControllerApiGroupMembership) GetExternalOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.External) {
 		return nil, false
 	}
-	return &o.External, true
+	return o.External, true
 }
 
-// SetExternal sets field value
+// HasExternal returns a boolean if a field has been set.
+func (o *IAMGroupControllerApiGroupMembership) HasExternal() bool {
+	if o != nil && !IsNil(o.External) {
+		return true
+	}
+
+	return false
+}
+
+// SetExternal gets a reference to the given bool and assigns it to the External field.
 func (o *IAMGroupControllerApiGroupMembership) SetExternal(v bool) {
-	o.External = v
+	o.External = &v
 }
 
-// GetMembership returns the Membership field value
+// GetMembership returns the Membership field value if set, zero value otherwise.
 func (o *IAMGroupControllerApiGroupMembership) GetMembership() GroupIdentifierMembership {
-	if o == nil {
+	if o == nil || IsNil(o.Membership) {
 		var ret GroupIdentifierMembership
 		return ret
 	}
-
-	return o.Membership
+	return *o.Membership
 }
 
-// GetMembershipOk returns a tuple with the Membership field value
+// GetMembershipOk returns a tuple with the Membership field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMGroupControllerApiGroupMembership) GetMembershipOk() (*GroupIdentifierMembership, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Membership) {
 		return nil, false
 	}
-	return &o.Membership, true
+	return o.Membership, true
 }
 
-// SetMembership sets field value
+// HasMembership returns a boolean if a field has been set.
+func (o *IAMGroupControllerApiGroupMembership) HasMembership() bool {
+	if o != nil && !IsNil(o.Membership) {
+		return true
+	}
+
+	return false
+}
+
+// SetMembership gets a reference to the given GroupIdentifierMembership and assigns it to the Membership field.
 func (o *IAMGroupControllerApiGroupMembership) SetMembership(v GroupIdentifierMembership) {
-	o.Membership = v
+	o.Membership = &v
 }
 
 func (o IAMGroupControllerApiGroupMembership) MarshalJSON() ([]byte, error) {
@@ -156,10 +183,18 @@ func (o IAMGroupControllerApiGroupMembership) MarshalJSON() ([]byte, error) {
 
 func (o IAMGroupControllerApiGroupMembership) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["id"] = o.Id
-	toSerialize["name"] = o.Name
-	toSerialize["external"] = o.External
-	toSerialize["membership"] = o.Membership
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.External) {
+		toSerialize["external"] = o.External
+	}
+	if !IsNil(o.Membership) {
+		toSerialize["membership"] = o.Membership
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -169,30 +204,6 @@ func (o IAMGroupControllerApiGroupMembership) ToMap() (map[string]interface{}, e
 }
 
 func (o *IAMGroupControllerApiGroupMembership) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"id",
-		"name",
-		"external",
-		"membership",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varIAMGroupControllerApiGroupMembership := _IAMGroupControllerApiGroupMembership{}
 
 	err = json.Unmarshal(data, &varIAMGroupControllerApiGroupMembership)

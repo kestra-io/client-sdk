@@ -31,15 +31,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ConvertibleValuesListString.JSON_PROPERTY_EMPTY
 })
 @JsonTypeName("ConvertibleValues_List_String__")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ConvertibleValuesListString {
   public static final String JSON_PROPERTY_CONVERSION_SERVICE = "conversionService";
-  @javax.annotation.Nonnull
-  private Object conversionService;
+  @javax.annotation.Nonnull  private Object conversionService;
 
   public static final String JSON_PROPERTY_EMPTY = "empty";
-  @javax.annotation.Nullable
-  private Boolean empty;
+  @javax.annotation.Nullable  private Boolean empty;
 
   public ConvertibleValuesListString() {
   }
@@ -54,8 +52,7 @@ public class ConvertibleValuesListString {
    * Get conversionService
    * @return conversionService
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_CONVERSION_SERVICE)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_CONVERSION_SERVICE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Object getConversionService() {
@@ -79,8 +76,7 @@ public class ConvertibleValuesListString {
    * Get empty
    * @return empty
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_EMPTY)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EMPTY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getEmpty() {

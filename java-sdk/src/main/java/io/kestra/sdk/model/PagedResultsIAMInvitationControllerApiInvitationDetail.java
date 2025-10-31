@@ -35,15 +35,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PagedResultsIAMInvitationControllerApiInvitationDetail.JSON_PROPERTY_TOTAL
 })
 @JsonTypeName("PagedResults_IAMInvitationController.ApiInvitationDetail_")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PagedResultsIAMInvitationControllerApiInvitationDetail {
   public static final String JSON_PROPERTY_RESULTS = "results";
-  @javax.annotation.Nonnull
-  private List<IAMInvitationControllerApiInvitationDetail> results = new ArrayList<>();
+  @javax.annotation.Nonnull  private List<IAMInvitationControllerApiInvitationDetail> results = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TOTAL = "total";
-  @javax.annotation.Nonnull
-  private Long total;
+  @javax.annotation.Nonnull  private Long total;
 
   public PagedResultsIAMInvitationControllerApiInvitationDetail() {
   }
@@ -66,8 +64,7 @@ public class PagedResultsIAMInvitationControllerApiInvitationDetail {
    * Get results
    * @return results
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<IAMInvitationControllerApiInvitationDetail> getResults() {
@@ -91,8 +88,7 @@ public class PagedResultsIAMInvitationControllerApiInvitationDetail {
    * Get total
    * @return total
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TOTAL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Long getTotal() {

@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the QueryFilter type satisfies the MappedNullable interface at compile time
@@ -20,9 +19,9 @@ var _ MappedNullable = &QueryFilter{}
 
 // QueryFilter struct for QueryFilter
 type QueryFilter struct {
-	Field                QueryFilterField       `json:"field"`
-	Operation            QueryFilterOp          `json:"operation"`
-	Value                map[string]interface{} `json:"value"`
+	Field                *QueryFilterField      `json:"field,omitempty"`
+	Operation            *QueryFilterOp         `json:"operation,omitempty"`
+	Value                map[string]interface{} `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,11 +31,8 @@ type _QueryFilter QueryFilter
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewQueryFilter(field QueryFilterField, operation QueryFilterOp, value map[string]interface{}) *QueryFilter {
+func NewQueryFilter() *QueryFilter {
 	this := QueryFilter{}
-	this.Field = field
-	this.Operation = operation
-	this.Value = value
 	return &this
 }
 
@@ -48,74 +44,98 @@ func NewQueryFilterWithDefaults() *QueryFilter {
 	return &this
 }
 
-// GetField returns the Field field value
+// GetField returns the Field field value if set, zero value otherwise.
 func (o *QueryFilter) GetField() QueryFilterField {
-	if o == nil {
+	if o == nil || IsNil(o.Field) {
 		var ret QueryFilterField
 		return ret
 	}
-
-	return o.Field
+	return *o.Field
 }
 
-// GetFieldOk returns a tuple with the Field field value
+// GetFieldOk returns a tuple with the Field field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryFilter) GetFieldOk() (*QueryFilterField, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Field) {
 		return nil, false
 	}
-	return &o.Field, true
+	return o.Field, true
 }
 
-// SetField sets field value
+// HasField returns a boolean if a field has been set.
+func (o *QueryFilter) HasField() bool {
+	if o != nil && !IsNil(o.Field) {
+		return true
+	}
+
+	return false
+}
+
+// SetField gets a reference to the given QueryFilterField and assigns it to the Field field.
 func (o *QueryFilter) SetField(v QueryFilterField) {
-	o.Field = v
+	o.Field = &v
 }
 
-// GetOperation returns the Operation field value
+// GetOperation returns the Operation field value if set, zero value otherwise.
 func (o *QueryFilter) GetOperation() QueryFilterOp {
-	if o == nil {
+	if o == nil || IsNil(o.Operation) {
 		var ret QueryFilterOp
 		return ret
 	}
-
-	return o.Operation
+	return *o.Operation
 }
 
-// GetOperationOk returns a tuple with the Operation field value
+// GetOperationOk returns a tuple with the Operation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryFilter) GetOperationOk() (*QueryFilterOp, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Operation) {
 		return nil, false
 	}
-	return &o.Operation, true
+	return o.Operation, true
 }
 
-// SetOperation sets field value
+// HasOperation returns a boolean if a field has been set.
+func (o *QueryFilter) HasOperation() bool {
+	if o != nil && !IsNil(o.Operation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOperation gets a reference to the given QueryFilterOp and assigns it to the Operation field.
 func (o *QueryFilter) SetOperation(v QueryFilterOp) {
-	o.Operation = v
+	o.Operation = &v
 }
 
-// GetValue returns the Value field value
+// GetValue returns the Value field value if set, zero value otherwise.
 func (o *QueryFilter) GetValue() map[string]interface{} {
-	if o == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret map[string]interface{}
 		return ret
 	}
-
 	return o.Value
 }
 
-// GetValueOk returns a tuple with the Value field value
+// GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryFilter) GetValueOk() (map[string]interface{}, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Value) {
 		return map[string]interface{}{}, false
 	}
 	return o.Value, true
 }
 
-// SetValue sets field value
+// HasValue returns a boolean if a field has been set.
+func (o *QueryFilter) HasValue() bool {
+	if o != nil && !IsNil(o.Value) {
+		return true
+	}
+
+	return false
+}
+
+// SetValue gets a reference to the given map[string]interface{} and assigns it to the Value field.
 func (o *QueryFilter) SetValue(v map[string]interface{}) {
 	o.Value = v
 }
@@ -130,9 +150,15 @@ func (o QueryFilter) MarshalJSON() ([]byte, error) {
 
 func (o QueryFilter) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["field"] = o.Field
-	toSerialize["operation"] = o.Operation
-	toSerialize["value"] = o.Value
+	if !IsNil(o.Field) {
+		toSerialize["field"] = o.Field
+	}
+	if !IsNil(o.Operation) {
+		toSerialize["operation"] = o.Operation
+	}
+	if !IsNil(o.Value) {
+		toSerialize["value"] = o.Value
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -142,29 +168,6 @@ func (o QueryFilter) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *QueryFilter) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"field",
-		"operation",
-		"value",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varQueryFilter := _QueryFilter{}
 
 	err = json.Unmarshal(data, &varQueryFilter)

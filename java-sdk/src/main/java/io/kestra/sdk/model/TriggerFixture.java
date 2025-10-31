@@ -33,19 +33,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TriggerFixture.JSON_PROPERTY_TYPE,
   TriggerFixture.JSON_PROPERTY_VARIABLES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TriggerFixture {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
-  private String id;
+  @javax.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nonnull
-  private String type;
+  @javax.annotation.Nonnull  private String type;
 
   public static final String JSON_PROPERTY_VARIABLES = "variables";
-  @javax.annotation.Nullable
-  private Map<String, Object> variables = new HashMap<>();
+  @javax.annotation.Nullable  private Map<String, Object> variables = new HashMap<>();
 
   public TriggerFixture() {
   }
@@ -60,8 +57,7 @@ public class TriggerFixture {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -85,8 +81,7 @@ public class TriggerFixture {
    * Get type
    * @return type
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getType() {
@@ -118,8 +113,7 @@ public class TriggerFixture {
    * Get variables
    * @return variables
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_VARIABLES)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VARIABLES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getVariables() {

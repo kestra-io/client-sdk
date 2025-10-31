@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**uids** | **[String]** |  | 
+**uids** | **[String]** |  | [optional] 
 
 

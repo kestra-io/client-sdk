@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**taskRunId** | **String** |  |  |
-|**state** | **StateType** |  |  |
+|**taskRunId** | **String** |  |  [optional] |
+|**state** | **StateType** |  |  [optional] |
 
 
 

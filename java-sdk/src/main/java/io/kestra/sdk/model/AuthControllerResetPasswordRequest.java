@@ -31,20 +31,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AuthControllerResetPasswordRequest.JSON_PROPERTY_PASSWORD
 })
 @JsonTypeName("AuthController.ResetPasswordRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AuthControllerResetPasswordRequest {
   public static final String JSON_PROPERTY_TOKEN = "token";
-  @javax.annotation.Nonnull
-  private String token;
+  @javax.annotation.Nullable  private String token;
 
   public static final String JSON_PROPERTY_PASSWORD = "password";
-  @javax.annotation.Nonnull
-  private String password;
+  @javax.annotation.Nullable  private String password;
 
   public AuthControllerResetPasswordRequest() {
   }
 
-  public AuthControllerResetPasswordRequest token(@javax.annotation.Nonnull String token) {
+  public AuthControllerResetPasswordRequest token(@javax.annotation.Nullable String token) {
     
     this.token = token;
     return this;
@@ -54,9 +52,8 @@ public class AuthControllerResetPasswordRequest {
    * Get token
    * @return token
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TOKEN)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TOKEN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getToken() {
     return token;
@@ -64,12 +61,12 @@ public class AuthControllerResetPasswordRequest {
 
 
   @JsonProperty(JSON_PROPERTY_TOKEN)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setToken(@javax.annotation.Nonnull String token) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setToken(@javax.annotation.Nullable String token) {
     this.token = token;
   }
 
-  public AuthControllerResetPasswordRequest password(@javax.annotation.Nonnull String password) {
+  public AuthControllerResetPasswordRequest password(@javax.annotation.Nullable String password) {
     
     this.password = password;
     return this;
@@ -79,9 +76,8 @@ public class AuthControllerResetPasswordRequest {
    * Get password
    * @return password
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_PASSWORD)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PASSWORD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getPassword() {
     return password;
@@ -89,8 +85,8 @@ public class AuthControllerResetPasswordRequest {
 
 
   @JsonProperty(JSON_PROPERTY_PASSWORD)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPassword(@javax.annotation.Nonnull String password) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPassword(@javax.annotation.Nullable String password) {
     this.password = password;
   }
 

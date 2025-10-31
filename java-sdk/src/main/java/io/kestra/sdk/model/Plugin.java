@@ -61,111 +61,85 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Plugin.JSON_PROPERTY_CATEGORIES,
   Plugin.JSON_PROPERTY_SUB_GROUP
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Plugin {
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nullable
-  private String name;
+  @javax.annotation.Nullable  private String name;
 
   public static final String JSON_PROPERTY_TITLE = "title";
-  @javax.annotation.Nullable
-  private String title;
+  @javax.annotation.Nullable  private String title;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
-  private String description;
+  @javax.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_LICENSE = "license";
-  @javax.annotation.Nullable
-  private String license;
+  @javax.annotation.Nullable  private String license;
 
   public static final String JSON_PROPERTY_LONG_DESCRIPTION = "longDescription";
-  @javax.annotation.Nullable
-  private String longDescription;
+  @javax.annotation.Nullable  private String longDescription;
 
   public static final String JSON_PROPERTY_GROUP = "group";
-  @javax.annotation.Nullable
-  private String group;
+  @javax.annotation.Nullable  private String group;
 
   public static final String JSON_PROPERTY_VERSION = "version";
-  @javax.annotation.Nullable
-  private String version;
+  @javax.annotation.Nullable  private String version;
 
   public static final String JSON_PROPERTY_MANIFEST = "manifest";
-  @javax.annotation.Nullable
-  private Map<String, String> manifest = new HashMap<>();
+  @javax.annotation.Nullable  private Map<String, String> manifest = new HashMap<>();
 
   public static final String JSON_PROPERTY_GUIDES = "guides";
-  @javax.annotation.Nullable
-  private List<String> guides = new ArrayList<>();
+  @javax.annotation.Nullable  private List<String> guides = new ArrayList<>();
 
   public static final String JSON_PROPERTY_ALIASES = "aliases";
-  @javax.annotation.Nullable
-  private List<String> aliases = new ArrayList<>();
+  @javax.annotation.Nullable  private List<String> aliases = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TASKS = "tasks";
-  @javax.annotation.Nullable
-  private List<PluginPluginElementMetadata> tasks = new ArrayList<>();
+  @javax.annotation.Nullable  private List<PluginPluginElementMetadata> tasks = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TRIGGERS = "triggers";
-  @javax.annotation.Nullable
-  private List<PluginPluginElementMetadata> triggers = new ArrayList<>();
+  @javax.annotation.Nullable  private List<PluginPluginElementMetadata> triggers = new ArrayList<>();
 
   public static final String JSON_PROPERTY_CONDITIONS = "conditions";
-  @javax.annotation.Nullable
-  private List<PluginPluginElementMetadata> conditions = new ArrayList<>();
+  @javax.annotation.Nullable  private List<PluginPluginElementMetadata> conditions = new ArrayList<>();
 
   public static final String JSON_PROPERTY_CONTROLLERS = "controllers";
-  @javax.annotation.Nullable
-  private List<PluginPluginElementMetadata> controllers = new ArrayList<>();
+  @javax.annotation.Nullable  private List<PluginPluginElementMetadata> controllers = new ArrayList<>();
 
   public static final String JSON_PROPERTY_STORAGES = "storages";
-  @javax.annotation.Nullable
-  private List<PluginPluginElementMetadata> storages = new ArrayList<>();
+  @javax.annotation.Nullable  private List<PluginPluginElementMetadata> storages = new ArrayList<>();
 
   public static final String JSON_PROPERTY_SECRETS = "secrets";
-  @javax.annotation.Nullable
-  private List<PluginPluginElementMetadata> secrets = new ArrayList<>();
+  @javax.annotation.Nullable  private List<PluginPluginElementMetadata> secrets = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TASK_RUNNERS = "taskRunners";
-  @javax.annotation.Nullable
-  private List<PluginPluginElementMetadata> taskRunners = new ArrayList<>();
+  @javax.annotation.Nullable  private List<PluginPluginElementMetadata> taskRunners = new ArrayList<>();
 
   public static final String JSON_PROPERTY_APPS = "apps";
-  @javax.annotation.Nullable
-  private List<PluginPluginElementMetadata> apps = new ArrayList<>();
+  @javax.annotation.Nullable  private List<PluginPluginElementMetadata> apps = new ArrayList<>();
 
   public static final String JSON_PROPERTY_APP_BLOCKS = "appBlocks";
-  @javax.annotation.Nullable
-  private List<PluginPluginElementMetadata> appBlocks = new ArrayList<>();
+  @javax.annotation.Nullable  private List<PluginPluginElementMetadata> appBlocks = new ArrayList<>();
 
   public static final String JSON_PROPERTY_CHARTS = "charts";
-  @javax.annotation.Nullable
-  private List<PluginPluginElementMetadata> charts = new ArrayList<>();
+  @javax.annotation.Nullable  private List<PluginPluginElementMetadata> charts = new ArrayList<>();
 
   public static final String JSON_PROPERTY_DATA_FILTERS = "dataFilters";
-  @javax.annotation.Nullable
-  private List<PluginPluginElementMetadata> dataFilters = new ArrayList<>();
+  @javax.annotation.Nullable  private List<PluginPluginElementMetadata> dataFilters = new ArrayList<>();
 
   public static final String JSON_PROPERTY_DATA_FILTERS_K_P_I = "dataFiltersKPI";
-  @javax.annotation.Nullable
-  private List<PluginPluginElementMetadata> dataFiltersKPI = new ArrayList<>();
+  @javax.annotation.Nullable  private List<PluginPluginElementMetadata> dataFiltersKPI = new ArrayList<>();
 
   public static final String JSON_PROPERTY_LOG_EXPORTERS = "logExporters";
-  @javax.annotation.Nullable
-  private List<PluginPluginElementMetadata> logExporters = new ArrayList<>();
+  @javax.annotation.Nullable  private List<PluginPluginElementMetadata> logExporters = new ArrayList<>();
 
   public static final String JSON_PROPERTY_ADDITIONAL_PLUGINS = "additionalPlugins";
-  @javax.annotation.Nullable
-  private List<PluginPluginElementMetadata> additionalPlugins = new ArrayList<>();
+  @javax.annotation.Nullable  private List<PluginPluginElementMetadata> additionalPlugins = new ArrayList<>();
 
   public static final String JSON_PROPERTY_CATEGORIES = "categories";
-  @javax.annotation.Nullable
-  private List<PluginSubGroupPluginCategory> categories = new ArrayList<>();
+  @javax.annotation.Nullable  private List<PluginSubGroupPluginCategory> categories = new ArrayList<>();
 
   public static final String JSON_PROPERTY_SUB_GROUP = "subGroup";
-  @javax.annotation.Nullable
-  private String subGroup;
+  @javax.annotation.Nullable  private String subGroup;
 
   public Plugin() {
   }
@@ -180,8 +154,7 @@ public class Plugin {
    * Get name
    * @return name
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
@@ -205,8 +178,7 @@ public class Plugin {
    * Get title
    * @return title
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TITLE)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TITLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTitle() {
@@ -230,8 +202,7 @@ public class Plugin {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -255,8 +226,7 @@ public class Plugin {
    * Get license
    * @return license
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LICENSE)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LICENSE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getLicense() {
@@ -280,8 +250,7 @@ public class Plugin {
    * Get longDescription
    * @return longDescription
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LONG_DESCRIPTION)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LONG_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getLongDescription() {
@@ -305,8 +274,7 @@ public class Plugin {
    * Get group
    * @return group
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_GROUP)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getGroup() {
@@ -330,8 +298,7 @@ public class Plugin {
    * Get version
    * @return version
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_VERSION)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getVersion() {
@@ -363,8 +330,7 @@ public class Plugin {
    * Get manifest
    * @return manifest
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_MANIFEST)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MANIFEST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, String> getManifest() {
@@ -396,8 +362,7 @@ public class Plugin {
    * Get guides
    * @return guides
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_GUIDES)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GUIDES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getGuides() {
@@ -429,8 +394,7 @@ public class Plugin {
    * Get aliases
    * @return aliases
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ALIASES)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ALIASES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getAliases() {
@@ -462,8 +426,7 @@ public class Plugin {
    * Get tasks
    * @return tasks
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TASKS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TASKS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getTasks() {
@@ -495,8 +458,7 @@ public class Plugin {
    * Get triggers
    * @return triggers
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TRIGGERS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TRIGGERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getTriggers() {
@@ -528,8 +490,7 @@ public class Plugin {
    * Get conditions
    * @return conditions
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CONDITIONS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CONDITIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getConditions() {
@@ -561,8 +522,7 @@ public class Plugin {
    * Get controllers
    * @return controllers
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CONTROLLERS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CONTROLLERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getControllers() {
@@ -594,8 +554,7 @@ public class Plugin {
    * Get storages
    * @return storages
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_STORAGES)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STORAGES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getStorages() {
@@ -627,8 +586,7 @@ public class Plugin {
    * Get secrets
    * @return secrets
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SECRETS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRETS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getSecrets() {
@@ -660,8 +618,7 @@ public class Plugin {
    * Get taskRunners
    * @return taskRunners
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TASK_RUNNERS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TASK_RUNNERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getTaskRunners() {
@@ -693,8 +650,7 @@ public class Plugin {
    * Get apps
    * @return apps
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_APPS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_APPS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getApps() {
@@ -726,8 +682,7 @@ public class Plugin {
    * Get appBlocks
    * @return appBlocks
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_APP_BLOCKS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_APP_BLOCKS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getAppBlocks() {
@@ -759,8 +714,7 @@ public class Plugin {
    * Get charts
    * @return charts
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CHARTS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CHARTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getCharts() {
@@ -792,8 +746,7 @@ public class Plugin {
    * Get dataFilters
    * @return dataFilters
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DATA_FILTERS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DATA_FILTERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getDataFilters() {
@@ -825,8 +778,7 @@ public class Plugin {
    * Get dataFiltersKPI
    * @return dataFiltersKPI
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DATA_FILTERS_K_P_I)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DATA_FILTERS_K_P_I)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getDataFiltersKPI() {
@@ -858,8 +810,7 @@ public class Plugin {
    * Get logExporters
    * @return logExporters
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LOG_EXPORTERS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LOG_EXPORTERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getLogExporters() {
@@ -891,8 +842,7 @@ public class Plugin {
    * Get additionalPlugins
    * @return additionalPlugins
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ADDITIONAL_PLUGINS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ADDITIONAL_PLUGINS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getAdditionalPlugins() {
@@ -924,8 +874,7 @@ public class Plugin {
    * Get categories
    * @return categories
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CATEGORIES)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CATEGORIES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginSubGroupPluginCategory> getCategories() {
@@ -949,8 +898,7 @@ public class Plugin {
    * Get subGroup
    * @return subGroup
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SUB_GROUP)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUB_GROUP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSubGroup() {

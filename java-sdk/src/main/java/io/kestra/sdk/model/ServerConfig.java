@@ -37,19 +37,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ServerConfig.JSON_PROPERTY_TERMINATION_GRACE_PERIOD,
   ServerConfig.JSON_PROPERTY_LIVENESS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ServerConfig {
   public static final String JSON_PROPERTY_WORKER_TASK_RESTART_STRATEGY = "workerTaskRestartStrategy";
-  @javax.annotation.Nullable
-  private JsonNullable<WorkerTaskRestartStrategy> workerTaskRestartStrategy = JsonNullable.<WorkerTaskRestartStrategy>undefined();
+  @javax.annotation.Nullable  private JsonNullable<WorkerTaskRestartStrategy> workerTaskRestartStrategy = JsonNullable.<WorkerTaskRestartStrategy>undefined();
 
   public static final String JSON_PROPERTY_TERMINATION_GRACE_PERIOD = "terminationGracePeriod";
-  @javax.annotation.Nonnull
-  private String terminationGracePeriod = "5m";
+  @javax.annotation.Nonnull  private String terminationGracePeriod = "5m";
 
   public static final String JSON_PROPERTY_LIVENESS = "liveness";
-  @javax.annotation.Nonnull
-  private ServerConfigLiveness liveness;
+  @javax.annotation.Nullable  private ServerConfigLiveness liveness;
 
   public ServerConfig() {
   }
@@ -64,8 +61,7 @@ public class ServerConfig {
    * Get workerTaskRestartStrategy
    * @return workerTaskRestartStrategy
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public WorkerTaskRestartStrategy getWorkerTaskRestartStrategy() {
         return workerTaskRestartStrategy.orElse(null);
@@ -73,7 +69,6 @@ public class ServerConfig {
 
   @JsonProperty(JSON_PROPERTY_WORKER_TASK_RESTART_STRATEGY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<WorkerTaskRestartStrategy> getWorkerTaskRestartStrategy_JsonNullable() {
     return workerTaskRestartStrategy;
   }
@@ -97,8 +92,7 @@ public class ServerConfig {
    * Get terminationGracePeriod
    * @return terminationGracePeriod
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TERMINATION_GRACE_PERIOD)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TERMINATION_GRACE_PERIOD)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getTerminationGracePeriod() {
@@ -112,7 +106,7 @@ public class ServerConfig {
     this.terminationGracePeriod = terminationGracePeriod;
   }
 
-  public ServerConfig liveness(@javax.annotation.Nonnull ServerConfigLiveness liveness) {
+  public ServerConfig liveness(@javax.annotation.Nullable ServerConfigLiveness liveness) {
     
     this.liveness = liveness;
     return this;
@@ -122,9 +116,8 @@ public class ServerConfig {
    * Get liveness
    * @return liveness
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_LIVENESS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LIVENESS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServerConfigLiveness getLiveness() {
     return liveness;
@@ -132,8 +125,8 @@ public class ServerConfig {
 
 
   @JsonProperty(JSON_PROPERTY_LIVENESS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setLiveness(@javax.annotation.Nonnull ServerConfigLiveness liveness) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLiveness(@javax.annotation.Nullable ServerConfigLiveness liveness) {
     this.liveness = liveness;
   }
 

@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | of the group. | 
-**Description** | **string** | of the group. | 
+**Description** | Pointer to **string** | of the group. | [optional] 
 
 ## Methods
 
 ### NewIAMGroupControllerApiUpdateGroupRequest
 
-`func NewIAMGroupControllerApiUpdateGroupRequest(name string, description string, ) *IAMGroupControllerApiUpdateGroupRequest`
+`func NewIAMGroupControllerApiUpdateGroupRequest(name string, ) *IAMGroupControllerApiUpdateGroupRequest`
 
 NewIAMGroupControllerApiUpdateGroupRequest instantiates a new IAMGroupControllerApiUpdateGroupRequest object
 This constructor will assign default values to properties that have it defined,
@@ -65,6 +65,11 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
+### HasDescription
+
+`func (o *IAMGroupControllerApiUpdateGroupRequest) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

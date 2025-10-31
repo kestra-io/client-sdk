@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The Cache model module.
  * @module model/Cache
- * @version 1.0.0
+ * @version v1.0.5
  */
 class Cache {
     /**

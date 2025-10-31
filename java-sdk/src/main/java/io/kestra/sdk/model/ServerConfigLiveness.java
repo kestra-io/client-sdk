@@ -34,27 +34,22 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ServerConfigLiveness.JSON_PROPERTY_HEARTBEAT_INTERVAL
 })
 @JsonTypeName("ServerConfig.Liveness")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ServerConfigLiveness {
   public static final String JSON_PROPERTY_ENABLED = "enabled";
-  @javax.annotation.Nonnull
-  private Boolean enabled = true;
+  @javax.annotation.Nonnull  private Boolean enabled = true;
 
   public static final String JSON_PROPERTY_INTERVAL = "interval";
-  @javax.annotation.Nonnull
-  private String interval = "5s";
+  @javax.annotation.Nonnull  private String interval = "5s";
 
   public static final String JSON_PROPERTY_TIMEOUT = "timeout";
-  @javax.annotation.Nonnull
-  private String timeout = "45s";
+  @javax.annotation.Nonnull  private String timeout = "45s";
 
   public static final String JSON_PROPERTY_INITIAL_DELAY = "initialDelay";
-  @javax.annotation.Nonnull
-  private String initialDelay = "45s";
+  @javax.annotation.Nonnull  private String initialDelay = "45s";
 
   public static final String JSON_PROPERTY_HEARTBEAT_INTERVAL = "heartbeatInterval";
-  @javax.annotation.Nonnull
-  private String heartbeatInterval = "3s";
+  @javax.annotation.Nonnull  private String heartbeatInterval = "3s";
 
   public ServerConfigLiveness() {
   }
@@ -69,8 +64,7 @@ public class ServerConfigLiveness {
    * Get enabled
    * @return enabled
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ENABLED)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ENABLED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getEnabled() {
@@ -94,8 +88,7 @@ public class ServerConfigLiveness {
    * Get interval
    * @return interval
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_INTERVAL)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_INTERVAL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getInterval() {
@@ -119,8 +112,7 @@ public class ServerConfigLiveness {
    * Get timeout
    * @return timeout
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TIMEOUT)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TIMEOUT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getTimeout() {
@@ -144,8 +136,7 @@ public class ServerConfigLiveness {
    * Get initialDelay
    * @return initialDelay
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_INITIAL_DELAY)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_INITIAL_DELAY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getInitialDelay() {
@@ -169,8 +160,7 @@ public class ServerConfigLiveness {
    * Get heartbeatInterval
    * @return heartbeatInterval
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_HEARTBEAT_INTERVAL)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_HEARTBEAT_INTERVAL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getHeartbeatInterval() {

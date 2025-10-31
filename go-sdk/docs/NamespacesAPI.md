@@ -112,7 +112,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	namespace := *openapiclient.NewNamespace("Id_example", false, "Description_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []openapiclient.PluginDefault{*openapiclient.NewPluginDefault("Type_example", false, map[string]map[string]interface{}{"key": map[string]interface{}(123)})}, []openapiclient.NamespaceAllowedNamespace{*openapiclient.NewNamespaceAllowedNamespace("Namespace_example")}, *openapiclient.NewWorkerGroup()) // Namespace | The namespace
+	namespace := *openapiclient.NewNamespace("Id_example", false) // Namespace | The namespace
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -233,7 +233,7 @@ Name | Type | Description  | Notes
 
 ## DeleteSecret
 
-> []string DeleteSecret(ctx, namespace, key, tenant).Execute()
+> DeleteSecret(ctx, namespace, key, tenant).Execute()
 
 Delete a secret for a namespace
 
@@ -256,13 +256,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.NamespacesAPI.DeleteSecret(context.Background(), namespace, key, tenant).Execute()
+	r, err := apiClient.NamespacesAPI.DeleteSecret(context.Background(), namespace, key, tenant).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NamespacesAPI.DeleteSecret``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteSecret`: []string
-	fmt.Fprintf(os.Stdout, "Response from `NamespacesAPI.DeleteSecret`: %v\n", resp)
 }
 ```
 
@@ -289,7 +287,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[]string**
+ (empty response body)
 
 ### Authorization
 
@@ -298,7 +296,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -611,7 +609,7 @@ func main() {
 	namespace := "namespace_example" // string | The namespace id
 	page := int32(56) // int32 | The current page (default to 1)
 	size := int32(56) // int32 | The current page size (default to 10)
-	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter(openapiclient.QueryFilter.Field("QUERY"), openapiclient.QueryFilter.Op("EQUALS"), map[string]interface{}(123))} // []QueryFilter | Filters
+	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters
 	tenant := "tenant_example" // string | 
 	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
 
@@ -670,7 +668,7 @@ Name | Type | Description  | Notes
 
 ## PatchSecret
 
-> []ApiSecretMeta PatchSecret(ctx, namespace, tenant, key).ApiSecretMetaEE(apiSecretMetaEE).Execute()
+> []ApiSecretMeta PatchSecret(ctx, namespace, key, tenant).ApiSecretMetaEE(apiSecretMetaEE).Execute()
 
 Patch a secret metadata for a namespace
 
@@ -688,13 +686,13 @@ import (
 
 func main() {
 	namespace := "namespace_example" // string | The namespace id
+	key := "key_example" // string | The secret key
 	tenant := "tenant_example" // string | 
-	key := "key_example" // string | 
 	apiSecretMetaEE := *openapiclient.NewApiSecretMetaEE("Description_example", []openapiclient.ApiSecretTag{*openapiclient.NewApiSecretTag("Key_example", "Value_example")}, "Key_example") // ApiSecretMetaEE | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.NamespacesAPI.PatchSecret(context.Background(), namespace, tenant, key).ApiSecretMetaEE(apiSecretMetaEE).Execute()
+	resp, r, err := apiClient.NamespacesAPI.PatchSecret(context.Background(), namespace, key, tenant).ApiSecretMetaEE(apiSecretMetaEE).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NamespacesAPI.PatchSecret``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -711,8 +709,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **namespace** | **string** | The namespace id | 
+**key** | **string** | The secret key | 
 **tenant** | **string** |  | 
-**key** | **string** |  | 
 
 ### Other Parameters
 
@@ -765,7 +763,7 @@ import (
 func main() {
 	namespace := "namespace_example" // string | The namespace id
 	tenant := "tenant_example" // string | 
-	apiSecretValue := *openapiclient.NewApiSecretValue([]openapiclient.ApiSecretTag{*openapiclient.NewApiSecretTag("Key_example", "Value_example")}, "Key_example", "Value_example", "Description_example") // ApiSecretValue | 
+	apiSecretValue := *openapiclient.NewApiSecretValue("Key_example", "Value_example") // ApiSecretValue | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -916,7 +914,7 @@ import (
 func main() {
 	id := "id_example" // string | The namespace id
 	tenant := "tenant_example" // string | 
-	namespace := *openapiclient.NewNamespace("Id_example", false, "Description_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []openapiclient.PluginDefault{*openapiclient.NewPluginDefault("Type_example", false, map[string]map[string]interface{}{"key": map[string]interface{}(123)})}, []openapiclient.NamespaceAllowedNamespace{*openapiclient.NewNamespaceAllowedNamespace("Namespace_example")}, *openapiclient.NewWorkerGroup()) // Namespace | The namespace
+	namespace := *openapiclient.NewNamespace("Id_example", false) // Namespace | The namespace
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

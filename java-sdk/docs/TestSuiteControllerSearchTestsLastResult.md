@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**testSuiteIds** | [**List&lt;TestSuiteControllerTestSuiteApiId&gt;**](TestSuiteControllerTestSuiteApiId.md) |  |  |
+|**testSuiteIds** | [**List&lt;TestSuiteControllerTestSuiteApiId&gt;**](TestSuiteControllerTestSuiteApiId.md) |  |  [optional] |
 
 
 

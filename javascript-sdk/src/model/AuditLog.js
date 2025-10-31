@@ -19,28 +19,22 @@ import CrudEventType from './CrudEventType';
 /**
  * The AuditLog model module.
  * @module model/AuditLog
- * @version 1.0.0
+ * @version v1.0.5
  */
 class AuditLog {
     /**
      * Constructs a new <code>AuditLog</code>.
      * @alias module:model/AuditLog
      * @implements module:model/BaseAuditLog
-     * @param tenantId {String} 
      * @param id {String} 
      * @param type {module:model/CrudEventType} 
      * @param detail {module:model/AuditLogDetail} 
      * @param date {Date} 
      * @param userId {String} 
-     * @param ipAddress {String} 
-     * @param impersonatedBy {String} 
-     * @param deleted {Boolean} 
-     * @param appliedPatch {Array.<Object>} 
-     * @param revertPatch {Array.<Object>} 
      */
-    constructor(tenantId, id, type, detail, date, userId, ipAddress, impersonatedBy, deleted, appliedPatch, revertPatch) { 
-        BaseAuditLog.initialize(this, tenantId, id, type, detail, date, userId, ipAddress, impersonatedBy, deleted);
-        AuditLog.initialize(this, tenantId, id, type, detail, date, userId, ipAddress, impersonatedBy, deleted, appliedPatch, revertPatch);
+    constructor(id, type, detail, date, userId) { 
+        BaseAuditLog.initialize(this, id, type, detail, date, userId);
+        AuditLog.initialize(this, id, type, detail, date, userId);
     }
 
     /**
@@ -48,18 +42,12 @@ class AuditLog {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, tenantId, id, type, detail, date, userId, ipAddress, impersonatedBy, deleted, appliedPatch, revertPatch) { 
-        obj['tenantId'] = tenantId;
+    static initialize(obj, id, type, detail, date, userId) { 
         obj['id'] = id;
         obj['type'] = type;
         obj['detail'] = detail;
         obj['date'] = date;
         obj['userId'] = userId;
-        obj['ipAddress'] = ipAddress;
-        obj['impersonatedBy'] = impersonatedBy;
-        obj['deleted'] = deleted;
-        obj['appliedPatch'] = appliedPatch;
-        obj['revertPatch'] = revertPatch;
     }
 
     /**
@@ -162,7 +150,7 @@ class AuditLog {
 
 }
 
-AuditLog.RequiredProperties = ["tenantId", "id", "type", "detail", "date", "userId", "ipAddress", "impersonatedBy", "deleted", "appliedPatch", "revertPatch"];
+AuditLog.RequiredProperties = ["id", "type", "detail", "date", "userId"];
 
 /**
  * @member {String} tenantId

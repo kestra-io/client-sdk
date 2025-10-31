@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Title** | **string** |  | 
-**Url** | **string** |  | 
+**Title** | Pointer to **string** |  | [optional] 
+**Url** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewRightSidebarConfigurationCustomLink
 
-`func NewRightSidebarConfigurationCustomLink(title string, url string, ) *RightSidebarConfigurationCustomLink`
+`func NewRightSidebarConfigurationCustomLink() *RightSidebarConfigurationCustomLink`
 
 NewRightSidebarConfigurationCustomLink instantiates a new RightSidebarConfigurationCustomLink object
 This constructor will assign default values to properties that have it defined,
@@ -45,6 +45,11 @@ and a boolean to check if the value has been set.
 
 SetTitle sets Title field to given value.
 
+### HasTitle
+
+`func (o *RightSidebarConfigurationCustomLink) HasTitle() bool`
+
+HasTitle returns a boolean if a field has been set.
 
 ### GetUrl
 
@@ -65,6 +70,11 @@ and a boolean to check if the value has been set.
 
 SetUrl sets Url field to given value.
 
+### HasUrl
+
+`func (o *RightSidebarConfigurationCustomLink) HasUrl() bool`
+
+HasUrl returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

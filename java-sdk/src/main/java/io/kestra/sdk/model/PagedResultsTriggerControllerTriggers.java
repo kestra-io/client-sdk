@@ -35,15 +35,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PagedResultsTriggerControllerTriggers.JSON_PROPERTY_TOTAL
 })
 @JsonTypeName("PagedResults_TriggerController.Triggers_")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PagedResultsTriggerControllerTriggers {
   public static final String JSON_PROPERTY_RESULTS = "results";
-  @javax.annotation.Nonnull
-  private List<TriggerControllerTriggers> results = new ArrayList<>();
+  @javax.annotation.Nonnull  private List<TriggerControllerTriggers> results = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TOTAL = "total";
-  @javax.annotation.Nonnull
-  private Long total;
+  @javax.annotation.Nonnull  private Long total;
 
   public PagedResultsTriggerControllerTriggers() {
   }
@@ -66,8 +64,7 @@ public class PagedResultsTriggerControllerTriggers {
    * Get results
    * @return results
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<TriggerControllerTriggers> getResults() {
@@ -91,8 +88,7 @@ public class PagedResultsTriggerControllerTriggers {
    * Get total
    * @return total
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TOTAL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Long getTotal() {

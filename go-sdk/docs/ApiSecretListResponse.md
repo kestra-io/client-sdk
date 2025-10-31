@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ReadOnly** | **bool** |  | 
 **Results** | [**[]ApiSecretMeta**](ApiSecretMeta.md) |  | 
-**Total** | **int64** |  | 
+**Total** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
 ### NewApiSecretListResponse
 
-`func NewApiSecretListResponse(readOnly bool, results []ApiSecretMeta, total int64, ) *ApiSecretListResponse`
+`func NewApiSecretListResponse(readOnly bool, results []ApiSecretMeta, ) *ApiSecretListResponse`
 
 NewApiSecretListResponse instantiates a new ApiSecretListResponse object
 This constructor will assign default values to properties that have it defined,
@@ -86,6 +86,11 @@ and a boolean to check if the value has been set.
 
 SetTotal sets Total field to given value.
 
+### HasTotal
+
+`func (o *ApiSecretListResponse) HasTotal() bool`
+
+HasTotal returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

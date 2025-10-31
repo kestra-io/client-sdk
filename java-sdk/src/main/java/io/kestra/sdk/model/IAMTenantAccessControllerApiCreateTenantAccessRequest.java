@@ -30,11 +30,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMTenantAccessControllerApiCreateTenantAccessRequest.JSON_PROPERTY_EMAIL
 })
 @JsonTypeName("IAMTenantAccessController.ApiCreateTenantAccessRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMTenantAccessControllerApiCreateTenantAccessRequest {
   public static final String JSON_PROPERTY_EMAIL = "email";
-  @javax.annotation.Nonnull
-  private String email;
+  @javax.annotation.Nonnull  private String email;
 
   public IAMTenantAccessControllerApiCreateTenantAccessRequest() {
   }
@@ -49,8 +48,7 @@ public class IAMTenantAccessControllerApiCreateTenantAccessRequest {
    * Get email
    * @return email
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_EMAIL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getEmail() {

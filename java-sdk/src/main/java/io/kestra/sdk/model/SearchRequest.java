@@ -46,47 +46,37 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   SearchRequest.JSON_PROPERTY_START_INDEX,
   SearchRequest.JSON_PROPERTY_COUNT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class SearchRequest {
   public static final String JSON_PROPERTY_SCHEMAS = "schemas";
-  @javax.annotation.Nullable
-  private List<String> schemas = new ArrayList<>();
+  @javax.annotation.Nullable  private List<String> schemas = new ArrayList<>();
 
   public static final String JSON_PROPERTY_PAGE_REQUEST = "pageRequest";
-  @javax.annotation.Nullable
-  private PageRequest pageRequest;
+  @javax.annotation.Nullable  private PageRequest pageRequest;
 
   public static final String JSON_PROPERTY_SORT_REQUEST = "sortRequest";
-  @javax.annotation.Nullable
-  private SortRequest sortRequest;
+  @javax.annotation.Nullable  private SortRequest sortRequest;
 
   public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
-  @javax.annotation.Nullable
-  private List<AttributeReference> attributes = new ArrayList<>();
+  @javax.annotation.Nullable  private List<AttributeReference> attributes = new ArrayList<>();
 
   public static final String JSON_PROPERTY_EXCLUDED_ATTRIBUTES = "excludedAttributes";
-  @javax.annotation.Nullable
-  private List<AttributeReference> excludedAttributes = new ArrayList<>();
+  @javax.annotation.Nullable  private List<AttributeReference> excludedAttributes = new ArrayList<>();
 
   public static final String JSON_PROPERTY_FILTER = "filter";
-  @javax.annotation.Nullable
-  private Filter filter;
+  @javax.annotation.Nullable  private Filter filter;
 
   public static final String JSON_PROPERTY_SORT_BY = "sortBy";
-  @javax.annotation.Nullable
-  private AttributeReference sortBy;
+  @javax.annotation.Nullable  private AttributeReference sortBy;
 
   public static final String JSON_PROPERTY_SORT_ORDER = "sortOrder";
-  @javax.annotation.Nullable
-  private SortOrder sortOrder;
+  @javax.annotation.Nullable  private SortOrder sortOrder;
 
   public static final String JSON_PROPERTY_START_INDEX = "startIndex";
-  @javax.annotation.Nullable
-  private Integer startIndex;
+  @javax.annotation.Nullable  private Integer startIndex;
 
   public static final String JSON_PROPERTY_COUNT = "count";
-  @javax.annotation.Nullable
-  private Integer count;
+  @javax.annotation.Nullable  private Integer count;
 
   public SearchRequest() {
   }
@@ -109,8 +99,7 @@ public class SearchRequest {
    * Get schemas
    * @return schemas
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SCHEMAS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SCHEMAS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getSchemas() {
@@ -134,8 +123,7 @@ public class SearchRequest {
    * Get pageRequest
    * @return pageRequest
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PAGE_REQUEST)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PAGE_REQUEST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public PageRequest getPageRequest() {
@@ -159,8 +147,7 @@ public class SearchRequest {
    * Get sortRequest
    * @return sortRequest
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SORT_REQUEST)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SORT_REQUEST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public SortRequest getSortRequest() {
@@ -192,8 +179,7 @@ public class SearchRequest {
    * Get attributes
    * @return attributes
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<AttributeReference> getAttributes() {
@@ -225,8 +211,7 @@ public class SearchRequest {
    * Get excludedAttributes
    * @return excludedAttributes
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_EXCLUDED_ATTRIBUTES)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXCLUDED_ATTRIBUTES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<AttributeReference> getExcludedAttributes() {
@@ -250,8 +235,7 @@ public class SearchRequest {
    * Get filter
    * @return filter
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FILTER)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FILTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Filter getFilter() {
@@ -275,8 +259,7 @@ public class SearchRequest {
    * Get sortBy
    * @return sortBy
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SORT_BY)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SORT_BY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public AttributeReference getSortBy() {
@@ -300,8 +283,7 @@ public class SearchRequest {
    * Get sortOrder
    * @return sortOrder
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SORT_ORDER)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SORT_ORDER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public SortOrder getSortOrder() {
@@ -325,8 +307,7 @@ public class SearchRequest {
    * Get startIndex
    * @return startIndex
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_START_INDEX)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_START_INDEX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getStartIndex() {
@@ -350,8 +331,7 @@ public class SearchRequest {
    * Get count
    * @return count
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_COUNT)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getCount() {

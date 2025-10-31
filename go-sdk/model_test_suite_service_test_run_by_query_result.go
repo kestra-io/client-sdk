@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the TestSuiteServiceTestRunByQueryResult type satisfies the MappedNullable interface at compile time
@@ -20,11 +19,11 @@ var _ MappedNullable = &TestSuiteServiceTestRunByQueryResult{}
 
 // TestSuiteServiceTestRunByQueryResult struct for TestSuiteServiceTestRunByQueryResult
 type TestSuiteServiceTestRunByQueryResult struct {
-	RequestMade               TestSuiteServiceRunByQueryRequest `json:"requestMade"`
-	TenantId                  string                            `json:"tenantId"`
-	NumberOfTestSuitesToBeRun int32                             `json:"numberOfTestSuitesToBeRun"`
-	NumberOfTestCasesToBeRun  int32                             `json:"numberOfTestCasesToBeRun"`
-	Results                   []TestSuiteRunResult              `json:"results"`
+	RequestMade               *TestSuiteServiceRunByQueryRequest `json:"requestMade,omitempty"`
+	TenantId                  *string                            `json:"tenantId,omitempty"`
+	NumberOfTestSuitesToBeRun *int32                             `json:"numberOfTestSuitesToBeRun,omitempty"`
+	NumberOfTestCasesToBeRun  *int32                             `json:"numberOfTestCasesToBeRun,omitempty"`
+	Results                   []TestSuiteRunResult               `json:"results,omitempty"`
 	AdditionalProperties      map[string]interface{}
 }
 
@@ -34,13 +33,8 @@ type _TestSuiteServiceTestRunByQueryResult TestSuiteServiceTestRunByQueryResult
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTestSuiteServiceTestRunByQueryResult(requestMade TestSuiteServiceRunByQueryRequest, tenantId string, numberOfTestSuitesToBeRun int32, numberOfTestCasesToBeRun int32, results []TestSuiteRunResult) *TestSuiteServiceTestRunByQueryResult {
+func NewTestSuiteServiceTestRunByQueryResult() *TestSuiteServiceTestRunByQueryResult {
 	this := TestSuiteServiceTestRunByQueryResult{}
-	this.RequestMade = requestMade
-	this.TenantId = tenantId
-	this.NumberOfTestSuitesToBeRun = numberOfTestSuitesToBeRun
-	this.NumberOfTestCasesToBeRun = numberOfTestCasesToBeRun
-	this.Results = results
 	return &this
 }
 
@@ -52,122 +46,162 @@ func NewTestSuiteServiceTestRunByQueryResultWithDefaults() *TestSuiteServiceTest
 	return &this
 }
 
-// GetRequestMade returns the RequestMade field value
+// GetRequestMade returns the RequestMade field value if set, zero value otherwise.
 func (o *TestSuiteServiceTestRunByQueryResult) GetRequestMade() TestSuiteServiceRunByQueryRequest {
-	if o == nil {
+	if o == nil || IsNil(o.RequestMade) {
 		var ret TestSuiteServiceRunByQueryRequest
 		return ret
 	}
-
-	return o.RequestMade
+	return *o.RequestMade
 }
 
-// GetRequestMadeOk returns a tuple with the RequestMade field value
+// GetRequestMadeOk returns a tuple with the RequestMade field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TestSuiteServiceTestRunByQueryResult) GetRequestMadeOk() (*TestSuiteServiceRunByQueryRequest, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.RequestMade) {
 		return nil, false
 	}
-	return &o.RequestMade, true
+	return o.RequestMade, true
 }
 
-// SetRequestMade sets field value
+// HasRequestMade returns a boolean if a field has been set.
+func (o *TestSuiteServiceTestRunByQueryResult) HasRequestMade() bool {
+	if o != nil && !IsNil(o.RequestMade) {
+		return true
+	}
+
+	return false
+}
+
+// SetRequestMade gets a reference to the given TestSuiteServiceRunByQueryRequest and assigns it to the RequestMade field.
 func (o *TestSuiteServiceTestRunByQueryResult) SetRequestMade(v TestSuiteServiceRunByQueryRequest) {
-	o.RequestMade = v
+	o.RequestMade = &v
 }
 
-// GetTenantId returns the TenantId field value
+// GetTenantId returns the TenantId field value if set, zero value otherwise.
 func (o *TestSuiteServiceTestRunByQueryResult) GetTenantId() string {
-	if o == nil {
+	if o == nil || IsNil(o.TenantId) {
 		var ret string
 		return ret
 	}
-
-	return o.TenantId
+	return *o.TenantId
 }
 
-// GetTenantIdOk returns a tuple with the TenantId field value
+// GetTenantIdOk returns a tuple with the TenantId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TestSuiteServiceTestRunByQueryResult) GetTenantIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.TenantId) {
 		return nil, false
 	}
-	return &o.TenantId, true
+	return o.TenantId, true
 }
 
-// SetTenantId sets field value
+// HasTenantId returns a boolean if a field has been set.
+func (o *TestSuiteServiceTestRunByQueryResult) HasTenantId() bool {
+	if o != nil && !IsNil(o.TenantId) {
+		return true
+	}
+
+	return false
+}
+
+// SetTenantId gets a reference to the given string and assigns it to the TenantId field.
 func (o *TestSuiteServiceTestRunByQueryResult) SetTenantId(v string) {
-	o.TenantId = v
+	o.TenantId = &v
 }
 
-// GetNumberOfTestSuitesToBeRun returns the NumberOfTestSuitesToBeRun field value
+// GetNumberOfTestSuitesToBeRun returns the NumberOfTestSuitesToBeRun field value if set, zero value otherwise.
 func (o *TestSuiteServiceTestRunByQueryResult) GetNumberOfTestSuitesToBeRun() int32 {
-	if o == nil {
+	if o == nil || IsNil(o.NumberOfTestSuitesToBeRun) {
 		var ret int32
 		return ret
 	}
-
-	return o.NumberOfTestSuitesToBeRun
+	return *o.NumberOfTestSuitesToBeRun
 }
 
-// GetNumberOfTestSuitesToBeRunOk returns a tuple with the NumberOfTestSuitesToBeRun field value
+// GetNumberOfTestSuitesToBeRunOk returns a tuple with the NumberOfTestSuitesToBeRun field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TestSuiteServiceTestRunByQueryResult) GetNumberOfTestSuitesToBeRunOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.NumberOfTestSuitesToBeRun) {
 		return nil, false
 	}
-	return &o.NumberOfTestSuitesToBeRun, true
+	return o.NumberOfTestSuitesToBeRun, true
 }
 
-// SetNumberOfTestSuitesToBeRun sets field value
+// HasNumberOfTestSuitesToBeRun returns a boolean if a field has been set.
+func (o *TestSuiteServiceTestRunByQueryResult) HasNumberOfTestSuitesToBeRun() bool {
+	if o != nil && !IsNil(o.NumberOfTestSuitesToBeRun) {
+		return true
+	}
+
+	return false
+}
+
+// SetNumberOfTestSuitesToBeRun gets a reference to the given int32 and assigns it to the NumberOfTestSuitesToBeRun field.
 func (o *TestSuiteServiceTestRunByQueryResult) SetNumberOfTestSuitesToBeRun(v int32) {
-	o.NumberOfTestSuitesToBeRun = v
+	o.NumberOfTestSuitesToBeRun = &v
 }
 
-// GetNumberOfTestCasesToBeRun returns the NumberOfTestCasesToBeRun field value
+// GetNumberOfTestCasesToBeRun returns the NumberOfTestCasesToBeRun field value if set, zero value otherwise.
 func (o *TestSuiteServiceTestRunByQueryResult) GetNumberOfTestCasesToBeRun() int32 {
-	if o == nil {
+	if o == nil || IsNil(o.NumberOfTestCasesToBeRun) {
 		var ret int32
 		return ret
 	}
-
-	return o.NumberOfTestCasesToBeRun
+	return *o.NumberOfTestCasesToBeRun
 }
 
-// GetNumberOfTestCasesToBeRunOk returns a tuple with the NumberOfTestCasesToBeRun field value
+// GetNumberOfTestCasesToBeRunOk returns a tuple with the NumberOfTestCasesToBeRun field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TestSuiteServiceTestRunByQueryResult) GetNumberOfTestCasesToBeRunOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.NumberOfTestCasesToBeRun) {
 		return nil, false
 	}
-	return &o.NumberOfTestCasesToBeRun, true
+	return o.NumberOfTestCasesToBeRun, true
 }
 
-// SetNumberOfTestCasesToBeRun sets field value
+// HasNumberOfTestCasesToBeRun returns a boolean if a field has been set.
+func (o *TestSuiteServiceTestRunByQueryResult) HasNumberOfTestCasesToBeRun() bool {
+	if o != nil && !IsNil(o.NumberOfTestCasesToBeRun) {
+		return true
+	}
+
+	return false
+}
+
+// SetNumberOfTestCasesToBeRun gets a reference to the given int32 and assigns it to the NumberOfTestCasesToBeRun field.
 func (o *TestSuiteServiceTestRunByQueryResult) SetNumberOfTestCasesToBeRun(v int32) {
-	o.NumberOfTestCasesToBeRun = v
+	o.NumberOfTestCasesToBeRun = &v
 }
 
-// GetResults returns the Results field value
+// GetResults returns the Results field value if set, zero value otherwise.
 func (o *TestSuiteServiceTestRunByQueryResult) GetResults() []TestSuiteRunResult {
-	if o == nil {
+	if o == nil || IsNil(o.Results) {
 		var ret []TestSuiteRunResult
 		return ret
 	}
-
 	return o.Results
 }
 
-// GetResultsOk returns a tuple with the Results field value
+// GetResultsOk returns a tuple with the Results field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TestSuiteServiceTestRunByQueryResult) GetResultsOk() ([]TestSuiteRunResult, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Results) {
 		return nil, false
 	}
 	return o.Results, true
 }
 
-// SetResults sets field value
+// HasResults returns a boolean if a field has been set.
+func (o *TestSuiteServiceTestRunByQueryResult) HasResults() bool {
+	if o != nil && !IsNil(o.Results) {
+		return true
+	}
+
+	return false
+}
+
+// SetResults gets a reference to the given []TestSuiteRunResult and assigns it to the Results field.
 func (o *TestSuiteServiceTestRunByQueryResult) SetResults(v []TestSuiteRunResult) {
 	o.Results = v
 }
@@ -182,11 +216,21 @@ func (o TestSuiteServiceTestRunByQueryResult) MarshalJSON() ([]byte, error) {
 
 func (o TestSuiteServiceTestRunByQueryResult) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["requestMade"] = o.RequestMade
-	toSerialize["tenantId"] = o.TenantId
-	toSerialize["numberOfTestSuitesToBeRun"] = o.NumberOfTestSuitesToBeRun
-	toSerialize["numberOfTestCasesToBeRun"] = o.NumberOfTestCasesToBeRun
-	toSerialize["results"] = o.Results
+	if !IsNil(o.RequestMade) {
+		toSerialize["requestMade"] = o.RequestMade
+	}
+	if !IsNil(o.TenantId) {
+		toSerialize["tenantId"] = o.TenantId
+	}
+	if !IsNil(o.NumberOfTestSuitesToBeRun) {
+		toSerialize["numberOfTestSuitesToBeRun"] = o.NumberOfTestSuitesToBeRun
+	}
+	if !IsNil(o.NumberOfTestCasesToBeRun) {
+		toSerialize["numberOfTestCasesToBeRun"] = o.NumberOfTestCasesToBeRun
+	}
+	if !IsNil(o.Results) {
+		toSerialize["results"] = o.Results
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -196,31 +240,6 @@ func (o TestSuiteServiceTestRunByQueryResult) ToMap() (map[string]interface{}, e
 }
 
 func (o *TestSuiteServiceTestRunByQueryResult) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"requestMade",
-		"tenantId",
-		"numberOfTestSuitesToBeRun",
-		"numberOfTestCasesToBeRun",
-		"results",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varTestSuiteServiceTestRunByQueryResult := _TestSuiteServiceTestRunByQueryResult{}
 
 	err = json.Unmarshal(data, &varTestSuiteServiceTestRunByQueryResult)

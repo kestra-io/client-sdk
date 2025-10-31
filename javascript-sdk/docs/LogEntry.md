@@ -11,10 +11,10 @@ Name | Type | Description | Notes
 **taskRunId** | **String** |  | [optional] 
 **attemptNumber** | **Number** |  | [optional] 
 **triggerId** | **String** |  | [optional] 
-**timestamp** | **Date** |  | 
-**level** | [**Level**](Level.md) |  | 
-**thread** | **String** |  | 
-**message** | **String** |  | 
+**timestamp** | **Date** |  | [optional] 
+**level** | [**Level**](Level.md) |  | [optional] 
+**thread** | **String** |  | [optional] 
+**message** | **String** |  | [optional] 
 **deleted** | **Boolean** |  | 
 **executionKind** | [**ExecutionKind**](ExecutionKind.md) |  | [optional] 
 

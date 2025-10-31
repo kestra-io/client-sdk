@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **String** |  | 
-**description** | **String** |  | 
-**superAdmin** | **Boolean** |  | 
-**tenants** | **[String]** |  | 
+**description** | **String** |  | [optional] 
+**superAdmin** | **Boolean** |  | [optional] 
+**tenants** | **[String]** |  | [optional] 
 
 

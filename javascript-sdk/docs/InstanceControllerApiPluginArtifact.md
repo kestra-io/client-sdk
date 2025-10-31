@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**title** | **String** |  | 
-**icon** | **String** |  | 
-**groupId** | **String** |  | 
-**artifactId** | **String** |  | 
-**versions** | **[String]** |  | 
+**title** | **String** |  | [optional] 
+**icon** | **String** |  | [optional] 
+**groupId** | **String** |  | [optional] 
+**artifactId** | **String** |  | [optional] 
+**versions** | **[String]** |  | [optional] 
 
 

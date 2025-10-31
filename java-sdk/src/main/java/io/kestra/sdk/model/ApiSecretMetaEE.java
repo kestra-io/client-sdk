@@ -35,19 +35,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ApiSecretMetaEE.JSON_PROPERTY_TAGS,
   ApiSecretMetaEE.JSON_PROPERTY_KEY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ApiSecretMetaEE {
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nonnull
-  private String description;
+  @javax.annotation.Nonnull  private String description;
 
   public static final String JSON_PROPERTY_TAGS = "tags";
-  @javax.annotation.Nonnull
-  private List<ApiSecretTag> tags = new ArrayList<>();
+  @javax.annotation.Nonnull  private List<ApiSecretTag> tags = new ArrayList<>();
 
   public static final String JSON_PROPERTY_KEY = "key";
-  @javax.annotation.Nonnull
-  private String key;
+  @javax.annotation.Nonnull  private String key;
 
   public ApiSecretMetaEE() {
   }
@@ -62,8 +59,7 @@ public class ApiSecretMetaEE {
    * Get description
    * @return description
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getDescription() {
@@ -95,8 +91,7 @@ public class ApiSecretMetaEE {
    * Get tags
    * @return tags
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TAGS)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TAGS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<ApiSecretTag> getTags() {
@@ -120,8 +115,7 @@ public class ApiSecretMetaEE {
    * Get key
    * @return key
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_KEY)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_KEY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getKey() {

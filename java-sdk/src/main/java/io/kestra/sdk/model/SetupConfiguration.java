@@ -32,38 +32,36 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   SetupConfiguration.JSON_PROPERTY_QUEUE_TYPE,
   SetupConfiguration.JSON_PROPERTY_STORAGE_TYPE,
   SetupConfiguration.JSON_PROPERTY_SECRET_TYPE,
-  SetupConfiguration.JSON_PROPERTY_PASSWORD_REGEXP
+  SetupConfiguration.JSON_PROPERTY_PASSWORD_REGEXP,
+  SetupConfiguration.JSON_PROPERTY_HAVE_AUTH_NOT_BASIC
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class SetupConfiguration {
   public static final String JSON_PROPERTY_DONE = "done";
-  @javax.annotation.Nonnull
-  private Boolean done;
+  @javax.annotation.Nullable  private Boolean done;
 
   public static final String JSON_PROPERTY_REPOSITORY_TYPE = "repositoryType";
-  @javax.annotation.Nullable
-  private String repositoryType;
+  @javax.annotation.Nullable  private String repositoryType;
 
   public static final String JSON_PROPERTY_QUEUE_TYPE = "queueType";
-  @javax.annotation.Nullable
-  private String queueType;
+  @javax.annotation.Nullable  private String queueType;
 
   public static final String JSON_PROPERTY_STORAGE_TYPE = "storageType";
-  @javax.annotation.Nullable
-  private String storageType;
+  @javax.annotation.Nullable  private String storageType;
 
   public static final String JSON_PROPERTY_SECRET_TYPE = "secretType";
-  @javax.annotation.Nullable
-  private String secretType;
+  @javax.annotation.Nullable  private String secretType;
 
   public static final String JSON_PROPERTY_PASSWORD_REGEXP = "passwordRegexp";
-  @javax.annotation.Nonnull
-  private String passwordRegexp;
+  @javax.annotation.Nullable  private String passwordRegexp;
+
+  public static final String JSON_PROPERTY_HAVE_AUTH_NOT_BASIC = "haveAuthNotBasic";
+  @javax.annotation.Nullable  private Boolean haveAuthNotBasic;
 
   public SetupConfiguration() {
   }
 
-  public SetupConfiguration done(@javax.annotation.Nonnull Boolean done) {
+  public SetupConfiguration done(@javax.annotation.Nullable Boolean done) {
     
     this.done = done;
     return this;
@@ -73,9 +71,8 @@ public class SetupConfiguration {
    * Get done
    * @return done
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DONE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DONE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getDone() {
     return done;
@@ -83,8 +80,8 @@ public class SetupConfiguration {
 
 
   @JsonProperty(JSON_PROPERTY_DONE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDone(@javax.annotation.Nonnull Boolean done) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDone(@javax.annotation.Nullable Boolean done) {
     this.done = done;
   }
 
@@ -98,8 +95,7 @@ public class SetupConfiguration {
    * Get repositoryType
    * @return repositoryType
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_REPOSITORY_TYPE)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REPOSITORY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getRepositoryType() {
@@ -123,8 +119,7 @@ public class SetupConfiguration {
    * Get queueType
    * @return queueType
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_QUEUE_TYPE)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_QUEUE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getQueueType() {
@@ -148,8 +143,7 @@ public class SetupConfiguration {
    * Get storageType
    * @return storageType
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_STORAGE_TYPE)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STORAGE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getStorageType() {
@@ -173,8 +167,7 @@ public class SetupConfiguration {
    * Get secretType
    * @return secretType
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SECRET_TYPE)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRET_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSecretType() {
@@ -188,7 +181,7 @@ public class SetupConfiguration {
     this.secretType = secretType;
   }
 
-  public SetupConfiguration passwordRegexp(@javax.annotation.Nonnull String passwordRegexp) {
+  public SetupConfiguration passwordRegexp(@javax.annotation.Nullable String passwordRegexp) {
     
     this.passwordRegexp = passwordRegexp;
     return this;
@@ -198,9 +191,8 @@ public class SetupConfiguration {
    * Get passwordRegexp
    * @return passwordRegexp
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_PASSWORD_REGEXP)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PASSWORD_REGEXP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getPasswordRegexp() {
     return passwordRegexp;
@@ -208,9 +200,33 @@ public class SetupConfiguration {
 
 
   @JsonProperty(JSON_PROPERTY_PASSWORD_REGEXP)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPasswordRegexp(@javax.annotation.Nonnull String passwordRegexp) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPasswordRegexp(@javax.annotation.Nullable String passwordRegexp) {
     this.passwordRegexp = passwordRegexp;
+  }
+
+  public SetupConfiguration haveAuthNotBasic(@javax.annotation.Nullable Boolean haveAuthNotBasic) {
+    
+    this.haveAuthNotBasic = haveAuthNotBasic;
+    return this;
+  }
+
+  /**
+   * Get haveAuthNotBasic
+   * @return haveAuthNotBasic
+   */
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_HAVE_AUTH_NOT_BASIC)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getHaveAuthNotBasic() {
+    return haveAuthNotBasic;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_HAVE_AUTH_NOT_BASIC)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setHaveAuthNotBasic(@javax.annotation.Nullable Boolean haveAuthNotBasic) {
+    this.haveAuthNotBasic = haveAuthNotBasic;
   }
 
   @Override
@@ -227,12 +243,13 @@ public class SetupConfiguration {
         Objects.equals(this.queueType, setupConfiguration.queueType) &&
         Objects.equals(this.storageType, setupConfiguration.storageType) &&
         Objects.equals(this.secretType, setupConfiguration.secretType) &&
-        Objects.equals(this.passwordRegexp, setupConfiguration.passwordRegexp);
+        Objects.equals(this.passwordRegexp, setupConfiguration.passwordRegexp) &&
+        Objects.equals(this.haveAuthNotBasic, setupConfiguration.haveAuthNotBasic);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(done, repositoryType, queueType, storageType, secretType, passwordRegexp);
+    return Objects.hash(done, repositoryType, queueType, storageType, secretType, passwordRegexp, haveAuthNotBasic);
   }
 
   @Override
@@ -245,6 +262,7 @@ public class SetupConfiguration {
     sb.append("    storageType: ").append(toIndentedString(storageType)).append("\n");
     sb.append("    secretType: ").append(toIndentedString(secretType)).append("\n");
     sb.append("    passwordRegexp: ").append(toIndentedString(passwordRegexp)).append("\n");
+    sb.append("    haveAuthNotBasic: ").append(toIndentedString(haveAuthNotBasic)).append("\n");
     sb.append("}");
     return sb.toString();
   }

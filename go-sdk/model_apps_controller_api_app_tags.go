@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the AppsControllerApiAppTags type satisfies the MappedNullable interface at compile time
@@ -20,7 +19,7 @@ var _ MappedNullable = &AppsControllerApiAppTags{}
 
 // AppsControllerApiAppTags struct for AppsControllerApiAppTags
 type AppsControllerApiAppTags struct {
-	Tags                 []string `json:"tags"`
+	Tags                 []string `json:"tags,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -30,9 +29,8 @@ type _AppsControllerApiAppTags AppsControllerApiAppTags
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAppsControllerApiAppTags(tags []string) *AppsControllerApiAppTags {
+func NewAppsControllerApiAppTags() *AppsControllerApiAppTags {
 	this := AppsControllerApiAppTags{}
-	this.Tags = tags
 	return &this
 }
 
@@ -44,26 +42,34 @@ func NewAppsControllerApiAppTagsWithDefaults() *AppsControllerApiAppTags {
 	return &this
 }
 
-// GetTags returns the Tags field value
+// GetTags returns the Tags field value if set, zero value otherwise.
 func (o *AppsControllerApiAppTags) GetTags() []string {
-	if o == nil {
+	if o == nil || IsNil(o.Tags) {
 		var ret []string
 		return ret
 	}
-
 	return o.Tags
 }
 
-// GetTagsOk returns a tuple with the Tags field value
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppsControllerApiAppTags) GetTagsOk() ([]string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
 	return o.Tags, true
 }
 
-// SetTags sets field value
+// HasTags returns a boolean if a field has been set.
+func (o *AppsControllerApiAppTags) HasTags() bool {
+	if o != nil && !IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []string and assigns it to the Tags field.
 func (o *AppsControllerApiAppTags) SetTags(v []string) {
 	o.Tags = v
 }
@@ -78,7 +84,9 @@ func (o AppsControllerApiAppTags) MarshalJSON() ([]byte, error) {
 
 func (o AppsControllerApiAppTags) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["tags"] = o.Tags
+	if !IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -88,27 +96,6 @@ func (o AppsControllerApiAppTags) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *AppsControllerApiAppTags) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"tags",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varAppsControllerApiAppTags := _AppsControllerApiAppTags{}
 
 	err = json.Unmarshal(data, &varAppsControllerApiAppTags)

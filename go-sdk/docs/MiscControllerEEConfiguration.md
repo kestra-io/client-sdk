@@ -36,6 +36,7 @@ Name | Type | Description | Notes
 **RightSidebar** | Pointer to [**RightSidebarConfiguration**](RightSidebarConfiguration.md) |  | [optional] 
 **InMaintenance** | Pointer to **bool** |  | [optional] 
 **PasswordRegexp** | Pointer to **string** |  | [optional] 
+**PasswordlessEnabled** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
@@ -855,6 +856,31 @@ SetPasswordRegexp sets PasswordRegexp field to given value.
 `func (o *MiscControllerEEConfiguration) HasPasswordRegexp() bool`
 
 HasPasswordRegexp returns a boolean if a field has been set.
+
+### GetPasswordlessEnabled
+
+`func (o *MiscControllerEEConfiguration) GetPasswordlessEnabled() bool`
+
+GetPasswordlessEnabled returns the PasswordlessEnabled field if non-nil, zero value otherwise.
+
+### GetPasswordlessEnabledOk
+
+`func (o *MiscControllerEEConfiguration) GetPasswordlessEnabledOk() (*bool, bool)`
+
+GetPasswordlessEnabledOk returns a tuple with the PasswordlessEnabled field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPasswordlessEnabled
+
+`func (o *MiscControllerEEConfiguration) SetPasswordlessEnabled(v bool)`
+
+SetPasswordlessEnabled sets PasswordlessEnabled field to given value.
+
+### HasPasswordlessEnabled
+
+`func (o *MiscControllerEEConfiguration) HasPasswordlessEnabled() bool`
+
+HasPasswordlessEnabled returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

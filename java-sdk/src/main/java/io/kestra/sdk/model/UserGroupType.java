@@ -28,7 +28,9 @@ public enum UserGroupType {
   
   DIRECT("DIRECT"),
   
-  INDIRECT("INDIRECT");
+  INDIRECT("INDIRECT"),
+  
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;
 
@@ -53,7 +55,7 @@ public enum UserGroupType {
         return b;
       }
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    return UNKNOWN_DEFAULT_OPEN_API;
   }
 }
 

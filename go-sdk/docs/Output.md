@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | 
 **Description** | Pointer to **string** |  | [optional] 
-**Value** | **map[string]interface{}** |  | 
+**Value** | [**OutputValue**](OutputValue.md) |  | 
 **Type** | [**Type**](Type.md) |  | 
 **DisplayName** | Pointer to **string** |  | [optional] 
 **Required** | Pointer to **bool** |  | [optional] 
@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 
 ### NewOutput
 
-`func NewOutput(id string, value map[string]interface{}, type_ Type, ) *Output`
+`func NewOutput(id string, value OutputValue, type_ Type, ) *Output`
 
 NewOutput instantiates a new Output object
 This constructor will assign default values to properties that have it defined,
@@ -77,20 +77,20 @@ HasDescription returns a boolean if a field has been set.
 
 ### GetValue
 
-`func (o *Output) GetValue() map[string]interface{}`
+`func (o *Output) GetValue() OutputValue`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *Output) GetValueOk() (*map[string]interface{}, bool)`
+`func (o *Output) GetValueOk() (*OutputValue, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *Output) SetValue(v map[string]interface{})`
+`func (o *Output) SetValue(v OutputValue)`
 
 SetValue sets Value field to given value.
 

@@ -42,7 +42,7 @@ allprojects {
  * Publish
  **********************************************************************************************************************/
 mavenPublishing {
-    // Only sign for real releases (skip when doing CI-local publishes)
+// Only sign for real releases (skip when doing CI-local publishes)
     if (!project.hasProperty('ciVersionOverride')) {
         publishToMavenCentral(true)
         signAllPublications()
@@ -73,7 +73,7 @@ mavenPublishing {
 }
 
 tasks.withType(GenerateModuleMetadata).configureEach {
-    // Suppression this validation error as we want to enforce the Kestra platform
+// Suppression this validation error as we want to enforce the Kestra platform
     suppressedValidationErrors.add('enforced-platform')
 }
 
@@ -81,11 +81,11 @@ tasks.withType(GenerateModuleMetadata).configureEach {
 jar {
     manifest {
         attributes(
-            "X-Kestra-Name": project.name,
-            "X-Kestra-Title": "Kestra SDK",
-            "X-Kestra-Group": project.group,
-            "X-Kestra-Description": project.description,
-            "X-Kestra-Version": project.version
+                "X-Kestra-Name": project.name,
+                "X-Kestra-Title": "Kestra SDK",
+                "X-Kestra-Group": project.group,
+                "X-Kestra-Description": project.description,
+                "X-Kestra-Version": project.version
         )
     }
 }
@@ -115,6 +115,7 @@ dependencies {
     implementation "jakarta.annotation:jakarta.annotation-api:$jakarta_annotation_version"
     testImplementation "junit:junit:$junit_version"
     implementation "io.swagger.core.v3:swagger-annotations:$swagger_v3_annotations_version"
+    implementation "io.projectreactor:reactor-core:3.7.12"
 
 }
 

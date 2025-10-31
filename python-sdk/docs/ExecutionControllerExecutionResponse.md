@@ -11,9 +11,9 @@ Name | Type | Description | Notes
 **flow_id** | **str** |  | 
 **flow_revision** | **int** |  | 
 **task_run_list** | [**List[TaskRun]**](TaskRun.md) |  | [optional] 
-**inputs** | **Dict[str, object]** |  | [optional] 
-**outputs** | **Dict[str, object]** |  | [optional] 
-**variables** | **Dict[str, object]** |  | [optional] 
+**inputs** | **object** |  | [optional] 
+**outputs** | **object** |  | [optional] 
+**variables** | **object** |  | [optional] 
 **state** | [**State**](State.md) |  | 
 **parent_id** | **str** |  | [optional] 
 **original_id** | **str** |  | [optional] 

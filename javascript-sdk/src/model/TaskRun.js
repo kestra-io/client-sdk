@@ -18,7 +18,7 @@ import TaskRunAttempt from './TaskRunAttempt';
 /**
  * The TaskRun model module.
  * @module model/TaskRun
- * @version 1.0.0
+ * @version v1.0.5
  */
 class TaskRun {
     /**
@@ -29,17 +29,11 @@ class TaskRun {
      * @param namespace {String} 
      * @param flowId {String} 
      * @param taskId {String} 
-     * @param parentTaskRunId {String} 
-     * @param value {String} 
-     * @param attempts {Array.<module:model/TaskRunAttempt>} 
-     * @param outputs {Object.<String, Object>} 
      * @param state {module:model/State} 
-     * @param iteration {Number} 
-     * @param dynamic {Boolean} 
      */
-    constructor(id, executionId, namespace, flowId, taskId, parentTaskRunId, value, attempts, outputs, state, iteration, dynamic) { 
+    constructor(id, executionId, namespace, flowId, taskId, state) { 
         
-        TaskRun.initialize(this, id, executionId, namespace, flowId, taskId, parentTaskRunId, value, attempts, outputs, state, iteration, dynamic);
+        TaskRun.initialize(this, id, executionId, namespace, flowId, taskId, state);
     }
 
     /**
@@ -47,19 +41,13 @@ class TaskRun {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, executionId, namespace, flowId, taskId, parentTaskRunId, value, attempts, outputs, state, iteration, dynamic) { 
+    static initialize(obj, id, executionId, namespace, flowId, taskId, state) { 
         obj['id'] = id;
         obj['executionId'] = executionId;
         obj['namespace'] = namespace;
         obj['flowId'] = flowId;
         obj['taskId'] = taskId;
-        obj['parentTaskRunId'] = parentTaskRunId;
-        obj['value'] = value;
-        obj['attempts'] = attempts;
-        obj['outputs'] = outputs;
         obj['state'] = state;
-        obj['iteration'] = iteration;
-        obj['dynamic'] = dynamic;
     }
 
     /**
@@ -73,9 +61,6 @@ class TaskRun {
         if (data) {
             obj = obj || new TaskRun();
 
-            if (data.hasOwnProperty('items')) {
-                obj['items'] = ApiClient.convertToType(data['items'], 'String');
-            }
             if (data.hasOwnProperty('id')) {
                 obj['id'] = ApiClient.convertToType(data['id'], 'String');
             }
@@ -132,10 +117,6 @@ class TaskRun {
             }
         }
         // ensure the json data is a string
-        if (data['items'] && !(typeof data['items'] === 'string' || data['items'] instanceof String)) {
-            throw new Error("Expected the field `items` to be a primitive type in the JSON string but got " + data['items']);
-        }
-        // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
         }
@@ -184,12 +165,7 @@ class TaskRun {
 
 }
 
-TaskRun.RequiredProperties = ["id", "executionId", "namespace", "flowId", "taskId", "parentTaskRunId", "value", "attempts", "outputs", "state", "iteration", "dynamic"];
-
-/**
- * @member {String} items
- */
-TaskRun.prototype['items'] = undefined;
+TaskRun.RequiredProperties = ["id", "executionId", "namespace", "flowId", "taskId", "state"];
 
 /**
  * @member {String} id

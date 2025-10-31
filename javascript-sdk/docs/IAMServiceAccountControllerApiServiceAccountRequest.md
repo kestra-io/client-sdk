@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**groups** | [**[IAMServiceAccountControllerApiGroup]**](IAMServiceAccountControllerApiGroup.md) |  | 
+**groups** | [**[IAMServiceAccountControllerApiGroup]**](IAMServiceAccountControllerApiGroup.md) |  | [optional] 
 **name** | **String** |  | 
-**description** | **String** |  | 
-**superAdmin** | **Boolean** |  | 
+**description** | **String** |  | [optional] 
+**superAdmin** | **Boolean** |  | [optional] 
 
 

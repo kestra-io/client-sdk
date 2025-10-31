@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Cls** | **string** |  | 
-**Deprecated** | **bool** |  | 
+**Cls** | Pointer to **string** |  | [optional] 
+**Deprecated** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
 ### NewPluginPluginElementMetadata
 
-`func NewPluginPluginElementMetadata(cls string, deprecated bool, ) *PluginPluginElementMetadata`
+`func NewPluginPluginElementMetadata() *PluginPluginElementMetadata`
 
 NewPluginPluginElementMetadata instantiates a new PluginPluginElementMetadata object
 This constructor will assign default values to properties that have it defined,
@@ -45,6 +45,11 @@ and a boolean to check if the value has been set.
 
 SetCls sets Cls field to given value.
 
+### HasCls
+
+`func (o *PluginPluginElementMetadata) HasCls() bool`
+
+HasCls returns a boolean if a field has been set.
 
 ### GetDeprecated
 
@@ -65,6 +70,11 @@ and a boolean to check if the value has been set.
 
 SetDeprecated sets Deprecated field to given value.
 
+### HasDeprecated
+
+`func (o *PluginPluginElementMetadata) HasDeprecated() bool`
+
+HasDeprecated returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

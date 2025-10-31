@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Namespace** | **NullableString** |  | 
-**FlowId** | **NullableString** |  | 
+**Namespace** | Pointer to **NullableString** |  | [optional] 
+**FlowId** | Pointer to **NullableString** |  | [optional] 
 **IncludeChildNamespaces** | **bool** | Should child namespaces be included or not | [default to true]
 
 ## Methods
 
 ### NewTestSuiteServiceRunByQueryRequest
 
-`func NewTestSuiteServiceRunByQueryRequest(namespace NullableString, flowId NullableString, includeChildNamespaces bool, ) *TestSuiteServiceRunByQueryRequest`
+`func NewTestSuiteServiceRunByQueryRequest(includeChildNamespaces bool, ) *TestSuiteServiceRunByQueryRequest`
 
 NewTestSuiteServiceRunByQueryRequest instantiates a new TestSuiteServiceRunByQueryRequest object
 This constructor will assign default values to properties that have it defined,
@@ -46,6 +46,11 @@ and a boolean to check if the value has been set.
 
 SetNamespace sets Namespace field to given value.
 
+### HasNamespace
+
+`func (o *TestSuiteServiceRunByQueryRequest) HasNamespace() bool`
+
+HasNamespace returns a boolean if a field has been set.
 
 ### SetNamespaceNil
 
@@ -76,6 +81,11 @@ and a boolean to check if the value has been set.
 
 SetFlowId sets FlowId field to given value.
 
+### HasFlowId
+
+`func (o *TestSuiteServiceRunByQueryRequest) HasFlowId() bool`
+
+HasFlowId returns a boolean if a field has been set.
 
 ### SetFlowIdNil
 

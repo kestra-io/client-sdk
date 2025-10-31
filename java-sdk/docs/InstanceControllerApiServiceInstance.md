@@ -7,12 +7,12 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**id** | **String** |  |  |
-|**type** | **ServiceType** |  |  |
-|**state** | **ServiceServiceState** |  |  |
-|**server** | [**InstanceControllerApiServerInstance**](InstanceControllerApiServerInstance.md) |  |  |
-|**createdAt** | **OffsetDateTime** |  |  |
-|**updatedAt** | **OffsetDateTime** |  |  |
+|**id** | **String** |  |  [optional] |
+|**type** | **ServiceType** |  |  [optional] |
+|**state** | **ServiceServiceState** |  |  [optional] |
+|**server** | [**InstanceControllerApiServerInstance**](InstanceControllerApiServerInstance.md) |  |  [optional] |
+|**createdAt** | **OffsetDateTime** |  |  [optional] |
+|**updatedAt** | **OffsetDateTime** |  |  [optional] |
 
 
 

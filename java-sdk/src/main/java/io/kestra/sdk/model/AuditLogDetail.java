@@ -34,23 +34,19 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AuditLogDetail.JSON_PROPERTY_TYPE,
   AuditLogDetail.JSON_PROPERTY_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AuditLogDetail {
   public static final String JSON_PROPERTY_PERMISSION = "permission";
-  @javax.annotation.Nullable
-  private Permission permission;
+  @javax.annotation.Nullable  private Permission permission;
 
   public static final String JSON_PROPERTY_RESOURCE_TYPE = "resourceType";
-  @javax.annotation.Nullable
-  private ResourceType1 resourceType;
+  @javax.annotation.Nullable  private ResourceType1 resourceType;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nonnull
-  private String type;
+  @javax.annotation.Nonnull  private String type;
 
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
-  private String id;
+  @javax.annotation.Nullable  private String id;
 
   public AuditLogDetail() {
   }
@@ -65,8 +61,7 @@ public class AuditLogDetail {
    * Get permission
    * @return permission
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PERMISSION)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PERMISSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Permission getPermission() {
@@ -90,8 +85,7 @@ public class AuditLogDetail {
    * Get resourceType
    * @return resourceType
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ResourceType1 getResourceType() {
@@ -115,8 +109,7 @@ public class AuditLogDetail {
    * Get type
    * @return type
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getType() {
@@ -140,8 +133,7 @@ public class AuditLogDetail {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ID)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {

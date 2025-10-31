@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Blocks** | **[]map[string]interface{}** |  | 
+**Blocks** | Pointer to **[]map[string]interface{}** |  | [optional] 
 
 ## Methods
 
 ### NewAppResponseUILayout
 
-`func NewAppResponseUILayout(blocks []map[string]interface{}, ) *AppResponseUILayout`
+`func NewAppResponseUILayout() *AppResponseUILayout`
 
 NewAppResponseUILayout instantiates a new AppResponseUILayout object
 This constructor will assign default values to properties that have it defined,
@@ -44,6 +44,11 @@ and a boolean to check if the value has been set.
 
 SetBlocks sets Blocks field to given value.
 
+### HasBlocks
+
+`func (o *AppResponseUILayout) HasBlocks() bool`
+
+HasBlocks returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -52,6 +52,7 @@ type MiscControllerEEConfiguration struct {
 	RightSidebar                    *RightSidebarConfiguration             `json:"rightSidebar,omitempty"`
 	InMaintenance                   *bool                                  `json:"inMaintenance,omitempty"`
 	PasswordRegexp                  *string                                `json:"passwordRegexp,omitempty"`
+	PasswordlessEnabled             *bool                                  `json:"passwordlessEnabled,omitempty"`
 	AdditionalProperties            map[string]interface{}
 }
 
@@ -1098,6 +1099,38 @@ func (o *MiscControllerEEConfiguration) SetPasswordRegexp(v string) {
 	o.PasswordRegexp = &v
 }
 
+// GetPasswordlessEnabled returns the PasswordlessEnabled field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetPasswordlessEnabled() bool {
+	if o == nil || IsNil(o.PasswordlessEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.PasswordlessEnabled
+}
+
+// GetPasswordlessEnabledOk returns a tuple with the PasswordlessEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetPasswordlessEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.PasswordlessEnabled) {
+		return nil, false
+	}
+	return o.PasswordlessEnabled, true
+}
+
+// HasPasswordlessEnabled returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasPasswordlessEnabled() bool {
+	if o != nil && !IsNil(o.PasswordlessEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetPasswordlessEnabled gets a reference to the given bool and assigns it to the PasswordlessEnabled field.
+func (o *MiscControllerEEConfiguration) SetPasswordlessEnabled(v bool) {
+	o.PasswordlessEnabled = &v
+}
+
 func (o MiscControllerEEConfiguration) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -1204,6 +1237,9 @@ func (o MiscControllerEEConfiguration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PasswordRegexp) {
 		toSerialize["passwordRegexp"] = o.PasswordRegexp
 	}
+	if !IsNil(o.PasswordlessEnabled) {
+		toSerialize["passwordlessEnabled"] = o.PasswordlessEnabled
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -1258,6 +1294,7 @@ func (o *MiscControllerEEConfiguration) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "rightSidebar")
 		delete(additionalProperties, "inMaintenance")
 		delete(additionalProperties, "passwordRegexp")
+		delete(additionalProperties, "passwordlessEnabled")
 		o.AdditionalProperties = additionalProperties
 	}
 

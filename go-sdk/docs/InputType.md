@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
-**Cls** | **string** |  | 
+**Type** | Pointer to **string** |  | [optional] 
+**Cls** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewInputType
 
-`func NewInputType(type_ string, cls string, ) *InputType`
+`func NewInputType() *InputType`
 
 NewInputType instantiates a new InputType object
 This constructor will assign default values to properties that have it defined,
@@ -45,6 +45,11 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
+### HasType
+
+`func (o *InputType) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetCls
 
@@ -65,6 +70,11 @@ and a boolean to check if the value has been set.
 
 SetCls sets Cls field to given value.
 
+### HasCls
+
+`func (o *InputType) HasCls() bool`
+
+HasCls returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

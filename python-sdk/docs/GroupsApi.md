@@ -67,7 +67,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Add a user to a group
-        api_response = api_instance.add_user_to_group(id, user_id, tenant)
+        api_response = kestra_client.groupsapi.add_user_to_group(id, user_id, tenant)
         print("The response of GroupsApi->add_user_to_group:\n")
         pprint(api_response)
     except Exception as e:
@@ -156,7 +156,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # List groups for autocomplete
-        api_response = api_instance.autocomplete_groups(tenant, api_autocomplete)
+        api_response = kestra_client.groupsapi.autocomplete_groups(tenant, api_autocomplete)
         print("The response of GroupsApi->autocomplete_groups:\n")
         pprint(api_response)
     except Exception as e:
@@ -242,7 +242,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Create a group
-        api_response = api_instance.create_group(tenant, iam_group_controller_api_create_group_request)
+        api_response = kestra_client.groupsapi.create_group(tenant, iam_group_controller_api_create_group_request)
         print("The response of GroupsApi->create_group:\n")
         pprint(api_response)
     except Exception as e:
@@ -327,7 +327,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Delete a group
-        api_instance.delete_group(id, tenant)
+        kestra_client.groupsapi.delete_group(id, tenant)
     except Exception as e:
         print("Exception when calling GroupsApi->delete_group: %s\n" % e)
 ```
@@ -414,7 +414,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Remove a user from a group
-        api_response = api_instance.delete_user_from_group(id, user_id, tenant)
+        api_response = kestra_client.groupsapi.delete_user_from_group(id, user_id, tenant)
         print("The response of GroupsApi->delete_user_from_group:\n")
         pprint(api_response)
     except Exception as e:
@@ -504,7 +504,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Retrieve a group
-        api_response = api_instance.get_group(id, tenant)
+        api_response = kestra_client.groupsapi.get_group(id, tenant)
         print("The response of GroupsApi->get_group:\n")
         pprint(api_response)
     except Exception as e:
@@ -591,7 +591,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # List groups by ids
-        api_response = api_instance.list_group_ids(tenant, api_ids)
+        api_response = kestra_client.groupsapi.list_group_ids(tenant, api_ids)
         print("The response of GroupsApi->list_group_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -680,7 +680,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Search for users in a group
-        api_response = api_instance.search_group_members(id, page, size, tenant, q=q, sort=sort)
+        api_response = kestra_client.groupsapi.search_group_members(id, page, size, tenant, q=q, sort=sort)
         print("The response of GroupsApi->search_group_members:\n")
         pprint(api_response)
     except Exception as e:
@@ -772,7 +772,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Search for groups
-        api_response = api_instance.search_groups(page, size, tenant, q=q, sort=sort)
+        api_response = kestra_client.groupsapi.search_groups(page, size, tenant, q=q, sort=sort)
         print("The response of GroupsApi->search_groups:\n")
         pprint(api_response)
     except Exception as e:
@@ -865,7 +865,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Update a user's membership type in a group
-        api_response = api_instance.set_user_membership_for_group(id, user_id, membership, tenant)
+        api_response = kestra_client.groupsapi.set_user_membership_for_group(id, user_id, membership, tenant)
         print("The response of GroupsApi->set_user_membership_for_group:\n")
         pprint(api_response)
     except Exception as e:
@@ -956,7 +956,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Update a group
-        api_response = api_instance.update_group(id, tenant, iam_group_controller_api_update_group_request)
+        api_response = kestra_client.groupsapi.update_group(id, tenant, iam_group_controller_api_update_group_request)
         print("The response of GroupsApi->update_group:\n")
         pprint(api_response)
     except Exception as e:

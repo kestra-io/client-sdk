@@ -21,7 +21,7 @@ var _ MappedNullable = &IAMInvitationControllerApiInvitationRole{}
 // IAMInvitationControllerApiInvitationRole struct for IAMInvitationControllerApiInvitationRole
 type IAMInvitationControllerApiInvitationRole struct {
 	Id                   string   `json:"id"`
-	Namespaces           []string `json:"namespaces"`
+	Namespaces           []string `json:"namespaces,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,10 +31,9 @@ type _IAMInvitationControllerApiInvitationRole IAMInvitationControllerApiInvitat
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIAMInvitationControllerApiInvitationRole(id string, namespaces []string) *IAMInvitationControllerApiInvitationRole {
+func NewIAMInvitationControllerApiInvitationRole(id string) *IAMInvitationControllerApiInvitationRole {
 	this := IAMInvitationControllerApiInvitationRole{}
 	this.Id = id
-	this.Namespaces = namespaces
 	return &this
 }
 
@@ -70,26 +69,34 @@ func (o *IAMInvitationControllerApiInvitationRole) SetId(v string) {
 	o.Id = v
 }
 
-// GetNamespaces returns the Namespaces field value
+// GetNamespaces returns the Namespaces field value if set, zero value otherwise.
 func (o *IAMInvitationControllerApiInvitationRole) GetNamespaces() []string {
-	if o == nil {
+	if o == nil || IsNil(o.Namespaces) {
 		var ret []string
 		return ret
 	}
-
 	return o.Namespaces
 }
 
-// GetNamespacesOk returns a tuple with the Namespaces field value
+// GetNamespacesOk returns a tuple with the Namespaces field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMInvitationControllerApiInvitationRole) GetNamespacesOk() ([]string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Namespaces) {
 		return nil, false
 	}
 	return o.Namespaces, true
 }
 
-// SetNamespaces sets field value
+// HasNamespaces returns a boolean if a field has been set.
+func (o *IAMInvitationControllerApiInvitationRole) HasNamespaces() bool {
+	if o != nil && !IsNil(o.Namespaces) {
+		return true
+	}
+
+	return false
+}
+
+// SetNamespaces gets a reference to the given []string and assigns it to the Namespaces field.
 func (o *IAMInvitationControllerApiInvitationRole) SetNamespaces(v []string) {
 	o.Namespaces = v
 }
@@ -105,7 +112,9 @@ func (o IAMInvitationControllerApiInvitationRole) MarshalJSON() ([]byte, error) 
 func (o IAMInvitationControllerApiInvitationRole) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
-	toSerialize["namespaces"] = o.Namespaces
+	if !IsNil(o.Namespaces) {
+		toSerialize["namespaces"] = o.Namespaces
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -120,7 +129,6 @@ func (o *IAMInvitationControllerApiInvitationRole) UnmarshalJSON(data []byte) (e
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"id",
-		"namespaces",
 	}
 
 	allProperties := make(map[string]interface{})

@@ -7,14 +7,14 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**uid** | **String** |  |  |
-|**name** | **String** |  |  |
-|**namespace** | **String** |  |  |
-|**tags** | **List&lt;String&gt;** |  |  |
-|**disabled** | **Boolean** |  |  |
-|**source** | **String** |  |  |
-|**created** | **OffsetDateTime** |  |  |
-|**updated** | **OffsetDateTime** |  |  |
+|**uid** | **String** |  |  [optional] |
+|**name** | **String** |  |  [optional] |
+|**namespace** | **String** |  |  [optional] |
+|**tags** | **List&lt;String&gt;** |  |  [optional] |
+|**disabled** | **Boolean** |  |  [optional] |
+|**source** | **String** |  |  [optional] |
+|**created** | **OffsetDateTime** |  |  [optional] |
+|**updated** | **OffsetDateTime** |  |  [optional] |
 
 
 

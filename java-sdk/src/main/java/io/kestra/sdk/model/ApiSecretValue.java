@@ -36,28 +36,24 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ApiSecretValue.JSON_PROPERTY_VALUE,
   ApiSecretValue.JSON_PROPERTY_DESCRIPTION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ApiSecretValue {
   public static final String JSON_PROPERTY_TAGS = "tags";
-  @javax.annotation.Nonnull
-  private List<ApiSecretTag> tags = new ArrayList<>();
+  @javax.annotation.Nullable  private List<ApiSecretTag> tags = new ArrayList<>();
 
   public static final String JSON_PROPERTY_KEY = "key";
-  @javax.annotation.Nonnull
-  private String key;
+  @javax.annotation.Nonnull  private String key;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nonnull
-  private String value;
+  @javax.annotation.Nonnull  private String value;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nonnull
-  private String description;
+  @javax.annotation.Nullable  private String description;
 
   public ApiSecretValue() {
   }
 
-  public ApiSecretValue tags(@javax.annotation.Nonnull List<ApiSecretTag> tags) {
+  public ApiSecretValue tags(@javax.annotation.Nullable List<ApiSecretTag> tags) {
     
     this.tags = tags;
     return this;
@@ -75,9 +71,8 @@ public class ApiSecretValue {
    * Get tags
    * @return tags
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TAGS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TAGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<ApiSecretTag> getTags() {
     return tags;
@@ -85,8 +80,8 @@ public class ApiSecretValue {
 
 
   @JsonProperty(JSON_PROPERTY_TAGS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTags(@javax.annotation.Nonnull List<ApiSecretTag> tags) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTags(@javax.annotation.Nullable List<ApiSecretTag> tags) {
     this.tags = tags;
   }
 
@@ -100,8 +95,7 @@ public class ApiSecretValue {
    * Get key
    * @return key
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_KEY)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_KEY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getKey() {
@@ -125,8 +119,7 @@ public class ApiSecretValue {
    * Get value
    * @return value
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_VALUE)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getValue() {
@@ -140,7 +133,7 @@ public class ApiSecretValue {
     this.value = value;
   }
 
-  public ApiSecretValue description(@javax.annotation.Nonnull String description) {
+  public ApiSecretValue description(@javax.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -150,9 +143,8 @@ public class ApiSecretValue {
    * Get description
    * @return description
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
     return description;
@@ -160,8 +152,8 @@ public class ApiSecretValue {
 
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDescription(@javax.annotation.Nonnull String description) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
   }
 

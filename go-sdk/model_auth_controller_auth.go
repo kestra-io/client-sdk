@@ -21,6 +21,7 @@ var _ MappedNullable = &AuthControllerAuth{}
 type AuthControllerAuth struct {
 	LoginPassword        *bool    `json:"loginPassword,omitempty"`
 	MailsEnabled         *bool    `json:"mailsEnabled,omitempty"`
+	Passwordless         *bool    `json:"passwordless,omitempty"`
 	Oauths               []string `json:"oauths,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -108,6 +109,38 @@ func (o *AuthControllerAuth) SetMailsEnabled(v bool) {
 	o.MailsEnabled = &v
 }
 
+// GetPasswordless returns the Passwordless field value if set, zero value otherwise.
+func (o *AuthControllerAuth) GetPasswordless() bool {
+	if o == nil || IsNil(o.Passwordless) {
+		var ret bool
+		return ret
+	}
+	return *o.Passwordless
+}
+
+// GetPasswordlessOk returns a tuple with the Passwordless field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuthControllerAuth) GetPasswordlessOk() (*bool, bool) {
+	if o == nil || IsNil(o.Passwordless) {
+		return nil, false
+	}
+	return o.Passwordless, true
+}
+
+// HasPasswordless returns a boolean if a field has been set.
+func (o *AuthControllerAuth) HasPasswordless() bool {
+	if o != nil && !IsNil(o.Passwordless) {
+		return true
+	}
+
+	return false
+}
+
+// SetPasswordless gets a reference to the given bool and assigns it to the Passwordless field.
+func (o *AuthControllerAuth) SetPasswordless(v bool) {
+	o.Passwordless = &v
+}
+
 // GetOauths returns the Oauths field value if set, zero value otherwise.
 func (o *AuthControllerAuth) GetOauths() []string {
 	if o == nil || IsNil(o.Oauths) {
@@ -156,6 +189,9 @@ func (o AuthControllerAuth) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.MailsEnabled) {
 		toSerialize["mailsEnabled"] = o.MailsEnabled
 	}
+	if !IsNil(o.Passwordless) {
+		toSerialize["passwordless"] = o.Passwordless
+	}
 	if !IsNil(o.Oauths) {
 		toSerialize["oauths"] = o.Oauths
 	}
@@ -183,6 +219,7 @@ func (o *AuthControllerAuth) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "loginPassword")
 		delete(additionalProperties, "mailsEnabled")
+		delete(additionalProperties, "passwordless")
 		delete(additionalProperties, "oauths")
 		o.AdditionalProperties = additionalProperties
 	}

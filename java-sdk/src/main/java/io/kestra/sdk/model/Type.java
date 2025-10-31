@@ -62,7 +62,9 @@ public enum Type {
   
   YAML("YAML"),
   
-  EMAIL("EMAIL");
+  EMAIL("EMAIL"),
+  
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;
 
@@ -87,7 +89,7 @@ public enum Type {
         return b;
       }
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    return UNKNOWN_DEFAULT_OPEN_API;
   }
 }
 

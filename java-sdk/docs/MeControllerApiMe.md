@@ -7,12 +7,12 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**id** | **String** |  |  |
-|**superAdmin** | **Boolean** |  |  |
-|**restricted** | **Boolean** |  |  |
-|**profile** | [**MeControllerApiProfile**](MeControllerApiProfile.md) |  |  |
-|**auths** | [**List&lt;IAMTenantAccessControllerApiAuthentication&gt;**](IAMTenantAccessControllerApiAuthentication.md) |  |  |
-|**tenants** | [**List&lt;MeControllerApiTenant&gt;**](MeControllerApiTenant.md) |  |  |
+|**id** | **String** |  |  [optional] |
+|**superAdmin** | **Boolean** |  |  [optional] |
+|**restricted** | **Boolean** |  |  [optional] |
+|**profile** | [**MeControllerApiProfile**](MeControllerApiProfile.md) |  |  [optional] |
+|**auths** | [**List&lt;IAMTenantAccessControllerApiAuthentication&gt;**](IAMTenantAccessControllerApiAuthentication.md) |  |  [optional] |
+|**tenants** | [**List&lt;MeControllerApiTenant&gt;**](MeControllerApiTenant.md) |  |  [optional] |
 
 
 

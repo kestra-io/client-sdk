@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Resource** | [**ResourceType1**](ResourceType1.md) |  | 
+**Resource** | Pointer to [**ResourceType1**](ResourceType1.md) |  | [optional] 
 **Type** | Pointer to [**NullableCrudEventType**](CrudEventType.md) |  | [optional] 
-**Detail** | **map[string]map[string]interface{}** |  | 
+**Detail** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
 
 ## Methods
 
 ### NewAuditLogControllerFindRequest
 
-`func NewAuditLogControllerFindRequest(resource ResourceType1, detail map[string]map[string]interface{}, ) *AuditLogControllerFindRequest`
+`func NewAuditLogControllerFindRequest() *AuditLogControllerFindRequest`
 
 NewAuditLogControllerFindRequest instantiates a new AuditLogControllerFindRequest object
 This constructor will assign default values to properties that have it defined,
@@ -46,6 +46,11 @@ and a boolean to check if the value has been set.
 
 SetResource sets Resource field to given value.
 
+### HasResource
+
+`func (o *AuditLogControllerFindRequest) HasResource() bool`
+
+HasResource returns a boolean if a field has been set.
 
 ### GetType
 
@@ -101,6 +106,11 @@ and a boolean to check if the value has been set.
 
 SetDetail sets Detail field to given value.
 
+### HasDetail
+
+`func (o *AuditLogControllerFindRequest) HasDetail() bool`
+
+HasDetail returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

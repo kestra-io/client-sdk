@@ -8,9 +8,9 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**name** | **String** |  |  |
-|**description** | **String** |  |  |
-|**maxAge** | **String** |  |  |
-|**extended** | **Boolean** |  |  |
+|**description** | **String** |  |  [optional] |
+|**maxAge** | **String** |  |  [optional] |
+|**extended** | **Boolean** |  |  [optional] |
 
 
 

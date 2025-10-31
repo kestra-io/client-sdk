@@ -34,27 +34,22 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Meta.JSON_PROPERTY_LOCATION,
   Meta.JSON_PROPERTY_VERSION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Meta {
   public static final String JSON_PROPERTY_RESOURCE_TYPE = "resourceType";
-  @javax.annotation.Nullable
-  private String resourceType;
+  @javax.annotation.Nullable  private String resourceType;
 
   public static final String JSON_PROPERTY_CREATED = "created";
-  @javax.annotation.Nullable
-  private OffsetDateTime created;
+  @javax.annotation.Nullable  private OffsetDateTime created;
 
   public static final String JSON_PROPERTY_LAST_MODIFIED = "lastModified";
-  @javax.annotation.Nullable
-  private OffsetDateTime lastModified;
+  @javax.annotation.Nullable  private OffsetDateTime lastModified;
 
   public static final String JSON_PROPERTY_LOCATION = "location";
-  @javax.annotation.Nullable
-  private String location;
+  @javax.annotation.Nullable  private String location;
 
   public static final String JSON_PROPERTY_VERSION = "version";
-  @javax.annotation.Nullable
-  private String version;
+  @javax.annotation.Nullable  private String version;
 
   public Meta() {
   }
@@ -69,8 +64,7 @@ public class Meta {
    * Get resourceType
    * @return resourceType
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getResourceType() {
@@ -94,8 +88,7 @@ public class Meta {
    * Get created
    * @return created
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CREATED)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CREATED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getCreated() {
@@ -119,8 +112,7 @@ public class Meta {
    * Get lastModified
    * @return lastModified
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LAST_MODIFIED)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LAST_MODIFIED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getLastModified() {
@@ -144,8 +136,7 @@ public class Meta {
    * Get location
    * @return location
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LOCATION)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LOCATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getLocation() {
@@ -169,8 +160,7 @@ public class Meta {
    * Get version
    * @return version
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_VERSION)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getVersion() {

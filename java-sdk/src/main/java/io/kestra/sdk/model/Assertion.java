@@ -50,75 +50,58 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Assertion.JSON_PROPERTY_IS_NULL,
   Assertion.JSON_PROPERTY_IS_NOT_NULL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Assertion {
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nonnull
-  private String value;
+  @javax.annotation.Nonnull  private String value;
 
   public static final String JSON_PROPERTY_TASK_ID = "taskId";
-  @javax.annotation.Nullable
-  private String taskId;
+  @javax.annotation.Nullable  private String taskId;
 
   public static final String JSON_PROPERTY_ERROR_MESSAGE = "errorMessage";
-  @javax.annotation.Nullable
-  private String errorMessage;
+  @javax.annotation.Nullable  private String errorMessage;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
-  private String description;
+  @javax.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_ENDS_WITH = "endsWith";
-  @javax.annotation.Nullable
-  private String endsWith;
+  @javax.annotation.Nullable  private String endsWith;
 
   public static final String JSON_PROPERTY_STARTS_WITH = "startsWith";
-  @javax.annotation.Nullable
-  private String startsWith;
+  @javax.annotation.Nullable  private String startsWith;
 
   public static final String JSON_PROPERTY_CONTAINS = "contains";
-  @javax.annotation.Nullable
-  private String contains;
+  @javax.annotation.Nullable  private String contains;
 
   public static final String JSON_PROPERTY_EQUAL_TO = "equalTo";
-  @javax.annotation.Nullable
-  private String equalTo;
+  @javax.annotation.Nullable  private String equalTo;
 
   public static final String JSON_PROPERTY_NOT_EQUAL_TO = "notEqualTo";
-  @javax.annotation.Nullable
-  private String notEqualTo;
+  @javax.annotation.Nullable  private String notEqualTo;
 
   public static final String JSON_PROPERTY_GREATER_THAN = "greaterThan";
-  @javax.annotation.Nullable
-  private String greaterThan;
+  @javax.annotation.Nullable  private String greaterThan;
 
   public static final String JSON_PROPERTY_GREATER_THAN_OR_EQUAL_TO = "greaterThanOrEqualTo";
-  @javax.annotation.Nullable
-  private String greaterThanOrEqualTo;
+  @javax.annotation.Nullable  private String greaterThanOrEqualTo;
 
   public static final String JSON_PROPERTY_LESS_THAN = "lessThan";
-  @javax.annotation.Nullable
-  private String lessThan;
+  @javax.annotation.Nullable  private String lessThan;
 
   public static final String JSON_PROPERTY_LESS_THAN_OR_EQUAL_TO = "lessThanOrEqualTo";
-  @javax.annotation.Nullable
-  private String lessThanOrEqualTo;
+  @javax.annotation.Nullable  private String lessThanOrEqualTo;
 
   public static final String JSON_PROPERTY_IN = "in";
-  @javax.annotation.Nullable
-  private String in;
+  @javax.annotation.Nullable  private String in;
 
   public static final String JSON_PROPERTY_NOT_IN = "notIn";
-  @javax.annotation.Nullable
-  private String notIn;
+  @javax.annotation.Nullable  private String notIn;
 
   public static final String JSON_PROPERTY_IS_NULL = "isNull";
-  @javax.annotation.Nullable
-  private String isNull;
+  @javax.annotation.Nullable  private String isNull;
 
   public static final String JSON_PROPERTY_IS_NOT_NULL = "isNotNull";
-  @javax.annotation.Nullable
-  private String isNotNull;
+  @javax.annotation.Nullable  private String isNotNull;
 
   public Assertion() {
   }
@@ -133,8 +116,7 @@ public class Assertion {
    * Get value
    * @return value
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_VALUE)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getValue() {
@@ -158,8 +140,7 @@ public class Assertion {
    * Get taskId
    * @return taskId
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TASK_ID)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TASK_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTaskId() {
@@ -183,8 +164,7 @@ public class Assertion {
    * Get errorMessage
    * @return errorMessage
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ERROR_MESSAGE)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ERROR_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getErrorMessage() {
@@ -208,8 +188,7 @@ public class Assertion {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -233,8 +212,7 @@ public class Assertion {
    * Get endsWith
    * @return endsWith
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ENDS_WITH)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ENDS_WITH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getEndsWith() {
@@ -258,8 +236,7 @@ public class Assertion {
    * Get startsWith
    * @return startsWith
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_STARTS_WITH)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STARTS_WITH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getStartsWith() {
@@ -283,8 +260,7 @@ public class Assertion {
    * Get contains
    * @return contains
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CONTAINS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CONTAINS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getContains() {
@@ -308,8 +284,7 @@ public class Assertion {
    * Get equalTo
    * @return equalTo
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_EQUAL_TO)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EQUAL_TO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getEqualTo() {
@@ -333,8 +308,7 @@ public class Assertion {
    * Get notEqualTo
    * @return notEqualTo
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NOT_EQUAL_TO)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NOT_EQUAL_TO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getNotEqualTo() {
@@ -358,8 +332,7 @@ public class Assertion {
    * Get greaterThan
    * @return greaterThan
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_GREATER_THAN)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GREATER_THAN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getGreaterThan() {
@@ -383,8 +356,7 @@ public class Assertion {
    * Get greaterThanOrEqualTo
    * @return greaterThanOrEqualTo
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_GREATER_THAN_OR_EQUAL_TO)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GREATER_THAN_OR_EQUAL_TO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getGreaterThanOrEqualTo() {
@@ -408,8 +380,7 @@ public class Assertion {
    * Get lessThan
    * @return lessThan
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LESS_THAN)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LESS_THAN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getLessThan() {
@@ -433,8 +404,7 @@ public class Assertion {
    * Get lessThanOrEqualTo
    * @return lessThanOrEqualTo
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LESS_THAN_OR_EQUAL_TO)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LESS_THAN_OR_EQUAL_TO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getLessThanOrEqualTo() {
@@ -458,8 +428,7 @@ public class Assertion {
    * Get in
    * @return in
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_IN)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getIn() {
@@ -483,8 +452,7 @@ public class Assertion {
    * Get notIn
    * @return notIn
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NOT_IN)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NOT_IN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getNotIn() {
@@ -508,8 +476,7 @@ public class Assertion {
    * Get isNull
    * @return isNull
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_IS_NULL)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_NULL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getIsNull() {
@@ -533,8 +500,7 @@ public class Assertion {
    * Get isNotNull
    * @return isNotNull
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_IS_NOT_NULL)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_NOT_NULL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getIsNotNull() {

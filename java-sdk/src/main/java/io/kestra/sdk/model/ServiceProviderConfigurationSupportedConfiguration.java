@@ -30,11 +30,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ServiceProviderConfigurationSupportedConfiguration.JSON_PROPERTY_SUPPORTED
 })
 @JsonTypeName("ServiceProviderConfiguration.SupportedConfiguration")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ServiceProviderConfigurationSupportedConfiguration {
   public static final String JSON_PROPERTY_SUPPORTED = "supported";
-  @javax.annotation.Nullable
-  private Boolean supported;
+  @javax.annotation.Nullable  private Boolean supported;
 
   public ServiceProviderConfigurationSupportedConfiguration() {
   }
@@ -49,8 +48,7 @@ public class ServiceProviderConfigurationSupportedConfiguration {
    * Get supported
    * @return supported
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SUPPORTED)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPPORTED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getSupported() {

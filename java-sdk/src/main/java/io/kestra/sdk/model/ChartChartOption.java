@@ -32,19 +32,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ChartChartOption.JSON_PROPERTY_CHART_OPTIONS
 })
 @JsonTypeName("Chart_ChartOption_")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ChartChartOption {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
-  private String id;
+  @javax.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nonnull
-  private String type;
+  @javax.annotation.Nonnull  private String type;
 
   public static final String JSON_PROPERTY_CHART_OPTIONS = "chartOptions";
-  @javax.annotation.Nullable
-  private Object chartOptions;
+  @javax.annotation.Nullable  private Object chartOptions;
 
   public ChartChartOption() {
   }
@@ -59,8 +56,7 @@ public class ChartChartOption {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -84,8 +80,7 @@ public class ChartChartOption {
    * Get type
    * @return type
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getType() {
@@ -109,8 +104,7 @@ public class ChartChartOption {
    * Get chartOptions
    * @return chartOptions
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CHART_OPTIONS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CHART_OPTIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Object getChartOptions() {

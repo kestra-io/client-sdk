@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**results** | [**[TestSuiteRunResult]**](TestSuiteRunResult.md) |  | 
+**results** | [**[TestSuiteRunResult]**](TestSuiteRunResult.md) |  | [optional] 
 
 

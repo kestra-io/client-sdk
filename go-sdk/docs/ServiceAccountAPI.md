@@ -4,17 +4,166 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**CreateApiTokensForServiceAccount**](ServiceAccountAPI.md#CreateApiTokensForServiceAccount) | **Post** /api/v1/service-accounts/{id}/api-tokens | Create new API Token for a specific service account
+[**CreateApiTokensForServiceAccountWithTenant**](ServiceAccountAPI.md#CreateApiTokensForServiceAccountWithTenant) | **Post** /api/v1/{tenant}/service-accounts/{id}/api-tokens | Create new API Token for a specific service account
 [**CreateServiceAccount**](ServiceAccountAPI.md#CreateServiceAccount) | **Post** /api/v1/service-accounts | Create a service account
 [**CreateServiceAccountForTenant**](ServiceAccountAPI.md#CreateServiceAccountForTenant) | **Post** /api/v1/{tenant}/service-accounts | Create a service account for the given tenant
+[**DeleteApiTokenForServiceAccount**](ServiceAccountAPI.md#DeleteApiTokenForServiceAccount) | **Delete** /api/v1/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific service account and token id
+[**DeleteApiTokenForServiceAccountWithTenant**](ServiceAccountAPI.md#DeleteApiTokenForServiceAccountWithTenant) | **Delete** /api/v1/{tenant}/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific service account and token id
 [**DeleteServiceAccount**](ServiceAccountAPI.md#DeleteServiceAccount) | **Delete** /api/v1/service-accounts/{id} | Delete a service account
 [**DeleteServiceAccountForTenant**](ServiceAccountAPI.md#DeleteServiceAccountForTenant) | **Delete** /api/v1/{tenant}/service-accounts/{id} | Delete a service account
 [**GetServiceAccount**](ServiceAccountAPI.md#GetServiceAccount) | **Get** /api/v1/service-accounts/{id} | Get a service account
 [**GetServiceAccountForTenant**](ServiceAccountAPI.md#GetServiceAccountForTenant) | **Get** /api/v1/{tenant}/service-accounts/{id} | Retrieve a service account
+[**ListApiTokensForServiceAccount**](ServiceAccountAPI.md#ListApiTokensForServiceAccount) | **Get** /api/v1/service-accounts/{id}/api-tokens | List API tokens for a specific service account
+[**ListApiTokensForServiceAccountWithTenant**](ServiceAccountAPI.md#ListApiTokensForServiceAccountWithTenant) | **Get** /api/v1/{tenant}/service-accounts/{id}/api-tokens | List API tokens for a specific service account
 [**ListServiceAccounts**](ServiceAccountAPI.md#ListServiceAccounts) | **Get** /api/v1/service-accounts | List service accounts. Superadmin-only. 
 [**PatchServiceAccountDetails**](ServiceAccountAPI.md#PatchServiceAccountDetails) | **Patch** /api/v1/service-accounts/{id} | Update service account details
 [**PatchServiceAccountSuperAdmin**](ServiceAccountAPI.md#PatchServiceAccountSuperAdmin) | **Patch** /api/v1/service-accounts/{id}/superadmin | Update service account superadmin privileges
 [**UpdateServiceAccount**](ServiceAccountAPI.md#UpdateServiceAccount) | **Put** /api/v1/{tenant}/service-accounts/{id} | Update a user service account
 
+
+
+## CreateApiTokensForServiceAccount
+
+> map[string]interface{} CreateApiTokensForServiceAccount(ctx, id).CreateApiTokenRequest(createApiTokenRequest).Execute()
+
+Create new API Token for a specific service account
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | The user id
+	createApiTokenRequest := *openapiclient.NewCreateApiTokenRequest("Name_example") // CreateApiTokenRequest | The create api-token request
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServiceAccountAPI.CreateApiTokensForServiceAccount(context.Background(), id).CreateApiTokenRequest(createApiTokenRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServiceAccountAPI.CreateApiTokensForServiceAccount``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateApiTokensForServiceAccount`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `ServiceAccountAPI.CreateApiTokensForServiceAccount`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | The user id | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateApiTokensForServiceAccountRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **createApiTokenRequest** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md) | The create api-token request | 
+
+### Return type
+
+**map[string]interface{}**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CreateApiTokensForServiceAccountWithTenant
+
+> map[string]interface{} CreateApiTokensForServiceAccountWithTenant(ctx, id, tenant).CreateApiTokenRequest(createApiTokenRequest).Execute()
+
+Create new API Token for a specific service account
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | The user id
+	tenant := "tenant_example" // string | 
+	createApiTokenRequest := *openapiclient.NewCreateApiTokenRequest("Name_example") // CreateApiTokenRequest | The create api-token request
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServiceAccountAPI.CreateApiTokensForServiceAccountWithTenant(context.Background(), id, tenant).CreateApiTokenRequest(createApiTokenRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServiceAccountAPI.CreateApiTokensForServiceAccountWithTenant``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateApiTokensForServiceAccountWithTenant`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `ServiceAccountAPI.CreateApiTokensForServiceAccountWithTenant`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | The user id | 
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateApiTokensForServiceAccountWithTenantRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **createApiTokenRequest** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md) | The create api-token request | 
+
+### Return type
+
+**map[string]interface{}**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## CreateServiceAccount
@@ -38,7 +187,7 @@ import (
 )
 
 func main() {
-	iAMServiceAccountControllerApiCreateServiceAccountRequest := *openapiclient.NewIAMServiceAccountControllerApiCreateServiceAccountRequest("Name_example", "Description_example", false, []string{"Tenants_example"}) // IAMServiceAccountControllerApiCreateServiceAccountRequest | The service account
+	iAMServiceAccountControllerApiCreateServiceAccountRequest := *openapiclient.NewIAMServiceAccountControllerApiCreateServiceAccountRequest("Name_example") // IAMServiceAccountControllerApiCreateServiceAccountRequest | The service account
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -103,7 +252,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	iAMServiceAccountControllerApiServiceAccountRequest := *openapiclient.NewIAMServiceAccountControllerApiServiceAccountRequest([]openapiclient.IAMServiceAccountControllerApiGroup{*openapiclient.NewIAMServiceAccountControllerApiGroup("Id_example")}, "Name_example", "Description_example", false) // IAMServiceAccountControllerApiServiceAccountRequest | The service account
+	iAMServiceAccountControllerApiServiceAccountRequest := *openapiclient.NewIAMServiceAccountControllerApiServiceAccountRequest("Name_example") // IAMServiceAccountControllerApiServiceAccountRequest | The service account
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -146,6 +295,151 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteApiTokenForServiceAccount
+
+> map[string]interface{} DeleteApiTokenForServiceAccount(ctx, id, tokenId).Execute()
+
+Delete an API Token for specific service account and token id
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | The user id
+	tokenId := "tokenId_example" // string | The token id
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServiceAccountAPI.DeleteApiTokenForServiceAccount(context.Background(), id, tokenId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServiceAccountAPI.DeleteApiTokenForServiceAccount``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeleteApiTokenForServiceAccount`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `ServiceAccountAPI.DeleteApiTokenForServiceAccount`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | The user id | 
+**tokenId** | **string** | The token id | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteApiTokenForServiceAccountRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+**map[string]interface{}**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteApiTokenForServiceAccountWithTenant
+
+> map[string]interface{} DeleteApiTokenForServiceAccountWithTenant(ctx, id, tokenId, tenant).Execute()
+
+Delete an API Token for specific service account and token id
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | The user id
+	tokenId := "tokenId_example" // string | The token id
+	tenant := "tenant_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServiceAccountAPI.DeleteApiTokenForServiceAccountWithTenant(context.Background(), id, tokenId, tenant).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServiceAccountAPI.DeleteApiTokenForServiceAccountWithTenant``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeleteApiTokenForServiceAccountWithTenant`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `ServiceAccountAPI.DeleteApiTokenForServiceAccountWithTenant`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | The user id | 
+**tokenId** | **string** | The token id | 
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteApiTokenForServiceAccountWithTenantRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
+### Return type
+
+**map[string]interface{}**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -431,6 +725,145 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## ListApiTokensForServiceAccount
+
+> map[string]interface{} ListApiTokensForServiceAccount(ctx, id).Execute()
+
+List API tokens for a specific service account
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | The user id
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServiceAccountAPI.ListApiTokensForServiceAccount(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServiceAccountAPI.ListApiTokensForServiceAccount``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListApiTokensForServiceAccount`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `ServiceAccountAPI.ListApiTokensForServiceAccount`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | The user id | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListApiTokensForServiceAccountRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+**map[string]interface{}**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListApiTokensForServiceAccountWithTenant
+
+> map[string]interface{} ListApiTokensForServiceAccountWithTenant(ctx, id, tenant).Execute()
+
+List API tokens for a specific service account
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | The user id
+	tenant := "tenant_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServiceAccountAPI.ListApiTokensForServiceAccountWithTenant(context.Background(), id, tenant).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServiceAccountAPI.ListApiTokensForServiceAccountWithTenant``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListApiTokensForServiceAccountWithTenant`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `ServiceAccountAPI.ListApiTokensForServiceAccountWithTenant`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | The user id | 
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListApiTokensForServiceAccountWithTenantRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+**map[string]interface{}**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ListServiceAccounts
 
 > PagedResultsIAMServiceAccountControllerApiServiceAccountDetail ListServiceAccounts(ctx).Page(page).Size(size).Q(q).Sort(sort).Execute()
@@ -523,7 +956,7 @@ import (
 
 func main() {
 	id := "id_example" // string | The service account id
-	iAMServiceAccountControllerApiPatchServiceAccountRequest := *openapiclient.NewIAMServiceAccountControllerApiPatchServiceAccountRequest("Name_example", "Description_example") // IAMServiceAccountControllerApiPatchServiceAccountRequest | The service account details
+	iAMServiceAccountControllerApiPatchServiceAccountRequest := *openapiclient.NewIAMServiceAccountControllerApiPatchServiceAccountRequest("Name_example") // IAMServiceAccountControllerApiPatchServiceAccountRequest | The service account details
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -664,7 +1097,7 @@ import (
 func main() {
 	id := "id_example" // string | The user id
 	tenant := "tenant_example" // string | 
-	iAMServiceAccountControllerApiServiceAccountRequest := *openapiclient.NewIAMServiceAccountControllerApiServiceAccountRequest([]openapiclient.IAMServiceAccountControllerApiGroup{*openapiclient.NewIAMServiceAccountControllerApiGroup("Id_example")}, "Name_example", "Description_example", false) // IAMServiceAccountControllerApiServiceAccountRequest | The user
+	iAMServiceAccountControllerApiServiceAccountRequest := *openapiclient.NewIAMServiceAccountControllerApiServiceAccountRequest("Name_example") // IAMServiceAccountControllerApiServiceAccountRequest | The user
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

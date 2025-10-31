@@ -59,7 +59,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Delete a key-value pair
-        api_response = api_instance.delete_key_value(namespace, key, tenant)
+        api_response = kestra_client.kvapi.delete_key_value(namespace, key, tenant)
         print("The response of KVApi->delete_key_value:\n")
         pprint(api_response)
     except Exception as e:
@@ -147,7 +147,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Bulk-delete multiple key/value pairs from the given namespace.
-        api_response = api_instance.delete_key_values(namespace, tenant, kv_controller_api_delete_bulk_request)
+        api_response = kestra_client.kvapi.delete_key_values(namespace, tenant, kv_controller_api_delete_bulk_request)
         print("The response of KVApi->delete_key_values:\n")
         pprint(api_response)
     except Exception as e:
@@ -234,7 +234,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Get value for a key
-        api_response = api_instance.get_key_value(namespace, key, tenant)
+        api_response = kestra_client.kvapi.get_key_value(namespace, key, tenant)
         print("The response of KVApi->get_key_value:\n")
         pprint(api_response)
     except Exception as e:
@@ -320,7 +320,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # List all keys for a namespace
-        api_response = api_instance.list_keys(namespace, tenant)
+        api_response = kestra_client.kvapi.list_keys(namespace, tenant)
         print("The response of KVApi->list_keys:\n")
         pprint(api_response)
     except Exception as e:
@@ -405,7 +405,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # List all keys for inherited namespaces
-        api_response = api_instance.list_keys_with_inheritence(namespace, tenant)
+        api_response = kestra_client.kvapi.list_keys_with_inheritence(namespace, tenant)
         print("The response of KVApi->list_keys_with_inheritence:\n")
         pprint(api_response)
     except Exception as e:
@@ -491,7 +491,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Puts a key-value pair in store
-        api_instance.set_key_value(namespace, key, tenant, body)
+        kestra_client.kvapi.set_key_value(namespace, key, tenant, body)
     except Exception as e:
         print("Exception when calling KVApi->set_key_value: %s\n" % e)
 ```
@@ -518,7 +518,7 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/plain
+ - **Content-Type**: text/plain
  - **Accept**: Not defined
 
 ### HTTP response details

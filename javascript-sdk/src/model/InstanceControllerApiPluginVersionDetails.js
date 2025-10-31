@@ -17,23 +17,16 @@ import InstanceControllerApiPluginVersionDetailsApiPluginClasses from './Instanc
 /**
  * The InstanceControllerApiPluginVersionDetails model module.
  * @module model/InstanceControllerApiPluginVersionDetails
- * @version 1.0.0
+ * @version v1.0.5
  */
 class InstanceControllerApiPluginVersionDetails {
     /**
      * Constructs a new <code>InstanceControllerApiPluginVersionDetails</code>.
      * @alias module:model/InstanceControllerApiPluginVersionDetails
-     * @param artifactId {String} 
-     * @param groupId {String} 
-     * @param version {String} 
-     * @param title {String} 
-     * @param description {String} 
-     * @param icon {String} 
-     * @param classes {Array.<module:model/InstanceControllerApiPluginVersionDetailsApiPluginClasses>} 
      */
-    constructor(artifactId, groupId, version, title, description, icon, classes) { 
+    constructor() { 
         
-        InstanceControllerApiPluginVersionDetails.initialize(this, artifactId, groupId, version, title, description, icon, classes);
+        InstanceControllerApiPluginVersionDetails.initialize(this);
     }
 
     /**
@@ -41,14 +34,7 @@ class InstanceControllerApiPluginVersionDetails {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, artifactId, groupId, version, title, description, icon, classes) { 
-        obj['artifactId'] = artifactId;
-        obj['groupId'] = groupId;
-        obj['version'] = version;
-        obj['title'] = title;
-        obj['description'] = description;
-        obj['icon'] = icon;
-        obj['classes'] = classes;
+    static initialize(obj) { 
     }
 
     /**
@@ -93,12 +79,6 @@ class InstanceControllerApiPluginVersionDetails {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>InstanceControllerApiPluginVersionDetails</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of InstanceControllerApiPluginVersionDetails.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['artifactId'] && !(typeof data['artifactId'] === 'string' || data['artifactId'] instanceof String)) {
             throw new Error("Expected the field `artifactId` to be a primitive type in the JSON string but got " + data['artifactId']);
@@ -140,7 +120,7 @@ class InstanceControllerApiPluginVersionDetails {
 
 }
 
-InstanceControllerApiPluginVersionDetails.RequiredProperties = ["artifactId", "groupId", "version", "title", "description", "icon", "classes"];
+
 
 /**
  * @member {String} artifactId

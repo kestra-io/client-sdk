@@ -6,14 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | 
 **deleted** | **Boolean** |  | 
-**allowedTriggers** | [**[NamespaceAllowedTrigger]**](NamespaceAllowedTrigger.md) |  | [optional] 
 **storageIsolation** | [**Isolation**](Isolation.md) |  | [optional] 
 **secretIsolation** | [**Isolation**](Isolation.md) |  | [optional] 
-**description** | **String** |  | 
-**variables** | **{String: Object}** |  | 
-**pluginDefaults** | [**[PluginDefault]**](PluginDefault.md) |  | 
-**allowedNamespaces** | [**[NamespaceAllowedNamespace]**](NamespaceAllowedNamespace.md) |  | 
-**workerGroup** | [**WorkerGroup**](WorkerGroup.md) |  | 
+**description** | **String** |  | [optional] 
+**variables** | **{String: Object}** |  | [optional] 
+**pluginDefaults** | [**[PluginDefault]**](PluginDefault.md) |  | [optional] 
+**allowedNamespaces** | [**[NamespaceAllowedNamespace]**](NamespaceAllowedNamespace.md) |  | [optional] 
+**workerGroup** | [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
 **storageType** | **String** |  | [optional] 
 **storageConfiguration** | **{String: Object}** |  | [optional] 
 **secretType** | **String** |  | [optional] 

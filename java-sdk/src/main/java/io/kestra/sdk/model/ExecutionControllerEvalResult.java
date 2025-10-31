@@ -32,19 +32,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ExecutionControllerEvalResult.JSON_PROPERTY_STACK_TRACE
 })
 @JsonTypeName("ExecutionController.EvalResult")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ExecutionControllerEvalResult {
   public static final String JSON_PROPERTY_RESULT = "result";
-  @javax.annotation.Nullable
-  private String result;
+  @javax.annotation.Nullable  private String result;
 
   public static final String JSON_PROPERTY_ERROR = "error";
-  @javax.annotation.Nullable
-  private String error;
+  @javax.annotation.Nullable  private String error;
 
   public static final String JSON_PROPERTY_STACK_TRACE = "stackTrace";
-  @javax.annotation.Nullable
-  private String stackTrace;
+  @javax.annotation.Nullable  private String stackTrace;
 
   public ExecutionControllerEvalResult() {
   }
@@ -59,8 +56,7 @@ public class ExecutionControllerEvalResult {
    * Get result
    * @return result
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_RESULT)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESULT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getResult() {
@@ -84,8 +80,7 @@ public class ExecutionControllerEvalResult {
    * Get error
    * @return error
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ERROR)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ERROR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getError() {
@@ -109,8 +104,7 @@ public class ExecutionControllerEvalResult {
    * Get stackTrace
    * @return stackTrace
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_STACK_TRACE)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STACK_TRACE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getStackTrace() {

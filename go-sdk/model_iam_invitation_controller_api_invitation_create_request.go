@@ -20,10 +20,10 @@ var _ MappedNullable = &IAMInvitationControllerApiInvitationCreateRequest{}
 
 // IAMInvitationControllerApiInvitationCreateRequest struct for IAMInvitationControllerApiInvitationCreateRequest
 type IAMInvitationControllerApiInvitationCreateRequest struct {
-	CreateUserIfNotExist bool                                       `json:"createUserIfNotExist"`
-	SuperAdmin           bool                                       `json:"superAdmin"`
-	Roles                []IAMInvitationControllerApiInvitationRole `json:"roles"`
-	Groups               []string                                   `json:"groups"`
+	CreateUserIfNotExist *bool                                      `json:"createUserIfNotExist,omitempty"`
+	SuperAdmin           *bool                                      `json:"superAdmin,omitempty"`
+	Roles                []IAMInvitationControllerApiInvitationRole `json:"roles,omitempty"`
+	Groups               []string                                   `json:"groups,omitempty"`
 	Email                string                                     `json:"email"`
 	AdditionalProperties map[string]interface{}
 }
@@ -34,12 +34,8 @@ type _IAMInvitationControllerApiInvitationCreateRequest IAMInvitationControllerA
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIAMInvitationControllerApiInvitationCreateRequest(createUserIfNotExist bool, superAdmin bool, roles []IAMInvitationControllerApiInvitationRole, groups []string, email string) *IAMInvitationControllerApiInvitationCreateRequest {
+func NewIAMInvitationControllerApiInvitationCreateRequest(email string) *IAMInvitationControllerApiInvitationCreateRequest {
 	this := IAMInvitationControllerApiInvitationCreateRequest{}
-	this.CreateUserIfNotExist = createUserIfNotExist
-	this.SuperAdmin = superAdmin
-	this.Roles = roles
-	this.Groups = groups
 	this.Email = email
 	return &this
 }
@@ -52,98 +48,130 @@ func NewIAMInvitationControllerApiInvitationCreateRequestWithDefaults() *IAMInvi
 	return &this
 }
 
-// GetCreateUserIfNotExist returns the CreateUserIfNotExist field value
+// GetCreateUserIfNotExist returns the CreateUserIfNotExist field value if set, zero value otherwise.
 func (o *IAMInvitationControllerApiInvitationCreateRequest) GetCreateUserIfNotExist() bool {
-	if o == nil {
+	if o == nil || IsNil(o.CreateUserIfNotExist) {
 		var ret bool
 		return ret
 	}
-
-	return o.CreateUserIfNotExist
+	return *o.CreateUserIfNotExist
 }
 
-// GetCreateUserIfNotExistOk returns a tuple with the CreateUserIfNotExist field value
+// GetCreateUserIfNotExistOk returns a tuple with the CreateUserIfNotExist field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMInvitationControllerApiInvitationCreateRequest) GetCreateUserIfNotExistOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CreateUserIfNotExist) {
 		return nil, false
 	}
-	return &o.CreateUserIfNotExist, true
+	return o.CreateUserIfNotExist, true
 }
 
-// SetCreateUserIfNotExist sets field value
+// HasCreateUserIfNotExist returns a boolean if a field has been set.
+func (o *IAMInvitationControllerApiInvitationCreateRequest) HasCreateUserIfNotExist() bool {
+	if o != nil && !IsNil(o.CreateUserIfNotExist) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreateUserIfNotExist gets a reference to the given bool and assigns it to the CreateUserIfNotExist field.
 func (o *IAMInvitationControllerApiInvitationCreateRequest) SetCreateUserIfNotExist(v bool) {
-	o.CreateUserIfNotExist = v
+	o.CreateUserIfNotExist = &v
 }
 
-// GetSuperAdmin returns the SuperAdmin field value
+// GetSuperAdmin returns the SuperAdmin field value if set, zero value otherwise.
 func (o *IAMInvitationControllerApiInvitationCreateRequest) GetSuperAdmin() bool {
-	if o == nil {
+	if o == nil || IsNil(o.SuperAdmin) {
 		var ret bool
 		return ret
 	}
-
-	return o.SuperAdmin
+	return *o.SuperAdmin
 }
 
-// GetSuperAdminOk returns a tuple with the SuperAdmin field value
+// GetSuperAdminOk returns a tuple with the SuperAdmin field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMInvitationControllerApiInvitationCreateRequest) GetSuperAdminOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.SuperAdmin) {
 		return nil, false
 	}
-	return &o.SuperAdmin, true
+	return o.SuperAdmin, true
 }
 
-// SetSuperAdmin sets field value
+// HasSuperAdmin returns a boolean if a field has been set.
+func (o *IAMInvitationControllerApiInvitationCreateRequest) HasSuperAdmin() bool {
+	if o != nil && !IsNil(o.SuperAdmin) {
+		return true
+	}
+
+	return false
+}
+
+// SetSuperAdmin gets a reference to the given bool and assigns it to the SuperAdmin field.
 func (o *IAMInvitationControllerApiInvitationCreateRequest) SetSuperAdmin(v bool) {
-	o.SuperAdmin = v
+	o.SuperAdmin = &v
 }
 
-// GetRoles returns the Roles field value
+// GetRoles returns the Roles field value if set, zero value otherwise.
 func (o *IAMInvitationControllerApiInvitationCreateRequest) GetRoles() []IAMInvitationControllerApiInvitationRole {
-	if o == nil {
+	if o == nil || IsNil(o.Roles) {
 		var ret []IAMInvitationControllerApiInvitationRole
 		return ret
 	}
-
 	return o.Roles
 }
 
-// GetRolesOk returns a tuple with the Roles field value
+// GetRolesOk returns a tuple with the Roles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMInvitationControllerApiInvitationCreateRequest) GetRolesOk() ([]IAMInvitationControllerApiInvitationRole, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Roles) {
 		return nil, false
 	}
 	return o.Roles, true
 }
 
-// SetRoles sets field value
+// HasRoles returns a boolean if a field has been set.
+func (o *IAMInvitationControllerApiInvitationCreateRequest) HasRoles() bool {
+	if o != nil && !IsNil(o.Roles) {
+		return true
+	}
+
+	return false
+}
+
+// SetRoles gets a reference to the given []IAMInvitationControllerApiInvitationRole and assigns it to the Roles field.
 func (o *IAMInvitationControllerApiInvitationCreateRequest) SetRoles(v []IAMInvitationControllerApiInvitationRole) {
 	o.Roles = v
 }
 
-// GetGroups returns the Groups field value
+// GetGroups returns the Groups field value if set, zero value otherwise.
 func (o *IAMInvitationControllerApiInvitationCreateRequest) GetGroups() []string {
-	if o == nil {
+	if o == nil || IsNil(o.Groups) {
 		var ret []string
 		return ret
 	}
-
 	return o.Groups
 }
 
-// GetGroupsOk returns a tuple with the Groups field value
+// GetGroupsOk returns a tuple with the Groups field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMInvitationControllerApiInvitationCreateRequest) GetGroupsOk() ([]string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Groups) {
 		return nil, false
 	}
 	return o.Groups, true
 }
 
-// SetGroups sets field value
+// HasGroups returns a boolean if a field has been set.
+func (o *IAMInvitationControllerApiInvitationCreateRequest) HasGroups() bool {
+	if o != nil && !IsNil(o.Groups) {
+		return true
+	}
+
+	return false
+}
+
+// SetGroups gets a reference to the given []string and assigns it to the Groups field.
 func (o *IAMInvitationControllerApiInvitationCreateRequest) SetGroups(v []string) {
 	o.Groups = v
 }
@@ -182,10 +210,18 @@ func (o IAMInvitationControllerApiInvitationCreateRequest) MarshalJSON() ([]byte
 
 func (o IAMInvitationControllerApiInvitationCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["createUserIfNotExist"] = o.CreateUserIfNotExist
-	toSerialize["superAdmin"] = o.SuperAdmin
-	toSerialize["roles"] = o.Roles
-	toSerialize["groups"] = o.Groups
+	if !IsNil(o.CreateUserIfNotExist) {
+		toSerialize["createUserIfNotExist"] = o.CreateUserIfNotExist
+	}
+	if !IsNil(o.SuperAdmin) {
+		toSerialize["superAdmin"] = o.SuperAdmin
+	}
+	if !IsNil(o.Roles) {
+		toSerialize["roles"] = o.Roles
+	}
+	if !IsNil(o.Groups) {
+		toSerialize["groups"] = o.Groups
+	}
 	toSerialize["email"] = o.Email
 
 	for key, value := range o.AdditionalProperties {
@@ -200,10 +236,6 @@ func (o *IAMInvitationControllerApiInvitationCreateRequest) UnmarshalJSON(data [
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"createUserIfNotExist",
-		"superAdmin",
-		"roles",
-		"groups",
 		"email",
 	}
 

@@ -12,6 +12,13 @@
 
 package io.kestra.sdk.api;
 
+// Custom imports for injected code
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import reactor.core.publisher.Flux;
+import java.io.BufferedReader;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import io.kestra.sdk.internal.ApiException;
@@ -22,29 +29,22 @@ import io.kestra.sdk.internal.Pair;
 
 import io.kestra.sdk.model.BulkErrorResponse;
 import io.kestra.sdk.model.BulkResponse;
-import io.kestra.sdk.model.DeleteExecutionsByQueryRequest;
 import io.kestra.sdk.model.EventExecution;
 import io.kestra.sdk.model.EventExecutionStatusEvent;
 import io.kestra.sdk.model.Execution;
-import io.kestra.sdk.model.ExecutionControllerApiValidateExecutionInputsResponse;
-import io.kestra.sdk.model.ExecutionControllerEvalResult;
 import io.kestra.sdk.model.ExecutionControllerExecutionResponse;
 import io.kestra.sdk.model.ExecutionControllerLastExecutionResponse;
 import io.kestra.sdk.model.ExecutionControllerSetLabelsByIdsRequest;
-import io.kestra.sdk.model.ExecutionControllerStateRequest;
 import io.kestra.sdk.model.ExecutionControllerWebhookResponse;
 import io.kestra.sdk.model.ExecutionKind;
-import io.kestra.sdk.model.ExecutionRepositoryInterfaceChildFilter;
 import io.kestra.sdk.model.ExecutionRepositoryInterfaceFlowFilter;
 import java.io.File;
 import io.kestra.sdk.model.FileMetas;
 import io.kestra.sdk.model.FlowForExecution;
 import io.kestra.sdk.model.FlowGraph;
-import io.kestra.sdk.model.FlowScope;
 import io.kestra.sdk.model.Label;
 import java.time.OffsetDateTime;
 import io.kestra.sdk.model.PagedResultsExecution;
-import io.kestra.sdk.model.PagedResultsTaskRun;
 import io.kestra.sdk.model.QueryFilter;
 import io.kestra.sdk.model.StateType;
 import java.net.URI;
@@ -57,8 +57,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
-public class ExecutionsApi extends BaseApi {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")public class ExecutionsApi extends BaseApi {
 
   public ExecutionsApi() {
     super(Configuration.getDefaultApiClient());
@@ -80,13 +79,16 @@ public class ExecutionsApi extends BaseApi {
    * @param scheduleDate Schedule the flow on a specific date (optional)
    * @param breakpoints Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
    * @param kind Specific execution kind (optional)
-   * @return List&lt;ExecutionControllerExecutionResponse&gt;
+   * @return ExecutionControllerExecutionResponse
    * @throws ApiException if fails to make API call
    */
-  public List<ExecutionControllerExecutionResponse> createExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable OffsetDateTime scheduleDate, @javax.annotation.Nullable String breakpoints, @javax.annotation.Nullable ExecutionKind kind) throws ApiException {
-    return this.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind, Collections.emptyMap());
+  public ExecutionControllerExecutionResponse createExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable OffsetDateTime scheduleDate, @javax.annotation.Nullable String breakpoints, @javax.annotation.Nullable ExecutionKind kind) throws ApiException {
+    return this.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind, Collections.emptyMap(), null);
   }
 
+  public ExecutionControllerExecutionResponse createExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable OffsetDateTime scheduleDate, @javax.annotation.Nullable String breakpoints, @javax.annotation.Nullable ExecutionKind kind, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Create a new execution for a flow
@@ -101,10 +103,10 @@ public class ExecutionsApi extends BaseApi {
    * @param breakpoints Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
    * @param kind Specific execution kind (optional)
    * @param additionalHeaders additionalHeaders for this call
-   * @return List&lt;ExecutionControllerExecutionResponse&gt;
+   * @return ExecutionControllerExecutionResponse
    * @throws ApiException if fails to make API call
    */
-  public List<ExecutionControllerExecutionResponse> createExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable OffsetDateTime scheduleDate, @javax.annotation.Nullable String breakpoints, @javax.annotation.Nullable ExecutionKind kind, Map<String, String> additionalHeaders) throws ApiException {
+  public ExecutionControllerExecutionResponse createExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable OffsetDateTime scheduleDate, @javax.annotation.Nullable String breakpoints, @javax.annotation.Nullable ExecutionKind kind, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -139,7 +141,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
     localVarQueryParams.addAll(apiClient.parameterToPair("wait", wait));
@@ -164,7 +166,7 @@ public class ExecutionsApi extends BaseApi {
 
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
-    TypeReference<List<ExecutionControllerExecutionResponse>> localVarReturnType = new TypeReference<List<ExecutionControllerExecutionResponse>>() {};
+    TypeReference<ExecutionControllerExecutionResponse> localVarReturnType = new TypeReference<ExecutionControllerExecutionResponse>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "POST",
@@ -182,53 +184,46 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Delete an execution
    * 
    * @param executionId The execution id (required)
-   * @param deleteLogs Whether to delete execution logs (required)
-   * @param deleteMetrics Whether to delete execution metrics (required)
-   * @param deleteStorage Whether to delete execution files in the internal storage (required)
    * @param tenant  (required)
+   * @param deleteLogs Whether to delete execution logs (optional, default to true)
+   * @param deleteMetrics Whether to delete execution metrics (optional, default to true)
+   * @param deleteStorage Whether to delete execution files in the internal storage (optional, default to true)
    * @throws ApiException if fails to make API call
    */
-  public void deleteExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull Boolean deleteLogs, @javax.annotation.Nonnull Boolean deleteMetrics, @javax.annotation.Nonnull Boolean deleteStorage, @javax.annotation.Nonnull String tenant) throws ApiException {
-    this.deleteExecution(executionId, deleteLogs, deleteMetrics, deleteStorage, tenant, Collections.emptyMap());
+  public void deleteExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage) throws ApiException {
+    this.deleteExecution(executionId, tenant, deleteLogs, deleteMetrics, deleteStorage, Collections.emptyMap(), null);
   }
 
+  public void deleteExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage, HashMap<String, Object> formDatas)  throws ApiException {
+  this.deleteExecution(executionId, tenant, deleteLogs, deleteMetrics, deleteStorage, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Delete an execution
    * 
    * @param executionId The execution id (required)
-   * @param deleteLogs Whether to delete execution logs (required)
-   * @param deleteMetrics Whether to delete execution metrics (required)
-   * @param deleteStorage Whether to delete execution files in the internal storage (required)
    * @param tenant  (required)
+   * @param deleteLogs Whether to delete execution logs (optional, default to true)
+   * @param deleteMetrics Whether to delete execution metrics (optional, default to true)
+   * @param deleteStorage Whether to delete execution files in the internal storage (optional, default to true)
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void deleteExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull Boolean deleteLogs, @javax.annotation.Nonnull Boolean deleteMetrics, @javax.annotation.Nonnull Boolean deleteStorage, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public void deleteExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
     if (executionId == null) {
       throw new ApiException(400, "Missing the required parameter 'executionId' when calling deleteExecution");
-    }
-    
-    // verify the required parameter 'deleteLogs' is set
-    if (deleteLogs == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteLogs' when calling deleteExecution");
-    }
-    
-    // verify the required parameter 'deleteMetrics' is set
-    if (deleteMetrics == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteMetrics' when calling deleteExecution");
-    }
-    
-    // verify the required parameter 'deleteStorage' is set
-    if (deleteStorage == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteStorage' when calling deleteExecution");
     }
     
     // verify the required parameter 'tenant' is set
@@ -247,7 +242,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("deleteLogs", deleteLogs));
     localVarQueryParams.addAll(apiClient.parameterToPair("deleteMetrics", deleteMetrics));
@@ -286,53 +281,46 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Delete a list of executions
    * 
-   * @param deleteLogs Whether to delete execution logs (required)
-   * @param deleteMetrics Whether to delete execution metrics (required)
-   * @param deleteStorage Whether to delete execution files in the internal storage (required)
    * @param tenant  (required)
    * @param requestBody The execution id (required)
    * @param includeNonTerminated Whether to delete non-terminated executions (optional, default to false)
+   * @param deleteLogs Whether to delete execution logs (optional, default to true)
+   * @param deleteMetrics Whether to delete execution metrics (optional, default to true)
+   * @param deleteStorage Whether to delete execution files in the internal storage (optional, default to true)
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse deleteExecutionsByIds(@javax.annotation.Nonnull Boolean deleteLogs, @javax.annotation.Nonnull Boolean deleteMetrics, @javax.annotation.Nonnull Boolean deleteStorage, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, @javax.annotation.Nullable Boolean includeNonTerminated) throws ApiException {
-    return this.deleteExecutionsByIds(deleteLogs, deleteMetrics, deleteStorage, tenant, requestBody, includeNonTerminated, Collections.emptyMap());
+  public BulkResponse deleteExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, @javax.annotation.Nullable Boolean includeNonTerminated, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage) throws ApiException {
+    return this.deleteExecutionsByIds(tenant, requestBody, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage, Collections.emptyMap(), null);
   }
 
+  public BulkResponse deleteExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, @javax.annotation.Nullable Boolean includeNonTerminated, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.deleteExecutionsByIds(tenant, requestBody, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Delete a list of executions
    * 
-   * @param deleteLogs Whether to delete execution logs (required)
-   * @param deleteMetrics Whether to delete execution metrics (required)
-   * @param deleteStorage Whether to delete execution files in the internal storage (required)
    * @param tenant  (required)
    * @param requestBody The execution id (required)
    * @param includeNonTerminated Whether to delete non-terminated executions (optional, default to false)
+   * @param deleteLogs Whether to delete execution logs (optional, default to true)
+   * @param deleteMetrics Whether to delete execution metrics (optional, default to true)
+   * @param deleteStorage Whether to delete execution files in the internal storage (optional, default to true)
    * @param additionalHeaders additionalHeaders for this call
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse deleteExecutionsByIds(@javax.annotation.Nonnull Boolean deleteLogs, @javax.annotation.Nonnull Boolean deleteMetrics, @javax.annotation.Nonnull Boolean deleteStorage, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, @javax.annotation.Nullable Boolean includeNonTerminated, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse deleteExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, @javax.annotation.Nullable Boolean includeNonTerminated, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = requestBody;
-    
-    // verify the required parameter 'deleteLogs' is set
-    if (deleteLogs == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteLogs' when calling deleteExecutionsByIds");
-    }
-    
-    // verify the required parameter 'deleteMetrics' is set
-    if (deleteMetrics == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteMetrics' when calling deleteExecutionsByIds");
-    }
-    
-    // verify the required parameter 'deleteStorage' is set
-    if (deleteStorage == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteStorage' when calling deleteExecutionsByIds");
-    }
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
@@ -354,7 +342,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("includeNonTerminated", includeNonTerminated));
     localVarQueryParams.addAll(apiClient.parameterToPair("deleteLogs", deleteLogs));
@@ -395,84 +383,50 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Delete executions filter by query parameters
    * 
-   * @param deleteLogs Whether to delete execution logs (required)
-   * @param deleteMetrics Whether to delete execution metrics (required)
-   * @param deleteStorage Whether to delete execution files in the internal storage (required)
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters Filters (optional)
    * @param includeNonTerminated Whether to delete non-terminated executions (optional, default to false)
+   * @param deleteLogs Whether to delete execution logs (optional, default to true)
+   * @param deleteMetrics Whether to delete execution metrics (optional, default to true)
+   * @param deleteStorage Whether to delete execution files in the internal storage (optional, default to true)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteExecutionsByQuery(@javax.annotation.Nonnull Boolean deleteLogs, @javax.annotation.Nonnull Boolean deleteMetrics, @javax.annotation.Nonnull Boolean deleteStorage, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, @javax.annotation.Nullable Boolean includeNonTerminated) throws ApiException {
-    return this.deleteExecutionsByQuery(deleteLogs, deleteMetrics, deleteStorage, tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, includeNonTerminated, Collections.emptyMap());
+  public Object deleteExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable Boolean includeNonTerminated, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage) throws ApiException {
+    return this.deleteExecutionsByQuery(tenant, filters, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage, Collections.emptyMap(), null);
   }
 
+  public Object deleteExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable Boolean includeNonTerminated, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.deleteExecutionsByQuery(tenant, filters, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Delete executions filter by query parameters
    * 
-   * @param deleteLogs Whether to delete execution logs (required)
-   * @param deleteMetrics Whether to delete execution metrics (required)
-   * @param deleteStorage Whether to delete execution files in the internal storage (required)
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters Filters (optional)
    * @param includeNonTerminated Whether to delete non-terminated executions (optional, default to false)
+   * @param deleteLogs Whether to delete execution logs (optional, default to true)
+   * @param deleteMetrics Whether to delete execution metrics (optional, default to true)
+   * @param deleteStorage Whether to delete execution files in the internal storage (optional, default to true)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteExecutionsByQuery(@javax.annotation.Nonnull Boolean deleteLogs, @javax.annotation.Nonnull Boolean deleteMetrics, @javax.annotation.Nonnull Boolean deleteStorage, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, @javax.annotation.Nullable Boolean includeNonTerminated, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
-    
-    // verify the required parameter 'deleteLogs' is set
-    if (deleteLogs == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteLogs' when calling deleteExecutionsByQuery");
-    }
-    
-    // verify the required parameter 'deleteMetrics' is set
-    if (deleteMetrics == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteMetrics' when calling deleteExecutionsByQuery");
-    }
-    
-    // verify the required parameter 'deleteStorage' is set
-    if (deleteStorage == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteStorage' when calling deleteExecutionsByQuery");
-    }
+  public Object deleteExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable Boolean includeNonTerminated, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling deleteExecutionsByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling deleteExecutionsByQuery");
     }
     
     // create path and map variables
@@ -485,19 +439,9 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("startDate", startDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("endDate", endDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("timeRange", timeRange));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "state", state));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
-    localVarQueryParams.addAll(apiClient.parameterToPair("triggerExecutionId", triggerExecutionId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("childFilter", childFilter));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("includeNonTerminated", includeNonTerminated));
     localVarQueryParams.addAll(apiClient.parameterToPair("deleteLogs", deleteLogs));
     localVarQueryParams.addAll(apiClient.parameterToPair("deleteMetrics", deleteMetrics));
@@ -513,7 +457,7 @@ public class ExecutionsApi extends BaseApi {
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -537,6 +481,11 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Download file for an execution
    * 
@@ -547,9 +496,12 @@ public class ExecutionsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public File downloadFileFromExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull URI path, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.downloadFileFromExecution(executionId, path, tenant, Collections.emptyMap());
+    return this.downloadFileFromExecution(executionId, path, tenant, Collections.emptyMap(), null);
   }
 
+  public File downloadFileFromExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull URI path, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.downloadFileFromExecution(executionId, path, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Download file for an execution
@@ -561,7 +513,7 @@ public class ExecutionsApi extends BaseApi {
    * @return File
    * @throws ApiException if fails to make API call
    */
-  public File downloadFileFromExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull URI path, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public File downloadFileFromExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull URI path, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -590,7 +542,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("path", path));
     
@@ -628,285 +580,228 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
-  /**
-   * Evaluate a variable expression for this taskrun
-   * 
-   * @param executionId The execution id (required)
-   * @param taskRunId The taskrun id (required)
-   * @param tenant  (required)
-   * @param body The Pebble expression that should be evaluated (required)
-   * @return ExecutionControllerEvalResult
-   * @throws ApiException if fails to make API call
-   */
-  public ExecutionControllerEvalResult evalTaskRunExpression(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String taskRunId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body) throws ApiException {
-    return this.evalTaskRunExpression(executionId, taskRunId, tenant, body, Collections.emptyMap());
+
+
+
+
+
+
+
+
+
+  public Flux<Execution> followDependenciesExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, boolean destinationOnly, boolean expandAll) throws ApiException {
+    return Flux.create(sink -> {
+      org.apache.hc.client5.http.impl.classic.CloseableHttpResponse response = null;
+      BufferedReader reader = null;
+
+      try {
+        response = _followDependenciesExecutions(executionId, tenant, Collections.emptyMap(), destinationOnly, expandAll);
+        java.io.InputStream is = response.getEntity().getContent();
+        reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+
+        String line;
+        StringBuilder dataBuffer = new StringBuilder();
+
+        while (!sink.isCancelled() && (line = reader.readLine()) != null) {
+          if (line.isEmpty()) {
+            if (dataBuffer.length() > 0) {
+              String data = dataBuffer.toString();
+              dataBuffer.setLength(0);
+
+              try {
+                Execution ev = apiClient.getObjectMapper().readValue(data, Execution.class);
+                sink.next(ev);
+              } catch (Exception e) {
+                sink.error(new ApiException(e));
+                return;
+              }
+            }
+            continue;
+          }
+
+          if (line.startsWith("data:")) {
+            String payload = line.substring(5);
+            if (payload.startsWith(" ")) payload = payload.substring(1);
+            dataBuffer.append(payload).append('\n');
+          }
+        }
+
+        if (dataBuffer.length() > 0) {
+          String data = dataBuffer.toString();
+          try {
+            Execution ev = apiClient.getObjectMapper().readValue(data, Execution.class);
+            sink.next(ev);
+          } catch (Exception e) {
+            sink.error(new ApiException(e));
+            return;
+          }
+        }
+
+        sink.complete();
+
+      } catch (IOException e) {
+        if (!sink.isCancelled()) {
+          System.err.println("Stream connection closed or error occurred: " + e.getMessage());
+          sink.error(new ApiException(e));
+        }
+      } catch (ApiException e) {
+        sink.error(e);
+      } finally {
+        try {
+          if (reader != null) reader.close();
+          if (response != null) response.close();
+        } catch (IOException cleanupException) {
+          System.err.println("Error during stream cleanup: " + cleanupException.getMessage());
+        }
+      }
+    });
   }
 
-
-  /**
-   * Evaluate a variable expression for this taskrun
-   * 
-   * @param executionId The execution id (required)
-   * @param taskRunId The taskrun id (required)
-   * @param tenant  (required)
-   * @param body The Pebble expression that should be evaluated (required)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return ExecutionControllerEvalResult
-   * @throws ApiException if fails to make API call
-   */
-  public ExecutionControllerEvalResult evalTaskRunExpression(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String taskRunId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = body;
-    
-    // verify the required parameter 'executionId' is set
+  private org.apache.hc.client5.http.impl.classic.CloseableHttpResponse _followDependenciesExecutions(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, boolean destinationOnly, boolean expandAll) throws ApiException {
     if (executionId == null) {
-      throw new ApiException(400, "Missing the required parameter 'executionId' when calling evalTaskRunExpression");
+      throw new ApiException(400, "Missing the required parameter 'executionId' when calling _followDependenciesExecutions");
     }
-    
-    // verify the required parameter 'taskRunId' is set
-    if (taskRunId == null) {
-      throw new ApiException(400, "Missing the required parameter 'taskRunId' when calling evalTaskRunExpression");
-    }
-    
-    // verify the required parameter 'tenant' is set
     if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling evalTaskRunExpression");
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling _followDependenciesExecutions");
     }
-    
-    // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new ApiException(400, "Missing the required parameter 'body' when calling evalTaskRunExpression");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/executions/{executionId}/eval/{taskRunId}"
-      .replaceAll("\\{" + "executionId" + "\\}", apiClient.escapeString(apiClient.parameterToString(executionId)))
-      .replaceAll("\\{" + "taskRunId" + "\\}", apiClient.escapeString(apiClient.parameterToString(taskRunId)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
 
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "text/plain"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<ExecutionControllerEvalResult> localVarReturnType = new TypeReference<ExecutionControllerEvalResult>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "POST",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
-
-  /**
-   * Follow all execution dependencies executions
-   * 
-   * @param executionId The execution id (required)
-   * @param destinationOnly If true, list only destination dependencies, otherwise list also source dependencies (required)
-   * @param expandAll If true, expand all dependencies recursively (required)
-   * @param tenant  (required)
-   * @return EventExecutionStatusEvent
-   * @throws ApiException if fails to make API call
-   */
-  public EventExecutionStatusEvent followDependenciesExecutions(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull Boolean destinationOnly, @javax.annotation.Nonnull Boolean expandAll, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.followDependenciesExecutions(executionId, destinationOnly, expandAll, tenant, Collections.emptyMap());
-  }
-
-
-  /**
-   * Follow all execution dependencies executions
-   * 
-   * @param executionId The execution id (required)
-   * @param destinationOnly If true, list only destination dependencies, otherwise list also source dependencies (required)
-   * @param expandAll If true, expand all dependencies recursively (required)
-   * @param tenant  (required)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return EventExecutionStatusEvent
-   * @throws ApiException if fails to make API call
-   */
-  public EventExecutionStatusEvent followDependenciesExecutions(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull Boolean destinationOnly, @javax.annotation.Nonnull Boolean expandAll, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'executionId' is set
-    if (executionId == null) {
-      throw new ApiException(400, "Missing the required parameter 'executionId' when calling followDependenciesExecutions");
-    }
-    
-    // verify the required parameter 'destinationOnly' is set
-    if (destinationOnly == null) {
-      throw new ApiException(400, "Missing the required parameter 'destinationOnly' when calling followDependenciesExecutions");
-    }
-    
-    // verify the required parameter 'expandAll' is set
-    if (expandAll == null) {
-      throw new ApiException(400, "Missing the required parameter 'expandAll' when calling followDependenciesExecutions");
-    }
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling followDependenciesExecutions");
-    }
-    
-    // create path and map variables
     String localVarPath = "/api/v1/{tenant}/executions/{executionId}/follow-dependencies"
-      .replaceAll("\\{" + "executionId" + "\\}", apiClient.escapeString(apiClient.parameterToString(executionId)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+            .replaceAll("\\{" + "executionId" + "\\}", apiClient.escapeString(apiClient.parameterToString(executionId)))
+            .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
 
+    List<Pair> localVarQueryParams = new ArrayList<>();
+    if (destinationOnly != false) {
+      localVarQueryParams.addAll(apiClient.parameterToPair("destinationOnly", destinationOnly));
+    }
+    if (expandAll != false) {
+      localVarQueryParams.addAll(apiClient.parameterToPair("expandAll", expandAll));
+    }
+    List<Pair> localVarCollectionQueryParams = new ArrayList<>();
     StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, String> localVarHeaderParams = new HashMap<>();
+    Map<String, String> localVarCookieParams = new HashMap<>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPair("destinationOnly", destinationOnly));
-    localVarQueryParams.addAll(apiClient.parameterToPair("expandAll", expandAll));
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "text/event-stream"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+    if (additionalHeaders != null) {
+      localVarHeaderParams.putAll(additionalHeaders);
+    }
 
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
-    TypeReference<EventExecutionStatusEvent> localVarReturnType = new TypeReference<EventExecutionStatusEvent>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "GET",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
+    return apiClient.openEventStream(
+            localVarPath,
+            localVarQueryParams,
+            localVarCollectionQueryParams,
+            localVarQueryStringJoiner.toString(),
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarAuthNames
     );
   }
 
-  /**
-   * Follow an execution
-   * 
-   * @param executionId The execution id (required)
-   * @param tenant  (required)
-   * @return EventExecution
-   * @throws ApiException if fails to make API call
-   */
-  public EventExecution followExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.followExecution(executionId, tenant, Collections.emptyMap());
+
+  public Flux<Execution> followExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant) throws ApiException {
+    return Flux.create(sink -> {
+      org.apache.hc.client5.http.impl.classic.CloseableHttpResponse response = null;
+      BufferedReader reader = null;
+
+      try {
+        response = _followExecutions(executionId, tenant, Collections.emptyMap());
+        java.io.InputStream is = response.getEntity().getContent();
+        reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+
+        String line;
+        StringBuilder dataBuffer = new StringBuilder();
+
+        while (!sink.isCancelled() && (line = reader.readLine()) != null) {
+          if (line.isEmpty()) {
+            if (dataBuffer.length() > 0) {
+              String data = dataBuffer.toString();
+              dataBuffer.setLength(0);
+
+              try {
+                Execution ev = apiClient.getObjectMapper().readValue(data, Execution.class);
+                sink.next(ev);
+              } catch (Exception e) {
+                sink.error(new ApiException(e));
+                return;
+              }
+            }
+            continue;
+          }
+
+          if (line.startsWith("data:")) {
+            String payload = line.substring(5);
+            if (payload.startsWith(" ")) payload = payload.substring(1);
+            dataBuffer.append(payload).append('\n');
+          }
+        }
+
+        if (dataBuffer.length() > 0) {
+          String data = dataBuffer.toString();
+          try {
+            Execution ev = apiClient.getObjectMapper().readValue(data, Execution.class);
+            sink.next(ev);
+          } catch (Exception e) {
+            sink.error(new ApiException(e));
+            return;
+          }
+        }
+
+        sink.complete();
+
+      } catch (IOException e) {
+        if (!sink.isCancelled()) {
+          System.err.println("Stream connection closed or error occurred: " + e.getMessage());
+          sink.error(new ApiException(e));
+        }
+      } catch (ApiException e) {
+        sink.error(e);
+      } finally {
+        try {
+          if (reader != null) reader.close();
+          if (response != null) response.close();
+        } catch (IOException cleanupException) {
+          System.err.println("Error during stream cleanup: " + cleanupException.getMessage());
+        }
+      }
+    });
   }
 
-
-  /**
-   * Follow an execution
-   * 
-   * @param executionId The execution id (required)
-   * @param tenant  (required)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return EventExecution
-   * @throws ApiException if fails to make API call
-   */
-  public EventExecution followExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'executionId' is set
+  private org.apache.hc.client5.http.impl.classic.CloseableHttpResponse _followExecutions(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     if (executionId == null) {
-      throw new ApiException(400, "Missing the required parameter 'executionId' when calling followExecution");
+      throw new ApiException(400, "Missing the required parameter 'executionId' when calling _followExecutions");
     }
-    
-    // verify the required parameter 'tenant' is set
     if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling followExecution");
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling _followExecutions");
     }
-    
-    // create path and map variables
+
     String localVarPath = "/api/v1/{tenant}/executions/{executionId}/follow"
-      .replaceAll("\\{" + "executionId" + "\\}", apiClient.escapeString(apiClient.parameterToString(executionId)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+            .replaceAll("\\{" + "executionId" + "\\}", apiClient.escapeString(apiClient.parameterToString(executionId)))
+            .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
 
+    List<Pair> localVarQueryParams = new ArrayList<>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<>();
     StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, String> localVarHeaderParams = new HashMap<>();
+    Map<String, String> localVarCookieParams = new HashMap<>();
 
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "text/event-stream"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+    if (additionalHeaders != null) {
+      localVarHeaderParams.putAll(additionalHeaders);
+    }
 
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
-    TypeReference<EventExecution> localVarReturnType = new TypeReference<EventExecution>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "GET",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
+    return apiClient.openEventStream(
+            localVarPath,
+            localVarQueryParams,
+            localVarCollectionQueryParams,
+            localVarQueryStringJoiner.toString(),
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarAuthNames
     );
   }
+
 
   /**
    * Force run a list of executions
@@ -917,9 +812,12 @@ public class ExecutionsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public BulkResponse forceRunByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody) throws ApiException {
-    return this.forceRunByIds(tenant, requestBody, Collections.emptyMap());
+    return this.forceRunByIds(tenant, requestBody, Collections.emptyMap(), null);
   }
 
+  public BulkResponse forceRunByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.forceRunByIds(tenant, requestBody, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Force run a list of executions
@@ -930,7 +828,7 @@ public class ExecutionsApi extends BaseApi {
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse forceRunByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse forceRunByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = requestBody;
     
     // verify the required parameter 'tenant' is set
@@ -953,7 +851,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -990,6 +888,11 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Force run an execution
    * 
@@ -999,9 +902,12 @@ public class ExecutionsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public Execution forceRunExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.forceRunExecution(executionId, tenant, Collections.emptyMap());
+    return this.forceRunExecution(executionId, tenant, Collections.emptyMap(), null);
   }
 
+  public Execution forceRunExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.forceRunExecution(executionId, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Force run an execution
@@ -1012,7 +918,7 @@ public class ExecutionsApi extends BaseApi {
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution forceRunExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Execution forceRunExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -1036,7 +942,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -1073,61 +979,42 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Force run executions filter by query parameters
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters Filters (optional)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object forceRunExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
-    return this.forceRunExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
+  public Object forceRunExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.forceRunExecutionsByQuery(tenant, filters, Collections.emptyMap(), null);
   }
 
+  public Object forceRunExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.forceRunExecutionsByQuery(tenant, filters, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Force run executions filter by query parameters
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters Filters (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object forceRunExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object forceRunExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling forceRunExecutionsByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling forceRunExecutionsByQuery");
     }
     
     // create path and map variables
@@ -1140,19 +1027,9 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("startDate", startDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("endDate", endDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("timeRange", timeRange));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "state", state));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
-    localVarQueryParams.addAll(apiClient.parameterToPair("triggerExecutionId", triggerExecutionId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("childFilter", childFilter));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -1164,7 +1041,7 @@ public class ExecutionsApi extends BaseApi {
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -1188,6 +1065,11 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Get an execution
    * 
@@ -1197,9 +1079,12 @@ public class ExecutionsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public Execution getExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.getExecution(executionId, tenant, Collections.emptyMap());
+    return this.getExecution(executionId, tenant, Collections.emptyMap(), null);
   }
 
+  public Execution getExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.getExecution(executionId, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Get an execution
@@ -1210,7 +1095,7 @@ public class ExecutionsApi extends BaseApi {
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution getExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Execution getExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -1234,7 +1119,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -1271,6 +1156,11 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Generate a graph for an execution
    * 
@@ -1281,9 +1171,12 @@ public class ExecutionsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public FlowGraph getExecutionFlowGraph(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> subflows) throws ApiException {
-    return this.getExecutionFlowGraph(executionId, tenant, subflows, Collections.emptyMap());
+    return this.getExecutionFlowGraph(executionId, tenant, subflows, Collections.emptyMap(), null);
   }
 
+  public FlowGraph getExecutionFlowGraph(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> subflows, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.getExecutionFlowGraph(executionId, tenant, subflows, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Generate a graph for an execution
@@ -1295,7 +1188,7 @@ public class ExecutionsApi extends BaseApi {
    * @return FlowGraph
    * @throws ApiException if fails to make API call
    */
-  public FlowGraph getExecutionFlowGraph(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> subflows, Map<String, String> additionalHeaders) throws ApiException {
+  public FlowGraph getExecutionFlowGraph(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> subflows, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -1319,7 +1212,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "subflows", subflows));
     
@@ -1357,6 +1250,11 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Get file meta information for an execution
    * 
@@ -1367,9 +1265,12 @@ public class ExecutionsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public FileMetas getFileMetadatasFromExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull URI path, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.getFileMetadatasFromExecution(executionId, path, tenant, Collections.emptyMap());
+    return this.getFileMetadatasFromExecution(executionId, path, tenant, Collections.emptyMap(), null);
   }
 
+  public FileMetas getFileMetadatasFromExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull URI path, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.getFileMetadatasFromExecution(executionId, path, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Get file meta information for an execution
@@ -1381,7 +1282,7 @@ public class ExecutionsApi extends BaseApi {
    * @return FileMetas
    * @throws ApiException if fails to make API call
    */
-  public FileMetas getFileMetadatasFromExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull URI path, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public FileMetas getFileMetadatasFromExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull URI path, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -1410,7 +1311,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("path", path));
     
@@ -1448,6 +1349,11 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Get flow information&#39;s for an execution
    * 
@@ -1459,9 +1365,12 @@ public class ExecutionsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public FlowForExecution getFlowFromExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision) throws ApiException {
-    return this.getFlowFromExecution(namespace, flowId, tenant, revision, Collections.emptyMap());
+    return this.getFlowFromExecution(namespace, flowId, tenant, revision, Collections.emptyMap(), null);
   }
 
+  public FlowForExecution getFlowFromExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.getFlowFromExecution(namespace, flowId, tenant, revision, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Get flow information&#39;s for an execution
@@ -1474,7 +1383,7 @@ public class ExecutionsApi extends BaseApi {
    * @return FlowForExecution
    * @throws ApiException if fails to make API call
    */
-  public FlowForExecution getFlowFromExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision, Map<String, String> additionalHeaders) throws ApiException {
+  public FlowForExecution getFlowFromExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -1504,7 +1413,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
     
@@ -1542,29 +1451,37 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Get flow information&#39;s for an execution
    * 
-   * @param executionId The execution that you want flow information&#39;s (required)
+   * @param executionId The execution that you want flow informations (required)
    * @param tenant  (required)
    * @return FlowForExecution
    * @throws ApiException if fails to make API call
    */
   public FlowForExecution getFlowFromExecutionById(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.getFlowFromExecutionById(executionId, tenant, Collections.emptyMap());
+    return this.getFlowFromExecutionById(executionId, tenant, Collections.emptyMap(), null);
   }
 
+  public FlowForExecution getFlowFromExecutionById(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.getFlowFromExecutionById(executionId, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Get flow information&#39;s for an execution
    * 
-   * @param executionId The execution that you want flow information&#39;s (required)
+   * @param executionId The execution that you want flow informations (required)
    * @param tenant  (required)
    * @param additionalHeaders additionalHeaders for this call
    * @return FlowForExecution
    * @throws ApiException if fails to make API call
    */
-  public FlowForExecution getFlowFromExecutionById(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public FlowForExecution getFlowFromExecutionById(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -1588,7 +1505,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -1625,6 +1542,11 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Get the latest execution for given flows
    * 
@@ -1634,9 +1556,12 @@ public class ExecutionsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public List<ExecutionControllerLastExecutionResponse> getLatestExecutions(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<ExecutionRepositoryInterfaceFlowFilter> executionRepositoryInterfaceFlowFilter) throws ApiException {
-    return this.getLatestExecutions(tenant, executionRepositoryInterfaceFlowFilter, Collections.emptyMap());
+    return this.getLatestExecutions(tenant, executionRepositoryInterfaceFlowFilter, Collections.emptyMap(), null);
   }
 
+  public List<ExecutionControllerLastExecutionResponse> getLatestExecutions(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<ExecutionRepositoryInterfaceFlowFilter> executionRepositoryInterfaceFlowFilter, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.getLatestExecutions(tenant, executionRepositoryInterfaceFlowFilter, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Get the latest execution for given flows
@@ -1647,7 +1572,7 @@ public class ExecutionsApi extends BaseApi {
    * @return List&lt;ExecutionControllerLastExecutionResponse&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<ExecutionControllerLastExecutionResponse> getLatestExecutions(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<ExecutionRepositoryInterfaceFlowFilter> executionRepositoryInterfaceFlowFilter, Map<String, String> additionalHeaders) throws ApiException {
+  public List<ExecutionControllerLastExecutionResponse> getLatestExecutions(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<ExecutionRepositoryInterfaceFlowFilter> executionRepositoryInterfaceFlowFilter, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = executionRepositoryInterfaceFlowFilter;
     
     // verify the required parameter 'tenant' is set
@@ -1670,7 +1595,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -1707,6 +1632,11 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Kill an execution
    * 
@@ -1717,9 +1647,12 @@ public class ExecutionsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public Object killExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull Boolean isOnKillCascade, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.killExecution(executionId, isOnKillCascade, tenant, Collections.emptyMap());
+    return this.killExecution(executionId, isOnKillCascade, tenant, Collections.emptyMap(), null);
   }
 
+  public Object killExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull Boolean isOnKillCascade, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.killExecution(executionId, isOnKillCascade, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Kill an execution
@@ -1731,7 +1664,7 @@ public class ExecutionsApi extends BaseApi {
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object killExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull Boolean isOnKillCascade, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Object killExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull Boolean isOnKillCascade, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -1760,7 +1693,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("isOnKillCascade", isOnKillCascade));
     
@@ -1798,6 +1731,11 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Kill a list of executions
    * 
@@ -1807,9 +1745,12 @@ public class ExecutionsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public BulkResponse killExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody) throws ApiException {
-    return this.killExecutionsByIds(tenant, requestBody, Collections.emptyMap());
+    return this.killExecutionsByIds(tenant, requestBody, Collections.emptyMap(), null);
   }
 
+  public BulkResponse killExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.killExecutionsByIds(tenant, requestBody, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Kill a list of executions
@@ -1820,7 +1761,7 @@ public class ExecutionsApi extends BaseApi {
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse killExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse killExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = requestBody;
     
     // verify the required parameter 'tenant' is set
@@ -1843,7 +1784,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -1880,61 +1821,42 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Kill executions filter by query parameters
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters Filters (optional)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object killExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
-    return this.killExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
+  public Object killExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.killExecutionsByQuery(tenant, filters, Collections.emptyMap(), null);
   }
 
+  public Object killExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.killExecutionsByQuery(tenant, filters, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Kill executions filter by query parameters
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters Filters (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object killExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object killExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling killExecutionsByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling killExecutionsByQuery");
     }
     
     // create path and map variables
@@ -1947,19 +1869,9 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("startDate", startDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("endDate", endDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("timeRange", timeRange));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "state", state));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
-    localVarQueryParams.addAll(apiClient.parameterToPair("triggerExecutionId", triggerExecutionId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("childFilter", childFilter));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -1971,7 +1883,7 @@ public class ExecutionsApi extends BaseApi {
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -1995,163 +1907,10 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
-  /**
-   * Get all namespaces that have executable flows
-   * 
-   * @param tenant  (required)
-   * @return List&lt;String&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public List<String> listExecutableDistinctNamespaces(@javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.listExecutableDistinctNamespaces(tenant, Collections.emptyMap());
-  }
 
 
-  /**
-   * Get all namespaces that have executable flows
-   * 
-   * @param tenant  (required)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return List&lt;String&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public List<String> listExecutableDistinctNamespaces(@javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling listExecutableDistinctNamespaces");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/executions/namespaces"
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<List<String>> localVarReturnType = new TypeReference<List<String>>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "GET",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
-
-  /**
-   * Get all flow ids for a namespace. Data returned are FlowForExecution containing minimal information about a Flow for when you are allowed to executing but not reading.
-   * 
-   * @param namespace The namespace (required)
-   * @param tenant  (required)
-   * @return List&lt;FlowForExecution&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public List<FlowForExecution> listFlowExecutionsByNamespace(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.listFlowExecutionsByNamespace(namespace, tenant, Collections.emptyMap());
-  }
 
 
-  /**
-   * Get all flow ids for a namespace. Data returned are FlowForExecution containing minimal information about a Flow for when you are allowed to executing but not reading.
-   * 
-   * @param namespace The namespace (required)
-   * @param tenant  (required)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return List&lt;FlowForExecution&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public List<FlowForExecution> listFlowExecutionsByNamespace(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'namespace' is set
-    if (namespace == null) {
-      throw new ApiException(400, "Missing the required parameter 'namespace' when calling listFlowExecutionsByNamespace");
-    }
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling listFlowExecutionsByNamespace");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/executions/namespaces/{namespace}/flows"
-      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<List<FlowForExecution>> localVarReturnType = new TypeReference<List<FlowForExecution>>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "GET",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
 
   /**
    * Pause a running execution.
@@ -2161,9 +1920,12 @@ public class ExecutionsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public void pauseExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant) throws ApiException {
-    this.pauseExecution(executionId, tenant, Collections.emptyMap());
+    this.pauseExecution(executionId, tenant, Collections.emptyMap(), null);
   }
 
+  public void pauseExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  this.pauseExecution(executionId, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Pause a running execution.
@@ -2173,7 +1935,7 @@ public class ExecutionsApi extends BaseApi {
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void pauseExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public void pauseExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -2197,7 +1959,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -2233,6 +1995,11 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Pause a list of running executions
    * 
@@ -2242,9 +2009,12 @@ public class ExecutionsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public BulkResponse pauseExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody) throws ApiException {
-    return this.pauseExecutionsByIds(tenant, requestBody, Collections.emptyMap());
+    return this.pauseExecutionsByIds(tenant, requestBody, Collections.emptyMap(), null);
   }
 
+  public BulkResponse pauseExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.pauseExecutionsByIds(tenant, requestBody, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Pause a list of running executions
@@ -2255,7 +2025,7 @@ public class ExecutionsApi extends BaseApi {
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse pauseExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse pauseExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = requestBody;
     
     // verify the required parameter 'tenant' is set
@@ -2278,7 +2048,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -2315,61 +2085,42 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Pause executions filter by query parameters
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters Filters (optional)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object pauseExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
-    return this.pauseExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
+  public Object pauseExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.pauseExecutionsByQuery(tenant, filters, Collections.emptyMap(), null);
   }
 
+  public Object pauseExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.pauseExecutionsByQuery(tenant, filters, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Pause executions filter by query parameters
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters Filters (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object pauseExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object pauseExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling pauseExecutionsByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling pauseExecutionsByQuery");
     }
     
     // create path and map variables
@@ -2382,19 +2133,9 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("startDate", startDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("endDate", endDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("timeRange", timeRange));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "state", state));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
-    localVarQueryParams.addAll(apiClient.parameterToPair("triggerExecutionId", triggerExecutionId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("childFilter", childFilter));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -2406,7 +2147,7 @@ public class ExecutionsApi extends BaseApi {
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -2430,112 +2171,10 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
-  /**
-   * Get file preview for an execution
-   * 
-   * @param executionId The execution id (required)
-   * @param path The internal storage uri (required)
-   * @param maxRows The max row returns (required)
-   * @param encoding The file encoding as Java charset name. Defaults to UTF-8 (required)
-   * @param tenant  (required)
-   * @return Object
-   * @throws ApiException if fails to make API call
-   */
-  public Object previewFileFromExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull URI path, @javax.annotation.Nonnull Integer maxRows, @javax.annotation.Nonnull String encoding, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.previewFileFromExecution(executionId, path, maxRows, encoding, tenant, Collections.emptyMap());
-  }
 
 
-  /**
-   * Get file preview for an execution
-   * 
-   * @param executionId The execution id (required)
-   * @param path The internal storage uri (required)
-   * @param maxRows The max row returns (required)
-   * @param encoding The file encoding as Java charset name. Defaults to UTF-8 (required)
-   * @param tenant  (required)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return Object
-   * @throws ApiException if fails to make API call
-   */
-  public Object previewFileFromExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull URI path, @javax.annotation.Nonnull Integer maxRows, @javax.annotation.Nonnull String encoding, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'executionId' is set
-    if (executionId == null) {
-      throw new ApiException(400, "Missing the required parameter 'executionId' when calling previewFileFromExecution");
-    }
-    
-    // verify the required parameter 'path' is set
-    if (path == null) {
-      throw new ApiException(400, "Missing the required parameter 'path' when calling previewFileFromExecution");
-    }
-    
-    // verify the required parameter 'maxRows' is set
-    if (maxRows == null) {
-      throw new ApiException(400, "Missing the required parameter 'maxRows' when calling previewFileFromExecution");
-    }
-    
-    // verify the required parameter 'encoding' is set
-    if (encoding == null) {
-      throw new ApiException(400, "Missing the required parameter 'encoding' when calling previewFileFromExecution");
-    }
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling previewFileFromExecution");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/executions/{executionId}/file/preview"
-      .replaceAll("\\{" + "executionId" + "\\}", apiClient.escapeString(apiClient.parameterToString(executionId)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
 
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPair("path", path));
-    localVarQueryParams.addAll(apiClient.parameterToPair("maxRows", maxRows));
-    localVarQueryParams.addAll(apiClient.parameterToPair("encoding", encoding));
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<Object> localVarReturnType = new TypeReference<Object>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "GET",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
 
   /**
    * Create a new execution from an old one and start it from a specified task run id
@@ -2549,9 +2188,12 @@ public class ExecutionsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public Execution replayExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String taskRunId, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable String breakpoints) throws ApiException {
-    return this.replayExecution(executionId, tenant, taskRunId, revision, breakpoints, Collections.emptyMap());
+    return this.replayExecution(executionId, tenant, taskRunId, revision, breakpoints, Collections.emptyMap(), null);
   }
 
+  public Execution replayExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String taskRunId, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable String breakpoints, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.replayExecution(executionId, tenant, taskRunId, revision, breakpoints, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Create a new execution from an old one and start it from a specified task run id
@@ -2565,7 +2207,7 @@ public class ExecutionsApi extends BaseApi {
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution replayExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String taskRunId, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable String breakpoints, Map<String, String> additionalHeaders) throws ApiException {
+  public Execution replayExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String taskRunId, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable String breakpoints, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -2589,7 +2231,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("taskRunId", taskRunId));
     localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
@@ -2629,6 +2271,11 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Create a new execution from an old one and start it from a specified task run id
    * 
@@ -2641,9 +2288,12 @@ public class ExecutionsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public Execution replayExecutionWithinputs(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String taskRunId, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable String breakpoints) throws ApiException {
-    return this.replayExecutionWithinputs(executionId, tenant, taskRunId, revision, breakpoints, Collections.emptyMap());
+    return this.replayExecutionWithinputs(executionId, tenant, taskRunId, revision, breakpoints, Collections.emptyMap(), null);
   }
 
+  public Execution replayExecutionWithinputs(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String taskRunId, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable String breakpoints, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.replayExecutionWithinputs(executionId, tenant, taskRunId, revision, breakpoints, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Create a new execution from an old one and start it from a specified task run id
@@ -2657,7 +2307,7 @@ public class ExecutionsApi extends BaseApi {
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution replayExecutionWithinputs(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String taskRunId, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable String breakpoints, Map<String, String> additionalHeaders) throws ApiException {
+  public Execution replayExecutionWithinputs(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String taskRunId, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable String breakpoints, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -2681,7 +2331,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("taskRunId", taskRunId));
     localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
@@ -2721,6 +2371,11 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Create new executions from old ones. Keep the flow revision
    * 
@@ -2731,9 +2386,12 @@ public class ExecutionsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public BulkResponse replayExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, @javax.annotation.Nullable Boolean latestRevision) throws ApiException {
-    return this.replayExecutionsByIds(tenant, requestBody, latestRevision, Collections.emptyMap());
+    return this.replayExecutionsByIds(tenant, requestBody, latestRevision, Collections.emptyMap(), null);
   }
 
+  public BulkResponse replayExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, @javax.annotation.Nullable Boolean latestRevision, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.replayExecutionsByIds(tenant, requestBody, latestRevision, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Create new executions from old ones. Keep the flow revision
@@ -2745,7 +2403,7 @@ public class ExecutionsApi extends BaseApi {
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse replayExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, @javax.annotation.Nullable Boolean latestRevision, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse replayExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, @javax.annotation.Nullable Boolean latestRevision, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = requestBody;
     
     // verify the required parameter 'tenant' is set
@@ -2768,7 +2426,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("latestRevision", latestRevision));
     
@@ -2806,63 +2464,44 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Create new executions from old ones filter by query parameters. Keep the flow revision
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters Filters (optional)
    * @param latestRevision If latest revision should be used (optional, default to false)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object replayExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, @javax.annotation.Nullable Boolean latestRevision) throws ApiException {
-    return this.replayExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, latestRevision, Collections.emptyMap());
+  public Object replayExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable Boolean latestRevision) throws ApiException {
+    return this.replayExecutionsByQuery(tenant, filters, latestRevision, Collections.emptyMap(), null);
   }
 
+  public Object replayExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable Boolean latestRevision, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.replayExecutionsByQuery(tenant, filters, latestRevision, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Create new executions from old ones filter by query parameters. Keep the flow revision
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters Filters (optional)
    * @param latestRevision If latest revision should be used (optional, default to false)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object replayExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, @javax.annotation.Nullable Boolean latestRevision, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object replayExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable Boolean latestRevision, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling replayExecutionsByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling replayExecutionsByQuery");
     }
     
     // create path and map variables
@@ -2875,19 +2514,9 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("startDate", startDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("endDate", endDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("timeRange", timeRange));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "state", state));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
-    localVarQueryParams.addAll(apiClient.parameterToPair("triggerExecutionId", triggerExecutionId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("childFilter", childFilter));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("latestRevision", latestRevision));
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -2900,7 +2529,7 @@ public class ExecutionsApi extends BaseApi {
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -2924,6 +2553,11 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Restart a new execution from an old one
    * 
@@ -2934,9 +2568,12 @@ public class ExecutionsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public Execution restartExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision) throws ApiException {
-    return this.restartExecution(executionId, tenant, revision, Collections.emptyMap());
+    return this.restartExecution(executionId, tenant, revision, Collections.emptyMap(), null);
   }
 
+  public Execution restartExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.restartExecution(executionId, tenant, revision, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Restart a new execution from an old one
@@ -2948,7 +2585,7 @@ public class ExecutionsApi extends BaseApi {
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution restartExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision, Map<String, String> additionalHeaders) throws ApiException {
+  public Execution restartExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -2972,7 +2609,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
     
@@ -3010,6 +2647,11 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Restart a list of executions
    * 
@@ -3019,9 +2661,12 @@ public class ExecutionsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public BulkResponse restartExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody) throws ApiException {
-    return this.restartExecutionsByIds(tenant, requestBody, Collections.emptyMap());
+    return this.restartExecutionsByIds(tenant, requestBody, Collections.emptyMap(), null);
   }
 
+  public BulkResponse restartExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.restartExecutionsByIds(tenant, requestBody, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Restart a list of executions
@@ -3032,7 +2677,7 @@ public class ExecutionsApi extends BaseApi {
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse restartExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse restartExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = requestBody;
     
     // verify the required parameter 'tenant' is set
@@ -3055,7 +2700,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -3092,61 +2737,42 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Restart executions filter by query parameters
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters Filters (optional)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object restartExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
-    return this.restartExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
+  public Object restartExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.restartExecutionsByQuery(tenant, filters, Collections.emptyMap(), null);
   }
 
+  public Object restartExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.restartExecutionsByQuery(tenant, filters, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Restart executions filter by query parameters
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters Filters (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object restartExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object restartExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling restartExecutionsByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling restartExecutionsByQuery");
     }
     
     // create path and map variables
@@ -3159,19 +2785,9 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("startDate", startDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("endDate", endDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("timeRange", timeRange));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "state", state));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
-    localVarQueryParams.addAll(apiClient.parameterToPair("triggerExecutionId", triggerExecutionId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("childFilter", childFilter));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -3183,7 +2799,7 @@ public class ExecutionsApi extends BaseApi {
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -3207,6 +2823,11 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Resume a paused execution.
    * 
@@ -3216,9 +2837,12 @@ public class ExecutionsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public Object resumeExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.resumeExecution(executionId, tenant, Collections.emptyMap());
+    return this.resumeExecution(executionId, tenant, Collections.emptyMap(), null);
   }
 
+  public Object resumeExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.resumeExecution(executionId, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Resume a paused execution.
@@ -3229,7 +2853,7 @@ public class ExecutionsApi extends BaseApi {
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object resumeExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Object resumeExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -3253,7 +2877,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -3290,88 +2914,10 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
-  /**
-   * Resume an execution from a breakpoint (in the &#39;BREAKPOINT&#39; state).
-   * 
-   * @param executionId The execution id (required)
-   * @param tenant  (required)
-   * @param breakpoints \&quot;Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
-   * @throws ApiException if fails to make API call
-   */
-  public void resumeExecutionFromBreakpoint(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String breakpoints) throws ApiException {
-    this.resumeExecutionFromBreakpoint(executionId, tenant, breakpoints, Collections.emptyMap());
-  }
 
 
-  /**
-   * Resume an execution from a breakpoint (in the &#39;BREAKPOINT&#39; state).
-   * 
-   * @param executionId The execution id (required)
-   * @param tenant  (required)
-   * @param breakpoints \&quot;Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
-   * @param additionalHeaders additionalHeaders for this call
-   * @throws ApiException if fails to make API call
-   */
-  public void resumeExecutionFromBreakpoint(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String breakpoints, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'executionId' is set
-    if (executionId == null) {
-      throw new ApiException(400, "Missing the required parameter 'executionId' when calling resumeExecutionFromBreakpoint");
-    }
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling resumeExecutionFromBreakpoint");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/executions/{executionId}/resume-from-breakpoint"
-      .replaceAll("\\{" + "executionId" + "\\}", apiClient.escapeString(apiClient.parameterToString(executionId)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
 
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPair("breakpoints", breakpoints));
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    apiClient.invokeAPI(
-        localVarPath,
-        "POST",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        null
-    );
-  }
 
   /**
    * Resume a list of paused executions
@@ -3382,9 +2928,12 @@ public class ExecutionsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public BulkResponse resumeExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody) throws ApiException {
-    return this.resumeExecutionsByIds(tenant, requestBody, Collections.emptyMap());
+    return this.resumeExecutionsByIds(tenant, requestBody, Collections.emptyMap(), null);
   }
 
+  public BulkResponse resumeExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.resumeExecutionsByIds(tenant, requestBody, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Resume a list of paused executions
@@ -3395,7 +2944,7 @@ public class ExecutionsApi extends BaseApi {
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse resumeExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse resumeExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = requestBody;
     
     // verify the required parameter 'tenant' is set
@@ -3418,7 +2967,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -3455,61 +3004,42 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Resume executions filter by query parameters
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters Filters (optional)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object resumeExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
-    return this.resumeExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
+  public Object resumeExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.resumeExecutionsByQuery(tenant, filters, Collections.emptyMap(), null);
   }
 
+  public Object resumeExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.resumeExecutionsByQuery(tenant, filters, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Resume executions filter by query parameters
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters Filters (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object resumeExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object resumeExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling resumeExecutionsByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling resumeExecutionsByQuery");
     }
     
     // create path and map variables
@@ -3522,19 +3052,9 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("startDate", startDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("endDate", endDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("timeRange", timeRange));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "state", state));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
-    localVarQueryParams.addAll(apiClient.parameterToPair("triggerExecutionId", triggerExecutionId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("childFilter", childFilter));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -3546,7 +3066,7 @@ public class ExecutionsApi extends BaseApi {
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -3570,6 +3090,11 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Search for executions
    * 
@@ -3578,24 +3103,16 @@ public class ExecutionsApi extends BaseApi {
    * @param tenant  (required)
    * @param sort The sort of current page (optional)
    * @param filters Filters (optional)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
    * @return PagedResultsExecution
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsExecution searchExecutions(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
-    return this.searchExecutions(page, size, tenant, sort, filters, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
+  public PagedResultsExecution searchExecutions(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.searchExecutions(page, size, tenant, sort, filters, Collections.emptyMap(), null);
   }
 
+  public PagedResultsExecution searchExecutions(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.searchExecutions(page, size, tenant, sort, filters, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Search for executions
@@ -3605,22 +3122,11 @@ public class ExecutionsApi extends BaseApi {
    * @param tenant  (required)
    * @param sort The sort of current page (optional)
    * @param filters Filters (optional)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return PagedResultsExecution
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsExecution searchExecutions(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsExecution searchExecutions(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'page' is set
@@ -3648,23 +3154,12 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
     localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("startDate", startDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("endDate", endDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("timeRange", timeRange));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "state", state));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
-    localVarQueryParams.addAll(apiClient.parameterToPair("triggerExecutionId", triggerExecutionId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("childFilter", childFilter));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -3700,6 +3195,11 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Search for executions for a flow
    * 
@@ -3712,9 +3212,12 @@ public class ExecutionsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public PagedResultsExecution searchExecutionsByFlowId(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.searchExecutionsByFlowId(namespace, flowId, page, size, tenant, Collections.emptyMap());
+    return this.searchExecutionsByFlowId(namespace, flowId, page, size, tenant, Collections.emptyMap(), null);
   }
 
+  public PagedResultsExecution searchExecutionsByFlowId(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.searchExecutionsByFlowId(namespace, flowId, page, size, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Search for executions for a flow
@@ -3728,7 +3231,7 @@ public class ExecutionsApi extends BaseApi {
    * @return PagedResultsExecution
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsExecution searchExecutionsByFlowId(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsExecution searchExecutionsByFlowId(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -3766,7 +3269,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
     localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
@@ -3807,132 +3310,10 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
-  /**
-   * Search for taskruns, only available with the Elasticsearch repository
-   * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
-   * @param tenant  (required)
-   * @param sort The sort of current page (optional)
-   * @param filters Filters (optional)
-   * @param q A string filter (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
-   * @return PagedResultsTaskRun
-   * @throws ApiException if fails to make API call
-   */
-  public PagedResultsTaskRun searchTaskRun(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
-    return this.searchTaskRun(page, size, tenant, sort, filters, q, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
-  }
 
 
-  /**
-   * Search for taskruns, only available with the Elasticsearch repository
-   * 
-   * @param page The current page (required)
-   * @param size The current page size (required)
-   * @param tenant  (required)
-   * @param sort The sort of current page (optional)
-   * @param filters Filters (optional)
-   * @param q A string filter (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return PagedResultsTaskRun
-   * @throws ApiException if fails to make API call
-   */
-  public PagedResultsTaskRun searchTaskRun(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'page' is set
-    if (page == null) {
-      throw new ApiException(400, "Missing the required parameter 'page' when calling searchTaskRun");
-    }
-    
-    // verify the required parameter 'size' is set
-    if (size == null) {
-      throw new ApiException(400, "Missing the required parameter 'size' when calling searchTaskRun");
-    }
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling searchTaskRun");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/taskruns/search"
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
 
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
-    localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("startDate", startDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("endDate", endDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("timeRange", timeRange));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "state", state));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
-    localVarQueryParams.addAll(apiClient.parameterToPair("triggerExecutionId", triggerExecutionId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("childFilter", childFilter));
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<PagedResultsTaskRun> localVarReturnType = new TypeReference<PagedResultsTaskRun>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "GET",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
 
   /**
    * Add or update labels of a terminated execution
@@ -3944,9 +3325,12 @@ public class ExecutionsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public Object setLabelsOnTerminatedExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Label> label) throws ApiException {
-    return this.setLabelsOnTerminatedExecution(executionId, tenant, label, Collections.emptyMap());
+    return this.setLabelsOnTerminatedExecution(executionId, tenant, label, Collections.emptyMap(), null);
   }
 
+  public Object setLabelsOnTerminatedExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Label> label, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.setLabelsOnTerminatedExecution(executionId, tenant, label, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Add or update labels of a terminated execution
@@ -3958,7 +3342,7 @@ public class ExecutionsApi extends BaseApi {
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object setLabelsOnTerminatedExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Label> label, Map<String, String> additionalHeaders) throws ApiException {
+  public Object setLabelsOnTerminatedExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Label> label, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = label;
     
     // verify the required parameter 'executionId' is set
@@ -3987,7 +3371,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -4024,6 +3408,11 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Set labels on a list of executions
    * 
@@ -4033,9 +3422,12 @@ public class ExecutionsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public BulkResponse setLabelsOnTerminatedExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ExecutionControllerSetLabelsByIdsRequest executionControllerSetLabelsByIdsRequest) throws ApiException {
-    return this.setLabelsOnTerminatedExecutionsByIds(tenant, executionControllerSetLabelsByIdsRequest, Collections.emptyMap());
+    return this.setLabelsOnTerminatedExecutionsByIds(tenant, executionControllerSetLabelsByIdsRequest, Collections.emptyMap(), null);
   }
 
+  public BulkResponse setLabelsOnTerminatedExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ExecutionControllerSetLabelsByIdsRequest executionControllerSetLabelsByIdsRequest, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.setLabelsOnTerminatedExecutionsByIds(tenant, executionControllerSetLabelsByIdsRequest, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Set labels on a list of executions
@@ -4046,7 +3438,7 @@ public class ExecutionsApi extends BaseApi {
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse setLabelsOnTerminatedExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ExecutionControllerSetLabelsByIdsRequest executionControllerSetLabelsByIdsRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse setLabelsOnTerminatedExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ExecutionControllerSetLabelsByIdsRequest executionControllerSetLabelsByIdsRequest, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = executionControllerSetLabelsByIdsRequest;
     
     // verify the required parameter 'tenant' is set
@@ -4069,7 +3461,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -4106,51 +3498,39 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Set label on executions filter by query parameters
    * 
    * @param tenant  (required)
    * @param label The labels to add to the execution (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters Filters (optional)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object setLabelsOnTerminatedExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Label> label, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
-    return this.setLabelsOnTerminatedExecutionsByQuery(tenant, label, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
+  public Object setLabelsOnTerminatedExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Label> label, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.setLabelsOnTerminatedExecutionsByQuery(tenant, label, filters, Collections.emptyMap(), null);
   }
 
+  public Object setLabelsOnTerminatedExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Label> label, @javax.annotation.Nullable List<QueryFilter> filters, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.setLabelsOnTerminatedExecutionsByQuery(tenant, label, filters, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Set label on executions filter by query parameters
    * 
    * @param tenant  (required)
    * @param label The labels to add to the execution (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters Filters (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object setLabelsOnTerminatedExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Label> label, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
+  public Object setLabelsOnTerminatedExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Label> label, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = label;
     
     // verify the required parameter 'tenant' is set
@@ -4173,19 +3553,9 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("startDate", startDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("endDate", endDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("timeRange", timeRange));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "state", state));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
-    localVarQueryParams.addAll(apiClient.parameterToPair("triggerExecutionId", triggerExecutionId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("childFilter", childFilter));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -4221,110 +3591,10 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
-  /**
-   * Trigger a new execution for a flow
-   * 
-   * @param namespace The flow namespace (required)
-   * @param id The flow id (required)
-   * @param wait If the server will wait the end of the execution (required)
-   * @param tenant  (required)
-   * @param labels The labels as a list of &#39;key:value&#39; (optional)
-   * @param revision The flow revision or latest if null (optional)
-   * @return List&lt;ExecutionControllerExecutionResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public List<ExecutionControllerExecutionResponse> triggerExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision) throws ApiException {
-    return this.triggerExecution(namespace, id, wait, tenant, labels, revision, Collections.emptyMap());
-  }
 
 
-  /**
-   * Trigger a new execution for a flow
-   * 
-   * @param namespace The flow namespace (required)
-   * @param id The flow id (required)
-   * @param wait If the server will wait the end of the execution (required)
-   * @param tenant  (required)
-   * @param labels The labels as a list of &#39;key:value&#39; (optional)
-   * @param revision The flow revision or latest if null (optional)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return List&lt;ExecutionControllerExecutionResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public List<ExecutionControllerExecutionResponse> triggerExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'namespace' is set
-    if (namespace == null) {
-      throw new ApiException(400, "Missing the required parameter 'namespace' when calling triggerExecution");
-    }
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling triggerExecution");
-    }
-    
-    // verify the required parameter 'wait' is set
-    if (wait == null) {
-      throw new ApiException(400, "Missing the required parameter 'wait' when calling triggerExecution");
-    }
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling triggerExecution");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/executions/trigger/{namespace}/{id}"
-      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
 
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
-    localVarQueryParams.addAll(apiClient.parameterToPair("wait", wait));
-    localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "multipart/form-data"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<List<ExecutionControllerExecutionResponse>> localVarReturnType = new TypeReference<List<ExecutionControllerExecutionResponse>>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "POST",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
 
   /**
    * Trigger a new execution by GET webhook trigger
@@ -4337,9 +3607,12 @@ public class ExecutionsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public ExecutionControllerWebhookResponse triggerExecutionByGetWebhook(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.triggerExecutionByGetWebhook(namespace, id, key, tenant, Collections.emptyMap());
+    return this.triggerExecutionByGetWebhook(namespace, id, key, tenant, Collections.emptyMap(), null);
   }
 
+  public ExecutionControllerWebhookResponse triggerExecutionByGetWebhook(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.triggerExecutionByGetWebhook(namespace, id, key, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Trigger a new execution by GET webhook trigger
@@ -4352,7 +3625,7 @@ public class ExecutionsApi extends BaseApi {
    * @return ExecutionControllerWebhookResponse
    * @throws ApiException if fails to make API call
    */
-  public ExecutionControllerWebhookResponse triggerExecutionByGetWebhook(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public ExecutionControllerWebhookResponse triggerExecutionByGetWebhook(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -4388,7 +3661,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -4425,203 +3698,10 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
-  /**
-   * Trigger a new execution by POST webhook trigger
-   * 
-   * @param namespace The flow namespace (required)
-   * @param id The flow id (required)
-   * @param key The webhook trigger uid (required)
-   * @param tenant  (required)
-   * @return ExecutionControllerWebhookResponse
-   * @throws ApiException if fails to make API call
-   */
-  public ExecutionControllerWebhookResponse triggerExecutionByPostWebhook(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.triggerExecutionByPostWebhook(namespace, id, key, tenant, Collections.emptyMap());
-  }
 
 
-  /**
-   * Trigger a new execution by POST webhook trigger
-   * 
-   * @param namespace The flow namespace (required)
-   * @param id The flow id (required)
-   * @param key The webhook trigger uid (required)
-   * @param tenant  (required)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return ExecutionControllerWebhookResponse
-   * @throws ApiException if fails to make API call
-   */
-  public ExecutionControllerWebhookResponse triggerExecutionByPostWebhook(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'namespace' is set
-    if (namespace == null) {
-      throw new ApiException(400, "Missing the required parameter 'namespace' when calling triggerExecutionByPostWebhook");
-    }
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling triggerExecutionByPostWebhook");
-    }
-    
-    // verify the required parameter 'key' is set
-    if (key == null) {
-      throw new ApiException(400, "Missing the required parameter 'key' when calling triggerExecutionByPostWebhook");
-    }
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling triggerExecutionByPostWebhook");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}"
-      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
-      .replaceAll("\\{" + "key" + "\\}", apiClient.escapeString(apiClient.parameterToString(key)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<ExecutionControllerWebhookResponse> localVarReturnType = new TypeReference<ExecutionControllerWebhookResponse>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "POST",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
-
-  /**
-   * Trigger a new execution by PUT webhook trigger
-   * 
-   * @param namespace The flow namespace (required)
-   * @param id The flow id (required)
-   * @param key The webhook trigger uid (required)
-   * @param tenant  (required)
-   * @return ExecutionControllerWebhookResponse
-   * @throws ApiException if fails to make API call
-   */
-  public ExecutionControllerWebhookResponse triggerExecutionByPutWebhook(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.triggerExecutionByPutWebhook(namespace, id, key, tenant, Collections.emptyMap());
-  }
 
 
-  /**
-   * Trigger a new execution by PUT webhook trigger
-   * 
-   * @param namespace The flow namespace (required)
-   * @param id The flow id (required)
-   * @param key The webhook trigger uid (required)
-   * @param tenant  (required)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return ExecutionControllerWebhookResponse
-   * @throws ApiException if fails to make API call
-   */
-  public ExecutionControllerWebhookResponse triggerExecutionByPutWebhook(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'namespace' is set
-    if (namespace == null) {
-      throw new ApiException(400, "Missing the required parameter 'namespace' when calling triggerExecutionByPutWebhook");
-    }
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling triggerExecutionByPutWebhook");
-    }
-    
-    // verify the required parameter 'key' is set
-    if (key == null) {
-      throw new ApiException(400, "Missing the required parameter 'key' when calling triggerExecutionByPutWebhook");
-    }
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling triggerExecutionByPutWebhook");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}"
-      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
-      .replaceAll("\\{" + "key" + "\\}", apiClient.escapeString(apiClient.parameterToString(key)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<ExecutionControllerWebhookResponse> localVarReturnType = new TypeReference<ExecutionControllerWebhookResponse>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "PUT",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
 
   /**
    * Unqueue an execution
@@ -4633,9 +3713,12 @@ public class ExecutionsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public Execution unqueueExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull StateType state, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.unqueueExecution(executionId, state, tenant, Collections.emptyMap());
+    return this.unqueueExecution(executionId, state, tenant, Collections.emptyMap(), null);
   }
 
+  public Execution unqueueExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull StateType state, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.unqueueExecution(executionId, state, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Unqueue an execution
@@ -4647,7 +3730,7 @@ public class ExecutionsApi extends BaseApi {
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution unqueueExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull StateType state, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Execution unqueueExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull StateType state, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -4676,7 +3759,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("state", state));
     
@@ -4714,6 +3797,11 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Unqueue a list of executions
    * 
@@ -4724,9 +3812,12 @@ public class ExecutionsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public BulkResponse unqueueExecutionsByIds(@javax.annotation.Nonnull StateType state, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody) throws ApiException {
-    return this.unqueueExecutionsByIds(state, tenant, requestBody, Collections.emptyMap());
+    return this.unqueueExecutionsByIds(state, tenant, requestBody, Collections.emptyMap(), null);
   }
 
+  public BulkResponse unqueueExecutionsByIds(@javax.annotation.Nonnull StateType state, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.unqueueExecutionsByIds(state, tenant, requestBody, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Unqueue a list of executions
@@ -4738,7 +3829,7 @@ public class ExecutionsApi extends BaseApi {
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse unqueueExecutionsByIds(@javax.annotation.Nonnull StateType state, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse unqueueExecutionsByIds(@javax.annotation.Nonnull StateType state, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = requestBody;
     
     // verify the required parameter 'state' is set
@@ -4766,7 +3857,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("state", state));
     
@@ -4804,63 +3895,44 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Unqueue executions filter by query parameters
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters Filters (optional)
    * @param newState The new state of the unqueued executions (optional)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unqueueExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, @javax.annotation.Nullable StateType newState) throws ApiException {
-    return this.unqueueExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, newState, Collections.emptyMap());
+  public Object unqueueExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable StateType newState) throws ApiException {
+    return this.unqueueExecutionsByQuery(tenant, filters, newState, Collections.emptyMap(), null);
   }
 
+  public Object unqueueExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable StateType newState, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.unqueueExecutionsByQuery(tenant, filters, newState, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Unqueue executions filter by query parameters
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters Filters (optional)
    * @param newState The new state of the unqueued executions (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unqueueExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, @javax.annotation.Nullable StateType newState, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object unqueueExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable StateType newState, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling unqueueExecutionsByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling unqueueExecutionsByQuery");
     }
     
     // create path and map variables
@@ -4873,19 +3945,9 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("startDate", startDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("endDate", endDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("timeRange", timeRange));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "state", state));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
-    localVarQueryParams.addAll(apiClient.parameterToPair("triggerExecutionId", triggerExecutionId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("childFilter", childFilter));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("newState", newState));
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -4898,7 +3960,7 @@ public class ExecutionsApi extends BaseApi {
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -4922,6 +3984,11 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Change the state of an execution
    * 
@@ -4932,9 +3999,12 @@ public class ExecutionsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public Execution updateExecutionStatus(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull StateType status, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.updateExecutionStatus(executionId, status, tenant, Collections.emptyMap());
+    return this.updateExecutionStatus(executionId, status, tenant, Collections.emptyMap(), null);
   }
 
+  public Execution updateExecutionStatus(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull StateType status, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.updateExecutionStatus(executionId, status, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Change the state of an execution
@@ -4946,7 +4016,7 @@ public class ExecutionsApi extends BaseApi {
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution updateExecutionStatus(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull StateType status, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Execution updateExecutionStatus(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull StateType status, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -4975,7 +4045,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("status", status));
     
@@ -5013,6 +4083,11 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Change executions state by id
    * 
@@ -5023,9 +4098,12 @@ public class ExecutionsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public BulkResponse updateExecutionsStatusByIds(@javax.annotation.Nonnull StateType newStatus, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody) throws ApiException {
-    return this.updateExecutionsStatusByIds(newStatus, tenant, requestBody, Collections.emptyMap());
+    return this.updateExecutionsStatusByIds(newStatus, tenant, requestBody, Collections.emptyMap(), null);
   }
 
+  public BulkResponse updateExecutionsStatusByIds(@javax.annotation.Nonnull StateType newStatus, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.updateExecutionsStatusByIds(newStatus, tenant, requestBody, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Change executions state by id
@@ -5037,7 +4115,7 @@ public class ExecutionsApi extends BaseApi {
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse updateExecutionsStatusByIds(@javax.annotation.Nonnull StateType newStatus, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse updateExecutionsStatusByIds(@javax.annotation.Nonnull StateType newStatus, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = requestBody;
     
     // verify the required parameter 'newStatus' is set
@@ -5065,7 +4143,7 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("newStatus", newStatus));
     
@@ -5103,54 +4181,40 @@ public class ExecutionsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Change executions state by query parameters
    * 
    * @param newStatus The new state of the executions (required)
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters Filters (optional)
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse updateExecutionsStatusByQuery(@javax.annotation.Nonnull StateType newStatus, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter) throws ApiException {
-    return this.updateExecutionsStatusByQuery(newStatus, tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, Collections.emptyMap());
+  public BulkResponse updateExecutionsStatusByQuery(@javax.annotation.Nonnull StateType newStatus, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.updateExecutionsStatusByQuery(newStatus, tenant, filters, Collections.emptyMap(), null);
   }
 
+  public BulkResponse updateExecutionsStatusByQuery(@javax.annotation.Nonnull StateType newStatus, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.updateExecutionsStatusByQuery(newStatus, tenant, filters, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Change executions state by query parameters
    * 
    * @param newStatus The new state of the executions (required)
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters Filters (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse updateExecutionsStatusByQuery(@javax.annotation.Nonnull StateType newStatus, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public BulkResponse updateExecutionsStatusByQuery(@javax.annotation.Nonnull StateType newStatus, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'newStatus' is set
     if (newStatus == null) {
@@ -5160,11 +4224,6 @@ public class ExecutionsApi extends BaseApi {
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling updateExecutionsStatusByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling updateExecutionsStatusByQuery");
     }
     
     // create path and map variables
@@ -5177,19 +4236,9 @@ public class ExecutionsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("startDate", startDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("endDate", endDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("timeRange", timeRange));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "state", state));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
-    localVarQueryParams.addAll(apiClient.parameterToPair("triggerExecutionId", triggerExecutionId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("childFilter", childFilter));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("newStatus", newStatus));
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -5202,288 +4251,13 @@ public class ExecutionsApi extends BaseApi {
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
     TypeReference<BulkResponse> localVarReturnType = new TypeReference<BulkResponse>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "POST",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
-
-  /**
-   * Change state for a taskrun in an execution
-   * 
-   * @param executionId The execution id (required)
-   * @param tenant  (required)
-   * @param executionControllerStateRequest the taskRun id and state to apply (required)
-   * @return Execution
-   * @throws ApiException if fails to make API call
-   */
-  public Execution updateTaskRunState(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ExecutionControllerStateRequest executionControllerStateRequest) throws ApiException {
-    return this.updateTaskRunState(executionId, tenant, executionControllerStateRequest, Collections.emptyMap());
-  }
-
-
-  /**
-   * Change state for a taskrun in an execution
-   * 
-   * @param executionId The execution id (required)
-   * @param tenant  (required)
-   * @param executionControllerStateRequest the taskRun id and state to apply (required)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return Execution
-   * @throws ApiException if fails to make API call
-   */
-  public Execution updateTaskRunState(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ExecutionControllerStateRequest executionControllerStateRequest, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = executionControllerStateRequest;
-    
-    // verify the required parameter 'executionId' is set
-    if (executionId == null) {
-      throw new ApiException(400, "Missing the required parameter 'executionId' when calling updateTaskRunState");
-    }
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling updateTaskRunState");
-    }
-    
-    // verify the required parameter 'executionControllerStateRequest' is set
-    if (executionControllerStateRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'executionControllerStateRequest' when calling updateTaskRunState");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/executions/{executionId}/state"
-      .replaceAll("\\{" + "executionId" + "\\}", apiClient.escapeString(apiClient.parameterToString(executionId)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<Execution> localVarReturnType = new TypeReference<Execution>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "POST",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
-
-  /**
-   * Validate the creation of a new execution for a flow
-   * 
-   * @param namespace The flow namespace (required)
-   * @param id The flow id (required)
-   * @param labels The labels as a list of &#39;key:value&#39; (required)
-   * @param tenant  (required)
-   * @param revision The flow revision or latest if null (optional)
-   * @return List&lt;ExecutionControllerApiValidateExecutionInputsResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public List<ExecutionControllerApiValidateExecutionInputsResponse> validateNewExecutionInputs(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull List<String> labels, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision) throws ApiException {
-    return this.validateNewExecutionInputs(namespace, id, labels, tenant, revision, Collections.emptyMap());
-  }
-
-
-  /**
-   * Validate the creation of a new execution for a flow
-   * 
-   * @param namespace The flow namespace (required)
-   * @param id The flow id (required)
-   * @param labels The labels as a list of &#39;key:value&#39; (required)
-   * @param tenant  (required)
-   * @param revision The flow revision or latest if null (optional)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return List&lt;ExecutionControllerApiValidateExecutionInputsResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public List<ExecutionControllerApiValidateExecutionInputsResponse> validateNewExecutionInputs(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull List<String> labels, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'namespace' is set
-    if (namespace == null) {
-      throw new ApiException(400, "Missing the required parameter 'namespace' when calling validateNewExecutionInputs");
-    }
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling validateNewExecutionInputs");
-    }
-    
-    // verify the required parameter 'labels' is set
-    if (labels == null) {
-      throw new ApiException(400, "Missing the required parameter 'labels' when calling validateNewExecutionInputs");
-    }
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling validateNewExecutionInputs");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/executions/{namespace}/{id}/validate"
-      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
-    localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "multipart/form-data"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<List<ExecutionControllerApiValidateExecutionInputsResponse>> localVarReturnType = new TypeReference<List<ExecutionControllerApiValidateExecutionInputsResponse>>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "POST",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
-
-  /**
-   * Validate inputs to resume a paused execution.
-   * 
-   * @param executionId The execution id (required)
-   * @param tenant  (required)
-   * @return List&lt;ExecutionControllerApiValidateExecutionInputsResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public List<ExecutionControllerApiValidateExecutionInputsResponse> validateResumeExecutionInputs(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.validateResumeExecutionInputs(executionId, tenant, Collections.emptyMap());
-  }
-
-
-  /**
-   * Validate inputs to resume a paused execution.
-   * 
-   * @param executionId The execution id (required)
-   * @param tenant  (required)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return List&lt;ExecutionControllerApiValidateExecutionInputsResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public List<ExecutionControllerApiValidateExecutionInputsResponse> validateResumeExecutionInputs(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'executionId' is set
-    if (executionId == null) {
-      throw new ApiException(400, "Missing the required parameter 'executionId' when calling validateResumeExecutionInputs");
-    }
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling validateResumeExecutionInputs");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/executions/{executionId}/resume/validate"
-      .replaceAll("\\{" + "executionId" + "\\}", apiClient.escapeString(apiClient.parameterToString(executionId)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "multipart/form-data"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<List<ExecutionControllerApiValidateExecutionInputsResponse>> localVarReturnType = new TypeReference<List<ExecutionControllerApiValidateExecutionInputsResponse>>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "POST",
@@ -5519,7 +4293,7 @@ public class ExecutionsApi extends BaseApi {
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "multipart/form-data"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -5541,4 +4315,9 @@ public class ExecutionsApi extends BaseApi {
         returnType
     );
   }
+
+
+
+
+
 }

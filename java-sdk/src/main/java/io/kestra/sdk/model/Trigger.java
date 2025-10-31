@@ -51,59 +51,46 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Trigger.JSON_PROPERTY_EVALUATE_RUNNING_DATE,
   Trigger.JSON_PROPERTY_WORKER_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Trigger {
   public static final String JSON_PROPERTY_DISABLED = "disabled";
-  @javax.annotation.Nullable
-  private Boolean disabled;
+  @javax.annotation.Nullable  private Boolean disabled = false;
 
   public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
-  @javax.annotation.Nullable
-  private String tenantId;
+  @javax.annotation.Nullable  private String tenantId;
 
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nonnull
-  private String namespace;
+  @javax.annotation.Nonnull  private String namespace;
 
   public static final String JSON_PROPERTY_FLOW_ID = "flowId";
-  @javax.annotation.Nonnull
-  private String flowId;
+  @javax.annotation.Nonnull  private String flowId;
 
   public static final String JSON_PROPERTY_TRIGGER_ID = "triggerId";
-  @javax.annotation.Nonnull
-  private String triggerId;
+  @javax.annotation.Nonnull  private String triggerId;
 
   public static final String JSON_PROPERTY_DATE = "date";
-  @javax.annotation.Nonnull
-  private OffsetDateTime date;
+  @javax.annotation.Nonnull  private OffsetDateTime date;
 
   public static final String JSON_PROPERTY_NEXT_EXECUTION_DATE = "nextExecutionDate";
-  @javax.annotation.Nullable
-  private JsonNullable<OffsetDateTime> nextExecutionDate = JsonNullable.<OffsetDateTime>undefined();
+  @javax.annotation.Nullable  private JsonNullable<OffsetDateTime> nextExecutionDate = JsonNullable.<OffsetDateTime>undefined();
 
   public static final String JSON_PROPERTY_BACKFILL = "backfill";
-  @javax.annotation.Nullable
-  private JsonNullable<Backfill> backfill = JsonNullable.<Backfill>undefined();
+  @javax.annotation.Nullable  private JsonNullable<Backfill> backfill = JsonNullable.<Backfill>undefined();
 
   public static final String JSON_PROPERTY_STOP_AFTER = "stopAfter";
-  @javax.annotation.Nullable
-  private JsonNullable<List<StateType>> stopAfter = JsonNullable.<List<StateType>>undefined();
+  @javax.annotation.Nullable  private JsonNullable<List<StateType>> stopAfter = JsonNullable.<List<StateType>>undefined();
 
   public static final String JSON_PROPERTY_EXECUTION_ID = "executionId";
-  @javax.annotation.Nullable
-  private JsonNullable<String> executionId = JsonNullable.<String>undefined();
+  @javax.annotation.Nullable  private JsonNullable<String> executionId = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_UPDATED_DATE = "updatedDate";
-  @javax.annotation.Nullable
-  private JsonNullable<OffsetDateTime> updatedDate = JsonNullable.<OffsetDateTime>undefined();
+  @javax.annotation.Nullable  private JsonNullable<OffsetDateTime> updatedDate = JsonNullable.<OffsetDateTime>undefined();
 
   public static final String JSON_PROPERTY_EVALUATE_RUNNING_DATE = "evaluateRunningDate";
-  @javax.annotation.Nullable
-  private JsonNullable<OffsetDateTime> evaluateRunningDate = JsonNullable.<OffsetDateTime>undefined();
+  @javax.annotation.Nullable  private JsonNullable<OffsetDateTime> evaluateRunningDate = JsonNullable.<OffsetDateTime>undefined();
 
   public static final String JSON_PROPERTY_WORKER_ID = "workerId";
-  @javax.annotation.Nullable
-  private JsonNullable<String> workerId = JsonNullable.<String>undefined();
+  @javax.annotation.Nullable  private JsonNullable<String> workerId = JsonNullable.<String>undefined();
 
   public Trigger() {
   }
@@ -118,8 +105,7 @@ public class Trigger {
    * Get disabled
    * @return disabled
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DISABLED)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getDisabled() {
@@ -143,8 +129,7 @@ public class Trigger {
    * Get tenantId
    * @return tenantId
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TENANT_ID)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTenantId() {
@@ -168,8 +153,7 @@ public class Trigger {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getNamespace() {
@@ -193,8 +177,7 @@ public class Trigger {
    * Get flowId
    * @return flowId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_FLOW_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getFlowId() {
@@ -218,8 +201,7 @@ public class Trigger {
    * Get triggerId
    * @return triggerId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TRIGGER_ID)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TRIGGER_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getTriggerId() {
@@ -243,8 +225,7 @@ public class Trigger {
    * Get date
    * @return date
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DATE)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public OffsetDateTime getDate() {
@@ -268,8 +249,7 @@ public class Trigger {
    * Get nextExecutionDate
    * @return nextExecutionDate
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public OffsetDateTime getNextExecutionDate() {
         return nextExecutionDate.orElse(null);
@@ -277,7 +257,6 @@ public class Trigger {
 
   @JsonProperty(JSON_PROPERTY_NEXT_EXECUTION_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<OffsetDateTime> getNextExecutionDate_JsonNullable() {
     return nextExecutionDate;
   }
@@ -301,8 +280,7 @@ public class Trigger {
    * Get backfill
    * @return backfill
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public Backfill getBackfill() {
         return backfill.orElse(null);
@@ -310,7 +288,6 @@ public class Trigger {
 
   @JsonProperty(JSON_PROPERTY_BACKFILL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<Backfill> getBackfill_JsonNullable() {
     return backfill;
   }
@@ -346,8 +323,7 @@ public class Trigger {
    * Get stopAfter
    * @return stopAfter
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public List<StateType> getStopAfter() {
         return stopAfter.orElse(null);
@@ -355,7 +331,6 @@ public class Trigger {
 
   @JsonProperty(JSON_PROPERTY_STOP_AFTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<List<StateType>> getStopAfter_JsonNullable() {
     return stopAfter;
   }
@@ -379,8 +354,7 @@ public class Trigger {
    * Get executionId
    * @return executionId
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public String getExecutionId() {
         return executionId.orElse(null);
@@ -388,7 +362,6 @@ public class Trigger {
 
   @JsonProperty(JSON_PROPERTY_EXECUTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<String> getExecutionId_JsonNullable() {
     return executionId;
   }
@@ -412,8 +385,7 @@ public class Trigger {
    * Get updatedDate
    * @return updatedDate
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public OffsetDateTime getUpdatedDate() {
         return updatedDate.orElse(null);
@@ -421,7 +393,6 @@ public class Trigger {
 
   @JsonProperty(JSON_PROPERTY_UPDATED_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<OffsetDateTime> getUpdatedDate_JsonNullable() {
     return updatedDate;
   }
@@ -445,8 +416,7 @@ public class Trigger {
    * Get evaluateRunningDate
    * @return evaluateRunningDate
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public OffsetDateTime getEvaluateRunningDate() {
         return evaluateRunningDate.orElse(null);
@@ -454,7 +424,6 @@ public class Trigger {
 
   @JsonProperty(JSON_PROPERTY_EVALUATE_RUNNING_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<OffsetDateTime> getEvaluateRunningDate_JsonNullable() {
     return evaluateRunningDate;
   }
@@ -478,8 +447,7 @@ public class Trigger {
    * Get workerId
    * @return workerId
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public String getWorkerId() {
         return workerId.orElse(null);
@@ -487,7 +455,6 @@ public class Trigger {
 
   @JsonProperty(JSON_PROPERTY_WORKER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<String> getWorkerId_JsonNullable() {
     return workerId;
   }

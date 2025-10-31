@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The IAMUserControllerApiPatchRestrictedRequest model module.
  * @module model/IAMUserControllerApiPatchRestrictedRequest
- * @version 1.0.0
+ * @version v1.0.5
  */
 class IAMUserControllerApiPatchRestrictedRequest {
     /**

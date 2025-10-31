@@ -9,11 +9,11 @@ Name | Type | Description | Notes
 **AllowedTriggers** | Pointer to [**[]NamespaceAllowedTrigger**](NamespaceAllowedTrigger.md) |  | [optional] 
 **StorageIsolation** | Pointer to [**Isolation**](Isolation.md) |  | [optional] 
 **SecretIsolation** | Pointer to [**Isolation**](Isolation.md) |  | [optional] 
-**Description** | **string** |  | 
-**Variables** | **map[string]map[string]interface{}** |  | 
-**PluginDefaults** | [**[]PluginDefault**](PluginDefault.md) |  | 
-**AllowedNamespaces** | [**[]NamespaceAllowedNamespace**](NamespaceAllowedNamespace.md) |  | 
-**WorkerGroup** | [**WorkerGroup**](WorkerGroup.md) |  | 
+**Description** | Pointer to **string** |  | [optional] 
+**Variables** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**PluginDefaults** | Pointer to [**[]PluginDefault**](PluginDefault.md) |  | [optional] 
+**AllowedNamespaces** | Pointer to [**[]NamespaceAllowedNamespace**](NamespaceAllowedNamespace.md) |  | [optional] 
+**WorkerGroup** | Pointer to [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
 **StorageType** | Pointer to **string** |  | [optional] 
 **StorageConfiguration** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
 **SecretType** | Pointer to **string** |  | [optional] 
@@ -25,7 +25,7 @@ Name | Type | Description | Notes
 
 ### NewNamespace
 
-`func NewNamespace(id string, deleted bool, description string, variables map[string]map[string]interface{}, pluginDefaults []PluginDefault, allowedNamespaces []NamespaceAllowedNamespace, workerGroup WorkerGroup, ) *Namespace`
+`func NewNamespace(id string, deleted bool, ) *Namespace`
 
 NewNamespace instantiates a new Namespace object
 This constructor will assign default values to properties that have it defined,
@@ -174,6 +174,11 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
+### HasDescription
+
+`func (o *Namespace) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetVariables
 
@@ -194,6 +199,11 @@ and a boolean to check if the value has been set.
 
 SetVariables sets Variables field to given value.
 
+### HasVariables
+
+`func (o *Namespace) HasVariables() bool`
+
+HasVariables returns a boolean if a field has been set.
 
 ### GetPluginDefaults
 
@@ -214,6 +224,11 @@ and a boolean to check if the value has been set.
 
 SetPluginDefaults sets PluginDefaults field to given value.
 
+### HasPluginDefaults
+
+`func (o *Namespace) HasPluginDefaults() bool`
+
+HasPluginDefaults returns a boolean if a field has been set.
 
 ### GetAllowedNamespaces
 
@@ -234,6 +249,11 @@ and a boolean to check if the value has been set.
 
 SetAllowedNamespaces sets AllowedNamespaces field to given value.
 
+### HasAllowedNamespaces
+
+`func (o *Namespace) HasAllowedNamespaces() bool`
+
+HasAllowedNamespaces returns a boolean if a field has been set.
 
 ### GetWorkerGroup
 
@@ -254,6 +274,11 @@ and a boolean to check if the value has been set.
 
 SetWorkerGroup sets WorkerGroup field to given value.
 
+### HasWorkerGroup
+
+`func (o *Namespace) HasWorkerGroup() bool`
+
+HasWorkerGroup returns a boolean if a field has been set.
 
 ### GetStorageType
 

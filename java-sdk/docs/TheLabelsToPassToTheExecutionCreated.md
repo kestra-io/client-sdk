@@ -1,13 +1,10 @@
 
 
-# TheLabelsToPassToTheExecutionCreated
+# Interface TheLabelsToPassToTheExecutionCreated
 
+## Implementing Classes
 
-## Properties
-
-| Name | Type | Description | Notes |
-|------------ | ------------- | ------------- | -------------|
-|**empty** | **Boolean** |  |  [optional] |
-
+* List<String>
+* MapObjectObject
 
 

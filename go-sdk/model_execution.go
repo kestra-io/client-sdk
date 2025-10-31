@@ -21,23 +21,23 @@ var _ MappedNullable = &Execution{}
 
 // Execution struct for Execution
 type Execution struct {
-	Labels               []Label                           `json:"labels"`
+	Labels               []Label                           `json:"labels,omitempty"`
 	Id                   string                            `json:"id"`
 	Namespace            string                            `json:"namespace"`
 	FlowId               string                            `json:"flowId"`
 	FlowRevision         int32                             `json:"flowRevision"`
-	TaskRunList          []TaskRun                         `json:"taskRunList"`
-	Inputs               map[string]map[string]interface{} `json:"inputs"`
-	Outputs              map[string]map[string]interface{} `json:"outputs"`
-	Variables            map[string]map[string]interface{} `json:"variables"`
+	TaskRunList          []TaskRun                         `json:"taskRunList,omitempty"`
+	Inputs               map[string]map[string]interface{} `json:"inputs,omitempty"`
+	Outputs              map[string]map[string]interface{} `json:"outputs,omitempty"`
+	Variables            map[string]map[string]interface{} `json:"variables,omitempty"`
 	State                State                             `json:"state"`
-	ParentId             string                            `json:"parentId"`
-	OriginalId           string                            `json:"originalId"`
-	Trigger              ExecutionTrigger                  `json:"trigger"`
+	ParentId             *string                           `json:"parentId,omitempty"`
+	OriginalId           *string                           `json:"originalId,omitempty"`
+	Trigger              *ExecutionTrigger                 `json:"trigger,omitempty"`
 	Deleted              bool                              `json:"deleted"`
-	Metadata             ExecutionMetadata                 `json:"metadata"`
+	Metadata             *ExecutionMetadata                `json:"metadata,omitempty"`
 	ScheduleDate         NullableTime                      `json:"scheduleDate,omitempty"`
-	TraceParent          string                            `json:"traceParent"`
+	TraceParent          *string                           `json:"traceParent,omitempty"`
 	Fixtures             []TaskFixture                     `json:"fixtures,omitempty"`
 	Kind                 NullableExecutionKind             `json:"kind,omitempty"`
 	Breakpoints          []Breakpoint                      `json:"breakpoints,omitempty"`
@@ -50,24 +50,14 @@ type _Execution Execution
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExecution(labels []Label, id string, namespace string, flowId string, flowRevision int32, taskRunList []TaskRun, inputs map[string]map[string]interface{}, outputs map[string]map[string]interface{}, variables map[string]map[string]interface{}, state State, parentId string, originalId string, trigger ExecutionTrigger, deleted bool, metadata ExecutionMetadata, traceParent string) *Execution {
+func NewExecution(id string, namespace string, flowId string, flowRevision int32, state State, deleted bool) *Execution {
 	this := Execution{}
-	this.Labels = labels
 	this.Id = id
 	this.Namespace = namespace
 	this.FlowId = flowId
 	this.FlowRevision = flowRevision
-	this.TaskRunList = taskRunList
-	this.Inputs = inputs
-	this.Outputs = outputs
-	this.Variables = variables
 	this.State = state
-	this.ParentId = parentId
-	this.OriginalId = originalId
-	this.Trigger = trigger
 	this.Deleted = deleted
-	this.Metadata = metadata
-	this.TraceParent = traceParent
 	return &this
 }
 
@@ -79,26 +69,34 @@ func NewExecutionWithDefaults() *Execution {
 	return &this
 }
 
-// GetLabels returns the Labels field value
+// GetLabels returns the Labels field value if set, zero value otherwise.
 func (o *Execution) GetLabels() []Label {
-	if o == nil {
+	if o == nil || IsNil(o.Labels) {
 		var ret []Label
 		return ret
 	}
-
 	return o.Labels
 }
 
-// GetLabelsOk returns a tuple with the Labels field value
+// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Execution) GetLabelsOk() ([]Label, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Labels) {
 		return nil, false
 	}
 	return o.Labels, true
 }
 
-// SetLabels sets field value
+// HasLabels returns a boolean if a field has been set.
+func (o *Execution) HasLabels() bool {
+	if o != nil && !IsNil(o.Labels) {
+		return true
+	}
+
+	return false
+}
+
+// SetLabels gets a reference to the given []Label and assigns it to the Labels field.
 func (o *Execution) SetLabels(v []Label) {
 	o.Labels = v
 }
@@ -199,98 +197,130 @@ func (o *Execution) SetFlowRevision(v int32) {
 	o.FlowRevision = v
 }
 
-// GetTaskRunList returns the TaskRunList field value
+// GetTaskRunList returns the TaskRunList field value if set, zero value otherwise.
 func (o *Execution) GetTaskRunList() []TaskRun {
-	if o == nil {
+	if o == nil || IsNil(o.TaskRunList) {
 		var ret []TaskRun
 		return ret
 	}
-
 	return o.TaskRunList
 }
 
-// GetTaskRunListOk returns a tuple with the TaskRunList field value
+// GetTaskRunListOk returns a tuple with the TaskRunList field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Execution) GetTaskRunListOk() ([]TaskRun, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.TaskRunList) {
 		return nil, false
 	}
 	return o.TaskRunList, true
 }
 
-// SetTaskRunList sets field value
+// HasTaskRunList returns a boolean if a field has been set.
+func (o *Execution) HasTaskRunList() bool {
+	if o != nil && !IsNil(o.TaskRunList) {
+		return true
+	}
+
+	return false
+}
+
+// SetTaskRunList gets a reference to the given []TaskRun and assigns it to the TaskRunList field.
 func (o *Execution) SetTaskRunList(v []TaskRun) {
 	o.TaskRunList = v
 }
 
-// GetInputs returns the Inputs field value
+// GetInputs returns the Inputs field value if set, zero value otherwise.
 func (o *Execution) GetInputs() map[string]map[string]interface{} {
-	if o == nil {
+	if o == nil || IsNil(o.Inputs) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
-
 	return o.Inputs
 }
 
-// GetInputsOk returns a tuple with the Inputs field value
+// GetInputsOk returns a tuple with the Inputs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Execution) GetInputsOk() (map[string]map[string]interface{}, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Inputs) {
 		return map[string]map[string]interface{}{}, false
 	}
 	return o.Inputs, true
 }
 
-// SetInputs sets field value
+// HasInputs returns a boolean if a field has been set.
+func (o *Execution) HasInputs() bool {
+	if o != nil && !IsNil(o.Inputs) {
+		return true
+	}
+
+	return false
+}
+
+// SetInputs gets a reference to the given map[string]map[string]interface{} and assigns it to the Inputs field.
 func (o *Execution) SetInputs(v map[string]map[string]interface{}) {
 	o.Inputs = v
 }
 
-// GetOutputs returns the Outputs field value
+// GetOutputs returns the Outputs field value if set, zero value otherwise.
 func (o *Execution) GetOutputs() map[string]map[string]interface{} {
-	if o == nil {
+	if o == nil || IsNil(o.Outputs) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
-
 	return o.Outputs
 }
 
-// GetOutputsOk returns a tuple with the Outputs field value
+// GetOutputsOk returns a tuple with the Outputs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Execution) GetOutputsOk() (map[string]map[string]interface{}, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Outputs) {
 		return map[string]map[string]interface{}{}, false
 	}
 	return o.Outputs, true
 }
 
-// SetOutputs sets field value
+// HasOutputs returns a boolean if a field has been set.
+func (o *Execution) HasOutputs() bool {
+	if o != nil && !IsNil(o.Outputs) {
+		return true
+	}
+
+	return false
+}
+
+// SetOutputs gets a reference to the given map[string]map[string]interface{} and assigns it to the Outputs field.
 func (o *Execution) SetOutputs(v map[string]map[string]interface{}) {
 	o.Outputs = v
 }
 
-// GetVariables returns the Variables field value
+// GetVariables returns the Variables field value if set, zero value otherwise.
 func (o *Execution) GetVariables() map[string]map[string]interface{} {
-	if o == nil {
+	if o == nil || IsNil(o.Variables) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
-
 	return o.Variables
 }
 
-// GetVariablesOk returns a tuple with the Variables field value
+// GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Execution) GetVariablesOk() (map[string]map[string]interface{}, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Variables) {
 		return map[string]map[string]interface{}{}, false
 	}
 	return o.Variables, true
 }
 
-// SetVariables sets field value
+// HasVariables returns a boolean if a field has been set.
+func (o *Execution) HasVariables() bool {
+	if o != nil && !IsNil(o.Variables) {
+		return true
+	}
+
+	return false
+}
+
+// SetVariables gets a reference to the given map[string]map[string]interface{} and assigns it to the Variables field.
 func (o *Execution) SetVariables(v map[string]map[string]interface{}) {
 	o.Variables = v
 }
@@ -319,76 +349,100 @@ func (o *Execution) SetState(v State) {
 	o.State = v
 }
 
-// GetParentId returns the ParentId field value
+// GetParentId returns the ParentId field value if set, zero value otherwise.
 func (o *Execution) GetParentId() string {
-	if o == nil {
+	if o == nil || IsNil(o.ParentId) {
 		var ret string
 		return ret
 	}
-
-	return o.ParentId
+	return *o.ParentId
 }
 
-// GetParentIdOk returns a tuple with the ParentId field value
+// GetParentIdOk returns a tuple with the ParentId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Execution) GetParentIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ParentId) {
 		return nil, false
 	}
-	return &o.ParentId, true
+	return o.ParentId, true
 }
 
-// SetParentId sets field value
+// HasParentId returns a boolean if a field has been set.
+func (o *Execution) HasParentId() bool {
+	if o != nil && !IsNil(o.ParentId) {
+		return true
+	}
+
+	return false
+}
+
+// SetParentId gets a reference to the given string and assigns it to the ParentId field.
 func (o *Execution) SetParentId(v string) {
-	o.ParentId = v
+	o.ParentId = &v
 }
 
-// GetOriginalId returns the OriginalId field value
+// GetOriginalId returns the OriginalId field value if set, zero value otherwise.
 func (o *Execution) GetOriginalId() string {
-	if o == nil {
+	if o == nil || IsNil(o.OriginalId) {
 		var ret string
 		return ret
 	}
-
-	return o.OriginalId
+	return *o.OriginalId
 }
 
-// GetOriginalIdOk returns a tuple with the OriginalId field value
+// GetOriginalIdOk returns a tuple with the OriginalId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Execution) GetOriginalIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.OriginalId) {
 		return nil, false
 	}
-	return &o.OriginalId, true
+	return o.OriginalId, true
 }
 
-// SetOriginalId sets field value
+// HasOriginalId returns a boolean if a field has been set.
+func (o *Execution) HasOriginalId() bool {
+	if o != nil && !IsNil(o.OriginalId) {
+		return true
+	}
+
+	return false
+}
+
+// SetOriginalId gets a reference to the given string and assigns it to the OriginalId field.
 func (o *Execution) SetOriginalId(v string) {
-	o.OriginalId = v
+	o.OriginalId = &v
 }
 
-// GetTrigger returns the Trigger field value
+// GetTrigger returns the Trigger field value if set, zero value otherwise.
 func (o *Execution) GetTrigger() ExecutionTrigger {
-	if o == nil {
+	if o == nil || IsNil(o.Trigger) {
 		var ret ExecutionTrigger
 		return ret
 	}
-
-	return o.Trigger
+	return *o.Trigger
 }
 
-// GetTriggerOk returns a tuple with the Trigger field value
+// GetTriggerOk returns a tuple with the Trigger field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Execution) GetTriggerOk() (*ExecutionTrigger, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Trigger) {
 		return nil, false
 	}
-	return &o.Trigger, true
+	return o.Trigger, true
 }
 
-// SetTrigger sets field value
+// HasTrigger returns a boolean if a field has been set.
+func (o *Execution) HasTrigger() bool {
+	if o != nil && !IsNil(o.Trigger) {
+		return true
+	}
+
+	return false
+}
+
+// SetTrigger gets a reference to the given ExecutionTrigger and assigns it to the Trigger field.
 func (o *Execution) SetTrigger(v ExecutionTrigger) {
-	o.Trigger = v
+	o.Trigger = &v
 }
 
 // GetDeleted returns the Deleted field value
@@ -415,28 +469,36 @@ func (o *Execution) SetDeleted(v bool) {
 	o.Deleted = v
 }
 
-// GetMetadata returns the Metadata field value
+// GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *Execution) GetMetadata() ExecutionMetadata {
-	if o == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret ExecutionMetadata
 		return ret
 	}
-
-	return o.Metadata
+	return *o.Metadata
 }
 
-// GetMetadataOk returns a tuple with the Metadata field value
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Execution) GetMetadataOk() (*ExecutionMetadata, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
-	return &o.Metadata, true
+	return o.Metadata, true
 }
 
-// SetMetadata sets field value
+// HasMetadata returns a boolean if a field has been set.
+func (o *Execution) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given ExecutionMetadata and assigns it to the Metadata field.
 func (o *Execution) SetMetadata(v ExecutionMetadata) {
-	o.Metadata = v
+	o.Metadata = &v
 }
 
 // GetScheduleDate returns the ScheduleDate field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -482,28 +544,36 @@ func (o *Execution) UnsetScheduleDate() {
 	o.ScheduleDate.Unset()
 }
 
-// GetTraceParent returns the TraceParent field value
+// GetTraceParent returns the TraceParent field value if set, zero value otherwise.
 func (o *Execution) GetTraceParent() string {
-	if o == nil {
+	if o == nil || IsNil(o.TraceParent) {
 		var ret string
 		return ret
 	}
-
-	return o.TraceParent
+	return *o.TraceParent
 }
 
-// GetTraceParentOk returns a tuple with the TraceParent field value
+// GetTraceParentOk returns a tuple with the TraceParent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Execution) GetTraceParentOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.TraceParent) {
 		return nil, false
 	}
-	return &o.TraceParent, true
+	return o.TraceParent, true
 }
 
-// SetTraceParent sets field value
+// HasTraceParent returns a boolean if a field has been set.
+func (o *Execution) HasTraceParent() bool {
+	if o != nil && !IsNil(o.TraceParent) {
+		return true
+	}
+
+	return false
+}
+
+// SetTraceParent gets a reference to the given string and assigns it to the TraceParent field.
 func (o *Execution) SetTraceParent(v string) {
-	o.TraceParent = v
+	o.TraceParent = &v
 }
 
 // GetFixtures returns the Fixtures field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -625,25 +695,45 @@ func (o Execution) MarshalJSON() ([]byte, error) {
 
 func (o Execution) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["labels"] = o.Labels
+	if !IsNil(o.Labels) {
+		toSerialize["labels"] = o.Labels
+	}
 	toSerialize["id"] = o.Id
 	toSerialize["namespace"] = o.Namespace
 	toSerialize["flowId"] = o.FlowId
 	toSerialize["flowRevision"] = o.FlowRevision
-	toSerialize["taskRunList"] = o.TaskRunList
-	toSerialize["inputs"] = o.Inputs
-	toSerialize["outputs"] = o.Outputs
-	toSerialize["variables"] = o.Variables
+	if !IsNil(o.TaskRunList) {
+		toSerialize["taskRunList"] = o.TaskRunList
+	}
+	if !IsNil(o.Inputs) {
+		toSerialize["inputs"] = o.Inputs
+	}
+	if !IsNil(o.Outputs) {
+		toSerialize["outputs"] = o.Outputs
+	}
+	if !IsNil(o.Variables) {
+		toSerialize["variables"] = o.Variables
+	}
 	toSerialize["state"] = o.State
-	toSerialize["parentId"] = o.ParentId
-	toSerialize["originalId"] = o.OriginalId
-	toSerialize["trigger"] = o.Trigger
+	if !IsNil(o.ParentId) {
+		toSerialize["parentId"] = o.ParentId
+	}
+	if !IsNil(o.OriginalId) {
+		toSerialize["originalId"] = o.OriginalId
+	}
+	if !IsNil(o.Trigger) {
+		toSerialize["trigger"] = o.Trigger
+	}
 	toSerialize["deleted"] = o.Deleted
-	toSerialize["metadata"] = o.Metadata
+	if !IsNil(o.Metadata) {
+		toSerialize["metadata"] = o.Metadata
+	}
 	if o.ScheduleDate.IsSet() {
 		toSerialize["scheduleDate"] = o.ScheduleDate.Get()
 	}
-	toSerialize["traceParent"] = o.TraceParent
+	if !IsNil(o.TraceParent) {
+		toSerialize["traceParent"] = o.TraceParent
+	}
 	if o.Fixtures != nil {
 		toSerialize["fixtures"] = o.Fixtures
 	}
@@ -666,22 +756,12 @@ func (o *Execution) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"labels",
 		"id",
 		"namespace",
 		"flowId",
 		"flowRevision",
-		"taskRunList",
-		"inputs",
-		"outputs",
-		"variables",
 		"state",
-		"parentId",
-		"originalId",
-		"trigger",
 		"deleted",
-		"metadata",
-		"traceParent",
 	}
 
 	allProperties := make(map[string]interface{})

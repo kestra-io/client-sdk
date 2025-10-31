@@ -50,7 +50,9 @@ public enum QueryFilterOp {
   
   REGEX("REGEX"),
   
-  PREFIX("PREFIX");
+  PREFIX("PREFIX"),
+  
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;
 
@@ -75,7 +77,7 @@ public enum QueryFilterOp {
         return b;
       }
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    return UNKNOWN_DEFAULT_OPEN_API;
   }
 }
 

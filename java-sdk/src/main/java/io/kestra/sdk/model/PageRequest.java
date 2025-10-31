@@ -30,15 +30,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PageRequest.JSON_PROPERTY_START_INDEX,
   PageRequest.JSON_PROPERTY_COUNT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PageRequest {
   public static final String JSON_PROPERTY_START_INDEX = "startIndex";
-  @javax.annotation.Nullable
-  private Integer startIndex;
+  @javax.annotation.Nullable  private Integer startIndex;
 
   public static final String JSON_PROPERTY_COUNT = "count";
-  @javax.annotation.Nullable
-  private Integer count;
+  @javax.annotation.Nullable  private Integer count;
 
   public PageRequest() {
   }
@@ -53,8 +51,7 @@ public class PageRequest {
    * Get startIndex
    * @return startIndex
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_START_INDEX)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_START_INDEX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getStartIndex() {
@@ -78,8 +75,7 @@ public class PageRequest {
    * Get count
    * @return count
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_COUNT)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getCount() {

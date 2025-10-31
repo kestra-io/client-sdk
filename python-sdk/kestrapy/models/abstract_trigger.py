@@ -32,7 +32,6 @@ class AbstractTrigger(BaseModel):
     """
     AbstractTrigger
     """ # noqa: E501
-    min_log_level: Optional[Level] = Field(default=None, alias="minLogLevel")
     id: Annotated[str, Field(min_length=1, strict=True)]
     type: Annotated[str, Field(min_length=1, strict=True)]
     version: Optional[Annotated[str, Field(strict=True)]] = None
@@ -46,7 +45,7 @@ class AbstractTrigger(BaseModel):
     log_to_file: Optional[StrictBool] = Field(default=None, alias="logToFile")
     fail_on_trigger_error: Optional[StrictBool] = Field(default=None, alias="failOnTriggerError")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["minLogLevel", "id", "type", "version", "description", "conditions", "disabled", "workerGroup", "logLevel", "labels", "stopAfter", "logToFile", "failOnTriggerError"]
+    __properties: ClassVar[List[str]] = ["id", "type", "version", "description", "conditions", "disabled", "workerGroup", "logLevel", "labels", "stopAfter", "logToFile", "failOnTriggerError"]
 
     @field_validator('id')
     def id_validate_regular_expression(cls, value):
@@ -143,7 +142,6 @@ class AbstractTrigger(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "minLogLevel": obj.get("minLogLevel"),
             "id": obj.get("id"),
             "type": obj.get("type"),
             "version": obj.get("version"),

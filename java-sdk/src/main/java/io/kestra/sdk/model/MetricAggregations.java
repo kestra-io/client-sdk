@@ -34,15 +34,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MetricAggregations.JSON_PROPERTY_GROUP_BY,
   MetricAggregations.JSON_PROPERTY_AGGREGATIONS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class MetricAggregations {
   public static final String JSON_PROPERTY_GROUP_BY = "groupBy";
-  @javax.annotation.Nonnull
-  private String groupBy;
+  @javax.annotation.Nonnull  private String groupBy;
 
   public static final String JSON_PROPERTY_AGGREGATIONS = "aggregations";
-  @javax.annotation.Nonnull
-  private List<MetricAggregation> aggregations = new ArrayList<>();
+  @javax.annotation.Nonnull  private List<MetricAggregation> aggregations = new ArrayList<>();
 
   public MetricAggregations() {
   }
@@ -57,8 +55,7 @@ public class MetricAggregations {
    * Get groupBy
    * @return groupBy
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_GROUP_BY)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_GROUP_BY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getGroupBy() {
@@ -90,8 +87,7 @@ public class MetricAggregations {
    * Get aggregations
    * @return aggregations
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_AGGREGATIONS)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_AGGREGATIONS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<MetricAggregation> getAggregations() {

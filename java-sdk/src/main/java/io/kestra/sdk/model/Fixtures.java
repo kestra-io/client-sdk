@@ -39,23 +39,19 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Fixtures.JSON_PROPERTY_TASKS,
   Fixtures.JSON_PROPERTY_TRIGGER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Fixtures {
   public static final String JSON_PROPERTY_INPUTS = "inputs";
-  @javax.annotation.Nullable
-  private Map<String, Object> inputs = new HashMap<>();
+  @javax.annotation.Nullable  private Map<String, Object> inputs = new HashMap<>();
 
   public static final String JSON_PROPERTY_FILES = "files";
-  @javax.annotation.Nullable
-  private Map<String, String> files = new HashMap<>();
+  @javax.annotation.Nullable  private Map<String, String> files = new HashMap<>();
 
   public static final String JSON_PROPERTY_TASKS = "tasks";
-  @javax.annotation.Nullable
-  private List<TaskFixture> tasks = new ArrayList<>();
+  @javax.annotation.Nullable  private List<TaskFixture> tasks = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TRIGGER = "trigger";
-  @javax.annotation.Nullable
-  private TriggerFixture trigger;
+  @javax.annotation.Nullable  private TriggerFixture trigger;
 
   public Fixtures() {
   }
@@ -78,8 +74,7 @@ public class Fixtures {
    * Get inputs
    * @return inputs
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_INPUTS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INPUTS)
   @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getInputs() {
@@ -111,8 +106,7 @@ public class Fixtures {
    * Get files
    * @return files
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FILES)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FILES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, String> getFiles() {
@@ -144,8 +138,7 @@ public class Fixtures {
    * Get tasks
    * @return tasks
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TASKS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TASKS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<TaskFixture> getTasks() {
@@ -169,8 +162,7 @@ public class Fixtures {
    * Get trigger
    * @return trigger
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TRIGGER)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TRIGGER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public TriggerFixture getTrigger() {

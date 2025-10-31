@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the IAMUserGroupControllerApiUpdateUserGroupsRequest type satisfies the MappedNullable interface at compile time
@@ -20,7 +19,7 @@ var _ MappedNullable = &IAMUserGroupControllerApiUpdateUserGroupsRequest{}
 
 // IAMUserGroupControllerApiUpdateUserGroupsRequest struct for IAMUserGroupControllerApiUpdateUserGroupsRequest
 type IAMUserGroupControllerApiUpdateUserGroupsRequest struct {
-	GroupIds             []string `json:"groupIds"`
+	GroupIds             []string `json:"groupIds,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -30,9 +29,8 @@ type _IAMUserGroupControllerApiUpdateUserGroupsRequest IAMUserGroupControllerApi
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIAMUserGroupControllerApiUpdateUserGroupsRequest(groupIds []string) *IAMUserGroupControllerApiUpdateUserGroupsRequest {
+func NewIAMUserGroupControllerApiUpdateUserGroupsRequest() *IAMUserGroupControllerApiUpdateUserGroupsRequest {
 	this := IAMUserGroupControllerApiUpdateUserGroupsRequest{}
-	this.GroupIds = groupIds
 	return &this
 }
 
@@ -44,26 +42,34 @@ func NewIAMUserGroupControllerApiUpdateUserGroupsRequestWithDefaults() *IAMUserG
 	return &this
 }
 
-// GetGroupIds returns the GroupIds field value
+// GetGroupIds returns the GroupIds field value if set, zero value otherwise.
 func (o *IAMUserGroupControllerApiUpdateUserGroupsRequest) GetGroupIds() []string {
-	if o == nil {
+	if o == nil || IsNil(o.GroupIds) {
 		var ret []string
 		return ret
 	}
-
 	return o.GroupIds
 }
 
-// GetGroupIdsOk returns a tuple with the GroupIds field value
+// GetGroupIdsOk returns a tuple with the GroupIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMUserGroupControllerApiUpdateUserGroupsRequest) GetGroupIdsOk() ([]string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.GroupIds) {
 		return nil, false
 	}
 	return o.GroupIds, true
 }
 
-// SetGroupIds sets field value
+// HasGroupIds returns a boolean if a field has been set.
+func (o *IAMUserGroupControllerApiUpdateUserGroupsRequest) HasGroupIds() bool {
+	if o != nil && !IsNil(o.GroupIds) {
+		return true
+	}
+
+	return false
+}
+
+// SetGroupIds gets a reference to the given []string and assigns it to the GroupIds field.
 func (o *IAMUserGroupControllerApiUpdateUserGroupsRequest) SetGroupIds(v []string) {
 	o.GroupIds = v
 }
@@ -78,7 +84,9 @@ func (o IAMUserGroupControllerApiUpdateUserGroupsRequest) MarshalJSON() ([]byte,
 
 func (o IAMUserGroupControllerApiUpdateUserGroupsRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["groupIds"] = o.GroupIds
+	if !IsNil(o.GroupIds) {
+		toSerialize["groupIds"] = o.GroupIds
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -88,27 +96,6 @@ func (o IAMUserGroupControllerApiUpdateUserGroupsRequest) ToMap() (map[string]in
 }
 
 func (o *IAMUserGroupControllerApiUpdateUserGroupsRequest) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"groupIds",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varIAMUserGroupControllerApiUpdateUserGroupsRequest := _IAMUserGroupControllerApiUpdateUserGroupsRequest{}
 
 	err = json.Unmarshal(data, &varIAMUserGroupControllerApiUpdateUserGroupsRequest)

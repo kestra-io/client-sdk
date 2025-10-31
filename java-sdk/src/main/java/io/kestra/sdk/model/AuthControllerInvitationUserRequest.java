@@ -32,19 +32,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AuthControllerInvitationUserRequest.JSON_PROPERTY_PASSWORD
 })
 @JsonTypeName("AuthController.InvitationUserRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AuthControllerInvitationUserRequest {
   public static final String JSON_PROPERTY_FIRST_NAME = "firstName";
-  @javax.annotation.Nonnull
-  private String firstName;
+  @javax.annotation.Nonnull  private String firstName;
 
   public static final String JSON_PROPERTY_LAST_NAME = "lastName";
-  @javax.annotation.Nonnull
-  private String lastName;
+  @javax.annotation.Nonnull  private String lastName;
 
   public static final String JSON_PROPERTY_PASSWORD = "password";
-  @javax.annotation.Nonnull
-  private String password;
+  @javax.annotation.Nonnull  private String password;
 
   public AuthControllerInvitationUserRequest() {
   }
@@ -59,8 +56,7 @@ public class AuthControllerInvitationUserRequest {
    * Get firstName
    * @return firstName
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getFirstName() {
@@ -84,8 +80,7 @@ public class AuthControllerInvitationUserRequest {
    * Get lastName
    * @return lastName
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_LAST_NAME)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_LAST_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getLastName() {
@@ -109,8 +104,7 @@ public class AuthControllerInvitationUserRequest {
    * Get password
    * @return password
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_PASSWORD)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getPassword() {

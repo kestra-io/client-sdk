@@ -29,11 +29,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   ScimExtension.JSON_PROPERTY_URN
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ScimExtension {
   public static final String JSON_PROPERTY_URN = "urn";
-  @javax.annotation.Nullable
-  private String urn;
+  @javax.annotation.Nullable  private String urn;
 
   public ScimExtension() {
   }
@@ -48,8 +47,7 @@ public class ScimExtension {
    * Get urn
    * @return urn
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_URN)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_URN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUrn() {

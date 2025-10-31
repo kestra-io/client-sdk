@@ -1,14 +1,10 @@
 
 
-# PropertyListString
+# Interface PropertyListString
 
+## Implementing Classes
 
-## Properties
-
-| Name | Type | Description | Notes |
-|------------ | ------------- | ------------- | -------------|
-|**expression** | **String** |  |  |
-|**value** | **List&lt;String&gt;** |  |  [optional] |
-
+* Object
+* String
 
 

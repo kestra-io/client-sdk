@@ -30,15 +30,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Name.JSON_PROPERTY_FAMILY_NAME,
   Name.JSON_PROPERTY_GIVEN_NAME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Name {
   public static final String JSON_PROPERTY_FAMILY_NAME = "familyName";
-  @javax.annotation.Nullable
-  private String familyName;
+  @javax.annotation.Nullable  private String familyName;
 
   public static final String JSON_PROPERTY_GIVEN_NAME = "givenName";
-  @javax.annotation.Nullable
-  private String givenName;
+  @javax.annotation.Nullable  private String givenName;
 
   public Name() {
   }
@@ -53,8 +51,7 @@ public class Name {
    * Get familyName
    * @return familyName
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FAMILY_NAME)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FAMILY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFamilyName() {
@@ -78,8 +75,7 @@ public class Name {
    * Get givenName
    * @return givenName
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_GIVEN_NAME)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GIVEN_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getGivenName() {

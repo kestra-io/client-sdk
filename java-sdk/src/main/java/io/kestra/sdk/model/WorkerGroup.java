@@ -31,15 +31,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   WorkerGroup.JSON_PROPERTY_KEY,
   WorkerGroup.JSON_PROPERTY_FALLBACK
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class WorkerGroup {
   public static final String JSON_PROPERTY_KEY = "key";
-  @javax.annotation.Nullable
-  private String key;
+  @javax.annotation.Nullable  private String key;
 
   public static final String JSON_PROPERTY_FALLBACK = "fallback";
-  @javax.annotation.Nullable
-  private WorkerGroupFallback fallback;
+  @javax.annotation.Nullable  private WorkerGroupFallback fallback;
 
   public WorkerGroup() {
   }
@@ -54,8 +52,7 @@ public class WorkerGroup {
    * Get key
    * @return key
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_KEY)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_KEY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getKey() {
@@ -79,8 +76,7 @@ public class WorkerGroup {
    * Get fallback
    * @return fallback
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FALLBACK)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FALLBACK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public WorkerGroupFallback getFallback() {

@@ -13,14 +13,11 @@
 
 
 import ApiClient from "../ApiClient";
-import AppsControllerApiBulkImportResponse from '../model/AppsControllerApiBulkImportResponse';
 import BulkResponse from '../model/BulkResponse';
-import DeleteExecutionsByQueryRequest from '../model/DeleteExecutionsByQueryRequest';
 import Flow from '../model/Flow';
 import FlowControllerTaskValidationType from '../model/FlowControllerTaskValidationType';
 import FlowGraph from '../model/FlowGraph';
 import FlowInterface from '../model/FlowInterface';
-import FlowScope from '../model/FlowScope';
 import FlowTopologyGraph from '../model/FlowTopologyGraph';
 import FlowWithSource from '../model/FlowWithSource';
 import IdWithNamespace from '../model/IdWithNamespace';
@@ -28,14 +25,12 @@ import PagedResultsFlow from '../model/PagedResultsFlow';
 import PagedResultsSearchResultFlow from '../model/PagedResultsSearchResultFlow';
 import QueryFilter from '../model/QueryFilter';
 import Task from '../model/Task';
-import UpdateFlow200Response from '../model/UpdateFlow200Response';
-import UpdateFlowsInNamespaceFromJson200Response from '../model/UpdateFlowsInNamespaceFromJson200Response';
 import ValidateConstraintViolation from '../model/ValidateConstraintViolation';
 
 /**
 * Flows service.
 * @module api/FlowsApi
-* @version 1.0.0
+* @version v1.0.5
 */
 export default class FlowsApi {
 
@@ -51,59 +46,9 @@ export default class FlowsApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the bulkImportApps operation.
-     * @callback module:api/FlowsApi~bulkImportAppsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/AppsControllerApiBulkImportResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
-    /**
-     *     Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn't be imported is returned. 
-     * @param {String} tenant 
-     * @param {Object} opts Optional parameters
-     * @param {File} [fileUpload] The file to import, can be a ZIP archive or a multi-objects YAML file
-     * @param {module:api/FlowsApi~bulkImportAppsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/AppsControllerApiBulkImportResponse}
-     */
-    bulkImportApps(tenant, opts, callback) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling bulkImportApps");
-      }
 
-      let pathParams = {
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-        'fileUpload': opts['fileUpload']
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['multipart/form-data'];
-      let accepts = ['application/json'];
-      let returnType = AppsControllerApiBulkImportResponse;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/apps/import', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the bulkUpdateFlows operation.
-     * @callback module:api/FlowsApi~bulkUpdateFlowsCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/FlowInterface>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
+            
 
     /**
      * Update from multiples yaml sources
@@ -114,10 +59,9 @@ export default class FlowsApi {
      * @param {Object} opts Optional parameters
      * @param {String} [namespace] The namespace where to update flows
      * @param {String} [body] A list of flows source code splitted with \"---\"
-     * @param {module:api/FlowsApi~bulkUpdateFlowsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/FlowInterface>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/FlowInterface>} and HTTP response
      */
-    bulkUpdateFlows(_delete, allowNamespaceChild, tenant, opts, callback) {
+    bulkUpdateFlowsWithHttpInfo(_delete, allowNamespaceChild, tenant, opts) {
       opts = opts || {};
       let postBody = opts['body'];
       // verify the required parameter '_delete' is set
@@ -153,26 +97,45 @@ export default class FlowsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/flows/bulk', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createFlow operation.
-     * @callback module:api/FlowsApi~createFlowCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/FlowWithSource} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Update from multiples yaml sources
+     * All flow will be created / updated for this namespace. Flow that already created but not in `flows` will be deleted if the query delete is `true`
+     * @param {Boolean} _delete If missing flow should be deleted
+     * @param {Boolean} allowNamespaceChild If namespace child should are allowed to be updated
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.namespace The namespace where to update flows
+     * @param {String} opts.body A list of flows source code splitted with \"---\"
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/FlowInterface>}
      */
+    bulkUpdateFlows(_delete, allowNamespaceChild, tenant, opts) {
+      return this.bulkUpdateFlowsWithHttpInfo(_delete, allowNamespaceChild, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Create a flow from yaml source
      * @param {String} tenant 
      * @param {String} body The flow source code
-     * @param {module:api/FlowsApi~createFlowCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/FlowWithSource}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/FlowWithSource} and HTTP response
      */
-    createFlow(tenant, body, callback) {
+    createFlowWithHttpInfo(tenant, body) {
       let postBody = body;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -200,26 +163,41 @@ export default class FlowsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/flows', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteFlow operation.
-     * @callback module:api/FlowsApi~deleteFlowCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Create a flow from yaml source
+     * @param {String} tenant 
+     * @param {String} body The flow source code
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/FlowWithSource}
      */
+    createFlow(tenant, body) {
+      return this.createFlowWithHttpInfo(tenant, body)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Delete a flow
      * @param {String} namespace The flow namespace
      * @param {String} id The flow id
      * @param {String} tenant 
-     * @param {module:api/FlowsApi~deleteFlowCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteFlow(namespace, id, tenant, callback) {
+    deleteFlowWithHttpInfo(namespace, id, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -253,26 +231,41 @@ export default class FlowsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/flows/{namespace}/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteFlowsByIds operation.
-     * @callback module:api/FlowsApi~deleteFlowsByIdsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/BulkResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete a flow
+     * @param {String} namespace The flow namespace
+     * @param {String} id The flow id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    deleteFlow(namespace, id, tenant) {
+      return this.deleteFlowWithHttpInfo(namespace, id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Delete flows by their IDs.
      * @param {String} tenant 
      * @param {Array.<module:model/IdWithNamespace>} idWithNamespace A list of tuple flow ID and namespace as flow identifiers
-     * @param {module:api/FlowsApi~deleteFlowsByIdsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/BulkResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
      */
-    deleteFlowsByIds(tenant, idWithNamespace, callback) {
+    deleteFlowsByIdsWithHttpInfo(tenant, idWithNamespace) {
       let postBody = idWithNamespace;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -300,50 +293,53 @@ export default class FlowsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/flows/delete/by-ids', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteFlowsByQuery operation.
-     * @callback module:api/FlowsApi~deleteFlowsByQueryCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/BulkResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete flows by their IDs.
+     * @param {String} tenant 
+     * @param {Array.<module:model/IdWithNamespace>} idWithNamespace A list of tuple flow ID and namespace as flow identifiers
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
      */
+    deleteFlowsByIds(tenant, idWithNamespace) {
+      return this.deleteFlowsByIdsWithHttpInfo(tenant, idWithNamespace)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Delete flows returned by the query parameters.
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {Array.<module:model/FlowScope>} [scope] The scope of the flows to include
-     * @param {String} [namespace] A namespace filter prefix
-     * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
-     * @param {module:api/FlowsApi~deleteFlowsByQueryCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/BulkResponse}
+     * @param {Array.<module:model/QueryFilter>} [filters] Filters
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
      */
-    deleteFlowsByQuery(tenant, deleteExecutionsByQueryRequest, opts, callback) {
+    deleteFlowsByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
-      let postBody = deleteExecutionsByQueryRequest;
+      let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling deleteFlowsByQuery");
-      }
-      // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-      if (deleteExecutionsByQueryRequest === undefined || deleteExecutionsByQueryRequest === null) {
-        throw new Error("Missing the required parameter 'deleteExecutionsByQueryRequest' when calling deleteFlowsByQuery");
       }
 
       let pathParams = {
         'tenant': tenant
       };
       let queryParams = {
-        'q': opts['q'],
-        'scope': this.apiClient.buildCollectionParam(opts['scope'], 'csv'),
-        'namespace': opts['namespace'],
-        'labels': this.apiClient.buildCollectionParam(opts['labels'], 'multi')
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
       };
       let headerParams = {
       };
@@ -351,32 +347,47 @@ export default class FlowsApi {
       };
 
       let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
+      let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = BulkResponse;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/flows/delete/by-query', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the disableFlowsByIds operation.
-     * @callback module:api/FlowsApi~disableFlowsByIdsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/BulkResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete flows returned by the query parameters.
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
      */
+    deleteFlowsByQuery(tenant, opts) {
+      return this.deleteFlowsByQueryWithHttpInfo(tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Disable flows by their IDs.
      * @param {String} tenant 
      * @param {Array.<module:model/IdWithNamespace>} idWithNamespace A list of tuple flow ID and namespace as flow identifiers
-     * @param {module:api/FlowsApi~disableFlowsByIdsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/BulkResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
      */
-    disableFlowsByIds(tenant, idWithNamespace, callback) {
+    disableFlowsByIdsWithHttpInfo(tenant, idWithNamespace) {
       let postBody = idWithNamespace;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -404,50 +415,53 @@ export default class FlowsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/flows/disable/by-ids', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the disableFlowsByQuery operation.
-     * @callback module:api/FlowsApi~disableFlowsByQueryCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/BulkResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Disable flows by their IDs.
+     * @param {String} tenant 
+     * @param {Array.<module:model/IdWithNamespace>} idWithNamespace A list of tuple flow ID and namespace as flow identifiers
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
      */
+    disableFlowsByIds(tenant, idWithNamespace) {
+      return this.disableFlowsByIdsWithHttpInfo(tenant, idWithNamespace)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Disable flows returned by the query parameters.
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {Array.<module:model/FlowScope>} [scope] The scope of the flows to include
-     * @param {String} [namespace] A namespace filter prefix
-     * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
-     * @param {module:api/FlowsApi~disableFlowsByQueryCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/BulkResponse}
+     * @param {Array.<module:model/QueryFilter>} [filters] Filters
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
      */
-    disableFlowsByQuery(tenant, deleteExecutionsByQueryRequest, opts, callback) {
+    disableFlowsByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
-      let postBody = deleteExecutionsByQueryRequest;
+      let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling disableFlowsByQuery");
-      }
-      // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-      if (deleteExecutionsByQueryRequest === undefined || deleteExecutionsByQueryRequest === null) {
-        throw new Error("Missing the required parameter 'deleteExecutionsByQueryRequest' when calling disableFlowsByQuery");
       }
 
       let pathParams = {
         'tenant': tenant
       };
       let queryParams = {
-        'q': opts['q'],
-        'scope': this.apiClient.buildCollectionParam(opts['scope'], 'csv'),
-        'namespace': opts['namespace'],
-        'labels': this.apiClient.buildCollectionParam(opts['labels'], 'multi')
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
       };
       let headerParams = {
       };
@@ -455,32 +469,47 @@ export default class FlowsApi {
       };
 
       let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
+      let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = BulkResponse;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/flows/disable/by-query', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the enableFlowsByIds operation.
-     * @callback module:api/FlowsApi~enableFlowsByIdsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/BulkResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Disable flows returned by the query parameters.
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
      */
+    disableFlowsByQuery(tenant, opts) {
+      return this.disableFlowsByQueryWithHttpInfo(tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Enable flows by their IDs.
      * @param {String} tenant 
      * @param {Array.<module:model/IdWithNamespace>} idWithNamespace A list of tuple flow ID and namespace as flow identifiers
-     * @param {module:api/FlowsApi~enableFlowsByIdsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/BulkResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
      */
-    enableFlowsByIds(tenant, idWithNamespace, callback) {
+    enableFlowsByIdsWithHttpInfo(tenant, idWithNamespace) {
       let postBody = idWithNamespace;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -508,50 +537,53 @@ export default class FlowsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/flows/enable/by-ids', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the enableFlowsByQuery operation.
-     * @callback module:api/FlowsApi~enableFlowsByQueryCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/BulkResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Enable flows by their IDs.
+     * @param {String} tenant 
+     * @param {Array.<module:model/IdWithNamespace>} idWithNamespace A list of tuple flow ID and namespace as flow identifiers
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
      */
+    enableFlowsByIds(tenant, idWithNamespace) {
+      return this.enableFlowsByIdsWithHttpInfo(tenant, idWithNamespace)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Enable flows returned by the query parameters.
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {Array.<module:model/FlowScope>} [scope] The scope of the flows to include
-     * @param {String} [namespace] A namespace filter prefix
-     * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
-     * @param {module:api/FlowsApi~enableFlowsByQueryCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/BulkResponse}
+     * @param {Array.<module:model/QueryFilter>} [filters] Filters
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
      */
-    enableFlowsByQuery(tenant, deleteExecutionsByQueryRequest, opts, callback) {
+    enableFlowsByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
-      let postBody = deleteExecutionsByQueryRequest;
+      let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling enableFlowsByQuery");
-      }
-      // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-      if (deleteExecutionsByQueryRequest === undefined || deleteExecutionsByQueryRequest === null) {
-        throw new Error("Missing the required parameter 'deleteExecutionsByQueryRequest' when calling enableFlowsByQuery");
       }
 
       let pathParams = {
         'tenant': tenant
       };
       let queryParams = {
-        'q': opts['q'],
-        'scope': this.apiClient.buildCollectionParam(opts['scope'], 'csv'),
-        'namespace': opts['namespace'],
-        'labels': this.apiClient.buildCollectionParam(opts['labels'], 'multi')
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
       };
       let headerParams = {
       };
@@ -559,32 +591,47 @@ export default class FlowsApi {
       };
 
       let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
+      let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = BulkResponse;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/flows/enable/by-query', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the exportFlowsByIds operation.
-     * @callback module:api/FlowsApi~exportFlowsByIdsCallback
-     * @param {String} error Error message, if any.
-     * @param {Blob} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Enable flows returned by the query parameters.
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
      */
+    enableFlowsByQuery(tenant, opts) {
+      return this.enableFlowsByQueryWithHttpInfo(tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Export flows as a ZIP archive of yaml sources.
      * @param {String} tenant 
      * @param {Array.<module:model/IdWithNamespace>} idWithNamespace A list of tuple flow ID and namespace as flow identifiers
-     * @param {module:api/FlowsApi~exportFlowsByIdsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Blob}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Blob} and HTTP response
      */
-    exportFlowsByIds(tenant, idWithNamespace, callback) {
+    exportFlowsByIdsWithHttpInfo(tenant, idWithNamespace) {
       let postBody = idWithNamespace;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -612,31 +659,41 @@ export default class FlowsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/flows/export/by-ids', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the exportFlowsByQuery operation.
-     * @callback module:api/FlowsApi~exportFlowsByQueryCallback
-     * @param {String} error Error message, if any.
-     * @param {Blob} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Export flows as a ZIP archive of yaml sources.
+     * @param {String} tenant 
+     * @param {Array.<module:model/IdWithNamespace>} idWithNamespace A list of tuple flow ID and namespace as flow identifiers
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Blob}
      */
+    exportFlowsByIds(tenant, idWithNamespace) {
+      return this.exportFlowsByIdsWithHttpInfo(tenant, idWithNamespace)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Export flows as a ZIP archive of yaml sources.
      * @param {String} tenant 
      * @param {Object} opts Optional parameters
      * @param {Array.<module:model/QueryFilter>} [filters] Filters
-     * @param {String} [q] A string filter
-     * @param {Array.<module:model/FlowScope>} [scope] The scope of the flows to include
-     * @param {String} [namespace] A namespace filter prefix
-     * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
-     * @param {module:api/FlowsApi~exportFlowsByQueryCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Blob}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Blob} and HTTP response
      */
-    exportFlowsByQuery(tenant, opts, callback) {
+    exportFlowsByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'tenant' is set
@@ -648,11 +705,7 @@ export default class FlowsApi {
         'tenant': tenant
       };
       let queryParams = {
-        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv'),
-        'q': opts['q'],
-        'scope': this.apiClient.buildCollectionParam(opts['scope'], 'csv'),
-        'namespace': opts['namespace'],
-        'labels': this.apiClient.buildCollectionParam(opts['labels'], 'multi')
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
       };
       let headerParams = {
       };
@@ -666,17 +719,33 @@ export default class FlowsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/flows/export/by-query', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the generateFlowGraph operation.
-     * @callback module:api/FlowsApi~generateFlowGraphCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/FlowGraph} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Export flows as a ZIP archive of yaml sources.
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Blob}
      */
+    exportFlowsByQuery(tenant, opts) {
+      return this.exportFlowsByQueryWithHttpInfo(tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Generate a graph for a flow
@@ -686,10 +755,9 @@ export default class FlowsApi {
      * @param {Object} opts Optional parameters
      * @param {Number} [revision] The flow revision
      * @param {Array.<String>} [subflows] The subflow tasks to display
-     * @param {module:api/FlowsApi~generateFlowGraphCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/FlowGraph}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/FlowGraph} and HTTP response
      */
-    generateFlowGraph(namespace, id, tenant, opts, callback) {
+    generateFlowGraphWithHttpInfo(namespace, id, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'namespace' is set
@@ -726,17 +794,36 @@ export default class FlowsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/flows/{namespace}/{id}/graph', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the generateFlowGraphFromSource operation.
-     * @callback module:api/FlowsApi~generateFlowGraphFromSourceCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/FlowGraph} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Generate a graph for a flow
+     * @param {String} namespace The flow namespace
+     * @param {String} id The flow id
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Number} opts.revision The flow revision
+     * @param {Array.<String>} opts.subflows The subflow tasks to display
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/FlowGraph}
      */
+    generateFlowGraph(namespace, id, tenant, opts) {
+      return this.generateFlowGraphWithHttpInfo(namespace, id, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Generate a graph for a flow source
@@ -744,10 +831,9 @@ export default class FlowsApi {
      * @param {String} body The flow source code
      * @param {Object} opts Optional parameters
      * @param {Array.<String>} [subflows] The subflow tasks to display
-     * @param {module:api/FlowsApi~generateFlowGraphFromSourceCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/FlowGraph}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/FlowGraph} and HTTP response
      */
-    generateFlowGraphFromSource(tenant, body, opts, callback) {
+    generateFlowGraphFromSourceWithHttpInfo(tenant, body, opts) {
       opts = opts || {};
       let postBody = body;
       // verify the required parameter 'tenant' is set
@@ -777,17 +863,34 @@ export default class FlowsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/flows/graph', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getFlow operation.
-     * @callback module:api/FlowsApi~getFlowCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Generate a graph for a flow source
+     * @param {String} tenant 
+     * @param {String} body The flow source code
+     * @param {Object} opts Optional parameters
+     * @param {Array.<String>} opts.subflows The subflow tasks to display
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/FlowGraph}
      */
+    generateFlowGraphFromSource(tenant, body, opts) {
+      return this.generateFlowGraphFromSourceWithHttpInfo(tenant, body, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Get a flow
@@ -798,10 +901,9 @@ export default class FlowsApi {
      * @param {String} tenant 
      * @param {Object} opts Optional parameters
      * @param {Number} [revision] Get latest revision by default
-     * @param {module:api/FlowsApi~getFlowCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    getFlow(namespace, id, source, allowDeleted, tenant, opts, callback) {
+    getFlowWithHttpInfo(namespace, id, source, allowDeleted, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'namespace' is set
@@ -847,17 +949,37 @@ export default class FlowsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/flows/{namespace}/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getFlowDependencies operation.
-     * @callback module:api/FlowsApi~getFlowDependenciesCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/FlowTopologyGraph} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get a flow
+     * @param {String} namespace The flow namespace
+     * @param {String} id The flow id
+     * @param {Boolean} source Include the source code
+     * @param {Boolean} allowDeleted Get flow even if deleted
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Number} opts.revision Get latest revision by default
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    getFlow(namespace, id, source, allowDeleted, tenant, opts) {
+      return this.getFlowWithHttpInfo(namespace, id, source, allowDeleted, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Get flow dependencies
@@ -866,10 +988,9 @@ export default class FlowsApi {
      * @param {Boolean} destinationOnly If true, list only destination dependencies, otherwise list also source dependencies
      * @param {Boolean} expandAll If true, expand all dependencies recursively
      * @param {String} tenant 
-     * @param {module:api/FlowsApi~getFlowDependenciesCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/FlowTopologyGraph}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/FlowTopologyGraph} and HTTP response
      */
-    getFlowDependencies(namespace, id, destinationOnly, expandAll, tenant, callback) {
+    getFlowDependenciesWithHttpInfo(namespace, id, destinationOnly, expandAll, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -913,27 +1034,44 @@ export default class FlowsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/flows/{namespace}/{id}/dependencies', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getFlowDependenciesFromNamespace operation.
-     * @callback module:api/FlowsApi~getFlowDependenciesFromNamespaceCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/FlowTopologyGraph} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get flow dependencies
+     * @param {String} namespace The flow namespace
+     * @param {String} id The flow id
+     * @param {Boolean} destinationOnly If true, list only destination dependencies, otherwise list also source dependencies
+     * @param {Boolean} expandAll If true, expand all dependencies recursively
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/FlowTopologyGraph}
      */
+    getFlowDependencies(namespace, id, destinationOnly, expandAll, tenant) {
+      return this.getFlowDependenciesWithHttpInfo(namespace, id, destinationOnly, expandAll, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Retrieve flow dependencies
      * @param {String} namespace The flow namespace
      * @param {Boolean} destinationOnly if true, list only destination dependencies, otherwise list also source dependencies
      * @param {String} tenant 
-     * @param {module:api/FlowsApi~getFlowDependenciesFromNamespaceCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/FlowTopologyGraph}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/FlowTopologyGraph} and HTTP response
      */
-    getFlowDependenciesFromNamespace(namespace, destinationOnly, tenant, callback) {
+    getFlowDependenciesFromNamespaceWithHttpInfo(namespace, destinationOnly, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -967,17 +1105,33 @@ export default class FlowsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/{namespace}/dependencies', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getTaskFromFlow operation.
-     * @callback module:api/FlowsApi~getTaskFromFlowCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Task} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Retrieve flow dependencies
+     * @param {String} namespace The flow namespace
+     * @param {Boolean} destinationOnly if true, list only destination dependencies, otherwise list also source dependencies
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/FlowTopologyGraph}
      */
+    getFlowDependenciesFromNamespace(namespace, destinationOnly, tenant) {
+      return this.getFlowDependenciesFromNamespaceWithHttpInfo(namespace, destinationOnly, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Get a flow task
@@ -987,10 +1141,9 @@ export default class FlowsApi {
      * @param {String} tenant 
      * @param {Object} opts Optional parameters
      * @param {Number} [revision] The flow revision
-     * @param {module:api/FlowsApi~getTaskFromFlowCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Task}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Task} and HTTP response
      */
-    getTaskFromFlow(namespace, id, taskId, tenant, opts, callback) {
+    getTaskFromFlowWithHttpInfo(namespace, id, taskId, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'namespace' is set
@@ -1031,27 +1184,45 @@ export default class FlowsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the importFlows operation.
-     * @callback module:api/FlowsApi~importFlowsCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<String>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get a flow task
+     * @param {String} namespace The flow namespace
+     * @param {String} id The flow id
+     * @param {String} taskId The task id
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Number} opts.revision The flow revision
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Task}
      */
+    getTaskFromFlow(namespace, id, taskId, tenant, opts) {
+      return this.getTaskFromFlowWithHttpInfo(namespace, id, taskId, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      *     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn't be imported is returned. 
      * @param {String} tenant 
      * @param {Object} opts Optional parameters
      * @param {File} [fileUpload] The file to import, can be a ZIP archive or a multi-objects YAML file
-     * @param {module:api/FlowsApi~importFlowsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<String>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<String>} and HTTP response
      */
-    importFlows(tenant, opts, callback) {
+    importFlowsWithHttpInfo(tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'tenant' is set
@@ -1077,27 +1248,42 @@ export default class FlowsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/flows/import', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listDistinctNamespaces operation.
-     * @callback module:api/FlowsApi~listDistinctNamespacesCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<String>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     *     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn't be imported is returned. 
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {File} opts.fileUpload The file to import, can be a ZIP archive or a multi-objects YAML file
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<String>}
      */
+    importFlows(tenant, opts) {
+      return this.importFlowsWithHttpInfo(tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * List all distinct namespaces
      * @param {String} tenant 
      * @param {Object} opts Optional parameters
      * @param {String} [q] A string filter
-     * @param {module:api/FlowsApi~listDistinctNamespacesCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<String>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<String>} and HTTP response
      */
-    listDistinctNamespaces(tenant, opts, callback) {
+    listDistinctNamespacesWithHttpInfo(tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'tenant' is set
@@ -1123,27 +1309,42 @@ export default class FlowsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/flows/distinct-namespaces', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listFlowRevisions operation.
-     * @callback module:api/FlowsApi~listFlowRevisionsCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/FlowWithSource>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List all distinct namespaces
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<String>}
      */
+    listDistinctNamespaces(tenant, opts) {
+      return this.listDistinctNamespacesWithHttpInfo(tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Get revisions for a flow
      * @param {String} namespace The flow namespace
      * @param {String} id The flow id
      * @param {String} tenant 
-     * @param {module:api/FlowsApi~listFlowRevisionsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/FlowWithSource>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/FlowWithSource>} and HTTP response
      */
-    listFlowRevisions(namespace, id, tenant, callback) {
+    listFlowRevisionsWithHttpInfo(namespace, id, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -1177,26 +1378,41 @@ export default class FlowsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/flows/{namespace}/{id}/revisions', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listFlowsByNamespace operation.
-     * @callback module:api/FlowsApi~listFlowsByNamespaceCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Flow>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get revisions for a flow
+     * @param {String} namespace The flow namespace
+     * @param {String} id The flow id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/FlowWithSource>}
      */
+    listFlowRevisions(namespace, id, tenant) {
+      return this.listFlowRevisionsWithHttpInfo(namespace, id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Retrieve all flows from a given namespace
      * @param {String} namespace Namespace to filter flows
      * @param {String} tenant 
-     * @param {module:api/FlowsApi~listFlowsByNamespaceCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Flow>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Flow>} and HTTP response
      */
-    listFlowsByNamespace(namespace, tenant, callback) {
+    listFlowsByNamespaceWithHttpInfo(namespace, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -1225,17 +1441,32 @@ export default class FlowsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/flows/{namespace}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchFlows operation.
-     * @callback module:api/FlowsApi~searchFlowsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsFlow} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Retrieve all flows from a given namespace
+     * @param {String} namespace Namespace to filter flows
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Flow>}
      */
+    listFlowsByNamespace(namespace, tenant) {
+      return this.listFlowsByNamespaceWithHttpInfo(namespace, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Search for flows
@@ -1245,14 +1476,9 @@ export default class FlowsApi {
      * @param {Object} opts Optional parameters
      * @param {Array.<String>} [sort] The sort of current page
      * @param {Array.<module:model/QueryFilter>} [filters] Filters
-     * @param {String} [q] A string filter
-     * @param {Array.<module:model/FlowScope>} [scope] The scope of the flows to include
-     * @param {String} [namespace] A namespace filter prefix
-     * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
-     * @param {module:api/FlowsApi~searchFlowsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsFlow}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsFlow} and HTTP response
      */
-    searchFlows(page, size, tenant, opts, callback) {
+    searchFlowsWithHttpInfo(page, size, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -1275,11 +1501,7 @@ export default class FlowsApi {
         'page': page,
         'size': size,
         'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
-        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv'),
-        'q': opts['q'],
-        'scope': this.apiClient.buildCollectionParam(opts['scope'], 'csv'),
-        'namespace': opts['namespace'],
-        'labels': this.apiClient.buildCollectionParam(opts['labels'], 'multi')
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
       };
       let headerParams = {
       };
@@ -1293,17 +1515,36 @@ export default class FlowsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/flows/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchFlowsBySourceCode operation.
-     * @callback module:api/FlowsApi~searchFlowsBySourceCodeCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsSearchResultFlow} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Search for flows
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsFlow}
      */
+    searchFlows(page, size, tenant, opts) {
+      return this.searchFlowsWithHttpInfo(page, size, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Search for flows source code
@@ -1314,10 +1555,9 @@ export default class FlowsApi {
      * @param {Array.<String>} [sort] The sort of current page
      * @param {String} [q] A string filter
      * @param {String} [namespace] A namespace filter prefix
-     * @param {module:api/FlowsApi~searchFlowsBySourceCodeCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsSearchResultFlow}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsSearchResultFlow} and HTTP response
      */
-    searchFlowsBySourceCode(page, size, tenant, opts, callback) {
+    searchFlowsBySourceCodeWithHttpInfo(page, size, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -1355,36 +1595,55 @@ export default class FlowsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/flows/source', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateFlow operation.
-     * @callback module:api/FlowsApi~updateFlowCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/UpdateFlow200Response} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Search for flows source code
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @param {String} opts.q A string filter
+     * @param {String} opts.namespace A namespace filter prefix
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsSearchResultFlow}
      */
+    searchFlowsBySourceCode(page, size, tenant, opts) {
+      return this.searchFlowsBySourceCodeWithHttpInfo(page, size, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Update a flow
-     * @param {String} id The flow id
      * @param {String} namespace The flow namespace
+     * @param {String} id The flow id
      * @param {String} tenant 
      * @param {String} body The flow source code
-     * @param {module:api/FlowsApi~updateFlowCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/UpdateFlow200Response}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/FlowWithSource} and HTTP response
      */
-    updateFlow(id, namespace, tenant, body, callback) {
+    updateFlowWithHttpInfo(namespace, id, tenant, body) {
       let postBody = body;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling updateFlow");
-      }
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
         throw new Error("Missing the required parameter 'namespace' when calling updateFlow");
+      }
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling updateFlow");
       }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -1396,8 +1655,8 @@ export default class FlowsApi {
       }
 
       let pathParams = {
-        'id': id,
         'namespace': namespace,
+        'id': id,
         'tenant': tenant
       };
       let queryParams = {
@@ -1410,49 +1669,65 @@ export default class FlowsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = ['application/x-yaml'];
       let accepts = ['application/json'];
-      let returnType = UpdateFlow200Response;
+      let returnType = FlowWithSource;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/flows/{namespace}/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateFlowsInNamespaceFromJson operation.
-     * @callback module:api/FlowsApi~updateFlowsInNamespaceFromJsonCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/UpdateFlowsInNamespaceFromJson200Response} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Update a flow
+     * @param {String} namespace The flow namespace
+     * @param {String} id The flow id
+     * @param {String} tenant 
+     * @param {String} body The flow source code
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/FlowWithSource}
      */
+    updateFlow(namespace, id, tenant, body) {
+      return this.updateFlowWithHttpInfo(namespace, id, tenant, body)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
-     * Update a complete namespace from json object
+     * Update a complete namespace from yaml source
      * All flow will be created / updated for this namespace. Flow that already created but not in `flows` will be deleted if the query delete is `true`
-     * @param {Boolean} _delete If missing flow should be deleted
      * @param {String} namespace The flow namespace
+     * @param {Boolean} _delete If missing flow should be deleted
      * @param {String} tenant 
-     * @param {Array.<module:model/Flow>} flow A list of flows
-     * @param {module:api/FlowsApi~updateFlowsInNamespaceFromJsonCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/UpdateFlowsInNamespaceFromJson200Response}
+     * @param {String} body A list of flows source code
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/FlowInterface>} and HTTP response
      */
-    updateFlowsInNamespaceFromJson(_delete, namespace, tenant, flow, callback) {
-      let postBody = flow;
-      // verify the required parameter '_delete' is set
-      if (_delete === undefined || _delete === null) {
-        throw new Error("Missing the required parameter '_delete' when calling updateFlowsInNamespaceFromJson");
-      }
+    updateFlowsInNamespaceWithHttpInfo(namespace, _delete, tenant, body) {
+      let postBody = body;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
-        throw new Error("Missing the required parameter 'namespace' when calling updateFlowsInNamespaceFromJson");
+        throw new Error("Missing the required parameter 'namespace' when calling updateFlowsInNamespace");
+      }
+      // verify the required parameter '_delete' is set
+      if (_delete === undefined || _delete === null) {
+        throw new Error("Missing the required parameter '_delete' when calling updateFlowsInNamespace");
       }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling updateFlowsInNamespaceFromJson");
+        throw new Error("Missing the required parameter 'tenant' when calling updateFlowsInNamespace");
       }
-      // verify the required parameter 'flow' is set
-      if (flow === undefined || flow === null) {
-        throw new Error("Missing the required parameter 'flow' when calling updateFlowsInNamespaceFromJson");
+      // verify the required parameter 'body' is set
+      if (body === undefined || body === null) {
+        throw new Error("Missing the required parameter 'body' when calling updateFlowsInNamespace");
       }
 
       let pathParams = {
@@ -1468,97 +1743,49 @@ export default class FlowsApi {
       };
 
       let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json', 'application/x-yaml'];
+      let contentTypes = ['application/x-yaml'];
       let accepts = ['application/json'];
-      let returnType = UpdateFlowsInNamespaceFromJson200Response;
+      let returnType = [FlowInterface];
       return this.apiClient.callApi(
         '/api/v1/{tenant}/flows/{namespace}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateTask operation.
-     * @callback module:api/FlowsApi~updateTaskCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Flow} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Update a single task on a flow
+     * Update a complete namespace from yaml source
+     * All flow will be created / updated for this namespace. Flow that already created but not in `flows` will be deleted if the query delete is `true`
      * @param {String} namespace The flow namespace
-     * @param {String} id The flow id
-     * @param {String} taskId The task id
+     * @param {Boolean} _delete If missing flow should be deleted
      * @param {String} tenant 
-     * @param {module:model/Task} task The task
-     * @param {module:api/FlowsApi~updateTaskCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Flow}
+     * @param {String} body A list of flows source code
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/FlowInterface>}
      */
-    updateTask(namespace, id, taskId, tenant, task, callback) {
-      let postBody = task;
-      // verify the required parameter 'namespace' is set
-      if (namespace === undefined || namespace === null) {
-        throw new Error("Missing the required parameter 'namespace' when calling updateTask");
-      }
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling updateTask");
-      }
-      // verify the required parameter 'taskId' is set
-      if (taskId === undefined || taskId === null) {
-        throw new Error("Missing the required parameter 'taskId' when calling updateTask");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling updateTask");
-      }
-      // verify the required parameter 'task' is set
-      if (task === undefined || task === null) {
-        throw new Error("Missing the required parameter 'task' when calling updateTask");
-      }
-
-      let pathParams = {
-        'namespace': namespace,
-        'id': id,
-        'taskId': taskId,
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = Flow;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/flows/{namespace}/{id}/{taskId}', 'PATCH',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
+    updateFlowsInNamespace(namespace, _delete, tenant, body) {
+      return this.updateFlowsInNamespaceWithHttpInfo(namespace, _delete, tenant, body)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
-    /**
-     * Callback function to receive the result of the validateFlows operation.
-     * @callback module:api/FlowsApi~validateFlowsCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/ValidateConstraintViolation>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
+
+
+
+
+
+
+
+
+            
 
     /**
      * Validate a list of flows
      * @param {String} tenant 
      * @param {String} body A list of flows source code in a single string
-     * @param {module:api/FlowsApi~validateFlowsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/ValidateConstraintViolation>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ValidateConstraintViolation>} and HTTP response
      */
-    validateFlows(tenant, body, callback) {
+    validateFlowsWithHttpInfo(tenant, body) {
       let postBody = body;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -1586,27 +1813,41 @@ export default class FlowsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/flows/validate', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the validateTask operation.
-     * @callback module:api/FlowsApi~validateTaskCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ValidateConstraintViolation} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Validate a list of flows
+     * @param {String} tenant 
+     * @param {String} body A list of flows source code in a single string
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ValidateConstraintViolation>}
      */
+    validateFlows(tenant, body) {
+      return this.validateFlowsWithHttpInfo(tenant, body)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Validate a task
      * @param {module:model/FlowControllerTaskValidationType} section The type of task
      * @param {String} tenant 
-     * @param {String} body A task definition that can be from tasks or triggers
-     * @param {module:api/FlowsApi~validateTaskCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ValidateConstraintViolation}
+     * @param {Object.<String, Object>} body A task definition that can be from tasks or triggers
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ValidateConstraintViolation} and HTTP response
      */
-    validateTask(section, tenant, body, callback) {
+    validateTaskWithHttpInfo(section, tenant, body) {
       let postBody = body;
       // verify the required parameter 'section' is set
       if (section === undefined || section === null) {
@@ -1639,26 +1880,41 @@ export default class FlowsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/flows/validate/task', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the validateTrigger operation.
-     * @callback module:api/FlowsApi~validateTriggerCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ValidateConstraintViolation} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Validate a task
+     * @param {module:model/FlowControllerTaskValidationType} section The type of task
+     * @param {String} tenant 
+     * @param {Object.<String, Object>} body A task definition that can be from tasks or triggers
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ValidateConstraintViolation}
      */
+    validateTask(section, tenant, body) {
+      return this.validateTaskWithHttpInfo(section, tenant, body)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Validate trigger
      * @param {String} tenant 
-     * @param {String} body The trigger
-     * @param {module:api/FlowsApi~validateTriggerCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ValidateConstraintViolation}
+     * @param {Object.<String, Object>} body The trigger
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ValidateConstraintViolation} and HTTP response
      */
-    validateTrigger(tenant, body, callback) {
+    validateTriggerWithHttpInfo(tenant, body) {
       let postBody = body;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -1686,9 +1942,28 @@ export default class FlowsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/flows/validate/trigger', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
+
+    /**
+     * Validate trigger
+     * @param {String} tenant 
+     * @param {Object.<String, Object>} body The trigger
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ValidateConstraintViolation}
+     */
+    validateTrigger(tenant, body) {
+      return this.validateTriggerWithHttpInfo(tenant, body)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
 
 
 }

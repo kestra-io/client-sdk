@@ -30,11 +30,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMUserControllerApiPatchRestrictedRequest.JSON_PROPERTY_RESTRICTED
 })
 @JsonTypeName("IAMUserController.ApiPatchRestrictedRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMUserControllerApiPatchRestrictedRequest {
   public static final String JSON_PROPERTY_RESTRICTED = "restricted";
-  @javax.annotation.Nonnull
-  private Boolean restricted;
+  @javax.annotation.Nonnull  private Boolean restricted;
 
   public IAMUserControllerApiPatchRestrictedRequest() {
   }
@@ -49,8 +48,7 @@ public class IAMUserControllerApiPatchRestrictedRequest {
    * Get restricted
    * @return restricted
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_RESTRICTED)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_RESTRICTED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getRestricted() {

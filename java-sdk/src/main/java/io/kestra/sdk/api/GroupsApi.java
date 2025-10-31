@@ -12,6 +12,13 @@
 
 package io.kestra.sdk.api;
 
+// Custom imports for injected code
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import reactor.core.publisher.Flux;
+import java.io.BufferedReader;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import io.kestra.sdk.internal.ApiException;
@@ -39,8 +46,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
-public class GroupsApi extends BaseApi {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")public class GroupsApi extends BaseApi {
 
   public GroupsApi() {
     super(Configuration.getDefaultApiClient());
@@ -60,9 +66,12 @@ public class GroupsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public IAMGroupControllerApiGroupMember addUserToGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String userId, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.addUserToGroup(id, userId, tenant, Collections.emptyMap());
+    return this.addUserToGroup(id, userId, tenant, Collections.emptyMap(), null);
   }
 
+  public IAMGroupControllerApiGroupMember addUserToGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String userId, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.addUserToGroup(id, userId, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Add a user to a group
@@ -74,7 +83,7 @@ public class GroupsApi extends BaseApi {
    * @return IAMGroupControllerApiGroupMember
    * @throws ApiException if fails to make API call
    */
-  public IAMGroupControllerApiGroupMember addUserToGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String userId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMGroupControllerApiGroupMember addUserToGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String userId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -104,7 +113,7 @@ public class GroupsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -141,6 +150,11 @@ public class GroupsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * List groups for autocomplete
    * 
@@ -150,9 +164,12 @@ public class GroupsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public List<ApiGroupSummary> autocompleteGroups(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiAutocomplete apiAutocomplete) throws ApiException {
-    return this.autocompleteGroups(tenant, apiAutocomplete, Collections.emptyMap());
+    return this.autocompleteGroups(tenant, apiAutocomplete, Collections.emptyMap(), null);
   }
 
+  public List<ApiGroupSummary> autocompleteGroups(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiAutocomplete apiAutocomplete, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.autocompleteGroups(tenant, apiAutocomplete, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * List groups for autocomplete
@@ -163,7 +180,7 @@ public class GroupsApi extends BaseApi {
    * @return List&lt;ApiGroupSummary&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<ApiGroupSummary> autocompleteGroups(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiAutocomplete apiAutocomplete, Map<String, String> additionalHeaders) throws ApiException {
+  public List<ApiGroupSummary> autocompleteGroups(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiAutocomplete apiAutocomplete, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = apiAutocomplete;
     
     // verify the required parameter 'tenant' is set
@@ -186,7 +203,7 @@ public class GroupsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -223,6 +240,11 @@ public class GroupsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Create a group
    * 
@@ -232,9 +254,12 @@ public class GroupsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public IAMGroupControllerApiGroupDetail createGroup(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMGroupControllerApiCreateGroupRequest iaMGroupControllerApiCreateGroupRequest) throws ApiException {
-    return this.createGroup(tenant, iaMGroupControllerApiCreateGroupRequest, Collections.emptyMap());
+    return this.createGroup(tenant, iaMGroupControllerApiCreateGroupRequest, Collections.emptyMap(), null);
   }
 
+  public IAMGroupControllerApiGroupDetail createGroup(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMGroupControllerApiCreateGroupRequest iaMGroupControllerApiCreateGroupRequest, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.createGroup(tenant, iaMGroupControllerApiCreateGroupRequest, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Create a group
@@ -245,7 +270,7 @@ public class GroupsApi extends BaseApi {
    * @return IAMGroupControllerApiGroupDetail
    * @throws ApiException if fails to make API call
    */
-  public IAMGroupControllerApiGroupDetail createGroup(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMGroupControllerApiCreateGroupRequest iaMGroupControllerApiCreateGroupRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMGroupControllerApiGroupDetail createGroup(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMGroupControllerApiCreateGroupRequest iaMGroupControllerApiCreateGroupRequest, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = iaMGroupControllerApiCreateGroupRequest;
     
     // verify the required parameter 'tenant' is set
@@ -268,7 +293,7 @@ public class GroupsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -305,6 +330,11 @@ public class GroupsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Delete a group
    * 
@@ -313,9 +343,12 @@ public class GroupsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public void deleteGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant) throws ApiException {
-    this.deleteGroup(id, tenant, Collections.emptyMap());
+    this.deleteGroup(id, tenant, Collections.emptyMap(), null);
   }
 
+  public void deleteGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  this.deleteGroup(id, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Delete a group
@@ -325,7 +358,7 @@ public class GroupsApi extends BaseApi {
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void deleteGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public void deleteGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -349,7 +382,7 @@ public class GroupsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -385,6 +418,11 @@ public class GroupsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Remove a user from a group
    * Removes the specified user from the given group. If the user has no other group bindings within the tenant, their access to the tenant will also be revoked.
@@ -395,9 +433,12 @@ public class GroupsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public IAMGroupControllerApiGroupMember deleteUserFromGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String userId, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.deleteUserFromGroup(id, userId, tenant, Collections.emptyMap());
+    return this.deleteUserFromGroup(id, userId, tenant, Collections.emptyMap(), null);
   }
 
+  public IAMGroupControllerApiGroupMember deleteUserFromGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String userId, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.deleteUserFromGroup(id, userId, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Remove a user from a group
@@ -409,7 +450,7 @@ public class GroupsApi extends BaseApi {
    * @return IAMGroupControllerApiGroupMember
    * @throws ApiException if fails to make API call
    */
-  public IAMGroupControllerApiGroupMember deleteUserFromGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String userId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMGroupControllerApiGroupMember deleteUserFromGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String userId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -439,7 +480,7 @@ public class GroupsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -476,6 +517,11 @@ public class GroupsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Retrieve a group
    * Retrieves details of a specific group by its ID within the current tenant.
@@ -485,9 +531,12 @@ public class GroupsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public IAMGroupControllerApiGroupDetail getGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.getGroup(id, tenant, Collections.emptyMap());
+    return this.getGroup(id, tenant, Collections.emptyMap(), null);
   }
 
+  public IAMGroupControllerApiGroupDetail getGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.getGroup(id, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Retrieve a group
@@ -498,7 +547,7 @@ public class GroupsApi extends BaseApi {
    * @return IAMGroupControllerApiGroupDetail
    * @throws ApiException if fails to make API call
    */
-  public IAMGroupControllerApiGroupDetail getGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMGroupControllerApiGroupDetail getGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -522,7 +571,7 @@ public class GroupsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -559,6 +608,11 @@ public class GroupsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * List groups by ids
    * 
@@ -568,9 +622,12 @@ public class GroupsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public List<ApiGroupSummary> listGroupIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiIds apiIds) throws ApiException {
-    return this.listGroupIds(tenant, apiIds, Collections.emptyMap());
+    return this.listGroupIds(tenant, apiIds, Collections.emptyMap(), null);
   }
 
+  public List<ApiGroupSummary> listGroupIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiIds apiIds, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.listGroupIds(tenant, apiIds, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * List groups by ids
@@ -581,7 +638,7 @@ public class GroupsApi extends BaseApi {
    * @return List&lt;ApiGroupSummary&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<ApiGroupSummary> listGroupIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiIds apiIds, Map<String, String> additionalHeaders) throws ApiException {
+  public List<ApiGroupSummary> listGroupIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiIds apiIds, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = apiIds;
     
     // verify the required parameter 'tenant' is set
@@ -604,7 +661,7 @@ public class GroupsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -641,6 +698,11 @@ public class GroupsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Search for users in a group
    * 
@@ -654,9 +716,12 @@ public class GroupsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public PagedResultsIAMGroupControllerApiGroupMember searchGroupMembers(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort) throws ApiException {
-    return this.searchGroupMembers(id, page, size, tenant, q, sort, Collections.emptyMap());
+    return this.searchGroupMembers(id, page, size, tenant, q, sort, Collections.emptyMap(), null);
   }
 
+  public PagedResultsIAMGroupControllerApiGroupMember searchGroupMembers(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.searchGroupMembers(id, page, size, tenant, q, sort, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Search for users in a group
@@ -671,7 +736,7 @@ public class GroupsApi extends BaseApi {
    * @return PagedResultsIAMGroupControllerApiGroupMember
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsIAMGroupControllerApiGroupMember searchGroupMembers(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsIAMGroupControllerApiGroupMember searchGroupMembers(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -705,7 +770,7 @@ public class GroupsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
@@ -746,6 +811,11 @@ public class GroupsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Search for groups
    * 
@@ -758,9 +828,12 @@ public class GroupsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public PagedResultsApiGroupSummary searchGroups(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort) throws ApiException {
-    return this.searchGroups(page, size, tenant, q, sort, Collections.emptyMap());
+    return this.searchGroups(page, size, tenant, q, sort, Collections.emptyMap(), null);
   }
 
+  public PagedResultsApiGroupSummary searchGroups(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.searchGroups(page, size, tenant, q, sort, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Search for groups
@@ -774,7 +847,7 @@ public class GroupsApi extends BaseApi {
    * @return PagedResultsApiGroupSummary
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsApiGroupSummary searchGroups(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsApiGroupSummary searchGroups(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'page' is set
@@ -802,7 +875,7 @@ public class GroupsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
@@ -843,6 +916,11 @@ public class GroupsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Update a user&#39;s membership type in a group
    * Allows a group owner or an authorized user to change the role of a user within a group to OWNER or MEMBER.
@@ -854,9 +932,12 @@ public class GroupsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public IAMGroupControllerApiGroupMember setUserMembershipForGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String userId, @javax.annotation.Nonnull GroupIdentifierMembership membership, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.setUserMembershipForGroup(id, userId, membership, tenant, Collections.emptyMap());
+    return this.setUserMembershipForGroup(id, userId, membership, tenant, Collections.emptyMap(), null);
   }
 
+  public IAMGroupControllerApiGroupMember setUserMembershipForGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String userId, @javax.annotation.Nonnull GroupIdentifierMembership membership, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.setUserMembershipForGroup(id, userId, membership, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Update a user&#39;s membership type in a group
@@ -869,7 +950,7 @@ public class GroupsApi extends BaseApi {
    * @return IAMGroupControllerApiGroupMember
    * @throws ApiException if fails to make API call
    */
-  public IAMGroupControllerApiGroupMember setUserMembershipForGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String userId, @javax.annotation.Nonnull GroupIdentifierMembership membership, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMGroupControllerApiGroupMember setUserMembershipForGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String userId, @javax.annotation.Nonnull GroupIdentifierMembership membership, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -904,7 +985,7 @@ public class GroupsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("membership", membership));
     
@@ -942,6 +1023,11 @@ public class GroupsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Update a group
    * 
@@ -952,9 +1038,12 @@ public class GroupsApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public IAMGroupControllerApiGroupDetail updateGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMGroupControllerApiUpdateGroupRequest iaMGroupControllerApiUpdateGroupRequest) throws ApiException {
-    return this.updateGroup(id, tenant, iaMGroupControllerApiUpdateGroupRequest, Collections.emptyMap());
+    return this.updateGroup(id, tenant, iaMGroupControllerApiUpdateGroupRequest, Collections.emptyMap(), null);
   }
 
+  public IAMGroupControllerApiGroupDetail updateGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMGroupControllerApiUpdateGroupRequest iaMGroupControllerApiUpdateGroupRequest, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.updateGroup(id, tenant, iaMGroupControllerApiUpdateGroupRequest, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Update a group
@@ -966,7 +1055,7 @@ public class GroupsApi extends BaseApi {
    * @return IAMGroupControllerApiGroupDetail
    * @throws ApiException if fails to make API call
    */
-  public IAMGroupControllerApiGroupDetail updateGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMGroupControllerApiUpdateGroupRequest iaMGroupControllerApiUpdateGroupRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMGroupControllerApiGroupDetail updateGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMGroupControllerApiUpdateGroupRequest iaMGroupControllerApiUpdateGroupRequest, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = iaMGroupControllerApiUpdateGroupRequest;
     
     // verify the required parameter 'id' is set
@@ -995,7 +1084,7 @@ public class GroupsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -1072,4 +1161,9 @@ public class GroupsApi extends BaseApi {
         returnType
     );
   }
+
+
+
+
+
 }

@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | the identifier of this service account. | 
+**Id** | Pointer to **string** | the identifier of this service account. | [optional] 
 **Name** | **string** | the name of this service account. | 
-**Description** | **string** | the description of this service account. | 
-**Groups** | [**[]IAMServiceAccountControllerApiGroup**](IAMServiceAccountControllerApiGroup.md) |  | 
-**SuperAdmin** | **bool** |  | 
+**Description** | Pointer to **string** | the description of this service account. | [optional] 
+**Groups** | Pointer to [**[]IAMServiceAccountControllerApiGroup**](IAMServiceAccountControllerApiGroup.md) |  | [optional] 
+**SuperAdmin** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
 ### NewIAMServiceAccountControllerApiServiceAccountResponse
 
-`func NewIAMServiceAccountControllerApiServiceAccountResponse(id string, name string, description string, groups []IAMServiceAccountControllerApiGroup, superAdmin bool, ) *IAMServiceAccountControllerApiServiceAccountResponse`
+`func NewIAMServiceAccountControllerApiServiceAccountResponse(name string, ) *IAMServiceAccountControllerApiServiceAccountResponse`
 
 NewIAMServiceAccountControllerApiServiceAccountResponse instantiates a new IAMServiceAccountControllerApiServiceAccountResponse object
 This constructor will assign default values to properties that have it defined,
@@ -48,6 +48,11 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
+### HasId
+
+`func (o *IAMServiceAccountControllerApiServiceAccountResponse) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetName
 
@@ -88,6 +93,11 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
+### HasDescription
+
+`func (o *IAMServiceAccountControllerApiServiceAccountResponse) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetGroups
 
@@ -108,6 +118,11 @@ and a boolean to check if the value has been set.
 
 SetGroups sets Groups field to given value.
 
+### HasGroups
+
+`func (o *IAMServiceAccountControllerApiServiceAccountResponse) HasGroups() bool`
+
+HasGroups returns a boolean if a field has been set.
 
 ### GetSuperAdmin
 
@@ -128,6 +143,11 @@ and a boolean to check if the value has been set.
 
 SetSuperAdmin sets SuperAdmin field to given value.
 
+### HasSuperAdmin
+
+`func (o *IAMServiceAccountControllerApiServiceAccountResponse) HasSuperAdmin() bool`
+
+HasSuperAdmin returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

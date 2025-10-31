@@ -32,15 +32,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   SortRequest.JSON_PROPERTY_SORT_BY,
   SortRequest.JSON_PROPERTY_SORT_ORDER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class SortRequest {
   public static final String JSON_PROPERTY_SORT_BY = "sortBy";
-  @javax.annotation.Nullable
-  private AttributeReference sortBy;
+  @javax.annotation.Nullable  private AttributeReference sortBy;
 
   public static final String JSON_PROPERTY_SORT_ORDER = "sortOrder";
-  @javax.annotation.Nullable
-  private SortOrder sortOrder;
+  @javax.annotation.Nullable  private SortOrder sortOrder;
 
   public SortRequest() {
   }
@@ -55,8 +53,7 @@ public class SortRequest {
    * Get sortBy
    * @return sortBy
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SORT_BY)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SORT_BY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public AttributeReference getSortBy() {
@@ -80,8 +77,7 @@ public class SortRequest {
    * Get sortOrder
    * @return sortOrder
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SORT_ORDER)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SORT_ORDER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public SortOrder getSortOrder() {

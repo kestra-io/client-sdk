@@ -31,15 +31,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ResourceTypeSchemaExtensionConfiguration.JSON_PROPERTY_REQUIRED
 })
 @JsonTypeName("ResourceType.SchemaExtensionConfiguration")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ResourceTypeSchemaExtensionConfiguration {
   public static final String JSON_PROPERTY_SCHEMA_URN = "schemaUrn";
-  @javax.annotation.Nullable
-  private String schemaUrn;
+  @javax.annotation.Nullable  private String schemaUrn;
 
   public static final String JSON_PROPERTY_REQUIRED = "required";
-  @javax.annotation.Nullable
-  private Boolean required;
+  @javax.annotation.Nullable  private Boolean required;
 
   public ResourceTypeSchemaExtensionConfiguration() {
   }
@@ -54,8 +52,7 @@ public class ResourceTypeSchemaExtensionConfiguration {
    * Get schemaUrn
    * @return schemaUrn
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SCHEMA_URN)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SCHEMA_URN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSchemaUrn() {
@@ -79,8 +76,7 @@ public class ResourceTypeSchemaExtensionConfiguration {
    * Get required
    * @return required
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_REQUIRED)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REQUIRED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getRequired() {

@@ -30,7 +30,9 @@ public enum WorkerTaskRestartStrategy {
   
   IMMEDIATELY("IMMEDIATELY"),
   
-  AFTER_TERMINATION_GRACE_PERIOD("AFTER_TERMINATION_GRACE_PERIOD");
+  AFTER_TERMINATION_GRACE_PERIOD("AFTER_TERMINATION_GRACE_PERIOD"),
+  
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;
 
@@ -55,7 +57,7 @@ public enum WorkerTaskRestartStrategy {
         return b;
       }
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    return UNKNOWN_DEFAULT_OPEN_API;
   }
 }
 

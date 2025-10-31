@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**uid** | **String** |  | 
-**name** | **String** |  | 
-**description** | **String** |  | 
-**type** | **String** |  | 
-**tags** | **[String]** |  | 
+**uid** | **String** |  | [optional] 
+**name** | **String** |  | [optional] 
+**description** | **String** |  | [optional] 
+**type** | **String** |  | [optional] 
+**tags** | **[String]** |  | [optional] 
 
 

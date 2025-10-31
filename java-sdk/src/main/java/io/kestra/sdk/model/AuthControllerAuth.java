@@ -32,22 +32,23 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   AuthControllerAuth.JSON_PROPERTY_LOGIN_PASSWORD,
   AuthControllerAuth.JSON_PROPERTY_MAILS_ENABLED,
+  AuthControllerAuth.JSON_PROPERTY_PASSWORDLESS,
   AuthControllerAuth.JSON_PROPERTY_OAUTHS
 })
 @JsonTypeName("AuthController.Auth")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AuthControllerAuth {
   public static final String JSON_PROPERTY_LOGIN_PASSWORD = "loginPassword";
-  @javax.annotation.Nullable
-  private Boolean loginPassword;
+  @javax.annotation.Nullable  private Boolean loginPassword;
 
   public static final String JSON_PROPERTY_MAILS_ENABLED = "mailsEnabled";
-  @javax.annotation.Nullable
-  private Boolean mailsEnabled;
+  @javax.annotation.Nullable  private Boolean mailsEnabled;
+
+  public static final String JSON_PROPERTY_PASSWORDLESS = "passwordless";
+  @javax.annotation.Nullable  private Boolean passwordless;
 
   public static final String JSON_PROPERTY_OAUTHS = "oauths";
-  @javax.annotation.Nullable
-  private List<String> oauths = new ArrayList<>();
+  @javax.annotation.Nullable  private List<String> oauths = new ArrayList<>();
 
   public AuthControllerAuth() {
   }
@@ -62,8 +63,7 @@ public class AuthControllerAuth {
    * Get loginPassword
    * @return loginPassword
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LOGIN_PASSWORD)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LOGIN_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getLoginPassword() {
@@ -87,8 +87,7 @@ public class AuthControllerAuth {
    * Get mailsEnabled
    * @return mailsEnabled
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_MAILS_ENABLED)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MAILS_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getMailsEnabled() {
@@ -100,6 +99,30 @@ public class AuthControllerAuth {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMailsEnabled(@javax.annotation.Nullable Boolean mailsEnabled) {
     this.mailsEnabled = mailsEnabled;
+  }
+
+  public AuthControllerAuth passwordless(@javax.annotation.Nullable Boolean passwordless) {
+    
+    this.passwordless = passwordless;
+    return this;
+  }
+
+  /**
+   * Get passwordless
+   * @return passwordless
+   */
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PASSWORDLESS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getPasswordless() {
+    return passwordless;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PASSWORDLESS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPasswordless(@javax.annotation.Nullable Boolean passwordless) {
+    this.passwordless = passwordless;
   }
 
   public AuthControllerAuth oauths(@javax.annotation.Nullable List<String> oauths) {
@@ -120,8 +143,7 @@ public class AuthControllerAuth {
    * Get oauths
    * @return oauths
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_OAUTHS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OAUTHS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getOauths() {
@@ -146,12 +168,13 @@ public class AuthControllerAuth {
     AuthControllerAuth authControllerAuth = (AuthControllerAuth) o;
     return Objects.equals(this.loginPassword, authControllerAuth.loginPassword) &&
         Objects.equals(this.mailsEnabled, authControllerAuth.mailsEnabled) &&
+        Objects.equals(this.passwordless, authControllerAuth.passwordless) &&
         Objects.equals(this.oauths, authControllerAuth.oauths);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(loginPassword, mailsEnabled, oauths);
+    return Objects.hash(loginPassword, mailsEnabled, passwordless, oauths);
   }
 
   @Override
@@ -160,6 +183,7 @@ public class AuthControllerAuth {
     sb.append("class AuthControllerAuth {\n");
     sb.append("    loginPassword: ").append(toIndentedString(loginPassword)).append("\n");
     sb.append("    mailsEnabled: ").append(toIndentedString(mailsEnabled)).append("\n");
+    sb.append("    passwordless: ").append(toIndentedString(passwordless)).append("\n");
     sb.append("    oauths: ").append(toIndentedString(oauths)).append("\n");
     sb.append("}");
     return sb.toString();

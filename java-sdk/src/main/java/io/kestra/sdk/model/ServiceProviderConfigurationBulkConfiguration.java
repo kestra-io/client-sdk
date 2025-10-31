@@ -32,19 +32,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ServiceProviderConfigurationBulkConfiguration.JSON_PROPERTY_MAX_PAYLOAD_SIZE
 })
 @JsonTypeName("ServiceProviderConfiguration.BulkConfiguration")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ServiceProviderConfigurationBulkConfiguration {
   public static final String JSON_PROPERTY_SUPPORTED = "supported";
-  @javax.annotation.Nullable
-  private Boolean supported;
+  @javax.annotation.Nullable  private Boolean supported;
 
   public static final String JSON_PROPERTY_MAX_OPERATIONS = "maxOperations";
-  @javax.annotation.Nullable
-  private Integer maxOperations;
+  @javax.annotation.Nullable  private Integer maxOperations;
 
   public static final String JSON_PROPERTY_MAX_PAYLOAD_SIZE = "maxPayloadSize";
-  @javax.annotation.Nullable
-  private Integer maxPayloadSize;
+  @javax.annotation.Nullable  private Integer maxPayloadSize;
 
   public ServiceProviderConfigurationBulkConfiguration() {
   }
@@ -59,8 +56,7 @@ public class ServiceProviderConfigurationBulkConfiguration {
    * Get supported
    * @return supported
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SUPPORTED)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPPORTED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getSupported() {
@@ -84,8 +80,7 @@ public class ServiceProviderConfigurationBulkConfiguration {
    * Get maxOperations
    * @return maxOperations
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_MAX_OPERATIONS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MAX_OPERATIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getMaxOperations() {
@@ -109,8 +104,7 @@ public class ServiceProviderConfigurationBulkConfiguration {
    * Get maxPayloadSize
    * @return maxPayloadSize
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_MAX_PAYLOAD_SIZE)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MAX_PAYLOAD_SIZE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getMaxPayloadSize() {

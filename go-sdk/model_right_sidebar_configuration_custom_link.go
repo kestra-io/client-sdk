@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the RightSidebarConfigurationCustomLink type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &RightSidebarConfigurationCustomLink{}
 
 // RightSidebarConfigurationCustomLink struct for RightSidebarConfigurationCustomLink
 type RightSidebarConfigurationCustomLink struct {
-	Title                string `json:"title"`
-	Url                  string `json:"url"`
+	Title                *string `json:"title,omitempty"`
+	Url                  *string `json:"url,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,10 +30,8 @@ type _RightSidebarConfigurationCustomLink RightSidebarConfigurationCustomLink
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRightSidebarConfigurationCustomLink(title string, url string) *RightSidebarConfigurationCustomLink {
+func NewRightSidebarConfigurationCustomLink() *RightSidebarConfigurationCustomLink {
 	this := RightSidebarConfigurationCustomLink{}
-	this.Title = title
-	this.Url = url
 	return &this
 }
 
@@ -46,52 +43,68 @@ func NewRightSidebarConfigurationCustomLinkWithDefaults() *RightSidebarConfigura
 	return &this
 }
 
-// GetTitle returns the Title field value
+// GetTitle returns the Title field value if set, zero value otherwise.
 func (o *RightSidebarConfigurationCustomLink) GetTitle() string {
-	if o == nil {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
-
-	return o.Title
+	return *o.Title
 }
 
-// GetTitleOk returns a tuple with the Title field value
+// GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RightSidebarConfigurationCustomLink) GetTitleOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
-	return &o.Title, true
+	return o.Title, true
 }
 
-// SetTitle sets field value
+// HasTitle returns a boolean if a field has been set.
+func (o *RightSidebarConfigurationCustomLink) HasTitle() bool {
+	if o != nil && !IsNil(o.Title) {
+		return true
+	}
+
+	return false
+}
+
+// SetTitle gets a reference to the given string and assigns it to the Title field.
 func (o *RightSidebarConfigurationCustomLink) SetTitle(v string) {
-	o.Title = v
+	o.Title = &v
 }
 
-// GetUrl returns the Url field value
+// GetUrl returns the Url field value if set, zero value otherwise.
 func (o *RightSidebarConfigurationCustomLink) GetUrl() string {
-	if o == nil {
+	if o == nil || IsNil(o.Url) {
 		var ret string
 		return ret
 	}
-
-	return o.Url
+	return *o.Url
 }
 
-// GetUrlOk returns a tuple with the Url field value
+// GetUrlOk returns a tuple with the Url field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RightSidebarConfigurationCustomLink) GetUrlOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Url) {
 		return nil, false
 	}
-	return &o.Url, true
+	return o.Url, true
 }
 
-// SetUrl sets field value
+// HasUrl returns a boolean if a field has been set.
+func (o *RightSidebarConfigurationCustomLink) HasUrl() bool {
+	if o != nil && !IsNil(o.Url) {
+		return true
+	}
+
+	return false
+}
+
+// SetUrl gets a reference to the given string and assigns it to the Url field.
 func (o *RightSidebarConfigurationCustomLink) SetUrl(v string) {
-	o.Url = v
+	o.Url = &v
 }
 
 func (o RightSidebarConfigurationCustomLink) MarshalJSON() ([]byte, error) {
@@ -104,8 +117,12 @@ func (o RightSidebarConfigurationCustomLink) MarshalJSON() ([]byte, error) {
 
 func (o RightSidebarConfigurationCustomLink) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["title"] = o.Title
-	toSerialize["url"] = o.Url
+	if !IsNil(o.Title) {
+		toSerialize["title"] = o.Title
+	}
+	if !IsNil(o.Url) {
+		toSerialize["url"] = o.Url
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -115,28 +132,6 @@ func (o RightSidebarConfigurationCustomLink) ToMap() (map[string]interface{}, er
 }
 
 func (o *RightSidebarConfigurationCustomLink) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"title",
-		"url",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varRightSidebarConfigurationCustomLink := _RightSidebarConfigurationCustomLink{}
 
 	err = json.Unmarshal(data, &varRightSidebarConfigurationCustomLink)

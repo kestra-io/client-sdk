@@ -14,10 +14,10 @@
 |**taskRunId** | **String** |  |  [optional] |
 |**attemptNumber** | **Integer** |  |  [optional] |
 |**triggerId** | **String** |  |  [optional] |
-|**timestamp** | **OffsetDateTime** |  |  |
-|**level** | **Level** |  |  |
-|**thread** | **String** |  |  |
-|**message** | **String** |  |  |
+|**timestamp** | **OffsetDateTime** |  |  [optional] |
+|**level** | **Level** |  |  [optional] |
+|**thread** | **String** |  |  [optional] |
+|**message** | **String** |  |  [optional] |
 |**deleted** | **Boolean** |  |  |
 |**executionKind** | **ExecutionKind** |  |  [optional] |
 

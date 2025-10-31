@@ -8,7 +8,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**name** | **String** |  |  |
-|**value** | **Double** |  |  |
+|**value** | **Double** |  |  [optional] |
 |**date** | **OffsetDateTime** |  |  |
 
 

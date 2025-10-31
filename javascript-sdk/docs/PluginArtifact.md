@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**groupId** | **String** |  | 
-**artifactId** | **String** |  | 
-**extension** | **String** |  | 
-**classifier** | **String** |  | 
-**version** | **String** |  | 
-**uri** | **String** |  | 
+**groupId** | **String** |  | [optional] 
+**artifactId** | **String** |  | [optional] 
+**extension** | **String** |  | [optional] 
+**classifier** | **String** |  | [optional] 
+**version** | **String** |  | [optional] 
+**uri** | **String** |  | [optional] 
 
 

@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The InstanceControllerApiCreateOrUpdateWorkerGroupRequest model module.
  * @module model/InstanceControllerApiCreateOrUpdateWorkerGroupRequest
- * @version 1.0.0
+ * @version v1.0.5
  */
 class InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
     /**
@@ -24,12 +24,10 @@ class InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
      * ApiCreateWorkerGroupRequest.
      * @alias module:model/InstanceControllerApiCreateOrUpdateWorkerGroupRequest
      * @param key {String} The key of the worker group.
-     * @param description {String} The description of the worker group.
-     * @param allowedTenants {Array.<String>} 
      */
-    constructor(key, description, allowedTenants) { 
+    constructor(key) { 
         
-        InstanceControllerApiCreateOrUpdateWorkerGroupRequest.initialize(this, key, description, allowedTenants);
+        InstanceControllerApiCreateOrUpdateWorkerGroupRequest.initialize(this, key);
     }
 
     /**
@@ -37,10 +35,8 @@ class InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, key, description, allowedTenants) { 
+    static initialize(obj, key) { 
         obj['key'] = key;
-        obj['description'] = description;
-        obj['allowedTenants'] = allowedTenants;
     }
 
     /**
@@ -98,7 +94,7 @@ class InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
 
 }
 
-InstanceControllerApiCreateOrUpdateWorkerGroupRequest.RequiredProperties = ["key", "description", "allowedTenants"];
+InstanceControllerApiCreateOrUpdateWorkerGroupRequest.RequiredProperties = ["key"];
 
 /**
  * The key of the worker group.

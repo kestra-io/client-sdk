@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Plugins** | **[]string** |  | 
+**Plugins** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
 ### NewInstanceControllerApiPluginListRequest
 
-`func NewInstanceControllerApiPluginListRequest(plugins []string, ) *InstanceControllerApiPluginListRequest`
+`func NewInstanceControllerApiPluginListRequest() *InstanceControllerApiPluginListRequest`
 
 NewInstanceControllerApiPluginListRequest instantiates a new InstanceControllerApiPluginListRequest object
 This constructor will assign default values to properties that have it defined,
@@ -44,6 +44,11 @@ and a boolean to check if the value has been set.
 
 SetPlugins sets Plugins field to given value.
 
+### HasPlugins
+
+`func (o *InstanceControllerApiPluginListRequest) HasPlugins() bool`
+
+HasPlugins returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

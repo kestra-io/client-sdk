@@ -16,9 +16,8 @@ import AbstractFlow from './AbstractFlow';
 import AbstractTrigger from './AbstractTrigger';
 import Concurrency from './Concurrency';
 import Flow from './Flow';
-import FlowWithSourceAllOfLabels from './FlowWithSourceAllOfLabels';
 import InputObject from './InputObject';
-import Listener from './Listener';
+import Label from './Label';
 import Output from './Output';
 import PluginDefault from './PluginDefault';
 import SLA from './SLA';
@@ -28,7 +27,7 @@ import WorkerGroup from './WorkerGroup';
 /**
  * The FlowWithSource model module.
  * @module model/FlowWithSource
- * @version 1.0.0
+ * @version v1.0.5
  */
 class FlowWithSource {
     /**
@@ -95,10 +94,10 @@ class FlowWithSource {
                 obj['disabled'] = ApiClient.convertToType(data['disabled'], 'Boolean');
             }
             if (data.hasOwnProperty('labels')) {
-                obj['labels'] = FlowWithSourceAllOfLabels.constructFromObject(data['labels']);
+                obj['labels'] = ApiClient.convertToType(data['labels'], [Label]);
             }
             if (data.hasOwnProperty('variables')) {
-                obj['variables'] = ApiClient.convertToType(data['variables'], {'String': Object});
+                obj['variables'] = ApiClient.convertToType(data['variables'], Object);
             }
             if (data.hasOwnProperty('workerGroup')) {
                 obj['workerGroup'] = WorkerGroup.constructFromObject(data['workerGroup']);
@@ -109,17 +108,11 @@ class FlowWithSource {
             if (data.hasOwnProperty('finally')) {
                 obj['finally'] = ApiClient.convertToType(data['finally'], [Task]);
             }
-            if (data.hasOwnProperty('taskDefaults')) {
-                obj['taskDefaults'] = ApiClient.convertToType(data['taskDefaults'], [PluginDefault]);
-            }
             if (data.hasOwnProperty('tasks')) {
                 obj['tasks'] = ApiClient.convertToType(data['tasks'], [Task]);
             }
             if (data.hasOwnProperty('errors')) {
                 obj['errors'] = ApiClient.convertToType(data['errors'], [Task]);
-            }
-            if (data.hasOwnProperty('listeners')) {
-                obj['listeners'] = ApiClient.convertToType(data['listeners'], [Listener]);
             }
             if (data.hasOwnProperty('afterExecution')) {
                 obj['afterExecution'] = ApiClient.convertToType(data['afterExecution'], [Task]);
@@ -187,9 +180,15 @@ class FlowWithSource {
                 Output.validateJSON(item);
             };
         }
-        // validate the optional field `labels`
         if (data['labels']) { // data not null
-          FlowWithSourceAllOfLabels.validateJSON(data['labels']);
+            // ensure the json data is an array
+            if (!Array.isArray(data['labels'])) {
+                throw new Error("Expected the field `labels` to be an array in the JSON data but got " + data['labels']);
+            }
+            // validate the optional field `labels` (array)
+            for (const item of data['labels']) {
+                Label.validateJSON(item);
+            };
         }
         // validate the optional field `workerGroup`
         if (data['workerGroup']) { // data not null
@@ -203,16 +202,6 @@ class FlowWithSource {
             // validate the optional field `finally` (array)
             for (const item of data['finally']) {
                 Task.validateJSON(item);
-            };
-        }
-        if (data['taskDefaults']) { // data not null
-            // ensure the json data is an array
-            if (!Array.isArray(data['taskDefaults'])) {
-                throw new Error("Expected the field `taskDefaults` to be an array in the JSON data but got " + data['taskDefaults']);
-            }
-            // validate the optional field `taskDefaults` (array)
-            for (const item of data['taskDefaults']) {
-                PluginDefault.validateJSON(item);
             };
         }
         if (data['tasks']) { // data not null
@@ -233,16 +222,6 @@ class FlowWithSource {
             // validate the optional field `errors` (array)
             for (const item of data['errors']) {
                 Task.validateJSON(item);
-            };
-        }
-        if (data['listeners']) { // data not null
-            // ensure the json data is an array
-            if (!Array.isArray(data['listeners'])) {
-                throw new Error("Expected the field `listeners` to be an array in the JSON data but got " + data['listeners']);
-            }
-            // validate the optional field `listeners` (array)
-            for (const item of data['listeners']) {
-                Listener.validateJSON(item);
             };
         }
         if (data['afterExecution']) { // data not null
@@ -335,12 +314,13 @@ FlowWithSource.prototype['outputs'] = undefined;
 FlowWithSource.prototype['disabled'] = undefined;
 
 /**
- * @member {module:model/FlowWithSourceAllOfLabels} labels
+ * Labels as a list of Label (key/value pairs) or as a map of string to string.
+ * @member {Array.<module:model/Label>} labels
  */
 FlowWithSource.prototype['labels'] = undefined;
 
 /**
- * @member {Object.<String, Object>} variables
+ * @member {Object} variables
  */
 FlowWithSource.prototype['variables'] = undefined;
 
@@ -360,11 +340,6 @@ FlowWithSource.prototype['deleted'] = undefined;
 FlowWithSource.prototype['finally'] = undefined;
 
 /**
- * @member {Array.<module:model/PluginDefault>} taskDefaults
- */
-FlowWithSource.prototype['taskDefaults'] = undefined;
-
-/**
  * @member {Array.<module:model/Task>} tasks
  */
 FlowWithSource.prototype['tasks'] = undefined;
@@ -373,11 +348,6 @@ FlowWithSource.prototype['tasks'] = undefined;
  * @member {Array.<module:model/Task>} errors
  */
 FlowWithSource.prototype['errors'] = undefined;
-
-/**
- * @member {Array.<module:model/Listener>} listeners
- */
-FlowWithSource.prototype['listeners'] = undefined;
 
 /**
  * @member {Array.<module:model/Task>} afterExecution
@@ -441,11 +411,12 @@ Flow.prototype['outputs'] = undefined;
  */
 Flow.prototype['disabled'] = undefined;
 /**
- * @member {module:model/FlowAllOfLabels} labels
+ * Labels as a list of Label (key/value pairs) or as a map of string to string.
+ * @member {Array.<module:model/Label>} labels
  */
 Flow.prototype['labels'] = undefined;
 /**
- * @member {Object.<String, Object>} variables
+ * @member {Object} variables
  */
 Flow.prototype['variables'] = undefined;
 /**
@@ -461,10 +432,6 @@ Flow.prototype['deleted'] = undefined;
  */
 Flow.prototype['finally'] = undefined;
 /**
- * @member {Array.<module:model/PluginDefault>} taskDefaults
- */
-Flow.prototype['taskDefaults'] = undefined;
-/**
  * @member {Array.<module:model/Task>} tasks
  */
 Flow.prototype['tasks'] = undefined;
@@ -472,10 +439,6 @@ Flow.prototype['tasks'] = undefined;
  * @member {Array.<module:model/Task>} errors
  */
 Flow.prototype['errors'] = undefined;
-/**
- * @member {Array.<module:model/Listener>} listeners
- */
-Flow.prototype['listeners'] = undefined;
 /**
  * @member {Array.<module:model/Task>} afterExecution
  */
@@ -530,11 +493,12 @@ AbstractFlow.prototype['outputs'] = undefined;
  */
 AbstractFlow.prototype['disabled'] = undefined;
 /**
- * @member {module:model/AbstractFlowLabels} labels
+ * Labels as a list of Label (key/value pairs) or as a map of string to string.
+ * @member {Array.<module:model/Label>} labels
  */
 AbstractFlow.prototype['labels'] = undefined;
 /**
- * @member {Object.<String, Object>} variables
+ * @member {Object} variables
  */
 AbstractFlow.prototype['variables'] = undefined;
 /**

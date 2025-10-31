@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**flow** | **String** |  | 
-**namespace** | **String** |  | 
+**flow** | **String** |  | [optional] 
+**namespace** | **String** |  | [optional] 
 **index** | **Number** |  | 
-**constraints** | **String** |  | 
-**outdated** | **Boolean** |  | 
-**deprecationPaths** | **[String]** |  | 
-**warnings** | **[String]** |  | 
-**infos** | **[String]** |  | 
+**constraints** | **String** |  | [optional] 
+**outdated** | **Boolean** |  | [optional] 
+**deprecationPaths** | **[String]** |  | [optional] 
+**warnings** | **[String]** |  | [optional] 
+**infos** | **[String]** |  | [optional] 
 
 

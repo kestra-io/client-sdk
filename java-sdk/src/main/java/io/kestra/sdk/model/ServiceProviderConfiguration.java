@@ -54,67 +54,52 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ServiceProviderConfiguration.JSON_PROPERTY_ETAG,
   ServiceProviderConfiguration.JSON_PROPERTY_AUTHENTICATION_SCHEMES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ServiceProviderConfiguration {
   public static final String JSON_PROPERTY_SCHEMAS = "schemas";
-  @javax.annotation.Nullable
-  private List<String> schemas = new ArrayList<>();
+  @javax.annotation.Nullable  private List<String> schemas = new ArrayList<>();
 
   public static final String JSON_PROPERTY_BASE_URN = "baseUrn";
-  @javax.annotation.Nullable
-  private String baseUrn;
+  @javax.annotation.Nullable  private String baseUrn;
 
   public static final String JSON_PROPERTY_EXTENSIONS = "extensions";
-  @javax.annotation.Nullable
-  private Map<String, ScimExtension> extensions = new HashMap<>();
+  @javax.annotation.Nullable  private Map<String, ScimExtension> extensions = new HashMap<>();
 
   public static final String JSON_PROPERTY_META = "meta";
-  @javax.annotation.Nonnull
-  private Meta meta;
+  @javax.annotation.Nonnull  private Meta meta;
 
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
-  private String id;
+  @javax.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_EXTERNAL_ID = "externalId";
-  @javax.annotation.Nullable
-  private String externalId;
+  @javax.annotation.Nullable  private String externalId;
 
   public static final String JSON_PROPERTY_RESOURCE_TYPE = "resourceType";
-  @javax.annotation.Nonnull
-  private String resourceType;
+  @javax.annotation.Nullable  private String resourceType;
 
   public static final String JSON_PROPERTY_DOCUMENTATION_URL = "documentationUrl";
-  @javax.annotation.Nullable
-  private String documentationUrl;
+  @javax.annotation.Nullable  private String documentationUrl;
 
   public static final String JSON_PROPERTY_PATCH = "patch";
-  @javax.annotation.Nullable
-  private ServiceProviderConfigurationSupportedConfiguration patch;
+  @javax.annotation.Nullable  private ServiceProviderConfigurationSupportedConfiguration patch;
 
   public static final String JSON_PROPERTY_BULK = "bulk";
-  @javax.annotation.Nullable
-  private ServiceProviderConfigurationBulkConfiguration bulk;
+  @javax.annotation.Nullable  private ServiceProviderConfigurationBulkConfiguration bulk;
 
   public static final String JSON_PROPERTY_FILTER = "filter";
-  @javax.annotation.Nullable
-  private ServiceProviderConfigurationFilterConfiguration filter;
+  @javax.annotation.Nullable  private ServiceProviderConfigurationFilterConfiguration filter;
 
   public static final String JSON_PROPERTY_CHANGE_PASSWORD = "changePassword";
-  @javax.annotation.Nullable
-  private ServiceProviderConfigurationSupportedConfiguration changePassword;
+  @javax.annotation.Nullable  private ServiceProviderConfigurationSupportedConfiguration changePassword;
 
   public static final String JSON_PROPERTY_SORT = "sort";
-  @javax.annotation.Nullable
-  private ServiceProviderConfigurationSupportedConfiguration sort;
+  @javax.annotation.Nullable  private ServiceProviderConfigurationSupportedConfiguration sort;
 
   public static final String JSON_PROPERTY_ETAG = "etag";
-  @javax.annotation.Nullable
-  private ServiceProviderConfigurationSupportedConfiguration etag;
+  @javax.annotation.Nullable  private ServiceProviderConfigurationSupportedConfiguration etag;
 
   public static final String JSON_PROPERTY_AUTHENTICATION_SCHEMES = "authenticationSchemes";
-  @javax.annotation.Nullable
-  private List<ServiceProviderConfigurationAuthenticationSchema> authenticationSchemes = new ArrayList<>();
+  @javax.annotation.Nullable  private List<ServiceProviderConfigurationAuthenticationSchema> authenticationSchemes = new ArrayList<>();
 
   public ServiceProviderConfiguration() {
   }
@@ -137,8 +122,7 @@ public class ServiceProviderConfiguration {
    * Get schemas
    * @return schemas
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SCHEMAS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SCHEMAS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getSchemas() {
@@ -162,8 +146,7 @@ public class ServiceProviderConfiguration {
    * Get baseUrn
    * @return baseUrn
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_BASE_URN)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_BASE_URN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getBaseUrn() {
@@ -195,8 +178,7 @@ public class ServiceProviderConfiguration {
    * Get extensions
    * @return extensions
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_EXTENSIONS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXTENSIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, ScimExtension> getExtensions() {
@@ -220,8 +202,7 @@ public class ServiceProviderConfiguration {
    * Get meta
    * @return meta
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_META)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_META)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Meta getMeta() {
@@ -245,8 +226,7 @@ public class ServiceProviderConfiguration {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ID)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -270,8 +250,7 @@ public class ServiceProviderConfiguration {
    * Get externalId
    * @return externalId
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getExternalId() {
@@ -285,7 +264,7 @@ public class ServiceProviderConfiguration {
     this.externalId = externalId;
   }
 
-  public ServiceProviderConfiguration resourceType(@javax.annotation.Nonnull String resourceType) {
+  public ServiceProviderConfiguration resourceType(@javax.annotation.Nullable String resourceType) {
     
     this.resourceType = resourceType;
     return this;
@@ -295,9 +274,8 @@ public class ServiceProviderConfiguration {
    * Get resourceType
    * @return resourceType
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getResourceType() {
     return resourceType;
@@ -305,8 +283,8 @@ public class ServiceProviderConfiguration {
 
 
   @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setResourceType(@javax.annotation.Nonnull String resourceType) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setResourceType(@javax.annotation.Nullable String resourceType) {
     this.resourceType = resourceType;
   }
 
@@ -320,8 +298,7 @@ public class ServiceProviderConfiguration {
    * Get documentationUrl
    * @return documentationUrl
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DOCUMENTATION_URL)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DOCUMENTATION_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDocumentationUrl() {
@@ -345,8 +322,7 @@ public class ServiceProviderConfiguration {
    * Get patch
    * @return patch
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PATCH)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PATCH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServiceProviderConfigurationSupportedConfiguration getPatch() {
@@ -370,8 +346,7 @@ public class ServiceProviderConfiguration {
    * Get bulk
    * @return bulk
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_BULK)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_BULK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServiceProviderConfigurationBulkConfiguration getBulk() {
@@ -395,8 +370,7 @@ public class ServiceProviderConfiguration {
    * Get filter
    * @return filter
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FILTER)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FILTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServiceProviderConfigurationFilterConfiguration getFilter() {
@@ -420,8 +394,7 @@ public class ServiceProviderConfiguration {
    * Get changePassword
    * @return changePassword
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CHANGE_PASSWORD)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CHANGE_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServiceProviderConfigurationSupportedConfiguration getChangePassword() {
@@ -445,8 +418,7 @@ public class ServiceProviderConfiguration {
    * Get sort
    * @return sort
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SORT)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SORT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServiceProviderConfigurationSupportedConfiguration getSort() {
@@ -470,8 +442,7 @@ public class ServiceProviderConfiguration {
    * Get etag
    * @return etag
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ETAG)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ETAG)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServiceProviderConfigurationSupportedConfiguration getEtag() {
@@ -503,8 +474,7 @@ public class ServiceProviderConfiguration {
    * Get authenticationSchemes
    * @return authenticationSchemes
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_AUTHENTICATION_SCHEMES)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_AUTHENTICATION_SCHEMES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<ServiceProviderConfigurationAuthenticationSchema> getAuthenticationSchemes() {

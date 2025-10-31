@@ -31,15 +31,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ServiceProviderConfigurationFilterConfiguration.JSON_PROPERTY_MAX_RESULTS
 })
 @JsonTypeName("ServiceProviderConfiguration.FilterConfiguration")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ServiceProviderConfigurationFilterConfiguration {
   public static final String JSON_PROPERTY_SUPPORTED = "supported";
-  @javax.annotation.Nullable
-  private Boolean supported;
+  @javax.annotation.Nullable  private Boolean supported;
 
   public static final String JSON_PROPERTY_MAX_RESULTS = "maxResults";
-  @javax.annotation.Nullable
-  private Integer maxResults;
+  @javax.annotation.Nullable  private Integer maxResults;
 
   public ServiceProviderConfigurationFilterConfiguration() {
   }
@@ -54,8 +52,7 @@ public class ServiceProviderConfigurationFilterConfiguration {
    * Get supported
    * @return supported
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SUPPORTED)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPPORTED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getSupported() {
@@ -79,8 +76,7 @@ public class ServiceProviderConfigurationFilterConfiguration {
    * Get maxResults
    * @return maxResults
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_MAX_RESULTS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MAX_RESULTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getMaxResults() {

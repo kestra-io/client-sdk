@@ -34,15 +34,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ExecutionUsage.JSON_PROPERTY_DAILY_EXECUTIONS_COUNT,
   ExecutionUsage.JSON_PROPERTY_DAILY_TASK_RUNS_COUNT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ExecutionUsage {
   public static final String JSON_PROPERTY_DAILY_EXECUTIONS_COUNT = "dailyExecutionsCount";
-  @javax.annotation.Nullable
-  private List<DailyExecutionStatistics> dailyExecutionsCount = new ArrayList<>();
+  @javax.annotation.Nullable  private List<DailyExecutionStatistics> dailyExecutionsCount = new ArrayList<>();
 
   public static final String JSON_PROPERTY_DAILY_TASK_RUNS_COUNT = "dailyTaskRunsCount";
-  @javax.annotation.Nullable
-  private List<DailyExecutionStatistics> dailyTaskRunsCount = new ArrayList<>();
+  @javax.annotation.Nullable  private List<DailyExecutionStatistics> dailyTaskRunsCount = new ArrayList<>();
 
   public ExecutionUsage() {
   }
@@ -65,8 +63,7 @@ public class ExecutionUsage {
    * Get dailyExecutionsCount
    * @return dailyExecutionsCount
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DAILY_EXECUTIONS_COUNT)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DAILY_EXECUTIONS_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<DailyExecutionStatistics> getDailyExecutionsCount() {
@@ -98,8 +95,7 @@ public class ExecutionUsage {
    * Get dailyTaskRunsCount
    * @return dailyTaskRunsCount
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DAILY_TASK_RUNS_COUNT)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DAILY_TASK_RUNS_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<DailyExecutionStatistics> getDailyTaskRunsCount() {

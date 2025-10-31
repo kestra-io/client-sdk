@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** |  | 
-**Type** | **string** |  | 
+**Name** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewIAMTenantAccessControllerApiAuthentication
 
-`func NewIAMTenantAccessControllerApiAuthentication(name string, type_ string, ) *IAMTenantAccessControllerApiAuthentication`
+`func NewIAMTenantAccessControllerApiAuthentication() *IAMTenantAccessControllerApiAuthentication`
 
 NewIAMTenantAccessControllerApiAuthentication instantiates a new IAMTenantAccessControllerApiAuthentication object
 This constructor will assign default values to properties that have it defined,
@@ -45,6 +45,11 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+### HasName
+
+`func (o *IAMTenantAccessControllerApiAuthentication) HasName() bool`
+
+HasName returns a boolean if a field has been set.
 
 ### GetType
 
@@ -65,6 +70,11 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
+### HasType
+
+`func (o *IAMTenantAccessControllerApiAuthentication) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

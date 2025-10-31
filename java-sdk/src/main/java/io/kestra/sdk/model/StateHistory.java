@@ -33,15 +33,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   StateHistory.JSON_PROPERTY_DATE
 })
 @JsonTypeName("State.History")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class StateHistory {
   public static final String JSON_PROPERTY_STATE = "state";
-  @javax.annotation.Nonnull
-  private StateType state;
+  @javax.annotation.Nonnull  private StateType state;
 
   public static final String JSON_PROPERTY_DATE = "date";
-  @javax.annotation.Nonnull
-  private OffsetDateTime date;
+  @javax.annotation.Nonnull  private OffsetDateTime date;
 
   public StateHistory() {
   }
@@ -56,8 +54,7 @@ public class StateHistory {
    * Get state
    * @return state
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_STATE)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public StateType getState() {
@@ -81,8 +78,7 @@ public class StateHistory {
    * Get date
    * @return date
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DATE)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public OffsetDateTime getDate() {

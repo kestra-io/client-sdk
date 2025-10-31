@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**requestMade** | [**TestSuiteServiceRunByQueryRequest**](TestSuiteServiceRunByQueryRequest.md) |  | 
-**tenantId** | **String** |  | 
-**numberOfTestSuitesToBeRun** | **Number** |  | 
-**numberOfTestCasesToBeRun** | **Number** |  | 
-**results** | [**[TestSuiteRunResult]**](TestSuiteRunResult.md) |  | 
+**requestMade** | [**TestSuiteServiceRunByQueryRequest**](TestSuiteServiceRunByQueryRequest.md) |  | [optional] 
+**tenantId** | **String** |  | [optional] 
+**numberOfTestSuitesToBeRun** | **Number** |  | [optional] 
+**numberOfTestCasesToBeRun** | **Number** |  | [optional] 
+**results** | [**[TestSuiteRunResult]**](TestSuiteRunResult.md) |  | [optional] 
 
 

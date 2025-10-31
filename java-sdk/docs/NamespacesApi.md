@@ -251,7 +251,7 @@ null (empty response body)
 
 ## deleteSecret
 
-> List&lt;String&gt; deleteSecret(namespace, key, tenant)
+> deleteSecret(namespace, key, tenant)
 
 Delete a secret for a namespace
 
@@ -285,8 +285,7 @@ public class Example {
         String key = "key_example"; // String | The secret key
         String tenant = "tenant_example"; // String | 
         try {
-            List<String> result = apiInstance.deleteSecret(namespace, key, tenant);
-            System.out.println(result);
+            apiInstance.deleteSecret(namespace, key, tenant);
         } catch (ApiException e) {
             System.err.println("Exception when calling NamespacesApi#deleteSecret");
             System.err.println("Status code: " + e.getCode());
@@ -309,7 +308,7 @@ public class Example {
 
 ### Return type
 
-**List&lt;String&gt;**
+null (empty response body)
 
 ### Authorization
 
@@ -318,7 +317,7 @@ public class Example {
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 
 ### HTTP response details
@@ -717,7 +716,7 @@ public class Example {
 
 ## patchSecret
 
-> List&lt;ApiSecretMeta&gt; patchSecret(namespace, tenant, key, apiSecretMetaEE)
+> List&lt;ApiSecretMeta&gt; patchSecret(namespace, key, tenant, apiSecretMetaEE)
 
 Patch a secret metadata for a namespace
 
@@ -748,11 +747,11 @@ public class Example {
 
         NamespacesApi apiInstance = new NamespacesApi(defaultClient);
         String namespace = "namespace_example"; // String | The namespace id
+        String key = "key_example"; // String | The secret key
         String tenant = "tenant_example"; // String | 
-        String key = "key_example"; // String | 
         ApiSecretMetaEE apiSecretMetaEE = new ApiSecretMetaEE(); // ApiSecretMetaEE | 
         try {
-            List<ApiSecretMeta> result = apiInstance.patchSecret(namespace, tenant, key, apiSecretMetaEE);
+            List<ApiSecretMeta> result = apiInstance.patchSecret(namespace, key, tenant, apiSecretMetaEE);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NamespacesApi#patchSecret");
@@ -771,8 +770,8 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **namespace** | **String**| The namespace id | |
+| **key** | **String**| The secret key | |
 | **tenant** | **String**|  | |
-| **key** | **String**|  | |
 | **apiSecretMetaEE** | [**ApiSecretMetaEE**](ApiSecretMetaEE.md)|  | |
 
 ### Return type

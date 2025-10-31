@@ -43,27 +43,22 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   State.JSON_PROPERTY_CURRENT,
   State.JSON_PROPERTY_HISTORIES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class State {
   public static final String JSON_PROPERTY_DURATION = "duration";
-  @javax.annotation.Nullable
-  private String duration;
+  @javax.annotation.Nullable  private String duration;
 
   public static final String JSON_PROPERTY_START_DATE = "startDate";
-  @javax.annotation.Nullable
-  private OffsetDateTime startDate;
+  @javax.annotation.Nullable  private OffsetDateTime startDate;
 
   public static final String JSON_PROPERTY_END_DATE = "endDate";
-  @javax.annotation.Nullable
-  private JsonNullable<OffsetDateTime> endDate = JsonNullable.<OffsetDateTime>undefined();
+  @javax.annotation.Nullable  private JsonNullable<OffsetDateTime> endDate = JsonNullable.<OffsetDateTime>undefined();
 
   public static final String JSON_PROPERTY_CURRENT = "current";
-  @javax.annotation.Nonnull
-  private StateType current;
+  @javax.annotation.Nonnull  private StateType current;
 
   public static final String JSON_PROPERTY_HISTORIES = "histories";
-  @javax.annotation.Nullable
-  private List<StateHistory> histories = new ArrayList<>();
+  @javax.annotation.Nullable  private List<StateHistory> histories = new ArrayList<>();
 
   public State() {
   }
@@ -86,8 +81,7 @@ public class State {
    * Get duration
    * @return duration
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DURATION)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DURATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDuration() {
@@ -100,8 +94,7 @@ public class State {
    * Get startDate
    * @return startDate
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_START_DATE)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_START_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getStartDate() {
@@ -114,8 +107,7 @@ public class State {
    * Get endDate
    * @return endDate
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @javax.annotation.Nullable  @JsonIgnore
 
   public OffsetDateTime getEndDate() {
     
@@ -127,7 +119,6 @@ public class State {
 
   @JsonProperty(JSON_PROPERTY_END_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<OffsetDateTime> getEndDate_JsonNullable() {
     return endDate;
   }
@@ -148,8 +139,7 @@ public class State {
    * Get current
    * @return current
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_CURRENT)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_CURRENT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public StateType getCurrent() {
@@ -181,8 +171,7 @@ public class State {
    * Get histories
    * @return histories
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_HISTORIES)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_HISTORIES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<StateHistory> getHistories() {

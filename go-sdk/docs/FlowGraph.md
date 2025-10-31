@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Nodes** | [**[]AbstractGraph**](AbstractGraph.md) |  | 
-**Edges** | [**[]FlowGraphEdge**](FlowGraphEdge.md) |  | 
-**Clusters** | [**[]FlowGraphCluster**](FlowGraphCluster.md) |  | 
-**Flowables** | **[]string** |  | 
+**Nodes** | Pointer to [**[]AbstractGraph**](AbstractGraph.md) |  | [optional] 
+**Edges** | Pointer to [**[]FlowGraphEdge**](FlowGraphEdge.md) |  | [optional] 
+**Clusters** | Pointer to [**[]FlowGraphCluster**](FlowGraphCluster.md) |  | [optional] 
+**Flowables** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
 ### NewFlowGraph
 
-`func NewFlowGraph(nodes []AbstractGraph, edges []FlowGraphEdge, clusters []FlowGraphCluster, flowables []string, ) *FlowGraph`
+`func NewFlowGraph() *FlowGraph`
 
 NewFlowGraph instantiates a new FlowGraph object
 This constructor will assign default values to properties that have it defined,
@@ -47,6 +47,11 @@ and a boolean to check if the value has been set.
 
 SetNodes sets Nodes field to given value.
 
+### HasNodes
+
+`func (o *FlowGraph) HasNodes() bool`
+
+HasNodes returns a boolean if a field has been set.
 
 ### GetEdges
 
@@ -67,6 +72,11 @@ and a boolean to check if the value has been set.
 
 SetEdges sets Edges field to given value.
 
+### HasEdges
+
+`func (o *FlowGraph) HasEdges() bool`
+
+HasEdges returns a boolean if a field has been set.
 
 ### GetClusters
 
@@ -87,6 +97,11 @@ and a boolean to check if the value has been set.
 
 SetClusters sets Clusters field to given value.
 
+### HasClusters
+
+`func (o *FlowGraph) HasClusters() bool`
+
+HasClusters returns a boolean if a field has been set.
 
 ### GetFlowables
 
@@ -107,6 +122,11 @@ and a boolean to check if the value has been set.
 
 SetFlowables sets Flowables field to given value.
 
+### HasFlowables
+
+`func (o *FlowGraph) HasFlowables() bool`
+
+HasFlowables returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

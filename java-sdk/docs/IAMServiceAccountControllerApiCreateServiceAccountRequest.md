@@ -9,9 +9,9 @@ Request payload for updating service account details
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**name** | **String** |  |  |
-|**description** | **String** |  |  |
-|**superAdmin** | **Boolean** |  |  |
-|**tenants** | **List&lt;String&gt;** |  |  |
+|**description** | **String** |  |  [optional] |
+|**superAdmin** | **Boolean** |  |  [optional] |
+|**tenants** | **List&lt;String&gt;** |  |  [optional] |
 
 
 

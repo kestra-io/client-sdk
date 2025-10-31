@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Namespace** | **string** |  | 
-**FlowId** | **string** |  | 
+**FlowId** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewNamespaceAllowedTrigger
 
-`func NewNamespaceAllowedTrigger(namespace string, flowId string, ) *NamespaceAllowedTrigger`
+`func NewNamespaceAllowedTrigger(namespace string, ) *NamespaceAllowedTrigger`
 
 NewNamespaceAllowedTrigger instantiates a new NamespaceAllowedTrigger object
 This constructor will assign default values to properties that have it defined,
@@ -65,6 +65,11 @@ and a boolean to check if the value has been set.
 
 SetFlowId sets FlowId field to given value.
 
+### HasFlowId
+
+`func (o *NamespaceAllowedTrigger) HasFlowId() bool`
+
+HasFlowId returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

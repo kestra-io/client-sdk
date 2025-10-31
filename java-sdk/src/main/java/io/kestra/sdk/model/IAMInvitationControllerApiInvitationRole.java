@@ -34,15 +34,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMInvitationControllerApiInvitationRole.JSON_PROPERTY_NAMESPACES
 })
 @JsonTypeName("IAMInvitationController.ApiInvitationRole")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMInvitationControllerApiInvitationRole {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
-  private String id;
+  @javax.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_NAMESPACES = "namespaces";
-  @javax.annotation.Nonnull
-  private List<String> namespaces = new ArrayList<>();
+  @javax.annotation.Nullable  private List<String> namespaces = new ArrayList<>();
 
   public IAMInvitationControllerApiInvitationRole() {
   }
@@ -57,8 +55,7 @@ public class IAMInvitationControllerApiInvitationRole {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
+  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -72,7 +69,7 @@ public class IAMInvitationControllerApiInvitationRole {
     this.id = id;
   }
 
-  public IAMInvitationControllerApiInvitationRole namespaces(@javax.annotation.Nonnull List<String> namespaces) {
+  public IAMInvitationControllerApiInvitationRole namespaces(@javax.annotation.Nullable List<String> namespaces) {
     
     this.namespaces = namespaces;
     return this;
@@ -90,9 +87,8 @@ public class IAMInvitationControllerApiInvitationRole {
    * Get namespaces
    * @return namespaces
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAMESPACES)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getNamespaces() {
     return namespaces;
@@ -100,8 +96,8 @@ public class IAMInvitationControllerApiInvitationRole {
 
 
   @JsonProperty(JSON_PROPERTY_NAMESPACES)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setNamespaces(@javax.annotation.Nonnull List<String> namespaces) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNamespaces(@javax.annotation.Nullable List<String> namespaces) {
     this.namespaces = namespaces;
   }
 

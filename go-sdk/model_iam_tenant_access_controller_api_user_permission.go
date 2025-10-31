@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the IAMTenantAccessControllerApiUserPermission type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &IAMTenantAccessControllerApiUserPermission{}
 
 // IAMTenantAccessControllerApiUserPermission struct for IAMTenantAccessControllerApiUserPermission
 type IAMTenantAccessControllerApiUserPermission struct {
-	Permission           Permission `json:"permission"`
-	Actions              []Action   `json:"actions"`
+	Permission           *Permission `json:"permission,omitempty"`
+	Actions              []Action    `json:"actions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,10 +30,8 @@ type _IAMTenantAccessControllerApiUserPermission IAMTenantAccessControllerApiUse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIAMTenantAccessControllerApiUserPermission(permission Permission, actions []Action) *IAMTenantAccessControllerApiUserPermission {
+func NewIAMTenantAccessControllerApiUserPermission() *IAMTenantAccessControllerApiUserPermission {
 	this := IAMTenantAccessControllerApiUserPermission{}
-	this.Permission = permission
-	this.Actions = actions
 	return &this
 }
 
@@ -46,50 +43,66 @@ func NewIAMTenantAccessControllerApiUserPermissionWithDefaults() *IAMTenantAcces
 	return &this
 }
 
-// GetPermission returns the Permission field value
+// GetPermission returns the Permission field value if set, zero value otherwise.
 func (o *IAMTenantAccessControllerApiUserPermission) GetPermission() Permission {
-	if o == nil {
+	if o == nil || IsNil(o.Permission) {
 		var ret Permission
 		return ret
 	}
-
-	return o.Permission
+	return *o.Permission
 }
 
-// GetPermissionOk returns a tuple with the Permission field value
+// GetPermissionOk returns a tuple with the Permission field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMTenantAccessControllerApiUserPermission) GetPermissionOk() (*Permission, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Permission) {
 		return nil, false
 	}
-	return &o.Permission, true
+	return o.Permission, true
 }
 
-// SetPermission sets field value
+// HasPermission returns a boolean if a field has been set.
+func (o *IAMTenantAccessControllerApiUserPermission) HasPermission() bool {
+	if o != nil && !IsNil(o.Permission) {
+		return true
+	}
+
+	return false
+}
+
+// SetPermission gets a reference to the given Permission and assigns it to the Permission field.
 func (o *IAMTenantAccessControllerApiUserPermission) SetPermission(v Permission) {
-	o.Permission = v
+	o.Permission = &v
 }
 
-// GetActions returns the Actions field value
+// GetActions returns the Actions field value if set, zero value otherwise.
 func (o *IAMTenantAccessControllerApiUserPermission) GetActions() []Action {
-	if o == nil {
+	if o == nil || IsNil(o.Actions) {
 		var ret []Action
 		return ret
 	}
-
 	return o.Actions
 }
 
-// GetActionsOk returns a tuple with the Actions field value
+// GetActionsOk returns a tuple with the Actions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMTenantAccessControllerApiUserPermission) GetActionsOk() ([]Action, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Actions) {
 		return nil, false
 	}
 	return o.Actions, true
 }
 
-// SetActions sets field value
+// HasActions returns a boolean if a field has been set.
+func (o *IAMTenantAccessControllerApiUserPermission) HasActions() bool {
+	if o != nil && !IsNil(o.Actions) {
+		return true
+	}
+
+	return false
+}
+
+// SetActions gets a reference to the given []Action and assigns it to the Actions field.
 func (o *IAMTenantAccessControllerApiUserPermission) SetActions(v []Action) {
 	o.Actions = v
 }
@@ -104,8 +117,12 @@ func (o IAMTenantAccessControllerApiUserPermission) MarshalJSON() ([]byte, error
 
 func (o IAMTenantAccessControllerApiUserPermission) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["permission"] = o.Permission
-	toSerialize["actions"] = o.Actions
+	if !IsNil(o.Permission) {
+		toSerialize["permission"] = o.Permission
+	}
+	if !IsNil(o.Actions) {
+		toSerialize["actions"] = o.Actions
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -115,28 +132,6 @@ func (o IAMTenantAccessControllerApiUserPermission) ToMap() (map[string]interfac
 }
 
 func (o *IAMTenantAccessControllerApiUserPermission) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"permission",
-		"actions",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varIAMTenantAccessControllerApiUserPermission := _IAMTenantAccessControllerApiUserPermission{}
 
 	err = json.Unmarshal(data, &varIAMTenantAccessControllerApiUserPermission)

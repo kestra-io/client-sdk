@@ -28,7 +28,9 @@ public enum BindingType {
   
   USER("USER"),
   
-  GROUP("GROUP");
+  GROUP("GROUP"),
+  
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;
 
@@ -53,7 +55,7 @@ public enum BindingType {
         return b;
       }
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    return UNKNOWN_DEFAULT_OPEN_API;
   }
 }
 

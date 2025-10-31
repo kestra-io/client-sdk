@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the AppResponse type satisfies the MappedNullable interface at compile time
@@ -20,9 +19,9 @@ var _ MappedNullable = &AppResponse{}
 
 // AppResponse struct for AppResponse
 type AppResponse struct {
-	Dispatch             string              `json:"dispatch"`
-	Stream               string              `json:"stream"`
-	Layout               AppResponseUILayout `json:"layout"`
+	Dispatch             *string              `json:"dispatch,omitempty"`
+	Stream               *string              `json:"stream,omitempty"`
+	Layout               *AppResponseUILayout `json:"layout,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,11 +31,8 @@ type _AppResponse AppResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAppResponse(dispatch string, stream string, layout AppResponseUILayout) *AppResponse {
+func NewAppResponse() *AppResponse {
 	this := AppResponse{}
-	this.Dispatch = dispatch
-	this.Stream = stream
-	this.Layout = layout
 	return &this
 }
 
@@ -48,76 +44,100 @@ func NewAppResponseWithDefaults() *AppResponse {
 	return &this
 }
 
-// GetDispatch returns the Dispatch field value
+// GetDispatch returns the Dispatch field value if set, zero value otherwise.
 func (o *AppResponse) GetDispatch() string {
-	if o == nil {
+	if o == nil || IsNil(o.Dispatch) {
 		var ret string
 		return ret
 	}
-
-	return o.Dispatch
+	return *o.Dispatch
 }
 
-// GetDispatchOk returns a tuple with the Dispatch field value
+// GetDispatchOk returns a tuple with the Dispatch field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppResponse) GetDispatchOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Dispatch) {
 		return nil, false
 	}
-	return &o.Dispatch, true
+	return o.Dispatch, true
 }
 
-// SetDispatch sets field value
+// HasDispatch returns a boolean if a field has been set.
+func (o *AppResponse) HasDispatch() bool {
+	if o != nil && !IsNil(o.Dispatch) {
+		return true
+	}
+
+	return false
+}
+
+// SetDispatch gets a reference to the given string and assigns it to the Dispatch field.
 func (o *AppResponse) SetDispatch(v string) {
-	o.Dispatch = v
+	o.Dispatch = &v
 }
 
-// GetStream returns the Stream field value
+// GetStream returns the Stream field value if set, zero value otherwise.
 func (o *AppResponse) GetStream() string {
-	if o == nil {
+	if o == nil || IsNil(o.Stream) {
 		var ret string
 		return ret
 	}
-
-	return o.Stream
+	return *o.Stream
 }
 
-// GetStreamOk returns a tuple with the Stream field value
+// GetStreamOk returns a tuple with the Stream field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppResponse) GetStreamOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Stream) {
 		return nil, false
 	}
-	return &o.Stream, true
+	return o.Stream, true
 }
 
-// SetStream sets field value
+// HasStream returns a boolean if a field has been set.
+func (o *AppResponse) HasStream() bool {
+	if o != nil && !IsNil(o.Stream) {
+		return true
+	}
+
+	return false
+}
+
+// SetStream gets a reference to the given string and assigns it to the Stream field.
 func (o *AppResponse) SetStream(v string) {
-	o.Stream = v
+	o.Stream = &v
 }
 
-// GetLayout returns the Layout field value
+// GetLayout returns the Layout field value if set, zero value otherwise.
 func (o *AppResponse) GetLayout() AppResponseUILayout {
-	if o == nil {
+	if o == nil || IsNil(o.Layout) {
 		var ret AppResponseUILayout
 		return ret
 	}
-
-	return o.Layout
+	return *o.Layout
 }
 
-// GetLayoutOk returns a tuple with the Layout field value
+// GetLayoutOk returns a tuple with the Layout field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppResponse) GetLayoutOk() (*AppResponseUILayout, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Layout) {
 		return nil, false
 	}
-	return &o.Layout, true
+	return o.Layout, true
 }
 
-// SetLayout sets field value
+// HasLayout returns a boolean if a field has been set.
+func (o *AppResponse) HasLayout() bool {
+	if o != nil && !IsNil(o.Layout) {
+		return true
+	}
+
+	return false
+}
+
+// SetLayout gets a reference to the given AppResponseUILayout and assigns it to the Layout field.
 func (o *AppResponse) SetLayout(v AppResponseUILayout) {
-	o.Layout = v
+	o.Layout = &v
 }
 
 func (o AppResponse) MarshalJSON() ([]byte, error) {
@@ -130,9 +150,15 @@ func (o AppResponse) MarshalJSON() ([]byte, error) {
 
 func (o AppResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["dispatch"] = o.Dispatch
-	toSerialize["stream"] = o.Stream
-	toSerialize["layout"] = o.Layout
+	if !IsNil(o.Dispatch) {
+		toSerialize["dispatch"] = o.Dispatch
+	}
+	if !IsNil(o.Stream) {
+		toSerialize["stream"] = o.Stream
+	}
+	if !IsNil(o.Layout) {
+		toSerialize["layout"] = o.Layout
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -142,29 +168,6 @@ func (o AppResponse) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *AppResponse) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"dispatch",
-		"stream",
-		"layout",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varAppResponse := _AppResponse{}
 
 	err = json.Unmarshal(data, &varAppResponse)

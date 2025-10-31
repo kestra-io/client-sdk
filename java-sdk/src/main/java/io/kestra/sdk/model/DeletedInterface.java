@@ -29,11 +29,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   DeletedInterface.JSON_PROPERTY_DELETED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class DeletedInterface {
   public static final String JSON_PROPERTY_DELETED = "deleted";
-  @javax.annotation.Nullable
-  private Boolean deleted;
+  @javax.annotation.Nullable  private Boolean deleted;
 
   public DeletedInterface() {
   }
@@ -48,8 +47,7 @@ public class DeletedInterface {
    * Get deleted
    * @return deleted
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DELETED)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getDeleted() {

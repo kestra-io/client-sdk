@@ -31,15 +31,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   DocumentationWithSchema.JSON_PROPERTY_MARKDOWN,
   DocumentationWithSchema.JSON_PROPERTY_SCHEMA
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class DocumentationWithSchema {
   public static final String JSON_PROPERTY_MARKDOWN = "markdown";
-  @javax.annotation.Nullable
-  private String markdown;
+  @javax.annotation.Nullable  private String markdown;
 
   public static final String JSON_PROPERTY_SCHEMA = "schema";
-  @javax.annotation.Nullable
-  private PluginSchema schema;
+  @javax.annotation.Nullable  private PluginSchema schema;
 
   public DocumentationWithSchema() {
   }
@@ -54,8 +52,7 @@ public class DocumentationWithSchema {
    * Get markdown
    * @return markdown
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_MARKDOWN)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MARKDOWN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getMarkdown() {
@@ -79,8 +76,7 @@ public class DocumentationWithSchema {
    * Get schema
    * @return schema
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SCHEMA)
+  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SCHEMA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public PluginSchema getSchema() {

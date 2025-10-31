@@ -20,8 +20,8 @@ var _ MappedNullable = &TestSuiteServiceRunByQueryRequest{}
 
 // TestSuiteServiceRunByQueryRequest struct for TestSuiteServiceRunByQueryRequest
 type TestSuiteServiceRunByQueryRequest struct {
-	Namespace NullableString `json:"namespace"`
-	FlowId    NullableString `json:"flowId"`
+	Namespace NullableString `json:"namespace,omitempty"`
+	FlowId    NullableString `json:"flowId,omitempty"`
 	// Should child namespaces be included or not
 	IncludeChildNamespaces bool `json:"includeChildNamespaces"`
 	AdditionalProperties   map[string]interface{}
@@ -33,10 +33,8 @@ type _TestSuiteServiceRunByQueryRequest TestSuiteServiceRunByQueryRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTestSuiteServiceRunByQueryRequest(namespace NullableString, flowId NullableString, includeChildNamespaces bool) *TestSuiteServiceRunByQueryRequest {
+func NewTestSuiteServiceRunByQueryRequest(includeChildNamespaces bool) *TestSuiteServiceRunByQueryRequest {
 	this := TestSuiteServiceRunByQueryRequest{}
-	this.Namespace = namespace
-	this.FlowId = flowId
 	this.IncludeChildNamespaces = includeChildNamespaces
 	return &this
 }
@@ -51,18 +49,16 @@ func NewTestSuiteServiceRunByQueryRequestWithDefaults() *TestSuiteServiceRunByQu
 	return &this
 }
 
-// GetNamespace returns the Namespace field value
-// If the value is explicit nil, the zero value for string will be returned
+// GetNamespace returns the Namespace field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *TestSuiteServiceRunByQueryRequest) GetNamespace() string {
-	if o == nil || o.Namespace.Get() == nil {
+	if o == nil || IsNil(o.Namespace.Get()) {
 		var ret string
 		return ret
 	}
-
 	return *o.Namespace.Get()
 }
 
-// GetNamespaceOk returns a tuple with the Namespace field value
+// GetNamespaceOk returns a tuple with the Namespace field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TestSuiteServiceRunByQueryRequest) GetNamespaceOk() (*string, bool) {
@@ -72,23 +68,40 @@ func (o *TestSuiteServiceRunByQueryRequest) GetNamespaceOk() (*string, bool) {
 	return o.Namespace.Get(), o.Namespace.IsSet()
 }
 
-// SetNamespace sets field value
+// HasNamespace returns a boolean if a field has been set.
+func (o *TestSuiteServiceRunByQueryRequest) HasNamespace() bool {
+	if o != nil && o.Namespace.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetNamespace gets a reference to the given NullableString and assigns it to the Namespace field.
 func (o *TestSuiteServiceRunByQueryRequest) SetNamespace(v string) {
 	o.Namespace.Set(&v)
 }
 
-// GetFlowId returns the FlowId field value
-// If the value is explicit nil, the zero value for string will be returned
+// SetNamespaceNil sets the value for Namespace to be an explicit nil
+func (o *TestSuiteServiceRunByQueryRequest) SetNamespaceNil() {
+	o.Namespace.Set(nil)
+}
+
+// UnsetNamespace ensures that no value is present for Namespace, not even an explicit nil
+func (o *TestSuiteServiceRunByQueryRequest) UnsetNamespace() {
+	o.Namespace.Unset()
+}
+
+// GetFlowId returns the FlowId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *TestSuiteServiceRunByQueryRequest) GetFlowId() string {
-	if o == nil || o.FlowId.Get() == nil {
+	if o == nil || IsNil(o.FlowId.Get()) {
 		var ret string
 		return ret
 	}
-
 	return *o.FlowId.Get()
 }
 
-// GetFlowIdOk returns a tuple with the FlowId field value
+// GetFlowIdOk returns a tuple with the FlowId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TestSuiteServiceRunByQueryRequest) GetFlowIdOk() (*string, bool) {
@@ -98,9 +111,28 @@ func (o *TestSuiteServiceRunByQueryRequest) GetFlowIdOk() (*string, bool) {
 	return o.FlowId.Get(), o.FlowId.IsSet()
 }
 
-// SetFlowId sets field value
+// HasFlowId returns a boolean if a field has been set.
+func (o *TestSuiteServiceRunByQueryRequest) HasFlowId() bool {
+	if o != nil && o.FlowId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetFlowId gets a reference to the given NullableString and assigns it to the FlowId field.
 func (o *TestSuiteServiceRunByQueryRequest) SetFlowId(v string) {
 	o.FlowId.Set(&v)
+}
+
+// SetFlowIdNil sets the value for FlowId to be an explicit nil
+func (o *TestSuiteServiceRunByQueryRequest) SetFlowIdNil() {
+	o.FlowId.Set(nil)
+}
+
+// UnsetFlowId ensures that no value is present for FlowId, not even an explicit nil
+func (o *TestSuiteServiceRunByQueryRequest) UnsetFlowId() {
+	o.FlowId.Unset()
 }
 
 // GetIncludeChildNamespaces returns the IncludeChildNamespaces field value
@@ -137,8 +169,12 @@ func (o TestSuiteServiceRunByQueryRequest) MarshalJSON() ([]byte, error) {
 
 func (o TestSuiteServiceRunByQueryRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["namespace"] = o.Namespace.Get()
-	toSerialize["flowId"] = o.FlowId.Get()
+	if o.Namespace.IsSet() {
+		toSerialize["namespace"] = o.Namespace.Get()
+	}
+	if o.FlowId.IsSet() {
+		toSerialize["flowId"] = o.FlowId.Get()
+	}
 	toSerialize["includeChildNamespaces"] = o.IncludeChildNamespaces
 
 	for key, value := range o.AdditionalProperties {
@@ -153,8 +189,6 @@ func (o *TestSuiteServiceRunByQueryRequest) UnmarshalJSON(data []byte) (err erro
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"namespace",
-		"flowId",
 		"includeChildNamespaces",
 	}
 
