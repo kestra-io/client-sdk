@@ -12,6 +12,13 @@
 
 package io.kestra.sdk.api;
 
+// Custom imports for injected code
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import reactor.core.publisher.Flux;
+import java.io.BufferedReader;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import io.kestra.sdk.internal.ApiException;
@@ -56,9 +63,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Object createApiTokensForServiceAccount(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull CreateApiTokenRequest createApiTokenRequest) throws ApiException {
-    return this.createApiTokensForServiceAccount(id, createApiTokenRequest, Collections.emptyMap());
+    return this.createApiTokensForServiceAccount(id, createApiTokenRequest, Collections.emptyMap(), null);
   }
 
+  public Object createApiTokensForServiceAccount(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull CreateApiTokenRequest createApiTokenRequest, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.createApiTokensForServiceAccount(id, createApiTokenRequest, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Create new API Token for a specific service account
@@ -69,7 +79,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object createApiTokensForServiceAccount(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull CreateApiTokenRequest createApiTokenRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public Object createApiTokensForServiceAccount(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull CreateApiTokenRequest createApiTokenRequest, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = createApiTokenRequest;
     
     // verify the required parameter 'id' is set
@@ -92,7 +102,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -144,9 +154,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Object createApiTokensForServiceAccountWithTenant(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull CreateApiTokenRequest createApiTokenRequest) throws ApiException {
-    return this.createApiTokensForServiceAccountWithTenant(id, tenant, createApiTokenRequest, Collections.emptyMap());
+    return this.createApiTokensForServiceAccountWithTenant(id, tenant, createApiTokenRequest, Collections.emptyMap(), null);
   }
 
+  public Object createApiTokensForServiceAccountWithTenant(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull CreateApiTokenRequest createApiTokenRequest, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.createApiTokensForServiceAccountWithTenant(id, tenant, createApiTokenRequest, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Create new API Token for a specific service account
@@ -158,7 +171,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object createApiTokensForServiceAccountWithTenant(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull CreateApiTokenRequest createApiTokenRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public Object createApiTokensForServiceAccountWithTenant(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull CreateApiTokenRequest createApiTokenRequest, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = createApiTokenRequest;
     
     // verify the required parameter 'id' is set
@@ -187,7 +200,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -237,9 +250,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public IAMServiceAccountControllerApiServiceAccountDetail createServiceAccount(@javax.annotation.Nonnull IAMServiceAccountControllerApiCreateServiceAccountRequest iaMServiceAccountControllerApiCreateServiceAccountRequest) throws ApiException {
-    return this.createServiceAccount(iaMServiceAccountControllerApiCreateServiceAccountRequest, Collections.emptyMap());
+    return this.createServiceAccount(iaMServiceAccountControllerApiCreateServiceAccountRequest, Collections.emptyMap(), null);
   }
 
+  public IAMServiceAccountControllerApiServiceAccountDetail createServiceAccount(@javax.annotation.Nonnull IAMServiceAccountControllerApiCreateServiceAccountRequest iaMServiceAccountControllerApiCreateServiceAccountRequest, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.createServiceAccount(iaMServiceAccountControllerApiCreateServiceAccountRequest, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Create a service account
@@ -249,7 +265,7 @@ import java.util.StringJoiner;
    * @return IAMServiceAccountControllerApiServiceAccountDetail
    * @throws ApiException if fails to make API call
    */
-  public IAMServiceAccountControllerApiServiceAccountDetail createServiceAccount(@javax.annotation.Nonnull IAMServiceAccountControllerApiCreateServiceAccountRequest iaMServiceAccountControllerApiCreateServiceAccountRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMServiceAccountControllerApiServiceAccountDetail createServiceAccount(@javax.annotation.Nonnull IAMServiceAccountControllerApiCreateServiceAccountRequest iaMServiceAccountControllerApiCreateServiceAccountRequest, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = iaMServiceAccountControllerApiCreateServiceAccountRequest;
     
     // verify the required parameter 'iaMServiceAccountControllerApiCreateServiceAccountRequest' is set
@@ -266,7 +282,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -317,9 +333,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public IAMServiceAccountControllerApiServiceAccountResponse createServiceAccountForTenant(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMServiceAccountControllerApiServiceAccountRequest iaMServiceAccountControllerApiServiceAccountRequest) throws ApiException {
-    return this.createServiceAccountForTenant(tenant, iaMServiceAccountControllerApiServiceAccountRequest, Collections.emptyMap());
+    return this.createServiceAccountForTenant(tenant, iaMServiceAccountControllerApiServiceAccountRequest, Collections.emptyMap(), null);
   }
 
+  public IAMServiceAccountControllerApiServiceAccountResponse createServiceAccountForTenant(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMServiceAccountControllerApiServiceAccountRequest iaMServiceAccountControllerApiServiceAccountRequest, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.createServiceAccountForTenant(tenant, iaMServiceAccountControllerApiServiceAccountRequest, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Create a service account for the given tenant
@@ -330,7 +349,7 @@ import java.util.StringJoiner;
    * @return IAMServiceAccountControllerApiServiceAccountResponse
    * @throws ApiException if fails to make API call
    */
-  public IAMServiceAccountControllerApiServiceAccountResponse createServiceAccountForTenant(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMServiceAccountControllerApiServiceAccountRequest iaMServiceAccountControllerApiServiceAccountRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMServiceAccountControllerApiServiceAccountResponse createServiceAccountForTenant(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMServiceAccountControllerApiServiceAccountRequest iaMServiceAccountControllerApiServiceAccountRequest, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = iaMServiceAccountControllerApiServiceAccountRequest;
     
     // verify the required parameter 'tenant' is set
@@ -353,7 +372,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -404,9 +423,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Object deleteApiTokenForServiceAccount(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tokenId) throws ApiException {
-    return this.deleteApiTokenForServiceAccount(id, tokenId, Collections.emptyMap());
+    return this.deleteApiTokenForServiceAccount(id, tokenId, Collections.emptyMap(), null);
   }
 
+  public Object deleteApiTokenForServiceAccount(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tokenId, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.deleteApiTokenForServiceAccount(id, tokenId, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Delete an API Token for specific service account and token id
@@ -417,7 +439,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteApiTokenForServiceAccount(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tokenId, Map<String, String> additionalHeaders) throws ApiException {
+  public Object deleteApiTokenForServiceAccount(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tokenId, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -441,7 +463,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -493,9 +515,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Object deleteApiTokenForServiceAccountWithTenant(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tokenId, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.deleteApiTokenForServiceAccountWithTenant(id, tokenId, tenant, Collections.emptyMap());
+    return this.deleteApiTokenForServiceAccountWithTenant(id, tokenId, tenant, Collections.emptyMap(), null);
   }
 
+  public Object deleteApiTokenForServiceAccountWithTenant(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tokenId, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.deleteApiTokenForServiceAccountWithTenant(id, tokenId, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Delete an API Token for specific service account and token id
@@ -507,7 +532,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteApiTokenForServiceAccountWithTenant(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tokenId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Object deleteApiTokenForServiceAccountWithTenant(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tokenId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -537,7 +562,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -586,9 +611,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public void deleteServiceAccount(@javax.annotation.Nonnull String id) throws ApiException {
-    this.deleteServiceAccount(id, Collections.emptyMap());
+    this.deleteServiceAccount(id, Collections.emptyMap(), null);
   }
 
+  public void deleteServiceAccount(@javax.annotation.Nonnull String id, HashMap<String, Object> formDatas)  throws ApiException {
+  this.deleteServiceAccount(id, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Delete a service account
@@ -597,7 +625,7 @@ import java.util.StringJoiner;
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void deleteServiceAccount(@javax.annotation.Nonnull String id, Map<String, String> additionalHeaders) throws ApiException {
+  public void deleteServiceAccount(@javax.annotation.Nonnull String id, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -615,7 +643,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -664,9 +692,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public void deleteServiceAccountForTenant(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant) throws ApiException {
-    this.deleteServiceAccountForTenant(id, tenant, Collections.emptyMap());
+    this.deleteServiceAccountForTenant(id, tenant, Collections.emptyMap(), null);
   }
 
+  public void deleteServiceAccountForTenant(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  this.deleteServiceAccountForTenant(id, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Delete a service account
@@ -676,7 +707,7 @@ import java.util.StringJoiner;
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void deleteServiceAccountForTenant(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public void deleteServiceAccountForTenant(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -700,7 +731,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -749,9 +780,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public IAMServiceAccountControllerApiServiceAccountDetail getServiceAccount(@javax.annotation.Nonnull String id) throws ApiException {
-    return this.getServiceAccount(id, Collections.emptyMap());
+    return this.getServiceAccount(id, Collections.emptyMap(), null);
   }
 
+  public IAMServiceAccountControllerApiServiceAccountDetail getServiceAccount(@javax.annotation.Nonnull String id, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.getServiceAccount(id, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Get a service account
@@ -761,7 +795,7 @@ import java.util.StringJoiner;
    * @return IAMServiceAccountControllerApiServiceAccountDetail
    * @throws ApiException if fails to make API call
    */
-  public IAMServiceAccountControllerApiServiceAccountDetail getServiceAccount(@javax.annotation.Nonnull String id, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMServiceAccountControllerApiServiceAccountDetail getServiceAccount(@javax.annotation.Nonnull String id, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -779,7 +813,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -830,9 +864,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public IAMServiceAccountControllerApiServiceAccountResponse getServiceAccountForTenant(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.getServiceAccountForTenant(id, tenant, Collections.emptyMap());
+    return this.getServiceAccountForTenant(id, tenant, Collections.emptyMap(), null);
   }
 
+  public IAMServiceAccountControllerApiServiceAccountResponse getServiceAccountForTenant(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.getServiceAccountForTenant(id, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Retrieve a service account
@@ -843,7 +880,7 @@ import java.util.StringJoiner;
    * @return IAMServiceAccountControllerApiServiceAccountResponse
    * @throws ApiException if fails to make API call
    */
-  public IAMServiceAccountControllerApiServiceAccountResponse getServiceAccountForTenant(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMServiceAccountControllerApiServiceAccountResponse getServiceAccountForTenant(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -867,7 +904,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -917,9 +954,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Object listApiTokensForServiceAccount(@javax.annotation.Nonnull String id) throws ApiException {
-    return this.listApiTokensForServiceAccount(id, Collections.emptyMap());
+    return this.listApiTokensForServiceAccount(id, Collections.emptyMap(), null);
   }
 
+  public Object listApiTokensForServiceAccount(@javax.annotation.Nonnull String id, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.listApiTokensForServiceAccount(id, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * List API tokens for a specific service account
@@ -929,7 +969,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object listApiTokensForServiceAccount(@javax.annotation.Nonnull String id, Map<String, String> additionalHeaders) throws ApiException {
+  public Object listApiTokensForServiceAccount(@javax.annotation.Nonnull String id, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -947,7 +987,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -998,9 +1038,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Object listApiTokensForServiceAccountWithTenant(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.listApiTokensForServiceAccountWithTenant(id, tenant, Collections.emptyMap());
+    return this.listApiTokensForServiceAccountWithTenant(id, tenant, Collections.emptyMap(), null);
   }
 
+  public Object listApiTokensForServiceAccountWithTenant(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.listApiTokensForServiceAccountWithTenant(id, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * List API tokens for a specific service account
@@ -1011,7 +1054,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object listApiTokensForServiceAccountWithTenant(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Object listApiTokensForServiceAccountWithTenant(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -1035,7 +1078,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -1088,9 +1131,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public PagedResultsIAMServiceAccountControllerApiServiceAccountDetail listServiceAccounts(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort) throws ApiException {
-    return this.listServiceAccounts(page, size, q, sort, Collections.emptyMap());
+    return this.listServiceAccounts(page, size, q, sort, Collections.emptyMap(), null);
   }
 
+  public PagedResultsIAMServiceAccountControllerApiServiceAccountDetail listServiceAccounts(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.listServiceAccounts(page, size, q, sort, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * List service accounts. Superadmin-only. 
@@ -1103,7 +1149,7 @@ import java.util.StringJoiner;
    * @return PagedResultsIAMServiceAccountControllerApiServiceAccountDetail
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsIAMServiceAccountControllerApiServiceAccountDetail listServiceAccounts(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsIAMServiceAccountControllerApiServiceAccountDetail listServiceAccounts(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'page' is set
@@ -1125,7 +1171,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
@@ -1180,9 +1226,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public IAMServiceAccountControllerApiServiceAccountDetail patchServiceAccountDetails(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull IAMServiceAccountControllerApiPatchServiceAccountRequest iaMServiceAccountControllerApiPatchServiceAccountRequest) throws ApiException {
-    return this.patchServiceAccountDetails(id, iaMServiceAccountControllerApiPatchServiceAccountRequest, Collections.emptyMap());
+    return this.patchServiceAccountDetails(id, iaMServiceAccountControllerApiPatchServiceAccountRequest, Collections.emptyMap(), null);
   }
 
+  public IAMServiceAccountControllerApiServiceAccountDetail patchServiceAccountDetails(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull IAMServiceAccountControllerApiPatchServiceAccountRequest iaMServiceAccountControllerApiPatchServiceAccountRequest, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.patchServiceAccountDetails(id, iaMServiceAccountControllerApiPatchServiceAccountRequest, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Update service account details
@@ -1193,7 +1242,7 @@ import java.util.StringJoiner;
    * @return IAMServiceAccountControllerApiServiceAccountDetail
    * @throws ApiException if fails to make API call
    */
-  public IAMServiceAccountControllerApiServiceAccountDetail patchServiceAccountDetails(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull IAMServiceAccountControllerApiPatchServiceAccountRequest iaMServiceAccountControllerApiPatchServiceAccountRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMServiceAccountControllerApiServiceAccountDetail patchServiceAccountDetails(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull IAMServiceAccountControllerApiPatchServiceAccountRequest iaMServiceAccountControllerApiPatchServiceAccountRequest, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = iaMServiceAccountControllerApiPatchServiceAccountRequest;
     
     // verify the required parameter 'id' is set
@@ -1216,7 +1265,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -1266,9 +1315,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public void patchServiceAccountSuperAdmin(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull ApiPatchSuperAdminRequest apiPatchSuperAdminRequest) throws ApiException {
-    this.patchServiceAccountSuperAdmin(id, apiPatchSuperAdminRequest, Collections.emptyMap());
+    this.patchServiceAccountSuperAdmin(id, apiPatchSuperAdminRequest, Collections.emptyMap(), null);
   }
 
+  public void patchServiceAccountSuperAdmin(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull ApiPatchSuperAdminRequest apiPatchSuperAdminRequest, HashMap<String, Object> formDatas)  throws ApiException {
+  this.patchServiceAccountSuperAdmin(id, apiPatchSuperAdminRequest, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Update service account superadmin privileges
@@ -1278,7 +1330,7 @@ import java.util.StringJoiner;
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void patchServiceAccountSuperAdmin(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull ApiPatchSuperAdminRequest apiPatchSuperAdminRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public void patchServiceAccountSuperAdmin(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull ApiPatchSuperAdminRequest apiPatchSuperAdminRequest, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = apiPatchSuperAdminRequest;
     
     // verify the required parameter 'id' is set
@@ -1301,7 +1353,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -1352,9 +1404,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public IAMServiceAccountControllerApiServiceAccountResponse updateServiceAccount(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMServiceAccountControllerApiServiceAccountRequest iaMServiceAccountControllerApiServiceAccountRequest) throws ApiException {
-    return this.updateServiceAccount(id, tenant, iaMServiceAccountControllerApiServiceAccountRequest, Collections.emptyMap());
+    return this.updateServiceAccount(id, tenant, iaMServiceAccountControllerApiServiceAccountRequest, Collections.emptyMap(), null);
   }
 
+  public IAMServiceAccountControllerApiServiceAccountResponse updateServiceAccount(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMServiceAccountControllerApiServiceAccountRequest iaMServiceAccountControllerApiServiceAccountRequest, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.updateServiceAccount(id, tenant, iaMServiceAccountControllerApiServiceAccountRequest, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Update a user service account
@@ -1366,7 +1421,7 @@ import java.util.StringJoiner;
    * @return IAMServiceAccountControllerApiServiceAccountResponse
    * @throws ApiException if fails to make API call
    */
-  public IAMServiceAccountControllerApiServiceAccountResponse updateServiceAccount(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMServiceAccountControllerApiServiceAccountRequest iaMServiceAccountControllerApiServiceAccountRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMServiceAccountControllerApiServiceAccountResponse updateServiceAccount(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMServiceAccountControllerApiServiceAccountRequest iaMServiceAccountControllerApiServiceAccountRequest, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = iaMServiceAccountControllerApiServiceAccountRequest;
     
     // verify the required parameter 'id' is set
@@ -1395,7 +1450,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);

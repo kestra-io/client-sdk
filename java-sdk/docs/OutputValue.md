@@ -1,12 +1,10 @@
 
 
-# OutputValue
+# Interface OutputValue
 
+## Implementing Classes
 
-## Properties
-
-| Name | Type | Description | Notes |
-|------------ | ------------- | ------------- | -------------|
-
+* Object
+* String
 
 

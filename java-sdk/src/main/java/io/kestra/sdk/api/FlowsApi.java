@@ -12,6 +12,13 @@
 
 package io.kestra.sdk.api;
 
+// Custom imports for injected code
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import reactor.core.publisher.Flux;
+import java.io.BufferedReader;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import io.kestra.sdk.internal.ApiException;
@@ -65,9 +72,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public List<FlowInterface> bulkUpdateFlows(@javax.annotation.Nonnull Boolean delete, @javax.annotation.Nonnull Boolean allowNamespaceChild, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String body) throws ApiException {
-    return this.bulkUpdateFlows(delete, allowNamespaceChild, tenant, namespace, body, Collections.emptyMap());
+    return this.bulkUpdateFlows(delete, allowNamespaceChild, tenant, namespace, body, Collections.emptyMap(), null);
   }
 
+  public List<FlowInterface> bulkUpdateFlows(@javax.annotation.Nonnull Boolean delete, @javax.annotation.Nonnull Boolean allowNamespaceChild, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String body, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.bulkUpdateFlows(delete, allowNamespaceChild, tenant, namespace, body, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Update from multiples yaml sources
@@ -81,7 +91,7 @@ import java.util.StringJoiner;
    * @return List&lt;FlowInterface&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<FlowInterface> bulkUpdateFlows(@javax.annotation.Nonnull Boolean delete, @javax.annotation.Nonnull Boolean allowNamespaceChild, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String body, Map<String, String> additionalHeaders) throws ApiException {
+  public List<FlowInterface> bulkUpdateFlows(@javax.annotation.Nonnull Boolean delete, @javax.annotation.Nonnull Boolean allowNamespaceChild, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String body, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'delete' is set
@@ -109,7 +119,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("delete", delete));
     localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
@@ -163,9 +173,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public FlowWithSource createFlow(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body) throws ApiException {
-    return this.createFlow(tenant, body, Collections.emptyMap());
+    return this.createFlow(tenant, body, Collections.emptyMap(), null);
   }
 
+  public FlowWithSource createFlow(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.createFlow(tenant, body, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Create a flow from yaml source
@@ -176,7 +189,7 @@ import java.util.StringJoiner;
    * @return FlowWithSource
    * @throws ApiException if fails to make API call
    */
-  public FlowWithSource createFlow(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
+  public FlowWithSource createFlow(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'tenant' is set
@@ -199,7 +212,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -250,9 +263,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public void deleteFlow(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant) throws ApiException {
-    this.deleteFlow(namespace, id, tenant, Collections.emptyMap());
+    this.deleteFlow(namespace, id, tenant, Collections.emptyMap(), null);
   }
 
+  public void deleteFlow(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  this.deleteFlow(namespace, id, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Delete a flow
@@ -263,7 +279,7 @@ import java.util.StringJoiner;
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void deleteFlow(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public void deleteFlow(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -293,7 +309,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -343,9 +359,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public BulkResponse deleteFlowsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<IdWithNamespace> idWithNamespace) throws ApiException {
-    return this.deleteFlowsByIds(tenant, idWithNamespace, Collections.emptyMap());
+    return this.deleteFlowsByIds(tenant, idWithNamespace, Collections.emptyMap(), null);
   }
 
+  public BulkResponse deleteFlowsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<IdWithNamespace> idWithNamespace, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.deleteFlowsByIds(tenant, idWithNamespace, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Delete flows by their IDs.
@@ -356,7 +375,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse deleteFlowsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<IdWithNamespace> idWithNamespace, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse deleteFlowsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<IdWithNamespace> idWithNamespace, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = idWithNamespace;
     
     // verify the required parameter 'tenant' is set
@@ -379,7 +398,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -430,9 +449,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public BulkResponse deleteFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
-    return this.deleteFlowsByQuery(tenant, filters, Collections.emptyMap());
+    return this.deleteFlowsByQuery(tenant, filters, Collections.emptyMap(), null);
   }
 
+  public BulkResponse deleteFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.deleteFlowsByQuery(tenant, filters, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Delete flows returned by the query parameters.
@@ -443,7 +465,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse deleteFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse deleteFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -461,7 +483,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
@@ -513,9 +535,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public BulkResponse disableFlowsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<IdWithNamespace> idWithNamespace) throws ApiException {
-    return this.disableFlowsByIds(tenant, idWithNamespace, Collections.emptyMap());
+    return this.disableFlowsByIds(tenant, idWithNamespace, Collections.emptyMap(), null);
   }
 
+  public BulkResponse disableFlowsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<IdWithNamespace> idWithNamespace, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.disableFlowsByIds(tenant, idWithNamespace, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Disable flows by their IDs.
@@ -526,7 +551,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse disableFlowsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<IdWithNamespace> idWithNamespace, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse disableFlowsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<IdWithNamespace> idWithNamespace, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = idWithNamespace;
     
     // verify the required parameter 'tenant' is set
@@ -549,7 +574,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -600,9 +625,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public BulkResponse disableFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
-    return this.disableFlowsByQuery(tenant, filters, Collections.emptyMap());
+    return this.disableFlowsByQuery(tenant, filters, Collections.emptyMap(), null);
   }
 
+  public BulkResponse disableFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.disableFlowsByQuery(tenant, filters, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Disable flows returned by the query parameters.
@@ -613,7 +641,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse disableFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse disableFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -631,7 +659,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
@@ -683,9 +711,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public BulkResponse enableFlowsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<IdWithNamespace> idWithNamespace) throws ApiException {
-    return this.enableFlowsByIds(tenant, idWithNamespace, Collections.emptyMap());
+    return this.enableFlowsByIds(tenant, idWithNamespace, Collections.emptyMap(), null);
   }
 
+  public BulkResponse enableFlowsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<IdWithNamespace> idWithNamespace, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.enableFlowsByIds(tenant, idWithNamespace, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Enable flows by their IDs.
@@ -696,7 +727,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse enableFlowsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<IdWithNamespace> idWithNamespace, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse enableFlowsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<IdWithNamespace> idWithNamespace, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = idWithNamespace;
     
     // verify the required parameter 'tenant' is set
@@ -719,7 +750,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -770,9 +801,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public BulkResponse enableFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
-    return this.enableFlowsByQuery(tenant, filters, Collections.emptyMap());
+    return this.enableFlowsByQuery(tenant, filters, Collections.emptyMap(), null);
   }
 
+  public BulkResponse enableFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.enableFlowsByQuery(tenant, filters, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Enable flows returned by the query parameters.
@@ -783,7 +817,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse enableFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse enableFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -801,7 +835,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
@@ -853,9 +887,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public byte[] exportFlowsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<IdWithNamespace> idWithNamespace) throws ApiException {
-    return this.exportFlowsByIds(tenant, idWithNamespace, Collections.emptyMap());
+    return this.exportFlowsByIds(tenant, idWithNamespace, Collections.emptyMap(), null);
   }
 
+  public byte[] exportFlowsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<IdWithNamespace> idWithNamespace, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.exportFlowsByIds(tenant, idWithNamespace, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Export flows as a ZIP archive of yaml sources.
@@ -866,7 +903,7 @@ import java.util.StringJoiner;
    * @return byte[]
    * @throws ApiException if fails to make API call
    */
-  public byte[] exportFlowsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<IdWithNamespace> idWithNamespace, Map<String, String> additionalHeaders) throws ApiException {
+  public byte[] exportFlowsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<IdWithNamespace> idWithNamespace, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = idWithNamespace;
     
     // verify the required parameter 'tenant' is set
@@ -889,7 +926,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -940,9 +977,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public byte[] exportFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
-    return this.exportFlowsByQuery(tenant, filters, Collections.emptyMap());
+    return this.exportFlowsByQuery(tenant, filters, Collections.emptyMap(), null);
   }
 
+  public byte[] exportFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.exportFlowsByQuery(tenant, filters, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Export flows as a ZIP archive of yaml sources.
@@ -953,7 +993,7 @@ import java.util.StringJoiner;
    * @return byte[]
    * @throws ApiException if fails to make API call
    */
-  public byte[] exportFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public byte[] exportFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -971,7 +1011,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
@@ -1026,9 +1066,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public FlowGraph generateFlowGraph(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable List<String> subflows) throws ApiException {
-    return this.generateFlowGraph(namespace, id, tenant, revision, subflows, Collections.emptyMap());
+    return this.generateFlowGraph(namespace, id, tenant, revision, subflows, Collections.emptyMap(), null);
   }
 
+  public FlowGraph generateFlowGraph(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable List<String> subflows, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.generateFlowGraph(namespace, id, tenant, revision, subflows, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Generate a graph for a flow
@@ -1042,7 +1085,7 @@ import java.util.StringJoiner;
    * @return FlowGraph
    * @throws ApiException if fails to make API call
    */
-  public FlowGraph generateFlowGraph(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable List<String> subflows, Map<String, String> additionalHeaders) throws ApiException {
+  public FlowGraph generateFlowGraph(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable List<String> subflows, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -1072,7 +1115,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "subflows", subflows));
@@ -1126,9 +1169,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public FlowGraph generateFlowGraphFromSource(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, @javax.annotation.Nullable List<String> subflows) throws ApiException {
-    return this.generateFlowGraphFromSource(tenant, body, subflows, Collections.emptyMap());
+    return this.generateFlowGraphFromSource(tenant, body, subflows, Collections.emptyMap(), null);
   }
 
+  public FlowGraph generateFlowGraphFromSource(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, @javax.annotation.Nullable List<String> subflows, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.generateFlowGraphFromSource(tenant, body, subflows, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Generate a graph for a flow source
@@ -1140,7 +1186,7 @@ import java.util.StringJoiner;
    * @return FlowGraph
    * @throws ApiException if fails to make API call
    */
-  public FlowGraph generateFlowGraphFromSource(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, @javax.annotation.Nullable List<String> subflows, Map<String, String> additionalHeaders) throws ApiException {
+  public FlowGraph generateFlowGraphFromSource(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, @javax.annotation.Nullable List<String> subflows, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'tenant' is set
@@ -1163,7 +1209,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "subflows", subflows));
     
@@ -1219,9 +1265,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Object getFlow(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean source, @javax.annotation.Nonnull Boolean allowDeleted, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision) throws ApiException {
-    return this.getFlow(namespace, id, source, allowDeleted, tenant, revision, Collections.emptyMap());
+    return this.getFlow(namespace, id, source, allowDeleted, tenant, revision, Collections.emptyMap(), null);
   }
 
+  public Object getFlow(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean source, @javax.annotation.Nonnull Boolean allowDeleted, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.getFlow(namespace, id, source, allowDeleted, tenant, revision, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Get a flow
@@ -1236,7 +1285,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object getFlow(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean source, @javax.annotation.Nonnull Boolean allowDeleted, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision, Map<String, String> additionalHeaders) throws ApiException {
+  public Object getFlow(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean source, @javax.annotation.Nonnull Boolean allowDeleted, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -1276,7 +1325,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("source", source));
     localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
@@ -1333,9 +1382,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public FlowTopologyGraph getFlowDependencies(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean destinationOnly, @javax.annotation.Nonnull Boolean expandAll, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.getFlowDependencies(namespace, id, destinationOnly, expandAll, tenant, Collections.emptyMap());
+    return this.getFlowDependencies(namespace, id, destinationOnly, expandAll, tenant, Collections.emptyMap(), null);
   }
 
+  public FlowTopologyGraph getFlowDependencies(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean destinationOnly, @javax.annotation.Nonnull Boolean expandAll, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.getFlowDependencies(namespace, id, destinationOnly, expandAll, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Get flow dependencies
@@ -1349,7 +1401,7 @@ import java.util.StringJoiner;
    * @return FlowTopologyGraph
    * @throws ApiException if fails to make API call
    */
-  public FlowTopologyGraph getFlowDependencies(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean destinationOnly, @javax.annotation.Nonnull Boolean expandAll, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public FlowTopologyGraph getFlowDependencies(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean destinationOnly, @javax.annotation.Nonnull Boolean expandAll, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -1389,7 +1441,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("destinationOnly", destinationOnly));
     localVarQueryParams.addAll(apiClient.parameterToPair("expandAll", expandAll));
@@ -1443,9 +1495,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public FlowTopologyGraph getFlowDependenciesFromNamespace(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull Boolean destinationOnly, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.getFlowDependenciesFromNamespace(namespace, destinationOnly, tenant, Collections.emptyMap());
+    return this.getFlowDependenciesFromNamespace(namespace, destinationOnly, tenant, Collections.emptyMap(), null);
   }
 
+  public FlowTopologyGraph getFlowDependenciesFromNamespace(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull Boolean destinationOnly, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.getFlowDependenciesFromNamespace(namespace, destinationOnly, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Retrieve flow dependencies
@@ -1457,7 +1512,7 @@ import java.util.StringJoiner;
    * @return FlowTopologyGraph
    * @throws ApiException if fails to make API call
    */
-  public FlowTopologyGraph getFlowDependenciesFromNamespace(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull Boolean destinationOnly, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public FlowTopologyGraph getFlowDependenciesFromNamespace(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull Boolean destinationOnly, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -1486,7 +1541,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("destinationOnly", destinationOnly));
     
@@ -1541,9 +1596,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Task getTaskFromFlow(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String taskId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision) throws ApiException {
-    return this.getTaskFromFlow(namespace, id, taskId, tenant, revision, Collections.emptyMap());
+    return this.getTaskFromFlow(namespace, id, taskId, tenant, revision, Collections.emptyMap(), null);
   }
 
+  public Task getTaskFromFlow(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String taskId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.getTaskFromFlow(namespace, id, taskId, tenant, revision, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Get a flow task
@@ -1557,7 +1615,7 @@ import java.util.StringJoiner;
    * @return Task
    * @throws ApiException if fails to make API call
    */
-  public Task getTaskFromFlow(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String taskId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision, Map<String, String> additionalHeaders) throws ApiException {
+  public Task getTaskFromFlow(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String taskId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -1593,7 +1651,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
     
@@ -1645,9 +1703,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public List<String> importFlows(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable File fileUpload) throws ApiException {
-    return this.importFlows(tenant, fileUpload, Collections.emptyMap());
+    return this.importFlows(tenant, fileUpload, Collections.emptyMap(), null);
   }
 
+  public List<String> importFlows(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable File fileUpload, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.importFlows(tenant, fileUpload, Collections.emptyMap(), formDatas);
+  }
 
   /**
    *     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
@@ -1658,7 +1719,7 @@ import java.util.StringJoiner;
    * @return List&lt;String&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<String> importFlows(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable File fileUpload, Map<String, String> additionalHeaders) throws ApiException {
+  public List<String> importFlows(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable File fileUpload, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -1676,7 +1737,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -1729,9 +1790,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public List<String> listDistinctNamespaces(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q) throws ApiException {
-    return this.listDistinctNamespaces(tenant, q, Collections.emptyMap());
+    return this.listDistinctNamespaces(tenant, q, Collections.emptyMap(), null);
   }
 
+  public List<String> listDistinctNamespaces(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.listDistinctNamespaces(tenant, q, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * List all distinct namespaces
@@ -1742,7 +1806,7 @@ import java.util.StringJoiner;
    * @return List&lt;String&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<String> listDistinctNamespaces(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, Map<String, String> additionalHeaders) throws ApiException {
+  public List<String> listDistinctNamespaces(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -1760,7 +1824,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     
@@ -1813,9 +1877,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public List<FlowWithSource> listFlowRevisions(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.listFlowRevisions(namespace, id, tenant, Collections.emptyMap());
+    return this.listFlowRevisions(namespace, id, tenant, Collections.emptyMap(), null);
   }
 
+  public List<FlowWithSource> listFlowRevisions(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.listFlowRevisions(namespace, id, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Get revisions for a flow
@@ -1827,7 +1894,7 @@ import java.util.StringJoiner;
    * @return List&lt;FlowWithSource&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<FlowWithSource> listFlowRevisions(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public List<FlowWithSource> listFlowRevisions(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -1857,7 +1924,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -1908,9 +1975,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public List<Flow> listFlowsByNamespace(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.listFlowsByNamespace(namespace, tenant, Collections.emptyMap());
+    return this.listFlowsByNamespace(namespace, tenant, Collections.emptyMap(), null);
   }
 
+  public List<Flow> listFlowsByNamespace(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.listFlowsByNamespace(namespace, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Retrieve all flows from a given namespace
@@ -1921,7 +1991,7 @@ import java.util.StringJoiner;
    * @return List&lt;Flow&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<Flow> listFlowsByNamespace(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public List<Flow> listFlowsByNamespace(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -1945,7 +2015,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -1999,9 +2069,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public PagedResultsFlow searchFlows(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
-    return this.searchFlows(page, size, tenant, sort, filters, Collections.emptyMap());
+    return this.searchFlows(page, size, tenant, sort, filters, Collections.emptyMap(), null);
   }
 
+  public PagedResultsFlow searchFlows(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.searchFlows(page, size, tenant, sort, filters, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Search for flows
@@ -2015,7 +2088,7 @@ import java.util.StringJoiner;
    * @return PagedResultsFlow
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsFlow searchFlows(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsFlow searchFlows(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'page' is set
@@ -2043,7 +2116,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
     localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
@@ -2102,9 +2175,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public PagedResultsSearchResultFlow searchFlowsBySourceCode(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace) throws ApiException {
-    return this.searchFlowsBySourceCode(page, size, tenant, sort, q, namespace, Collections.emptyMap());
+    return this.searchFlowsBySourceCode(page, size, tenant, sort, q, namespace, Collections.emptyMap(), null);
   }
 
+  public PagedResultsSearchResultFlow searchFlowsBySourceCode(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.searchFlowsBySourceCode(page, size, tenant, sort, q, namespace, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Search for flows source code
@@ -2119,7 +2195,7 @@ import java.util.StringJoiner;
    * @return PagedResultsSearchResultFlow
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsSearchResultFlow searchFlowsBySourceCode(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsSearchResultFlow searchFlowsBySourceCode(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'page' is set
@@ -2147,7 +2223,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
     localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
@@ -2205,9 +2281,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public FlowWithSource updateFlow(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body) throws ApiException {
-    return this.updateFlow(namespace, id, tenant, body, Collections.emptyMap());
+    return this.updateFlow(namespace, id, tenant, body, Collections.emptyMap(), null);
   }
 
+  public FlowWithSource updateFlow(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.updateFlow(namespace, id, tenant, body, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Update a flow
@@ -2220,7 +2299,7 @@ import java.util.StringJoiner;
    * @return FlowWithSource
    * @throws ApiException if fails to make API call
    */
-  public FlowWithSource updateFlow(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
+  public FlowWithSource updateFlow(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'namespace' is set
@@ -2255,7 +2334,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -2308,9 +2387,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public List<FlowInterface> updateFlowsInNamespace(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull Boolean delete, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body) throws ApiException {
-    return this.updateFlowsInNamespace(namespace, delete, tenant, body, Collections.emptyMap());
+    return this.updateFlowsInNamespace(namespace, delete, tenant, body, Collections.emptyMap(), null);
   }
 
+  public List<FlowInterface> updateFlowsInNamespace(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull Boolean delete, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.updateFlowsInNamespace(namespace, delete, tenant, body, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Update a complete namespace from yaml source
@@ -2323,7 +2405,7 @@ import java.util.StringJoiner;
    * @return List&lt;FlowInterface&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<FlowInterface> updateFlowsInNamespace(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull Boolean delete, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
+  public List<FlowInterface> updateFlowsInNamespace(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull Boolean delete, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'namespace' is set
@@ -2357,7 +2439,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("delete", delete));
     
@@ -2409,9 +2491,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public List<ValidateConstraintViolation> validateFlows(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body) throws ApiException {
-    return this.validateFlows(tenant, body, Collections.emptyMap());
+    return this.validateFlows(tenant, body, Collections.emptyMap(), null);
   }
 
+  public List<ValidateConstraintViolation> validateFlows(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.validateFlows(tenant, body, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Validate a list of flows
@@ -2422,7 +2507,7 @@ import java.util.StringJoiner;
    * @return List&lt;ValidateConstraintViolation&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<ValidateConstraintViolation> validateFlows(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
+  public List<ValidateConstraintViolation> validateFlows(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'tenant' is set
@@ -2445,7 +2530,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -2497,9 +2582,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public ValidateConstraintViolation validateTask(@javax.annotation.Nonnull FlowControllerTaskValidationType section, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Object body) throws ApiException {
-    return this.validateTask(section, tenant, body, Collections.emptyMap());
+    return this.validateTask(section, tenant, body, Collections.emptyMap(), null);
   }
 
+  public ValidateConstraintViolation validateTask(@javax.annotation.Nonnull FlowControllerTaskValidationType section, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Object body, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.validateTask(section, tenant, body, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Validate a task
@@ -2511,7 +2599,7 @@ import java.util.StringJoiner;
    * @return ValidateConstraintViolation
    * @throws ApiException if fails to make API call
    */
-  public ValidateConstraintViolation validateTask(@javax.annotation.Nonnull FlowControllerTaskValidationType section, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Object body, Map<String, String> additionalHeaders) throws ApiException {
+  public ValidateConstraintViolation validateTask(@javax.annotation.Nonnull FlowControllerTaskValidationType section, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Object body, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'section' is set
@@ -2539,7 +2627,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("section", section));
     
@@ -2591,9 +2679,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public ValidateConstraintViolation validateTrigger(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Object body) throws ApiException {
-    return this.validateTrigger(tenant, body, Collections.emptyMap());
+    return this.validateTrigger(tenant, body, Collections.emptyMap(), null);
   }
 
+  public ValidateConstraintViolation validateTrigger(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Object body, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.validateTrigger(tenant, body, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Validate trigger
@@ -2604,7 +2695,7 @@ import java.util.StringJoiner;
    * @return ValidateConstraintViolation
    * @throws ApiException if fails to make API call
    */
-  public ValidateConstraintViolation validateTrigger(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Object body, Map<String, String> additionalHeaders) throws ApiException {
+  public ValidateConstraintViolation validateTrigger(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Object body, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'tenant' is set
@@ -2627,7 +2718,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);

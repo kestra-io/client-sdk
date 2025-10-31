@@ -12,6 +12,13 @@
 
 package io.kestra.sdk.api;
 
+// Custom imports for injected code
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import reactor.core.publisher.Flux;
+import java.io.BufferedReader;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import io.kestra.sdk.internal.ApiException;
@@ -23,6 +30,7 @@ import io.kestra.sdk.internal.Pair;
 import io.kestra.sdk.model.BulkErrorResponse;
 import io.kestra.sdk.model.BulkResponse;
 import io.kestra.sdk.model.EventExecution;
+import io.kestra.sdk.model.EventExecutionStatusEvent;
 import io.kestra.sdk.model.Execution;
 import io.kestra.sdk.model.ExecutionControllerExecutionResponse;
 import io.kestra.sdk.model.ExecutionControllerLastExecutionResponse;
@@ -71,14 +79,16 @@ import java.util.StringJoiner;
    * @param scheduleDate Schedule the flow on a specific date (optional)
    * @param breakpoints Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
    * @param kind Specific execution kind (optional)
-   * @param _file  (optional)
    * @return ExecutionControllerExecutionResponse
    * @throws ApiException if fails to make API call
    */
-  public ExecutionControllerExecutionResponse createExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable OffsetDateTime scheduleDate, @javax.annotation.Nullable String breakpoints, @javax.annotation.Nullable ExecutionKind kind, @javax.annotation.Nullable List<Object> _file) throws ApiException {
-    return this.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind, _file, Collections.emptyMap());
+  public ExecutionControllerExecutionResponse createExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable OffsetDateTime scheduleDate, @javax.annotation.Nullable String breakpoints, @javax.annotation.Nullable ExecutionKind kind) throws ApiException {
+    return this.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind, Collections.emptyMap(), null);
   }
 
+  public ExecutionControllerExecutionResponse createExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable OffsetDateTime scheduleDate, @javax.annotation.Nullable String breakpoints, @javax.annotation.Nullable ExecutionKind kind, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Create a new execution for a flow
@@ -92,12 +102,11 @@ import java.util.StringJoiner;
    * @param scheduleDate Schedule the flow on a specific date (optional)
    * @param breakpoints Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
    * @param kind Specific execution kind (optional)
-   * @param _file  (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return ExecutionControllerExecutionResponse
    * @throws ApiException if fails to make API call
    */
-  public ExecutionControllerExecutionResponse createExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable OffsetDateTime scheduleDate, @javax.annotation.Nullable String breakpoints, @javax.annotation.Nullable ExecutionKind kind, @javax.annotation.Nullable List<Object> _file, Map<String, String> additionalHeaders) throws ApiException {
+  public ExecutionControllerExecutionResponse createExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable OffsetDateTime scheduleDate, @javax.annotation.Nullable String breakpoints, @javax.annotation.Nullable ExecutionKind kind, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -132,7 +141,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
     localVarQueryParams.addAll(apiClient.parameterToPair("wait", wait));
@@ -144,9 +153,7 @@ import java.util.StringJoiner;
     localVarHeaderParams.putAll(additionalHeaders);
 
     
-    if (_file != null)
-      localVarFormParams.put("file", _file);
-
+    
     final String[] localVarAccepts = {
       "application/json"
     };
@@ -193,9 +200,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public void deleteExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage) throws ApiException {
-    this.deleteExecution(executionId, tenant, deleteLogs, deleteMetrics, deleteStorage, Collections.emptyMap());
+    this.deleteExecution(executionId, tenant, deleteLogs, deleteMetrics, deleteStorage, Collections.emptyMap(), null);
   }
 
+  public void deleteExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage, HashMap<String, Object> formDatas)  throws ApiException {
+  this.deleteExecution(executionId, tenant, deleteLogs, deleteMetrics, deleteStorage, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Delete an execution
@@ -208,7 +218,7 @@ import java.util.StringJoiner;
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void deleteExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage, Map<String, String> additionalHeaders) throws ApiException {
+  public void deleteExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -232,7 +242,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("deleteLogs", deleteLogs));
     localVarQueryParams.addAll(apiClient.parameterToPair("deleteMetrics", deleteMetrics));
@@ -289,9 +299,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public BulkResponse deleteExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, @javax.annotation.Nullable Boolean includeNonTerminated, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage) throws ApiException {
-    return this.deleteExecutionsByIds(tenant, requestBody, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage, Collections.emptyMap());
+    return this.deleteExecutionsByIds(tenant, requestBody, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage, Collections.emptyMap(), null);
   }
 
+  public BulkResponse deleteExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, @javax.annotation.Nullable Boolean includeNonTerminated, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.deleteExecutionsByIds(tenant, requestBody, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Delete a list of executions
@@ -306,7 +319,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse deleteExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, @javax.annotation.Nullable Boolean includeNonTerminated, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse deleteExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, @javax.annotation.Nullable Boolean includeNonTerminated, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = requestBody;
     
     // verify the required parameter 'tenant' is set
@@ -329,7 +342,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("includeNonTerminated", includeNonTerminated));
     localVarQueryParams.addAll(apiClient.parameterToPair("deleteLogs", deleteLogs));
@@ -388,9 +401,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Object deleteExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable Boolean includeNonTerminated, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage) throws ApiException {
-    return this.deleteExecutionsByQuery(tenant, filters, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage, Collections.emptyMap());
+    return this.deleteExecutionsByQuery(tenant, filters, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage, Collections.emptyMap(), null);
   }
 
+  public Object deleteExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable Boolean includeNonTerminated, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.deleteExecutionsByQuery(tenant, filters, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Delete executions filter by query parameters
@@ -405,7 +421,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable Boolean includeNonTerminated, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage, Map<String, String> additionalHeaders) throws ApiException {
+  public Object deleteExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable Boolean includeNonTerminated, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -423,7 +439,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("includeNonTerminated", includeNonTerminated));
@@ -480,9 +496,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public File downloadFileFromExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull URI path, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.downloadFileFromExecution(executionId, path, tenant, Collections.emptyMap());
+    return this.downloadFileFromExecution(executionId, path, tenant, Collections.emptyMap(), null);
   }
 
+  public File downloadFileFromExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull URI path, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.downloadFileFromExecution(executionId, path, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Download file for an execution
@@ -494,7 +513,7 @@ import java.util.StringJoiner;
    * @return File
    * @throws ApiException if fails to make API call
    */
-  public File downloadFileFromExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull URI path, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public File downloadFileFromExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull URI path, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -523,7 +542,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("path", path));
     
@@ -570,6 +589,219 @@ import java.util.StringJoiner;
 
 
 
+  public Flux<Execution> followDependenciesExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, boolean destinationOnly, boolean expandAll) throws ApiException {
+    return Flux.create(sink -> {
+      org.apache.hc.client5.http.impl.classic.CloseableHttpResponse response = null;
+      BufferedReader reader = null;
+
+      try {
+        response = _followDependenciesExecutions(executionId, tenant, Collections.emptyMap(), destinationOnly, expandAll);
+        java.io.InputStream is = response.getEntity().getContent();
+        reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+
+        String line;
+        StringBuilder dataBuffer = new StringBuilder();
+
+        while (!sink.isCancelled() && (line = reader.readLine()) != null) {
+          if (line.isEmpty()) {
+            if (dataBuffer.length() > 0) {
+              String data = dataBuffer.toString();
+              dataBuffer.setLength(0);
+
+              try {
+                Execution ev = apiClient.getObjectMapper().readValue(data, Execution.class);
+                sink.next(ev);
+              } catch (Exception e) {
+                sink.error(new ApiException(e));
+                return;
+              }
+            }
+            continue;
+          }
+
+          if (line.startsWith("data:")) {
+            String payload = line.substring(5);
+            if (payload.startsWith(" ")) payload = payload.substring(1);
+            dataBuffer.append(payload).append('\n');
+          }
+        }
+
+        if (dataBuffer.length() > 0) {
+          String data = dataBuffer.toString();
+          try {
+            Execution ev = apiClient.getObjectMapper().readValue(data, Execution.class);
+            sink.next(ev);
+          } catch (Exception e) {
+            sink.error(new ApiException(e));
+            return;
+          }
+        }
+
+        sink.complete();
+
+      } catch (IOException e) {
+        if (!sink.isCancelled()) {
+          System.err.println("Stream connection closed or error occurred: " + e.getMessage());
+          sink.error(new ApiException(e));
+        }
+      } catch (ApiException e) {
+        sink.error(e);
+      } finally {
+        try {
+          if (reader != null) reader.close();
+          if (response != null) response.close();
+        } catch (IOException cleanupException) {
+          System.err.println("Error during stream cleanup: " + cleanupException.getMessage());
+        }
+      }
+    });
+  }
+
+  private org.apache.hc.client5.http.impl.classic.CloseableHttpResponse _followDependenciesExecutions(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, boolean destinationOnly, boolean expandAll) throws ApiException {
+    if (executionId == null) {
+      throw new ApiException(400, "Missing the required parameter 'executionId' when calling _followDependenciesExecutions");
+    }
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling _followDependenciesExecutions");
+    }
+
+    String localVarPath = "/api/v1/{tenant}/executions/{executionId}/follow-dependencies"
+            .replaceAll("\\{" + "executionId" + "\\}", apiClient.escapeString(apiClient.parameterToString(executionId)))
+            .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    List<Pair> localVarQueryParams = new ArrayList<>();
+    if (destinationOnly != false) {
+      localVarQueryParams.addAll(apiClient.parameterToPair("destinationOnly", destinationOnly));
+    }
+    if (expandAll != false) {
+      localVarQueryParams.addAll(apiClient.parameterToPair("expandAll", expandAll));
+    }
+    List<Pair> localVarCollectionQueryParams = new ArrayList<>();
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    Map<String, String> localVarHeaderParams = new HashMap<>();
+    Map<String, String> localVarCookieParams = new HashMap<>();
+
+    if (additionalHeaders != null) {
+      localVarHeaderParams.putAll(additionalHeaders);
+    }
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    return apiClient.openEventStream(
+            localVarPath,
+            localVarQueryParams,
+            localVarCollectionQueryParams,
+            localVarQueryStringJoiner.toString(),
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarAuthNames
+    );
+  }
+
+
+  public Flux<Execution> followExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant) throws ApiException {
+    return Flux.create(sink -> {
+      org.apache.hc.client5.http.impl.classic.CloseableHttpResponse response = null;
+      BufferedReader reader = null;
+
+      try {
+        response = _followExecutions(executionId, tenant, Collections.emptyMap());
+        java.io.InputStream is = response.getEntity().getContent();
+        reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+
+        String line;
+        StringBuilder dataBuffer = new StringBuilder();
+
+        while (!sink.isCancelled() && (line = reader.readLine()) != null) {
+          if (line.isEmpty()) {
+            if (dataBuffer.length() > 0) {
+              String data = dataBuffer.toString();
+              dataBuffer.setLength(0);
+
+              try {
+                Execution ev = apiClient.getObjectMapper().readValue(data, Execution.class);
+                sink.next(ev);
+              } catch (Exception e) {
+                sink.error(new ApiException(e));
+                return;
+              }
+            }
+            continue;
+          }
+
+          if (line.startsWith("data:")) {
+            String payload = line.substring(5);
+            if (payload.startsWith(" ")) payload = payload.substring(1);
+            dataBuffer.append(payload).append('\n');
+          }
+        }
+
+        if (dataBuffer.length() > 0) {
+          String data = dataBuffer.toString();
+          try {
+            Execution ev = apiClient.getObjectMapper().readValue(data, Execution.class);
+            sink.next(ev);
+          } catch (Exception e) {
+            sink.error(new ApiException(e));
+            return;
+          }
+        }
+
+        sink.complete();
+
+      } catch (IOException e) {
+        if (!sink.isCancelled()) {
+          System.err.println("Stream connection closed or error occurred: " + e.getMessage());
+          sink.error(new ApiException(e));
+        }
+      } catch (ApiException e) {
+        sink.error(e);
+      } finally {
+        try {
+          if (reader != null) reader.close();
+          if (response != null) response.close();
+        } catch (IOException cleanupException) {
+          System.err.println("Error during stream cleanup: " + cleanupException.getMessage());
+        }
+      }
+    });
+  }
+
+  private org.apache.hc.client5.http.impl.classic.CloseableHttpResponse _followExecutions(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+    if (executionId == null) {
+      throw new ApiException(400, "Missing the required parameter 'executionId' when calling _followExecutions");
+    }
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling _followExecutions");
+    }
+
+    String localVarPath = "/api/v1/{tenant}/executions/{executionId}/follow"
+            .replaceAll("\\{" + "executionId" + "\\}", apiClient.escapeString(apiClient.parameterToString(executionId)))
+            .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    List<Pair> localVarQueryParams = new ArrayList<>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<>();
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    Map<String, String> localVarHeaderParams = new HashMap<>();
+    Map<String, String> localVarCookieParams = new HashMap<>();
+
+    if (additionalHeaders != null) {
+      localVarHeaderParams.putAll(additionalHeaders);
+    }
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    return apiClient.openEventStream(
+            localVarPath,
+            localVarQueryParams,
+            localVarCollectionQueryParams,
+            localVarQueryStringJoiner.toString(),
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarAuthNames
+    );
+  }
+
 
   /**
    * Force run a list of executions
@@ -580,9 +812,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public BulkResponse forceRunByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody) throws ApiException {
-    return this.forceRunByIds(tenant, requestBody, Collections.emptyMap());
+    return this.forceRunByIds(tenant, requestBody, Collections.emptyMap(), null);
   }
 
+  public BulkResponse forceRunByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.forceRunByIds(tenant, requestBody, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Force run a list of executions
@@ -593,7 +828,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse forceRunByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse forceRunByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = requestBody;
     
     // verify the required parameter 'tenant' is set
@@ -616,7 +851,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -667,9 +902,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Execution forceRunExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.forceRunExecution(executionId, tenant, Collections.emptyMap());
+    return this.forceRunExecution(executionId, tenant, Collections.emptyMap(), null);
   }
 
+  public Execution forceRunExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.forceRunExecution(executionId, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Force run an execution
@@ -680,7 +918,7 @@ import java.util.StringJoiner;
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution forceRunExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Execution forceRunExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -704,7 +942,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -755,9 +993,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Object forceRunExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
-    return this.forceRunExecutionsByQuery(tenant, filters, Collections.emptyMap());
+    return this.forceRunExecutionsByQuery(tenant, filters, Collections.emptyMap(), null);
   }
 
+  public Object forceRunExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.forceRunExecutionsByQuery(tenant, filters, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Force run executions filter by query parameters
@@ -768,7 +1009,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object forceRunExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public Object forceRunExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -786,7 +1027,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
@@ -838,9 +1079,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Execution getExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.getExecution(executionId, tenant, Collections.emptyMap());
+    return this.getExecution(executionId, tenant, Collections.emptyMap(), null);
   }
 
+  public Execution getExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.getExecution(executionId, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Get an execution
@@ -851,7 +1095,7 @@ import java.util.StringJoiner;
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution getExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Execution getExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -875,7 +1119,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -927,9 +1171,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public FlowGraph getExecutionFlowGraph(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> subflows) throws ApiException {
-    return this.getExecutionFlowGraph(executionId, tenant, subflows, Collections.emptyMap());
+    return this.getExecutionFlowGraph(executionId, tenant, subflows, Collections.emptyMap(), null);
   }
 
+  public FlowGraph getExecutionFlowGraph(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> subflows, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.getExecutionFlowGraph(executionId, tenant, subflows, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Generate a graph for an execution
@@ -941,7 +1188,7 @@ import java.util.StringJoiner;
    * @return FlowGraph
    * @throws ApiException if fails to make API call
    */
-  public FlowGraph getExecutionFlowGraph(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> subflows, Map<String, String> additionalHeaders) throws ApiException {
+  public FlowGraph getExecutionFlowGraph(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> subflows, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -965,7 +1212,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "subflows", subflows));
     
@@ -1018,9 +1265,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public FileMetas getFileMetadatasFromExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull URI path, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.getFileMetadatasFromExecution(executionId, path, tenant, Collections.emptyMap());
+    return this.getFileMetadatasFromExecution(executionId, path, tenant, Collections.emptyMap(), null);
   }
 
+  public FileMetas getFileMetadatasFromExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull URI path, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.getFileMetadatasFromExecution(executionId, path, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Get file meta information for an execution
@@ -1032,7 +1282,7 @@ import java.util.StringJoiner;
    * @return FileMetas
    * @throws ApiException if fails to make API call
    */
-  public FileMetas getFileMetadatasFromExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull URI path, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public FileMetas getFileMetadatasFromExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull URI path, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -1061,7 +1311,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("path", path));
     
@@ -1107,15 +1357,120 @@ import java.util.StringJoiner;
   /**
    * Get flow information&#39;s for an execution
    * 
+   * @param namespace The namespace of the flow (required)
+   * @param flowId The flow id (required)
+   * @param tenant  (required)
+   * @param revision The flow revision (optional)
+   * @return FlowForExecution
+   * @throws ApiException if fails to make API call
+   */
+  public FlowForExecution getFlowFromExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision) throws ApiException {
+    return this.getFlowFromExecution(namespace, flowId, tenant, revision, Collections.emptyMap(), null);
+  }
+
+  public FlowForExecution getFlowFromExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.getFlowFromExecution(namespace, flowId, tenant, revision, Collections.emptyMap(), formDatas);
+  }
+
+  /**
+   * Get flow information&#39;s for an execution
+   * 
+   * @param namespace The namespace of the flow (required)
+   * @param flowId The flow id (required)
+   * @param tenant  (required)
+   * @param revision The flow revision (optional)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return FlowForExecution
+   * @throws ApiException if fails to make API call
+   */
+  public FlowForExecution getFlowFromExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'namespace' is set
+    if (namespace == null) {
+      throw new ApiException(400, "Missing the required parameter 'namespace' when calling getFlowFromExecution");
+    }
+    
+    // verify the required parameter 'flowId' is set
+    if (flowId == null) {
+      throw new ApiException(400, "Missing the required parameter 'flowId' when calling getFlowFromExecution");
+    }
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling getFlowFromExecution");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/executions/flows/{namespace}/{flowId}"
+      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
+      .replaceAll("\\{" + "flowId" + "\\}", apiClient.escapeString(apiClient.parameterToString(flowId)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<FlowForExecution> localVarReturnType = new TypeReference<FlowForExecution>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "GET",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+
+
+
+
+
+  /**
+   * Get flow information&#39;s for an execution
+   * 
    * @param executionId The execution that you want flow informations (required)
    * @param tenant  (required)
    * @return FlowForExecution
    * @throws ApiException if fails to make API call
    */
   public FlowForExecution getFlowFromExecutionById(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.getFlowFromExecutionById(executionId, tenant, Collections.emptyMap());
+    return this.getFlowFromExecutionById(executionId, tenant, Collections.emptyMap(), null);
   }
 
+  public FlowForExecution getFlowFromExecutionById(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.getFlowFromExecutionById(executionId, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Get flow information&#39;s for an execution
@@ -1126,7 +1481,7 @@ import java.util.StringJoiner;
    * @return FlowForExecution
    * @throws ApiException if fails to make API call
    */
-  public FlowForExecution getFlowFromExecutionById(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public FlowForExecution getFlowFromExecutionById(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -1150,7 +1505,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -1201,9 +1556,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public List<ExecutionControllerLastExecutionResponse> getLatestExecutions(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<ExecutionRepositoryInterfaceFlowFilter> executionRepositoryInterfaceFlowFilter) throws ApiException {
-    return this.getLatestExecutions(tenant, executionRepositoryInterfaceFlowFilter, Collections.emptyMap());
+    return this.getLatestExecutions(tenant, executionRepositoryInterfaceFlowFilter, Collections.emptyMap(), null);
   }
 
+  public List<ExecutionControllerLastExecutionResponse> getLatestExecutions(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<ExecutionRepositoryInterfaceFlowFilter> executionRepositoryInterfaceFlowFilter, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.getLatestExecutions(tenant, executionRepositoryInterfaceFlowFilter, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Get the latest execution for given flows
@@ -1214,7 +1572,7 @@ import java.util.StringJoiner;
    * @return List&lt;ExecutionControllerLastExecutionResponse&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<ExecutionControllerLastExecutionResponse> getLatestExecutions(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<ExecutionRepositoryInterfaceFlowFilter> executionRepositoryInterfaceFlowFilter, Map<String, String> additionalHeaders) throws ApiException {
+  public List<ExecutionControllerLastExecutionResponse> getLatestExecutions(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<ExecutionRepositoryInterfaceFlowFilter> executionRepositoryInterfaceFlowFilter, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = executionRepositoryInterfaceFlowFilter;
     
     // verify the required parameter 'tenant' is set
@@ -1237,7 +1595,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -1289,9 +1647,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Object killExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull Boolean isOnKillCascade, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.killExecution(executionId, isOnKillCascade, tenant, Collections.emptyMap());
+    return this.killExecution(executionId, isOnKillCascade, tenant, Collections.emptyMap(), null);
   }
 
+  public Object killExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull Boolean isOnKillCascade, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.killExecution(executionId, isOnKillCascade, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Kill an execution
@@ -1303,7 +1664,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object killExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull Boolean isOnKillCascade, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Object killExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull Boolean isOnKillCascade, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -1332,7 +1693,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("isOnKillCascade", isOnKillCascade));
     
@@ -1384,9 +1745,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public BulkResponse killExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody) throws ApiException {
-    return this.killExecutionsByIds(tenant, requestBody, Collections.emptyMap());
+    return this.killExecutionsByIds(tenant, requestBody, Collections.emptyMap(), null);
   }
 
+  public BulkResponse killExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.killExecutionsByIds(tenant, requestBody, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Kill a list of executions
@@ -1397,7 +1761,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse killExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse killExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = requestBody;
     
     // verify the required parameter 'tenant' is set
@@ -1420,7 +1784,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -1471,9 +1835,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Object killExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
-    return this.killExecutionsByQuery(tenant, filters, Collections.emptyMap());
+    return this.killExecutionsByQuery(tenant, filters, Collections.emptyMap(), null);
   }
 
+  public Object killExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.killExecutionsByQuery(tenant, filters, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Kill executions filter by query parameters
@@ -1484,7 +1851,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object killExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public Object killExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -1502,7 +1869,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
@@ -1553,9 +1920,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public void pauseExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant) throws ApiException {
-    this.pauseExecution(executionId, tenant, Collections.emptyMap());
+    this.pauseExecution(executionId, tenant, Collections.emptyMap(), null);
   }
 
+  public void pauseExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  this.pauseExecution(executionId, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Pause a running execution.
@@ -1565,7 +1935,7 @@ import java.util.StringJoiner;
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void pauseExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public void pauseExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -1589,7 +1959,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -1639,9 +2009,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public BulkResponse pauseExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody) throws ApiException {
-    return this.pauseExecutionsByIds(tenant, requestBody, Collections.emptyMap());
+    return this.pauseExecutionsByIds(tenant, requestBody, Collections.emptyMap(), null);
   }
 
+  public BulkResponse pauseExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.pauseExecutionsByIds(tenant, requestBody, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Pause a list of running executions
@@ -1652,7 +2025,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse pauseExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse pauseExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = requestBody;
     
     // verify the required parameter 'tenant' is set
@@ -1675,7 +2048,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -1726,9 +2099,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Object pauseExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
-    return this.pauseExecutionsByQuery(tenant, filters, Collections.emptyMap());
+    return this.pauseExecutionsByQuery(tenant, filters, Collections.emptyMap(), null);
   }
 
+  public Object pauseExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.pauseExecutionsByQuery(tenant, filters, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Pause executions filter by query parameters
@@ -1739,7 +2115,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object pauseExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public Object pauseExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -1757,7 +2133,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
@@ -1812,9 +2188,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Execution replayExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String taskRunId, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable String breakpoints) throws ApiException {
-    return this.replayExecution(executionId, tenant, taskRunId, revision, breakpoints, Collections.emptyMap());
+    return this.replayExecution(executionId, tenant, taskRunId, revision, breakpoints, Collections.emptyMap(), null);
   }
 
+  public Execution replayExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String taskRunId, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable String breakpoints, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.replayExecution(executionId, tenant, taskRunId, revision, breakpoints, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Create a new execution from an old one and start it from a specified task run id
@@ -1828,7 +2207,7 @@ import java.util.StringJoiner;
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution replayExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String taskRunId, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable String breakpoints, Map<String, String> additionalHeaders) throws ApiException {
+  public Execution replayExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String taskRunId, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable String breakpoints, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -1852,7 +2231,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("taskRunId", taskRunId));
     localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
@@ -1909,9 +2288,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Execution replayExecutionWithinputs(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String taskRunId, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable String breakpoints) throws ApiException {
-    return this.replayExecutionWithinputs(executionId, tenant, taskRunId, revision, breakpoints, Collections.emptyMap());
+    return this.replayExecutionWithinputs(executionId, tenant, taskRunId, revision, breakpoints, Collections.emptyMap(), null);
   }
 
+  public Execution replayExecutionWithinputs(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String taskRunId, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable String breakpoints, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.replayExecutionWithinputs(executionId, tenant, taskRunId, revision, breakpoints, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Create a new execution from an old one and start it from a specified task run id
@@ -1925,7 +2307,7 @@ import java.util.StringJoiner;
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution replayExecutionWithinputs(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String taskRunId, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable String breakpoints, Map<String, String> additionalHeaders) throws ApiException {
+  public Execution replayExecutionWithinputs(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String taskRunId, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable String breakpoints, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -1949,7 +2331,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("taskRunId", taskRunId));
     localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
@@ -2004,9 +2386,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public BulkResponse replayExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, @javax.annotation.Nullable Boolean latestRevision) throws ApiException {
-    return this.replayExecutionsByIds(tenant, requestBody, latestRevision, Collections.emptyMap());
+    return this.replayExecutionsByIds(tenant, requestBody, latestRevision, Collections.emptyMap(), null);
   }
 
+  public BulkResponse replayExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, @javax.annotation.Nullable Boolean latestRevision, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.replayExecutionsByIds(tenant, requestBody, latestRevision, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Create new executions from old ones. Keep the flow revision
@@ -2018,7 +2403,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse replayExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, @javax.annotation.Nullable Boolean latestRevision, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse replayExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, @javax.annotation.Nullable Boolean latestRevision, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = requestBody;
     
     // verify the required parameter 'tenant' is set
@@ -2041,7 +2426,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("latestRevision", latestRevision));
     
@@ -2094,9 +2479,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Object replayExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable Boolean latestRevision) throws ApiException {
-    return this.replayExecutionsByQuery(tenant, filters, latestRevision, Collections.emptyMap());
+    return this.replayExecutionsByQuery(tenant, filters, latestRevision, Collections.emptyMap(), null);
   }
 
+  public Object replayExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable Boolean latestRevision, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.replayExecutionsByQuery(tenant, filters, latestRevision, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Create new executions from old ones filter by query parameters. Keep the flow revision
@@ -2108,7 +2496,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object replayExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable Boolean latestRevision, Map<String, String> additionalHeaders) throws ApiException {
+  public Object replayExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable Boolean latestRevision, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -2126,7 +2514,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("latestRevision", latestRevision));
@@ -2180,9 +2568,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Execution restartExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision) throws ApiException {
-    return this.restartExecution(executionId, tenant, revision, Collections.emptyMap());
+    return this.restartExecution(executionId, tenant, revision, Collections.emptyMap(), null);
   }
 
+  public Execution restartExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.restartExecution(executionId, tenant, revision, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Restart a new execution from an old one
@@ -2194,7 +2585,7 @@ import java.util.StringJoiner;
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution restartExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision, Map<String, String> additionalHeaders) throws ApiException {
+  public Execution restartExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -2218,7 +2609,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
     
@@ -2270,9 +2661,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public BulkResponse restartExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody) throws ApiException {
-    return this.restartExecutionsByIds(tenant, requestBody, Collections.emptyMap());
+    return this.restartExecutionsByIds(tenant, requestBody, Collections.emptyMap(), null);
   }
 
+  public BulkResponse restartExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.restartExecutionsByIds(tenant, requestBody, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Restart a list of executions
@@ -2283,7 +2677,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse restartExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse restartExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = requestBody;
     
     // verify the required parameter 'tenant' is set
@@ -2306,7 +2700,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -2357,9 +2751,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Object restartExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
-    return this.restartExecutionsByQuery(tenant, filters, Collections.emptyMap());
+    return this.restartExecutionsByQuery(tenant, filters, Collections.emptyMap(), null);
   }
 
+  public Object restartExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.restartExecutionsByQuery(tenant, filters, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Restart executions filter by query parameters
@@ -2370,7 +2767,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object restartExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public Object restartExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -2388,7 +2785,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
@@ -2440,9 +2837,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Object resumeExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.resumeExecution(executionId, tenant, Collections.emptyMap());
+    return this.resumeExecution(executionId, tenant, Collections.emptyMap(), null);
   }
 
+  public Object resumeExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.resumeExecution(executionId, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Resume a paused execution.
@@ -2453,7 +2853,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object resumeExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Object resumeExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -2477,7 +2877,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -2528,9 +2928,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public BulkResponse resumeExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody) throws ApiException {
-    return this.resumeExecutionsByIds(tenant, requestBody, Collections.emptyMap());
+    return this.resumeExecutionsByIds(tenant, requestBody, Collections.emptyMap(), null);
   }
 
+  public BulkResponse resumeExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.resumeExecutionsByIds(tenant, requestBody, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Resume a list of paused executions
@@ -2541,7 +2944,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse resumeExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse resumeExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = requestBody;
     
     // verify the required parameter 'tenant' is set
@@ -2564,7 +2967,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -2615,9 +3018,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Object resumeExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
-    return this.resumeExecutionsByQuery(tenant, filters, Collections.emptyMap());
+    return this.resumeExecutionsByQuery(tenant, filters, Collections.emptyMap(), null);
   }
 
+  public Object resumeExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.resumeExecutionsByQuery(tenant, filters, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Resume executions filter by query parameters
@@ -2628,7 +3034,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object resumeExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public Object resumeExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -2646,7 +3052,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
@@ -2701,9 +3107,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public PagedResultsExecution searchExecutions(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
-    return this.searchExecutions(page, size, tenant, sort, filters, Collections.emptyMap());
+    return this.searchExecutions(page, size, tenant, sort, filters, Collections.emptyMap(), null);
   }
 
+  public PagedResultsExecution searchExecutions(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.searchExecutions(page, size, tenant, sort, filters, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Search for executions
@@ -2717,7 +3126,7 @@ import java.util.StringJoiner;
    * @return PagedResultsExecution
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsExecution searchExecutions(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsExecution searchExecutions(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'page' is set
@@ -2745,12 +3154,127 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
     localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<PagedResultsExecution> localVarReturnType = new TypeReference<PagedResultsExecution>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "GET",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+
+
+
+
+
+  /**
+   * Search for executions for a flow
+   * 
+   * @param namespace The flow namespace (required)
+   * @param flowId The flow id (required)
+   * @param page The current page (required)
+   * @param size The current page size (required)
+   * @param tenant  (required)
+   * @return PagedResultsExecution
+   * @throws ApiException if fails to make API call
+   */
+  public PagedResultsExecution searchExecutionsByFlowId(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant) throws ApiException {
+    return this.searchExecutionsByFlowId(namespace, flowId, page, size, tenant, Collections.emptyMap(), null);
+  }
+
+  public PagedResultsExecution searchExecutionsByFlowId(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.searchExecutionsByFlowId(namespace, flowId, page, size, tenant, Collections.emptyMap(), formDatas);
+  }
+
+  /**
+   * Search for executions for a flow
+   * 
+   * @param namespace The flow namespace (required)
+   * @param flowId The flow id (required)
+   * @param page The current page (required)
+   * @param size The current page size (required)
+   * @param tenant  (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return PagedResultsExecution
+   * @throws ApiException if fails to make API call
+   */
+  public PagedResultsExecution searchExecutionsByFlowId(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'namespace' is set
+    if (namespace == null) {
+      throw new ApiException(400, "Missing the required parameter 'namespace' when calling searchExecutionsByFlowId");
+    }
+    
+    // verify the required parameter 'flowId' is set
+    if (flowId == null) {
+      throw new ApiException(400, "Missing the required parameter 'flowId' when calling searchExecutionsByFlowId");
+    }
+    
+    // verify the required parameter 'page' is set
+    if (page == null) {
+      throw new ApiException(400, "Missing the required parameter 'page' when calling searchExecutionsByFlowId");
+    }
+    
+    // verify the required parameter 'size' is set
+    if (size == null) {
+      throw new ApiException(400, "Missing the required parameter 'size' when calling searchExecutionsByFlowId");
+    }
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling searchExecutionsByFlowId");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/executions"
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
+    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
+    localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
+    localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -2801,9 +3325,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Object setLabelsOnTerminatedExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Label> label) throws ApiException {
-    return this.setLabelsOnTerminatedExecution(executionId, tenant, label, Collections.emptyMap());
+    return this.setLabelsOnTerminatedExecution(executionId, tenant, label, Collections.emptyMap(), null);
   }
 
+  public Object setLabelsOnTerminatedExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Label> label, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.setLabelsOnTerminatedExecution(executionId, tenant, label, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Add or update labels of a terminated execution
@@ -2815,7 +3342,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object setLabelsOnTerminatedExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Label> label, Map<String, String> additionalHeaders) throws ApiException {
+  public Object setLabelsOnTerminatedExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Label> label, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = label;
     
     // verify the required parameter 'executionId' is set
@@ -2844,7 +3371,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -2895,9 +3422,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public BulkResponse setLabelsOnTerminatedExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ExecutionControllerSetLabelsByIdsRequest executionControllerSetLabelsByIdsRequest) throws ApiException {
-    return this.setLabelsOnTerminatedExecutionsByIds(tenant, executionControllerSetLabelsByIdsRequest, Collections.emptyMap());
+    return this.setLabelsOnTerminatedExecutionsByIds(tenant, executionControllerSetLabelsByIdsRequest, Collections.emptyMap(), null);
   }
 
+  public BulkResponse setLabelsOnTerminatedExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ExecutionControllerSetLabelsByIdsRequest executionControllerSetLabelsByIdsRequest, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.setLabelsOnTerminatedExecutionsByIds(tenant, executionControllerSetLabelsByIdsRequest, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Set labels on a list of executions
@@ -2908,7 +3438,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse setLabelsOnTerminatedExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ExecutionControllerSetLabelsByIdsRequest executionControllerSetLabelsByIdsRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse setLabelsOnTerminatedExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ExecutionControllerSetLabelsByIdsRequest executionControllerSetLabelsByIdsRequest, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = executionControllerSetLabelsByIdsRequest;
     
     // verify the required parameter 'tenant' is set
@@ -2931,7 +3461,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -2983,9 +3513,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Object setLabelsOnTerminatedExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Label> label, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
-    return this.setLabelsOnTerminatedExecutionsByQuery(tenant, label, filters, Collections.emptyMap());
+    return this.setLabelsOnTerminatedExecutionsByQuery(tenant, label, filters, Collections.emptyMap(), null);
   }
 
+  public Object setLabelsOnTerminatedExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Label> label, @javax.annotation.Nullable List<QueryFilter> filters, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.setLabelsOnTerminatedExecutionsByQuery(tenant, label, filters, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Set label on executions filter by query parameters
@@ -2997,7 +3530,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object setLabelsOnTerminatedExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Label> label, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public Object setLabelsOnTerminatedExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Label> label, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = label;
     
     // verify the required parameter 'tenant' is set
@@ -3020,7 +3553,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
@@ -3074,9 +3607,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public ExecutionControllerWebhookResponse triggerExecutionByGetWebhook(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.triggerExecutionByGetWebhook(namespace, id, key, tenant, Collections.emptyMap());
+    return this.triggerExecutionByGetWebhook(namespace, id, key, tenant, Collections.emptyMap(), null);
   }
 
+  public ExecutionControllerWebhookResponse triggerExecutionByGetWebhook(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.triggerExecutionByGetWebhook(namespace, id, key, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Trigger a new execution by GET webhook trigger
@@ -3089,7 +3625,7 @@ import java.util.StringJoiner;
    * @return ExecutionControllerWebhookResponse
    * @throws ApiException if fails to make API call
    */
-  public ExecutionControllerWebhookResponse triggerExecutionByGetWebhook(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public ExecutionControllerWebhookResponse triggerExecutionByGetWebhook(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -3125,7 +3661,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -3177,9 +3713,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Execution unqueueExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull StateType state, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.unqueueExecution(executionId, state, tenant, Collections.emptyMap());
+    return this.unqueueExecution(executionId, state, tenant, Collections.emptyMap(), null);
   }
 
+  public Execution unqueueExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull StateType state, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.unqueueExecution(executionId, state, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Unqueue an execution
@@ -3191,7 +3730,7 @@ import java.util.StringJoiner;
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution unqueueExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull StateType state, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Execution unqueueExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull StateType state, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -3220,7 +3759,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("state", state));
     
@@ -3273,9 +3812,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public BulkResponse unqueueExecutionsByIds(@javax.annotation.Nonnull StateType state, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody) throws ApiException {
-    return this.unqueueExecutionsByIds(state, tenant, requestBody, Collections.emptyMap());
+    return this.unqueueExecutionsByIds(state, tenant, requestBody, Collections.emptyMap(), null);
   }
 
+  public BulkResponse unqueueExecutionsByIds(@javax.annotation.Nonnull StateType state, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.unqueueExecutionsByIds(state, tenant, requestBody, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Unqueue a list of executions
@@ -3287,7 +3829,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse unqueueExecutionsByIds(@javax.annotation.Nonnull StateType state, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse unqueueExecutionsByIds(@javax.annotation.Nonnull StateType state, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = requestBody;
     
     // verify the required parameter 'state' is set
@@ -3315,7 +3857,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("state", state));
     
@@ -3368,9 +3910,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Object unqueueExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable StateType newState) throws ApiException {
-    return this.unqueueExecutionsByQuery(tenant, filters, newState, Collections.emptyMap());
+    return this.unqueueExecutionsByQuery(tenant, filters, newState, Collections.emptyMap(), null);
   }
 
+  public Object unqueueExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable StateType newState, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.unqueueExecutionsByQuery(tenant, filters, newState, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Unqueue executions filter by query parameters
@@ -3382,7 +3927,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unqueueExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable StateType newState, Map<String, String> additionalHeaders) throws ApiException {
+  public Object unqueueExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable StateType newState, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -3400,7 +3945,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("newState", newState));
@@ -3454,9 +3999,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Execution updateExecutionStatus(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull StateType status, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.updateExecutionStatus(executionId, status, tenant, Collections.emptyMap());
+    return this.updateExecutionStatus(executionId, status, tenant, Collections.emptyMap(), null);
   }
 
+  public Execution updateExecutionStatus(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull StateType status, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.updateExecutionStatus(executionId, status, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Change the state of an execution
@@ -3468,7 +4016,7 @@ import java.util.StringJoiner;
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution updateExecutionStatus(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull StateType status, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Execution updateExecutionStatus(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull StateType status, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -3497,7 +4045,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("status", status));
     
@@ -3550,9 +4098,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public BulkResponse updateExecutionsStatusByIds(@javax.annotation.Nonnull StateType newStatus, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody) throws ApiException {
-    return this.updateExecutionsStatusByIds(newStatus, tenant, requestBody, Collections.emptyMap());
+    return this.updateExecutionsStatusByIds(newStatus, tenant, requestBody, Collections.emptyMap(), null);
   }
 
+  public BulkResponse updateExecutionsStatusByIds(@javax.annotation.Nonnull StateType newStatus, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.updateExecutionsStatusByIds(newStatus, tenant, requestBody, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Change executions state by id
@@ -3564,7 +4115,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse updateExecutionsStatusByIds(@javax.annotation.Nonnull StateType newStatus, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse updateExecutionsStatusByIds(@javax.annotation.Nonnull StateType newStatus, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = requestBody;
     
     // verify the required parameter 'newStatus' is set
@@ -3592,7 +4143,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("newStatus", newStatus));
     
@@ -3645,9 +4196,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public BulkResponse updateExecutionsStatusByQuery(@javax.annotation.Nonnull StateType newStatus, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
-    return this.updateExecutionsStatusByQuery(newStatus, tenant, filters, Collections.emptyMap());
+    return this.updateExecutionsStatusByQuery(newStatus, tenant, filters, Collections.emptyMap(), null);
   }
 
+  public BulkResponse updateExecutionsStatusByQuery(@javax.annotation.Nonnull StateType newStatus, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.updateExecutionsStatusByQuery(newStatus, tenant, filters, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Change executions state by query parameters
@@ -3659,7 +4213,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse updateExecutionsStatusByQuery(@javax.annotation.Nonnull StateType newStatus, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse updateExecutionsStatusByQuery(@javax.annotation.Nonnull StateType newStatus, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'newStatus' is set
@@ -3682,7 +4236,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("newStatus", newStatus));

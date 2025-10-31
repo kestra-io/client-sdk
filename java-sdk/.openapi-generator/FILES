@@ -82,7 +82,6 @@ docs/ConvertibleMultiValuesString.md
 docs/ConvertibleValuesListString.md
 docs/CreateApiTokenRequest.md
 docs/CreateApiTokenResponse.md
-docs/CreateExecutionRequest.md
 docs/CreateNamespaceFileRequest.md
 docs/CreateSecurityIntegrationRequest.md
 docs/CrudEventType.md
@@ -511,7 +510,6 @@ src/main/java/io/kestra/sdk/model/ConvertibleMultiValuesString.java
 src/main/java/io/kestra/sdk/model/ConvertibleValuesListString.java
 src/main/java/io/kestra/sdk/model/CreateApiTokenRequest.java
 src/main/java/io/kestra/sdk/model/CreateApiTokenResponse.java
-src/main/java/io/kestra/sdk/model/CreateExecutionRequest.java
 src/main/java/io/kestra/sdk/model/CreateNamespaceFileRequest.java
 src/main/java/io/kestra/sdk/model/CreateSecurityIntegrationRequest.java
 src/main/java/io/kestra/sdk/model/CrudEventType.java

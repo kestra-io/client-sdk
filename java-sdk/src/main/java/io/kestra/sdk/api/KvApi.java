@@ -12,6 +12,13 @@
 
 package io.kestra.sdk.api;
 
+// Custom imports for injected code
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import reactor.core.publisher.Flux;
+import java.io.BufferedReader;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import io.kestra.sdk.internal.ApiException;
@@ -53,9 +60,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Boolean deleteKeyValue(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.deleteKeyValue(namespace, key, tenant, Collections.emptyMap());
+    return this.deleteKeyValue(namespace, key, tenant, Collections.emptyMap(), null);
   }
 
+  public Boolean deleteKeyValue(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.deleteKeyValue(namespace, key, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Delete a key-value pair
@@ -67,7 +77,7 @@ import java.util.StringJoiner;
    * @return Boolean
    * @throws ApiException if fails to make API call
    */
-  public Boolean deleteKeyValue(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Boolean deleteKeyValue(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -97,7 +107,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -149,9 +159,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public KVControllerApiDeleteBulkResponse deleteKeyValues(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull KVControllerApiDeleteBulkRequest kvControllerApiDeleteBulkRequest) throws ApiException {
-    return this.deleteKeyValues(namespace, tenant, kvControllerApiDeleteBulkRequest, Collections.emptyMap());
+    return this.deleteKeyValues(namespace, tenant, kvControllerApiDeleteBulkRequest, Collections.emptyMap(), null);
   }
 
+  public KVControllerApiDeleteBulkResponse deleteKeyValues(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull KVControllerApiDeleteBulkRequest kvControllerApiDeleteBulkRequest, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.deleteKeyValues(namespace, tenant, kvControllerApiDeleteBulkRequest, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Bulk-delete multiple key/value pairs from the given namespace.
@@ -163,7 +176,7 @@ import java.util.StringJoiner;
    * @return KVControllerApiDeleteBulkResponse
    * @throws ApiException if fails to make API call
    */
-  public KVControllerApiDeleteBulkResponse deleteKeyValues(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull KVControllerApiDeleteBulkRequest kvControllerApiDeleteBulkRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public KVControllerApiDeleteBulkResponse deleteKeyValues(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull KVControllerApiDeleteBulkRequest kvControllerApiDeleteBulkRequest, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = kvControllerApiDeleteBulkRequest;
     
     // verify the required parameter 'namespace' is set
@@ -192,7 +205,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -244,9 +257,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public KVControllerTypedValue getKeyValue(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.getKeyValue(namespace, key, tenant, Collections.emptyMap());
+    return this.getKeyValue(namespace, key, tenant, Collections.emptyMap(), null);
   }
 
+  public KVControllerTypedValue getKeyValue(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.getKeyValue(namespace, key, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Get value for a key
@@ -258,7 +274,7 @@ import java.util.StringJoiner;
    * @return KVControllerTypedValue
    * @throws ApiException if fails to make API call
    */
-  public KVControllerTypedValue getKeyValue(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public KVControllerTypedValue getKeyValue(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -288,7 +304,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -339,9 +355,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public List<KVEntry> listKeys(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.listKeys(namespace, tenant, Collections.emptyMap());
+    return this.listKeys(namespace, tenant, Collections.emptyMap(), null);
   }
 
+  public List<KVEntry> listKeys(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.listKeys(namespace, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * List all keys for a namespace
@@ -352,7 +371,7 @@ import java.util.StringJoiner;
    * @return List&lt;KVEntry&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<KVEntry> listKeys(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public List<KVEntry> listKeys(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -376,7 +395,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -427,9 +446,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public List<KVEntry> listKeysWithInheritence(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.listKeysWithInheritence(namespace, tenant, Collections.emptyMap());
+    return this.listKeysWithInheritence(namespace, tenant, Collections.emptyMap(), null);
   }
 
+  public List<KVEntry> listKeysWithInheritence(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.listKeysWithInheritence(namespace, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * List all keys for inherited namespaces
@@ -440,7 +462,7 @@ import java.util.StringJoiner;
    * @return List&lt;KVEntry&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<KVEntry> listKeysWithInheritence(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public List<KVEntry> listKeysWithInheritence(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -464,7 +486,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -516,9 +538,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public void setKeyValue(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body) throws ApiException {
-    this.setKeyValue(namespace, key, tenant, body, Collections.emptyMap());
+    this.setKeyValue(namespace, key, tenant, body, Collections.emptyMap(), null);
   }
 
+  public void setKeyValue(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, HashMap<String, Object> formDatas)  throws ApiException {
+  this.setKeyValue(namespace, key, tenant, body, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Puts a key-value pair in store
@@ -530,7 +555,7 @@ import java.util.StringJoiner;
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void setKeyValue(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
+  public void setKeyValue(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'namespace' is set
@@ -565,7 +590,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);

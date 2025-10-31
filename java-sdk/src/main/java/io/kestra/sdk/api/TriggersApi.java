@@ -12,6 +12,13 @@
 
 package io.kestra.sdk.api;
 
+// Custom imports for injected code
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import reactor.core.publisher.Flux;
+import java.io.BufferedReader;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import io.kestra.sdk.internal.ApiException;
@@ -53,9 +60,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Trigger deleteBackfill(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger) throws ApiException {
-    return this.deleteBackfill(tenant, trigger, Collections.emptyMap());
+    return this.deleteBackfill(tenant, trigger, Collections.emptyMap(), null);
   }
 
+  public Trigger deleteBackfill(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.deleteBackfill(tenant, trigger, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Delete a backfill
@@ -66,7 +76,7 @@ import java.util.StringJoiner;
    * @return Trigger
    * @throws ApiException if fails to make API call
    */
-  public Trigger deleteBackfill(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger, Map<String, String> additionalHeaders) throws ApiException {
+  public Trigger deleteBackfill(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = trigger;
     
     // verify the required parameter 'tenant' is set
@@ -89,7 +99,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -140,9 +150,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Object deleteBackfillByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger) throws ApiException {
-    return this.deleteBackfillByIds(tenant, trigger, Collections.emptyMap());
+    return this.deleteBackfillByIds(tenant, trigger, Collections.emptyMap(), null);
   }
 
+  public Object deleteBackfillByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.deleteBackfillByIds(tenant, trigger, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Delete backfill for given triggers
@@ -153,7 +166,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteBackfillByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger, Map<String, String> additionalHeaders) throws ApiException {
+  public Object deleteBackfillByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = trigger;
     
     // verify the required parameter 'tenant' is set
@@ -176,7 +189,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -227,9 +240,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Object deleteBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
-    return this.deleteBackfillByQuery(tenant, filters, Collections.emptyMap());
+    return this.deleteBackfillByQuery(tenant, filters, Collections.emptyMap(), null);
   }
 
+  public Object deleteBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.deleteBackfillByQuery(tenant, filters, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Delete backfill for given triggers
@@ -240,7 +256,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public Object deleteBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -258,7 +274,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
@@ -310,9 +326,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Object disabledTriggersByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull TriggerControllerSetDisabledRequest triggerControllerSetDisabledRequest) throws ApiException {
-    return this.disabledTriggersByIds(tenant, triggerControllerSetDisabledRequest, Collections.emptyMap());
+    return this.disabledTriggersByIds(tenant, triggerControllerSetDisabledRequest, Collections.emptyMap(), null);
   }
 
+  public Object disabledTriggersByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull TriggerControllerSetDisabledRequest triggerControllerSetDisabledRequest, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.disabledTriggersByIds(tenant, triggerControllerSetDisabledRequest, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Disable/enable given triggers
@@ -323,7 +342,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object disabledTriggersByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull TriggerControllerSetDisabledRequest triggerControllerSetDisabledRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public Object disabledTriggersByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull TriggerControllerSetDisabledRequest triggerControllerSetDisabledRequest, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = triggerControllerSetDisabledRequest;
     
     // verify the required parameter 'tenant' is set
@@ -346,7 +365,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -398,9 +417,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Object disabledTriggersByQuery(@javax.annotation.Nonnull Boolean disabled, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
-    return this.disabledTriggersByQuery(disabled, tenant, filters, Collections.emptyMap());
+    return this.disabledTriggersByQuery(disabled, tenant, filters, Collections.emptyMap(), null);
   }
 
+  public Object disabledTriggersByQuery(@javax.annotation.Nonnull Boolean disabled, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.disabledTriggersByQuery(disabled, tenant, filters, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Disable/enable triggers by query parameters
@@ -412,7 +434,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object disabledTriggersByQuery(@javax.annotation.Nonnull Boolean disabled, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public Object disabledTriggersByQuery(@javax.annotation.Nonnull Boolean disabled, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'disabled' is set
@@ -435,7 +457,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("disabled", disabled));
@@ -488,9 +510,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Trigger pauseBackfill(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger) throws ApiException {
-    return this.pauseBackfill(tenant, trigger, Collections.emptyMap());
+    return this.pauseBackfill(tenant, trigger, Collections.emptyMap(), null);
   }
 
+  public Trigger pauseBackfill(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.pauseBackfill(tenant, trigger, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Pause a backfill
@@ -501,7 +526,7 @@ import java.util.StringJoiner;
    * @return Trigger
    * @throws ApiException if fails to make API call
    */
-  public Trigger pauseBackfill(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger, Map<String, String> additionalHeaders) throws ApiException {
+  public Trigger pauseBackfill(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = trigger;
     
     // verify the required parameter 'tenant' is set
@@ -524,7 +549,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -575,9 +600,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Object pauseBackfillByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger) throws ApiException {
-    return this.pauseBackfillByIds(tenant, trigger, Collections.emptyMap());
+    return this.pauseBackfillByIds(tenant, trigger, Collections.emptyMap(), null);
   }
 
+  public Object pauseBackfillByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.pauseBackfillByIds(tenant, trigger, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Pause backfill for given triggers
@@ -588,7 +616,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object pauseBackfillByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger, Map<String, String> additionalHeaders) throws ApiException {
+  public Object pauseBackfillByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = trigger;
     
     // verify the required parameter 'tenant' is set
@@ -611,7 +639,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -662,9 +690,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Object pauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
-    return this.pauseBackfillByQuery(tenant, filters, Collections.emptyMap());
+    return this.pauseBackfillByQuery(tenant, filters, Collections.emptyMap(), null);
   }
 
+  public Object pauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.pauseBackfillByQuery(tenant, filters, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Pause backfill for given triggers
@@ -675,7 +706,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object pauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public Object pauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -693,7 +724,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
@@ -747,9 +778,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Object restartTrigger(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull String triggerId, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.restartTrigger(namespace, flowId, triggerId, tenant, Collections.emptyMap());
+    return this.restartTrigger(namespace, flowId, triggerId, tenant, Collections.emptyMap(), null);
   }
 
+  public Object restartTrigger(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull String triggerId, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.restartTrigger(namespace, flowId, triggerId, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Restart a trigger
@@ -762,7 +796,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object restartTrigger(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull String triggerId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Object restartTrigger(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull String triggerId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -798,7 +832,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -852,9 +886,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public PagedResultsTriggerControllerTriggers searchTriggers(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
-    return this.searchTriggers(page, size, tenant, sort, filters, Collections.emptyMap());
+    return this.searchTriggers(page, size, tenant, sort, filters, Collections.emptyMap(), null);
   }
 
+  public PagedResultsTriggerControllerTriggers searchTriggers(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.searchTriggers(page, size, tenant, sort, filters, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Search for triggers
@@ -868,7 +905,7 @@ import java.util.StringJoiner;
    * @return PagedResultsTriggerControllerTriggers
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsTriggerControllerTriggers searchTriggers(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsTriggerControllerTriggers searchTriggers(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'page' is set
@@ -896,7 +933,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
     localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
@@ -956,9 +993,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public PagedResultsTrigger searchTriggersForFlow(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable String q) throws ApiException {
-    return this.searchTriggersForFlow(page, size, namespace, flowId, tenant, sort, q, Collections.emptyMap());
+    return this.searchTriggersForFlow(page, size, namespace, flowId, tenant, sort, q, Collections.emptyMap(), null);
   }
 
+  public PagedResultsTrigger searchTriggersForFlow(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable String q, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.searchTriggersForFlow(page, size, namespace, flowId, tenant, sort, q, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Get all triggers for a flow
@@ -974,7 +1014,7 @@ import java.util.StringJoiner;
    * @return PagedResultsTrigger
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsTrigger searchTriggersForFlow(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable String q, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsTrigger searchTriggersForFlow(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable String q, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'page' is set
@@ -1014,7 +1054,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
     localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
@@ -1071,9 +1111,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Trigger unlockTrigger(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull String triggerId, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.unlockTrigger(namespace, flowId, triggerId, tenant, Collections.emptyMap());
+    return this.unlockTrigger(namespace, flowId, triggerId, tenant, Collections.emptyMap(), null);
   }
 
+  public Trigger unlockTrigger(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull String triggerId, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.unlockTrigger(namespace, flowId, triggerId, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Unlock a trigger
@@ -1086,7 +1129,7 @@ import java.util.StringJoiner;
    * @return Trigger
    * @throws ApiException if fails to make API call
    */
-  public Trigger unlockTrigger(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull String triggerId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Trigger unlockTrigger(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull String triggerId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -1122,7 +1165,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -1173,9 +1216,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Object unlockTriggersByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger) throws ApiException {
-    return this.unlockTriggersByIds(tenant, trigger, Collections.emptyMap());
+    return this.unlockTriggersByIds(tenant, trigger, Collections.emptyMap(), null);
   }
 
+  public Object unlockTriggersByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.unlockTriggersByIds(tenant, trigger, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Unlock given triggers
@@ -1186,7 +1232,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unlockTriggersByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger, Map<String, String> additionalHeaders) throws ApiException {
+  public Object unlockTriggersByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = trigger;
     
     // verify the required parameter 'tenant' is set
@@ -1209,7 +1255,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -1260,9 +1306,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Object unlockTriggersByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
-    return this.unlockTriggersByQuery(tenant, filters, Collections.emptyMap());
+    return this.unlockTriggersByQuery(tenant, filters, Collections.emptyMap(), null);
   }
 
+  public Object unlockTriggersByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.unlockTriggersByQuery(tenant, filters, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Unlock triggers by query parameters
@@ -1273,7 +1322,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unlockTriggersByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public Object unlockTriggersByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -1291,7 +1340,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
@@ -1343,9 +1392,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Trigger unpauseBackfill(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger) throws ApiException {
-    return this.unpauseBackfill(tenant, trigger, Collections.emptyMap());
+    return this.unpauseBackfill(tenant, trigger, Collections.emptyMap(), null);
   }
 
+  public Trigger unpauseBackfill(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.unpauseBackfill(tenant, trigger, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Unpause a backfill
@@ -1356,7 +1408,7 @@ import java.util.StringJoiner;
    * @return Trigger
    * @throws ApiException if fails to make API call
    */
-  public Trigger unpauseBackfill(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger, Map<String, String> additionalHeaders) throws ApiException {
+  public Trigger unpauseBackfill(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = trigger;
     
     // verify the required parameter 'tenant' is set
@@ -1379,7 +1431,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -1430,9 +1482,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Object unpauseBackfillByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger) throws ApiException {
-    return this.unpauseBackfillByIds(tenant, trigger, Collections.emptyMap());
+    return this.unpauseBackfillByIds(tenant, trigger, Collections.emptyMap(), null);
   }
 
+  public Object unpauseBackfillByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.unpauseBackfillByIds(tenant, trigger, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Unpause backfill for given triggers
@@ -1443,7 +1498,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unpauseBackfillByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger, Map<String, String> additionalHeaders) throws ApiException {
+  public Object unpauseBackfillByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = trigger;
     
     // verify the required parameter 'tenant' is set
@@ -1466,7 +1521,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -1517,9 +1572,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Object unpauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
-    return this.unpauseBackfillByQuery(tenant, filters, Collections.emptyMap());
+    return this.unpauseBackfillByQuery(tenant, filters, Collections.emptyMap(), null);
   }
 
+  public Object unpauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.unpauseBackfillByQuery(tenant, filters, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Unpause backfill for given triggers
@@ -1530,7 +1588,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unpauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public Object unpauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -1548,7 +1606,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
@@ -1600,9 +1658,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public Trigger updateTrigger(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger) throws ApiException {
-    return this.updateTrigger(tenant, trigger, Collections.emptyMap());
+    return this.updateTrigger(tenant, trigger, Collections.emptyMap(), null);
   }
 
+  public Trigger updateTrigger(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.updateTrigger(tenant, trigger, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Update a trigger
@@ -1613,7 +1674,7 @@ import java.util.StringJoiner;
    * @return Trigger
    * @throws ApiException if fails to make API call
    */
-  public Trigger updateTrigger(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger, Map<String, String> additionalHeaders) throws ApiException {
+  public Trigger updateTrigger(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = trigger;
     
     // verify the required parameter 'tenant' is set
@@ -1636,7 +1697,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);

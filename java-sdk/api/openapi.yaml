@@ -5643,6 +5643,71 @@ paths:
       x-internal: true
       x-accepts:
       - application/json
+  /api/v1/{tenant}/executions:
+    get:
+      operationId: searchExecutionsByFlowId
+      parameters:
+      - description: The flow namespace
+        explode: false
+        in: query
+        name: namespace
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: The flow id
+        explode: false
+        in: query
+        name: flowId
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: The current page
+        explode: false
+        in: query
+        name: page
+        required: true
+        schema:
+          default: 1
+          format: int32
+          minimum: 1
+          type: integer
+        style: form
+      - description: The current page size
+        explode: false
+        in: query
+        name: size
+        required: true
+        schema:
+          default: 10
+          format: int32
+          minimum: 1
+          type: integer
+        style: form
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_Execution_"
+          description: searchExecutionsByFlowId 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Search for executions for a flow
+      tags:
+      - Executions
+      x-internal: false
+      x-accepts:
+      - application/json
   /api/v1/{tenant}/executions/by-ids:
     delete:
       operationId: deleteExecutionsByIds
@@ -5896,6 +5961,59 @@ paths:
       - bearerAuth: []
       - basicAuth: []
       summary: Change executions state by query parameters
+      tags:
+      - Executions
+      x-internal: false
+      x-accepts:
+      - application/json
+  /api/v1/{tenant}/executions/flows/{namespace}/{flowId}:
+    get:
+      operationId: getFlowFromExecution
+      parameters:
+      - description: The namespace of the flow
+        explode: false
+        in: path
+        name: namespace
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The flow id
+        explode: false
+        in: path
+        name: flowId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The flow revision
+        explode: false
+        in: query
+        name: revision
+        required: false
+        schema:
+          format: int32
+          nullable: true
+          type: integer
+        style: form
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FlowForExecution"
+          description: getFlowFromExecution 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Get flow information's for an execution
       tags:
       - Executions
       x-internal: false
@@ -7055,6 +7173,63 @@ paths:
       x-internal: false
       x-accepts:
       - text/event-stream
+  /api/v1/{tenant}/executions/{executionId}/follow-dependencies:
+    get:
+      operationId: followDependenciesExecutions
+      parameters:
+      - description: The execution id
+        explode: false
+        in: path
+        name: executionId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "If true, list only destination dependencies, otherwise list\
+          \ also source dependencies"
+        explode: false
+        in: query
+        name: destinationOnly
+        required: true
+        schema:
+          default: false
+          type: boolean
+        style: form
+      - description: "If true, expand all dependencies recursively"
+        explode: false
+        in: query
+        name: expandAll
+        required: true
+        schema:
+          default: false
+          type: boolean
+        style: form
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            text/event-stream:
+              schema:
+                $ref: "#/components/schemas/Event_ExecutionStatusEvent_"
+          description: followDependenciesExecutions 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Follow all execution dependencies executions
+      tags:
+      - Executions
+      x-sdk-customization:
+        x-replace-follow-dependencies-execution: "true"
+        x-skipped: "true"
+      x-internal: false
+      x-accepts:
+      - text/event-stream
   /api/v1/{tenant}/executions/{executionId}/force-run:
     post:
       operationId: forceRunExecution
@@ -7642,7 +7817,10 @@ paths:
         content:
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/createExecution_request"
+              items:
+                format: binary
+                type: string
+              type: array
         description: The inputs
       responses:
         "200":
@@ -22829,6 +23007,7 @@ components:
         value:
           type: boolean
       type: object
+      x-one-of-name: PropertyBoolean
     Property_Double_:
       oneOf:
       - type: object
@@ -22840,6 +23019,7 @@ components:
           format: double
           type: number
       type: object
+      x-one-of-name: PropertyDouble
     Property_Duration_:
       example:
         expression: expression
@@ -22853,6 +23033,7 @@ components:
         value:
           type: string
       type: object
+      x-one-of-name: PropertyDuration
     Property_List_String__:
       oneOf:
       - type: object
@@ -22865,6 +23046,7 @@ components:
             type: string
           type: array
       type: object
+      x-one-of-name: PropertyListString
     Property_Object_:
       oneOf:
       - type: object
@@ -22875,6 +23057,7 @@ components:
         value:
           type: object
       type: object
+      x-one-of-name: PropertyObject
     Property_String_:
       example:
         expression: expression
@@ -22888,6 +23071,7 @@ components:
         value:
           type: string
       type: object
+      x-one-of-name: PropertyString
     QueryFilter:
       properties:
         field:
@@ -24742,11 +24926,9 @@ components:
       properties:
         username:
           minLength: 1
-          nullable: true
           type: string
         password:
           minLength: 1
-          nullable: true
           type: string
         identity:
           nullable: true
@@ -24861,12 +25043,6 @@ components:
         parameters:
           $ref: "#/components/schemas/HttpParameters"
       type: object
-    createExecution_request:
-      properties:
-        file:
-          items: {}
-          type: array
-      type: object
     createNamespaceFile_request:
       properties:
         fileContent:
@@ -24882,6 +25058,7 @@ components:
         type: array
       - $ref: "#/components/schemas/Map_Object.Object_"
       title: The labels to pass to the execution created.
+      x-one-of-name: TheLabelsToPassToTheExecutionCreated
     DailyExecutionStatistics_executionCounts:
       properties:
         CREATED:
@@ -25132,6 +25309,7 @@ components:
       oneOf:
       - type: object
       - type: string
+      x-one-of-name: OutputValue
     SLA_labels:
       oneOf:
       - items:
@@ -25139,6 +25317,7 @@ components:
           type: string
         type: array
       - $ref: "#/components/schemas/Map_Object.Object_"
+      x-one-of-name: SLALabels
   securitySchemes:
     basicAuth:
       scheme: basic

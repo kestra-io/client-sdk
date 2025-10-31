@@ -1,14 +1,10 @@
 
 
-# PropertyDouble
+# Interface PropertyDouble
 
+## Implementing Classes
 
-## Properties
-
-| Name | Type | Description | Notes |
-|------------ | ------------- | ------------- | -------------|
-|**expression** | **String** |  |  [optional] |
-|**value** | **Double** |  |  [optional] |
-
+* Object
+* String
 
 

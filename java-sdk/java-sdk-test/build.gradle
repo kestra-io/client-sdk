@@ -24,6 +24,7 @@ dependencies {
     // Jackson annotations needed at compile-time for @JsonInclude, etc.
     compileOnly platform('com.fasterxml.jackson:jackson-bom:2.17.2')
     compileOnly 'com.fasterxml.jackson.core:jackson-annotations'
+    implementation "io.projectreactor:reactor-core:3.7.12"
 }
 
 test {

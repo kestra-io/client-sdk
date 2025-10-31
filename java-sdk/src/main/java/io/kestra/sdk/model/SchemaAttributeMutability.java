@@ -32,7 +32,9 @@ public enum SchemaAttributeMutability {
   
   READ_WRITE("READ_WRITE"),
   
-  WRITE_ONLY("WRITE_ONLY");
+  WRITE_ONLY("WRITE_ONLY"),
+  
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;
 
@@ -57,7 +59,7 @@ public enum SchemaAttributeMutability {
         return b;
       }
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    return UNKNOWN_DEFAULT_OPEN_API;
   }
 }
 
