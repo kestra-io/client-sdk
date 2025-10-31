@@ -36,7 +36,9 @@ public enum ServiceType {
   
   WORKER("WORKER"),
   
-  INVALID("INVALID");
+  INVALID("INVALID"),
+  
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;
 
@@ -61,7 +63,7 @@ public enum ServiceType {
         return b;
       }
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    return UNKNOWN_DEFAULT_OPEN_API;
   }
 }
 

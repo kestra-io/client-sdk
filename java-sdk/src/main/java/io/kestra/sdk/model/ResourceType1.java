@@ -80,7 +80,9 @@ public enum ResourceType1 {
   
   INSTANCE("INSTANCE"),
   
-  UNKNOWN("UNKNOWN");
+  UNKNOWN("UNKNOWN"),
+  
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;
 
@@ -105,7 +107,7 @@ public enum ResourceType1 {
         return b;
       }
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    return UNKNOWN_DEFAULT_OPEN_API;
   }
 }
 

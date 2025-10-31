@@ -8,14 +8,11 @@
     "triggerExecutionByPutWebhook",
     "triggerExecution",
     "searchTaskRun",
-    "searchExecutionsByFlowId",
     "resumeExecutionFromBreakpoint",
     "previewFileFromExecution",
     "listFlowExecutionsByNamespace",
     "listExecutableDistinctNamespaces",
-    "followDependenciesExecutions",
     "evalTaskRunExpression",
-    "getFlowFromExecution",
     "updateTaskRunState"
   ]
 }

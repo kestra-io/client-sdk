@@ -18,6 +18,8 @@ modelPackage: io.kestra.sdk.model
 apiPackage: io.kestra.sdk.api
 groupId: io.kestra
 artifactId: kestra-api-client
+enumUnknownDefaultCase: true
+useOneOfInterfaces: true
 
 hideGenerationTimestamp: true
 supportUrlQuery: false

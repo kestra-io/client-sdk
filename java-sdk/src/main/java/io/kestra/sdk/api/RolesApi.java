@@ -12,6 +12,13 @@
 
 package io.kestra.sdk.api;
 
+// Custom imports for injected code
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import reactor.core.publisher.Flux;
+import java.io.BufferedReader;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import io.kestra.sdk.internal.ApiException;
@@ -55,9 +62,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public List<ApiRoleSummary> autocompleteRoles(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiAutocomplete apiAutocomplete) throws ApiException {
-    return this.autocompleteRoles(tenant, apiAutocomplete, Collections.emptyMap());
+    return this.autocompleteRoles(tenant, apiAutocomplete, Collections.emptyMap(), null);
   }
 
+  public List<ApiRoleSummary> autocompleteRoles(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiAutocomplete apiAutocomplete, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.autocompleteRoles(tenant, apiAutocomplete, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * List roles for autocomplete
@@ -68,7 +78,7 @@ import java.util.StringJoiner;
    * @return List&lt;ApiRoleSummary&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<ApiRoleSummary> autocompleteRoles(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiAutocomplete apiAutocomplete, Map<String, String> additionalHeaders) throws ApiException {
+  public List<ApiRoleSummary> autocompleteRoles(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiAutocomplete apiAutocomplete, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = apiAutocomplete;
     
     // verify the required parameter 'tenant' is set
@@ -91,7 +101,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -142,9 +152,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public IAMRoleControllerApiRoleDetail createRole(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMRoleControllerApiRoleCreateOrUpdateRequest iaMRoleControllerApiRoleCreateOrUpdateRequest) throws ApiException {
-    return this.createRole(tenant, iaMRoleControllerApiRoleCreateOrUpdateRequest, Collections.emptyMap());
+    return this.createRole(tenant, iaMRoleControllerApiRoleCreateOrUpdateRequest, Collections.emptyMap(), null);
   }
 
+  public IAMRoleControllerApiRoleDetail createRole(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMRoleControllerApiRoleCreateOrUpdateRequest iaMRoleControllerApiRoleCreateOrUpdateRequest, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.createRole(tenant, iaMRoleControllerApiRoleCreateOrUpdateRequest, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Create a role
@@ -155,7 +168,7 @@ import java.util.StringJoiner;
    * @return IAMRoleControllerApiRoleDetail
    * @throws ApiException if fails to make API call
    */
-  public IAMRoleControllerApiRoleDetail createRole(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMRoleControllerApiRoleCreateOrUpdateRequest iaMRoleControllerApiRoleCreateOrUpdateRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMRoleControllerApiRoleDetail createRole(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMRoleControllerApiRoleCreateOrUpdateRequest iaMRoleControllerApiRoleCreateOrUpdateRequest, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = iaMRoleControllerApiRoleCreateOrUpdateRequest;
     
     // verify the required parameter 'tenant' is set
@@ -178,7 +191,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -228,9 +241,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public void deleteRole(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant) throws ApiException {
-    this.deleteRole(id, tenant, Collections.emptyMap());
+    this.deleteRole(id, tenant, Collections.emptyMap(), null);
   }
 
+  public void deleteRole(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  this.deleteRole(id, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Delete a role
@@ -240,7 +256,7 @@ import java.util.StringJoiner;
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void deleteRole(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public void deleteRole(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -264,7 +280,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -314,9 +330,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public IAMRoleControllerApiRoleDetail getRole(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.getRole(id, tenant, Collections.emptyMap());
+    return this.getRole(id, tenant, Collections.emptyMap(), null);
   }
 
+  public IAMRoleControllerApiRoleDetail getRole(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.getRole(id, tenant, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Retrieve a role
@@ -327,7 +346,7 @@ import java.util.StringJoiner;
    * @return IAMRoleControllerApiRoleDetail
    * @throws ApiException if fails to make API call
    */
-  public IAMRoleControllerApiRoleDetail getRole(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMRoleControllerApiRoleDetail getRole(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -351,7 +370,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -402,9 +421,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public List<Role> listRolesFromGivenIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiIds apiIds) throws ApiException {
-    return this.listRolesFromGivenIds(tenant, apiIds, Collections.emptyMap());
+    return this.listRolesFromGivenIds(tenant, apiIds, Collections.emptyMap(), null);
   }
 
+  public List<Role> listRolesFromGivenIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiIds apiIds, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.listRolesFromGivenIds(tenant, apiIds, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * List roles by ids
@@ -415,7 +437,7 @@ import java.util.StringJoiner;
    * @return List&lt;Role&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<Role> listRolesFromGivenIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiIds apiIds, Map<String, String> additionalHeaders) throws ApiException {
+  public List<Role> listRolesFromGivenIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiIds apiIds, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = apiIds;
     
     // verify the required parameter 'tenant' is set
@@ -438,7 +460,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -492,9 +514,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public PagedResultsApiRoleSummary searchRoles(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort) throws ApiException {
-    return this.searchRoles(page, size, tenant, q, sort, Collections.emptyMap());
+    return this.searchRoles(page, size, tenant, q, sort, Collections.emptyMap(), null);
   }
 
+  public PagedResultsApiRoleSummary searchRoles(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.searchRoles(page, size, tenant, q, sort, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Search for roles
@@ -508,7 +533,7 @@ import java.util.StringJoiner;
    * @return PagedResultsApiRoleSummary
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsApiRoleSummary searchRoles(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsApiRoleSummary searchRoles(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'page' is set
@@ -536,7 +561,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
@@ -592,9 +617,12 @@ import java.util.StringJoiner;
    * @throws ApiException if fails to make API call
    */
   public IAMRoleControllerApiRoleDetail updateRole(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMRoleControllerApiRoleCreateOrUpdateRequest iaMRoleControllerApiRoleCreateOrUpdateRequest) throws ApiException {
-    return this.updateRole(id, tenant, iaMRoleControllerApiRoleCreateOrUpdateRequest, Collections.emptyMap());
+    return this.updateRole(id, tenant, iaMRoleControllerApiRoleCreateOrUpdateRequest, Collections.emptyMap(), null);
   }
 
+  public IAMRoleControllerApiRoleDetail updateRole(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMRoleControllerApiRoleCreateOrUpdateRequest iaMRoleControllerApiRoleCreateOrUpdateRequest, HashMap<String, Object> formDatas)  throws ApiException {
+  return this.updateRole(id, tenant, iaMRoleControllerApiRoleCreateOrUpdateRequest, Collections.emptyMap(), formDatas);
+  }
 
   /**
    * Update a role
@@ -606,7 +634,7 @@ import java.util.StringJoiner;
    * @return IAMRoleControllerApiRoleDetail
    * @throws ApiException if fails to make API call
    */
-  public IAMRoleControllerApiRoleDetail updateRole(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMRoleControllerApiRoleCreateOrUpdateRequest iaMRoleControllerApiRoleCreateOrUpdateRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMRoleControllerApiRoleDetail updateRole(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMRoleControllerApiRoleCreateOrUpdateRequest iaMRoleControllerApiRoleCreateOrUpdateRequest, Map<String, String> additionalHeaders, HashMap<String, Object> formDatas) throws ApiException {
     Object localVarPostBody = iaMRoleControllerApiRoleCreateOrUpdateRequest;
     
     // verify the required parameter 'id' is set
@@ -635,7 +663,7 @@ import java.util.StringJoiner;
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    Map<String, Object> localVarFormParams = formDatas != null ? new HashMap<String, Object>(formDatas) : new HashMap<String, Object>();
 
     
     localVarHeaderParams.putAll(additionalHeaders);

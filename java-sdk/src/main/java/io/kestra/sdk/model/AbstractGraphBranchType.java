@@ -30,7 +30,9 @@ public enum AbstractGraphBranchType {
   
   FINALLY("FINALLY"),
   
-  AFTER_EXECUTION("AFTER_EXECUTION");
+  AFTER_EXECUTION("AFTER_EXECUTION"),
+  
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;
 
@@ -55,7 +57,7 @@ public enum AbstractGraphBranchType {
         return b;
       }
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    return UNKNOWN_DEFAULT_OPEN_API;
   }
 }
 

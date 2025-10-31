@@ -534,6 +534,33 @@ public class ApiClient extends JavaTimeFormatter {
     return params;
   }
 
+    protected static String toCamelCaseFromFolder(String input) {
+        if (input == null) {
+            return null;
+        }
+        String trimmed = input.trim();
+        if (trimmed.isEmpty()) {
+            return "";
+        }
+
+        // split on underscores, hyphens or whitespace
+        String[] parts = trimmed.split("[_\\-\\s]+");
+        if (parts.length == 0) {
+            return "";
+        }
+
+        StringBuilder sb = new StringBuilder(parts[0].toLowerCase());
+        for (int i = 1; i < parts.length; i++) {
+            String part = parts[i];
+            if (part.isEmpty()) continue;
+            sb.append(Character.toUpperCase(part.charAt(0)));
+            if (part.length() > 1) {
+                sb.append(part.substring(1).toLowerCase());
+            }
+        }
+        return sb.toString();
+    }
+
   /**
    * Formats the specified collection query parameters to a list of {@code Pair} objects.
    *
@@ -560,7 +587,8 @@ public class ApiClient extends JavaTimeFormatter {
                         for (Entry<?, ?> entry : mapValue.entrySet()) {
                             params.add(new Pair(new StringBuilder()
                                 .append("filters[")
-                                .append(queryFilter.getField())
+                                .append("query".equalsIgnoreCase(queryFilter.getField().toString()) ? "q" : toCamelCaseFromFolder(queryFilter.getField().toString()))
+
                                 .append("][")
                                 .append(queryFilter.getOperation())
                                 .append("]")
@@ -575,7 +603,7 @@ public class ApiClient extends JavaTimeFormatter {
                 } else {
                     params.add(new Pair(new StringBuilder()
                         .append("filters[")
-                        .append(queryFilter.getField())
+                        .append("query".equalsIgnoreCase(queryFilter.getField().toString()) ? "q" : toCamelCaseFromFolder(queryFilter.getField().toString()))
                         .append("][")
                         .append(queryFilter.getOperation())
                         .append("]")
@@ -1107,4 +1135,53 @@ public class ApiClient extends JavaTimeFormatter {
       auth.applyToParams(queryParams, headerParams, cookieParams);
     }
   }
+
+
+  public org.apache.hc.client5.http.impl.classic.CloseableHttpResponse openEventStream(
+          String path,
+          List<Pair> queryParams,
+          List<Pair> collectionQueryParams,
+          String urlQueryDeepObject,
+          Map<String, String> headerParams,
+          Map<String, String> cookieParams,
+          String[] authNames) throws ApiException {
+    updateParamsForAuth(authNames, queryParams, headerParams, cookieParams);
+    final String url = buildUrl(path, queryParams, collectionQueryParams, urlQueryDeepObject);
+
+    ClassicRequestBuilder builder = ClassicRequestBuilder.create("GET");
+    builder.setUri(url);
+
+    builder.addHeader("Accept", "text/event-stream");
+
+    for (Entry<String, String> keyValue : headerParams.entrySet()) {
+      builder.addHeader(keyValue.getKey(), keyValue.getValue());
+    }
+    for (Map.Entry<String,String> keyValue : defaultHeaderMap.entrySet()) {
+      if (!headerParams.containsKey(keyValue.getKey())) {
+        builder.addHeader(keyValue.getKey(), keyValue.getValue());
+      }
+    }
+
+    BasicCookieStore store = new BasicCookieStore();
+    for (Entry<String, String> keyValue : cookieParams.entrySet()) {
+      store.addCookie(buildCookie(keyValue.getKey(), keyValue.getValue(), builder.getUri()));
+    }
+    for (Entry<String,String> keyValue : defaultCookieMap.entrySet()) {
+      if (!cookieParams.containsKey(keyValue.getKey())) {
+        store.addCookie(buildCookie(keyValue.getKey(), keyValue.getValue(), builder.getUri()));
+      }
+    }
+
+    HttpClientContext context = HttpClientContext.create();
+    context.setCookieStore(store);
+
+    try {
+      return httpClient.execute(builder.build(), context);
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+  }
+
+
+
 }

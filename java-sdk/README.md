@@ -105,9 +105,8 @@ public class ExecutionsApiExample {
         OffsetDateTime scheduleDate = OffsetDateTime.now(); // OffsetDateTime | Schedule the flow on a specific date
         String breakpoints = "breakpoints_example"; // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
         ExecutionKind kind = ExecutionKind.fromValue("NORMAL"); // ExecutionKind | Specific execution kind
-        List<Object> _file = Arrays.asList(null); // List<Object> | 
         try {
-            ExecutionControllerExecutionResponse result = apiInstance.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind, _file);
+            ExecutionControllerExecutionResponse result = apiInstance.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#createExecution");
@@ -132,6 +131,7 @@ Class | Method | HTTP request | Description
 *ExecutionsApi* | [**deleteExecutionsByIds**](docs/ExecutionsApi.md#deleteExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/by-ids | Delete a list of executions
 *ExecutionsApi* | [**deleteExecutionsByQuery**](docs/ExecutionsApi.md#deleteExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/by-query | Delete executions filter by query parameters
 *ExecutionsApi* | [**downloadFileFromExecution**](docs/ExecutionsApi.md#downloadFileFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution
+*ExecutionsApi* | [**followDependenciesExecutions**](docs/ExecutionsApi.md#followDependenciesExecutions) | **GET** /api/v1/{tenant}/executions/{executionId}/follow-dependencies | Follow all execution dependencies executions
 *ExecutionsApi* | [**followExecution**](docs/ExecutionsApi.md#followExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/follow | Follow an execution
 *ExecutionsApi* | [**forceRunByIds**](docs/ExecutionsApi.md#forceRunByIds) | **POST** /api/v1/{tenant}/executions/force-run/by-ids | Force run a list of executions
 *ExecutionsApi* | [**forceRunExecution**](docs/ExecutionsApi.md#forceRunExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/force-run | Force run an execution
@@ -139,6 +139,7 @@ Class | Method | HTTP request | Description
 *ExecutionsApi* | [**getExecution**](docs/ExecutionsApi.md#getExecution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution
 *ExecutionsApi* | [**getExecutionFlowGraph**](docs/ExecutionsApi.md#getExecutionFlowGraph) | **GET** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution
 *ExecutionsApi* | [**getFileMetadatasFromExecution**](docs/ExecutionsApi.md#getFileMetadatasFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution
+*ExecutionsApi* | [**getFlowFromExecution**](docs/ExecutionsApi.md#getFlowFromExecution) | **GET** /api/v1/{tenant}/executions/flows/{namespace}/{flowId} | Get flow information&#39;s for an execution
 *ExecutionsApi* | [**getFlowFromExecutionById**](docs/ExecutionsApi.md#getFlowFromExecutionById) | **GET** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution
 *ExecutionsApi* | [**getLatestExecutions**](docs/ExecutionsApi.md#getLatestExecutions) | **POST** /api/v1/{tenant}/executions/latest | Get the latest execution for given flows
 *ExecutionsApi* | [**killExecution**](docs/ExecutionsApi.md#killExecution) | **DELETE** /api/v1/{tenant}/executions/{executionId}/kill | Kill an execution
@@ -158,6 +159,7 @@ Class | Method | HTTP request | Description
 *ExecutionsApi* | [**resumeExecutionsByIds**](docs/ExecutionsApi.md#resumeExecutionsByIds) | **POST** /api/v1/{tenant}/executions/resume/by-ids | Resume a list of paused executions
 *ExecutionsApi* | [**resumeExecutionsByQuery**](docs/ExecutionsApi.md#resumeExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/resume/by-query | Resume executions filter by query parameters
 *ExecutionsApi* | [**searchExecutions**](docs/ExecutionsApi.md#searchExecutions) | **GET** /api/v1/{tenant}/executions/search | Search for executions
+*ExecutionsApi* | [**searchExecutionsByFlowId**](docs/ExecutionsApi.md#searchExecutionsByFlowId) | **GET** /api/v1/{tenant}/executions | Search for executions for a flow
 *ExecutionsApi* | [**setLabelsOnTerminatedExecution**](docs/ExecutionsApi.md#setLabelsOnTerminatedExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/labels | Add or update labels of a terminated execution
 *ExecutionsApi* | [**setLabelsOnTerminatedExecutionsByIds**](docs/ExecutionsApi.md#setLabelsOnTerminatedExecutionsByIds) | **POST** /api/v1/{tenant}/executions/labels/by-ids | Set labels on a list of executions
 *ExecutionsApi* | [**setLabelsOnTerminatedExecutionsByQuery**](docs/ExecutionsApi.md#setLabelsOnTerminatedExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/labels/by-query | Set label on executions filter by query parameters
@@ -366,7 +368,6 @@ Class | Method | HTTP request | Description
  - [ConvertibleValuesListString](docs/ConvertibleValuesListString.md)
  - [CreateApiTokenRequest](docs/CreateApiTokenRequest.md)
  - [CreateApiTokenResponse](docs/CreateApiTokenResponse.md)
- - [CreateExecutionRequest](docs/CreateExecutionRequest.md)
  - [CreateNamespaceFileRequest](docs/CreateNamespaceFileRequest.md)
  - [CreateSecurityIntegrationRequest](docs/CreateSecurityIntegrationRequest.md)
  - [CrudEventType](docs/CrudEventType.md)

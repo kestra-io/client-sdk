@@ -1,35 +1,22 @@
 package io.kestra.example;
 
 import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.model.BulkResponse;
-import io.kestra.sdk.model.Execution;
-import io.kestra.sdk.model.ExecutionControllerExecutionResponse;
-import io.kestra.sdk.model.ExecutionControllerLastExecutionResponse;
-import io.kestra.sdk.model.ExecutionControllerSetLabelsByIdsRequest;
-import io.kestra.sdk.model.ExecutionControllerStateRequest;
-import io.kestra.sdk.model.ExecutionControllerWebhookResponse;
-import io.kestra.sdk.model.ExecutionKind;
-import io.kestra.sdk.model.ExecutionRepositoryInterfaceFlowFilter;
-import io.kestra.sdk.model.FlowWithSource;
-import io.kestra.sdk.model.QueryFilterField;
-import io.kestra.sdk.model.QueryFilterOp;
+import io.kestra.sdk.model.*;
+
 import java.io.File;
-import io.kestra.sdk.model.FileMetas;
-import io.kestra.sdk.model.FlowForExecution;
-import io.kestra.sdk.model.FlowGraph;
-import io.kestra.sdk.model.Label;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.time.Duration;
 import java.time.OffsetDateTime;
-import io.kestra.sdk.model.PagedResultsExecution;
-import io.kestra.sdk.model.QueryFilter;
-import io.kestra.sdk.model.StateType;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 import org.junit.jupiter.api.Test;
+import java.util.HashMap;
 
 import java.net.URI;
 
@@ -79,6 +66,11 @@ public class ExecutionsApiTest {
     public static final String LOG_FLOW = """
         id: %s
         namespace: %s
+        
+        inputs:
+          - id: key
+            type: STRING
+            defaults: 'empty'
 
         tasks:
           - id: hello
@@ -185,7 +177,10 @@ public class ExecutionsApiTest {
         OffsetDateTime scheduleDate = null;
         String breakpoints = null;
         ExecutionKind kind = ExecutionKind.NORMAL;
-        ExecutionControllerExecutionResponse response = kestraClient().executions().createExecution(namespace, id, wait, MAIN_TENANT, labels, revision, scheduleDate, breakpoints, kind);
+        HashMap<String, Object> inputs = new HashMap<>();
+        inputs.put("key", "value");
+
+        ExecutionControllerExecutionResponse response = kestraClient().executions().createExecution(namespace, id, wait, MAIN_TENANT, labels, revision, scheduleDate, breakpoints, kind, Map.of(), inputs);
 
         assertThat(response.getLabels()).contains(new Label().key("label1").value("created"));
         assertThat(response.getFlowId()).isEqualTo(id);
@@ -292,7 +287,7 @@ public class ExecutionsApiTest {
         Execution execution = getExecutionWithFile(flowId, namespace);
 
         String executionId = execution.getId();
-        URI path = URI.create(execution.getTaskRunList().getFirst().getOutputs().get("uri").toString());
+        URI path = URI.create(((Map<String, Object>)execution.getTaskRunList().getFirst().getOutputs()).get("uri").toString());
 
         File response = kestraClient().executions().downloadFileFromExecution(executionId, path, MAIN_TENANT);
         String content = Files.readString(response.toPath(), StandardCharsets.UTF_8);
@@ -415,7 +410,7 @@ public class ExecutionsApiTest {
         Execution execution = getExecutionWithFile(id, namespace);
 
         String executionId = execution.getId();
-        URI path = URI.create(execution.getTaskRunList().getFirst().getOutputs().get("uri").toString());
+        URI path = URI.create(((Map<String, Object>)execution.getTaskRunList().getFirst().getOutputs()).get("uri").toString());
 
         FileMetas response = kestraClient().executions().getFileMetadatasFromExecution(executionId, path, MAIN_TENANT);
         assertThat(response.getSize()).isEqualTo(15);
@@ -613,14 +608,13 @@ public class ExecutionsApiTest {
      */
     @Test
     public void replayExecutionWithinputsTest() throws ApiException {
-        String executionId = null;
+        Execution exec = createdExecution(FAILED_FLOW, StateType.FAILED);
+        String executionId = exec.getId();
 
-        String taskRunId = null;
-        Integer revision = null;
-        String breakpoints = null;
-        Execution response = kestraClient().executions().replayExecutionWithinputs(executionId, MAIN_TENANT, taskRunId, revision, breakpoints);
-
-        // TODO: test validations
+        HashMap<String, Object> inputs = new HashMap<>();
+        inputs.put("key", "value");
+        Execution response = kestraClient().executions().replayExecutionWithinputs(executionId, MAIN_TENANT, exec.getTaskRunList().getFirst().getId(), exec.getFlowRevision(), null, Map.of(), inputs);
+        assertThat(response.getId()).isNotNull();
     }
     /**
      * Create new executions from old ones. Keep the flow revision
@@ -1027,5 +1021,47 @@ public class ExecutionsApiTest {
         assertThat(kestraClient().executions().getExecution(exec1.getId(), MAIN_TENANT).getState().getCurrent()).isEqualTo(newStatus);
         assertThat(kestraClient().executions().getExecution(exec2.getId(), MAIN_TENANT).getState().getCurrent()).isEqualTo(newStatus);
         assertThat(kestraClient().executions().getExecution(otherExec.getId(), MAIN_TENANT).getState().getCurrent()).isEqualTo(StateType.SUCCESS);
+    }
+
+    @Test
+    public void followExecution() throws Exception {
+        Execution execution = createdExecution(LOG_FLOW, StateType.SUCCESS);
+        String executionId = execution.getId();
+
+        CountDownLatch completionLatch = new CountDownLatch(1);
+
+        kestraClient().executions().followExecution(executionId, MAIN_TENANT)
+                .doOnNext(event -> {
+                    assertThat(event.getFlowId()).isEqualTo(execution.getFlowId());
+                })
+                .doFinally(signalType -> {
+                    completionLatch.countDown();
+                })
+                .subscribe();
+
+        boolean completed = completionLatch.await(30, TimeUnit.SECONDS);
+
+        assertThat(completed).isTrue();
+    }
+
+    @Test
+    public void followDependenciesExecution() throws Exception {
+        Execution execution = createdExecution(LOG_FLOW, StateType.SUCCESS);
+        String executionId = execution.getId();
+
+        CountDownLatch completionLatch = new CountDownLatch(1);
+
+        kestraClient().executions().followDependenciesExecution(executionId, MAIN_TENANT, false, true)
+                .doOnNext(event -> {
+                    assertThat(event.getFlowId()).isEqualTo(execution.getFlowId());
+                })
+                .doFinally(signalType -> {
+                    completionLatch.countDown();
+                })
+                .subscribe();
+
+        boolean completed = completionLatch.await(30, TimeUnit.SECONDS);
+
+        assertThat(completed).isTrue();
     }
 }
