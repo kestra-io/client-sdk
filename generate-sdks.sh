@@ -49,6 +49,13 @@ docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/ope
 
 find ./java-sdk/src/main/java -type f -name "*.java" -exec sed -i.bak 's/Map<Task>/List<Task>/g' {} + && find ./java-sdk/src/main/java -name "*.bak" -delete
 echo "version=$VERSION" > ./java-sdk/gradle.properties
+
+
+# Replace wrong prop in docs for each api
+for f in java-sdk/docs/*.md; do
+  [ -f "$f" ] || continue
+  sed -E -i 's/\b([A-Za-z]+)Api\b/\L\1/g' "$f"
+done
 fi
 
 # Generate Python SDK
@@ -61,6 +68,12 @@ docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/ope
 
 sed $SED_INPLACE -E '/from kestrapy\.models\.list\[label\] import List\[Label\]/d' python-sdk/kestrapy/api/executions_api.py
 echo "from kestrapy.kestra_client import KestraClient as KestraClient" >> python-sdk/kestrapy/__init__.py
+
+# Replace wrong prop in docs for each api
+for f in python-sdk/docs/*.md; do
+  [ -f "$f" ] || continue
+  sed -E -i 's/\b([A-Za-z]+)Api\b/\L\1/g' "$f"
+done
 fi
 
 # Generate Javascript SDK

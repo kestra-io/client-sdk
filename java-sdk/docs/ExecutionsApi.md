@@ -1,53 +1,53 @@
-# ExecutionsApi
+# executions
 
 All URIs are relative to *http://localhost*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**createExecution**](ExecutionsApi.md#createExecution) | **POST** /api/v1/{tenant}/executions/{namespace}/{id} | Create a new execution for a flow |
-| [**deleteExecution**](ExecutionsApi.md#deleteExecution) | **DELETE** /api/v1/{tenant}/executions/{executionId} | Delete an execution |
-| [**deleteExecutionsByIds**](ExecutionsApi.md#deleteExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/by-ids | Delete a list of executions |
-| [**deleteExecutionsByQuery**](ExecutionsApi.md#deleteExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/by-query | Delete executions filter by query parameters |
-| [**downloadFileFromExecution**](ExecutionsApi.md#downloadFileFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution |
-| [**followDependenciesExecutions**](ExecutionsApi.md#followDependenciesExecutions) | **GET** /api/v1/{tenant}/executions/{executionId}/follow-dependencies | Follow all execution dependencies executions |
-| [**followExecution**](ExecutionsApi.md#followExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/follow | Follow an execution |
-| [**forceRunByIds**](ExecutionsApi.md#forceRunByIds) | **POST** /api/v1/{tenant}/executions/force-run/by-ids | Force run a list of executions |
-| [**forceRunExecution**](ExecutionsApi.md#forceRunExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/force-run | Force run an execution |
-| [**forceRunExecutionsByQuery**](ExecutionsApi.md#forceRunExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/force-run/by-query | Force run executions filter by query parameters |
-| [**getExecution**](ExecutionsApi.md#getExecution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution |
-| [**getExecutionFlowGraph**](ExecutionsApi.md#getExecutionFlowGraph) | **GET** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution |
-| [**getFileMetadatasFromExecution**](ExecutionsApi.md#getFileMetadatasFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution |
-| [**getFlowFromExecution**](ExecutionsApi.md#getFlowFromExecution) | **GET** /api/v1/{tenant}/executions/flows/{namespace}/{flowId} | Get flow information&#39;s for an execution |
-| [**getFlowFromExecutionById**](ExecutionsApi.md#getFlowFromExecutionById) | **GET** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution |
-| [**getLatestExecutions**](ExecutionsApi.md#getLatestExecutions) | **POST** /api/v1/{tenant}/executions/latest | Get the latest execution for given flows |
-| [**killExecution**](ExecutionsApi.md#killExecution) | **DELETE** /api/v1/{tenant}/executions/{executionId}/kill | Kill an execution |
-| [**killExecutionsByIds**](ExecutionsApi.md#killExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/kill/by-ids | Kill a list of executions |
-| [**killExecutionsByQuery**](ExecutionsApi.md#killExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/kill/by-query | Kill executions filter by query parameters |
-| [**pauseExecution**](ExecutionsApi.md#pauseExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/pause | Pause a running execution. |
-| [**pauseExecutionsByIds**](ExecutionsApi.md#pauseExecutionsByIds) | **POST** /api/v1/{tenant}/executions/pause/by-ids | Pause a list of running executions |
-| [**pauseExecutionsByQuery**](ExecutionsApi.md#pauseExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/pause/by-query | Pause executions filter by query parameters |
-| [**replayExecution**](ExecutionsApi.md#replayExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/replay | Create a new execution from an old one and start it from a specified task run id |
-| [**replayExecutionWithinputs**](ExecutionsApi.md#replayExecutionWithinputs) | **POST** /api/v1/{tenant}/executions/{executionId}/replay-with-inputs | Create a new execution from an old one and start it from a specified task run id |
-| [**replayExecutionsByIds**](ExecutionsApi.md#replayExecutionsByIds) | **POST** /api/v1/{tenant}/executions/replay/by-ids | Create new executions from old ones. Keep the flow revision |
-| [**replayExecutionsByQuery**](ExecutionsApi.md#replayExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/replay/by-query | Create new executions from old ones filter by query parameters. Keep the flow revision |
-| [**restartExecution**](ExecutionsApi.md#restartExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/restart | Restart a new execution from an old one |
-| [**restartExecutionsByIds**](ExecutionsApi.md#restartExecutionsByIds) | **POST** /api/v1/{tenant}/executions/restart/by-ids | Restart a list of executions |
-| [**restartExecutionsByQuery**](ExecutionsApi.md#restartExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/restart/by-query | Restart executions filter by query parameters |
-| [**resumeExecution**](ExecutionsApi.md#resumeExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/resume | Resume a paused execution. |
-| [**resumeExecutionsByIds**](ExecutionsApi.md#resumeExecutionsByIds) | **POST** /api/v1/{tenant}/executions/resume/by-ids | Resume a list of paused executions |
-| [**resumeExecutionsByQuery**](ExecutionsApi.md#resumeExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/resume/by-query | Resume executions filter by query parameters |
-| [**searchExecutions**](ExecutionsApi.md#searchExecutions) | **GET** /api/v1/{tenant}/executions/search | Search for executions |
-| [**searchExecutionsByFlowId**](ExecutionsApi.md#searchExecutionsByFlowId) | **GET** /api/v1/{tenant}/executions | Search for executions for a flow |
-| [**setLabelsOnTerminatedExecution**](ExecutionsApi.md#setLabelsOnTerminatedExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/labels | Add or update labels of a terminated execution |
-| [**setLabelsOnTerminatedExecutionsByIds**](ExecutionsApi.md#setLabelsOnTerminatedExecutionsByIds) | **POST** /api/v1/{tenant}/executions/labels/by-ids | Set labels on a list of executions |
-| [**setLabelsOnTerminatedExecutionsByQuery**](ExecutionsApi.md#setLabelsOnTerminatedExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/labels/by-query | Set label on executions filter by query parameters |
-| [**triggerExecutionByGetWebhook**](ExecutionsApi.md#triggerExecutionByGetWebhook) | **GET** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key} | Trigger a new execution by GET webhook trigger |
-| [**unqueueExecution**](ExecutionsApi.md#unqueueExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/unqueue | Unqueue an execution |
-| [**unqueueExecutionsByIds**](ExecutionsApi.md#unqueueExecutionsByIds) | **POST** /api/v1/{tenant}/executions/unqueue/by-ids | Unqueue a list of executions |
-| [**unqueueExecutionsByQuery**](ExecutionsApi.md#unqueueExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/unqueue/by-query | Unqueue executions filter by query parameters |
-| [**updateExecutionStatus**](ExecutionsApi.md#updateExecutionStatus) | **POST** /api/v1/{tenant}/executions/{executionId}/change-status | Change the state of an execution |
-| [**updateExecutionsStatusByIds**](ExecutionsApi.md#updateExecutionsStatusByIds) | **POST** /api/v1/{tenant}/executions/change-status/by-ids | Change executions state by id |
-| [**updateExecutionsStatusByQuery**](ExecutionsApi.md#updateExecutionsStatusByQuery) | **POST** /api/v1/{tenant}/executions/change-status/by-query | Change executions state by query parameters |
+| [**createExecution**](executions.md#createExecution) | **POST** /api/v1/{tenant}/executions/{namespace}/{id} | Create a new execution for a flow |
+| [**deleteExecution**](executions.md#deleteExecution) | **DELETE** /api/v1/{tenant}/executions/{executionId} | Delete an execution |
+| [**deleteExecutionsByIds**](executions.md#deleteExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/by-ids | Delete a list of executions |
+| [**deleteExecutionsByQuery**](executions.md#deleteExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/by-query | Delete executions filter by query parameters |
+| [**downloadFileFromExecution**](executions.md#downloadFileFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution |
+| [**followDependenciesExecutions**](executions.md#followDependenciesExecutions) | **GET** /api/v1/{tenant}/executions/{executionId}/follow-dependencies | Follow all execution dependencies executions |
+| [**followExecution**](executions.md#followExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/follow | Follow an execution |
+| [**forceRunByIds**](executions.md#forceRunByIds) | **POST** /api/v1/{tenant}/executions/force-run/by-ids | Force run a list of executions |
+| [**forceRunExecution**](executions.md#forceRunExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/force-run | Force run an execution |
+| [**forceRunExecutionsByQuery**](executions.md#forceRunExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/force-run/by-query | Force run executions filter by query parameters |
+| [**getExecution**](executions.md#getExecution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution |
+| [**getExecutionFlowGraph**](executions.md#getExecutionFlowGraph) | **GET** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution |
+| [**getFileMetadatasFromExecution**](executions.md#getFileMetadatasFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution |
+| [**getFlowFromExecution**](executions.md#getFlowFromExecution) | **GET** /api/v1/{tenant}/executions/flows/{namespace}/{flowId} | Get flow information&#39;s for an execution |
+| [**getFlowFromExecutionById**](executions.md#getFlowFromExecutionById) | **GET** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution |
+| [**getLatestExecutions**](executions.md#getLatestExecutions) | **POST** /api/v1/{tenant}/executions/latest | Get the latest execution for given flows |
+| [**killExecution**](executions.md#killExecution) | **DELETE** /api/v1/{tenant}/executions/{executionId}/kill | Kill an execution |
+| [**killExecutionsByIds**](executions.md#killExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/kill/by-ids | Kill a list of executions |
+| [**killExecutionsByQuery**](executions.md#killExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/kill/by-query | Kill executions filter by query parameters |
+| [**pauseExecution**](executions.md#pauseExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/pause | Pause a running execution. |
+| [**pauseExecutionsByIds**](executions.md#pauseExecutionsByIds) | **POST** /api/v1/{tenant}/executions/pause/by-ids | Pause a list of running executions |
+| [**pauseExecutionsByQuery**](executions.md#pauseExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/pause/by-query | Pause executions filter by query parameters |
+| [**replayExecution**](executions.md#replayExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/replay | Create a new execution from an old one and start it from a specified task run id |
+| [**replayExecutionWithinputs**](executions.md#replayExecutionWithinputs) | **POST** /api/v1/{tenant}/executions/{executionId}/replay-with-inputs | Create a new execution from an old one and start it from a specified task run id |
+| [**replayExecutionsByIds**](executions.md#replayExecutionsByIds) | **POST** /api/v1/{tenant}/executions/replay/by-ids | Create new executions from old ones. Keep the flow revision |
+| [**replayExecutionsByQuery**](executions.md#replayExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/replay/by-query | Create new executions from old ones filter by query parameters. Keep the flow revision |
+| [**restartExecution**](executions.md#restartExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/restart | Restart a new execution from an old one |
+| [**restartExecutionsByIds**](executions.md#restartExecutionsByIds) | **POST** /api/v1/{tenant}/executions/restart/by-ids | Restart a list of executions |
+| [**restartExecutionsByQuery**](executions.md#restartExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/restart/by-query | Restart executions filter by query parameters |
+| [**resumeExecution**](executions.md#resumeExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/resume | Resume a paused execution. |
+| [**resumeExecutionsByIds**](executions.md#resumeExecutionsByIds) | **POST** /api/v1/{tenant}/executions/resume/by-ids | Resume a list of paused executions |
+| [**resumeExecutionsByQuery**](executions.md#resumeExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/resume/by-query | Resume executions filter by query parameters |
+| [**searchExecutions**](executions.md#searchExecutions) | **GET** /api/v1/{tenant}/executions/search | Search for executions |
+| [**searchExecutionsByFlowId**](executions.md#searchExecutionsByFlowId) | **GET** /api/v1/{tenant}/executions | Search for executions for a flow |
+| [**setLabelsOnTerminatedExecution**](executions.md#setLabelsOnTerminatedExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/labels | Add or update labels of a terminated execution |
+| [**setLabelsOnTerminatedExecutionsByIds**](executions.md#setLabelsOnTerminatedExecutionsByIds) | **POST** /api/v1/{tenant}/executions/labels/by-ids | Set labels on a list of executions |
+| [**setLabelsOnTerminatedExecutionsByQuery**](executions.md#setLabelsOnTerminatedExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/labels/by-query | Set label on executions filter by query parameters |
+| [**triggerExecutionByGetWebhook**](executions.md#triggerExecutionByGetWebhook) | **GET** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key} | Trigger a new execution by GET webhook trigger |
+| [**unqueueExecution**](executions.md#unqueueExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/unqueue | Unqueue an execution |
+| [**unqueueExecutionsByIds**](executions.md#unqueueExecutionsByIds) | **POST** /api/v1/{tenant}/executions/unqueue/by-ids | Unqueue a list of executions |
+| [**unqueueExecutionsByQuery**](executions.md#unqueueExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/unqueue/by-query | Unqueue executions filter by query parameters |
+| [**updateExecutionStatus**](executions.md#updateExecutionStatus) | **POST** /api/v1/{tenant}/executions/{executionId}/change-status | Change the state of an execution |
+| [**updateExecutionsStatusByIds**](executions.md#updateExecutionsStatusByIds) | **POST** /api/v1/{tenant}/executions/change-status/by-ids | Change executions state by id |
+| [**updateExecutionsStatusByQuery**](executions.md#updateExecutionsStatusByQuery) | **POST** /api/v1/{tenant}/executions/change-status/by-query | Change executions state by query parameters |
 
 
 
@@ -66,23 +66,17 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String namespace = "namespace_example"; // String | The flow namespace
         String id = "id_example"; // String | The flow id
         Boolean wait = false; // Boolean | If the server will wait the end of the execution
@@ -93,10 +87,10 @@ public class Example {
         String breakpoints = "breakpoints_example"; // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
         ExecutionKind kind = ExecutionKind.fromValue("NORMAL"); // ExecutionKind | Specific execution kind
         try {
-            ExecutionControllerExecutionResponse result = apiInstance.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind);
+            ExecutionControllerExecutionResponse result = kestraClient.executions().createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#createExecution");
+            System.err.println("Exception when calling executions#createExecution");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -157,32 +151,26 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String executionId = "executionId_example"; // String | The execution id
         String tenant = "tenant_example"; // String | 
         Boolean deleteLogs = true; // Boolean | Whether to delete execution logs
         Boolean deleteMetrics = true; // Boolean | Whether to delete execution metrics
         Boolean deleteStorage = true; // Boolean | Whether to delete execution files in the internal storage
         try {
-            apiInstance.deleteExecution(executionId, tenant, deleteLogs, deleteMetrics, deleteStorage);
+            kestraClient.executions().deleteExecution(executionId, tenant, deleteLogs, deleteMetrics, deleteStorage);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#deleteExecution");
+            System.err.println("Exception when calling executions#deleteExecution");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -239,23 +227,17 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         List<String> requestBody = Arrays.asList(); // List<String> | The execution id
         Boolean includeNonTerminated = false; // Boolean | Whether to delete non-terminated executions
@@ -263,10 +245,10 @@ public class Example {
         Boolean deleteMetrics = true; // Boolean | Whether to delete execution metrics
         Boolean deleteStorage = true; // Boolean | Whether to delete execution files in the internal storage
         try {
-            BulkResponse result = apiInstance.deleteExecutionsByIds(tenant, requestBody, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage);
+            BulkResponse result = kestraClient.executions().deleteExecutionsByIds(tenant, requestBody, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#deleteExecutionsByIds");
+            System.err.println("Exception when calling executions#deleteExecutionsByIds");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -324,23 +306,17 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         Boolean includeNonTerminated = false; // Boolean | Whether to delete non-terminated executions
@@ -348,10 +324,10 @@ public class Example {
         Boolean deleteMetrics = true; // Boolean | Whether to delete execution metrics
         Boolean deleteStorage = true; // Boolean | Whether to delete execution files in the internal storage
         try {
-            Object result = apiInstance.deleteExecutionsByQuery(tenant, filters, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage);
+            Object result = kestraClient.executions().deleteExecutionsByQuery(tenant, filters, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#deleteExecutionsByQuery");
+            System.err.println("Exception when calling executions#deleteExecutionsByQuery");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -408,31 +384,25 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String executionId = "executionId_example"; // String | The execution id
         URI path = new URI(); // URI | The internal storage uri
         String tenant = "tenant_example"; // String | 
         try {
-            File result = apiInstance.downloadFileFromExecution(executionId, path, tenant);
+            File result = kestraClient.executions().downloadFileFromExecution(executionId, path, tenant);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#downloadFileFromExecution");
+            System.err.println("Exception when calling executions#downloadFileFromExecution");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -486,32 +456,26 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String executionId = "executionId_example"; // String | The execution id
         Boolean destinationOnly = false; // Boolean | If true, list only destination dependencies, otherwise list also source dependencies
         Boolean expandAll = false; // Boolean | If true, expand all dependencies recursively
         String tenant = "tenant_example"; // String | 
         try {
-            EventExecutionStatusEvent result = apiInstance.followDependenciesExecutions(executionId, destinationOnly, expandAll, tenant);
+            EventExecutionStatusEvent result = kestraClient.executions().followDependenciesExecutions(executionId, destinationOnly, expandAll, tenant);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#followDependenciesExecutions");
+            System.err.println("Exception when calling executions#followDependenciesExecutions");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -566,30 +530,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String executionId = "executionId_example"; // String | The execution id
         String tenant = "tenant_example"; // String | 
         try {
-            EventExecution result = apiInstance.followExecution(executionId, tenant);
+            EventExecution result = kestraClient.executions().followExecution(executionId, tenant);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#followExecution");
+            System.err.println("Exception when calling executions#followExecution");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -642,30 +600,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         List<String> requestBody = Arrays.asList(); // List<String> | The list of executions id
         try {
-            BulkResponse result = apiInstance.forceRunByIds(tenant, requestBody);
+            BulkResponse result = kestraClient.executions().forceRunByIds(tenant, requestBody);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#forceRunByIds");
+            System.err.println("Exception when calling executions#forceRunByIds");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -719,30 +671,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String executionId = "executionId_example"; // String | The execution id
         String tenant = "tenant_example"; // String | 
         try {
-            Execution result = apiInstance.forceRunExecution(executionId, tenant);
+            Execution result = kestraClient.executions().forceRunExecution(executionId, tenant);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#forceRunExecution");
+            System.err.println("Exception when calling executions#forceRunExecution");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -795,30 +741,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         try {
-            Object result = apiInstance.forceRunExecutionsByQuery(tenant, filters);
+            Object result = kestraClient.executions().forceRunExecutionsByQuery(tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#forceRunExecutionsByQuery");
+            System.err.println("Exception when calling executions#forceRunExecutionsByQuery");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -871,30 +811,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String executionId = "executionId_example"; // String | The execution id
         String tenant = "tenant_example"; // String | 
         try {
-            Execution result = apiInstance.getExecution(executionId, tenant);
+            Execution result = kestraClient.executions().getExecution(executionId, tenant);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#getExecution");
+            System.err.println("Exception when calling executions#getExecution");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -947,31 +881,25 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String executionId = "executionId_example"; // String | The execution id
         String tenant = "tenant_example"; // String | 
         List<String> subflows = Arrays.asList(); // List<String> | The subflow tasks to display
         try {
-            FlowGraph result = apiInstance.getExecutionFlowGraph(executionId, tenant, subflows);
+            FlowGraph result = kestraClient.executions().getExecutionFlowGraph(executionId, tenant, subflows);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#getExecutionFlowGraph");
+            System.err.println("Exception when calling executions#getExecutionFlowGraph");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1025,31 +953,25 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String executionId = "executionId_example"; // String | The execution id
         URI path = new URI(); // URI | The internal storage uri
         String tenant = "tenant_example"; // String | 
         try {
-            FileMetas result = apiInstance.getFileMetadatasFromExecution(executionId, path, tenant);
+            FileMetas result = kestraClient.executions().getFileMetadatasFromExecution(executionId, path, tenant);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#getFileMetadatasFromExecution");
+            System.err.println("Exception when calling executions#getFileMetadatasFromExecution");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1103,32 +1025,26 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String namespace = "namespace_example"; // String | The namespace of the flow
         String flowId = "flowId_example"; // String | The flow id
         String tenant = "tenant_example"; // String | 
         Integer revision = 56; // Integer | The flow revision
         try {
-            FlowForExecution result = apiInstance.getFlowFromExecution(namespace, flowId, tenant, revision);
+            FlowForExecution result = kestraClient.executions().getFlowFromExecution(namespace, flowId, tenant, revision);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#getFlowFromExecution");
+            System.err.println("Exception when calling executions#getFlowFromExecution");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1183,30 +1099,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String executionId = "executionId_example"; // String | The execution that you want flow informations
         String tenant = "tenant_example"; // String | 
         try {
-            FlowForExecution result = apiInstance.getFlowFromExecutionById(executionId, tenant);
+            FlowForExecution result = kestraClient.executions().getFlowFromExecutionById(executionId, tenant);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#getFlowFromExecutionById");
+            System.err.println("Exception when calling executions#getFlowFromExecutionById");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1259,30 +1169,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         List<ExecutionRepositoryInterfaceFlowFilter> executionRepositoryInterfaceFlowFilter = Arrays.asList(); // List<ExecutionRepositoryInterfaceFlowFilter> | 
         try {
-            List<ExecutionControllerLastExecutionResponse> result = apiInstance.getLatestExecutions(tenant, executionRepositoryInterfaceFlowFilter);
+            List<ExecutionControllerLastExecutionResponse> result = kestraClient.executions().getLatestExecutions(tenant, executionRepositoryInterfaceFlowFilter);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#getLatestExecutions");
+            System.err.println("Exception when calling executions#getLatestExecutions");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1335,31 +1239,25 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String executionId = "executionId_example"; // String | The execution id
         Boolean isOnKillCascade = true; // Boolean | Specifies whether killing the execution also kill all subflow executions.
         String tenant = "tenant_example"; // String | 
         try {
-            Object result = apiInstance.killExecution(executionId, isOnKillCascade, tenant);
+            Object result = kestraClient.executions().killExecution(executionId, isOnKillCascade, tenant);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#killExecution");
+            System.err.println("Exception when calling executions#killExecution");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1416,30 +1314,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         List<String> requestBody = Arrays.asList(); // List<String> | The list of executions id
         try {
-            BulkResponse result = apiInstance.killExecutionsByIds(tenant, requestBody);
+            BulkResponse result = kestraClient.executions().killExecutionsByIds(tenant, requestBody);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#killExecutionsByIds");
+            System.err.println("Exception when calling executions#killExecutionsByIds");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1493,30 +1385,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         try {
-            Object result = apiInstance.killExecutionsByQuery(tenant, filters);
+            Object result = kestraClient.executions().killExecutionsByQuery(tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#killExecutionsByQuery");
+            System.err.println("Exception when calling executions#killExecutionsByQuery");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1569,29 +1455,23 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String executionId = "executionId_example"; // String | The execution id
         String tenant = "tenant_example"; // String | 
         try {
-            apiInstance.pauseExecution(executionId, tenant);
+            kestraClient.executions().pauseExecution(executionId, tenant);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#pauseExecution");
+            System.err.println("Exception when calling executions#pauseExecution");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1646,30 +1526,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         List<String> requestBody = Arrays.asList(); // List<String> | The list of executions id
         try {
-            BulkResponse result = apiInstance.pauseExecutionsByIds(tenant, requestBody);
+            BulkResponse result = kestraClient.executions().pauseExecutionsByIds(tenant, requestBody);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#pauseExecutionsByIds");
+            System.err.println("Exception when calling executions#pauseExecutionsByIds");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1723,30 +1597,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         try {
-            Object result = apiInstance.pauseExecutionsByQuery(tenant, filters);
+            Object result = kestraClient.executions().pauseExecutionsByQuery(tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#pauseExecutionsByQuery");
+            System.err.println("Exception when calling executions#pauseExecutionsByQuery");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1799,33 +1667,27 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String executionId = "executionId_example"; // String | the original execution id to clone
         String tenant = "tenant_example"; // String | 
         String taskRunId = "taskRunId_example"; // String | The taskrun id
         Integer revision = 56; // Integer | The flow revision to use for new execution
         String breakpoints = "breakpoints_example"; // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
         try {
-            Execution result = apiInstance.replayExecution(executionId, tenant, taskRunId, revision, breakpoints);
+            Execution result = kestraClient.executions().replayExecution(executionId, tenant, taskRunId, revision, breakpoints);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#replayExecution");
+            System.err.println("Exception when calling executions#replayExecution");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1881,33 +1743,27 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String executionId = "executionId_example"; // String | the original execution id to clone
         String tenant = "tenant_example"; // String | 
         String taskRunId = "taskRunId_example"; // String | The taskrun id
         Integer revision = 56; // Integer | The flow revision to use for new execution
         String breakpoints = "breakpoints_example"; // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
         try {
-            Execution result = apiInstance.replayExecutionWithinputs(executionId, tenant, taskRunId, revision, breakpoints);
+            Execution result = kestraClient.executions().replayExecutionWithinputs(executionId, tenant, taskRunId, revision, breakpoints);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#replayExecutionWithinputs");
+            System.err.println("Exception when calling executions#replayExecutionWithinputs");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1963,31 +1819,25 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         List<String> requestBody = Arrays.asList(); // List<String> | The list of executions id
         Boolean latestRevision = false; // Boolean | If latest revision should be used
         try {
-            BulkResponse result = apiInstance.replayExecutionsByIds(tenant, requestBody, latestRevision);
+            BulkResponse result = kestraClient.executions().replayExecutionsByIds(tenant, requestBody, latestRevision);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#replayExecutionsByIds");
+            System.err.println("Exception when calling executions#replayExecutionsByIds");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -2042,31 +1892,25 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         Boolean latestRevision = false; // Boolean | If latest revision should be used
         try {
-            Object result = apiInstance.replayExecutionsByQuery(tenant, filters, latestRevision);
+            Object result = kestraClient.executions().replayExecutionsByQuery(tenant, filters, latestRevision);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#replayExecutionsByQuery");
+            System.err.println("Exception when calling executions#replayExecutionsByQuery");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -2120,31 +1964,25 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String executionId = "executionId_example"; // String | The execution id
         String tenant = "tenant_example"; // String | 
         Integer revision = 56; // Integer | The flow revision to use for new execution
         try {
-            Execution result = apiInstance.restartExecution(executionId, tenant, revision);
+            Execution result = kestraClient.executions().restartExecution(executionId, tenant, revision);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#restartExecution");
+            System.err.println("Exception when calling executions#restartExecution");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -2198,30 +2036,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         List<String> requestBody = Arrays.asList(); // List<String> | The list of executions id
         try {
-            BulkResponse result = apiInstance.restartExecutionsByIds(tenant, requestBody);
+            BulkResponse result = kestraClient.executions().restartExecutionsByIds(tenant, requestBody);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#restartExecutionsByIds");
+            System.err.println("Exception when calling executions#restartExecutionsByIds");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -2275,30 +2107,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         try {
-            Object result = apiInstance.restartExecutionsByQuery(tenant, filters);
+            Object result = kestraClient.executions().restartExecutionsByQuery(tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#restartExecutionsByQuery");
+            System.err.println("Exception when calling executions#restartExecutionsByQuery");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -2351,30 +2177,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String executionId = "executionId_example"; // String | The execution id
         String tenant = "tenant_example"; // String | 
         try {
-            Object result = apiInstance.resumeExecution(executionId, tenant);
+            Object result = kestraClient.executions().resumeExecution(executionId, tenant);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#resumeExecution");
+            System.err.println("Exception when calling executions#resumeExecution");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -2429,30 +2249,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         List<String> requestBody = Arrays.asList(); // List<String> | The list of executions id
         try {
-            BulkResponse result = apiInstance.resumeExecutionsByIds(tenant, requestBody);
+            BulkResponse result = kestraClient.executions().resumeExecutionsByIds(tenant, requestBody);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#resumeExecutionsByIds");
+            System.err.println("Exception when calling executions#resumeExecutionsByIds");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -2506,30 +2320,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         try {
-            Object result = apiInstance.resumeExecutionsByQuery(tenant, filters);
+            Object result = kestraClient.executions().resumeExecutionsByQuery(tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#resumeExecutionsByQuery");
+            System.err.println("Exception when calling executions#resumeExecutionsByQuery");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -2582,33 +2390,27 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         Integer page = 1; // Integer | The current page
         Integer size = 10; // Integer | The current page size
         String tenant = "tenant_example"; // String | 
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         try {
-            PagedResultsExecution result = apiInstance.searchExecutions(page, size, tenant, sort, filters);
+            PagedResultsExecution result = kestraClient.executions().searchExecutions(page, size, tenant, sort, filters);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#searchExecutions");
+            System.err.println("Exception when calling executions#searchExecutions");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -2664,33 +2466,27 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String namespace = "namespace_example"; // String | The flow namespace
         String flowId = "flowId_example"; // String | The flow id
         Integer page = 1; // Integer | The current page
         Integer size = 10; // Integer | The current page size
         String tenant = "tenant_example"; // String | 
         try {
-            PagedResultsExecution result = apiInstance.searchExecutionsByFlowId(namespace, flowId, page, size, tenant);
+            PagedResultsExecution result = kestraClient.executions().searchExecutionsByFlowId(namespace, flowId, page, size, tenant);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#searchExecutionsByFlowId");
+            System.err.println("Exception when calling executions#searchExecutionsByFlowId");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -2746,31 +2542,25 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String executionId = "executionId_example"; // String | The execution id
         String tenant = "tenant_example"; // String | 
         List<Label> label = Arrays.asList(); // List<Label> | The labels to add to the execution
         try {
-            Object result = apiInstance.setLabelsOnTerminatedExecution(executionId, tenant, label);
+            Object result = kestraClient.executions().setLabelsOnTerminatedExecution(executionId, tenant, label);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#setLabelsOnTerminatedExecution");
+            System.err.println("Exception when calling executions#setLabelsOnTerminatedExecution");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -2826,30 +2616,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         ExecutionControllerSetLabelsByIdsRequest executionControllerSetLabelsByIdsRequest = new ExecutionControllerSetLabelsByIdsRequest(); // ExecutionControllerSetLabelsByIdsRequest | The request containing a list of labels and a list of executions
         try {
-            BulkResponse result = apiInstance.setLabelsOnTerminatedExecutionsByIds(tenant, executionControllerSetLabelsByIdsRequest);
+            BulkResponse result = kestraClient.executions().setLabelsOnTerminatedExecutionsByIds(tenant, executionControllerSetLabelsByIdsRequest);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#setLabelsOnTerminatedExecutionsByIds");
+            System.err.println("Exception when calling executions#setLabelsOnTerminatedExecutionsByIds");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -2903,31 +2687,25 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         List<Label> label = Arrays.asList(); // List<Label> | The labels to add to the execution
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         try {
-            Object result = apiInstance.setLabelsOnTerminatedExecutionsByQuery(tenant, label, filters);
+            Object result = kestraClient.executions().setLabelsOnTerminatedExecutionsByQuery(tenant, label, filters);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#setLabelsOnTerminatedExecutionsByQuery");
+            System.err.println("Exception when calling executions#setLabelsOnTerminatedExecutionsByQuery");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -2981,32 +2759,26 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String namespace = "namespace_example"; // String | The flow namespace
         String id = "id_example"; // String | The flow id
         String key = "key_example"; // String | The webhook trigger uid
         String tenant = "tenant_example"; // String | 
         try {
-            ExecutionControllerWebhookResponse result = apiInstance.triggerExecutionByGetWebhook(namespace, id, key, tenant);
+            ExecutionControllerWebhookResponse result = kestraClient.executions().triggerExecutionByGetWebhook(namespace, id, key, tenant);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#triggerExecutionByGetWebhook");
+            System.err.println("Exception when calling executions#triggerExecutionByGetWebhook");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -3061,31 +2833,25 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String executionId = "executionId_example"; // String | The execution id
         StateType state = StateType.fromValue("CREATED"); // StateType | The new state of the execution
         String tenant = "tenant_example"; // String | 
         try {
-            Execution result = apiInstance.unqueueExecution(executionId, state, tenant);
+            Execution result = kestraClient.executions().unqueueExecution(executionId, state, tenant);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#unqueueExecution");
+            System.err.println("Exception when calling executions#unqueueExecution");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -3139,31 +2905,25 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         StateType state = StateType.fromValue("CREATED"); // StateType | The new state of the unqueued executions
         String tenant = "tenant_example"; // String | 
         List<String> requestBody = Arrays.asList(); // List<String> | The list of executions id
         try {
-            BulkResponse result = apiInstance.unqueueExecutionsByIds(state, tenant, requestBody);
+            BulkResponse result = kestraClient.executions().unqueueExecutionsByIds(state, tenant, requestBody);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#unqueueExecutionsByIds");
+            System.err.println("Exception when calling executions#unqueueExecutionsByIds");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -3218,31 +2978,25 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         StateType newState = StateType.fromValue("CREATED"); // StateType | The new state of the unqueued executions
         try {
-            Object result = apiInstance.unqueueExecutionsByQuery(tenant, filters, newState);
+            Object result = kestraClient.executions().unqueueExecutionsByQuery(tenant, filters, newState);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#unqueueExecutionsByQuery");
+            System.err.println("Exception when calling executions#unqueueExecutionsByQuery");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -3296,31 +3050,25 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String executionId = "executionId_example"; // String | The execution id
         StateType status = StateType.fromValue("CREATED"); // StateType | The new state of the execution
         String tenant = "tenant_example"; // String | 
         try {
-            Execution result = apiInstance.updateExecutionStatus(executionId, status, tenant);
+            Execution result = kestraClient.executions().updateExecutionStatus(executionId, status, tenant);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#updateExecutionStatus");
+            System.err.println("Exception when calling executions#updateExecutionStatus");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -3374,31 +3122,25 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         StateType newStatus = StateType.fromValue("CREATED"); // StateType | The new state of the executions
         String tenant = "tenant_example"; // String | 
         List<String> requestBody = Arrays.asList(); // List<String> | The list of executions id
         try {
-            BulkResponse result = apiInstance.updateExecutionsStatusByIds(newStatus, tenant, requestBody);
+            BulkResponse result = kestraClient.executions().updateExecutionsStatusByIds(newStatus, tenant, requestBody);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#updateExecutionsStatusByIds");
+            System.err.println("Exception when calling executions#updateExecutionsStatusByIds");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -3453,31 +3195,25 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.executions;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         StateType newStatus = StateType.fromValue("CREATED"); // StateType | The new state of the executions
         String tenant = "tenant_example"; // String | 
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         try {
-            BulkResponse result = apiInstance.updateExecutionsStatusByQuery(newStatus, tenant, filters);
+            BulkResponse result = kestraClient.executions().updateExecutionsStatusByQuery(newStatus, tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#updateExecutionsStatusByQuery");
+            System.err.println("Exception when calling executions#updateExecutionsStatusByQuery");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());

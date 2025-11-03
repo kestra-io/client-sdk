@@ -28,7 +28,6 @@ __all__ = [
     "TriggersApi",
     "UsersApi",
     "ApiResponse",
-    "ApiClient",
     "Configuration",
     "OpenApiException",
     "ApiTypeError",

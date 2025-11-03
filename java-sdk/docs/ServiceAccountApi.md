@@ -1,25 +1,25 @@
-# ServiceAccountApi
+# serviceaccount
 
 All URIs are relative to *http://localhost*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**createApiTokensForServiceAccount**](ServiceAccountApi.md#createApiTokensForServiceAccount) | **POST** /api/v1/service-accounts/{id}/api-tokens | Create new API Token for a specific service account |
-| [**createApiTokensForServiceAccountWithTenant**](ServiceAccountApi.md#createApiTokensForServiceAccountWithTenant) | **POST** /api/v1/{tenant}/service-accounts/{id}/api-tokens | Create new API Token for a specific service account |
-| [**createServiceAccount**](ServiceAccountApi.md#createServiceAccount) | **POST** /api/v1/service-accounts | Create a service account |
-| [**createServiceAccountForTenant**](ServiceAccountApi.md#createServiceAccountForTenant) | **POST** /api/v1/{tenant}/service-accounts | Create a service account for the given tenant |
-| [**deleteApiTokenForServiceAccount**](ServiceAccountApi.md#deleteApiTokenForServiceAccount) | **DELETE** /api/v1/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific service account and token id |
-| [**deleteApiTokenForServiceAccountWithTenant**](ServiceAccountApi.md#deleteApiTokenForServiceAccountWithTenant) | **DELETE** /api/v1/{tenant}/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific service account and token id |
-| [**deleteServiceAccount**](ServiceAccountApi.md#deleteServiceAccount) | **DELETE** /api/v1/service-accounts/{id} | Delete a service account |
-| [**deleteServiceAccountForTenant**](ServiceAccountApi.md#deleteServiceAccountForTenant) | **DELETE** /api/v1/{tenant}/service-accounts/{id} | Delete a service account |
-| [**getServiceAccount**](ServiceAccountApi.md#getServiceAccount) | **GET** /api/v1/service-accounts/{id} | Get a service account |
-| [**getServiceAccountForTenant**](ServiceAccountApi.md#getServiceAccountForTenant) | **GET** /api/v1/{tenant}/service-accounts/{id} | Retrieve a service account |
-| [**listApiTokensForServiceAccount**](ServiceAccountApi.md#listApiTokensForServiceAccount) | **GET** /api/v1/service-accounts/{id}/api-tokens | List API tokens for a specific service account |
-| [**listApiTokensForServiceAccountWithTenant**](ServiceAccountApi.md#listApiTokensForServiceAccountWithTenant) | **GET** /api/v1/{tenant}/service-accounts/{id}/api-tokens | List API tokens for a specific service account |
-| [**listServiceAccounts**](ServiceAccountApi.md#listServiceAccounts) | **GET** /api/v1/service-accounts | List service accounts. Superadmin-only.  |
-| [**patchServiceAccountDetails**](ServiceAccountApi.md#patchServiceAccountDetails) | **PATCH** /api/v1/service-accounts/{id} | Update service account details |
-| [**patchServiceAccountSuperAdmin**](ServiceAccountApi.md#patchServiceAccountSuperAdmin) | **PATCH** /api/v1/service-accounts/{id}/superadmin | Update service account superadmin privileges |
-| [**updateServiceAccount**](ServiceAccountApi.md#updateServiceAccount) | **PUT** /api/v1/{tenant}/service-accounts/{id} | Update a user service account |
+| [**createApiTokensForServiceAccount**](serviceaccount.md#createApiTokensForServiceAccount) | **POST** /api/v1/service-accounts/{id}/api-tokens | Create new API Token for a specific service account |
+| [**createApiTokensForServiceAccountWithTenant**](serviceaccount.md#createApiTokensForServiceAccountWithTenant) | **POST** /api/v1/{tenant}/service-accounts/{id}/api-tokens | Create new API Token for a specific service account |
+| [**createServiceAccount**](serviceaccount.md#createServiceAccount) | **POST** /api/v1/service-accounts | Create a service account |
+| [**createServiceAccountForTenant**](serviceaccount.md#createServiceAccountForTenant) | **POST** /api/v1/{tenant}/service-accounts | Create a service account for the given tenant |
+| [**deleteApiTokenForServiceAccount**](serviceaccount.md#deleteApiTokenForServiceAccount) | **DELETE** /api/v1/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific service account and token id |
+| [**deleteApiTokenForServiceAccountWithTenant**](serviceaccount.md#deleteApiTokenForServiceAccountWithTenant) | **DELETE** /api/v1/{tenant}/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific service account and token id |
+| [**deleteServiceAccount**](serviceaccount.md#deleteServiceAccount) | **DELETE** /api/v1/service-accounts/{id} | Delete a service account |
+| [**deleteServiceAccountForTenant**](serviceaccount.md#deleteServiceAccountForTenant) | **DELETE** /api/v1/{tenant}/service-accounts/{id} | Delete a service account |
+| [**getServiceAccount**](serviceaccount.md#getServiceAccount) | **GET** /api/v1/service-accounts/{id} | Get a service account |
+| [**getServiceAccountForTenant**](serviceaccount.md#getServiceAccountForTenant) | **GET** /api/v1/{tenant}/service-accounts/{id} | Retrieve a service account |
+| [**listApiTokensForServiceAccount**](serviceaccount.md#listApiTokensForServiceAccount) | **GET** /api/v1/service-accounts/{id}/api-tokens | List API tokens for a specific service account |
+| [**listApiTokensForServiceAccountWithTenant**](serviceaccount.md#listApiTokensForServiceAccountWithTenant) | **GET** /api/v1/{tenant}/service-accounts/{id}/api-tokens | List API tokens for a specific service account |
+| [**listServiceAccounts**](serviceaccount.md#listServiceAccounts) | **GET** /api/v1/service-accounts | List service accounts. Superadmin-only.  |
+| [**patchServiceAccountDetails**](serviceaccount.md#patchServiceAccountDetails) | **PATCH** /api/v1/service-accounts/{id} | Update service account details |
+| [**patchServiceAccountSuperAdmin**](serviceaccount.md#patchServiceAccountSuperAdmin) | **PATCH** /api/v1/service-accounts/{id}/superadmin | Update service account superadmin privileges |
+| [**updateServiceAccount**](serviceaccount.md#updateServiceAccount) | **PUT** /api/v1/{tenant}/service-accounts/{id} | Update a user service account |
 
 
 
@@ -38,30 +38,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ServiceAccountApi;
+import io.kestra.sdk.api.serviceaccount;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ServiceAccountApi apiInstance = new ServiceAccountApi(defaultClient);
         String id = "id_example"; // String | The user id
         CreateApiTokenRequest createApiTokenRequest = new CreateApiTokenRequest(); // CreateApiTokenRequest | The create api-token request
         try {
-            Object result = apiInstance.createApiTokensForServiceAccount(id, createApiTokenRequest);
+            Object result = kestraClient.serviceaccount().createApiTokensForServiceAccount(id, createApiTokenRequest);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ServiceAccountApi#createApiTokensForServiceAccount");
+            System.err.println("Exception when calling serviceaccount#createApiTokensForServiceAccount");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -114,31 +108,25 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ServiceAccountApi;
+import io.kestra.sdk.api.serviceaccount;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ServiceAccountApi apiInstance = new ServiceAccountApi(defaultClient);
         String id = "id_example"; // String | The user id
         String tenant = "tenant_example"; // String | 
         CreateApiTokenRequest createApiTokenRequest = new CreateApiTokenRequest(); // CreateApiTokenRequest | The create api-token request
         try {
-            Object result = apiInstance.createApiTokensForServiceAccountWithTenant(id, tenant, createApiTokenRequest);
+            Object result = kestraClient.serviceaccount().createApiTokensForServiceAccountWithTenant(id, tenant, createApiTokenRequest);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ServiceAccountApi#createApiTokensForServiceAccountWithTenant");
+            System.err.println("Exception when calling serviceaccount#createApiTokensForServiceAccountWithTenant");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -194,29 +182,23 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ServiceAccountApi;
+import io.kestra.sdk.api.serviceaccount;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ServiceAccountApi apiInstance = new ServiceAccountApi(defaultClient);
         IAMServiceAccountControllerApiCreateServiceAccountRequest iaMServiceAccountControllerApiCreateServiceAccountRequest = new IAMServiceAccountControllerApiCreateServiceAccountRequest(); // IAMServiceAccountControllerApiCreateServiceAccountRequest | The service account
         try {
-            IAMServiceAccountControllerApiServiceAccountDetail result = apiInstance.createServiceAccount(iaMServiceAccountControllerApiCreateServiceAccountRequest);
+            IAMServiceAccountControllerApiServiceAccountDetail result = kestraClient.serviceaccount().createServiceAccount(iaMServiceAccountControllerApiCreateServiceAccountRequest);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ServiceAccountApi#createServiceAccount");
+            System.err.println("Exception when calling serviceaccount#createServiceAccount");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -268,30 +250,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ServiceAccountApi;
+import io.kestra.sdk.api.serviceaccount;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ServiceAccountApi apiInstance = new ServiceAccountApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         IAMServiceAccountControllerApiServiceAccountRequest iaMServiceAccountControllerApiServiceAccountRequest = new IAMServiceAccountControllerApiServiceAccountRequest(); // IAMServiceAccountControllerApiServiceAccountRequest | The service account
         try {
-            IAMServiceAccountControllerApiServiceAccountResponse result = apiInstance.createServiceAccountForTenant(tenant, iaMServiceAccountControllerApiServiceAccountRequest);
+            IAMServiceAccountControllerApiServiceAccountResponse result = kestraClient.serviceaccount().createServiceAccountForTenant(tenant, iaMServiceAccountControllerApiServiceAccountRequest);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ServiceAccountApi#createServiceAccountForTenant");
+            System.err.println("Exception when calling serviceaccount#createServiceAccountForTenant");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -345,30 +321,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ServiceAccountApi;
+import io.kestra.sdk.api.serviceaccount;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ServiceAccountApi apiInstance = new ServiceAccountApi(defaultClient);
         String id = "id_example"; // String | The user id
         String tokenId = "tokenId_example"; // String | The token id
         try {
-            Object result = apiInstance.deleteApiTokenForServiceAccount(id, tokenId);
+            Object result = kestraClient.serviceaccount().deleteApiTokenForServiceAccount(id, tokenId);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ServiceAccountApi#deleteApiTokenForServiceAccount");
+            System.err.println("Exception when calling serviceaccount#deleteApiTokenForServiceAccount");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -421,31 +391,25 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ServiceAccountApi;
+import io.kestra.sdk.api.serviceaccount;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ServiceAccountApi apiInstance = new ServiceAccountApi(defaultClient);
         String id = "id_example"; // String | The user id
         String tokenId = "tokenId_example"; // String | The token id
         String tenant = "tenant_example"; // String | 
         try {
-            Object result = apiInstance.deleteApiTokenForServiceAccountWithTenant(id, tokenId, tenant);
+            Object result = kestraClient.serviceaccount().deleteApiTokenForServiceAccountWithTenant(id, tokenId, tenant);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ServiceAccountApi#deleteApiTokenForServiceAccountWithTenant");
+            System.err.println("Exception when calling serviceaccount#deleteApiTokenForServiceAccountWithTenant");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -501,28 +465,22 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ServiceAccountApi;
+import io.kestra.sdk.api.serviceaccount;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ServiceAccountApi apiInstance = new ServiceAccountApi(defaultClient);
         String id = "id_example"; // String | The service account id
         try {
-            apiInstance.deleteServiceAccount(id);
+            kestraClient.serviceaccount().deleteServiceAccount(id);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ServiceAccountApi#deleteServiceAccount");
+            System.err.println("Exception when calling serviceaccount#deleteServiceAccount");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -575,29 +533,23 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ServiceAccountApi;
+import io.kestra.sdk.api.serviceaccount;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ServiceAccountApi apiInstance = new ServiceAccountApi(defaultClient);
         String id = "id_example"; // String | The service account id
         String tenant = "tenant_example"; // String | 
         try {
-            apiInstance.deleteServiceAccountForTenant(id, tenant);
+            kestraClient.serviceaccount().deleteServiceAccountForTenant(id, tenant);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ServiceAccountApi#deleteServiceAccountForTenant");
+            System.err.println("Exception when calling serviceaccount#deleteServiceAccountForTenant");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -653,29 +605,23 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ServiceAccountApi;
+import io.kestra.sdk.api.serviceaccount;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ServiceAccountApi apiInstance = new ServiceAccountApi(defaultClient);
         String id = "id_example"; // String | The service account id
         try {
-            IAMServiceAccountControllerApiServiceAccountDetail result = apiInstance.getServiceAccount(id);
+            IAMServiceAccountControllerApiServiceAccountDetail result = kestraClient.serviceaccount().getServiceAccount(id);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ServiceAccountApi#getServiceAccount");
+            System.err.println("Exception when calling serviceaccount#getServiceAccount");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -728,30 +674,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ServiceAccountApi;
+import io.kestra.sdk.api.serviceaccount;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ServiceAccountApi apiInstance = new ServiceAccountApi(defaultClient);
         String id = "id_example"; // String | The user id
         String tenant = "tenant_example"; // String | 
         try {
-            IAMServiceAccountControllerApiServiceAccountResponse result = apiInstance.getServiceAccountForTenant(id, tenant);
+            IAMServiceAccountControllerApiServiceAccountResponse result = kestraClient.serviceaccount().getServiceAccountForTenant(id, tenant);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ServiceAccountApi#getServiceAccountForTenant");
+            System.err.println("Exception when calling serviceaccount#getServiceAccountForTenant");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -805,29 +745,23 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ServiceAccountApi;
+import io.kestra.sdk.api.serviceaccount;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ServiceAccountApi apiInstance = new ServiceAccountApi(defaultClient);
         String id = "id_example"; // String | The user id
         try {
-            Object result = apiInstance.listApiTokensForServiceAccount(id);
+            Object result = kestraClient.serviceaccount().listApiTokensForServiceAccount(id);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ServiceAccountApi#listApiTokensForServiceAccount");
+            System.err.println("Exception when calling serviceaccount#listApiTokensForServiceAccount");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -879,30 +813,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ServiceAccountApi;
+import io.kestra.sdk.api.serviceaccount;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ServiceAccountApi apiInstance = new ServiceAccountApi(defaultClient);
         String id = "id_example"; // String | The user id
         String tenant = "tenant_example"; // String | 
         try {
-            Object result = apiInstance.listApiTokensForServiceAccountWithTenant(id, tenant);
+            Object result = kestraClient.serviceaccount().listApiTokensForServiceAccountWithTenant(id, tenant);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ServiceAccountApi#listApiTokensForServiceAccountWithTenant");
+            System.err.println("Exception when calling serviceaccount#listApiTokensForServiceAccountWithTenant");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -955,32 +883,26 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ServiceAccountApi;
+import io.kestra.sdk.api.serviceaccount;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ServiceAccountApi apiInstance = new ServiceAccountApi(defaultClient);
         Integer page = 1; // Integer | The current page
         Integer size = 10; // Integer | The current page size
         String q = "q_example"; // String | A string filter
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         try {
-            PagedResultsIAMServiceAccountControllerApiServiceAccountDetail result = apiInstance.listServiceAccounts(page, size, q, sort);
+            PagedResultsIAMServiceAccountControllerApiServiceAccountDetail result = kestraClient.serviceaccount().listServiceAccounts(page, size, q, sort);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ServiceAccountApi#listServiceAccounts");
+            System.err.println("Exception when calling serviceaccount#listServiceAccounts");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1038,30 +960,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ServiceAccountApi;
+import io.kestra.sdk.api.serviceaccount;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ServiceAccountApi apiInstance = new ServiceAccountApi(defaultClient);
         String id = "id_example"; // String | The service account id
         IAMServiceAccountControllerApiPatchServiceAccountRequest iaMServiceAccountControllerApiPatchServiceAccountRequest = new IAMServiceAccountControllerApiPatchServiceAccountRequest(); // IAMServiceAccountControllerApiPatchServiceAccountRequest | The service account details
         try {
-            IAMServiceAccountControllerApiServiceAccountDetail result = apiInstance.patchServiceAccountDetails(id, iaMServiceAccountControllerApiPatchServiceAccountRequest);
+            IAMServiceAccountControllerApiServiceAccountDetail result = kestraClient.serviceaccount().patchServiceAccountDetails(id, iaMServiceAccountControllerApiPatchServiceAccountRequest);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ServiceAccountApi#patchServiceAccountDetails");
+            System.err.println("Exception when calling serviceaccount#patchServiceAccountDetails");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1116,29 +1032,23 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ServiceAccountApi;
+import io.kestra.sdk.api.serviceaccount;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ServiceAccountApi apiInstance = new ServiceAccountApi(defaultClient);
         String id = "id_example"; // String | The user id
         ApiPatchSuperAdminRequest apiPatchSuperAdminRequest = new ApiPatchSuperAdminRequest(); // ApiPatchSuperAdminRequest | 
         try {
-            apiInstance.patchServiceAccountSuperAdmin(id, apiPatchSuperAdminRequest);
+            kestraClient.serviceaccount().patchServiceAccountSuperAdmin(id, apiPatchSuperAdminRequest);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ServiceAccountApi#patchServiceAccountSuperAdmin");
+            System.err.println("Exception when calling serviceaccount#patchServiceAccountSuperAdmin");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1192,31 +1102,25 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.ServiceAccountApi;
+import io.kestra.sdk.api.serviceaccount;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        ServiceAccountApi apiInstance = new ServiceAccountApi(defaultClient);
         String id = "id_example"; // String | The user id
         String tenant = "tenant_example"; // String | 
         IAMServiceAccountControllerApiServiceAccountRequest iaMServiceAccountControllerApiServiceAccountRequest = new IAMServiceAccountControllerApiServiceAccountRequest(); // IAMServiceAccountControllerApiServiceAccountRequest | The user
         try {
-            IAMServiceAccountControllerApiServiceAccountResponse result = apiInstance.updateServiceAccount(id, tenant, iaMServiceAccountControllerApiServiceAccountRequest);
+            IAMServiceAccountControllerApiServiceAccountResponse result = kestraClient.serviceaccount().updateServiceAccount(id, tenant, iaMServiceAccountControllerApiServiceAccountRequest);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ServiceAccountApi#updateServiceAccount");
+            System.err.println("Exception when calling serviceaccount#updateServiceAccount");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());

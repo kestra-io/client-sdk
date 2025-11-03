@@ -1,20 +1,20 @@
-# GroupsApi
+# groups
 
 All URIs are relative to *http://localhost*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**addUserToGroup**](GroupsApi.md#addUserToGroup) | **PUT** /api/v1/{tenant}/groups/{id}/members/{userId} | Add a user to a group |
-| [**autocompleteGroups**](GroupsApi.md#autocompleteGroups) | **POST** /api/v1/{tenant}/groups/autocomplete | List groups for autocomplete |
-| [**createGroup**](GroupsApi.md#createGroup) | **POST** /api/v1/{tenant}/groups | Create a group |
-| [**deleteGroup**](GroupsApi.md#deleteGroup) | **DELETE** /api/v1/{tenant}/groups/{id} | Delete a group |
-| [**deleteUserFromGroup**](GroupsApi.md#deleteUserFromGroup) | **DELETE** /api/v1/{tenant}/groups/{id}/members/{userId} | Remove a user from a group |
-| [**getGroup**](GroupsApi.md#getGroup) | **GET** /api/v1/{tenant}/groups/{id} | Retrieve a group |
-| [**listGroupIds**](GroupsApi.md#listGroupIds) | **POST** /api/v1/{tenant}/groups/ids | List groups by ids |
-| [**searchGroupMembers**](GroupsApi.md#searchGroupMembers) | **GET** /api/v1/{tenant}/groups/{id}/members | Search for users in a group |
-| [**searchGroups**](GroupsApi.md#searchGroups) | **GET** /api/v1/{tenant}/groups/search | Search for groups |
-| [**setUserMembershipForGroup**](GroupsApi.md#setUserMembershipForGroup) | **PUT** /api/v1/{tenant}/groups/{id}/members/membership/{userId} | Update a user&#39;s membership type in a group |
-| [**updateGroup**](GroupsApi.md#updateGroup) | **PUT** /api/v1/{tenant}/groups/{id} | Update a group |
+| [**addUserToGroup**](groups.md#addUserToGroup) | **PUT** /api/v1/{tenant}/groups/{id}/members/{userId} | Add a user to a group |
+| [**autocompleteGroups**](groups.md#autocompleteGroups) | **POST** /api/v1/{tenant}/groups/autocomplete | List groups for autocomplete |
+| [**createGroup**](groups.md#createGroup) | **POST** /api/v1/{tenant}/groups | Create a group |
+| [**deleteGroup**](groups.md#deleteGroup) | **DELETE** /api/v1/{tenant}/groups/{id} | Delete a group |
+| [**deleteUserFromGroup**](groups.md#deleteUserFromGroup) | **DELETE** /api/v1/{tenant}/groups/{id}/members/{userId} | Remove a user from a group |
+| [**getGroup**](groups.md#getGroup) | **GET** /api/v1/{tenant}/groups/{id} | Retrieve a group |
+| [**listGroupIds**](groups.md#listGroupIds) | **POST** /api/v1/{tenant}/groups/ids | List groups by ids |
+| [**searchGroupMembers**](groups.md#searchGroupMembers) | **GET** /api/v1/{tenant}/groups/{id}/members | Search for users in a group |
+| [**searchGroups**](groups.md#searchGroups) | **GET** /api/v1/{tenant}/groups/search | Search for groups |
+| [**setUserMembershipForGroup**](groups.md#setUserMembershipForGroup) | **PUT** /api/v1/{tenant}/groups/{id}/members/membership/{userId} | Update a user&#39;s membership type in a group |
+| [**updateGroup**](groups.md#updateGroup) | **PUT** /api/v1/{tenant}/groups/{id} | Update a group |
 
 
 
@@ -35,31 +35,25 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.GroupsApi;
+import io.kestra.sdk.api.groups;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        GroupsApi apiInstance = new GroupsApi(defaultClient);
         String id = "id_example"; // String | The ID of the group
         String userId = "userId_example"; // String | The ID of the user to add to the group
         String tenant = "tenant_example"; // String | 
         try {
-            IAMGroupControllerApiGroupMember result = apiInstance.addUserToGroup(id, userId, tenant);
+            IAMGroupControllerApiGroupMember result = kestraClient.groups().addUserToGroup(id, userId, tenant);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling GroupsApi#addUserToGroup");
+            System.err.println("Exception when calling groups#addUserToGroup");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -115,30 +109,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.GroupsApi;
+import io.kestra.sdk.api.groups;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        GroupsApi apiInstance = new GroupsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         ApiAutocomplete apiAutocomplete = new ApiAutocomplete(); // ApiAutocomplete | Autocomplete request
         try {
-            List<ApiGroupSummary> result = apiInstance.autocompleteGroups(tenant, apiAutocomplete);
+            List<ApiGroupSummary> result = kestraClient.groups().autocompleteGroups(tenant, apiAutocomplete);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling GroupsApi#autocompleteGroups");
+            System.err.println("Exception when calling groups#autocompleteGroups");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -191,30 +179,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.GroupsApi;
+import io.kestra.sdk.api.groups;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        GroupsApi apiInstance = new GroupsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         IAMGroupControllerApiCreateGroupRequest iaMGroupControllerApiCreateGroupRequest = new IAMGroupControllerApiCreateGroupRequest(); // IAMGroupControllerApiCreateGroupRequest | The group
         try {
-            IAMGroupControllerApiGroupDetail result = apiInstance.createGroup(tenant, iaMGroupControllerApiCreateGroupRequest);
+            IAMGroupControllerApiGroupDetail result = kestraClient.groups().createGroup(tenant, iaMGroupControllerApiCreateGroupRequest);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling GroupsApi#createGroup");
+            System.err.println("Exception when calling groups#createGroup");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -268,29 +250,23 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.GroupsApi;
+import io.kestra.sdk.api.groups;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        GroupsApi apiInstance = new GroupsApi(defaultClient);
         String id = "id_example"; // String | The group id
         String tenant = "tenant_example"; // String | 
         try {
-            apiInstance.deleteGroup(id, tenant);
+            kestraClient.groups().deleteGroup(id, tenant);
         } catch (ApiException e) {
-            System.err.println("Exception when calling GroupsApi#deleteGroup");
+            System.err.println("Exception when calling groups#deleteGroup");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -346,31 +322,25 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.GroupsApi;
+import io.kestra.sdk.api.groups;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        GroupsApi apiInstance = new GroupsApi(defaultClient);
         String id = "id_example"; // String | The ID of the group
         String userId = "userId_example"; // String | The ID of the user to remove from the group
         String tenant = "tenant_example"; // String | 
         try {
-            IAMGroupControllerApiGroupMember result = apiInstance.deleteUserFromGroup(id, userId, tenant);
+            IAMGroupControllerApiGroupMember result = kestraClient.groups().deleteUserFromGroup(id, userId, tenant);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling GroupsApi#deleteUserFromGroup");
+            System.err.println("Exception when calling groups#deleteUserFromGroup");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -428,30 +398,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.GroupsApi;
+import io.kestra.sdk.api.groups;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        GroupsApi apiInstance = new GroupsApi(defaultClient);
         String id = "id_example"; // String | The group id
         String tenant = "tenant_example"; // String | 
         try {
-            IAMGroupControllerApiGroupDetail result = apiInstance.getGroup(id, tenant);
+            IAMGroupControllerApiGroupDetail result = kestraClient.groups().getGroup(id, tenant);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling GroupsApi#getGroup");
+            System.err.println("Exception when calling groups#getGroup");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -505,30 +469,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.GroupsApi;
+import io.kestra.sdk.api.groups;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        GroupsApi apiInstance = new GroupsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         ApiIds apiIds = new ApiIds(); // ApiIds | The ids that must be present on results
         try {
-            List<ApiGroupSummary> result = apiInstance.listGroupIds(tenant, apiIds);
+            List<ApiGroupSummary> result = kestraClient.groups().listGroupIds(tenant, apiIds);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling GroupsApi#listGroupIds");
+            System.err.println("Exception when calling groups#listGroupIds");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -581,23 +539,17 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.GroupsApi;
+import io.kestra.sdk.api.groups;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        GroupsApi apiInstance = new GroupsApi(defaultClient);
         String id = "id_example"; // String | The group id
         Integer page = 1; // Integer | The current page
         Integer size = 10; // Integer | The current page size
@@ -605,10 +557,10 @@ public class Example {
         String q = "q_example"; // String | A string filter
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         try {
-            PagedResultsIAMGroupControllerApiGroupMember result = apiInstance.searchGroupMembers(id, page, size, tenant, q, sort);
+            PagedResultsIAMGroupControllerApiGroupMember result = kestraClient.groups().searchGroupMembers(id, page, size, tenant, q, sort);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling GroupsApi#searchGroupMembers");
+            System.err.println("Exception when calling groups#searchGroupMembers");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -665,33 +617,27 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.GroupsApi;
+import io.kestra.sdk.api.groups;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        GroupsApi apiInstance = new GroupsApi(defaultClient);
         Integer page = 1; // Integer | The current page
         Integer size = 10; // Integer | The current page size
         String tenant = "tenant_example"; // String | 
         String q = "q_example"; // String | A string filter
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         try {
-            PagedResultsApiGroupSummary result = apiInstance.searchGroups(page, size, tenant, q, sort);
+            PagedResultsApiGroupSummary result = kestraClient.groups().searchGroups(page, size, tenant, q, sort);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling GroupsApi#searchGroups");
+            System.err.println("Exception when calling groups#searchGroups");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -749,32 +695,26 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.GroupsApi;
+import io.kestra.sdk.api.groups;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        GroupsApi apiInstance = new GroupsApi(defaultClient);
         String id = "id_example"; // String | The ID of the group
         String userId = "userId_example"; // String | The ID of the user whose membership is being updated
         GroupIdentifierMembership membership = GroupIdentifierMembership.fromValue("OWNER"); // GroupIdentifierMembership | The new membership type to assign to the user.
         String tenant = "tenant_example"; // String | 
         try {
-            IAMGroupControllerApiGroupMember result = apiInstance.setUserMembershipForGroup(id, userId, membership, tenant);
+            IAMGroupControllerApiGroupMember result = kestraClient.groups().setUserMembershipForGroup(id, userId, membership, tenant);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling GroupsApi#setUserMembershipForGroup");
+            System.err.println("Exception when calling groups#setUserMembershipForGroup");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -831,31 +771,25 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.GroupsApi;
+import io.kestra.sdk.api.groups;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        GroupsApi apiInstance = new GroupsApi(defaultClient);
         String id = "id_example"; // String | The group id
         String tenant = "tenant_example"; // String | 
         IAMGroupControllerApiUpdateGroupRequest iaMGroupControllerApiUpdateGroupRequest = new IAMGroupControllerApiUpdateGroupRequest(); // IAMGroupControllerApiUpdateGroupRequest | The group
         try {
-            IAMGroupControllerApiGroupDetail result = apiInstance.updateGroup(id, tenant, iaMGroupControllerApiUpdateGroupRequest);
+            IAMGroupControllerApiGroupDetail result = kestraClient.groups().updateGroup(id, tenant, iaMGroupControllerApiUpdateGroupRequest);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling GroupsApi#updateGroup");
+            System.err.println("Exception when calling groups#updateGroup");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());

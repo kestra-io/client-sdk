@@ -1,15 +1,15 @@
-# KvApi
+# kv
 
 All URIs are relative to *http://localhost*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**deleteKeyValue**](KvApi.md#deleteKeyValue) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Delete a key-value pair |
-| [**deleteKeyValues**](KvApi.md#deleteKeyValues) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/kv | Bulk-delete multiple key/value pairs from the given namespace. |
-| [**getKeyValue**](KvApi.md#getKeyValue) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Get value for a key |
-| [**listKeys**](KvApi.md#listKeys) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv | List all keys for a namespace |
-| [**listKeysWithInheritence**](KvApi.md#listKeysWithInheritence) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/inheritance | List all keys for inherited namespaces |
-| [**setKeyValue**](KvApi.md#setKeyValue) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Puts a key-value pair in store |
+| [**deleteKeyValue**](kv.md#deleteKeyValue) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Delete a key-value pair |
+| [**deleteKeyValues**](kv.md#deleteKeyValues) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/kv | Bulk-delete multiple key/value pairs from the given namespace. |
+| [**getKeyValue**](kv.md#getKeyValue) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Get value for a key |
+| [**listKeys**](kv.md#listKeys) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv | List all keys for a namespace |
+| [**listKeysWithInheritence**](kv.md#listKeysWithInheritence) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/inheritance | List all keys for inherited namespaces |
+| [**setKeyValue**](kv.md#setKeyValue) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Puts a key-value pair in store |
 
 
 
@@ -28,31 +28,25 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.KvApi;
+import io.kestra.sdk.api.kv;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        KvApi apiInstance = new KvApi(defaultClient);
         String namespace = "namespace_example"; // String | The namespace id
         String key = "key_example"; // String | The key
         String tenant = "tenant_example"; // String | 
         try {
-            Boolean result = apiInstance.deleteKeyValue(namespace, key, tenant);
+            Boolean result = kestraClient.kv().deleteKeyValue(namespace, key, tenant);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling KvApi#deleteKeyValue");
+            System.err.println("Exception when calling kv#deleteKeyValue");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -106,31 +100,25 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.KvApi;
+import io.kestra.sdk.api.kv;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        KvApi apiInstance = new KvApi(defaultClient);
         String namespace = "namespace_example"; // String | The namespace id
         String tenant = "tenant_example"; // String | 
         KVControllerApiDeleteBulkRequest kvControllerApiDeleteBulkRequest = new KVControllerApiDeleteBulkRequest(); // KVControllerApiDeleteBulkRequest | The keys
         try {
-            KVControllerApiDeleteBulkResponse result = apiInstance.deleteKeyValues(namespace, tenant, kvControllerApiDeleteBulkRequest);
+            KVControllerApiDeleteBulkResponse result = kestraClient.kv().deleteKeyValues(namespace, tenant, kvControllerApiDeleteBulkRequest);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling KvApi#deleteKeyValues");
+            System.err.println("Exception when calling kv#deleteKeyValues");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -184,31 +172,25 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.KvApi;
+import io.kestra.sdk.api.kv;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        KvApi apiInstance = new KvApi(defaultClient);
         String namespace = "namespace_example"; // String | The namespace id
         String key = "key_example"; // String | The key
         String tenant = "tenant_example"; // String | 
         try {
-            KVControllerTypedValue result = apiInstance.getKeyValue(namespace, key, tenant);
+            KVControllerTypedValue result = kestraClient.kv().getKeyValue(namespace, key, tenant);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling KvApi#getKeyValue");
+            System.err.println("Exception when calling kv#getKeyValue");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -262,30 +244,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.KvApi;
+import io.kestra.sdk.api.kv;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        KvApi apiInstance = new KvApi(defaultClient);
         String namespace = "namespace_example"; // String | The namespace id
         String tenant = "tenant_example"; // String | 
         try {
-            List<KVEntry> result = apiInstance.listKeys(namespace, tenant);
+            List<KVEntry> result = kestraClient.kv().listKeys(namespace, tenant);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling KvApi#listKeys");
+            System.err.println("Exception when calling kv#listKeys");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -338,30 +314,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.KvApi;
+import io.kestra.sdk.api.kv;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        KvApi apiInstance = new KvApi(defaultClient);
         String namespace = "namespace_example"; // String | The namespace id
         String tenant = "tenant_example"; // String | 
         try {
-            List<KVEntry> result = apiInstance.listKeysWithInheritence(namespace, tenant);
+            List<KVEntry> result = kestraClient.kv().listKeysWithInheritence(namespace, tenant);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling KvApi#listKeysWithInheritence");
+            System.err.println("Exception when calling kv#listKeysWithInheritence");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -414,31 +384,25 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.KvApi;
+import io.kestra.sdk.api.kv;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        KvApi apiInstance = new KvApi(defaultClient);
         String namespace = "namespace_example"; // String | The namespace id
         String key = "key_example"; // String | The key
         String tenant = "tenant_example"; // String | 
         String body = "body_example"; // String | The value of the key
         try {
-            apiInstance.setKeyValue(namespace, key, tenant, body);
+            kestraClient.kv().setKeyValue(namespace, key, tenant, body);
         } catch (ApiException e) {
-            System.err.println("Exception when calling KvApi#setKeyValue");
+            System.err.println("Exception when calling kv#setKeyValue");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
