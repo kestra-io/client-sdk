@@ -53,20 +53,14 @@ class TriggersApi:
         self,
         tenant: StrictStr,
         trigger: Trigger,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> Trigger:
         """Delete a backfill
 
@@ -76,45 +70,16 @@ class TriggersApi:
                 :param trigger: (required)
         :type trigger: Trigger
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._delete_backfill_serialize(
             tenant=tenant,
             trigger=trigger,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -136,20 +101,14 @@ class TriggersApi:
         self,
         tenant: StrictStr,
         trigger: Trigger,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[Trigger]:
         """Delete a backfill
 
@@ -159,45 +118,16 @@ class TriggersApi:
                 :param trigger: (required)
         :type trigger: Trigger
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._delete_backfill_serialize(
             tenant=tenant,
             trigger=trigger,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -218,12 +148,6 @@ class TriggersApi:
         self,
         tenant,
         trigger,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -233,7 +157,7 @@ class TriggersApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -250,18 +174,6 @@ class TriggersApi:
         if trigger is not None:
             _body_params = trigger
 
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
-
 
 
         # set the HTTP header `Accept`
@@ -273,18 +185,16 @@ class TriggersApi:
             )
 
         # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
+
+        _default_content_type = (
+            self.api_client.select_header_content_type(
+                [
+                    'application/json'
+                ]
             )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+        )
+        if _default_content_type is not None:
+            _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -302,9 +212,7 @@ class TriggersApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 
@@ -316,20 +224,14 @@ class TriggersApi:
         self,
         tenant: StrictStr,
         trigger: List[Trigger],
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> object:
         """Delete backfill for given triggers
 
@@ -339,45 +241,16 @@ class TriggersApi:
                 :param trigger: (required)
         :type trigger: List[Trigger]
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._delete_backfill_by_ids_serialize(
             tenant=tenant,
             trigger=trigger,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -399,20 +272,14 @@ class TriggersApi:
         self,
         tenant: StrictStr,
         trigger: List[Trigger],
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[object]:
         """Delete backfill for given triggers
 
@@ -422,45 +289,16 @@ class TriggersApi:
                 :param trigger: (required)
         :type trigger: List[Trigger]
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._delete_backfill_by_ids_serialize(
             tenant=tenant,
             trigger=trigger,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -481,12 +319,6 @@ class TriggersApi:
         self,
         tenant,
         trigger,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -497,7 +329,7 @@ class TriggersApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -514,18 +346,6 @@ class TriggersApi:
         if trigger is not None:
             _body_params = trigger
 
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
-
 
 
         # set the HTTP header `Accept`
@@ -537,18 +357,16 @@ class TriggersApi:
             )
 
         # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
+
+        _default_content_type = (
+            self.api_client.select_header_content_type(
+                [
+                    'application/json'
+                ]
             )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+        )
+        if _default_content_type is not None:
+            _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -566,9 +384,7 @@ class TriggersApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 
@@ -580,20 +396,14 @@ class TriggersApi:
         self,
         tenant: StrictStr,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> object:
         """Delete backfill for given triggers
 
@@ -603,45 +413,16 @@ class TriggersApi:
                 :param filters: Filters
         :type filters: List[QueryFilter]
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._delete_backfill_by_query_serialize(
             tenant=tenant,
             filters=filters,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -663,20 +444,14 @@ class TriggersApi:
         self,
         tenant: StrictStr,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[object]:
         """Delete backfill for given triggers
 
@@ -686,45 +461,16 @@ class TriggersApi:
                 :param filters: Filters
         :type filters: List[QueryFilter]
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._delete_backfill_by_query_serialize(
             tenant=tenant,
             filters=filters,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -745,12 +491,6 @@ class TriggersApi:
         self,
         tenant,
         filters,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -761,7 +501,7 @@ class TriggersApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -779,18 +519,6 @@ class TriggersApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
 
 
 
@@ -819,9 +547,7 @@ class TriggersApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 
@@ -833,20 +559,14 @@ class TriggersApi:
         self,
         tenant: StrictStr,
         trigger_controller_set_disabled_request: TriggerControllerSetDisabledRequest,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> object:
         """Disable/enable given triggers
 
@@ -856,45 +576,16 @@ class TriggersApi:
                 :param trigger_controller_set_disabled_request: (required)
         :type trigger_controller_set_disabled_request: TriggerControllerSetDisabledRequest
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._disabled_triggers_by_ids_serialize(
             tenant=tenant,
             trigger_controller_set_disabled_request=trigger_controller_set_disabled_request,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -916,20 +607,14 @@ class TriggersApi:
         self,
         tenant: StrictStr,
         trigger_controller_set_disabled_request: TriggerControllerSetDisabledRequest,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[object]:
         """Disable/enable given triggers
 
@@ -939,45 +624,16 @@ class TriggersApi:
                 :param trigger_controller_set_disabled_request: (required)
         :type trigger_controller_set_disabled_request: TriggerControllerSetDisabledRequest
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._disabled_triggers_by_ids_serialize(
             tenant=tenant,
             trigger_controller_set_disabled_request=trigger_controller_set_disabled_request,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -998,12 +654,6 @@ class TriggersApi:
         self,
         tenant,
         trigger_controller_set_disabled_request,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -1013,7 +663,7 @@ class TriggersApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -1030,18 +680,6 @@ class TriggersApi:
         if trigger_controller_set_disabled_request is not None:
             _body_params = trigger_controller_set_disabled_request
 
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
-
 
 
         # set the HTTP header `Accept`
@@ -1053,18 +691,16 @@ class TriggersApi:
             )
 
         # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
+
+        _default_content_type = (
+            self.api_client.select_header_content_type(
+                [
+                    'application/json'
+                ]
             )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+        )
+        if _default_content_type is not None:
+            _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -1082,9 +718,7 @@ class TriggersApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 
@@ -1097,20 +731,14 @@ class TriggersApi:
         disabled: Annotated[StrictBool, Field(description="The disabled state")],
         tenant: StrictStr,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> object:
         """Disable/enable triggers by query parameters
 
@@ -1122,46 +750,17 @@ class TriggersApi:
                 :param filters: Filters
         :type filters: List[QueryFilter]
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._disabled_triggers_by_query_serialize(
             disabled=disabled,
             tenant=tenant,
             filters=filters,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -1184,20 +783,14 @@ class TriggersApi:
         disabled: Annotated[StrictBool, Field(description="The disabled state")],
         tenant: StrictStr,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[object]:
         """Disable/enable triggers by query parameters
 
@@ -1209,46 +802,17 @@ class TriggersApi:
                 :param filters: Filters
         :type filters: List[QueryFilter]
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._disabled_triggers_by_query_serialize(
             disabled=disabled,
             tenant=tenant,
             filters=filters,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -1270,12 +834,6 @@ class TriggersApi:
         disabled,
         tenant,
         filters,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -1286,7 +844,7 @@ class TriggersApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -1308,18 +866,6 @@ class TriggersApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
 
 
 
@@ -1348,9 +894,7 @@ class TriggersApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 
@@ -1362,20 +906,14 @@ class TriggersApi:
         self,
         tenant: StrictStr,
         trigger: Trigger,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> Trigger:
         """Pause a backfill
 
@@ -1385,45 +923,16 @@ class TriggersApi:
                 :param trigger: (required)
         :type trigger: Trigger
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._pause_backfill_serialize(
             tenant=tenant,
             trigger=trigger,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -1445,20 +954,14 @@ class TriggersApi:
         self,
         tenant: StrictStr,
         trigger: Trigger,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[Trigger]:
         """Pause a backfill
 
@@ -1468,45 +971,16 @@ class TriggersApi:
                 :param trigger: (required)
         :type trigger: Trigger
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._pause_backfill_serialize(
             tenant=tenant,
             trigger=trigger,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -1527,12 +1001,6 @@ class TriggersApi:
         self,
         tenant,
         trigger,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -1542,7 +1010,7 @@ class TriggersApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -1559,18 +1027,6 @@ class TriggersApi:
         if trigger is not None:
             _body_params = trigger
 
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
-
 
 
         # set the HTTP header `Accept`
@@ -1582,18 +1038,16 @@ class TriggersApi:
             )
 
         # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
+
+        _default_content_type = (
+            self.api_client.select_header_content_type(
+                [
+                    'application/json'
+                ]
             )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+        )
+        if _default_content_type is not None:
+            _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -1611,9 +1065,7 @@ class TriggersApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 
@@ -1625,20 +1077,14 @@ class TriggersApi:
         self,
         tenant: StrictStr,
         trigger: List[Trigger],
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> object:
         """Pause backfill for given triggers
 
@@ -1648,45 +1094,16 @@ class TriggersApi:
                 :param trigger: (required)
         :type trigger: List[Trigger]
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._pause_backfill_by_ids_serialize(
             tenant=tenant,
             trigger=trigger,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -1708,20 +1125,14 @@ class TriggersApi:
         self,
         tenant: StrictStr,
         trigger: List[Trigger],
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[object]:
         """Pause backfill for given triggers
 
@@ -1731,45 +1142,16 @@ class TriggersApi:
                 :param trigger: (required)
         :type trigger: List[Trigger]
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._pause_backfill_by_ids_serialize(
             tenant=tenant,
             trigger=trigger,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -1790,12 +1172,6 @@ class TriggersApi:
         self,
         tenant,
         trigger,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -1806,7 +1182,7 @@ class TriggersApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -1823,18 +1199,6 @@ class TriggersApi:
         if trigger is not None:
             _body_params = trigger
 
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
-
 
 
         # set the HTTP header `Accept`
@@ -1846,18 +1210,16 @@ class TriggersApi:
             )
 
         # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
+
+        _default_content_type = (
+            self.api_client.select_header_content_type(
+                [
+                    'application/json'
+                ]
             )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+        )
+        if _default_content_type is not None:
+            _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -1875,9 +1237,7 @@ class TriggersApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 
@@ -1889,20 +1249,14 @@ class TriggersApi:
         self,
         tenant: StrictStr,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> object:
         """Pause backfill for given triggers
 
@@ -1912,45 +1266,16 @@ class TriggersApi:
                 :param filters: Filters
         :type filters: List[QueryFilter]
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._pause_backfill_by_query_serialize(
             tenant=tenant,
             filters=filters,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -1972,20 +1297,14 @@ class TriggersApi:
         self,
         tenant: StrictStr,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[object]:
         """Pause backfill for given triggers
 
@@ -1995,45 +1314,16 @@ class TriggersApi:
                 :param filters: Filters
         :type filters: List[QueryFilter]
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._pause_backfill_by_query_serialize(
             tenant=tenant,
             filters=filters,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -2054,12 +1344,6 @@ class TriggersApi:
         self,
         tenant,
         filters,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -2070,7 +1354,7 @@ class TriggersApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -2088,18 +1372,6 @@ class TriggersApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
 
 
 
@@ -2128,9 +1400,7 @@ class TriggersApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 
@@ -2144,20 +1414,14 @@ class TriggersApi:
         flow_id: Annotated[StrictStr, Field(description="The flow id")],
         trigger_id: Annotated[StrictStr, Field(description="The trigger id")],
         tenant: StrictStr,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> object:
         """Restart a trigger
 
@@ -2171,34 +1435,11 @@ class TriggersApi:
                 :param tenant: (required)
         :type tenant: str
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._restart_trigger_serialize(
@@ -2206,12 +1447,6 @@ class TriggersApi:
             flow_id=flow_id,
             trigger_id=trigger_id,
             tenant=tenant,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -2235,20 +1470,14 @@ class TriggersApi:
         flow_id: Annotated[StrictStr, Field(description="The flow id")],
         trigger_id: Annotated[StrictStr, Field(description="The trigger id")],
         tenant: StrictStr,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[object]:
         """Restart a trigger
 
@@ -2262,34 +1491,11 @@ class TriggersApi:
                 :param tenant: (required)
         :type tenant: str
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._restart_trigger_serialize(
@@ -2297,12 +1503,6 @@ class TriggersApi:
             flow_id=flow_id,
             trigger_id=trigger_id,
             tenant=tenant,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -2325,12 +1525,6 @@ class TriggersApi:
         flow_id,
         trigger_id,
         tenant,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -2340,7 +1534,7 @@ class TriggersApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -2360,18 +1554,6 @@ class TriggersApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
 
 
 
@@ -2400,9 +1582,7 @@ class TriggersApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 
@@ -2417,20 +1597,14 @@ class TriggersApi:
         tenant: StrictStr,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> PagedResultsTriggerControllerTriggers:
         """Search for triggers
 
@@ -2446,34 +1620,11 @@ class TriggersApi:
                 :param filters: Filters
         :type filters: List[QueryFilter]
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._search_triggers_serialize(
@@ -2482,12 +1633,6 @@ class TriggersApi:
             tenant=tenant,
             sort=sort,
             filters=filters,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -2512,20 +1657,14 @@ class TriggersApi:
         tenant: StrictStr,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[PagedResultsTriggerControllerTriggers]:
         """Search for triggers
 
@@ -2541,34 +1680,11 @@ class TriggersApi:
                 :param filters: Filters
         :type filters: List[QueryFilter]
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._search_triggers_serialize(
@@ -2577,12 +1693,6 @@ class TriggersApi:
             tenant=tenant,
             sort=sort,
             filters=filters,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -2606,12 +1716,6 @@ class TriggersApi:
         tenant,
         sort,
         filters,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -2623,7 +1727,7 @@ class TriggersApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -2654,18 +1758,6 @@ class TriggersApi:
         # process the form parameters
         # process the body parameter
 
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
-
 
 
         # set the HTTP header `Accept`
@@ -2693,9 +1785,7 @@ class TriggersApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 
@@ -2712,20 +1802,14 @@ class TriggersApi:
         tenant: StrictStr,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> PagedResultsTrigger:
         """Get all triggers for a flow
 
@@ -2745,34 +1829,11 @@ class TriggersApi:
                 :param q: A string filter
         :type q: str
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._search_triggers_for_flow_serialize(
@@ -2783,12 +1844,6 @@ class TriggersApi:
             tenant=tenant,
             sort=sort,
             q=q,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -2815,20 +1870,14 @@ class TriggersApi:
         tenant: StrictStr,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[PagedResultsTrigger]:
         """Get all triggers for a flow
 
@@ -2848,34 +1897,11 @@ class TriggersApi:
                 :param q: A string filter
         :type q: str
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._search_triggers_for_flow_serialize(
@@ -2886,12 +1912,6 @@ class TriggersApi:
             tenant=tenant,
             sort=sort,
             q=q,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -2917,12 +1937,6 @@ class TriggersApi:
         tenant,
         sort,
         q,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -2933,7 +1947,7 @@ class TriggersApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -2968,18 +1982,6 @@ class TriggersApi:
         # process the form parameters
         # process the body parameter
 
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
-
 
 
         # set the HTTP header `Accept`
@@ -3007,9 +2009,7 @@ class TriggersApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 
@@ -3023,20 +2023,14 @@ class TriggersApi:
         flow_id: Annotated[StrictStr, Field(description="The flow id")],
         trigger_id: Annotated[StrictStr, Field(description="The trigger id")],
         tenant: StrictStr,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> Trigger:
         """Unlock a trigger
 
@@ -3050,34 +2044,11 @@ class TriggersApi:
                 :param tenant: (required)
         :type tenant: str
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._unlock_trigger_serialize(
@@ -3085,12 +2056,6 @@ class TriggersApi:
             flow_id=flow_id,
             trigger_id=trigger_id,
             tenant=tenant,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -3114,20 +2079,14 @@ class TriggersApi:
         flow_id: Annotated[StrictStr, Field(description="The flow id")],
         trigger_id: Annotated[StrictStr, Field(description="The trigger id")],
         tenant: StrictStr,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[Trigger]:
         """Unlock a trigger
 
@@ -3141,34 +2100,11 @@ class TriggersApi:
                 :param tenant: (required)
         :type tenant: str
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._unlock_trigger_serialize(
@@ -3176,12 +2112,6 @@ class TriggersApi:
             flow_id=flow_id,
             trigger_id=trigger_id,
             tenant=tenant,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -3204,12 +2134,6 @@ class TriggersApi:
         flow_id,
         trigger_id,
         tenant,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -3219,7 +2143,7 @@ class TriggersApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -3239,18 +2163,6 @@ class TriggersApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
 
 
 
@@ -3279,9 +2191,7 @@ class TriggersApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 
@@ -3293,20 +2203,14 @@ class TriggersApi:
         self,
         tenant: StrictStr,
         trigger: List[Trigger],
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> object:
         """Unlock given triggers
 
@@ -3316,45 +2220,16 @@ class TriggersApi:
                 :param trigger: (required)
         :type trigger: List[Trigger]
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._unlock_triggers_by_ids_serialize(
             tenant=tenant,
             trigger=trigger,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -3376,20 +2251,14 @@ class TriggersApi:
         self,
         tenant: StrictStr,
         trigger: List[Trigger],
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[object]:
         """Unlock given triggers
 
@@ -3399,45 +2268,16 @@ class TriggersApi:
                 :param trigger: (required)
         :type trigger: List[Trigger]
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._unlock_triggers_by_ids_serialize(
             tenant=tenant,
             trigger=trigger,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -3458,12 +2298,6 @@ class TriggersApi:
         self,
         tenant,
         trigger,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -3474,7 +2308,7 @@ class TriggersApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -3491,18 +2325,6 @@ class TriggersApi:
         if trigger is not None:
             _body_params = trigger
 
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
-
 
 
         # set the HTTP header `Accept`
@@ -3514,18 +2336,16 @@ class TriggersApi:
             )
 
         # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
+
+        _default_content_type = (
+            self.api_client.select_header_content_type(
+                [
+                    'application/json'
+                ]
             )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+        )
+        if _default_content_type is not None:
+            _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -3543,9 +2363,7 @@ class TriggersApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 
@@ -3557,20 +2375,14 @@ class TriggersApi:
         self,
         tenant: StrictStr,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> object:
         """Unlock triggers by query parameters
 
@@ -3580,45 +2392,16 @@ class TriggersApi:
                 :param filters: Filters
         :type filters: List[QueryFilter]
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._unlock_triggers_by_query_serialize(
             tenant=tenant,
             filters=filters,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -3640,20 +2423,14 @@ class TriggersApi:
         self,
         tenant: StrictStr,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[object]:
         """Unlock triggers by query parameters
 
@@ -3663,45 +2440,16 @@ class TriggersApi:
                 :param filters: Filters
         :type filters: List[QueryFilter]
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._unlock_triggers_by_query_serialize(
             tenant=tenant,
             filters=filters,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -3722,12 +2470,6 @@ class TriggersApi:
         self,
         tenant,
         filters,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -3738,7 +2480,7 @@ class TriggersApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -3756,18 +2498,6 @@ class TriggersApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
 
 
 
@@ -3796,9 +2526,7 @@ class TriggersApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 
@@ -3810,20 +2538,14 @@ class TriggersApi:
         self,
         tenant: StrictStr,
         trigger: Trigger,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> Trigger:
         """Unpause a backfill
 
@@ -3833,45 +2555,16 @@ class TriggersApi:
                 :param trigger: (required)
         :type trigger: Trigger
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._unpause_backfill_serialize(
             tenant=tenant,
             trigger=trigger,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -3893,20 +2586,14 @@ class TriggersApi:
         self,
         tenant: StrictStr,
         trigger: Trigger,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[Trigger]:
         """Unpause a backfill
 
@@ -3916,45 +2603,16 @@ class TriggersApi:
                 :param trigger: (required)
         :type trigger: Trigger
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._unpause_backfill_serialize(
             tenant=tenant,
             trigger=trigger,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -3975,12 +2633,6 @@ class TriggersApi:
         self,
         tenant,
         trigger,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -3990,7 +2642,7 @@ class TriggersApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -4007,18 +2659,6 @@ class TriggersApi:
         if trigger is not None:
             _body_params = trigger
 
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
-
 
 
         # set the HTTP header `Accept`
@@ -4030,18 +2670,16 @@ class TriggersApi:
             )
 
         # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
+
+        _default_content_type = (
+            self.api_client.select_header_content_type(
+                [
+                    'application/json'
+                ]
             )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+        )
+        if _default_content_type is not None:
+            _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -4059,9 +2697,7 @@ class TriggersApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 
@@ -4073,20 +2709,14 @@ class TriggersApi:
         self,
         tenant: StrictStr,
         trigger: List[Trigger],
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> object:
         """Unpause backfill for given triggers
 
@@ -4096,45 +2726,16 @@ class TriggersApi:
                 :param trigger: (required)
         :type trigger: List[Trigger]
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._unpause_backfill_by_ids_serialize(
             tenant=tenant,
             trigger=trigger,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -4156,20 +2757,14 @@ class TriggersApi:
         self,
         tenant: StrictStr,
         trigger: List[Trigger],
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[object]:
         """Unpause backfill for given triggers
 
@@ -4179,45 +2774,16 @@ class TriggersApi:
                 :param trigger: (required)
         :type trigger: List[Trigger]
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._unpause_backfill_by_ids_serialize(
             tenant=tenant,
             trigger=trigger,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -4238,12 +2804,6 @@ class TriggersApi:
         self,
         tenant,
         trigger,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -4254,7 +2814,7 @@ class TriggersApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -4271,18 +2831,6 @@ class TriggersApi:
         if trigger is not None:
             _body_params = trigger
 
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
-
 
 
         # set the HTTP header `Accept`
@@ -4294,18 +2842,16 @@ class TriggersApi:
             )
 
         # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
+
+        _default_content_type = (
+            self.api_client.select_header_content_type(
+                [
+                    'application/json'
+                ]
             )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+        )
+        if _default_content_type is not None:
+            _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -4323,9 +2869,7 @@ class TriggersApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 
@@ -4337,20 +2881,14 @@ class TriggersApi:
         self,
         tenant: StrictStr,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> object:
         """Unpause backfill for given triggers
 
@@ -4360,45 +2898,16 @@ class TriggersApi:
                 :param filters: Filters
         :type filters: List[QueryFilter]
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._unpause_backfill_by_query_serialize(
             tenant=tenant,
             filters=filters,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -4420,20 +2929,14 @@ class TriggersApi:
         self,
         tenant: StrictStr,
         filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[object]:
         """Unpause backfill for given triggers
 
@@ -4443,45 +2946,16 @@ class TriggersApi:
                 :param filters: Filters
         :type filters: List[QueryFilter]
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._unpause_backfill_by_query_serialize(
             tenant=tenant,
             filters=filters,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -4502,12 +2976,6 @@ class TriggersApi:
         self,
         tenant,
         filters,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -4518,7 +2986,7 @@ class TriggersApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -4536,18 +3004,6 @@ class TriggersApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
 
 
 
@@ -4576,9 +3032,7 @@ class TriggersApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 
@@ -4590,20 +3044,14 @@ class TriggersApi:
         self,
         tenant: StrictStr,
         trigger: Trigger,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> Trigger:
         """Update a trigger
 
@@ -4613,45 +3061,16 @@ class TriggersApi:
                 :param trigger: (required)
         :type trigger: Trigger
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._update_trigger_serialize(
             tenant=tenant,
             trigger=trigger,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -4673,20 +3092,14 @@ class TriggersApi:
         self,
         tenant: StrictStr,
         trigger: Trigger,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[Trigger]:
         """Update a trigger
 
@@ -4696,45 +3109,16 @@ class TriggersApi:
                 :param trigger: (required)
         :type trigger: Trigger
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._update_trigger_serialize(
             tenant=tenant,
             trigger=trigger,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -4755,12 +3139,6 @@ class TriggersApi:
         self,
         tenant,
         trigger,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -4770,7 +3148,7 @@ class TriggersApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -4787,18 +3165,6 @@ class TriggersApi:
         if trigger is not None:
             _body_params = trigger
 
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
-
 
 
         # set the HTTP header `Accept`
@@ -4810,18 +3176,16 @@ class TriggersApi:
             )
 
         # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
+
+        _default_content_type = (
+            self.api_client.select_header_content_type(
+                [
+                    'application/json'
+                ]
             )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+        )
+        if _default_content_type is not None:
+            _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -4839,9 +3203,7 @@ class TriggersApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 

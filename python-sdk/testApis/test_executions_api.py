@@ -153,8 +153,6 @@ triggers:
         created = self.kestra_client.flows.create_flow(self.tenant, flow)
         return created
 
-
-
     def test_create_execution(self) -> None:
         """Test case for create_execution
 
@@ -164,7 +162,7 @@ triggers:
         flow_id = f"{self._testMethodName}_flow"
         self.create_flow(flow_id=flow_id, namespace=namespace)
 
-        resp = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant, multipart_form_datas={"inp": "override"})
+        resp = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=False, tenant=self.tenant, additional_form_datas={"inp": "override"})
         assert resp is not None
         exec_id = getattr(resp, 'id', None)
         assert exec_id is not None
@@ -823,7 +821,7 @@ tasks:
             execution_id=exec_id,
             tenant=self.tenant,
             task_run_id=task_run_id,
-            multipart_form_datas={"inp": "replayed"}
+            additional_form_datas={"inp": "replayed"}
         )
         assert resp is not None
         new_exec_id = getattr(resp, 'id', None)

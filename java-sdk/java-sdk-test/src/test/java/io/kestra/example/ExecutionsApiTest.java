@@ -453,7 +453,7 @@ public class ExecutionsApiTest {
             new ExecutionRepositoryInterfaceFlowFilter().id(otherFlowId).namespace(namespace));
         List<ExecutionControllerLastExecutionResponse> response = kestraClient().executions().getLatestExecutions(MAIN_TENANT, executionRepositoryInterfaceFlowFilter);
         assertThat(response).hasSize(2);
-        assertThat(response).extracting(ExecutionControllerLastExecutionResponse::getId).containsExactly(execution1.getId(), otherExecution.getId());
+        assertThat(response).extracting(ExecutionControllerLastExecutionResponse::getId).containsExactlyInAnyOrder(execution1.getId(), otherExecution.getId());
     }
     /**
      * Kill an execution

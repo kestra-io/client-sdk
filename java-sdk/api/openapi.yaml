@@ -7584,6 +7584,8 @@ paths:
         task run id
       tags:
       - Executions
+      x-sdk-customization:
+        x-multipart: "true"
       x-internal: false
       x-content-type: multipart/form-data
       x-accepts:
@@ -7837,6 +7839,8 @@ paths:
       summary: Create a new execution for a flow
       tags:
       - Executions
+      x-sdk-customization:
+        x-multipart: "true"
       x-internal: false
       x-content-type: multipart/form-data
       x-accepts:

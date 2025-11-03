@@ -73,12 +73,10 @@ class {{classname}}:
         {{#allParams}}
         {{paramName}},
         {{/allParams}}
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
+        {{#vendorExtensions.x-sdk-customization.x-multipart}}
+        additional_form_datas,
+        additional_files
+        {{/vendorExtensions.x-sdk-customization.x-multipart}}
     ) -> RequestSerialized:
 
         {{#servers.0}}
@@ -101,7 +99,7 @@ class {{classname}}:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -180,18 +178,20 @@ class {{classname}}:
             {{/isBinary}}
 {{/bodyParam}}
 
+        {{#vendorExtensions.x-sdk-customization.x-multipart}}
         # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
+        if additional_form_datas is not None:
+            for key, value in additional_form_datas.items():
                 if isinstance(value, (list, tuple)):
                     _form_params.extend([(key, v) for v in value])
                 else:
                     _form_params.append((key, value))
         # process files
-        if files is not None:
-            for key, value in files.items():
+        if additional_files is not None:
+            for key, value in additional_files.items():
                 _files[key] = value
 
+        {{/vendorExtensions.x-sdk-customization.x-multipart}}
 
         {{#constantParams}}
         {{#isQueryParam}}
@@ -216,18 +216,16 @@ class {{classname}}:
 
         {{#hasConsumes}}
         # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [{{#consumes}}
-                        '{{{mediaType}}}'{{^-last}}, {{/-last}}{{/consumes}}
-                    ]
-                )
+
+        _default_content_type = (
+            self.api_client.select_header_content_type(
+                [{{#consumes}}
+                    '{{{mediaType}}}'{{^-last}}, {{/-last}}{{/consumes}}
+                ]
             )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+        )
+        if _default_content_type is not None:
+            _header_params['Content-Type'] = _default_content_type
         {{/hasConsumes}}
 
         # authentication setting
@@ -245,9 +243,7 @@ class {{classname}}:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
     {{#vendorExtensions.x-sdk-customization.x-replace-follow-execution}}
@@ -256,11 +252,7 @@ class {{classname}}:
             self,
             execution_id: Annotated[StrictStr, Field(description="The execution id")],
             tenant: StrictStr,
-            _request_timeout: Optional[Union[float, Tuple[float, float]]] = None,
-            _request_auth: Optional[Dict[StrictStr, Any]] = None,
-            _content_type: Optional[StrictStr] = None,
-            _headers: Optional[Dict[StrictStr, Any]] = None,
-            _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+            _request_timeout: Optional[Union[float, Tuple[float, float]]] = None
     ) -> Generator[Dict[str, Any], None, None]:
         """
         Follow an execution using SSE.
@@ -272,13 +264,7 @@ class {{classname}}:
 
         _method, final_url, header_params, _body, _post_params = self._follow_execution_serialize(
             execution_id=execution_id,
-            tenant=tenant,
-            multipart_form_datas=None,
-            files=None,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
+            tenant=tenant
         )
 
         header_params['Accept'] = 'text/event-stream'
@@ -316,10 +302,6 @@ class {{classname}}:
             destination_only: Annotated[Optional[StrictBool], Field(description="If true, list only destination dependencies, otherwise list also source dependencies")] = None,
             expand_all: Annotated[Optional[StrictBool], Field(description="If true, expand all dependencies recursively")] = None,
             _request_timeout: Optional[Union[float, Tuple[float, float]]] = None,
-            _request_auth: Optional[Dict[StrictStr, Any]] = None,
-            _content_type: Optional[StrictStr] = None,
-            _headers: Optional[Dict[StrictStr, Any]] = None,
-            _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> Generator[Dict[str, Any], None, None]:
         """
         Follow an execution using SSE.
@@ -333,13 +315,7 @@ class {{classname}}:
             execution_id=execution_id,
             tenant=tenant,
             destination_only=destination_only,
-            expand_all=expand_all,
-            multipart_form_datas=None,
-            files=None,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
+            expand_all=expand_all
         )
 
         header_params['Accept'] = 'text/event-stream'

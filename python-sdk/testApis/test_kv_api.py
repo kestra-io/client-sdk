@@ -40,13 +40,11 @@ class TestKVApi(unittest.TestCase):
         key = "test_set_key_value"
         value = "hello-kestra"
 
-        # set value
         self.kestra_client.kv.set_key_value(namespace=self.namespace, key=key, tenant=self.tenant, body=value)
 
         fetched = self.kestra_client.kv.get_key_value(namespace=self.namespace, key=key, tenant=self.tenant)
         assert getattr(fetched, 'value', None) is not None or fetched is not None
 
-        # cleanup
         try:
             self.kestra_client.kv.delete_key_value(namespace=self.namespace, key=key, tenant=self.tenant)
         except Exception:
@@ -60,7 +58,6 @@ class TestKVApi(unittest.TestCase):
         key = "test_get_key_value"
         value = "value-get"
 
-        # set then get
         self.kestra_client.kv.set_key_value(namespace=self.namespace, key=key, tenant=self.tenant, body=value)
         fetched = self.kestra_client.kv.get_key_value(namespace=self.namespace, key=key, tenant=self.tenant)
         assert fetched is not None

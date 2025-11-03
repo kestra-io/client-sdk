@@ -6258,6 +6258,8 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+      x-sdk-customization:
+        x-multipart: "true"
   /api/v1/{tenant}/executions/{executionId}/restart:
     post:
       tags:
@@ -6463,6 +6465,8 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+      x-sdk-customization:
+        x-multipart: "true"
   /api/v1/{tenant}/flows:
     post:
       tags:

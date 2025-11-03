@@ -72,6 +72,7 @@ docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/ope
     --template-dir=/local/templates/python
 
 sed $SED_INPLACE -E '/from kestrapy\.models\.list\[label\] import List\[Label\]/d' python-sdk/kestrapy/api/executions_api.py
+sed $SED_INPLACE -E 's/value: Optional\[Dict\[str, Any\]\] = None/value: Optional[Any] = None/' python-sdk/kestrapy/models/kv_controller_typed_value.py
 echo "from kestrapy.kestra_client import KestraClient as KestraClient" >> python-sdk/kestrapy/__init__.py
 
 # Replace wrong prop in docs for each api
