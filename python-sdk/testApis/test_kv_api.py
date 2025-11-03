@@ -12,7 +12,7 @@
 """  # noqa: E501
 
 
-import unittest
+import unittest, time
 from kestrapy import Configuration, KestraClient, KVControllerApiDeleteBulkRequest
 
 
@@ -84,7 +84,7 @@ class TestKVApi(unittest.TestCase):
         value = "value-inherited"
 
         self.kestra_client.kv.set_key_value(namespace="test", key=key, tenant=self.tenant, body=value)
-
+        time.sleep(0.5)
         entries = self.kestra_client.kv.list_keys_with_inheritence(namespace=self.namespace, tenant=self.tenant)
         assert any(getattr(e, 'key', None) == key  for e in entries)
 
