@@ -68,6 +68,8 @@ triggers:
 
         self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
 
+        time.sleep(1)  # ensure flow is created
+
         return flow_id, trigger_id
 
     def create_backfill_for_trigger(self, flow_id: str, trigger_id: str, start: Optional[datetime] = None, end: Optional[datetime] = None, namespace: str = "test.triggers") -> Trigger:
