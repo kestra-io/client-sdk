@@ -57,20 +57,14 @@ class NamespacesApi:
         self,
         tenant: StrictStr,
         api_autocomplete: ApiAutocomplete,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> List[str]:
         """List namespaces for autocomplete
 
@@ -81,45 +75,16 @@ class NamespacesApi:
                 :param api_autocomplete: (required)
         :type api_autocomplete: ApiAutocomplete
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._autocomplete_namespaces_serialize(
             tenant=tenant,
             api_autocomplete=api_autocomplete,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -141,20 +106,14 @@ class NamespacesApi:
         self,
         tenant: StrictStr,
         api_autocomplete: ApiAutocomplete,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[List[str]]:
         """List namespaces for autocomplete
 
@@ -165,45 +124,16 @@ class NamespacesApi:
                 :param api_autocomplete: (required)
         :type api_autocomplete: ApiAutocomplete
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._autocomplete_namespaces_serialize(
             tenant=tenant,
             api_autocomplete=api_autocomplete,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -224,12 +154,6 @@ class NamespacesApi:
         self,
         tenant,
         api_autocomplete,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -239,7 +163,7 @@ class NamespacesApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -256,18 +180,6 @@ class NamespacesApi:
         if api_autocomplete is not None:
             _body_params = api_autocomplete
 
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
-
 
 
         # set the HTTP header `Accept`
@@ -279,18 +191,16 @@ class NamespacesApi:
             )
 
         # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
+
+        _default_content_type = (
+            self.api_client.select_header_content_type(
+                [
+                    'application/json'
+                ]
             )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+        )
+        if _default_content_type is not None:
+            _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -308,9 +218,7 @@ class NamespacesApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 
@@ -322,20 +230,14 @@ class NamespacesApi:
         self,
         tenant: StrictStr,
         namespace: Annotated[Namespace, Field(description="The namespace")],
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> Namespace:
         """Create a namespace
 
@@ -345,45 +247,16 @@ class NamespacesApi:
                 :param namespace: The namespace (required)
         :type namespace: Namespace
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._create_namespace_serialize(
             tenant=tenant,
             namespace=namespace,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -405,20 +278,14 @@ class NamespacesApi:
         self,
         tenant: StrictStr,
         namespace: Annotated[Namespace, Field(description="The namespace")],
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[Namespace]:
         """Create a namespace
 
@@ -428,45 +295,16 @@ class NamespacesApi:
                 :param namespace: The namespace (required)
         :type namespace: Namespace
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._create_namespace_serialize(
             tenant=tenant,
             namespace=namespace,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -487,12 +325,6 @@ class NamespacesApi:
         self,
         tenant,
         namespace,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -502,7 +334,7 @@ class NamespacesApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -519,18 +351,6 @@ class NamespacesApi:
         if namespace is not None:
             _body_params = namespace
 
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
-
 
 
         # set the HTTP header `Accept`
@@ -542,18 +362,16 @@ class NamespacesApi:
             )
 
         # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
+
+        _default_content_type = (
+            self.api_client.select_header_content_type(
+                [
+                    'application/json'
+                ]
             )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+        )
+        if _default_content_type is not None:
+            _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -571,9 +389,7 @@ class NamespacesApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 
@@ -585,20 +401,14 @@ class NamespacesApi:
         self,
         id: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> None:
         """Delete a namespace
 
@@ -608,45 +418,16 @@ class NamespacesApi:
                 :param tenant: (required)
         :type tenant: str
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._delete_namespace_serialize(
             id=id,
             tenant=tenant,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -668,20 +449,14 @@ class NamespacesApi:
         self,
         id: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[None]:
         """Delete a namespace
 
@@ -691,45 +466,16 @@ class NamespacesApi:
                 :param tenant: (required)
         :type tenant: str
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._delete_namespace_serialize(
             id=id,
             tenant=tenant,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -750,12 +496,6 @@ class NamespacesApi:
         self,
         id,
         tenant,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -765,7 +505,7 @@ class NamespacesApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -781,18 +521,6 @@ class NamespacesApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
 
 
 
@@ -814,9 +542,7 @@ class NamespacesApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 
@@ -829,20 +555,14 @@ class NamespacesApi:
         namespace: Annotated[StrictStr, Field(description="The namespace id")],
         key: Annotated[StrictStr, Field(description="The secret key")],
         tenant: StrictStr,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> None:
         """Delete a secret for a namespace
 
@@ -854,46 +574,17 @@ class NamespacesApi:
                 :param tenant: (required)
         :type tenant: str
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._delete_secret_serialize(
             namespace=namespace,
             key=key,
             tenant=tenant,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -916,20 +607,14 @@ class NamespacesApi:
         namespace: Annotated[StrictStr, Field(description="The namespace id")],
         key: Annotated[StrictStr, Field(description="The secret key")],
         tenant: StrictStr,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[None]:
         """Delete a secret for a namespace
 
@@ -941,46 +626,17 @@ class NamespacesApi:
                 :param tenant: (required)
         :type tenant: str
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._delete_secret_serialize(
             namespace=namespace,
             key=key,
             tenant=tenant,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -1002,12 +658,6 @@ class NamespacesApi:
         namespace,
         key,
         tenant,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -1017,7 +667,7 @@ class NamespacesApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -1035,18 +685,6 @@ class NamespacesApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
 
 
 
@@ -1068,9 +706,7 @@ class NamespacesApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 
@@ -1082,20 +718,14 @@ class NamespacesApi:
         self,
         namespace: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> Dict[str, List[str]]:
         """List inherited secrets
 
@@ -1105,45 +735,16 @@ class NamespacesApi:
                 :param tenant: (required)
         :type tenant: str
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._get_inherited_secrets_serialize(
             namespace=namespace,
             tenant=tenant,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -1165,20 +766,14 @@ class NamespacesApi:
         self,
         namespace: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[Dict[str, List[str]]]:
         """List inherited secrets
 
@@ -1188,45 +783,16 @@ class NamespacesApi:
                 :param tenant: (required)
         :type tenant: str
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._get_inherited_secrets_serialize(
             namespace=namespace,
             tenant=tenant,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -1247,12 +813,6 @@ class NamespacesApi:
         self,
         namespace,
         tenant,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -1262,7 +822,7 @@ class NamespacesApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -1278,18 +838,6 @@ class NamespacesApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
 
 
 
@@ -1318,9 +866,7 @@ class NamespacesApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 
@@ -1332,20 +878,14 @@ class NamespacesApi:
         self,
         id: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> Namespace:
         """Get a namespace
 
@@ -1355,45 +895,16 @@ class NamespacesApi:
                 :param tenant: (required)
         :type tenant: str
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._get_namespace_serialize(
             id=id,
             tenant=tenant,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -1415,20 +926,14 @@ class NamespacesApi:
         self,
         id: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[Namespace]:
         """Get a namespace
 
@@ -1438,45 +943,16 @@ class NamespacesApi:
                 :param tenant: (required)
         :type tenant: str
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._get_namespace_serialize(
             id=id,
             tenant=tenant,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -1497,12 +973,6 @@ class NamespacesApi:
         self,
         id,
         tenant,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -1512,7 +982,7 @@ class NamespacesApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -1528,18 +998,6 @@ class NamespacesApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
 
 
 
@@ -1568,9 +1026,7 @@ class NamespacesApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 
@@ -1582,20 +1038,14 @@ class NamespacesApi:
         self,
         id: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> List[PluginDefault]:
         """List inherited plugin defaults
 
@@ -1605,45 +1055,16 @@ class NamespacesApi:
                 :param tenant: (required)
         :type tenant: str
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._inherited_plugin_defaults_serialize(
             id=id,
             tenant=tenant,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -1665,20 +1086,14 @@ class NamespacesApi:
         self,
         id: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[List[PluginDefault]]:
         """List inherited plugin defaults
 
@@ -1688,45 +1103,16 @@ class NamespacesApi:
                 :param tenant: (required)
         :type tenant: str
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._inherited_plugin_defaults_serialize(
             id=id,
             tenant=tenant,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -1747,12 +1133,6 @@ class NamespacesApi:
         self,
         id,
         tenant,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -1762,7 +1142,7 @@ class NamespacesApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -1778,18 +1158,6 @@ class NamespacesApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
 
 
 
@@ -1818,9 +1186,7 @@ class NamespacesApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 
@@ -1832,20 +1198,14 @@ class NamespacesApi:
         self,
         id: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> Dict[str, object]:
         """List inherited variables
 
@@ -1855,45 +1215,16 @@ class NamespacesApi:
                 :param tenant: (required)
         :type tenant: str
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._inherited_variables_serialize(
             id=id,
             tenant=tenant,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -1915,20 +1246,14 @@ class NamespacesApi:
         self,
         id: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[Dict[str, object]]:
         """List inherited variables
 
@@ -1938,45 +1263,16 @@ class NamespacesApi:
                 :param tenant: (required)
         :type tenant: str
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._inherited_variables_serialize(
             id=id,
             tenant=tenant,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -1997,12 +1293,6 @@ class NamespacesApi:
         self,
         id,
         tenant,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -2012,7 +1302,7 @@ class NamespacesApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -2028,18 +1318,6 @@ class NamespacesApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
 
 
 
@@ -2068,9 +1346,7 @@ class NamespacesApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 
@@ -2086,20 +1362,14 @@ class NamespacesApi:
         filters: Annotated[List[QueryFilter], Field(description="Filters")],
         tenant: StrictStr,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiSecretListResponse:
         """Get secrets for a namespace
 
@@ -2117,34 +1387,11 @@ class NamespacesApi:
                 :param sort: The sort of current page
         :type sort: List[str]
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._list_namespace_secrets_serialize(
@@ -2154,12 +1401,6 @@ class NamespacesApi:
             filters=filters,
             tenant=tenant,
             sort=sort,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -2185,20 +1426,14 @@ class NamespacesApi:
         filters: Annotated[List[QueryFilter], Field(description="Filters")],
         tenant: StrictStr,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[ApiSecretListResponse]:
         """Get secrets for a namespace
 
@@ -2216,34 +1451,11 @@ class NamespacesApi:
                 :param sort: The sort of current page
         :type sort: List[str]
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._list_namespace_secrets_serialize(
@@ -2253,12 +1465,6 @@ class NamespacesApi:
             filters=filters,
             tenant=tenant,
             sort=sort,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -2283,12 +1489,6 @@ class NamespacesApi:
         filters,
         tenant,
         sort,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -2300,7 +1500,7 @@ class NamespacesApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -2333,18 +1533,6 @@ class NamespacesApi:
         # process the form parameters
         # process the body parameter
 
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
-
 
 
         # set the HTTP header `Accept`
@@ -2372,9 +1560,7 @@ class NamespacesApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 
@@ -2388,20 +1574,14 @@ class NamespacesApi:
         key: Annotated[StrictStr, Field(description="The secret key")],
         tenant: StrictStr,
         api_secret_meta_ee: ApiSecretMetaEE,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> List[ApiSecretMeta]:
         """Patch a secret metadata for a namespace
 
@@ -2415,34 +1595,11 @@ class NamespacesApi:
                 :param api_secret_meta_ee: (required)
         :type api_secret_meta_ee: ApiSecretMetaEE
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._patch_secret_serialize(
@@ -2450,12 +1607,6 @@ class NamespacesApi:
             key=key,
             tenant=tenant,
             api_secret_meta_ee=api_secret_meta_ee,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -2479,20 +1630,14 @@ class NamespacesApi:
         key: Annotated[StrictStr, Field(description="The secret key")],
         tenant: StrictStr,
         api_secret_meta_ee: ApiSecretMetaEE,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[List[ApiSecretMeta]]:
         """Patch a secret metadata for a namespace
 
@@ -2506,34 +1651,11 @@ class NamespacesApi:
                 :param api_secret_meta_ee: (required)
         :type api_secret_meta_ee: ApiSecretMetaEE
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._patch_secret_serialize(
@@ -2541,12 +1663,6 @@ class NamespacesApi:
             key=key,
             tenant=tenant,
             api_secret_meta_ee=api_secret_meta_ee,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -2569,12 +1685,6 @@ class NamespacesApi:
         key,
         tenant,
         api_secret_meta_ee,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -2584,7 +1694,7 @@ class NamespacesApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -2605,18 +1715,6 @@ class NamespacesApi:
         if api_secret_meta_ee is not None:
             _body_params = api_secret_meta_ee
 
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
-
 
 
         # set the HTTP header `Accept`
@@ -2628,18 +1726,16 @@ class NamespacesApi:
             )
 
         # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
+
+        _default_content_type = (
+            self.api_client.select_header_content_type(
+                [
+                    'application/json'
+                ]
             )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+        )
+        if _default_content_type is not None:
+            _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -2657,9 +1753,7 @@ class NamespacesApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 
@@ -2672,20 +1766,14 @@ class NamespacesApi:
         namespace: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
         api_secret_value: ApiSecretValue,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> List[ApiSecretMeta]:
         """Update secrets for a namespace
 
@@ -2697,46 +1785,17 @@ class NamespacesApi:
                 :param api_secret_value: (required)
         :type api_secret_value: ApiSecretValue
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._put_secrets_serialize(
             namespace=namespace,
             tenant=tenant,
             api_secret_value=api_secret_value,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -2759,20 +1818,14 @@ class NamespacesApi:
         namespace: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
         api_secret_value: ApiSecretValue,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[List[ApiSecretMeta]]:
         """Update secrets for a namespace
 
@@ -2784,46 +1837,17 @@ class NamespacesApi:
                 :param api_secret_value: (required)
         :type api_secret_value: ApiSecretValue
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._put_secrets_serialize(
             namespace=namespace,
             tenant=tenant,
             api_secret_value=api_secret_value,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -2845,12 +1869,6 @@ class NamespacesApi:
         namespace,
         tenant,
         api_secret_value,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -2860,7 +1878,7 @@ class NamespacesApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -2879,18 +1897,6 @@ class NamespacesApi:
         if api_secret_value is not None:
             _body_params = api_secret_value
 
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
-
 
 
         # set the HTTP header `Accept`
@@ -2902,18 +1908,16 @@ class NamespacesApi:
             )
 
         # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
+
+        _default_content_type = (
+            self.api_client.select_header_content_type(
+                [
+                    'application/json'
+                ]
             )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+        )
+        if _default_content_type is not None:
+            _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -2931,9 +1935,7 @@ class NamespacesApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 
@@ -2949,20 +1951,14 @@ class NamespacesApi:
         tenant: StrictStr,
         q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> PagedResultsNamespace:
         """Search for namespaces
 
@@ -2980,34 +1976,11 @@ class NamespacesApi:
                 :param sort: The sort of current page
         :type sort: List[str]
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._search_namespaces_serialize(
@@ -3017,12 +1990,6 @@ class NamespacesApi:
             tenant=tenant,
             q=q,
             sort=sort,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -3048,20 +2015,14 @@ class NamespacesApi:
         tenant: StrictStr,
         q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[PagedResultsNamespace]:
         """Search for namespaces
 
@@ -3079,34 +2040,11 @@ class NamespacesApi:
                 :param sort: The sort of current page
         :type sort: List[str]
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._search_namespaces_serialize(
@@ -3116,12 +2054,6 @@ class NamespacesApi:
             tenant=tenant,
             q=q,
             sort=sort,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -3146,12 +2078,6 @@ class NamespacesApi:
         tenant,
         q,
         sort,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -3162,7 +2088,7 @@ class NamespacesApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -3197,18 +2123,6 @@ class NamespacesApi:
         # process the form parameters
         # process the body parameter
 
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
-
 
 
         # set the HTTP header `Accept`
@@ -3236,9 +2150,7 @@ class NamespacesApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 
@@ -3251,20 +2163,14 @@ class NamespacesApi:
         id: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
         namespace: Annotated[Namespace, Field(description="The namespace")],
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> Namespace:
         """Update a namespace
 
@@ -3276,46 +2182,17 @@ class NamespacesApi:
                 :param namespace: The namespace (required)
         :type namespace: Namespace
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._update_namespace_serialize(
             id=id,
             tenant=tenant,
             namespace=namespace,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -3338,20 +2215,14 @@ class NamespacesApi:
         id: Annotated[StrictStr, Field(description="The namespace id")],
         tenant: StrictStr,
         namespace: Annotated[Namespace, Field(description="The namespace")],
-        multipart_form_datas: Optional[Dict[str, Any]] = None,
-        files: Optional[Dict[str, Any]] = None,
         _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
     ) -> ApiResponse[Namespace]:
         """Update a namespace
 
@@ -3363,46 +2234,17 @@ class NamespacesApi:
                 :param namespace: The namespace (required)
         :type namespace: Namespace
         ,
-        :param multipart_form_datas: for HTTP methods that accept
-                                     multipart form data, this
-                                     dictionary contains the form
-                                     parameters and their values.
-        :param files: for HTTP methods that accept
-                      multipart form data, this
-                      dictionary contains the form
-                      file parameters and their values.
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
         """ # noqa: E501
 
         _param = self._update_namespace_serialize(
             id=id,
             tenant=tenant,
             namespace=namespace,
-            multipart_form_datas=multipart_form_datas,
-            files=files,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
@@ -3424,12 +2266,6 @@ class NamespacesApi:
         id,
         tenant,
         namespace,
-        multipart_form_datas,
-        files,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
     ) -> RequestSerialized:
 
         _host = None
@@ -3439,7 +2275,7 @@ class NamespacesApi:
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _header_params: Dict[str, Optional[str]] = {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[
             str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
@@ -3458,18 +2294,6 @@ class NamespacesApi:
         if namespace is not None:
             _body_params = namespace
 
-        # process multipart form data
-        if multipart_form_datas is not None:
-            for key, value in multipart_form_datas.items():
-                if isinstance(value, (list, tuple)):
-                    _form_params.extend([(key, v) for v in value])
-                else:
-                    _form_params.append((key, value))
-        # process files
-        if files is not None:
-            for key, value in files.items():
-                _files[key] = value
-
 
 
         # set the HTTP header `Accept`
@@ -3481,18 +2305,16 @@ class NamespacesApi:
             )
 
         # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
+
+        _default_content_type = (
+            self.api_client.select_header_content_type(
+                [
+                    'application/json'
+                ]
             )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+        )
+        if _default_content_type is not None:
+            _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -3510,9 +2332,7 @@ class NamespacesApi:
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
+            collection_formats=_collection_formats
         )
 
 
