@@ -1,15 +1,15 @@
-# kestrapy.KVApi
+# kestrapy.kv
 
 All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**delete_key_value**](KVApi.md#delete_key_value) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Delete a key-value pair
-[**delete_key_values**](KVApi.md#delete_key_values) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/kv | Bulk-delete multiple key/value pairs from the given namespace.
-[**get_key_value**](KVApi.md#get_key_value) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Get value for a key
-[**list_keys**](KVApi.md#list_keys) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv | List all keys for a namespace
-[**list_keys_with_inheritence**](KVApi.md#list_keys_with_inheritence) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/inheritance | List all keys for inherited namespaces
-[**set_key_value**](KVApi.md#set_key_value) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Puts a key-value pair in store
+[**delete_key_value**](kv.md#delete_key_value) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Delete a key-value pair
+[**delete_key_values**](kv.md#delete_key_values) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/kv | Bulk-delete multiple key/value pairs from the given namespace.
+[**get_key_value**](kv.md#get_key_value) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Get value for a key
+[**list_keys**](kv.md#list_keys) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv | List all keys for a namespace
+[**list_keys_with_inheritence**](kv.md#list_keys_with_inheritence) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/inheritance | List all keys for inherited namespaces
+[**set_key_value**](kv.md#set_key_value) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Puts a key-value pair in store
 
 
 # **delete_key_value**
@@ -23,47 +23,27 @@ Delete a key-value pair
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.KVApi(api_client)
+with KestraClient(configuration) as kestra_client:
     namespace = 'namespace_example' # str | The namespace id
     key = 'key_example' # str | The key
     tenant = 'tenant_example' # str | 
 
     try:
         # Delete a key-value pair
-        api_response = kestra_client.kvapi.delete_key_value(namespace, key, tenant)
-        print("The response of KVApi->delete_key_value:\n")
+        api_response = kestra_client.kv.delete_key_value(namespace, key, tenant)
+        print("The response of kv->delete_key_value:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling KVApi->delete_key_value: %s\n" % e)
+        print("Exception when calling kv->delete_key_value: %s\n" % e)
 ```
 
 
@@ -109,49 +89,27 @@ Bulk-delete multiple key/value pairs from the given namespace.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.kv_controller_api_delete_bulk_request import KVControllerApiDeleteBulkRequest
-from kestrapy.models.kv_controller_api_delete_bulk_response import KVControllerApiDeleteBulkResponse
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.KVApi(api_client)
+with KestraClient(configuration) as kestra_client:
     namespace = 'namespace_example' # str | The namespace id
     tenant = 'tenant_example' # str | 
     kv_controller_api_delete_bulk_request = kestrapy.KVControllerApiDeleteBulkRequest() # KVControllerApiDeleteBulkRequest | The keys
 
     try:
         # Bulk-delete multiple key/value pairs from the given namespace.
-        api_response = kestra_client.kvapi.delete_key_values(namespace, tenant, kv_controller_api_delete_bulk_request)
-        print("The response of KVApi->delete_key_values:\n")
+        api_response = kestra_client.kv.delete_key_values(namespace, tenant, kv_controller_api_delete_bulk_request)
+        print("The response of kv->delete_key_values:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling KVApi->delete_key_values: %s\n" % e)
+        print("Exception when calling kv->delete_key_values: %s\n" % e)
 ```
 
 
@@ -197,48 +155,27 @@ Get value for a key
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.kv_controller_typed_value import KVControllerTypedValue
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.KVApi(api_client)
+with KestraClient(configuration) as kestra_client:
     namespace = 'namespace_example' # str | The namespace id
     key = 'key_example' # str | The key
     tenant = 'tenant_example' # str | 
 
     try:
         # Get value for a key
-        api_response = kestra_client.kvapi.get_key_value(namespace, key, tenant)
-        print("The response of KVApi->get_key_value:\n")
+        api_response = kestra_client.kv.get_key_value(namespace, key, tenant)
+        print("The response of kv->get_key_value:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling KVApi->get_key_value: %s\n" % e)
+        print("Exception when calling kv->get_key_value: %s\n" % e)
 ```
 
 
@@ -284,47 +221,26 @@ List all keys for a namespace
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.kv_entry import KVEntry
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.KVApi(api_client)
+with KestraClient(configuration) as kestra_client:
     namespace = 'namespace_example' # str | The namespace id
     tenant = 'tenant_example' # str | 
 
     try:
         # List all keys for a namespace
-        api_response = kestra_client.kvapi.list_keys(namespace, tenant)
-        print("The response of KVApi->list_keys:\n")
+        api_response = kestra_client.kv.list_keys(namespace, tenant)
+        print("The response of kv->list_keys:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling KVApi->list_keys: %s\n" % e)
+        print("Exception when calling kv->list_keys: %s\n" % e)
 ```
 
 
@@ -369,47 +285,26 @@ List all keys for inherited namespaces
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.kv_entry import KVEntry
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.KVApi(api_client)
+with KestraClient(configuration) as kestra_client:
     namespace = 'namespace_example' # str | The namespace id
     tenant = 'tenant_example' # str | 
 
     try:
         # List all keys for inherited namespaces
-        api_response = kestra_client.kvapi.list_keys_with_inheritence(namespace, tenant)
-        print("The response of KVApi->list_keys_with_inheritence:\n")
+        api_response = kestra_client.kv.list_keys_with_inheritence(namespace, tenant)
+        print("The response of kv->list_keys_with_inheritence:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling KVApi->list_keys_with_inheritence: %s\n" % e)
+        print("Exception when calling kv->list_keys_with_inheritence: %s\n" % e)
 ```
 
 
@@ -454,36 +349,16 @@ Puts a key-value pair in store
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.KVApi(api_client)
+with KestraClient(configuration) as kestra_client:
     namespace = 'namespace_example' # str | The namespace id
     key = 'key_example' # str | The key
     tenant = 'tenant_example' # str | 
@@ -491,9 +366,9 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Puts a key-value pair in store
-        kestra_client.kvapi.set_key_value(namespace, key, tenant, body)
+        kestra_client.kv.set_key_value(namespace, key, tenant, body)
     except Exception as e:
-        print("Exception when calling KVApi->set_key_value: %s\n" % e)
+        print("Exception when calling kv->set_key_value: %s\n" % e)
 ```
 
 
