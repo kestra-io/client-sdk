@@ -24,6 +24,9 @@ from kestrapy import (
     Backfill,
 )
 
+import pytest
+import random
+
 
 class TestTriggersApi(unittest.TestCase):
     """TriggersApi unit test stubs"""
@@ -63,12 +66,10 @@ tasks:
 triggers:
   - id: {trigger_id}
     type: io.kestra.plugin.core.trigger.Schedule
-    cron: "*/5 * * * *"
+    cron: "*/1 * * * *"
 """
 
         self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
-
-        time.sleep(1)  # ensure flow is created
 
         return flow_id, trigger_id
 
@@ -213,9 +214,14 @@ triggers:
 
         Search for triggers
         """
-        self.create_flow_with_trigger(flow_id=f"{self._testMethodName}", trigger_id=f"{self._testMethodName}_trigger")
-        time.sleep(2)
-        resp = self.kestra_client.triggers.search_triggers(page=1, size=10, tenant=self.tenant)
+        self.create_flow_with_trigger(flow_id=f"{self._testMethodName}_{random.randint(1, 100)}", trigger_id=f"{self._testMethodName}_trigger_{random.randint(1, 100)}")
+        time.sleep(1)
+        qf = QueryFilter(
+            field=QueryFilterField.TRIGGER_ID,
+            operation=QueryFilterOp.CONTAINS,
+            value={"value": self._testMethodName}
+        )
+        resp = self.kestra_client.triggers.search_triggers(page=1, size=10, tenant=self.tenant, filters=[qf])
         assert resp is not None
 
     def test_search_triggers_for_flow(self) -> None:
