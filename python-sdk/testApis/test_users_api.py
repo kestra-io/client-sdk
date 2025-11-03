@@ -30,7 +30,7 @@ class TestUsersApi(unittest.TestCase):
 
     def setUp(self) -> None:
         configuration = Configuration()
-        configuration.host = "http://localhost:8080"
+        configuration.host = "http://localhost:9902"
         configuration.username = "root@root.com"
         configuration.password = "Root!1234"
 
@@ -322,7 +322,7 @@ class TestUsersApi(unittest.TestCase):
 
         # create a client authenticated as the test user
         user_conf = Configuration()
-        user_conf.host = "http://localhost:8080"
+        user_conf.host = "http://localhost:9902"
         user_conf.username = email
         user_conf.password = initial_password
         user_client = KestraClient(user_conf)
