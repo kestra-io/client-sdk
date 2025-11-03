@@ -10,10 +10,10 @@ import java.nio.file.Paths;
 
 public class CommonTestSetup {
 
-//    public static final String HOST = "http://localhost:9901";
-//    public static String MAIN_TENANT = "main";
+    public static final String HOST = "http://localhost:9901";
     public static String MAIN_TENANT = "main";
-    public static final String HOST = "http://localhost:8080";
+//    public static String MAIN_TENANT = "main";
+//    public static final String HOST = "http://localhost:8080";
 
     public static KestraClient kestraClient() {
         return KestraClient.builder()
