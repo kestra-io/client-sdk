@@ -42,6 +42,14 @@
       }
       ```
 
+### More informations
+
+- SSE methods are injected from templates
+- Openapi spec is modified during generation through a custom TS script
+- KestraClient is manually written to gather all API clients in one client
+- ApiClient & build.gradle are fixed through the templates
+- Method with Multipart form need an annotation on Kestra side to generate properly the SDK method
+
 ## Step to use
 
 The openapi generator will generate 1 Api per controller, so we create a custom Kestra Client that need to be instantiated once for every API.
