@@ -1946,6 +1946,586 @@ class FlowsApi:
 
 
     @validate_call
+    def flow(
+        self,
+        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        id: Annotated[StrictStr, Field(description="The flow id")],
+        source: Annotated[StrictBool, Field(description="Include the source code")],
+        allow_deleted: Annotated[StrictBool, Field(description="Get flow even if deleted")],
+        tenant: StrictStr,
+        revision: Annotated[Optional[StrictInt], Field(description="Get latest revision by default")] = None,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> FlowWithSource:
+        """Get a flow
+
+
+        :param namespace: The flow namespace (required)
+        :type namespace: str
+                :param id: The flow id (required)
+        :type id: str
+                :param source: Include the source code (required)
+        :type source: bool
+                :param allow_deleted: Get flow even if deleted (required)
+        :type allow_deleted: bool
+                :param tenant: (required)
+        :type tenant: str
+                :param revision: Get latest revision by default
+        :type revision: int
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._flow_serialize(
+            namespace=namespace,
+            id=id,
+            source=source,
+            allow_deleted=allow_deleted,
+            tenant=tenant,
+            revision=revision,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "FlowWithSource",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def flow_with_http_info(
+        self,
+        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        id: Annotated[StrictStr, Field(description="The flow id")],
+        source: Annotated[StrictBool, Field(description="Include the source code")],
+        allow_deleted: Annotated[StrictBool, Field(description="Get flow even if deleted")],
+        tenant: StrictStr,
+        revision: Annotated[Optional[StrictInt], Field(description="Get latest revision by default")] = None,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> ApiResponse[FlowWithSource]:
+        """Get a flow
+
+
+        :param namespace: The flow namespace (required)
+        :type namespace: str
+                :param id: The flow id (required)
+        :type id: str
+                :param source: Include the source code (required)
+        :type source: bool
+                :param allow_deleted: Get flow even if deleted (required)
+        :type allow_deleted: bool
+                :param tenant: (required)
+        :type tenant: str
+                :param revision: Get latest revision by default
+        :type revision: int
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._flow_serialize(
+            namespace=namespace,
+            id=id,
+            source=source,
+            allow_deleted=allow_deleted,
+            tenant=tenant,
+            revision=revision,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "FlowWithSource",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    def _flow_serialize(
+        self,
+        namespace,
+        id,
+        source,
+        allow_deleted,
+        tenant,
+        revision,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if namespace is not None:
+            _path_params['namespace'] = namespace
+        if id is not None:
+            _path_params['id'] = id
+        if tenant is not None:
+            _path_params['tenant'] = tenant
+        # process the query parameters
+        if source is not None:
+            
+            _query_params.append(('source', source))
+            
+        if revision is not None:
+            
+            _query_params.append(('revision', revision))
+            
+        if allow_deleted is not None:
+            
+            _query_params.append(('allowDeleted', allow_deleted))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/v1/{tenant}/flows/{namespace}/{id}',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats
+        )
+
+
+
+
+
+    @validate_call
+    def flow_dependencies(
+        self,
+        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        id: Annotated[StrictStr, Field(description="The flow id")],
+        destination_only: Annotated[StrictBool, Field(description="If true, list only destination dependencies, otherwise list also source dependencies")],
+        expand_all: Annotated[StrictBool, Field(description="If true, expand all dependencies recursively")],
+        tenant: StrictStr,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> FlowTopologyGraph:
+        """Get flow dependencies
+
+
+        :param namespace: The flow namespace (required)
+        :type namespace: str
+                :param id: The flow id (required)
+        :type id: str
+                :param destination_only: If true, list only destination dependencies, otherwise list also source dependencies (required)
+        :type destination_only: bool
+                :param expand_all: If true, expand all dependencies recursively (required)
+        :type expand_all: bool
+                :param tenant: (required)
+        :type tenant: str
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._flow_dependencies_serialize(
+            namespace=namespace,
+            id=id,
+            destination_only=destination_only,
+            expand_all=expand_all,
+            tenant=tenant,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "FlowTopologyGraph",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def flow_dependencies_with_http_info(
+        self,
+        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        id: Annotated[StrictStr, Field(description="The flow id")],
+        destination_only: Annotated[StrictBool, Field(description="If true, list only destination dependencies, otherwise list also source dependencies")],
+        expand_all: Annotated[StrictBool, Field(description="If true, expand all dependencies recursively")],
+        tenant: StrictStr,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> ApiResponse[FlowTopologyGraph]:
+        """Get flow dependencies
+
+
+        :param namespace: The flow namespace (required)
+        :type namespace: str
+                :param id: The flow id (required)
+        :type id: str
+                :param destination_only: If true, list only destination dependencies, otherwise list also source dependencies (required)
+        :type destination_only: bool
+                :param expand_all: If true, expand all dependencies recursively (required)
+        :type expand_all: bool
+                :param tenant: (required)
+        :type tenant: str
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._flow_dependencies_serialize(
+            namespace=namespace,
+            id=id,
+            destination_only=destination_only,
+            expand_all=expand_all,
+            tenant=tenant,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "FlowTopologyGraph",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    def _flow_dependencies_serialize(
+        self,
+        namespace,
+        id,
+        destination_only,
+        expand_all,
+        tenant,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if namespace is not None:
+            _path_params['namespace'] = namespace
+        if id is not None:
+            _path_params['id'] = id
+        if tenant is not None:
+            _path_params['tenant'] = tenant
+        # process the query parameters
+        if destination_only is not None:
+            
+            _query_params.append(('destinationOnly', destination_only))
+            
+        if expand_all is not None:
+            
+            _query_params.append(('expandAll', expand_all))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/v1/{tenant}/flows/{namespace}/{id}/dependencies',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats
+        )
+
+
+
+
+
+    @validate_call
+    def flow_dependencies_from_namespace(
+        self,
+        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        destination_only: Annotated[StrictBool, Field(description="if true, list only destination dependencies, otherwise list also source dependencies")],
+        tenant: StrictStr,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> FlowTopologyGraph:
+        """Retrieve flow dependencies
+
+
+        :param namespace: The flow namespace (required)
+        :type namespace: str
+                :param destination_only: if true, list only destination dependencies, otherwise list also source dependencies (required)
+        :type destination_only: bool
+                :param tenant: (required)
+        :type tenant: str
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._flow_dependencies_from_namespace_serialize(
+            namespace=namespace,
+            destination_only=destination_only,
+            tenant=tenant,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "FlowTopologyGraph",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def flow_dependencies_from_namespace_with_http_info(
+        self,
+        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        destination_only: Annotated[StrictBool, Field(description="if true, list only destination dependencies, otherwise list also source dependencies")],
+        tenant: StrictStr,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> ApiResponse[FlowTopologyGraph]:
+        """Retrieve flow dependencies
+
+
+        :param namespace: The flow namespace (required)
+        :type namespace: str
+                :param destination_only: if true, list only destination dependencies, otherwise list also source dependencies (required)
+        :type destination_only: bool
+                :param tenant: (required)
+        :type tenant: str
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._flow_dependencies_from_namespace_serialize(
+            namespace=namespace,
+            destination_only=destination_only,
+            tenant=tenant,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "FlowTopologyGraph",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    def _flow_dependencies_from_namespace_serialize(
+        self,
+        namespace,
+        destination_only,
+        tenant,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if namespace is not None:
+            _path_params['namespace'] = namespace
+        if tenant is not None:
+            _path_params['tenant'] = tenant
+        # process the query parameters
+        if destination_only is not None:
+            
+            _query_params.append(('destinationOnly', destination_only))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/v1/{tenant}/namespaces/{namespace}/dependencies',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats
+        )
+
+
+
+
+
+    @validate_call
     def generate_flow_graph(
         self,
         namespace: Annotated[StrictStr, Field(description="The flow namespace")],
@@ -2314,781 +2894,6 @@ class FlowsApi:
         return self.api_client.param_serialize(
             method='POST',
             resource_path='/api/v1/{tenant}/flows/graph',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats
-        )
-
-
-
-
-
-    @validate_call
-    def get_flow(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        id: Annotated[StrictStr, Field(description="The flow id")],
-        source: Annotated[StrictBool, Field(description="Include the source code")],
-        allow_deleted: Annotated[StrictBool, Field(description="Get flow even if deleted")],
-        tenant: StrictStr,
-        revision: Annotated[Optional[StrictInt], Field(description="Get latest revision by default")] = None,
-        _request_timeout: Union[
-        None,
-        Annotated[StrictFloat, Field(gt=0)],
-        Tuple[
-        Annotated[StrictFloat, Field(gt=0)],
-        Annotated[StrictFloat, Field(gt=0)]
-        ]
-        ] = None
-    ) -> object:
-        """Get a flow
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-                :param id: The flow id (required)
-        :type id: str
-                :param source: Include the source code (required)
-        :type source: bool
-                :param allow_deleted: Get flow even if deleted (required)
-        :type allow_deleted: bool
-                :param tenant: (required)
-        :type tenant: str
-                :param revision: Get latest revision by default
-        :type revision: int
-        ,
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        """ # noqa: E501
-
-        _param = self._get_flow_serialize(
-            namespace=namespace,
-            id=id,
-            source=source,
-            allow_deleted=allow_deleted,
-            tenant=tenant,
-            revision=revision,
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def get_flow_with_http_info(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        id: Annotated[StrictStr, Field(description="The flow id")],
-        source: Annotated[StrictBool, Field(description="Include the source code")],
-        allow_deleted: Annotated[StrictBool, Field(description="Get flow even if deleted")],
-        tenant: StrictStr,
-        revision: Annotated[Optional[StrictInt], Field(description="Get latest revision by default")] = None,
-        _request_timeout: Union[
-        None,
-        Annotated[StrictFloat, Field(gt=0)],
-        Tuple[
-        Annotated[StrictFloat, Field(gt=0)],
-        Annotated[StrictFloat, Field(gt=0)]
-        ]
-        ] = None
-    ) -> ApiResponse[object]:
-        """Get a flow
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-                :param id: The flow id (required)
-        :type id: str
-                :param source: Include the source code (required)
-        :type source: bool
-                :param allow_deleted: Get flow even if deleted (required)
-        :type allow_deleted: bool
-                :param tenant: (required)
-        :type tenant: str
-                :param revision: Get latest revision by default
-        :type revision: int
-        ,
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        """ # noqa: E501
-
-        _param = self._get_flow_serialize(
-            namespace=namespace,
-            id=id,
-            source=source,
-            allow_deleted=allow_deleted,
-            tenant=tenant,
-            revision=revision,
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    def _get_flow_serialize(
-        self,
-        namespace,
-        id,
-        source,
-        allow_deleted,
-        tenant,
-        revision,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if namespace is not None:
-            _path_params['namespace'] = namespace
-        if id is not None:
-            _path_params['id'] = id
-        if tenant is not None:
-            _path_params['tenant'] = tenant
-        # process the query parameters
-        if source is not None:
-            
-            _query_params.append(('source', source))
-            
-        if revision is not None:
-            
-            _query_params.append(('revision', revision))
-            
-        if allow_deleted is not None:
-            
-            _query_params.append(('allowDeleted', allow_deleted))
-            
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'basicAuth', 
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/api/v1/{tenant}/flows/{namespace}/{id}',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats
-        )
-
-
-
-
-
-    @validate_call
-    def get_flow_dependencies(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        id: Annotated[StrictStr, Field(description="The flow id")],
-        destination_only: Annotated[StrictBool, Field(description="If true, list only destination dependencies, otherwise list also source dependencies")],
-        expand_all: Annotated[StrictBool, Field(description="If true, expand all dependencies recursively")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-        None,
-        Annotated[StrictFloat, Field(gt=0)],
-        Tuple[
-        Annotated[StrictFloat, Field(gt=0)],
-        Annotated[StrictFloat, Field(gt=0)]
-        ]
-        ] = None
-    ) -> FlowTopologyGraph:
-        """Get flow dependencies
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-                :param id: The flow id (required)
-        :type id: str
-                :param destination_only: If true, list only destination dependencies, otherwise list also source dependencies (required)
-        :type destination_only: bool
-                :param expand_all: If true, expand all dependencies recursively (required)
-        :type expand_all: bool
-                :param tenant: (required)
-        :type tenant: str
-        ,
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        """ # noqa: E501
-
-        _param = self._get_flow_dependencies_serialize(
-            namespace=namespace,
-            id=id,
-            destination_only=destination_only,
-            expand_all=expand_all,
-            tenant=tenant,
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "FlowTopologyGraph",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def get_flow_dependencies_with_http_info(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        id: Annotated[StrictStr, Field(description="The flow id")],
-        destination_only: Annotated[StrictBool, Field(description="If true, list only destination dependencies, otherwise list also source dependencies")],
-        expand_all: Annotated[StrictBool, Field(description="If true, expand all dependencies recursively")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-        None,
-        Annotated[StrictFloat, Field(gt=0)],
-        Tuple[
-        Annotated[StrictFloat, Field(gt=0)],
-        Annotated[StrictFloat, Field(gt=0)]
-        ]
-        ] = None
-    ) -> ApiResponse[FlowTopologyGraph]:
-        """Get flow dependencies
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-                :param id: The flow id (required)
-        :type id: str
-                :param destination_only: If true, list only destination dependencies, otherwise list also source dependencies (required)
-        :type destination_only: bool
-                :param expand_all: If true, expand all dependencies recursively (required)
-        :type expand_all: bool
-                :param tenant: (required)
-        :type tenant: str
-        ,
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        """ # noqa: E501
-
-        _param = self._get_flow_dependencies_serialize(
-            namespace=namespace,
-            id=id,
-            destination_only=destination_only,
-            expand_all=expand_all,
-            tenant=tenant,
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "FlowTopologyGraph",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    def _get_flow_dependencies_serialize(
-        self,
-        namespace,
-        id,
-        destination_only,
-        expand_all,
-        tenant,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if namespace is not None:
-            _path_params['namespace'] = namespace
-        if id is not None:
-            _path_params['id'] = id
-        if tenant is not None:
-            _path_params['tenant'] = tenant
-        # process the query parameters
-        if destination_only is not None:
-            
-            _query_params.append(('destinationOnly', destination_only))
-            
-        if expand_all is not None:
-            
-            _query_params.append(('expandAll', expand_all))
-            
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'basicAuth', 
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/api/v1/{tenant}/flows/{namespace}/{id}/dependencies',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats
-        )
-
-
-
-
-
-    @validate_call
-    def get_flow_dependencies_from_namespace(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        destination_only: Annotated[StrictBool, Field(description="if true, list only destination dependencies, otherwise list also source dependencies")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-        None,
-        Annotated[StrictFloat, Field(gt=0)],
-        Tuple[
-        Annotated[StrictFloat, Field(gt=0)],
-        Annotated[StrictFloat, Field(gt=0)]
-        ]
-        ] = None
-    ) -> FlowTopologyGraph:
-        """Retrieve flow dependencies
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-                :param destination_only: if true, list only destination dependencies, otherwise list also source dependencies (required)
-        :type destination_only: bool
-                :param tenant: (required)
-        :type tenant: str
-        ,
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        """ # noqa: E501
-
-        _param = self._get_flow_dependencies_from_namespace_serialize(
-            namespace=namespace,
-            destination_only=destination_only,
-            tenant=tenant,
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "FlowTopologyGraph",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def get_flow_dependencies_from_namespace_with_http_info(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        destination_only: Annotated[StrictBool, Field(description="if true, list only destination dependencies, otherwise list also source dependencies")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-        None,
-        Annotated[StrictFloat, Field(gt=0)],
-        Tuple[
-        Annotated[StrictFloat, Field(gt=0)],
-        Annotated[StrictFloat, Field(gt=0)]
-        ]
-        ] = None
-    ) -> ApiResponse[FlowTopologyGraph]:
-        """Retrieve flow dependencies
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-                :param destination_only: if true, list only destination dependencies, otherwise list also source dependencies (required)
-        :type destination_only: bool
-                :param tenant: (required)
-        :type tenant: str
-        ,
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        """ # noqa: E501
-
-        _param = self._get_flow_dependencies_from_namespace_serialize(
-            namespace=namespace,
-            destination_only=destination_only,
-            tenant=tenant,
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "FlowTopologyGraph",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    def _get_flow_dependencies_from_namespace_serialize(
-        self,
-        namespace,
-        destination_only,
-        tenant,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if namespace is not None:
-            _path_params['namespace'] = namespace
-        if tenant is not None:
-            _path_params['tenant'] = tenant
-        # process the query parameters
-        if destination_only is not None:
-            
-            _query_params.append(('destinationOnly', destination_only))
-            
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'basicAuth', 
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/api/v1/{tenant}/namespaces/{namespace}/dependencies',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats
-        )
-
-
-
-
-
-    @validate_call
-    def get_task_from_flow(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        id: Annotated[StrictStr, Field(description="The flow id")],
-        task_id: Annotated[StrictStr, Field(description="The task id")],
-        tenant: StrictStr,
-        revision: Annotated[Optional[StrictInt], Field(description="The flow revision")] = None,
-        _request_timeout: Union[
-        None,
-        Annotated[StrictFloat, Field(gt=0)],
-        Tuple[
-        Annotated[StrictFloat, Field(gt=0)],
-        Annotated[StrictFloat, Field(gt=0)]
-        ]
-        ] = None
-    ) -> Task:
-        """Get a flow task
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-                :param id: The flow id (required)
-        :type id: str
-                :param task_id: The task id (required)
-        :type task_id: str
-                :param tenant: (required)
-        :type tenant: str
-                :param revision: The flow revision
-        :type revision: int
-        ,
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        """ # noqa: E501
-
-        _param = self._get_task_from_flow_serialize(
-            namespace=namespace,
-            id=id,
-            task_id=task_id,
-            tenant=tenant,
-            revision=revision,
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Task",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def get_task_from_flow_with_http_info(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
-        id: Annotated[StrictStr, Field(description="The flow id")],
-        task_id: Annotated[StrictStr, Field(description="The task id")],
-        tenant: StrictStr,
-        revision: Annotated[Optional[StrictInt], Field(description="The flow revision")] = None,
-        _request_timeout: Union[
-        None,
-        Annotated[StrictFloat, Field(gt=0)],
-        Tuple[
-        Annotated[StrictFloat, Field(gt=0)],
-        Annotated[StrictFloat, Field(gt=0)]
-        ]
-        ] = None
-    ) -> ApiResponse[Task]:
-        """Get a flow task
-
-
-        :param namespace: The flow namespace (required)
-        :type namespace: str
-                :param id: The flow id (required)
-        :type id: str
-                :param task_id: The task id (required)
-        :type task_id: str
-                :param tenant: (required)
-        :type tenant: str
-                :param revision: The flow revision
-        :type revision: int
-        ,
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        """ # noqa: E501
-
-        _param = self._get_task_from_flow_serialize(
-            namespace=namespace,
-            id=id,
-            task_id=task_id,
-            tenant=tenant,
-            revision=revision,
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Task",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    def _get_task_from_flow_serialize(
-        self,
-        namespace,
-        id,
-        task_id,
-        tenant,
-        revision,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if namespace is not None:
-            _path_params['namespace'] = namespace
-        if id is not None:
-            _path_params['id'] = id
-        if task_id is not None:
-            _path_params['taskId'] = task_id
-        if tenant is not None:
-            _path_params['tenant'] = tenant
-        # process the query parameters
-        if revision is not None:
-            
-            _query_params.append(('revision', revision))
-            
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'basicAuth', 
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId}',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -4171,6 +3976,201 @@ class FlowsApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/api/v1/{tenant}/flows/source',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats
+        )
+
+
+
+
+
+    @validate_call
+    def task_from_flow(
+        self,
+        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        id: Annotated[StrictStr, Field(description="The flow id")],
+        task_id: Annotated[StrictStr, Field(description="The task id")],
+        tenant: StrictStr,
+        revision: Annotated[Optional[StrictInt], Field(description="The flow revision")] = None,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> Task:
+        """Get a flow task
+
+
+        :param namespace: The flow namespace (required)
+        :type namespace: str
+                :param id: The flow id (required)
+        :type id: str
+                :param task_id: The task id (required)
+        :type task_id: str
+                :param tenant: (required)
+        :type tenant: str
+                :param revision: The flow revision
+        :type revision: int
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._task_from_flow_serialize(
+            namespace=namespace,
+            id=id,
+            task_id=task_id,
+            tenant=tenant,
+            revision=revision,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Task",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def task_from_flow_with_http_info(
+        self,
+        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        id: Annotated[StrictStr, Field(description="The flow id")],
+        task_id: Annotated[StrictStr, Field(description="The task id")],
+        tenant: StrictStr,
+        revision: Annotated[Optional[StrictInt], Field(description="The flow revision")] = None,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> ApiResponse[Task]:
+        """Get a flow task
+
+
+        :param namespace: The flow namespace (required)
+        :type namespace: str
+                :param id: The flow id (required)
+        :type id: str
+                :param task_id: The task id (required)
+        :type task_id: str
+                :param tenant: (required)
+        :type tenant: str
+                :param revision: The flow revision
+        :type revision: int
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._task_from_flow_serialize(
+            namespace=namespace,
+            id=id,
+            task_id=task_id,
+            tenant=tenant,
+            revision=revision,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Task",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    def _task_from_flow_serialize(
+        self,
+        namespace,
+        id,
+        task_id,
+        tenant,
+        revision,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if namespace is not None:
+            _path_params['namespace'] = namespace
+        if id is not None:
+            _path_params['id'] = id
+        if task_id is not None:
+            _path_params['taskId'] = task_id
+        if tenant is not None:
+            _path_params['tenant'] = tenant
+        # process the query parameters
+        if revision is not None:
+            
+            _query_params.append(('revision', revision))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId}',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

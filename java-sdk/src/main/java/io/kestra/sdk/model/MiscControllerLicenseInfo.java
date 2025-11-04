@@ -36,30 +36,30 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MiscControllerLicenseInfo.JSON_PROPERTY_WORKER_GROUPS
 })
 @JsonTypeName("MiscController.LicenseInfo")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class MiscControllerLicenseInfo {
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nullable  private String type;
+  @jakarta.annotation.Nullable  private String type;
 
   public static final String JSON_PROPERTY_EXPIRY = "expiry";
-  @javax.annotation.Nullable  private OffsetDateTime expiry;
+  @jakarta.annotation.Nullable  private OffsetDateTime expiry;
 
   public static final String JSON_PROPERTY_EXPIRED = "expired";
-  @javax.annotation.Nullable  private Boolean expired;
+  @jakarta.annotation.Nullable  private Boolean expired;
 
   public static final String JSON_PROPERTY_MAX_SERVERS = "maxServers";
-  @javax.annotation.Nullable  private Integer maxServers;
+  @jakarta.annotation.Nullable  private Integer maxServers;
 
   public static final String JSON_PROPERTY_STANDALONE = "standalone";
-  @javax.annotation.Nullable  private Boolean standalone;
+  @jakarta.annotation.Nullable  private Boolean standalone;
 
   public static final String JSON_PROPERTY_WORKER_GROUPS = "workerGroups";
-  @javax.annotation.Nullable  private Boolean workerGroups;
+  @jakarta.annotation.Nullable  private Boolean workerGroups;
 
   public MiscControllerLicenseInfo() {
   }
 
-  public MiscControllerLicenseInfo type(@javax.annotation.Nullable String type) {
+  public MiscControllerLicenseInfo type(@jakarta.annotation.Nullable String type) {
     
     this.type = type;
     return this;
@@ -69,7 +69,7 @@ public class MiscControllerLicenseInfo {
    * Get type
    * @return type
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getType() {
@@ -79,11 +79,11 @@ public class MiscControllerLicenseInfo {
 
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setType(@javax.annotation.Nullable String type) {
+  public void setType(@jakarta.annotation.Nullable String type) {
     this.type = type;
   }
 
-  public MiscControllerLicenseInfo expiry(@javax.annotation.Nullable OffsetDateTime expiry) {
+  public MiscControllerLicenseInfo expiry(@jakarta.annotation.Nullable OffsetDateTime expiry) {
     
     this.expiry = expiry;
     return this;
@@ -93,7 +93,7 @@ public class MiscControllerLicenseInfo {
    * Get expiry
    * @return expiry
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXPIRY)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXPIRY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getExpiry() {
@@ -103,11 +103,11 @@ public class MiscControllerLicenseInfo {
 
   @JsonProperty(JSON_PROPERTY_EXPIRY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExpiry(@javax.annotation.Nullable OffsetDateTime expiry) {
+  public void setExpiry(@jakarta.annotation.Nullable OffsetDateTime expiry) {
     this.expiry = expiry;
   }
 
-  public MiscControllerLicenseInfo expired(@javax.annotation.Nullable Boolean expired) {
+  public MiscControllerLicenseInfo expired(@jakarta.annotation.Nullable Boolean expired) {
     
     this.expired = expired;
     return this;
@@ -117,7 +117,7 @@ public class MiscControllerLicenseInfo {
    * Get expired
    * @return expired
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXPIRED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXPIRED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getExpired() {
@@ -127,11 +127,11 @@ public class MiscControllerLicenseInfo {
 
   @JsonProperty(JSON_PROPERTY_EXPIRED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExpired(@javax.annotation.Nullable Boolean expired) {
+  public void setExpired(@jakarta.annotation.Nullable Boolean expired) {
     this.expired = expired;
   }
 
-  public MiscControllerLicenseInfo maxServers(@javax.annotation.Nullable Integer maxServers) {
+  public MiscControllerLicenseInfo maxServers(@jakarta.annotation.Nullable Integer maxServers) {
     
     this.maxServers = maxServers;
     return this;
@@ -141,7 +141,7 @@ public class MiscControllerLicenseInfo {
    * Get maxServers
    * @return maxServers
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MAX_SERVERS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MAX_SERVERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getMaxServers() {
@@ -151,11 +151,11 @@ public class MiscControllerLicenseInfo {
 
   @JsonProperty(JSON_PROPERTY_MAX_SERVERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMaxServers(@javax.annotation.Nullable Integer maxServers) {
+  public void setMaxServers(@jakarta.annotation.Nullable Integer maxServers) {
     this.maxServers = maxServers;
   }
 
-  public MiscControllerLicenseInfo standalone(@javax.annotation.Nullable Boolean standalone) {
+  public MiscControllerLicenseInfo standalone(@jakarta.annotation.Nullable Boolean standalone) {
     
     this.standalone = standalone;
     return this;
@@ -165,7 +165,7 @@ public class MiscControllerLicenseInfo {
    * Get standalone
    * @return standalone
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STANDALONE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STANDALONE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getStandalone() {
@@ -175,11 +175,11 @@ public class MiscControllerLicenseInfo {
 
   @JsonProperty(JSON_PROPERTY_STANDALONE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStandalone(@javax.annotation.Nullable Boolean standalone) {
+  public void setStandalone(@jakarta.annotation.Nullable Boolean standalone) {
     this.standalone = standalone;
   }
 
-  public MiscControllerLicenseInfo workerGroups(@javax.annotation.Nullable Boolean workerGroups) {
+  public MiscControllerLicenseInfo workerGroups(@jakarta.annotation.Nullable Boolean workerGroups) {
     
     this.workerGroups = workerGroups;
     return this;
@@ -189,7 +189,7 @@ public class MiscControllerLicenseInfo {
    * Get workerGroups
    * @return workerGroups
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_GROUPS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_GROUPS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getWorkerGroups() {
@@ -199,7 +199,7 @@ public class MiscControllerLicenseInfo {
 
   @JsonProperty(JSON_PROPERTY_WORKER_GROUPS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWorkerGroups(@javax.annotation.Nullable Boolean workerGroups) {
+  public void setWorkerGroups(@jakarta.annotation.Nullable Boolean workerGroups) {
     this.workerGroups = workerGroups;
   }
 

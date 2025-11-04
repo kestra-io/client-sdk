@@ -30,18 +30,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Label.JSON_PROPERTY_KEY,
   Label.JSON_PROPERTY_VALUE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Label {
   public static final String JSON_PROPERTY_KEY = "key";
-  @javax.annotation.Nonnull  private String key;
+  @jakarta.annotation.Nonnull  private String key;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nonnull  private String value;
+  @jakarta.annotation.Nonnull  private String value;
 
   public Label() {
   }
 
-  public Label key(@javax.annotation.Nonnull String key) {
+  public Label key(@jakarta.annotation.Nonnull String key) {
     
     this.key = key;
     return this;
@@ -51,7 +51,7 @@ public class Label {
    * Get key
    * @return key
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_KEY)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_KEY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getKey() {
@@ -61,11 +61,11 @@ public class Label {
 
   @JsonProperty(JSON_PROPERTY_KEY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setKey(@javax.annotation.Nonnull String key) {
+  public void setKey(@jakarta.annotation.Nonnull String key) {
     this.key = key;
   }
 
-  public Label value(@javax.annotation.Nonnull String value) {
+  public Label value(@jakarta.annotation.Nonnull String value) {
     
     this.value = value;
     return this;
@@ -75,7 +75,7 @@ public class Label {
    * Get value
    * @return value
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_VALUE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getValue() {
@@ -85,7 +85,7 @@ public class Label {
 
   @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setValue(@javax.annotation.Nonnull String value) {
+  public void setValue(@jakarta.annotation.Nonnull String value) {
     this.value = value;
   }
 

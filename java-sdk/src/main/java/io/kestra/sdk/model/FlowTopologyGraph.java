@@ -35,18 +35,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowTopologyGraph.JSON_PROPERTY_NODES,
   FlowTopologyGraph.JSON_PROPERTY_EDGES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class FlowTopologyGraph {
   public static final String JSON_PROPERTY_NODES = "nodes";
-  @javax.annotation.Nullable  private List<FlowNode> nodes = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<FlowNode> nodes = new ArrayList<>();
 
   public static final String JSON_PROPERTY_EDGES = "edges";
-  @javax.annotation.Nullable  private List<FlowTopologyGraphEdge> edges = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<FlowTopologyGraphEdge> edges = new ArrayList<>();
 
   public FlowTopologyGraph() {
   }
 
-  public FlowTopologyGraph nodes(@javax.annotation.Nullable List<FlowNode> nodes) {
+  public FlowTopologyGraph nodes(@jakarta.annotation.Nullable List<FlowNode> nodes) {
     
     this.nodes = nodes;
     return this;
@@ -64,7 +64,7 @@ public class FlowTopologyGraph {
    * Get nodes
    * @return nodes
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NODES)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NODES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<FlowNode> getNodes() {
@@ -74,11 +74,11 @@ public class FlowTopologyGraph {
 
   @JsonProperty(JSON_PROPERTY_NODES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setNodes(@javax.annotation.Nullable List<FlowNode> nodes) {
+  public void setNodes(@jakarta.annotation.Nullable List<FlowNode> nodes) {
     this.nodes = nodes;
   }
 
-  public FlowTopologyGraph edges(@javax.annotation.Nullable List<FlowTopologyGraphEdge> edges) {
+  public FlowTopologyGraph edges(@jakarta.annotation.Nullable List<FlowTopologyGraphEdge> edges) {
     
     this.edges = edges;
     return this;
@@ -96,7 +96,7 @@ public class FlowTopologyGraph {
    * Get edges
    * @return edges
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EDGES)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EDGES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<FlowTopologyGraphEdge> getEdges() {
@@ -106,7 +106,7 @@ public class FlowTopologyGraph {
 
   @JsonProperty(JSON_PROPERTY_EDGES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEdges(@javax.annotation.Nullable List<FlowTopologyGraphEdge> edges) {
+  public void setEdges(@jakarta.annotation.Nullable List<FlowTopologyGraphEdge> edges) {
     this.edges = edges;
   }
 

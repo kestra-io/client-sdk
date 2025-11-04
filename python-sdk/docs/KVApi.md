@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**delete_key_value**](kv.md#delete_key_value) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Delete a key-value pair
 [**delete_key_values**](kv.md#delete_key_values) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/kv | Bulk-delete multiple key/value pairs from the given namespace.
-[**get_key_value**](kv.md#get_key_value) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Get value for a key
+[**key_value**](kv.md#key_value) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Get value for a key
 [**list_keys**](kv.md#list_keys) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv | List all keys for a namespace
 [**list_keys_with_inheritence**](kv.md#list_keys_with_inheritence) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/inheritance | List all keys for inherited namespaces
 [**set_key_value**](kv.md#set_key_value) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Puts a key-value pair in store
@@ -144,8 +144,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_key_value**
-> KVControllerTypedValue get_key_value(namespace, key, tenant)
+# **key_value**
+> KVControllerTypedValue key_value(namespace, key, tenant)
 
 Get value for a key
 
@@ -171,11 +171,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Get value for a key
-        api_response = kestra_client.kv.get_key_value(namespace, key, tenant)
-        print("The response of kv->get_key_value:\n")
+        api_response = kestra_client.kv.key_value(namespace, key, tenant)
+        print("The response of kv->key_value:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling kv->get_key_value: %s\n" % e)
+        print("Exception when calling kv->key_value: %s\n" % e)
 ```
 
 

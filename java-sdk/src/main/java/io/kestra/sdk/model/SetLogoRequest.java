@@ -31,15 +31,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   SetLogoRequest.JSON_PROPERTY_LOGO
 })
 @JsonTypeName("setLogo_request")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class SetLogoRequest {
   public static final String JSON_PROPERTY_LOGO = "logo";
-  @javax.annotation.Nullable  private File logo;
+  @jakarta.annotation.Nullable  private File logo;
 
   public SetLogoRequest() {
   }
 
-  public SetLogoRequest logo(@javax.annotation.Nullable File logo) {
+  public SetLogoRequest logo(@jakarta.annotation.Nullable File logo) {
     
     this.logo = logo;
     return this;
@@ -49,7 +49,7 @@ public class SetLogoRequest {
    * The logo file
    * @return logo
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LOGO)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LOGO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public File getLogo() {
@@ -59,7 +59,7 @@ public class SetLogoRequest {
 
   @JsonProperty(JSON_PROPERTY_LOGO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLogo(@javax.annotation.Nullable File logo) {
+  public void setLogo(@jakarta.annotation.Nullable File logo) {
     this.logo = logo;
   }
 

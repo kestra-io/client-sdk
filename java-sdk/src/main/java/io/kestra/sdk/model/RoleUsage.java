@@ -29,15 +29,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   RoleUsage.JSON_PROPERTY_COUNT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class RoleUsage {
   public static final String JSON_PROPERTY_COUNT = "count";
-  @javax.annotation.Nullable  private Long count;
+  @jakarta.annotation.Nullable  private Long count;
 
   public RoleUsage() {
   }
 
-  public RoleUsage count(@javax.annotation.Nullable Long count) {
+  public RoleUsage count(@jakarta.annotation.Nullable Long count) {
     
     this.count = count;
     return this;
@@ -47,7 +47,7 @@ public class RoleUsage {
    * Get count
    * @return count
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_COUNT)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getCount() {
@@ -57,7 +57,7 @@ public class RoleUsage {
 
   @JsonProperty(JSON_PROPERTY_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCount(@javax.annotation.Nullable Long count) {
+  public void setCount(@jakarta.annotation.Nullable Long count) {
     this.count = count;
   }
 

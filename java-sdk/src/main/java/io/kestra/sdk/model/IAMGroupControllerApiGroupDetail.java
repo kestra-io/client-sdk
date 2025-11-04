@@ -32,21 +32,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMGroupControllerApiGroupDetail.JSON_PROPERTY_DESCRIPTION
 })
 @JsonTypeName("IAMGroupController.ApiGroupDetail")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMGroupControllerApiGroupDetail {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable  private String id;
+  @jakarta.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nullable  private String name;
+  @jakarta.annotation.Nullable  private String name;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable  private String description;
+  @jakarta.annotation.Nullable  private String description;
 
   public IAMGroupControllerApiGroupDetail() {
   }
 
-  public IAMGroupControllerApiGroupDetail id(@javax.annotation.Nullable String id) {
+  public IAMGroupControllerApiGroupDetail id(@jakarta.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -56,7 +56,7 @@ public class IAMGroupControllerApiGroupDetail {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -66,11 +66,11 @@ public class IAMGroupControllerApiGroupDetail {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  public void setId(@jakarta.annotation.Nullable String id) {
     this.id = id;
   }
 
-  public IAMGroupControllerApiGroupDetail name(@javax.annotation.Nullable String name) {
+  public IAMGroupControllerApiGroupDetail name(@jakarta.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -80,7 +80,7 @@ public class IAMGroupControllerApiGroupDetail {
    * Get name
    * @return name
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
@@ -90,11 +90,11 @@ public class IAMGroupControllerApiGroupDetail {
 
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(@javax.annotation.Nullable String name) {
+  public void setName(@jakarta.annotation.Nullable String name) {
     this.name = name;
   }
 
-  public IAMGroupControllerApiGroupDetail description(@javax.annotation.Nullable String description) {
+  public IAMGroupControllerApiGroupDetail description(@jakarta.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -104,7 +104,7 @@ public class IAMGroupControllerApiGroupDetail {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -114,7 +114,7 @@ public class IAMGroupControllerApiGroupDetail {
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(@javax.annotation.Nullable String description) {
+  public void setDescription(@jakarta.annotation.Nullable String description) {
     this.description = description;
   }
 

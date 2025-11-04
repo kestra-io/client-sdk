@@ -32,21 +32,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MetricAggregation.JSON_PROPERTY_VALUE,
   MetricAggregation.JSON_PROPERTY_DATE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class MetricAggregation {
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nonnull  private String name;
+  @jakarta.annotation.Nonnull  private String name;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nullable  private Double value;
+  @jakarta.annotation.Nullable  private Double value;
 
   public static final String JSON_PROPERTY_DATE = "date";
-  @javax.annotation.Nonnull  private OffsetDateTime date;
+  @jakarta.annotation.Nonnull  private OffsetDateTime date;
 
   public MetricAggregation() {
   }
 
-  public MetricAggregation name(@javax.annotation.Nonnull String name) {
+  public MetricAggregation name(@jakarta.annotation.Nonnull String name) {
     
     this.name = name;
     return this;
@@ -56,7 +56,7 @@ public class MetricAggregation {
    * Get name
    * @return name
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAME)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getName() {
@@ -66,11 +66,11 @@ public class MetricAggregation {
 
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setName(@javax.annotation.Nonnull String name) {
+  public void setName(@jakarta.annotation.Nonnull String name) {
     this.name = name;
   }
 
-  public MetricAggregation value(@javax.annotation.Nullable Double value) {
+  public MetricAggregation value(@jakarta.annotation.Nullable Double value) {
     
     this.value = value;
     return this;
@@ -80,7 +80,7 @@ public class MetricAggregation {
    * Get value
    * @return value
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Double getValue() {
@@ -90,11 +90,11 @@ public class MetricAggregation {
 
   @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setValue(@javax.annotation.Nullable Double value) {
+  public void setValue(@jakarta.annotation.Nullable Double value) {
     this.value = value;
   }
 
-  public MetricAggregation date(@javax.annotation.Nonnull OffsetDateTime date) {
+  public MetricAggregation date(@jakarta.annotation.Nonnull OffsetDateTime date) {
     
     this.date = date;
     return this;
@@ -104,7 +104,7 @@ public class MetricAggregation {
    * Get date
    * @return date
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DATE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public OffsetDateTime getDate() {
@@ -114,7 +114,7 @@ public class MetricAggregation {
 
   @JsonProperty(JSON_PROPERTY_DATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDate(@javax.annotation.Nonnull OffsetDateTime date) {
+  public void setDate(@jakarta.annotation.Nonnull OffsetDateTime date) {
     this.date = date;
   }
 

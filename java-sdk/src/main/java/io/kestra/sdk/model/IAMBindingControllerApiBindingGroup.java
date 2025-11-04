@@ -31,18 +31,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMBindingControllerApiBindingGroup.JSON_PROPERTY_NAME
 })
 @JsonTypeName("IAMBindingController.ApiBindingGroup")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMBindingControllerApiBindingGroup {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable  private String id;
+  @jakarta.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nullable  private String name;
+  @jakarta.annotation.Nullable  private String name;
 
   public IAMBindingControllerApiBindingGroup() {
   }
 
-  public IAMBindingControllerApiBindingGroup id(@javax.annotation.Nullable String id) {
+  public IAMBindingControllerApiBindingGroup id(@jakarta.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -52,7 +52,7 @@ public class IAMBindingControllerApiBindingGroup {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -62,11 +62,11 @@ public class IAMBindingControllerApiBindingGroup {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  public void setId(@jakarta.annotation.Nullable String id) {
     this.id = id;
   }
 
-  public IAMBindingControllerApiBindingGroup name(@javax.annotation.Nullable String name) {
+  public IAMBindingControllerApiBindingGroup name(@jakarta.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -76,7 +76,7 @@ public class IAMBindingControllerApiBindingGroup {
    * Get name
    * @return name
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
@@ -86,7 +86,7 @@ public class IAMBindingControllerApiBindingGroup {
 
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(@javax.annotation.Nullable String name) {
+  public void setName(@jakarta.annotation.Nullable String name) {
     this.name = name;
   }
 

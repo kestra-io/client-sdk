@@ -178,5 +178,34 @@ export function sanitizeOpenAPI(spec: any, opts: { removeDeprecatedOperations?: 
         }
     }
 
+    // 4) Remove get from method name, temporary while its done on core side
+    normalizeGetOperationIds(spec)
+
     return counters;
+}
+
+export function normalizeGetOperationIds(spec: any): number {
+    if (!spec || typeof spec !== "object" || !spec.paths || typeof spec.paths !== "object") return 0;
+    let renamed = 0;
+    const lowerFirst = (s: string) => s.length ? s.charAt(0).toLowerCase() + s.slice(1) : s;
+
+    for (const p of Object.keys(spec.paths)) {
+        const pathItem = spec.paths[p];
+        if (!pathItem || typeof pathItem !== "object") continue;
+
+        for (const key of Object.keys(pathItem)) {
+            const op = pathItem[key];
+            if (!op || typeof op !== "object") continue;
+
+            const id = op.operationId;
+            if (typeof id === "string" && id.length > 3 && id.startsWith("get") && /^[A-Z]/.test(id.charAt(3))) {
+                const remainder = id.slice(3);
+                op.operationId = lowerFirst(remainder);
+                renamed += 1;
+                console.debug(`normalized operationId: ${id} -> ${op.operationId} (path: ${p}, key: ${key})`);
+            }
+        }
+    }
+
+    return renamed;
 }

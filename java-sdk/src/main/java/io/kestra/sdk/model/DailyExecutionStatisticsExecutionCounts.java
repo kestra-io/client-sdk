@@ -44,57 +44,57 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   DailyExecutionStatisticsExecutionCounts.JSON_PROPERTY_B_R_E_A_K_P_O_I_N_T
 })
 @JsonTypeName("DailyExecutionStatistics_executionCounts")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class DailyExecutionStatisticsExecutionCounts {
   public static final String JSON_PROPERTY_C_R_E_A_T_E_D = "CREATED";
-  @javax.annotation.Nullable  private Long CREATED;
+  @jakarta.annotation.Nullable  private Long CREATED;
 
   public static final String JSON_PROPERTY_R_U_N_N_I_N_G = "RUNNING";
-  @javax.annotation.Nullable  private Long RUNNING;
+  @jakarta.annotation.Nullable  private Long RUNNING;
 
   public static final String JSON_PROPERTY_P_A_U_S_E_D = "PAUSED";
-  @javax.annotation.Nullable  private Long PAUSED;
+  @jakarta.annotation.Nullable  private Long PAUSED;
 
   public static final String JSON_PROPERTY_R_E_S_T_A_R_T_E_D = "RESTARTED";
-  @javax.annotation.Nullable  private Long RESTARTED;
+  @jakarta.annotation.Nullable  private Long RESTARTED;
 
   public static final String JSON_PROPERTY_K_I_L_L_I_N_G = "KILLING";
-  @javax.annotation.Nullable  private Long KILLING;
+  @jakarta.annotation.Nullable  private Long KILLING;
 
   public static final String JSON_PROPERTY_S_U_C_C_E_S_S = "SUCCESS";
-  @javax.annotation.Nullable  private Long SUCCESS;
+  @jakarta.annotation.Nullable  private Long SUCCESS;
 
   public static final String JSON_PROPERTY_W_A_R_N_I_N_G = "WARNING";
-  @javax.annotation.Nullable  private Long WARNING;
+  @jakarta.annotation.Nullable  private Long WARNING;
 
   public static final String JSON_PROPERTY_F_A_I_L_E_D = "FAILED";
-  @javax.annotation.Nullable  private Long FAILED;
+  @jakarta.annotation.Nullable  private Long FAILED;
 
   public static final String JSON_PROPERTY_K_I_L_L_E_D = "KILLED";
-  @javax.annotation.Nullable  private Long KILLED;
+  @jakarta.annotation.Nullable  private Long KILLED;
 
   public static final String JSON_PROPERTY_C_A_N_C_E_L_L_E_D = "CANCELLED";
-  @javax.annotation.Nullable  private Long CANCELLED;
+  @jakarta.annotation.Nullable  private Long CANCELLED;
 
   public static final String JSON_PROPERTY_Q_U_E_U_E_D = "QUEUED";
-  @javax.annotation.Nullable  private Long QUEUED;
+  @jakarta.annotation.Nullable  private Long QUEUED;
 
   public static final String JSON_PROPERTY_R_E_T_R_Y_I_N_G = "RETRYING";
-  @javax.annotation.Nullable  private Long RETRYING;
+  @jakarta.annotation.Nullable  private Long RETRYING;
 
   public static final String JSON_PROPERTY_R_E_T_R_I_E_D = "RETRIED";
-  @javax.annotation.Nullable  private Long RETRIED;
+  @jakarta.annotation.Nullable  private Long RETRIED;
 
   public static final String JSON_PROPERTY_S_K_I_P_P_E_D = "SKIPPED";
-  @javax.annotation.Nullable  private Long SKIPPED;
+  @jakarta.annotation.Nullable  private Long SKIPPED;
 
   public static final String JSON_PROPERTY_B_R_E_A_K_P_O_I_N_T = "BREAKPOINT";
-  @javax.annotation.Nullable  private Long BREAKPOINT;
+  @jakarta.annotation.Nullable  private Long BREAKPOINT;
 
   public DailyExecutionStatisticsExecutionCounts() {
   }
 
-  public DailyExecutionStatisticsExecutionCounts CREATED(@javax.annotation.Nullable Long CREATED) {
+  public DailyExecutionStatisticsExecutionCounts CREATED(@jakarta.annotation.Nullable Long CREATED) {
     
     this.CREATED = CREATED;
     return this;
@@ -104,7 +104,7 @@ public class DailyExecutionStatisticsExecutionCounts {
    * Get CREATED
    * @return CREATED
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_C_R_E_A_T_E_D)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_C_R_E_A_T_E_D)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getCREATED() {
@@ -114,11 +114,11 @@ public class DailyExecutionStatisticsExecutionCounts {
 
   @JsonProperty(JSON_PROPERTY_C_R_E_A_T_E_D)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCREATED(@javax.annotation.Nullable Long CREATED) {
+  public void setCREATED(@jakarta.annotation.Nullable Long CREATED) {
     this.CREATED = CREATED;
   }
 
-  public DailyExecutionStatisticsExecutionCounts RUNNING(@javax.annotation.Nullable Long RUNNING) {
+  public DailyExecutionStatisticsExecutionCounts RUNNING(@jakarta.annotation.Nullable Long RUNNING) {
     
     this.RUNNING = RUNNING;
     return this;
@@ -128,7 +128,7 @@ public class DailyExecutionStatisticsExecutionCounts {
    * Get RUNNING
    * @return RUNNING
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_R_U_N_N_I_N_G)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_R_U_N_N_I_N_G)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getRUNNING() {
@@ -138,11 +138,11 @@ public class DailyExecutionStatisticsExecutionCounts {
 
   @JsonProperty(JSON_PROPERTY_R_U_N_N_I_N_G)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRUNNING(@javax.annotation.Nullable Long RUNNING) {
+  public void setRUNNING(@jakarta.annotation.Nullable Long RUNNING) {
     this.RUNNING = RUNNING;
   }
 
-  public DailyExecutionStatisticsExecutionCounts PAUSED(@javax.annotation.Nullable Long PAUSED) {
+  public DailyExecutionStatisticsExecutionCounts PAUSED(@jakarta.annotation.Nullable Long PAUSED) {
     
     this.PAUSED = PAUSED;
     return this;
@@ -152,7 +152,7 @@ public class DailyExecutionStatisticsExecutionCounts {
    * Get PAUSED
    * @return PAUSED
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_P_A_U_S_E_D)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_P_A_U_S_E_D)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getPAUSED() {
@@ -162,11 +162,11 @@ public class DailyExecutionStatisticsExecutionCounts {
 
   @JsonProperty(JSON_PROPERTY_P_A_U_S_E_D)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPAUSED(@javax.annotation.Nullable Long PAUSED) {
+  public void setPAUSED(@jakarta.annotation.Nullable Long PAUSED) {
     this.PAUSED = PAUSED;
   }
 
-  public DailyExecutionStatisticsExecutionCounts RESTARTED(@javax.annotation.Nullable Long RESTARTED) {
+  public DailyExecutionStatisticsExecutionCounts RESTARTED(@jakarta.annotation.Nullable Long RESTARTED) {
     
     this.RESTARTED = RESTARTED;
     return this;
@@ -176,7 +176,7 @@ public class DailyExecutionStatisticsExecutionCounts {
    * Get RESTARTED
    * @return RESTARTED
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_R_E_S_T_A_R_T_E_D)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_R_E_S_T_A_R_T_E_D)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getRESTARTED() {
@@ -186,11 +186,11 @@ public class DailyExecutionStatisticsExecutionCounts {
 
   @JsonProperty(JSON_PROPERTY_R_E_S_T_A_R_T_E_D)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRESTARTED(@javax.annotation.Nullable Long RESTARTED) {
+  public void setRESTARTED(@jakarta.annotation.Nullable Long RESTARTED) {
     this.RESTARTED = RESTARTED;
   }
 
-  public DailyExecutionStatisticsExecutionCounts KILLING(@javax.annotation.Nullable Long KILLING) {
+  public DailyExecutionStatisticsExecutionCounts KILLING(@jakarta.annotation.Nullable Long KILLING) {
     
     this.KILLING = KILLING;
     return this;
@@ -200,7 +200,7 @@ public class DailyExecutionStatisticsExecutionCounts {
    * Get KILLING
    * @return KILLING
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_K_I_L_L_I_N_G)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_K_I_L_L_I_N_G)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getKILLING() {
@@ -210,11 +210,11 @@ public class DailyExecutionStatisticsExecutionCounts {
 
   @JsonProperty(JSON_PROPERTY_K_I_L_L_I_N_G)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setKILLING(@javax.annotation.Nullable Long KILLING) {
+  public void setKILLING(@jakarta.annotation.Nullable Long KILLING) {
     this.KILLING = KILLING;
   }
 
-  public DailyExecutionStatisticsExecutionCounts SUCCESS(@javax.annotation.Nullable Long SUCCESS) {
+  public DailyExecutionStatisticsExecutionCounts SUCCESS(@jakarta.annotation.Nullable Long SUCCESS) {
     
     this.SUCCESS = SUCCESS;
     return this;
@@ -224,7 +224,7 @@ public class DailyExecutionStatisticsExecutionCounts {
    * Get SUCCESS
    * @return SUCCESS
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_S_U_C_C_E_S_S)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_S_U_C_C_E_S_S)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getSUCCESS() {
@@ -234,11 +234,11 @@ public class DailyExecutionStatisticsExecutionCounts {
 
   @JsonProperty(JSON_PROPERTY_S_U_C_C_E_S_S)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSUCCESS(@javax.annotation.Nullable Long SUCCESS) {
+  public void setSUCCESS(@jakarta.annotation.Nullable Long SUCCESS) {
     this.SUCCESS = SUCCESS;
   }
 
-  public DailyExecutionStatisticsExecutionCounts WARNING(@javax.annotation.Nullable Long WARNING) {
+  public DailyExecutionStatisticsExecutionCounts WARNING(@jakarta.annotation.Nullable Long WARNING) {
     
     this.WARNING = WARNING;
     return this;
@@ -248,7 +248,7 @@ public class DailyExecutionStatisticsExecutionCounts {
    * Get WARNING
    * @return WARNING
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_W_A_R_N_I_N_G)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_W_A_R_N_I_N_G)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getWARNING() {
@@ -258,11 +258,11 @@ public class DailyExecutionStatisticsExecutionCounts {
 
   @JsonProperty(JSON_PROPERTY_W_A_R_N_I_N_G)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWARNING(@javax.annotation.Nullable Long WARNING) {
+  public void setWARNING(@jakarta.annotation.Nullable Long WARNING) {
     this.WARNING = WARNING;
   }
 
-  public DailyExecutionStatisticsExecutionCounts FAILED(@javax.annotation.Nullable Long FAILED) {
+  public DailyExecutionStatisticsExecutionCounts FAILED(@jakarta.annotation.Nullable Long FAILED) {
     
     this.FAILED = FAILED;
     return this;
@@ -272,7 +272,7 @@ public class DailyExecutionStatisticsExecutionCounts {
    * Get FAILED
    * @return FAILED
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_F_A_I_L_E_D)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_F_A_I_L_E_D)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getFAILED() {
@@ -282,11 +282,11 @@ public class DailyExecutionStatisticsExecutionCounts {
 
   @JsonProperty(JSON_PROPERTY_F_A_I_L_E_D)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFAILED(@javax.annotation.Nullable Long FAILED) {
+  public void setFAILED(@jakarta.annotation.Nullable Long FAILED) {
     this.FAILED = FAILED;
   }
 
-  public DailyExecutionStatisticsExecutionCounts KILLED(@javax.annotation.Nullable Long KILLED) {
+  public DailyExecutionStatisticsExecutionCounts KILLED(@jakarta.annotation.Nullable Long KILLED) {
     
     this.KILLED = KILLED;
     return this;
@@ -296,7 +296,7 @@ public class DailyExecutionStatisticsExecutionCounts {
    * Get KILLED
    * @return KILLED
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_K_I_L_L_E_D)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_K_I_L_L_E_D)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getKILLED() {
@@ -306,11 +306,11 @@ public class DailyExecutionStatisticsExecutionCounts {
 
   @JsonProperty(JSON_PROPERTY_K_I_L_L_E_D)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setKILLED(@javax.annotation.Nullable Long KILLED) {
+  public void setKILLED(@jakarta.annotation.Nullable Long KILLED) {
     this.KILLED = KILLED;
   }
 
-  public DailyExecutionStatisticsExecutionCounts CANCELLED(@javax.annotation.Nullable Long CANCELLED) {
+  public DailyExecutionStatisticsExecutionCounts CANCELLED(@jakarta.annotation.Nullable Long CANCELLED) {
     
     this.CANCELLED = CANCELLED;
     return this;
@@ -320,7 +320,7 @@ public class DailyExecutionStatisticsExecutionCounts {
    * Get CANCELLED
    * @return CANCELLED
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_C_A_N_C_E_L_L_E_D)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_C_A_N_C_E_L_L_E_D)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getCANCELLED() {
@@ -330,11 +330,11 @@ public class DailyExecutionStatisticsExecutionCounts {
 
   @JsonProperty(JSON_PROPERTY_C_A_N_C_E_L_L_E_D)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCANCELLED(@javax.annotation.Nullable Long CANCELLED) {
+  public void setCANCELLED(@jakarta.annotation.Nullable Long CANCELLED) {
     this.CANCELLED = CANCELLED;
   }
 
-  public DailyExecutionStatisticsExecutionCounts QUEUED(@javax.annotation.Nullable Long QUEUED) {
+  public DailyExecutionStatisticsExecutionCounts QUEUED(@jakarta.annotation.Nullable Long QUEUED) {
     
     this.QUEUED = QUEUED;
     return this;
@@ -344,7 +344,7 @@ public class DailyExecutionStatisticsExecutionCounts {
    * Get QUEUED
    * @return QUEUED
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_Q_U_E_U_E_D)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_Q_U_E_U_E_D)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getQUEUED() {
@@ -354,11 +354,11 @@ public class DailyExecutionStatisticsExecutionCounts {
 
   @JsonProperty(JSON_PROPERTY_Q_U_E_U_E_D)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setQUEUED(@javax.annotation.Nullable Long QUEUED) {
+  public void setQUEUED(@jakarta.annotation.Nullable Long QUEUED) {
     this.QUEUED = QUEUED;
   }
 
-  public DailyExecutionStatisticsExecutionCounts RETRYING(@javax.annotation.Nullable Long RETRYING) {
+  public DailyExecutionStatisticsExecutionCounts RETRYING(@jakarta.annotation.Nullable Long RETRYING) {
     
     this.RETRYING = RETRYING;
     return this;
@@ -368,7 +368,7 @@ public class DailyExecutionStatisticsExecutionCounts {
    * Get RETRYING
    * @return RETRYING
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_R_E_T_R_Y_I_N_G)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_R_E_T_R_Y_I_N_G)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getRETRYING() {
@@ -378,11 +378,11 @@ public class DailyExecutionStatisticsExecutionCounts {
 
   @JsonProperty(JSON_PROPERTY_R_E_T_R_Y_I_N_G)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRETRYING(@javax.annotation.Nullable Long RETRYING) {
+  public void setRETRYING(@jakarta.annotation.Nullable Long RETRYING) {
     this.RETRYING = RETRYING;
   }
 
-  public DailyExecutionStatisticsExecutionCounts RETRIED(@javax.annotation.Nullable Long RETRIED) {
+  public DailyExecutionStatisticsExecutionCounts RETRIED(@jakarta.annotation.Nullable Long RETRIED) {
     
     this.RETRIED = RETRIED;
     return this;
@@ -392,7 +392,7 @@ public class DailyExecutionStatisticsExecutionCounts {
    * Get RETRIED
    * @return RETRIED
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_R_E_T_R_I_E_D)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_R_E_T_R_I_E_D)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getRETRIED() {
@@ -402,11 +402,11 @@ public class DailyExecutionStatisticsExecutionCounts {
 
   @JsonProperty(JSON_PROPERTY_R_E_T_R_I_E_D)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRETRIED(@javax.annotation.Nullable Long RETRIED) {
+  public void setRETRIED(@jakarta.annotation.Nullable Long RETRIED) {
     this.RETRIED = RETRIED;
   }
 
-  public DailyExecutionStatisticsExecutionCounts SKIPPED(@javax.annotation.Nullable Long SKIPPED) {
+  public DailyExecutionStatisticsExecutionCounts SKIPPED(@jakarta.annotation.Nullable Long SKIPPED) {
     
     this.SKIPPED = SKIPPED;
     return this;
@@ -416,7 +416,7 @@ public class DailyExecutionStatisticsExecutionCounts {
    * Get SKIPPED
    * @return SKIPPED
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_S_K_I_P_P_E_D)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_S_K_I_P_P_E_D)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getSKIPPED() {
@@ -426,11 +426,11 @@ public class DailyExecutionStatisticsExecutionCounts {
 
   @JsonProperty(JSON_PROPERTY_S_K_I_P_P_E_D)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSKIPPED(@javax.annotation.Nullable Long SKIPPED) {
+  public void setSKIPPED(@jakarta.annotation.Nullable Long SKIPPED) {
     this.SKIPPED = SKIPPED;
   }
 
-  public DailyExecutionStatisticsExecutionCounts BREAKPOINT(@javax.annotation.Nullable Long BREAKPOINT) {
+  public DailyExecutionStatisticsExecutionCounts BREAKPOINT(@jakarta.annotation.Nullable Long BREAKPOINT) {
     
     this.BREAKPOINT = BREAKPOINT;
     return this;
@@ -440,7 +440,7 @@ public class DailyExecutionStatisticsExecutionCounts {
    * Get BREAKPOINT
    * @return BREAKPOINT
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_B_R_E_A_K_P_O_I_N_T)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_B_R_E_A_K_P_O_I_N_T)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getBREAKPOINT() {
@@ -450,7 +450,7 @@ public class DailyExecutionStatisticsExecutionCounts {
 
   @JsonProperty(JSON_PROPERTY_B_R_E_A_K_P_O_I_N_T)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBREAKPOINT(@javax.annotation.Nullable Long BREAKPOINT) {
+  public void setBREAKPOINT(@jakarta.annotation.Nullable Long BREAKPOINT) {
     this.BREAKPOINT = BREAKPOINT;
   }
 

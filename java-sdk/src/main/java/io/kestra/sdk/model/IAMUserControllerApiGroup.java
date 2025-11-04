@@ -31,18 +31,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMUserControllerApiGroup.JSON_PROPERTY_TENANT_ID
 })
 @JsonTypeName("IAMUserController.ApiGroup")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMUserControllerApiGroup {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable  private String id;
+  @jakarta.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
-  @javax.annotation.Nullable  private String tenantId;
+  @jakarta.annotation.Nullable  private String tenantId;
 
   public IAMUserControllerApiGroup() {
   }
 
-  public IAMUserControllerApiGroup id(@javax.annotation.Nullable String id) {
+  public IAMUserControllerApiGroup id(@jakarta.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -52,7 +52,7 @@ public class IAMUserControllerApiGroup {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -62,11 +62,11 @@ public class IAMUserControllerApiGroup {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  public void setId(@jakarta.annotation.Nullable String id) {
     this.id = id;
   }
 
-  public IAMUserControllerApiGroup tenantId(@javax.annotation.Nullable String tenantId) {
+  public IAMUserControllerApiGroup tenantId(@jakarta.annotation.Nullable String tenantId) {
     
     this.tenantId = tenantId;
     return this;
@@ -76,7 +76,7 @@ public class IAMUserControllerApiGroup {
    * Get tenantId
    * @return tenantId
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANT_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTenantId() {
@@ -86,7 +86,7 @@ public class IAMUserControllerApiGroup {
 
   @JsonProperty(JSON_PROPERTY_TENANT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTenantId(@javax.annotation.Nullable String tenantId) {
+  public void setTenantId(@jakarta.annotation.Nullable String tenantId) {
     this.tenantId = tenantId;
   }
 

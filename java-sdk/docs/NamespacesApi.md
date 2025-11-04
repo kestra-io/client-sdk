@@ -8,11 +8,11 @@ All URIs are relative to *http://localhost*
 | [**createNamespace**](namespaces.md#createNamespace) | **POST** /api/v1/{tenant}/namespaces | Create a namespace |
 | [**deleteNamespace**](namespaces.md#deleteNamespace) | **DELETE** /api/v1/{tenant}/namespaces/{id} | Delete a namespace |
 | [**deleteSecret**](namespaces.md#deleteSecret) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Delete a secret for a namespace |
-| [**getInheritedSecrets**](namespaces.md#getInheritedSecrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets |
-| [**getNamespace**](namespaces.md#getNamespace) | **GET** /api/v1/{tenant}/namespaces/{id} | Get a namespace |
 | [**inheritedPluginDefaults**](namespaces.md#inheritedPluginDefaults) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-plugindefaults | List inherited plugin defaults |
+| [**inheritedSecrets**](namespaces.md#inheritedSecrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets |
 | [**inheritedVariables**](namespaces.md#inheritedVariables) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-variables | List inherited variables |
 | [**listNamespaceSecrets**](namespaces.md#listNamespaceSecrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/secrets | Get secrets for a namespace |
+| [**namespace**](namespaces.md#namespace) | **GET** /api/v1/{tenant}/namespaces/{id} | Get a namespace |
 | [**patchSecret**](namespaces.md#patchSecret) | **PATCH** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Patch a secret metadata for a namespace |
 | [**putSecrets**](namespaces.md#putSecrets) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/secrets | Update secrets for a namespace |
 | [**searchNamespaces**](namespaces.md#searchNamespaces) | **GET** /api/v1/{tenant}/namespaces/search | Search for namespaces |
@@ -302,146 +302,6 @@ null (empty response body)
 | **200** | deleteSecret 200 response |  -  |
 
 
-## getInheritedSecrets
-
-> Map&lt;String, List&lt;String&gt;&gt; getInheritedSecrets(namespace, tenant)
-
-List inherited secrets
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.namespaces;
-
-public class Example {
-    public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
-
-        KestraClient kestraClient = KestraClient.builder()
-        .basicAuth("root@root.com", "Root!1234")
-        .url("http://localhost:8080")
-        .build();
-
-        String namespace = "namespace_example"; // String | The namespace id
-        String tenant = "tenant_example"; // String | 
-        try {
-            Map<String, List<String>> result = kestraClient.namespaces().getInheritedSecrets(namespace, tenant);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling namespaces#getInheritedSecrets");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace id | |
-| **tenant** | **String**|  | |
-
-### Return type
-
-[**Map&lt;String, List&lt;String&gt;&gt;**](List.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | getInheritedSecrets 200 response |  -  |
-
-
-## getNamespace
-
-> Namespace getNamespace(id, tenant)
-
-Get a namespace
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.namespaces;
-
-public class Example {
-    public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
-
-        KestraClient kestraClient = KestraClient.builder()
-        .basicAuth("root@root.com", "Root!1234")
-        .url("http://localhost:8080")
-        .build();
-
-        String id = "id_example"; // String | The namespace id
-        String tenant = "tenant_example"; // String | 
-        try {
-            Namespace result = kestraClient.namespaces().getNamespace(id, tenant);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling namespaces#getNamespace");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **id** | **String**| The namespace id | |
-| **tenant** | **String**|  | |
-
-### Return type
-
-[**Namespace**](Namespace.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | getNamespace 200 response |  -  |
-
-
 ## inheritedPluginDefaults
 
 > List&lt;PluginDefault&gt; inheritedPluginDefaults(id, tenant)
@@ -510,6 +370,76 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | inheritedPluginDefaults 200 response |  -  |
+
+
+## inheritedSecrets
+
+> Map&lt;String, List&lt;String&gt;&gt; inheritedSecrets(namespace, tenant)
+
+List inherited secrets
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.namespaces;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String namespace = "namespace_example"; // String | The namespace id
+        String tenant = "tenant_example"; // String | 
+        try {
+            Map<String, List<String>> result = kestraClient.namespaces().inheritedSecrets(namespace, tenant);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling namespaces#inheritedSecrets");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **namespace** | **String**| The namespace id | |
+| **tenant** | **String**|  | |
+
+### Return type
+
+[**Map&lt;String, List&lt;String&gt;&gt;**](List.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | getInheritedSecrets 200 response |  -  |
 
 
 ## inheritedVariables
@@ -658,6 +588,76 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | listNamespaceSecrets 200 response |  -  |
+
+
+## namespace
+
+> Namespace namespace(id, tenant)
+
+Get a namespace
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.namespaces;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String id = "id_example"; // String | The namespace id
+        String tenant = "tenant_example"; // String | 
+        try {
+            Namespace result = kestraClient.namespaces().namespace(id, tenant);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling namespaces#namespace");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The namespace id | |
+| **tenant** | **String**|  | |
+
+### Return type
+
+[**Namespace**](Namespace.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | getNamespace 200 response |  -  |
 
 
 ## patchSecret

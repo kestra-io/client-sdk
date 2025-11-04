@@ -38,21 +38,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ApiAutocomplete.JSON_PROPERTY_IDS,
   ApiAutocomplete.JSON_PROPERTY_EXISTING_ONLY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ApiAutocomplete {
   public static final String JSON_PROPERTY_Q = "q";
-  @javax.annotation.Nullable  private JsonNullable<String> q = JsonNullable.<String>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<String> q = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_IDS = "ids";
-  @javax.annotation.Nullable  private JsonNullable<List<String>> ids = JsonNullable.<List<String>>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<List<String>> ids = JsonNullable.<List<String>>undefined();
 
   public static final String JSON_PROPERTY_EXISTING_ONLY = "existingOnly";
-  @javax.annotation.Nullable  private Boolean existingOnly;
+  @jakarta.annotation.Nullable  private Boolean existingOnly;
 
   public ApiAutocomplete() {
   }
 
-  public ApiAutocomplete q(@javax.annotation.Nullable String q) {
+  public ApiAutocomplete q(@jakarta.annotation.Nullable String q) {
     this.q = JsonNullable.<String>of(q);
     
     return this;
@@ -62,7 +62,7 @@ public class ApiAutocomplete {
    * Get q
    * @return q
    */
-  @javax.annotation.Nullable  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public String getQ() {
         return q.orElse(null);
@@ -79,11 +79,11 @@ public class ApiAutocomplete {
     this.q = q;
   }
 
-  public void setQ(@javax.annotation.Nullable String q) {
+  public void setQ(@jakarta.annotation.Nullable String q) {
     this.q = JsonNullable.<String>of(q);
   }
 
-  public ApiAutocomplete ids(@javax.annotation.Nullable List<String> ids) {
+  public ApiAutocomplete ids(@jakarta.annotation.Nullable List<String> ids) {
     this.ids = JsonNullable.<List<String>>of(ids);
     
     return this;
@@ -105,7 +105,7 @@ public class ApiAutocomplete {
    * Get ids
    * @return ids
    */
-  @javax.annotation.Nullable  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public List<String> getIds() {
         return ids.orElse(null);
@@ -122,11 +122,11 @@ public class ApiAutocomplete {
     this.ids = ids;
   }
 
-  public void setIds(@javax.annotation.Nullable List<String> ids) {
+  public void setIds(@jakarta.annotation.Nullable List<String> ids) {
     this.ids = JsonNullable.<List<String>>of(ids);
   }
 
-  public ApiAutocomplete existingOnly(@javax.annotation.Nullable Boolean existingOnly) {
+  public ApiAutocomplete existingOnly(@jakarta.annotation.Nullable Boolean existingOnly) {
     
     this.existingOnly = existingOnly;
     return this;
@@ -136,7 +136,7 @@ public class ApiAutocomplete {
    * Get existingOnly
    * @return existingOnly
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXISTING_ONLY)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXISTING_ONLY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getExistingOnly() {
@@ -146,7 +146,7 @@ public class ApiAutocomplete {
 
   @JsonProperty(JSON_PROPERTY_EXISTING_ONLY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExistingOnly(@javax.annotation.Nullable Boolean existingOnly) {
+  public void setExistingOnly(@jakarta.annotation.Nullable Boolean existingOnly) {
     this.existingOnly = existingOnly;
   }
 

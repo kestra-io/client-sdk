@@ -29,15 +29,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   ScimExtension.JSON_PROPERTY_URN
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ScimExtension {
   public static final String JSON_PROPERTY_URN = "urn";
-  @javax.annotation.Nullable  private String urn;
+  @jakarta.annotation.Nullable  private String urn;
 
   public ScimExtension() {
   }
 
-  public ScimExtension urn(@javax.annotation.Nullable String urn) {
+  public ScimExtension urn(@jakarta.annotation.Nullable String urn) {
     
     this.urn = urn;
     return this;
@@ -47,7 +47,7 @@ public class ScimExtension {
    * Get urn
    * @return urn
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_URN)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_URN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUrn() {
@@ -57,7 +57,7 @@ public class ScimExtension {
 
   @JsonProperty(JSON_PROPERTY_URN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUrn(@javax.annotation.Nullable String urn) {
+  public void setUrn(@jakarta.annotation.Nullable String urn) {
     this.urn = urn;
   }
 

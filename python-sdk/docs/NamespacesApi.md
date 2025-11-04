@@ -8,11 +8,11 @@ Method | HTTP request | Description
 [**create_namespace**](namespaces.md#create_namespace) | **POST** /api/v1/{tenant}/namespaces | Create a namespace
 [**delete_namespace**](namespaces.md#delete_namespace) | **DELETE** /api/v1/{tenant}/namespaces/{id} | Delete a namespace
 [**delete_secret**](namespaces.md#delete_secret) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Delete a secret for a namespace
-[**get_inherited_secrets**](namespaces.md#get_inherited_secrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets
-[**get_namespace**](namespaces.md#get_namespace) | **GET** /api/v1/{tenant}/namespaces/{id} | Get a namespace
 [**inherited_plugin_defaults**](namespaces.md#inherited_plugin_defaults) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-plugindefaults | List inherited plugin defaults
+[**inherited_secrets**](namespaces.md#inherited_secrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets
 [**inherited_variables**](namespaces.md#inherited_variables) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-variables | List inherited variables
 [**list_namespace_secrets**](namespaces.md#list_namespace_secrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/secrets | Get secrets for a namespace
+[**namespace**](namespaces.md#namespace) | **GET** /api/v1/{tenant}/namespaces/{id} | Get a namespace
 [**patch_secret**](namespaces.md#patch_secret) | **PATCH** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Patch a secret metadata for a namespace
 [**put_secrets**](namespaces.md#put_secrets) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/secrets | Update secrets for a namespace
 [**search_namespaces**](namespaces.md#search_namespaces) | **GET** /api/v1/{tenant}/namespaces/search | Search for namespaces
@@ -275,134 +275,6 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_inherited_secrets**
-> Dict[str, List[str]] get_inherited_secrets(namespace, tenant)
-
-List inherited secrets
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-from kestrapy import KestraClient, Configuration
-
-configuration = Configuration()
-
-configuration.host = "http://localhost:8080"
-configuration.username = "root@root.com"
-configuration.password = "Root!1234"
-
-# Enter a context with an instance of the API client
-with KestraClient(configuration) as kestra_client:
-    namespace = 'namespace_example' # str | The namespace id
-    tenant = 'tenant_example' # str | 
-
-    try:
-        # List inherited secrets
-        api_response = kestra_client.namespaces.get_inherited_secrets(namespace, tenant)
-        print("The response of namespaces->get_inherited_secrets:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling namespaces->get_inherited_secrets: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **namespace** | **str**| The namespace id | 
- **tenant** | **str**|  | 
-
-### Return type
-
-**Dict[str, List[str]]**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | getInheritedSecrets 200 response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_namespace**
-> Namespace get_namespace(id, tenant)
-
-Get a namespace
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-from kestrapy import KestraClient, Configuration
-
-configuration = Configuration()
-
-configuration.host = "http://localhost:8080"
-configuration.username = "root@root.com"
-configuration.password = "Root!1234"
-
-# Enter a context with an instance of the API client
-with KestraClient(configuration) as kestra_client:
-    id = 'id_example' # str | The namespace id
-    tenant = 'tenant_example' # str | 
-
-    try:
-        # Get a namespace
-        api_response = kestra_client.namespaces.get_namespace(id, tenant)
-        print("The response of namespaces->get_namespace:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling namespaces->get_namespace: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**| The namespace id | 
- **tenant** | **str**|  | 
-
-### Return type
-
-[**Namespace**](Namespace.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | getNamespace 200 response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **inherited_plugin_defaults**
 > List[PluginDefault] inherited_plugin_defaults(id, tenant)
 
@@ -464,6 +336,70 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | inheritedPluginDefaults 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **inherited_secrets**
+> Dict[str, List[str]] inherited_secrets(namespace, tenant)
+
+List inherited secrets
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    namespace = 'namespace_example' # str | The namespace id
+    tenant = 'tenant_example' # str | 
+
+    try:
+        # List inherited secrets
+        api_response = kestra_client.namespaces.inherited_secrets(namespace, tenant)
+        print("The response of namespaces->inherited_secrets:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling namespaces->inherited_secrets: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **namespace** | **str**| The namespace id | 
+ **tenant** | **str**|  | 
+
+### Return type
+
+**Dict[str, List[str]]**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | getInheritedSecrets 200 response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -600,6 +536,70 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | listNamespaceSecrets 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **namespace**
+> Namespace namespace(id, tenant)
+
+Get a namespace
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    id = 'id_example' # str | The namespace id
+    tenant = 'tenant_example' # str | 
+
+    try:
+        # Get a namespace
+        api_response = kestra_client.namespaces.namespace(id, tenant)
+        print("The response of namespaces->namespace:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling namespaces->namespace: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| The namespace id | 
+ **tenant** | **str**|  | 
+
+### Return type
+
+[**Namespace**](Namespace.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | getNamespace 200 response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

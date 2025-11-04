@@ -37,21 +37,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TaskRunAttempt.JSON_PROPERTY_WORKER_ID,
   TaskRunAttempt.JSON_PROPERTY_LOG_FILE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TaskRunAttempt {
   public static final String JSON_PROPERTY_STATE = "state";
-  @javax.annotation.Nonnull  private State state;
+  @jakarta.annotation.Nonnull  private State state;
 
   public static final String JSON_PROPERTY_WORKER_ID = "workerId";
-  @javax.annotation.Nullable  private JsonNullable<String> workerId = JsonNullable.<String>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<String> workerId = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_LOG_FILE = "logFile";
-  @javax.annotation.Nullable  private JsonNullable<URI> logFile = JsonNullable.<URI>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<URI> logFile = JsonNullable.<URI>undefined();
 
   public TaskRunAttempt() {
   }
 
-  public TaskRunAttempt state(@javax.annotation.Nonnull State state) {
+  public TaskRunAttempt state(@jakarta.annotation.Nonnull State state) {
     
     this.state = state;
     return this;
@@ -61,7 +61,7 @@ public class TaskRunAttempt {
    * Get state
    * @return state
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_STATE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public State getState() {
@@ -71,11 +71,11 @@ public class TaskRunAttempt {
 
   @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setState(@javax.annotation.Nonnull State state) {
+  public void setState(@jakarta.annotation.Nonnull State state) {
     this.state = state;
   }
 
-  public TaskRunAttempt workerId(@javax.annotation.Nullable String workerId) {
+  public TaskRunAttempt workerId(@jakarta.annotation.Nullable String workerId) {
     this.workerId = JsonNullable.<String>of(workerId);
     
     return this;
@@ -85,7 +85,7 @@ public class TaskRunAttempt {
    * Get workerId
    * @return workerId
    */
-  @javax.annotation.Nullable  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public String getWorkerId() {
         return workerId.orElse(null);
@@ -102,11 +102,11 @@ public class TaskRunAttempt {
     this.workerId = workerId;
   }
 
-  public void setWorkerId(@javax.annotation.Nullable String workerId) {
+  public void setWorkerId(@jakarta.annotation.Nullable String workerId) {
     this.workerId = JsonNullable.<String>of(workerId);
   }
 
-  public TaskRunAttempt logFile(@javax.annotation.Nullable URI logFile) {
+  public TaskRunAttempt logFile(@jakarta.annotation.Nullable URI logFile) {
     this.logFile = JsonNullable.<URI>of(logFile);
     
     return this;
@@ -116,7 +116,7 @@ public class TaskRunAttempt {
    * Get logFile
    * @return logFile
    */
-  @javax.annotation.Nullable  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public URI getLogFile() {
         return logFile.orElse(null);
@@ -133,7 +133,7 @@ public class TaskRunAttempt {
     this.logFile = logFile;
   }
 
-  public void setLogFile(@javax.annotation.Nullable URI logFile) {
+  public void setLogFile(@jakarta.annotation.Nullable URI logFile) {
     this.logFile = JsonNullable.<URI>of(logFile);
   }
 

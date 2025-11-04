@@ -37,27 +37,27 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AppsControllerApiAppCatalogItem.JSON_PROPERTY_TAGS
 })
 @JsonTypeName("AppsController.ApiAppCatalogItem")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AppsControllerApiAppCatalogItem {
   public static final String JSON_PROPERTY_UID = "uid";
-  @javax.annotation.Nullable  private String uid;
+  @jakarta.annotation.Nullable  private String uid;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nullable  private String name;
+  @jakarta.annotation.Nullable  private String name;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable  private String description;
+  @jakarta.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nullable  private String type;
+  @jakarta.annotation.Nullable  private String type;
 
   public static final String JSON_PROPERTY_TAGS = "tags";
-  @javax.annotation.Nullable  private List<String> tags = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> tags = new ArrayList<>();
 
   public AppsControllerApiAppCatalogItem() {
   }
 
-  public AppsControllerApiAppCatalogItem uid(@javax.annotation.Nullable String uid) {
+  public AppsControllerApiAppCatalogItem uid(@jakarta.annotation.Nullable String uid) {
     
     this.uid = uid;
     return this;
@@ -67,7 +67,7 @@ public class AppsControllerApiAppCatalogItem {
    * Get uid
    * @return uid
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUid() {
@@ -77,11 +77,11 @@ public class AppsControllerApiAppCatalogItem {
 
   @JsonProperty(JSON_PROPERTY_UID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUid(@javax.annotation.Nullable String uid) {
+  public void setUid(@jakarta.annotation.Nullable String uid) {
     this.uid = uid;
   }
 
-  public AppsControllerApiAppCatalogItem name(@javax.annotation.Nullable String name) {
+  public AppsControllerApiAppCatalogItem name(@jakarta.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -91,7 +91,7 @@ public class AppsControllerApiAppCatalogItem {
    * Get name
    * @return name
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
@@ -101,11 +101,11 @@ public class AppsControllerApiAppCatalogItem {
 
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(@javax.annotation.Nullable String name) {
+  public void setName(@jakarta.annotation.Nullable String name) {
     this.name = name;
   }
 
-  public AppsControllerApiAppCatalogItem description(@javax.annotation.Nullable String description) {
+  public AppsControllerApiAppCatalogItem description(@jakarta.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -115,7 +115,7 @@ public class AppsControllerApiAppCatalogItem {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -125,11 +125,11 @@ public class AppsControllerApiAppCatalogItem {
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(@javax.annotation.Nullable String description) {
+  public void setDescription(@jakarta.annotation.Nullable String description) {
     this.description = description;
   }
 
-  public AppsControllerApiAppCatalogItem type(@javax.annotation.Nullable String type) {
+  public AppsControllerApiAppCatalogItem type(@jakarta.annotation.Nullable String type) {
     
     this.type = type;
     return this;
@@ -139,7 +139,7 @@ public class AppsControllerApiAppCatalogItem {
    * Get type
    * @return type
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getType() {
@@ -149,11 +149,11 @@ public class AppsControllerApiAppCatalogItem {
 
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setType(@javax.annotation.Nullable String type) {
+  public void setType(@jakarta.annotation.Nullable String type) {
     this.type = type;
   }
 
-  public AppsControllerApiAppCatalogItem tags(@javax.annotation.Nullable List<String> tags) {
+  public AppsControllerApiAppCatalogItem tags(@jakarta.annotation.Nullable List<String> tags) {
     
     this.tags = tags;
     return this;
@@ -171,7 +171,7 @@ public class AppsControllerApiAppCatalogItem {
    * Get tags
    * @return tags
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TAGS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TAGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getTags() {
@@ -181,7 +181,7 @@ public class AppsControllerApiAppCatalogItem {
 
   @JsonProperty(JSON_PROPERTY_TAGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTags(@javax.annotation.Nullable List<String> tags) {
+  public void setTags(@jakarta.annotation.Nullable List<String> tags) {
     this.tags = tags;
   }
 

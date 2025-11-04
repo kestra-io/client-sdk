@@ -46,54 +46,54 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Task.JSON_PROPERTY_ALLOW_WARNING,
   Task.JSON_PROPERTY_TASK_CACHE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Task {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull  private String id;
+  @jakarta.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nonnull  private String type;
+  @jakarta.annotation.Nonnull  private String type;
 
   public static final String JSON_PROPERTY_VERSION = "version";
-  @javax.annotation.Nullable  private String version;
+  @jakarta.annotation.Nullable  private String version;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable  private String description;
+  @jakarta.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_RETRY = "retry";
-  @javax.annotation.Nullable  private Object retry;
+  @jakarta.annotation.Nullable  private Object retry;
 
   public static final String JSON_PROPERTY_TIMEOUT = "timeout";
-  @javax.annotation.Nullable  private String timeout;
+  @jakarta.annotation.Nullable  private String timeout;
 
   public static final String JSON_PROPERTY_DISABLED = "disabled";
-  @javax.annotation.Nullable  private Boolean disabled;
+  @jakarta.annotation.Nullable  private Boolean disabled;
 
   public static final String JSON_PROPERTY_WORKER_GROUP = "workerGroup";
-  @javax.annotation.Nullable  private WorkerGroup workerGroup;
+  @jakarta.annotation.Nullable  private WorkerGroup workerGroup;
 
   public static final String JSON_PROPERTY_LOG_LEVEL = "logLevel";
-  @javax.annotation.Nullable  private Level logLevel;
+  @jakarta.annotation.Nullable  private Level logLevel;
 
   public static final String JSON_PROPERTY_ALLOW_FAILURE = "allowFailure";
-  @javax.annotation.Nullable  private Boolean allowFailure;
+  @jakarta.annotation.Nullable  private Boolean allowFailure;
 
   public static final String JSON_PROPERTY_LOG_TO_FILE = "logToFile";
-  @javax.annotation.Nullable  private Boolean logToFile;
+  @jakarta.annotation.Nullable  private Boolean logToFile;
 
   public static final String JSON_PROPERTY_RUN_IF = "runIf";
-  @javax.annotation.Nullable  private String runIf;
+  @jakarta.annotation.Nullable  private String runIf;
 
   public static final String JSON_PROPERTY_ALLOW_WARNING = "allowWarning";
-  @javax.annotation.Nullable  private Boolean allowWarning;
+  @jakarta.annotation.Nullable  private Boolean allowWarning;
 
   public static final String JSON_PROPERTY_TASK_CACHE = "taskCache";
-  @javax.annotation.Nullable  private Cache taskCache;
+  @jakarta.annotation.Nullable  private Cache taskCache;
 
   public Task() {
   }
 
-  public Task id(@javax.annotation.Nonnull String id) {
+  public Task id(@jakarta.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -103,7 +103,7 @@ public class Task {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -113,11 +113,11 @@ public class Task {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(@javax.annotation.Nonnull String id) {
+  public void setId(@jakarta.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public Task type(@javax.annotation.Nonnull String type) {
+  public Task type(@jakarta.annotation.Nonnull String type) {
     
     this.type = type;
     return this;
@@ -127,7 +127,7 @@ public class Task {
    * Get type
    * @return type
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getType() {
@@ -137,11 +137,11 @@ public class Task {
 
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setType(@javax.annotation.Nonnull String type) {
+  public void setType(@jakarta.annotation.Nonnull String type) {
     this.type = type;
   }
 
-  public Task version(@javax.annotation.Nullable String version) {
+  public Task version(@jakarta.annotation.Nullable String version) {
     
     this.version = version;
     return this;
@@ -151,7 +151,7 @@ public class Task {
    * Get version
    * @return version
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getVersion() {
@@ -161,11 +161,11 @@ public class Task {
 
   @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVersion(@javax.annotation.Nullable String version) {
+  public void setVersion(@jakarta.annotation.Nullable String version) {
     this.version = version;
   }
 
-  public Task description(@javax.annotation.Nullable String description) {
+  public Task description(@jakarta.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -175,7 +175,7 @@ public class Task {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -185,11 +185,11 @@ public class Task {
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(@javax.annotation.Nullable String description) {
+  public void setDescription(@jakarta.annotation.Nullable String description) {
     this.description = description;
   }
 
-  public Task retry(@javax.annotation.Nullable Object retry) {
+  public Task retry(@jakarta.annotation.Nullable Object retry) {
     
     this.retry = retry;
     return this;
@@ -199,7 +199,7 @@ public class Task {
    * Get retry
    * @return retry
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RETRY)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RETRY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Object getRetry() {
@@ -209,11 +209,11 @@ public class Task {
 
   @JsonProperty(JSON_PROPERTY_RETRY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRetry(@javax.annotation.Nullable Object retry) {
+  public void setRetry(@jakarta.annotation.Nullable Object retry) {
     this.retry = retry;
   }
 
-  public Task timeout(@javax.annotation.Nullable String timeout) {
+  public Task timeout(@jakarta.annotation.Nullable String timeout) {
     
     this.timeout = timeout;
     return this;
@@ -223,7 +223,7 @@ public class Task {
    * Get timeout
    * @return timeout
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TIMEOUT)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TIMEOUT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTimeout() {
@@ -233,11 +233,11 @@ public class Task {
 
   @JsonProperty(JSON_PROPERTY_TIMEOUT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTimeout(@javax.annotation.Nullable String timeout) {
+  public void setTimeout(@jakarta.annotation.Nullable String timeout) {
     this.timeout = timeout;
   }
 
-  public Task disabled(@javax.annotation.Nullable Boolean disabled) {
+  public Task disabled(@jakarta.annotation.Nullable Boolean disabled) {
     
     this.disabled = disabled;
     return this;
@@ -247,7 +247,7 @@ public class Task {
    * Get disabled
    * @return disabled
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISABLED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getDisabled() {
@@ -257,11 +257,11 @@ public class Task {
 
   @JsonProperty(JSON_PROPERTY_DISABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDisabled(@javax.annotation.Nullable Boolean disabled) {
+  public void setDisabled(@jakarta.annotation.Nullable Boolean disabled) {
     this.disabled = disabled;
   }
 
-  public Task workerGroup(@javax.annotation.Nullable WorkerGroup workerGroup) {
+  public Task workerGroup(@jakarta.annotation.Nullable WorkerGroup workerGroup) {
     
     this.workerGroup = workerGroup;
     return this;
@@ -271,7 +271,7 @@ public class Task {
    * Get workerGroup
    * @return workerGroup
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public WorkerGroup getWorkerGroup() {
@@ -281,11 +281,11 @@ public class Task {
 
   @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWorkerGroup(@javax.annotation.Nullable WorkerGroup workerGroup) {
+  public void setWorkerGroup(@jakarta.annotation.Nullable WorkerGroup workerGroup) {
     this.workerGroup = workerGroup;
   }
 
-  public Task logLevel(@javax.annotation.Nullable Level logLevel) {
+  public Task logLevel(@jakarta.annotation.Nullable Level logLevel) {
     
     this.logLevel = logLevel;
     return this;
@@ -295,7 +295,7 @@ public class Task {
    * Get logLevel
    * @return logLevel
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LOG_LEVEL)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LOG_LEVEL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Level getLogLevel() {
@@ -305,11 +305,11 @@ public class Task {
 
   @JsonProperty(JSON_PROPERTY_LOG_LEVEL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLogLevel(@javax.annotation.Nullable Level logLevel) {
+  public void setLogLevel(@jakarta.annotation.Nullable Level logLevel) {
     this.logLevel = logLevel;
   }
 
-  public Task allowFailure(@javax.annotation.Nullable Boolean allowFailure) {
+  public Task allowFailure(@jakarta.annotation.Nullable Boolean allowFailure) {
     
     this.allowFailure = allowFailure;
     return this;
@@ -319,7 +319,7 @@ public class Task {
    * Get allowFailure
    * @return allowFailure
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ALLOW_FAILURE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ALLOW_FAILURE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getAllowFailure() {
@@ -329,11 +329,11 @@ public class Task {
 
   @JsonProperty(JSON_PROPERTY_ALLOW_FAILURE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAllowFailure(@javax.annotation.Nullable Boolean allowFailure) {
+  public void setAllowFailure(@jakarta.annotation.Nullable Boolean allowFailure) {
     this.allowFailure = allowFailure;
   }
 
-  public Task logToFile(@javax.annotation.Nullable Boolean logToFile) {
+  public Task logToFile(@jakarta.annotation.Nullable Boolean logToFile) {
     
     this.logToFile = logToFile;
     return this;
@@ -343,7 +343,7 @@ public class Task {
    * Get logToFile
    * @return logToFile
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LOG_TO_FILE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LOG_TO_FILE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getLogToFile() {
@@ -353,11 +353,11 @@ public class Task {
 
   @JsonProperty(JSON_PROPERTY_LOG_TO_FILE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLogToFile(@javax.annotation.Nullable Boolean logToFile) {
+  public void setLogToFile(@jakarta.annotation.Nullable Boolean logToFile) {
     this.logToFile = logToFile;
   }
 
-  public Task runIf(@javax.annotation.Nullable String runIf) {
+  public Task runIf(@jakarta.annotation.Nullable String runIf) {
     
     this.runIf = runIf;
     return this;
@@ -367,7 +367,7 @@ public class Task {
    * Get runIf
    * @return runIf
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RUN_IF)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RUN_IF)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getRunIf() {
@@ -377,11 +377,11 @@ public class Task {
 
   @JsonProperty(JSON_PROPERTY_RUN_IF)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRunIf(@javax.annotation.Nullable String runIf) {
+  public void setRunIf(@jakarta.annotation.Nullable String runIf) {
     this.runIf = runIf;
   }
 
-  public Task allowWarning(@javax.annotation.Nullable Boolean allowWarning) {
+  public Task allowWarning(@jakarta.annotation.Nullable Boolean allowWarning) {
     
     this.allowWarning = allowWarning;
     return this;
@@ -391,7 +391,7 @@ public class Task {
    * Get allowWarning
    * @return allowWarning
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ALLOW_WARNING)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ALLOW_WARNING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getAllowWarning() {
@@ -401,11 +401,11 @@ public class Task {
 
   @JsonProperty(JSON_PROPERTY_ALLOW_WARNING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAllowWarning(@javax.annotation.Nullable Boolean allowWarning) {
+  public void setAllowWarning(@jakarta.annotation.Nullable Boolean allowWarning) {
     this.allowWarning = allowWarning;
   }
 
-  public Task taskCache(@javax.annotation.Nullable Cache taskCache) {
+  public Task taskCache(@jakarta.annotation.Nullable Cache taskCache) {
     
     this.taskCache = taskCache;
     return this;
@@ -415,7 +415,7 @@ public class Task {
    * Get taskCache
    * @return taskCache
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TASK_CACHE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TASK_CACHE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Cache getTaskCache() {
@@ -425,7 +425,7 @@ public class Task {
 
   @JsonProperty(JSON_PROPERTY_TASK_CACHE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTaskCache(@javax.annotation.Nullable Cache taskCache) {
+  public void setTaskCache(@jakarta.annotation.Nullable Cache taskCache) {
     this.taskCache = taskCache;
   }
 

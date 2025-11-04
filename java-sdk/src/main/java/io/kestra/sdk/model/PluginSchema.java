@@ -33,21 +33,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PluginSchema.JSON_PROPERTY_OUTPUTS,
   PluginSchema.JSON_PROPERTY_DEFINITIONS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PluginSchema {
   public static final String JSON_PROPERTY_PROPERTIES = "properties";
-  @javax.annotation.Nullable  private Map<String, Object> properties = new HashMap<>();
+  @jakarta.annotation.Nullable  private Map<String, Object> properties = new HashMap<>();
 
   public static final String JSON_PROPERTY_OUTPUTS = "outputs";
-  @javax.annotation.Nullable  private Map<String, Object> outputs = new HashMap<>();
+  @jakarta.annotation.Nullable  private Map<String, Object> outputs = new HashMap<>();
 
   public static final String JSON_PROPERTY_DEFINITIONS = "definitions";
-  @javax.annotation.Nullable  private Map<String, Object> definitions = new HashMap<>();
+  @jakarta.annotation.Nullable  private Map<String, Object> definitions = new HashMap<>();
 
   public PluginSchema() {
   }
 
-  public PluginSchema properties(@javax.annotation.Nullable Map<String, Object> properties) {
+  public PluginSchema properties(@jakarta.annotation.Nullable Map<String, Object> properties) {
     
     this.properties = properties;
     return this;
@@ -65,7 +65,7 @@ public class PluginSchema {
    * Get properties
    * @return properties
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PROPERTIES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getProperties() {
@@ -75,11 +75,11 @@ public class PluginSchema {
 
   @JsonProperty(JSON_PROPERTY_PROPERTIES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setProperties(@javax.annotation.Nullable Map<String, Object> properties) {
+  public void setProperties(@jakarta.annotation.Nullable Map<String, Object> properties) {
     this.properties = properties;
   }
 
-  public PluginSchema outputs(@javax.annotation.Nullable Map<String, Object> outputs) {
+  public PluginSchema outputs(@jakarta.annotation.Nullable Map<String, Object> outputs) {
     
     this.outputs = outputs;
     return this;
@@ -97,7 +97,7 @@ public class PluginSchema {
    * Get outputs
    * @return outputs
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTPUTS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getOutputs() {
@@ -107,11 +107,11 @@ public class PluginSchema {
 
   @JsonProperty(JSON_PROPERTY_OUTPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOutputs(@javax.annotation.Nullable Map<String, Object> outputs) {
+  public void setOutputs(@jakarta.annotation.Nullable Map<String, Object> outputs) {
     this.outputs = outputs;
   }
 
-  public PluginSchema definitions(@javax.annotation.Nullable Map<String, Object> definitions) {
+  public PluginSchema definitions(@jakarta.annotation.Nullable Map<String, Object> definitions) {
     
     this.definitions = definitions;
     return this;
@@ -129,7 +129,7 @@ public class PluginSchema {
    * Get definitions
    * @return definitions
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DEFINITIONS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DEFINITIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getDefinitions() {
@@ -139,7 +139,7 @@ public class PluginSchema {
 
   @JsonProperty(JSON_PROPERTY_DEFINITIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDefinitions(@javax.annotation.Nullable Map<String, Object> definitions) {
+  public void setDefinitions(@jakarta.annotation.Nullable Map<String, Object> definitions) {
     this.definitions = definitions;
   }
 

@@ -33,15 +33,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   KVControllerApiDeleteBulkRequest.JSON_PROPERTY_KEYS
 })
 @JsonTypeName("KVController.ApiDeleteBulkRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class KVControllerApiDeleteBulkRequest {
   public static final String JSON_PROPERTY_KEYS = "keys";
-  @javax.annotation.Nullable  private List<String> keys = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> keys = new ArrayList<>();
 
   public KVControllerApiDeleteBulkRequest() {
   }
 
-  public KVControllerApiDeleteBulkRequest keys(@javax.annotation.Nullable List<String> keys) {
+  public KVControllerApiDeleteBulkRequest keys(@jakarta.annotation.Nullable List<String> keys) {
     
     this.keys = keys;
     return this;
@@ -59,7 +59,7 @@ public class KVControllerApiDeleteBulkRequest {
    * Get keys
    * @return keys
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_KEYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_KEYS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getKeys() {
@@ -69,7 +69,7 @@ public class KVControllerApiDeleteBulkRequest {
 
   @JsonProperty(JSON_PROPERTY_KEYS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setKeys(@javax.annotation.Nullable List<String> keys) {
+  public void setKeys(@jakarta.annotation.Nullable List<String> keys) {
     this.keys = keys;
   }
 

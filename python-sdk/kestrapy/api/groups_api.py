@@ -907,7 +907,7 @@ class GroupsApi:
 
 
     @validate_call
-    def get_group(
+    def group(
         self,
         id: Annotated[StrictStr, Field(description="The group id")],
         tenant: StrictStr,
@@ -936,7 +936,7 @@ class GroupsApi:
         :type _request_timeout: int, tuple(int, int), optional
         """ # noqa: E501
 
-        _param = self._get_group_serialize(
+        _param = self._group_serialize(
             id=id,
             tenant=tenant,
         )
@@ -957,7 +957,7 @@ class GroupsApi:
 
 
     @validate_call
-    def get_group_with_http_info(
+    def group_with_http_info(
         self,
         id: Annotated[StrictStr, Field(description="The group id")],
         tenant: StrictStr,
@@ -986,7 +986,7 @@ class GroupsApi:
         :type _request_timeout: int, tuple(int, int), optional
         """ # noqa: E501
 
-        _param = self._get_group_serialize(
+        _param = self._group_serialize(
             id=id,
             tenant=tenant,
         )
@@ -1006,7 +1006,7 @@ class GroupsApi:
         )
 
 
-    def _get_group_serialize(
+    def _group_serialize(
         self,
         id,
         tenant,

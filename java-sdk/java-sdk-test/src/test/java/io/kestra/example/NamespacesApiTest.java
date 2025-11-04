@@ -50,7 +50,7 @@ public class NamespacesApiTest {
         kestraClient().namespaces().deleteNamespace(created.getId(), MAIN_TENANT);
 
         assertThrows(ApiException.class,
-            () -> kestraClient().namespaces().getNamespace(created.getId(), MAIN_TENANT),
+            () -> kestraClient().namespaces().namespace(created.getId(), MAIN_TENANT),
             "Fetching a deleted namespace should throw");
     }
 
@@ -61,7 +61,7 @@ public class NamespacesApiTest {
         Namespace created = kestraClient().namespaces().createNamespace(MAIN_TENANT, ns);
 
         Map<String, List<String>> inherited =
-            kestraClient().namespaces().getInheritedSecrets(created.getId(), MAIN_TENANT);
+            kestraClient().namespaces().inheritedSecrets(created.getId(), MAIN_TENANT);
 
         assertNotNull(inherited);
         // Python only asserted it's a dict; here we just ensure non-null map.
@@ -73,7 +73,7 @@ public class NamespacesApiTest {
         Namespace ns = new Namespace().id(nsId).deleted(false);
         Namespace created = kestraClient().namespaces().createNamespace(MAIN_TENANT, ns);
 
-        Namespace fetched = kestraClient().namespaces().getNamespace(created.getId(), MAIN_TENANT);
+        Namespace fetched = kestraClient().namespaces().namespace(created.getId(), MAIN_TENANT);
 
         assertEquals(created.getId(), fetched.getId());
     }

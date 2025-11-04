@@ -132,7 +132,7 @@ public class ExecutionsApiTest {
 
         AtomicReference<Execution> executionAtomic = new AtomicReference<>();
         await().atMost(Duration.ofSeconds(5)).until(() -> {
-            executionAtomic.set(kestraClient().executions().getExecution(execution.getId(), MAIN_TENANT));
+            executionAtomic.set(kestraClient().executions().execution(execution.getId(), MAIN_TENANT));
             return executionAtomic.get().getState().getCurrent().equals(StateType.SUCCESS);
         });
         return executionAtomic.get();
@@ -153,7 +153,7 @@ public class ExecutionsApiTest {
     private static Execution awaitExecution(StateType state,String executionId) {
         AtomicReference<Execution> executionAtomicReference = new AtomicReference<>();
         await().atMost(Duration.ofSeconds(1)).until(() -> {
-            executionAtomicReference.set(kestraClient().executions().getExecution(executionId, MAIN_TENANT));
+            executionAtomicReference.set(kestraClient().executions().execution(executionId, MAIN_TENANT));
             return executionAtomicReference.get().getState().getCurrent().equals(state);
         });
         return executionAtomicReference.get();
@@ -203,13 +203,13 @@ public class ExecutionsApiTest {
         Boolean deleteMetrics = false;
         Boolean deleteStorage = false;
 
-        Execution execution = kestraClient().executions().getExecution(executionId, MAIN_TENANT);
+        Execution execution = kestraClient().executions().execution(executionId, MAIN_TENANT);
         assertThat(execution).isNotNull();
 
         kestraClient().executions().deleteExecution(executionId, MAIN_TENANT, deleteLogs, deleteMetrics, deleteStorage);
 
         ApiException apiException = assertThrows(ApiException.class,
-            () -> kestraClient().executions().getExecution(executionId, MAIN_TENANT));
+            () -> kestraClient().executions().execution(executionId, MAIN_TENANT));
         assertThat(apiException.getCode()).isEqualTo(404);
     }
     /**
@@ -235,9 +235,9 @@ public class ExecutionsApiTest {
         BulkResponse response = kestraClient().executions().deleteExecutionsByIds(MAIN_TENANT, executionIds, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage);
 
         assertThat(response.getCount()).isEqualTo(2);
-        assertThrows(ApiException.class, () -> kestraClient().executions().getExecution(execution1.getId(), MAIN_TENANT));
-        assertThrows(ApiException.class, () -> kestraClient().executions().getExecution(execution3.getId(), MAIN_TENANT));
-        assertThat(kestraClient().executions().getExecution(execution2.getId(), MAIN_TENANT)).isNotNull();
+        assertThrows(ApiException.class, () -> kestraClient().executions().execution(execution1.getId(), MAIN_TENANT));
+        assertThrows(ApiException.class, () -> kestraClient().executions().execution(execution3.getId(), MAIN_TENANT));
+        assertThat(kestraClient().executions().execution(execution2.getId(), MAIN_TENANT)).isNotNull();
     }
     /**
      * Delete executions filter by query parameters
@@ -270,9 +270,9 @@ public class ExecutionsApiTest {
 
         assertThat(response).isInstanceOf(LinkedHashMap.class).extracting("count").isEqualTo(2);
 
-        assertThrows(ApiException.class, () -> kestraClient().executions().getExecution(execution.getId(), MAIN_TENANT));
-        assertThrows(ApiException.class, () -> kestraClient().executions().getExecution(execution1.getId(), MAIN_TENANT));
-        assertThat(kestraClient().executions().getExecution(execution2.getId(), MAIN_TENANT)).isNotNull();
+        assertThrows(ApiException.class, () -> kestraClient().executions().execution(execution.getId(), MAIN_TENANT));
+        assertThrows(ApiException.class, () -> kestraClient().executions().execution(execution1.getId(), MAIN_TENANT));
+        assertThat(kestraClient().executions().execution(execution2.getId(), MAIN_TENANT)).isNotNull();
     }
     /**
      * Download file for an execution
@@ -306,14 +306,14 @@ public class ExecutionsApiTest {
         String flowId = randomId();
         createSleepConcurrencyFlow(flowId, namespace);
         ExecutionControllerExecutionResponse execution = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
-        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(execution.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.RUNNING));
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().execution(execution.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.RUNNING));
         ExecutionControllerExecutionResponse executionQueued = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
-        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(executionQueued.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.QUEUED));
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().execution(executionQueued.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.QUEUED));
 
         List<String> ids = List.of(executionQueued.getId());
         BulkResponse response = kestraClient().executions().forceRunByIds(MAIN_TENANT, ids);
         assertThat(response.getCount()).isEqualTo(1);
-        assertThat(kestraClient().executions().getExecution(executionQueued.getId(), MAIN_TENANT).getState().getCurrent()).isEqualTo(StateType.RUNNING);
+        assertThat(kestraClient().executions().execution(executionQueued.getId(), MAIN_TENANT).getState().getCurrent()).isEqualTo(StateType.RUNNING);
     }
     /**
      * Force run an execution
@@ -327,14 +327,14 @@ public class ExecutionsApiTest {
         String flowId = randomId();
         createSleepConcurrencyFlow(flowId, namespace);
         ExecutionControllerExecutionResponse execution = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
-        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(execution.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.RUNNING));
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().execution(execution.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.RUNNING));
         ExecutionControllerExecutionResponse executionQueued = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
-        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(executionQueued.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.QUEUED));
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().execution(executionQueued.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.QUEUED));
 
         String executionId = executionQueued.getId();
 
         Execution response = kestraClient().executions().forceRunExecution(executionId, MAIN_TENANT);
-        assertThat(kestraClient().executions().getExecution(response.getId(), MAIN_TENANT).getState().getCurrent()).isEqualTo(StateType.RUNNING);
+        assertThat(kestraClient().executions().execution(response.getId(), MAIN_TENANT).getState().getCurrent()).isEqualTo(StateType.RUNNING);
     }
     /**
      * Force run executions filter by query parameters
@@ -348,9 +348,9 @@ public class ExecutionsApiTest {
         String flowId = randomId();
         createSleepConcurrencyFlow(flowId, namespace);
         ExecutionControllerExecutionResponse execution = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
-        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(execution.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.RUNNING));
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().execution(execution.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.RUNNING));
         ExecutionControllerExecutionResponse executionQueued = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
-        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(executionQueued.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.QUEUED));
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().execution(executionQueued.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.QUEUED));
 
 
         List<QueryFilter> queryFilters = List.of(new QueryFilter()
@@ -359,7 +359,7 @@ public class ExecutionsApiTest {
             .value(flowId));
         Object response = kestraClient().executions().forceRunExecutionsByQuery(MAIN_TENANT, queryFilters);
         assertThat(response).isInstanceOf(LinkedHashMap.class).extracting("count").isEqualTo(2);
-        assertThat(kestraClient().executions().getExecution(executionQueued.getId(), MAIN_TENANT).getState().getCurrent()).isEqualTo(StateType.RUNNING);
+        assertThat(kestraClient().executions().execution(executionQueued.getId(), MAIN_TENANT).getState().getCurrent()).isEqualTo(StateType.RUNNING);
     }
 
     /**
@@ -376,7 +376,7 @@ public class ExecutionsApiTest {
 
         String executionId = execution.getId();
 
-        Execution response = kestraClient().executions().getExecution(executionId, MAIN_TENANT);
+        Execution response = kestraClient().executions().execution(executionId, MAIN_TENANT);
         assertThat(response.getId()).isEqualTo(executionId);
     }
     /**
@@ -394,7 +394,7 @@ public class ExecutionsApiTest {
         String executionId = execution.getId();
 
         List<String> subflows = null;
-        FlowGraph response = kestraClient().executions().getExecutionFlowGraph(executionId, MAIN_TENANT, subflows);
+        FlowGraph response = kestraClient().executions().executionFlowGraph(executionId, MAIN_TENANT, subflows);
         assertThat(response).isNotNull();
     }
     /**
@@ -412,7 +412,7 @@ public class ExecutionsApiTest {
         String executionId = execution.getId();
         URI path = URI.create(((Map<String, Object>)execution.getTaskRunList().getFirst().getOutputs()).get("uri").toString());
 
-        FileMetas response = kestraClient().executions().getFileMetadatasFromExecution(executionId, path, MAIN_TENANT);
+        FileMetas response = kestraClient().executions().fileMetadatasFromExecution(executionId, path, MAIN_TENANT);
         assertThat(response.getSize()).isEqualTo(15);
     }
     /**
@@ -429,7 +429,7 @@ public class ExecutionsApiTest {
 
         String executionId = execution.getId();
 
-        FlowForExecution response = kestraClient().executions().getFlowFromExecutionById(executionId, MAIN_TENANT);
+        FlowForExecution response = kestraClient().executions().flowFromExecutionById(executionId, MAIN_TENANT);
         assertThat(response.getId()).isEqualTo(id);
         assertThat(response.getNamespace()).isEqualTo(namespace);
     }
@@ -451,7 +451,7 @@ public class ExecutionsApiTest {
         List<ExecutionRepositoryInterfaceFlowFilter> executionRepositoryInterfaceFlowFilter = List.of(
             new ExecutionRepositoryInterfaceFlowFilter().id(flowId).namespace(namespace),
             new ExecutionRepositoryInterfaceFlowFilter().id(otherFlowId).namespace(namespace));
-        List<ExecutionControllerLastExecutionResponse> response = kestraClient().executions().getLatestExecutions(MAIN_TENANT, executionRepositoryInterfaceFlowFilter);
+        List<ExecutionControllerLastExecutionResponse> response = kestraClient().executions().latestExecutions(MAIN_TENANT, executionRepositoryInterfaceFlowFilter);
         assertThat(response).hasSize(2);
         assertThat(response).extracting(ExecutionControllerLastExecutionResponse::getId).containsExactlyInAnyOrder(execution1.getId(), otherExecution.getId());
     }
@@ -472,7 +472,7 @@ public class ExecutionsApiTest {
         Boolean isOnKillCascade = true;
 
         kestraClient().executions().killExecution(executionId, isOnKillCascade, MAIN_TENANT);
-        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(execution.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.KILLED));
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().execution(execution.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.KILLED));
     }
     /**
      * Kill a list of executions
@@ -492,9 +492,9 @@ public class ExecutionsApiTest {
         List<String> requestBody = List.of(execution2.getId(), execution3.getId());
         BulkResponse response = kestraClient().executions().killExecutionsByIds(MAIN_TENANT, requestBody);
         assertThat(response.getCount()).isEqualTo(2);
-        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(execution2.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.KILLED));
-        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(execution3.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.KILLED));
-        await().atMost(Duration.ofSeconds(3)).until(() -> kestraClient().executions().getExecution(execution1.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.SUCCESS));
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().execution(execution2.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.KILLED));
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().execution(execution3.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.KILLED));
+        await().atMost(Duration.ofSeconds(3)).until(() -> kestraClient().executions().execution(execution1.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.SUCCESS));
     }
     /**
      * Kill executions filter by query parameters
@@ -520,9 +520,9 @@ public class ExecutionsApiTest {
 
         Object response = kestraClient().executions().killExecutionsByQuery(MAIN_TENANT, filters);
         assertThat(response).isInstanceOf(LinkedHashMap.class).extracting("count").isEqualTo(2);
-        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(execution1.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.KILLED));
-        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(execution2.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.KILLED));
-        await().atMost(Duration.ofSeconds(3)).until(() -> kestraClient().executions().getExecution(anotherExec.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.SUCCESS));
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().execution(execution1.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.KILLED));
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().execution(execution2.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.KILLED));
+        await().atMost(Duration.ofSeconds(3)).until(() -> kestraClient().executions().execution(anotherExec.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.SUCCESS));
     }
     /**
      * Pause a running execution.
@@ -536,7 +536,7 @@ public class ExecutionsApiTest {
         String executionId = execution.getId();
 
         kestraClient().executions().pauseExecution(executionId, MAIN_TENANT);
-        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(executionId, MAIN_TENANT).getState().getCurrent().equals(StateType.PAUSED));
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().execution(executionId, MAIN_TENANT).getState().getCurrent().equals(StateType.PAUSED));
     }
     /**
      * Pause a list of running executions
@@ -553,8 +553,8 @@ public class ExecutionsApiTest {
         List<String> requestBody = List.of(exec1.getId(), exec2.getId());
         BulkResponse response = kestraClient().executions().pauseExecutionsByIds(MAIN_TENANT, requestBody);
         assertThat(response.getCount()).isEqualTo(2);
-        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(exec1.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.PAUSED));
-        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(exec2.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.PAUSED));
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().execution(exec1.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.PAUSED));
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().execution(exec2.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.PAUSED));
 
     }
     /**
@@ -576,9 +576,9 @@ public class ExecutionsApiTest {
 
         Object response = kestraClient().executions().pauseExecutionsByQuery(MAIN_TENANT, filters);
         assertThat(response).isInstanceOf(LinkedHashMap.class).extracting("count").isEqualTo(2);
-        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(exec1.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.PAUSED));
-        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(exec2.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.PAUSED));
-        await().atMost(Duration.ofSeconds(3)).until(() -> kestraClient().executions().getExecution(otherExec.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.SUCCESS));
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().execution(exec1.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.PAUSED));
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().execution(exec2.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.PAUSED));
+        await().atMost(Duration.ofSeconds(3)).until(() -> kestraClient().executions().execution(otherExec.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.SUCCESS));
     }
     /**
      * Create a new execution from an old one and start it from a specified task run id
@@ -597,7 +597,7 @@ public class ExecutionsApiTest {
         String breakpoints = null;
         Execution response = kestraClient().executions().replayExecution(executionId, MAIN_TENANT, taskRunId, revision, breakpoints);
         assertThat(response.getState().getCurrent()).isEqualTo(StateType.CREATED);
-        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(response.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.SUCCESS));
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().execution(response.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.SUCCESS));
     }
 
     /**
@@ -714,7 +714,7 @@ public class ExecutionsApiTest {
         String executionId = exec.getId();
 
         kestraClient().executions().resumeExecution(executionId, MAIN_TENANT);
-        await().atMost(Duration.ofMillis(500)).until(() -> kestraClient().executions().getExecution(executionId, MAIN_TENANT).getState().getCurrent().equals(StateType.SUCCESS));
+        await().atMost(Duration.ofMillis(500)).until(() -> kestraClient().executions().execution(executionId, MAIN_TENANT).getState().getCurrent().equals(StateType.SUCCESS));
     }
     /**
      * Resume a list of paused executions
@@ -730,8 +730,8 @@ public class ExecutionsApiTest {
         List<String> requestBody = List.of(exec1.getId(), exec2.getId());
         BulkResponse response = kestraClient().executions().resumeExecutionsByIds(MAIN_TENANT, requestBody);
         assertThat(response.getCount()).isEqualTo(2);
-        await().atMost(Duration.ofMillis(500)).until(() -> kestraClient().executions().getExecution(exec1.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.SUCCESS));
-        await().atMost(Duration.ofMillis(500)).until(() -> kestraClient().executions().getExecution(exec2.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.SUCCESS));
+        await().atMost(Duration.ofMillis(500)).until(() -> kestraClient().executions().execution(exec1.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.SUCCESS));
+        await().atMost(Duration.ofMillis(500)).until(() -> kestraClient().executions().execution(exec2.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.SUCCESS));
     }
     /**
      * Resume executions filter by query parameters
@@ -751,8 +751,8 @@ public class ExecutionsApiTest {
 
         Object response = kestraClient().executions().resumeExecutionsByQuery(MAIN_TENANT, filters);
         assertThat(response).isInstanceOf(LinkedHashMap.class).extracting("count").isEqualTo(2);
-        await().atMost(Duration.ofMillis(500)).until(() -> kestraClient().executions().getExecution(exec1.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.SUCCESS));
-        await().atMost(Duration.ofMillis(500)).until(() -> kestraClient().executions().getExecution(exec2.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.SUCCESS));
+        await().atMost(Duration.ofMillis(500)).until(() -> kestraClient().executions().execution(exec1.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.SUCCESS));
+        await().atMost(Duration.ofMillis(500)).until(() -> kestraClient().executions().execution(exec2.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.SUCCESS));
     }
     /**
      * Search for executions
@@ -806,7 +806,7 @@ public class ExecutionsApiTest {
 
         Object response = kestraClient().executions().setLabelsOnTerminatedExecution(executionId, MAIN_TENANT, label);
         assertNotNull(response);
-        Execution execWithLabel = kestraClient().executions().getExecution(executionId, MAIN_TENANT);
+        Execution execWithLabel = kestraClient().executions().execution(executionId, MAIN_TENANT);
         assertThat(execWithLabel.getLabels()).contains(labelFoo, labelTerminated);
     }
     /**
@@ -831,11 +831,11 @@ public class ExecutionsApiTest {
         BulkResponse response = kestraClient().executions().setLabelsOnTerminatedExecutionsByIds(MAIN_TENANT, executionControllerSetLabelsByIdsRequest);
 
         assertThat(response.getCount()).isEqualTo(2);
-        Execution exec1WithLabel = kestraClient().executions().getExecution(exec1.getId(), MAIN_TENANT);
+        Execution exec1WithLabel = kestraClient().executions().execution(exec1.getId(), MAIN_TENANT);
         assertThat(exec1WithLabel.getLabels()).contains(labelFoo, labelTerminated);
-        Execution exec2WithLabel = kestraClient().executions().getExecution(exec2.getId(), MAIN_TENANT);
+        Execution exec2WithLabel = kestraClient().executions().execution(exec2.getId(), MAIN_TENANT);
         assertThat(exec2WithLabel.getLabels()).contains(labelFoo, labelTerminated);
-        Execution otherExecWithLabel = kestraClient().executions().getExecution(otherExec.getId(), MAIN_TENANT);
+        Execution otherExecWithLabel = kestraClient().executions().execution(otherExec.getId(), MAIN_TENANT);
         assertThat(otherExecWithLabel.getLabels()).doesNotContain(labelFoo, labelTerminated);
     }
     /**
@@ -859,11 +859,11 @@ public class ExecutionsApiTest {
 
         Object response = kestraClient().executions().setLabelsOnTerminatedExecutionsByQuery(MAIN_TENANT, labels, filters);
         assertThat(response).isInstanceOf(LinkedHashMap.class).extracting("count").isEqualTo(2);
-        Execution exec1WithLabel = kestraClient().executions().getExecution(exec1.getId(), MAIN_TENANT);
+        Execution exec1WithLabel = kestraClient().executions().execution(exec1.getId(), MAIN_TENANT);
         assertThat(exec1WithLabel.getLabels()).contains(labelFoo, labelTerminated);
-        Execution exec2WithLabel = kestraClient().executions().getExecution(exec2.getId(), MAIN_TENANT);
+        Execution exec2WithLabel = kestraClient().executions().execution(exec2.getId(), MAIN_TENANT);
         assertThat(exec2WithLabel.getLabels()).contains(labelFoo, labelTerminated);
-        Execution otherExecWithLabel = kestraClient().executions().getExecution(otherExec.getId(), MAIN_TENANT);
+        Execution otherExecWithLabel = kestraClient().executions().execution(otherExec.getId(), MAIN_TENANT);
         assertThat(otherExecWithLabel.getLabels()).doesNotContain(labelFoo, labelTerminated);
     }
     /**
@@ -895,16 +895,16 @@ public class ExecutionsApiTest {
         String flowId = randomId();
         createSleepConcurrencyFlow(flowId, namespace);
         ExecutionControllerExecutionResponse execution = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
-        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(execution.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.RUNNING));
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().execution(execution.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.RUNNING));
         ExecutionControllerExecutionResponse executionQueued = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
-        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(executionQueued.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.QUEUED));
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().execution(executionQueued.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.QUEUED));
 
         String executionId = executionQueued.getId();
         StateType state = StateType.RUNNING;
 
         Execution response = kestraClient().executions().unqueueExecution(executionId, state, MAIN_TENANT);
         assertThat(response.getState().getCurrent()).isEqualTo(StateType.RUNNING);
-        await().atMost(Duration.ofMillis(500)).until(() -> kestraClient().executions().getExecution(executionQueued.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.RUNNING));
+        await().atMost(Duration.ofMillis(500)).until(() -> kestraClient().executions().execution(executionQueued.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.RUNNING));
 
     }
     /**
@@ -919,19 +919,19 @@ public class ExecutionsApiTest {
         String flowId = randomId();
         createSleepConcurrencyFlow(flowId, namespace);
         ExecutionControllerExecutionResponse execution = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
-        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(execution.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.RUNNING));
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().execution(execution.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.RUNNING));
         ExecutionControllerExecutionResponse executionQueued1 = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
-        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(executionQueued1.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.QUEUED));
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().execution(executionQueued1.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.QUEUED));
         ExecutionControllerExecutionResponse executionQueued2 = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
-        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(executionQueued2.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.QUEUED));
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().execution(executionQueued2.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.QUEUED));
 
         StateType state = StateType.RUNNING;
 
         List<String> requestBody = List.of(executionQueued1.getId(), executionQueued2.getId());
         BulkResponse response = kestraClient().executions().unqueueExecutionsByIds(state, MAIN_TENANT, requestBody);
         assertThat(response.getCount()).isEqualTo(2);
-        await().atMost(Duration.ofMillis(500)).until(() -> kestraClient().executions().getExecution(executionQueued1.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.RUNNING));
-        await().atMost(Duration.ofMillis(500)).until(() -> kestraClient().executions().getExecution(executionQueued2.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.RUNNING));
+        await().atMost(Duration.ofMillis(500)).until(() -> kestraClient().executions().execution(executionQueued1.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.RUNNING));
+        await().atMost(Duration.ofMillis(500)).until(() -> kestraClient().executions().execution(executionQueued2.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.RUNNING));
     }
     /**
      * Unqueue executions filter by query parameters
@@ -945,11 +945,11 @@ public class ExecutionsApiTest {
         String flowId = randomId();
         createSleepConcurrencyFlow(flowId, namespace);
         ExecutionControllerExecutionResponse execution = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
-        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(execution.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.RUNNING));
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().execution(execution.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.RUNNING));
         ExecutionControllerExecutionResponse executionQueued1 = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
-        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(executionQueued1.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.QUEUED));
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().execution(executionQueued1.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.QUEUED));
         ExecutionControllerExecutionResponse executionQueued2 = kestraClient().executions().createExecution(namespace, flowId, false, MAIN_TENANT, null, null, null, null, null);
-        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(executionQueued2.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.QUEUED));
+        await().atMost(Duration.ofSeconds(1)).until(() -> kestraClient().executions().execution(executionQueued2.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.QUEUED));
 
         List<QueryFilter> filters = List.of(new QueryFilter().field(QueryFilterField.QUERY)
             .operation(QueryFilterOp.EQUALS)
@@ -959,8 +959,8 @@ public class ExecutionsApiTest {
         Object response = kestraClient().executions().unqueueExecutionsByQuery(MAIN_TENANT, filters, newState);
 
         assertThat(response).isInstanceOf(LinkedHashMap.class).extracting("count").isEqualTo(1);
-        await().atMost(Duration.ofMillis(500)).until(() -> kestraClient().executions().getExecution(executionQueued1.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.RUNNING));
-        await().atLeast(Duration.ofSeconds(1)).until(() -> kestraClient().executions().getExecution(executionQueued2.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.RUNNING));
+        await().atMost(Duration.ofMillis(500)).until(() -> kestraClient().executions().execution(executionQueued1.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.RUNNING));
+        await().atLeast(Duration.ofSeconds(1)).until(() -> kestraClient().executions().execution(executionQueued2.getId(), MAIN_TENANT).getState().getCurrent().equals(StateType.RUNNING));
     }
     /**
      * Change the state of an execution
@@ -976,7 +976,7 @@ public class ExecutionsApiTest {
 
         Execution response = kestraClient().executions().updateExecutionStatus(executionId, status, MAIN_TENANT);
         assertThat(response.getState().getCurrent()).isEqualTo(status);
-        assertThat(kestraClient().executions().getExecution(executionId, MAIN_TENANT).getState().getCurrent()).isEqualTo(status);
+        assertThat(kestraClient().executions().execution(executionId, MAIN_TENANT).getState().getCurrent()).isEqualTo(status);
     }
     /**
      * Change executions state by id
@@ -995,9 +995,9 @@ public class ExecutionsApiTest {
         BulkResponse response = kestraClient().executions().updateExecutionsStatusByIds(newStatus, MAIN_TENANT, requestBody);
 
         assertThat(response.getCount()).isEqualTo(2);
-        assertThat(kestraClient().executions().getExecution(exec1.getId(), MAIN_TENANT).getState().getCurrent()).isEqualTo(newStatus);
-        assertThat(kestraClient().executions().getExecution(exec2.getId(), MAIN_TENANT).getState().getCurrent()).isEqualTo(newStatus);
-        assertThat(kestraClient().executions().getExecution(otherExec.getId(), MAIN_TENANT).getState().getCurrent()).isEqualTo(StateType.SUCCESS);
+        assertThat(kestraClient().executions().execution(exec1.getId(), MAIN_TENANT).getState().getCurrent()).isEqualTo(newStatus);
+        assertThat(kestraClient().executions().execution(exec2.getId(), MAIN_TENANT).getState().getCurrent()).isEqualTo(newStatus);
+        assertThat(kestraClient().executions().execution(otherExec.getId(), MAIN_TENANT).getState().getCurrent()).isEqualTo(StateType.SUCCESS);
     }
     /**
      * Change executions state by query parameters
@@ -1018,9 +1018,9 @@ public class ExecutionsApiTest {
         BulkResponse response = kestraClient().executions().updateExecutionsStatusByQuery(newStatus, MAIN_TENANT, filters);
 
         assertThat(response.getCount()).isEqualTo(2);
-        assertThat(kestraClient().executions().getExecution(exec1.getId(), MAIN_TENANT).getState().getCurrent()).isEqualTo(newStatus);
-        assertThat(kestraClient().executions().getExecution(exec2.getId(), MAIN_TENANT).getState().getCurrent()).isEqualTo(newStatus);
-        assertThat(kestraClient().executions().getExecution(otherExec.getId(), MAIN_TENANT).getState().getCurrent()).isEqualTo(StateType.SUCCESS);
+        assertThat(kestraClient().executions().execution(exec1.getId(), MAIN_TENANT).getState().getCurrent()).isEqualTo(newStatus);
+        assertThat(kestraClient().executions().execution(exec2.getId(), MAIN_TENANT).getState().getCurrent()).isEqualTo(newStatus);
+        assertThat(kestraClient().executions().execution(otherExec.getId(), MAIN_TENANT).getState().getCurrent()).isEqualTo(StateType.SUCCESS);
     }
 
     @Test

@@ -31,15 +31,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   BulkImportAppsRequest.JSON_PROPERTY_FILE_UPLOAD
 })
 @JsonTypeName("bulkImportApps_request")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class BulkImportAppsRequest {
   public static final String JSON_PROPERTY_FILE_UPLOAD = "fileUpload";
-  @javax.annotation.Nullable  private File fileUpload;
+  @jakarta.annotation.Nullable  private File fileUpload;
 
   public BulkImportAppsRequest() {
   }
 
-  public BulkImportAppsRequest fileUpload(@javax.annotation.Nullable File fileUpload) {
+  public BulkImportAppsRequest fileUpload(@jakarta.annotation.Nullable File fileUpload) {
     
     this.fileUpload = fileUpload;
     return this;
@@ -49,7 +49,7 @@ public class BulkImportAppsRequest {
    * The file to import, can be a ZIP archive or a multi-objects YAML file
    * @return fileUpload
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FILE_UPLOAD)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FILE_UPLOAD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public File getFileUpload() {
@@ -59,7 +59,7 @@ public class BulkImportAppsRequest {
 
   @JsonProperty(JSON_PROPERTY_FILE_UPLOAD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFileUpload(@javax.annotation.Nullable File fileUpload) {
+  public void setFileUpload(@jakarta.annotation.Nullable File fileUpload) {
     this.fileUpload = fileUpload;
   }
 

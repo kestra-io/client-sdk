@@ -30,15 +30,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ExecutionControllerApiValidateExecutionInputsResponseApiInputError.JSON_PROPERTY_MESSAGE
 })
 @JsonTypeName("ExecutionController.ApiValidateExecutionInputsResponse.ApiInputError")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ExecutionControllerApiValidateExecutionInputsResponseApiInputError {
   public static final String JSON_PROPERTY_MESSAGE = "message";
-  @javax.annotation.Nullable  private String message;
+  @jakarta.annotation.Nullable  private String message;
 
   public ExecutionControllerApiValidateExecutionInputsResponseApiInputError() {
   }
 
-  public ExecutionControllerApiValidateExecutionInputsResponseApiInputError message(@javax.annotation.Nullable String message) {
+  public ExecutionControllerApiValidateExecutionInputsResponseApiInputError message(@jakarta.annotation.Nullable String message) {
     
     this.message = message;
     return this;
@@ -48,7 +48,7 @@ public class ExecutionControllerApiValidateExecutionInputsResponseApiInputError 
    * Get message
    * @return message
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MESSAGE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getMessage() {
@@ -58,7 +58,7 @@ public class ExecutionControllerApiValidateExecutionInputsResponseApiInputError 
 
   @JsonProperty(JSON_PROPERTY_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMessage(@javax.annotation.Nullable String message) {
+  public void setMessage(@jakarta.annotation.Nullable String message) {
     this.message = message;
   }
 

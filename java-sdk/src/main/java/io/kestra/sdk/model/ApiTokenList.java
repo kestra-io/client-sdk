@@ -34,18 +34,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ApiTokenList.JSON_PROPERTY_TOTAL,
   ApiTokenList.JSON_PROPERTY_RESULTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ApiTokenList {
   public static final String JSON_PROPERTY_TOTAL = "total";
-  @javax.annotation.Nullable  private Integer total;
+  @jakarta.annotation.Nullable  private Integer total;
 
   public static final String JSON_PROPERTY_RESULTS = "results";
-  @javax.annotation.Nullable  private List<ApiToken> results = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<ApiToken> results = new ArrayList<>();
 
   public ApiTokenList() {
   }
 
-  public ApiTokenList total(@javax.annotation.Nullable Integer total) {
+  public ApiTokenList total(@jakarta.annotation.Nullable Integer total) {
     
     this.total = total;
     return this;
@@ -55,7 +55,7 @@ public class ApiTokenList {
    * Get total
    * @return total
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TOTAL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getTotal() {
@@ -65,11 +65,11 @@ public class ApiTokenList {
 
   @JsonProperty(JSON_PROPERTY_TOTAL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTotal(@javax.annotation.Nullable Integer total) {
+  public void setTotal(@jakarta.annotation.Nullable Integer total) {
     this.total = total;
   }
 
-  public ApiTokenList results(@javax.annotation.Nullable List<ApiToken> results) {
+  public ApiTokenList results(@jakarta.annotation.Nullable List<ApiToken> results) {
     
     this.results = results;
     return this;
@@ -87,7 +87,7 @@ public class ApiTokenList {
    * Get results
    * @return results
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<ApiToken> getResults() {
@@ -97,7 +97,7 @@ public class ApiTokenList {
 
   @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setResults(@javax.annotation.Nullable List<ApiToken> results) {
+  public void setResults(@jakarta.annotation.Nullable List<ApiToken> results) {
     this.results = results;
   }
 

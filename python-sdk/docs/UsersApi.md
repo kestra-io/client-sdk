@@ -11,7 +11,6 @@ Method | HTTP request | Description
 [**delete_refresh_token**](users.md#delete_refresh_token) | **DELETE** /api/v1/users/{id}/refresh-token | Delete a user refresh token
 [**delete_user**](users.md#delete_user) | **DELETE** /api/v1/users/{id} | Delete a user
 [**delete_user_auth_method**](users.md#delete_user_auth_method) | **DELETE** /api/v1/users/{id}/auths/{auth} | Update user password
-[**get_user**](users.md#get_user) | **GET** /api/v1/users/{id} | Get a user
 [**impersonate**](users.md#impersonate) | **POST** /api/v1/users/{id}/impersonate | Impersonate a user
 [**list_api_tokens_for_user**](users.md#list_api_tokens_for_user) | **GET** /api/v1/users/{id}/api-tokens | List API tokens for a specific user
 [**list_users**](users.md#list_users) | **GET** /api/v1/users | Retrieve users
@@ -22,6 +21,7 @@ Method | HTTP request | Description
 [**update_current_user_password**](users.md#update_current_user_password) | **PUT** /api/v1/me/password | Update authenticated user password
 [**update_user**](users.md#update_user) | **PUT** /api/v1/users/{id} | Update a user account
 [**update_user_groups**](users.md#update_user_groups) | **PUT** /api/v1/{tenant}/users/{id}/groups | Update the list of groups a user belongs to for the given tenant
+[**user**](users.md#user) | **GET** /api/v1/users/{id} | Get a user
 
 
 # **autocomplete_users**
@@ -473,71 +473,6 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | User auth method successfully updated |  -  |
 **404** | User or auth method not found |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_user**
-> IAMUserControllerApiUser get_user(id)
-
-Get a user
-
-Superadmin-only. Get user account details.
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-from kestrapy import KestraClient, Configuration
-
-configuration = Configuration()
-
-configuration.host = "http://localhost:8080"
-configuration.username = "root@root.com"
-configuration.password = "Root!1234"
-
-# Enter a context with an instance of the API client
-with KestraClient(configuration) as kestra_client:
-    id = 'id_example' # str | The user id
-
-    try:
-        # Get a user
-        api_response = kestra_client.users.get_user(id)
-        print("The response of users->get_user:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling users->get_user: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**| The user id | 
-
-### Return type
-
-[**IAMUserControllerApiUser**](IAMUserControllerApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | getUser 200 response |  -  |
-**404** | User not found |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1196,6 +1131,71 @@ void (empty response body)
 **204** | User&#39;s groups successfully updated |  -  |
 **400** | Invalid request payload |  -  |
 **404** | User or one of the groups not found |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **user**
+> IAMUserControllerApiUser user(id)
+
+Get a user
+
+Superadmin-only. Get user account details.
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    id = 'id_example' # str | The user id
+
+    try:
+        # Get a user
+        api_response = kestra_client.users.user(id)
+        print("The response of users->user:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling users->user: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| The user id | 
+
+### Return type
+
+[**IAMUserControllerApiUser**](IAMUserControllerApiUser.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | getUser 200 response |  -  |
+**404** | User not found |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -35,21 +35,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ApiSecretListResponse.JSON_PROPERTY_RESULTS,
   ApiSecretListResponse.JSON_PROPERTY_TOTAL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ApiSecretListResponse {
   public static final String JSON_PROPERTY_READ_ONLY = "readOnly";
-  @javax.annotation.Nonnull  private Boolean readOnly;
+  @jakarta.annotation.Nonnull  private Boolean readOnly;
 
   public static final String JSON_PROPERTY_RESULTS = "results";
-  @javax.annotation.Nonnull  private List<ApiSecretMeta> results = new ArrayList<>();
+  @jakarta.annotation.Nonnull  private List<ApiSecretMeta> results = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TOTAL = "total";
-  @javax.annotation.Nullable  private Long total;
+  @jakarta.annotation.Nullable  private Long total;
 
   public ApiSecretListResponse() {
   }
 
-  public ApiSecretListResponse readOnly(@javax.annotation.Nonnull Boolean readOnly) {
+  public ApiSecretListResponse readOnly(@jakarta.annotation.Nonnull Boolean readOnly) {
     
     this.readOnly = readOnly;
     return this;
@@ -59,7 +59,7 @@ public class ApiSecretListResponse {
    * Get readOnly
    * @return readOnly
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_READ_ONLY)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_READ_ONLY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getReadOnly() {
@@ -69,11 +69,11 @@ public class ApiSecretListResponse {
 
   @JsonProperty(JSON_PROPERTY_READ_ONLY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setReadOnly(@javax.annotation.Nonnull Boolean readOnly) {
+  public void setReadOnly(@jakarta.annotation.Nonnull Boolean readOnly) {
     this.readOnly = readOnly;
   }
 
-  public ApiSecretListResponse results(@javax.annotation.Nonnull List<ApiSecretMeta> results) {
+  public ApiSecretListResponse results(@jakarta.annotation.Nonnull List<ApiSecretMeta> results) {
     
     this.results = results;
     return this;
@@ -91,7 +91,7 @@ public class ApiSecretListResponse {
    * Get results
    * @return results
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<ApiSecretMeta> getResults() {
@@ -101,11 +101,11 @@ public class ApiSecretListResponse {
 
   @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setResults(@javax.annotation.Nonnull List<ApiSecretMeta> results) {
+  public void setResults(@jakarta.annotation.Nonnull List<ApiSecretMeta> results) {
     this.results = results;
   }
 
-  public ApiSecretListResponse total(@javax.annotation.Nullable Long total) {
+  public ApiSecretListResponse total(@jakarta.annotation.Nullable Long total) {
     
     this.total = total;
     return this;
@@ -115,7 +115,7 @@ public class ApiSecretListResponse {
    * Get total
    * @return total
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TOTAL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getTotal() {
@@ -125,7 +125,7 @@ public class ApiSecretListResponse {
 
   @JsonProperty(JSON_PROPERTY_TOTAL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTotal(@javax.annotation.Nullable Long total) {
+  public void setTotal(@jakarta.annotation.Nullable Long total) {
     this.total = total;
   }
 

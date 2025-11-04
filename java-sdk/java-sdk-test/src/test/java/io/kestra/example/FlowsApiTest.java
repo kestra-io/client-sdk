@@ -247,12 +247,10 @@ public class FlowsApiTest {
         Boolean allowDeleted = false;
 
         Integer revision = null;
-        Object response = kestraClient().flows().getFlow(namespace, id, source, allowDeleted, MAIN_TENANT, revision);
+        FlowWithSource response = kestraClient().flows().flow(namespace, id, source, allowDeleted, MAIN_TENANT, revision);
 
-        assertThat(response).isInstanceOf(Map.class);
-        assertThat((Map<String, Object>) response)
-            .containsEntry("id", id);
-        // TODO: check if this is acceptable
+        assertThat(response.getId())
+            .isEqualTo(id);
     }
 
     /**
@@ -269,7 +267,7 @@ public class FlowsApiTest {
         Boolean destinationOnly = true;
         Boolean expandAll = false;
 
-        kestraClient().flows().getFlowDependencies(namespace, id, destinationOnly, expandAll, MAIN_TENANT);
+        kestraClient().flows().flowDependencies(namespace, id, destinationOnly, expandAll, MAIN_TENANT);
     }
     /**
      * Retrieve flow dependencies
@@ -284,7 +282,7 @@ public class FlowsApiTest {
         String namespace = flow.getNamespace();
         Boolean destinationOnly = true;
 
-        FlowTopologyGraph response = kestraClient().flows().getFlowDependenciesFromNamespace(namespace, destinationOnly, MAIN_TENANT);
+        FlowTopologyGraph response = kestraClient().flows().flowDependenciesFromNamespace(namespace, destinationOnly, MAIN_TENANT);
     }
     /**
      * Get a flow task
@@ -300,7 +298,7 @@ public class FlowsApiTest {
         String taskId = flow.getTasks().get(0).getId();
 
         Integer revision = null;
-        Task response = kestraClient().flows().getTaskFromFlow(namespace, id, taskId, MAIN_TENANT, revision);
+        Task response = kestraClient().flows().taskFromFlow(namespace, id, taskId, MAIN_TENANT, revision);
     }
     /**
      *     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned.
@@ -527,18 +525,18 @@ public class FlowsApiTest {
     }
 
     private static void assertFlowExist(FlowWithSource flow) {
-        assertThatCode(() -> kestraClient().flows().getFlow(flow.getNamespace(), flow.getId(), false, false, MAIN_TENANT, null))
+        assertThatCode(() -> kestraClient().flows().flow(flow.getNamespace(), flow.getId(), false, false, MAIN_TENANT, null))
             .as("assert flow exists")
             .doesNotThrowAnyException();
     }
     private static void assertFlowExist(String namespace, String flowId) {
-        assertThatCode(() -> kestraClient().flows().getFlow(namespace, flowId, false, false, MAIN_TENANT, null))
+        assertThatCode(() -> kestraClient().flows().flow(namespace, flowId, false, false, MAIN_TENANT, null))
             .as("assert flow exists")
             .doesNotThrowAnyException();
     }
 
     private static void assertFlowDoesNotExist(FlowWithSource flow) {
-        assertThatThrownBy(() -> kestraClient().flows().getFlow(flow.getNamespace(), flow.getId(), false, false, MAIN_TENANT, null)).isInstanceOf(ApiException.class)
+        assertThatThrownBy(() -> kestraClient().flows().flow(flow.getNamespace(), flow.getId(), false, false, MAIN_TENANT, null)).isInstanceOf(ApiException.class)
             .as("assert flow does not exist")
             .hasMessageContaining("Not Found");
     }

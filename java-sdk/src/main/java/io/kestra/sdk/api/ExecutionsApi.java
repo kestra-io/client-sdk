@@ -57,7 +57,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")public class ExecutionsApi extends BaseApi {
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")public class ExecutionsApi extends BaseApi {
 
   public ExecutionsApi() {
     super(Configuration.getDefaultApiClient());
@@ -82,10 +82,10 @@ import java.util.StringJoiner;
    * @return ExecutionControllerExecutionResponse
    * @throws ApiException if fails to make API call
    */
-  public ExecutionControllerExecutionResponse createExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable OffsetDateTime scheduleDate, @javax.annotation.Nullable String breakpoints, @javax.annotation.Nullable ExecutionKind kind) throws ApiException {
+  public ExecutionControllerExecutionResponse createExecution(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull Boolean wait, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> labels, @jakarta.annotation.Nullable Integer revision, @jakarta.annotation.Nullable OffsetDateTime scheduleDate, @jakarta.annotation.Nullable String breakpoints, @jakarta.annotation.Nullable ExecutionKind kind) throws ApiException {
     return this.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind, Collections.emptyMap(), null);
   }
-  public ExecutionControllerExecutionResponse createExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable OffsetDateTime scheduleDate, @javax.annotation.Nullable String breakpoints, @javax.annotation.Nullable ExecutionKind kind, HashMap<String, Object> additionalFormDatas)  throws ApiException {
+  public ExecutionControllerExecutionResponse createExecution(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull Boolean wait, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> labels, @jakarta.annotation.Nullable Integer revision, @jakarta.annotation.Nullable OffsetDateTime scheduleDate, @jakarta.annotation.Nullable String breakpoints, @jakarta.annotation.Nullable ExecutionKind kind, HashMap<String, Object> additionalFormDatas)  throws ApiException {
   return this.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind, Collections.emptyMap(), additionalFormDatas);
   }
 
@@ -105,7 +105,7 @@ import java.util.StringJoiner;
    * @return ExecutionControllerExecutionResponse
    * @throws ApiException if fails to make API call
    */
-  public ExecutionControllerExecutionResponse createExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable OffsetDateTime scheduleDate, @javax.annotation.Nullable String breakpoints, @javax.annotation.Nullable ExecutionKind kind, Map<String, String> additionalHeaders, HashMap<String, Object> additionalFormDatas) throws ApiException {
+  public ExecutionControllerExecutionResponse createExecution(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull Boolean wait, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> labels, @jakarta.annotation.Nullable Integer revision, @jakarta.annotation.Nullable OffsetDateTime scheduleDate, @jakarta.annotation.Nullable String breakpoints, @jakarta.annotation.Nullable ExecutionKind kind, Map<String, String> additionalHeaders, HashMap<String, Object> additionalFormDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -197,7 +197,7 @@ import java.util.StringJoiner;
    * @param deleteStorage Whether to delete execution files in the internal storage (optional, default to true)
    * @throws ApiException if fails to make API call
    */
-  public void deleteExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage) throws ApiException {
+  public void deleteExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Boolean deleteLogs, @jakarta.annotation.Nullable Boolean deleteMetrics, @jakarta.annotation.Nullable Boolean deleteStorage) throws ApiException {
     this.deleteExecution(executionId, tenant, deleteLogs, deleteMetrics, deleteStorage, Collections.emptyMap());
   }
 
@@ -212,7 +212,7 @@ import java.util.StringJoiner;
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void deleteExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage, Map<String, String> additionalHeaders) throws ApiException {
+  public void deleteExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Boolean deleteLogs, @jakarta.annotation.Nullable Boolean deleteMetrics, @jakarta.annotation.Nullable Boolean deleteStorage, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -291,7 +291,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse deleteExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, @javax.annotation.Nullable Boolean includeNonTerminated, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage) throws ApiException {
+  public BulkResponse deleteExecutionsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<String> requestBody, @jakarta.annotation.Nullable Boolean includeNonTerminated, @jakarta.annotation.Nullable Boolean deleteLogs, @jakarta.annotation.Nullable Boolean deleteMetrics, @jakarta.annotation.Nullable Boolean deleteStorage) throws ApiException {
     return this.deleteExecutionsByIds(tenant, requestBody, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage, Collections.emptyMap());
   }
 
@@ -308,7 +308,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse deleteExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, @javax.annotation.Nullable Boolean includeNonTerminated, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse deleteExecutionsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<String> requestBody, @jakarta.annotation.Nullable Boolean includeNonTerminated, @jakarta.annotation.Nullable Boolean deleteLogs, @jakarta.annotation.Nullable Boolean deleteMetrics, @jakarta.annotation.Nullable Boolean deleteStorage, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = requestBody;
     
     // verify the required parameter 'tenant' is set
@@ -388,7 +388,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable Boolean includeNonTerminated, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage) throws ApiException {
+  public Object deleteExecutionsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, @jakarta.annotation.Nullable Boolean includeNonTerminated, @jakarta.annotation.Nullable Boolean deleteLogs, @jakarta.annotation.Nullable Boolean deleteMetrics, @jakarta.annotation.Nullable Boolean deleteStorage) throws ApiException {
     return this.deleteExecutionsByQuery(tenant, filters, includeNonTerminated, deleteLogs, deleteMetrics, deleteStorage, Collections.emptyMap());
   }
 
@@ -405,7 +405,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable Boolean includeNonTerminated, @javax.annotation.Nullable Boolean deleteLogs, @javax.annotation.Nullable Boolean deleteMetrics, @javax.annotation.Nullable Boolean deleteStorage, Map<String, String> additionalHeaders) throws ApiException {
+  public Object deleteExecutionsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, @jakarta.annotation.Nullable Boolean includeNonTerminated, @jakarta.annotation.Nullable Boolean deleteLogs, @jakarta.annotation.Nullable Boolean deleteMetrics, @jakarta.annotation.Nullable Boolean deleteStorage, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -478,7 +478,7 @@ import java.util.StringJoiner;
    * @return File
    * @throws ApiException if fails to make API call
    */
-  public File downloadFileFromExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull URI path, @javax.annotation.Nonnull String tenant) throws ApiException {
+  public File downloadFileFromExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull URI path, @jakarta.annotation.Nonnull String tenant) throws ApiException {
     return this.downloadFileFromExecution(executionId, path, tenant, Collections.emptyMap());
   }
 
@@ -492,7 +492,7 @@ import java.util.StringJoiner;
    * @return File
    * @throws ApiException if fails to make API call
    */
-  public File downloadFileFromExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull URI path, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public File downloadFileFromExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull URI path, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -541,6 +541,458 @@ import java.util.StringJoiner;
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
     TypeReference<File> localVarReturnType = new TypeReference<File>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "GET",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+
+
+
+
+
+  /**
+   * Get an execution
+   * 
+   * @param executionId The execution id (required)
+   * @param tenant  (required)
+   * @return Execution
+   * @throws ApiException if fails to make API call
+   */
+  public Execution execution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.execution(executionId, tenant, Collections.emptyMap());
+  }
+
+  /**
+   * Get an execution
+   * 
+   * @param executionId The execution id (required)
+   * @param tenant  (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return Execution
+   * @throws ApiException if fails to make API call
+   */
+  public Execution execution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'executionId' is set
+    if (executionId == null) {
+      throw new ApiException(400, "Missing the required parameter 'executionId' when calling execution");
+    }
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling execution");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/executions/{executionId}"
+      .replaceAll("\\{" + "executionId" + "\\}", apiClient.escapeString(apiClient.parameterToString(executionId)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<Execution> localVarReturnType = new TypeReference<Execution>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "GET",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+
+
+
+
+
+  /**
+   * Generate a graph for an execution
+   * 
+   * @param executionId The execution id (required)
+   * @param tenant  (required)
+   * @param subflows The subflow tasks to display (optional)
+   * @return FlowGraph
+   * @throws ApiException if fails to make API call
+   */
+  public FlowGraph executionFlowGraph(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> subflows) throws ApiException {
+    return this.executionFlowGraph(executionId, tenant, subflows, Collections.emptyMap());
+  }
+
+  /**
+   * Generate a graph for an execution
+   * 
+   * @param executionId The execution id (required)
+   * @param tenant  (required)
+   * @param subflows The subflow tasks to display (optional)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return FlowGraph
+   * @throws ApiException if fails to make API call
+   */
+  public FlowGraph executionFlowGraph(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> subflows, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'executionId' is set
+    if (executionId == null) {
+      throw new ApiException(400, "Missing the required parameter 'executionId' when calling executionFlowGraph");
+    }
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling executionFlowGraph");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/executions/{executionId}/graph"
+      .replaceAll("\\{" + "executionId" + "\\}", apiClient.escapeString(apiClient.parameterToString(executionId)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "subflows", subflows));
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<FlowGraph> localVarReturnType = new TypeReference<FlowGraph>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "GET",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+
+
+
+
+
+  /**
+   * Get file meta information for an execution
+   * 
+   * @param executionId The execution id (required)
+   * @param path The internal storage uri (required)
+   * @param tenant  (required)
+   * @return FileMetas
+   * @throws ApiException if fails to make API call
+   */
+  public FileMetas fileMetadatasFromExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull URI path, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.fileMetadatasFromExecution(executionId, path, tenant, Collections.emptyMap());
+  }
+
+  /**
+   * Get file meta information for an execution
+   * 
+   * @param executionId The execution id (required)
+   * @param path The internal storage uri (required)
+   * @param tenant  (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return FileMetas
+   * @throws ApiException if fails to make API call
+   */
+  public FileMetas fileMetadatasFromExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull URI path, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'executionId' is set
+    if (executionId == null) {
+      throw new ApiException(400, "Missing the required parameter 'executionId' when calling fileMetadatasFromExecution");
+    }
+    
+    // verify the required parameter 'path' is set
+    if (path == null) {
+      throw new ApiException(400, "Missing the required parameter 'path' when calling fileMetadatasFromExecution");
+    }
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling fileMetadatasFromExecution");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/executions/{executionId}/file/metas"
+      .replaceAll("\\{" + "executionId" + "\\}", apiClient.escapeString(apiClient.parameterToString(executionId)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    localVarQueryParams.addAll(apiClient.parameterToPair("path", path));
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<FileMetas> localVarReturnType = new TypeReference<FileMetas>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "GET",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+
+
+
+
+
+  /**
+   * Get flow information&#39;s for an execution
+   * 
+   * @param namespace The namespace of the flow (required)
+   * @param flowId The flow id (required)
+   * @param tenant  (required)
+   * @param revision The flow revision (optional)
+   * @return FlowForExecution
+   * @throws ApiException if fails to make API call
+   */
+  public FlowForExecution flowFromExecution(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer revision) throws ApiException {
+    return this.flowFromExecution(namespace, flowId, tenant, revision, Collections.emptyMap());
+  }
+
+  /**
+   * Get flow information&#39;s for an execution
+   * 
+   * @param namespace The namespace of the flow (required)
+   * @param flowId The flow id (required)
+   * @param tenant  (required)
+   * @param revision The flow revision (optional)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return FlowForExecution
+   * @throws ApiException if fails to make API call
+   */
+  public FlowForExecution flowFromExecution(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer revision, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'namespace' is set
+    if (namespace == null) {
+      throw new ApiException(400, "Missing the required parameter 'namespace' when calling flowFromExecution");
+    }
+    
+    // verify the required parameter 'flowId' is set
+    if (flowId == null) {
+      throw new ApiException(400, "Missing the required parameter 'flowId' when calling flowFromExecution");
+    }
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling flowFromExecution");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/executions/flows/{namespace}/{flowId}"
+      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
+      .replaceAll("\\{" + "flowId" + "\\}", apiClient.escapeString(apiClient.parameterToString(flowId)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<FlowForExecution> localVarReturnType = new TypeReference<FlowForExecution>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "GET",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+
+
+
+
+
+  /**
+   * Get flow information&#39;s for an execution
+   * 
+   * @param executionId The execution that you want flow informations (required)
+   * @param tenant  (required)
+   * @return FlowForExecution
+   * @throws ApiException if fails to make API call
+   */
+  public FlowForExecution flowFromExecutionById(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.flowFromExecutionById(executionId, tenant, Collections.emptyMap());
+  }
+
+  /**
+   * Get flow information&#39;s for an execution
+   * 
+   * @param executionId The execution that you want flow informations (required)
+   * @param tenant  (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return FlowForExecution
+   * @throws ApiException if fails to make API call
+   */
+  public FlowForExecution flowFromExecutionById(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'executionId' is set
+    if (executionId == null) {
+      throw new ApiException(400, "Missing the required parameter 'executionId' when calling flowFromExecutionById");
+    }
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling flowFromExecutionById");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/executions/{executionId}/flow"
+      .replaceAll("\\{" + "executionId" + "\\}", apiClient.escapeString(apiClient.parameterToString(executionId)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<FlowForExecution> localVarReturnType = new TypeReference<FlowForExecution>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "GET",
@@ -789,7 +1241,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse forceRunByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody) throws ApiException {
+  public BulkResponse forceRunByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<String> requestBody) throws ApiException {
     return this.forceRunByIds(tenant, requestBody, Collections.emptyMap());
   }
 
@@ -802,7 +1254,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse forceRunByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse forceRunByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = requestBody;
     
     // verify the required parameter 'tenant' is set
@@ -874,7 +1326,7 @@ import java.util.StringJoiner;
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution forceRunExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant) throws ApiException {
+  public Execution forceRunExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant) throws ApiException {
     return this.forceRunExecution(executionId, tenant, Collections.emptyMap());
   }
 
@@ -887,7 +1339,7 @@ import java.util.StringJoiner;
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution forceRunExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Execution forceRunExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -960,7 +1412,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object forceRunExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+  public Object forceRunExecutionsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
     return this.forceRunExecutionsByQuery(tenant, filters, Collections.emptyMap());
   }
 
@@ -973,7 +1425,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object forceRunExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public Object forceRunExecutionsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -1034,543 +1486,6 @@ import java.util.StringJoiner;
 
 
   /**
-   * Get an execution
-   * 
-   * @param executionId The execution id (required)
-   * @param tenant  (required)
-   * @return Execution
-   * @throws ApiException if fails to make API call
-   */
-  public Execution getExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.getExecution(executionId, tenant, Collections.emptyMap());
-  }
-
-  /**
-   * Get an execution
-   * 
-   * @param executionId The execution id (required)
-   * @param tenant  (required)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return Execution
-   * @throws ApiException if fails to make API call
-   */
-  public Execution getExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'executionId' is set
-    if (executionId == null) {
-      throw new ApiException(400, "Missing the required parameter 'executionId' when calling getExecution");
-    }
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling getExecution");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/executions/{executionId}"
-      .replaceAll("\\{" + "executionId" + "\\}", apiClient.escapeString(apiClient.parameterToString(executionId)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<Execution> localVarReturnType = new TypeReference<Execution>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "GET",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
-
-
-
-
-
-
-  /**
-   * Generate a graph for an execution
-   * 
-   * @param executionId The execution id (required)
-   * @param tenant  (required)
-   * @param subflows The subflow tasks to display (optional)
-   * @return FlowGraph
-   * @throws ApiException if fails to make API call
-   */
-  public FlowGraph getExecutionFlowGraph(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> subflows) throws ApiException {
-    return this.getExecutionFlowGraph(executionId, tenant, subflows, Collections.emptyMap());
-  }
-
-  /**
-   * Generate a graph for an execution
-   * 
-   * @param executionId The execution id (required)
-   * @param tenant  (required)
-   * @param subflows The subflow tasks to display (optional)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return FlowGraph
-   * @throws ApiException if fails to make API call
-   */
-  public FlowGraph getExecutionFlowGraph(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> subflows, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'executionId' is set
-    if (executionId == null) {
-      throw new ApiException(400, "Missing the required parameter 'executionId' when calling getExecutionFlowGraph");
-    }
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling getExecutionFlowGraph");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/executions/{executionId}/graph"
-      .replaceAll("\\{" + "executionId" + "\\}", apiClient.escapeString(apiClient.parameterToString(executionId)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "subflows", subflows));
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<FlowGraph> localVarReturnType = new TypeReference<FlowGraph>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "GET",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
-
-
-
-
-
-
-  /**
-   * Get file meta information for an execution
-   * 
-   * @param executionId The execution id (required)
-   * @param path The internal storage uri (required)
-   * @param tenant  (required)
-   * @return FileMetas
-   * @throws ApiException if fails to make API call
-   */
-  public FileMetas getFileMetadatasFromExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull URI path, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.getFileMetadatasFromExecution(executionId, path, tenant, Collections.emptyMap());
-  }
-
-  /**
-   * Get file meta information for an execution
-   * 
-   * @param executionId The execution id (required)
-   * @param path The internal storage uri (required)
-   * @param tenant  (required)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return FileMetas
-   * @throws ApiException if fails to make API call
-   */
-  public FileMetas getFileMetadatasFromExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull URI path, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'executionId' is set
-    if (executionId == null) {
-      throw new ApiException(400, "Missing the required parameter 'executionId' when calling getFileMetadatasFromExecution");
-    }
-    
-    // verify the required parameter 'path' is set
-    if (path == null) {
-      throw new ApiException(400, "Missing the required parameter 'path' when calling getFileMetadatasFromExecution");
-    }
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling getFileMetadatasFromExecution");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/executions/{executionId}/file/metas"
-      .replaceAll("\\{" + "executionId" + "\\}", apiClient.escapeString(apiClient.parameterToString(executionId)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
-    localVarQueryParams.addAll(apiClient.parameterToPair("path", path));
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<FileMetas> localVarReturnType = new TypeReference<FileMetas>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "GET",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
-
-
-
-
-
-
-  /**
-   * Get flow information&#39;s for an execution
-   * 
-   * @param namespace The namespace of the flow (required)
-   * @param flowId The flow id (required)
-   * @param tenant  (required)
-   * @param revision The flow revision (optional)
-   * @return FlowForExecution
-   * @throws ApiException if fails to make API call
-   */
-  public FlowForExecution getFlowFromExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision) throws ApiException {
-    return this.getFlowFromExecution(namespace, flowId, tenant, revision, Collections.emptyMap());
-  }
-
-  /**
-   * Get flow information&#39;s for an execution
-   * 
-   * @param namespace The namespace of the flow (required)
-   * @param flowId The flow id (required)
-   * @param tenant  (required)
-   * @param revision The flow revision (optional)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return FlowForExecution
-   * @throws ApiException if fails to make API call
-   */
-  public FlowForExecution getFlowFromExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'namespace' is set
-    if (namespace == null) {
-      throw new ApiException(400, "Missing the required parameter 'namespace' when calling getFlowFromExecution");
-    }
-    
-    // verify the required parameter 'flowId' is set
-    if (flowId == null) {
-      throw new ApiException(400, "Missing the required parameter 'flowId' when calling getFlowFromExecution");
-    }
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling getFlowFromExecution");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/executions/flows/{namespace}/{flowId}"
-      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
-      .replaceAll("\\{" + "flowId" + "\\}", apiClient.escapeString(apiClient.parameterToString(flowId)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
-    localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<FlowForExecution> localVarReturnType = new TypeReference<FlowForExecution>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "GET",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
-
-
-
-
-
-
-  /**
-   * Get flow information&#39;s for an execution
-   * 
-   * @param executionId The execution that you want flow informations (required)
-   * @param tenant  (required)
-   * @return FlowForExecution
-   * @throws ApiException if fails to make API call
-   */
-  public FlowForExecution getFlowFromExecutionById(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.getFlowFromExecutionById(executionId, tenant, Collections.emptyMap());
-  }
-
-  /**
-   * Get flow information&#39;s for an execution
-   * 
-   * @param executionId The execution that you want flow informations (required)
-   * @param tenant  (required)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return FlowForExecution
-   * @throws ApiException if fails to make API call
-   */
-  public FlowForExecution getFlowFromExecutionById(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'executionId' is set
-    if (executionId == null) {
-      throw new ApiException(400, "Missing the required parameter 'executionId' when calling getFlowFromExecutionById");
-    }
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling getFlowFromExecutionById");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/executions/{executionId}/flow"
-      .replaceAll("\\{" + "executionId" + "\\}", apiClient.escapeString(apiClient.parameterToString(executionId)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<FlowForExecution> localVarReturnType = new TypeReference<FlowForExecution>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "GET",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
-
-
-
-
-
-
-  /**
-   * Get the latest execution for given flows
-   * 
-   * @param tenant  (required)
-   * @param executionRepositoryInterfaceFlowFilter  (required)
-   * @return List&lt;ExecutionControllerLastExecutionResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public List<ExecutionControllerLastExecutionResponse> getLatestExecutions(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<ExecutionRepositoryInterfaceFlowFilter> executionRepositoryInterfaceFlowFilter) throws ApiException {
-    return this.getLatestExecutions(tenant, executionRepositoryInterfaceFlowFilter, Collections.emptyMap());
-  }
-
-  /**
-   * Get the latest execution for given flows
-   * 
-   * @param tenant  (required)
-   * @param executionRepositoryInterfaceFlowFilter  (required)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return List&lt;ExecutionControllerLastExecutionResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public List<ExecutionControllerLastExecutionResponse> getLatestExecutions(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<ExecutionRepositoryInterfaceFlowFilter> executionRepositoryInterfaceFlowFilter, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = executionRepositoryInterfaceFlowFilter;
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling getLatestExecutions");
-    }
-    
-    // verify the required parameter 'executionRepositoryInterfaceFlowFilter' is set
-    if (executionRepositoryInterfaceFlowFilter == null) {
-      throw new ApiException(400, "Missing the required parameter 'executionRepositoryInterfaceFlowFilter' when calling getLatestExecutions");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/executions/latest"
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<List<ExecutionControllerLastExecutionResponse>> localVarReturnType = new TypeReference<List<ExecutionControllerLastExecutionResponse>>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "POST",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
-
-
-
-
-
-
-  /**
    * Kill an execution
    * 
    * @param executionId The execution id (required)
@@ -1579,7 +1494,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object killExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull Boolean isOnKillCascade, @javax.annotation.Nonnull String tenant) throws ApiException {
+  public Object killExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull Boolean isOnKillCascade, @jakarta.annotation.Nonnull String tenant) throws ApiException {
     return this.killExecution(executionId, isOnKillCascade, tenant, Collections.emptyMap());
   }
 
@@ -1593,7 +1508,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object killExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull Boolean isOnKillCascade, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Object killExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull Boolean isOnKillCascade, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -1672,7 +1587,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse killExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody) throws ApiException {
+  public BulkResponse killExecutionsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<String> requestBody) throws ApiException {
     return this.killExecutionsByIds(tenant, requestBody, Collections.emptyMap());
   }
 
@@ -1685,7 +1600,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse killExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse killExecutionsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = requestBody;
     
     // verify the required parameter 'tenant' is set
@@ -1757,7 +1672,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object killExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+  public Object killExecutionsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
     return this.killExecutionsByQuery(tenant, filters, Collections.emptyMap());
   }
 
@@ -1770,7 +1685,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object killExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public Object killExecutionsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -1831,13 +1746,98 @@ import java.util.StringJoiner;
 
 
   /**
+   * Get the latest execution for given flows
+   * 
+   * @param tenant  (required)
+   * @param executionRepositoryInterfaceFlowFilter  (required)
+   * @return List&lt;ExecutionControllerLastExecutionResponse&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<ExecutionControllerLastExecutionResponse> latestExecutions(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<ExecutionRepositoryInterfaceFlowFilter> executionRepositoryInterfaceFlowFilter) throws ApiException {
+    return this.latestExecutions(tenant, executionRepositoryInterfaceFlowFilter, Collections.emptyMap());
+  }
+
+  /**
+   * Get the latest execution for given flows
+   * 
+   * @param tenant  (required)
+   * @param executionRepositoryInterfaceFlowFilter  (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return List&lt;ExecutionControllerLastExecutionResponse&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<ExecutionControllerLastExecutionResponse> latestExecutions(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<ExecutionRepositoryInterfaceFlowFilter> executionRepositoryInterfaceFlowFilter, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = executionRepositoryInterfaceFlowFilter;
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling latestExecutions");
+    }
+    
+    // verify the required parameter 'executionRepositoryInterfaceFlowFilter' is set
+    if (executionRepositoryInterfaceFlowFilter == null) {
+      throw new ApiException(400, "Missing the required parameter 'executionRepositoryInterfaceFlowFilter' when calling latestExecutions");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/executions/latest"
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<List<ExecutionControllerLastExecutionResponse>> localVarReturnType = new TypeReference<List<ExecutionControllerLastExecutionResponse>>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "POST",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+
+
+
+
+
+  /**
    * Pause a running execution.
    * 
    * @param executionId The execution id (required)
    * @param tenant  (required)
    * @throws ApiException if fails to make API call
    */
-  public void pauseExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant) throws ApiException {
+  public void pauseExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant) throws ApiException {
     this.pauseExecution(executionId, tenant, Collections.emptyMap());
   }
 
@@ -1849,7 +1849,7 @@ import java.util.StringJoiner;
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void pauseExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public void pauseExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -1921,7 +1921,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse pauseExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody) throws ApiException {
+  public BulkResponse pauseExecutionsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<String> requestBody) throws ApiException {
     return this.pauseExecutionsByIds(tenant, requestBody, Collections.emptyMap());
   }
 
@@ -1934,7 +1934,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse pauseExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse pauseExecutionsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = requestBody;
     
     // verify the required parameter 'tenant' is set
@@ -2006,7 +2006,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object pauseExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+  public Object pauseExecutionsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
     return this.pauseExecutionsByQuery(tenant, filters, Collections.emptyMap());
   }
 
@@ -2019,7 +2019,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object pauseExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public Object pauseExecutionsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -2090,7 +2090,7 @@ import java.util.StringJoiner;
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution replayExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String taskRunId, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable String breakpoints) throws ApiException {
+  public Execution replayExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String taskRunId, @jakarta.annotation.Nullable Integer revision, @jakarta.annotation.Nullable String breakpoints) throws ApiException {
     return this.replayExecution(executionId, tenant, taskRunId, revision, breakpoints, Collections.emptyMap());
   }
 
@@ -2106,7 +2106,7 @@ import java.util.StringJoiner;
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution replayExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String taskRunId, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable String breakpoints, Map<String, String> additionalHeaders) throws ApiException {
+  public Execution replayExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String taskRunId, @jakarta.annotation.Nullable Integer revision, @jakarta.annotation.Nullable String breakpoints, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -2185,10 +2185,10 @@ import java.util.StringJoiner;
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution replayExecutionWithinputs(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String taskRunId, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable String breakpoints) throws ApiException {
+  public Execution replayExecutionWithinputs(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String taskRunId, @jakarta.annotation.Nullable Integer revision, @jakarta.annotation.Nullable String breakpoints) throws ApiException {
     return this.replayExecutionWithinputs(executionId, tenant, taskRunId, revision, breakpoints, Collections.emptyMap(), null);
   }
-  public Execution replayExecutionWithinputs(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String taskRunId, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable String breakpoints, HashMap<String, Object> additionalFormDatas)  throws ApiException {
+  public Execution replayExecutionWithinputs(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String taskRunId, @jakarta.annotation.Nullable Integer revision, @jakarta.annotation.Nullable String breakpoints, HashMap<String, Object> additionalFormDatas)  throws ApiException {
   return this.replayExecutionWithinputs(executionId, tenant, taskRunId, revision, breakpoints, Collections.emptyMap(), additionalFormDatas);
   }
 
@@ -2204,7 +2204,7 @@ import java.util.StringJoiner;
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution replayExecutionWithinputs(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String taskRunId, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable String breakpoints, Map<String, String> additionalHeaders, HashMap<String, Object> additionalFormDatas) throws ApiException {
+  public Execution replayExecutionWithinputs(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String taskRunId, @jakarta.annotation.Nullable Integer revision, @jakarta.annotation.Nullable String breakpoints, Map<String, String> additionalHeaders, HashMap<String, Object> additionalFormDatas) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -2281,7 +2281,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse replayExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, @javax.annotation.Nullable Boolean latestRevision) throws ApiException {
+  public BulkResponse replayExecutionsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<String> requestBody, @jakarta.annotation.Nullable Boolean latestRevision) throws ApiException {
     return this.replayExecutionsByIds(tenant, requestBody, latestRevision, Collections.emptyMap());
   }
 
@@ -2295,7 +2295,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse replayExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, @javax.annotation.Nullable Boolean latestRevision, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse replayExecutionsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<String> requestBody, @jakarta.annotation.Nullable Boolean latestRevision, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = requestBody;
     
     // verify the required parameter 'tenant' is set
@@ -2369,7 +2369,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object replayExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable Boolean latestRevision) throws ApiException {
+  public Object replayExecutionsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, @jakarta.annotation.Nullable Boolean latestRevision) throws ApiException {
     return this.replayExecutionsByQuery(tenant, filters, latestRevision, Collections.emptyMap());
   }
 
@@ -2383,7 +2383,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object replayExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable Boolean latestRevision, Map<String, String> additionalHeaders) throws ApiException {
+  public Object replayExecutionsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, @jakarta.annotation.Nullable Boolean latestRevision, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -2453,7 +2453,7 @@ import java.util.StringJoiner;
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution restartExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision) throws ApiException {
+  public Execution restartExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer revision) throws ApiException {
     return this.restartExecution(executionId, tenant, revision, Collections.emptyMap());
   }
 
@@ -2467,7 +2467,7 @@ import java.util.StringJoiner;
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution restartExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision, Map<String, String> additionalHeaders) throws ApiException {
+  public Execution restartExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer revision, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -2541,7 +2541,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse restartExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody) throws ApiException {
+  public BulkResponse restartExecutionsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<String> requestBody) throws ApiException {
     return this.restartExecutionsByIds(tenant, requestBody, Collections.emptyMap());
   }
 
@@ -2554,7 +2554,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse restartExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse restartExecutionsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = requestBody;
     
     // verify the required parameter 'tenant' is set
@@ -2626,7 +2626,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object restartExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+  public Object restartExecutionsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
     return this.restartExecutionsByQuery(tenant, filters, Collections.emptyMap());
   }
 
@@ -2639,7 +2639,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object restartExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public Object restartExecutionsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -2707,7 +2707,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object resumeExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant) throws ApiException {
+  public Object resumeExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant) throws ApiException {
     return this.resumeExecution(executionId, tenant, Collections.emptyMap());
   }
 
@@ -2720,7 +2720,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object resumeExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Object resumeExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -2793,7 +2793,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse resumeExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody) throws ApiException {
+  public BulkResponse resumeExecutionsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<String> requestBody) throws ApiException {
     return this.resumeExecutionsByIds(tenant, requestBody, Collections.emptyMap());
   }
 
@@ -2806,7 +2806,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse resumeExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse resumeExecutionsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = requestBody;
     
     // verify the required parameter 'tenant' is set
@@ -2878,7 +2878,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object resumeExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+  public Object resumeExecutionsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
     return this.resumeExecutionsByQuery(tenant, filters, Collections.emptyMap());
   }
 
@@ -2891,7 +2891,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object resumeExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public Object resumeExecutionsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -2962,7 +2962,7 @@ import java.util.StringJoiner;
    * @return PagedResultsExecution
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsExecution searchExecutions(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+  public PagedResultsExecution searchExecutions(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
     return this.searchExecutions(page, size, tenant, sort, filters, Collections.emptyMap());
   }
 
@@ -2978,7 +2978,7 @@ import java.util.StringJoiner;
    * @return PagedResultsExecution
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsExecution searchExecutions(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsExecution searchExecutions(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'page' is set
@@ -3062,7 +3062,7 @@ import java.util.StringJoiner;
    * @return PagedResultsExecution
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsExecution searchExecutionsByFlowId(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant) throws ApiException {
+  public PagedResultsExecution searchExecutionsByFlowId(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant) throws ApiException {
     return this.searchExecutionsByFlowId(namespace, flowId, page, size, tenant, Collections.emptyMap());
   }
 
@@ -3078,7 +3078,7 @@ import java.util.StringJoiner;
    * @return PagedResultsExecution
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsExecution searchExecutionsByFlowId(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsExecution searchExecutionsByFlowId(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -3170,7 +3170,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object setLabelsOnTerminatedExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Label> label) throws ApiException {
+  public Object setLabelsOnTerminatedExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<Label> label) throws ApiException {
     return this.setLabelsOnTerminatedExecution(executionId, tenant, label, Collections.emptyMap());
   }
 
@@ -3184,7 +3184,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object setLabelsOnTerminatedExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Label> label, Map<String, String> additionalHeaders) throws ApiException {
+  public Object setLabelsOnTerminatedExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<Label> label, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = label;
     
     // verify the required parameter 'executionId' is set
@@ -3262,7 +3262,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse setLabelsOnTerminatedExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ExecutionControllerSetLabelsByIdsRequest executionControllerSetLabelsByIdsRequest) throws ApiException {
+  public BulkResponse setLabelsOnTerminatedExecutionsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull ExecutionControllerSetLabelsByIdsRequest executionControllerSetLabelsByIdsRequest) throws ApiException {
     return this.setLabelsOnTerminatedExecutionsByIds(tenant, executionControllerSetLabelsByIdsRequest, Collections.emptyMap());
   }
 
@@ -3275,7 +3275,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse setLabelsOnTerminatedExecutionsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ExecutionControllerSetLabelsByIdsRequest executionControllerSetLabelsByIdsRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse setLabelsOnTerminatedExecutionsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull ExecutionControllerSetLabelsByIdsRequest executionControllerSetLabelsByIdsRequest, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = executionControllerSetLabelsByIdsRequest;
     
     // verify the required parameter 'tenant' is set
@@ -3348,7 +3348,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object setLabelsOnTerminatedExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Label> label, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+  public Object setLabelsOnTerminatedExecutionsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<Label> label, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
     return this.setLabelsOnTerminatedExecutionsByQuery(tenant, label, filters, Collections.emptyMap());
   }
 
@@ -3362,7 +3362,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object setLabelsOnTerminatedExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Label> label, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public Object setLabelsOnTerminatedExecutionsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<Label> label, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = label;
     
     // verify the required parameter 'tenant' is set
@@ -3437,7 +3437,7 @@ import java.util.StringJoiner;
    * @return ExecutionControllerWebhookResponse
    * @throws ApiException if fails to make API call
    */
-  public ExecutionControllerWebhookResponse triggerExecutionByGetWebhook(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant) throws ApiException {
+  public ExecutionControllerWebhookResponse triggerExecutionByGetWebhook(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant) throws ApiException {
     return this.triggerExecutionByGetWebhook(namespace, id, key, tenant, Collections.emptyMap());
   }
 
@@ -3452,7 +3452,7 @@ import java.util.StringJoiner;
    * @return ExecutionControllerWebhookResponse
    * @throws ApiException if fails to make API call
    */
-  public ExecutionControllerWebhookResponse triggerExecutionByGetWebhook(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public ExecutionControllerWebhookResponse triggerExecutionByGetWebhook(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -3538,7 +3538,7 @@ import java.util.StringJoiner;
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution unqueueExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull StateType state, @javax.annotation.Nonnull String tenant) throws ApiException {
+  public Execution unqueueExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull StateType state, @jakarta.annotation.Nonnull String tenant) throws ApiException {
     return this.unqueueExecution(executionId, state, tenant, Collections.emptyMap());
   }
 
@@ -3552,7 +3552,7 @@ import java.util.StringJoiner;
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution unqueueExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull StateType state, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Execution unqueueExecution(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull StateType state, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -3632,7 +3632,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse unqueueExecutionsByIds(@javax.annotation.Nonnull StateType state, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody) throws ApiException {
+  public BulkResponse unqueueExecutionsByIds(@jakarta.annotation.Nonnull StateType state, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<String> requestBody) throws ApiException {
     return this.unqueueExecutionsByIds(state, tenant, requestBody, Collections.emptyMap());
   }
 
@@ -3646,7 +3646,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse unqueueExecutionsByIds(@javax.annotation.Nonnull StateType state, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse unqueueExecutionsByIds(@jakarta.annotation.Nonnull StateType state, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = requestBody;
     
     // verify the required parameter 'state' is set
@@ -3725,7 +3725,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unqueueExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable StateType newState) throws ApiException {
+  public Object unqueueExecutionsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, @jakarta.annotation.Nullable StateType newState) throws ApiException {
     return this.unqueueExecutionsByQuery(tenant, filters, newState, Collections.emptyMap());
   }
 
@@ -3739,7 +3739,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unqueueExecutionsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable StateType newState, Map<String, String> additionalHeaders) throws ApiException {
+  public Object unqueueExecutionsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, @jakarta.annotation.Nullable StateType newState, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -3809,7 +3809,7 @@ import java.util.StringJoiner;
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution updateExecutionStatus(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull StateType status, @javax.annotation.Nonnull String tenant) throws ApiException {
+  public Execution updateExecutionStatus(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull StateType status, @jakarta.annotation.Nonnull String tenant) throws ApiException {
     return this.updateExecutionStatus(executionId, status, tenant, Collections.emptyMap());
   }
 
@@ -3823,7 +3823,7 @@ import java.util.StringJoiner;
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution updateExecutionStatus(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull StateType status, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Execution updateExecutionStatus(@jakarta.annotation.Nonnull String executionId, @jakarta.annotation.Nonnull StateType status, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -3903,7 +3903,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse updateExecutionsStatusByIds(@javax.annotation.Nonnull StateType newStatus, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody) throws ApiException {
+  public BulkResponse updateExecutionsStatusByIds(@jakarta.annotation.Nonnull StateType newStatus, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<String> requestBody) throws ApiException {
     return this.updateExecutionsStatusByIds(newStatus, tenant, requestBody, Collections.emptyMap());
   }
 
@@ -3917,7 +3917,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse updateExecutionsStatusByIds(@javax.annotation.Nonnull StateType newStatus, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse updateExecutionsStatusByIds(@jakarta.annotation.Nonnull StateType newStatus, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<String> requestBody, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = requestBody;
     
     // verify the required parameter 'newStatus' is set
@@ -3996,7 +3996,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse updateExecutionsStatusByQuery(@javax.annotation.Nonnull StateType newStatus, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+  public BulkResponse updateExecutionsStatusByQuery(@jakarta.annotation.Nonnull StateType newStatus, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
     return this.updateExecutionsStatusByQuery(newStatus, tenant, filters, Collections.emptyMap());
   }
 
@@ -4010,7 +4010,7 @@ import java.util.StringJoiner;
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse updateExecutionsStatusByQuery(@javax.annotation.Nonnull StateType newStatus, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse updateExecutionsStatusByQuery(@jakarta.annotation.Nonnull StateType newStatus, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'newStatus' is set

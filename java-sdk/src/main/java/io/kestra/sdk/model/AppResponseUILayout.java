@@ -33,15 +33,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AppResponseUILayout.JSON_PROPERTY_BLOCKS
 })
 @JsonTypeName("AppResponse.UILayout")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AppResponseUILayout {
   public static final String JSON_PROPERTY_BLOCKS = "blocks";
-  @javax.annotation.Nullable  private List<Object> blocks = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<Object> blocks = new ArrayList<>();
 
   public AppResponseUILayout() {
   }
 
-  public AppResponseUILayout blocks(@javax.annotation.Nullable List<Object> blocks) {
+  public AppResponseUILayout blocks(@jakarta.annotation.Nullable List<Object> blocks) {
     
     this.blocks = blocks;
     return this;
@@ -59,7 +59,7 @@ public class AppResponseUILayout {
    * Get blocks
    * @return blocks
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_BLOCKS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_BLOCKS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Object> getBlocks() {
@@ -69,7 +69,7 @@ public class AppResponseUILayout {
 
   @JsonProperty(JSON_PROPERTY_BLOCKS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBlocks(@javax.annotation.Nullable List<Object> blocks) {
+  public void setBlocks(@jakarta.annotation.Nullable List<Object> blocks) {
     this.blocks = blocks;
   }
 

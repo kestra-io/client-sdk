@@ -31,18 +31,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AppsControllerApiBulkImportResponseError.JSON_PROPERTY_MESSAGE
 })
 @JsonTypeName("AppsController.ApiBulkImportResponse.Error")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AppsControllerApiBulkImportResponseError {
   public static final String JSON_PROPERTY_SOURCE = "source";
-  @javax.annotation.Nullable  private String source;
+  @jakarta.annotation.Nullable  private String source;
 
   public static final String JSON_PROPERTY_MESSAGE = "message";
-  @javax.annotation.Nullable  private String message;
+  @jakarta.annotation.Nullable  private String message;
 
   public AppsControllerApiBulkImportResponseError() {
   }
 
-  public AppsControllerApiBulkImportResponseError source(@javax.annotation.Nullable String source) {
+  public AppsControllerApiBulkImportResponseError source(@jakarta.annotation.Nullable String source) {
     
     this.source = source;
     return this;
@@ -52,7 +52,7 @@ public class AppsControllerApiBulkImportResponseError {
    * Get source
    * @return source
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SOURCE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SOURCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSource() {
@@ -62,11 +62,11 @@ public class AppsControllerApiBulkImportResponseError {
 
   @JsonProperty(JSON_PROPERTY_SOURCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSource(@javax.annotation.Nullable String source) {
+  public void setSource(@jakarta.annotation.Nullable String source) {
     this.source = source;
   }
 
-  public AppsControllerApiBulkImportResponseError message(@javax.annotation.Nullable String message) {
+  public AppsControllerApiBulkImportResponseError message(@jakarta.annotation.Nullable String message) {
     
     this.message = message;
     return this;
@@ -76,7 +76,7 @@ public class AppsControllerApiBulkImportResponseError {
    * Get message
    * @return message
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MESSAGE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getMessage() {
@@ -86,7 +86,7 @@ public class AppsControllerApiBulkImportResponseError {
 
   @JsonProperty(JSON_PROPERTY_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMessage(@javax.annotation.Nullable String message) {
+  public void setMessage(@jakarta.annotation.Nullable String message) {
     this.message = message;
   }
 

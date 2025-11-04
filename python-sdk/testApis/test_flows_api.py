@@ -195,7 +195,7 @@ triggers:
 
         # get_flow requires source and allow_deleted parameters
         with self.assertRaises(Exception):
-            self.kestra_client.flows.get_flow(namespace="test.flows", id=created_id, source=False, allow_deleted=False, tenant=self.tenant)
+            self.kestra_client.flows.flow(namespace="test.flows", id=created_id, source=False, allow_deleted=False, tenant=self.tenant)
 
     def test_delete_flows_by_ids(self) -> None:
         """Test case for delete_flows_by_ids
@@ -214,9 +214,9 @@ triggers:
         assert resp is not None
 
         with self.assertRaises(Exception):
-            self.kestra_client.flows.get_flow(namespace="test.flows", id=id1, source=False, allow_deleted=False, tenant=self.tenant)
+            self.kestra_client.flows.flow(namespace="test.flows", id=id1, source=False, allow_deleted=False, tenant=self.tenant)
         with self.assertRaises(Exception):
-            self.kestra_client.flows.get_flow(namespace="test.flows", id=id2, source=False, allow_deleted=False, tenant=self.tenant)
+            self.kestra_client.flows.flow(namespace="test.flows", id=id2, source=False, allow_deleted=False, tenant=self.tenant)
 
     def test_delete_flows_by_query(self) -> None:
         """Test case for delete_flows_by_query
@@ -234,9 +234,9 @@ triggers:
         assert resp is not None
 
         with self.assertRaises(Exception):
-            self.kestra_client.flows.get_flow(namespace=namespace, id=id_a, source=False, allow_deleted=False, tenant=self.tenant)
+            self.kestra_client.flows.flow(namespace=namespace, id=id_a, source=False, allow_deleted=False, tenant=self.tenant)
         with self.assertRaises(Exception):
-            self.kestra_client.flows.get_flow(namespace=namespace, id=id_b, source=False, allow_deleted=False, tenant=self.tenant)
+            self.kestra_client.flows.flow(namespace=namespace, id=id_b, source=False, allow_deleted=False, tenant=self.tenant)
 
     def test_disable_flows_by_ids(self) -> None:
         """Test case for disable_flows_by_ids
@@ -366,7 +366,7 @@ tasks:
         flow_id = f"{self._testMethodName}_flow"
         created_id = self.create_flow(flow_id=flow_id)
 
-        fetched = self.kestra_client.flows.get_flow(namespace="test.flows", id=created_id, source=False, allow_deleted=False, tenant=self.tenant)
+        fetched = self.kestra_client.flows.flow(namespace="test.flows", id=created_id, source=False, allow_deleted=False, tenant=self.tenant)
         fetched_id = getattr(fetched, 'id', None) if not isinstance(fetched, dict) else fetched.get('id')
         assert fetched_id == created_id
 
@@ -392,7 +392,7 @@ tasks:
         subflow = self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
         time.sleep(0.1)
 
-        deps = self.kestra_client.flows.get_flow_dependencies(namespace=namespace, id=created_id, destination_only=False, expand_all=False, tenant=self.tenant)
+        deps = self.kestra_client.flows.flow_dependencies(namespace=namespace, id=created_id, destination_only=False, expand_all=False, tenant=self.tenant)
         assert deps is not None
         assert len(deps.nodes) > 0
 
@@ -419,7 +419,7 @@ tasks:
         self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
 
         time.sleep(0.1)
-        deps = self.kestra_client.flows.get_flow_dependencies_from_namespace(namespace=namespace, destination_only=False, tenant=self.tenant)
+        deps = self.kestra_client.flows.flow_dependencies_from_namespace(namespace=namespace, destination_only=False, tenant=self.tenant)
         assert deps is not None
         assert len(deps.nodes) > 0
 
@@ -549,7 +549,7 @@ tasks:
         resp = self.kestra_client.flows.update_flow(id=created_id, namespace=namespace, tenant=self.tenant, body=body_updated)
         assert resp is not None
 
-        fetched = self.kestra_client.flows.get_flow(namespace=namespace, id=created_id, source=False, allow_deleted=False, tenant=self.tenant)
+        fetched = self.kestra_client.flows.flow(namespace=namespace, id=created_id, source=False, allow_deleted=False, tenant=self.tenant)
 
         assert any(t['type'] == 'io.kestra.plugin.core.log.Log' for t in fetched['tasks'])
 
@@ -574,7 +574,7 @@ tasks:
         self.kestra_client.flows.update_flow(id=created_id, namespace=namespace, tenant=self.tenant, body=body_updated)
 
         # fetch the single task and verify the change
-        task = self.kestra_client.flows.get_task_from_flow(namespace=namespace, id=created_id, task_id="hello", tenant=self.tenant)
+        task = self.kestra_client.flows.task_from_flow(namespace=namespace, id=created_id, task_id="hello", tenant=self.tenant)
         assert task is not None
         assert getattr(task, 'additional_properties', None)["message"] == 'task updated via flow update'
 

@@ -29,15 +29,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   DeletedInterface.JSON_PROPERTY_DELETED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class DeletedInterface {
   public static final String JSON_PROPERTY_DELETED = "deleted";
-  @javax.annotation.Nullable  private Boolean deleted;
+  @jakarta.annotation.Nullable  private Boolean deleted;
 
   public DeletedInterface() {
   }
 
-  public DeletedInterface deleted(@javax.annotation.Nullable Boolean deleted) {
+  public DeletedInterface deleted(@jakarta.annotation.Nullable Boolean deleted) {
     
     this.deleted = deleted;
     return this;
@@ -47,7 +47,7 @@ public class DeletedInterface {
    * Get deleted
    * @return deleted
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DELETED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getDeleted() {
@@ -57,7 +57,7 @@ public class DeletedInterface {
 
   @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDeleted(@javax.annotation.Nullable Boolean deleted) {
+  public void setDeleted(@jakarta.annotation.Nullable Boolean deleted) {
     this.deleted = deleted;
   }
 

@@ -35,18 +35,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InstanceControllerApiPluginVersionDetailsApiPluginClasses.JSON_PROPERTY_CLASSES
 })
 @JsonTypeName("InstanceController.ApiPluginVersionDetails.ApiPluginClasses")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class InstanceControllerApiPluginVersionDetailsApiPluginClasses {
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nullable  private String type;
+  @jakarta.annotation.Nullable  private String type;
 
   public static final String JSON_PROPERTY_CLASSES = "classes";
-  @javax.annotation.Nullable  private List<InstanceControllerApiPluginVersionDetailsApiPluginClass> classes = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<InstanceControllerApiPluginVersionDetailsApiPluginClass> classes = new ArrayList<>();
 
   public InstanceControllerApiPluginVersionDetailsApiPluginClasses() {
   }
 
-  public InstanceControllerApiPluginVersionDetailsApiPluginClasses type(@javax.annotation.Nullable String type) {
+  public InstanceControllerApiPluginVersionDetailsApiPluginClasses type(@jakarta.annotation.Nullable String type) {
     
     this.type = type;
     return this;
@@ -56,7 +56,7 @@ public class InstanceControllerApiPluginVersionDetailsApiPluginClasses {
    * Get type
    * @return type
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getType() {
@@ -66,11 +66,11 @@ public class InstanceControllerApiPluginVersionDetailsApiPluginClasses {
 
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setType(@javax.annotation.Nullable String type) {
+  public void setType(@jakarta.annotation.Nullable String type) {
     this.type = type;
   }
 
-  public InstanceControllerApiPluginVersionDetailsApiPluginClasses classes(@javax.annotation.Nullable List<InstanceControllerApiPluginVersionDetailsApiPluginClass> classes) {
+  public InstanceControllerApiPluginVersionDetailsApiPluginClasses classes(@jakarta.annotation.Nullable List<InstanceControllerApiPluginVersionDetailsApiPluginClass> classes) {
     
     this.classes = classes;
     return this;
@@ -88,7 +88,7 @@ public class InstanceControllerApiPluginVersionDetailsApiPluginClasses {
    * Get classes
    * @return classes
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CLASSES)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CLASSES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<InstanceControllerApiPluginVersionDetailsApiPluginClass> getClasses() {
@@ -98,7 +98,7 @@ public class InstanceControllerApiPluginVersionDetailsApiPluginClasses {
 
   @JsonProperty(JSON_PROPERTY_CLASSES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setClasses(@javax.annotation.Nullable List<InstanceControllerApiPluginVersionDetailsApiPluginClass> classes) {
+  public void setClasses(@jakarta.annotation.Nullable List<InstanceControllerApiPluginVersionDetailsApiPluginClass> classes) {
     this.classes = classes;
   }
 

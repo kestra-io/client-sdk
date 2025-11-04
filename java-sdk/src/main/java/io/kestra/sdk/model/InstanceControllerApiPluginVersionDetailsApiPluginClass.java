@@ -31,18 +31,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InstanceControllerApiPluginVersionDetailsApiPluginClass.JSON_PROPERTY_ICON
 })
 @JsonTypeName("InstanceController.ApiPluginVersionDetails.ApiPluginClass")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class InstanceControllerApiPluginVersionDetailsApiPluginClass {
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nullable  private String name;
+  @jakarta.annotation.Nullable  private String name;
 
   public static final String JSON_PROPERTY_ICON = "icon";
-  @javax.annotation.Nullable  private String icon;
+  @jakarta.annotation.Nullable  private String icon;
 
   public InstanceControllerApiPluginVersionDetailsApiPluginClass() {
   }
 
-  public InstanceControllerApiPluginVersionDetailsApiPluginClass name(@javax.annotation.Nullable String name) {
+  public InstanceControllerApiPluginVersionDetailsApiPluginClass name(@jakarta.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -52,7 +52,7 @@ public class InstanceControllerApiPluginVersionDetailsApiPluginClass {
    * Get name
    * @return name
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
@@ -62,11 +62,11 @@ public class InstanceControllerApiPluginVersionDetailsApiPluginClass {
 
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(@javax.annotation.Nullable String name) {
+  public void setName(@jakarta.annotation.Nullable String name) {
     this.name = name;
   }
 
-  public InstanceControllerApiPluginVersionDetailsApiPluginClass icon(@javax.annotation.Nullable String icon) {
+  public InstanceControllerApiPluginVersionDetailsApiPluginClass icon(@jakarta.annotation.Nullable String icon) {
     
     this.icon = icon;
     return this;
@@ -76,7 +76,7 @@ public class InstanceControllerApiPluginVersionDetailsApiPluginClass {
    * Get icon
    * @return icon
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ICON)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ICON)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getIcon() {
@@ -86,7 +86,7 @@ public class InstanceControllerApiPluginVersionDetailsApiPluginClass {
 
   @JsonProperty(JSON_PROPERTY_ICON)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIcon(@javax.annotation.Nullable String icon) {
+  public void setIcon(@jakarta.annotation.Nullable String icon) {
     this.icon = icon;
   }
 

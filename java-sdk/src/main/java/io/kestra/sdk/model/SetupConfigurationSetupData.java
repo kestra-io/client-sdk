@@ -33,21 +33,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   SetupConfigurationSetupData.JSON_PROPERTY_TENANT
 })
 @JsonTypeName("SetupConfiguration.SetupData")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class SetupConfigurationSetupData {
   public static final String JSON_PROPERTY_USERNAME = "username";
-  @javax.annotation.Nullable  private String username;
+  @jakarta.annotation.Nullable  private String username;
 
   public static final String JSON_PROPERTY_PASSWORD = "password";
-  @javax.annotation.Nullable  private String password;
+  @jakarta.annotation.Nullable  private String password;
 
   public static final String JSON_PROPERTY_TENANT = "tenant";
-  @javax.annotation.Nullable  private Tenant tenant;
+  @jakarta.annotation.Nullable  private Tenant tenant;
 
   public SetupConfigurationSetupData() {
   }
 
-  public SetupConfigurationSetupData username(@javax.annotation.Nullable String username) {
+  public SetupConfigurationSetupData username(@jakarta.annotation.Nullable String username) {
     
     this.username = username;
     return this;
@@ -57,7 +57,7 @@ public class SetupConfigurationSetupData {
    * Get username
    * @return username
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_USERNAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_USERNAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUsername() {
@@ -67,11 +67,11 @@ public class SetupConfigurationSetupData {
 
   @JsonProperty(JSON_PROPERTY_USERNAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUsername(@javax.annotation.Nullable String username) {
+  public void setUsername(@jakarta.annotation.Nullable String username) {
     this.username = username;
   }
 
-  public SetupConfigurationSetupData password(@javax.annotation.Nullable String password) {
+  public SetupConfigurationSetupData password(@jakarta.annotation.Nullable String password) {
     
     this.password = password;
     return this;
@@ -81,7 +81,7 @@ public class SetupConfigurationSetupData {
    * Get password
    * @return password
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PASSWORD)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getPassword() {
@@ -91,11 +91,11 @@ public class SetupConfigurationSetupData {
 
   @JsonProperty(JSON_PROPERTY_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPassword(@javax.annotation.Nullable String password) {
+  public void setPassword(@jakarta.annotation.Nullable String password) {
     this.password = password;
   }
 
-  public SetupConfigurationSetupData tenant(@javax.annotation.Nullable Tenant tenant) {
+  public SetupConfigurationSetupData tenant(@jakarta.annotation.Nullable Tenant tenant) {
     
     this.tenant = tenant;
     return this;
@@ -105,7 +105,7 @@ public class SetupConfigurationSetupData {
    * Get tenant
    * @return tenant
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANT)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Tenant getTenant() {
@@ -115,7 +115,7 @@ public class SetupConfigurationSetupData {
 
   @JsonProperty(JSON_PROPERTY_TENANT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTenant(@javax.annotation.Nullable Tenant tenant) {
+  public void setTenant(@jakarta.annotation.Nullable Tenant tenant) {
     this.tenant = tenant;
   }
 

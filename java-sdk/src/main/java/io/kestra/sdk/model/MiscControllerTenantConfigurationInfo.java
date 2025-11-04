@@ -31,18 +31,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MiscControllerTenantConfigurationInfo.JSON_PROPERTY_SECRET_BY_TENANT
 })
 @JsonTypeName("MiscController.TenantConfigurationInfo")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class MiscControllerTenantConfigurationInfo {
   public static final String JSON_PROPERTY_STORAGE_BY_TENANT = "storageByTenant";
-  @javax.annotation.Nullable  private Boolean storageByTenant;
+  @jakarta.annotation.Nullable  private Boolean storageByTenant;
 
   public static final String JSON_PROPERTY_SECRET_BY_TENANT = "secretByTenant";
-  @javax.annotation.Nullable  private Boolean secretByTenant;
+  @jakarta.annotation.Nullable  private Boolean secretByTenant;
 
   public MiscControllerTenantConfigurationInfo() {
   }
 
-  public MiscControllerTenantConfigurationInfo storageByTenant(@javax.annotation.Nullable Boolean storageByTenant) {
+  public MiscControllerTenantConfigurationInfo storageByTenant(@jakarta.annotation.Nullable Boolean storageByTenant) {
     
     this.storageByTenant = storageByTenant;
     return this;
@@ -52,7 +52,7 @@ public class MiscControllerTenantConfigurationInfo {
    * Get storageByTenant
    * @return storageByTenant
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STORAGE_BY_TENANT)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STORAGE_BY_TENANT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getStorageByTenant() {
@@ -62,11 +62,11 @@ public class MiscControllerTenantConfigurationInfo {
 
   @JsonProperty(JSON_PROPERTY_STORAGE_BY_TENANT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStorageByTenant(@javax.annotation.Nullable Boolean storageByTenant) {
+  public void setStorageByTenant(@jakarta.annotation.Nullable Boolean storageByTenant) {
     this.storageByTenant = storageByTenant;
   }
 
-  public MiscControllerTenantConfigurationInfo secretByTenant(@javax.annotation.Nullable Boolean secretByTenant) {
+  public MiscControllerTenantConfigurationInfo secretByTenant(@jakarta.annotation.Nullable Boolean secretByTenant) {
     
     this.secretByTenant = secretByTenant;
     return this;
@@ -76,7 +76,7 @@ public class MiscControllerTenantConfigurationInfo {
    * Get secretByTenant
    * @return secretByTenant
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRET_BY_TENANT)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRET_BY_TENANT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getSecretByTenant() {
@@ -86,7 +86,7 @@ public class MiscControllerTenantConfigurationInfo {
 
   @JsonProperty(JSON_PROPERTY_SECRET_BY_TENANT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSecretByTenant(@javax.annotation.Nullable Boolean secretByTenant) {
+  public void setSecretByTenant(@jakarta.annotation.Nullable Boolean secretByTenant) {
     this.secretByTenant = secretByTenant;
   }
 

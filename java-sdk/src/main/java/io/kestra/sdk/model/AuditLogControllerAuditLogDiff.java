@@ -31,18 +31,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AuditLogControllerAuditLogDiff.JSON_PROPERTY_AFTER
 })
 @JsonTypeName("AuditLogController.AuditLogDiff")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AuditLogControllerAuditLogDiff {
   public static final String JSON_PROPERTY_BEFORE = "before";
-  @javax.annotation.Nullable  private String before;
+  @jakarta.annotation.Nullable  private String before;
 
   public static final String JSON_PROPERTY_AFTER = "after";
-  @javax.annotation.Nullable  private String after;
+  @jakarta.annotation.Nullable  private String after;
 
   public AuditLogControllerAuditLogDiff() {
   }
 
-  public AuditLogControllerAuditLogDiff before(@javax.annotation.Nullable String before) {
+  public AuditLogControllerAuditLogDiff before(@jakarta.annotation.Nullable String before) {
     
     this.before = before;
     return this;
@@ -52,7 +52,7 @@ public class AuditLogControllerAuditLogDiff {
    * Get before
    * @return before
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_BEFORE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_BEFORE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getBefore() {
@@ -62,11 +62,11 @@ public class AuditLogControllerAuditLogDiff {
 
   @JsonProperty(JSON_PROPERTY_BEFORE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBefore(@javax.annotation.Nullable String before) {
+  public void setBefore(@jakarta.annotation.Nullable String before) {
     this.before = before;
   }
 
-  public AuditLogControllerAuditLogDiff after(@javax.annotation.Nullable String after) {
+  public AuditLogControllerAuditLogDiff after(@jakarta.annotation.Nullable String after) {
     
     this.after = after;
     return this;
@@ -76,7 +76,7 @@ public class AuditLogControllerAuditLogDiff {
    * Get after
    * @return after
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_AFTER)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_AFTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getAfter() {
@@ -86,7 +86,7 @@ public class AuditLogControllerAuditLogDiff {
 
   @JsonProperty(JSON_PROPERTY_AFTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAfter(@javax.annotation.Nullable String after) {
+  public void setAfter(@jakarta.annotation.Nullable String after) {
     this.after = after;
   }
 

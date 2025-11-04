@@ -33,18 +33,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AuditLogControllerApiAuditLogItem.JSON_PROPERTY_USER
 })
 @JsonTypeName("AuditLogController.ApiAuditLogItem")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AuditLogControllerApiAuditLogItem {
   public static final String JSON_PROPERTY_AUDIT_LOG = "auditLog";
-  @javax.annotation.Nullable  private AuditLog auditLog;
+  @jakarta.annotation.Nullable  private AuditLog auditLog;
 
   public static final String JSON_PROPERTY_USER = "user";
-  @javax.annotation.Nullable  private ApiUser user;
+  @jakarta.annotation.Nullable  private ApiUser user;
 
   public AuditLogControllerApiAuditLogItem() {
   }
 
-  public AuditLogControllerApiAuditLogItem auditLog(@javax.annotation.Nullable AuditLog auditLog) {
+  public AuditLogControllerApiAuditLogItem auditLog(@jakarta.annotation.Nullable AuditLog auditLog) {
     
     this.auditLog = auditLog;
     return this;
@@ -54,7 +54,7 @@ public class AuditLogControllerApiAuditLogItem {
    * Get auditLog
    * @return auditLog
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_AUDIT_LOG)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_AUDIT_LOG)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public AuditLog getAuditLog() {
@@ -64,11 +64,11 @@ public class AuditLogControllerApiAuditLogItem {
 
   @JsonProperty(JSON_PROPERTY_AUDIT_LOG)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAuditLog(@javax.annotation.Nullable AuditLog auditLog) {
+  public void setAuditLog(@jakarta.annotation.Nullable AuditLog auditLog) {
     this.auditLog = auditLog;
   }
 
-  public AuditLogControllerApiAuditLogItem user(@javax.annotation.Nullable ApiUser user) {
+  public AuditLogControllerApiAuditLogItem user(@jakarta.annotation.Nullable ApiUser user) {
     
     this.user = user;
     return this;
@@ -78,7 +78,7 @@ public class AuditLogControllerApiAuditLogItem {
    * Get user
    * @return user
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_USER)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_USER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ApiUser getUser() {
@@ -88,7 +88,7 @@ public class AuditLogControllerApiAuditLogItem {
 
   @JsonProperty(JSON_PROPERTY_USER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUser(@javax.annotation.Nullable ApiUser user) {
+  public void setUser(@jakarta.annotation.Nullable ApiUser user) {
     this.user = user;
   }
 

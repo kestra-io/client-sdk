@@ -50,51 +50,51 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TaskRun.JSON_PROPERTY_DYNAMIC,
   TaskRun.JSON_PROPERTY_FORCE_EXECUTION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TaskRun {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull  private String id;
+  @jakarta.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_EXECUTION_ID = "executionId";
-  @javax.annotation.Nonnull  private String executionId;
+  @jakarta.annotation.Nonnull  private String executionId;
 
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nonnull  private String namespace;
+  @jakarta.annotation.Nonnull  private String namespace;
 
   public static final String JSON_PROPERTY_FLOW_ID = "flowId";
-  @javax.annotation.Nonnull  private String flowId;
+  @jakarta.annotation.Nonnull  private String flowId;
 
   public static final String JSON_PROPERTY_TASK_ID = "taskId";
-  @javax.annotation.Nonnull  private String taskId;
+  @jakarta.annotation.Nonnull  private String taskId;
 
   public static final String JSON_PROPERTY_PARENT_TASK_RUN_ID = "parentTaskRunId";
-  @javax.annotation.Nullable  private String parentTaskRunId;
+  @jakarta.annotation.Nullable  private String parentTaskRunId;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nullable  private String value;
+  @jakarta.annotation.Nullable  private String value;
 
   public static final String JSON_PROPERTY_ATTEMPTS = "attempts";
-  @javax.annotation.Nullable  private List<TaskRunAttempt> attempts = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<TaskRunAttempt> attempts = new ArrayList<>();
 
   public static final String JSON_PROPERTY_OUTPUTS = "outputs";
-  @javax.annotation.Nullable  private JsonNullable<Object> outputs = JsonNullable.<Object>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<Object> outputs = JsonNullable.<Object>undefined();
 
   public static final String JSON_PROPERTY_STATE = "state";
-  @javax.annotation.Nonnull  private State state;
+  @jakarta.annotation.Nonnull  private State state;
 
   public static final String JSON_PROPERTY_ITERATION = "iteration";
-  @javax.annotation.Nullable  private Integer iteration;
+  @jakarta.annotation.Nullable  private Integer iteration;
 
   public static final String JSON_PROPERTY_DYNAMIC = "dynamic";
-  @javax.annotation.Nullable  private Boolean dynamic;
+  @jakarta.annotation.Nullable  private Boolean dynamic;
 
   public static final String JSON_PROPERTY_FORCE_EXECUTION = "forceExecution";
-  @javax.annotation.Nullable  private Boolean forceExecution;
+  @jakarta.annotation.Nullable  private Boolean forceExecution;
 
   public TaskRun() {
   }
 
-  public TaskRun id(@javax.annotation.Nonnull String id) {
+  public TaskRun id(@jakarta.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -104,7 +104,7 @@ public class TaskRun {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -114,11 +114,11 @@ public class TaskRun {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(@javax.annotation.Nonnull String id) {
+  public void setId(@jakarta.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public TaskRun executionId(@javax.annotation.Nonnull String executionId) {
+  public TaskRun executionId(@jakarta.annotation.Nonnull String executionId) {
     
     this.executionId = executionId;
     return this;
@@ -128,7 +128,7 @@ public class TaskRun {
    * Get executionId
    * @return executionId
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_EXECUTION_ID)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_EXECUTION_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getExecutionId() {
@@ -138,11 +138,11 @@ public class TaskRun {
 
   @JsonProperty(JSON_PROPERTY_EXECUTION_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setExecutionId(@javax.annotation.Nonnull String executionId) {
+  public void setExecutionId(@jakarta.annotation.Nonnull String executionId) {
     this.executionId = executionId;
   }
 
-  public TaskRun namespace(@javax.annotation.Nonnull String namespace) {
+  public TaskRun namespace(@jakarta.annotation.Nonnull String namespace) {
     
     this.namespace = namespace;
     return this;
@@ -152,7 +152,7 @@ public class TaskRun {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getNamespace() {
@@ -162,11 +162,11 @@ public class TaskRun {
 
   @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setNamespace(@javax.annotation.Nonnull String namespace) {
+  public void setNamespace(@jakarta.annotation.Nonnull String namespace) {
     this.namespace = namespace;
   }
 
-  public TaskRun flowId(@javax.annotation.Nonnull String flowId) {
+  public TaskRun flowId(@jakarta.annotation.Nonnull String flowId) {
     
     this.flowId = flowId;
     return this;
@@ -176,7 +176,7 @@ public class TaskRun {
    * Get flowId
    * @return flowId
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_FLOW_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getFlowId() {
@@ -186,11 +186,11 @@ public class TaskRun {
 
   @JsonProperty(JSON_PROPERTY_FLOW_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFlowId(@javax.annotation.Nonnull String flowId) {
+  public void setFlowId(@jakarta.annotation.Nonnull String flowId) {
     this.flowId = flowId;
   }
 
-  public TaskRun taskId(@javax.annotation.Nonnull String taskId) {
+  public TaskRun taskId(@jakarta.annotation.Nonnull String taskId) {
     
     this.taskId = taskId;
     return this;
@@ -200,7 +200,7 @@ public class TaskRun {
    * Get taskId
    * @return taskId
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TASK_ID)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TASK_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getTaskId() {
@@ -210,11 +210,11 @@ public class TaskRun {
 
   @JsonProperty(JSON_PROPERTY_TASK_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTaskId(@javax.annotation.Nonnull String taskId) {
+  public void setTaskId(@jakarta.annotation.Nonnull String taskId) {
     this.taskId = taskId;
   }
 
-  public TaskRun parentTaskRunId(@javax.annotation.Nullable String parentTaskRunId) {
+  public TaskRun parentTaskRunId(@jakarta.annotation.Nullable String parentTaskRunId) {
     
     this.parentTaskRunId = parentTaskRunId;
     return this;
@@ -224,7 +224,7 @@ public class TaskRun {
    * Get parentTaskRunId
    * @return parentTaskRunId
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PARENT_TASK_RUN_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PARENT_TASK_RUN_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getParentTaskRunId() {
@@ -234,11 +234,11 @@ public class TaskRun {
 
   @JsonProperty(JSON_PROPERTY_PARENT_TASK_RUN_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setParentTaskRunId(@javax.annotation.Nullable String parentTaskRunId) {
+  public void setParentTaskRunId(@jakarta.annotation.Nullable String parentTaskRunId) {
     this.parentTaskRunId = parentTaskRunId;
   }
 
-  public TaskRun value(@javax.annotation.Nullable String value) {
+  public TaskRun value(@jakarta.annotation.Nullable String value) {
     
     this.value = value;
     return this;
@@ -248,7 +248,7 @@ public class TaskRun {
    * Get value
    * @return value
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getValue() {
@@ -258,11 +258,11 @@ public class TaskRun {
 
   @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setValue(@javax.annotation.Nullable String value) {
+  public void setValue(@jakarta.annotation.Nullable String value) {
     this.value = value;
   }
 
-  public TaskRun attempts(@javax.annotation.Nullable List<TaskRunAttempt> attempts) {
+  public TaskRun attempts(@jakarta.annotation.Nullable List<TaskRunAttempt> attempts) {
     
     this.attempts = attempts;
     return this;
@@ -280,7 +280,7 @@ public class TaskRun {
    * Get attempts
    * @return attempts
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ATTEMPTS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ATTEMPTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<TaskRunAttempt> getAttempts() {
@@ -290,11 +290,11 @@ public class TaskRun {
 
   @JsonProperty(JSON_PROPERTY_ATTEMPTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAttempts(@javax.annotation.Nullable List<TaskRunAttempt> attempts) {
+  public void setAttempts(@jakarta.annotation.Nullable List<TaskRunAttempt> attempts) {
     this.attempts = attempts;
   }
 
-  public TaskRun outputs(@javax.annotation.Nullable Object outputs) {
+  public TaskRun outputs(@jakarta.annotation.Nullable Object outputs) {
     this.outputs = JsonNullable.<Object>of(outputs);
     
     return this;
@@ -304,7 +304,7 @@ public class TaskRun {
    * Get outputs
    * @return outputs
    */
-  @javax.annotation.Nullable  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public Object getOutputs() {
         return outputs.orElse(null);
@@ -321,11 +321,11 @@ public class TaskRun {
     this.outputs = outputs;
   }
 
-  public void setOutputs(@javax.annotation.Nullable Object outputs) {
+  public void setOutputs(@jakarta.annotation.Nullable Object outputs) {
     this.outputs = JsonNullable.<Object>of(outputs);
   }
 
-  public TaskRun state(@javax.annotation.Nonnull State state) {
+  public TaskRun state(@jakarta.annotation.Nonnull State state) {
     
     this.state = state;
     return this;
@@ -335,7 +335,7 @@ public class TaskRun {
    * Get state
    * @return state
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_STATE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public State getState() {
@@ -345,11 +345,11 @@ public class TaskRun {
 
   @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setState(@javax.annotation.Nonnull State state) {
+  public void setState(@jakarta.annotation.Nonnull State state) {
     this.state = state;
   }
 
-  public TaskRun iteration(@javax.annotation.Nullable Integer iteration) {
+  public TaskRun iteration(@jakarta.annotation.Nullable Integer iteration) {
     
     this.iteration = iteration;
     return this;
@@ -359,7 +359,7 @@ public class TaskRun {
    * Get iteration
    * @return iteration
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ITERATION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ITERATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getIteration() {
@@ -369,11 +369,11 @@ public class TaskRun {
 
   @JsonProperty(JSON_PROPERTY_ITERATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIteration(@javax.annotation.Nullable Integer iteration) {
+  public void setIteration(@jakarta.annotation.Nullable Integer iteration) {
     this.iteration = iteration;
   }
 
-  public TaskRun dynamic(@javax.annotation.Nullable Boolean dynamic) {
+  public TaskRun dynamic(@jakarta.annotation.Nullable Boolean dynamic) {
     
     this.dynamic = dynamic;
     return this;
@@ -383,7 +383,7 @@ public class TaskRun {
    * Get dynamic
    * @return dynamic
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DYNAMIC)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DYNAMIC)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getDynamic() {
@@ -393,11 +393,11 @@ public class TaskRun {
 
   @JsonProperty(JSON_PROPERTY_DYNAMIC)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDynamic(@javax.annotation.Nullable Boolean dynamic) {
+  public void setDynamic(@jakarta.annotation.Nullable Boolean dynamic) {
     this.dynamic = dynamic;
   }
 
-  public TaskRun forceExecution(@javax.annotation.Nullable Boolean forceExecution) {
+  public TaskRun forceExecution(@jakarta.annotation.Nullable Boolean forceExecution) {
     
     this.forceExecution = forceExecution;
     return this;
@@ -407,7 +407,7 @@ public class TaskRun {
    * Get forceExecution
    * @return forceExecution
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FORCE_EXECUTION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FORCE_EXECUTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getForceExecution() {
@@ -417,7 +417,7 @@ public class TaskRun {
 
   @JsonProperty(JSON_PROPERTY_FORCE_EXECUTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setForceExecution(@javax.annotation.Nullable Boolean forceExecution) {
+  public void setForceExecution(@jakarta.annotation.Nullable Boolean forceExecution) {
     this.forceExecution = forceExecution;
   }
 

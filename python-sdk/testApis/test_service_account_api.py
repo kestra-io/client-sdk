@@ -99,7 +99,7 @@ class TestServiceAccountApi(unittest.TestCase):
         req = IAMServiceAccountControllerApiCreateServiceAccountRequest(name=f"{name}")
         created = self.kestra_client.service_account.create_service_account(iam_service_account_controller_api_create_service_account_request=req)
 
-        fetched = self.kestra_client.service_account.get_service_account(id=created.id)
+        fetched = self.kestra_client.service_account.service_account(id=created.id)
         assert getattr(fetched, 'id', None) == created.id
 
     def test_get_service_account_for_tenant(self) -> None:
@@ -111,7 +111,7 @@ class TestServiceAccountApi(unittest.TestCase):
         req = IAMServiceAccountControllerApiServiceAccountRequest(name=f"{name}")
         created = self.kestra_client.service_account.create_service_account_for_tenant(tenant=self.tenant, iam_service_account_controller_api_service_account_request=req)
 
-        fetched = self.kestra_client.service_account.get_service_account_for_tenant(tenant=self.tenant, id=created.id)
+        fetched = self.kestra_client.service_account.service_account_for_tenant(tenant=self.tenant, id=created.id)
         assert getattr(fetched, 'id', None) == created.id
 
     def test_list_service_accounts(self) -> None:
@@ -159,7 +159,7 @@ class TestServiceAccountApi(unittest.TestCase):
         patch = ApiPatchSuperAdminRequest.from_dict({"superAdmin": True})
         self.kestra_client.service_account.patch_service_account_super_admin(id=created.id, api_patch_super_admin_request=patch)
 
-        fetched = self.kestra_client.service_account.get_service_account(id=created.id)
+        fetched = self.kestra_client.service_account.service_account(id=created.id)
         assert getattr(fetched, 'super_admin', None) is True
 
     def test_update_service_account(self) -> None:

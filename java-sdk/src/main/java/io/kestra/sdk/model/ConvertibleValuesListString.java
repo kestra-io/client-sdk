@@ -31,18 +31,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ConvertibleValuesListString.JSON_PROPERTY_EMPTY
 })
 @JsonTypeName("ConvertibleValues_List_String__")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ConvertibleValuesListString {
   public static final String JSON_PROPERTY_CONVERSION_SERVICE = "conversionService";
-  @javax.annotation.Nonnull  private Object conversionService;
+  @jakarta.annotation.Nonnull  private Object conversionService;
 
   public static final String JSON_PROPERTY_EMPTY = "empty";
-  @javax.annotation.Nullable  private Boolean empty;
+  @jakarta.annotation.Nullable  private Boolean empty;
 
   public ConvertibleValuesListString() {
   }
 
-  public ConvertibleValuesListString conversionService(@javax.annotation.Nonnull Object conversionService) {
+  public ConvertibleValuesListString conversionService(@jakarta.annotation.Nonnull Object conversionService) {
     
     this.conversionService = conversionService;
     return this;
@@ -52,7 +52,7 @@ public class ConvertibleValuesListString {
    * Get conversionService
    * @return conversionService
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_CONVERSION_SERVICE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_CONVERSION_SERVICE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Object getConversionService() {
@@ -62,11 +62,11 @@ public class ConvertibleValuesListString {
 
   @JsonProperty(JSON_PROPERTY_CONVERSION_SERVICE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setConversionService(@javax.annotation.Nonnull Object conversionService) {
+  public void setConversionService(@jakarta.annotation.Nonnull Object conversionService) {
     this.conversionService = conversionService;
   }
 
-  public ConvertibleValuesListString empty(@javax.annotation.Nullable Boolean empty) {
+  public ConvertibleValuesListString empty(@jakarta.annotation.Nullable Boolean empty) {
     
     this.empty = empty;
     return this;
@@ -76,7 +76,7 @@ public class ConvertibleValuesListString {
    * Get empty
    * @return empty
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EMPTY)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EMPTY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getEmpty() {
@@ -86,7 +86,7 @@ public class ConvertibleValuesListString {
 
   @JsonProperty(JSON_PROPERTY_EMPTY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEmpty(@javax.annotation.Nullable Boolean empty) {
+  public void setEmpty(@jakarta.annotation.Nullable Boolean empty) {
     this.empty = empty;
   }
 

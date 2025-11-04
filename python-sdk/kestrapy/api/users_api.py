@@ -1179,159 +1179,6 @@ class UsersApi:
 
 
     @validate_call
-    def get_user(
-        self,
-        id: Annotated[StrictStr, Field(description="The user id")],
-        _request_timeout: Union[
-        None,
-        Annotated[StrictFloat, Field(gt=0)],
-        Tuple[
-        Annotated[StrictFloat, Field(gt=0)],
-        Annotated[StrictFloat, Field(gt=0)]
-        ]
-        ] = None
-    ) -> IAMUserControllerApiUser:
-        """Get a user
-
-        Superadmin-only. Get user account details.
-
-        :param id: The user id (required)
-        :type id: str
-        ,
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        """ # noqa: E501
-
-        _param = self._get_user_serialize(
-            id=id,
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "IAMUserControllerApiUser",
-            '404': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def get_user_with_http_info(
-        self,
-        id: Annotated[StrictStr, Field(description="The user id")],
-        _request_timeout: Union[
-        None,
-        Annotated[StrictFloat, Field(gt=0)],
-        Tuple[
-        Annotated[StrictFloat, Field(gt=0)],
-        Annotated[StrictFloat, Field(gt=0)]
-        ]
-        ] = None
-    ) -> ApiResponse[IAMUserControllerApiUser]:
-        """Get a user
-
-        Superadmin-only. Get user account details.
-
-        :param id: The user id (required)
-        :type id: str
-        ,
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        """ # noqa: E501
-
-        _param = self._get_user_serialize(
-            id=id,
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "IAMUserControllerApiUser",
-            '404': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    def _get_user_serialize(
-        self,
-        id,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if id is not None:
-            _path_params['id'] = id
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'basicAuth', 
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/api/v1/users/{id}',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats
-        )
-
-
-
-
-
-    @validate_call
     def impersonate(
         self,
         id: Annotated[StrictStr, Field(description="The user id")],
@@ -3014,6 +2861,159 @@ class UsersApi:
         return self.api_client.param_serialize(
             method='PUT',
             resource_path='/api/v1/{tenant}/users/{id}/groups',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats
+        )
+
+
+
+
+
+    @validate_call
+    def user(
+        self,
+        id: Annotated[StrictStr, Field(description="The user id")],
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> IAMUserControllerApiUser:
+        """Get a user
+
+        Superadmin-only. Get user account details.
+
+        :param id: The user id (required)
+        :type id: str
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._user_serialize(
+            id=id,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "IAMUserControllerApiUser",
+            '404': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def user_with_http_info(
+        self,
+        id: Annotated[StrictStr, Field(description="The user id")],
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> ApiResponse[IAMUserControllerApiUser]:
+        """Get a user
+
+        Superadmin-only. Get user account details.
+
+        :param id: The user id (required)
+        :type id: str
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._user_serialize(
+            id=id,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "IAMUserControllerApiUser",
+            '404': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    def _user_serialize(
+        self,
+        id,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if id is not None:
+            _path_params['id'] = id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/v1/users/{id}',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

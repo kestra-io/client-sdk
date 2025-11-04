@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**create_group**](groups.md#create_group) | **POST** /api/v1/{tenant}/groups | Create a group
 [**delete_group**](groups.md#delete_group) | **DELETE** /api/v1/{tenant}/groups/{id} | Delete a group
 [**delete_user_from_group**](groups.md#delete_user_from_group) | **DELETE** /api/v1/{tenant}/groups/{id}/members/{userId} | Remove a user from a group
-[**get_group**](groups.md#get_group) | **GET** /api/v1/{tenant}/groups/{id} | Retrieve a group
+[**group**](groups.md#group) | **GET** /api/v1/{tenant}/groups/{id} | Retrieve a group
 [**list_group_ids**](groups.md#list_group_ids) | **POST** /api/v1/{tenant}/groups/ids | List groups by ids
 [**search_group_members**](groups.md#search_group_members) | **GET** /api/v1/{tenant}/groups/{id}/members | Search for users in a group
 [**search_groups**](groups.md#search_groups) | **GET** /api/v1/{tenant}/groups/search | Search for groups
@@ -349,8 +349,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_group**
-> IAMGroupControllerApiGroupDetail get_group(id, tenant)
+# **group**
+> IAMGroupControllerApiGroupDetail group(id, tenant)
 
 Retrieve a group
 
@@ -377,11 +377,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Retrieve a group
-        api_response = kestra_client.groups.get_group(id, tenant)
-        print("The response of groups->get_group:\n")
+        api_response = kestra_client.groups.group(id, tenant)
+        print("The response of groups->group:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling groups->get_group: %s\n" % e)
+        print("Exception when calling groups->group: %s\n" % e)
 ```
 
 

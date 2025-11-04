@@ -274,7 +274,7 @@ paths:
       description: >-
         Retrieves the diff between the current version and a selected previous version of a given resource based on
         audit logs.
-      operationId: getGlobalResourceDiffFromAuditLog
+      operationId: globalResourceDiffFromAuditLog
       parameters:
         - name: id
           in: path
@@ -411,7 +411,7 @@ paths:
         - Misc
       summary: Retrieve the instance configuration.
       description: Global endpoint available to all users.
-      operationId: getBasicAuthConfigErrors
+      operationId: basicAuthConfigErrors
       responses:
         "200":
           description: getBasicAuthConfigErrors 200 response
@@ -430,7 +430,7 @@ paths:
         - Misc
       summary: Retrieve the instance configuration.
       description: Global endpoint available to all users.
-      operationId: getConfiguration
+      operationId: configuration
       responses:
         "200":
           description: getConfiguration 200 response
@@ -507,7 +507,7 @@ paths:
         - Services
       summary: List all active services
       description: Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
-      operationId: getActiveServices
+      operationId: activeServices
       responses:
         "200":
           description: getActiveServices 200 response
@@ -587,7 +587,7 @@ paths:
         - Services
       summary: Retrieve details of a specific service
       description: Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
-      operationId: getService
+      operationId: service
       parameters:
         - name: id
           in: path
@@ -825,7 +825,7 @@ paths:
       description: >-
         Superadmin-only. Retrieves metadata and available versions for a given plugin artifact. Requires INFRASTRUCTURE
         permission.
-      operationId: getVersionedPluginDetails
+      operationId: versionedPluginDetails
       parameters:
         - name: groupId
           in: path
@@ -855,7 +855,7 @@ paths:
       description: >-
         Superadmin-only. Retrieves metadata for a specific version of a plugin artifact. Requires INFRASTRUCTURE
         permission.
-      operationId: getVersionedPluginDetailsFromVersion
+      operationId: versionedPluginDetailsFromVersion
       parameters:
         - name: groupId
           in: path
@@ -928,7 +928,7 @@ paths:
         - WorkerGroups
       summary: Retrieve details of a specific worker group
       description: Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
-      operationId: getWorkerGroupById
+      operationId: workerGroupById
       parameters:
         - name: id
           in: path
@@ -1062,7 +1062,7 @@ paths:
         - Auths
       summary: Get details about the authenticated user
       description: Requires the ME permission.
-      operationId: getCurrentUser
+      operationId: currentUser
       responses:
         "200":
           description: getCurrentUser 200 response
@@ -1222,7 +1222,7 @@ paths:
       tags:
         - Plugins
       summary: Get plugins group by subgroups
-      operationId: getPluginBySubgroups
+      operationId: pluginBySubgroups
       responses:
         "200":
           description: getPluginBySubgroups 200 response
@@ -1240,7 +1240,7 @@ paths:
       tags:
         - Plugins
       summary: Get plugins icons
-      operationId: getPluginIcons
+      operationId: pluginIcons
       responses:
         "200":
           description: getPluginIcons 200 response
@@ -1258,7 +1258,7 @@ paths:
       tags:
         - Plugins
       summary: Get plugins icons
-      operationId: getPluginGroupIcons
+      operationId: pluginGroupIcons
       responses:
         "200":
           description: getPluginGroupIcons 200 response
@@ -1276,7 +1276,7 @@ paths:
       tags:
         - Plugins
       summary: Get all types for an inputs
-      operationId: getAllInputTypes
+      operationId: allInputTypes
       responses:
         "200":
           description: getAllInputTypes 200 response
@@ -1295,7 +1295,7 @@ paths:
         - Plugins
       summary: Get the JSON schema for an input type
       description: The schema will be a [JSON Schema Draft 7](http://json-schema.org/draft-07/schema)
-      operationId: getSchemaFromInputType
+      operationId: schemaFromInputType
       parameters:
         - name: type
           in: path
@@ -1319,7 +1319,7 @@ paths:
         - Plugins
       summary: Get the properties part of the JSON schema for a type
       description: The schema will be a [JSON Schema Draft 7](http://json-schema.org/draft-07/schema)
-      operationId: getPropertiesFromType
+      operationId: propertiesFromType
       parameters:
         - name: type
           in: path
@@ -1345,7 +1345,7 @@ paths:
         - Plugins
       summary: Get the JSON schema for a type
       description: The schema will be a [JSON Schema Draft 7](http://json-schema.org/draft-07/schema)
-      operationId: getSchemasFromType
+      operationId: schemasFromType
       parameters:
         - name: type
           in: path
@@ -1378,7 +1378,7 @@ paths:
       tags:
         - Plugins
       summary: Get plugin documentation
-      operationId: getPluginDocumentation
+      operationId: pluginDocumentation
       parameters:
         - name: cls
           in: path
@@ -1409,7 +1409,7 @@ paths:
       tags:
         - Plugins
       summary: Get all versions for a plugin
-      operationId: getPluginVersions
+      operationId: pluginVersions
       parameters:
         - name: cls
           in: path
@@ -1432,7 +1432,7 @@ paths:
       tags:
         - Plugins
       summary: Get plugin documentation
-      operationId: getPluginDocumentationFromVersion
+      operationId: pluginDocumentationFromVersion
       parameters:
         - name: cls
           in: path
@@ -1586,7 +1586,7 @@ paths:
         - ServiceAccount
       summary: Get a service account
       description: Superadmin-only. Get user account details.
-      operationId: getServiceAccount
+      operationId: serviceAccount
       parameters:
         - name: id
           in: path
@@ -2053,7 +2053,7 @@ paths:
         - Users
       summary: Get a user
       description: Superadmin-only. Get user account details.
-      operationId: getUser
+      operationId: user
       parameters:
         - name: id
           in: path
@@ -2952,7 +2952,7 @@ paths:
       tags:
         - Apps
       summary: Get file meta information from an app execution
-      operationId: getFileMetaFromAppExecution
+      operationId: fileMetaFromAppExecution
       parameters:
         - name: id
           in: path
@@ -2988,7 +2988,7 @@ paths:
       tags:
         - Apps
       summary: Get file preview from an app execution
-      operationId: getFilePreviewFromAppExecution
+      operationId: filePreviewFromAppExecution
       parameters:
         - name: id
           in: path
@@ -3041,7 +3041,7 @@ paths:
       tags:
         - Apps
       summary: Get an event stream from a given app.
-      operationId: getStreamEventsFromApp
+      operationId: streamEventsFromApp
       parameters:
         - name: id
           in: path
@@ -3115,7 +3115,7 @@ paths:
       tags:
         - Apps
       summary: Download logs for an app execution
-      operationId: getLogsFromAppExecution
+      operationId: logsFromAppExecution
       parameters:
         - name: uid
           in: path
@@ -3168,7 +3168,7 @@ paths:
       tags:
         - Apps
       summary: Retrieve an app
-      operationId: getApp
+      operationId: app
       parameters:
         - name: uid
           in: path
@@ -3616,7 +3616,7 @@ paths:
       description: >-
         Retrieves the diff between the current version and a selected previous version of a given resource based on
         audit logs.
-      operationId: getResourceDiffFromAuditLog
+      operationId: resourceDiffFromAuditLog
       parameters:
         - name: id
           in: path
@@ -3816,7 +3816,7 @@ paths:
       tags:
         - Bindings
       summary: Retrieve a binding
-      operationId: getBinding
+      operationId: binding
       parameters:
         - name: id
           in: path
@@ -3972,7 +3972,7 @@ paths:
         - Blueprints
       summary: Retrieve a blueprint
       description: Retrieves details of a specific community blueprint.
-      operationId: getBlueprint
+      operationId: blueprint
       parameters:
         - name: id
           in: path
@@ -4004,7 +4004,7 @@ paths:
         - Blueprints
       summary: Retrieve a blueprint graph
       description: Retrieves the topology graph representation of a specific community blueprint.
-      operationId: getBlueprintGraph
+      operationId: blueprintGraph
       parameters:
         - name: id
           in: path
@@ -4038,7 +4038,7 @@ paths:
         - Blueprints
       summary: Retrieve a blueprint source code
       description: Retrieves the YAML source code for a specific community blueprint.
-      operationId: getBlueprintSource
+      operationId: blueprintSource
       parameters:
         - name: id
           in: path
@@ -4473,7 +4473,7 @@ paths:
       tags:
         - Dashboards
       summary: Get a dashboard
-      operationId: getDashboard
+      operationId: dashboard
       parameters:
         - name: id
           in: path
@@ -4549,7 +4549,7 @@ paths:
       tags:
         - Dashboards
       summary: Generate a dashboard chart data
-      operationId: getDashboardChartData
+      operationId: dashboardChartData
       parameters:
         - name: id
           in: path
@@ -4626,7 +4626,7 @@ paths:
       tags:
         - Tenants
       summary: Get tenant dependencies
-      operationId: getFlowDependenciesFromTenant
+      operationId: flowDependenciesFromTenant
       parameters:
         - name: destinationOnly
           in: query
@@ -4929,7 +4929,7 @@ paths:
       tags:
         - Executions
       summary: Get flow information's for an execution
-      operationId: getFlowFromExecution
+      operationId: flowFromExecution
       parameters:
         - name: namespace
           in: path
@@ -5182,7 +5182,7 @@ paths:
       tags:
         - Executions
       summary: Get the latest execution for given flows
-      operationId: getLatestExecutions
+      operationId: latestExecutions
       parameters:
         - name: tenant
           in: path
@@ -5685,7 +5685,7 @@ paths:
       tags:
         - Executions
       summary: Get an execution
-      operationId: getExecution
+      operationId: execution
       parameters:
         - name: executionId
           in: path
@@ -5834,7 +5834,7 @@ paths:
       tags:
         - Executions
       summary: Get file meta information for an execution
-      operationId: getFileMetadatasFromExecution
+      operationId: fileMetadatasFromExecution
       parameters:
         - name: executionId
           in: path
@@ -5870,7 +5870,7 @@ paths:
       tags:
         - Executions
       summary: Get flow information's for an execution
-      operationId: getFlowFromExecutionById
+      operationId: flowFromExecutionById
       parameters:
         - name: executionId
           in: path
@@ -6004,7 +6004,7 @@ paths:
       tags:
         - Executions
       summary: Generate a graph for an execution
-      operationId: getExecutionFlowGraph
+      operationId: executionFlowGraph
       parameters:
         - name: executionId
           in: path
@@ -7221,7 +7221,7 @@ paths:
       tags:
         - Flows
       summary: Get a flow
-      operationId: getFlow
+      operationId: flow
       parameters:
         - name: namespace
           in: path
@@ -7270,7 +7270,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/FlowWithSource"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -7350,7 +7350,7 @@ paths:
       tags:
         - Flows
       summary: Get flow dependencies
-      operationId: getFlowDependencies
+      operationId: flowDependencies
       parameters:
         - name: namespace
           in: path
@@ -7487,7 +7487,7 @@ paths:
       tags:
         - Flows
       summary: Get a flow task
-      operationId: getTaskFromFlow
+      operationId: taskFromFlow
       parameters:
         - name: namespace
           in: path
@@ -7685,7 +7685,7 @@ paths:
         - Groups
       summary: Retrieve a group
       description: Retrieves details of a specific group by its ID within the current tenant.
-      operationId: getGroup
+      operationId: group
       parameters:
         - name: id
           in: path
@@ -8129,7 +8129,7 @@ paths:
       tags:
         - SCIM-Groups
       description: Find by id
-      operationId: getSCIMResourceByIdGroups
+      operationId: sCIMResourceByIdGroups
       parameters:
         - name: id
           in: path
@@ -8312,7 +8312,7 @@ paths:
       tags:
         - SCIM-Configuration
       description: Get All Resource Types
-      operationId: getAllResourceTypes
+      operationId: allResourceTypes
       parameters:
         - name: integration
           in: path
@@ -8338,7 +8338,7 @@ paths:
       tags:
         - SCIM-Configuration
       description: Get Resource Type by URN
-      operationId: getResourceType
+      operationId: resourceType
       parameters:
         - name: name
           in: path
@@ -8367,7 +8367,7 @@ paths:
       tags:
         - SCIM-Configuration
       description: Get All Schemas
-      operationId: getAllSchemas
+      operationId: allSchemas
       parameters:
         - name: integration
           in: path
@@ -8393,7 +8393,7 @@ paths:
       tags:
         - SCIM-Configuration
       description: Get Schemas by URN
-      operationId: getSchema
+      operationId: schema
       parameters:
         - name: uri
           in: path
@@ -8422,7 +8422,7 @@ paths:
       tags:
         - SCIM-Configuration
       description: Get Service Provider Configuration
-      operationId: getServiceProviderConfiguration
+      operationId: serviceProviderConfiguration
       parameters:
         - name: integration
           in: path
@@ -8608,7 +8608,7 @@ paths:
       tags:
         - SCIM-Users
       description: Find by id
-      operationId: getSCIMResourceByIdUsers
+      operationId: sCIMResourceByIdUsers
       parameters:
         - name: id
           in: path
@@ -8920,7 +8920,7 @@ paths:
         - Invitations
       summary: Retrieve an invitation
       description: Retrieves the invitation by its ID, including the invitation link.
-      operationId: getInvitation
+      operationId: invitation
       parameters:
         - name: id
           in: path
@@ -9724,7 +9724,7 @@ paths:
       tags:
         - Namespaces
       summary: Get a namespace
-      operationId: getNamespace
+      operationId: namespace
       parameters:
         - name: id
           in: path
@@ -9869,7 +9869,7 @@ paths:
       tags:
         - Flows
       summary: Retrieve flow dependencies
-      operationId: getFlowDependenciesFromNamespace
+      operationId: flowDependenciesFromNamespace
       parameters:
         - name: namespace
           in: path
@@ -9905,7 +9905,7 @@ paths:
       tags:
         - Files
       summary: Get namespace file content
-      operationId: getFileContent
+      operationId: fileContent
       parameters:
         - name: namespace
           in: path
@@ -10188,7 +10188,7 @@ paths:
       tags:
         - Files
       summary: Get namespace file stats such as size, creation & modification dates and type
-      operationId: getFileMetadatas
+      operationId: fileMetadatas
       parameters:
         - name: namespace
           in: path
@@ -10223,7 +10223,7 @@ paths:
       tags:
         - Namespaces
       summary: List inherited secrets
-      operationId: getInheritedSecrets
+      operationId: inheritedSecrets
       parameters:
         - name: namespace
           in: path
@@ -10349,7 +10349,7 @@ paths:
       tags:
         - KV
       summary: Get value for a key
-      operationId: getKeyValue
+      operationId: keyValue
       parameters:
         - name: namespace
           in: path
@@ -10770,7 +10770,7 @@ paths:
       tags:
         - Roles
       summary: Retrieve a role
-      operationId: getRole
+      operationId: role
       parameters:
         - name: id
           in: path
@@ -10913,7 +10913,7 @@ paths:
         - SecurityIntegrations
       summary: Retrieve a security integration
       description: Superadmin-only.
-      operationId: getSecurityIntegration
+      operationId: securityIntegration
       parameters:
         - name: id
           in: path
@@ -11058,7 +11058,7 @@ paths:
       tags:
         - ServiceAccount
       summary: Retrieve a service account
-      operationId: getServiceAccountForTenant
+      operationId: serviceAccountForTenant
       parameters:
         - name: id
           in: path
@@ -11398,7 +11398,7 @@ paths:
         - Tenant Access
       summary: Retrieve tenant access for a user
       description: Fetches the tenant access configuration for a given user
-      operationId: getTenantAccess
+      operationId: tenantAccess
       parameters:
         - name: userId
           in: path
@@ -11656,7 +11656,7 @@ paths:
         - TestSuites
       summary: Get tests last result
       description: Get multiple tests last result for a query.
-      operationId: getTestsLastResult
+      operationId: testsLastResult
       parameters:
         - name: tenant
           in: path
@@ -11682,7 +11682,7 @@ paths:
         - TestSuites
       summary: Get a test result
       description: Get a test result once it was run.
-      operationId: getTestResult
+      operationId: testResult
       parameters:
         - name: id
           in: path
@@ -11836,7 +11836,7 @@ paths:
         - TestSuites
       summary: Retrieve a test
       description: Retrieves a test by namespace and ID. Requires TEST permission with the READ action.
-      operationId: getTestSuite
+      operationId: testSuite
       parameters:
         - name: namespace
           in: path
@@ -12630,7 +12630,7 @@ paths:
       tags:
         - Misc
       summary: Retrieve instance usage information
-      operationId: getUsages
+      operationId: usages
       parameters:
         - name: tenant
           in: path
@@ -14669,61 +14669,60 @@ components:
         - id
         - namespace
       type: object
+      properties:
+        id:
+          maxLength: 100
+          minLength: 1
+          pattern: ^[a-zA-Z0-9][a-zA-Z0-9._-]*
+          type: string
+        namespace:
+          maxLength: 150
+          minLength: 1
+          pattern: ^[a-z0-9][a-z0-9._-]*
+          type: string
+        revision:
+          minimum: 1
+          type: integer
+          format: int32
+        description:
+          type: string
+        inputs:
+          type: array
+          items:
+            $ref: "#/components/schemas/Input_Object_"
+        disabled:
+          type: boolean
+        labels:
+          type: array
+          description: Labels as a list of Label (key/value pairs) or as a map of string to string.
+          oneOf:
+            - $ref: "#/components/schemas/Map_Object.Object_"
+          items:
+            $ref: "#/components/schemas/Label"
+        workerGroup:
+          $ref: "#/components/schemas/WorkerGroup"
+        deleted:
+          type: boolean
+        variables:
+          type: object
+          additionalProperties: false
+        concurrency:
+          $ref: "#/components/schemas/Concurrency"
+        outputs:
+          title: Output values available and exposes to other flows.
+          type: array
+          description: >-
+            Output values make information about the execution of your Flow available and expose for other Kestra flows
+            to use. Output values are similar to return values in programming languages.
+          items:
+            $ref: "#/components/schemas/Output"
+        sla:
+          type: array
+          items:
+            $ref: "#/components/schemas/SLA"
       allOf:
         - $ref: "#/components/schemas/Flow"
         - $ref: "#/components/schemas/AbstractFlow"
-        - type: object
-          properties:
-            id:
-              maxLength: 100
-              minLength: 1
-              pattern: ^[a-zA-Z0-9][a-zA-Z0-9._-]*
-              type: string
-            namespace:
-              maxLength: 150
-              minLength: 1
-              pattern: ^[a-z0-9][a-z0-9._-]*
-              type: string
-            revision:
-              minimum: 1
-              type: integer
-              format: int32
-            description:
-              type: string
-            inputs:
-              type: array
-              items:
-                $ref: "#/components/schemas/Input_Object_"
-            disabled:
-              type: boolean
-            labels:
-              type: array
-              description: Labels as a list of Label (key/value pairs) or as a map of string to string.
-              oneOf:
-                - $ref: "#/components/schemas/Map_Object.Object_"
-              items:
-                $ref: "#/components/schemas/Label"
-            workerGroup:
-              $ref: "#/components/schemas/WorkerGroup"
-            deleted:
-              type: boolean
-            variables:
-              type: object
-              additionalProperties: false
-            concurrency:
-              $ref: "#/components/schemas/Concurrency"
-            outputs:
-              title: Output values available and exposes to other flows.
-              type: array
-              description: >-
-                Output values make information about the execution of your Flow available and expose for other Kestra
-                flows to use. Output values are similar to return values in programming languages.
-              items:
-                $ref: "#/components/schemas/Output"
-            sla:
-              type: array
-              items:
-                $ref: "#/components/schemas/SLA"
     GroupIdentifier:
       type: object
       properties:

@@ -7,8 +7,8 @@ Method | HTTP request | Description
 [**autocomplete_roles**](roles.md#autocomplete_roles) | **POST** /api/v1/{tenant}/roles/autocomplete | List roles for autocomplete
 [**create_role**](roles.md#create_role) | **POST** /api/v1/{tenant}/roles | Create a role
 [**delete_role**](roles.md#delete_role) | **DELETE** /api/v1/{tenant}/roles/{id} | Delete a role
-[**get_role**](roles.md#get_role) | **GET** /api/v1/{tenant}/roles/{id} | Retrieve a role
 [**list_roles_from_given_ids**](roles.md#list_roles_from_given_ids) | **POST** /api/v1/{tenant}/roles/ids | List roles by ids
+[**role**](roles.md#role) | **GET** /api/v1/{tenant}/roles/{id} | Retrieve a role
 [**search_roles**](roles.md#search_roles) | **GET** /api/v1/{tenant}/roles/search | Search for roles
 [**update_role**](roles.md#update_role) | **PUT** /api/v1/{tenant}/roles/{id} | Update a role
 
@@ -204,71 +204,6 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_role**
-> IAMRoleControllerApiRoleDetail get_role(id, tenant)
-
-Retrieve a role
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-from kestrapy import KestraClient, Configuration
-
-configuration = Configuration()
-
-configuration.host = "http://localhost:8080"
-configuration.username = "root@root.com"
-configuration.password = "Root!1234"
-
-# Enter a context with an instance of the API client
-with KestraClient(configuration) as kestra_client:
-    id = 'id_example' # str | The role id
-    tenant = 'tenant_example' # str | 
-
-    try:
-        # Retrieve a role
-        api_response = kestra_client.roles.get_role(id, tenant)
-        print("The response of roles->get_role:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling roles->get_role: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**| The role id | 
- **tenant** | **str**|  | 
-
-### Return type
-
-[**IAMRoleControllerApiRoleDetail**](IAMRoleControllerApiRoleDetail.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | getRole 200 response |  -  |
-**404** | Role not found |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **list_roles_from_given_ids**
 > List[Role] list_roles_from_given_ids(tenant, api_ids)
 
@@ -330,6 +265,71 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | listRolesFromGivenIds 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **role**
+> IAMRoleControllerApiRoleDetail role(id, tenant)
+
+Retrieve a role
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    id = 'id_example' # str | The role id
+    tenant = 'tenant_example' # str | 
+
+    try:
+        # Retrieve a role
+        api_response = kestra_client.roles.role(id, tenant)
+        print("The response of roles->role:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling roles->role: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| The role id | 
+ **tenant** | **str**|  | 
+
+### Return type
+
+[**IAMRoleControllerApiRoleDetail**](IAMRoleControllerApiRoleDetail.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | getRole 200 response |  -  |
+**404** | Role not found |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

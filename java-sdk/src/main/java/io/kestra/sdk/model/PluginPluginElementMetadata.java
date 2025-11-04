@@ -31,18 +31,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PluginPluginElementMetadata.JSON_PROPERTY_DEPRECATED
 })
 @JsonTypeName("Plugin.PluginElementMetadata")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PluginPluginElementMetadata {
   public static final String JSON_PROPERTY_CLS = "cls";
-  @javax.annotation.Nullable  private String cls;
+  @jakarta.annotation.Nullable  private String cls;
 
   public static final String JSON_PROPERTY_DEPRECATED = "deprecated";
-  @javax.annotation.Nullable  private Boolean deprecated;
+  @jakarta.annotation.Nullable  private Boolean deprecated;
 
   public PluginPluginElementMetadata() {
   }
 
-  public PluginPluginElementMetadata cls(@javax.annotation.Nullable String cls) {
+  public PluginPluginElementMetadata cls(@jakarta.annotation.Nullable String cls) {
     
     this.cls = cls;
     return this;
@@ -52,7 +52,7 @@ public class PluginPluginElementMetadata {
    * Get cls
    * @return cls
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CLS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CLS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCls() {
@@ -62,11 +62,11 @@ public class PluginPluginElementMetadata {
 
   @JsonProperty(JSON_PROPERTY_CLS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCls(@javax.annotation.Nullable String cls) {
+  public void setCls(@jakarta.annotation.Nullable String cls) {
     this.cls = cls;
   }
 
-  public PluginPluginElementMetadata deprecated(@javax.annotation.Nullable Boolean deprecated) {
+  public PluginPluginElementMetadata deprecated(@jakarta.annotation.Nullable Boolean deprecated) {
     
     this.deprecated = deprecated;
     return this;
@@ -76,7 +76,7 @@ public class PluginPluginElementMetadata {
    * Get deprecated
    * @return deprecated
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DEPRECATED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DEPRECATED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getDeprecated() {
@@ -86,7 +86,7 @@ public class PluginPluginElementMetadata {
 
   @JsonProperty(JSON_PROPERTY_DEPRECATED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDeprecated(@javax.annotation.Nullable Boolean deprecated) {
+  public void setDeprecated(@jakarta.annotation.Nullable Boolean deprecated) {
     this.deprecated = deprecated;
   }
 

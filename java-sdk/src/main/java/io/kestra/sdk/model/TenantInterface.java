@@ -29,15 +29,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   TenantInterface.JSON_PROPERTY_TENANT_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TenantInterface {
   public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
-  @javax.annotation.Nullable  private String tenantId;
+  @jakarta.annotation.Nullable  private String tenantId;
 
   public TenantInterface() {
   }
 
-  public TenantInterface tenantId(@javax.annotation.Nullable String tenantId) {
+  public TenantInterface tenantId(@jakarta.annotation.Nullable String tenantId) {
     
     this.tenantId = tenantId;
     return this;
@@ -47,7 +47,7 @@ public class TenantInterface {
    * Get tenantId
    * @return tenantId
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANT_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTenantId() {
@@ -57,7 +57,7 @@ public class TenantInterface {
 
   @JsonProperty(JSON_PROPERTY_TENANT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTenantId(@javax.annotation.Nullable String tenantId) {
+  public void setTenantId(@jakarta.annotation.Nullable String tenantId) {
     this.tenantId = tenantId;
   }
 

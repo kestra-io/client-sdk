@@ -35,27 +35,27 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ServiceProviderConfigurationAuthenticationSchema.JSON_PROPERTY_DOCUMENTATION_URI
 })
 @JsonTypeName("ServiceProviderConfiguration.AuthenticationSchema")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ServiceProviderConfigurationAuthenticationSchema {
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nullable  private ServiceProviderConfigurationAuthenticationSchemaType type;
+  @jakarta.annotation.Nullable  private ServiceProviderConfigurationAuthenticationSchemaType type;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nullable  private String name;
+  @jakarta.annotation.Nullable  private String name;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable  private String description;
+  @jakarta.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_SPEC_URI = "specUri";
-  @javax.annotation.Nullable  private String specUri;
+  @jakarta.annotation.Nullable  private String specUri;
 
   public static final String JSON_PROPERTY_DOCUMENTATION_URI = "documentationUri";
-  @javax.annotation.Nullable  private String documentationUri;
+  @jakarta.annotation.Nullable  private String documentationUri;
 
   public ServiceProviderConfigurationAuthenticationSchema() {
   }
 
-  public ServiceProviderConfigurationAuthenticationSchema type(@javax.annotation.Nullable ServiceProviderConfigurationAuthenticationSchemaType type) {
+  public ServiceProviderConfigurationAuthenticationSchema type(@jakarta.annotation.Nullable ServiceProviderConfigurationAuthenticationSchemaType type) {
     
     this.type = type;
     return this;
@@ -65,7 +65,7 @@ public class ServiceProviderConfigurationAuthenticationSchema {
    * Get type
    * @return type
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServiceProviderConfigurationAuthenticationSchemaType getType() {
@@ -75,11 +75,11 @@ public class ServiceProviderConfigurationAuthenticationSchema {
 
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setType(@javax.annotation.Nullable ServiceProviderConfigurationAuthenticationSchemaType type) {
+  public void setType(@jakarta.annotation.Nullable ServiceProviderConfigurationAuthenticationSchemaType type) {
     this.type = type;
   }
 
-  public ServiceProviderConfigurationAuthenticationSchema name(@javax.annotation.Nullable String name) {
+  public ServiceProviderConfigurationAuthenticationSchema name(@jakarta.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -89,7 +89,7 @@ public class ServiceProviderConfigurationAuthenticationSchema {
    * Get name
    * @return name
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
@@ -99,11 +99,11 @@ public class ServiceProviderConfigurationAuthenticationSchema {
 
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(@javax.annotation.Nullable String name) {
+  public void setName(@jakarta.annotation.Nullable String name) {
     this.name = name;
   }
 
-  public ServiceProviderConfigurationAuthenticationSchema description(@javax.annotation.Nullable String description) {
+  public ServiceProviderConfigurationAuthenticationSchema description(@jakarta.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -113,7 +113,7 @@ public class ServiceProviderConfigurationAuthenticationSchema {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -123,11 +123,11 @@ public class ServiceProviderConfigurationAuthenticationSchema {
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(@javax.annotation.Nullable String description) {
+  public void setDescription(@jakarta.annotation.Nullable String description) {
     this.description = description;
   }
 
-  public ServiceProviderConfigurationAuthenticationSchema specUri(@javax.annotation.Nullable String specUri) {
+  public ServiceProviderConfigurationAuthenticationSchema specUri(@jakarta.annotation.Nullable String specUri) {
     
     this.specUri = specUri;
     return this;
@@ -137,7 +137,7 @@ public class ServiceProviderConfigurationAuthenticationSchema {
    * Get specUri
    * @return specUri
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SPEC_URI)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SPEC_URI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSpecUri() {
@@ -147,11 +147,11 @@ public class ServiceProviderConfigurationAuthenticationSchema {
 
   @JsonProperty(JSON_PROPERTY_SPEC_URI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSpecUri(@javax.annotation.Nullable String specUri) {
+  public void setSpecUri(@jakarta.annotation.Nullable String specUri) {
     this.specUri = specUri;
   }
 
-  public ServiceProviderConfigurationAuthenticationSchema documentationUri(@javax.annotation.Nullable String documentationUri) {
+  public ServiceProviderConfigurationAuthenticationSchema documentationUri(@jakarta.annotation.Nullable String documentationUri) {
     
     this.documentationUri = documentationUri;
     return this;
@@ -161,7 +161,7 @@ public class ServiceProviderConfigurationAuthenticationSchema {
    * Get documentationUri
    * @return documentationUri
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DOCUMENTATION_URI)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DOCUMENTATION_URI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDocumentationUri() {
@@ -171,7 +171,7 @@ public class ServiceProviderConfigurationAuthenticationSchema {
 
   @JsonProperty(JSON_PROPERTY_DOCUMENTATION_URI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDocumentationUri(@javax.annotation.Nullable String documentationUri) {
+  public void setDocumentationUri(@jakarta.annotation.Nullable String documentationUri) {
     this.documentationUri = documentationUri;
   }
 

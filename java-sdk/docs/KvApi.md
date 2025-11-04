@@ -6,7 +6,7 @@ All URIs are relative to *http://localhost*
 |------------- | ------------- | -------------|
 | [**deleteKeyValue**](kv.md#deleteKeyValue) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Delete a key-value pair |
 | [**deleteKeyValues**](kv.md#deleteKeyValues) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/kv | Bulk-delete multiple key/value pairs from the given namespace. |
-| [**getKeyValue**](kv.md#getKeyValue) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Get value for a key |
+| [**keyValue**](kv.md#keyValue) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Get value for a key |
 | [**listKeys**](kv.md#listKeys) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv | List all keys for a namespace |
 | [**listKeysWithInheritence**](kv.md#listKeysWithInheritence) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/inheritance | List all keys for inherited namespaces |
 | [**setKeyValue**](kv.md#setKeyValue) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Puts a key-value pair in store |
@@ -157,9 +157,9 @@ public class Example {
 | **200** | deleteKeyValues 200 response |  -  |
 
 
-## getKeyValue
+## keyValue
 
-> KVControllerTypedValue getKeyValue(namespace, key, tenant)
+> KVControllerTypedValue keyValue(namespace, key, tenant)
 
 Get value for a key
 
@@ -187,10 +187,10 @@ public class Example {
         String key = "key_example"; // String | The key
         String tenant = "tenant_example"; // String | 
         try {
-            KVControllerTypedValue result = kestraClient.kv().getKeyValue(namespace, key, tenant);
+            KVControllerTypedValue result = kestraClient.kv().keyValue(namespace, key, tenant);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling kv#getKeyValue");
+            System.err.println("Exception when calling kv#keyValue");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());

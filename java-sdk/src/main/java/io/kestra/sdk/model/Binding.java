@@ -35,30 +35,30 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Binding.JSON_PROPERTY_NAMESPACE_ID,
   Binding.JSON_PROPERTY_DELETED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Binding {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable  private String id;
+  @jakarta.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nonnull  private BindingType type;
+  @jakarta.annotation.Nonnull  private BindingType type;
 
   public static final String JSON_PROPERTY_EXTERNAL_ID = "externalId";
-  @javax.annotation.Nonnull  private String externalId;
+  @jakarta.annotation.Nonnull  private String externalId;
 
   public static final String JSON_PROPERTY_ROLE_ID = "roleId";
-  @javax.annotation.Nonnull  private String roleId;
+  @jakarta.annotation.Nonnull  private String roleId;
 
   public static final String JSON_PROPERTY_NAMESPACE_ID = "namespaceId";
-  @javax.annotation.Nullable  private String namespaceId;
+  @jakarta.annotation.Nullable  private String namespaceId;
 
   public static final String JSON_PROPERTY_DELETED = "deleted";
-  @javax.annotation.Nonnull  private Boolean deleted;
+  @jakarta.annotation.Nonnull  private Boolean deleted;
 
   public Binding() {
   }
 
-  public Binding id(@javax.annotation.Nullable String id) {
+  public Binding id(@jakarta.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -68,7 +68,7 @@ public class Binding {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -78,11 +78,11 @@ public class Binding {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  public void setId(@jakarta.annotation.Nullable String id) {
     this.id = id;
   }
 
-  public Binding type(@javax.annotation.Nonnull BindingType type) {
+  public Binding type(@jakarta.annotation.Nonnull BindingType type) {
     
     this.type = type;
     return this;
@@ -92,7 +92,7 @@ public class Binding {
    * Get type
    * @return type
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public BindingType getType() {
@@ -102,11 +102,11 @@ public class Binding {
 
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setType(@javax.annotation.Nonnull BindingType type) {
+  public void setType(@jakarta.annotation.Nonnull BindingType type) {
     this.type = type;
   }
 
-  public Binding externalId(@javax.annotation.Nonnull String externalId) {
+  public Binding externalId(@jakarta.annotation.Nonnull String externalId) {
     
     this.externalId = externalId;
     return this;
@@ -116,7 +116,7 @@ public class Binding {
    * Get externalId
    * @return externalId
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getExternalId() {
@@ -126,11 +126,11 @@ public class Binding {
 
   @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setExternalId(@javax.annotation.Nonnull String externalId) {
+  public void setExternalId(@jakarta.annotation.Nonnull String externalId) {
     this.externalId = externalId;
   }
 
-  public Binding roleId(@javax.annotation.Nonnull String roleId) {
+  public Binding roleId(@jakarta.annotation.Nonnull String roleId) {
     
     this.roleId = roleId;
     return this;
@@ -140,7 +140,7 @@ public class Binding {
    * Get roleId
    * @return roleId
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ROLE_ID)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ROLE_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getRoleId() {
@@ -150,11 +150,11 @@ public class Binding {
 
   @JsonProperty(JSON_PROPERTY_ROLE_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setRoleId(@javax.annotation.Nonnull String roleId) {
+  public void setRoleId(@jakarta.annotation.Nonnull String roleId) {
     this.roleId = roleId;
   }
 
-  public Binding namespaceId(@javax.annotation.Nullable String namespaceId) {
+  public Binding namespaceId(@jakarta.annotation.Nullable String namespaceId) {
     
     this.namespaceId = namespaceId;
     return this;
@@ -164,7 +164,7 @@ public class Binding {
    * Get namespaceId
    * @return namespaceId
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACE_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getNamespaceId() {
@@ -174,11 +174,11 @@ public class Binding {
 
   @JsonProperty(JSON_PROPERTY_NAMESPACE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setNamespaceId(@javax.annotation.Nullable String namespaceId) {
+  public void setNamespaceId(@jakarta.annotation.Nullable String namespaceId) {
     this.namespaceId = namespaceId;
   }
 
-  public Binding deleted(@javax.annotation.Nonnull Boolean deleted) {
+  public Binding deleted(@jakarta.annotation.Nonnull Boolean deleted) {
     
     this.deleted = deleted;
     return this;
@@ -188,7 +188,7 @@ public class Binding {
    * Get deleted
    * @return deleted
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DELETED)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getDeleted() {
@@ -198,7 +198,7 @@ public class Binding {
 
   @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDeleted(@javax.annotation.Nonnull Boolean deleted) {
+  public void setDeleted(@jakarta.annotation.Nonnull Boolean deleted) {
     this.deleted = deleted;
   }
 

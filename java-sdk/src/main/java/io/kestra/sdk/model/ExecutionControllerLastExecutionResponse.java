@@ -36,27 +36,27 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ExecutionControllerLastExecutionResponse.JSON_PROPERTY_STATUS
 })
 @JsonTypeName("ExecutionController.LastExecutionResponse")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ExecutionControllerLastExecutionResponse {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable  private String id;
+  @jakarta.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_FLOW_ID = "flowId";
-  @javax.annotation.Nullable  private String flowId;
+  @jakarta.annotation.Nullable  private String flowId;
 
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nullable  private String namespace;
+  @jakarta.annotation.Nullable  private String namespace;
 
   public static final String JSON_PROPERTY_START_DATE = "startDate";
-  @javax.annotation.Nullable  private OffsetDateTime startDate;
+  @jakarta.annotation.Nullable  private OffsetDateTime startDate;
 
   public static final String JSON_PROPERTY_STATUS = "status";
-  @javax.annotation.Nullable  private StateType status;
+  @jakarta.annotation.Nullable  private StateType status;
 
   public ExecutionControllerLastExecutionResponse() {
   }
 
-  public ExecutionControllerLastExecutionResponse id(@javax.annotation.Nullable String id) {
+  public ExecutionControllerLastExecutionResponse id(@jakarta.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -66,7 +66,7 @@ public class ExecutionControllerLastExecutionResponse {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -76,11 +76,11 @@ public class ExecutionControllerLastExecutionResponse {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  public void setId(@jakarta.annotation.Nullable String id) {
     this.id = id;
   }
 
-  public ExecutionControllerLastExecutionResponse flowId(@javax.annotation.Nullable String flowId) {
+  public ExecutionControllerLastExecutionResponse flowId(@jakarta.annotation.Nullable String flowId) {
     
     this.flowId = flowId;
     return this;
@@ -90,7 +90,7 @@ public class ExecutionControllerLastExecutionResponse {
    * Get flowId
    * @return flowId
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FLOW_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFlowId() {
@@ -100,11 +100,11 @@ public class ExecutionControllerLastExecutionResponse {
 
   @JsonProperty(JSON_PROPERTY_FLOW_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFlowId(@javax.annotation.Nullable String flowId) {
+  public void setFlowId(@jakarta.annotation.Nullable String flowId) {
     this.flowId = flowId;
   }
 
-  public ExecutionControllerLastExecutionResponse namespace(@javax.annotation.Nullable String namespace) {
+  public ExecutionControllerLastExecutionResponse namespace(@jakarta.annotation.Nullable String namespace) {
     
     this.namespace = namespace;
     return this;
@@ -114,7 +114,7 @@ public class ExecutionControllerLastExecutionResponse {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getNamespace() {
@@ -124,11 +124,11 @@ public class ExecutionControllerLastExecutionResponse {
 
   @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setNamespace(@javax.annotation.Nullable String namespace) {
+  public void setNamespace(@jakarta.annotation.Nullable String namespace) {
     this.namespace = namespace;
   }
 
-  public ExecutionControllerLastExecutionResponse startDate(@javax.annotation.Nullable OffsetDateTime startDate) {
+  public ExecutionControllerLastExecutionResponse startDate(@jakarta.annotation.Nullable OffsetDateTime startDate) {
     
     this.startDate = startDate;
     return this;
@@ -138,7 +138,7 @@ public class ExecutionControllerLastExecutionResponse {
    * Get startDate
    * @return startDate
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_START_DATE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_START_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getStartDate() {
@@ -148,11 +148,11 @@ public class ExecutionControllerLastExecutionResponse {
 
   @JsonProperty(JSON_PROPERTY_START_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStartDate(@javax.annotation.Nullable OffsetDateTime startDate) {
+  public void setStartDate(@jakarta.annotation.Nullable OffsetDateTime startDate) {
     this.startDate = startDate;
   }
 
-  public ExecutionControllerLastExecutionResponse status(@javax.annotation.Nullable StateType status) {
+  public ExecutionControllerLastExecutionResponse status(@jakarta.annotation.Nullable StateType status) {
     
     this.status = status;
     return this;
@@ -162,7 +162,7 @@ public class ExecutionControllerLastExecutionResponse {
    * Get status
    * @return status
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STATUS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public StateType getStatus() {
@@ -172,7 +172,7 @@ public class ExecutionControllerLastExecutionResponse {
 
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStatus(@javax.annotation.Nullable StateType status) {
+  public void setStatus(@jakarta.annotation.Nullable StateType status) {
     this.status = status;
   }
 

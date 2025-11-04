@@ -42,7 +42,7 @@ class TestKVApi(unittest.TestCase):
 
         self.kestra_client.kv.set_key_value(namespace=self.namespace, key=key, tenant=self.tenant, body=value)
 
-        fetched = self.kestra_client.kv.get_key_value(namespace=self.namespace, key=key, tenant=self.tenant)
+        fetched = self.kestra_client.kv.key_value(namespace=self.namespace, key=key, tenant=self.tenant)
         assert getattr(fetched, 'value', None) is not None or fetched is not None
 
         try:
@@ -59,7 +59,7 @@ class TestKVApi(unittest.TestCase):
         value = "value-get"
 
         self.kestra_client.kv.set_key_value(namespace=self.namespace, key=key, tenant=self.tenant, body=value)
-        fetched = self.kestra_client.kv.get_key_value(namespace=self.namespace, key=key, tenant=self.tenant)
+        fetched = self.kestra_client.kv.key_value(namespace=self.namespace, key=key, tenant=self.tenant)
         assert fetched is not None
 
     def test_list_keys(self) -> None:
@@ -112,7 +112,7 @@ class TestKVApi(unittest.TestCase):
         assert deleted is True or deleted is None
 
         with self.assertRaises(Exception):
-            self.kestra_client.kv.get_key_value(namespace=self.namespace, key=key, tenant=self.tenant)
+            self.kestra_client.kv.key_value(namespace=self.namespace, key=key, tenant=self.tenant)
 
     def test_delete_key_values(self) -> None:
         """Test case for delete_key_values
@@ -131,7 +131,7 @@ class TestKVApi(unittest.TestCase):
 
         for k in (key1, key2):
             with self.assertRaises(Exception):
-                self.kestra_client.kv.get_key_value(namespace=self.namespace, key=k, tenant=self.tenant)
+                self.kestra_client.kv.key_value(namespace=self.namespace, key=k, tenant=self.tenant)
 
 
 if __name__ == '__main__':

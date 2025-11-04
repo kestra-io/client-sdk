@@ -9,7 +9,7 @@ All URIs are relative to *http://localhost*
 | [**createGroup**](groups.md#createGroup) | **POST** /api/v1/{tenant}/groups | Create a group |
 | [**deleteGroup**](groups.md#deleteGroup) | **DELETE** /api/v1/{tenant}/groups/{id} | Delete a group |
 | [**deleteUserFromGroup**](groups.md#deleteUserFromGroup) | **DELETE** /api/v1/{tenant}/groups/{id}/members/{userId} | Remove a user from a group |
-| [**getGroup**](groups.md#getGroup) | **GET** /api/v1/{tenant}/groups/{id} | Retrieve a group |
+| [**group**](groups.md#group) | **GET** /api/v1/{tenant}/groups/{id} | Retrieve a group |
 | [**listGroupIds**](groups.md#listGroupIds) | **POST** /api/v1/{tenant}/groups/ids | List groups by ids |
 | [**searchGroupMembers**](groups.md#searchGroupMembers) | **GET** /api/v1/{tenant}/groups/{id}/members | Search for users in a group |
 | [**searchGroups**](groups.md#searchGroups) | **GET** /api/v1/{tenant}/groups/search | Search for groups |
@@ -381,9 +381,9 @@ public class Example {
 | **409** | User is not a member of the group |  -  |
 
 
-## getGroup
+## group
 
-> IAMGroupControllerApiGroupDetail getGroup(id, tenant)
+> IAMGroupControllerApiGroupDetail group(id, tenant)
 
 Retrieve a group
 
@@ -412,10 +412,10 @@ public class Example {
         String id = "id_example"; // String | The group id
         String tenant = "tenant_example"; // String | 
         try {
-            IAMGroupControllerApiGroupDetail result = kestraClient.groups().getGroup(id, tenant);
+            IAMGroupControllerApiGroupDetail result = kestraClient.groups().group(id, tenant);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling groups#getGroup");
+            System.err.println("Exception when calling groups#group");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());

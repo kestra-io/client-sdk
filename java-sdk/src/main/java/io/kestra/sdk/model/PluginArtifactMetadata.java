@@ -34,27 +34,27 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PluginArtifactMetadata.JSON_PROPERTY_LAST_MODIFIED_TIME,
   PluginArtifactMetadata.JSON_PROPERTY_CREATION_TIME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PluginArtifactMetadata {
   public static final String JSON_PROPERTY_URI = "uri";
-  @javax.annotation.Nullable  private URI uri;
+  @jakarta.annotation.Nullable  private URI uri;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nullable  private String name;
+  @jakarta.annotation.Nullable  private String name;
 
   public static final String JSON_PROPERTY_SIZE = "size";
-  @javax.annotation.Nullable  private Long size;
+  @jakarta.annotation.Nullable  private Long size;
 
   public static final String JSON_PROPERTY_LAST_MODIFIED_TIME = "lastModifiedTime";
-  @javax.annotation.Nullable  private Long lastModifiedTime;
+  @jakarta.annotation.Nullable  private Long lastModifiedTime;
 
   public static final String JSON_PROPERTY_CREATION_TIME = "creationTime";
-  @javax.annotation.Nullable  private Long creationTime;
+  @jakarta.annotation.Nullable  private Long creationTime;
 
   public PluginArtifactMetadata() {
   }
 
-  public PluginArtifactMetadata uri(@javax.annotation.Nullable URI uri) {
+  public PluginArtifactMetadata uri(@jakarta.annotation.Nullable URI uri) {
     
     this.uri = uri;
     return this;
@@ -64,7 +64,7 @@ public class PluginArtifactMetadata {
    * Get uri
    * @return uri
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_URI)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_URI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public URI getUri() {
@@ -74,11 +74,11 @@ public class PluginArtifactMetadata {
 
   @JsonProperty(JSON_PROPERTY_URI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUri(@javax.annotation.Nullable URI uri) {
+  public void setUri(@jakarta.annotation.Nullable URI uri) {
     this.uri = uri;
   }
 
-  public PluginArtifactMetadata name(@javax.annotation.Nullable String name) {
+  public PluginArtifactMetadata name(@jakarta.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -88,7 +88,7 @@ public class PluginArtifactMetadata {
    * Get name
    * @return name
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
@@ -98,11 +98,11 @@ public class PluginArtifactMetadata {
 
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(@javax.annotation.Nullable String name) {
+  public void setName(@jakarta.annotation.Nullable String name) {
     this.name = name;
   }
 
-  public PluginArtifactMetadata size(@javax.annotation.Nullable Long size) {
+  public PluginArtifactMetadata size(@jakarta.annotation.Nullable Long size) {
     
     this.size = size;
     return this;
@@ -112,7 +112,7 @@ public class PluginArtifactMetadata {
    * Get size
    * @return size
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SIZE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SIZE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getSize() {
@@ -122,11 +122,11 @@ public class PluginArtifactMetadata {
 
   @JsonProperty(JSON_PROPERTY_SIZE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSize(@javax.annotation.Nullable Long size) {
+  public void setSize(@jakarta.annotation.Nullable Long size) {
     this.size = size;
   }
 
-  public PluginArtifactMetadata lastModifiedTime(@javax.annotation.Nullable Long lastModifiedTime) {
+  public PluginArtifactMetadata lastModifiedTime(@jakarta.annotation.Nullable Long lastModifiedTime) {
     
     this.lastModifiedTime = lastModifiedTime;
     return this;
@@ -136,7 +136,7 @@ public class PluginArtifactMetadata {
    * Get lastModifiedTime
    * @return lastModifiedTime
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LAST_MODIFIED_TIME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LAST_MODIFIED_TIME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getLastModifiedTime() {
@@ -146,11 +146,11 @@ public class PluginArtifactMetadata {
 
   @JsonProperty(JSON_PROPERTY_LAST_MODIFIED_TIME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLastModifiedTime(@javax.annotation.Nullable Long lastModifiedTime) {
+  public void setLastModifiedTime(@jakarta.annotation.Nullable Long lastModifiedTime) {
     this.lastModifiedTime = lastModifiedTime;
   }
 
-  public PluginArtifactMetadata creationTime(@javax.annotation.Nullable Long creationTime) {
+  public PluginArtifactMetadata creationTime(@jakarta.annotation.Nullable Long creationTime) {
     
     this.creationTime = creationTime;
     return this;
@@ -160,7 +160,7 @@ public class PluginArtifactMetadata {
    * Get creationTime
    * @return creationTime
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CREATION_TIME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CREATION_TIME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getCreationTime() {
@@ -170,7 +170,7 @@ public class PluginArtifactMetadata {
 
   @JsonProperty(JSON_PROPERTY_CREATION_TIME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCreationTime(@javax.annotation.Nullable Long creationTime) {
+  public void setCreationTime(@jakarta.annotation.Nullable Long creationTime) {
     this.creationTime = creationTime;
   }
 

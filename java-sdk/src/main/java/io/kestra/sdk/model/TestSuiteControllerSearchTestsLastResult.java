@@ -34,15 +34,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TestSuiteControllerSearchTestsLastResult.JSON_PROPERTY_TEST_SUITE_IDS
 })
 @JsonTypeName("TestSuiteController.SearchTestsLastResult")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TestSuiteControllerSearchTestsLastResult {
   public static final String JSON_PROPERTY_TEST_SUITE_IDS = "testSuiteIds";
-  @javax.annotation.Nullable  private List<TestSuiteControllerTestSuiteApiId> testSuiteIds = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<TestSuiteControllerTestSuiteApiId> testSuiteIds = new ArrayList<>();
 
   public TestSuiteControllerSearchTestsLastResult() {
   }
 
-  public TestSuiteControllerSearchTestsLastResult testSuiteIds(@javax.annotation.Nullable List<TestSuiteControllerTestSuiteApiId> testSuiteIds) {
+  public TestSuiteControllerSearchTestsLastResult testSuiteIds(@jakarta.annotation.Nullable List<TestSuiteControllerTestSuiteApiId> testSuiteIds) {
     
     this.testSuiteIds = testSuiteIds;
     return this;
@@ -60,7 +60,7 @@ public class TestSuiteControllerSearchTestsLastResult {
    * Get testSuiteIds
    * @return testSuiteIds
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TEST_SUITE_IDS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TEST_SUITE_IDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<TestSuiteControllerTestSuiteApiId> getTestSuiteIds() {
@@ -70,7 +70,7 @@ public class TestSuiteControllerSearchTestsLastResult {
 
   @JsonProperty(JSON_PROPERTY_TEST_SUITE_IDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTestSuiteIds(@javax.annotation.Nullable List<TestSuiteControllerTestSuiteApiId> testSuiteIds) {
+  public void setTestSuiteIds(@jakarta.annotation.Nullable List<TestSuiteControllerTestSuiteApiId> testSuiteIds) {
     this.testSuiteIds = testSuiteIds;
   }
 

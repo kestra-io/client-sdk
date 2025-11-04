@@ -38,39 +38,39 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ApiToken.JSON_PROPERTY_EXTENDED,
   ApiToken.JSON_PROPERTY_EXPIRED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ApiToken {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable  private String id;
+  @jakarta.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nullable  private String name;
+  @jakarta.annotation.Nullable  private String name;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable  private String description;
+  @jakarta.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_PREFIX = "prefix";
-  @javax.annotation.Nullable  private String prefix;
+  @jakarta.annotation.Nullable  private String prefix;
 
   public static final String JSON_PROPERTY_IAT = "iat";
-  @javax.annotation.Nullable  private OffsetDateTime iat;
+  @jakarta.annotation.Nullable  private OffsetDateTime iat;
 
   public static final String JSON_PROPERTY_EXP = "exp";
-  @javax.annotation.Nullable  private OffsetDateTime exp;
+  @jakarta.annotation.Nullable  private OffsetDateTime exp;
 
   public static final String JSON_PROPERTY_LAST_USED = "lastUsed";
-  @javax.annotation.Nullable  private OffsetDateTime lastUsed;
+  @jakarta.annotation.Nullable  private OffsetDateTime lastUsed;
 
   public static final String JSON_PROPERTY_EXTENDED = "extended";
-  @javax.annotation.Nullable  private Boolean extended;
+  @jakarta.annotation.Nullable  private Boolean extended;
 
   public static final String JSON_PROPERTY_EXPIRED = "expired";
-  @javax.annotation.Nullable  private Boolean expired;
+  @jakarta.annotation.Nullable  private Boolean expired;
 
   public ApiToken() {
   }
 
-  public ApiToken id(@javax.annotation.Nullable String id) {
+  public ApiToken id(@jakarta.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -80,7 +80,7 @@ public class ApiToken {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -90,11 +90,11 @@ public class ApiToken {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  public void setId(@jakarta.annotation.Nullable String id) {
     this.id = id;
   }
 
-  public ApiToken name(@javax.annotation.Nullable String name) {
+  public ApiToken name(@jakarta.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -104,7 +104,7 @@ public class ApiToken {
    * Get name
    * @return name
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
@@ -114,11 +114,11 @@ public class ApiToken {
 
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(@javax.annotation.Nullable String name) {
+  public void setName(@jakarta.annotation.Nullable String name) {
     this.name = name;
   }
 
-  public ApiToken description(@javax.annotation.Nullable String description) {
+  public ApiToken description(@jakarta.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -128,7 +128,7 @@ public class ApiToken {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -138,11 +138,11 @@ public class ApiToken {
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(@javax.annotation.Nullable String description) {
+  public void setDescription(@jakarta.annotation.Nullable String description) {
     this.description = description;
   }
 
-  public ApiToken prefix(@javax.annotation.Nullable String prefix) {
+  public ApiToken prefix(@jakarta.annotation.Nullable String prefix) {
     
     this.prefix = prefix;
     return this;
@@ -152,7 +152,7 @@ public class ApiToken {
    * Get prefix
    * @return prefix
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PREFIX)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PREFIX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getPrefix() {
@@ -162,11 +162,11 @@ public class ApiToken {
 
   @JsonProperty(JSON_PROPERTY_PREFIX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPrefix(@javax.annotation.Nullable String prefix) {
+  public void setPrefix(@jakarta.annotation.Nullable String prefix) {
     this.prefix = prefix;
   }
 
-  public ApiToken iat(@javax.annotation.Nullable OffsetDateTime iat) {
+  public ApiToken iat(@jakarta.annotation.Nullable OffsetDateTime iat) {
     
     this.iat = iat;
     return this;
@@ -176,7 +176,7 @@ public class ApiToken {
    * Get iat
    * @return iat
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IAT)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IAT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getIat() {
@@ -186,11 +186,11 @@ public class ApiToken {
 
   @JsonProperty(JSON_PROPERTY_IAT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIat(@javax.annotation.Nullable OffsetDateTime iat) {
+  public void setIat(@jakarta.annotation.Nullable OffsetDateTime iat) {
     this.iat = iat;
   }
 
-  public ApiToken exp(@javax.annotation.Nullable OffsetDateTime exp) {
+  public ApiToken exp(@jakarta.annotation.Nullable OffsetDateTime exp) {
     
     this.exp = exp;
     return this;
@@ -200,7 +200,7 @@ public class ApiToken {
    * Get exp
    * @return exp
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXP)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getExp() {
@@ -210,11 +210,11 @@ public class ApiToken {
 
   @JsonProperty(JSON_PROPERTY_EXP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExp(@javax.annotation.Nullable OffsetDateTime exp) {
+  public void setExp(@jakarta.annotation.Nullable OffsetDateTime exp) {
     this.exp = exp;
   }
 
-  public ApiToken lastUsed(@javax.annotation.Nullable OffsetDateTime lastUsed) {
+  public ApiToken lastUsed(@jakarta.annotation.Nullable OffsetDateTime lastUsed) {
     
     this.lastUsed = lastUsed;
     return this;
@@ -224,7 +224,7 @@ public class ApiToken {
    * Get lastUsed
    * @return lastUsed
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LAST_USED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LAST_USED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getLastUsed() {
@@ -234,11 +234,11 @@ public class ApiToken {
 
   @JsonProperty(JSON_PROPERTY_LAST_USED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLastUsed(@javax.annotation.Nullable OffsetDateTime lastUsed) {
+  public void setLastUsed(@jakarta.annotation.Nullable OffsetDateTime lastUsed) {
     this.lastUsed = lastUsed;
   }
 
-  public ApiToken extended(@javax.annotation.Nullable Boolean extended) {
+  public ApiToken extended(@jakarta.annotation.Nullable Boolean extended) {
     
     this.extended = extended;
     return this;
@@ -248,7 +248,7 @@ public class ApiToken {
    * Get extended
    * @return extended
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXTENDED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXTENDED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getExtended() {
@@ -258,11 +258,11 @@ public class ApiToken {
 
   @JsonProperty(JSON_PROPERTY_EXTENDED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExtended(@javax.annotation.Nullable Boolean extended) {
+  public void setExtended(@jakarta.annotation.Nullable Boolean extended) {
     this.extended = extended;
   }
 
-  public ApiToken expired(@javax.annotation.Nullable Boolean expired) {
+  public ApiToken expired(@jakarta.annotation.Nullable Boolean expired) {
     
     this.expired = expired;
     return this;
@@ -272,7 +272,7 @@ public class ApiToken {
    * Get expired
    * @return expired
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXPIRED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXPIRED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getExpired() {
@@ -282,7 +282,7 @@ public class ApiToken {
 
   @JsonProperty(JSON_PROPERTY_EXPIRED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExpired(@javax.annotation.Nullable Boolean expired) {
+  public void setExpired(@jakarta.annotation.Nullable Boolean expired) {
     this.expired = expired;
   }
 

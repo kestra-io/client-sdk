@@ -29,15 +29,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   ApiPatchSuperAdminRequest.JSON_PROPERTY_SUPER_ADMIN
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ApiPatchSuperAdminRequest {
   public static final String JSON_PROPERTY_SUPER_ADMIN = "superAdmin";
-  @javax.annotation.Nonnull  private Boolean superAdmin;
+  @jakarta.annotation.Nonnull  private Boolean superAdmin;
 
   public ApiPatchSuperAdminRequest() {
   }
 
-  public ApiPatchSuperAdminRequest superAdmin(@javax.annotation.Nonnull Boolean superAdmin) {
+  public ApiPatchSuperAdminRequest superAdmin(@jakarta.annotation.Nonnull Boolean superAdmin) {
     
     this.superAdmin = superAdmin;
     return this;
@@ -47,7 +47,7 @@ public class ApiPatchSuperAdminRequest {
    * Get superAdmin
    * @return superAdmin
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getSuperAdmin() {
@@ -57,7 +57,7 @@ public class ApiPatchSuperAdminRequest {
 
   @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setSuperAdmin(@javax.annotation.Nonnull Boolean superAdmin) {
+  public void setSuperAdmin(@jakarta.annotation.Nonnull Boolean superAdmin) {
     this.superAdmin = superAdmin;
   }
 

@@ -36,18 +36,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   UploadVersionedPluginsRequest.JSON_PROPERTY_FORCE_INSTALL_ON_EXISTING_VERSIONS
 })
 @JsonTypeName("uploadVersionedPlugins_request")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class UploadVersionedPluginsRequest {
   public static final String JSON_PROPERTY_FILE = "file";
-  @javax.annotation.Nonnull  private File _file;
+  @jakarta.annotation.Nonnull  private File _file;
 
   public static final String JSON_PROPERTY_FORCE_INSTALL_ON_EXISTING_VERSIONS = "forceInstallOnExistingVersions";
-  @javax.annotation.Nullable  private JsonNullable<Boolean> forceInstallOnExistingVersions = JsonNullable.<Boolean>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<Boolean> forceInstallOnExistingVersions = JsonNullable.<Boolean>undefined();
 
   public UploadVersionedPluginsRequest() {
   }
 
-  public UploadVersionedPluginsRequest _file(@javax.annotation.Nonnull File _file) {
+  public UploadVersionedPluginsRequest _file(@jakarta.annotation.Nonnull File _file) {
     
     this._file = _file;
     return this;
@@ -57,7 +57,7 @@ public class UploadVersionedPluginsRequest {
    * Get _file
    * @return _file
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_FILE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_FILE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public File getFile() {
@@ -67,11 +67,11 @@ public class UploadVersionedPluginsRequest {
 
   @JsonProperty(JSON_PROPERTY_FILE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFile(@javax.annotation.Nonnull File _file) {
+  public void setFile(@jakarta.annotation.Nonnull File _file) {
     this._file = _file;
   }
 
-  public UploadVersionedPluginsRequest forceInstallOnExistingVersions(@javax.annotation.Nullable Boolean forceInstallOnExistingVersions) {
+  public UploadVersionedPluginsRequest forceInstallOnExistingVersions(@jakarta.annotation.Nullable Boolean forceInstallOnExistingVersions) {
     this.forceInstallOnExistingVersions = JsonNullable.<Boolean>of(forceInstallOnExistingVersions);
     
     return this;
@@ -81,7 +81,7 @@ public class UploadVersionedPluginsRequest {
    * Get forceInstallOnExistingVersions
    * @return forceInstallOnExistingVersions
    */
-  @javax.annotation.Nullable  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public Boolean getForceInstallOnExistingVersions() {
         return forceInstallOnExistingVersions.orElse(null);
@@ -98,7 +98,7 @@ public class UploadVersionedPluginsRequest {
     this.forceInstallOnExistingVersions = forceInstallOnExistingVersions;
   }
 
-  public void setForceInstallOnExistingVersions(@javax.annotation.Nullable Boolean forceInstallOnExistingVersions) {
+  public void setForceInstallOnExistingVersions(@jakarta.annotation.Nullable Boolean forceInstallOnExistingVersions) {
     this.forceInstallOnExistingVersions = JsonNullable.<Boolean>of(forceInstallOnExistingVersions);
   }
 

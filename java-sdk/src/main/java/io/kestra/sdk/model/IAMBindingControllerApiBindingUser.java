@@ -34,24 +34,24 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMBindingControllerApiBindingUser.JSON_PROPERTY_TYPE
 })
 @JsonTypeName("IAMBindingController.ApiBindingUser")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMBindingControllerApiBindingUser {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable  private String id;
+  @jakarta.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_USERNAME = "username";
-  @javax.annotation.Nullable  private String username;
+  @jakarta.annotation.Nullable  private String username;
 
   public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
-  @javax.annotation.Nullable  private String displayName;
+  @jakarta.annotation.Nullable  private String displayName;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nullable  private UserType type;
+  @jakarta.annotation.Nullable  private UserType type;
 
   public IAMBindingControllerApiBindingUser() {
   }
 
-  public IAMBindingControllerApiBindingUser id(@javax.annotation.Nullable String id) {
+  public IAMBindingControllerApiBindingUser id(@jakarta.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -61,7 +61,7 @@ public class IAMBindingControllerApiBindingUser {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -71,11 +71,11 @@ public class IAMBindingControllerApiBindingUser {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  public void setId(@jakarta.annotation.Nullable String id) {
     this.id = id;
   }
 
-  public IAMBindingControllerApiBindingUser username(@javax.annotation.Nullable String username) {
+  public IAMBindingControllerApiBindingUser username(@jakarta.annotation.Nullable String username) {
     
     this.username = username;
     return this;
@@ -85,7 +85,7 @@ public class IAMBindingControllerApiBindingUser {
    * Get username
    * @return username
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_USERNAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_USERNAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUsername() {
@@ -95,11 +95,11 @@ public class IAMBindingControllerApiBindingUser {
 
   @JsonProperty(JSON_PROPERTY_USERNAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUsername(@javax.annotation.Nullable String username) {
+  public void setUsername(@jakarta.annotation.Nullable String username) {
     this.username = username;
   }
 
-  public IAMBindingControllerApiBindingUser displayName(@javax.annotation.Nullable String displayName) {
+  public IAMBindingControllerApiBindingUser displayName(@jakarta.annotation.Nullable String displayName) {
     
     this.displayName = displayName;
     return this;
@@ -109,7 +109,7 @@ public class IAMBindingControllerApiBindingUser {
    * Get displayName
    * @return displayName
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDisplayName() {
@@ -119,11 +119,11 @@ public class IAMBindingControllerApiBindingUser {
 
   @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDisplayName(@javax.annotation.Nullable String displayName) {
+  public void setDisplayName(@jakarta.annotation.Nullable String displayName) {
     this.displayName = displayName;
   }
 
-  public IAMBindingControllerApiBindingUser type(@javax.annotation.Nullable UserType type) {
+  public IAMBindingControllerApiBindingUser type(@jakarta.annotation.Nullable UserType type) {
     
     this.type = type;
     return this;
@@ -133,7 +133,7 @@ public class IAMBindingControllerApiBindingUser {
    * Get type
    * @return type
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public UserType getType() {
@@ -143,7 +143,7 @@ public class IAMBindingControllerApiBindingUser {
 
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setType(@javax.annotation.Nullable UserType type) {
+  public void setType(@jakarta.annotation.Nullable UserType type) {
     this.type = type;
   }
 

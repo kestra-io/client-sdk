@@ -36,21 +36,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ExecutionControllerApiValidateExecutionInputsResponse.JSON_PROPERTY_INPUTS
 })
 @JsonTypeName("ExecutionController.ApiValidateExecutionInputsResponse")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ExecutionControllerApiValidateExecutionInputsResponse {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable  private String id;
+  @jakarta.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nullable  private String namespace;
+  @jakarta.annotation.Nullable  private String namespace;
 
   public static final String JSON_PROPERTY_INPUTS = "inputs";
-  @javax.annotation.Nullable  private List<ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue> inputs = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue> inputs = new ArrayList<>();
 
   public ExecutionControllerApiValidateExecutionInputsResponse() {
   }
 
-  public ExecutionControllerApiValidateExecutionInputsResponse id(@javax.annotation.Nullable String id) {
+  public ExecutionControllerApiValidateExecutionInputsResponse id(@jakarta.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -60,7 +60,7 @@ public class ExecutionControllerApiValidateExecutionInputsResponse {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -70,11 +70,11 @@ public class ExecutionControllerApiValidateExecutionInputsResponse {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  public void setId(@jakarta.annotation.Nullable String id) {
     this.id = id;
   }
 
-  public ExecutionControllerApiValidateExecutionInputsResponse namespace(@javax.annotation.Nullable String namespace) {
+  public ExecutionControllerApiValidateExecutionInputsResponse namespace(@jakarta.annotation.Nullable String namespace) {
     
     this.namespace = namespace;
     return this;
@@ -84,7 +84,7 @@ public class ExecutionControllerApiValidateExecutionInputsResponse {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getNamespace() {
@@ -94,11 +94,11 @@ public class ExecutionControllerApiValidateExecutionInputsResponse {
 
   @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setNamespace(@javax.annotation.Nullable String namespace) {
+  public void setNamespace(@jakarta.annotation.Nullable String namespace) {
     this.namespace = namespace;
   }
 
-  public ExecutionControllerApiValidateExecutionInputsResponse inputs(@javax.annotation.Nullable List<ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue> inputs) {
+  public ExecutionControllerApiValidateExecutionInputsResponse inputs(@jakarta.annotation.Nullable List<ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue> inputs) {
     
     this.inputs = inputs;
     return this;
@@ -116,7 +116,7 @@ public class ExecutionControllerApiValidateExecutionInputsResponse {
    * Get inputs
    * @return inputs
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INPUTS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue> getInputs() {
@@ -126,7 +126,7 @@ public class ExecutionControllerApiValidateExecutionInputsResponse {
 
   @JsonProperty(JSON_PROPERTY_INPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setInputs(@javax.annotation.Nullable List<ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue> inputs) {
+  public void setInputs(@jakarta.annotation.Nullable List<ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue> inputs) {
     this.inputs = inputs;
   }
 

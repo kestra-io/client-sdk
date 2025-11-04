@@ -55,7 +55,7 @@ public class ServiceAccountApiTest {
         kestraClient().serviceAccount().deleteServiceAccount(created.getId());
 
         assertThrows(ApiException.class,
-            () -> kestraClient().serviceAccount().getServiceAccount(created.getId()));
+            () -> kestraClient().serviceAccount().serviceAccount(created.getId()));
     }
 
     @Test
@@ -71,7 +71,7 @@ public class ServiceAccountApiTest {
 
         kestraClient().serviceAccount().deleteServiceAccountForTenant(created.getId(), MAIN_TENANT);
         assertThrows(ApiException.class,
-            () -> kestraClient().serviceAccount().getServiceAccountForTenant(created.getId(), MAIN_TENANT));
+            () -> kestraClient().serviceAccount().serviceAccountForTenant(created.getId(), MAIN_TENANT));
     }
 
     @Test
@@ -83,7 +83,7 @@ public class ServiceAccountApiTest {
                 new IAMServiceAccountControllerApiCreateServiceAccountRequest().name(name));
 
         IAMServiceAccountControllerApiServiceAccountDetail fetched =
-            kestraClient().serviceAccount().getServiceAccount(created.getId());
+            kestraClient().serviceAccount().serviceAccount(created.getId());
 
         assertEquals(created.getId(), fetched.getId());
     }
@@ -99,7 +99,7 @@ public class ServiceAccountApiTest {
                 new IAMServiceAccountControllerApiServiceAccountRequest().name(name));
 
         IAMServiceAccountControllerApiServiceAccountResponse fetched =
-            kestraClient().serviceAccount().getServiceAccountForTenant(created.getId(), MAIN_TENANT);
+            kestraClient().serviceAccount().serviceAccountForTenant(created.getId(), MAIN_TENANT);
 
         assertEquals(created.getId(), fetched.getId());
     }
@@ -154,7 +154,7 @@ public class ServiceAccountApiTest {
         kestraClient().serviceAccount().patchServiceAccountSuperAdmin(created.getId(), patch);
 
         IAMServiceAccountControllerApiServiceAccountDetail fetched =
-            kestraClient().serviceAccount().getServiceAccount(created.getId());
+            kestraClient().serviceAccount().serviceAccount(created.getId());
 
         assertTrue(Boolean.TRUE.equals(fetched.getSuperAdmin()));
     }

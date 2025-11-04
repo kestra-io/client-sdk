@@ -77,7 +77,7 @@ class TestNamespacesApi(unittest.TestCase):
 
         # fetching should fail
         with self.assertRaises(Exception):
-            self.kestra_client.namespaces.get_namespace(id=created.id, tenant=self.tenant)
+            self.kestra_client.namespaces.namespace(id=created.id, tenant=self.tenant)
 
     def test_get_inherited_secrets(self) -> None:
         """Test case for get_inherited_secrets
@@ -88,7 +88,7 @@ class TestNamespacesApi(unittest.TestCase):
         ns = Namespace(id=ns_id, deleted=False)
         created = self.kestra_client.namespaces.create_namespace(tenant=self.tenant, namespace=ns)
 
-        inherited = self.kestra_client.namespaces.get_inherited_secrets(namespace=created.id, tenant=self.tenant)
+        inherited = self.kestra_client.namespaces.inherited_secrets(namespace=created.id, tenant=self.tenant)
         assert isinstance(inherited, dict)
 
     def test_get_namespace(self) -> None:
@@ -100,7 +100,7 @@ class TestNamespacesApi(unittest.TestCase):
         ns = Namespace(id=ns_id, deleted=False)
         created = self.kestra_client.namespaces.create_namespace(tenant=self.tenant, namespace=ns)
 
-        fetched = self.kestra_client.namespaces.get_namespace(id=created.id, tenant=self.tenant)
+        fetched = self.kestra_client.namespaces.namespace(id=created.id, tenant=self.tenant)
         assert getattr(fetched, 'id', None) == created.id
 
     def test_inherited_plugin_defaults(self) -> None:
@@ -187,7 +187,7 @@ class TestNamespacesApi(unittest.TestCase):
         ns = Namespace(id=ns_id, deleted=False)
         created = self.kestra_client.namespaces.create_namespace(tenant=self.tenant, namespace=ns)
 
-        fetched = self.kestra_client.namespaces.get_namespace(id=created.id, tenant=self.tenant)
+        fetched = self.kestra_client.namespaces.namespace(id=created.id, tenant=self.tenant)
         assert getattr(fetched, 'id', None) == created.id
 
 

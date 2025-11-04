@@ -34,15 +34,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TestSuiteControllerTestsLastResultResponse.JSON_PROPERTY_RESULTS
 })
 @JsonTypeName("TestSuiteController.TestsLastResultResponse")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TestSuiteControllerTestsLastResultResponse {
   public static final String JSON_PROPERTY_RESULTS = "results";
-  @javax.annotation.Nullable  private List<TestSuiteRunResult> results = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<TestSuiteRunResult> results = new ArrayList<>();
 
   public TestSuiteControllerTestsLastResultResponse() {
   }
 
-  public TestSuiteControllerTestsLastResultResponse results(@javax.annotation.Nullable List<TestSuiteRunResult> results) {
+  public TestSuiteControllerTestsLastResultResponse results(@jakarta.annotation.Nullable List<TestSuiteRunResult> results) {
     
     this.results = results;
     return this;
@@ -60,7 +60,7 @@ public class TestSuiteControllerTestsLastResultResponse {
    * Get results
    * @return results
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<TestSuiteRunResult> getResults() {
@@ -70,7 +70,7 @@ public class TestSuiteControllerTestsLastResultResponse {
 
   @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setResults(@javax.annotation.Nullable List<TestSuiteRunResult> results) {
+  public void setResults(@jakarta.annotation.Nullable List<TestSuiteRunResult> results) {
     this.results = results;
   }
 

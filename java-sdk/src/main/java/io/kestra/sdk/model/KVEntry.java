@@ -38,27 +38,27 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   KVEntry.JSON_PROPERTY_UPDATE_DATE,
   KVEntry.JSON_PROPERTY_EXPIRATION_DATE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class KVEntry {
   public static final String JSON_PROPERTY_KEY = "key";
-  @javax.annotation.Nullable  private String key;
+  @jakarta.annotation.Nullable  private String key;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable  private JsonNullable<String> description = JsonNullable.<String>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<String> description = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_CREATION_DATE = "creationDate";
-  @javax.annotation.Nullable  private OffsetDateTime creationDate;
+  @jakarta.annotation.Nullable  private OffsetDateTime creationDate;
 
   public static final String JSON_PROPERTY_UPDATE_DATE = "updateDate";
-  @javax.annotation.Nullable  private OffsetDateTime updateDate;
+  @jakarta.annotation.Nullable  private OffsetDateTime updateDate;
 
   public static final String JSON_PROPERTY_EXPIRATION_DATE = "expirationDate";
-  @javax.annotation.Nullable  private JsonNullable<OffsetDateTime> expirationDate = JsonNullable.<OffsetDateTime>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<OffsetDateTime> expirationDate = JsonNullable.<OffsetDateTime>undefined();
 
   public KVEntry() {
   }
 
-  public KVEntry key(@javax.annotation.Nullable String key) {
+  public KVEntry key(@jakarta.annotation.Nullable String key) {
     
     this.key = key;
     return this;
@@ -68,7 +68,7 @@ public class KVEntry {
    * Get key
    * @return key
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_KEY)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_KEY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getKey() {
@@ -78,11 +78,11 @@ public class KVEntry {
 
   @JsonProperty(JSON_PROPERTY_KEY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setKey(@javax.annotation.Nullable String key) {
+  public void setKey(@jakarta.annotation.Nullable String key) {
     this.key = key;
   }
 
-  public KVEntry description(@javax.annotation.Nullable String description) {
+  public KVEntry description(@jakarta.annotation.Nullable String description) {
     this.description = JsonNullable.<String>of(description);
     
     return this;
@@ -92,7 +92,7 @@ public class KVEntry {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public String getDescription() {
         return description.orElse(null);
@@ -109,11 +109,11 @@ public class KVEntry {
     this.description = description;
   }
 
-  public void setDescription(@javax.annotation.Nullable String description) {
+  public void setDescription(@jakarta.annotation.Nullable String description) {
     this.description = JsonNullable.<String>of(description);
   }
 
-  public KVEntry creationDate(@javax.annotation.Nullable OffsetDateTime creationDate) {
+  public KVEntry creationDate(@jakarta.annotation.Nullable OffsetDateTime creationDate) {
     
     this.creationDate = creationDate;
     return this;
@@ -123,7 +123,7 @@ public class KVEntry {
    * Get creationDate
    * @return creationDate
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CREATION_DATE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CREATION_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getCreationDate() {
@@ -133,11 +133,11 @@ public class KVEntry {
 
   @JsonProperty(JSON_PROPERTY_CREATION_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCreationDate(@javax.annotation.Nullable OffsetDateTime creationDate) {
+  public void setCreationDate(@jakarta.annotation.Nullable OffsetDateTime creationDate) {
     this.creationDate = creationDate;
   }
 
-  public KVEntry updateDate(@javax.annotation.Nullable OffsetDateTime updateDate) {
+  public KVEntry updateDate(@jakarta.annotation.Nullable OffsetDateTime updateDate) {
     
     this.updateDate = updateDate;
     return this;
@@ -147,7 +147,7 @@ public class KVEntry {
    * Get updateDate
    * @return updateDate
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UPDATE_DATE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UPDATE_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getUpdateDate() {
@@ -157,11 +157,11 @@ public class KVEntry {
 
   @JsonProperty(JSON_PROPERTY_UPDATE_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUpdateDate(@javax.annotation.Nullable OffsetDateTime updateDate) {
+  public void setUpdateDate(@jakarta.annotation.Nullable OffsetDateTime updateDate) {
     this.updateDate = updateDate;
   }
 
-  public KVEntry expirationDate(@javax.annotation.Nullable OffsetDateTime expirationDate) {
+  public KVEntry expirationDate(@jakarta.annotation.Nullable OffsetDateTime expirationDate) {
     this.expirationDate = JsonNullable.<OffsetDateTime>of(expirationDate);
     
     return this;
@@ -171,7 +171,7 @@ public class KVEntry {
    * Get expirationDate
    * @return expirationDate
    */
-  @javax.annotation.Nullable  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public OffsetDateTime getExpirationDate() {
         return expirationDate.orElse(null);
@@ -188,7 +188,7 @@ public class KVEntry {
     this.expirationDate = expirationDate;
   }
 
-  public void setExpirationDate(@javax.annotation.Nullable OffsetDateTime expirationDate) {
+  public void setExpirationDate(@jakarta.annotation.Nullable OffsetDateTime expirationDate) {
     this.expirationDate = JsonNullable.<OffsetDateTime>of(expirationDate);
   }
 

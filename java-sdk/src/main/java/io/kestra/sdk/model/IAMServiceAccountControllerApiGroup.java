@@ -30,15 +30,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMServiceAccountControllerApiGroup.JSON_PROPERTY_ID
 })
 @JsonTypeName("IAMServiceAccountController.ApiGroup")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMServiceAccountControllerApiGroup {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable  private String id;
+  @jakarta.annotation.Nullable  private String id;
 
   public IAMServiceAccountControllerApiGroup() {
   }
 
-  public IAMServiceAccountControllerApiGroup id(@javax.annotation.Nullable String id) {
+  public IAMServiceAccountControllerApiGroup id(@jakarta.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -48,7 +48,7 @@ public class IAMServiceAccountControllerApiGroup {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -58,7 +58,7 @@ public class IAMServiceAccountControllerApiGroup {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  public void setId(@jakarta.annotation.Nullable String id) {
     this.id = id;
   }
 

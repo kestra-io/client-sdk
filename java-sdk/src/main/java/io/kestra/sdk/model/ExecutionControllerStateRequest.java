@@ -32,18 +32,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ExecutionControllerStateRequest.JSON_PROPERTY_STATE
 })
 @JsonTypeName("ExecutionController.StateRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ExecutionControllerStateRequest {
   public static final String JSON_PROPERTY_TASK_RUN_ID = "taskRunId";
-  @javax.annotation.Nullable  private String taskRunId;
+  @jakarta.annotation.Nullable  private String taskRunId;
 
   public static final String JSON_PROPERTY_STATE = "state";
-  @javax.annotation.Nullable  private StateType state;
+  @jakarta.annotation.Nullable  private StateType state;
 
   public ExecutionControllerStateRequest() {
   }
 
-  public ExecutionControllerStateRequest taskRunId(@javax.annotation.Nullable String taskRunId) {
+  public ExecutionControllerStateRequest taskRunId(@jakarta.annotation.Nullable String taskRunId) {
     
     this.taskRunId = taskRunId;
     return this;
@@ -53,7 +53,7 @@ public class ExecutionControllerStateRequest {
    * Get taskRunId
    * @return taskRunId
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TASK_RUN_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TASK_RUN_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTaskRunId() {
@@ -63,11 +63,11 @@ public class ExecutionControllerStateRequest {
 
   @JsonProperty(JSON_PROPERTY_TASK_RUN_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTaskRunId(@javax.annotation.Nullable String taskRunId) {
+  public void setTaskRunId(@jakarta.annotation.Nullable String taskRunId) {
     this.taskRunId = taskRunId;
   }
 
-  public ExecutionControllerStateRequest state(@javax.annotation.Nullable StateType state) {
+  public ExecutionControllerStateRequest state(@jakarta.annotation.Nullable StateType state) {
     
     this.state = state;
     return this;
@@ -77,7 +77,7 @@ public class ExecutionControllerStateRequest {
    * Get state
    * @return state
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STATE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public StateType getState() {
@@ -87,7 +87,7 @@ public class ExecutionControllerStateRequest {
 
   @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setState(@javax.annotation.Nullable StateType state) {
+  public void setState(@jakarta.annotation.Nullable StateType state) {
     this.state = state;
   }
 

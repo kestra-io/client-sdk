@@ -40,24 +40,24 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMTenantAccessControllerUserApiAutocomplete.JSON_PROPERTY_USERNAME
 })
 @JsonTypeName("IAMTenantAccessController.UserApiAutocomplete")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMTenantAccessControllerUserApiAutocomplete {
   public static final String JSON_PROPERTY_Q = "q";
-  @javax.annotation.Nullable  private JsonNullable<String> q = JsonNullable.<String>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<String> q = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_IDS = "ids";
-  @javax.annotation.Nullable  private JsonNullable<List<String>> ids = JsonNullable.<List<String>>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<List<String>> ids = JsonNullable.<List<String>>undefined();
 
   public static final String JSON_PROPERTY_EXISTING_ONLY = "existingOnly";
-  @javax.annotation.Nullable  private Boolean existingOnly;
+  @jakarta.annotation.Nullable  private Boolean existingOnly;
 
   public static final String JSON_PROPERTY_USERNAME = "username";
-  @javax.annotation.Nullable  private JsonNullable<String> username = JsonNullable.<String>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<String> username = JsonNullable.<String>undefined();
 
   public IAMTenantAccessControllerUserApiAutocomplete() {
   }
 
-  public IAMTenantAccessControllerUserApiAutocomplete q(@javax.annotation.Nullable String q) {
+  public IAMTenantAccessControllerUserApiAutocomplete q(@jakarta.annotation.Nullable String q) {
     this.q = JsonNullable.<String>of(q);
     
     return this;
@@ -67,7 +67,7 @@ public class IAMTenantAccessControllerUserApiAutocomplete {
    * Get q
    * @return q
    */
-  @javax.annotation.Nullable  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public String getQ() {
         return q.orElse(null);
@@ -84,11 +84,11 @@ public class IAMTenantAccessControllerUserApiAutocomplete {
     this.q = q;
   }
 
-  public void setQ(@javax.annotation.Nullable String q) {
+  public void setQ(@jakarta.annotation.Nullable String q) {
     this.q = JsonNullable.<String>of(q);
   }
 
-  public IAMTenantAccessControllerUserApiAutocomplete ids(@javax.annotation.Nullable List<String> ids) {
+  public IAMTenantAccessControllerUserApiAutocomplete ids(@jakarta.annotation.Nullable List<String> ids) {
     this.ids = JsonNullable.<List<String>>of(ids);
     
     return this;
@@ -110,7 +110,7 @@ public class IAMTenantAccessControllerUserApiAutocomplete {
    * Get ids
    * @return ids
    */
-  @javax.annotation.Nullable  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public List<String> getIds() {
         return ids.orElse(null);
@@ -127,11 +127,11 @@ public class IAMTenantAccessControllerUserApiAutocomplete {
     this.ids = ids;
   }
 
-  public void setIds(@javax.annotation.Nullable List<String> ids) {
+  public void setIds(@jakarta.annotation.Nullable List<String> ids) {
     this.ids = JsonNullable.<List<String>>of(ids);
   }
 
-  public IAMTenantAccessControllerUserApiAutocomplete existingOnly(@javax.annotation.Nullable Boolean existingOnly) {
+  public IAMTenantAccessControllerUserApiAutocomplete existingOnly(@jakarta.annotation.Nullable Boolean existingOnly) {
     
     this.existingOnly = existingOnly;
     return this;
@@ -141,7 +141,7 @@ public class IAMTenantAccessControllerUserApiAutocomplete {
    * Get existingOnly
    * @return existingOnly
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXISTING_ONLY)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXISTING_ONLY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getExistingOnly() {
@@ -151,11 +151,11 @@ public class IAMTenantAccessControllerUserApiAutocomplete {
 
   @JsonProperty(JSON_PROPERTY_EXISTING_ONLY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExistingOnly(@javax.annotation.Nullable Boolean existingOnly) {
+  public void setExistingOnly(@jakarta.annotation.Nullable Boolean existingOnly) {
     this.existingOnly = existingOnly;
   }
 
-  public IAMTenantAccessControllerUserApiAutocomplete username(@javax.annotation.Nullable String username) {
+  public IAMTenantAccessControllerUserApiAutocomplete username(@jakarta.annotation.Nullable String username) {
     this.username = JsonNullable.<String>of(username);
     
     return this;
@@ -165,7 +165,7 @@ public class IAMTenantAccessControllerUserApiAutocomplete {
    * Get username
    * @return username
    */
-  @javax.annotation.Nullable  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public String getUsername() {
         return username.orElse(null);
@@ -182,7 +182,7 @@ public class IAMTenantAccessControllerUserApiAutocomplete {
     this.username = username;
   }
 
-  public void setUsername(@javax.annotation.Nullable String username) {
+  public void setUsername(@jakarta.annotation.Nullable String username) {
     this.username = JsonNullable.<String>of(username);
   }
 

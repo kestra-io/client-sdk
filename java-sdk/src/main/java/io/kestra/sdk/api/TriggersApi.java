@@ -41,7 +41,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")public class TriggersApi extends BaseApi {
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")public class TriggersApi extends BaseApi {
 
   public TriggersApi() {
     super(Configuration.getDefaultApiClient());
@@ -59,7 +59,7 @@ import java.util.StringJoiner;
    * @return Trigger
    * @throws ApiException if fails to make API call
    */
-  public Trigger deleteBackfill(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger) throws ApiException {
+  public Trigger deleteBackfill(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull Trigger trigger) throws ApiException {
     return this.deleteBackfill(tenant, trigger, Collections.emptyMap());
   }
 
@@ -72,7 +72,7 @@ import java.util.StringJoiner;
    * @return Trigger
    * @throws ApiException if fails to make API call
    */
-  public Trigger deleteBackfill(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger, Map<String, String> additionalHeaders) throws ApiException {
+  public Trigger deleteBackfill(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull Trigger trigger, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = trigger;
     
     // verify the required parameter 'tenant' is set
@@ -144,7 +144,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteBackfillByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger) throws ApiException {
+  public Object deleteBackfillByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<Trigger> trigger) throws ApiException {
     return this.deleteBackfillByIds(tenant, trigger, Collections.emptyMap());
   }
 
@@ -157,7 +157,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteBackfillByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger, Map<String, String> additionalHeaders) throws ApiException {
+  public Object deleteBackfillByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<Trigger> trigger, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = trigger;
     
     // verify the required parameter 'tenant' is set
@@ -229,7 +229,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+  public Object deleteBackfillByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
     return this.deleteBackfillByQuery(tenant, filters, Collections.emptyMap());
   }
 
@@ -242,7 +242,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public Object deleteBackfillByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -310,7 +310,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object disabledTriggersByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull TriggerControllerSetDisabledRequest triggerControllerSetDisabledRequest) throws ApiException {
+  public Object disabledTriggersByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull TriggerControllerSetDisabledRequest triggerControllerSetDisabledRequest) throws ApiException {
     return this.disabledTriggersByIds(tenant, triggerControllerSetDisabledRequest, Collections.emptyMap());
   }
 
@@ -323,7 +323,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object disabledTriggersByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull TriggerControllerSetDisabledRequest triggerControllerSetDisabledRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public Object disabledTriggersByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull TriggerControllerSetDisabledRequest triggerControllerSetDisabledRequest, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = triggerControllerSetDisabledRequest;
     
     // verify the required parameter 'tenant' is set
@@ -396,7 +396,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object disabledTriggersByQuery(@javax.annotation.Nonnull Boolean disabled, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+  public Object disabledTriggersByQuery(@jakarta.annotation.Nonnull Boolean disabled, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
     return this.disabledTriggersByQuery(disabled, tenant, filters, Collections.emptyMap());
   }
 
@@ -410,7 +410,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object disabledTriggersByQuery(@javax.annotation.Nonnull Boolean disabled, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public Object disabledTriggersByQuery(@jakarta.annotation.Nonnull Boolean disabled, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'disabled' is set
@@ -484,7 +484,7 @@ import java.util.StringJoiner;
    * @return Trigger
    * @throws ApiException if fails to make API call
    */
-  public Trigger pauseBackfill(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger) throws ApiException {
+  public Trigger pauseBackfill(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull Trigger trigger) throws ApiException {
     return this.pauseBackfill(tenant, trigger, Collections.emptyMap());
   }
 
@@ -497,7 +497,7 @@ import java.util.StringJoiner;
    * @return Trigger
    * @throws ApiException if fails to make API call
    */
-  public Trigger pauseBackfill(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger, Map<String, String> additionalHeaders) throws ApiException {
+  public Trigger pauseBackfill(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull Trigger trigger, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = trigger;
     
     // verify the required parameter 'tenant' is set
@@ -569,7 +569,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object pauseBackfillByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger) throws ApiException {
+  public Object pauseBackfillByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<Trigger> trigger) throws ApiException {
     return this.pauseBackfillByIds(tenant, trigger, Collections.emptyMap());
   }
 
@@ -582,7 +582,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object pauseBackfillByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger, Map<String, String> additionalHeaders) throws ApiException {
+  public Object pauseBackfillByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<Trigger> trigger, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = trigger;
     
     // verify the required parameter 'tenant' is set
@@ -654,7 +654,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object pauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+  public Object pauseBackfillByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
     return this.pauseBackfillByQuery(tenant, filters, Collections.emptyMap());
   }
 
@@ -667,7 +667,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object pauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public Object pauseBackfillByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -737,7 +737,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object restartTrigger(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull String triggerId, @javax.annotation.Nonnull String tenant) throws ApiException {
+  public Object restartTrigger(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String triggerId, @jakarta.annotation.Nonnull String tenant) throws ApiException {
     return this.restartTrigger(namespace, flowId, triggerId, tenant, Collections.emptyMap());
   }
 
@@ -752,7 +752,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object restartTrigger(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull String triggerId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Object restartTrigger(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String triggerId, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -840,7 +840,7 @@ import java.util.StringJoiner;
    * @return PagedResultsTriggerControllerTriggers
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsTriggerControllerTriggers searchTriggers(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+  public PagedResultsTriggerControllerTriggers searchTriggers(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
     return this.searchTriggers(page, size, tenant, sort, filters, Collections.emptyMap());
   }
 
@@ -856,7 +856,7 @@ import java.util.StringJoiner;
    * @return PagedResultsTriggerControllerTriggers
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsTriggerControllerTriggers searchTriggers(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsTriggerControllerTriggers searchTriggers(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'page' is set
@@ -942,7 +942,7 @@ import java.util.StringJoiner;
    * @return PagedResultsTrigger
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsTrigger searchTriggersForFlow(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable String q) throws ApiException {
+  public PagedResultsTrigger searchTriggersForFlow(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nullable String namespace, @jakarta.annotation.Nullable String flowId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable String q) throws ApiException {
     return this.searchTriggersForFlow(page, size, namespace, flowId, tenant, sort, q, Collections.emptyMap());
   }
 
@@ -960,7 +960,7 @@ import java.util.StringJoiner;
    * @return PagedResultsTrigger
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsTrigger searchTriggersForFlow(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable String q, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsTrigger searchTriggersForFlow(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nullable String namespace, @jakarta.annotation.Nullable String flowId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable String q, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'page' is set
@@ -1055,7 +1055,7 @@ import java.util.StringJoiner;
    * @return Trigger
    * @throws ApiException if fails to make API call
    */
-  public Trigger unlockTrigger(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull String triggerId, @javax.annotation.Nonnull String tenant) throws ApiException {
+  public Trigger unlockTrigger(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String triggerId, @jakarta.annotation.Nonnull String tenant) throws ApiException {
     return this.unlockTrigger(namespace, flowId, triggerId, tenant, Collections.emptyMap());
   }
 
@@ -1070,7 +1070,7 @@ import java.util.StringJoiner;
    * @return Trigger
    * @throws ApiException if fails to make API call
    */
-  public Trigger unlockTrigger(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull String triggerId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Trigger unlockTrigger(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String triggerId, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -1155,7 +1155,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unlockTriggersByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger) throws ApiException {
+  public Object unlockTriggersByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<Trigger> trigger) throws ApiException {
     return this.unlockTriggersByIds(tenant, trigger, Collections.emptyMap());
   }
 
@@ -1168,7 +1168,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unlockTriggersByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger, Map<String, String> additionalHeaders) throws ApiException {
+  public Object unlockTriggersByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<Trigger> trigger, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = trigger;
     
     // verify the required parameter 'tenant' is set
@@ -1240,7 +1240,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unlockTriggersByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+  public Object unlockTriggersByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
     return this.unlockTriggersByQuery(tenant, filters, Collections.emptyMap());
   }
 
@@ -1253,7 +1253,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unlockTriggersByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public Object unlockTriggersByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -1321,7 +1321,7 @@ import java.util.StringJoiner;
    * @return Trigger
    * @throws ApiException if fails to make API call
    */
-  public Trigger unpauseBackfill(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger) throws ApiException {
+  public Trigger unpauseBackfill(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull Trigger trigger) throws ApiException {
     return this.unpauseBackfill(tenant, trigger, Collections.emptyMap());
   }
 
@@ -1334,7 +1334,7 @@ import java.util.StringJoiner;
    * @return Trigger
    * @throws ApiException if fails to make API call
    */
-  public Trigger unpauseBackfill(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger, Map<String, String> additionalHeaders) throws ApiException {
+  public Trigger unpauseBackfill(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull Trigger trigger, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = trigger;
     
     // verify the required parameter 'tenant' is set
@@ -1406,7 +1406,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unpauseBackfillByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger) throws ApiException {
+  public Object unpauseBackfillByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<Trigger> trigger) throws ApiException {
     return this.unpauseBackfillByIds(tenant, trigger, Collections.emptyMap());
   }
 
@@ -1419,7 +1419,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unpauseBackfillByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger, Map<String, String> additionalHeaders) throws ApiException {
+  public Object unpauseBackfillByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<Trigger> trigger, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = trigger;
     
     // verify the required parameter 'tenant' is set
@@ -1491,7 +1491,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unpauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+  public Object unpauseBackfillByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
     return this.unpauseBackfillByQuery(tenant, filters, Collections.emptyMap());
   }
 
@@ -1504,7 +1504,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unpauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+  public Object unpauseBackfillByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -1572,7 +1572,7 @@ import java.util.StringJoiner;
    * @return Trigger
    * @throws ApiException if fails to make API call
    */
-  public Trigger updateTrigger(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger) throws ApiException {
+  public Trigger updateTrigger(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull Trigger trigger) throws ApiException {
     return this.updateTrigger(tenant, trigger, Collections.emptyMap());
   }
 
@@ -1585,7 +1585,7 @@ import java.util.StringJoiner;
    * @return Trigger
    * @throws ApiException if fails to make API call
    */
-  public Trigger updateTrigger(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger, Map<String, String> additionalHeaders) throws ApiException {
+  public Trigger updateTrigger(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull Trigger trigger, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = trigger;
     
     // verify the required parameter 'tenant' is set

@@ -55,51 +55,51 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ScimUser.JSON_PROPERTY_NAME,
   ScimUser.JSON_PROPERTY_GROUPS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ScimUser {
   public static final String JSON_PROPERTY_SCHEMAS = "schemas";
-  @javax.annotation.Nullable  private List<String> schemas = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> schemas = new ArrayList<>();
 
   public static final String JSON_PROPERTY_BASE_URN = "baseUrn";
-  @javax.annotation.Nullable  private String baseUrn;
+  @jakarta.annotation.Nullable  private String baseUrn;
 
   public static final String JSON_PROPERTY_EXTENSIONS = "extensions";
-  @javax.annotation.Nullable  private Map<String, ScimExtension> extensions = new HashMap<>();
+  @jakarta.annotation.Nullable  private Map<String, ScimExtension> extensions = new HashMap<>();
 
   public static final String JSON_PROPERTY_META = "meta";
-  @javax.annotation.Nonnull  private Meta meta;
+  @jakarta.annotation.Nonnull  private Meta meta;
 
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable  private String id;
+  @jakarta.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_EXTERNAL_ID = "externalId";
-  @javax.annotation.Nullable  private String externalId;
+  @jakarta.annotation.Nullable  private String externalId;
 
   public static final String JSON_PROPERTY_RESOURCE_TYPE = "resourceType";
-  @javax.annotation.Nullable  private String resourceType;
+  @jakarta.annotation.Nullable  private String resourceType;
 
   public static final String JSON_PROPERTY_PRIMARY_EMAIL_ADDRESS = "primaryEmailAddress";
-  @javax.annotation.Nullable  private JsonNullable<Email> primaryEmailAddress = JsonNullable.<Email>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<Email> primaryEmailAddress = JsonNullable.<Email>undefined();
 
   public static final String JSON_PROPERTY_ACTIVE = "active";
-  @javax.annotation.Nullable  private Boolean active;
+  @jakarta.annotation.Nullable  private Boolean active;
 
   public static final String JSON_PROPERTY_EMAILS = "emails";
-  @javax.annotation.Nullable  private List<Email> emails = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<Email> emails = new ArrayList<>();
 
   public static final String JSON_PROPERTY_USER_NAME = "userName";
-  @javax.annotation.Nullable  private String userName;
+  @jakarta.annotation.Nullable  private String userName;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nullable  private Name name;
+  @jakarta.annotation.Nullable  private Name name;
 
   public static final String JSON_PROPERTY_GROUPS = "groups";
-  @javax.annotation.Nullable  private List<UserGroup> groups = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<UserGroup> groups = new ArrayList<>();
 
   public ScimUser() {
   }
 
-  public ScimUser schemas(@javax.annotation.Nullable List<String> schemas) {
+  public ScimUser schemas(@jakarta.annotation.Nullable List<String> schemas) {
     
     this.schemas = schemas;
     return this;
@@ -117,7 +117,7 @@ public class ScimUser {
    * Get schemas
    * @return schemas
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SCHEMAS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SCHEMAS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getSchemas() {
@@ -127,11 +127,11 @@ public class ScimUser {
 
   @JsonProperty(JSON_PROPERTY_SCHEMAS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSchemas(@javax.annotation.Nullable List<String> schemas) {
+  public void setSchemas(@jakarta.annotation.Nullable List<String> schemas) {
     this.schemas = schemas;
   }
 
-  public ScimUser baseUrn(@javax.annotation.Nullable String baseUrn) {
+  public ScimUser baseUrn(@jakarta.annotation.Nullable String baseUrn) {
     
     this.baseUrn = baseUrn;
     return this;
@@ -141,7 +141,7 @@ public class ScimUser {
    * Get baseUrn
    * @return baseUrn
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_BASE_URN)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_BASE_URN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getBaseUrn() {
@@ -151,11 +151,11 @@ public class ScimUser {
 
   @JsonProperty(JSON_PROPERTY_BASE_URN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBaseUrn(@javax.annotation.Nullable String baseUrn) {
+  public void setBaseUrn(@jakarta.annotation.Nullable String baseUrn) {
     this.baseUrn = baseUrn;
   }
 
-  public ScimUser extensions(@javax.annotation.Nullable Map<String, ScimExtension> extensions) {
+  public ScimUser extensions(@jakarta.annotation.Nullable Map<String, ScimExtension> extensions) {
     
     this.extensions = extensions;
     return this;
@@ -173,7 +173,7 @@ public class ScimUser {
    * Get extensions
    * @return extensions
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXTENSIONS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXTENSIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, ScimExtension> getExtensions() {
@@ -183,11 +183,11 @@ public class ScimUser {
 
   @JsonProperty(JSON_PROPERTY_EXTENSIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExtensions(@javax.annotation.Nullable Map<String, ScimExtension> extensions) {
+  public void setExtensions(@jakarta.annotation.Nullable Map<String, ScimExtension> extensions) {
     this.extensions = extensions;
   }
 
-  public ScimUser meta(@javax.annotation.Nonnull Meta meta) {
+  public ScimUser meta(@jakarta.annotation.Nonnull Meta meta) {
     
     this.meta = meta;
     return this;
@@ -197,7 +197,7 @@ public class ScimUser {
    * Get meta
    * @return meta
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_META)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_META)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Meta getMeta() {
@@ -207,11 +207,11 @@ public class ScimUser {
 
   @JsonProperty(JSON_PROPERTY_META)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setMeta(@javax.annotation.Nonnull Meta meta) {
+  public void setMeta(@jakarta.annotation.Nonnull Meta meta) {
     this.meta = meta;
   }
 
-  public ScimUser id(@javax.annotation.Nullable String id) {
+  public ScimUser id(@jakarta.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -221,7 +221,7 @@ public class ScimUser {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -231,11 +231,11 @@ public class ScimUser {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  public void setId(@jakarta.annotation.Nullable String id) {
     this.id = id;
   }
 
-  public ScimUser externalId(@javax.annotation.Nullable String externalId) {
+  public ScimUser externalId(@jakarta.annotation.Nullable String externalId) {
     
     this.externalId = externalId;
     return this;
@@ -245,7 +245,7 @@ public class ScimUser {
    * Get externalId
    * @return externalId
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getExternalId() {
@@ -255,11 +255,11 @@ public class ScimUser {
 
   @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExternalId(@javax.annotation.Nullable String externalId) {
+  public void setExternalId(@jakarta.annotation.Nullable String externalId) {
     this.externalId = externalId;
   }
 
-  public ScimUser resourceType(@javax.annotation.Nullable String resourceType) {
+  public ScimUser resourceType(@jakarta.annotation.Nullable String resourceType) {
     
     this.resourceType = resourceType;
     return this;
@@ -269,7 +269,7 @@ public class ScimUser {
    * Get resourceType
    * @return resourceType
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getResourceType() {
@@ -279,11 +279,11 @@ public class ScimUser {
 
   @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setResourceType(@javax.annotation.Nullable String resourceType) {
+  public void setResourceType(@jakarta.annotation.Nullable String resourceType) {
     this.resourceType = resourceType;
   }
 
-  public ScimUser primaryEmailAddress(@javax.annotation.Nullable Email primaryEmailAddress) {
+  public ScimUser primaryEmailAddress(@jakarta.annotation.Nullable Email primaryEmailAddress) {
     this.primaryEmailAddress = JsonNullable.<Email>of(primaryEmailAddress);
     
     return this;
@@ -293,7 +293,7 @@ public class ScimUser {
    * Get primaryEmailAddress
    * @return primaryEmailAddress
    */
-  @javax.annotation.Nullable  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public Email getPrimaryEmailAddress() {
         return primaryEmailAddress.orElse(null);
@@ -310,11 +310,11 @@ public class ScimUser {
     this.primaryEmailAddress = primaryEmailAddress;
   }
 
-  public void setPrimaryEmailAddress(@javax.annotation.Nullable Email primaryEmailAddress) {
+  public void setPrimaryEmailAddress(@jakarta.annotation.Nullable Email primaryEmailAddress) {
     this.primaryEmailAddress = JsonNullable.<Email>of(primaryEmailAddress);
   }
 
-  public ScimUser active(@javax.annotation.Nullable Boolean active) {
+  public ScimUser active(@jakarta.annotation.Nullable Boolean active) {
     
     this.active = active;
     return this;
@@ -324,7 +324,7 @@ public class ScimUser {
    * Get active
    * @return active
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ACTIVE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ACTIVE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getActive() {
@@ -334,11 +334,11 @@ public class ScimUser {
 
   @JsonProperty(JSON_PROPERTY_ACTIVE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setActive(@javax.annotation.Nullable Boolean active) {
+  public void setActive(@jakarta.annotation.Nullable Boolean active) {
     this.active = active;
   }
 
-  public ScimUser emails(@javax.annotation.Nullable List<Email> emails) {
+  public ScimUser emails(@jakarta.annotation.Nullable List<Email> emails) {
     
     this.emails = emails;
     return this;
@@ -356,7 +356,7 @@ public class ScimUser {
    * Get emails
    * @return emails
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EMAILS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EMAILS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Email> getEmails() {
@@ -366,11 +366,11 @@ public class ScimUser {
 
   @JsonProperty(JSON_PROPERTY_EMAILS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEmails(@javax.annotation.Nullable List<Email> emails) {
+  public void setEmails(@jakarta.annotation.Nullable List<Email> emails) {
     this.emails = emails;
   }
 
-  public ScimUser userName(@javax.annotation.Nullable String userName) {
+  public ScimUser userName(@jakarta.annotation.Nullable String userName) {
     
     this.userName = userName;
     return this;
@@ -380,7 +380,7 @@ public class ScimUser {
    * Get userName
    * @return userName
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_USER_NAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_USER_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUserName() {
@@ -390,11 +390,11 @@ public class ScimUser {
 
   @JsonProperty(JSON_PROPERTY_USER_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUserName(@javax.annotation.Nullable String userName) {
+  public void setUserName(@jakarta.annotation.Nullable String userName) {
     this.userName = userName;
   }
 
-  public ScimUser name(@javax.annotation.Nullable Name name) {
+  public ScimUser name(@jakarta.annotation.Nullable Name name) {
     
     this.name = name;
     return this;
@@ -404,7 +404,7 @@ public class ScimUser {
    * Get name
    * @return name
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Name getName() {
@@ -414,11 +414,11 @@ public class ScimUser {
 
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(@javax.annotation.Nullable Name name) {
+  public void setName(@jakarta.annotation.Nullable Name name) {
     this.name = name;
   }
 
-  public ScimUser groups(@javax.annotation.Nullable List<UserGroup> groups) {
+  public ScimUser groups(@jakarta.annotation.Nullable List<UserGroup> groups) {
     
     this.groups = groups;
     return this;
@@ -436,7 +436,7 @@ public class ScimUser {
    * Get groups
    * @return groups
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUPS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUPS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<UserGroup> getGroups() {
@@ -446,7 +446,7 @@ public class ScimUser {
 
   @JsonProperty(JSON_PROPERTY_GROUPS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setGroups(@javax.annotation.Nullable List<UserGroup> groups) {
+  public void setGroups(@jakarta.annotation.Nullable List<UserGroup> groups) {
     this.groups = groups;
   }
 

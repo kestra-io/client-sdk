@@ -40,7 +40,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")public class KvApi extends BaseApi {
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")public class KvApi extends BaseApi {
 
   public KvApi() {
     super(Configuration.getDefaultApiClient());
@@ -59,7 +59,7 @@ import java.util.StringJoiner;
    * @return Boolean
    * @throws ApiException if fails to make API call
    */
-  public Boolean deleteKeyValue(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant) throws ApiException {
+  public Boolean deleteKeyValue(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant) throws ApiException {
     return this.deleteKeyValue(namespace, key, tenant, Collections.emptyMap());
   }
 
@@ -73,7 +73,7 @@ import java.util.StringJoiner;
    * @return Boolean
    * @throws ApiException if fails to make API call
    */
-  public Boolean deleteKeyValue(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Boolean deleteKeyValue(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -153,7 +153,7 @@ import java.util.StringJoiner;
    * @return KVControllerApiDeleteBulkResponse
    * @throws ApiException if fails to make API call
    */
-  public KVControllerApiDeleteBulkResponse deleteKeyValues(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull KVControllerApiDeleteBulkRequest kvControllerApiDeleteBulkRequest) throws ApiException {
+  public KVControllerApiDeleteBulkResponse deleteKeyValues(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull KVControllerApiDeleteBulkRequest kvControllerApiDeleteBulkRequest) throws ApiException {
     return this.deleteKeyValues(namespace, tenant, kvControllerApiDeleteBulkRequest, Collections.emptyMap());
   }
 
@@ -167,7 +167,7 @@ import java.util.StringJoiner;
    * @return KVControllerApiDeleteBulkResponse
    * @throws ApiException if fails to make API call
    */
-  public KVControllerApiDeleteBulkResponse deleteKeyValues(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull KVControllerApiDeleteBulkRequest kvControllerApiDeleteBulkRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public KVControllerApiDeleteBulkResponse deleteKeyValues(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull KVControllerApiDeleteBulkRequest kvControllerApiDeleteBulkRequest, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = kvControllerApiDeleteBulkRequest;
     
     // verify the required parameter 'namespace' is set
@@ -246,8 +246,8 @@ import java.util.StringJoiner;
    * @return KVControllerTypedValue
    * @throws ApiException if fails to make API call
    */
-  public KVControllerTypedValue getKeyValue(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.getKeyValue(namespace, key, tenant, Collections.emptyMap());
+  public KVControllerTypedValue keyValue(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.keyValue(namespace, key, tenant, Collections.emptyMap());
   }
 
   /**
@@ -260,22 +260,22 @@ import java.util.StringJoiner;
    * @return KVControllerTypedValue
    * @throws ApiException if fails to make API call
    */
-  public KVControllerTypedValue getKeyValue(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public KVControllerTypedValue keyValue(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
     if (namespace == null) {
-      throw new ApiException(400, "Missing the required parameter 'namespace' when calling getKeyValue");
+      throw new ApiException(400, "Missing the required parameter 'namespace' when calling keyValue");
     }
     
     // verify the required parameter 'key' is set
     if (key == null) {
-      throw new ApiException(400, "Missing the required parameter 'key' when calling getKeyValue");
+      throw new ApiException(400, "Missing the required parameter 'key' when calling keyValue");
     }
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling getKeyValue");
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling keyValue");
     }
     
     // create path and map variables
@@ -339,7 +339,7 @@ import java.util.StringJoiner;
    * @return List&lt;KVEntry&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<KVEntry> listKeys(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant) throws ApiException {
+  public List<KVEntry> listKeys(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant) throws ApiException {
     return this.listKeys(namespace, tenant, Collections.emptyMap());
   }
 
@@ -352,7 +352,7 @@ import java.util.StringJoiner;
    * @return List&lt;KVEntry&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<KVEntry> listKeys(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public List<KVEntry> listKeys(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -425,7 +425,7 @@ import java.util.StringJoiner;
    * @return List&lt;KVEntry&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<KVEntry> listKeysWithInheritence(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant) throws ApiException {
+  public List<KVEntry> listKeysWithInheritence(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant) throws ApiException {
     return this.listKeysWithInheritence(namespace, tenant, Collections.emptyMap());
   }
 
@@ -438,7 +438,7 @@ import java.util.StringJoiner;
    * @return List&lt;KVEntry&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<KVEntry> listKeysWithInheritence(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public List<KVEntry> listKeysWithInheritence(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -512,7 +512,7 @@ import java.util.StringJoiner;
    * @param body The value of the key (required)
    * @throws ApiException if fails to make API call
    */
-  public void setKeyValue(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body) throws ApiException {
+  public void setKeyValue(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body) throws ApiException {
     this.setKeyValue(namespace, key, tenant, body, Collections.emptyMap());
   }
 
@@ -526,7 +526,7 @@ import java.util.StringJoiner;
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void setKeyValue(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
+  public void setKeyValue(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'namespace' is set

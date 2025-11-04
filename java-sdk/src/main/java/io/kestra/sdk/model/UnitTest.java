@@ -39,30 +39,30 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   UnitTest.JSON_PROPERTY_FIXTURES,
   UnitTest.JSON_PROPERTY_ASSERTIONS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class UnitTest {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull  private String id;
+  @jakarta.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nonnull  private String type;
+  @jakarta.annotation.Nonnull  private String type;
 
   public static final String JSON_PROPERTY_DISABLED = "disabled";
-  @javax.annotation.Nullable  private Boolean disabled;
+  @jakarta.annotation.Nullable  private Boolean disabled;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable  private String description;
+  @jakarta.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_FIXTURES = "fixtures";
-  @javax.annotation.Nullable  private Fixtures fixtures;
+  @jakarta.annotation.Nullable  private Fixtures fixtures;
 
   public static final String JSON_PROPERTY_ASSERTIONS = "assertions";
-  @javax.annotation.Nonnull  private List<Assertion> assertions = new ArrayList<>();
+  @jakarta.annotation.Nonnull  private List<Assertion> assertions = new ArrayList<>();
 
   public UnitTest() {
   }
 
-  public UnitTest id(@javax.annotation.Nonnull String id) {
+  public UnitTest id(@jakarta.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -72,7 +72,7 @@ public class UnitTest {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -82,11 +82,11 @@ public class UnitTest {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(@javax.annotation.Nonnull String id) {
+  public void setId(@jakarta.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public UnitTest type(@javax.annotation.Nonnull String type) {
+  public UnitTest type(@jakarta.annotation.Nonnull String type) {
     
     this.type = type;
     return this;
@@ -96,7 +96,7 @@ public class UnitTest {
    * Get type
    * @return type
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getType() {
@@ -106,11 +106,11 @@ public class UnitTest {
 
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setType(@javax.annotation.Nonnull String type) {
+  public void setType(@jakarta.annotation.Nonnull String type) {
     this.type = type;
   }
 
-  public UnitTest disabled(@javax.annotation.Nullable Boolean disabled) {
+  public UnitTest disabled(@jakarta.annotation.Nullable Boolean disabled) {
     
     this.disabled = disabled;
     return this;
@@ -120,7 +120,7 @@ public class UnitTest {
    * Get disabled
    * @return disabled
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISABLED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getDisabled() {
@@ -130,11 +130,11 @@ public class UnitTest {
 
   @JsonProperty(JSON_PROPERTY_DISABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDisabled(@javax.annotation.Nullable Boolean disabled) {
+  public void setDisabled(@jakarta.annotation.Nullable Boolean disabled) {
     this.disabled = disabled;
   }
 
-  public UnitTest description(@javax.annotation.Nullable String description) {
+  public UnitTest description(@jakarta.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -144,7 +144,7 @@ public class UnitTest {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -154,11 +154,11 @@ public class UnitTest {
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(@javax.annotation.Nullable String description) {
+  public void setDescription(@jakarta.annotation.Nullable String description) {
     this.description = description;
   }
 
-  public UnitTest fixtures(@javax.annotation.Nullable Fixtures fixtures) {
+  public UnitTest fixtures(@jakarta.annotation.Nullable Fixtures fixtures) {
     
     this.fixtures = fixtures;
     return this;
@@ -168,7 +168,7 @@ public class UnitTest {
    * Get fixtures
    * @return fixtures
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FIXTURES)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FIXTURES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Fixtures getFixtures() {
@@ -178,11 +178,11 @@ public class UnitTest {
 
   @JsonProperty(JSON_PROPERTY_FIXTURES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFixtures(@javax.annotation.Nullable Fixtures fixtures) {
+  public void setFixtures(@jakarta.annotation.Nullable Fixtures fixtures) {
     this.fixtures = fixtures;
   }
 
-  public UnitTest assertions(@javax.annotation.Nonnull List<Assertion> assertions) {
+  public UnitTest assertions(@jakarta.annotation.Nonnull List<Assertion> assertions) {
     
     this.assertions = assertions;
     return this;
@@ -200,7 +200,7 @@ public class UnitTest {
    * Get assertions
    * @return assertions
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ASSERTIONS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ASSERTIONS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<Assertion> getAssertions() {
@@ -210,7 +210,7 @@ public class UnitTest {
 
   @JsonProperty(JSON_PROPERTY_ASSERTIONS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setAssertions(@javax.annotation.Nonnull List<Assertion> assertions) {
+  public void setAssertions(@jakarta.annotation.Nonnull List<Assertion> assertions) {
     this.assertions = assertions;
   }
 

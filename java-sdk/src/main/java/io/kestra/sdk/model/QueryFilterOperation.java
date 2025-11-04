@@ -31,18 +31,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   QueryFilterOperation.JSON_PROPERTY_VALUE
 })
 @JsonTypeName("QueryFilter.Operation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class QueryFilterOperation {
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nullable  private String name;
+  @jakarta.annotation.Nullable  private String name;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nullable  private String value;
+  @jakarta.annotation.Nullable  private String value;
 
   public QueryFilterOperation() {
   }
 
-  public QueryFilterOperation name(@javax.annotation.Nullable String name) {
+  public QueryFilterOperation name(@jakarta.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -52,7 +52,7 @@ public class QueryFilterOperation {
    * Get name
    * @return name
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
@@ -62,11 +62,11 @@ public class QueryFilterOperation {
 
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(@javax.annotation.Nullable String name) {
+  public void setName(@jakarta.annotation.Nullable String name) {
     this.name = name;
   }
 
-  public QueryFilterOperation value(@javax.annotation.Nullable String value) {
+  public QueryFilterOperation value(@jakarta.annotation.Nullable String value) {
     
     this.value = value;
     return this;
@@ -76,7 +76,7 @@ public class QueryFilterOperation {
    * Get value
    * @return value
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getValue() {
@@ -86,7 +86,7 @@ public class QueryFilterOperation {
 
   @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setValue(@javax.annotation.Nullable String value) {
+  public void setValue(@jakarta.annotation.Nullable String value) {
     this.value = value;
   }
 
