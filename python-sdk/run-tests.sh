@@ -19,7 +19,7 @@ echo "docker KESTRA_VERSION used: $KESTRA_VERSION\n"
 
 
 echo "start Kestra container"
-log_and_run docker compose -f docker-compose-ci.yml down
+log_and_run docker compose -f docker-compose-ci.yml rm
 
 export KESTRA_VERSION=$KESTRA_VERSION
 log_and_run docker compose -f docker-compose-ci.yml up -d --wait || {
@@ -38,4 +38,4 @@ echo "start tests"
 log_and_run python -m pytest ./testApis -vv -s --log-cli-level=DEBUG --log-cli-format="%(asctime)s [%(levelname)s] %(name)s: %(message)s)" --showlocals --timeout=10
 
 echo "stop Kestra container"
-log_and_run docker compose -f docker-compose-ci.yml down
+log_and_run docker compose -f docker-compose-ci.yml rm

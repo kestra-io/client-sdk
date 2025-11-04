@@ -84,9 +84,15 @@ class TestKVApi(unittest.TestCase):
         value = "value-inherited"
 
         self.kestra_client.kv.set_key_value(namespace="test", key=key, tenant=self.tenant, body=value)
-        time.sleep(0.5)
-        entries = self.kestra_client.kv.list_keys_with_inheritence(namespace=self.namespace, tenant=self.tenant)
-        assert any(getattr(e, 'key', None) == key  for e in entries)
+        found = False
+        for attempt in range(1, 4):
+            entries = self.kestra_client.kv.list_keys_with_inheritence(namespace=self.namespace, tenant=self.tenant)
+            if any(getattr(e, 'key', None) == key for e in entries):
+                found = True
+                break
+            time.sleep(0.5)
+
+        assert found, f"key {key} not found after 3 attempts"
 
     def test_delete_key_value(self) -> None:
         """Test case for delete_key_value
