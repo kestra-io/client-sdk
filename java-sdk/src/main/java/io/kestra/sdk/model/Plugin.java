@@ -61,90 +61,90 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Plugin.JSON_PROPERTY_CATEGORIES,
   Plugin.JSON_PROPERTY_SUB_GROUP
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Plugin {
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nullable  private String name;
+  @jakarta.annotation.Nullable  private String name;
 
   public static final String JSON_PROPERTY_TITLE = "title";
-  @javax.annotation.Nullable  private String title;
+  @jakarta.annotation.Nullable  private String title;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable  private String description;
+  @jakarta.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_LICENSE = "license";
-  @javax.annotation.Nullable  private String license;
+  @jakarta.annotation.Nullable  private String license;
 
   public static final String JSON_PROPERTY_LONG_DESCRIPTION = "longDescription";
-  @javax.annotation.Nullable  private String longDescription;
+  @jakarta.annotation.Nullable  private String longDescription;
 
   public static final String JSON_PROPERTY_GROUP = "group";
-  @javax.annotation.Nullable  private String group;
+  @jakarta.annotation.Nullable  private String group;
 
   public static final String JSON_PROPERTY_VERSION = "version";
-  @javax.annotation.Nullable  private String version;
+  @jakarta.annotation.Nullable  private String version;
 
   public static final String JSON_PROPERTY_MANIFEST = "manifest";
-  @javax.annotation.Nullable  private Map<String, String> manifest = new HashMap<>();
+  @jakarta.annotation.Nullable  private Map<String, String> manifest = new HashMap<>();
 
   public static final String JSON_PROPERTY_GUIDES = "guides";
-  @javax.annotation.Nullable  private List<String> guides = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> guides = new ArrayList<>();
 
   public static final String JSON_PROPERTY_ALIASES = "aliases";
-  @javax.annotation.Nullable  private List<String> aliases = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> aliases = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TASKS = "tasks";
-  @javax.annotation.Nullable  private List<PluginPluginElementMetadata> tasks = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<PluginPluginElementMetadata> tasks = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TRIGGERS = "triggers";
-  @javax.annotation.Nullable  private List<PluginPluginElementMetadata> triggers = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<PluginPluginElementMetadata> triggers = new ArrayList<>();
 
   public static final String JSON_PROPERTY_CONDITIONS = "conditions";
-  @javax.annotation.Nullable  private List<PluginPluginElementMetadata> conditions = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<PluginPluginElementMetadata> conditions = new ArrayList<>();
 
   public static final String JSON_PROPERTY_CONTROLLERS = "controllers";
-  @javax.annotation.Nullable  private List<PluginPluginElementMetadata> controllers = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<PluginPluginElementMetadata> controllers = new ArrayList<>();
 
   public static final String JSON_PROPERTY_STORAGES = "storages";
-  @javax.annotation.Nullable  private List<PluginPluginElementMetadata> storages = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<PluginPluginElementMetadata> storages = new ArrayList<>();
 
   public static final String JSON_PROPERTY_SECRETS = "secrets";
-  @javax.annotation.Nullable  private List<PluginPluginElementMetadata> secrets = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<PluginPluginElementMetadata> secrets = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TASK_RUNNERS = "taskRunners";
-  @javax.annotation.Nullable  private List<PluginPluginElementMetadata> taskRunners = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<PluginPluginElementMetadata> taskRunners = new ArrayList<>();
 
   public static final String JSON_PROPERTY_APPS = "apps";
-  @javax.annotation.Nullable  private List<PluginPluginElementMetadata> apps = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<PluginPluginElementMetadata> apps = new ArrayList<>();
 
   public static final String JSON_PROPERTY_APP_BLOCKS = "appBlocks";
-  @javax.annotation.Nullable  private List<PluginPluginElementMetadata> appBlocks = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<PluginPluginElementMetadata> appBlocks = new ArrayList<>();
 
   public static final String JSON_PROPERTY_CHARTS = "charts";
-  @javax.annotation.Nullable  private List<PluginPluginElementMetadata> charts = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<PluginPluginElementMetadata> charts = new ArrayList<>();
 
   public static final String JSON_PROPERTY_DATA_FILTERS = "dataFilters";
-  @javax.annotation.Nullable  private List<PluginPluginElementMetadata> dataFilters = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<PluginPluginElementMetadata> dataFilters = new ArrayList<>();
 
   public static final String JSON_PROPERTY_DATA_FILTERS_K_P_I = "dataFiltersKPI";
-  @javax.annotation.Nullable  private List<PluginPluginElementMetadata> dataFiltersKPI = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<PluginPluginElementMetadata> dataFiltersKPI = new ArrayList<>();
 
   public static final String JSON_PROPERTY_LOG_EXPORTERS = "logExporters";
-  @javax.annotation.Nullable  private List<PluginPluginElementMetadata> logExporters = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<PluginPluginElementMetadata> logExporters = new ArrayList<>();
 
   public static final String JSON_PROPERTY_ADDITIONAL_PLUGINS = "additionalPlugins";
-  @javax.annotation.Nullable  private List<PluginPluginElementMetadata> additionalPlugins = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<PluginPluginElementMetadata> additionalPlugins = new ArrayList<>();
 
   public static final String JSON_PROPERTY_CATEGORIES = "categories";
-  @javax.annotation.Nullable  private List<PluginSubGroupPluginCategory> categories = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<PluginSubGroupPluginCategory> categories = new ArrayList<>();
 
   public static final String JSON_PROPERTY_SUB_GROUP = "subGroup";
-  @javax.annotation.Nullable  private String subGroup;
+  @jakarta.annotation.Nullable  private String subGroup;
 
   public Plugin() {
   }
 
-  public Plugin name(@javax.annotation.Nullable String name) {
+  public Plugin name(@jakarta.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -154,7 +154,7 @@ public class Plugin {
    * Get name
    * @return name
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
@@ -164,11 +164,11 @@ public class Plugin {
 
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(@javax.annotation.Nullable String name) {
+  public void setName(@jakarta.annotation.Nullable String name) {
     this.name = name;
   }
 
-  public Plugin title(@javax.annotation.Nullable String title) {
+  public Plugin title(@jakarta.annotation.Nullable String title) {
     
     this.title = title;
     return this;
@@ -178,7 +178,7 @@ public class Plugin {
    * Get title
    * @return title
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TITLE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TITLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTitle() {
@@ -188,11 +188,11 @@ public class Plugin {
 
   @JsonProperty(JSON_PROPERTY_TITLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTitle(@javax.annotation.Nullable String title) {
+  public void setTitle(@jakarta.annotation.Nullable String title) {
     this.title = title;
   }
 
-  public Plugin description(@javax.annotation.Nullable String description) {
+  public Plugin description(@jakarta.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -202,7 +202,7 @@ public class Plugin {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -212,11 +212,11 @@ public class Plugin {
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(@javax.annotation.Nullable String description) {
+  public void setDescription(@jakarta.annotation.Nullable String description) {
     this.description = description;
   }
 
-  public Plugin license(@javax.annotation.Nullable String license) {
+  public Plugin license(@jakarta.annotation.Nullable String license) {
     
     this.license = license;
     return this;
@@ -226,7 +226,7 @@ public class Plugin {
    * Get license
    * @return license
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LICENSE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LICENSE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getLicense() {
@@ -236,11 +236,11 @@ public class Plugin {
 
   @JsonProperty(JSON_PROPERTY_LICENSE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLicense(@javax.annotation.Nullable String license) {
+  public void setLicense(@jakarta.annotation.Nullable String license) {
     this.license = license;
   }
 
-  public Plugin longDescription(@javax.annotation.Nullable String longDescription) {
+  public Plugin longDescription(@jakarta.annotation.Nullable String longDescription) {
     
     this.longDescription = longDescription;
     return this;
@@ -250,7 +250,7 @@ public class Plugin {
    * Get longDescription
    * @return longDescription
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LONG_DESCRIPTION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LONG_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getLongDescription() {
@@ -260,11 +260,11 @@ public class Plugin {
 
   @JsonProperty(JSON_PROPERTY_LONG_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLongDescription(@javax.annotation.Nullable String longDescription) {
+  public void setLongDescription(@jakarta.annotation.Nullable String longDescription) {
     this.longDescription = longDescription;
   }
 
-  public Plugin group(@javax.annotation.Nullable String group) {
+  public Plugin group(@jakarta.annotation.Nullable String group) {
     
     this.group = group;
     return this;
@@ -274,7 +274,7 @@ public class Plugin {
    * Get group
    * @return group
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUP)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getGroup() {
@@ -284,11 +284,11 @@ public class Plugin {
 
   @JsonProperty(JSON_PROPERTY_GROUP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setGroup(@javax.annotation.Nullable String group) {
+  public void setGroup(@jakarta.annotation.Nullable String group) {
     this.group = group;
   }
 
-  public Plugin version(@javax.annotation.Nullable String version) {
+  public Plugin version(@jakarta.annotation.Nullable String version) {
     
     this.version = version;
     return this;
@@ -298,7 +298,7 @@ public class Plugin {
    * Get version
    * @return version
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getVersion() {
@@ -308,11 +308,11 @@ public class Plugin {
 
   @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVersion(@javax.annotation.Nullable String version) {
+  public void setVersion(@jakarta.annotation.Nullable String version) {
     this.version = version;
   }
 
-  public Plugin manifest(@javax.annotation.Nullable Map<String, String> manifest) {
+  public Plugin manifest(@jakarta.annotation.Nullable Map<String, String> manifest) {
     
     this.manifest = manifest;
     return this;
@@ -330,7 +330,7 @@ public class Plugin {
    * Get manifest
    * @return manifest
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MANIFEST)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MANIFEST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, String> getManifest() {
@@ -340,11 +340,11 @@ public class Plugin {
 
   @JsonProperty(JSON_PROPERTY_MANIFEST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setManifest(@javax.annotation.Nullable Map<String, String> manifest) {
+  public void setManifest(@jakarta.annotation.Nullable Map<String, String> manifest) {
     this.manifest = manifest;
   }
 
-  public Plugin guides(@javax.annotation.Nullable List<String> guides) {
+  public Plugin guides(@jakarta.annotation.Nullable List<String> guides) {
     
     this.guides = guides;
     return this;
@@ -362,7 +362,7 @@ public class Plugin {
    * Get guides
    * @return guides
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GUIDES)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GUIDES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getGuides() {
@@ -372,11 +372,11 @@ public class Plugin {
 
   @JsonProperty(JSON_PROPERTY_GUIDES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setGuides(@javax.annotation.Nullable List<String> guides) {
+  public void setGuides(@jakarta.annotation.Nullable List<String> guides) {
     this.guides = guides;
   }
 
-  public Plugin aliases(@javax.annotation.Nullable List<String> aliases) {
+  public Plugin aliases(@jakarta.annotation.Nullable List<String> aliases) {
     
     this.aliases = aliases;
     return this;
@@ -394,7 +394,7 @@ public class Plugin {
    * Get aliases
    * @return aliases
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ALIASES)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ALIASES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getAliases() {
@@ -404,11 +404,11 @@ public class Plugin {
 
   @JsonProperty(JSON_PROPERTY_ALIASES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAliases(@javax.annotation.Nullable List<String> aliases) {
+  public void setAliases(@jakarta.annotation.Nullable List<String> aliases) {
     this.aliases = aliases;
   }
 
-  public Plugin tasks(@javax.annotation.Nullable List<PluginPluginElementMetadata> tasks) {
+  public Plugin tasks(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> tasks) {
     
     this.tasks = tasks;
     return this;
@@ -426,7 +426,7 @@ public class Plugin {
    * Get tasks
    * @return tasks
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TASKS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TASKS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getTasks() {
@@ -436,11 +436,11 @@ public class Plugin {
 
   @JsonProperty(JSON_PROPERTY_TASKS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTasks(@javax.annotation.Nullable List<PluginPluginElementMetadata> tasks) {
+  public void setTasks(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> tasks) {
     this.tasks = tasks;
   }
 
-  public Plugin triggers(@javax.annotation.Nullable List<PluginPluginElementMetadata> triggers) {
+  public Plugin triggers(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> triggers) {
     
     this.triggers = triggers;
     return this;
@@ -458,7 +458,7 @@ public class Plugin {
    * Get triggers
    * @return triggers
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TRIGGERS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TRIGGERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getTriggers() {
@@ -468,11 +468,11 @@ public class Plugin {
 
   @JsonProperty(JSON_PROPERTY_TRIGGERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTriggers(@javax.annotation.Nullable List<PluginPluginElementMetadata> triggers) {
+  public void setTriggers(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> triggers) {
     this.triggers = triggers;
   }
 
-  public Plugin conditions(@javax.annotation.Nullable List<PluginPluginElementMetadata> conditions) {
+  public Plugin conditions(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> conditions) {
     
     this.conditions = conditions;
     return this;
@@ -490,7 +490,7 @@ public class Plugin {
    * Get conditions
    * @return conditions
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CONDITIONS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CONDITIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getConditions() {
@@ -500,11 +500,11 @@ public class Plugin {
 
   @JsonProperty(JSON_PROPERTY_CONDITIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setConditions(@javax.annotation.Nullable List<PluginPluginElementMetadata> conditions) {
+  public void setConditions(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> conditions) {
     this.conditions = conditions;
   }
 
-  public Plugin controllers(@javax.annotation.Nullable List<PluginPluginElementMetadata> controllers) {
+  public Plugin controllers(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> controllers) {
     
     this.controllers = controllers;
     return this;
@@ -522,7 +522,7 @@ public class Plugin {
    * Get controllers
    * @return controllers
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CONTROLLERS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CONTROLLERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getControllers() {
@@ -532,11 +532,11 @@ public class Plugin {
 
   @JsonProperty(JSON_PROPERTY_CONTROLLERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setControllers(@javax.annotation.Nullable List<PluginPluginElementMetadata> controllers) {
+  public void setControllers(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> controllers) {
     this.controllers = controllers;
   }
 
-  public Plugin storages(@javax.annotation.Nullable List<PluginPluginElementMetadata> storages) {
+  public Plugin storages(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> storages) {
     
     this.storages = storages;
     return this;
@@ -554,7 +554,7 @@ public class Plugin {
    * Get storages
    * @return storages
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STORAGES)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STORAGES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getStorages() {
@@ -564,11 +564,11 @@ public class Plugin {
 
   @JsonProperty(JSON_PROPERTY_STORAGES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStorages(@javax.annotation.Nullable List<PluginPluginElementMetadata> storages) {
+  public void setStorages(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> storages) {
     this.storages = storages;
   }
 
-  public Plugin secrets(@javax.annotation.Nullable List<PluginPluginElementMetadata> secrets) {
+  public Plugin secrets(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> secrets) {
     
     this.secrets = secrets;
     return this;
@@ -586,7 +586,7 @@ public class Plugin {
    * Get secrets
    * @return secrets
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRETS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRETS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getSecrets() {
@@ -596,11 +596,11 @@ public class Plugin {
 
   @JsonProperty(JSON_PROPERTY_SECRETS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSecrets(@javax.annotation.Nullable List<PluginPluginElementMetadata> secrets) {
+  public void setSecrets(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> secrets) {
     this.secrets = secrets;
   }
 
-  public Plugin taskRunners(@javax.annotation.Nullable List<PluginPluginElementMetadata> taskRunners) {
+  public Plugin taskRunners(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> taskRunners) {
     
     this.taskRunners = taskRunners;
     return this;
@@ -618,7 +618,7 @@ public class Plugin {
    * Get taskRunners
    * @return taskRunners
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TASK_RUNNERS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TASK_RUNNERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getTaskRunners() {
@@ -628,11 +628,11 @@ public class Plugin {
 
   @JsonProperty(JSON_PROPERTY_TASK_RUNNERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTaskRunners(@javax.annotation.Nullable List<PluginPluginElementMetadata> taskRunners) {
+  public void setTaskRunners(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> taskRunners) {
     this.taskRunners = taskRunners;
   }
 
-  public Plugin apps(@javax.annotation.Nullable List<PluginPluginElementMetadata> apps) {
+  public Plugin apps(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> apps) {
     
     this.apps = apps;
     return this;
@@ -650,7 +650,7 @@ public class Plugin {
    * Get apps
    * @return apps
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_APPS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_APPS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getApps() {
@@ -660,11 +660,11 @@ public class Plugin {
 
   @JsonProperty(JSON_PROPERTY_APPS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setApps(@javax.annotation.Nullable List<PluginPluginElementMetadata> apps) {
+  public void setApps(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> apps) {
     this.apps = apps;
   }
 
-  public Plugin appBlocks(@javax.annotation.Nullable List<PluginPluginElementMetadata> appBlocks) {
+  public Plugin appBlocks(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> appBlocks) {
     
     this.appBlocks = appBlocks;
     return this;
@@ -682,7 +682,7 @@ public class Plugin {
    * Get appBlocks
    * @return appBlocks
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_APP_BLOCKS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_APP_BLOCKS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getAppBlocks() {
@@ -692,11 +692,11 @@ public class Plugin {
 
   @JsonProperty(JSON_PROPERTY_APP_BLOCKS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAppBlocks(@javax.annotation.Nullable List<PluginPluginElementMetadata> appBlocks) {
+  public void setAppBlocks(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> appBlocks) {
     this.appBlocks = appBlocks;
   }
 
-  public Plugin charts(@javax.annotation.Nullable List<PluginPluginElementMetadata> charts) {
+  public Plugin charts(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> charts) {
     
     this.charts = charts;
     return this;
@@ -714,7 +714,7 @@ public class Plugin {
    * Get charts
    * @return charts
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CHARTS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CHARTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getCharts() {
@@ -724,11 +724,11 @@ public class Plugin {
 
   @JsonProperty(JSON_PROPERTY_CHARTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCharts(@javax.annotation.Nullable List<PluginPluginElementMetadata> charts) {
+  public void setCharts(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> charts) {
     this.charts = charts;
   }
 
-  public Plugin dataFilters(@javax.annotation.Nullable List<PluginPluginElementMetadata> dataFilters) {
+  public Plugin dataFilters(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> dataFilters) {
     
     this.dataFilters = dataFilters;
     return this;
@@ -746,7 +746,7 @@ public class Plugin {
    * Get dataFilters
    * @return dataFilters
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DATA_FILTERS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DATA_FILTERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getDataFilters() {
@@ -756,11 +756,11 @@ public class Plugin {
 
   @JsonProperty(JSON_PROPERTY_DATA_FILTERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDataFilters(@javax.annotation.Nullable List<PluginPluginElementMetadata> dataFilters) {
+  public void setDataFilters(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> dataFilters) {
     this.dataFilters = dataFilters;
   }
 
-  public Plugin dataFiltersKPI(@javax.annotation.Nullable List<PluginPluginElementMetadata> dataFiltersKPI) {
+  public Plugin dataFiltersKPI(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> dataFiltersKPI) {
     
     this.dataFiltersKPI = dataFiltersKPI;
     return this;
@@ -778,7 +778,7 @@ public class Plugin {
    * Get dataFiltersKPI
    * @return dataFiltersKPI
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DATA_FILTERS_K_P_I)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DATA_FILTERS_K_P_I)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getDataFiltersKPI() {
@@ -788,11 +788,11 @@ public class Plugin {
 
   @JsonProperty(JSON_PROPERTY_DATA_FILTERS_K_P_I)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDataFiltersKPI(@javax.annotation.Nullable List<PluginPluginElementMetadata> dataFiltersKPI) {
+  public void setDataFiltersKPI(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> dataFiltersKPI) {
     this.dataFiltersKPI = dataFiltersKPI;
   }
 
-  public Plugin logExporters(@javax.annotation.Nullable List<PluginPluginElementMetadata> logExporters) {
+  public Plugin logExporters(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> logExporters) {
     
     this.logExporters = logExporters;
     return this;
@@ -810,7 +810,7 @@ public class Plugin {
    * Get logExporters
    * @return logExporters
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LOG_EXPORTERS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LOG_EXPORTERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getLogExporters() {
@@ -820,11 +820,11 @@ public class Plugin {
 
   @JsonProperty(JSON_PROPERTY_LOG_EXPORTERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLogExporters(@javax.annotation.Nullable List<PluginPluginElementMetadata> logExporters) {
+  public void setLogExporters(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> logExporters) {
     this.logExporters = logExporters;
   }
 
-  public Plugin additionalPlugins(@javax.annotation.Nullable List<PluginPluginElementMetadata> additionalPlugins) {
+  public Plugin additionalPlugins(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> additionalPlugins) {
     
     this.additionalPlugins = additionalPlugins;
     return this;
@@ -842,7 +842,7 @@ public class Plugin {
    * Get additionalPlugins
    * @return additionalPlugins
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ADDITIONAL_PLUGINS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ADDITIONAL_PLUGINS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getAdditionalPlugins() {
@@ -852,11 +852,11 @@ public class Plugin {
 
   @JsonProperty(JSON_PROPERTY_ADDITIONAL_PLUGINS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAdditionalPlugins(@javax.annotation.Nullable List<PluginPluginElementMetadata> additionalPlugins) {
+  public void setAdditionalPlugins(@jakarta.annotation.Nullable List<PluginPluginElementMetadata> additionalPlugins) {
     this.additionalPlugins = additionalPlugins;
   }
 
-  public Plugin categories(@javax.annotation.Nullable List<PluginSubGroupPluginCategory> categories) {
+  public Plugin categories(@jakarta.annotation.Nullable List<PluginSubGroupPluginCategory> categories) {
     
     this.categories = categories;
     return this;
@@ -874,7 +874,7 @@ public class Plugin {
    * Get categories
    * @return categories
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CATEGORIES)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CATEGORIES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginSubGroupPluginCategory> getCategories() {
@@ -884,11 +884,11 @@ public class Plugin {
 
   @JsonProperty(JSON_PROPERTY_CATEGORIES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCategories(@javax.annotation.Nullable List<PluginSubGroupPluginCategory> categories) {
+  public void setCategories(@jakarta.annotation.Nullable List<PluginSubGroupPluginCategory> categories) {
     this.categories = categories;
   }
 
-  public Plugin subGroup(@javax.annotation.Nullable String subGroup) {
+  public Plugin subGroup(@jakarta.annotation.Nullable String subGroup) {
     
     this.subGroup = subGroup;
     return this;
@@ -898,7 +898,7 @@ public class Plugin {
    * Get subGroup
    * @return subGroup
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUB_GROUP)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUB_GROUP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSubGroup() {
@@ -908,7 +908,7 @@ public class Plugin {
 
   @JsonProperty(JSON_PROPERTY_SUB_GROUP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSubGroup(@javax.annotation.Nullable String subGroup) {
+  public void setSubGroup(@jakarta.annotation.Nullable String subGroup) {
     this.subGroup = subGroup;
   }
 

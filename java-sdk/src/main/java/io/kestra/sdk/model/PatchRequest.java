@@ -34,18 +34,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PatchRequest.JSON_PROPERTY_SCHEMAS,
   PatchRequest.JSON_PROPERTY_PATCH_OPERATION_LIST
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PatchRequest {
   public static final String JSON_PROPERTY_SCHEMAS = "schemas";
-  @javax.annotation.Nullable  private List<String> schemas = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> schemas = new ArrayList<>();
 
   public static final String JSON_PROPERTY_PATCH_OPERATION_LIST = "patchOperationList";
-  @javax.annotation.Nullable  private List<PatchOperation> patchOperationList = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<PatchOperation> patchOperationList = new ArrayList<>();
 
   public PatchRequest() {
   }
 
-  public PatchRequest schemas(@javax.annotation.Nullable List<String> schemas) {
+  public PatchRequest schemas(@jakarta.annotation.Nullable List<String> schemas) {
     
     this.schemas = schemas;
     return this;
@@ -63,7 +63,7 @@ public class PatchRequest {
    * Get schemas
    * @return schemas
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SCHEMAS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SCHEMAS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getSchemas() {
@@ -73,11 +73,11 @@ public class PatchRequest {
 
   @JsonProperty(JSON_PROPERTY_SCHEMAS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSchemas(@javax.annotation.Nullable List<String> schemas) {
+  public void setSchemas(@jakarta.annotation.Nullable List<String> schemas) {
     this.schemas = schemas;
   }
 
-  public PatchRequest patchOperationList(@javax.annotation.Nullable List<PatchOperation> patchOperationList) {
+  public PatchRequest patchOperationList(@jakarta.annotation.Nullable List<PatchOperation> patchOperationList) {
     
     this.patchOperationList = patchOperationList;
     return this;
@@ -95,7 +95,7 @@ public class PatchRequest {
    * Get patchOperationList
    * @return patchOperationList
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PATCH_OPERATION_LIST)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PATCH_OPERATION_LIST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PatchOperation> getPatchOperationList() {
@@ -105,7 +105,7 @@ public class PatchRequest {
 
   @JsonProperty(JSON_PROPERTY_PATCH_OPERATION_LIST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPatchOperationList(@javax.annotation.Nullable List<PatchOperation> patchOperationList) {
+  public void setPatchOperationList(@jakarta.annotation.Nullable List<PatchOperation> patchOperationList) {
     this.patchOperationList = patchOperationList;
   }
 

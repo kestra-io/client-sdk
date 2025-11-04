@@ -7,8 +7,8 @@ All URIs are relative to *http://localhost*
 | [**autocompleteRoles**](roles.md#autocompleteRoles) | **POST** /api/v1/{tenant}/roles/autocomplete | List roles for autocomplete |
 | [**createRole**](roles.md#createRole) | **POST** /api/v1/{tenant}/roles | Create a role |
 | [**deleteRole**](roles.md#deleteRole) | **DELETE** /api/v1/{tenant}/roles/{id} | Delete a role |
-| [**getRole**](roles.md#getRole) | **GET** /api/v1/{tenant}/roles/{id} | Retrieve a role |
 | [**listRolesFromGivenIds**](roles.md#listRolesFromGivenIds) | **POST** /api/v1/{tenant}/roles/ids | List roles by ids |
+| [**role**](roles.md#role) | **GET** /api/v1/{tenant}/roles/{id} | Retrieve a role |
 | [**searchRoles**](roles.md#searchRoles) | **GET** /api/v1/{tenant}/roles/search | Search for roles |
 | [**updateRole**](roles.md#updateRole) | **PUT** /api/v1/{tenant}/roles/{id} | Update a role |
 
@@ -224,77 +224,6 @@ null (empty response body)
 | **204** | On success |  -  |
 
 
-## getRole
-
-> IAMRoleControllerApiRoleDetail getRole(id, tenant)
-
-Retrieve a role
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.roles;
-
-public class Example {
-    public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
-
-        KestraClient kestraClient = KestraClient.builder()
-        .basicAuth("root@root.com", "Root!1234")
-        .url("http://localhost:8080")
-        .build();
-
-        String id = "id_example"; // String | The role id
-        String tenant = "tenant_example"; // String | 
-        try {
-            IAMRoleControllerApiRoleDetail result = kestraClient.roles().getRole(id, tenant);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling roles#getRole");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **id** | **String**| The role id | |
-| **tenant** | **String**|  | |
-
-### Return type
-
-[**IAMRoleControllerApiRoleDetail**](IAMRoleControllerApiRoleDetail.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | getRole 200 response |  -  |
-| **404** | Role not found |  -  |
-
-
 ## listRolesFromGivenIds
 
 > List&lt;Role&gt; listRolesFromGivenIds(tenant, apiIds)
@@ -363,6 +292,77 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | listRolesFromGivenIds 200 response |  -  |
+
+
+## role
+
+> IAMRoleControllerApiRoleDetail role(id, tenant)
+
+Retrieve a role
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.roles;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String id = "id_example"; // String | The role id
+        String tenant = "tenant_example"; // String | 
+        try {
+            IAMRoleControllerApiRoleDetail result = kestraClient.roles().role(id, tenant);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling roles#role");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The role id | |
+| **tenant** | **String**|  | |
+
+### Return type
+
+[**IAMRoleControllerApiRoleDetail**](IAMRoleControllerApiRoleDetail.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | getRole 200 response |  -  |
+| **404** | Role not found |  -  |
 
 
 ## searchRoles

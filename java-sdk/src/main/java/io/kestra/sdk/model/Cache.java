@@ -30,18 +30,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Cache.JSON_PROPERTY_ENABLED,
   Cache.JSON_PROPERTY_TTL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Cache {
   public static final String JSON_PROPERTY_ENABLED = "enabled";
-  @javax.annotation.Nonnull  private Boolean enabled;
+  @jakarta.annotation.Nonnull  private Boolean enabled;
 
   public static final String JSON_PROPERTY_TTL = "ttl";
-  @javax.annotation.Nullable  private String ttl;
+  @jakarta.annotation.Nullable  private String ttl;
 
   public Cache() {
   }
 
-  public Cache enabled(@javax.annotation.Nonnull Boolean enabled) {
+  public Cache enabled(@jakarta.annotation.Nonnull Boolean enabled) {
     
     this.enabled = enabled;
     return this;
@@ -51,7 +51,7 @@ public class Cache {
    * Get enabled
    * @return enabled
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ENABLED)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ENABLED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getEnabled() {
@@ -61,11 +61,11 @@ public class Cache {
 
   @JsonProperty(JSON_PROPERTY_ENABLED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setEnabled(@javax.annotation.Nonnull Boolean enabled) {
+  public void setEnabled(@jakarta.annotation.Nonnull Boolean enabled) {
     this.enabled = enabled;
   }
 
-  public Cache ttl(@javax.annotation.Nullable String ttl) {
+  public Cache ttl(@jakarta.annotation.Nullable String ttl) {
     
     this.ttl = ttl;
     return this;
@@ -75,7 +75,7 @@ public class Cache {
    * Get ttl
    * @return ttl
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TTL)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TTL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTtl() {
@@ -85,7 +85,7 @@ public class Cache {
 
   @JsonProperty(JSON_PROPERTY_TTL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTtl(@javax.annotation.Nullable String ttl) {
+  public void setTtl(@jakarta.annotation.Nullable String ttl) {
     this.ttl = ttl;
   }
 

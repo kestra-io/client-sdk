@@ -84,7 +84,7 @@ public class RolesApiTest {
         kestraClient().roles().deleteRole(created.getId(), MAIN_TENANT);
 
         assertThrows(ApiException.class, () ->
-                kestraClient().roles().getRole(created.getId(), MAIN_TENANT),
+                kestraClient().roles().role(created.getId(), MAIN_TENANT),
             "Getting a deleted role should throw ApiException"
         );
     }
@@ -106,7 +106,7 @@ public class RolesApiTest {
             kestraClient().roles().createRole(MAIN_TENANT, req);
 
         IAMRoleControllerApiRoleDetail fetched =
-            kestraClient().roles().getRole(created.getId(), MAIN_TENANT);
+            kestraClient().roles().role(created.getId(), MAIN_TENANT);
 
         assertEquals(created.getId(), fetched.getId());
         assertEquals(created.getName(), fetched.getName());

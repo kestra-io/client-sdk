@@ -401,7 +401,7 @@ class KVApi:
 
 
     @validate_call
-    def get_key_value(
+    def key_value(
         self,
         namespace: Annotated[StrictStr, Field(description="The namespace id")],
         key: Annotated[StrictStr, Field(description="The key")],
@@ -432,7 +432,7 @@ class KVApi:
         :type _request_timeout: int, tuple(int, int), optional
         """ # noqa: E501
 
-        _param = self._get_key_value_serialize(
+        _param = self._key_value_serialize(
             namespace=namespace,
             key=key,
             tenant=tenant,
@@ -453,7 +453,7 @@ class KVApi:
 
 
     @validate_call
-    def get_key_value_with_http_info(
+    def key_value_with_http_info(
         self,
         namespace: Annotated[StrictStr, Field(description="The namespace id")],
         key: Annotated[StrictStr, Field(description="The key")],
@@ -484,7 +484,7 @@ class KVApi:
         :type _request_timeout: int, tuple(int, int), optional
         """ # noqa: E501
 
-        _param = self._get_key_value_serialize(
+        _param = self._key_value_serialize(
             namespace=namespace,
             key=key,
             tenant=tenant,
@@ -504,7 +504,7 @@ class KVApi:
         )
 
 
-    def _get_key_value_serialize(
+    def _key_value_serialize(
         self,
         namespace,
         key,

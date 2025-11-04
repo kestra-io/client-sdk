@@ -45,51 +45,51 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Tenant.JSON_PROPERTY_REQUIRE_EXISTING_NAMESPACE,
   Tenant.JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Tenant {
   public static final String JSON_PROPERTY_STORAGE_ISOLATION = "storageIsolation";
-  @javax.annotation.Nullable  private Isolation storageIsolation;
+  @jakarta.annotation.Nullable  private Isolation storageIsolation;
 
   public static final String JSON_PROPERTY_SECRET_ISOLATION = "secretIsolation";
-  @javax.annotation.Nullable  private Isolation secretIsolation;
+  @jakarta.annotation.Nullable  private Isolation secretIsolation;
 
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull  private String id;
+  @jakarta.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nonnull  private String name;
+  @jakarta.annotation.Nonnull  private String name;
 
   public static final String JSON_PROPERTY_DELETED = "deleted";
-  @javax.annotation.Nonnull  private Boolean deleted;
+  @jakarta.annotation.Nonnull  private Boolean deleted;
 
   public static final String JSON_PROPERTY_WORKER_GROUP = "workerGroup";
-  @javax.annotation.Nullable  private WorkerGroup workerGroup;
+  @jakarta.annotation.Nullable  private WorkerGroup workerGroup;
 
   public static final String JSON_PROPERTY_STORAGE_TYPE = "storageType";
-  @javax.annotation.Nullable  private String storageType;
+  @jakarta.annotation.Nullable  private String storageType;
 
   public static final String JSON_PROPERTY_STORAGE_CONFIGURATION = "storageConfiguration";
-  @javax.annotation.Nullable  private Map<String, Object> storageConfiguration = new HashMap<>();
+  @jakarta.annotation.Nullable  private Map<String, Object> storageConfiguration = new HashMap<>();
 
   public static final String JSON_PROPERTY_SECRET_TYPE = "secretType";
-  @javax.annotation.Nullable  private String secretType;
+  @jakarta.annotation.Nullable  private String secretType;
 
   public static final String JSON_PROPERTY_SECRET_READ_ONLY = "secretReadOnly";
-  @javax.annotation.Nullable  private Boolean secretReadOnly;
+  @jakarta.annotation.Nullable  private Boolean secretReadOnly;
 
   public static final String JSON_PROPERTY_SECRET_CONFIGURATION = "secretConfiguration";
-  @javax.annotation.Nullable  private Map<String, Object> secretConfiguration = new HashMap<>();
+  @jakarta.annotation.Nullable  private Map<String, Object> secretConfiguration = new HashMap<>();
 
   public static final String JSON_PROPERTY_REQUIRE_EXISTING_NAMESPACE = "requireExistingNamespace";
-  @javax.annotation.Nullable  private Boolean requireExistingNamespace;
+  @jakarta.annotation.Nullable  private Boolean requireExistingNamespace;
 
   public static final String JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE = "outputsInInternalStorage";
-  @javax.annotation.Nullable  private Boolean outputsInInternalStorage;
+  @jakarta.annotation.Nullable  private Boolean outputsInInternalStorage;
 
   public Tenant() {
   }
 
-  public Tenant storageIsolation(@javax.annotation.Nullable Isolation storageIsolation) {
+  public Tenant storageIsolation(@jakarta.annotation.Nullable Isolation storageIsolation) {
     
     this.storageIsolation = storageIsolation;
     return this;
@@ -99,7 +99,7 @@ public class Tenant {
    * Get storageIsolation
    * @return storageIsolation
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STORAGE_ISOLATION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STORAGE_ISOLATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Isolation getStorageIsolation() {
@@ -109,11 +109,11 @@ public class Tenant {
 
   @JsonProperty(JSON_PROPERTY_STORAGE_ISOLATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStorageIsolation(@javax.annotation.Nullable Isolation storageIsolation) {
+  public void setStorageIsolation(@jakarta.annotation.Nullable Isolation storageIsolation) {
     this.storageIsolation = storageIsolation;
   }
 
-  public Tenant secretIsolation(@javax.annotation.Nullable Isolation secretIsolation) {
+  public Tenant secretIsolation(@jakarta.annotation.Nullable Isolation secretIsolation) {
     
     this.secretIsolation = secretIsolation;
     return this;
@@ -123,7 +123,7 @@ public class Tenant {
    * Get secretIsolation
    * @return secretIsolation
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRET_ISOLATION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRET_ISOLATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Isolation getSecretIsolation() {
@@ -133,11 +133,11 @@ public class Tenant {
 
   @JsonProperty(JSON_PROPERTY_SECRET_ISOLATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSecretIsolation(@javax.annotation.Nullable Isolation secretIsolation) {
+  public void setSecretIsolation(@jakarta.annotation.Nullable Isolation secretIsolation) {
     this.secretIsolation = secretIsolation;
   }
 
-  public Tenant id(@javax.annotation.Nonnull String id) {
+  public Tenant id(@jakarta.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -147,7 +147,7 @@ public class Tenant {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -157,11 +157,11 @@ public class Tenant {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(@javax.annotation.Nonnull String id) {
+  public void setId(@jakarta.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public Tenant name(@javax.annotation.Nonnull String name) {
+  public Tenant name(@jakarta.annotation.Nonnull String name) {
     
     this.name = name;
     return this;
@@ -171,7 +171,7 @@ public class Tenant {
    * Get name
    * @return name
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAME)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getName() {
@@ -181,11 +181,11 @@ public class Tenant {
 
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setName(@javax.annotation.Nonnull String name) {
+  public void setName(@jakarta.annotation.Nonnull String name) {
     this.name = name;
   }
 
-  public Tenant deleted(@javax.annotation.Nonnull Boolean deleted) {
+  public Tenant deleted(@jakarta.annotation.Nonnull Boolean deleted) {
     
     this.deleted = deleted;
     return this;
@@ -195,7 +195,7 @@ public class Tenant {
    * Get deleted
    * @return deleted
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DELETED)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getDeleted() {
@@ -205,11 +205,11 @@ public class Tenant {
 
   @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDeleted(@javax.annotation.Nonnull Boolean deleted) {
+  public void setDeleted(@jakarta.annotation.Nonnull Boolean deleted) {
     this.deleted = deleted;
   }
 
-  public Tenant workerGroup(@javax.annotation.Nullable WorkerGroup workerGroup) {
+  public Tenant workerGroup(@jakarta.annotation.Nullable WorkerGroup workerGroup) {
     
     this.workerGroup = workerGroup;
     return this;
@@ -219,7 +219,7 @@ public class Tenant {
    * Get workerGroup
    * @return workerGroup
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public WorkerGroup getWorkerGroup() {
@@ -229,11 +229,11 @@ public class Tenant {
 
   @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWorkerGroup(@javax.annotation.Nullable WorkerGroup workerGroup) {
+  public void setWorkerGroup(@jakarta.annotation.Nullable WorkerGroup workerGroup) {
     this.workerGroup = workerGroup;
   }
 
-  public Tenant storageType(@javax.annotation.Nullable String storageType) {
+  public Tenant storageType(@jakarta.annotation.Nullable String storageType) {
     
     this.storageType = storageType;
     return this;
@@ -243,7 +243,7 @@ public class Tenant {
    * Get storageType
    * @return storageType
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STORAGE_TYPE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STORAGE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getStorageType() {
@@ -253,11 +253,11 @@ public class Tenant {
 
   @JsonProperty(JSON_PROPERTY_STORAGE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStorageType(@javax.annotation.Nullable String storageType) {
+  public void setStorageType(@jakarta.annotation.Nullable String storageType) {
     this.storageType = storageType;
   }
 
-  public Tenant storageConfiguration(@javax.annotation.Nullable Map<String, Object> storageConfiguration) {
+  public Tenant storageConfiguration(@jakarta.annotation.Nullable Map<String, Object> storageConfiguration) {
     
     this.storageConfiguration = storageConfiguration;
     return this;
@@ -275,7 +275,7 @@ public class Tenant {
    * Get storageConfiguration
    * @return storageConfiguration
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STORAGE_CONFIGURATION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STORAGE_CONFIGURATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getStorageConfiguration() {
@@ -285,11 +285,11 @@ public class Tenant {
 
   @JsonProperty(JSON_PROPERTY_STORAGE_CONFIGURATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStorageConfiguration(@javax.annotation.Nullable Map<String, Object> storageConfiguration) {
+  public void setStorageConfiguration(@jakarta.annotation.Nullable Map<String, Object> storageConfiguration) {
     this.storageConfiguration = storageConfiguration;
   }
 
-  public Tenant secretType(@javax.annotation.Nullable String secretType) {
+  public Tenant secretType(@jakarta.annotation.Nullable String secretType) {
     
     this.secretType = secretType;
     return this;
@@ -299,7 +299,7 @@ public class Tenant {
    * Get secretType
    * @return secretType
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRET_TYPE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRET_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSecretType() {
@@ -309,11 +309,11 @@ public class Tenant {
 
   @JsonProperty(JSON_PROPERTY_SECRET_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSecretType(@javax.annotation.Nullable String secretType) {
+  public void setSecretType(@jakarta.annotation.Nullable String secretType) {
     this.secretType = secretType;
   }
 
-  public Tenant secretReadOnly(@javax.annotation.Nullable Boolean secretReadOnly) {
+  public Tenant secretReadOnly(@jakarta.annotation.Nullable Boolean secretReadOnly) {
     
     this.secretReadOnly = secretReadOnly;
     return this;
@@ -323,7 +323,7 @@ public class Tenant {
    * Get secretReadOnly
    * @return secretReadOnly
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRET_READ_ONLY)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRET_READ_ONLY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getSecretReadOnly() {
@@ -333,11 +333,11 @@ public class Tenant {
 
   @JsonProperty(JSON_PROPERTY_SECRET_READ_ONLY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSecretReadOnly(@javax.annotation.Nullable Boolean secretReadOnly) {
+  public void setSecretReadOnly(@jakarta.annotation.Nullable Boolean secretReadOnly) {
     this.secretReadOnly = secretReadOnly;
   }
 
-  public Tenant secretConfiguration(@javax.annotation.Nullable Map<String, Object> secretConfiguration) {
+  public Tenant secretConfiguration(@jakarta.annotation.Nullable Map<String, Object> secretConfiguration) {
     
     this.secretConfiguration = secretConfiguration;
     return this;
@@ -355,7 +355,7 @@ public class Tenant {
    * Get secretConfiguration
    * @return secretConfiguration
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRET_CONFIGURATION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRET_CONFIGURATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getSecretConfiguration() {
@@ -365,11 +365,11 @@ public class Tenant {
 
   @JsonProperty(JSON_PROPERTY_SECRET_CONFIGURATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSecretConfiguration(@javax.annotation.Nullable Map<String, Object> secretConfiguration) {
+  public void setSecretConfiguration(@jakarta.annotation.Nullable Map<String, Object> secretConfiguration) {
     this.secretConfiguration = secretConfiguration;
   }
 
-  public Tenant requireExistingNamespace(@javax.annotation.Nullable Boolean requireExistingNamespace) {
+  public Tenant requireExistingNamespace(@jakarta.annotation.Nullable Boolean requireExistingNamespace) {
     
     this.requireExistingNamespace = requireExistingNamespace;
     return this;
@@ -379,7 +379,7 @@ public class Tenant {
    * Get requireExistingNamespace
    * @return requireExistingNamespace
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REQUIRE_EXISTING_NAMESPACE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REQUIRE_EXISTING_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getRequireExistingNamespace() {
@@ -389,11 +389,11 @@ public class Tenant {
 
   @JsonProperty(JSON_PROPERTY_REQUIRE_EXISTING_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRequireExistingNamespace(@javax.annotation.Nullable Boolean requireExistingNamespace) {
+  public void setRequireExistingNamespace(@jakarta.annotation.Nullable Boolean requireExistingNamespace) {
     this.requireExistingNamespace = requireExistingNamespace;
   }
 
-  public Tenant outputsInInternalStorage(@javax.annotation.Nullable Boolean outputsInInternalStorage) {
+  public Tenant outputsInInternalStorage(@jakarta.annotation.Nullable Boolean outputsInInternalStorage) {
     
     this.outputsInInternalStorage = outputsInInternalStorage;
     return this;
@@ -403,7 +403,7 @@ public class Tenant {
    * Get outputsInInternalStorage
    * @return outputsInInternalStorage
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getOutputsInInternalStorage() {
@@ -413,7 +413,7 @@ public class Tenant {
 
   @JsonProperty(JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOutputsInInternalStorage(@javax.annotation.Nullable Boolean outputsInInternalStorage) {
+  public void setOutputsInInternalStorage(@jakarta.annotation.Nullable Boolean outputsInInternalStorage) {
     this.outputsInInternalStorage = outputsInInternalStorage;
   }
 

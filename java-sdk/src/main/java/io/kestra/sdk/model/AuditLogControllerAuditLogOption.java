@@ -33,21 +33,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AuditLogControllerAuditLogOption.JSON_PROPERTY_USERNAME
 })
 @JsonTypeName("AuditLogController.AuditLogOption")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AuditLogControllerAuditLogOption {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable  private String id;
+  @jakarta.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_DATE = "date";
-  @javax.annotation.Nullable  private OffsetDateTime date;
+  @jakarta.annotation.Nullable  private OffsetDateTime date;
 
   public static final String JSON_PROPERTY_USERNAME = "username";
-  @javax.annotation.Nullable  private String username;
+  @jakarta.annotation.Nullable  private String username;
 
   public AuditLogControllerAuditLogOption() {
   }
 
-  public AuditLogControllerAuditLogOption id(@javax.annotation.Nullable String id) {
+  public AuditLogControllerAuditLogOption id(@jakarta.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -57,7 +57,7 @@ public class AuditLogControllerAuditLogOption {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -67,11 +67,11 @@ public class AuditLogControllerAuditLogOption {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  public void setId(@jakarta.annotation.Nullable String id) {
     this.id = id;
   }
 
-  public AuditLogControllerAuditLogOption date(@javax.annotation.Nullable OffsetDateTime date) {
+  public AuditLogControllerAuditLogOption date(@jakarta.annotation.Nullable OffsetDateTime date) {
     
     this.date = date;
     return this;
@@ -81,7 +81,7 @@ public class AuditLogControllerAuditLogOption {
    * Get date
    * @return date
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DATE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getDate() {
@@ -91,11 +91,11 @@ public class AuditLogControllerAuditLogOption {
 
   @JsonProperty(JSON_PROPERTY_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDate(@javax.annotation.Nullable OffsetDateTime date) {
+  public void setDate(@jakarta.annotation.Nullable OffsetDateTime date) {
     this.date = date;
   }
 
-  public AuditLogControllerAuditLogOption username(@javax.annotation.Nullable String username) {
+  public AuditLogControllerAuditLogOption username(@jakarta.annotation.Nullable String username) {
     
     this.username = username;
     return this;
@@ -105,7 +105,7 @@ public class AuditLogControllerAuditLogOption {
    * Get username
    * @return username
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_USERNAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_USERNAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUsername() {
@@ -115,7 +115,7 @@ public class AuditLogControllerAuditLogOption {
 
   @JsonProperty(JSON_PROPERTY_USERNAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUsername(@javax.annotation.Nullable String username) {
+  public void setUsername(@jakarta.annotation.Nullable String username) {
     this.username = username;
   }
 

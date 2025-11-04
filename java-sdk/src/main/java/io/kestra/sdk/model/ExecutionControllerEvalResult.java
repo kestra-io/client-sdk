@@ -32,21 +32,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ExecutionControllerEvalResult.JSON_PROPERTY_STACK_TRACE
 })
 @JsonTypeName("ExecutionController.EvalResult")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ExecutionControllerEvalResult {
   public static final String JSON_PROPERTY_RESULT = "result";
-  @javax.annotation.Nullable  private String result;
+  @jakarta.annotation.Nullable  private String result;
 
   public static final String JSON_PROPERTY_ERROR = "error";
-  @javax.annotation.Nullable  private String error;
+  @jakarta.annotation.Nullable  private String error;
 
   public static final String JSON_PROPERTY_STACK_TRACE = "stackTrace";
-  @javax.annotation.Nullable  private String stackTrace;
+  @jakarta.annotation.Nullable  private String stackTrace;
 
   public ExecutionControllerEvalResult() {
   }
 
-  public ExecutionControllerEvalResult result(@javax.annotation.Nullable String result) {
+  public ExecutionControllerEvalResult result(@jakarta.annotation.Nullable String result) {
     
     this.result = result;
     return this;
@@ -56,7 +56,7 @@ public class ExecutionControllerEvalResult {
    * Get result
    * @return result
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESULT)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESULT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getResult() {
@@ -66,11 +66,11 @@ public class ExecutionControllerEvalResult {
 
   @JsonProperty(JSON_PROPERTY_RESULT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setResult(@javax.annotation.Nullable String result) {
+  public void setResult(@jakarta.annotation.Nullable String result) {
     this.result = result;
   }
 
-  public ExecutionControllerEvalResult error(@javax.annotation.Nullable String error) {
+  public ExecutionControllerEvalResult error(@jakarta.annotation.Nullable String error) {
     
     this.error = error;
     return this;
@@ -80,7 +80,7 @@ public class ExecutionControllerEvalResult {
    * Get error
    * @return error
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ERROR)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ERROR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getError() {
@@ -90,11 +90,11 @@ public class ExecutionControllerEvalResult {
 
   @JsonProperty(JSON_PROPERTY_ERROR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setError(@javax.annotation.Nullable String error) {
+  public void setError(@jakarta.annotation.Nullable String error) {
     this.error = error;
   }
 
-  public ExecutionControllerEvalResult stackTrace(@javax.annotation.Nullable String stackTrace) {
+  public ExecutionControllerEvalResult stackTrace(@jakarta.annotation.Nullable String stackTrace) {
     
     this.stackTrace = stackTrace;
     return this;
@@ -104,7 +104,7 @@ public class ExecutionControllerEvalResult {
    * Get stackTrace
    * @return stackTrace
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STACK_TRACE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STACK_TRACE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getStackTrace() {
@@ -114,7 +114,7 @@ public class ExecutionControllerEvalResult {
 
   @JsonProperty(JSON_PROPERTY_STACK_TRACE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStackTrace(@javax.annotation.Nullable String stackTrace) {
+  public void setStackTrace(@jakarta.annotation.Nullable String stackTrace) {
     this.stackTrace = stackTrace;
   }
 

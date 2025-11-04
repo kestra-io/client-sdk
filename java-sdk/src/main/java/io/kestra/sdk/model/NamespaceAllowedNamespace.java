@@ -30,15 +30,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   NamespaceAllowedNamespace.JSON_PROPERTY_NAMESPACE
 })
 @JsonTypeName("Namespace.AllowedNamespace")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class NamespaceAllowedNamespace {
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nonnull  private String namespace;
+  @jakarta.annotation.Nonnull  private String namespace;
 
   public NamespaceAllowedNamespace() {
   }
 
-  public NamespaceAllowedNamespace namespace(@javax.annotation.Nonnull String namespace) {
+  public NamespaceAllowedNamespace namespace(@jakarta.annotation.Nonnull String namespace) {
     
     this.namespace = namespace;
     return this;
@@ -48,7 +48,7 @@ public class NamespaceAllowedNamespace {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getNamespace() {
@@ -58,7 +58,7 @@ public class NamespaceAllowedNamespace {
 
   @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setNamespace(@javax.annotation.Nonnull String namespace) {
+  public void setNamespace(@jakarta.annotation.Nonnull String namespace) {
     this.namespace = namespace;
   }
 

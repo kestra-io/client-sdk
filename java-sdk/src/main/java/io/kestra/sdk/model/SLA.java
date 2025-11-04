@@ -35,24 +35,24 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   SLA.JSON_PROPERTY_BEHAVIOR,
   SLA.JSON_PROPERTY_LABELS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class SLA {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull  private String id;
+  @jakarta.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nonnull  private SLAType type;
+  @jakarta.annotation.Nonnull  private SLAType type;
 
   public static final String JSON_PROPERTY_BEHAVIOR = "behavior";
-  @javax.annotation.Nonnull  private SLABehavior behavior;
+  @jakarta.annotation.Nonnull  private SLABehavior behavior;
 
   public static final String JSON_PROPERTY_LABELS = "labels";
-  @javax.annotation.Nullable  private SLALabels labels;
+  @jakarta.annotation.Nullable  private SLALabels labels;
 
   public SLA() {
   }
 
-  public SLA id(@javax.annotation.Nonnull String id) {
+  public SLA id(@jakarta.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -62,7 +62,7 @@ public class SLA {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -72,11 +72,11 @@ public class SLA {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(@javax.annotation.Nonnull String id) {
+  public void setId(@jakarta.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public SLA type(@javax.annotation.Nonnull SLAType type) {
+  public SLA type(@jakarta.annotation.Nonnull SLAType type) {
     
     this.type = type;
     return this;
@@ -86,7 +86,7 @@ public class SLA {
    * Get type
    * @return type
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public SLAType getType() {
@@ -96,11 +96,11 @@ public class SLA {
 
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setType(@javax.annotation.Nonnull SLAType type) {
+  public void setType(@jakarta.annotation.Nonnull SLAType type) {
     this.type = type;
   }
 
-  public SLA behavior(@javax.annotation.Nonnull SLABehavior behavior) {
+  public SLA behavior(@jakarta.annotation.Nonnull SLABehavior behavior) {
     
     this.behavior = behavior;
     return this;
@@ -110,7 +110,7 @@ public class SLA {
    * Get behavior
    * @return behavior
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_BEHAVIOR)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_BEHAVIOR)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public SLABehavior getBehavior() {
@@ -120,11 +120,11 @@ public class SLA {
 
   @JsonProperty(JSON_PROPERTY_BEHAVIOR)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setBehavior(@javax.annotation.Nonnull SLABehavior behavior) {
+  public void setBehavior(@jakarta.annotation.Nonnull SLABehavior behavior) {
     this.behavior = behavior;
   }
 
-  public SLA labels(@javax.annotation.Nullable SLALabels labels) {
+  public SLA labels(@jakarta.annotation.Nullable SLALabels labels) {
     
     this.labels = labels;
     return this;
@@ -134,7 +134,7 @@ public class SLA {
    * Get labels
    * @return labels
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LABELS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public SLALabels getLabels() {
@@ -144,7 +144,7 @@ public class SLA {
 
   @JsonProperty(JSON_PROPERTY_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLabels(@javax.annotation.Nullable SLALabels labels) {
+  public void setLabels(@jakarta.annotation.Nullable SLALabels labels) {
     this.labels = labels;
   }
 

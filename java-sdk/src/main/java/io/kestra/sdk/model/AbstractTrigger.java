@@ -48,48 +48,48 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AbstractTrigger.JSON_PROPERTY_LOG_TO_FILE,
   AbstractTrigger.JSON_PROPERTY_FAIL_ON_TRIGGER_ERROR
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AbstractTrigger {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull  private String id;
+  @jakarta.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nonnull  private String type;
+  @jakarta.annotation.Nonnull  private String type;
 
   public static final String JSON_PROPERTY_VERSION = "version";
-  @javax.annotation.Nullable  private String version;
+  @jakarta.annotation.Nullable  private String version;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable  private String description;
+  @jakarta.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_CONDITIONS = "conditions";
-  @javax.annotation.Nullable  private List<Condition> conditions = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<Condition> conditions = new ArrayList<>();
 
   public static final String JSON_PROPERTY_DISABLED = "disabled";
-  @javax.annotation.Nullable  private Boolean disabled = false;
+  @jakarta.annotation.Nullable  private Boolean disabled = false;
 
   public static final String JSON_PROPERTY_WORKER_GROUP = "workerGroup";
-  @javax.annotation.Nullable  private WorkerGroup workerGroup;
+  @jakarta.annotation.Nullable  private WorkerGroup workerGroup;
 
   public static final String JSON_PROPERTY_LOG_LEVEL = "logLevel";
-  @javax.annotation.Nullable  private Level logLevel;
+  @jakarta.annotation.Nullable  private Level logLevel;
 
   public static final String JSON_PROPERTY_LABELS = "labels";
-  @javax.annotation.Nullable  private TheLabelsToPassToTheExecutionCreated labels;
+  @jakarta.annotation.Nullable  private TheLabelsToPassToTheExecutionCreated labels;
 
   public static final String JSON_PROPERTY_STOP_AFTER = "stopAfter";
-  @javax.annotation.Nullable  private List<StateType> stopAfter = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<StateType> stopAfter = new ArrayList<>();
 
   public static final String JSON_PROPERTY_LOG_TO_FILE = "logToFile";
-  @javax.annotation.Nullable  private Boolean logToFile;
+  @jakarta.annotation.Nullable  private Boolean logToFile;
 
   public static final String JSON_PROPERTY_FAIL_ON_TRIGGER_ERROR = "failOnTriggerError";
-  @javax.annotation.Nullable  private Boolean failOnTriggerError;
+  @jakarta.annotation.Nullable  private Boolean failOnTriggerError;
 
   public AbstractTrigger() {
   }
 
-  public AbstractTrigger id(@javax.annotation.Nonnull String id) {
+  public AbstractTrigger id(@jakarta.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -99,7 +99,7 @@ public class AbstractTrigger {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -109,11 +109,11 @@ public class AbstractTrigger {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(@javax.annotation.Nonnull String id) {
+  public void setId(@jakarta.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public AbstractTrigger type(@javax.annotation.Nonnull String type) {
+  public AbstractTrigger type(@jakarta.annotation.Nonnull String type) {
     
     this.type = type;
     return this;
@@ -123,7 +123,7 @@ public class AbstractTrigger {
    * Get type
    * @return type
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getType() {
@@ -133,11 +133,11 @@ public class AbstractTrigger {
 
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setType(@javax.annotation.Nonnull String type) {
+  public void setType(@jakarta.annotation.Nonnull String type) {
     this.type = type;
   }
 
-  public AbstractTrigger version(@javax.annotation.Nullable String version) {
+  public AbstractTrigger version(@jakarta.annotation.Nullable String version) {
     
     this.version = version;
     return this;
@@ -147,7 +147,7 @@ public class AbstractTrigger {
    * Get version
    * @return version
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getVersion() {
@@ -157,11 +157,11 @@ public class AbstractTrigger {
 
   @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVersion(@javax.annotation.Nullable String version) {
+  public void setVersion(@jakarta.annotation.Nullable String version) {
     this.version = version;
   }
 
-  public AbstractTrigger description(@javax.annotation.Nullable String description) {
+  public AbstractTrigger description(@jakarta.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -171,7 +171,7 @@ public class AbstractTrigger {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -181,11 +181,11 @@ public class AbstractTrigger {
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(@javax.annotation.Nullable String description) {
+  public void setDescription(@jakarta.annotation.Nullable String description) {
     this.description = description;
   }
 
-  public AbstractTrigger conditions(@javax.annotation.Nullable List<Condition> conditions) {
+  public AbstractTrigger conditions(@jakarta.annotation.Nullable List<Condition> conditions) {
     
     this.conditions = conditions;
     return this;
@@ -203,7 +203,7 @@ public class AbstractTrigger {
    * Get conditions
    * @return conditions
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CONDITIONS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CONDITIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Condition> getConditions() {
@@ -213,11 +213,11 @@ public class AbstractTrigger {
 
   @JsonProperty(JSON_PROPERTY_CONDITIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setConditions(@javax.annotation.Nullable List<Condition> conditions) {
+  public void setConditions(@jakarta.annotation.Nullable List<Condition> conditions) {
     this.conditions = conditions;
   }
 
-  public AbstractTrigger disabled(@javax.annotation.Nullable Boolean disabled) {
+  public AbstractTrigger disabled(@jakarta.annotation.Nullable Boolean disabled) {
     
     this.disabled = disabled;
     return this;
@@ -227,7 +227,7 @@ public class AbstractTrigger {
    * Get disabled
    * @return disabled
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISABLED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getDisabled() {
@@ -237,11 +237,11 @@ public class AbstractTrigger {
 
   @JsonProperty(JSON_PROPERTY_DISABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDisabled(@javax.annotation.Nullable Boolean disabled) {
+  public void setDisabled(@jakarta.annotation.Nullable Boolean disabled) {
     this.disabled = disabled;
   }
 
-  public AbstractTrigger workerGroup(@javax.annotation.Nullable WorkerGroup workerGroup) {
+  public AbstractTrigger workerGroup(@jakarta.annotation.Nullable WorkerGroup workerGroup) {
     
     this.workerGroup = workerGroup;
     return this;
@@ -251,7 +251,7 @@ public class AbstractTrigger {
    * Get workerGroup
    * @return workerGroup
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public WorkerGroup getWorkerGroup() {
@@ -261,11 +261,11 @@ public class AbstractTrigger {
 
   @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWorkerGroup(@javax.annotation.Nullable WorkerGroup workerGroup) {
+  public void setWorkerGroup(@jakarta.annotation.Nullable WorkerGroup workerGroup) {
     this.workerGroup = workerGroup;
   }
 
-  public AbstractTrigger logLevel(@javax.annotation.Nullable Level logLevel) {
+  public AbstractTrigger logLevel(@jakarta.annotation.Nullable Level logLevel) {
     
     this.logLevel = logLevel;
     return this;
@@ -275,7 +275,7 @@ public class AbstractTrigger {
    * Get logLevel
    * @return logLevel
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LOG_LEVEL)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LOG_LEVEL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Level getLogLevel() {
@@ -285,11 +285,11 @@ public class AbstractTrigger {
 
   @JsonProperty(JSON_PROPERTY_LOG_LEVEL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLogLevel(@javax.annotation.Nullable Level logLevel) {
+  public void setLogLevel(@jakarta.annotation.Nullable Level logLevel) {
     this.logLevel = logLevel;
   }
 
-  public AbstractTrigger labels(@javax.annotation.Nullable TheLabelsToPassToTheExecutionCreated labels) {
+  public AbstractTrigger labels(@jakarta.annotation.Nullable TheLabelsToPassToTheExecutionCreated labels) {
     
     this.labels = labels;
     return this;
@@ -299,7 +299,7 @@ public class AbstractTrigger {
    * Get labels
    * @return labels
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LABELS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public TheLabelsToPassToTheExecutionCreated getLabels() {
@@ -309,11 +309,11 @@ public class AbstractTrigger {
 
   @JsonProperty(JSON_PROPERTY_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLabels(@javax.annotation.Nullable TheLabelsToPassToTheExecutionCreated labels) {
+  public void setLabels(@jakarta.annotation.Nullable TheLabelsToPassToTheExecutionCreated labels) {
     this.labels = labels;
   }
 
-  public AbstractTrigger stopAfter(@javax.annotation.Nullable List<StateType> stopAfter) {
+  public AbstractTrigger stopAfter(@jakarta.annotation.Nullable List<StateType> stopAfter) {
     
     this.stopAfter = stopAfter;
     return this;
@@ -331,7 +331,7 @@ public class AbstractTrigger {
    * Get stopAfter
    * @return stopAfter
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STOP_AFTER)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STOP_AFTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<StateType> getStopAfter() {
@@ -341,11 +341,11 @@ public class AbstractTrigger {
 
   @JsonProperty(JSON_PROPERTY_STOP_AFTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStopAfter(@javax.annotation.Nullable List<StateType> stopAfter) {
+  public void setStopAfter(@jakarta.annotation.Nullable List<StateType> stopAfter) {
     this.stopAfter = stopAfter;
   }
 
-  public AbstractTrigger logToFile(@javax.annotation.Nullable Boolean logToFile) {
+  public AbstractTrigger logToFile(@jakarta.annotation.Nullable Boolean logToFile) {
     
     this.logToFile = logToFile;
     return this;
@@ -355,7 +355,7 @@ public class AbstractTrigger {
    * Get logToFile
    * @return logToFile
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LOG_TO_FILE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LOG_TO_FILE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getLogToFile() {
@@ -365,11 +365,11 @@ public class AbstractTrigger {
 
   @JsonProperty(JSON_PROPERTY_LOG_TO_FILE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLogToFile(@javax.annotation.Nullable Boolean logToFile) {
+  public void setLogToFile(@jakarta.annotation.Nullable Boolean logToFile) {
     this.logToFile = logToFile;
   }
 
-  public AbstractTrigger failOnTriggerError(@javax.annotation.Nullable Boolean failOnTriggerError) {
+  public AbstractTrigger failOnTriggerError(@jakarta.annotation.Nullable Boolean failOnTriggerError) {
     
     this.failOnTriggerError = failOnTriggerError;
     return this;
@@ -379,7 +379,7 @@ public class AbstractTrigger {
    * Get failOnTriggerError
    * @return failOnTriggerError
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FAIL_ON_TRIGGER_ERROR)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FAIL_ON_TRIGGER_ERROR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getFailOnTriggerError() {
@@ -389,7 +389,7 @@ public class AbstractTrigger {
 
   @JsonProperty(JSON_PROPERTY_FAIL_ON_TRIGGER_ERROR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFailOnTriggerError(@javax.annotation.Nullable Boolean failOnTriggerError) {
+  public void setFailOnTriggerError(@jakarta.annotation.Nullable Boolean failOnTriggerError) {
     this.failOnTriggerError = failOnTriggerError;
   }
 

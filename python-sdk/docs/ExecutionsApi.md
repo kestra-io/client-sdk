@@ -9,20 +9,20 @@ Method | HTTP request | Description
 [**delete_executions_by_ids**](executions.md#delete_executions_by_ids) | **DELETE** /api/v1/{tenant}/executions/by-ids | Delete a list of executions
 [**delete_executions_by_query**](executions.md#delete_executions_by_query) | **DELETE** /api/v1/{tenant}/executions/by-query | Delete executions filter by query parameters
 [**download_file_from_execution**](executions.md#download_file_from_execution) | **GET** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution
+[**execution**](executions.md#execution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution
+[**execution_flow_graph**](executions.md#execution_flow_graph) | **GET** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution
+[**file_metadatas_from_execution**](executions.md#file_metadatas_from_execution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution
+[**flow_from_execution**](executions.md#flow_from_execution) | **GET** /api/v1/{tenant}/executions/flows/{namespace}/{flowId} | Get flow information&#39;s for an execution
+[**flow_from_execution_by_id**](executions.md#flow_from_execution_by_id) | **GET** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution
 [**follow_dependencies_executions**](executions.md#follow_dependencies_executions) | **GET** /api/v1/{tenant}/executions/{executionId}/follow-dependencies | Follow all execution dependencies executions
 [**follow_execution**](executions.md#follow_execution) | **GET** /api/v1/{tenant}/executions/{executionId}/follow | Follow an execution
 [**force_run_by_ids**](executions.md#force_run_by_ids) | **POST** /api/v1/{tenant}/executions/force-run/by-ids | Force run a list of executions
 [**force_run_execution**](executions.md#force_run_execution) | **POST** /api/v1/{tenant}/executions/{executionId}/force-run | Force run an execution
 [**force_run_executions_by_query**](executions.md#force_run_executions_by_query) | **POST** /api/v1/{tenant}/executions/force-run/by-query | Force run executions filter by query parameters
-[**get_execution**](executions.md#get_execution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution
-[**get_execution_flow_graph**](executions.md#get_execution_flow_graph) | **GET** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution
-[**get_file_metadatas_from_execution**](executions.md#get_file_metadatas_from_execution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution
-[**get_flow_from_execution**](executions.md#get_flow_from_execution) | **GET** /api/v1/{tenant}/executions/flows/{namespace}/{flowId} | Get flow information&#39;s for an execution
-[**get_flow_from_execution_by_id**](executions.md#get_flow_from_execution_by_id) | **GET** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution
-[**get_latest_executions**](executions.md#get_latest_executions) | **POST** /api/v1/{tenant}/executions/latest | Get the latest execution for given flows
 [**kill_execution**](executions.md#kill_execution) | **DELETE** /api/v1/{tenant}/executions/{executionId}/kill | Kill an execution
 [**kill_executions_by_ids**](executions.md#kill_executions_by_ids) | **DELETE** /api/v1/{tenant}/executions/kill/by-ids | Kill a list of executions
 [**kill_executions_by_query**](executions.md#kill_executions_by_query) | **DELETE** /api/v1/{tenant}/executions/kill/by-query | Kill executions filter by query parameters
+[**latest_executions**](executions.md#latest_executions) | **POST** /api/v1/{tenant}/executions/latest | Get the latest execution for given flows
 [**pause_execution**](executions.md#pause_execution) | **POST** /api/v1/{tenant}/executions/{executionId}/pause | Pause a running execution.
 [**pause_executions_by_ids**](executions.md#pause_executions_by_ids) | **POST** /api/v1/{tenant}/executions/pause/by-ids | Pause a list of running executions
 [**pause_executions_by_query**](executions.md#pause_executions_by_query) | **POST** /api/v1/{tenant}/executions/pause/by-query | Pause executions filter by query parameters
@@ -409,6 +409,334 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **execution**
+> Execution execution(execution_id, tenant)
+
+Get an execution
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    execution_id = 'execution_id_example' # str | The execution id
+    tenant = 'tenant_example' # str | 
+
+    try:
+        # Get an execution
+        api_response = kestra_client.executions.execution(execution_id, tenant)
+        print("The response of executions->execution:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling executions->execution: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **execution_id** | **str**| The execution id | 
+ **tenant** | **str**|  | 
+
+### Return type
+
+[**Execution**](Execution.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | getExecution 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **execution_flow_graph**
+> FlowGraph execution_flow_graph(execution_id, tenant, subflows=subflows)
+
+Generate a graph for an execution
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    execution_id = 'execution_id_example' # str | The execution id
+    tenant = 'tenant_example' # str | 
+    subflows = ['subflows_example'] # List[str] | The subflow tasks to display (optional)
+
+    try:
+        # Generate a graph for an execution
+        api_response = kestra_client.executions.execution_flow_graph(execution_id, tenant, subflows=subflows)
+        print("The response of executions->execution_flow_graph:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling executions->execution_flow_graph: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **execution_id** | **str**| The execution id | 
+ **tenant** | **str**|  | 
+ **subflows** | [**List[str]**](str.md)| The subflow tasks to display | [optional] 
+
+### Return type
+
+[**FlowGraph**](FlowGraph.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | getExecutionFlowGraph 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **file_metadatas_from_execution**
+> FileMetas file_metadatas_from_execution(execution_id, path, tenant)
+
+Get file meta information for an execution
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    execution_id = 'execution_id_example' # str | The execution id
+    path = 'path_example' # str | The internal storage uri
+    tenant = 'tenant_example' # str | 
+
+    try:
+        # Get file meta information for an execution
+        api_response = kestra_client.executions.file_metadatas_from_execution(execution_id, path, tenant)
+        print("The response of executions->file_metadatas_from_execution:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling executions->file_metadatas_from_execution: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **execution_id** | **str**| The execution id | 
+ **path** | **str**| The internal storage uri | 
+ **tenant** | **str**|  | 
+
+### Return type
+
+[**FileMetas**](FileMetas.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | getFileMetadatasFromExecution 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **flow_from_execution**
+> FlowForExecution flow_from_execution(namespace, flow_id, tenant, revision=revision)
+
+Get flow information's for an execution
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    namespace = 'namespace_example' # str | The namespace of the flow
+    flow_id = 'flow_id_example' # str | The flow id
+    tenant = 'tenant_example' # str | 
+    revision = 56 # int | The flow revision (optional)
+
+    try:
+        # Get flow information's for an execution
+        api_response = kestra_client.executions.flow_from_execution(namespace, flow_id, tenant, revision=revision)
+        print("The response of executions->flow_from_execution:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling executions->flow_from_execution: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **namespace** | **str**| The namespace of the flow | 
+ **flow_id** | **str**| The flow id | 
+ **tenant** | **str**|  | 
+ **revision** | **int**| The flow revision | [optional] 
+
+### Return type
+
+[**FlowForExecution**](FlowForExecution.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | getFlowFromExecution 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **flow_from_execution_by_id**
+> FlowForExecution flow_from_execution_by_id(execution_id, tenant)
+
+Get flow information's for an execution
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    execution_id = 'execution_id_example' # str | The execution that you want flow informations
+    tenant = 'tenant_example' # str | 
+
+    try:
+        # Get flow information's for an execution
+        api_response = kestra_client.executions.flow_from_execution_by_id(execution_id, tenant)
+        print("The response of executions->flow_from_execution_by_id:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling executions->flow_from_execution_by_id: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **execution_id** | **str**| The execution that you want flow informations | 
+ **tenant** | **str**|  | 
+
+### Return type
+
+[**FlowForExecution**](FlowForExecution.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | getFlowFromExecutionById 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **follow_dependencies_executions**
 > EventExecutionStatusEvent follow_dependencies_executions(execution_id, destination_only, expand_all, tenant)
 
@@ -734,398 +1062,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_execution**
-> Execution get_execution(execution_id, tenant)
-
-Get an execution
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-from kestrapy import KestraClient, Configuration
-
-configuration = Configuration()
-
-configuration.host = "http://localhost:8080"
-configuration.username = "root@root.com"
-configuration.password = "Root!1234"
-
-# Enter a context with an instance of the API client
-with KestraClient(configuration) as kestra_client:
-    execution_id = 'execution_id_example' # str | The execution id
-    tenant = 'tenant_example' # str | 
-
-    try:
-        # Get an execution
-        api_response = kestra_client.executions.get_execution(execution_id, tenant)
-        print("The response of executions->get_execution:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling executions->get_execution: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **execution_id** | **str**| The execution id | 
- **tenant** | **str**|  | 
-
-### Return type
-
-[**Execution**](Execution.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | getExecution 200 response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_execution_flow_graph**
-> FlowGraph get_execution_flow_graph(execution_id, tenant, subflows=subflows)
-
-Generate a graph for an execution
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-from kestrapy import KestraClient, Configuration
-
-configuration = Configuration()
-
-configuration.host = "http://localhost:8080"
-configuration.username = "root@root.com"
-configuration.password = "Root!1234"
-
-# Enter a context with an instance of the API client
-with KestraClient(configuration) as kestra_client:
-    execution_id = 'execution_id_example' # str | The execution id
-    tenant = 'tenant_example' # str | 
-    subflows = ['subflows_example'] # List[str] | The subflow tasks to display (optional)
-
-    try:
-        # Generate a graph for an execution
-        api_response = kestra_client.executions.get_execution_flow_graph(execution_id, tenant, subflows=subflows)
-        print("The response of executions->get_execution_flow_graph:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling executions->get_execution_flow_graph: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **execution_id** | **str**| The execution id | 
- **tenant** | **str**|  | 
- **subflows** | [**List[str]**](str.md)| The subflow tasks to display | [optional] 
-
-### Return type
-
-[**FlowGraph**](FlowGraph.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | getExecutionFlowGraph 200 response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_file_metadatas_from_execution**
-> FileMetas get_file_metadatas_from_execution(execution_id, path, tenant)
-
-Get file meta information for an execution
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-from kestrapy import KestraClient, Configuration
-
-configuration = Configuration()
-
-configuration.host = "http://localhost:8080"
-configuration.username = "root@root.com"
-configuration.password = "Root!1234"
-
-# Enter a context with an instance of the API client
-with KestraClient(configuration) as kestra_client:
-    execution_id = 'execution_id_example' # str | The execution id
-    path = 'path_example' # str | The internal storage uri
-    tenant = 'tenant_example' # str | 
-
-    try:
-        # Get file meta information for an execution
-        api_response = kestra_client.executions.get_file_metadatas_from_execution(execution_id, path, tenant)
-        print("The response of executions->get_file_metadatas_from_execution:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling executions->get_file_metadatas_from_execution: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **execution_id** | **str**| The execution id | 
- **path** | **str**| The internal storage uri | 
- **tenant** | **str**|  | 
-
-### Return type
-
-[**FileMetas**](FileMetas.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | getFileMetadatasFromExecution 200 response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_flow_from_execution**
-> FlowForExecution get_flow_from_execution(namespace, flow_id, tenant, revision=revision)
-
-Get flow information's for an execution
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-from kestrapy import KestraClient, Configuration
-
-configuration = Configuration()
-
-configuration.host = "http://localhost:8080"
-configuration.username = "root@root.com"
-configuration.password = "Root!1234"
-
-# Enter a context with an instance of the API client
-with KestraClient(configuration) as kestra_client:
-    namespace = 'namespace_example' # str | The namespace of the flow
-    flow_id = 'flow_id_example' # str | The flow id
-    tenant = 'tenant_example' # str | 
-    revision = 56 # int | The flow revision (optional)
-
-    try:
-        # Get flow information's for an execution
-        api_response = kestra_client.executions.get_flow_from_execution(namespace, flow_id, tenant, revision=revision)
-        print("The response of executions->get_flow_from_execution:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling executions->get_flow_from_execution: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **namespace** | **str**| The namespace of the flow | 
- **flow_id** | **str**| The flow id | 
- **tenant** | **str**|  | 
- **revision** | **int**| The flow revision | [optional] 
-
-### Return type
-
-[**FlowForExecution**](FlowForExecution.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | getFlowFromExecution 200 response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_flow_from_execution_by_id**
-> FlowForExecution get_flow_from_execution_by_id(execution_id, tenant)
-
-Get flow information's for an execution
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-from kestrapy import KestraClient, Configuration
-
-configuration = Configuration()
-
-configuration.host = "http://localhost:8080"
-configuration.username = "root@root.com"
-configuration.password = "Root!1234"
-
-# Enter a context with an instance of the API client
-with KestraClient(configuration) as kestra_client:
-    execution_id = 'execution_id_example' # str | The execution that you want flow informations
-    tenant = 'tenant_example' # str | 
-
-    try:
-        # Get flow information's for an execution
-        api_response = kestra_client.executions.get_flow_from_execution_by_id(execution_id, tenant)
-        print("The response of executions->get_flow_from_execution_by_id:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling executions->get_flow_from_execution_by_id: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **execution_id** | **str**| The execution that you want flow informations | 
- **tenant** | **str**|  | 
-
-### Return type
-
-[**FlowForExecution**](FlowForExecution.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | getFlowFromExecutionById 200 response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_latest_executions**
-> List[ExecutionControllerLastExecutionResponse] get_latest_executions(tenant, execution_repository_interface_flow_filter)
-
-Get the latest execution for given flows
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-from kestrapy import KestraClient, Configuration
-
-configuration = Configuration()
-
-configuration.host = "http://localhost:8080"
-configuration.username = "root@root.com"
-configuration.password = "Root!1234"
-
-# Enter a context with an instance of the API client
-with KestraClient(configuration) as kestra_client:
-    tenant = 'tenant_example' # str | 
-    execution_repository_interface_flow_filter = [kestrapy.ExecutionRepositoryInterfaceFlowFilter()] # List[ExecutionRepositoryInterfaceFlowFilter] | 
-
-    try:
-        # Get the latest execution for given flows
-        api_response = kestra_client.executions.get_latest_executions(tenant, execution_repository_interface_flow_filter)
-        print("The response of executions->get_latest_executions:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling executions->get_latest_executions: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **tenant** | **str**|  | 
- **execution_repository_interface_flow_filter** | [**List[ExecutionRepositoryInterfaceFlowFilter]**](ExecutionRepositoryInterfaceFlowFilter.md)|  | 
-
-### Return type
-
-[**List[ExecutionControllerLastExecutionResponse]**](ExecutionControllerLastExecutionResponse.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | getLatestExecutions 200 response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **kill_execution**
 > object kill_execution(execution_id, is_on_kill_cascade, tenant)
 
@@ -1321,6 +1257,70 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | killExecutionsByQuery 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **latest_executions**
+> List[ExecutionControllerLastExecutionResponse] latest_executions(tenant, execution_repository_interface_flow_filter)
+
+Get the latest execution for given flows
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    tenant = 'tenant_example' # str | 
+    execution_repository_interface_flow_filter = [kestrapy.ExecutionRepositoryInterfaceFlowFilter()] # List[ExecutionRepositoryInterfaceFlowFilter] | 
+
+    try:
+        # Get the latest execution for given flows
+        api_response = kestra_client.executions.latest_executions(tenant, execution_repository_interface_flow_filter)
+        print("The response of executions->latest_executions:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling executions->latest_executions: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant** | **str**|  | 
+ **execution_repository_interface_flow_filter** | [**List[ExecutionRepositoryInterfaceFlowFilter]**](ExecutionRepositoryInterfaceFlowFilter.md)|  | 
+
+### Return type
+
+[**List[ExecutionControllerLastExecutionResponse]**](ExecutionControllerLastExecutionResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | getLatestExecutions 200 response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

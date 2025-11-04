@@ -26,7 +26,7 @@ public class KvApiTest {
         kestraClient().kv().setKeyValue(namespace, key, MAIN_TENANT, value);
 
         // get & assert
-        var fetched = kestraClient().kv().getKeyValue(namespace, key, MAIN_TENANT);
+        var fetched = kestraClient().kv().keyValue(namespace, key, MAIN_TENANT);
         assertThat(fetched).extracting(KVControllerTypedValue::getType).isEqualTo(KVType.STRING);
         assertThat(fetched).extracting(KVControllerTypedValue::getValue).isEqualTo("hello-kestra");
     }
@@ -41,7 +41,7 @@ public class KvApiTest {
         kestraClient().kv().setKeyValue(namespace, key, MAIN_TENANT, value);
 
         // get & assert
-        var fetched = kestraClient().kv().getKeyValue(namespace, key, MAIN_TENANT);
+        var fetched = kestraClient().kv().keyValue(namespace, key, MAIN_TENANT);
         assertThat(fetched).extracting(KVControllerTypedValue::getType).isEqualTo(KVType.BOOLEAN);
         assertThat(fetched).extracting(KVControllerTypedValue::getValue).isEqualTo(true);
     }
@@ -56,7 +56,7 @@ public class KvApiTest {
         kestraClient().kv().setKeyValue(namespace, key, MAIN_TENANT, value);
 
         // get & assert
-        var fetched = kestraClient().kv().getKeyValue(namespace, key, MAIN_TENANT);
+        var fetched = kestraClient().kv().keyValue(namespace, key, MAIN_TENANT);
         assertThat(fetched).extracting(KVControllerTypedValue::getType).isEqualTo(KVType.NUMBER);
         assertThat(fetched).extracting(KVControllerTypedValue::getValue).isEqualTo(42);
     }
@@ -71,7 +71,7 @@ public class KvApiTest {
         kestraClient().kv().setKeyValue(namespace, key, MAIN_TENANT, value);
 
         // get & assert
-        var fetched = kestraClient().kv().getKeyValue(namespace, key, MAIN_TENANT);
+        var fetched = kestraClient().kv().keyValue(namespace, key, MAIN_TENANT);
         assertThat(fetched).extracting(KVControllerTypedValue::getType).isEqualTo(KVType.DURATION);
         assertThat(fetched).extracting(KVControllerTypedValue::getValue).isEqualTo("PT15M");
     }
@@ -86,7 +86,7 @@ public class KvApiTest {
         kestraClient().kv().setKeyValue(namespace, key, MAIN_TENANT, value);
 
         // get & assert
-        var fetched = kestraClient().kv().getKeyValue(namespace, key, MAIN_TENANT);
+        var fetched = kestraClient().kv().keyValue(namespace, key, MAIN_TENANT);
         assertThat(fetched).extracting(KVControllerTypedValue::getType).isEqualTo(KVType.DATE);
         assertThat(fetched).extracting(KVControllerTypedValue::getValue).isEqualTo("2025-10-13");
     }
@@ -101,7 +101,7 @@ public class KvApiTest {
         kestraClient().kv().setKeyValue(namespace, key, MAIN_TENANT, value);
 
         // get & assert
-        var fetched = kestraClient().kv().getKeyValue(namespace, key, MAIN_TENANT);
+        var fetched = kestraClient().kv().keyValue(namespace, key, MAIN_TENANT);
         assertThat(fetched).extracting(KVControllerTypedValue::getType).isEqualTo(KVType.DATETIME);
         assertThat(fetched).extracting(KVControllerTypedValue::getValue).isEqualTo("2025-10-14T18:02:08Z");
     }
@@ -116,7 +116,7 @@ public class KvApiTest {
 
         kestraClient().kv().setKeyValue(CHILD_NAMESPACE, key, MAIN_TENANT, value);
 
-        var fetched = kestraClient().kv().getKeyValue(CHILD_NAMESPACE, key, MAIN_TENANT);
+        var fetched = kestraClient().kv().keyValue(CHILD_NAMESPACE, key, MAIN_TENANT);
         assertThat(fetched).extracting(KVControllerTypedValue::getType).isEqualTo(KVType.STRING);
         assertThat(fetched).extracting(KVControllerTypedValue::getValue).isEqualTo("value-get");
     }
@@ -169,7 +169,7 @@ public class KvApiTest {
         assertTrue(deleted == null || deleted, "Delete should succeed");
 
         assertThrows(ApiException.class,
-            () -> kestraClient().kv().getKeyValue(CHILD_NAMESPACE, key, MAIN_TENANT),
+            () -> kestraClient().kv().keyValue(CHILD_NAMESPACE, key, MAIN_TENANT),
             "Fetching a deleted key should throw");
     }
 
@@ -194,7 +194,7 @@ public class KvApiTest {
 
         for (String k : List.of(key1, key2)) {
             assertThrows(ApiException.class,
-                () -> kestraClient().kv().getKeyValue(CHILD_NAMESPACE, k, MAIN_TENANT),
+                () -> kestraClient().kv().keyValue(CHILD_NAMESPACE, k, MAIN_TENANT),
                 "Fetching a bulk-deleted key should throw");
         }
     }

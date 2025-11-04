@@ -31,21 +31,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CreateApiTokenResponse.JSON_PROPERTY_NAME,
   CreateApiTokenResponse.JSON_PROPERTY_FULL_TOKEN
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class CreateApiTokenResponse {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable  private String id;
+  @jakarta.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nullable  private String name;
+  @jakarta.annotation.Nullable  private String name;
 
   public static final String JSON_PROPERTY_FULL_TOKEN = "fullToken";
-  @javax.annotation.Nullable  private String fullToken;
+  @jakarta.annotation.Nullable  private String fullToken;
 
   public CreateApiTokenResponse() {
   }
 
-  public CreateApiTokenResponse id(@javax.annotation.Nullable String id) {
+  public CreateApiTokenResponse id(@jakarta.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -55,7 +55,7 @@ public class CreateApiTokenResponse {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -65,11 +65,11 @@ public class CreateApiTokenResponse {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  public void setId(@jakarta.annotation.Nullable String id) {
     this.id = id;
   }
 
-  public CreateApiTokenResponse name(@javax.annotation.Nullable String name) {
+  public CreateApiTokenResponse name(@jakarta.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -79,7 +79,7 @@ public class CreateApiTokenResponse {
    * Get name
    * @return name
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
@@ -89,11 +89,11 @@ public class CreateApiTokenResponse {
 
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(@javax.annotation.Nullable String name) {
+  public void setName(@jakarta.annotation.Nullable String name) {
     this.name = name;
   }
 
-  public CreateApiTokenResponse fullToken(@javax.annotation.Nullable String fullToken) {
+  public CreateApiTokenResponse fullToken(@jakarta.annotation.Nullable String fullToken) {
     
     this.fullToken = fullToken;
     return this;
@@ -103,7 +103,7 @@ public class CreateApiTokenResponse {
    * Get fullToken
    * @return fullToken
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FULL_TOKEN)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FULL_TOKEN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFullToken() {
@@ -113,7 +113,7 @@ public class CreateApiTokenResponse {
 
   @JsonProperty(JSON_PROPERTY_FULL_TOKEN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFullToken(@javax.annotation.Nullable String fullToken) {
+  public void setFullToken(@jakarta.annotation.Nullable String fullToken) {
     this.fullToken = fullToken;
   }
 

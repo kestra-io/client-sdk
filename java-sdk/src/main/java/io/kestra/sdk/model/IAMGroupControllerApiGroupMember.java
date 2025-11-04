@@ -37,24 +37,24 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMGroupControllerApiGroupMember.JSON_PROPERTY_GROUPS
 })
 @JsonTypeName("IAMGroupController.ApiGroupMember")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMGroupControllerApiGroupMember {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable  private String id;
+  @jakarta.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_USERNAME = "username";
-  @javax.annotation.Nullable  private String username;
+  @jakarta.annotation.Nullable  private String username;
 
   public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
-  @javax.annotation.Nullable  private String displayName;
+  @jakarta.annotation.Nullable  private String displayName;
 
   public static final String JSON_PROPERTY_GROUPS = "groups";
-  @javax.annotation.Nullable  private List<IAMGroupControllerApiGroupMembership> groups = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<IAMGroupControllerApiGroupMembership> groups = new ArrayList<>();
 
   public IAMGroupControllerApiGroupMember() {
   }
 
-  public IAMGroupControllerApiGroupMember id(@javax.annotation.Nullable String id) {
+  public IAMGroupControllerApiGroupMember id(@jakarta.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -64,7 +64,7 @@ public class IAMGroupControllerApiGroupMember {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -74,11 +74,11 @@ public class IAMGroupControllerApiGroupMember {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  public void setId(@jakarta.annotation.Nullable String id) {
     this.id = id;
   }
 
-  public IAMGroupControllerApiGroupMember username(@javax.annotation.Nullable String username) {
+  public IAMGroupControllerApiGroupMember username(@jakarta.annotation.Nullable String username) {
     
     this.username = username;
     return this;
@@ -88,7 +88,7 @@ public class IAMGroupControllerApiGroupMember {
    * Get username
    * @return username
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_USERNAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_USERNAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUsername() {
@@ -98,11 +98,11 @@ public class IAMGroupControllerApiGroupMember {
 
   @JsonProperty(JSON_PROPERTY_USERNAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUsername(@javax.annotation.Nullable String username) {
+  public void setUsername(@jakarta.annotation.Nullable String username) {
     this.username = username;
   }
 
-  public IAMGroupControllerApiGroupMember displayName(@javax.annotation.Nullable String displayName) {
+  public IAMGroupControllerApiGroupMember displayName(@jakarta.annotation.Nullable String displayName) {
     
     this.displayName = displayName;
     return this;
@@ -112,7 +112,7 @@ public class IAMGroupControllerApiGroupMember {
    * Get displayName
    * @return displayName
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDisplayName() {
@@ -122,11 +122,11 @@ public class IAMGroupControllerApiGroupMember {
 
   @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDisplayName(@javax.annotation.Nullable String displayName) {
+  public void setDisplayName(@jakarta.annotation.Nullable String displayName) {
     this.displayName = displayName;
   }
 
-  public IAMGroupControllerApiGroupMember groups(@javax.annotation.Nullable List<IAMGroupControllerApiGroupMembership> groups) {
+  public IAMGroupControllerApiGroupMember groups(@jakarta.annotation.Nullable List<IAMGroupControllerApiGroupMembership> groups) {
     
     this.groups = groups;
     return this;
@@ -144,7 +144,7 @@ public class IAMGroupControllerApiGroupMember {
    * Get groups
    * @return groups
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUPS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUPS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<IAMGroupControllerApiGroupMembership> getGroups() {
@@ -154,7 +154,7 @@ public class IAMGroupControllerApiGroupMember {
 
   @JsonProperty(JSON_PROPERTY_GROUPS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setGroups(@javax.annotation.Nullable List<IAMGroupControllerApiGroupMembership> groups) {
+  public void setGroups(@jakarta.annotation.Nullable List<IAMGroupControllerApiGroupMembership> groups) {
     this.groups = groups;
   }
 

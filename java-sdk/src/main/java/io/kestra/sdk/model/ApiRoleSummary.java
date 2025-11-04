@@ -32,24 +32,24 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ApiRoleSummary.JSON_PROPERTY_IS_DEFAULT,
   ApiRoleSummary.JSON_PROPERTY_IS_MANAGED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ApiRoleSummary {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable  private String id;
+  @jakarta.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nullable  private String name;
+  @jakarta.annotation.Nullable  private String name;
 
   public static final String JSON_PROPERTY_IS_DEFAULT = "isDefault";
-  @javax.annotation.Nullable  private Boolean isDefault;
+  @jakarta.annotation.Nullable  private Boolean isDefault;
 
   public static final String JSON_PROPERTY_IS_MANAGED = "isManaged";
-  @javax.annotation.Nullable  private Boolean isManaged;
+  @jakarta.annotation.Nullable  private Boolean isManaged;
 
   public ApiRoleSummary() {
   }
 
-  public ApiRoleSummary id(@javax.annotation.Nullable String id) {
+  public ApiRoleSummary id(@jakarta.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -59,7 +59,7 @@ public class ApiRoleSummary {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -69,11 +69,11 @@ public class ApiRoleSummary {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  public void setId(@jakarta.annotation.Nullable String id) {
     this.id = id;
   }
 
-  public ApiRoleSummary name(@javax.annotation.Nullable String name) {
+  public ApiRoleSummary name(@jakarta.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -83,7 +83,7 @@ public class ApiRoleSummary {
    * Get name
    * @return name
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
@@ -93,11 +93,11 @@ public class ApiRoleSummary {
 
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(@javax.annotation.Nullable String name) {
+  public void setName(@jakarta.annotation.Nullable String name) {
     this.name = name;
   }
 
-  public ApiRoleSummary isDefault(@javax.annotation.Nullable Boolean isDefault) {
+  public ApiRoleSummary isDefault(@jakarta.annotation.Nullable Boolean isDefault) {
     
     this.isDefault = isDefault;
     return this;
@@ -107,7 +107,7 @@ public class ApiRoleSummary {
    * Get isDefault
    * @return isDefault
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_DEFAULT)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_DEFAULT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getIsDefault() {
@@ -117,11 +117,11 @@ public class ApiRoleSummary {
 
   @JsonProperty(JSON_PROPERTY_IS_DEFAULT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIsDefault(@javax.annotation.Nullable Boolean isDefault) {
+  public void setIsDefault(@jakarta.annotation.Nullable Boolean isDefault) {
     this.isDefault = isDefault;
   }
 
-  public ApiRoleSummary isManaged(@javax.annotation.Nullable Boolean isManaged) {
+  public ApiRoleSummary isManaged(@jakarta.annotation.Nullable Boolean isManaged) {
     
     this.isManaged = isManaged;
     return this;
@@ -131,7 +131,7 @@ public class ApiRoleSummary {
    * Get isManaged
    * @return isManaged
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_MANAGED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_MANAGED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getIsManaged() {
@@ -141,7 +141,7 @@ public class ApiRoleSummary {
 
   @JsonProperty(JSON_PROPERTY_IS_MANAGED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIsManaged(@javax.annotation.Nullable Boolean isManaged) {
+  public void setIsManaged(@jakarta.annotation.Nullable Boolean isManaged) {
     this.isManaged = isManaged;
   }
 

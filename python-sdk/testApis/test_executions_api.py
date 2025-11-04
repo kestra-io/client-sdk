@@ -183,7 +183,7 @@ triggers:
         self.kestra_client.executions.delete_execution(execution_id=exec_id, tenant=self.tenant)
 
         with self.assertRaises(Exception):
-            self.kestra_client.executions.get_execution(id=exec_id, tenant=self.tenant)
+            self.kestra_client.executions.execution(id=exec_id, tenant=self.tenant)
 
     def test_delete_executions_by_ids(self) -> None:
         """Test case for delete_executions_by_ids
@@ -207,9 +207,9 @@ triggers:
         assert resp is not None
 
         with self.assertRaises(Exception):
-            self.kestra_client.executions.get_execution(id=id1, tenant=self.tenant)
+            self.kestra_client.executions.execution(id=id1, tenant=self.tenant)
         with self.assertRaises(Exception):
-            self.kestra_client.executions.get_execution(id=id2, tenant=self.tenant)
+            self.kestra_client.executions.execution(id=id2, tenant=self.tenant)
 
     def test_delete_executions_by_query(self) -> None:
         """Test case for delete_executions_by_query
@@ -230,7 +230,7 @@ triggers:
         assert resp is not None
 
         with self.assertRaises(Exception):
-            self.kestra_client.executions.get_execution(id=exec_id, tenant=self.tenant)
+            self.kestra_client.executions.execution(id=exec_id, tenant=self.tenant)
 
     def test_download_file_from_execution(self) -> None:
         """Test case for download_file_from_execution
@@ -247,7 +247,7 @@ triggers:
 
         time.sleep(2)
 
-        execution = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+        execution = self.kestra_client.executions.execution(execution_id=exec_id, tenant=self.tenant)
 
         task_runs = getattr(execution, 'task_run_list', None) or []
         assert len(task_runs) > 0
@@ -337,7 +337,7 @@ tasks:
         assert first_id is not None
 
         for _ in range(10):
-            st = self.kestra_client.executions.get_execution(execution_id=first_id, tenant=self.tenant)
+            st = self.kestra_client.executions.execution(execution_id=first_id, tenant=self.tenant)
             if getattr(getattr(st, 'state', None), 'current', None) == 'RUNNING':
                 break
             time.sleep(0.2)
@@ -347,7 +347,7 @@ tasks:
         assert queued_id is not None
 
         for _ in range(10):
-            st = self.kestra_client.executions.get_execution(execution_id=queued_id, tenant=self.tenant)
+            st = self.kestra_client.executions.execution(execution_id=queued_id, tenant=self.tenant)
             if getattr(getattr(st, 'state', None), 'current', None) == 'QUEUED':
                 break
             time.sleep(0.2)
@@ -356,11 +356,11 @@ tasks:
         assert resp is not None
 
         for _ in range(10):
-            st = self.kestra_client.executions.get_execution(execution_id=queued_id, tenant=self.tenant)
+            st = self.kestra_client.executions.execution(execution_id=queued_id, tenant=self.tenant)
             if getattr(getattr(st, 'state', None), 'current', None) == 'RUNNING':
                 break
             time.sleep(0.2)
-        assert getattr(getattr(self.kestra_client.executions.get_execution(execution_id=queued_id, tenant=self.tenant), 'state', None), 'current', None) == 'RUNNING'
+        assert getattr(getattr(self.kestra_client.executions.execution(execution_id=queued_id, tenant=self.tenant), 'state', None), 'current', None) == 'RUNNING'
 
     def test_force_run_execution(self) -> None:
         """Test case for force_run_execution
@@ -389,7 +389,7 @@ tasks:
         assert first_id is not None
 
         for _ in range(10):
-            st = self.kestra_client.executions.get_execution(execution_id=first_id, tenant=self.tenant)
+            st = self.kestra_client.executions.execution(execution_id=first_id, tenant=self.tenant)
             if getattr(getattr(st, 'state', None), 'current', None) == 'RUNNING':
                 break
             time.sleep(0.2)
@@ -399,7 +399,7 @@ tasks:
         assert queued_id is not None
 
         for _ in range(10):
-            st = self.kestra_client.executions.get_execution(execution_id=queued_id, tenant=self.tenant)
+            st = self.kestra_client.executions.execution(execution_id=queued_id, tenant=self.tenant)
             if getattr(getattr(st, 'state', None), 'current', None) == 'QUEUED':
                 break
             time.sleep(0.2)
@@ -408,11 +408,11 @@ tasks:
         assert resp is not None
 
         for _ in range(10):
-            st = self.kestra_client.executions.get_execution(execution_id=queued_id, tenant=self.tenant)
+            st = self.kestra_client.executions.execution(execution_id=queued_id, tenant=self.tenant)
             if getattr(getattr(st, 'state', None), 'current', None) == 'RUNNING':
                 break
             time.sleep(0.2)
-        assert getattr(getattr(self.kestra_client.executions.get_execution(execution_id=queued_id, tenant=self.tenant), 'state', None), 'current', None) == 'RUNNING'
+        assert getattr(getattr(self.kestra_client.executions.execution(execution_id=queued_id, tenant=self.tenant), 'state', None), 'current', None) == 'RUNNING'
 
     def test_force_run_executions_by_query(self) -> None:
         """Test case for force_run_executions_by_query
@@ -441,7 +441,7 @@ tasks:
         assert first_id is not None
 
         for _ in range(10):
-            st = self.kestra_client.executions.get_execution(execution_id=first_id, tenant=self.tenant)
+            st = self.kestra_client.executions.execution(execution_id=first_id, tenant=self.tenant)
             if getattr(getattr(st, 'state', None), 'current', None) == 'RUNNING':
                 break
             time.sleep(0.2)
@@ -451,7 +451,7 @@ tasks:
         assert queued_id is not None
 
         for _ in range(10):
-            st = self.kestra_client.executions.get_execution(execution_id=queued_id, tenant=self.tenant)
+            st = self.kestra_client.executions.execution(execution_id=queued_id, tenant=self.tenant)
             if getattr(getattr(st, 'state', None), 'current', None) == 'QUEUED':
                 break
             time.sleep(0.2)
@@ -473,7 +473,7 @@ tasks:
         exec_id = getattr(created, 'id', None)
         assert exec_id is not None
 
-        resp = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+        resp = self.kestra_client.executions.execution(execution_id=exec_id, tenant=self.tenant)
         assert resp is not None
         assert getattr(resp, 'id', None) == exec_id
 
@@ -492,7 +492,7 @@ tasks:
 
         time.sleep(0.5)
 
-        resp = self.kestra_client.executions.get_execution_flow_graph(execution_id=exec_id, tenant=self.tenant, subflows=None)
+        resp = self.kestra_client.executions.execution_flow_graph(execution_id=exec_id, tenant=self.tenant, subflows=None)
         assert resp is not None
 
     def test_get_file_metadatas_from_execution(self) -> None:
@@ -509,12 +509,12 @@ tasks:
         assert exec_id is not None
 
         for _ in range(50):
-            st = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+            st = self.kestra_client.executions.execution(execution_id=exec_id, tenant=self.tenant)
             if getattr(getattr(st, 'state', None), 'current', None) == 'SUCCESS':
                 break
             time.sleep(0.2)
 
-        execution = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+        execution = self.kestra_client.executions.execution(execution_id=exec_id, tenant=self.tenant)
         path = None
         for tr in getattr(execution, 'task_run_list', []) or []:
             outputs = getattr(tr, 'outputs', None) or {}
@@ -523,7 +523,7 @@ tasks:
                 break
         assert path is not None
 
-        resp = self.kestra_client.executions.get_file_metadatas_from_execution(execution_id=exec_id, path=path, tenant=self.tenant)
+        resp = self.kestra_client.executions.file_metadatas_from_execution(execution_id=exec_id, path=path, tenant=self.tenant)
         assert getattr(resp, 'size', None) == 15
 
     def test_get_flow_from_execution(self) -> None:
@@ -540,12 +540,12 @@ tasks:
         assert exec_id is not None
 
         for _ in range(50):
-            st = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+            st = self.kestra_client.executions.execution(execution_id=exec_id, tenant=self.tenant)
             if getattr(getattr(st, 'state', None), 'current', None) == 'SUCCESS':
                 break
             time.sleep(0.2)
 
-        resp = self.kestra_client.executions.get_flow_from_execution(flow_id=flow_id, namespace=namespace, tenant=self.tenant)
+        resp = self.kestra_client.executions.flow_from_execution(flow_id=flow_id, namespace=namespace, tenant=self.tenant)
         assert getattr(resp, 'id', None) == flow_id
         assert getattr(resp, 'namespace', None) == namespace
 
@@ -563,12 +563,12 @@ tasks:
         assert exec_id is not None
 
         for _ in range(50):
-            st = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+            st = self.kestra_client.executions.execution(execution_id=exec_id, tenant=self.tenant)
             if getattr(getattr(st, 'state', None), 'current', None) == 'SUCCESS':
                 break
             time.sleep(0.2)
 
-        resp = self.kestra_client.executions.get_flow_from_execution_by_id(execution_id=exec_id, tenant=self.tenant)
+        resp = self.kestra_client.executions.flow_from_execution_by_id(execution_id=exec_id, tenant=self.tenant)
         assert getattr(resp, 'id', None) == flow_id
         assert getattr(resp, 'namespace', None) == namespace
 
@@ -594,7 +594,7 @@ tasks:
             {"id": flow_id, "namespace": namespace},
             {"id": other_flow_id, "namespace": namespace},
         ]
-        resp = self.kestra_client.executions.get_latest_executions(
+        resp = self.kestra_client.executions.latest_executions(
             execution_repository_interface_flow_filter=request_body,
             tenant=self.tenant,
         )
@@ -627,7 +627,7 @@ tasks:
 
         time.sleep(0.5)
 
-        st = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+        st = self.kestra_client.executions.execution(execution_id=exec_id, tenant=self.tenant)
         cur = getattr(getattr(st, 'state', None), 'current', None)
         assert cur in ('KILLED', 'FAILED', 'ABORTED', 'TERMINATED')
 
@@ -660,7 +660,7 @@ tasks:
         time.sleep(0.5)
 
         for target in (id1, id2):
-            st = self.kestra_client.executions.get_execution(execution_id=target, tenant=self.tenant)
+            st = self.kestra_client.executions.execution(execution_id=target, tenant=self.tenant)
             cur = getattr(getattr(st, 'state', None), 'current', None)
             assert cur in ('KILLED', 'FAILED', 'ABORTED', 'TERMINATED')
 
@@ -685,7 +685,7 @@ tasks:
 
         time.sleep(0.5)
 
-        st = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+        st = self.kestra_client.executions.execution(execution_id=exec_id, tenant=self.tenant)
         cur = getattr(getattr(st, 'state', None), 'current', None)
         assert cur in ('KILLED', 'FAILED', 'ABORTED', 'TERMINATED')
 
@@ -709,7 +709,7 @@ tasks:
 
         time.sleep(0.2)
 
-        st = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+        st = self.kestra_client.executions.execution(execution_id=exec_id, tenant=self.tenant)
         assert getattr(getattr(st, 'state', None), 'current', None) == 'PAUSED'
 
     def test_pause_executions_by_ids(self) -> None:
@@ -738,7 +738,7 @@ tasks:
 
         for target in (id1, id2):
             time.sleep(0.5)
-            st = self.kestra_client.executions.get_execution(execution_id=target, tenant=self.tenant)
+            st = self.kestra_client.executions.execution(execution_id=target, tenant=self.tenant)
             assert getattr(getattr(st, 'state', None), 'current', None) == 'PAUSED'
 
     def test_pause_executions_by_query(self) -> None:
@@ -762,7 +762,7 @@ tasks:
         assert resp is not None
 
         time.sleep(0.5)
-        st = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+        st = self.kestra_client.executions.execution(execution_id=exec_id, tenant=self.tenant)
         assert getattr(getattr(st, 'state', None), 'current', None) == 'PAUSED'
 
     def test_replay_execution(self) -> None:
@@ -780,7 +780,7 @@ tasks:
 
         time.sleep(0.5)
 
-        execution = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+        execution = self.kestra_client.executions.execution(execution_id=exec_id, tenant=self.tenant)
         task_run_id = None
         for tr in getattr(execution, 'task_run_list', []) or []:
             task_run_id = getattr(tr, 'id', None)
@@ -809,7 +809,7 @@ tasks:
 
         time.sleep(0.5)
 
-        execution = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+        execution = self.kestra_client.executions.execution(execution_id=exec_id, tenant=self.tenant)
         task_run_id = None
         for tr in getattr(execution, 'task_run_list', []) or []:
             task_run_id = getattr(tr, 'id', None)
@@ -881,7 +881,7 @@ tasks:
 
         time.sleep(0.5)
 
-        self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+        self.kestra_client.executions.execution(execution_id=exec_id, tenant=self.tenant)
 
         resp = self.kestra_client.executions.restart_execution(execution_id=exec_id, tenant=self.tenant)
         assert resp is not None
@@ -945,7 +945,7 @@ tasks:
 
         self.kestra_client.executions.resume_execution(execution_id=exec_id, tenant=self.tenant)
 
-        exec = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+        exec = self.kestra_client.executions.execution(execution_id=exec_id, tenant=self.tenant)
         cur = getattr(getattr(exec, 'state', None), 'current', None)
         assert cur not in ('PAUSED', 'BREAKPOINT')
 
@@ -969,7 +969,7 @@ tasks:
 
         time.sleep(0.5)
 
-        st = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+        st = self.kestra_client.executions.execution(execution_id=exec_id, tenant=self.tenant)
         cur = getattr(getattr(st, 'state', None), 'current', None)
         assert cur not in ('PAUSED', 'BREAKPOINT')
 
@@ -996,7 +996,7 @@ tasks:
 
         time.sleep(0.5)
 
-        st = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+        st = self.kestra_client.executions.execution(execution_id=exec_id, tenant=self.tenant)
         cur = getattr(getattr(st, 'state', None), 'current', None)
 
         assert cur not in ('PAUSED', 'BREAKPOINT')
@@ -1135,7 +1135,7 @@ tasks:
 
         time.sleep(0.5)
 
-        st = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+        st = self.kestra_client.executions.execution(execution_id=exec_id, tenant=self.tenant)
         cur = getattr(getattr(st, "state", None), "current", None)
         assert cur == "SUCCESS"
 
@@ -1166,7 +1166,7 @@ tasks:
         assert first_id is not None
 
         for _ in range(10):
-            st = self.kestra_client.executions.get_execution(execution_id=first_id, tenant=self.tenant)
+            st = self.kestra_client.executions.execution(execution_id=first_id, tenant=self.tenant)
             if getattr(getattr(st, 'state', None), 'current', None) == 'RUNNING':
                 break
             time.sleep(0.2)
@@ -1176,7 +1176,7 @@ tasks:
         assert queued_id is not None
 
         for _ in range(10):
-            st = self.kestra_client.executions.get_execution(execution_id=queued_id, tenant=self.tenant)
+            st = self.kestra_client.executions.execution(execution_id=queued_id, tenant=self.tenant)
             if getattr(getattr(st, 'state', None), 'current', None) == 'QUEUED':
                 break
             time.sleep(0.2)
@@ -1185,11 +1185,11 @@ tasks:
         assert resp is not None
 
         for _ in range(10):
-            st = self.kestra_client.executions.get_execution(execution_id=queued_id, tenant=self.tenant)
+            st = self.kestra_client.executions.execution(execution_id=queued_id, tenant=self.tenant)
             if getattr(getattr(st, 'state', None), 'current', None) == 'RUNNING':
                 break
             time.sleep(0.2)
-        assert getattr(getattr(self.kestra_client.executions.get_execution(execution_id=queued_id, tenant=self.tenant), 'state', None), 'current', None) == 'RUNNING'
+        assert getattr(getattr(self.kestra_client.executions.execution(execution_id=queued_id, tenant=self.tenant), 'state', None), 'current', None) == 'RUNNING'
 
 
     def test_unqueue_executions_by_ids(self) -> None:
@@ -1219,7 +1219,7 @@ tasks:
         assert first_id is not None
 
         for _ in range(10):
-            st = self.kestra_client.executions.get_execution(execution_id=first_id, tenant=self.tenant)
+            st = self.kestra_client.executions.execution(execution_id=first_id, tenant=self.tenant)
             if getattr(getattr(st, 'state', None), 'current', None) == 'RUNNING':
                 break
             time.sleep(0.2)
@@ -1239,8 +1239,8 @@ tasks:
 
         time.sleep(0.5)
 
-        assert getattr(getattr(self.kestra_client.executions.get_execution(execution_id=queued1_id, tenant=self.tenant), 'state', None), 'current', None) == 'RUNNING'
-        assert getattr(getattr(self.kestra_client.executions.get_execution(execution_id=queued2_id, tenant=self.tenant), 'state', None), 'current', None) == 'RUNNING'
+        assert getattr(getattr(self.kestra_client.executions.execution(execution_id=queued1_id, tenant=self.tenant), 'state', None), 'current', None) == 'RUNNING'
+        assert getattr(getattr(self.kestra_client.executions.execution(execution_id=queued2_id, tenant=self.tenant), 'state', None), 'current', None) == 'RUNNING'
 
 
     def test_unqueue_executions_by_query(self) -> None:
@@ -1288,7 +1288,7 @@ tasks:
 
         time.sleep(0.5)
 
-        assert getattr(getattr(self.kestra_client.executions.get_execution(execution_id=queued1_id, tenant=self.tenant), 'state', None), 'current', None) == 'RUNNING'
+        assert getattr(getattr(self.kestra_client.executions.execution(execution_id=queued1_id, tenant=self.tenant), 'state', None), 'current', None) == 'RUNNING'
 
 
     def test_update_execution_status(self) -> None:
@@ -1319,7 +1319,7 @@ tasks:
         assert updated is not None
         assert getattr(getattr(updated, "state", None), "current", None) == "CANCELLED"
 
-        st = self.kestra_client.executions.get_execution(execution_id=exec_id, tenant=self.tenant)
+        st = self.kestra_client.executions.execution(execution_id=exec_id, tenant=self.tenant)
         assert getattr(getattr(st, "state", None), "current", None) == "CANCELLED"
 
 
@@ -1362,8 +1362,8 @@ tasks:
 
         time.sleep(0.5)
 
-        assert getattr(getattr(self.kestra_client.executions.get_execution(execution_id=exec2_id, tenant=self.tenant), "state", None), "current", None) == "CANCELLED"
-        assert getattr(getattr(self.kestra_client.executions.get_execution(execution_id=other_id, tenant=self.tenant), "state", None), "current", None) == "CANCELLED"
+        assert getattr(getattr(self.kestra_client.executions.execution(execution_id=exec2_id, tenant=self.tenant), "state", None), "current", None) == "CANCELLED"
+        assert getattr(getattr(self.kestra_client.executions.execution(execution_id=other_id, tenant=self.tenant), "state", None), "current", None) == "CANCELLED"
 
 
     def test_update_executions_status_by_query(self) -> None:
@@ -1406,7 +1406,7 @@ tasks:
 
         time.sleep(0.5)
 
-        assert getattr(getattr(self.kestra_client.executions.get_execution(execution_id=exec2_id, tenant=self.tenant), "state", None), "current", None) == "CANCELLED"
+        assert getattr(getattr(self.kestra_client.executions.execution(execution_id=exec2_id, tenant=self.tenant), "state", None), "current", None) == "CANCELLED"
 
 
 if __name__ == '__main__':

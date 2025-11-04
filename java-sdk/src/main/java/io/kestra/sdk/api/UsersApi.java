@@ -50,7 +50,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")public class UsersApi extends BaseApi {
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")public class UsersApi extends BaseApi {
 
   public UsersApi() {
     super(Configuration.getDefaultApiClient());
@@ -68,7 +68,7 @@ import java.util.StringJoiner;
    * @return List&lt;IAMTenantAccessControllerApiUserTenantAccess&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<IAMTenantAccessControllerApiUserTenantAccess> autocompleteUsers(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMTenantAccessControllerUserApiAutocomplete iaMTenantAccessControllerUserApiAutocomplete) throws ApiException {
+  public List<IAMTenantAccessControllerApiUserTenantAccess> autocompleteUsers(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull IAMTenantAccessControllerUserApiAutocomplete iaMTenantAccessControllerUserApiAutocomplete) throws ApiException {
     return this.autocompleteUsers(tenant, iaMTenantAccessControllerUserApiAutocomplete, Collections.emptyMap());
   }
 
@@ -81,7 +81,7 @@ import java.util.StringJoiner;
    * @return List&lt;IAMTenantAccessControllerApiUserTenantAccess&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<IAMTenantAccessControllerApiUserTenantAccess> autocompleteUsers(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMTenantAccessControllerUserApiAutocomplete iaMTenantAccessControllerUserApiAutocomplete, Map<String, String> additionalHeaders) throws ApiException {
+  public List<IAMTenantAccessControllerApiUserTenantAccess> autocompleteUsers(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull IAMTenantAccessControllerUserApiAutocomplete iaMTenantAccessControllerUserApiAutocomplete, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = iaMTenantAccessControllerUserApiAutocomplete;
     
     // verify the required parameter 'tenant' is set
@@ -153,7 +153,7 @@ import java.util.StringJoiner;
    * @return CreateApiTokenResponse
    * @throws ApiException if fails to make API call
    */
-  public CreateApiTokenResponse createApiTokensForUser(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull CreateApiTokenRequest createApiTokenRequest) throws ApiException {
+  public CreateApiTokenResponse createApiTokensForUser(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull CreateApiTokenRequest createApiTokenRequest) throws ApiException {
     return this.createApiTokensForUser(id, createApiTokenRequest, Collections.emptyMap());
   }
 
@@ -166,7 +166,7 @@ import java.util.StringJoiner;
    * @return CreateApiTokenResponse
    * @throws ApiException if fails to make API call
    */
-  public CreateApiTokenResponse createApiTokensForUser(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull CreateApiTokenRequest createApiTokenRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public CreateApiTokenResponse createApiTokensForUser(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull CreateApiTokenRequest createApiTokenRequest, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = createApiTokenRequest;
     
     // verify the required parameter 'id' is set
@@ -237,7 +237,7 @@ import java.util.StringJoiner;
    * @return IAMUserControllerApiUser
    * @throws ApiException if fails to make API call
    */
-  public IAMUserControllerApiUser createUser(@javax.annotation.Nonnull IAMUserControllerApiCreateOrUpdateUserRequest iaMUserControllerApiCreateOrUpdateUserRequest) throws ApiException {
+  public IAMUserControllerApiUser createUser(@jakarta.annotation.Nonnull IAMUserControllerApiCreateOrUpdateUserRequest iaMUserControllerApiCreateOrUpdateUserRequest) throws ApiException {
     return this.createUser(iaMUserControllerApiCreateOrUpdateUserRequest, Collections.emptyMap());
   }
 
@@ -249,7 +249,7 @@ import java.util.StringJoiner;
    * @return IAMUserControllerApiUser
    * @throws ApiException if fails to make API call
    */
-  public IAMUserControllerApiUser createUser(@javax.annotation.Nonnull IAMUserControllerApiCreateOrUpdateUserRequest iaMUserControllerApiCreateOrUpdateUserRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMUserControllerApiUser createUser(@jakarta.annotation.Nonnull IAMUserControllerApiCreateOrUpdateUserRequest iaMUserControllerApiCreateOrUpdateUserRequest, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = iaMUserControllerApiCreateOrUpdateUserRequest;
     
     // verify the required parameter 'iaMUserControllerApiCreateOrUpdateUserRequest' is set
@@ -314,7 +314,7 @@ import java.util.StringJoiner;
    * @param tokenId The token id (required)
    * @throws ApiException if fails to make API call
    */
-  public void deleteApiTokenForUser(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tokenId) throws ApiException {
+  public void deleteApiTokenForUser(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tokenId) throws ApiException {
     this.deleteApiTokenForUser(id, tokenId, Collections.emptyMap());
   }
 
@@ -326,7 +326,7 @@ import java.util.StringJoiner;
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void deleteApiTokenForUser(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tokenId, Map<String, String> additionalHeaders) throws ApiException {
+  public void deleteApiTokenForUser(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tokenId, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -396,7 +396,7 @@ import java.util.StringJoiner;
    * @param id The user id (required)
    * @throws ApiException if fails to make API call
    */
-  public void deleteRefreshToken(@javax.annotation.Nonnull String id) throws ApiException {
+  public void deleteRefreshToken(@jakarta.annotation.Nonnull String id) throws ApiException {
     this.deleteRefreshToken(id, Collections.emptyMap());
   }
 
@@ -407,7 +407,7 @@ import java.util.StringJoiner;
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void deleteRefreshToken(@javax.annotation.Nonnull String id, Map<String, String> additionalHeaders) throws ApiException {
+  public void deleteRefreshToken(@jakarta.annotation.Nonnull String id, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -471,7 +471,7 @@ import java.util.StringJoiner;
    * @param id The user id (required)
    * @throws ApiException if fails to make API call
    */
-  public void deleteUser(@javax.annotation.Nonnull String id) throws ApiException {
+  public void deleteUser(@jakarta.annotation.Nonnull String id) throws ApiException {
     this.deleteUser(id, Collections.emptyMap());
   }
 
@@ -482,7 +482,7 @@ import java.util.StringJoiner;
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void deleteUser(@javax.annotation.Nonnull String id, Map<String, String> additionalHeaders) throws ApiException {
+  public void deleteUser(@jakarta.annotation.Nonnull String id, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -548,7 +548,7 @@ import java.util.StringJoiner;
    * @return IAMUserControllerApiUser
    * @throws ApiException if fails to make API call
    */
-  public IAMUserControllerApiUser deleteUserAuthMethod(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String auth) throws ApiException {
+  public IAMUserControllerApiUser deleteUserAuthMethod(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String auth) throws ApiException {
     return this.deleteUserAuthMethod(id, auth, Collections.emptyMap());
   }
 
@@ -561,7 +561,7 @@ import java.util.StringJoiner;
    * @return IAMUserControllerApiUser
    * @throws ApiException if fails to make API call
    */
-  public IAMUserControllerApiUser deleteUserAuthMethod(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String auth, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMUserControllerApiUser deleteUserAuthMethod(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String auth, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -627,91 +627,13 @@ import java.util.StringJoiner;
 
 
   /**
-   * Get a user
-   * Superadmin-only. Get user account details.
-   * @param id The user id (required)
-   * @return IAMUserControllerApiUser
-   * @throws ApiException if fails to make API call
-   */
-  public IAMUserControllerApiUser getUser(@javax.annotation.Nonnull String id) throws ApiException {
-    return this.getUser(id, Collections.emptyMap());
-  }
-
-  /**
-   * Get a user
-   * Superadmin-only. Get user account details.
-   * @param id The user id (required)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return IAMUserControllerApiUser
-   * @throws ApiException if fails to make API call
-   */
-  public IAMUserControllerApiUser getUser(@javax.annotation.Nonnull String id, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getUser");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/users/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<IAMUserControllerApiUser> localVarReturnType = new TypeReference<IAMUserControllerApiUser>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "GET",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
-
-
-
-
-
-
-  /**
    * Impersonate a user
    * Superadmin-only. Allows an admin to impersonate another user.
    * @param id The user id (required)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object impersonate(@javax.annotation.Nonnull String id) throws ApiException {
+  public Object impersonate(@jakarta.annotation.Nonnull String id) throws ApiException {
     return this.impersonate(id, Collections.emptyMap());
   }
 
@@ -723,7 +645,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object impersonate(@javax.annotation.Nonnull String id, Map<String, String> additionalHeaders) throws ApiException {
+  public Object impersonate(@jakarta.annotation.Nonnull String id, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -789,7 +711,7 @@ import java.util.StringJoiner;
    * @return ApiTokenList
    * @throws ApiException if fails to make API call
    */
-  public ApiTokenList listApiTokensForUser(@javax.annotation.Nonnull String id) throws ApiException {
+  public ApiTokenList listApiTokensForUser(@jakarta.annotation.Nonnull String id) throws ApiException {
     return this.listApiTokensForUser(id, Collections.emptyMap());
   }
 
@@ -801,7 +723,7 @@ import java.util.StringJoiner;
    * @return ApiTokenList
    * @throws ApiException if fails to make API call
    */
-  public ApiTokenList listApiTokensForUser(@javax.annotation.Nonnull String id, Map<String, String> additionalHeaders) throws ApiException {
+  public ApiTokenList listApiTokensForUser(@jakarta.annotation.Nonnull String id, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -870,7 +792,7 @@ import java.util.StringJoiner;
    * @return PagedResultsIAMUserControllerApiUserSummary
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsIAMUserControllerApiUserSummary listUsers(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort) throws ApiException {
+  public PagedResultsIAMUserControllerApiUserSummary listUsers(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
     return this.listUsers(page, size, q, sort, Collections.emptyMap());
   }
 
@@ -885,7 +807,7 @@ import java.util.StringJoiner;
    * @return PagedResultsIAMUserControllerApiUserSummary
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsIAMUserControllerApiUserSummary listUsers(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsIAMUserControllerApiUserSummary listUsers(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'page' is set
@@ -960,7 +882,7 @@ import java.util.StringJoiner;
    * @return IAMUserControllerApiUser
    * @throws ApiException if fails to make API call
    */
-  public IAMUserControllerApiUser patchUser(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull MeControllerApiUserDetailsRequest meControllerApiUserDetailsRequest) throws ApiException {
+  public IAMUserControllerApiUser patchUser(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull MeControllerApiUserDetailsRequest meControllerApiUserDetailsRequest) throws ApiException {
     return this.patchUser(id, meControllerApiUserDetailsRequest, Collections.emptyMap());
   }
 
@@ -973,7 +895,7 @@ import java.util.StringJoiner;
    * @return IAMUserControllerApiUser
    * @throws ApiException if fails to make API call
    */
-  public IAMUserControllerApiUser patchUser(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull MeControllerApiUserDetailsRequest meControllerApiUserDetailsRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMUserControllerApiUser patchUser(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull MeControllerApiUserDetailsRequest meControllerApiUserDetailsRequest, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = meControllerApiUserDetailsRequest;
     
     // verify the required parameter 'id' is set
@@ -1044,7 +966,7 @@ import java.util.StringJoiner;
    * @param iaMUserControllerApiPatchRestrictedRequest  (required)
    * @throws ApiException if fails to make API call
    */
-  public void patchUserDemo(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull IAMUserControllerApiPatchRestrictedRequest iaMUserControllerApiPatchRestrictedRequest) throws ApiException {
+  public void patchUserDemo(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull IAMUserControllerApiPatchRestrictedRequest iaMUserControllerApiPatchRestrictedRequest) throws ApiException {
     this.patchUserDemo(id, iaMUserControllerApiPatchRestrictedRequest, Collections.emptyMap());
   }
 
@@ -1056,7 +978,7 @@ import java.util.StringJoiner;
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void patchUserDemo(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull IAMUserControllerApiPatchRestrictedRequest iaMUserControllerApiPatchRestrictedRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public void patchUserDemo(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull IAMUserControllerApiPatchRestrictedRequest iaMUserControllerApiPatchRestrictedRequest, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = iaMUserControllerApiPatchRestrictedRequest;
     
     // verify the required parameter 'id' is set
@@ -1127,7 +1049,7 @@ import java.util.StringJoiner;
    * @return IAMUserControllerApiUser
    * @throws ApiException if fails to make API call
    */
-  public IAMUserControllerApiUser patchUserPassword(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull IAMUserControllerApiPatchUserPasswordRequest iaMUserControllerApiPatchUserPasswordRequest) throws ApiException {
+  public IAMUserControllerApiUser patchUserPassword(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull IAMUserControllerApiPatchUserPasswordRequest iaMUserControllerApiPatchUserPasswordRequest) throws ApiException {
     return this.patchUserPassword(id, iaMUserControllerApiPatchUserPasswordRequest, Collections.emptyMap());
   }
 
@@ -1140,7 +1062,7 @@ import java.util.StringJoiner;
    * @return IAMUserControllerApiUser
    * @throws ApiException if fails to make API call
    */
-  public IAMUserControllerApiUser patchUserPassword(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull IAMUserControllerApiPatchUserPasswordRequest iaMUserControllerApiPatchUserPasswordRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMUserControllerApiUser patchUserPassword(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull IAMUserControllerApiPatchUserPasswordRequest iaMUserControllerApiPatchUserPasswordRequest, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = iaMUserControllerApiPatchUserPasswordRequest;
     
     // verify the required parameter 'id' is set
@@ -1211,7 +1133,7 @@ import java.util.StringJoiner;
    * @param apiPatchSuperAdminRequest  (required)
    * @throws ApiException if fails to make API call
    */
-  public void patchUserSuperAdmin(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull ApiPatchSuperAdminRequest apiPatchSuperAdminRequest) throws ApiException {
+  public void patchUserSuperAdmin(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull ApiPatchSuperAdminRequest apiPatchSuperAdminRequest) throws ApiException {
     this.patchUserSuperAdmin(id, apiPatchSuperAdminRequest, Collections.emptyMap());
   }
 
@@ -1223,7 +1145,7 @@ import java.util.StringJoiner;
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void patchUserSuperAdmin(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull ApiPatchSuperAdminRequest apiPatchSuperAdminRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public void patchUserSuperAdmin(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull ApiPatchSuperAdminRequest apiPatchSuperAdminRequest, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = apiPatchSuperAdminRequest;
     
     // verify the required parameter 'id' is set
@@ -1293,7 +1215,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object updateCurrentUserPassword(@javax.annotation.Nonnull MeControllerApiUpdatePasswordRequest meControllerApiUpdatePasswordRequest) throws ApiException {
+  public Object updateCurrentUserPassword(@jakarta.annotation.Nonnull MeControllerApiUpdatePasswordRequest meControllerApiUpdatePasswordRequest) throws ApiException {
     return this.updateCurrentUserPassword(meControllerApiUpdatePasswordRequest, Collections.emptyMap());
   }
 
@@ -1305,7 +1227,7 @@ import java.util.StringJoiner;
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object updateCurrentUserPassword(@javax.annotation.Nonnull MeControllerApiUpdatePasswordRequest meControllerApiUpdatePasswordRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public Object updateCurrentUserPassword(@jakarta.annotation.Nonnull MeControllerApiUpdatePasswordRequest meControllerApiUpdatePasswordRequest, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = meControllerApiUpdatePasswordRequest;
     
     // verify the required parameter 'meControllerApiUpdatePasswordRequest' is set
@@ -1371,7 +1293,7 @@ import java.util.StringJoiner;
    * @return IAMUserControllerApiUser
    * @throws ApiException if fails to make API call
    */
-  public IAMUserControllerApiUser updateUser(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull IAMUserControllerApiCreateOrUpdateUserRequest iaMUserControllerApiCreateOrUpdateUserRequest) throws ApiException {
+  public IAMUserControllerApiUser updateUser(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull IAMUserControllerApiCreateOrUpdateUserRequest iaMUserControllerApiCreateOrUpdateUserRequest) throws ApiException {
     return this.updateUser(id, iaMUserControllerApiCreateOrUpdateUserRequest, Collections.emptyMap());
   }
 
@@ -1384,7 +1306,7 @@ import java.util.StringJoiner;
    * @return IAMUserControllerApiUser
    * @throws ApiException if fails to make API call
    */
-  public IAMUserControllerApiUser updateUser(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull IAMUserControllerApiCreateOrUpdateUserRequest iaMUserControllerApiCreateOrUpdateUserRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMUserControllerApiUser updateUser(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull IAMUserControllerApiCreateOrUpdateUserRequest iaMUserControllerApiCreateOrUpdateUserRequest, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = iaMUserControllerApiCreateOrUpdateUserRequest;
     
     // verify the required parameter 'id' is set
@@ -1456,7 +1378,7 @@ import java.util.StringJoiner;
    * @param iaMUserGroupControllerApiUpdateUserGroupsRequest  (required)
    * @throws ApiException if fails to make API call
    */
-  public void updateUserGroups(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMUserGroupControllerApiUpdateUserGroupsRequest iaMUserGroupControllerApiUpdateUserGroupsRequest) throws ApiException {
+  public void updateUserGroups(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull IAMUserGroupControllerApiUpdateUserGroupsRequest iaMUserGroupControllerApiUpdateUserGroupsRequest) throws ApiException {
     this.updateUserGroups(id, tenant, iaMUserGroupControllerApiUpdateUserGroupsRequest, Collections.emptyMap());
   }
 
@@ -1469,7 +1391,7 @@ import java.util.StringJoiner;
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void updateUserGroups(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMUserGroupControllerApiUpdateUserGroupsRequest iaMUserGroupControllerApiUpdateUserGroupsRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public void updateUserGroups(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull IAMUserGroupControllerApiUpdateUserGroupsRequest iaMUserGroupControllerApiUpdateUserGroupsRequest, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = iaMUserGroupControllerApiUpdateUserGroupsRequest;
     
     // verify the required parameter 'id' is set
@@ -1533,6 +1455,84 @@ import java.util.StringJoiner;
     );
   }
 
+
+
+
+
+
+  /**
+   * Get a user
+   * Superadmin-only. Get user account details.
+   * @param id The user id (required)
+   * @return IAMUserControllerApiUser
+   * @throws ApiException if fails to make API call
+   */
+  public IAMUserControllerApiUser user(@jakarta.annotation.Nonnull String id) throws ApiException {
+    return this.user(id, Collections.emptyMap());
+  }
+
+  /**
+   * Get a user
+   * Superadmin-only. Get user account details.
+   * @param id The user id (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return IAMUserControllerApiUser
+   * @throws ApiException if fails to make API call
+   */
+  public IAMUserControllerApiUser user(@jakarta.annotation.Nonnull String id, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling user");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/users/{id}"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<IAMUserControllerApiUser> localVarReturnType = new TypeReference<IAMUserControllerApiUser>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "GET",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
   @Override
   public <T> T invokeAPI(String url, String method, Object request, TypeReference<T> returnType, Map<String, String> additionalHeaders) throws ApiException {
     String localVarPath = url.replace(apiClient.getBaseURL(), "");
@@ -1546,12 +1546,12 @@ import java.util.StringJoiner;
     localVarHeaderParams.putAll(additionalHeaders);
 
     final String[] localVarAccepts = {
-      
+      "application/json"
     };
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 

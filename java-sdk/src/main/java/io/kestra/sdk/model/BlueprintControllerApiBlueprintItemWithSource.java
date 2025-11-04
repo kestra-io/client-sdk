@@ -42,36 +42,36 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   BlueprintControllerApiBlueprintItemWithSource.JSON_PROPERTY_KIND
 })
 @JsonTypeName("BlueprintController.ApiBlueprintItemWithSource")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class BlueprintControllerApiBlueprintItemWithSource {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable  private String id;
+  @jakarta.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_TITLE = "title";
-  @javax.annotation.Nullable  private String title;
+  @jakarta.annotation.Nullable  private String title;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable  private String description;
+  @jakarta.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_INCLUDED_TASKS = "includedTasks";
-  @javax.annotation.Nullable  private List<String> includedTasks = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> includedTasks = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TAGS = "tags";
-  @javax.annotation.Nullable  private List<String> tags = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> tags = new ArrayList<>();
 
   public static final String JSON_PROPERTY_PUBLISHED_AT = "publishedAt";
-  @javax.annotation.Nullable  private OffsetDateTime publishedAt;
+  @jakarta.annotation.Nullable  private OffsetDateTime publishedAt;
 
   public static final String JSON_PROPERTY_SOURCE = "source";
-  @javax.annotation.Nullable  private String source;
+  @jakarta.annotation.Nullable  private String source;
 
   public static final String JSON_PROPERTY_KIND = "kind";
-  @javax.annotation.Nullable  private BlueprintControllerKind kind;
+  @jakarta.annotation.Nullable  private BlueprintControllerKind kind;
 
   public BlueprintControllerApiBlueprintItemWithSource() {
   }
 
-  public BlueprintControllerApiBlueprintItemWithSource id(@javax.annotation.Nullable String id) {
+  public BlueprintControllerApiBlueprintItemWithSource id(@jakarta.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -81,7 +81,7 @@ public class BlueprintControllerApiBlueprintItemWithSource {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -91,11 +91,11 @@ public class BlueprintControllerApiBlueprintItemWithSource {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  public void setId(@jakarta.annotation.Nullable String id) {
     this.id = id;
   }
 
-  public BlueprintControllerApiBlueprintItemWithSource title(@javax.annotation.Nullable String title) {
+  public BlueprintControllerApiBlueprintItemWithSource title(@jakarta.annotation.Nullable String title) {
     
     this.title = title;
     return this;
@@ -105,7 +105,7 @@ public class BlueprintControllerApiBlueprintItemWithSource {
    * Get title
    * @return title
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TITLE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TITLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTitle() {
@@ -115,11 +115,11 @@ public class BlueprintControllerApiBlueprintItemWithSource {
 
   @JsonProperty(JSON_PROPERTY_TITLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTitle(@javax.annotation.Nullable String title) {
+  public void setTitle(@jakarta.annotation.Nullable String title) {
     this.title = title;
   }
 
-  public BlueprintControllerApiBlueprintItemWithSource description(@javax.annotation.Nullable String description) {
+  public BlueprintControllerApiBlueprintItemWithSource description(@jakarta.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -129,7 +129,7 @@ public class BlueprintControllerApiBlueprintItemWithSource {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -139,11 +139,11 @@ public class BlueprintControllerApiBlueprintItemWithSource {
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(@javax.annotation.Nullable String description) {
+  public void setDescription(@jakarta.annotation.Nullable String description) {
     this.description = description;
   }
 
-  public BlueprintControllerApiBlueprintItemWithSource includedTasks(@javax.annotation.Nullable List<String> includedTasks) {
+  public BlueprintControllerApiBlueprintItemWithSource includedTasks(@jakarta.annotation.Nullable List<String> includedTasks) {
     
     this.includedTasks = includedTasks;
     return this;
@@ -161,7 +161,7 @@ public class BlueprintControllerApiBlueprintItemWithSource {
    * Get includedTasks
    * @return includedTasks
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INCLUDED_TASKS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INCLUDED_TASKS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getIncludedTasks() {
@@ -171,11 +171,11 @@ public class BlueprintControllerApiBlueprintItemWithSource {
 
   @JsonProperty(JSON_PROPERTY_INCLUDED_TASKS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIncludedTasks(@javax.annotation.Nullable List<String> includedTasks) {
+  public void setIncludedTasks(@jakarta.annotation.Nullable List<String> includedTasks) {
     this.includedTasks = includedTasks;
   }
 
-  public BlueprintControllerApiBlueprintItemWithSource tags(@javax.annotation.Nullable List<String> tags) {
+  public BlueprintControllerApiBlueprintItemWithSource tags(@jakarta.annotation.Nullable List<String> tags) {
     
     this.tags = tags;
     return this;
@@ -193,7 +193,7 @@ public class BlueprintControllerApiBlueprintItemWithSource {
    * Get tags
    * @return tags
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TAGS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TAGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getTags() {
@@ -203,11 +203,11 @@ public class BlueprintControllerApiBlueprintItemWithSource {
 
   @JsonProperty(JSON_PROPERTY_TAGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTags(@javax.annotation.Nullable List<String> tags) {
+  public void setTags(@jakarta.annotation.Nullable List<String> tags) {
     this.tags = tags;
   }
 
-  public BlueprintControllerApiBlueprintItemWithSource publishedAt(@javax.annotation.Nullable OffsetDateTime publishedAt) {
+  public BlueprintControllerApiBlueprintItemWithSource publishedAt(@jakarta.annotation.Nullable OffsetDateTime publishedAt) {
     
     this.publishedAt = publishedAt;
     return this;
@@ -217,7 +217,7 @@ public class BlueprintControllerApiBlueprintItemWithSource {
    * Get publishedAt
    * @return publishedAt
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PUBLISHED_AT)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PUBLISHED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getPublishedAt() {
@@ -227,11 +227,11 @@ public class BlueprintControllerApiBlueprintItemWithSource {
 
   @JsonProperty(JSON_PROPERTY_PUBLISHED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPublishedAt(@javax.annotation.Nullable OffsetDateTime publishedAt) {
+  public void setPublishedAt(@jakarta.annotation.Nullable OffsetDateTime publishedAt) {
     this.publishedAt = publishedAt;
   }
 
-  public BlueprintControllerApiBlueprintItemWithSource source(@javax.annotation.Nullable String source) {
+  public BlueprintControllerApiBlueprintItemWithSource source(@jakarta.annotation.Nullable String source) {
     
     this.source = source;
     return this;
@@ -241,7 +241,7 @@ public class BlueprintControllerApiBlueprintItemWithSource {
    * Get source
    * @return source
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SOURCE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SOURCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSource() {
@@ -251,11 +251,11 @@ public class BlueprintControllerApiBlueprintItemWithSource {
 
   @JsonProperty(JSON_PROPERTY_SOURCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSource(@javax.annotation.Nullable String source) {
+  public void setSource(@jakarta.annotation.Nullable String source) {
     this.source = source;
   }
 
-  public BlueprintControllerApiBlueprintItemWithSource kind(@javax.annotation.Nullable BlueprintControllerKind kind) {
+  public BlueprintControllerApiBlueprintItemWithSource kind(@jakarta.annotation.Nullable BlueprintControllerKind kind) {
     
     this.kind = kind;
     return this;
@@ -265,7 +265,7 @@ public class BlueprintControllerApiBlueprintItemWithSource {
    * Get kind
    * @return kind
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_KIND)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_KIND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public BlueprintControllerKind getKind() {
@@ -275,7 +275,7 @@ public class BlueprintControllerApiBlueprintItemWithSource {
 
   @JsonProperty(JSON_PROPERTY_KIND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setKind(@javax.annotation.Nullable BlueprintControllerKind kind) {
+  public void setKind(@jakarta.annotation.Nullable BlueprintControllerKind kind) {
     this.kind = kind;
   }
 

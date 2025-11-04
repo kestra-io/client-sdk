@@ -34,24 +34,24 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IdentityProvider.JSON_PROPERTY_SECURITY_INTEGRATION_ID,
   IdentityProvider.JSON_PROPERTY_SECURITY_INTEGRATION_NAME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IdentityProvider {
   public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
-  @javax.annotation.Nullable  private Map<String, Object> attributes = new HashMap<>();
+  @jakarta.annotation.Nullable  private Map<String, Object> attributes = new HashMap<>();
 
   public static final String JSON_PROPERTY_EXTERNAL_ID = "externalId";
-  @javax.annotation.Nullable  private String externalId;
+  @jakarta.annotation.Nullable  private String externalId;
 
   public static final String JSON_PROPERTY_SECURITY_INTEGRATION_ID = "securityIntegrationId";
-  @javax.annotation.Nullable  private String securityIntegrationId;
+  @jakarta.annotation.Nullable  private String securityIntegrationId;
 
   public static final String JSON_PROPERTY_SECURITY_INTEGRATION_NAME = "securityIntegrationName";
-  @javax.annotation.Nullable  private String securityIntegrationName;
+  @jakarta.annotation.Nullable  private String securityIntegrationName;
 
   public IdentityProvider() {
   }
 
-  public IdentityProvider attributes(@javax.annotation.Nullable Map<String, Object> attributes) {
+  public IdentityProvider attributes(@jakarta.annotation.Nullable Map<String, Object> attributes) {
     
     this.attributes = attributes;
     return this;
@@ -69,7 +69,7 @@ public class IdentityProvider {
    * Get attributes
    * @return attributes
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getAttributes() {
@@ -79,11 +79,11 @@ public class IdentityProvider {
 
   @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAttributes(@javax.annotation.Nullable Map<String, Object> attributes) {
+  public void setAttributes(@jakarta.annotation.Nullable Map<String, Object> attributes) {
     this.attributes = attributes;
   }
 
-  public IdentityProvider externalId(@javax.annotation.Nullable String externalId) {
+  public IdentityProvider externalId(@jakarta.annotation.Nullable String externalId) {
     
     this.externalId = externalId;
     return this;
@@ -93,7 +93,7 @@ public class IdentityProvider {
    * Get externalId
    * @return externalId
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getExternalId() {
@@ -103,11 +103,11 @@ public class IdentityProvider {
 
   @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExternalId(@javax.annotation.Nullable String externalId) {
+  public void setExternalId(@jakarta.annotation.Nullable String externalId) {
     this.externalId = externalId;
   }
 
-  public IdentityProvider securityIntegrationId(@javax.annotation.Nullable String securityIntegrationId) {
+  public IdentityProvider securityIntegrationId(@jakarta.annotation.Nullable String securityIntegrationId) {
     
     this.securityIntegrationId = securityIntegrationId;
     return this;
@@ -117,7 +117,7 @@ public class IdentityProvider {
    * Get securityIntegrationId
    * @return securityIntegrationId
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECURITY_INTEGRATION_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECURITY_INTEGRATION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSecurityIntegrationId() {
@@ -127,11 +127,11 @@ public class IdentityProvider {
 
   @JsonProperty(JSON_PROPERTY_SECURITY_INTEGRATION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSecurityIntegrationId(@javax.annotation.Nullable String securityIntegrationId) {
+  public void setSecurityIntegrationId(@jakarta.annotation.Nullable String securityIntegrationId) {
     this.securityIntegrationId = securityIntegrationId;
   }
 
-  public IdentityProvider securityIntegrationName(@javax.annotation.Nullable String securityIntegrationName) {
+  public IdentityProvider securityIntegrationName(@jakarta.annotation.Nullable String securityIntegrationName) {
     
     this.securityIntegrationName = securityIntegrationName;
     return this;
@@ -141,7 +141,7 @@ public class IdentityProvider {
    * Get securityIntegrationName
    * @return securityIntegrationName
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECURITY_INTEGRATION_NAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECURITY_INTEGRATION_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSecurityIntegrationName() {
@@ -151,7 +151,7 @@ public class IdentityProvider {
 
   @JsonProperty(JSON_PROPERTY_SECURITY_INTEGRATION_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSecurityIntegrationName(@javax.annotation.Nullable String securityIntegrationName) {
+  public void setSecurityIntegrationName(@jakarta.annotation.Nullable String securityIntegrationName) {
     this.securityIntegrationName = securityIntegrationName;
   }
 

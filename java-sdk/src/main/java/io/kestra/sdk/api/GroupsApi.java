@@ -46,7 +46,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")public class GroupsApi extends BaseApi {
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")public class GroupsApi extends BaseApi {
 
   public GroupsApi() {
     super(Configuration.getDefaultApiClient());
@@ -65,7 +65,7 @@ import java.util.StringJoiner;
    * @return IAMGroupControllerApiGroupMember
    * @throws ApiException if fails to make API call
    */
-  public IAMGroupControllerApiGroupMember addUserToGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String userId, @javax.annotation.Nonnull String tenant) throws ApiException {
+  public IAMGroupControllerApiGroupMember addUserToGroup(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String userId, @jakarta.annotation.Nonnull String tenant) throws ApiException {
     return this.addUserToGroup(id, userId, tenant, Collections.emptyMap());
   }
 
@@ -79,7 +79,7 @@ import java.util.StringJoiner;
    * @return IAMGroupControllerApiGroupMember
    * @throws ApiException if fails to make API call
    */
-  public IAMGroupControllerApiGroupMember addUserToGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String userId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMGroupControllerApiGroupMember addUserToGroup(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String userId, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -158,7 +158,7 @@ import java.util.StringJoiner;
    * @return List&lt;ApiGroupSummary&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<ApiGroupSummary> autocompleteGroups(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiAutocomplete apiAutocomplete) throws ApiException {
+  public List<ApiGroupSummary> autocompleteGroups(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull ApiAutocomplete apiAutocomplete) throws ApiException {
     return this.autocompleteGroups(tenant, apiAutocomplete, Collections.emptyMap());
   }
 
@@ -171,7 +171,7 @@ import java.util.StringJoiner;
    * @return List&lt;ApiGroupSummary&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<ApiGroupSummary> autocompleteGroups(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiAutocomplete apiAutocomplete, Map<String, String> additionalHeaders) throws ApiException {
+  public List<ApiGroupSummary> autocompleteGroups(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull ApiAutocomplete apiAutocomplete, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = apiAutocomplete;
     
     // verify the required parameter 'tenant' is set
@@ -243,7 +243,7 @@ import java.util.StringJoiner;
    * @return IAMGroupControllerApiGroupDetail
    * @throws ApiException if fails to make API call
    */
-  public IAMGroupControllerApiGroupDetail createGroup(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMGroupControllerApiCreateGroupRequest iaMGroupControllerApiCreateGroupRequest) throws ApiException {
+  public IAMGroupControllerApiGroupDetail createGroup(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull IAMGroupControllerApiCreateGroupRequest iaMGroupControllerApiCreateGroupRequest) throws ApiException {
     return this.createGroup(tenant, iaMGroupControllerApiCreateGroupRequest, Collections.emptyMap());
   }
 
@@ -256,7 +256,7 @@ import java.util.StringJoiner;
    * @return IAMGroupControllerApiGroupDetail
    * @throws ApiException if fails to make API call
    */
-  public IAMGroupControllerApiGroupDetail createGroup(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMGroupControllerApiCreateGroupRequest iaMGroupControllerApiCreateGroupRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMGroupControllerApiGroupDetail createGroup(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull IAMGroupControllerApiCreateGroupRequest iaMGroupControllerApiCreateGroupRequest, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = iaMGroupControllerApiCreateGroupRequest;
     
     // verify the required parameter 'tenant' is set
@@ -327,7 +327,7 @@ import java.util.StringJoiner;
    * @param tenant  (required)
    * @throws ApiException if fails to make API call
    */
-  public void deleteGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant) throws ApiException {
+  public void deleteGroup(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant) throws ApiException {
     this.deleteGroup(id, tenant, Collections.emptyMap());
   }
 
@@ -339,7 +339,7 @@ import java.util.StringJoiner;
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void deleteGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public void deleteGroup(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -412,7 +412,7 @@ import java.util.StringJoiner;
    * @return IAMGroupControllerApiGroupMember
    * @throws ApiException if fails to make API call
    */
-  public IAMGroupControllerApiGroupMember deleteUserFromGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String userId, @javax.annotation.Nonnull String tenant) throws ApiException {
+  public IAMGroupControllerApiGroupMember deleteUserFromGroup(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String userId, @jakarta.annotation.Nonnull String tenant) throws ApiException {
     return this.deleteUserFromGroup(id, userId, tenant, Collections.emptyMap());
   }
 
@@ -426,7 +426,7 @@ import java.util.StringJoiner;
    * @return IAMGroupControllerApiGroupMember
    * @throws ApiException if fails to make API call
    */
-  public IAMGroupControllerApiGroupMember deleteUserFromGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String userId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMGroupControllerApiGroupMember deleteUserFromGroup(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String userId, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -505,8 +505,8 @@ import java.util.StringJoiner;
    * @return IAMGroupControllerApiGroupDetail
    * @throws ApiException if fails to make API call
    */
-  public IAMGroupControllerApiGroupDetail getGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.getGroup(id, tenant, Collections.emptyMap());
+  public IAMGroupControllerApiGroupDetail group(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.group(id, tenant, Collections.emptyMap());
   }
 
   /**
@@ -518,17 +518,17 @@ import java.util.StringJoiner;
    * @return IAMGroupControllerApiGroupDetail
    * @throws ApiException if fails to make API call
    */
-  public IAMGroupControllerApiGroupDetail getGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMGroupControllerApiGroupDetail group(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getGroup");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling group");
     }
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling getGroup");
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling group");
     }
     
     // create path and map variables
@@ -591,7 +591,7 @@ import java.util.StringJoiner;
    * @return List&lt;ApiGroupSummary&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<ApiGroupSummary> listGroupIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiIds apiIds) throws ApiException {
+  public List<ApiGroupSummary> listGroupIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull ApiIds apiIds) throws ApiException {
     return this.listGroupIds(tenant, apiIds, Collections.emptyMap());
   }
 
@@ -604,7 +604,7 @@ import java.util.StringJoiner;
    * @return List&lt;ApiGroupSummary&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<ApiGroupSummary> listGroupIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiIds apiIds, Map<String, String> additionalHeaders) throws ApiException {
+  public List<ApiGroupSummary> listGroupIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull ApiIds apiIds, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = apiIds;
     
     // verify the required parameter 'tenant' is set
@@ -680,7 +680,7 @@ import java.util.StringJoiner;
    * @return PagedResultsIAMGroupControllerApiGroupMember
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsIAMGroupControllerApiGroupMember searchGroupMembers(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort) throws ApiException {
+  public PagedResultsIAMGroupControllerApiGroupMember searchGroupMembers(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
     return this.searchGroupMembers(id, page, size, tenant, q, sort, Collections.emptyMap());
   }
 
@@ -697,7 +697,7 @@ import java.util.StringJoiner;
    * @return PagedResultsIAMGroupControllerApiGroupMember
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsIAMGroupControllerApiGroupMember searchGroupMembers(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsIAMGroupControllerApiGroupMember searchGroupMembers(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -787,7 +787,7 @@ import java.util.StringJoiner;
    * @return PagedResultsApiGroupSummary
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsApiGroupSummary searchGroups(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort) throws ApiException {
+  public PagedResultsApiGroupSummary searchGroups(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
     return this.searchGroups(page, size, tenant, q, sort, Collections.emptyMap());
   }
 
@@ -803,7 +803,7 @@ import java.util.StringJoiner;
    * @return PagedResultsApiGroupSummary
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsApiGroupSummary searchGroups(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsApiGroupSummary searchGroups(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'page' is set
@@ -886,7 +886,7 @@ import java.util.StringJoiner;
    * @return IAMGroupControllerApiGroupMember
    * @throws ApiException if fails to make API call
    */
-  public IAMGroupControllerApiGroupMember setUserMembershipForGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String userId, @javax.annotation.Nonnull GroupIdentifierMembership membership, @javax.annotation.Nonnull String tenant) throws ApiException {
+  public IAMGroupControllerApiGroupMember setUserMembershipForGroup(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String userId, @jakarta.annotation.Nonnull GroupIdentifierMembership membership, @jakarta.annotation.Nonnull String tenant) throws ApiException {
     return this.setUserMembershipForGroup(id, userId, membership, tenant, Collections.emptyMap());
   }
 
@@ -901,7 +901,7 @@ import java.util.StringJoiner;
    * @return IAMGroupControllerApiGroupMember
    * @throws ApiException if fails to make API call
    */
-  public IAMGroupControllerApiGroupMember setUserMembershipForGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String userId, @javax.annotation.Nonnull GroupIdentifierMembership membership, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMGroupControllerApiGroupMember setUserMembershipForGroup(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String userId, @jakarta.annotation.Nonnull GroupIdentifierMembership membership, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -987,7 +987,7 @@ import java.util.StringJoiner;
    * @return IAMGroupControllerApiGroupDetail
    * @throws ApiException if fails to make API call
    */
-  public IAMGroupControllerApiGroupDetail updateGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMGroupControllerApiUpdateGroupRequest iaMGroupControllerApiUpdateGroupRequest) throws ApiException {
+  public IAMGroupControllerApiGroupDetail updateGroup(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull IAMGroupControllerApiUpdateGroupRequest iaMGroupControllerApiUpdateGroupRequest) throws ApiException {
     return this.updateGroup(id, tenant, iaMGroupControllerApiUpdateGroupRequest, Collections.emptyMap());
   }
 
@@ -1001,7 +1001,7 @@ import java.util.StringJoiner;
    * @return IAMGroupControllerApiGroupDetail
    * @throws ApiException if fails to make API call
    */
-  public IAMGroupControllerApiGroupDetail updateGroup(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMGroupControllerApiUpdateGroupRequest iaMGroupControllerApiUpdateGroupRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMGroupControllerApiGroupDetail updateGroup(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull IAMGroupControllerApiUpdateGroupRequest iaMGroupControllerApiUpdateGroupRequest, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = iaMGroupControllerApiUpdateGroupRequest;
     
     // verify the required parameter 'id' is set

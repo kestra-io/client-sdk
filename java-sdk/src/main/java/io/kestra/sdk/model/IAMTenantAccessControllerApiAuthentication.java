@@ -31,18 +31,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMTenantAccessControllerApiAuthentication.JSON_PROPERTY_TYPE
 })
 @JsonTypeName("IAMTenantAccessController.ApiAuthentication")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMTenantAccessControllerApiAuthentication {
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nullable  private String name;
+  @jakarta.annotation.Nullable  private String name;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nullable  private String type;
+  @jakarta.annotation.Nullable  private String type;
 
   public IAMTenantAccessControllerApiAuthentication() {
   }
 
-  public IAMTenantAccessControllerApiAuthentication name(@javax.annotation.Nullable String name) {
+  public IAMTenantAccessControllerApiAuthentication name(@jakarta.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -52,7 +52,7 @@ public class IAMTenantAccessControllerApiAuthentication {
    * Get name
    * @return name
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
@@ -62,11 +62,11 @@ public class IAMTenantAccessControllerApiAuthentication {
 
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(@javax.annotation.Nullable String name) {
+  public void setName(@jakarta.annotation.Nullable String name) {
     this.name = name;
   }
 
-  public IAMTenantAccessControllerApiAuthentication type(@javax.annotation.Nullable String type) {
+  public IAMTenantAccessControllerApiAuthentication type(@jakarta.annotation.Nullable String type) {
     
     this.type = type;
     return this;
@@ -76,7 +76,7 @@ public class IAMTenantAccessControllerApiAuthentication {
    * Get type
    * @return type
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getType() {
@@ -86,7 +86,7 @@ public class IAMTenantAccessControllerApiAuthentication {
 
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setType(@javax.annotation.Nullable String type) {
+  public void setType(@jakarta.annotation.Nullable String type) {
     this.type = type;
   }
 

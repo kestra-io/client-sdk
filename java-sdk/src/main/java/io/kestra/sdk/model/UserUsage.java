@@ -32,24 +32,24 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   UserUsage.JSON_PROPERTY_OIDC_COUNT,
   UserUsage.JSON_PROPERTY_BASIC_AUTH_COUNT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class UserUsage {
   public static final String JSON_PROPERTY_COUNT = "count";
-  @javax.annotation.Nonnull  private Long count;
+  @jakarta.annotation.Nonnull  private Long count;
 
   public static final String JSON_PROPERTY_API_KEY_COUNT = "apiKeyCount";
-  @javax.annotation.Nonnull  private Long apiKeyCount;
+  @jakarta.annotation.Nonnull  private Long apiKeyCount;
 
   public static final String JSON_PROPERTY_OIDC_COUNT = "oidcCount";
-  @javax.annotation.Nonnull  private Long oidcCount;
+  @jakarta.annotation.Nonnull  private Long oidcCount;
 
   public static final String JSON_PROPERTY_BASIC_AUTH_COUNT = "basicAuthCount";
-  @javax.annotation.Nonnull  private Long basicAuthCount;
+  @jakarta.annotation.Nonnull  private Long basicAuthCount;
 
   public UserUsage() {
   }
 
-  public UserUsage count(@javax.annotation.Nonnull Long count) {
+  public UserUsage count(@jakarta.annotation.Nonnull Long count) {
     
     this.count = count;
     return this;
@@ -59,7 +59,7 @@ public class UserUsage {
    * Get count
    * @return count
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_COUNT)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_COUNT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Long getCount() {
@@ -69,11 +69,11 @@ public class UserUsage {
 
   @JsonProperty(JSON_PROPERTY_COUNT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setCount(@javax.annotation.Nonnull Long count) {
+  public void setCount(@jakarta.annotation.Nonnull Long count) {
     this.count = count;
   }
 
-  public UserUsage apiKeyCount(@javax.annotation.Nonnull Long apiKeyCount) {
+  public UserUsage apiKeyCount(@jakarta.annotation.Nonnull Long apiKeyCount) {
     
     this.apiKeyCount = apiKeyCount;
     return this;
@@ -83,7 +83,7 @@ public class UserUsage {
    * Get apiKeyCount
    * @return apiKeyCount
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_API_KEY_COUNT)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_API_KEY_COUNT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Long getApiKeyCount() {
@@ -93,11 +93,11 @@ public class UserUsage {
 
   @JsonProperty(JSON_PROPERTY_API_KEY_COUNT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setApiKeyCount(@javax.annotation.Nonnull Long apiKeyCount) {
+  public void setApiKeyCount(@jakarta.annotation.Nonnull Long apiKeyCount) {
     this.apiKeyCount = apiKeyCount;
   }
 
-  public UserUsage oidcCount(@javax.annotation.Nonnull Long oidcCount) {
+  public UserUsage oidcCount(@jakarta.annotation.Nonnull Long oidcCount) {
     
     this.oidcCount = oidcCount;
     return this;
@@ -107,7 +107,7 @@ public class UserUsage {
    * Get oidcCount
    * @return oidcCount
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_OIDC_COUNT)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_OIDC_COUNT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Long getOidcCount() {
@@ -117,11 +117,11 @@ public class UserUsage {
 
   @JsonProperty(JSON_PROPERTY_OIDC_COUNT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setOidcCount(@javax.annotation.Nonnull Long oidcCount) {
+  public void setOidcCount(@jakarta.annotation.Nonnull Long oidcCount) {
     this.oidcCount = oidcCount;
   }
 
-  public UserUsage basicAuthCount(@javax.annotation.Nonnull Long basicAuthCount) {
+  public UserUsage basicAuthCount(@jakarta.annotation.Nonnull Long basicAuthCount) {
     
     this.basicAuthCount = basicAuthCount;
     return this;
@@ -131,7 +131,7 @@ public class UserUsage {
    * Get basicAuthCount
    * @return basicAuthCount
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_BASIC_AUTH_COUNT)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_BASIC_AUTH_COUNT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Long getBasicAuthCount() {
@@ -141,7 +141,7 @@ public class UserUsage {
 
   @JsonProperty(JSON_PROPERTY_BASIC_AUTH_COUNT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setBasicAuthCount(@javax.annotation.Nonnull Long basicAuthCount) {
+  public void setBasicAuthCount(@jakarta.annotation.Nonnull Long basicAuthCount) {
     this.basicAuthCount = basicAuthCount;
   }
 

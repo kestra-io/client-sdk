@@ -36,21 +36,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TestSuiteServiceRunByQueryRequest.JSON_PROPERTY_INCLUDE_CHILD_NAMESPACES
 })
 @JsonTypeName("TestSuiteService.RunByQueryRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TestSuiteServiceRunByQueryRequest {
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nullable  private JsonNullable<String> namespace = JsonNullable.<String>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<String> namespace = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_FLOW_ID = "flowId";
-  @javax.annotation.Nullable  private JsonNullable<String> flowId = JsonNullable.<String>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<String> flowId = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_INCLUDE_CHILD_NAMESPACES = "includeChildNamespaces";
-  @javax.annotation.Nonnull  private Boolean includeChildNamespaces = true;
+  @jakarta.annotation.Nonnull  private Boolean includeChildNamespaces = true;
 
   public TestSuiteServiceRunByQueryRequest() {
   }
 
-  public TestSuiteServiceRunByQueryRequest namespace(@javax.annotation.Nullable String namespace) {
+  public TestSuiteServiceRunByQueryRequest namespace(@jakarta.annotation.Nullable String namespace) {
     this.namespace = JsonNullable.<String>of(namespace);
     
     return this;
@@ -60,7 +60,7 @@ public class TestSuiteServiceRunByQueryRequest {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nullable  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public String getNamespace() {
         return namespace.orElse(null);
@@ -77,11 +77,11 @@ public class TestSuiteServiceRunByQueryRequest {
     this.namespace = namespace;
   }
 
-  public void setNamespace(@javax.annotation.Nullable String namespace) {
+  public void setNamespace(@jakarta.annotation.Nullable String namespace) {
     this.namespace = JsonNullable.<String>of(namespace);
   }
 
-  public TestSuiteServiceRunByQueryRequest flowId(@javax.annotation.Nullable String flowId) {
+  public TestSuiteServiceRunByQueryRequest flowId(@jakarta.annotation.Nullable String flowId) {
     this.flowId = JsonNullable.<String>of(flowId);
     
     return this;
@@ -91,7 +91,7 @@ public class TestSuiteServiceRunByQueryRequest {
    * Get flowId
    * @return flowId
    */
-  @javax.annotation.Nullable  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public String getFlowId() {
         return flowId.orElse(null);
@@ -108,11 +108,11 @@ public class TestSuiteServiceRunByQueryRequest {
     this.flowId = flowId;
   }
 
-  public void setFlowId(@javax.annotation.Nullable String flowId) {
+  public void setFlowId(@jakarta.annotation.Nullable String flowId) {
     this.flowId = JsonNullable.<String>of(flowId);
   }
 
-  public TestSuiteServiceRunByQueryRequest includeChildNamespaces(@javax.annotation.Nonnull Boolean includeChildNamespaces) {
+  public TestSuiteServiceRunByQueryRequest includeChildNamespaces(@jakarta.annotation.Nonnull Boolean includeChildNamespaces) {
     
     this.includeChildNamespaces = includeChildNamespaces;
     return this;
@@ -122,7 +122,7 @@ public class TestSuiteServiceRunByQueryRequest {
    * Should child namespaces be included or not
    * @return includeChildNamespaces
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_INCLUDE_CHILD_NAMESPACES)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_INCLUDE_CHILD_NAMESPACES)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getIncludeChildNamespaces() {
@@ -132,7 +132,7 @@ public class TestSuiteServiceRunByQueryRequest {
 
   @JsonProperty(JSON_PROPERTY_INCLUDE_CHILD_NAMESPACES)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setIncludeChildNamespaces(@javax.annotation.Nonnull Boolean includeChildNamespaces) {
+  public void setIncludeChildNamespaces(@jakarta.annotation.Nonnull Boolean includeChildNamespaces) {
     this.includeChildNamespaces = includeChildNamespaces;
   }
 

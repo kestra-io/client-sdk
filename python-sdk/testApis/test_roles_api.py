@@ -113,7 +113,7 @@ class TestRolesApi(unittest.TestCase):
         self.kestra_client.roles.delete_role(id=created.id, tenant=self.tenant)
 
         with self.assertRaises(Exception):
-            self.kestra_client.roles.get_role(id=created.id, tenant=self.tenant)
+            self.kestra_client.roles.role(id=created.id, tenant=self.tenant)
 
     def test_get_role(self) -> None:
         """Test case for get_role
@@ -134,7 +134,7 @@ class TestRolesApi(unittest.TestCase):
             iam_role_controller_api_role_create_or_update_request=role_req
         )
 
-        fetched = self.kestra_client.roles.get_role(id=created.id, tenant=self.tenant)
+        fetched = self.kestra_client.roles.role(id=created.id, tenant=self.tenant)
         assert fetched.id == created.id
 
     def test_list_roles_from_given_ids(self) -> None:

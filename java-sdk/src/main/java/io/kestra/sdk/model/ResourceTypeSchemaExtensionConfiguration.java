@@ -31,18 +31,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ResourceTypeSchemaExtensionConfiguration.JSON_PROPERTY_REQUIRED
 })
 @JsonTypeName("ResourceType.SchemaExtensionConfiguration")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ResourceTypeSchemaExtensionConfiguration {
   public static final String JSON_PROPERTY_SCHEMA_URN = "schemaUrn";
-  @javax.annotation.Nullable  private String schemaUrn;
+  @jakarta.annotation.Nullable  private String schemaUrn;
 
   public static final String JSON_PROPERTY_REQUIRED = "required";
-  @javax.annotation.Nullable  private Boolean required;
+  @jakarta.annotation.Nullable  private Boolean required;
 
   public ResourceTypeSchemaExtensionConfiguration() {
   }
 
-  public ResourceTypeSchemaExtensionConfiguration schemaUrn(@javax.annotation.Nullable String schemaUrn) {
+  public ResourceTypeSchemaExtensionConfiguration schemaUrn(@jakarta.annotation.Nullable String schemaUrn) {
     
     this.schemaUrn = schemaUrn;
     return this;
@@ -52,7 +52,7 @@ public class ResourceTypeSchemaExtensionConfiguration {
    * Get schemaUrn
    * @return schemaUrn
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SCHEMA_URN)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SCHEMA_URN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSchemaUrn() {
@@ -62,11 +62,11 @@ public class ResourceTypeSchemaExtensionConfiguration {
 
   @JsonProperty(JSON_PROPERTY_SCHEMA_URN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSchemaUrn(@javax.annotation.Nullable String schemaUrn) {
+  public void setSchemaUrn(@jakarta.annotation.Nullable String schemaUrn) {
     this.schemaUrn = schemaUrn;
   }
 
-  public ResourceTypeSchemaExtensionConfiguration required(@javax.annotation.Nullable Boolean required) {
+  public ResourceTypeSchemaExtensionConfiguration required(@jakarta.annotation.Nullable Boolean required) {
     
     this.required = required;
     return this;
@@ -76,7 +76,7 @@ public class ResourceTypeSchemaExtensionConfiguration {
    * Get required
    * @return required
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REQUIRED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REQUIRED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getRequired() {
@@ -86,7 +86,7 @@ public class ResourceTypeSchemaExtensionConfiguration {
 
   @JsonProperty(JSON_PROPERTY_REQUIRED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRequired(@javax.annotation.Nullable Boolean required) {
+  public void setRequired(@jakarta.annotation.Nullable Boolean required) {
     this.required = required;
   }
 

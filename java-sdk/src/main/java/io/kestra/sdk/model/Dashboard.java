@@ -38,27 +38,27 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Dashboard.JSON_PROPERTY_CHARTS,
   Dashboard.JSON_PROPERTY_SOURCE_CODE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Dashboard {
   public static final String JSON_PROPERTY_TITLE = "title";
-  @javax.annotation.Nonnull  private String title;
+  @jakarta.annotation.Nonnull  private String title;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable  private String description;
+  @jakarta.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_TIME_WINDOW = "timeWindow";
-  @javax.annotation.Nullable  private TimeWindow timeWindow;
+  @jakarta.annotation.Nullable  private TimeWindow timeWindow;
 
   public static final String JSON_PROPERTY_CHARTS = "charts";
-  @javax.annotation.Nullable  private List<ChartChartOption> charts = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<ChartChartOption> charts = new ArrayList<>();
 
   public static final String JSON_PROPERTY_SOURCE_CODE = "sourceCode";
-  @javax.annotation.Nullable  private String sourceCode;
+  @jakarta.annotation.Nullable  private String sourceCode;
 
   public Dashboard() {
   }
 
-  public Dashboard title(@javax.annotation.Nonnull String title) {
+  public Dashboard title(@jakarta.annotation.Nonnull String title) {
     
     this.title = title;
     return this;
@@ -68,7 +68,7 @@ public class Dashboard {
    * Get title
    * @return title
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TITLE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TITLE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getTitle() {
@@ -78,11 +78,11 @@ public class Dashboard {
 
   @JsonProperty(JSON_PROPERTY_TITLE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTitle(@javax.annotation.Nonnull String title) {
+  public void setTitle(@jakarta.annotation.Nonnull String title) {
     this.title = title;
   }
 
-  public Dashboard description(@javax.annotation.Nullable String description) {
+  public Dashboard description(@jakarta.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -92,7 +92,7 @@ public class Dashboard {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -102,11 +102,11 @@ public class Dashboard {
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(@javax.annotation.Nullable String description) {
+  public void setDescription(@jakarta.annotation.Nullable String description) {
     this.description = description;
   }
 
-  public Dashboard timeWindow(@javax.annotation.Nullable TimeWindow timeWindow) {
+  public Dashboard timeWindow(@jakarta.annotation.Nullable TimeWindow timeWindow) {
     
     this.timeWindow = timeWindow;
     return this;
@@ -116,7 +116,7 @@ public class Dashboard {
    * Get timeWindow
    * @return timeWindow
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TIME_WINDOW)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TIME_WINDOW)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public TimeWindow getTimeWindow() {
@@ -126,11 +126,11 @@ public class Dashboard {
 
   @JsonProperty(JSON_PROPERTY_TIME_WINDOW)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTimeWindow(@javax.annotation.Nullable TimeWindow timeWindow) {
+  public void setTimeWindow(@jakarta.annotation.Nullable TimeWindow timeWindow) {
     this.timeWindow = timeWindow;
   }
 
-  public Dashboard charts(@javax.annotation.Nullable List<ChartChartOption> charts) {
+  public Dashboard charts(@jakarta.annotation.Nullable List<ChartChartOption> charts) {
     
     this.charts = charts;
     return this;
@@ -148,7 +148,7 @@ public class Dashboard {
    * Get charts
    * @return charts
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CHARTS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CHARTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<ChartChartOption> getCharts() {
@@ -158,11 +158,11 @@ public class Dashboard {
 
   @JsonProperty(JSON_PROPERTY_CHARTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCharts(@javax.annotation.Nullable List<ChartChartOption> charts) {
+  public void setCharts(@jakarta.annotation.Nullable List<ChartChartOption> charts) {
     this.charts = charts;
   }
 
-  public Dashboard sourceCode(@javax.annotation.Nullable String sourceCode) {
+  public Dashboard sourceCode(@jakarta.annotation.Nullable String sourceCode) {
     
     this.sourceCode = sourceCode;
     return this;
@@ -172,7 +172,7 @@ public class Dashboard {
    * Get sourceCode
    * @return sourceCode
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SOURCE_CODE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SOURCE_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSourceCode() {
@@ -182,7 +182,7 @@ public class Dashboard {
 
   @JsonProperty(JSON_PROPERTY_SOURCE_CODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSourceCode(@javax.annotation.Nullable String sourceCode) {
+  public void setSourceCode(@jakarta.annotation.Nullable String sourceCode) {
     this.sourceCode = sourceCode;
   }
 

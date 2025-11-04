@@ -35,18 +35,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PagedResultsTestSuite.JSON_PROPERTY_TOTAL
 })
 @JsonTypeName("PagedResults_TestSuite_")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PagedResultsTestSuite {
   public static final String JSON_PROPERTY_RESULTS = "results";
-  @javax.annotation.Nonnull  private List<TestSuite> results = new ArrayList<>();
+  @jakarta.annotation.Nonnull  private List<TestSuite> results = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TOTAL = "total";
-  @javax.annotation.Nonnull  private Long total;
+  @jakarta.annotation.Nonnull  private Long total;
 
   public PagedResultsTestSuite() {
   }
 
-  public PagedResultsTestSuite results(@javax.annotation.Nonnull List<TestSuite> results) {
+  public PagedResultsTestSuite results(@jakarta.annotation.Nonnull List<TestSuite> results) {
     
     this.results = results;
     return this;
@@ -64,7 +64,7 @@ public class PagedResultsTestSuite {
    * Get results
    * @return results
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<TestSuite> getResults() {
@@ -74,11 +74,11 @@ public class PagedResultsTestSuite {
 
   @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setResults(@javax.annotation.Nonnull List<TestSuite> results) {
+  public void setResults(@jakarta.annotation.Nonnull List<TestSuite> results) {
     this.results = results;
   }
 
-  public PagedResultsTestSuite total(@javax.annotation.Nonnull Long total) {
+  public PagedResultsTestSuite total(@jakarta.annotation.Nonnull Long total) {
     
     this.total = total;
     return this;
@@ -88,7 +88,7 @@ public class PagedResultsTestSuite {
    * Get total
    * @return total
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TOTAL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Long getTotal() {
@@ -98,7 +98,7 @@ public class PagedResultsTestSuite {
 
   @JsonProperty(JSON_PROPERTY_TOTAL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTotal(@javax.annotation.Nonnull Long total) {
+  public void setTotal(@jakarta.annotation.Nonnull Long total) {
     this.total = total;
   }
 

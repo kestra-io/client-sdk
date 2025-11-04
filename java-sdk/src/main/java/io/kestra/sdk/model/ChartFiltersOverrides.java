@@ -42,33 +42,33 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ChartFiltersOverrides.JSON_PROPERTY_LABELS,
   ChartFiltersOverrides.JSON_PROPERTY_FILTERS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ChartFiltersOverrides {
   public static final String JSON_PROPERTY_START_DATE = "startDate";
-  @javax.annotation.Nullable  private OffsetDateTime startDate;
+  @jakarta.annotation.Nullable  private OffsetDateTime startDate;
 
   public static final String JSON_PROPERTY_END_DATE = "endDate";
-  @javax.annotation.Nullable  private OffsetDateTime endDate;
+  @jakarta.annotation.Nullable  private OffsetDateTime endDate;
 
   public static final String JSON_PROPERTY_PAGE_SIZE = "pageSize";
-  @javax.annotation.Nullable  private Integer pageSize;
+  @jakarta.annotation.Nullable  private Integer pageSize;
 
   public static final String JSON_PROPERTY_PAGE_NUMBER = "pageNumber";
-  @javax.annotation.Nullable  private Integer pageNumber;
+  @jakarta.annotation.Nullable  private Integer pageNumber;
 
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nullable  private String namespace;
+  @jakarta.annotation.Nullable  private String namespace;
 
   public static final String JSON_PROPERTY_LABELS = "labels";
-  @javax.annotation.Nullable  private Map<String, String> labels = new HashMap<>();
+  @jakarta.annotation.Nullable  private Map<String, String> labels = new HashMap<>();
 
   public static final String JSON_PROPERTY_FILTERS = "filters";
-  @javax.annotation.Nullable  private List<QueryFilter> filters = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<QueryFilter> filters = new ArrayList<>();
 
   public ChartFiltersOverrides() {
   }
 
-  public ChartFiltersOverrides startDate(@javax.annotation.Nullable OffsetDateTime startDate) {
+  public ChartFiltersOverrides startDate(@jakarta.annotation.Nullable OffsetDateTime startDate) {
     
     this.startDate = startDate;
     return this;
@@ -78,7 +78,7 @@ public class ChartFiltersOverrides {
    * Get startDate
    * @return startDate
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_START_DATE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_START_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getStartDate() {
@@ -88,11 +88,11 @@ public class ChartFiltersOverrides {
 
   @JsonProperty(JSON_PROPERTY_START_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStartDate(@javax.annotation.Nullable OffsetDateTime startDate) {
+  public void setStartDate(@jakarta.annotation.Nullable OffsetDateTime startDate) {
     this.startDate = startDate;
   }
 
-  public ChartFiltersOverrides endDate(@javax.annotation.Nullable OffsetDateTime endDate) {
+  public ChartFiltersOverrides endDate(@jakarta.annotation.Nullable OffsetDateTime endDate) {
     
     this.endDate = endDate;
     return this;
@@ -102,7 +102,7 @@ public class ChartFiltersOverrides {
    * Get endDate
    * @return endDate
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_END_DATE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_END_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getEndDate() {
@@ -112,11 +112,11 @@ public class ChartFiltersOverrides {
 
   @JsonProperty(JSON_PROPERTY_END_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEndDate(@javax.annotation.Nullable OffsetDateTime endDate) {
+  public void setEndDate(@jakarta.annotation.Nullable OffsetDateTime endDate) {
     this.endDate = endDate;
   }
 
-  public ChartFiltersOverrides pageSize(@javax.annotation.Nullable Integer pageSize) {
+  public ChartFiltersOverrides pageSize(@jakarta.annotation.Nullable Integer pageSize) {
     
     this.pageSize = pageSize;
     return this;
@@ -126,7 +126,7 @@ public class ChartFiltersOverrides {
    * Get pageSize
    * @return pageSize
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PAGE_SIZE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PAGE_SIZE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getPageSize() {
@@ -136,11 +136,11 @@ public class ChartFiltersOverrides {
 
   @JsonProperty(JSON_PROPERTY_PAGE_SIZE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPageSize(@javax.annotation.Nullable Integer pageSize) {
+  public void setPageSize(@jakarta.annotation.Nullable Integer pageSize) {
     this.pageSize = pageSize;
   }
 
-  public ChartFiltersOverrides pageNumber(@javax.annotation.Nullable Integer pageNumber) {
+  public ChartFiltersOverrides pageNumber(@jakarta.annotation.Nullable Integer pageNumber) {
     
     this.pageNumber = pageNumber;
     return this;
@@ -150,7 +150,7 @@ public class ChartFiltersOverrides {
    * Get pageNumber
    * @return pageNumber
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PAGE_NUMBER)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PAGE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getPageNumber() {
@@ -160,11 +160,11 @@ public class ChartFiltersOverrides {
 
   @JsonProperty(JSON_PROPERTY_PAGE_NUMBER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPageNumber(@javax.annotation.Nullable Integer pageNumber) {
+  public void setPageNumber(@jakarta.annotation.Nullable Integer pageNumber) {
     this.pageNumber = pageNumber;
   }
 
-  public ChartFiltersOverrides namespace(@javax.annotation.Nullable String namespace) {
+  public ChartFiltersOverrides namespace(@jakarta.annotation.Nullable String namespace) {
     
     this.namespace = namespace;
     return this;
@@ -174,7 +174,7 @@ public class ChartFiltersOverrides {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getNamespace() {
@@ -184,11 +184,11 @@ public class ChartFiltersOverrides {
 
   @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setNamespace(@javax.annotation.Nullable String namespace) {
+  public void setNamespace(@jakarta.annotation.Nullable String namespace) {
     this.namespace = namespace;
   }
 
-  public ChartFiltersOverrides labels(@javax.annotation.Nullable Map<String, String> labels) {
+  public ChartFiltersOverrides labels(@jakarta.annotation.Nullable Map<String, String> labels) {
     
     this.labels = labels;
     return this;
@@ -206,7 +206,7 @@ public class ChartFiltersOverrides {
    * Get labels
    * @return labels
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LABELS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, String> getLabels() {
@@ -216,11 +216,11 @@ public class ChartFiltersOverrides {
 
   @JsonProperty(JSON_PROPERTY_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLabels(@javax.annotation.Nullable Map<String, String> labels) {
+  public void setLabels(@jakarta.annotation.Nullable Map<String, String> labels) {
     this.labels = labels;
   }
 
-  public ChartFiltersOverrides filters(@javax.annotation.Nullable List<QueryFilter> filters) {
+  public ChartFiltersOverrides filters(@jakarta.annotation.Nullable List<QueryFilter> filters) {
     
     this.filters = filters;
     return this;
@@ -238,7 +238,7 @@ public class ChartFiltersOverrides {
    * Get filters
    * @return filters
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FILTERS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FILTERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<QueryFilter> getFilters() {
@@ -248,7 +248,7 @@ public class ChartFiltersOverrides {
 
   @JsonProperty(JSON_PROPERTY_FILTERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFilters(@javax.annotation.Nullable List<QueryFilter> filters) {
+  public void setFilters(@jakarta.annotation.Nullable List<QueryFilter> filters) {
     this.filters = filters;
   }
 

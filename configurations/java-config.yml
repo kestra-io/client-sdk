@@ -20,6 +20,7 @@ groupId: io.kestra
 artifactId: kestra-api-client
 enumUnknownDefaultCase: true
 useOneOfInterfaces: true
+useJakartaEe: true
 
 hideGenerationTimestamp: true
 supportUrlQuery: false

@@ -33,21 +33,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowGraphEdge.JSON_PROPERTY_RELATION
 })
 @JsonTypeName("FlowGraph.Edge")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class FlowGraphEdge {
   public static final String JSON_PROPERTY_SOURCE = "source";
-  @javax.annotation.Nullable  private String source;
+  @jakarta.annotation.Nullable  private String source;
 
   public static final String JSON_PROPERTY_TARGET = "target";
-  @javax.annotation.Nullable  private String target;
+  @jakarta.annotation.Nullable  private String target;
 
   public static final String JSON_PROPERTY_RELATION = "relation";
-  @javax.annotation.Nullable  private Relation relation;
+  @jakarta.annotation.Nullable  private Relation relation;
 
   public FlowGraphEdge() {
   }
 
-  public FlowGraphEdge source(@javax.annotation.Nullable String source) {
+  public FlowGraphEdge source(@jakarta.annotation.Nullable String source) {
     
     this.source = source;
     return this;
@@ -57,7 +57,7 @@ public class FlowGraphEdge {
    * Get source
    * @return source
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SOURCE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SOURCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSource() {
@@ -67,11 +67,11 @@ public class FlowGraphEdge {
 
   @JsonProperty(JSON_PROPERTY_SOURCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSource(@javax.annotation.Nullable String source) {
+  public void setSource(@jakarta.annotation.Nullable String source) {
     this.source = source;
   }
 
-  public FlowGraphEdge target(@javax.annotation.Nullable String target) {
+  public FlowGraphEdge target(@jakarta.annotation.Nullable String target) {
     
     this.target = target;
     return this;
@@ -81,7 +81,7 @@ public class FlowGraphEdge {
    * Get target
    * @return target
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TARGET)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TARGET)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTarget() {
@@ -91,11 +91,11 @@ public class FlowGraphEdge {
 
   @JsonProperty(JSON_PROPERTY_TARGET)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTarget(@javax.annotation.Nullable String target) {
+  public void setTarget(@jakarta.annotation.Nullable String target) {
     this.target = target;
   }
 
-  public FlowGraphEdge relation(@javax.annotation.Nullable Relation relation) {
+  public FlowGraphEdge relation(@jakarta.annotation.Nullable Relation relation) {
     
     this.relation = relation;
     return this;
@@ -105,7 +105,7 @@ public class FlowGraphEdge {
    * Get relation
    * @return relation
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RELATION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RELATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Relation getRelation() {
@@ -115,7 +115,7 @@ public class FlowGraphEdge {
 
   @JsonProperty(JSON_PROPERTY_RELATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRelation(@javax.annotation.Nullable Relation relation) {
+  public void setRelation(@jakarta.annotation.Nullable Relation relation) {
     this.relation = relation;
   }
 

@@ -33,15 +33,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AppsControllerApiAppTags.JSON_PROPERTY_TAGS
 })
 @JsonTypeName("AppsController.ApiAppTags")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AppsControllerApiAppTags {
   public static final String JSON_PROPERTY_TAGS = "tags";
-  @javax.annotation.Nullable  private List<String> tags = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> tags = new ArrayList<>();
 
   public AppsControllerApiAppTags() {
   }
 
-  public AppsControllerApiAppTags tags(@javax.annotation.Nullable List<String> tags) {
+  public AppsControllerApiAppTags tags(@jakarta.annotation.Nullable List<String> tags) {
     
     this.tags = tags;
     return this;
@@ -59,7 +59,7 @@ public class AppsControllerApiAppTags {
    * Get tags
    * @return tags
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TAGS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TAGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getTags() {
@@ -69,7 +69,7 @@ public class AppsControllerApiAppTags {
 
   @JsonProperty(JSON_PROPERTY_TAGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTags(@javax.annotation.Nullable List<String> tags) {
+  public void setTags(@jakarta.annotation.Nullable List<String> tags) {
     this.tags = tags;
   }
 

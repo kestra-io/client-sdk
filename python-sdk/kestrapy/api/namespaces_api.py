@@ -714,326 +714,6 @@ class NamespacesApi:
 
 
     @validate_call
-    def get_inherited_secrets(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The namespace id")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-        None,
-        Annotated[StrictFloat, Field(gt=0)],
-        Tuple[
-        Annotated[StrictFloat, Field(gt=0)],
-        Annotated[StrictFloat, Field(gt=0)]
-        ]
-        ] = None
-    ) -> Dict[str, List[str]]:
-        """List inherited secrets
-
-
-        :param namespace: The namespace id (required)
-        :type namespace: str
-                :param tenant: (required)
-        :type tenant: str
-        ,
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        """ # noqa: E501
-
-        _param = self._get_inherited_secrets_serialize(
-            namespace=namespace,
-            tenant=tenant,
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Dict[str, List[str]]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def get_inherited_secrets_with_http_info(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The namespace id")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-        None,
-        Annotated[StrictFloat, Field(gt=0)],
-        Tuple[
-        Annotated[StrictFloat, Field(gt=0)],
-        Annotated[StrictFloat, Field(gt=0)]
-        ]
-        ] = None
-    ) -> ApiResponse[Dict[str, List[str]]]:
-        """List inherited secrets
-
-
-        :param namespace: The namespace id (required)
-        :type namespace: str
-                :param tenant: (required)
-        :type tenant: str
-        ,
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        """ # noqa: E501
-
-        _param = self._get_inherited_secrets_serialize(
-            namespace=namespace,
-            tenant=tenant,
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Dict[str, List[str]]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    def _get_inherited_secrets_serialize(
-        self,
-        namespace,
-        tenant,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if namespace is not None:
-            _path_params['namespace'] = namespace
-        if tenant is not None:
-            _path_params['tenant'] = tenant
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'basicAuth', 
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/api/v1/{tenant}/namespaces/{namespace}/inherited-secrets',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats
-        )
-
-
-
-
-
-    @validate_call
-    def get_namespace(
-        self,
-        id: Annotated[StrictStr, Field(description="The namespace id")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-        None,
-        Annotated[StrictFloat, Field(gt=0)],
-        Tuple[
-        Annotated[StrictFloat, Field(gt=0)],
-        Annotated[StrictFloat, Field(gt=0)]
-        ]
-        ] = None
-    ) -> Namespace:
-        """Get a namespace
-
-
-        :param id: The namespace id (required)
-        :type id: str
-                :param tenant: (required)
-        :type tenant: str
-        ,
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        """ # noqa: E501
-
-        _param = self._get_namespace_serialize(
-            id=id,
-            tenant=tenant,
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Namespace",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def get_namespace_with_http_info(
-        self,
-        id: Annotated[StrictStr, Field(description="The namespace id")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-        None,
-        Annotated[StrictFloat, Field(gt=0)],
-        Tuple[
-        Annotated[StrictFloat, Field(gt=0)],
-        Annotated[StrictFloat, Field(gt=0)]
-        ]
-        ] = None
-    ) -> ApiResponse[Namespace]:
-        """Get a namespace
-
-
-        :param id: The namespace id (required)
-        :type id: str
-                :param tenant: (required)
-        :type tenant: str
-        ,
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        """ # noqa: E501
-
-        _param = self._get_namespace_serialize(
-            id=id,
-            tenant=tenant,
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Namespace",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    def _get_namespace_serialize(
-        self,
-        id,
-        tenant,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if id is not None:
-            _path_params['id'] = id
-        if tenant is not None:
-            _path_params['tenant'] = tenant
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'basicAuth', 
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/api/v1/{tenant}/namespaces/{id}',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats
-        )
-
-
-
-
-
-    @validate_call
     def inherited_plugin_defaults(
         self,
         id: Annotated[StrictStr, Field(description="The namespace id")],
@@ -1179,6 +859,166 @@ class NamespacesApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/api/v1/{tenant}/namespaces/{id}/inherited-plugindefaults',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats
+        )
+
+
+
+
+
+    @validate_call
+    def inherited_secrets(
+        self,
+        namespace: Annotated[StrictStr, Field(description="The namespace id")],
+        tenant: StrictStr,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> Dict[str, List[str]]:
+        """List inherited secrets
+
+
+        :param namespace: The namespace id (required)
+        :type namespace: str
+                :param tenant: (required)
+        :type tenant: str
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._inherited_secrets_serialize(
+            namespace=namespace,
+            tenant=tenant,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Dict[str, List[str]]",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def inherited_secrets_with_http_info(
+        self,
+        namespace: Annotated[StrictStr, Field(description="The namespace id")],
+        tenant: StrictStr,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> ApiResponse[Dict[str, List[str]]]:
+        """List inherited secrets
+
+
+        :param namespace: The namespace id (required)
+        :type namespace: str
+                :param tenant: (required)
+        :type tenant: str
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._inherited_secrets_serialize(
+            namespace=namespace,
+            tenant=tenant,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Dict[str, List[str]]",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    def _inherited_secrets_serialize(
+        self,
+        namespace,
+        tenant,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if namespace is not None:
+            _path_params['namespace'] = namespace
+        if tenant is not None:
+            _path_params['tenant'] = tenant
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/v1/{tenant}/namespaces/{namespace}/inherited-secrets',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1553,6 +1393,166 @@ class NamespacesApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/api/v1/{tenant}/namespaces/{namespace}/secrets',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats
+        )
+
+
+
+
+
+    @validate_call
+    def namespace(
+        self,
+        id: Annotated[StrictStr, Field(description="The namespace id")],
+        tenant: StrictStr,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> Namespace:
+        """Get a namespace
+
+
+        :param id: The namespace id (required)
+        :type id: str
+                :param tenant: (required)
+        :type tenant: str
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._namespace_serialize(
+            id=id,
+            tenant=tenant,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Namespace",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def namespace_with_http_info(
+        self,
+        id: Annotated[StrictStr, Field(description="The namespace id")],
+        tenant: StrictStr,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> ApiResponse[Namespace]:
+        """Get a namespace
+
+
+        :param id: The namespace id (required)
+        :type id: str
+                :param tenant: (required)
+        :type tenant: str
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._namespace_serialize(
+            id=id,
+            tenant=tenant,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Namespace",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    def _namespace_serialize(
+        self,
+        id,
+        tenant,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if id is not None:
+            _path_params['id'] = id
+        if tenant is not None:
+            _path_params['tenant'] = tenant
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/v1/{tenant}/namespaces/{id}',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

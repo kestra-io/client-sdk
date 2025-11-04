@@ -34,15 +34,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TestSuiteControllerTestSuiteBulkRequest.JSON_PROPERTY_IDS
 })
 @JsonTypeName("TestSuiteController.TestSuiteBulkRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TestSuiteControllerTestSuiteBulkRequest {
   public static final String JSON_PROPERTY_IDS = "ids";
-  @javax.annotation.Nonnull  private List<TestSuiteControllerTestSuiteApiId> ids = new ArrayList<>();
+  @jakarta.annotation.Nonnull  private List<TestSuiteControllerTestSuiteApiId> ids = new ArrayList<>();
 
   public TestSuiteControllerTestSuiteBulkRequest() {
   }
 
-  public TestSuiteControllerTestSuiteBulkRequest ids(@javax.annotation.Nonnull List<TestSuiteControllerTestSuiteApiId> ids) {
+  public TestSuiteControllerTestSuiteBulkRequest ids(@jakarta.annotation.Nonnull List<TestSuiteControllerTestSuiteApiId> ids) {
     
     this.ids = ids;
     return this;
@@ -60,7 +60,7 @@ public class TestSuiteControllerTestSuiteBulkRequest {
    * Get ids
    * @return ids
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_IDS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_IDS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<TestSuiteControllerTestSuiteApiId> getIds() {
@@ -70,7 +70,7 @@ public class TestSuiteControllerTestSuiteBulkRequest {
 
   @JsonProperty(JSON_PROPERTY_IDS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setIds(@javax.annotation.Nonnull List<TestSuiteControllerTestSuiteApiId> ids) {
+  public void setIds(@jakarta.annotation.Nonnull List<TestSuiteControllerTestSuiteApiId> ids) {
     this.ids = ids;
   }
 

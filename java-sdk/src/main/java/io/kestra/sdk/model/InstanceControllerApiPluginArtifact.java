@@ -37,27 +37,27 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InstanceControllerApiPluginArtifact.JSON_PROPERTY_VERSIONS
 })
 @JsonTypeName("InstanceController.ApiPluginArtifact")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class InstanceControllerApiPluginArtifact {
   public static final String JSON_PROPERTY_TITLE = "title";
-  @javax.annotation.Nullable  private String title;
+  @jakarta.annotation.Nullable  private String title;
 
   public static final String JSON_PROPERTY_ICON = "icon";
-  @javax.annotation.Nullable  private String icon;
+  @jakarta.annotation.Nullable  private String icon;
 
   public static final String JSON_PROPERTY_GROUP_ID = "groupId";
-  @javax.annotation.Nullable  private String groupId;
+  @jakarta.annotation.Nullable  private String groupId;
 
   public static final String JSON_PROPERTY_ARTIFACT_ID = "artifactId";
-  @javax.annotation.Nullable  private String artifactId;
+  @jakarta.annotation.Nullable  private String artifactId;
 
   public static final String JSON_PROPERTY_VERSIONS = "versions";
-  @javax.annotation.Nullable  private List<String> versions = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> versions = new ArrayList<>();
 
   public InstanceControllerApiPluginArtifact() {
   }
 
-  public InstanceControllerApiPluginArtifact title(@javax.annotation.Nullable String title) {
+  public InstanceControllerApiPluginArtifact title(@jakarta.annotation.Nullable String title) {
     
     this.title = title;
     return this;
@@ -67,7 +67,7 @@ public class InstanceControllerApiPluginArtifact {
    * Get title
    * @return title
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TITLE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TITLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTitle() {
@@ -77,11 +77,11 @@ public class InstanceControllerApiPluginArtifact {
 
   @JsonProperty(JSON_PROPERTY_TITLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTitle(@javax.annotation.Nullable String title) {
+  public void setTitle(@jakarta.annotation.Nullable String title) {
     this.title = title;
   }
 
-  public InstanceControllerApiPluginArtifact icon(@javax.annotation.Nullable String icon) {
+  public InstanceControllerApiPluginArtifact icon(@jakarta.annotation.Nullable String icon) {
     
     this.icon = icon;
     return this;
@@ -91,7 +91,7 @@ public class InstanceControllerApiPluginArtifact {
    * Get icon
    * @return icon
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ICON)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ICON)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getIcon() {
@@ -101,11 +101,11 @@ public class InstanceControllerApiPluginArtifact {
 
   @JsonProperty(JSON_PROPERTY_ICON)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIcon(@javax.annotation.Nullable String icon) {
+  public void setIcon(@jakarta.annotation.Nullable String icon) {
     this.icon = icon;
   }
 
-  public InstanceControllerApiPluginArtifact groupId(@javax.annotation.Nullable String groupId) {
+  public InstanceControllerApiPluginArtifact groupId(@jakarta.annotation.Nullable String groupId) {
     
     this.groupId = groupId;
     return this;
@@ -115,7 +115,7 @@ public class InstanceControllerApiPluginArtifact {
    * Get groupId
    * @return groupId
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUP_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUP_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getGroupId() {
@@ -125,11 +125,11 @@ public class InstanceControllerApiPluginArtifact {
 
   @JsonProperty(JSON_PROPERTY_GROUP_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setGroupId(@javax.annotation.Nullable String groupId) {
+  public void setGroupId(@jakarta.annotation.Nullable String groupId) {
     this.groupId = groupId;
   }
 
-  public InstanceControllerApiPluginArtifact artifactId(@javax.annotation.Nullable String artifactId) {
+  public InstanceControllerApiPluginArtifact artifactId(@jakarta.annotation.Nullable String artifactId) {
     
     this.artifactId = artifactId;
     return this;
@@ -139,7 +139,7 @@ public class InstanceControllerApiPluginArtifact {
    * Get artifactId
    * @return artifactId
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ARTIFACT_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ARTIFACT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getArtifactId() {
@@ -149,11 +149,11 @@ public class InstanceControllerApiPluginArtifact {
 
   @JsonProperty(JSON_PROPERTY_ARTIFACT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setArtifactId(@javax.annotation.Nullable String artifactId) {
+  public void setArtifactId(@jakarta.annotation.Nullable String artifactId) {
     this.artifactId = artifactId;
   }
 
-  public InstanceControllerApiPluginArtifact versions(@javax.annotation.Nullable List<String> versions) {
+  public InstanceControllerApiPluginArtifact versions(@jakarta.annotation.Nullable List<String> versions) {
     
     this.versions = versions;
     return this;
@@ -171,7 +171,7 @@ public class InstanceControllerApiPluginArtifact {
    * Get versions
    * @return versions
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSIONS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getVersions() {
@@ -181,7 +181,7 @@ public class InstanceControllerApiPluginArtifact {
 
   @JsonProperty(JSON_PROPERTY_VERSIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVersions(@javax.annotation.Nullable List<String> versions) {
+  public void setVersions(@jakarta.annotation.Nullable List<String> versions) {
     this.versions = versions;
   }
 

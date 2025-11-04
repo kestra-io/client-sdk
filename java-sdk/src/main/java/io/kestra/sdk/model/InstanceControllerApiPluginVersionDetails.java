@@ -40,33 +40,33 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InstanceControllerApiPluginVersionDetails.JSON_PROPERTY_CLASSES
 })
 @JsonTypeName("InstanceController.ApiPluginVersionDetails")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class InstanceControllerApiPluginVersionDetails {
   public static final String JSON_PROPERTY_ARTIFACT_ID = "artifactId";
-  @javax.annotation.Nullable  private String artifactId;
+  @jakarta.annotation.Nullable  private String artifactId;
 
   public static final String JSON_PROPERTY_GROUP_ID = "groupId";
-  @javax.annotation.Nullable  private String groupId;
+  @jakarta.annotation.Nullable  private String groupId;
 
   public static final String JSON_PROPERTY_VERSION = "version";
-  @javax.annotation.Nullable  private String version;
+  @jakarta.annotation.Nullable  private String version;
 
   public static final String JSON_PROPERTY_TITLE = "title";
-  @javax.annotation.Nullable  private String title;
+  @jakarta.annotation.Nullable  private String title;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable  private String description;
+  @jakarta.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_ICON = "icon";
-  @javax.annotation.Nullable  private String icon;
+  @jakarta.annotation.Nullable  private String icon;
 
   public static final String JSON_PROPERTY_CLASSES = "classes";
-  @javax.annotation.Nullable  private List<InstanceControllerApiPluginVersionDetailsApiPluginClasses> classes = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<InstanceControllerApiPluginVersionDetailsApiPluginClasses> classes = new ArrayList<>();
 
   public InstanceControllerApiPluginVersionDetails() {
   }
 
-  public InstanceControllerApiPluginVersionDetails artifactId(@javax.annotation.Nullable String artifactId) {
+  public InstanceControllerApiPluginVersionDetails artifactId(@jakarta.annotation.Nullable String artifactId) {
     
     this.artifactId = artifactId;
     return this;
@@ -76,7 +76,7 @@ public class InstanceControllerApiPluginVersionDetails {
    * Get artifactId
    * @return artifactId
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ARTIFACT_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ARTIFACT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getArtifactId() {
@@ -86,11 +86,11 @@ public class InstanceControllerApiPluginVersionDetails {
 
   @JsonProperty(JSON_PROPERTY_ARTIFACT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setArtifactId(@javax.annotation.Nullable String artifactId) {
+  public void setArtifactId(@jakarta.annotation.Nullable String artifactId) {
     this.artifactId = artifactId;
   }
 
-  public InstanceControllerApiPluginVersionDetails groupId(@javax.annotation.Nullable String groupId) {
+  public InstanceControllerApiPluginVersionDetails groupId(@jakarta.annotation.Nullable String groupId) {
     
     this.groupId = groupId;
     return this;
@@ -100,7 +100,7 @@ public class InstanceControllerApiPluginVersionDetails {
    * Get groupId
    * @return groupId
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUP_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUP_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getGroupId() {
@@ -110,11 +110,11 @@ public class InstanceControllerApiPluginVersionDetails {
 
   @JsonProperty(JSON_PROPERTY_GROUP_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setGroupId(@javax.annotation.Nullable String groupId) {
+  public void setGroupId(@jakarta.annotation.Nullable String groupId) {
     this.groupId = groupId;
   }
 
-  public InstanceControllerApiPluginVersionDetails version(@javax.annotation.Nullable String version) {
+  public InstanceControllerApiPluginVersionDetails version(@jakarta.annotation.Nullable String version) {
     
     this.version = version;
     return this;
@@ -124,7 +124,7 @@ public class InstanceControllerApiPluginVersionDetails {
    * Get version
    * @return version
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getVersion() {
@@ -134,11 +134,11 @@ public class InstanceControllerApiPluginVersionDetails {
 
   @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVersion(@javax.annotation.Nullable String version) {
+  public void setVersion(@jakarta.annotation.Nullable String version) {
     this.version = version;
   }
 
-  public InstanceControllerApiPluginVersionDetails title(@javax.annotation.Nullable String title) {
+  public InstanceControllerApiPluginVersionDetails title(@jakarta.annotation.Nullable String title) {
     
     this.title = title;
     return this;
@@ -148,7 +148,7 @@ public class InstanceControllerApiPluginVersionDetails {
    * Get title
    * @return title
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TITLE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TITLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTitle() {
@@ -158,11 +158,11 @@ public class InstanceControllerApiPluginVersionDetails {
 
   @JsonProperty(JSON_PROPERTY_TITLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTitle(@javax.annotation.Nullable String title) {
+  public void setTitle(@jakarta.annotation.Nullable String title) {
     this.title = title;
   }
 
-  public InstanceControllerApiPluginVersionDetails description(@javax.annotation.Nullable String description) {
+  public InstanceControllerApiPluginVersionDetails description(@jakarta.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -172,7 +172,7 @@ public class InstanceControllerApiPluginVersionDetails {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -182,11 +182,11 @@ public class InstanceControllerApiPluginVersionDetails {
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(@javax.annotation.Nullable String description) {
+  public void setDescription(@jakarta.annotation.Nullable String description) {
     this.description = description;
   }
 
-  public InstanceControllerApiPluginVersionDetails icon(@javax.annotation.Nullable String icon) {
+  public InstanceControllerApiPluginVersionDetails icon(@jakarta.annotation.Nullable String icon) {
     
     this.icon = icon;
     return this;
@@ -196,7 +196,7 @@ public class InstanceControllerApiPluginVersionDetails {
    * Get icon
    * @return icon
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ICON)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ICON)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getIcon() {
@@ -206,11 +206,11 @@ public class InstanceControllerApiPluginVersionDetails {
 
   @JsonProperty(JSON_PROPERTY_ICON)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIcon(@javax.annotation.Nullable String icon) {
+  public void setIcon(@jakarta.annotation.Nullable String icon) {
     this.icon = icon;
   }
 
-  public InstanceControllerApiPluginVersionDetails classes(@javax.annotation.Nullable List<InstanceControllerApiPluginVersionDetailsApiPluginClasses> classes) {
+  public InstanceControllerApiPluginVersionDetails classes(@jakarta.annotation.Nullable List<InstanceControllerApiPluginVersionDetailsApiPluginClasses> classes) {
     
     this.classes = classes;
     return this;
@@ -228,7 +228,7 @@ public class InstanceControllerApiPluginVersionDetails {
    * Get classes
    * @return classes
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CLASSES)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CLASSES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<InstanceControllerApiPluginVersionDetailsApiPluginClasses> getClasses() {
@@ -238,7 +238,7 @@ public class InstanceControllerApiPluginVersionDetails {
 
   @JsonProperty(JSON_PROPERTY_CLASSES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setClasses(@javax.annotation.Nullable List<InstanceControllerApiPluginVersionDetailsApiPluginClasses> classes) {
+  public void setClasses(@jakarta.annotation.Nullable List<InstanceControllerApiPluginVersionDetailsApiPluginClasses> classes) {
     this.classes = classes;
   }
 

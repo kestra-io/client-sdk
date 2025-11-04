@@ -40,30 +40,30 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMUserControllerApiUserSummary.JSON_PROPERTY_SUPER_ADMIN
 })
 @JsonTypeName("IAMUserController.ApiUserSummary")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMUserControllerApiUserSummary {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable  private String id;
+  @jakarta.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_USERNAME = "username";
-  @javax.annotation.Nullable  private String username;
+  @jakarta.annotation.Nullable  private String username;
 
   public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
-  @javax.annotation.Nullable  private String displayName;
+  @jakarta.annotation.Nullable  private String displayName;
 
   public static final String JSON_PROPERTY_TENANTS = "tenants";
-  @javax.annotation.Nullable  private List<ApiTenantSummary> tenants = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<ApiTenantSummary> tenants = new ArrayList<>();
 
   public static final String JSON_PROPERTY_AUTHS = "auths";
-  @javax.annotation.Nullable  private List<IAMUserControllerApiUserAuth> auths = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<IAMUserControllerApiUserAuth> auths = new ArrayList<>();
 
   public static final String JSON_PROPERTY_SUPER_ADMIN = "superAdmin";
-  @javax.annotation.Nullable  private Boolean superAdmin;
+  @jakarta.annotation.Nullable  private Boolean superAdmin;
 
   public IAMUserControllerApiUserSummary() {
   }
 
-  public IAMUserControllerApiUserSummary id(@javax.annotation.Nullable String id) {
+  public IAMUserControllerApiUserSummary id(@jakarta.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -73,7 +73,7 @@ public class IAMUserControllerApiUserSummary {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -83,11 +83,11 @@ public class IAMUserControllerApiUserSummary {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  public void setId(@jakarta.annotation.Nullable String id) {
     this.id = id;
   }
 
-  public IAMUserControllerApiUserSummary username(@javax.annotation.Nullable String username) {
+  public IAMUserControllerApiUserSummary username(@jakarta.annotation.Nullable String username) {
     
     this.username = username;
     return this;
@@ -97,7 +97,7 @@ public class IAMUserControllerApiUserSummary {
    * Get username
    * @return username
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_USERNAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_USERNAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUsername() {
@@ -107,11 +107,11 @@ public class IAMUserControllerApiUserSummary {
 
   @JsonProperty(JSON_PROPERTY_USERNAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUsername(@javax.annotation.Nullable String username) {
+  public void setUsername(@jakarta.annotation.Nullable String username) {
     this.username = username;
   }
 
-  public IAMUserControllerApiUserSummary displayName(@javax.annotation.Nullable String displayName) {
+  public IAMUserControllerApiUserSummary displayName(@jakarta.annotation.Nullable String displayName) {
     
     this.displayName = displayName;
     return this;
@@ -121,7 +121,7 @@ public class IAMUserControllerApiUserSummary {
    * Get displayName
    * @return displayName
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDisplayName() {
@@ -131,11 +131,11 @@ public class IAMUserControllerApiUserSummary {
 
   @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDisplayName(@javax.annotation.Nullable String displayName) {
+  public void setDisplayName(@jakarta.annotation.Nullable String displayName) {
     this.displayName = displayName;
   }
 
-  public IAMUserControllerApiUserSummary tenants(@javax.annotation.Nullable List<ApiTenantSummary> tenants) {
+  public IAMUserControllerApiUserSummary tenants(@jakarta.annotation.Nullable List<ApiTenantSummary> tenants) {
     
     this.tenants = tenants;
     return this;
@@ -153,7 +153,7 @@ public class IAMUserControllerApiUserSummary {
    * Get tenants
    * @return tenants
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANTS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<ApiTenantSummary> getTenants() {
@@ -163,11 +163,11 @@ public class IAMUserControllerApiUserSummary {
 
   @JsonProperty(JSON_PROPERTY_TENANTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTenants(@javax.annotation.Nullable List<ApiTenantSummary> tenants) {
+  public void setTenants(@jakarta.annotation.Nullable List<ApiTenantSummary> tenants) {
     this.tenants = tenants;
   }
 
-  public IAMUserControllerApiUserSummary auths(@javax.annotation.Nullable List<IAMUserControllerApiUserAuth> auths) {
+  public IAMUserControllerApiUserSummary auths(@jakarta.annotation.Nullable List<IAMUserControllerApiUserAuth> auths) {
     
     this.auths = auths;
     return this;
@@ -185,7 +185,7 @@ public class IAMUserControllerApiUserSummary {
    * Get auths
    * @return auths
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_AUTHS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_AUTHS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<IAMUserControllerApiUserAuth> getAuths() {
@@ -195,11 +195,11 @@ public class IAMUserControllerApiUserSummary {
 
   @JsonProperty(JSON_PROPERTY_AUTHS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAuths(@javax.annotation.Nullable List<IAMUserControllerApiUserAuth> auths) {
+  public void setAuths(@jakarta.annotation.Nullable List<IAMUserControllerApiUserAuth> auths) {
     this.auths = auths;
   }
 
-  public IAMUserControllerApiUserSummary superAdmin(@javax.annotation.Nullable Boolean superAdmin) {
+  public IAMUserControllerApiUserSummary superAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
     
     this.superAdmin = superAdmin;
     return this;
@@ -209,7 +209,7 @@ public class IAMUserControllerApiUserSummary {
    * Get superAdmin
    * @return superAdmin
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getSuperAdmin() {
@@ -219,7 +219,7 @@ public class IAMUserControllerApiUserSummary {
 
   @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSuperAdmin(@javax.annotation.Nullable Boolean superAdmin) {
+  public void setSuperAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
     this.superAdmin = superAdmin;
   }
 

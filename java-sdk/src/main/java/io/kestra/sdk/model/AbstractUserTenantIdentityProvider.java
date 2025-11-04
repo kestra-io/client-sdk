@@ -40,27 +40,27 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AbstractUserTenantIdentityProvider.JSON_PROPERTY_TENANT_ID
 })
 @JsonTypeName("AbstractUser.TenantIdentityProvider")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AbstractUserTenantIdentityProvider {
   public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
-  @javax.annotation.Nullable  private Map<String, Object> attributes = new HashMap<>();
+  @jakarta.annotation.Nullable  private Map<String, Object> attributes = new HashMap<>();
 
   public static final String JSON_PROPERTY_EXTERNAL_ID = "externalId";
-  @javax.annotation.Nullable  private String externalId;
+  @jakarta.annotation.Nullable  private String externalId;
 
   public static final String JSON_PROPERTY_SECURITY_INTEGRATION_ID = "securityIntegrationId";
-  @javax.annotation.Nullable  private String securityIntegrationId;
+  @jakarta.annotation.Nullable  private String securityIntegrationId;
 
   public static final String JSON_PROPERTY_SECURITY_INTEGRATION_NAME = "securityIntegrationName";
-  @javax.annotation.Nullable  private String securityIntegrationName;
+  @jakarta.annotation.Nullable  private String securityIntegrationName;
 
   public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
-  @javax.annotation.Nullable  private JsonNullable<String> tenantId = JsonNullable.<String>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<String> tenantId = JsonNullable.<String>undefined();
 
   public AbstractUserTenantIdentityProvider() {
   }
 
-  public AbstractUserTenantIdentityProvider attributes(@javax.annotation.Nullable Map<String, Object> attributes) {
+  public AbstractUserTenantIdentityProvider attributes(@jakarta.annotation.Nullable Map<String, Object> attributes) {
     
     this.attributes = attributes;
     return this;
@@ -78,7 +78,7 @@ public class AbstractUserTenantIdentityProvider {
    * Get attributes
    * @return attributes
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getAttributes() {
@@ -88,11 +88,11 @@ public class AbstractUserTenantIdentityProvider {
 
   @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAttributes(@javax.annotation.Nullable Map<String, Object> attributes) {
+  public void setAttributes(@jakarta.annotation.Nullable Map<String, Object> attributes) {
     this.attributes = attributes;
   }
 
-  public AbstractUserTenantIdentityProvider externalId(@javax.annotation.Nullable String externalId) {
+  public AbstractUserTenantIdentityProvider externalId(@jakarta.annotation.Nullable String externalId) {
     
     this.externalId = externalId;
     return this;
@@ -102,7 +102,7 @@ public class AbstractUserTenantIdentityProvider {
    * Get externalId
    * @return externalId
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getExternalId() {
@@ -112,11 +112,11 @@ public class AbstractUserTenantIdentityProvider {
 
   @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExternalId(@javax.annotation.Nullable String externalId) {
+  public void setExternalId(@jakarta.annotation.Nullable String externalId) {
     this.externalId = externalId;
   }
 
-  public AbstractUserTenantIdentityProvider securityIntegrationId(@javax.annotation.Nullable String securityIntegrationId) {
+  public AbstractUserTenantIdentityProvider securityIntegrationId(@jakarta.annotation.Nullable String securityIntegrationId) {
     
     this.securityIntegrationId = securityIntegrationId;
     return this;
@@ -126,7 +126,7 @@ public class AbstractUserTenantIdentityProvider {
    * Get securityIntegrationId
    * @return securityIntegrationId
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECURITY_INTEGRATION_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECURITY_INTEGRATION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSecurityIntegrationId() {
@@ -136,11 +136,11 @@ public class AbstractUserTenantIdentityProvider {
 
   @JsonProperty(JSON_PROPERTY_SECURITY_INTEGRATION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSecurityIntegrationId(@javax.annotation.Nullable String securityIntegrationId) {
+  public void setSecurityIntegrationId(@jakarta.annotation.Nullable String securityIntegrationId) {
     this.securityIntegrationId = securityIntegrationId;
   }
 
-  public AbstractUserTenantIdentityProvider securityIntegrationName(@javax.annotation.Nullable String securityIntegrationName) {
+  public AbstractUserTenantIdentityProvider securityIntegrationName(@jakarta.annotation.Nullable String securityIntegrationName) {
     
     this.securityIntegrationName = securityIntegrationName;
     return this;
@@ -150,7 +150,7 @@ public class AbstractUserTenantIdentityProvider {
    * Get securityIntegrationName
    * @return securityIntegrationName
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECURITY_INTEGRATION_NAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECURITY_INTEGRATION_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSecurityIntegrationName() {
@@ -160,11 +160,11 @@ public class AbstractUserTenantIdentityProvider {
 
   @JsonProperty(JSON_PROPERTY_SECURITY_INTEGRATION_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSecurityIntegrationName(@javax.annotation.Nullable String securityIntegrationName) {
+  public void setSecurityIntegrationName(@jakarta.annotation.Nullable String securityIntegrationName) {
     this.securityIntegrationName = securityIntegrationName;
   }
 
-  public AbstractUserTenantIdentityProvider tenantId(@javax.annotation.Nullable String tenantId) {
+  public AbstractUserTenantIdentityProvider tenantId(@jakarta.annotation.Nullable String tenantId) {
     this.tenantId = JsonNullable.<String>of(tenantId);
     
     return this;
@@ -174,7 +174,7 @@ public class AbstractUserTenantIdentityProvider {
    * Get tenantId
    * @return tenantId
    */
-  @javax.annotation.Nullable  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public String getTenantId() {
         return tenantId.orElse(null);
@@ -191,7 +191,7 @@ public class AbstractUserTenantIdentityProvider {
     this.tenantId = tenantId;
   }
 
-  public void setTenantId(@javax.annotation.Nullable String tenantId) {
+  public void setTenantId(@jakarta.annotation.Nullable String tenantId) {
     this.tenantId = JsonNullable.<String>of(tenantId);
   }
 

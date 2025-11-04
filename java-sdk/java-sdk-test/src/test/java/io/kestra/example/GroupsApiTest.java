@@ -84,7 +84,7 @@ public class GroupsApiTest {
 
         // Optional: verify deletion by expecting a 404/ApiException on fetch
         assertThrows(ApiException.class, () ->
-            kestraClient().groups().getGroup(created.getId(), MAIN_TENANT));
+            kestraClient().groups().group(created.getId(), MAIN_TENANT));
     }
 
     @Test
@@ -123,7 +123,7 @@ public class GroupsApiTest {
                     .description("An example group"));
 
         IAMGroupControllerApiGroupDetail fetched =
-            kestraClient().groups().getGroup(created.getId(), MAIN_TENANT);
+            kestraClient().groups().group(created.getId(), MAIN_TENANT);
 
         assertEquals(created.getId(), fetched.getId());
         assertEquals(created.getName(), fetched.getName());

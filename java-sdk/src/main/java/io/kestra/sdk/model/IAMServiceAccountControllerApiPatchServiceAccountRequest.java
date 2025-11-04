@@ -31,18 +31,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMServiceAccountControllerApiPatchServiceAccountRequest.JSON_PROPERTY_DESCRIPTION
 })
 @JsonTypeName("IAMServiceAccountController.ApiPatchServiceAccountRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMServiceAccountControllerApiPatchServiceAccountRequest {
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nonnull  private String name;
+  @jakarta.annotation.Nonnull  private String name;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable  private String description;
+  @jakarta.annotation.Nullable  private String description;
 
   public IAMServiceAccountControllerApiPatchServiceAccountRequest() {
   }
 
-  public IAMServiceAccountControllerApiPatchServiceAccountRequest name(@javax.annotation.Nonnull String name) {
+  public IAMServiceAccountControllerApiPatchServiceAccountRequest name(@jakarta.annotation.Nonnull String name) {
     
     this.name = name;
     return this;
@@ -52,7 +52,7 @@ public class IAMServiceAccountControllerApiPatchServiceAccountRequest {
    * Get name
    * @return name
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAME)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getName() {
@@ -62,11 +62,11 @@ public class IAMServiceAccountControllerApiPatchServiceAccountRequest {
 
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setName(@javax.annotation.Nonnull String name) {
+  public void setName(@jakarta.annotation.Nonnull String name) {
     this.name = name;
   }
 
-  public IAMServiceAccountControllerApiPatchServiceAccountRequest description(@javax.annotation.Nullable String description) {
+  public IAMServiceAccountControllerApiPatchServiceAccountRequest description(@jakarta.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -76,7 +76,7 @@ public class IAMServiceAccountControllerApiPatchServiceAccountRequest {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -86,7 +86,7 @@ public class IAMServiceAccountControllerApiPatchServiceAccountRequest {
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(@javax.annotation.Nullable String description) {
+  public void setDescription(@jakarta.annotation.Nullable String description) {
     this.description = description;
   }
 

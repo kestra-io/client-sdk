@@ -31,21 +31,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ApiAuth.JSON_PROPERTY_TYPE,
   ApiAuth.JSON_PROPERTY_NAME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ApiAuth {
   public static final String JSON_PROPERTY_UID = "uid";
-  @javax.annotation.Nullable  private String uid;
+  @jakarta.annotation.Nullable  private String uid;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nullable  private String type;
+  @jakarta.annotation.Nullable  private String type;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nullable  private String name;
+  @jakarta.annotation.Nullable  private String name;
 
   public ApiAuth() {
   }
 
-  public ApiAuth uid(@javax.annotation.Nullable String uid) {
+  public ApiAuth uid(@jakarta.annotation.Nullable String uid) {
     
     this.uid = uid;
     return this;
@@ -55,7 +55,7 @@ public class ApiAuth {
    * Get uid
    * @return uid
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUid() {
@@ -65,11 +65,11 @@ public class ApiAuth {
 
   @JsonProperty(JSON_PROPERTY_UID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUid(@javax.annotation.Nullable String uid) {
+  public void setUid(@jakarta.annotation.Nullable String uid) {
     this.uid = uid;
   }
 
-  public ApiAuth type(@javax.annotation.Nullable String type) {
+  public ApiAuth type(@jakarta.annotation.Nullable String type) {
     
     this.type = type;
     return this;
@@ -79,7 +79,7 @@ public class ApiAuth {
    * Get type
    * @return type
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getType() {
@@ -89,11 +89,11 @@ public class ApiAuth {
 
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setType(@javax.annotation.Nullable String type) {
+  public void setType(@jakarta.annotation.Nullable String type) {
     this.type = type;
   }
 
-  public ApiAuth name(@javax.annotation.Nullable String name) {
+  public ApiAuth name(@jakarta.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -103,7 +103,7 @@ public class ApiAuth {
    * Get name
    * @return name
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
@@ -113,7 +113,7 @@ public class ApiAuth {
 
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(@javax.annotation.Nullable String name) {
+  public void setName(@jakarta.annotation.Nullable String name) {
     this.name = name;
   }
 

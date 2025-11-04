@@ -15,18 +15,18 @@ All URIs are relative to *http://localhost*
 | [**enableFlowsByQuery**](flows.md#enableFlowsByQuery) | **POST** /api/v1/{tenant}/flows/enable/by-query | Enable flows returned by the query parameters. |
 | [**exportFlowsByIds**](flows.md#exportFlowsByIds) | **POST** /api/v1/{tenant}/flows/export/by-ids | Export flows as a ZIP archive of yaml sources. |
 | [**exportFlowsByQuery**](flows.md#exportFlowsByQuery) | **GET** /api/v1/{tenant}/flows/export/by-query | Export flows as a ZIP archive of yaml sources. |
+| [**flow**](flows.md#flow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id} | Get a flow |
+| [**flowDependencies**](flows.md#flowDependencies) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/dependencies | Get flow dependencies |
+| [**flowDependenciesFromNamespace**](flows.md#flowDependenciesFromNamespace) | **GET** /api/v1/{tenant}/namespaces/{namespace}/dependencies | Retrieve flow dependencies |
 | [**generateFlowGraph**](flows.md#generateFlowGraph) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/graph | Generate a graph for a flow |
 | [**generateFlowGraphFromSource**](flows.md#generateFlowGraphFromSource) | **POST** /api/v1/{tenant}/flows/graph | Generate a graph for a flow source |
-| [**getFlow**](flows.md#getFlow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id} | Get a flow |
-| [**getFlowDependencies**](flows.md#getFlowDependencies) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/dependencies | Get flow dependencies |
-| [**getFlowDependenciesFromNamespace**](flows.md#getFlowDependenciesFromNamespace) | **GET** /api/v1/{tenant}/namespaces/{namespace}/dependencies | Retrieve flow dependencies |
-| [**getTaskFromFlow**](flows.md#getTaskFromFlow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId} | Get a flow task |
 | [**importFlows**](flows.md#importFlows) | **POST** /api/v1/{tenant}/flows/import |     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned.  |
 | [**listDistinctNamespaces**](flows.md#listDistinctNamespaces) | **GET** /api/v1/{tenant}/flows/distinct-namespaces | List all distinct namespaces |
 | [**listFlowRevisions**](flows.md#listFlowRevisions) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/revisions | Get revisions for a flow |
 | [**listFlowsByNamespace**](flows.md#listFlowsByNamespace) | **GET** /api/v1/{tenant}/flows/{namespace} | Retrieve all flows from a given namespace |
 | [**searchFlows**](flows.md#searchFlows) | **GET** /api/v1/{tenant}/flows/search | Search for flows |
 | [**searchFlowsBySourceCode**](flows.md#searchFlowsBySourceCode) | **GET** /api/v1/{tenant}/flows/source | Search for flows source code |
+| [**taskFromFlow**](flows.md#taskFromFlow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId} | Get a flow task |
 | [**updateFlow**](flows.md#updateFlow) | **PUT** /api/v1/{tenant}/flows/{namespace}/{id} | Update a flow |
 | [**updateFlowsInNamespace**](flows.md#updateFlowsInNamespace) | **POST** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from yaml source |
 | [**validateFlows**](flows.md#validateFlows) | **POST** /api/v1/{tenant}/flows/validate | Validate a list of flows |
@@ -815,6 +815,232 @@ public class Example {
 | **200** | exportFlowsByQuery 200 response |  -  |
 
 
+## flow
+
+> FlowWithSource flow(namespace, id, source, allowDeleted, tenant, revision)
+
+Get a flow
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.flows;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String namespace = "namespace_example"; // String | The flow namespace
+        String id = "id_example"; // String | The flow id
+        Boolean source = false; // Boolean | Include the source code
+        Boolean allowDeleted = false; // Boolean | Get flow even if deleted
+        String tenant = "tenant_example"; // String | 
+        Integer revision = 56; // Integer | Get latest revision by default
+        try {
+            FlowWithSource result = kestraClient.flows().flow(namespace, id, source, allowDeleted, tenant, revision);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling flows#flow");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **namespace** | **String**| The flow namespace | |
+| **id** | **String**| The flow id | |
+| **source** | **Boolean**| Include the source code | [default to false] |
+| **allowDeleted** | **Boolean**| Get flow even if deleted | [default to false] |
+| **tenant** | **String**|  | |
+| **revision** | **Integer**| Get latest revision by default | [optional] |
+
+### Return type
+
+[**FlowWithSource**](FlowWithSource.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | getFlow 200 response |  -  |
+
+
+## flowDependencies
+
+> FlowTopologyGraph flowDependencies(namespace, id, destinationOnly, expandAll, tenant)
+
+Get flow dependencies
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.flows;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String namespace = "namespace_example"; // String | The flow namespace
+        String id = "id_example"; // String | The flow id
+        Boolean destinationOnly = false; // Boolean | If true, list only destination dependencies, otherwise list also source dependencies
+        Boolean expandAll = false; // Boolean | If true, expand all dependencies recursively
+        String tenant = "tenant_example"; // String | 
+        try {
+            FlowTopologyGraph result = kestraClient.flows().flowDependencies(namespace, id, destinationOnly, expandAll, tenant);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling flows#flowDependencies");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **namespace** | **String**| The flow namespace | |
+| **id** | **String**| The flow id | |
+| **destinationOnly** | **Boolean**| If true, list only destination dependencies, otherwise list also source dependencies | [default to false] |
+| **expandAll** | **Boolean**| If true, expand all dependencies recursively | [default to false] |
+| **tenant** | **String**|  | |
+
+### Return type
+
+[**FlowTopologyGraph**](FlowTopologyGraph.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | getFlowDependencies 200 response |  -  |
+
+
+## flowDependenciesFromNamespace
+
+> FlowTopologyGraph flowDependenciesFromNamespace(namespace, destinationOnly, tenant)
+
+Retrieve flow dependencies
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.flows;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String namespace = "namespace_example"; // String | The flow namespace
+        Boolean destinationOnly = false; // Boolean | if true, list only destination dependencies, otherwise list also source dependencies
+        String tenant = "tenant_example"; // String | 
+        try {
+            FlowTopologyGraph result = kestraClient.flows().flowDependenciesFromNamespace(namespace, destinationOnly, tenant);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling flows#flowDependenciesFromNamespace");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **namespace** | **String**| The flow namespace | |
+| **destinationOnly** | **Boolean**| if true, list only destination dependencies, otherwise list also source dependencies | [default to false] |
+| **tenant** | **String**|  | |
+
+### Return type
+
+[**FlowTopologyGraph**](FlowTopologyGraph.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | getFlowDependenciesFromNamespace 200 response |  -  |
+
+
 ## generateFlowGraph
 
 > FlowGraph generateFlowGraph(namespace, id, tenant, revision, subflows)
@@ -961,308 +1187,6 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | generateFlowGraphFromSource 200 response |  -  |
-
-
-## getFlow
-
-> Object getFlow(namespace, id, source, allowDeleted, tenant, revision)
-
-Get a flow
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.flows;
-
-public class Example {
-    public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
-
-        KestraClient kestraClient = KestraClient.builder()
-        .basicAuth("root@root.com", "Root!1234")
-        .url("http://localhost:8080")
-        .build();
-
-        String namespace = "namespace_example"; // String | The flow namespace
-        String id = "id_example"; // String | The flow id
-        Boolean source = false; // Boolean | Include the source code
-        Boolean allowDeleted = false; // Boolean | Get flow even if deleted
-        String tenant = "tenant_example"; // String | 
-        Integer revision = 56; // Integer | Get latest revision by default
-        try {
-            Object result = kestraClient.flows().getFlow(namespace, id, source, allowDeleted, tenant, revision);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling flows#getFlow");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The flow namespace | |
-| **id** | **String**| The flow id | |
-| **source** | **Boolean**| Include the source code | [default to false] |
-| **allowDeleted** | **Boolean**| Get flow even if deleted | [default to false] |
-| **tenant** | **String**|  | |
-| **revision** | **Integer**| Get latest revision by default | [optional] |
-
-### Return type
-
-**Object**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | getFlow 200 response |  -  |
-
-
-## getFlowDependencies
-
-> FlowTopologyGraph getFlowDependencies(namespace, id, destinationOnly, expandAll, tenant)
-
-Get flow dependencies
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.flows;
-
-public class Example {
-    public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
-
-        KestraClient kestraClient = KestraClient.builder()
-        .basicAuth("root@root.com", "Root!1234")
-        .url("http://localhost:8080")
-        .build();
-
-        String namespace = "namespace_example"; // String | The flow namespace
-        String id = "id_example"; // String | The flow id
-        Boolean destinationOnly = false; // Boolean | If true, list only destination dependencies, otherwise list also source dependencies
-        Boolean expandAll = false; // Boolean | If true, expand all dependencies recursively
-        String tenant = "tenant_example"; // String | 
-        try {
-            FlowTopologyGraph result = kestraClient.flows().getFlowDependencies(namespace, id, destinationOnly, expandAll, tenant);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling flows#getFlowDependencies");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The flow namespace | |
-| **id** | **String**| The flow id | |
-| **destinationOnly** | **Boolean**| If true, list only destination dependencies, otherwise list also source dependencies | [default to false] |
-| **expandAll** | **Boolean**| If true, expand all dependencies recursively | [default to false] |
-| **tenant** | **String**|  | |
-
-### Return type
-
-[**FlowTopologyGraph**](FlowTopologyGraph.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | getFlowDependencies 200 response |  -  |
-
-
-## getFlowDependenciesFromNamespace
-
-> FlowTopologyGraph getFlowDependenciesFromNamespace(namespace, destinationOnly, tenant)
-
-Retrieve flow dependencies
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.flows;
-
-public class Example {
-    public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
-
-        KestraClient kestraClient = KestraClient.builder()
-        .basicAuth("root@root.com", "Root!1234")
-        .url("http://localhost:8080")
-        .build();
-
-        String namespace = "namespace_example"; // String | The flow namespace
-        Boolean destinationOnly = false; // Boolean | if true, list only destination dependencies, otherwise list also source dependencies
-        String tenant = "tenant_example"; // String | 
-        try {
-            FlowTopologyGraph result = kestraClient.flows().getFlowDependenciesFromNamespace(namespace, destinationOnly, tenant);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling flows#getFlowDependenciesFromNamespace");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The flow namespace | |
-| **destinationOnly** | **Boolean**| if true, list only destination dependencies, otherwise list also source dependencies | [default to false] |
-| **tenant** | **String**|  | |
-
-### Return type
-
-[**FlowTopologyGraph**](FlowTopologyGraph.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | getFlowDependenciesFromNamespace 200 response |  -  |
-
-
-## getTaskFromFlow
-
-> Task getTaskFromFlow(namespace, id, taskId, tenant, revision)
-
-Get a flow task
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.flows;
-
-public class Example {
-    public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
-
-        KestraClient kestraClient = KestraClient.builder()
-        .basicAuth("root@root.com", "Root!1234")
-        .url("http://localhost:8080")
-        .build();
-
-        String namespace = "namespace_example"; // String | The flow namespace
-        String id = "id_example"; // String | The flow id
-        String taskId = "taskId_example"; // String | The task id
-        String tenant = "tenant_example"; // String | 
-        Integer revision = 56; // Integer | The flow revision
-        try {
-            Task result = kestraClient.flows().getTaskFromFlow(namespace, id, taskId, tenant, revision);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling flows#getTaskFromFlow");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The flow namespace | |
-| **id** | **String**| The flow id | |
-| **taskId** | **String**| The task id | |
-| **tenant** | **String**|  | |
-| **revision** | **Integer**| The flow revision | [optional] |
-
-### Return type
-
-[**Task**](Task.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | getTaskFromFlow 200 response |  -  |
 
 
 ## importFlows
@@ -1699,6 +1623,82 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | searchFlowsBySourceCode 200 response |  -  |
+
+
+## taskFromFlow
+
+> Task taskFromFlow(namespace, id, taskId, tenant, revision)
+
+Get a flow task
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.flows;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String namespace = "namespace_example"; // String | The flow namespace
+        String id = "id_example"; // String | The flow id
+        String taskId = "taskId_example"; // String | The task id
+        String tenant = "tenant_example"; // String | 
+        Integer revision = 56; // Integer | The flow revision
+        try {
+            Task result = kestraClient.flows().taskFromFlow(namespace, id, taskId, tenant, revision);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling flows#taskFromFlow");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **namespace** | **String**| The flow namespace | |
+| **id** | **String**| The flow id | |
+| **taskId** | **String**| The task id | |
+| **tenant** | **String**|  | |
+| **revision** | **Integer**| The flow revision | [optional] |
+
+### Return type
+
+[**Task**](Task.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | getTaskFromFlow 200 response |  -  |
 
 
 ## updateFlow

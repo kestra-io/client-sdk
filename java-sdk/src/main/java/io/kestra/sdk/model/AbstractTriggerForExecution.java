@@ -31,21 +31,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AbstractTriggerForExecution.JSON_PROPERTY_TYPE,
   AbstractTriggerForExecution.JSON_PROPERTY_VERSION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AbstractTriggerForExecution {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull  private String id;
+  @jakarta.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nonnull  private String type;
+  @jakarta.annotation.Nonnull  private String type;
 
   public static final String JSON_PROPERTY_VERSION = "version";
-  @javax.annotation.Nullable  private String version;
+  @jakarta.annotation.Nullable  private String version;
 
   public AbstractTriggerForExecution() {
   }
 
-  public AbstractTriggerForExecution id(@javax.annotation.Nonnull String id) {
+  public AbstractTriggerForExecution id(@jakarta.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -55,7 +55,7 @@ public class AbstractTriggerForExecution {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -65,11 +65,11 @@ public class AbstractTriggerForExecution {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(@javax.annotation.Nonnull String id) {
+  public void setId(@jakarta.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public AbstractTriggerForExecution type(@javax.annotation.Nonnull String type) {
+  public AbstractTriggerForExecution type(@jakarta.annotation.Nonnull String type) {
     
     this.type = type;
     return this;
@@ -79,7 +79,7 @@ public class AbstractTriggerForExecution {
    * Get type
    * @return type
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getType() {
@@ -89,11 +89,11 @@ public class AbstractTriggerForExecution {
 
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setType(@javax.annotation.Nonnull String type) {
+  public void setType(@jakarta.annotation.Nonnull String type) {
     this.type = type;
   }
 
-  public AbstractTriggerForExecution version(@javax.annotation.Nullable String version) {
+  public AbstractTriggerForExecution version(@jakarta.annotation.Nullable String version) {
     
     this.version = version;
     return this;
@@ -103,7 +103,7 @@ public class AbstractTriggerForExecution {
    * Get version
    * @return version
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getVersion() {
@@ -113,7 +113,7 @@ public class AbstractTriggerForExecution {
 
   @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVersion(@javax.annotation.Nullable String version) {
+  public void setVersion(@jakarta.annotation.Nullable String version) {
     this.version = version;
   }
 

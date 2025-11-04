@@ -12,13 +12,13 @@ All URIs are relative to *http://localhost*
 | [**deleteApiTokenForServiceAccountWithTenant**](serviceaccount.md#deleteApiTokenForServiceAccountWithTenant) | **DELETE** /api/v1/{tenant}/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific service account and token id |
 | [**deleteServiceAccount**](serviceaccount.md#deleteServiceAccount) | **DELETE** /api/v1/service-accounts/{id} | Delete a service account |
 | [**deleteServiceAccountForTenant**](serviceaccount.md#deleteServiceAccountForTenant) | **DELETE** /api/v1/{tenant}/service-accounts/{id} | Delete a service account |
-| [**getServiceAccount**](serviceaccount.md#getServiceAccount) | **GET** /api/v1/service-accounts/{id} | Get a service account |
-| [**getServiceAccountForTenant**](serviceaccount.md#getServiceAccountForTenant) | **GET** /api/v1/{tenant}/service-accounts/{id} | Retrieve a service account |
 | [**listApiTokensForServiceAccount**](serviceaccount.md#listApiTokensForServiceAccount) | **GET** /api/v1/service-accounts/{id}/api-tokens | List API tokens for a specific service account |
 | [**listApiTokensForServiceAccountWithTenant**](serviceaccount.md#listApiTokensForServiceAccountWithTenant) | **GET** /api/v1/{tenant}/service-accounts/{id}/api-tokens | List API tokens for a specific service account |
 | [**listServiceAccounts**](serviceaccount.md#listServiceAccounts) | **GET** /api/v1/service-accounts | List service accounts. Superadmin-only.  |
 | [**patchServiceAccountDetails**](serviceaccount.md#patchServiceAccountDetails) | **PATCH** /api/v1/service-accounts/{id} | Update service account details |
 | [**patchServiceAccountSuperAdmin**](serviceaccount.md#patchServiceAccountSuperAdmin) | **PATCH** /api/v1/service-accounts/{id}/superadmin | Update service account superadmin privileges |
+| [**serviceAccount**](serviceaccount.md#serviceAccount) | **GET** /api/v1/service-accounts/{id} | Get a service account |
+| [**serviceAccountForTenant**](serviceaccount.md#serviceAccountForTenant) | **GET** /api/v1/{tenant}/service-accounts/{id} | Retrieve a service account |
 | [**updateServiceAccount**](serviceaccount.md#updateServiceAccount) | **PUT** /api/v1/{tenant}/service-accounts/{id} | Update a user service account |
 
 
@@ -588,148 +588,6 @@ null (empty response body)
 | **404** | Service account |  -  |
 
 
-## getServiceAccount
-
-> IAMServiceAccountControllerApiServiceAccountDetail getServiceAccount(id)
-
-Get a service account
-
-Superadmin-only. Get user account details.
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.serviceaccount;
-
-public class Example {
-    public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
-
-        KestraClient kestraClient = KestraClient.builder()
-        .basicAuth("root@root.com", "Root!1234")
-        .url("http://localhost:8080")
-        .build();
-
-        String id = "id_example"; // String | The service account id
-        try {
-            IAMServiceAccountControllerApiServiceAccountDetail result = kestraClient.serviceaccount().getServiceAccount(id);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling serviceaccount#getServiceAccount");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **id** | **String**| The service account id | |
-
-### Return type
-
-[**IAMServiceAccountControllerApiServiceAccountDetail**](IAMServiceAccountControllerApiServiceAccountDetail.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | getServiceAccount 200 response |  -  |
-| **404** | User not found |  -  |
-
-
-## getServiceAccountForTenant
-
-> IAMServiceAccountControllerApiServiceAccountResponse getServiceAccountForTenant(id, tenant)
-
-Retrieve a service account
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.serviceaccount;
-
-public class Example {
-    public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
-
-        KestraClient kestraClient = KestraClient.builder()
-        .basicAuth("root@root.com", "Root!1234")
-        .url("http://localhost:8080")
-        .build();
-
-        String id = "id_example"; // String | The user id
-        String tenant = "tenant_example"; // String | 
-        try {
-            IAMServiceAccountControllerApiServiceAccountResponse result = kestraClient.serviceaccount().getServiceAccountForTenant(id, tenant);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling serviceaccount#getServiceAccountForTenant");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **id** | **String**| The user id | |
-| **tenant** | **String**|  | |
-
-### Return type
-
-[**IAMServiceAccountControllerApiServiceAccountResponse**](IAMServiceAccountControllerApiServiceAccountResponse.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | getServiceAccountForTenant 200 response |  -  |
-| **404** | Service account not found |  -  |
-
-
 ## listApiTokensForServiceAccount
 
 > Object listApiTokensForServiceAccount(id)
@@ -1084,6 +942,148 @@ null (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Service account successfully updated |  -  |
+| **404** | Service account not found |  -  |
+
+
+## serviceAccount
+
+> IAMServiceAccountControllerApiServiceAccountDetail serviceAccount(id)
+
+Get a service account
+
+Superadmin-only. Get user account details.
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.serviceaccount;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String id = "id_example"; // String | The service account id
+        try {
+            IAMServiceAccountControllerApiServiceAccountDetail result = kestraClient.serviceaccount().serviceAccount(id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling serviceaccount#serviceAccount");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The service account id | |
+
+### Return type
+
+[**IAMServiceAccountControllerApiServiceAccountDetail**](IAMServiceAccountControllerApiServiceAccountDetail.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | getServiceAccount 200 response |  -  |
+| **404** | User not found |  -  |
+
+
+## serviceAccountForTenant
+
+> IAMServiceAccountControllerApiServiceAccountResponse serviceAccountForTenant(id, tenant)
+
+Retrieve a service account
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.serviceaccount;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String id = "id_example"; // String | The user id
+        String tenant = "tenant_example"; // String | 
+        try {
+            IAMServiceAccountControllerApiServiceAccountResponse result = kestraClient.serviceaccount().serviceAccountForTenant(id, tenant);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling serviceaccount#serviceAccountForTenant");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The user id | |
+| **tenant** | **String**|  | |
+
+### Return type
+
+[**IAMServiceAccountControllerApiServiceAccountResponse**](IAMServiceAccountControllerApiServiceAccountResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | getServiceAccountForTenant 200 response |  -  |
 | **404** | Service account not found |  -  |
 
 

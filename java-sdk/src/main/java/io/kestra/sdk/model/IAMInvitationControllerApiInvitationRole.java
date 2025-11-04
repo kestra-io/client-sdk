@@ -34,18 +34,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMInvitationControllerApiInvitationRole.JSON_PROPERTY_NAMESPACES
 })
 @JsonTypeName("IAMInvitationController.ApiInvitationRole")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMInvitationControllerApiInvitationRole {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull  private String id;
+  @jakarta.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_NAMESPACES = "namespaces";
-  @javax.annotation.Nullable  private List<String> namespaces = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> namespaces = new ArrayList<>();
 
   public IAMInvitationControllerApiInvitationRole() {
   }
 
-  public IAMInvitationControllerApiInvitationRole id(@javax.annotation.Nonnull String id) {
+  public IAMInvitationControllerApiInvitationRole id(@jakarta.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -55,7 +55,7 @@ public class IAMInvitationControllerApiInvitationRole {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -65,11 +65,11 @@ public class IAMInvitationControllerApiInvitationRole {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(@javax.annotation.Nonnull String id) {
+  public void setId(@jakarta.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public IAMInvitationControllerApiInvitationRole namespaces(@javax.annotation.Nullable List<String> namespaces) {
+  public IAMInvitationControllerApiInvitationRole namespaces(@jakarta.annotation.Nullable List<String> namespaces) {
     
     this.namespaces = namespaces;
     return this;
@@ -87,7 +87,7 @@ public class IAMInvitationControllerApiInvitationRole {
    * Get namespaces
    * @return namespaces
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACES)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getNamespaces() {
@@ -97,7 +97,7 @@ public class IAMInvitationControllerApiInvitationRole {
 
   @JsonProperty(JSON_PROPERTY_NAMESPACES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setNamespaces(@javax.annotation.Nullable List<String> namespaces) {
+  public void setNamespaces(@jakarta.annotation.Nullable List<String> namespaces) {
     this.namespaces = namespaces;
   }
 

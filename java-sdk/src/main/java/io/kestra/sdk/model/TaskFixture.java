@@ -37,27 +37,27 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TaskFixture.JSON_PROPERTY_OUTPUTS,
   TaskFixture.JSON_PROPERTY_DESCRIPTION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TaskFixture {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull  private String id;
+  @jakarta.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nullable  private String value;
+  @jakarta.annotation.Nullable  private String value;
 
   public static final String JSON_PROPERTY_STATE = "state";
-  @javax.annotation.Nullable  private StateType state;
+  @jakarta.annotation.Nullable  private StateType state;
 
   public static final String JSON_PROPERTY_OUTPUTS = "outputs";
-  @javax.annotation.Nullable  private Map<String, Object> outputs = new HashMap<>();
+  @jakarta.annotation.Nullable  private Map<String, Object> outputs = new HashMap<>();
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable  private String description;
+  @jakarta.annotation.Nullable  private String description;
 
   public TaskFixture() {
   }
 
-  public TaskFixture id(@javax.annotation.Nonnull String id) {
+  public TaskFixture id(@jakarta.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -67,7 +67,7 @@ public class TaskFixture {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -77,11 +77,11 @@ public class TaskFixture {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(@javax.annotation.Nonnull String id) {
+  public void setId(@jakarta.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public TaskFixture value(@javax.annotation.Nullable String value) {
+  public TaskFixture value(@jakarta.annotation.Nullable String value) {
     
     this.value = value;
     return this;
@@ -91,7 +91,7 @@ public class TaskFixture {
    * Get value
    * @return value
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getValue() {
@@ -101,11 +101,11 @@ public class TaskFixture {
 
   @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setValue(@javax.annotation.Nullable String value) {
+  public void setValue(@jakarta.annotation.Nullable String value) {
     this.value = value;
   }
 
-  public TaskFixture state(@javax.annotation.Nullable StateType state) {
+  public TaskFixture state(@jakarta.annotation.Nullable StateType state) {
     
     this.state = state;
     return this;
@@ -115,7 +115,7 @@ public class TaskFixture {
    * Get state
    * @return state
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STATE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public StateType getState() {
@@ -125,11 +125,11 @@ public class TaskFixture {
 
   @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setState(@javax.annotation.Nullable StateType state) {
+  public void setState(@jakarta.annotation.Nullable StateType state) {
     this.state = state;
   }
 
-  public TaskFixture outputs(@javax.annotation.Nullable Map<String, Object> outputs) {
+  public TaskFixture outputs(@jakarta.annotation.Nullable Map<String, Object> outputs) {
     
     this.outputs = outputs;
     return this;
@@ -147,7 +147,7 @@ public class TaskFixture {
    * Get outputs
    * @return outputs
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTPUTS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getOutputs() {
@@ -157,11 +157,11 @@ public class TaskFixture {
 
   @JsonProperty(JSON_PROPERTY_OUTPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOutputs(@javax.annotation.Nullable Map<String, Object> outputs) {
+  public void setOutputs(@jakarta.annotation.Nullable Map<String, Object> outputs) {
     this.outputs = outputs;
   }
 
-  public TaskFixture description(@javax.annotation.Nullable String description) {
+  public TaskFixture description(@jakarta.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -171,7 +171,7 @@ public class TaskFixture {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -181,7 +181,7 @@ public class TaskFixture {
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(@javax.annotation.Nullable String description) {
+  public void setDescription(@jakarta.annotation.Nullable String description) {
     this.description = description;
   }
 

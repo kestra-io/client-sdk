@@ -41,21 +41,21 @@ class FlowWithSource(BaseModel):
     revision: Optional[Annotated[int, Field(strict=True, ge=1)]] = None
     description: Optional[StrictStr] = None
     inputs: Optional[List[InputObject]] = None
-    outputs: Optional[List[Output]] = Field(default=None, description="Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages.")
     disabled: StrictBool
     labels: Optional[List[Label]] = Field(default=None, description="Labels as a list of Label (key/value pairs) or as a map of string to string.")
-    variables: Optional[Dict[str, Any]] = None
     worker_group: Optional[WorkerGroup] = Field(default=None, alias="workerGroup")
     deleted: StrictBool
+    variables: Optional[Dict[str, Any]] = None
+    concurrency: Optional[Concurrency] = None
+    outputs: Optional[List[Output]] = Field(default=None, description="Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages.")
+    sla: Optional[List[SLA]] = None
     var_finally: Optional[List[Task]] = Field(default=None, alias="finally")
     tasks: Annotated[List[Task], Field(min_length=1)]
     errors: Optional[List[Task]] = None
     after_execution: Optional[List[Task]] = Field(default=None, alias="afterExecution")
     triggers: Optional[List[AbstractTrigger]] = None
     plugin_defaults: Optional[List[PluginDefault]] = Field(default=None, alias="pluginDefaults")
-    concurrency: Optional[Concurrency] = None
     retry: Optional[Dict[str, Any]] = None
-    sla: Optional[List[SLA]] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "namespace", "revision", "description", "inputs", "outputs", "disabled", "labels", "variables", "workerGroup", "deleted", "finally", "tasks", "errors", "afterExecution", "triggers", "pluginDefaults", "concurrency", "retry", "sla"]
 

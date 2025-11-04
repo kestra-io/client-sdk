@@ -34,15 +34,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InstanceControllerApiWorkerGroupList.JSON_PROPERTY_WORKER_GROUPS
 })
 @JsonTypeName("InstanceController.ApiWorkerGroupList")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class InstanceControllerApiWorkerGroupList {
   public static final String JSON_PROPERTY_WORKER_GROUPS = "workerGroups";
-  @javax.annotation.Nullable  private List<InstanceControllerApiWorkerGroupItem> workerGroups = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<InstanceControllerApiWorkerGroupItem> workerGroups = new ArrayList<>();
 
   public InstanceControllerApiWorkerGroupList() {
   }
 
-  public InstanceControllerApiWorkerGroupList workerGroups(@javax.annotation.Nullable List<InstanceControllerApiWorkerGroupItem> workerGroups) {
+  public InstanceControllerApiWorkerGroupList workerGroups(@jakarta.annotation.Nullable List<InstanceControllerApiWorkerGroupItem> workerGroups) {
     
     this.workerGroups = workerGroups;
     return this;
@@ -60,7 +60,7 @@ public class InstanceControllerApiWorkerGroupList {
    * The list of worker groups.
    * @return workerGroups
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_GROUPS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_GROUPS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<InstanceControllerApiWorkerGroupItem> getWorkerGroups() {
@@ -70,7 +70,7 @@ public class InstanceControllerApiWorkerGroupList {
 
   @JsonProperty(JSON_PROPERTY_WORKER_GROUPS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWorkerGroups(@javax.annotation.Nullable List<InstanceControllerApiWorkerGroupItem> workerGroups) {
+  public void setWorkerGroups(@jakarta.annotation.Nullable List<InstanceControllerApiWorkerGroupItem> workerGroups) {
     this.workerGroups = workerGroups;
   }
 

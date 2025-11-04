@@ -1180,6 +1180,857 @@ class ExecutionsApi:
 
 
 
+    @validate_call
+    def execution(
+        self,
+        execution_id: Annotated[StrictStr, Field(description="The execution id")],
+        tenant: StrictStr,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> Execution:
+        """Get an execution
+
+
+        :param execution_id: The execution id (required)
+        :type execution_id: str
+                :param tenant: (required)
+        :type tenant: str
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._execution_serialize(
+            execution_id=execution_id,
+            tenant=tenant,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Execution",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def execution_with_http_info(
+        self,
+        execution_id: Annotated[StrictStr, Field(description="The execution id")],
+        tenant: StrictStr,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> ApiResponse[Execution]:
+        """Get an execution
+
+
+        :param execution_id: The execution id (required)
+        :type execution_id: str
+                :param tenant: (required)
+        :type tenant: str
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._execution_serialize(
+            execution_id=execution_id,
+            tenant=tenant,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Execution",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    def _execution_serialize(
+        self,
+        execution_id,
+        tenant,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if execution_id is not None:
+            _path_params['executionId'] = execution_id
+        if tenant is not None:
+            _path_params['tenant'] = tenant
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/v1/{tenant}/executions/{executionId}',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats
+        )
+
+
+
+
+
+    @validate_call
+    def execution_flow_graph(
+        self,
+        execution_id: Annotated[StrictStr, Field(description="The execution id")],
+        tenant: StrictStr,
+        subflows: Annotated[Optional[List[StrictStr]], Field(description="The subflow tasks to display")] = None,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> FlowGraph:
+        """Generate a graph for an execution
+
+
+        :param execution_id: The execution id (required)
+        :type execution_id: str
+                :param tenant: (required)
+        :type tenant: str
+                :param subflows: The subflow tasks to display
+        :type subflows: List[str]
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._execution_flow_graph_serialize(
+            execution_id=execution_id,
+            tenant=tenant,
+            subflows=subflows,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "FlowGraph",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def execution_flow_graph_with_http_info(
+        self,
+        execution_id: Annotated[StrictStr, Field(description="The execution id")],
+        tenant: StrictStr,
+        subflows: Annotated[Optional[List[StrictStr]], Field(description="The subflow tasks to display")] = None,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> ApiResponse[FlowGraph]:
+        """Generate a graph for an execution
+
+
+        :param execution_id: The execution id (required)
+        :type execution_id: str
+                :param tenant: (required)
+        :type tenant: str
+                :param subflows: The subflow tasks to display
+        :type subflows: List[str]
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._execution_flow_graph_serialize(
+            execution_id=execution_id,
+            tenant=tenant,
+            subflows=subflows,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "FlowGraph",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    def _execution_flow_graph_serialize(
+        self,
+        execution_id,
+        tenant,
+        subflows,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+            'subflows': 'csv',
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if execution_id is not None:
+            _path_params['executionId'] = execution_id
+        if tenant is not None:
+            _path_params['tenant'] = tenant
+        # process the query parameters
+        if subflows is not None:
+            
+            _query_params.append(('subflows', subflows))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/v1/{tenant}/executions/{executionId}/graph',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats
+        )
+
+
+
+
+
+    @validate_call
+    def file_metadatas_from_execution(
+        self,
+        execution_id: Annotated[StrictStr, Field(description="The execution id")],
+        path: Annotated[StrictStr, Field(description="The internal storage uri")],
+        tenant: StrictStr,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> FileMetas:
+        """Get file meta information for an execution
+
+
+        :param execution_id: The execution id (required)
+        :type execution_id: str
+                :param path: The internal storage uri (required)
+        :type path: str
+                :param tenant: (required)
+        :type tenant: str
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._file_metadatas_from_execution_serialize(
+            execution_id=execution_id,
+            path=path,
+            tenant=tenant,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "FileMetas",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def file_metadatas_from_execution_with_http_info(
+        self,
+        execution_id: Annotated[StrictStr, Field(description="The execution id")],
+        path: Annotated[StrictStr, Field(description="The internal storage uri")],
+        tenant: StrictStr,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> ApiResponse[FileMetas]:
+        """Get file meta information for an execution
+
+
+        :param execution_id: The execution id (required)
+        :type execution_id: str
+                :param path: The internal storage uri (required)
+        :type path: str
+                :param tenant: (required)
+        :type tenant: str
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._file_metadatas_from_execution_serialize(
+            execution_id=execution_id,
+            path=path,
+            tenant=tenant,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "FileMetas",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    def _file_metadatas_from_execution_serialize(
+        self,
+        execution_id,
+        path,
+        tenant,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if execution_id is not None:
+            _path_params['executionId'] = execution_id
+        if tenant is not None:
+            _path_params['tenant'] = tenant
+        # process the query parameters
+        if path is not None:
+            
+            _query_params.append(('path', path))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/v1/{tenant}/executions/{executionId}/file/metas',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats
+        )
+
+
+
+
+
+    @validate_call
+    def flow_from_execution(
+        self,
+        namespace: Annotated[StrictStr, Field(description="The namespace of the flow")],
+        flow_id: Annotated[StrictStr, Field(description="The flow id")],
+        tenant: StrictStr,
+        revision: Annotated[Optional[StrictInt], Field(description="The flow revision")] = None,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> FlowForExecution:
+        """Get flow information's for an execution
+
+
+        :param namespace: The namespace of the flow (required)
+        :type namespace: str
+                :param flow_id: The flow id (required)
+        :type flow_id: str
+                :param tenant: (required)
+        :type tenant: str
+                :param revision: The flow revision
+        :type revision: int
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._flow_from_execution_serialize(
+            namespace=namespace,
+            flow_id=flow_id,
+            tenant=tenant,
+            revision=revision,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "FlowForExecution",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def flow_from_execution_with_http_info(
+        self,
+        namespace: Annotated[StrictStr, Field(description="The namespace of the flow")],
+        flow_id: Annotated[StrictStr, Field(description="The flow id")],
+        tenant: StrictStr,
+        revision: Annotated[Optional[StrictInt], Field(description="The flow revision")] = None,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> ApiResponse[FlowForExecution]:
+        """Get flow information's for an execution
+
+
+        :param namespace: The namespace of the flow (required)
+        :type namespace: str
+                :param flow_id: The flow id (required)
+        :type flow_id: str
+                :param tenant: (required)
+        :type tenant: str
+                :param revision: The flow revision
+        :type revision: int
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._flow_from_execution_serialize(
+            namespace=namespace,
+            flow_id=flow_id,
+            tenant=tenant,
+            revision=revision,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "FlowForExecution",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    def _flow_from_execution_serialize(
+        self,
+        namespace,
+        flow_id,
+        tenant,
+        revision,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if namespace is not None:
+            _path_params['namespace'] = namespace
+        if flow_id is not None:
+            _path_params['flowId'] = flow_id
+        if tenant is not None:
+            _path_params['tenant'] = tenant
+        # process the query parameters
+        if revision is not None:
+            
+            _query_params.append(('revision', revision))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/v1/{tenant}/executions/flows/{namespace}/{flowId}',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats
+        )
+
+
+
+
+
+    @validate_call
+    def flow_from_execution_by_id(
+        self,
+        execution_id: Annotated[StrictStr, Field(description="The execution that you want flow informations")],
+        tenant: StrictStr,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> FlowForExecution:
+        """Get flow information's for an execution
+
+
+        :param execution_id: The execution that you want flow informations (required)
+        :type execution_id: str
+                :param tenant: (required)
+        :type tenant: str
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._flow_from_execution_by_id_serialize(
+            execution_id=execution_id,
+            tenant=tenant,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "FlowForExecution",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def flow_from_execution_by_id_with_http_info(
+        self,
+        execution_id: Annotated[StrictStr, Field(description="The execution that you want flow informations")],
+        tenant: StrictStr,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> ApiResponse[FlowForExecution]:
+        """Get flow information's for an execution
+
+
+        :param execution_id: The execution that you want flow informations (required)
+        :type execution_id: str
+                :param tenant: (required)
+        :type tenant: str
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._flow_from_execution_by_id_serialize(
+            execution_id=execution_id,
+            tenant=tenant,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "FlowForExecution",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    def _flow_from_execution_by_id_serialize(
+        self,
+        execution_id,
+        tenant,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if execution_id is not None:
+            _path_params['executionId'] = execution_id
+        if tenant is not None:
+            _path_params['tenant'] = tenant
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/v1/{tenant}/executions/{executionId}/flow',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats
+        )
+
+
+
+
+
 
     def _follow_dependencies_executions_serialize(
         self,
@@ -1908,1029 +2759,6 @@ class ExecutionsApi:
 
 
     @validate_call
-    def get_execution(
-        self,
-        execution_id: Annotated[StrictStr, Field(description="The execution id")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-        None,
-        Annotated[StrictFloat, Field(gt=0)],
-        Tuple[
-        Annotated[StrictFloat, Field(gt=0)],
-        Annotated[StrictFloat, Field(gt=0)]
-        ]
-        ] = None
-    ) -> Execution:
-        """Get an execution
-
-
-        :param execution_id: The execution id (required)
-        :type execution_id: str
-                :param tenant: (required)
-        :type tenant: str
-        ,
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        """ # noqa: E501
-
-        _param = self._get_execution_serialize(
-            execution_id=execution_id,
-            tenant=tenant,
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Execution",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def get_execution_with_http_info(
-        self,
-        execution_id: Annotated[StrictStr, Field(description="The execution id")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-        None,
-        Annotated[StrictFloat, Field(gt=0)],
-        Tuple[
-        Annotated[StrictFloat, Field(gt=0)],
-        Annotated[StrictFloat, Field(gt=0)]
-        ]
-        ] = None
-    ) -> ApiResponse[Execution]:
-        """Get an execution
-
-
-        :param execution_id: The execution id (required)
-        :type execution_id: str
-                :param tenant: (required)
-        :type tenant: str
-        ,
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        """ # noqa: E501
-
-        _param = self._get_execution_serialize(
-            execution_id=execution_id,
-            tenant=tenant,
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Execution",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    def _get_execution_serialize(
-        self,
-        execution_id,
-        tenant,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if execution_id is not None:
-            _path_params['executionId'] = execution_id
-        if tenant is not None:
-            _path_params['tenant'] = tenant
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'basicAuth', 
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/api/v1/{tenant}/executions/{executionId}',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats
-        )
-
-
-
-
-
-    @validate_call
-    def get_execution_flow_graph(
-        self,
-        execution_id: Annotated[StrictStr, Field(description="The execution id")],
-        tenant: StrictStr,
-        subflows: Annotated[Optional[List[StrictStr]], Field(description="The subflow tasks to display")] = None,
-        _request_timeout: Union[
-        None,
-        Annotated[StrictFloat, Field(gt=0)],
-        Tuple[
-        Annotated[StrictFloat, Field(gt=0)],
-        Annotated[StrictFloat, Field(gt=0)]
-        ]
-        ] = None
-    ) -> FlowGraph:
-        """Generate a graph for an execution
-
-
-        :param execution_id: The execution id (required)
-        :type execution_id: str
-                :param tenant: (required)
-        :type tenant: str
-                :param subflows: The subflow tasks to display
-        :type subflows: List[str]
-        ,
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        """ # noqa: E501
-
-        _param = self._get_execution_flow_graph_serialize(
-            execution_id=execution_id,
-            tenant=tenant,
-            subflows=subflows,
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "FlowGraph",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def get_execution_flow_graph_with_http_info(
-        self,
-        execution_id: Annotated[StrictStr, Field(description="The execution id")],
-        tenant: StrictStr,
-        subflows: Annotated[Optional[List[StrictStr]], Field(description="The subflow tasks to display")] = None,
-        _request_timeout: Union[
-        None,
-        Annotated[StrictFloat, Field(gt=0)],
-        Tuple[
-        Annotated[StrictFloat, Field(gt=0)],
-        Annotated[StrictFloat, Field(gt=0)]
-        ]
-        ] = None
-    ) -> ApiResponse[FlowGraph]:
-        """Generate a graph for an execution
-
-
-        :param execution_id: The execution id (required)
-        :type execution_id: str
-                :param tenant: (required)
-        :type tenant: str
-                :param subflows: The subflow tasks to display
-        :type subflows: List[str]
-        ,
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        """ # noqa: E501
-
-        _param = self._get_execution_flow_graph_serialize(
-            execution_id=execution_id,
-            tenant=tenant,
-            subflows=subflows,
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "FlowGraph",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    def _get_execution_flow_graph_serialize(
-        self,
-        execution_id,
-        tenant,
-        subflows,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-            'subflows': 'csv',
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if execution_id is not None:
-            _path_params['executionId'] = execution_id
-        if tenant is not None:
-            _path_params['tenant'] = tenant
-        # process the query parameters
-        if subflows is not None:
-            
-            _query_params.append(('subflows', subflows))
-            
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'basicAuth', 
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/api/v1/{tenant}/executions/{executionId}/graph',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats
-        )
-
-
-
-
-
-    @validate_call
-    def get_file_metadatas_from_execution(
-        self,
-        execution_id: Annotated[StrictStr, Field(description="The execution id")],
-        path: Annotated[StrictStr, Field(description="The internal storage uri")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-        None,
-        Annotated[StrictFloat, Field(gt=0)],
-        Tuple[
-        Annotated[StrictFloat, Field(gt=0)],
-        Annotated[StrictFloat, Field(gt=0)]
-        ]
-        ] = None
-    ) -> FileMetas:
-        """Get file meta information for an execution
-
-
-        :param execution_id: The execution id (required)
-        :type execution_id: str
-                :param path: The internal storage uri (required)
-        :type path: str
-                :param tenant: (required)
-        :type tenant: str
-        ,
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        """ # noqa: E501
-
-        _param = self._get_file_metadatas_from_execution_serialize(
-            execution_id=execution_id,
-            path=path,
-            tenant=tenant,
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "FileMetas",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def get_file_metadatas_from_execution_with_http_info(
-        self,
-        execution_id: Annotated[StrictStr, Field(description="The execution id")],
-        path: Annotated[StrictStr, Field(description="The internal storage uri")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-        None,
-        Annotated[StrictFloat, Field(gt=0)],
-        Tuple[
-        Annotated[StrictFloat, Field(gt=0)],
-        Annotated[StrictFloat, Field(gt=0)]
-        ]
-        ] = None
-    ) -> ApiResponse[FileMetas]:
-        """Get file meta information for an execution
-
-
-        :param execution_id: The execution id (required)
-        :type execution_id: str
-                :param path: The internal storage uri (required)
-        :type path: str
-                :param tenant: (required)
-        :type tenant: str
-        ,
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        """ # noqa: E501
-
-        _param = self._get_file_metadatas_from_execution_serialize(
-            execution_id=execution_id,
-            path=path,
-            tenant=tenant,
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "FileMetas",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    def _get_file_metadatas_from_execution_serialize(
-        self,
-        execution_id,
-        path,
-        tenant,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if execution_id is not None:
-            _path_params['executionId'] = execution_id
-        if tenant is not None:
-            _path_params['tenant'] = tenant
-        # process the query parameters
-        if path is not None:
-            
-            _query_params.append(('path', path))
-            
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'basicAuth', 
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/api/v1/{tenant}/executions/{executionId}/file/metas',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats
-        )
-
-
-
-
-
-    @validate_call
-    def get_flow_from_execution(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The namespace of the flow")],
-        flow_id: Annotated[StrictStr, Field(description="The flow id")],
-        tenant: StrictStr,
-        revision: Annotated[Optional[StrictInt], Field(description="The flow revision")] = None,
-        _request_timeout: Union[
-        None,
-        Annotated[StrictFloat, Field(gt=0)],
-        Tuple[
-        Annotated[StrictFloat, Field(gt=0)],
-        Annotated[StrictFloat, Field(gt=0)]
-        ]
-        ] = None
-    ) -> FlowForExecution:
-        """Get flow information's for an execution
-
-
-        :param namespace: The namespace of the flow (required)
-        :type namespace: str
-                :param flow_id: The flow id (required)
-        :type flow_id: str
-                :param tenant: (required)
-        :type tenant: str
-                :param revision: The flow revision
-        :type revision: int
-        ,
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        """ # noqa: E501
-
-        _param = self._get_flow_from_execution_serialize(
-            namespace=namespace,
-            flow_id=flow_id,
-            tenant=tenant,
-            revision=revision,
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "FlowForExecution",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def get_flow_from_execution_with_http_info(
-        self,
-        namespace: Annotated[StrictStr, Field(description="The namespace of the flow")],
-        flow_id: Annotated[StrictStr, Field(description="The flow id")],
-        tenant: StrictStr,
-        revision: Annotated[Optional[StrictInt], Field(description="The flow revision")] = None,
-        _request_timeout: Union[
-        None,
-        Annotated[StrictFloat, Field(gt=0)],
-        Tuple[
-        Annotated[StrictFloat, Field(gt=0)],
-        Annotated[StrictFloat, Field(gt=0)]
-        ]
-        ] = None
-    ) -> ApiResponse[FlowForExecution]:
-        """Get flow information's for an execution
-
-
-        :param namespace: The namespace of the flow (required)
-        :type namespace: str
-                :param flow_id: The flow id (required)
-        :type flow_id: str
-                :param tenant: (required)
-        :type tenant: str
-                :param revision: The flow revision
-        :type revision: int
-        ,
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        """ # noqa: E501
-
-        _param = self._get_flow_from_execution_serialize(
-            namespace=namespace,
-            flow_id=flow_id,
-            tenant=tenant,
-            revision=revision,
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "FlowForExecution",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    def _get_flow_from_execution_serialize(
-        self,
-        namespace,
-        flow_id,
-        tenant,
-        revision,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if namespace is not None:
-            _path_params['namespace'] = namespace
-        if flow_id is not None:
-            _path_params['flowId'] = flow_id
-        if tenant is not None:
-            _path_params['tenant'] = tenant
-        # process the query parameters
-        if revision is not None:
-            
-            _query_params.append(('revision', revision))
-            
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'basicAuth', 
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/api/v1/{tenant}/executions/flows/{namespace}/{flowId}',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats
-        )
-
-
-
-
-
-    @validate_call
-    def get_flow_from_execution_by_id(
-        self,
-        execution_id: Annotated[StrictStr, Field(description="The execution that you want flow informations")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-        None,
-        Annotated[StrictFloat, Field(gt=0)],
-        Tuple[
-        Annotated[StrictFloat, Field(gt=0)],
-        Annotated[StrictFloat, Field(gt=0)]
-        ]
-        ] = None
-    ) -> FlowForExecution:
-        """Get flow information's for an execution
-
-
-        :param execution_id: The execution that you want flow informations (required)
-        :type execution_id: str
-                :param tenant: (required)
-        :type tenant: str
-        ,
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        """ # noqa: E501
-
-        _param = self._get_flow_from_execution_by_id_serialize(
-            execution_id=execution_id,
-            tenant=tenant,
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "FlowForExecution",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def get_flow_from_execution_by_id_with_http_info(
-        self,
-        execution_id: Annotated[StrictStr, Field(description="The execution that you want flow informations")],
-        tenant: StrictStr,
-        _request_timeout: Union[
-        None,
-        Annotated[StrictFloat, Field(gt=0)],
-        Tuple[
-        Annotated[StrictFloat, Field(gt=0)],
-        Annotated[StrictFloat, Field(gt=0)]
-        ]
-        ] = None
-    ) -> ApiResponse[FlowForExecution]:
-        """Get flow information's for an execution
-
-
-        :param execution_id: The execution that you want flow informations (required)
-        :type execution_id: str
-                :param tenant: (required)
-        :type tenant: str
-        ,
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        """ # noqa: E501
-
-        _param = self._get_flow_from_execution_by_id_serialize(
-            execution_id=execution_id,
-            tenant=tenant,
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "FlowForExecution",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    def _get_flow_from_execution_by_id_serialize(
-        self,
-        execution_id,
-        tenant,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if execution_id is not None:
-            _path_params['executionId'] = execution_id
-        if tenant is not None:
-            _path_params['tenant'] = tenant
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'basicAuth', 
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/api/v1/{tenant}/executions/{executionId}/flow',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats
-        )
-
-
-
-
-
-    @validate_call
-    def get_latest_executions(
-        self,
-        tenant: StrictStr,
-        execution_repository_interface_flow_filter: List[ExecutionRepositoryInterfaceFlowFilter],
-        _request_timeout: Union[
-        None,
-        Annotated[StrictFloat, Field(gt=0)],
-        Tuple[
-        Annotated[StrictFloat, Field(gt=0)],
-        Annotated[StrictFloat, Field(gt=0)]
-        ]
-        ] = None
-    ) -> List[ExecutionControllerLastExecutionResponse]:
-        """Get the latest execution for given flows
-
-
-        :param tenant: (required)
-        :type tenant: str
-                :param execution_repository_interface_flow_filter: (required)
-        :type execution_repository_interface_flow_filter: List[ExecutionRepositoryInterfaceFlowFilter]
-        ,
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        """ # noqa: E501
-
-        _param = self._get_latest_executions_serialize(
-            tenant=tenant,
-            execution_repository_interface_flow_filter=execution_repository_interface_flow_filter,
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[ExecutionControllerLastExecutionResponse]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def get_latest_executions_with_http_info(
-        self,
-        tenant: StrictStr,
-        execution_repository_interface_flow_filter: List[ExecutionRepositoryInterfaceFlowFilter],
-        _request_timeout: Union[
-        None,
-        Annotated[StrictFloat, Field(gt=0)],
-        Tuple[
-        Annotated[StrictFloat, Field(gt=0)],
-        Annotated[StrictFloat, Field(gt=0)]
-        ]
-        ] = None
-    ) -> ApiResponse[List[ExecutionControllerLastExecutionResponse]]:
-        """Get the latest execution for given flows
-
-
-        :param tenant: (required)
-        :type tenant: str
-                :param execution_repository_interface_flow_filter: (required)
-        :type execution_repository_interface_flow_filter: List[ExecutionRepositoryInterfaceFlowFilter]
-        ,
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        """ # noqa: E501
-
-        _param = self._get_latest_executions_serialize(
-            tenant=tenant,
-            execution_repository_interface_flow_filter=execution_repository_interface_flow_filter,
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[ExecutionControllerLastExecutionResponse]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    def _get_latest_executions_serialize(
-        self,
-        tenant,
-        execution_repository_interface_flow_filter,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-            'ExecutionRepositoryInterfaceFlowFilter': '',
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if tenant is not None:
-            _path_params['tenant'] = tenant
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if execution_repository_interface_flow_filter is not None:
-            _body_params = execution_repository_interface_flow_filter
-
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-        # set the HTTP header `Content-Type`
-
-        _default_content_type = (
-            self.api_client.select_header_content_type(
-                [
-                    'application/json'
-                ]
-            )
-        )
-        if _default_content_type is not None:
-            _header_params['Content-Type'] = _default_content_type
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'basicAuth', 
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/api/v1/{tenant}/executions/latest',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats
-        )
-
-
-
-
-
-    @validate_call
     def kill_execution(
         self,
         execution_id: Annotated[StrictStr, Field(description="The execution id")],
@@ -3432,6 +3260,178 @@ class ExecutionsApi:
         return self.api_client.param_serialize(
             method='DELETE',
             resource_path='/api/v1/{tenant}/executions/kill/by-query',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats
+        )
+
+
+
+
+
+    @validate_call
+    def latest_executions(
+        self,
+        tenant: StrictStr,
+        execution_repository_interface_flow_filter: List[ExecutionRepositoryInterfaceFlowFilter],
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> List[ExecutionControllerLastExecutionResponse]:
+        """Get the latest execution for given flows
+
+
+        :param tenant: (required)
+        :type tenant: str
+                :param execution_repository_interface_flow_filter: (required)
+        :type execution_repository_interface_flow_filter: List[ExecutionRepositoryInterfaceFlowFilter]
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._latest_executions_serialize(
+            tenant=tenant,
+            execution_repository_interface_flow_filter=execution_repository_interface_flow_filter,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[ExecutionControllerLastExecutionResponse]",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def latest_executions_with_http_info(
+        self,
+        tenant: StrictStr,
+        execution_repository_interface_flow_filter: List[ExecutionRepositoryInterfaceFlowFilter],
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> ApiResponse[List[ExecutionControllerLastExecutionResponse]]:
+        """Get the latest execution for given flows
+
+
+        :param tenant: (required)
+        :type tenant: str
+                :param execution_repository_interface_flow_filter: (required)
+        :type execution_repository_interface_flow_filter: List[ExecutionRepositoryInterfaceFlowFilter]
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._latest_executions_serialize(
+            tenant=tenant,
+            execution_repository_interface_flow_filter=execution_repository_interface_flow_filter,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[ExecutionControllerLastExecutionResponse]",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    def _latest_executions_serialize(
+        self,
+        tenant,
+        execution_repository_interface_flow_filter,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+            'ExecutionRepositoryInterfaceFlowFilter': '',
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if tenant is not None:
+            _path_params['tenant'] = tenant
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if execution_repository_interface_flow_filter is not None:
+            _body_params = execution_repository_interface_flow_filter
+
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+
+        _default_content_type = (
+            self.api_client.select_header_content_type(
+                [
+                    'application/json'
+                ]
+            )
+        )
+        if _default_content_type is not None:
+            _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/api/v1/{tenant}/executions/latest',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

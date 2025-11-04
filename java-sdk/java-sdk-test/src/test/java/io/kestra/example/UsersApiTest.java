@@ -116,7 +116,7 @@ public class UsersApiTest {
             new IAMUserControllerApiCreateOrUpdateUserRequest().email(base + "@kestra.io"));
 
         kestraClient().users().deleteUser(user.getId());
-        assertThrows(ApiException.class, () -> kestraClient().users().getUser(user.getId()));
+        assertThrows(ApiException.class, () -> kestraClient().users().user(user.getId()));
     }
 
     @Test
@@ -145,7 +145,7 @@ public class UsersApiTest {
         IAMUserControllerApiUser created = kestraClient().users().createUser(
             new IAMUserControllerApiCreateOrUpdateUserRequest().email(base + "@kestra.io"));
 
-        IAMUserControllerApiUser fetched = kestraClient().users().getUser(created.getId());
+        IAMUserControllerApiUser fetched = kestraClient().users().user(created.getId());
         assertEquals(created.getId(), fetched.getId());
 
         kestraClient().users().deleteUser(created.getId());
@@ -240,7 +240,7 @@ public class UsersApiTest {
         ApiPatchSuperAdminRequest patch = new ApiPatchSuperAdminRequest().superAdmin(true);
         kestraClient().users().patchUserSuperAdmin(created.getId(), patch);
 
-        IAMUserControllerApiUser fetched = kestraClient().users().getUser(created.getId());
+        IAMUserControllerApiUser fetched = kestraClient().users().user(created.getId());
         assertTrue(Boolean.TRUE.equals(fetched.getSuperAdmin()));
         kestraClient().users().deleteUser(created.getId());
     }

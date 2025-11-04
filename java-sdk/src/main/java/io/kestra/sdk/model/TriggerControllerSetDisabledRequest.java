@@ -35,18 +35,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TriggerControllerSetDisabledRequest.JSON_PROPERTY_DISABLED
 })
 @JsonTypeName("TriggerController.SetDisabledRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TriggerControllerSetDisabledRequest {
   public static final String JSON_PROPERTY_TRIGGERS = "triggers";
-  @javax.annotation.Nonnull  private List<Trigger> triggers = new ArrayList<>();
+  @jakarta.annotation.Nonnull  private List<Trigger> triggers = new ArrayList<>();
 
   public static final String JSON_PROPERTY_DISABLED = "disabled";
-  @javax.annotation.Nonnull  private Boolean disabled;
+  @jakarta.annotation.Nonnull  private Boolean disabled;
 
   public TriggerControllerSetDisabledRequest() {
   }
 
-  public TriggerControllerSetDisabledRequest triggers(@javax.annotation.Nonnull List<Trigger> triggers) {
+  public TriggerControllerSetDisabledRequest triggers(@jakarta.annotation.Nonnull List<Trigger> triggers) {
     
     this.triggers = triggers;
     return this;
@@ -64,7 +64,7 @@ public class TriggerControllerSetDisabledRequest {
    * Get triggers
    * @return triggers
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TRIGGERS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TRIGGERS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<Trigger> getTriggers() {
@@ -74,11 +74,11 @@ public class TriggerControllerSetDisabledRequest {
 
   @JsonProperty(JSON_PROPERTY_TRIGGERS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTriggers(@javax.annotation.Nonnull List<Trigger> triggers) {
+  public void setTriggers(@jakarta.annotation.Nonnull List<Trigger> triggers) {
     this.triggers = triggers;
   }
 
-  public TriggerControllerSetDisabledRequest disabled(@javax.annotation.Nonnull Boolean disabled) {
+  public TriggerControllerSetDisabledRequest disabled(@jakarta.annotation.Nonnull Boolean disabled) {
     
     this.disabled = disabled;
     return this;
@@ -88,7 +88,7 @@ public class TriggerControllerSetDisabledRequest {
    * Get disabled
    * @return disabled
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DISABLED)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DISABLED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getDisabled() {
@@ -98,7 +98,7 @@ public class TriggerControllerSetDisabledRequest {
 
   @JsonProperty(JSON_PROPERTY_DISABLED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDisabled(@javax.annotation.Nonnull Boolean disabled) {
+  public void setDisabled(@jakarta.annotation.Nonnull Boolean disabled) {
     this.disabled = disabled;
   }
 

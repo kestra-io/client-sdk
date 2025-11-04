@@ -11,7 +11,6 @@ All URIs are relative to *http://localhost*
 | [**deleteRefreshToken**](users.md#deleteRefreshToken) | **DELETE** /api/v1/users/{id}/refresh-token | Delete a user refresh token |
 | [**deleteUser**](users.md#deleteUser) | **DELETE** /api/v1/users/{id} | Delete a user |
 | [**deleteUserAuthMethod**](users.md#deleteUserAuthMethod) | **DELETE** /api/v1/users/{id}/auths/{auth} | Update user password |
-| [**getUser**](users.md#getUser) | **GET** /api/v1/users/{id} | Get a user |
 | [**impersonate**](users.md#impersonate) | **POST** /api/v1/users/{id}/impersonate | Impersonate a user |
 | [**listApiTokensForUser**](users.md#listApiTokensForUser) | **GET** /api/v1/users/{id}/api-tokens | List API tokens for a specific user |
 | [**listUsers**](users.md#listUsers) | **GET** /api/v1/users | Retrieve users |
@@ -22,6 +21,7 @@ All URIs are relative to *http://localhost*
 | [**updateCurrentUserPassword**](users.md#updateCurrentUserPassword) | **PUT** /api/v1/me/password | Update authenticated user password |
 | [**updateUser**](users.md#updateUser) | **PUT** /api/v1/users/{id} | Update a user account |
 | [**updateUserGroups**](users.md#updateUserGroups) | **PUT** /api/v1/{tenant}/users/{id}/groups | Update the list of groups a user belongs to for the given tenant |
+| [**user**](users.md#user) | **GET** /api/v1/users/{id} | Get a user |
 
 
 
@@ -520,77 +520,6 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | User auth method successfully updated |  -  |
 | **404** | User or auth method not found |  -  |
-
-
-## getUser
-
-> IAMUserControllerApiUser getUser(id)
-
-Get a user
-
-Superadmin-only. Get user account details.
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.users;
-
-public class Example {
-    public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
-
-        KestraClient kestraClient = KestraClient.builder()
-        .basicAuth("root@root.com", "Root!1234")
-        .url("http://localhost:8080")
-        .build();
-
-        String id = "id_example"; // String | The user id
-        try {
-            IAMUserControllerApiUser result = kestraClient.users().getUser(id);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling users#getUser");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **id** | **String**| The user id | |
-
-### Return type
-
-[**IAMUserControllerApiUser**](IAMUserControllerApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | getUser 200 response |  -  |
-| **404** | User not found |  -  |
 
 
 ## impersonate
@@ -1312,4 +1241,75 @@ null (empty response body)
 | **204** | User&#39;s groups successfully updated |  -  |
 | **400** | Invalid request payload |  -  |
 | **404** | User or one of the groups not found |  -  |
+
+
+## user
+
+> IAMUserControllerApiUser user(id)
+
+Get a user
+
+Superadmin-only. Get user account details.
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.users;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String id = "id_example"; // String | The user id
+        try {
+            IAMUserControllerApiUser result = kestraClient.users().user(id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling users#user");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The user id | |
+
+### Return type
+
+[**IAMUserControllerApiUser**](IAMUserControllerApiUser.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | getUser 200 response |  -  |
+| **404** | User not found |  -  |
 

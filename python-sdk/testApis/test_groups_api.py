@@ -172,7 +172,7 @@ class TestGroupsApi(unittest.TestCase):
             iam_group_controller_api_create_group_request=group
         )
 
-        fetched = self.kestra_client.groups.get_group(
+        fetched = self.kestra_client.groups.group(
             tenant=self.tenant,
             id=created.id
         )

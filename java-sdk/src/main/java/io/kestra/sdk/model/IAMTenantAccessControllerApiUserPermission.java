@@ -36,18 +36,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMTenantAccessControllerApiUserPermission.JSON_PROPERTY_ACTIONS
 })
 @JsonTypeName("IAMTenantAccessController.ApiUserPermission")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMTenantAccessControllerApiUserPermission {
   public static final String JSON_PROPERTY_PERMISSION = "permission";
-  @javax.annotation.Nullable  private Permission permission;
+  @jakarta.annotation.Nullable  private Permission permission;
 
   public static final String JSON_PROPERTY_ACTIONS = "actions";
-  @javax.annotation.Nullable  private List<Action> actions = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<Action> actions = new ArrayList<>();
 
   public IAMTenantAccessControllerApiUserPermission() {
   }
 
-  public IAMTenantAccessControllerApiUserPermission permission(@javax.annotation.Nullable Permission permission) {
+  public IAMTenantAccessControllerApiUserPermission permission(@jakarta.annotation.Nullable Permission permission) {
     
     this.permission = permission;
     return this;
@@ -57,7 +57,7 @@ public class IAMTenantAccessControllerApiUserPermission {
    * Get permission
    * @return permission
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PERMISSION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PERMISSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Permission getPermission() {
@@ -67,11 +67,11 @@ public class IAMTenantAccessControllerApiUserPermission {
 
   @JsonProperty(JSON_PROPERTY_PERMISSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPermission(@javax.annotation.Nullable Permission permission) {
+  public void setPermission(@jakarta.annotation.Nullable Permission permission) {
     this.permission = permission;
   }
 
-  public IAMTenantAccessControllerApiUserPermission actions(@javax.annotation.Nullable List<Action> actions) {
+  public IAMTenantAccessControllerApiUserPermission actions(@jakarta.annotation.Nullable List<Action> actions) {
     
     this.actions = actions;
     return this;
@@ -89,7 +89,7 @@ public class IAMTenantAccessControllerApiUserPermission {
    * Get actions
    * @return actions
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ACTIONS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ACTIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Action> getActions() {
@@ -99,7 +99,7 @@ public class IAMTenantAccessControllerApiUserPermission {
 
   @JsonProperty(JSON_PROPERTY_ACTIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setActions(@javax.annotation.Nullable List<Action> actions) {
+  public void setActions(@jakarta.annotation.Nullable List<Action> actions) {
     this.actions = actions;
   }
 

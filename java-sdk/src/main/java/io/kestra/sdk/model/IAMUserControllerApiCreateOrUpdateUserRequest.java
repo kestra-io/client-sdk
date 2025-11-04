@@ -40,36 +40,36 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMUserControllerApiCreateOrUpdateUserRequest.JSON_PROPERTY_RESTRICTED
 })
 @JsonTypeName("IAMUserController.ApiCreateOrUpdateUserRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMUserControllerApiCreateOrUpdateUserRequest {
   public static final String JSON_PROPERTY_TENANTS = "tenants";
-  @javax.annotation.Nullable  private List<String> tenants = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> tenants = new ArrayList<>();
 
   public static final String JSON_PROPERTY_GROUPS = "groups";
-  @javax.annotation.Nullable  private List<String> groups = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> groups = new ArrayList<>();
 
   public static final String JSON_PROPERTY_FIRST_NAME = "firstName";
-  @javax.annotation.Nullable  private String firstName;
+  @jakarta.annotation.Nullable  private String firstName;
 
   public static final String JSON_PROPERTY_LAST_NAME = "lastName";
-  @javax.annotation.Nullable  private String lastName;
+  @jakarta.annotation.Nullable  private String lastName;
 
   public static final String JSON_PROPERTY_EMAIL = "email";
-  @javax.annotation.Nonnull  private String email;
+  @jakarta.annotation.Nonnull  private String email;
 
   public static final String JSON_PROPERTY_PASSWORD = "password";
-  @javax.annotation.Nullable  private String password;
+  @jakarta.annotation.Nullable  private String password;
 
   public static final String JSON_PROPERTY_SUPER_ADMIN = "superAdmin";
-  @javax.annotation.Nullable  private Boolean superAdmin;
+  @jakarta.annotation.Nullable  private Boolean superAdmin;
 
   public static final String JSON_PROPERTY_RESTRICTED = "restricted";
-  @javax.annotation.Nullable  private Boolean restricted;
+  @jakarta.annotation.Nullable  private Boolean restricted;
 
   public IAMUserControllerApiCreateOrUpdateUserRequest() {
   }
 
-  public IAMUserControllerApiCreateOrUpdateUserRequest tenants(@javax.annotation.Nullable List<String> tenants) {
+  public IAMUserControllerApiCreateOrUpdateUserRequest tenants(@jakarta.annotation.Nullable List<String> tenants) {
     
     this.tenants = tenants;
     return this;
@@ -87,7 +87,7 @@ public class IAMUserControllerApiCreateOrUpdateUserRequest {
    * Get tenants
    * @return tenants
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANTS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getTenants() {
@@ -97,11 +97,11 @@ public class IAMUserControllerApiCreateOrUpdateUserRequest {
 
   @JsonProperty(JSON_PROPERTY_TENANTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTenants(@javax.annotation.Nullable List<String> tenants) {
+  public void setTenants(@jakarta.annotation.Nullable List<String> tenants) {
     this.tenants = tenants;
   }
 
-  public IAMUserControllerApiCreateOrUpdateUserRequest groups(@javax.annotation.Nullable List<String> groups) {
+  public IAMUserControllerApiCreateOrUpdateUserRequest groups(@jakarta.annotation.Nullable List<String> groups) {
     
     this.groups = groups;
     return this;
@@ -119,7 +119,7 @@ public class IAMUserControllerApiCreateOrUpdateUserRequest {
    * Get groups
    * @return groups
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUPS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUPS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getGroups() {
@@ -129,11 +129,11 @@ public class IAMUserControllerApiCreateOrUpdateUserRequest {
 
   @JsonProperty(JSON_PROPERTY_GROUPS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setGroups(@javax.annotation.Nullable List<String> groups) {
+  public void setGroups(@jakarta.annotation.Nullable List<String> groups) {
     this.groups = groups;
   }
 
-  public IAMUserControllerApiCreateOrUpdateUserRequest firstName(@javax.annotation.Nullable String firstName) {
+  public IAMUserControllerApiCreateOrUpdateUserRequest firstName(@jakarta.annotation.Nullable String firstName) {
     
     this.firstName = firstName;
     return this;
@@ -143,7 +143,7 @@ public class IAMUserControllerApiCreateOrUpdateUserRequest {
    * Get firstName
    * @return firstName
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFirstName() {
@@ -153,11 +153,11 @@ public class IAMUserControllerApiCreateOrUpdateUserRequest {
 
   @JsonProperty(JSON_PROPERTY_FIRST_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFirstName(@javax.annotation.Nullable String firstName) {
+  public void setFirstName(@jakarta.annotation.Nullable String firstName) {
     this.firstName = firstName;
   }
 
-  public IAMUserControllerApiCreateOrUpdateUserRequest lastName(@javax.annotation.Nullable String lastName) {
+  public IAMUserControllerApiCreateOrUpdateUserRequest lastName(@jakarta.annotation.Nullable String lastName) {
     
     this.lastName = lastName;
     return this;
@@ -167,7 +167,7 @@ public class IAMUserControllerApiCreateOrUpdateUserRequest {
    * Get lastName
    * @return lastName
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LAST_NAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LAST_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getLastName() {
@@ -177,11 +177,11 @@ public class IAMUserControllerApiCreateOrUpdateUserRequest {
 
   @JsonProperty(JSON_PROPERTY_LAST_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLastName(@javax.annotation.Nullable String lastName) {
+  public void setLastName(@jakarta.annotation.Nullable String lastName) {
     this.lastName = lastName;
   }
 
-  public IAMUserControllerApiCreateOrUpdateUserRequest email(@javax.annotation.Nonnull String email) {
+  public IAMUserControllerApiCreateOrUpdateUserRequest email(@jakarta.annotation.Nonnull String email) {
     
     this.email = email;
     return this;
@@ -191,7 +191,7 @@ public class IAMUserControllerApiCreateOrUpdateUserRequest {
    * Get email
    * @return email
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_EMAIL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getEmail() {
@@ -201,11 +201,11 @@ public class IAMUserControllerApiCreateOrUpdateUserRequest {
 
   @JsonProperty(JSON_PROPERTY_EMAIL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setEmail(@javax.annotation.Nonnull String email) {
+  public void setEmail(@jakarta.annotation.Nonnull String email) {
     this.email = email;
   }
 
-  public IAMUserControllerApiCreateOrUpdateUserRequest password(@javax.annotation.Nullable String password) {
+  public IAMUserControllerApiCreateOrUpdateUserRequest password(@jakarta.annotation.Nullable String password) {
     
     this.password = password;
     return this;
@@ -215,7 +215,7 @@ public class IAMUserControllerApiCreateOrUpdateUserRequest {
    * Get password
    * @return password
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PASSWORD)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getPassword() {
@@ -225,11 +225,11 @@ public class IAMUserControllerApiCreateOrUpdateUserRequest {
 
   @JsonProperty(JSON_PROPERTY_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPassword(@javax.annotation.Nullable String password) {
+  public void setPassword(@jakarta.annotation.Nullable String password) {
     this.password = password;
   }
 
-  public IAMUserControllerApiCreateOrUpdateUserRequest superAdmin(@javax.annotation.Nullable Boolean superAdmin) {
+  public IAMUserControllerApiCreateOrUpdateUserRequest superAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
     
     this.superAdmin = superAdmin;
     return this;
@@ -239,7 +239,7 @@ public class IAMUserControllerApiCreateOrUpdateUserRequest {
    * Get superAdmin
    * @return superAdmin
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getSuperAdmin() {
@@ -249,11 +249,11 @@ public class IAMUserControllerApiCreateOrUpdateUserRequest {
 
   @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSuperAdmin(@javax.annotation.Nullable Boolean superAdmin) {
+  public void setSuperAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
     this.superAdmin = superAdmin;
   }
 
-  public IAMUserControllerApiCreateOrUpdateUserRequest restricted(@javax.annotation.Nullable Boolean restricted) {
+  public IAMUserControllerApiCreateOrUpdateUserRequest restricted(@jakarta.annotation.Nullable Boolean restricted) {
     
     this.restricted = restricted;
     return this;
@@ -263,7 +263,7 @@ public class IAMUserControllerApiCreateOrUpdateUserRequest {
    * Get restricted
    * @return restricted
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESTRICTED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESTRICTED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getRestricted() {
@@ -273,7 +273,7 @@ public class IAMUserControllerApiCreateOrUpdateUserRequest {
 
   @JsonProperty(JSON_PROPERTY_RESTRICTED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRestricted(@javax.annotation.Nullable Boolean restricted) {
+  public void setRestricted(@jakarta.annotation.Nullable Boolean restricted) {
     this.restricted = restricted;
   }
 

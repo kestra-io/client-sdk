@@ -33,18 +33,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   NamespaceAllowedTrigger.JSON_PROPERTY_FLOW_ID
 })
 @JsonTypeName("Namespace.AllowedTrigger")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class NamespaceAllowedTrigger {
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nonnull  private String namespace;
+  @jakarta.annotation.Nonnull  private String namespace;
 
   public static final String JSON_PROPERTY_FLOW_ID = "flowId";
-  @javax.annotation.Nullable  private String flowId;
+  @jakarta.annotation.Nullable  private String flowId;
 
   public NamespaceAllowedTrigger() {
   }
 
-  public NamespaceAllowedTrigger namespace(@javax.annotation.Nonnull String namespace) {
+  public NamespaceAllowedTrigger namespace(@jakarta.annotation.Nonnull String namespace) {
     
     this.namespace = namespace;
     return this;
@@ -54,7 +54,7 @@ public class NamespaceAllowedTrigger {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getNamespace() {
@@ -64,11 +64,11 @@ public class NamespaceAllowedTrigger {
 
   @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setNamespace(@javax.annotation.Nonnull String namespace) {
+  public void setNamespace(@jakarta.annotation.Nonnull String namespace) {
     this.namespace = namespace;
   }
 
-  public NamespaceAllowedTrigger flowId(@javax.annotation.Nullable String flowId) {
+  public NamespaceAllowedTrigger flowId(@jakarta.annotation.Nullable String flowId) {
     
     this.flowId = flowId;
     return this;
@@ -78,7 +78,7 @@ public class NamespaceAllowedTrigger {
    * Get flowId
    * @return flowId
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FLOW_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFlowId() {
@@ -88,7 +88,7 @@ public class NamespaceAllowedTrigger {
 
   @JsonProperty(JSON_PROPERTY_FLOW_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFlowId(@javax.annotation.Nullable String flowId) {
+  public void setFlowId(@jakarta.annotation.Nullable String flowId) {
     this.flowId = flowId;
   }
 

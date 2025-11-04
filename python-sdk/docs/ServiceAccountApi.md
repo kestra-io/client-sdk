@@ -12,13 +12,13 @@ Method | HTTP request | Description
 [**delete_api_token_for_service_account_with_tenant**](serviceaccount.md#delete_api_token_for_service_account_with_tenant) | **DELETE** /api/v1/{tenant}/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific service account and token id
 [**delete_service_account**](serviceaccount.md#delete_service_account) | **DELETE** /api/v1/service-accounts/{id} | Delete a service account
 [**delete_service_account_for_tenant**](serviceaccount.md#delete_service_account_for_tenant) | **DELETE** /api/v1/{tenant}/service-accounts/{id} | Delete a service account
-[**get_service_account**](serviceaccount.md#get_service_account) | **GET** /api/v1/service-accounts/{id} | Get a service account
-[**get_service_account_for_tenant**](serviceaccount.md#get_service_account_for_tenant) | **GET** /api/v1/{tenant}/service-accounts/{id} | Retrieve a service account
 [**list_api_tokens_for_service_account**](serviceaccount.md#list_api_tokens_for_service_account) | **GET** /api/v1/service-accounts/{id}/api-tokens | List API tokens for a specific service account
 [**list_api_tokens_for_service_account_with_tenant**](serviceaccount.md#list_api_tokens_for_service_account_with_tenant) | **GET** /api/v1/{tenant}/service-accounts/{id}/api-tokens | List API tokens for a specific service account
 [**list_service_accounts**](serviceaccount.md#list_service_accounts) | **GET** /api/v1/service-accounts | List service accounts. Superadmin-only. 
 [**patch_service_account_details**](serviceaccount.md#patch_service_account_details) | **PATCH** /api/v1/service-accounts/{id} | Update service account details
 [**patch_service_account_super_admin**](serviceaccount.md#patch_service_account_super_admin) | **PATCH** /api/v1/service-accounts/{id}/superadmin | Update service account superadmin privileges
+[**service_account**](serviceaccount.md#service_account) | **GET** /api/v1/service-accounts/{id} | Get a service account
+[**service_account_for_tenant**](serviceaccount.md#service_account_for_tenant) | **GET** /api/v1/{tenant}/service-accounts/{id} | Retrieve a service account
 [**update_service_account**](serviceaccount.md#update_service_account) | **PUT** /api/v1/{tenant}/service-accounts/{id} | Update a user service account
 
 
@@ -537,136 +537,6 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_service_account**
-> IAMServiceAccountControllerApiServiceAccountDetail get_service_account(id)
-
-Get a service account
-
-Superadmin-only. Get user account details.
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-from kestrapy import KestraClient, Configuration
-
-configuration = Configuration()
-
-configuration.host = "http://localhost:8080"
-configuration.username = "root@root.com"
-configuration.password = "Root!1234"
-
-# Enter a context with an instance of the API client
-with KestraClient(configuration) as kestra_client:
-    id = 'id_example' # str | The service account id
-
-    try:
-        # Get a service account
-        api_response = kestra_client.serviceaccount.get_service_account(id)
-        print("The response of serviceaccount->get_service_account:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling serviceaccount->get_service_account: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**| The service account id | 
-
-### Return type
-
-[**IAMServiceAccountControllerApiServiceAccountDetail**](IAMServiceAccountControllerApiServiceAccountDetail.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | getServiceAccount 200 response |  -  |
-**404** | User not found |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_service_account_for_tenant**
-> IAMServiceAccountControllerApiServiceAccountResponse get_service_account_for_tenant(id, tenant)
-
-Retrieve a service account
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-from kestrapy import KestraClient, Configuration
-
-configuration = Configuration()
-
-configuration.host = "http://localhost:8080"
-configuration.username = "root@root.com"
-configuration.password = "Root!1234"
-
-# Enter a context with an instance of the API client
-with KestraClient(configuration) as kestra_client:
-    id = 'id_example' # str | The user id
-    tenant = 'tenant_example' # str | 
-
-    try:
-        # Retrieve a service account
-        api_response = kestra_client.serviceaccount.get_service_account_for_tenant(id, tenant)
-        print("The response of serviceaccount->get_service_account_for_tenant:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling serviceaccount->get_service_account_for_tenant: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**| The user id | 
- **tenant** | **str**|  | 
-
-### Return type
-
-[**IAMServiceAccountControllerApiServiceAccountResponse**](IAMServiceAccountControllerApiServiceAccountResponse.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | getServiceAccountForTenant 200 response |  -  |
-**404** | Service account not found |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **list_api_tokens_for_service_account**
 > object list_api_tokens_for_service_account(id)
 
@@ -989,6 +859,136 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Service account successfully updated |  -  |
+**404** | Service account not found |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **service_account**
+> IAMServiceAccountControllerApiServiceAccountDetail service_account(id)
+
+Get a service account
+
+Superadmin-only. Get user account details.
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    id = 'id_example' # str | The service account id
+
+    try:
+        # Get a service account
+        api_response = kestra_client.serviceaccount.service_account(id)
+        print("The response of serviceaccount->service_account:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling serviceaccount->service_account: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| The service account id | 
+
+### Return type
+
+[**IAMServiceAccountControllerApiServiceAccountDetail**](IAMServiceAccountControllerApiServiceAccountDetail.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | getServiceAccount 200 response |  -  |
+**404** | User not found |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **service_account_for_tenant**
+> IAMServiceAccountControllerApiServiceAccountResponse service_account_for_tenant(id, tenant)
+
+Retrieve a service account
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    id = 'id_example' # str | The user id
+    tenant = 'tenant_example' # str | 
+
+    try:
+        # Retrieve a service account
+        api_response = kestra_client.serviceaccount.service_account_for_tenant(id, tenant)
+        print("The response of serviceaccount->service_account_for_tenant:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling serviceaccount->service_account_for_tenant: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| The user id | 
+ **tenant** | **str**|  | 
+
+### Return type
+
+[**IAMServiceAccountControllerApiServiceAccountResponse**](IAMServiceAccountControllerApiServiceAccountResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | getServiceAccountForTenant 200 response |  -  |
 **404** | Service account not found |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

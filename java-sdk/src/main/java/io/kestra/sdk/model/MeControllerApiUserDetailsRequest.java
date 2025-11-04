@@ -32,21 +32,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MeControllerApiUserDetailsRequest.JSON_PROPERTY_EMAIL
 })
 @JsonTypeName("MeController.ApiUserDetailsRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class MeControllerApiUserDetailsRequest {
   public static final String JSON_PROPERTY_FIRST_NAME = "firstName";
-  @javax.annotation.Nullable  private String firstName;
+  @jakarta.annotation.Nullable  private String firstName;
 
   public static final String JSON_PROPERTY_LAST_NAME = "lastName";
-  @javax.annotation.Nullable  private String lastName;
+  @jakarta.annotation.Nullable  private String lastName;
 
   public static final String JSON_PROPERTY_EMAIL = "email";
-  @javax.annotation.Nullable  private String email;
+  @jakarta.annotation.Nullable  private String email;
 
   public MeControllerApiUserDetailsRequest() {
   }
 
-  public MeControllerApiUserDetailsRequest firstName(@javax.annotation.Nullable String firstName) {
+  public MeControllerApiUserDetailsRequest firstName(@jakarta.annotation.Nullable String firstName) {
     
     this.firstName = firstName;
     return this;
@@ -56,7 +56,7 @@ public class MeControllerApiUserDetailsRequest {
    * Get firstName
    * @return firstName
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFirstName() {
@@ -66,11 +66,11 @@ public class MeControllerApiUserDetailsRequest {
 
   @JsonProperty(JSON_PROPERTY_FIRST_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFirstName(@javax.annotation.Nullable String firstName) {
+  public void setFirstName(@jakarta.annotation.Nullable String firstName) {
     this.firstName = firstName;
   }
 
-  public MeControllerApiUserDetailsRequest lastName(@javax.annotation.Nullable String lastName) {
+  public MeControllerApiUserDetailsRequest lastName(@jakarta.annotation.Nullable String lastName) {
     
     this.lastName = lastName;
     return this;
@@ -80,7 +80,7 @@ public class MeControllerApiUserDetailsRequest {
    * Get lastName
    * @return lastName
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LAST_NAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LAST_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getLastName() {
@@ -90,11 +90,11 @@ public class MeControllerApiUserDetailsRequest {
 
   @JsonProperty(JSON_PROPERTY_LAST_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLastName(@javax.annotation.Nullable String lastName) {
+  public void setLastName(@jakarta.annotation.Nullable String lastName) {
     this.lastName = lastName;
   }
 
-  public MeControllerApiUserDetailsRequest email(@javax.annotation.Nullable String email) {
+  public MeControllerApiUserDetailsRequest email(@jakarta.annotation.Nullable String email) {
     
     this.email = email;
     return this;
@@ -104,7 +104,7 @@ public class MeControllerApiUserDetailsRequest {
    * Get email
    * @return email
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EMAIL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getEmail() {
@@ -114,7 +114,7 @@ public class MeControllerApiUserDetailsRequest {
 
   @JsonProperty(JSON_PROPERTY_EMAIL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEmail(@javax.annotation.Nullable String email) {
+  public void setEmail(@jakarta.annotation.Nullable String email) {
     this.email = email;
   }
 

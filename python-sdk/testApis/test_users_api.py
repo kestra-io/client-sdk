@@ -212,7 +212,7 @@ class TestUsersApi(unittest.TestCase):
             iam_user_controller_api_create_or_update_user_request=user_req
         )
 
-        fetched = self.kestra_client.users.get_user(id=created_user.id)
+        fetched = self.kestra_client.users.user(id=created_user.id)
         assert fetched.id == created_user.id
 
         # cleanup
@@ -302,7 +302,7 @@ class TestUsersApi(unittest.TestCase):
         patch = ApiPatchSuperAdminRequest(super_admin=True)
         self.kestra_client.users.patch_user_super_admin(id=created_user.id, api_patch_super_admin_request=patch)
 
-        fetched = self.kestra_client.users.get_user(id=created_user.id)
+        fetched = self.kestra_client.users.user(id=created_user.id)
         assert getattr(fetched, 'super_admin', None) is True
 
     def test_update_current_user_password(self) -> None:

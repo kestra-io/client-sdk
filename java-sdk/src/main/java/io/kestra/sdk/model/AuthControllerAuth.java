@@ -36,24 +36,24 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AuthControllerAuth.JSON_PROPERTY_OAUTHS
 })
 @JsonTypeName("AuthController.Auth")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AuthControllerAuth {
   public static final String JSON_PROPERTY_LOGIN_PASSWORD = "loginPassword";
-  @javax.annotation.Nullable  private Boolean loginPassword;
+  @jakarta.annotation.Nullable  private Boolean loginPassword;
 
   public static final String JSON_PROPERTY_MAILS_ENABLED = "mailsEnabled";
-  @javax.annotation.Nullable  private Boolean mailsEnabled;
+  @jakarta.annotation.Nullable  private Boolean mailsEnabled;
 
   public static final String JSON_PROPERTY_PASSWORDLESS = "passwordless";
-  @javax.annotation.Nullable  private Boolean passwordless;
+  @jakarta.annotation.Nullable  private Boolean passwordless;
 
   public static final String JSON_PROPERTY_OAUTHS = "oauths";
-  @javax.annotation.Nullable  private List<String> oauths = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> oauths = new ArrayList<>();
 
   public AuthControllerAuth() {
   }
 
-  public AuthControllerAuth loginPassword(@javax.annotation.Nullable Boolean loginPassword) {
+  public AuthControllerAuth loginPassword(@jakarta.annotation.Nullable Boolean loginPassword) {
     
     this.loginPassword = loginPassword;
     return this;
@@ -63,7 +63,7 @@ public class AuthControllerAuth {
    * Get loginPassword
    * @return loginPassword
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LOGIN_PASSWORD)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LOGIN_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getLoginPassword() {
@@ -73,11 +73,11 @@ public class AuthControllerAuth {
 
   @JsonProperty(JSON_PROPERTY_LOGIN_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLoginPassword(@javax.annotation.Nullable Boolean loginPassword) {
+  public void setLoginPassword(@jakarta.annotation.Nullable Boolean loginPassword) {
     this.loginPassword = loginPassword;
   }
 
-  public AuthControllerAuth mailsEnabled(@javax.annotation.Nullable Boolean mailsEnabled) {
+  public AuthControllerAuth mailsEnabled(@jakarta.annotation.Nullable Boolean mailsEnabled) {
     
     this.mailsEnabled = mailsEnabled;
     return this;
@@ -87,7 +87,7 @@ public class AuthControllerAuth {
    * Get mailsEnabled
    * @return mailsEnabled
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MAILS_ENABLED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MAILS_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getMailsEnabled() {
@@ -97,11 +97,11 @@ public class AuthControllerAuth {
 
   @JsonProperty(JSON_PROPERTY_MAILS_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMailsEnabled(@javax.annotation.Nullable Boolean mailsEnabled) {
+  public void setMailsEnabled(@jakarta.annotation.Nullable Boolean mailsEnabled) {
     this.mailsEnabled = mailsEnabled;
   }
 
-  public AuthControllerAuth passwordless(@javax.annotation.Nullable Boolean passwordless) {
+  public AuthControllerAuth passwordless(@jakarta.annotation.Nullable Boolean passwordless) {
     
     this.passwordless = passwordless;
     return this;
@@ -111,7 +111,7 @@ public class AuthControllerAuth {
    * Get passwordless
    * @return passwordless
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PASSWORDLESS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PASSWORDLESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getPasswordless() {
@@ -121,11 +121,11 @@ public class AuthControllerAuth {
 
   @JsonProperty(JSON_PROPERTY_PASSWORDLESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPasswordless(@javax.annotation.Nullable Boolean passwordless) {
+  public void setPasswordless(@jakarta.annotation.Nullable Boolean passwordless) {
     this.passwordless = passwordless;
   }
 
-  public AuthControllerAuth oauths(@javax.annotation.Nullable List<String> oauths) {
+  public AuthControllerAuth oauths(@jakarta.annotation.Nullable List<String> oauths) {
     
     this.oauths = oauths;
     return this;
@@ -143,7 +143,7 @@ public class AuthControllerAuth {
    * Get oauths
    * @return oauths
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OAUTHS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OAUTHS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getOauths() {
@@ -153,7 +153,7 @@ public class AuthControllerAuth {
 
   @JsonProperty(JSON_PROPERTY_OAUTHS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOauths(@javax.annotation.Nullable List<String> oauths) {
+  public void setOauths(@jakarta.annotation.Nullable List<String> oauths) {
     this.oauths = oauths;
   }
 

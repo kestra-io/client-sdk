@@ -33,21 +33,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PatchOperation.JSON_PROPERTY_PATH,
   PatchOperation.JSON_PROPERTY_VALUE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PatchOperation {
   public static final String JSON_PROPERTY_OPERATION = "operation";
-  @javax.annotation.Nullable  private PatchOperationType operation;
+  @jakarta.annotation.Nullable  private PatchOperationType operation;
 
   public static final String JSON_PROPERTY_PATH = "path";
-  @javax.annotation.Nullable  private PatchOperationPath path;
+  @jakarta.annotation.Nullable  private PatchOperationPath path;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nullable  private Object value;
+  @jakarta.annotation.Nullable  private Object value;
 
   public PatchOperation() {
   }
 
-  public PatchOperation operation(@javax.annotation.Nullable PatchOperationType operation) {
+  public PatchOperation operation(@jakarta.annotation.Nullable PatchOperationType operation) {
     
     this.operation = operation;
     return this;
@@ -57,7 +57,7 @@ public class PatchOperation {
    * Get operation
    * @return operation
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OPERATION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OPERATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public PatchOperationType getOperation() {
@@ -67,11 +67,11 @@ public class PatchOperation {
 
   @JsonProperty(JSON_PROPERTY_OPERATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOperation(@javax.annotation.Nullable PatchOperationType operation) {
+  public void setOperation(@jakarta.annotation.Nullable PatchOperationType operation) {
     this.operation = operation;
   }
 
-  public PatchOperation path(@javax.annotation.Nullable PatchOperationPath path) {
+  public PatchOperation path(@jakarta.annotation.Nullable PatchOperationPath path) {
     
     this.path = path;
     return this;
@@ -81,7 +81,7 @@ public class PatchOperation {
    * Get path
    * @return path
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PATH)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PATH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public PatchOperationPath getPath() {
@@ -91,11 +91,11 @@ public class PatchOperation {
 
   @JsonProperty(JSON_PROPERTY_PATH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPath(@javax.annotation.Nullable PatchOperationPath path) {
+  public void setPath(@jakarta.annotation.Nullable PatchOperationPath path) {
     this.path = path;
   }
 
-  public PatchOperation value(@javax.annotation.Nullable Object value) {
+  public PatchOperation value(@jakarta.annotation.Nullable Object value) {
     
     this.value = value;
     return this;
@@ -105,7 +105,7 @@ public class PatchOperation {
    * Get value
    * @return value
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Object getValue() {
@@ -115,7 +115,7 @@ public class PatchOperation {
 
   @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setValue(@javax.annotation.Nullable Object value) {
+  public void setValue(@jakarta.annotation.Nullable Object value) {
     this.value = value;
   }
 

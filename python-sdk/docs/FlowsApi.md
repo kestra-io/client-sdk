@@ -15,18 +15,18 @@ Method | HTTP request | Description
 [**enable_flows_by_query**](flows.md#enable_flows_by_query) | **POST** /api/v1/{tenant}/flows/enable/by-query | Enable flows returned by the query parameters.
 [**export_flows_by_ids**](flows.md#export_flows_by_ids) | **POST** /api/v1/{tenant}/flows/export/by-ids | Export flows as a ZIP archive of yaml sources.
 [**export_flows_by_query**](flows.md#export_flows_by_query) | **GET** /api/v1/{tenant}/flows/export/by-query | Export flows as a ZIP archive of yaml sources.
+[**flow**](flows.md#flow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id} | Get a flow
+[**flow_dependencies**](flows.md#flow_dependencies) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/dependencies | Get flow dependencies
+[**flow_dependencies_from_namespace**](flows.md#flow_dependencies_from_namespace) | **GET** /api/v1/{tenant}/namespaces/{namespace}/dependencies | Retrieve flow dependencies
 [**generate_flow_graph**](flows.md#generate_flow_graph) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/graph | Generate a graph for a flow
 [**generate_flow_graph_from_source**](flows.md#generate_flow_graph_from_source) | **POST** /api/v1/{tenant}/flows/graph | Generate a graph for a flow source
-[**get_flow**](flows.md#get_flow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id} | Get a flow
-[**get_flow_dependencies**](flows.md#get_flow_dependencies) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/dependencies | Get flow dependencies
-[**get_flow_dependencies_from_namespace**](flows.md#get_flow_dependencies_from_namespace) | **GET** /api/v1/{tenant}/namespaces/{namespace}/dependencies | Retrieve flow dependencies
-[**get_task_from_flow**](flows.md#get_task_from_flow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId} | Get a flow task
 [**import_flows**](flows.md#import_flows) | **POST** /api/v1/{tenant}/flows/import |     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
 [**list_distinct_namespaces**](flows.md#list_distinct_namespaces) | **GET** /api/v1/{tenant}/flows/distinct-namespaces | List all distinct namespaces
 [**list_flow_revisions**](flows.md#list_flow_revisions) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/revisions | Get revisions for a flow
 [**list_flows_by_namespace**](flows.md#list_flows_by_namespace) | **GET** /api/v1/{tenant}/flows/{namespace} | Retrieve all flows from a given namespace
 [**search_flows**](flows.md#search_flows) | **GET** /api/v1/{tenant}/flows/search | Search for flows
 [**search_flows_by_source_code**](flows.md#search_flows_by_source_code) | **GET** /api/v1/{tenant}/flows/source | Search for flows source code
+[**task_from_flow**](flows.md#task_from_flow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId} | Get a flow task
 [**update_flow**](flows.md#update_flow) | **PUT** /api/v1/{tenant}/flows/{namespace}/{id} | Update a flow
 [**update_flows_in_namespace**](flows.md#update_flows_in_namespace) | **POST** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from yaml source
 [**validate_flows**](flows.md#validate_flows) | **POST** /api/v1/{tenant}/flows/validate | Validate a list of flows
@@ -748,6 +748,214 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **flow**
+> FlowWithSource flow(namespace, id, source, allow_deleted, tenant, revision=revision)
+
+Get a flow
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    namespace = 'namespace_example' # str | The flow namespace
+    id = 'id_example' # str | The flow id
+    source = False # bool | Include the source code (default to False)
+    allow_deleted = False # bool | Get flow even if deleted (default to False)
+    tenant = 'tenant_example' # str | 
+    revision = 56 # int | Get latest revision by default (optional)
+
+    try:
+        # Get a flow
+        api_response = kestra_client.flows.flow(namespace, id, source, allow_deleted, tenant, revision=revision)
+        print("The response of flows->flow:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling flows->flow: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **namespace** | **str**| The flow namespace | 
+ **id** | **str**| The flow id | 
+ **source** | **bool**| Include the source code | [default to False]
+ **allow_deleted** | **bool**| Get flow even if deleted | [default to False]
+ **tenant** | **str**|  | 
+ **revision** | **int**| Get latest revision by default | [optional] 
+
+### Return type
+
+[**FlowWithSource**](FlowWithSource.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | getFlow 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **flow_dependencies**
+> FlowTopologyGraph flow_dependencies(namespace, id, destination_only, expand_all, tenant)
+
+Get flow dependencies
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    namespace = 'namespace_example' # str | The flow namespace
+    id = 'id_example' # str | The flow id
+    destination_only = False # bool | If true, list only destination dependencies, otherwise list also source dependencies (default to False)
+    expand_all = False # bool | If true, expand all dependencies recursively (default to False)
+    tenant = 'tenant_example' # str | 
+
+    try:
+        # Get flow dependencies
+        api_response = kestra_client.flows.flow_dependencies(namespace, id, destination_only, expand_all, tenant)
+        print("The response of flows->flow_dependencies:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling flows->flow_dependencies: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **namespace** | **str**| The flow namespace | 
+ **id** | **str**| The flow id | 
+ **destination_only** | **bool**| If true, list only destination dependencies, otherwise list also source dependencies | [default to False]
+ **expand_all** | **bool**| If true, expand all dependencies recursively | [default to False]
+ **tenant** | **str**|  | 
+
+### Return type
+
+[**FlowTopologyGraph**](FlowTopologyGraph.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | getFlowDependencies 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **flow_dependencies_from_namespace**
+> FlowTopologyGraph flow_dependencies_from_namespace(namespace, destination_only, tenant)
+
+Retrieve flow dependencies
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    namespace = 'namespace_example' # str | The flow namespace
+    destination_only = False # bool | if true, list only destination dependencies, otherwise list also source dependencies (default to False)
+    tenant = 'tenant_example' # str | 
+
+    try:
+        # Retrieve flow dependencies
+        api_response = kestra_client.flows.flow_dependencies_from_namespace(namespace, destination_only, tenant)
+        print("The response of flows->flow_dependencies_from_namespace:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling flows->flow_dependencies_from_namespace: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **namespace** | **str**| The flow namespace | 
+ **destination_only** | **bool**| if true, list only destination dependencies, otherwise list also source dependencies | [default to False]
+ **tenant** | **str**|  | 
+
+### Return type
+
+[**FlowTopologyGraph**](FlowTopologyGraph.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | getFlowDependenciesFromNamespace 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **generate_flow_graph**
 > FlowGraph generate_flow_graph(namespace, id, tenant, revision=revision, subflows=subflows)
 
@@ -881,284 +1089,6 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | generateFlowGraphFromSource 200 response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_flow**
-> object get_flow(namespace, id, source, allow_deleted, tenant, revision=revision)
-
-Get a flow
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-from kestrapy import KestraClient, Configuration
-
-configuration = Configuration()
-
-configuration.host = "http://localhost:8080"
-configuration.username = "root@root.com"
-configuration.password = "Root!1234"
-
-# Enter a context with an instance of the API client
-with KestraClient(configuration) as kestra_client:
-    namespace = 'namespace_example' # str | The flow namespace
-    id = 'id_example' # str | The flow id
-    source = False # bool | Include the source code (default to False)
-    allow_deleted = False # bool | Get flow even if deleted (default to False)
-    tenant = 'tenant_example' # str | 
-    revision = 56 # int | Get latest revision by default (optional)
-
-    try:
-        # Get a flow
-        api_response = kestra_client.flows.get_flow(namespace, id, source, allow_deleted, tenant, revision=revision)
-        print("The response of flows->get_flow:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling flows->get_flow: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **namespace** | **str**| The flow namespace | 
- **id** | **str**| The flow id | 
- **source** | **bool**| Include the source code | [default to False]
- **allow_deleted** | **bool**| Get flow even if deleted | [default to False]
- **tenant** | **str**|  | 
- **revision** | **int**| Get latest revision by default | [optional] 
-
-### Return type
-
-**object**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | getFlow 200 response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_flow_dependencies**
-> FlowTopologyGraph get_flow_dependencies(namespace, id, destination_only, expand_all, tenant)
-
-Get flow dependencies
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-from kestrapy import KestraClient, Configuration
-
-configuration = Configuration()
-
-configuration.host = "http://localhost:8080"
-configuration.username = "root@root.com"
-configuration.password = "Root!1234"
-
-# Enter a context with an instance of the API client
-with KestraClient(configuration) as kestra_client:
-    namespace = 'namespace_example' # str | The flow namespace
-    id = 'id_example' # str | The flow id
-    destination_only = False # bool | If true, list only destination dependencies, otherwise list also source dependencies (default to False)
-    expand_all = False # bool | If true, expand all dependencies recursively (default to False)
-    tenant = 'tenant_example' # str | 
-
-    try:
-        # Get flow dependencies
-        api_response = kestra_client.flows.get_flow_dependencies(namespace, id, destination_only, expand_all, tenant)
-        print("The response of flows->get_flow_dependencies:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling flows->get_flow_dependencies: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **namespace** | **str**| The flow namespace | 
- **id** | **str**| The flow id | 
- **destination_only** | **bool**| If true, list only destination dependencies, otherwise list also source dependencies | [default to False]
- **expand_all** | **bool**| If true, expand all dependencies recursively | [default to False]
- **tenant** | **str**|  | 
-
-### Return type
-
-[**FlowTopologyGraph**](FlowTopologyGraph.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | getFlowDependencies 200 response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_flow_dependencies_from_namespace**
-> FlowTopologyGraph get_flow_dependencies_from_namespace(namespace, destination_only, tenant)
-
-Retrieve flow dependencies
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-from kestrapy import KestraClient, Configuration
-
-configuration = Configuration()
-
-configuration.host = "http://localhost:8080"
-configuration.username = "root@root.com"
-configuration.password = "Root!1234"
-
-# Enter a context with an instance of the API client
-with KestraClient(configuration) as kestra_client:
-    namespace = 'namespace_example' # str | The flow namespace
-    destination_only = False # bool | if true, list only destination dependencies, otherwise list also source dependencies (default to False)
-    tenant = 'tenant_example' # str | 
-
-    try:
-        # Retrieve flow dependencies
-        api_response = kestra_client.flows.get_flow_dependencies_from_namespace(namespace, destination_only, tenant)
-        print("The response of flows->get_flow_dependencies_from_namespace:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling flows->get_flow_dependencies_from_namespace: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **namespace** | **str**| The flow namespace | 
- **destination_only** | **bool**| if true, list only destination dependencies, otherwise list also source dependencies | [default to False]
- **tenant** | **str**|  | 
-
-### Return type
-
-[**FlowTopologyGraph**](FlowTopologyGraph.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | getFlowDependenciesFromNamespace 200 response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_task_from_flow**
-> Task get_task_from_flow(namespace, id, task_id, tenant, revision=revision)
-
-Get a flow task
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-from kestrapy import KestraClient, Configuration
-
-configuration = Configuration()
-
-configuration.host = "http://localhost:8080"
-configuration.username = "root@root.com"
-configuration.password = "Root!1234"
-
-# Enter a context with an instance of the API client
-with KestraClient(configuration) as kestra_client:
-    namespace = 'namespace_example' # str | The flow namespace
-    id = 'id_example' # str | The flow id
-    task_id = 'task_id_example' # str | The task id
-    tenant = 'tenant_example' # str | 
-    revision = 56 # int | The flow revision (optional)
-
-    try:
-        # Get a flow task
-        api_response = kestra_client.flows.get_task_from_flow(namespace, id, task_id, tenant, revision=revision)
-        print("The response of flows->get_task_from_flow:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling flows->get_task_from_flow: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **namespace** | **str**| The flow namespace | 
- **id** | **str**| The flow id | 
- **task_id** | **str**| The task id | 
- **tenant** | **str**|  | 
- **revision** | **int**| The flow revision | [optional] 
-
-### Return type
-
-[**Task**](Task.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | getTaskFromFlow 200 response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1559,6 +1489,76 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | searchFlowsBySourceCode 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **task_from_flow**
+> Task task_from_flow(namespace, id, task_id, tenant, revision=revision)
+
+Get a flow task
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    namespace = 'namespace_example' # str | The flow namespace
+    id = 'id_example' # str | The flow id
+    task_id = 'task_id_example' # str | The task id
+    tenant = 'tenant_example' # str | 
+    revision = 56 # int | The flow revision (optional)
+
+    try:
+        # Get a flow task
+        api_response = kestra_client.flows.task_from_flow(namespace, id, task_id, tenant, revision=revision)
+        print("The response of flows->task_from_flow:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling flows->task_from_flow: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **namespace** | **str**| The flow namespace | 
+ **id** | **str**| The flow id | 
+ **task_id** | **str**| The task id | 
+ **tenant** | **str**|  | 
+ **revision** | **int**| The flow revision | [optional] 
+
+### Return type
+
+[**Task**](Task.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | getTaskFromFlow 200 response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

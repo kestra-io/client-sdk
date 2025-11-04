@@ -38,24 +38,24 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowGraph.JSON_PROPERTY_CLUSTERS,
   FlowGraph.JSON_PROPERTY_FLOWABLES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class FlowGraph {
   public static final String JSON_PROPERTY_NODES = "nodes";
-  @javax.annotation.Nullable  private List<AbstractGraph> nodes = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<AbstractGraph> nodes = new ArrayList<>();
 
   public static final String JSON_PROPERTY_EDGES = "edges";
-  @javax.annotation.Nullable  private List<FlowGraphEdge> edges = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<FlowGraphEdge> edges = new ArrayList<>();
 
   public static final String JSON_PROPERTY_CLUSTERS = "clusters";
-  @javax.annotation.Nullable  private List<FlowGraphCluster> clusters = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<FlowGraphCluster> clusters = new ArrayList<>();
 
   public static final String JSON_PROPERTY_FLOWABLES = "flowables";
-  @javax.annotation.Nullable  private List<String> flowables = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> flowables = new ArrayList<>();
 
   public FlowGraph() {
   }
 
-  public FlowGraph nodes(@javax.annotation.Nullable List<AbstractGraph> nodes) {
+  public FlowGraph nodes(@jakarta.annotation.Nullable List<AbstractGraph> nodes) {
     
     this.nodes = nodes;
     return this;
@@ -73,7 +73,7 @@ public class FlowGraph {
    * Get nodes
    * @return nodes
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NODES)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NODES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<AbstractGraph> getNodes() {
@@ -83,11 +83,11 @@ public class FlowGraph {
 
   @JsonProperty(JSON_PROPERTY_NODES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setNodes(@javax.annotation.Nullable List<AbstractGraph> nodes) {
+  public void setNodes(@jakarta.annotation.Nullable List<AbstractGraph> nodes) {
     this.nodes = nodes;
   }
 
-  public FlowGraph edges(@javax.annotation.Nullable List<FlowGraphEdge> edges) {
+  public FlowGraph edges(@jakarta.annotation.Nullable List<FlowGraphEdge> edges) {
     
     this.edges = edges;
     return this;
@@ -105,7 +105,7 @@ public class FlowGraph {
    * Get edges
    * @return edges
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EDGES)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EDGES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<FlowGraphEdge> getEdges() {
@@ -115,11 +115,11 @@ public class FlowGraph {
 
   @JsonProperty(JSON_PROPERTY_EDGES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEdges(@javax.annotation.Nullable List<FlowGraphEdge> edges) {
+  public void setEdges(@jakarta.annotation.Nullable List<FlowGraphEdge> edges) {
     this.edges = edges;
   }
 
-  public FlowGraph clusters(@javax.annotation.Nullable List<FlowGraphCluster> clusters) {
+  public FlowGraph clusters(@jakarta.annotation.Nullable List<FlowGraphCluster> clusters) {
     
     this.clusters = clusters;
     return this;
@@ -137,7 +137,7 @@ public class FlowGraph {
    * Get clusters
    * @return clusters
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CLUSTERS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CLUSTERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<FlowGraphCluster> getClusters() {
@@ -147,11 +147,11 @@ public class FlowGraph {
 
   @JsonProperty(JSON_PROPERTY_CLUSTERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setClusters(@javax.annotation.Nullable List<FlowGraphCluster> clusters) {
+  public void setClusters(@jakarta.annotation.Nullable List<FlowGraphCluster> clusters) {
     this.clusters = clusters;
   }
 
-  public FlowGraph flowables(@javax.annotation.Nullable List<String> flowables) {
+  public FlowGraph flowables(@jakarta.annotation.Nullable List<String> flowables) {
     
     this.flowables = flowables;
     return this;
@@ -169,7 +169,7 @@ public class FlowGraph {
    * Get flowables
    * @return flowables
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FLOWABLES)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FLOWABLES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getFlowables() {
@@ -179,7 +179,7 @@ public class FlowGraph {
 
   @JsonProperty(JSON_PROPERTY_FLOWABLES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFlowables(@javax.annotation.Nullable List<String> flowables) {
+  public void setFlowables(@jakarta.annotation.Nullable List<String> flowables) {
     this.flowables = flowables;
   }
 

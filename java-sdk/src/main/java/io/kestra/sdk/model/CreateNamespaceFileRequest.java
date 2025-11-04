@@ -31,15 +31,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CreateNamespaceFileRequest.JSON_PROPERTY_FILE_CONTENT
 })
 @JsonTypeName("createNamespaceFile_request")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class CreateNamespaceFileRequest {
   public static final String JSON_PROPERTY_FILE_CONTENT = "fileContent";
-  @javax.annotation.Nullable  private File fileContent;
+  @jakarta.annotation.Nullable  private File fileContent;
 
   public CreateNamespaceFileRequest() {
   }
 
-  public CreateNamespaceFileRequest fileContent(@javax.annotation.Nullable File fileContent) {
+  public CreateNamespaceFileRequest fileContent(@jakarta.annotation.Nullable File fileContent) {
     
     this.fileContent = fileContent;
     return this;
@@ -49,7 +49,7 @@ public class CreateNamespaceFileRequest {
    * The file to upload
    * @return fileContent
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FILE_CONTENT)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FILE_CONTENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public File getFileContent() {
@@ -59,7 +59,7 @@ public class CreateNamespaceFileRequest {
 
   @JsonProperty(JSON_PROPERTY_FILE_CONTENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFileContent(@javax.annotation.Nullable File fileContent) {
+  public void setFileContent(@jakarta.annotation.Nullable File fileContent) {
     this.fileContent = fileContent;
   }
 

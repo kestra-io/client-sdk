@@ -9,20 +9,20 @@ All URIs are relative to *http://localhost*
 | [**deleteExecutionsByIds**](executions.md#deleteExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/by-ids | Delete a list of executions |
 | [**deleteExecutionsByQuery**](executions.md#deleteExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/by-query | Delete executions filter by query parameters |
 | [**downloadFileFromExecution**](executions.md#downloadFileFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution |
+| [**execution**](executions.md#execution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution |
+| [**executionFlowGraph**](executions.md#executionFlowGraph) | **GET** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution |
+| [**fileMetadatasFromExecution**](executions.md#fileMetadatasFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution |
+| [**flowFromExecution**](executions.md#flowFromExecution) | **GET** /api/v1/{tenant}/executions/flows/{namespace}/{flowId} | Get flow information&#39;s for an execution |
+| [**flowFromExecutionById**](executions.md#flowFromExecutionById) | **GET** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution |
 | [**followDependenciesExecutions**](executions.md#followDependenciesExecutions) | **GET** /api/v1/{tenant}/executions/{executionId}/follow-dependencies | Follow all execution dependencies executions |
 | [**followExecution**](executions.md#followExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/follow | Follow an execution |
 | [**forceRunByIds**](executions.md#forceRunByIds) | **POST** /api/v1/{tenant}/executions/force-run/by-ids | Force run a list of executions |
 | [**forceRunExecution**](executions.md#forceRunExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/force-run | Force run an execution |
 | [**forceRunExecutionsByQuery**](executions.md#forceRunExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/force-run/by-query | Force run executions filter by query parameters |
-| [**getExecution**](executions.md#getExecution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution |
-| [**getExecutionFlowGraph**](executions.md#getExecutionFlowGraph) | **GET** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution |
-| [**getFileMetadatasFromExecution**](executions.md#getFileMetadatasFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution |
-| [**getFlowFromExecution**](executions.md#getFlowFromExecution) | **GET** /api/v1/{tenant}/executions/flows/{namespace}/{flowId} | Get flow information&#39;s for an execution |
-| [**getFlowFromExecutionById**](executions.md#getFlowFromExecutionById) | **GET** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution |
-| [**getLatestExecutions**](executions.md#getLatestExecutions) | **POST** /api/v1/{tenant}/executions/latest | Get the latest execution for given flows |
 | [**killExecution**](executions.md#killExecution) | **DELETE** /api/v1/{tenant}/executions/{executionId}/kill | Kill an execution |
 | [**killExecutionsByIds**](executions.md#killExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/kill/by-ids | Kill a list of executions |
 | [**killExecutionsByQuery**](executions.md#killExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/kill/by-query | Kill executions filter by query parameters |
+| [**latestExecutions**](executions.md#latestExecutions) | **POST** /api/v1/{tenant}/executions/latest | Get the latest execution for given flows |
 | [**pauseExecution**](executions.md#pauseExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/pause | Pause a running execution. |
 | [**pauseExecutionsByIds**](executions.md#pauseExecutionsByIds) | **POST** /api/v1/{tenant}/executions/pause/by-ids | Pause a list of running executions |
 | [**pauseExecutionsByQuery**](executions.md#pauseExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/pause/by-query | Pause executions filter by query parameters |
@@ -441,6 +441,364 @@ public class Example {
 | **200** | downloadFileFromExecution 200 response |  -  |
 
 
+## execution
+
+> Execution execution(executionId, tenant)
+
+Get an execution
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.executions;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String executionId = "executionId_example"; // String | The execution id
+        String tenant = "tenant_example"; // String | 
+        try {
+            Execution result = kestraClient.executions().execution(executionId, tenant);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling executions#execution");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **executionId** | **String**| The execution id | |
+| **tenant** | **String**|  | |
+
+### Return type
+
+[**Execution**](Execution.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | getExecution 200 response |  -  |
+
+
+## executionFlowGraph
+
+> FlowGraph executionFlowGraph(executionId, tenant, subflows)
+
+Generate a graph for an execution
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.executions;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String executionId = "executionId_example"; // String | The execution id
+        String tenant = "tenant_example"; // String | 
+        List<String> subflows = Arrays.asList(); // List<String> | The subflow tasks to display
+        try {
+            FlowGraph result = kestraClient.executions().executionFlowGraph(executionId, tenant, subflows);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling executions#executionFlowGraph");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **executionId** | **String**| The execution id | |
+| **tenant** | **String**|  | |
+| **subflows** | [**List&lt;String&gt;**](String.md)| The subflow tasks to display | [optional] |
+
+### Return type
+
+[**FlowGraph**](FlowGraph.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | getExecutionFlowGraph 200 response |  -  |
+
+
+## fileMetadatasFromExecution
+
+> FileMetas fileMetadatasFromExecution(executionId, path, tenant)
+
+Get file meta information for an execution
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.executions;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String executionId = "executionId_example"; // String | The execution id
+        URI path = new URI(); // URI | The internal storage uri
+        String tenant = "tenant_example"; // String | 
+        try {
+            FileMetas result = kestraClient.executions().fileMetadatasFromExecution(executionId, path, tenant);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling executions#fileMetadatasFromExecution");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **executionId** | **String**| The execution id | |
+| **path** | **URI**| The internal storage uri | |
+| **tenant** | **String**|  | |
+
+### Return type
+
+[**FileMetas**](FileMetas.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | getFileMetadatasFromExecution 200 response |  -  |
+
+
+## flowFromExecution
+
+> FlowForExecution flowFromExecution(namespace, flowId, tenant, revision)
+
+Get flow information&#39;s for an execution
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.executions;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String namespace = "namespace_example"; // String | The namespace of the flow
+        String flowId = "flowId_example"; // String | The flow id
+        String tenant = "tenant_example"; // String | 
+        Integer revision = 56; // Integer | The flow revision
+        try {
+            FlowForExecution result = kestraClient.executions().flowFromExecution(namespace, flowId, tenant, revision);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling executions#flowFromExecution");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **namespace** | **String**| The namespace of the flow | |
+| **flowId** | **String**| The flow id | |
+| **tenant** | **String**|  | |
+| **revision** | **Integer**| The flow revision | [optional] |
+
+### Return type
+
+[**FlowForExecution**](FlowForExecution.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | getFlowFromExecution 200 response |  -  |
+
+
+## flowFromExecutionById
+
+> FlowForExecution flowFromExecutionById(executionId, tenant)
+
+Get flow information&#39;s for an execution
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.executions;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String executionId = "executionId_example"; // String | The execution that you want flow informations
+        String tenant = "tenant_example"; // String | 
+        try {
+            FlowForExecution result = kestraClient.executions().flowFromExecutionById(executionId, tenant);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling executions#flowFromExecutionById");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **executionId** | **String**| The execution that you want flow informations | |
+| **tenant** | **String**|  | |
+
+### Return type
+
+[**FlowForExecution**](FlowForExecution.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | getFlowFromExecutionById 200 response |  -  |
+
+
 ## followDependenciesExecutions
 
 > EventExecutionStatusEvent followDependenciesExecutions(executionId, destinationOnly, expandAll, tenant)
@@ -796,434 +1154,6 @@ public class Example {
 | **200** | forceRunExecutionsByQuery 200 response |  -  |
 
 
-## getExecution
-
-> Execution getExecution(executionId, tenant)
-
-Get an execution
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.executions;
-
-public class Example {
-    public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
-
-        KestraClient kestraClient = KestraClient.builder()
-        .basicAuth("root@root.com", "Root!1234")
-        .url("http://localhost:8080")
-        .build();
-
-        String executionId = "executionId_example"; // String | The execution id
-        String tenant = "tenant_example"; // String | 
-        try {
-            Execution result = kestraClient.executions().getExecution(executionId, tenant);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling executions#getExecution");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **executionId** | **String**| The execution id | |
-| **tenant** | **String**|  | |
-
-### Return type
-
-[**Execution**](Execution.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | getExecution 200 response |  -  |
-
-
-## getExecutionFlowGraph
-
-> FlowGraph getExecutionFlowGraph(executionId, tenant, subflows)
-
-Generate a graph for an execution
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.executions;
-
-public class Example {
-    public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
-
-        KestraClient kestraClient = KestraClient.builder()
-        .basicAuth("root@root.com", "Root!1234")
-        .url("http://localhost:8080")
-        .build();
-
-        String executionId = "executionId_example"; // String | The execution id
-        String tenant = "tenant_example"; // String | 
-        List<String> subflows = Arrays.asList(); // List<String> | The subflow tasks to display
-        try {
-            FlowGraph result = kestraClient.executions().getExecutionFlowGraph(executionId, tenant, subflows);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling executions#getExecutionFlowGraph");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **executionId** | **String**| The execution id | |
-| **tenant** | **String**|  | |
-| **subflows** | [**List&lt;String&gt;**](String.md)| The subflow tasks to display | [optional] |
-
-### Return type
-
-[**FlowGraph**](FlowGraph.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | getExecutionFlowGraph 200 response |  -  |
-
-
-## getFileMetadatasFromExecution
-
-> FileMetas getFileMetadatasFromExecution(executionId, path, tenant)
-
-Get file meta information for an execution
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.executions;
-
-public class Example {
-    public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
-
-        KestraClient kestraClient = KestraClient.builder()
-        .basicAuth("root@root.com", "Root!1234")
-        .url("http://localhost:8080")
-        .build();
-
-        String executionId = "executionId_example"; // String | The execution id
-        URI path = new URI(); // URI | The internal storage uri
-        String tenant = "tenant_example"; // String | 
-        try {
-            FileMetas result = kestraClient.executions().getFileMetadatasFromExecution(executionId, path, tenant);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling executions#getFileMetadatasFromExecution");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **executionId** | **String**| The execution id | |
-| **path** | **URI**| The internal storage uri | |
-| **tenant** | **String**|  | |
-
-### Return type
-
-[**FileMetas**](FileMetas.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | getFileMetadatasFromExecution 200 response |  -  |
-
-
-## getFlowFromExecution
-
-> FlowForExecution getFlowFromExecution(namespace, flowId, tenant, revision)
-
-Get flow information&#39;s for an execution
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.executions;
-
-public class Example {
-    public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
-
-        KestraClient kestraClient = KestraClient.builder()
-        .basicAuth("root@root.com", "Root!1234")
-        .url("http://localhost:8080")
-        .build();
-
-        String namespace = "namespace_example"; // String | The namespace of the flow
-        String flowId = "flowId_example"; // String | The flow id
-        String tenant = "tenant_example"; // String | 
-        Integer revision = 56; // Integer | The flow revision
-        try {
-            FlowForExecution result = kestraClient.executions().getFlowFromExecution(namespace, flowId, tenant, revision);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling executions#getFlowFromExecution");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace of the flow | |
-| **flowId** | **String**| The flow id | |
-| **tenant** | **String**|  | |
-| **revision** | **Integer**| The flow revision | [optional] |
-
-### Return type
-
-[**FlowForExecution**](FlowForExecution.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | getFlowFromExecution 200 response |  -  |
-
-
-## getFlowFromExecutionById
-
-> FlowForExecution getFlowFromExecutionById(executionId, tenant)
-
-Get flow information&#39;s for an execution
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.executions;
-
-public class Example {
-    public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
-
-        KestraClient kestraClient = KestraClient.builder()
-        .basicAuth("root@root.com", "Root!1234")
-        .url("http://localhost:8080")
-        .build();
-
-        String executionId = "executionId_example"; // String | The execution that you want flow informations
-        String tenant = "tenant_example"; // String | 
-        try {
-            FlowForExecution result = kestraClient.executions().getFlowFromExecutionById(executionId, tenant);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling executions#getFlowFromExecutionById");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **executionId** | **String**| The execution that you want flow informations | |
-| **tenant** | **String**|  | |
-
-### Return type
-
-[**FlowForExecution**](FlowForExecution.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | getFlowFromExecutionById 200 response |  -  |
-
-
-## getLatestExecutions
-
-> List&lt;ExecutionControllerLastExecutionResponse&gt; getLatestExecutions(tenant, executionRepositoryInterfaceFlowFilter)
-
-Get the latest execution for given flows
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.executions;
-
-public class Example {
-    public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
-
-        KestraClient kestraClient = KestraClient.builder()
-        .basicAuth("root@root.com", "Root!1234")
-        .url("http://localhost:8080")
-        .build();
-
-        String tenant = "tenant_example"; // String | 
-        List<ExecutionRepositoryInterfaceFlowFilter> executionRepositoryInterfaceFlowFilter = Arrays.asList(); // List<ExecutionRepositoryInterfaceFlowFilter> | 
-        try {
-            List<ExecutionControllerLastExecutionResponse> result = kestraClient.executions().getLatestExecutions(tenant, executionRepositoryInterfaceFlowFilter);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling executions#getLatestExecutions");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **tenant** | **String**|  | |
-| **executionRepositoryInterfaceFlowFilter** | [**List&lt;ExecutionRepositoryInterfaceFlowFilter&gt;**](ExecutionRepositoryInterfaceFlowFilter.md)|  | |
-
-### Return type
-
-[**List&lt;ExecutionControllerLastExecutionResponse&gt;**](ExecutionControllerLastExecutionResponse.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | getLatestExecutions 200 response |  -  |
-
-
 ## killExecution
 
 > Object killExecution(executionId, isOnKillCascade, tenant)
@@ -1438,6 +1368,76 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | killExecutionsByQuery 200 response |  -  |
+
+
+## latestExecutions
+
+> List&lt;ExecutionControllerLastExecutionResponse&gt; latestExecutions(tenant, executionRepositoryInterfaceFlowFilter)
+
+Get the latest execution for given flows
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.executions;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String tenant = "tenant_example"; // String | 
+        List<ExecutionRepositoryInterfaceFlowFilter> executionRepositoryInterfaceFlowFilter = Arrays.asList(); // List<ExecutionRepositoryInterfaceFlowFilter> | 
+        try {
+            List<ExecutionControllerLastExecutionResponse> result = kestraClient.executions().latestExecutions(tenant, executionRepositoryInterfaceFlowFilter);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling executions#latestExecutions");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
+| **executionRepositoryInterfaceFlowFilter** | [**List&lt;ExecutionRepositoryInterfaceFlowFilter&gt;**](ExecutionRepositoryInterfaceFlowFilter.md)|  | |
+
+### Return type
+
+[**List&lt;ExecutionControllerLastExecutionResponse&gt;**](ExecutionControllerLastExecutionResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | getLatestExecutions 200 response |  -  |
 
 
 ## pauseExecution

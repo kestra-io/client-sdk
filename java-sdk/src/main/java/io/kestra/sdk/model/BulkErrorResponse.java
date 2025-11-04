@@ -30,18 +30,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   BulkErrorResponse.JSON_PROPERTY_MESSAGE,
   BulkErrorResponse.JSON_PROPERTY_INVALIDS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class BulkErrorResponse {
   public static final String JSON_PROPERTY_MESSAGE = "message";
-  @javax.annotation.Nullable  private String message;
+  @jakarta.annotation.Nullable  private String message;
 
   public static final String JSON_PROPERTY_INVALIDS = "invalids";
-  @javax.annotation.Nullable  private Object invalids;
+  @jakarta.annotation.Nullable  private Object invalids;
 
   public BulkErrorResponse() {
   }
 
-  public BulkErrorResponse message(@javax.annotation.Nullable String message) {
+  public BulkErrorResponse message(@jakarta.annotation.Nullable String message) {
     
     this.message = message;
     return this;
@@ -51,7 +51,7 @@ public class BulkErrorResponse {
    * Get message
    * @return message
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MESSAGE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getMessage() {
@@ -61,11 +61,11 @@ public class BulkErrorResponse {
 
   @JsonProperty(JSON_PROPERTY_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMessage(@javax.annotation.Nullable String message) {
+  public void setMessage(@jakarta.annotation.Nullable String message) {
     this.message = message;
   }
 
-  public BulkErrorResponse invalids(@javax.annotation.Nullable Object invalids) {
+  public BulkErrorResponse invalids(@jakarta.annotation.Nullable Object invalids) {
     
     this.invalids = invalids;
     return this;
@@ -75,7 +75,7 @@ public class BulkErrorResponse {
    * Get invalids
    * @return invalids
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INVALIDS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INVALIDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Object getInvalids() {
@@ -85,7 +85,7 @@ public class BulkErrorResponse {
 
   @JsonProperty(JSON_PROPERTY_INVALIDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setInvalids(@javax.annotation.Nullable Object invalids) {
+  public void setInvalids(@jakarta.annotation.Nullable Object invalids) {
     this.invalids = invalids;
   }
 

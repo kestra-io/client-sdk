@@ -326,7 +326,7 @@ paths:
     get:
       description: Retrieves the diff between the current version and a selected previous
         version of a given resource based on audit logs.
-      operationId: getGlobalResourceDiffFromAuditLog
+      operationId: globalResourceDiffFromAuditLog
       parameters:
       - description: The id of the audit log
         explode: false
@@ -492,7 +492,7 @@ paths:
   /api/v1/basicAuthValidationErrors:
     get:
       description: Global endpoint available to all users.
-      operationId: getBasicAuthConfigErrors
+      operationId: basicAuthConfigErrors
       responses:
         "200":
           content:
@@ -514,7 +514,7 @@ paths:
   /api/v1/configs:
     get:
       description: Global endpoint available to all users.
-      operationId: getConfiguration
+      operationId: configuration
       responses:
         "200":
           content:
@@ -603,7 +603,7 @@ paths:
   /api/v1/instance/services/active:
     get:
       description: Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
-      operationId: getActiveServices
+      operationId: activeServices
       responses:
         "200":
           content:
@@ -697,7 +697,7 @@ paths:
   /api/v1/instance/services/{id}:
     get:
       description: Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
-      operationId: getService
+      operationId: service
       parameters:
       - explode: false
         in: path
@@ -971,7 +971,7 @@ paths:
     get:
       description: Superadmin-only. Retrieves metadata and available versions for
         a given plugin artifact. Requires INFRASTRUCTURE permission.
-      operationId: getVersionedPluginDetails
+      operationId: versionedPluginDetails
       parameters:
       - explode: false
         in: path
@@ -1007,7 +1007,7 @@ paths:
     get:
       description: Superadmin-only. Retrieves metadata for a specific version of a
         plugin artifact. Requires INFRASTRUCTURE permission.
-      operationId: getVersionedPluginDetailsFromVersion
+      operationId: versionedPluginDetailsFromVersion
       parameters:
       - explode: false
         in: path
@@ -1123,7 +1123,7 @@ paths:
       - application/json
     get:
       description: Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
-      operationId: getWorkerGroupById
+      operationId: workerGroupById
       parameters:
       - explode: false
         in: path
@@ -1260,7 +1260,7 @@ paths:
   /api/v1/me:
     get:
       description: Requires the ME permission.
-      operationId: getCurrentUser
+      operationId: currentUser
       responses:
         "200":
           content:
@@ -1451,7 +1451,7 @@ paths:
       - application/json
   /api/v1/plugins/groups/subgroups:
     get:
-      operationId: getPluginBySubgroups
+      operationId: pluginBySubgroups
       responses:
         "200":
           content:
@@ -1472,7 +1472,7 @@ paths:
       - application/json
   /api/v1/plugins/icons:
     get:
-      operationId: getPluginIcons
+      operationId: pluginIcons
       responses:
         "200":
           content:
@@ -1493,7 +1493,7 @@ paths:
       - application/json
   /api/v1/plugins/icons/groups:
     get:
-      operationId: getPluginGroupIcons
+      operationId: pluginGroupIcons
       responses:
         "200":
           content:
@@ -1514,7 +1514,7 @@ paths:
       - application/json
   /api/v1/plugins/inputs:
     get:
-      operationId: getAllInputTypes
+      operationId: allInputTypes
       responses:
         "200":
           content:
@@ -1536,7 +1536,7 @@ paths:
   /api/v1/plugins/inputs/{type}:
     get:
       description: "The schema will be a [JSON Schema Draft 7](http://json-schema.org/draft-07/schema)"
-      operationId: getSchemaFromInputType
+      operationId: schemaFromInputType
       parameters:
       - description: The schema needed
         explode: false
@@ -1565,7 +1565,7 @@ paths:
   /api/v1/plugins/properties/{type}:
     get:
       description: "The schema will be a [JSON Schema Draft 7](http://json-schema.org/draft-07/schema)"
-      operationId: getPropertiesFromType
+      operationId: propertiesFromType
       parameters:
       - description: The schema needed
         explode: false
@@ -1596,7 +1596,7 @@ paths:
   /api/v1/plugins/schemas/{type}:
     get:
       description: "The schema will be a [JSON Schema Draft 7](http://json-schema.org/draft-07/schema)"
-      operationId: getSchemasFromType
+      operationId: schemasFromType
       parameters:
       - description: The schema needed
         explode: false
@@ -1635,7 +1635,7 @@ paths:
       - application/json
   /api/v1/plugins/{cls}:
     get:
-      operationId: getPluginDocumentation
+      operationId: pluginDocumentation
       parameters:
       - description: The plugin full class name
         explode: false
@@ -1672,7 +1672,7 @@ paths:
       - application/json
   /api/v1/plugins/{cls}/versions:
     get:
-      operationId: getPluginVersions
+      operationId: pluginVersions
       parameters:
       - description: The plugin type
         explode: false
@@ -1700,7 +1700,7 @@ paths:
       - application/json
   /api/v1/plugins/{cls}/versions/{version}:
     get:
-      operationId: getPluginDocumentationFromVersion
+      operationId: pluginDocumentationFromVersion
       parameters:
       - description: The plugin type
         explode: false
@@ -1912,7 +1912,7 @@ paths:
       - application/json
     get:
       description: Superadmin-only. Get user account details.
-      operationId: getServiceAccount
+      operationId: serviceAccount
       parameters:
       - description: The service account id
         explode: false
@@ -2472,7 +2472,7 @@ paths:
       - application/json
     get:
       description: Superadmin-only. Get user account details.
-      operationId: getUser
+      operationId: user
       parameters:
       - description: The user id
         explode: false
@@ -3523,7 +3523,7 @@ paths:
       - application/json
   /api/v1/{tenant}/apps/view/{id}/file/meta:
     get:
-      operationId: getFileMetaFromAppExecution
+      operationId: fileMetaFromAppExecution
       parameters:
       - description: The ID of the app.
         explode: false
@@ -3567,7 +3567,7 @@ paths:
       - application/json
   /api/v1/{tenant}/apps/view/{id}/file/preview:
     get:
-      operationId: getFilePreviewFromAppExecution
+      operationId: filePreviewFromAppExecution
       parameters:
       - description: The ID of the app.
         explode: false
@@ -3631,7 +3631,7 @@ paths:
       - application/json
   /api/v1/{tenant}/apps/view/{id}/streams/{stream}:
     get:
-      operationId: getStreamEventsFromApp
+      operationId: streamEventsFromApp
       parameters:
       - description: The ID of the app.
         explode: false
@@ -3723,7 +3723,7 @@ paths:
       - application/json
   /api/v1/{tenant}/apps/view/{uid}/logs/download:
     get:
-      operationId: getLogsFromAppExecution
+      operationId: logsFromAppExecution
       parameters:
       - description: The ID of the app.
         explode: false
@@ -3822,7 +3822,7 @@ paths:
       x-accepts:
       - application/json
     get:
-      operationId: getApp
+      operationId: app
       parameters:
       - description: The ID of the app
         explode: false
@@ -4342,7 +4342,7 @@ paths:
     get:
       description: Retrieves the diff between the current version and a selected previous
         version of a given resource based on audit logs.
-      operationId: getResourceDiffFromAuditLog
+      operationId: resourceDiffFromAuditLog
       parameters:
       - description: The id of the audit log
         explode: false
@@ -4616,7 +4616,7 @@ paths:
       x-accepts:
       - application/json
     get:
-      operationId: getBinding
+      operationId: binding
       parameters:
       - description: The binding id
         explode: false
@@ -4782,7 +4782,7 @@ paths:
   /api/v1/{tenant}/blueprints/community/{kind}/{id}:
     get:
       description: Retrieves details of a specific community blueprint.
-      operationId: getBlueprint
+      operationId: blueprint
       parameters:
       - description: The blueprint id
         explode: false
@@ -4824,7 +4824,7 @@ paths:
     get:
       description: Retrieves the topology graph representation of a specific community
         blueprint.
-      operationId: getBlueprintGraph
+      operationId: blueprintGraph
       parameters:
       - description: The blueprint id
         explode: false
@@ -4867,7 +4867,7 @@ paths:
   /api/v1/{tenant}/blueprints/community/{kind}/{id}/source:
     get:
       description: Retrieves the YAML source code for a specific community blueprint.
-      operationId: getBlueprintSource
+      operationId: blueprintSource
       parameters:
       - description: The blueprint id
         explode: false
@@ -5441,7 +5441,7 @@ paths:
       x-accepts:
       - application/json
     get:
-      operationId: getDashboard
+      operationId: dashboard
       parameters:
       - description: The dashboard id
         explode: false
@@ -5512,7 +5512,7 @@ paths:
       - application/json
   /api/v1/{tenant}/dashboards/{id}/charts/{chartId}:
     post:
-      operationId: getDashboardChartData
+      operationId: dashboardChartData
       parameters:
       - description: The dashboard id
         explode: false
@@ -5611,7 +5611,7 @@ paths:
       - application/octet-stream
   /api/v1/{tenant}/dependencies:
     get:
-      operationId: getFlowDependenciesFromTenant
+      operationId: flowDependenciesFromTenant
       parameters:
       - description: "if true, list only destination dependencies, otherwise list\
           \ also source dependencies"
@@ -5968,7 +5968,7 @@ paths:
       - application/json
   /api/v1/{tenant}/executions/flows/{namespace}/{flowId}:
     get:
-      operationId: getFlowFromExecution
+      operationId: flowFromExecution
       parameters:
       - description: The namespace of the flow
         explode: false
@@ -6272,7 +6272,7 @@ paths:
       - application/json
   /api/v1/{tenant}/executions/latest:
     post:
-      operationId: getLatestExecutions
+      operationId: latestExecutions
       parameters:
       - explode: false
         in: path
@@ -6935,7 +6935,7 @@ paths:
       x-accepts:
       - application/json
     get:
-      operationId: getExecution
+      operationId: execution
       parameters:
       - description: The execution id
         explode: false
@@ -7058,7 +7058,7 @@ paths:
       - application/octet-stream
   /api/v1/{tenant}/executions/{executionId}/file/metas:
     get:
-      operationId: getFileMetadatasFromExecution
+      operationId: fileMetadatasFromExecution
       parameters:
       - description: The execution id
         explode: false
@@ -7102,7 +7102,7 @@ paths:
       - application/json
   /api/v1/{tenant}/executions/{executionId}/flow:
     get:
-      operationId: getFlowFromExecutionById
+      operationId: flowFromExecutionById
       parameters:
       - description: The execution that you want flow informations
         explode: false
@@ -7267,7 +7267,7 @@ paths:
       - application/json
   /api/v1/{tenant}/executions/{executionId}/graph:
     get:
-      operationId: getExecutionFlowGraph
+      operationId: executionFlowGraph
       parameters:
       - description: The execution id
         explode: false
@@ -8780,7 +8780,7 @@ paths:
       x-accepts:
       - application/json
     get:
-      operationId: getFlow
+      operationId: flow
       parameters:
       - description: The flow namespace
         explode: false
@@ -8838,7 +8838,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/FlowWithSource"
           description: getFlow 200 response
       security:
       - bearerAuth: []
@@ -8901,7 +8901,7 @@ paths:
       - application/json
   /api/v1/{tenant}/flows/{namespace}/{id}/dependencies:
     get:
-      operationId: getFlowDependencies
+      operationId: flowDependencies
       parameters:
       - description: The flow namespace
         explode: false
@@ -9072,7 +9072,7 @@ paths:
       - application/json
   /api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId}:
     get:
-      operationId: getTaskFromFlow
+      operationId: taskFromFlow
       parameters:
       - description: The flow namespace
         explode: false
@@ -9345,7 +9345,7 @@ paths:
     get:
       description: Retrieves details of a specific group by its ID within the current
         tenant.
-      operationId: getGroup
+      operationId: group
       parameters:
       - description: The group id
         explode: false
@@ -9903,7 +9903,7 @@ paths:
       - application/json
     get:
       description: Find by id
-      operationId: getSCIMResourceByIdGroups
+      operationId: sCIMResourceByIdGroups
       parameters:
       - explode: false
         in: path
@@ -10095,7 +10095,7 @@ paths:
   /api/v1/{tenant}/integrations/{integration}/scim/v2/ResourceTypes:
     get:
       description: Get All Resource Types
-      operationId: getAllResourceTypes
+      operationId: allResourceTypes
       parameters:
       - explode: false
         in: path
@@ -10128,7 +10128,7 @@ paths:
   /api/v1/{tenant}/integrations/{integration}/scim/v2/ResourceTypes/{name}:
     get:
       description: Get Resource Type by URN
-      operationId: getResourceType
+      operationId: resourceType
       parameters:
       - explode: false
         in: path
@@ -10166,7 +10166,7 @@ paths:
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Schemas:
     get:
       description: Get All Schemas
-      operationId: getAllSchemas
+      operationId: allSchemas
       parameters:
       - explode: false
         in: path
@@ -10199,7 +10199,7 @@ paths:
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Schemas/{uri}:
     get:
       description: Get Schemas by URN
-      operationId: getSchema
+      operationId: schema
       parameters:
       - explode: false
         in: path
@@ -10237,7 +10237,7 @@ paths:
   /api/v1/{tenant}/integrations/{integration}/scim/v2/ServiceProviderConfig:
     get:
       description: Get Service Provider Configuration
-      operationId: getServiceProviderConfiguration
+      operationId: serviceProviderConfiguration
       parameters:
       - explode: false
         in: path
@@ -10512,7 +10512,7 @@ paths:
       - application/json
     get:
       description: Find by id
-      operationId: getSCIMResourceByIdUsers
+      operationId: sCIMResourceByIdUsers
       parameters:
       - explode: false
         in: path
@@ -10895,7 +10895,7 @@ paths:
       - application/json
     get:
       description: "Retrieves the invitation by its ID, including the invitation link."
-      operationId: getInvitation
+      operationId: invitation
       parameters:
       - description: The id of the invitation
         explode: false
@@ -11891,7 +11891,7 @@ paths:
       x-accepts:
       - application/json
     get:
-      operationId: getNamespace
+      operationId: namespace
       parameters:
       - description: The namespace id
         explode: false
@@ -12042,7 +12042,7 @@ paths:
       - application/json
   /api/v1/{tenant}/namespaces/{namespace}/dependencies:
     get:
-      operationId: getFlowDependenciesFromNamespace
+      operationId: flowDependenciesFromNamespace
       parameters:
       - description: The flow namespace
         explode: false
@@ -12125,7 +12125,7 @@ paths:
       x-accepts:
       - application/json
     get:
-      operationId: getFileContent
+      operationId: fileContent
       parameters:
       - description: The namespace id
         explode: false
@@ -12433,7 +12433,7 @@ paths:
       - application/json
   /api/v1/{tenant}/namespaces/{namespace}/files/stats:
     get:
-      operationId: getFileMetadatas
+      operationId: fileMetadatas
       parameters:
       - description: The namespace id
         explode: false
@@ -12478,7 +12478,7 @@ paths:
       - application/json
   /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets:
     get:
-      operationId: getInheritedSecrets
+      operationId: inheritedSecrets
       parameters:
       - description: The namespace id
         explode: false
@@ -12675,7 +12675,7 @@ paths:
       x-accepts:
       - application/json
     get:
-      operationId: getKeyValue
+      operationId: keyValue
       parameters:
       - description: The namespace id
         explode: false
@@ -13180,7 +13180,7 @@ paths:
       x-accepts:
       - application/json
     get:
-      operationId: getRole
+      operationId: role
       parameters:
       - description: The role id
         explode: false
@@ -13361,7 +13361,7 @@ paths:
       - application/json
     get:
       description: Superadmin-only.
-      operationId: getSecurityIntegration
+      operationId: securityIntegration
       parameters:
       - description: The ID of security integration
         explode: false
@@ -13537,7 +13537,7 @@ paths:
       x-accepts:
       - application/json
     get:
-      operationId: getServiceAccountForTenant
+      operationId: serviceAccountForTenant
       parameters:
       - description: The user id
         explode: false
@@ -13957,7 +13957,7 @@ paths:
       - application/json
     get:
       description: Fetches the tenant access configuration for a given user
-      operationId: getTenantAccess
+      operationId: tenantAccess
       parameters:
       - description: The user id
         explode: false
@@ -14246,7 +14246,7 @@ paths:
   /api/v1/{tenant}/tests/results/search/last:
     post:
       description: Get multiple tests last result for a query.
-      operationId: getTestsLastResult
+      operationId: testsLastResult
       parameters:
       - explode: false
         in: path
@@ -14278,7 +14278,7 @@ paths:
   /api/v1/{tenant}/tests/results/{id}:
     get:
       description: Get a test result once it was run.
-      operationId: getTestResult
+      operationId: testResult
       parameters:
       - description: The test run ID
         explode: false
@@ -14506,7 +14506,7 @@ paths:
     get:
       description: Retrieves a test by namespace and ID. Requires TEST permission
         with the READ action.
-      operationId: getTestSuite
+      operationId: testSuite
       parameters:
       - description: The TestSuite namespace
         explode: false
@@ -15443,7 +15443,7 @@ paths:
       - application/json
   /api/v1/{tenant}/usages/all:
     get:
-      operationId: getUsages
+      operationId: usages
       parameters:
       - explode: false
         in: path
@@ -18619,56 +18619,6 @@ components:
       allOf:
       - $ref: "#/components/schemas/Flow"
       - $ref: "#/components/schemas/AbstractFlow"
-      - properties:
-          id:
-            maxLength: 100
-            minLength: 1
-            pattern: "^[a-zA-Z0-9][a-zA-Z0-9._-]*"
-            type: string
-          namespace:
-            maxLength: 150
-            minLength: 1
-            pattern: "^[a-z0-9][a-z0-9._-]*"
-            type: string
-          revision:
-            format: int32
-            minimum: 1
-            type: integer
-          description:
-            type: string
-          inputs:
-            items:
-              $ref: "#/components/schemas/Input_Object_"
-            type: array
-          disabled:
-            type: boolean
-          labels:
-            description: Labels as a list of Label (key/value pairs) or as a map of
-              string to string.
-            items:
-              $ref: "#/components/schemas/Label"
-            type: array
-          workerGroup:
-            $ref: "#/components/schemas/WorkerGroup"
-          deleted:
-            type: boolean
-          variables:
-            $ref: "#/components/schemas/Flow_allOf_variables"
-          concurrency:
-            $ref: "#/components/schemas/Concurrency"
-          outputs:
-            description: Output values make information about the execution of your
-              Flow available and expose for other Kestra flows to use. Output values
-              are similar to return values in programming languages.
-            items:
-              $ref: "#/components/schemas/Output"
-            title: Output values available and exposes to other flows.
-            type: array
-          sla:
-            items:
-              $ref: "#/components/schemas/SLA"
-            type: array
-        type: object
       example:
         outputs:
         - displayName: displayName
@@ -18683,7 +18633,7 @@ components:
           type: STRING
           value: "{}"
           required: true
-        variables: null
+        variables: "{}"
         inputs:
         - dependsOn: ""
           defaults: ""
@@ -18699,47 +18649,6 @@ components:
           id: id
           type: ""
           required: true
-        finally:
-        - taskCache:
-            ttl: ttl
-            enabled: true
-          description: description
-          type: type
-          logToFile: true
-          version: version
-          timeout:
-            expression: expression
-            value: value
-          allowWarning: true
-          allowFailure: true
-          logLevel: ERROR
-          runIf: runIf
-          disabled: true
-          id: id
-          workerGroup:
-            fallback: FAIL
-            key: key
-          retry: "{}"
-        - taskCache:
-            ttl: ttl
-            enabled: true
-          description: description
-          type: type
-          logToFile: true
-          version: version
-          timeout:
-            expression: expression
-            value: value
-          allowWarning: true
-          allowFailure: true
-          logLevel: ERROR
-          runIf: runIf
-          disabled: true
-          id: id
-          workerGroup:
-            fallback: FAIL
-            key: key
-          retry: "{}"
         description: description
         sla:
         - id: id
@@ -18754,95 +18663,6 @@ components:
           labels:
           - SLA_labels
           - SLA_labels
-        afterExecution:
-        - taskCache:
-            ttl: ttl
-            enabled: true
-          description: description
-          type: type
-          logToFile: true
-          version: version
-          timeout:
-            expression: expression
-            value: value
-          allowWarning: true
-          allowFailure: true
-          logLevel: ERROR
-          runIf: runIf
-          disabled: true
-          id: id
-          workerGroup:
-            fallback: FAIL
-            key: key
-          retry: "{}"
-        - taskCache:
-            ttl: ttl
-            enabled: true
-          description: description
-          type: type
-          logToFile: true
-          version: version
-          timeout:
-            expression: expression
-            value: value
-          allowWarning: true
-          allowFailure: true
-          logLevel: ERROR
-          runIf: runIf
-          disabled: true
-          id: id
-          workerGroup:
-            fallback: FAIL
-            key: key
-          retry: "{}"
-        triggers:
-        - logLevel: null
-          stopAfter:
-          - CREATED
-          - CREATED
-          description: description
-          disabled: false
-          id: id
-          workerGroup:
-            fallback: FAIL
-            key: key
-          type: type
-          conditions:
-          - type: type
-          - type: type
-          logToFile: true
-          version: version
-          labels:
-          - The_labels_to_pass_to_the_execution_created_
-          - The_labels_to_pass_to_the_execution_created_
-          failOnTriggerError: true
-        - logLevel: null
-          stopAfter:
-          - CREATED
-          - CREATED
-          description: description
-          disabled: false
-          id: id
-          workerGroup:
-            fallback: FAIL
-            key: key
-          type: type
-          conditions:
-          - type: type
-          - type: type
-          logToFile: true
-          version: version
-          labels:
-          - The_labels_to_pass_to_the_execution_created_
-          - The_labels_to_pass_to_the_execution_created_
-          failOnTriggerError: true
-        pluginDefaults:
-        - forced: true
-          values: "{}"
-          type: type
-        - forced: true
-          values: "{}"
-          type: type
         revision: 1
         labels:
         - value: value
@@ -18859,89 +18679,56 @@ components:
         workerGroup:
           fallback: FAIL
           key: key
-        tasks:
-        - taskCache:
-            ttl: ttl
-            enabled: true
-          description: description
-          type: type
-          logToFile: true
-          version: version
-          timeout:
-            expression: expression
-            value: value
-          allowWarning: true
-          allowFailure: true
-          logLevel: ERROR
-          runIf: runIf
-          disabled: true
-          id: id
-          workerGroup:
-            fallback: FAIL
-            key: key
-          retry: "{}"
-        - taskCache:
-            ttl: ttl
-            enabled: true
-          description: description
-          type: type
-          logToFile: true
-          version: version
-          timeout:
-            expression: expression
-            value: value
-          allowWarning: true
-          allowFailure: true
-          logLevel: ERROR
-          runIf: runIf
-          disabled: true
-          id: id
-          workerGroup:
-            fallback: FAIL
-            key: key
-          retry: "{}"
-        errors:
-        - taskCache:
-            ttl: ttl
-            enabled: true
-          description: description
-          type: type
-          logToFile: true
-          version: version
-          timeout:
-            expression: expression
-            value: value
-          allowWarning: true
-          allowFailure: true
-          logLevel: ERROR
-          runIf: runIf
-          disabled: true
-          id: id
-          workerGroup:
-            fallback: FAIL
-            key: key
-          retry: "{}"
-        - taskCache:
-            ttl: ttl
-            enabled: true
-          description: description
-          type: type
-          logToFile: true
-          version: version
-          timeout:
-            expression: expression
-            value: value
-          allowWarning: true
-          allowFailure: true
-          logLevel: ERROR
-          runIf: runIf
-          disabled: true
-          id: id
-          workerGroup:
-            fallback: FAIL
-            key: key
-          retry: "{}"
-        retry: null
+      properties:
+        id:
+          maxLength: 100
+          minLength: 1
+          pattern: "^[a-zA-Z0-9][a-zA-Z0-9._-]*"
+          type: string
+        namespace:
+          maxLength: 150
+          minLength: 1
+          pattern: "^[a-z0-9][a-z0-9._-]*"
+          type: string
+        revision:
+          format: int32
+          minimum: 1
+          type: integer
+        description:
+          type: string
+        inputs:
+          items:
+            $ref: "#/components/schemas/Input_Object_"
+          type: array
+        disabled:
+          type: boolean
+        labels:
+          description: Labels as a list of Label (key/value pairs) or as a map of
+            string to string.
+          items:
+            $ref: "#/components/schemas/Label"
+          type: array
+        workerGroup:
+          $ref: "#/components/schemas/WorkerGroup"
+        deleted:
+          type: boolean
+        variables:
+          additionalProperties: false
+          type: object
+        concurrency:
+          $ref: "#/components/schemas/Concurrency"
+        outputs:
+          description: Output values make information about the execution of your
+            Flow available and expose for other Kestra flows to use. Output values
+            are similar to return values in programming languages.
+          items:
+            $ref: "#/components/schemas/Output"
+          title: Output values available and exposes to other flows.
+          type: array
+        sla:
+          items:
+            $ref: "#/components/schemas/SLA"
+          type: array
       required:
       - deleted
       - disabled

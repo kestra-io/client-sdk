@@ -131,20 +131,20 @@ Class | Method | HTTP request | Description
 *ExecutionsApi* | [**deleteExecutionsByIds**](docs/ExecutionsApi.md#deleteExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/by-ids | Delete a list of executions
 *ExecutionsApi* | [**deleteExecutionsByQuery**](docs/ExecutionsApi.md#deleteExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/by-query | Delete executions filter by query parameters
 *ExecutionsApi* | [**downloadFileFromExecution**](docs/ExecutionsApi.md#downloadFileFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution
+*ExecutionsApi* | [**execution**](docs/ExecutionsApi.md#execution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution
+*ExecutionsApi* | [**executionFlowGraph**](docs/ExecutionsApi.md#executionFlowGraph) | **GET** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution
+*ExecutionsApi* | [**fileMetadatasFromExecution**](docs/ExecutionsApi.md#fileMetadatasFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution
+*ExecutionsApi* | [**flowFromExecution**](docs/ExecutionsApi.md#flowFromExecution) | **GET** /api/v1/{tenant}/executions/flows/{namespace}/{flowId} | Get flow information&#39;s for an execution
+*ExecutionsApi* | [**flowFromExecutionById**](docs/ExecutionsApi.md#flowFromExecutionById) | **GET** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution
 *ExecutionsApi* | [**followDependenciesExecutions**](docs/ExecutionsApi.md#followDependenciesExecutions) | **GET** /api/v1/{tenant}/executions/{executionId}/follow-dependencies | Follow all execution dependencies executions
 *ExecutionsApi* | [**followExecution**](docs/ExecutionsApi.md#followExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/follow | Follow an execution
 *ExecutionsApi* | [**forceRunByIds**](docs/ExecutionsApi.md#forceRunByIds) | **POST** /api/v1/{tenant}/executions/force-run/by-ids | Force run a list of executions
 *ExecutionsApi* | [**forceRunExecution**](docs/ExecutionsApi.md#forceRunExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/force-run | Force run an execution
 *ExecutionsApi* | [**forceRunExecutionsByQuery**](docs/ExecutionsApi.md#forceRunExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/force-run/by-query | Force run executions filter by query parameters
-*ExecutionsApi* | [**getExecution**](docs/ExecutionsApi.md#getExecution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution
-*ExecutionsApi* | [**getExecutionFlowGraph**](docs/ExecutionsApi.md#getExecutionFlowGraph) | **GET** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution
-*ExecutionsApi* | [**getFileMetadatasFromExecution**](docs/ExecutionsApi.md#getFileMetadatasFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution
-*ExecutionsApi* | [**getFlowFromExecution**](docs/ExecutionsApi.md#getFlowFromExecution) | **GET** /api/v1/{tenant}/executions/flows/{namespace}/{flowId} | Get flow information&#39;s for an execution
-*ExecutionsApi* | [**getFlowFromExecutionById**](docs/ExecutionsApi.md#getFlowFromExecutionById) | **GET** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution
-*ExecutionsApi* | [**getLatestExecutions**](docs/ExecutionsApi.md#getLatestExecutions) | **POST** /api/v1/{tenant}/executions/latest | Get the latest execution for given flows
 *ExecutionsApi* | [**killExecution**](docs/ExecutionsApi.md#killExecution) | **DELETE** /api/v1/{tenant}/executions/{executionId}/kill | Kill an execution
 *ExecutionsApi* | [**killExecutionsByIds**](docs/ExecutionsApi.md#killExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/kill/by-ids | Kill a list of executions
 *ExecutionsApi* | [**killExecutionsByQuery**](docs/ExecutionsApi.md#killExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/kill/by-query | Kill executions filter by query parameters
+*ExecutionsApi* | [**latestExecutions**](docs/ExecutionsApi.md#latestExecutions) | **POST** /api/v1/{tenant}/executions/latest | Get the latest execution for given flows
 *ExecutionsApi* | [**pauseExecution**](docs/ExecutionsApi.md#pauseExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/pause | Pause a running execution.
 *ExecutionsApi* | [**pauseExecutionsByIds**](docs/ExecutionsApi.md#pauseExecutionsByIds) | **POST** /api/v1/{tenant}/executions/pause/by-ids | Pause a list of running executions
 *ExecutionsApi* | [**pauseExecutionsByQuery**](docs/ExecutionsApi.md#pauseExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/pause/by-query | Pause executions filter by query parameters
@@ -181,18 +181,18 @@ Class | Method | HTTP request | Description
 *FlowsApi* | [**enableFlowsByQuery**](docs/FlowsApi.md#enableFlowsByQuery) | **POST** /api/v1/{tenant}/flows/enable/by-query | Enable flows returned by the query parameters.
 *FlowsApi* | [**exportFlowsByIds**](docs/FlowsApi.md#exportFlowsByIds) | **POST** /api/v1/{tenant}/flows/export/by-ids | Export flows as a ZIP archive of yaml sources.
 *FlowsApi* | [**exportFlowsByQuery**](docs/FlowsApi.md#exportFlowsByQuery) | **GET** /api/v1/{tenant}/flows/export/by-query | Export flows as a ZIP archive of yaml sources.
+*FlowsApi* | [**flow**](docs/FlowsApi.md#flow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id} | Get a flow
+*FlowsApi* | [**flowDependencies**](docs/FlowsApi.md#flowDependencies) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/dependencies | Get flow dependencies
+*FlowsApi* | [**flowDependenciesFromNamespace**](docs/FlowsApi.md#flowDependenciesFromNamespace) | **GET** /api/v1/{tenant}/namespaces/{namespace}/dependencies | Retrieve flow dependencies
 *FlowsApi* | [**generateFlowGraph**](docs/FlowsApi.md#generateFlowGraph) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/graph | Generate a graph for a flow
 *FlowsApi* | [**generateFlowGraphFromSource**](docs/FlowsApi.md#generateFlowGraphFromSource) | **POST** /api/v1/{tenant}/flows/graph | Generate a graph for a flow source
-*FlowsApi* | [**getFlow**](docs/FlowsApi.md#getFlow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id} | Get a flow
-*FlowsApi* | [**getFlowDependencies**](docs/FlowsApi.md#getFlowDependencies) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/dependencies | Get flow dependencies
-*FlowsApi* | [**getFlowDependenciesFromNamespace**](docs/FlowsApi.md#getFlowDependenciesFromNamespace) | **GET** /api/v1/{tenant}/namespaces/{namespace}/dependencies | Retrieve flow dependencies
-*FlowsApi* | [**getTaskFromFlow**](docs/FlowsApi.md#getTaskFromFlow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId} | Get a flow task
 *FlowsApi* | [**importFlows**](docs/FlowsApi.md#importFlows) | **POST** /api/v1/{tenant}/flows/import |     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
 *FlowsApi* | [**listDistinctNamespaces**](docs/FlowsApi.md#listDistinctNamespaces) | **GET** /api/v1/{tenant}/flows/distinct-namespaces | List all distinct namespaces
 *FlowsApi* | [**listFlowRevisions**](docs/FlowsApi.md#listFlowRevisions) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/revisions | Get revisions for a flow
 *FlowsApi* | [**listFlowsByNamespace**](docs/FlowsApi.md#listFlowsByNamespace) | **GET** /api/v1/{tenant}/flows/{namespace} | Retrieve all flows from a given namespace
 *FlowsApi* | [**searchFlows**](docs/FlowsApi.md#searchFlows) | **GET** /api/v1/{tenant}/flows/search | Search for flows
 *FlowsApi* | [**searchFlowsBySourceCode**](docs/FlowsApi.md#searchFlowsBySourceCode) | **GET** /api/v1/{tenant}/flows/source | Search for flows source code
+*FlowsApi* | [**taskFromFlow**](docs/FlowsApi.md#taskFromFlow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId} | Get a flow task
 *FlowsApi* | [**updateFlow**](docs/FlowsApi.md#updateFlow) | **PUT** /api/v1/{tenant}/flows/{namespace}/{id} | Update a flow
 *FlowsApi* | [**updateFlowsInNamespace**](docs/FlowsApi.md#updateFlowsInNamespace) | **POST** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from yaml source
 *FlowsApi* | [**validateFlows**](docs/FlowsApi.md#validateFlows) | **POST** /api/v1/{tenant}/flows/validate | Validate a list of flows
@@ -203,7 +203,7 @@ Class | Method | HTTP request | Description
 *GroupsApi* | [**createGroup**](docs/GroupsApi.md#createGroup) | **POST** /api/v1/{tenant}/groups | Create a group
 *GroupsApi* | [**deleteGroup**](docs/GroupsApi.md#deleteGroup) | **DELETE** /api/v1/{tenant}/groups/{id} | Delete a group
 *GroupsApi* | [**deleteUserFromGroup**](docs/GroupsApi.md#deleteUserFromGroup) | **DELETE** /api/v1/{tenant}/groups/{id}/members/{userId} | Remove a user from a group
-*GroupsApi* | [**getGroup**](docs/GroupsApi.md#getGroup) | **GET** /api/v1/{tenant}/groups/{id} | Retrieve a group
+*GroupsApi* | [**group**](docs/GroupsApi.md#group) | **GET** /api/v1/{tenant}/groups/{id} | Retrieve a group
 *GroupsApi* | [**listGroupIds**](docs/GroupsApi.md#listGroupIds) | **POST** /api/v1/{tenant}/groups/ids | List groups by ids
 *GroupsApi* | [**searchGroupMembers**](docs/GroupsApi.md#searchGroupMembers) | **GET** /api/v1/{tenant}/groups/{id}/members | Search for users in a group
 *GroupsApi* | [**searchGroups**](docs/GroupsApi.md#searchGroups) | **GET** /api/v1/{tenant}/groups/search | Search for groups
@@ -211,7 +211,7 @@ Class | Method | HTTP request | Description
 *GroupsApi* | [**updateGroup**](docs/GroupsApi.md#updateGroup) | **PUT** /api/v1/{tenant}/groups/{id} | Update a group
 *KvApi* | [**deleteKeyValue**](docs/KvApi.md#deleteKeyValue) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Delete a key-value pair
 *KvApi* | [**deleteKeyValues**](docs/KvApi.md#deleteKeyValues) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/kv | Bulk-delete multiple key/value pairs from the given namespace.
-*KvApi* | [**getKeyValue**](docs/KvApi.md#getKeyValue) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Get value for a key
+*KvApi* | [**keyValue**](docs/KvApi.md#keyValue) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Get value for a key
 *KvApi* | [**listKeys**](docs/KvApi.md#listKeys) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv | List all keys for a namespace
 *KvApi* | [**listKeysWithInheritence**](docs/KvApi.md#listKeysWithInheritence) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/inheritance | List all keys for inherited namespaces
 *KvApi* | [**setKeyValue**](docs/KvApi.md#setKeyValue) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Puts a key-value pair in store
@@ -219,11 +219,11 @@ Class | Method | HTTP request | Description
 *NamespacesApi* | [**createNamespace**](docs/NamespacesApi.md#createNamespace) | **POST** /api/v1/{tenant}/namespaces | Create a namespace
 *NamespacesApi* | [**deleteNamespace**](docs/NamespacesApi.md#deleteNamespace) | **DELETE** /api/v1/{tenant}/namespaces/{id} | Delete a namespace
 *NamespacesApi* | [**deleteSecret**](docs/NamespacesApi.md#deleteSecret) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Delete a secret for a namespace
-*NamespacesApi* | [**getInheritedSecrets**](docs/NamespacesApi.md#getInheritedSecrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets
-*NamespacesApi* | [**getNamespace**](docs/NamespacesApi.md#getNamespace) | **GET** /api/v1/{tenant}/namespaces/{id} | Get a namespace
 *NamespacesApi* | [**inheritedPluginDefaults**](docs/NamespacesApi.md#inheritedPluginDefaults) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-plugindefaults | List inherited plugin defaults
+*NamespacesApi* | [**inheritedSecrets**](docs/NamespacesApi.md#inheritedSecrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets
 *NamespacesApi* | [**inheritedVariables**](docs/NamespacesApi.md#inheritedVariables) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-variables | List inherited variables
 *NamespacesApi* | [**listNamespaceSecrets**](docs/NamespacesApi.md#listNamespaceSecrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/secrets | Get secrets for a namespace
+*NamespacesApi* | [**namespace**](docs/NamespacesApi.md#namespace) | **GET** /api/v1/{tenant}/namespaces/{id} | Get a namespace
 *NamespacesApi* | [**patchSecret**](docs/NamespacesApi.md#patchSecret) | **PATCH** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Patch a secret metadata for a namespace
 *NamespacesApi* | [**putSecrets**](docs/NamespacesApi.md#putSecrets) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/secrets | Update secrets for a namespace
 *NamespacesApi* | [**searchNamespaces**](docs/NamespacesApi.md#searchNamespaces) | **GET** /api/v1/{tenant}/namespaces/search | Search for namespaces
@@ -231,8 +231,8 @@ Class | Method | HTTP request | Description
 *RolesApi* | [**autocompleteRoles**](docs/RolesApi.md#autocompleteRoles) | **POST** /api/v1/{tenant}/roles/autocomplete | List roles for autocomplete
 *RolesApi* | [**createRole**](docs/RolesApi.md#createRole) | **POST** /api/v1/{tenant}/roles | Create a role
 *RolesApi* | [**deleteRole**](docs/RolesApi.md#deleteRole) | **DELETE** /api/v1/{tenant}/roles/{id} | Delete a role
-*RolesApi* | [**getRole**](docs/RolesApi.md#getRole) | **GET** /api/v1/{tenant}/roles/{id} | Retrieve a role
 *RolesApi* | [**listRolesFromGivenIds**](docs/RolesApi.md#listRolesFromGivenIds) | **POST** /api/v1/{tenant}/roles/ids | List roles by ids
+*RolesApi* | [**role**](docs/RolesApi.md#role) | **GET** /api/v1/{tenant}/roles/{id} | Retrieve a role
 *RolesApi* | [**searchRoles**](docs/RolesApi.md#searchRoles) | **GET** /api/v1/{tenant}/roles/search | Search for roles
 *RolesApi* | [**updateRole**](docs/RolesApi.md#updateRole) | **PUT** /api/v1/{tenant}/roles/{id} | Update a role
 *ServiceAccountApi* | [**createApiTokensForServiceAccount**](docs/ServiceAccountApi.md#createApiTokensForServiceAccount) | **POST** /api/v1/service-accounts/{id}/api-tokens | Create new API Token for a specific service account
@@ -243,13 +243,13 @@ Class | Method | HTTP request | Description
 *ServiceAccountApi* | [**deleteApiTokenForServiceAccountWithTenant**](docs/ServiceAccountApi.md#deleteApiTokenForServiceAccountWithTenant) | **DELETE** /api/v1/{tenant}/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific service account and token id
 *ServiceAccountApi* | [**deleteServiceAccount**](docs/ServiceAccountApi.md#deleteServiceAccount) | **DELETE** /api/v1/service-accounts/{id} | Delete a service account
 *ServiceAccountApi* | [**deleteServiceAccountForTenant**](docs/ServiceAccountApi.md#deleteServiceAccountForTenant) | **DELETE** /api/v1/{tenant}/service-accounts/{id} | Delete a service account
-*ServiceAccountApi* | [**getServiceAccount**](docs/ServiceAccountApi.md#getServiceAccount) | **GET** /api/v1/service-accounts/{id} | Get a service account
-*ServiceAccountApi* | [**getServiceAccountForTenant**](docs/ServiceAccountApi.md#getServiceAccountForTenant) | **GET** /api/v1/{tenant}/service-accounts/{id} | Retrieve a service account
 *ServiceAccountApi* | [**listApiTokensForServiceAccount**](docs/ServiceAccountApi.md#listApiTokensForServiceAccount) | **GET** /api/v1/service-accounts/{id}/api-tokens | List API tokens for a specific service account
 *ServiceAccountApi* | [**listApiTokensForServiceAccountWithTenant**](docs/ServiceAccountApi.md#listApiTokensForServiceAccountWithTenant) | **GET** /api/v1/{tenant}/service-accounts/{id}/api-tokens | List API tokens for a specific service account
 *ServiceAccountApi* | [**listServiceAccounts**](docs/ServiceAccountApi.md#listServiceAccounts) | **GET** /api/v1/service-accounts | List service accounts. Superadmin-only. 
 *ServiceAccountApi* | [**patchServiceAccountDetails**](docs/ServiceAccountApi.md#patchServiceAccountDetails) | **PATCH** /api/v1/service-accounts/{id} | Update service account details
 *ServiceAccountApi* | [**patchServiceAccountSuperAdmin**](docs/ServiceAccountApi.md#patchServiceAccountSuperAdmin) | **PATCH** /api/v1/service-accounts/{id}/superadmin | Update service account superadmin privileges
+*ServiceAccountApi* | [**serviceAccount**](docs/ServiceAccountApi.md#serviceAccount) | **GET** /api/v1/service-accounts/{id} | Get a service account
+*ServiceAccountApi* | [**serviceAccountForTenant**](docs/ServiceAccountApi.md#serviceAccountForTenant) | **GET** /api/v1/{tenant}/service-accounts/{id} | Retrieve a service account
 *ServiceAccountApi* | [**updateServiceAccount**](docs/ServiceAccountApi.md#updateServiceAccount) | **PUT** /api/v1/{tenant}/service-accounts/{id} | Update a user service account
 *TriggersApi* | [**deleteBackfill**](docs/TriggersApi.md#deleteBackfill) | **POST** /api/v1/{tenant}/triggers/backfill/delete | Delete a backfill
 *TriggersApi* | [**deleteBackfillByIds**](docs/TriggersApi.md#deleteBackfillByIds) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-triggers | Delete backfill for given triggers
@@ -276,7 +276,6 @@ Class | Method | HTTP request | Description
 *UsersApi* | [**deleteRefreshToken**](docs/UsersApi.md#deleteRefreshToken) | **DELETE** /api/v1/users/{id}/refresh-token | Delete a user refresh token
 *UsersApi* | [**deleteUser**](docs/UsersApi.md#deleteUser) | **DELETE** /api/v1/users/{id} | Delete a user
 *UsersApi* | [**deleteUserAuthMethod**](docs/UsersApi.md#deleteUserAuthMethod) | **DELETE** /api/v1/users/{id}/auths/{auth} | Update user password
-*UsersApi* | [**getUser**](docs/UsersApi.md#getUser) | **GET** /api/v1/users/{id} | Get a user
 *UsersApi* | [**impersonate**](docs/UsersApi.md#impersonate) | **POST** /api/v1/users/{id}/impersonate | Impersonate a user
 *UsersApi* | [**listApiTokensForUser**](docs/UsersApi.md#listApiTokensForUser) | **GET** /api/v1/users/{id}/api-tokens | List API tokens for a specific user
 *UsersApi* | [**listUsers**](docs/UsersApi.md#listUsers) | **GET** /api/v1/users | Retrieve users
@@ -287,6 +286,7 @@ Class | Method | HTTP request | Description
 *UsersApi* | [**updateCurrentUserPassword**](docs/UsersApi.md#updateCurrentUserPassword) | **PUT** /api/v1/me/password | Update authenticated user password
 *UsersApi* | [**updateUser**](docs/UsersApi.md#updateUser) | **PUT** /api/v1/users/{id} | Update a user account
 *UsersApi* | [**updateUserGroups**](docs/UsersApi.md#updateUserGroups) | **PUT** /api/v1/{tenant}/users/{id}/groups | Update the list of groups a user belongs to for the given tenant
+*UsersApi* | [**user**](docs/UsersApi.md#user) | **GET** /api/v1/users/{id} | Get a user
 
 
 ## Documentation for Models

@@ -34,18 +34,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PluginControllerApiPluginVersions.JSON_PROPERTY_VERSIONS
 })
 @JsonTypeName("PluginController.ApiPluginVersions")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PluginControllerApiPluginVersions {
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nullable  private String type;
+  @jakarta.annotation.Nullable  private String type;
 
   public static final String JSON_PROPERTY_VERSIONS = "versions";
-  @javax.annotation.Nullable  private List<String> versions = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> versions = new ArrayList<>();
 
   public PluginControllerApiPluginVersions() {
   }
 
-  public PluginControllerApiPluginVersions type(@javax.annotation.Nullable String type) {
+  public PluginControllerApiPluginVersions type(@jakarta.annotation.Nullable String type) {
     
     this.type = type;
     return this;
@@ -55,7 +55,7 @@ public class PluginControllerApiPluginVersions {
    * Get type
    * @return type
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getType() {
@@ -65,11 +65,11 @@ public class PluginControllerApiPluginVersions {
 
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setType(@javax.annotation.Nullable String type) {
+  public void setType(@jakarta.annotation.Nullable String type) {
     this.type = type;
   }
 
-  public PluginControllerApiPluginVersions versions(@javax.annotation.Nullable List<String> versions) {
+  public PluginControllerApiPluginVersions versions(@jakarta.annotation.Nullable List<String> versions) {
     
     this.versions = versions;
     return this;
@@ -87,7 +87,7 @@ public class PluginControllerApiPluginVersions {
    * Get versions
    * @return versions
    */
-  @javax.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSIONS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getVersions() {
@@ -97,7 +97,7 @@ public class PluginControllerApiPluginVersions {
 
   @JsonProperty(JSON_PROPERTY_VERSIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVersions(@javax.annotation.Nullable List<String> versions) {
+  public void setVersions(@jakarta.annotation.Nullable List<String> versions) {
     this.versions = versions;
   }
 
