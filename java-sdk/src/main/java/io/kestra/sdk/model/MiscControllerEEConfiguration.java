@@ -71,143 +71,115 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MiscControllerEEConfiguration.JSON_PROPERTY_LEFT_SIDEBAR,
   MiscControllerEEConfiguration.JSON_PROPERTY_RIGHT_SIDEBAR,
   MiscControllerEEConfiguration.JSON_PROPERTY_IN_MAINTENANCE,
-  MiscControllerEEConfiguration.JSON_PROPERTY_PASSWORD_REGEXP
+  MiscControllerEEConfiguration.JSON_PROPERTY_PASSWORD_REGEXP,
+  MiscControllerEEConfiguration.JSON_PROPERTY_PASSWORDLESS_ENABLED
 })
 @JsonTypeName("MiscController.EEConfiguration")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class MiscControllerEEConfiguration {
   public static final String JSON_PROPERTY_UUID = "uuid";
-  @javax.annotation.Nullable
-  private String uuid;
+  @jakarta.annotation.Nullable  private String uuid;
 
   public static final String JSON_PROPERTY_VERSION = "version";
-  @javax.annotation.Nullable
-  private String version;
+  @jakarta.annotation.Nullable  private String version;
 
   public static final String JSON_PROPERTY_EDITION = "edition";
-  @javax.annotation.Nullable
-  private EditionProviderEdition edition;
+  @jakarta.annotation.Nullable  private EditionProviderEdition edition;
 
   public static final String JSON_PROPERTY_COMMIT_ID = "commitId";
-  @javax.annotation.Nullable
-  private String commitId;
+  @jakarta.annotation.Nullable  private String commitId;
 
   public static final String JSON_PROPERTY_COMMIT_DATE = "commitDate";
-  @javax.annotation.Nullable
-  private OffsetDateTime commitDate;
+  @jakarta.annotation.Nullable  private OffsetDateTime commitDate;
 
   public static final String JSON_PROPERTY_IS_CUSTOM_DASHBOARDS_ENABLED = "isCustomDashboardsEnabled";
-  @javax.annotation.Nullable
-  private Boolean isCustomDashboardsEnabled;
+  @jakarta.annotation.Nullable  private Boolean isCustomDashboardsEnabled;
 
   public static final String JSON_PROPERTY_IS_TASK_RUN_ENABLED = "isTaskRunEnabled";
-  @javax.annotation.Nullable
-  private Boolean isTaskRunEnabled;
+  @jakarta.annotation.Nullable  private Boolean isTaskRunEnabled;
 
   public static final String JSON_PROPERTY_IS_ANONYMOUS_USAGE_ENABLED = "isAnonymousUsageEnabled";
-  @javax.annotation.Nullable
-  private Boolean isAnonymousUsageEnabled;
+  @jakarta.annotation.Nullable  private Boolean isAnonymousUsageEnabled;
 
   public static final String JSON_PROPERTY_IS_UI_ANONYMOUS_USAGE_ENABLED = "isUiAnonymousUsageEnabled";
-  @javax.annotation.Nullable
-  private Boolean isUiAnonymousUsageEnabled;
+  @jakarta.annotation.Nullable  private Boolean isUiAnonymousUsageEnabled;
 
   public static final String JSON_PROPERTY_IS_TEMPLATE_ENABLED = "isTemplateEnabled";
-  @javax.annotation.Nullable
-  private Boolean isTemplateEnabled;
+  @jakarta.annotation.Nullable  private Boolean isTemplateEnabled;
 
   public static final String JSON_PROPERTY_ENVIRONMENT = "environment";
-  @javax.annotation.Nullable
-  private MiscControllerEnvironment environment;
+  @jakarta.annotation.Nullable  private MiscControllerEnvironment environment;
 
   public static final String JSON_PROPERTY_URL = "url";
-  @javax.annotation.Nullable
-  private String url;
+  @jakarta.annotation.Nullable  private String url;
 
   public static final String JSON_PROPERTY_PREVIEW = "preview";
-  @javax.annotation.Nullable
-  private MiscControllerPreview preview;
+  @jakarta.annotation.Nullable  private MiscControllerPreview preview;
 
   public static final String JSON_PROPERTY_SYSTEM_NAMESPACE = "systemNamespace";
-  @javax.annotation.Nullable
-  private String systemNamespace;
+  @jakarta.annotation.Nullable  private String systemNamespace;
 
   public static final String JSON_PROPERTY_HIDDEN_LABELS_PREFIXES = "hiddenLabelsPrefixes";
-  @javax.annotation.Nullable
-  private List<String> hiddenLabelsPrefixes = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> hiddenLabelsPrefixes = new ArrayList<>();
 
   public static final String JSON_PROPERTY_RESOURCE_TO_FILTERS = "resourceToFilters";
-  @javax.annotation.Nullable
-  private List<QueryFilterResourceField> resourceToFilters = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<QueryFilterResourceField> resourceToFilters = new ArrayList<>();
 
   public static final String JSON_PROPERTY_IS_AI_ENABLED = "isAiEnabled";
-  @javax.annotation.Nullable
-  private Boolean isAiEnabled;
+  @jakarta.annotation.Nullable  private Boolean isAiEnabled;
 
   public static final String JSON_PROPERTY_IS_BASIC_AUTH_INITIALIZED = "isBasicAuthInitialized";
-  @javax.annotation.Nullable
-  private Boolean isBasicAuthInitialized;
+  @jakarta.annotation.Nullable  private Boolean isBasicAuthInitialized;
 
   public static final String JSON_PROPERTY_PLUGINS_HASH = "pluginsHash";
-  @javax.annotation.Nullable
-  private Long pluginsHash;
+  @jakarta.annotation.Nullable  private Long pluginsHash;
 
   public static final String JSON_PROPERTY_TENANTS = "tenants";
-  @javax.annotation.Nullable
-  private MiscControllerTenantConfigurationInfo tenants;
+  @jakarta.annotation.Nullable  private MiscControllerTenantConfigurationInfo tenants;
 
   public static final String JSON_PROPERTY_SECRETS_ENABLED = "secretsEnabled";
-  @javax.annotation.Nullable
-  private Boolean secretsEnabled;
+  @jakarta.annotation.Nullable  private Boolean secretsEnabled;
 
   public static final String JSON_PROPERTY_SUPPORTED_STORAGES = "supportedStorages";
-  @javax.annotation.Nullable
-  private List<MiscControllerPluginIdAndVersion> supportedStorages = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<MiscControllerPluginIdAndVersion> supportedStorages = new ArrayList<>();
 
   public static final String JSON_PROPERTY_SUPPORTED_SECRETS = "supportedSecrets";
-  @javax.annotation.Nullable
-  private List<MiscControllerPluginIdAndVersion> supportedSecrets = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<MiscControllerPluginIdAndVersion> supportedSecrets = new ArrayList<>();
 
   public static final String JSON_PROPERTY_PLUGIN_MANAGEMENT_ENABLED = "pluginManagementEnabled";
-  @javax.annotation.Nullable
-  private Boolean pluginManagementEnabled;
+  @jakarta.annotation.Nullable  private Boolean pluginManagementEnabled;
 
   public static final String JSON_PROPERTY_PLUGIN_CUSTOM_ENABLED = "pluginCustomEnabled";
-  @javax.annotation.Nullable
-  private Boolean pluginCustomEnabled;
+  @jakarta.annotation.Nullable  private Boolean pluginCustomEnabled;
 
   public static final String JSON_PROPERTY_BANNER = "banner";
-  @javax.annotation.Nullable
-  private Banner banner;
+  @jakarta.annotation.Nullable  private Banner banner;
 
   public static final String JSON_PROPERTY_MAIL_SERVICE_ENABLED = "mailServiceEnabled";
-  @javax.annotation.Nullable
-  private Boolean mailServiceEnabled;
+  @jakarta.annotation.Nullable  private Boolean mailServiceEnabled;
 
   public static final String JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE_ENABLED = "outputsInInternalStorageEnabled";
-  @javax.annotation.Nullable
-  private Boolean outputsInInternalStorageEnabled;
+  @jakarta.annotation.Nullable  private Boolean outputsInInternalStorageEnabled;
 
   public static final String JSON_PROPERTY_LEFT_SIDEBAR = "leftSidebar";
-  @javax.annotation.Nullable
-  private LeftSidebarConfiguration leftSidebar;
+  @jakarta.annotation.Nullable  private LeftSidebarConfiguration leftSidebar;
 
   public static final String JSON_PROPERTY_RIGHT_SIDEBAR = "rightSidebar";
-  @javax.annotation.Nullable
-  private RightSidebarConfiguration rightSidebar;
+  @jakarta.annotation.Nullable  private RightSidebarConfiguration rightSidebar;
 
   public static final String JSON_PROPERTY_IN_MAINTENANCE = "inMaintenance";
-  @javax.annotation.Nullable
-  private Boolean inMaintenance;
+  @jakarta.annotation.Nullable  private Boolean inMaintenance;
 
   public static final String JSON_PROPERTY_PASSWORD_REGEXP = "passwordRegexp";
-  @javax.annotation.Nullable
-  private String passwordRegexp;
+  @jakarta.annotation.Nullable  private String passwordRegexp;
+
+  public static final String JSON_PROPERTY_PASSWORDLESS_ENABLED = "passwordlessEnabled";
+  @jakarta.annotation.Nullable  private Boolean passwordlessEnabled;
 
   public MiscControllerEEConfiguration() {
   }
 
-  public MiscControllerEEConfiguration uuid(@javax.annotation.Nullable String uuid) {
+  public MiscControllerEEConfiguration uuid(@jakarta.annotation.Nullable String uuid) {
     
     this.uuid = uuid;
     return this;
@@ -217,8 +189,7 @@ public class MiscControllerEEConfiguration {
    * Get uuid
    * @return uuid
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_UUID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UUID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUuid() {
@@ -228,11 +199,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_UUID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUuid(@javax.annotation.Nullable String uuid) {
+  public void setUuid(@jakarta.annotation.Nullable String uuid) {
     this.uuid = uuid;
   }
 
-  public MiscControllerEEConfiguration version(@javax.annotation.Nullable String version) {
+  public MiscControllerEEConfiguration version(@jakarta.annotation.Nullable String version) {
     
     this.version = version;
     return this;
@@ -242,8 +213,7 @@ public class MiscControllerEEConfiguration {
    * Get version
    * @return version
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_VERSION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getVersion() {
@@ -253,11 +223,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVersion(@javax.annotation.Nullable String version) {
+  public void setVersion(@jakarta.annotation.Nullable String version) {
     this.version = version;
   }
 
-  public MiscControllerEEConfiguration edition(@javax.annotation.Nullable EditionProviderEdition edition) {
+  public MiscControllerEEConfiguration edition(@jakarta.annotation.Nullable EditionProviderEdition edition) {
     
     this.edition = edition;
     return this;
@@ -267,8 +237,7 @@ public class MiscControllerEEConfiguration {
    * Get edition
    * @return edition
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_EDITION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EDITION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public EditionProviderEdition getEdition() {
@@ -278,11 +247,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_EDITION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEdition(@javax.annotation.Nullable EditionProviderEdition edition) {
+  public void setEdition(@jakarta.annotation.Nullable EditionProviderEdition edition) {
     this.edition = edition;
   }
 
-  public MiscControllerEEConfiguration commitId(@javax.annotation.Nullable String commitId) {
+  public MiscControllerEEConfiguration commitId(@jakarta.annotation.Nullable String commitId) {
     
     this.commitId = commitId;
     return this;
@@ -292,8 +261,7 @@ public class MiscControllerEEConfiguration {
    * Get commitId
    * @return commitId
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_COMMIT_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_COMMIT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCommitId() {
@@ -303,11 +271,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_COMMIT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCommitId(@javax.annotation.Nullable String commitId) {
+  public void setCommitId(@jakarta.annotation.Nullable String commitId) {
     this.commitId = commitId;
   }
 
-  public MiscControllerEEConfiguration commitDate(@javax.annotation.Nullable OffsetDateTime commitDate) {
+  public MiscControllerEEConfiguration commitDate(@jakarta.annotation.Nullable OffsetDateTime commitDate) {
     
     this.commitDate = commitDate;
     return this;
@@ -317,8 +285,7 @@ public class MiscControllerEEConfiguration {
    * Get commitDate
    * @return commitDate
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_COMMIT_DATE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_COMMIT_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getCommitDate() {
@@ -328,11 +295,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_COMMIT_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCommitDate(@javax.annotation.Nullable OffsetDateTime commitDate) {
+  public void setCommitDate(@jakarta.annotation.Nullable OffsetDateTime commitDate) {
     this.commitDate = commitDate;
   }
 
-  public MiscControllerEEConfiguration isCustomDashboardsEnabled(@javax.annotation.Nullable Boolean isCustomDashboardsEnabled) {
+  public MiscControllerEEConfiguration isCustomDashboardsEnabled(@jakarta.annotation.Nullable Boolean isCustomDashboardsEnabled) {
     
     this.isCustomDashboardsEnabled = isCustomDashboardsEnabled;
     return this;
@@ -342,8 +309,7 @@ public class MiscControllerEEConfiguration {
    * Get isCustomDashboardsEnabled
    * @return isCustomDashboardsEnabled
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_IS_CUSTOM_DASHBOARDS_ENABLED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_CUSTOM_DASHBOARDS_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getIsCustomDashboardsEnabled() {
@@ -353,11 +319,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_IS_CUSTOM_DASHBOARDS_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIsCustomDashboardsEnabled(@javax.annotation.Nullable Boolean isCustomDashboardsEnabled) {
+  public void setIsCustomDashboardsEnabled(@jakarta.annotation.Nullable Boolean isCustomDashboardsEnabled) {
     this.isCustomDashboardsEnabled = isCustomDashboardsEnabled;
   }
 
-  public MiscControllerEEConfiguration isTaskRunEnabled(@javax.annotation.Nullable Boolean isTaskRunEnabled) {
+  public MiscControllerEEConfiguration isTaskRunEnabled(@jakarta.annotation.Nullable Boolean isTaskRunEnabled) {
     
     this.isTaskRunEnabled = isTaskRunEnabled;
     return this;
@@ -367,8 +333,7 @@ public class MiscControllerEEConfiguration {
    * Get isTaskRunEnabled
    * @return isTaskRunEnabled
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_IS_TASK_RUN_ENABLED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_TASK_RUN_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getIsTaskRunEnabled() {
@@ -378,11 +343,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_IS_TASK_RUN_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIsTaskRunEnabled(@javax.annotation.Nullable Boolean isTaskRunEnabled) {
+  public void setIsTaskRunEnabled(@jakarta.annotation.Nullable Boolean isTaskRunEnabled) {
     this.isTaskRunEnabled = isTaskRunEnabled;
   }
 
-  public MiscControllerEEConfiguration isAnonymousUsageEnabled(@javax.annotation.Nullable Boolean isAnonymousUsageEnabled) {
+  public MiscControllerEEConfiguration isAnonymousUsageEnabled(@jakarta.annotation.Nullable Boolean isAnonymousUsageEnabled) {
     
     this.isAnonymousUsageEnabled = isAnonymousUsageEnabled;
     return this;
@@ -392,8 +357,7 @@ public class MiscControllerEEConfiguration {
    * Get isAnonymousUsageEnabled
    * @return isAnonymousUsageEnabled
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_IS_ANONYMOUS_USAGE_ENABLED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_ANONYMOUS_USAGE_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getIsAnonymousUsageEnabled() {
@@ -403,11 +367,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_IS_ANONYMOUS_USAGE_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIsAnonymousUsageEnabled(@javax.annotation.Nullable Boolean isAnonymousUsageEnabled) {
+  public void setIsAnonymousUsageEnabled(@jakarta.annotation.Nullable Boolean isAnonymousUsageEnabled) {
     this.isAnonymousUsageEnabled = isAnonymousUsageEnabled;
   }
 
-  public MiscControllerEEConfiguration isUiAnonymousUsageEnabled(@javax.annotation.Nullable Boolean isUiAnonymousUsageEnabled) {
+  public MiscControllerEEConfiguration isUiAnonymousUsageEnabled(@jakarta.annotation.Nullable Boolean isUiAnonymousUsageEnabled) {
     
     this.isUiAnonymousUsageEnabled = isUiAnonymousUsageEnabled;
     return this;
@@ -417,8 +381,7 @@ public class MiscControllerEEConfiguration {
    * Get isUiAnonymousUsageEnabled
    * @return isUiAnonymousUsageEnabled
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_IS_UI_ANONYMOUS_USAGE_ENABLED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_UI_ANONYMOUS_USAGE_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getIsUiAnonymousUsageEnabled() {
@@ -428,11 +391,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_IS_UI_ANONYMOUS_USAGE_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIsUiAnonymousUsageEnabled(@javax.annotation.Nullable Boolean isUiAnonymousUsageEnabled) {
+  public void setIsUiAnonymousUsageEnabled(@jakarta.annotation.Nullable Boolean isUiAnonymousUsageEnabled) {
     this.isUiAnonymousUsageEnabled = isUiAnonymousUsageEnabled;
   }
 
-  public MiscControllerEEConfiguration isTemplateEnabled(@javax.annotation.Nullable Boolean isTemplateEnabled) {
+  public MiscControllerEEConfiguration isTemplateEnabled(@jakarta.annotation.Nullable Boolean isTemplateEnabled) {
     
     this.isTemplateEnabled = isTemplateEnabled;
     return this;
@@ -442,8 +405,7 @@ public class MiscControllerEEConfiguration {
    * Get isTemplateEnabled
    * @return isTemplateEnabled
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_IS_TEMPLATE_ENABLED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_TEMPLATE_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getIsTemplateEnabled() {
@@ -453,11 +415,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_IS_TEMPLATE_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIsTemplateEnabled(@javax.annotation.Nullable Boolean isTemplateEnabled) {
+  public void setIsTemplateEnabled(@jakarta.annotation.Nullable Boolean isTemplateEnabled) {
     this.isTemplateEnabled = isTemplateEnabled;
   }
 
-  public MiscControllerEEConfiguration environment(@javax.annotation.Nullable MiscControllerEnvironment environment) {
+  public MiscControllerEEConfiguration environment(@jakarta.annotation.Nullable MiscControllerEnvironment environment) {
     
     this.environment = environment;
     return this;
@@ -467,8 +429,7 @@ public class MiscControllerEEConfiguration {
    * Get environment
    * @return environment
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ENVIRONMENT)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ENVIRONMENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public MiscControllerEnvironment getEnvironment() {
@@ -478,11 +439,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_ENVIRONMENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEnvironment(@javax.annotation.Nullable MiscControllerEnvironment environment) {
+  public void setEnvironment(@jakarta.annotation.Nullable MiscControllerEnvironment environment) {
     this.environment = environment;
   }
 
-  public MiscControllerEEConfiguration url(@javax.annotation.Nullable String url) {
+  public MiscControllerEEConfiguration url(@jakarta.annotation.Nullable String url) {
     
     this.url = url;
     return this;
@@ -492,8 +453,7 @@ public class MiscControllerEEConfiguration {
    * Get url
    * @return url
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_URL)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUrl() {
@@ -503,11 +463,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUrl(@javax.annotation.Nullable String url) {
+  public void setUrl(@jakarta.annotation.Nullable String url) {
     this.url = url;
   }
 
-  public MiscControllerEEConfiguration preview(@javax.annotation.Nullable MiscControllerPreview preview) {
+  public MiscControllerEEConfiguration preview(@jakarta.annotation.Nullable MiscControllerPreview preview) {
     
     this.preview = preview;
     return this;
@@ -517,8 +477,7 @@ public class MiscControllerEEConfiguration {
    * Get preview
    * @return preview
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PREVIEW)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PREVIEW)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public MiscControllerPreview getPreview() {
@@ -528,11 +487,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_PREVIEW)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPreview(@javax.annotation.Nullable MiscControllerPreview preview) {
+  public void setPreview(@jakarta.annotation.Nullable MiscControllerPreview preview) {
     this.preview = preview;
   }
 
-  public MiscControllerEEConfiguration systemNamespace(@javax.annotation.Nullable String systemNamespace) {
+  public MiscControllerEEConfiguration systemNamespace(@jakarta.annotation.Nullable String systemNamespace) {
     
     this.systemNamespace = systemNamespace;
     return this;
@@ -542,8 +501,7 @@ public class MiscControllerEEConfiguration {
    * Get systemNamespace
    * @return systemNamespace
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SYSTEM_NAMESPACE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SYSTEM_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSystemNamespace() {
@@ -553,11 +511,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_SYSTEM_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSystemNamespace(@javax.annotation.Nullable String systemNamespace) {
+  public void setSystemNamespace(@jakarta.annotation.Nullable String systemNamespace) {
     this.systemNamespace = systemNamespace;
   }
 
-  public MiscControllerEEConfiguration hiddenLabelsPrefixes(@javax.annotation.Nullable List<String> hiddenLabelsPrefixes) {
+  public MiscControllerEEConfiguration hiddenLabelsPrefixes(@jakarta.annotation.Nullable List<String> hiddenLabelsPrefixes) {
     
     this.hiddenLabelsPrefixes = hiddenLabelsPrefixes;
     return this;
@@ -575,8 +533,7 @@ public class MiscControllerEEConfiguration {
    * Get hiddenLabelsPrefixes
    * @return hiddenLabelsPrefixes
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_HIDDEN_LABELS_PREFIXES)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_HIDDEN_LABELS_PREFIXES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getHiddenLabelsPrefixes() {
@@ -586,11 +543,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_HIDDEN_LABELS_PREFIXES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setHiddenLabelsPrefixes(@javax.annotation.Nullable List<String> hiddenLabelsPrefixes) {
+  public void setHiddenLabelsPrefixes(@jakarta.annotation.Nullable List<String> hiddenLabelsPrefixes) {
     this.hiddenLabelsPrefixes = hiddenLabelsPrefixes;
   }
 
-  public MiscControllerEEConfiguration resourceToFilters(@javax.annotation.Nullable List<QueryFilterResourceField> resourceToFilters) {
+  public MiscControllerEEConfiguration resourceToFilters(@jakarta.annotation.Nullable List<QueryFilterResourceField> resourceToFilters) {
     
     this.resourceToFilters = resourceToFilters;
     return this;
@@ -608,8 +565,7 @@ public class MiscControllerEEConfiguration {
    * Get resourceToFilters
    * @return resourceToFilters
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_RESOURCE_TO_FILTERS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESOURCE_TO_FILTERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<QueryFilterResourceField> getResourceToFilters() {
@@ -619,11 +575,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_RESOURCE_TO_FILTERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setResourceToFilters(@javax.annotation.Nullable List<QueryFilterResourceField> resourceToFilters) {
+  public void setResourceToFilters(@jakarta.annotation.Nullable List<QueryFilterResourceField> resourceToFilters) {
     this.resourceToFilters = resourceToFilters;
   }
 
-  public MiscControllerEEConfiguration isAiEnabled(@javax.annotation.Nullable Boolean isAiEnabled) {
+  public MiscControllerEEConfiguration isAiEnabled(@jakarta.annotation.Nullable Boolean isAiEnabled) {
     
     this.isAiEnabled = isAiEnabled;
     return this;
@@ -633,8 +589,7 @@ public class MiscControllerEEConfiguration {
    * Get isAiEnabled
    * @return isAiEnabled
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_IS_AI_ENABLED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_AI_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getIsAiEnabled() {
@@ -644,11 +599,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_IS_AI_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIsAiEnabled(@javax.annotation.Nullable Boolean isAiEnabled) {
+  public void setIsAiEnabled(@jakarta.annotation.Nullable Boolean isAiEnabled) {
     this.isAiEnabled = isAiEnabled;
   }
 
-  public MiscControllerEEConfiguration isBasicAuthInitialized(@javax.annotation.Nullable Boolean isBasicAuthInitialized) {
+  public MiscControllerEEConfiguration isBasicAuthInitialized(@jakarta.annotation.Nullable Boolean isBasicAuthInitialized) {
     
     this.isBasicAuthInitialized = isBasicAuthInitialized;
     return this;
@@ -658,8 +613,7 @@ public class MiscControllerEEConfiguration {
    * Get isBasicAuthInitialized
    * @return isBasicAuthInitialized
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_IS_BASIC_AUTH_INITIALIZED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_BASIC_AUTH_INITIALIZED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getIsBasicAuthInitialized() {
@@ -669,11 +623,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_IS_BASIC_AUTH_INITIALIZED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIsBasicAuthInitialized(@javax.annotation.Nullable Boolean isBasicAuthInitialized) {
+  public void setIsBasicAuthInitialized(@jakarta.annotation.Nullable Boolean isBasicAuthInitialized) {
     this.isBasicAuthInitialized = isBasicAuthInitialized;
   }
 
-  public MiscControllerEEConfiguration pluginsHash(@javax.annotation.Nullable Long pluginsHash) {
+  public MiscControllerEEConfiguration pluginsHash(@jakarta.annotation.Nullable Long pluginsHash) {
     
     this.pluginsHash = pluginsHash;
     return this;
@@ -683,8 +637,7 @@ public class MiscControllerEEConfiguration {
    * Get pluginsHash
    * @return pluginsHash
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PLUGINS_HASH)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PLUGINS_HASH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getPluginsHash() {
@@ -694,11 +647,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_PLUGINS_HASH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPluginsHash(@javax.annotation.Nullable Long pluginsHash) {
+  public void setPluginsHash(@jakarta.annotation.Nullable Long pluginsHash) {
     this.pluginsHash = pluginsHash;
   }
 
-  public MiscControllerEEConfiguration tenants(@javax.annotation.Nullable MiscControllerTenantConfigurationInfo tenants) {
+  public MiscControllerEEConfiguration tenants(@jakarta.annotation.Nullable MiscControllerTenantConfigurationInfo tenants) {
     
     this.tenants = tenants;
     return this;
@@ -708,8 +661,7 @@ public class MiscControllerEEConfiguration {
    * Get tenants
    * @return tenants
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TENANTS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public MiscControllerTenantConfigurationInfo getTenants() {
@@ -719,11 +671,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_TENANTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTenants(@javax.annotation.Nullable MiscControllerTenantConfigurationInfo tenants) {
+  public void setTenants(@jakarta.annotation.Nullable MiscControllerTenantConfigurationInfo tenants) {
     this.tenants = tenants;
   }
 
-  public MiscControllerEEConfiguration secretsEnabled(@javax.annotation.Nullable Boolean secretsEnabled) {
+  public MiscControllerEEConfiguration secretsEnabled(@jakarta.annotation.Nullable Boolean secretsEnabled) {
     
     this.secretsEnabled = secretsEnabled;
     return this;
@@ -733,8 +685,7 @@ public class MiscControllerEEConfiguration {
    * Get secretsEnabled
    * @return secretsEnabled
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SECRETS_ENABLED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRETS_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getSecretsEnabled() {
@@ -744,11 +695,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_SECRETS_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSecretsEnabled(@javax.annotation.Nullable Boolean secretsEnabled) {
+  public void setSecretsEnabled(@jakarta.annotation.Nullable Boolean secretsEnabled) {
     this.secretsEnabled = secretsEnabled;
   }
 
-  public MiscControllerEEConfiguration supportedStorages(@javax.annotation.Nullable List<MiscControllerPluginIdAndVersion> supportedStorages) {
+  public MiscControllerEEConfiguration supportedStorages(@jakarta.annotation.Nullable List<MiscControllerPluginIdAndVersion> supportedStorages) {
     
     this.supportedStorages = supportedStorages;
     return this;
@@ -766,8 +717,7 @@ public class MiscControllerEEConfiguration {
    * Get supportedStorages
    * @return supportedStorages
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SUPPORTED_STORAGES)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPPORTED_STORAGES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<MiscControllerPluginIdAndVersion> getSupportedStorages() {
@@ -777,11 +727,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_SUPPORTED_STORAGES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSupportedStorages(@javax.annotation.Nullable List<MiscControllerPluginIdAndVersion> supportedStorages) {
+  public void setSupportedStorages(@jakarta.annotation.Nullable List<MiscControllerPluginIdAndVersion> supportedStorages) {
     this.supportedStorages = supportedStorages;
   }
 
-  public MiscControllerEEConfiguration supportedSecrets(@javax.annotation.Nullable List<MiscControllerPluginIdAndVersion> supportedSecrets) {
+  public MiscControllerEEConfiguration supportedSecrets(@jakarta.annotation.Nullable List<MiscControllerPluginIdAndVersion> supportedSecrets) {
     
     this.supportedSecrets = supportedSecrets;
     return this;
@@ -799,8 +749,7 @@ public class MiscControllerEEConfiguration {
    * Get supportedSecrets
    * @return supportedSecrets
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SUPPORTED_SECRETS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPPORTED_SECRETS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<MiscControllerPluginIdAndVersion> getSupportedSecrets() {
@@ -810,11 +759,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_SUPPORTED_SECRETS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSupportedSecrets(@javax.annotation.Nullable List<MiscControllerPluginIdAndVersion> supportedSecrets) {
+  public void setSupportedSecrets(@jakarta.annotation.Nullable List<MiscControllerPluginIdAndVersion> supportedSecrets) {
     this.supportedSecrets = supportedSecrets;
   }
 
-  public MiscControllerEEConfiguration pluginManagementEnabled(@javax.annotation.Nullable Boolean pluginManagementEnabled) {
+  public MiscControllerEEConfiguration pluginManagementEnabled(@jakarta.annotation.Nullable Boolean pluginManagementEnabled) {
     
     this.pluginManagementEnabled = pluginManagementEnabled;
     return this;
@@ -824,8 +773,7 @@ public class MiscControllerEEConfiguration {
    * Get pluginManagementEnabled
    * @return pluginManagementEnabled
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PLUGIN_MANAGEMENT_ENABLED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PLUGIN_MANAGEMENT_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getPluginManagementEnabled() {
@@ -835,11 +783,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_PLUGIN_MANAGEMENT_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPluginManagementEnabled(@javax.annotation.Nullable Boolean pluginManagementEnabled) {
+  public void setPluginManagementEnabled(@jakarta.annotation.Nullable Boolean pluginManagementEnabled) {
     this.pluginManagementEnabled = pluginManagementEnabled;
   }
 
-  public MiscControllerEEConfiguration pluginCustomEnabled(@javax.annotation.Nullable Boolean pluginCustomEnabled) {
+  public MiscControllerEEConfiguration pluginCustomEnabled(@jakarta.annotation.Nullable Boolean pluginCustomEnabled) {
     
     this.pluginCustomEnabled = pluginCustomEnabled;
     return this;
@@ -849,8 +797,7 @@ public class MiscControllerEEConfiguration {
    * Get pluginCustomEnabled
    * @return pluginCustomEnabled
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PLUGIN_CUSTOM_ENABLED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PLUGIN_CUSTOM_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getPluginCustomEnabled() {
@@ -860,11 +807,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_PLUGIN_CUSTOM_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPluginCustomEnabled(@javax.annotation.Nullable Boolean pluginCustomEnabled) {
+  public void setPluginCustomEnabled(@jakarta.annotation.Nullable Boolean pluginCustomEnabled) {
     this.pluginCustomEnabled = pluginCustomEnabled;
   }
 
-  public MiscControllerEEConfiguration banner(@javax.annotation.Nullable Banner banner) {
+  public MiscControllerEEConfiguration banner(@jakarta.annotation.Nullable Banner banner) {
     
     this.banner = banner;
     return this;
@@ -874,8 +821,7 @@ public class MiscControllerEEConfiguration {
    * Get banner
    * @return banner
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_BANNER)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_BANNER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Banner getBanner() {
@@ -885,11 +831,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_BANNER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBanner(@javax.annotation.Nullable Banner banner) {
+  public void setBanner(@jakarta.annotation.Nullable Banner banner) {
     this.banner = banner;
   }
 
-  public MiscControllerEEConfiguration mailServiceEnabled(@javax.annotation.Nullable Boolean mailServiceEnabled) {
+  public MiscControllerEEConfiguration mailServiceEnabled(@jakarta.annotation.Nullable Boolean mailServiceEnabled) {
     
     this.mailServiceEnabled = mailServiceEnabled;
     return this;
@@ -899,8 +845,7 @@ public class MiscControllerEEConfiguration {
    * Get mailServiceEnabled
    * @return mailServiceEnabled
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_MAIL_SERVICE_ENABLED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MAIL_SERVICE_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getMailServiceEnabled() {
@@ -910,11 +855,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_MAIL_SERVICE_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMailServiceEnabled(@javax.annotation.Nullable Boolean mailServiceEnabled) {
+  public void setMailServiceEnabled(@jakarta.annotation.Nullable Boolean mailServiceEnabled) {
     this.mailServiceEnabled = mailServiceEnabled;
   }
 
-  public MiscControllerEEConfiguration outputsInInternalStorageEnabled(@javax.annotation.Nullable Boolean outputsInInternalStorageEnabled) {
+  public MiscControllerEEConfiguration outputsInInternalStorageEnabled(@jakarta.annotation.Nullable Boolean outputsInInternalStorageEnabled) {
     
     this.outputsInInternalStorageEnabled = outputsInInternalStorageEnabled;
     return this;
@@ -924,8 +869,7 @@ public class MiscControllerEEConfiguration {
    * Get outputsInInternalStorageEnabled
    * @return outputsInInternalStorageEnabled
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE_ENABLED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getOutputsInInternalStorageEnabled() {
@@ -935,11 +879,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOutputsInInternalStorageEnabled(@javax.annotation.Nullable Boolean outputsInInternalStorageEnabled) {
+  public void setOutputsInInternalStorageEnabled(@jakarta.annotation.Nullable Boolean outputsInInternalStorageEnabled) {
     this.outputsInInternalStorageEnabled = outputsInInternalStorageEnabled;
   }
 
-  public MiscControllerEEConfiguration leftSidebar(@javax.annotation.Nullable LeftSidebarConfiguration leftSidebar) {
+  public MiscControllerEEConfiguration leftSidebar(@jakarta.annotation.Nullable LeftSidebarConfiguration leftSidebar) {
     
     this.leftSidebar = leftSidebar;
     return this;
@@ -949,8 +893,7 @@ public class MiscControllerEEConfiguration {
    * Get leftSidebar
    * @return leftSidebar
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LEFT_SIDEBAR)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LEFT_SIDEBAR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public LeftSidebarConfiguration getLeftSidebar() {
@@ -960,11 +903,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_LEFT_SIDEBAR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLeftSidebar(@javax.annotation.Nullable LeftSidebarConfiguration leftSidebar) {
+  public void setLeftSidebar(@jakarta.annotation.Nullable LeftSidebarConfiguration leftSidebar) {
     this.leftSidebar = leftSidebar;
   }
 
-  public MiscControllerEEConfiguration rightSidebar(@javax.annotation.Nullable RightSidebarConfiguration rightSidebar) {
+  public MiscControllerEEConfiguration rightSidebar(@jakarta.annotation.Nullable RightSidebarConfiguration rightSidebar) {
     
     this.rightSidebar = rightSidebar;
     return this;
@@ -974,8 +917,7 @@ public class MiscControllerEEConfiguration {
    * Get rightSidebar
    * @return rightSidebar
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_RIGHT_SIDEBAR)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RIGHT_SIDEBAR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public RightSidebarConfiguration getRightSidebar() {
@@ -985,11 +927,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_RIGHT_SIDEBAR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRightSidebar(@javax.annotation.Nullable RightSidebarConfiguration rightSidebar) {
+  public void setRightSidebar(@jakarta.annotation.Nullable RightSidebarConfiguration rightSidebar) {
     this.rightSidebar = rightSidebar;
   }
 
-  public MiscControllerEEConfiguration inMaintenance(@javax.annotation.Nullable Boolean inMaintenance) {
+  public MiscControllerEEConfiguration inMaintenance(@jakarta.annotation.Nullable Boolean inMaintenance) {
     
     this.inMaintenance = inMaintenance;
     return this;
@@ -999,8 +941,7 @@ public class MiscControllerEEConfiguration {
    * Get inMaintenance
    * @return inMaintenance
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_IN_MAINTENANCE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IN_MAINTENANCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getInMaintenance() {
@@ -1010,11 +951,11 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_IN_MAINTENANCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setInMaintenance(@javax.annotation.Nullable Boolean inMaintenance) {
+  public void setInMaintenance(@jakarta.annotation.Nullable Boolean inMaintenance) {
     this.inMaintenance = inMaintenance;
   }
 
-  public MiscControllerEEConfiguration passwordRegexp(@javax.annotation.Nullable String passwordRegexp) {
+  public MiscControllerEEConfiguration passwordRegexp(@jakarta.annotation.Nullable String passwordRegexp) {
     
     this.passwordRegexp = passwordRegexp;
     return this;
@@ -1024,8 +965,7 @@ public class MiscControllerEEConfiguration {
    * Get passwordRegexp
    * @return passwordRegexp
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PASSWORD_REGEXP)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PASSWORD_REGEXP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getPasswordRegexp() {
@@ -1035,8 +975,32 @@ public class MiscControllerEEConfiguration {
 
   @JsonProperty(JSON_PROPERTY_PASSWORD_REGEXP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPasswordRegexp(@javax.annotation.Nullable String passwordRegexp) {
+  public void setPasswordRegexp(@jakarta.annotation.Nullable String passwordRegexp) {
     this.passwordRegexp = passwordRegexp;
+  }
+
+  public MiscControllerEEConfiguration passwordlessEnabled(@jakarta.annotation.Nullable Boolean passwordlessEnabled) {
+    
+    this.passwordlessEnabled = passwordlessEnabled;
+    return this;
+  }
+
+  /**
+   * Get passwordlessEnabled
+   * @return passwordlessEnabled
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PASSWORDLESS_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getPasswordlessEnabled() {
+    return passwordlessEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PASSWORDLESS_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPasswordlessEnabled(@jakarta.annotation.Nullable Boolean passwordlessEnabled) {
+    this.passwordlessEnabled = passwordlessEnabled;
   }
 
   @Override
@@ -1079,12 +1043,13 @@ public class MiscControllerEEConfiguration {
         Objects.equals(this.leftSidebar, miscControllerEEConfiguration.leftSidebar) &&
         Objects.equals(this.rightSidebar, miscControllerEEConfiguration.rightSidebar) &&
         Objects.equals(this.inMaintenance, miscControllerEEConfiguration.inMaintenance) &&
-        Objects.equals(this.passwordRegexp, miscControllerEEConfiguration.passwordRegexp);
+        Objects.equals(this.passwordRegexp, miscControllerEEConfiguration.passwordRegexp) &&
+        Objects.equals(this.passwordlessEnabled, miscControllerEEConfiguration.passwordlessEnabled);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(uuid, version, edition, commitId, commitDate, isCustomDashboardsEnabled, isTaskRunEnabled, isAnonymousUsageEnabled, isUiAnonymousUsageEnabled, isTemplateEnabled, environment, url, preview, systemNamespace, hiddenLabelsPrefixes, resourceToFilters, isAiEnabled, isBasicAuthInitialized, pluginsHash, tenants, secretsEnabled, supportedStorages, supportedSecrets, pluginManagementEnabled, pluginCustomEnabled, banner, mailServiceEnabled, outputsInInternalStorageEnabled, leftSidebar, rightSidebar, inMaintenance, passwordRegexp);
+    return Objects.hash(uuid, version, edition, commitId, commitDate, isCustomDashboardsEnabled, isTaskRunEnabled, isAnonymousUsageEnabled, isUiAnonymousUsageEnabled, isTemplateEnabled, environment, url, preview, systemNamespace, hiddenLabelsPrefixes, resourceToFilters, isAiEnabled, isBasicAuthInitialized, pluginsHash, tenants, secretsEnabled, supportedStorages, supportedSecrets, pluginManagementEnabled, pluginCustomEnabled, banner, mailServiceEnabled, outputsInInternalStorageEnabled, leftSidebar, rightSidebar, inMaintenance, passwordRegexp, passwordlessEnabled);
   }
 
   @Override
@@ -1123,6 +1088,7 @@ public class MiscControllerEEConfiguration {
     sb.append("    rightSidebar: ").append(toIndentedString(rightSidebar)).append("\n");
     sb.append("    inMaintenance: ").append(toIndentedString(inMaintenance)).append("\n");
     sb.append("    passwordRegexp: ").append(toIndentedString(passwordRegexp)).append("\n");
+    sb.append("    passwordlessEnabled: ").append(toIndentedString(passwordlessEnabled)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -13,7 +13,6 @@
 
 
 import ApiClient from "../ApiClient";
-import DeleteExecutionsByQueryRequest from '../model/DeleteExecutionsByQueryRequest';
 import PagedResultsTrigger from '../model/PagedResultsTrigger';
 import PagedResultsTriggerControllerTriggers from '../model/PagedResultsTriggerControllerTriggers';
 import QueryFilter from '../model/QueryFilter';
@@ -23,7 +22,7 @@ import TriggerControllerSetDisabledRequest from '../model/TriggerControllerSetDi
 /**
 * Triggers service.
 * @module api/TriggersApi
-* @version 1.0.0
+* @version v1.0.5
 */
 export default class TriggersApi {
 
@@ -39,22 +38,17 @@ export default class TriggersApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the deleteBackfill operation.
-     * @callback module:api/TriggersApi~deleteBackfillCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Trigger} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
+
+
+            
 
     /**
      * Delete a backfill
      * @param {String} tenant 
      * @param {module:model/Trigger} trigger 
-     * @param {module:api/TriggersApi~deleteBackfillCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Trigger}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Trigger} and HTTP response
      */
-    deleteBackfill(tenant, trigger, callback) {
+    deleteBackfillWithHttpInfo(tenant, trigger) {
       let postBody = trigger;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -82,26 +76,40 @@ export default class TriggersApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/triggers/backfill/delete', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteBackfillByIds operation.
-     * @callback module:api/TriggersApi~deleteBackfillByIdsCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete a backfill
+     * @param {String} tenant 
+     * @param {module:model/Trigger} trigger 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Trigger}
      */
+    deleteBackfill(tenant, trigger) {
+      return this.deleteBackfillWithHttpInfo(tenant, trigger)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Delete backfill for given triggers
      * @param {String} tenant 
      * @param {Array.<module:model/Trigger>} trigger 
-     * @param {module:api/TriggersApi~deleteBackfillByIdsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    deleteBackfillByIds(tenant, trigger, callback) {
+    deleteBackfillByIdsWithHttpInfo(tenant, trigger) {
       let postBody = trigger;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -129,46 +137,53 @@ export default class TriggersApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/triggers/backfill/delete/by-triggers', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteBackfillByQuery operation.
-     * @callback module:api/TriggersApi~deleteBackfillByQueryCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete backfill for given triggers
+     * @param {String} tenant 
+     * @param {Array.<module:model/Trigger>} trigger 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    deleteBackfillByIds(tenant, trigger) {
+      return this.deleteBackfillByIdsWithHttpInfo(tenant, trigger)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Delete backfill for given triggers
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {String} [namespace] A namespace filter prefix
-     * @param {module:api/TriggersApi~deleteBackfillByQueryCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @param {Array.<module:model/QueryFilter>} [filters] Filters
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    deleteBackfillByQuery(tenant, deleteExecutionsByQueryRequest, opts, callback) {
+    deleteBackfillByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
-      let postBody = deleteExecutionsByQueryRequest;
+      let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling deleteBackfillByQuery");
-      }
-      // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-      if (deleteExecutionsByQueryRequest === undefined || deleteExecutionsByQueryRequest === null) {
-        throw new Error("Missing the required parameter 'deleteExecutionsByQueryRequest' when calling deleteBackfillByQuery");
       }
 
       let pathParams = {
         'tenant': tenant
       };
       let queryParams = {
-        'q': opts['q'],
-        'namespace': opts['namespace']
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
       };
       let headerParams = {
       };
@@ -176,32 +191,47 @@ export default class TriggersApi {
       };
 
       let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
+      let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = Object;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/triggers/backfill/delete/by-query', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the disabledTriggersByIds operation.
-     * @callback module:api/TriggersApi~disabledTriggersByIdsCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete backfill for given triggers
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    deleteBackfillByQuery(tenant, opts) {
+      return this.deleteBackfillByQueryWithHttpInfo(tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Disable/enable given triggers
      * @param {String} tenant 
      * @param {module:model/TriggerControllerSetDisabledRequest} triggerControllerSetDisabledRequest 
-     * @param {module:api/TriggersApi~disabledTriggersByIdsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    disabledTriggersByIds(tenant, triggerControllerSetDisabledRequest, callback) {
+    disabledTriggersByIdsWithHttpInfo(tenant, triggerControllerSetDisabledRequest) {
       let postBody = triggerControllerSetDisabledRequest;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -229,32 +259,44 @@ export default class TriggersApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/triggers/set-disabled/by-triggers', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the disabledTriggersByQuery operation.
-     * @callback module:api/TriggersApi~disabledTriggersByQueryCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Disable/enable given triggers
+     * @param {String} tenant 
+     * @param {module:model/TriggerControllerSetDisabledRequest} triggerControllerSetDisabledRequest 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    disabledTriggersByIds(tenant, triggerControllerSetDisabledRequest) {
+      return this.disabledTriggersByIdsWithHttpInfo(tenant, triggerControllerSetDisabledRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Disable/enable triggers by query parameters
      * @param {Boolean} disabled The disabled state
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {String} [namespace] A namespace filter prefix
-     * @param {module:api/TriggersApi~disabledTriggersByQueryCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @param {Array.<module:model/QueryFilter>} [filters] Filters
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    disabledTriggersByQuery(disabled, tenant, deleteExecutionsByQueryRequest, opts, callback) {
+    disabledTriggersByQueryWithHttpInfo(disabled, tenant, opts) {
       opts = opts || {};
-      let postBody = deleteExecutionsByQueryRequest;
+      let postBody = null;
       // verify the required parameter 'disabled' is set
       if (disabled === undefined || disabled === null) {
         throw new Error("Missing the required parameter 'disabled' when calling disabledTriggersByQuery");
@@ -263,17 +305,12 @@ export default class TriggersApi {
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling disabledTriggersByQuery");
       }
-      // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-      if (deleteExecutionsByQueryRequest === undefined || deleteExecutionsByQueryRequest === null) {
-        throw new Error("Missing the required parameter 'deleteExecutionsByQueryRequest' when calling disabledTriggersByQuery");
-      }
 
       let pathParams = {
         'tenant': tenant
       };
       let queryParams = {
-        'q': opts['q'],
-        'namespace': opts['namespace'],
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv'),
         'disabled': disabled
       };
       let headerParams = {
@@ -282,32 +319,48 @@ export default class TriggersApi {
       };
 
       let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
+      let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = Object;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/triggers/set-disabled/by-query', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the pauseBackfill operation.
-     * @callback module:api/TriggersApi~pauseBackfillCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Trigger} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Disable/enable triggers by query parameters
+     * @param {Boolean} disabled The disabled state
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    disabledTriggersByQuery(disabled, tenant, opts) {
+      return this.disabledTriggersByQueryWithHttpInfo(disabled, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Pause a backfill
      * @param {String} tenant 
      * @param {module:model/Trigger} trigger 
-     * @param {module:api/TriggersApi~pauseBackfillCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Trigger}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Trigger} and HTTP response
      */
-    pauseBackfill(tenant, trigger, callback) {
+    pauseBackfillWithHttpInfo(tenant, trigger) {
       let postBody = trigger;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -335,26 +388,40 @@ export default class TriggersApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/triggers/backfill/pause', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the pauseBackfillByIds operation.
-     * @callback module:api/TriggersApi~pauseBackfillByIdsCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Pause a backfill
+     * @param {String} tenant 
+     * @param {module:model/Trigger} trigger 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Trigger}
      */
+    pauseBackfill(tenant, trigger) {
+      return this.pauseBackfillWithHttpInfo(tenant, trigger)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Pause backfill for given triggers
      * @param {String} tenant 
      * @param {Array.<module:model/Trigger>} trigger 
-     * @param {module:api/TriggersApi~pauseBackfillByIdsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    pauseBackfillByIds(tenant, trigger, callback) {
+    pauseBackfillByIdsWithHttpInfo(tenant, trigger) {
       let postBody = trigger;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -382,46 +449,53 @@ export default class TriggersApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/triggers/backfill/pause/by-triggers', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the pauseBackfillByQuery operation.
-     * @callback module:api/TriggersApi~pauseBackfillByQueryCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Pause backfill for given triggers
+     * @param {String} tenant 
+     * @param {Array.<module:model/Trigger>} trigger 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    pauseBackfillByIds(tenant, trigger) {
+      return this.pauseBackfillByIdsWithHttpInfo(tenant, trigger)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Pause backfill for given triggers
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {String} [namespace] A namespace filter prefix
-     * @param {module:api/TriggersApi~pauseBackfillByQueryCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @param {Array.<module:model/QueryFilter>} [filters] Filters
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    pauseBackfillByQuery(tenant, deleteExecutionsByQueryRequest, opts, callback) {
+    pauseBackfillByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
-      let postBody = deleteExecutionsByQueryRequest;
+      let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling pauseBackfillByQuery");
-      }
-      // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-      if (deleteExecutionsByQueryRequest === undefined || deleteExecutionsByQueryRequest === null) {
-        throw new Error("Missing the required parameter 'deleteExecutionsByQueryRequest' when calling pauseBackfillByQuery");
       }
 
       let pathParams = {
         'tenant': tenant
       };
       let queryParams = {
-        'q': opts['q'],
-        'namespace': opts['namespace']
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
       };
       let headerParams = {
       };
@@ -429,23 +503,39 @@ export default class TriggersApi {
       };
 
       let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
+      let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = Object;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/triggers/backfill/pause/by-query', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the restartTrigger operation.
-     * @callback module:api/TriggersApi~restartTriggerCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Pause backfill for given triggers
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    pauseBackfillByQuery(tenant, opts) {
+      return this.pauseBackfillByQueryWithHttpInfo(tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Restart a trigger
@@ -453,10 +543,9 @@ export default class TriggersApi {
      * @param {String} flowId The flow id
      * @param {String} triggerId The trigger id
      * @param {String} tenant 
-     * @param {module:api/TriggersApi~restartTriggerCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    restartTrigger(namespace, flowId, triggerId, tenant, callback) {
+    restartTriggerWithHttpInfo(namespace, flowId, triggerId, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -495,17 +584,34 @@ export default class TriggersApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId}/restart', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchTriggers operation.
-     * @callback module:api/TriggersApi~searchTriggersCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsTriggerControllerTriggers} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Restart a trigger
+     * @param {String} namespace The namespace
+     * @param {String} flowId The flow id
+     * @param {String} triggerId The trigger id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    restartTrigger(namespace, flowId, triggerId, tenant) {
+      return this.restartTriggerWithHttpInfo(namespace, flowId, triggerId, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Search for triggers
@@ -515,14 +621,9 @@ export default class TriggersApi {
      * @param {Object} opts Optional parameters
      * @param {Array.<String>} [sort] The sort of current page
      * @param {Array.<module:model/QueryFilter>} [filters] Filters
-     * @param {String} [q] A string filter
-     * @param {String} [namespace] A namespace filter prefix
-     * @param {String} [workerId] The identifier of the worker currently evaluating the trigger
-     * @param {String} [flowId] The flow identifier
-     * @param {module:api/TriggersApi~searchTriggersCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsTriggerControllerTriggers}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsTriggerControllerTriggers} and HTTP response
      */
-    searchTriggers(page, size, tenant, opts, callback) {
+    searchTriggersWithHttpInfo(page, size, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -545,11 +646,7 @@ export default class TriggersApi {
         'page': page,
         'size': size,
         'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
-        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv'),
-        'q': opts['q'],
-        'namespace': opts['namespace'],
-        'workerId': opts['workerId'],
-        'flowId': opts['flowId']
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
       };
       let headerParams = {
       };
@@ -563,17 +660,36 @@ export default class TriggersApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/triggers/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchTriggersForFlow operation.
-     * @callback module:api/TriggersApi~searchTriggersForFlowCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsTrigger} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Search for triggers
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsTriggerControllerTriggers}
      */
+    searchTriggers(page, size, tenant, opts) {
+      return this.searchTriggersWithHttpInfo(page, size, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Get all triggers for a flow
@@ -585,10 +701,9 @@ export default class TriggersApi {
      * @param {Object} opts Optional parameters
      * @param {Array.<String>} [sort] The sort of current page
      * @param {String} [q] A string filter
-     * @param {module:api/TriggersApi~searchTriggersForFlowCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsTrigger}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsTrigger} and HTTP response
      */
-    searchTriggersForFlow(page, size, namespace, flowId, tenant, opts, callback) {
+    searchTriggersForFlowWithHttpInfo(page, size, namespace, flowId, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -635,17 +750,38 @@ export default class TriggersApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/triggers/{namespace}/{flowId}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the unlockTrigger operation.
-     * @callback module:api/TriggersApi~unlockTriggerCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Trigger} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get all triggers for a flow
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} namespace The namespace
+     * @param {String} flowId The flow id
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @param {String} opts.q A string filter
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsTrigger}
      */
+    searchTriggersForFlow(page, size, namespace, flowId, tenant, opts) {
+      return this.searchTriggersForFlowWithHttpInfo(page, size, namespace, flowId, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Unlock a trigger
@@ -653,10 +789,9 @@ export default class TriggersApi {
      * @param {String} flowId The flow id
      * @param {String} triggerId The trigger id
      * @param {String} tenant 
-     * @param {module:api/TriggersApi~unlockTriggerCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Trigger}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Trigger} and HTTP response
      */
-    unlockTrigger(namespace, flowId, triggerId, tenant, callback) {
+    unlockTriggerWithHttpInfo(namespace, flowId, triggerId, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -695,26 +830,42 @@ export default class TriggersApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId}/unlock', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the unlockTriggersByIds operation.
-     * @callback module:api/TriggersApi~unlockTriggersByIdsCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Unlock a trigger
+     * @param {String} namespace The namespace
+     * @param {String} flowId The flow id
+     * @param {String} triggerId The trigger id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Trigger}
      */
+    unlockTrigger(namespace, flowId, triggerId, tenant) {
+      return this.unlockTriggerWithHttpInfo(namespace, flowId, triggerId, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Unlock given triggers
      * @param {String} tenant 
      * @param {Array.<module:model/Trigger>} trigger 
-     * @param {module:api/TriggersApi~unlockTriggersByIdsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    unlockTriggersByIds(tenant, trigger, callback) {
+    unlockTriggersByIdsWithHttpInfo(tenant, trigger) {
       let postBody = trigger;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -742,46 +893,53 @@ export default class TriggersApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/triggers/unlock/by-triggers', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the unlockTriggersByQuery operation.
-     * @callback module:api/TriggersApi~unlockTriggersByQueryCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Unlock given triggers
+     * @param {String} tenant 
+     * @param {Array.<module:model/Trigger>} trigger 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    unlockTriggersByIds(tenant, trigger) {
+      return this.unlockTriggersByIdsWithHttpInfo(tenant, trigger)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Unlock triggers by query parameters
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {String} [namespace] A namespace filter prefix
-     * @param {module:api/TriggersApi~unlockTriggersByQueryCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @param {Array.<module:model/QueryFilter>} [filters] Filters
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    unlockTriggersByQuery(tenant, deleteExecutionsByQueryRequest, opts, callback) {
+    unlockTriggersByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
-      let postBody = deleteExecutionsByQueryRequest;
+      let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling unlockTriggersByQuery");
-      }
-      // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-      if (deleteExecutionsByQueryRequest === undefined || deleteExecutionsByQueryRequest === null) {
-        throw new Error("Missing the required parameter 'deleteExecutionsByQueryRequest' when calling unlockTriggersByQuery");
       }
 
       let pathParams = {
         'tenant': tenant
       };
       let queryParams = {
-        'q': opts['q'],
-        'namespace': opts['namespace']
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
       };
       let headerParams = {
       };
@@ -789,32 +947,47 @@ export default class TriggersApi {
       };
 
       let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
+      let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = Object;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/triggers/unlock/by-query', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the unpauseBackfill operation.
-     * @callback module:api/TriggersApi~unpauseBackfillCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Trigger} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Unlock triggers by query parameters
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    unlockTriggersByQuery(tenant, opts) {
+      return this.unlockTriggersByQueryWithHttpInfo(tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Unpause a backfill
      * @param {String} tenant 
      * @param {module:model/Trigger} trigger 
-     * @param {module:api/TriggersApi~unpauseBackfillCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Trigger}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Trigger} and HTTP response
      */
-    unpauseBackfill(tenant, trigger, callback) {
+    unpauseBackfillWithHttpInfo(tenant, trigger) {
       let postBody = trigger;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -842,26 +1015,40 @@ export default class TriggersApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/triggers/backfill/unpause', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the unpauseBackfillByIds operation.
-     * @callback module:api/TriggersApi~unpauseBackfillByIdsCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Unpause a backfill
+     * @param {String} tenant 
+     * @param {module:model/Trigger} trigger 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Trigger}
      */
+    unpauseBackfill(tenant, trigger) {
+      return this.unpauseBackfillWithHttpInfo(tenant, trigger)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Unpause backfill for given triggers
      * @param {String} tenant 
      * @param {Array.<module:model/Trigger>} trigger 
-     * @param {module:api/TriggersApi~unpauseBackfillByIdsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    unpauseBackfillByIds(tenant, trigger, callback) {
+    unpauseBackfillByIdsWithHttpInfo(tenant, trigger) {
       let postBody = trigger;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -889,46 +1076,53 @@ export default class TriggersApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/triggers/backfill/unpause/by-triggers', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the unpauseBackfillByQuery operation.
-     * @callback module:api/TriggersApi~unpauseBackfillByQueryCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Unpause backfill for given triggers
+     * @param {String} tenant 
+     * @param {Array.<module:model/Trigger>} trigger 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    unpauseBackfillByIds(tenant, trigger) {
+      return this.unpauseBackfillByIdsWithHttpInfo(tenant, trigger)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Unpause backfill for given triggers
      * @param {String} tenant 
-     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
      * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {String} [namespace] A namespace filter prefix
-     * @param {module:api/TriggersApi~unpauseBackfillByQueryCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @param {Array.<module:model/QueryFilter>} [filters] Filters
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    unpauseBackfillByQuery(tenant, deleteExecutionsByQueryRequest, opts, callback) {
+    unpauseBackfillByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
-      let postBody = deleteExecutionsByQueryRequest;
+      let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling unpauseBackfillByQuery");
-      }
-      // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-      if (deleteExecutionsByQueryRequest === undefined || deleteExecutionsByQueryRequest === null) {
-        throw new Error("Missing the required parameter 'deleteExecutionsByQueryRequest' when calling unpauseBackfillByQuery");
       }
 
       let pathParams = {
         'tenant': tenant
       };
       let queryParams = {
-        'q': opts['q'],
-        'namespace': opts['namespace']
+        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv')
       };
       let headerParams = {
       };
@@ -936,32 +1130,47 @@ export default class TriggersApi {
       };
 
       let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
+      let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = Object;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/triggers/backfill/unpause/by-query', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateTrigger operation.
-     * @callback module:api/TriggersApi~updateTriggerCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Trigger} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Unpause backfill for given triggers
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    unpauseBackfillByQuery(tenant, opts) {
+      return this.unpauseBackfillByQueryWithHttpInfo(tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
 
     /**
      * Update a trigger
      * @param {String} tenant 
      * @param {module:model/Trigger} trigger 
-     * @param {module:api/TriggersApi~updateTriggerCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Trigger}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Trigger} and HTTP response
      */
-    updateTrigger(tenant, trigger, callback) {
+    updateTriggerWithHttpInfo(tenant, trigger) {
       let postBody = trigger;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -989,9 +1198,28 @@ export default class TriggersApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/triggers', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
+
+    /**
+     * Update a trigger
+     * @param {String} tenant 
+     * @param {module:model/Trigger} trigger 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Trigger}
+     */
+    updateTrigger(tenant, trigger) {
+      return this.updateTriggerWithHttpInfo(tenant, trigger)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
 
 
 }

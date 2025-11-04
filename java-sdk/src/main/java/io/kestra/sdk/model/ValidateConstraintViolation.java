@@ -39,44 +39,36 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ValidateConstraintViolation.JSON_PROPERTY_WARNINGS,
   ValidateConstraintViolation.JSON_PROPERTY_INFOS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ValidateConstraintViolation {
   public static final String JSON_PROPERTY_FLOW = "flow";
-  @javax.annotation.Nonnull
-  private String flow;
+  @jakarta.annotation.Nullable  private String flow;
 
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nonnull
-  private String namespace;
+  @jakarta.annotation.Nullable  private String namespace;
 
   public static final String JSON_PROPERTY_INDEX = "index";
-  @javax.annotation.Nonnull
-  private Integer index;
+  @jakarta.annotation.Nonnull  private Integer index;
 
   public static final String JSON_PROPERTY_CONSTRAINTS = "constraints";
-  @javax.annotation.Nonnull
-  private String constraints;
+  @jakarta.annotation.Nullable  private String constraints;
 
   public static final String JSON_PROPERTY_OUTDATED = "outdated";
-  @javax.annotation.Nonnull
-  private Boolean outdated;
+  @jakarta.annotation.Nullable  private Boolean outdated;
 
   public static final String JSON_PROPERTY_DEPRECATION_PATHS = "deprecationPaths";
-  @javax.annotation.Nonnull
-  private List<String> deprecationPaths = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> deprecationPaths = new ArrayList<>();
 
   public static final String JSON_PROPERTY_WARNINGS = "warnings";
-  @javax.annotation.Nonnull
-  private List<String> warnings = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> warnings = new ArrayList<>();
 
   public static final String JSON_PROPERTY_INFOS = "infos";
-  @javax.annotation.Nonnull
-  private List<String> infos = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> infos = new ArrayList<>();
 
   public ValidateConstraintViolation() {
   }
 
-  public ValidateConstraintViolation flow(@javax.annotation.Nonnull String flow) {
+  public ValidateConstraintViolation flow(@jakarta.annotation.Nullable String flow) {
     
     this.flow = flow;
     return this;
@@ -86,9 +78,8 @@ public class ValidateConstraintViolation {
    * Get flow
    * @return flow
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FLOW)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FLOW)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFlow() {
     return flow;
@@ -96,12 +87,12 @@ public class ValidateConstraintViolation {
 
 
   @JsonProperty(JSON_PROPERTY_FLOW)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFlow(@javax.annotation.Nonnull String flow) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFlow(@jakarta.annotation.Nullable String flow) {
     this.flow = flow;
   }
 
-  public ValidateConstraintViolation namespace(@javax.annotation.Nonnull String namespace) {
+  public ValidateConstraintViolation namespace(@jakarta.annotation.Nullable String namespace) {
     
     this.namespace = namespace;
     return this;
@@ -111,9 +102,8 @@ public class ValidateConstraintViolation {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getNamespace() {
     return namespace;
@@ -121,12 +111,12 @@ public class ValidateConstraintViolation {
 
 
   @JsonProperty(JSON_PROPERTY_NAMESPACE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setNamespace(@javax.annotation.Nonnull String namespace) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNamespace(@jakarta.annotation.Nullable String namespace) {
     this.namespace = namespace;
   }
 
-  public ValidateConstraintViolation index(@javax.annotation.Nonnull Integer index) {
+  public ValidateConstraintViolation index(@jakarta.annotation.Nonnull Integer index) {
     
     this.index = index;
     return this;
@@ -136,8 +126,7 @@ public class ValidateConstraintViolation {
    * Get index
    * @return index
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_INDEX)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_INDEX)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Integer getIndex() {
@@ -147,11 +136,11 @@ public class ValidateConstraintViolation {
 
   @JsonProperty(JSON_PROPERTY_INDEX)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setIndex(@javax.annotation.Nonnull Integer index) {
+  public void setIndex(@jakarta.annotation.Nonnull Integer index) {
     this.index = index;
   }
 
-  public ValidateConstraintViolation constraints(@javax.annotation.Nonnull String constraints) {
+  public ValidateConstraintViolation constraints(@jakarta.annotation.Nullable String constraints) {
     
     this.constraints = constraints;
     return this;
@@ -161,9 +150,8 @@ public class ValidateConstraintViolation {
    * Get constraints
    * @return constraints
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_CONSTRAINTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CONSTRAINTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getConstraints() {
     return constraints;
@@ -171,12 +159,12 @@ public class ValidateConstraintViolation {
 
 
   @JsonProperty(JSON_PROPERTY_CONSTRAINTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setConstraints(@javax.annotation.Nonnull String constraints) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setConstraints(@jakarta.annotation.Nullable String constraints) {
     this.constraints = constraints;
   }
 
-  public ValidateConstraintViolation outdated(@javax.annotation.Nonnull Boolean outdated) {
+  public ValidateConstraintViolation outdated(@jakarta.annotation.Nullable Boolean outdated) {
     
     this.outdated = outdated;
     return this;
@@ -186,9 +174,8 @@ public class ValidateConstraintViolation {
    * Get outdated
    * @return outdated
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_OUTDATED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTDATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getOutdated() {
     return outdated;
@@ -196,12 +183,12 @@ public class ValidateConstraintViolation {
 
 
   @JsonProperty(JSON_PROPERTY_OUTDATED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setOutdated(@javax.annotation.Nonnull Boolean outdated) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOutdated(@jakarta.annotation.Nullable Boolean outdated) {
     this.outdated = outdated;
   }
 
-  public ValidateConstraintViolation deprecationPaths(@javax.annotation.Nonnull List<String> deprecationPaths) {
+  public ValidateConstraintViolation deprecationPaths(@jakarta.annotation.Nullable List<String> deprecationPaths) {
     
     this.deprecationPaths = deprecationPaths;
     return this;
@@ -219,9 +206,8 @@ public class ValidateConstraintViolation {
    * Get deprecationPaths
    * @return deprecationPaths
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DEPRECATION_PATHS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DEPRECATION_PATHS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getDeprecationPaths() {
     return deprecationPaths;
@@ -229,12 +215,12 @@ public class ValidateConstraintViolation {
 
 
   @JsonProperty(JSON_PROPERTY_DEPRECATION_PATHS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDeprecationPaths(@javax.annotation.Nonnull List<String> deprecationPaths) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDeprecationPaths(@jakarta.annotation.Nullable List<String> deprecationPaths) {
     this.deprecationPaths = deprecationPaths;
   }
 
-  public ValidateConstraintViolation warnings(@javax.annotation.Nonnull List<String> warnings) {
+  public ValidateConstraintViolation warnings(@jakarta.annotation.Nullable List<String> warnings) {
     
     this.warnings = warnings;
     return this;
@@ -252,9 +238,8 @@ public class ValidateConstraintViolation {
    * Get warnings
    * @return warnings
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_WARNINGS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WARNINGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getWarnings() {
     return warnings;
@@ -262,12 +247,12 @@ public class ValidateConstraintViolation {
 
 
   @JsonProperty(JSON_PROPERTY_WARNINGS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setWarnings(@javax.annotation.Nonnull List<String> warnings) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWarnings(@jakarta.annotation.Nullable List<String> warnings) {
     this.warnings = warnings;
   }
 
-  public ValidateConstraintViolation infos(@javax.annotation.Nonnull List<String> infos) {
+  public ValidateConstraintViolation infos(@jakarta.annotation.Nullable List<String> infos) {
     
     this.infos = infos;
     return this;
@@ -285,9 +270,8 @@ public class ValidateConstraintViolation {
    * Get infos
    * @return infos
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_INFOS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INFOS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getInfos() {
     return infos;
@@ -295,8 +279,8 @@ public class ValidateConstraintViolation {
 
 
   @JsonProperty(JSON_PROPERTY_INFOS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setInfos(@javax.annotation.Nonnull List<String> infos) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setInfos(@jakarta.annotation.Nullable List<String> infos) {
     this.infos = infos;
   }
 

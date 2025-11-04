@@ -29,16 +29,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   BulkResponse.JSON_PROPERTY_COUNT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class BulkResponse {
   public static final String JSON_PROPERTY_COUNT = "count";
-  @javax.annotation.Nullable
-  private Integer count;
+  @jakarta.annotation.Nullable  private Integer count;
 
   public BulkResponse() {
   }
 
-  public BulkResponse count(@javax.annotation.Nullable Integer count) {
+  public BulkResponse count(@jakarta.annotation.Nullable Integer count) {
     
     this.count = count;
     return this;
@@ -48,8 +47,7 @@ public class BulkResponse {
    * Get count
    * @return count
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_COUNT)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getCount() {
@@ -59,7 +57,7 @@ public class BulkResponse {
 
   @JsonProperty(JSON_PROPERTY_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCount(@javax.annotation.Nullable Integer count) {
+  public void setCount(@jakarta.annotation.Nullable Integer count) {
     this.count = count;
   }
 

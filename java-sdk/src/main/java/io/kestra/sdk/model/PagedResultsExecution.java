@@ -35,20 +35,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PagedResultsExecution.JSON_PROPERTY_TOTAL
 })
 @JsonTypeName("PagedResults_Execution_")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PagedResultsExecution {
   public static final String JSON_PROPERTY_RESULTS = "results";
-  @javax.annotation.Nonnull
-  private List<Execution> results = new ArrayList<>();
+  @jakarta.annotation.Nonnull  private List<Execution> results = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TOTAL = "total";
-  @javax.annotation.Nonnull
-  private Long total;
+  @jakarta.annotation.Nonnull  private Long total;
 
   public PagedResultsExecution() {
   }
 
-  public PagedResultsExecution results(@javax.annotation.Nonnull List<Execution> results) {
+  public PagedResultsExecution results(@jakarta.annotation.Nonnull List<Execution> results) {
     
     this.results = results;
     return this;
@@ -66,8 +64,7 @@ public class PagedResultsExecution {
    * Get results
    * @return results
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<Execution> getResults() {
@@ -77,11 +74,11 @@ public class PagedResultsExecution {
 
   @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setResults(@javax.annotation.Nonnull List<Execution> results) {
+  public void setResults(@jakarta.annotation.Nonnull List<Execution> results) {
     this.results = results;
   }
 
-  public PagedResultsExecution total(@javax.annotation.Nonnull Long total) {
+  public PagedResultsExecution total(@jakarta.annotation.Nonnull Long total) {
     
     this.total = total;
     return this;
@@ -91,8 +88,7 @@ public class PagedResultsExecution {
    * Get total
    * @return total
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TOTAL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Long getTotal() {
@@ -102,7 +98,7 @@ public class PagedResultsExecution {
 
   @JsonProperty(JSON_PROPERTY_TOTAL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTotal(@javax.annotation.Nonnull Long total) {
+  public void setTotal(@jakarta.annotation.Nonnull Long total) {
     this.total = total;
   }
 

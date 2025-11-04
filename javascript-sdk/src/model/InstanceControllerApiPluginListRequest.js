@@ -16,17 +16,16 @@ import ApiClient from '../ApiClient';
 /**
  * The InstanceControllerApiPluginListRequest model module.
  * @module model/InstanceControllerApiPluginListRequest
- * @version 1.0.0
+ * @version v1.0.5
  */
 class InstanceControllerApiPluginListRequest {
     /**
      * Constructs a new <code>InstanceControllerApiPluginListRequest</code>.
      * @alias module:model/InstanceControllerApiPluginListRequest
-     * @param plugins {Array.<String>} 
      */
-    constructor(plugins) { 
+    constructor() { 
         
-        InstanceControllerApiPluginListRequest.initialize(this, plugins);
+        InstanceControllerApiPluginListRequest.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InstanceControllerApiPluginListRequest {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, plugins) { 
-        obj['plugins'] = plugins;
+    static initialize(obj) { 
     }
 
     /**
@@ -62,12 +60,6 @@ class InstanceControllerApiPluginListRequest {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>InstanceControllerApiPluginListRequest</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of InstanceControllerApiPluginListRequest.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is an array
         if (!Array.isArray(data['plugins'])) {
             throw new Error("Expected the field `plugins` to be an array in the JSON data but got " + data['plugins']);
@@ -79,7 +71,7 @@ class InstanceControllerApiPluginListRequest {
 
 }
 
-InstanceControllerApiPluginListRequest.RequiredProperties = ["plugins"];
+
 
 /**
  * @member {Array.<String>} plugins

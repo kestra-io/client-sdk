@@ -30,20 +30,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InputType.JSON_PROPERTY_TYPE,
   InputType.JSON_PROPERTY_CLS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class InputType {
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nonnull
-  private String type;
+  @jakarta.annotation.Nullable  private String type;
 
   public static final String JSON_PROPERTY_CLS = "cls";
-  @javax.annotation.Nonnull
-  private String cls;
+  @jakarta.annotation.Nullable  private String cls;
 
   public InputType() {
   }
 
-  public InputType type(@javax.annotation.Nonnull String type) {
+  public InputType type(@jakarta.annotation.Nullable String type) {
     
     this.type = type;
     return this;
@@ -53,9 +51,8 @@ public class InputType {
    * Get type
    * @return type
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getType() {
     return type;
@@ -63,12 +60,12 @@ public class InputType {
 
 
   @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setType(@javax.annotation.Nonnull String type) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(@jakarta.annotation.Nullable String type) {
     this.type = type;
   }
 
-  public InputType cls(@javax.annotation.Nonnull String cls) {
+  public InputType cls(@jakarta.annotation.Nullable String cls) {
     
     this.cls = cls;
     return this;
@@ -78,9 +75,8 @@ public class InputType {
    * Get cls
    * @return cls
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_CLS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CLS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCls() {
     return cls;
@@ -88,8 +84,8 @@ public class InputType {
 
 
   @JsonProperty(JSON_PROPERTY_CLS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setCls(@javax.annotation.Nonnull String cls) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCls(@jakarta.annotation.Nullable String cls) {
     this.cls = cls;
   }
 

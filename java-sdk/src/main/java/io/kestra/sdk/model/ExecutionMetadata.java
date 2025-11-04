@@ -31,20 +31,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ExecutionMetadata.JSON_PROPERTY_ATTEMPT_NUMBER,
   ExecutionMetadata.JSON_PROPERTY_ORIGINAL_CREATED_DATE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ExecutionMetadata {
   public static final String JSON_PROPERTY_ATTEMPT_NUMBER = "attemptNumber";
-  @javax.annotation.Nonnull
-  private Integer attemptNumber;
+  @jakarta.annotation.Nullable  private Integer attemptNumber;
 
   public static final String JSON_PROPERTY_ORIGINAL_CREATED_DATE = "originalCreatedDate";
-  @javax.annotation.Nonnull
-  private OffsetDateTime originalCreatedDate;
+  @jakarta.annotation.Nullable  private OffsetDateTime originalCreatedDate;
 
   public ExecutionMetadata() {
   }
 
-  public ExecutionMetadata attemptNumber(@javax.annotation.Nonnull Integer attemptNumber) {
+  public ExecutionMetadata attemptNumber(@jakarta.annotation.Nullable Integer attemptNumber) {
     
     this.attemptNumber = attemptNumber;
     return this;
@@ -54,9 +52,8 @@ public class ExecutionMetadata {
    * Get attemptNumber
    * @return attemptNumber
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ATTEMPT_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ATTEMPT_NUMBER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getAttemptNumber() {
     return attemptNumber;
@@ -64,12 +61,12 @@ public class ExecutionMetadata {
 
 
   @JsonProperty(JSON_PROPERTY_ATTEMPT_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setAttemptNumber(@javax.annotation.Nonnull Integer attemptNumber) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAttemptNumber(@jakarta.annotation.Nullable Integer attemptNumber) {
     this.attemptNumber = attemptNumber;
   }
 
-  public ExecutionMetadata originalCreatedDate(@javax.annotation.Nonnull OffsetDateTime originalCreatedDate) {
+  public ExecutionMetadata originalCreatedDate(@jakarta.annotation.Nullable OffsetDateTime originalCreatedDate) {
     
     this.originalCreatedDate = originalCreatedDate;
     return this;
@@ -79,9 +76,8 @@ public class ExecutionMetadata {
    * Get originalCreatedDate
    * @return originalCreatedDate
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ORIGINAL_CREATED_DATE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ORIGINAL_CREATED_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getOriginalCreatedDate() {
     return originalCreatedDate;
@@ -89,8 +85,8 @@ public class ExecutionMetadata {
 
 
   @JsonProperty(JSON_PROPERTY_ORIGINAL_CREATED_DATE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setOriginalCreatedDate(@javax.annotation.Nonnull OffsetDateTime originalCreatedDate) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOriginalCreatedDate(@jakarta.annotation.Nullable OffsetDateTime originalCreatedDate) {
     this.originalCreatedDate = originalCreatedDate;
   }
 

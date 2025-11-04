@@ -16,19 +16,17 @@ import ApiClient from '../ApiClient';
 /**
  * The IAMGroupControllerApiCreateGroupRequest model module.
  * @module model/IAMGroupControllerApiCreateGroupRequest
- * @version 1.0.0
+ * @version v1.0.5
  */
 class IAMGroupControllerApiCreateGroupRequest {
     /**
      * Constructs a new <code>IAMGroupControllerApiCreateGroupRequest</code>.
      * @alias module:model/IAMGroupControllerApiCreateGroupRequest
      * @param name {String} 
-     * @param description {String} 
-     * @param membersId {Array.<String>} 
      */
-    constructor(name, description, membersId) { 
+    constructor(name) { 
         
-        IAMGroupControllerApiCreateGroupRequest.initialize(this, name, description, membersId);
+        IAMGroupControllerApiCreateGroupRequest.initialize(this, name);
     }
 
     /**
@@ -36,10 +34,8 @@ class IAMGroupControllerApiCreateGroupRequest {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, description, membersId) { 
+    static initialize(obj, name) { 
         obj['name'] = name;
-        obj['description'] = description;
-        obj['membersId'] = membersId;
     }
 
     /**
@@ -97,7 +93,7 @@ class IAMGroupControllerApiCreateGroupRequest {
 
 }
 
-IAMGroupControllerApiCreateGroupRequest.RequiredProperties = ["name", "description", "membersId"];
+IAMGroupControllerApiCreateGroupRequest.RequiredProperties = ["name"];
 
 /**
  * @member {String} name

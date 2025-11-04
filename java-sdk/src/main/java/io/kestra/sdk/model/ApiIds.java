@@ -32,16 +32,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   ApiIds.JSON_PROPERTY_IDS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ApiIds {
   public static final String JSON_PROPERTY_IDS = "ids";
-  @javax.annotation.Nonnull
-  private List<String> ids = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> ids = new ArrayList<>();
 
   public ApiIds() {
   }
 
-  public ApiIds ids(@javax.annotation.Nonnull List<String> ids) {
+  public ApiIds ids(@jakarta.annotation.Nullable List<String> ids) {
     
     this.ids = ids;
     return this;
@@ -59,9 +58,8 @@ public class ApiIds {
    * Get ids
    * @return ids
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_IDS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getIds() {
     return ids;
@@ -69,8 +67,8 @@ public class ApiIds {
 
 
   @JsonProperty(JSON_PROPERTY_IDS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setIds(@javax.annotation.Nonnull List<String> ids) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIds(@jakarta.annotation.Nullable List<String> ids) {
     this.ids = ids;
   }
 

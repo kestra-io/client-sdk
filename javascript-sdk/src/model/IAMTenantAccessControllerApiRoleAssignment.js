@@ -18,22 +18,16 @@ import RBACServiceRoleAssignmentRoleOrigin from './RBACServiceRoleAssignmentRole
 /**
  * The IAMTenantAccessControllerApiRoleAssignment model module.
  * @module model/IAMTenantAccessControllerApiRoleAssignment
- * @version 1.0.0
+ * @version v1.0.5
  */
 class IAMTenantAccessControllerApiRoleAssignment {
     /**
      * Constructs a new <code>IAMTenantAccessControllerApiRoleAssignment</code>.
      * @alias module:model/IAMTenantAccessControllerApiRoleAssignment
-     * @param id {String} 
-     * @param name {String} 
-     * @param namespace {String} 
-     * @param origin {module:model/RBACServiceRoleAssignmentRoleOrigin} 
-     * @param sourceId {String} 
-     * @param permissions {Array.<module:model/IAMTenantAccessControllerApiUserPermission>} 
      */
-    constructor(id, name, namespace, origin, sourceId, permissions) { 
+    constructor() { 
         
-        IAMTenantAccessControllerApiRoleAssignment.initialize(this, id, name, namespace, origin, sourceId, permissions);
+        IAMTenantAccessControllerApiRoleAssignment.initialize(this);
     }
 
     /**
@@ -41,13 +35,7 @@ class IAMTenantAccessControllerApiRoleAssignment {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, name, namespace, origin, sourceId, permissions) { 
-        obj['id'] = id;
-        obj['name'] = name;
-        obj['namespace'] = namespace;
-        obj['origin'] = origin;
-        obj['sourceId'] = sourceId;
-        obj['permissions'] = permissions;
+    static initialize(obj) { 
     }
 
     /**
@@ -89,12 +77,6 @@ class IAMTenantAccessControllerApiRoleAssignment {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>IAMTenantAccessControllerApiRoleAssignment</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of IAMTenantAccessControllerApiRoleAssignment.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -128,7 +110,7 @@ class IAMTenantAccessControllerApiRoleAssignment {
 
 }
 
-IAMTenantAccessControllerApiRoleAssignment.RequiredProperties = ["id", "name", "namespace", "origin", "sourceId", "permissions"];
+
 
 /**
  * @member {String} id

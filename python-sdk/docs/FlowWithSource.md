@@ -10,23 +10,21 @@ Name | Type | Description | Notes
 **revision** | **int** |  | [optional] 
 **description** | **str** |  | [optional] 
 **inputs** | [**List[InputObject]**](InputObject.md) |  | [optional] 
-**outputs** | [**List[Output]**](Output.md) | Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages. | [optional] 
 **disabled** | **bool** |  | 
 **labels** | [**List[Label]**](Label.md) | Labels as a list of Label (key/value pairs) or as a map of string to string. | [optional] 
-**variables** | **object** |  | [optional] 
 **worker_group** | [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
 **deleted** | **bool** |  | 
+**variables** | **object** |  | [optional] 
+**concurrency** | [**Concurrency**](Concurrency.md) |  | [optional] 
+**outputs** | [**List[Output]**](Output.md) | Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages. | [optional] 
+**sla** | [**List[SLA]**](SLA.md) |  | [optional] 
 **var_finally** | [**List[Task]**](Task.md) |  | [optional] 
-**task_defaults** | [**List[PluginDefault]**](PluginDefault.md) |  | [optional] 
 **tasks** | [**Dict[Task]**](Task.md) |  | 
 **errors** | [**List[Task]**](Task.md) |  | [optional] 
-**listeners** | [**List[Listener]**](Listener.md) |  | [optional] 
 **after_execution** | [**List[Task]**](Task.md) |  | [optional] 
 **triggers** | [**List[AbstractTrigger]**](AbstractTrigger.md) |  | [optional] 
 **plugin_defaults** | [**List[PluginDefault]**](PluginDefault.md) |  | [optional] 
-**concurrency** | [**Concurrency**](Concurrency.md) |  | [optional] 
 **retry** | **object** |  | [optional] 
-**sla** | [**List[SLA]**](SLA.md) |  | [optional] 
 
 ## Example
 

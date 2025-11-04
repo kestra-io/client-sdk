@@ -32,20 +32,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   SortRequest.JSON_PROPERTY_SORT_BY,
   SortRequest.JSON_PROPERTY_SORT_ORDER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class SortRequest {
   public static final String JSON_PROPERTY_SORT_BY = "sortBy";
-  @javax.annotation.Nullable
-  private AttributeReference sortBy;
+  @jakarta.annotation.Nullable  private AttributeReference sortBy;
 
   public static final String JSON_PROPERTY_SORT_ORDER = "sortOrder";
-  @javax.annotation.Nullable
-  private SortOrder sortOrder;
+  @jakarta.annotation.Nullable  private SortOrder sortOrder;
 
   public SortRequest() {
   }
 
-  public SortRequest sortBy(@javax.annotation.Nullable AttributeReference sortBy) {
+  public SortRequest sortBy(@jakarta.annotation.Nullable AttributeReference sortBy) {
     
     this.sortBy = sortBy;
     return this;
@@ -55,8 +53,7 @@ public class SortRequest {
    * Get sortBy
    * @return sortBy
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SORT_BY)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SORT_BY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public AttributeReference getSortBy() {
@@ -66,11 +63,11 @@ public class SortRequest {
 
   @JsonProperty(JSON_PROPERTY_SORT_BY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSortBy(@javax.annotation.Nullable AttributeReference sortBy) {
+  public void setSortBy(@jakarta.annotation.Nullable AttributeReference sortBy) {
     this.sortBy = sortBy;
   }
 
-  public SortRequest sortOrder(@javax.annotation.Nullable SortOrder sortOrder) {
+  public SortRequest sortOrder(@jakarta.annotation.Nullable SortOrder sortOrder) {
     
     this.sortOrder = sortOrder;
     return this;
@@ -80,8 +77,7 @@ public class SortRequest {
    * Get sortOrder
    * @return sortOrder
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SORT_ORDER)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SORT_ORDER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public SortOrder getSortOrder() {
@@ -91,7 +87,7 @@ public class SortRequest {
 
   @JsonProperty(JSON_PROPERTY_SORT_ORDER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSortOrder(@javax.annotation.Nullable SortOrder sortOrder) {
+  public void setSortOrder(@jakarta.annotation.Nullable SortOrder sortOrder) {
     this.sortOrder = sortOrder;
   }
 

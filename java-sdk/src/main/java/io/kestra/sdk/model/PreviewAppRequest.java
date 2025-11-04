@@ -31,16 +31,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PreviewAppRequest.JSON_PROPERTY_PARAMETERS
 })
 @JsonTypeName("previewApp_request")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PreviewAppRequest {
   public static final String JSON_PROPERTY_PARAMETERS = "parameters";
-  @javax.annotation.Nullable
-  private HttpParameters parameters;
+  @jakarta.annotation.Nullable  private HttpParameters parameters;
 
   public PreviewAppRequest() {
   }
 
-  public PreviewAppRequest parameters(@javax.annotation.Nullable HttpParameters parameters) {
+  public PreviewAppRequest parameters(@jakarta.annotation.Nullable HttpParameters parameters) {
     
     this.parameters = parameters;
     return this;
@@ -50,8 +49,7 @@ public class PreviewAppRequest {
    * Get parameters
    * @return parameters
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PARAMETERS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PARAMETERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public HttpParameters getParameters() {
@@ -61,7 +59,7 @@ public class PreviewAppRequest {
 
   @JsonProperty(JSON_PROPERTY_PARAMETERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setParameters(@javax.annotation.Nullable HttpParameters parameters) {
+  public void setParameters(@jakarta.annotation.Nullable HttpParameters parameters) {
     this.parameters = parameters;
   }
 

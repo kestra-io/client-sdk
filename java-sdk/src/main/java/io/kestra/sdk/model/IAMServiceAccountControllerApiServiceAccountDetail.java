@@ -38,32 +38,27 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMServiceAccountControllerApiServiceAccountDetail.JSON_PROPERTY_SUPER_ADMIN
 })
 @JsonTypeName("IAMServiceAccountController.ApiServiceAccountDetail")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMServiceAccountControllerApiServiceAccountDetail {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
-  private String id;
+  @jakarta.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nonnull
-  private String name;
+  @jakarta.annotation.Nonnull  private String name;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nonnull
-  private String description;
+  @jakarta.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_TENANTS = "tenants";
-  @javax.annotation.Nonnull
-  private List<ApiTenantSummary> tenants = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<ApiTenantSummary> tenants = new ArrayList<>();
 
   public static final String JSON_PROPERTY_SUPER_ADMIN = "superAdmin";
-  @javax.annotation.Nonnull
-  private Boolean superAdmin;
+  @jakarta.annotation.Nullable  private Boolean superAdmin;
 
   public IAMServiceAccountControllerApiServiceAccountDetail() {
   }
 
-  public IAMServiceAccountControllerApiServiceAccountDetail id(@javax.annotation.Nonnull String id) {
+  public IAMServiceAccountControllerApiServiceAccountDetail id(@jakarta.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -73,9 +68,8 @@ public class IAMServiceAccountControllerApiServiceAccountDetail {
    * the identifier of this service account.
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
     return id;
@@ -83,12 +77,12 @@ public class IAMServiceAccountControllerApiServiceAccountDetail {
 
 
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(@javax.annotation.Nonnull String id) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@jakarta.annotation.Nullable String id) {
     this.id = id;
   }
 
-  public IAMServiceAccountControllerApiServiceAccountDetail name(@javax.annotation.Nonnull String name) {
+  public IAMServiceAccountControllerApiServiceAccountDetail name(@jakarta.annotation.Nonnull String name) {
     
     this.name = name;
     return this;
@@ -98,8 +92,7 @@ public class IAMServiceAccountControllerApiServiceAccountDetail {
    * the name of this service account.
    * @return name
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getName() {
@@ -109,11 +102,11 @@ public class IAMServiceAccountControllerApiServiceAccountDetail {
 
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setName(@javax.annotation.Nonnull String name) {
+  public void setName(@jakarta.annotation.Nonnull String name) {
     this.name = name;
   }
 
-  public IAMServiceAccountControllerApiServiceAccountDetail description(@javax.annotation.Nonnull String description) {
+  public IAMServiceAccountControllerApiServiceAccountDetail description(@jakarta.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -123,9 +116,8 @@ public class IAMServiceAccountControllerApiServiceAccountDetail {
    * the description of this service account.
    * @return description
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
     return description;
@@ -133,12 +125,12 @@ public class IAMServiceAccountControllerApiServiceAccountDetail {
 
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDescription(@javax.annotation.Nonnull String description) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
     this.description = description;
   }
 
-  public IAMServiceAccountControllerApiServiceAccountDetail tenants(@javax.annotation.Nonnull List<ApiTenantSummary> tenants) {
+  public IAMServiceAccountControllerApiServiceAccountDetail tenants(@jakarta.annotation.Nullable List<ApiTenantSummary> tenants) {
     
     this.tenants = tenants;
     return this;
@@ -156,9 +148,8 @@ public class IAMServiceAccountControllerApiServiceAccountDetail {
    * Get tenants
    * @return tenants
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TENANTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<ApiTenantSummary> getTenants() {
     return tenants;
@@ -166,12 +157,12 @@ public class IAMServiceAccountControllerApiServiceAccountDetail {
 
 
   @JsonProperty(JSON_PROPERTY_TENANTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTenants(@javax.annotation.Nonnull List<ApiTenantSummary> tenants) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTenants(@jakarta.annotation.Nullable List<ApiTenantSummary> tenants) {
     this.tenants = tenants;
   }
 
-  public IAMServiceAccountControllerApiServiceAccountDetail superAdmin(@javax.annotation.Nonnull Boolean superAdmin) {
+  public IAMServiceAccountControllerApiServiceAccountDetail superAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
     
     this.superAdmin = superAdmin;
     return this;
@@ -181,9 +172,8 @@ public class IAMServiceAccountControllerApiServiceAccountDetail {
    * Get superAdmin
    * @return superAdmin
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getSuperAdmin() {
     return superAdmin;
@@ -191,8 +181,8 @@ public class IAMServiceAccountControllerApiServiceAccountDetail {
 
 
   @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setSuperAdmin(@javax.annotation.Nonnull Boolean superAdmin) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSuperAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
     this.superAdmin = superAdmin;
   }
 

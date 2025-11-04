@@ -7,17 +7,17 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**server** | [**ServerInstance**](ServerInstance.md) |  |  |
-|**metrics** | [**List&lt;Metric&gt;**](Metric.md) |  |  |
-|**state** | **ServiceServiceState** |  |  |
-|**id** | **String** |  |  |
-|**type** | **ServiceType** |  |  |
-|**createdAt** | **OffsetDateTime** |  |  |
-|**updatedAt** | **OffsetDateTime** |  |  |
-|**events** | [**List&lt;ServiceInstanceTimestampedEvent&gt;**](ServiceInstanceTimestampedEvent.md) |  |  |
-|**config** | [**ServerConfig**](ServerConfig.md) |  |  |
-|**props** | **Map&lt;String, Object&gt;** |  |  |
-|**seqId** | **Long** |  |  |
+|**server** | [**ServerInstance**](ServerInstance.md) |  |  [optional] |
+|**metrics** | [**List&lt;Metric&gt;**](Metric.md) |  |  [optional] |
+|**state** | **ServiceServiceState** |  |  [optional] |
+|**id** | **String** |  |  [optional] |
+|**type** | **ServiceType** |  |  [optional] |
+|**createdAt** | **OffsetDateTime** |  |  [optional] |
+|**updatedAt** | **OffsetDateTime** |  |  [optional] |
+|**events** | [**List&lt;ServiceInstanceTimestampedEvent&gt;**](ServiceInstanceTimestampedEvent.md) |  |  [optional] |
+|**config** | [**ServerConfig**](ServerConfig.md) |  |  [optional] |
+|**props** | **Map&lt;String, Object&gt;** |  |  [optional] |
+|**seqId** | **Long** |  |  [optional] |
 
 
 

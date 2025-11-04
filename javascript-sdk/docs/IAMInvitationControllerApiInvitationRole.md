@@ -5,6 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | 
-**namespaces** | **[String]** |  | 
+**namespaces** | **[String]** |  | [optional] 
 
 

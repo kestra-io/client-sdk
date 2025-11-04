@@ -40,36 +40,30 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMTenantAccessControllerApiUserTenantAccess.JSON_PROPERTY_AUTHS
 })
 @JsonTypeName("IAMTenantAccessController.ApiUserTenantAccess")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMTenantAccessControllerApiUserTenantAccess {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
-  private String id;
+  @jakarta.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_USERNAME = "username";
-  @javax.annotation.Nonnull
-  private String username;
+  @jakarta.annotation.Nullable  private String username;
 
   public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
-  @javax.annotation.Nonnull
-  private String displayName;
+  @jakarta.annotation.Nullable  private String displayName;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nonnull
-  private String description;
+  @jakarta.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_GROUPS = "groups";
-  @javax.annotation.Nonnull
-  private List<IAMTenantAccessControllerApiGroup> groups = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<IAMTenantAccessControllerApiGroup> groups = new ArrayList<>();
 
   public static final String JSON_PROPERTY_AUTHS = "auths";
-  @javax.annotation.Nonnull
-  private List<IAMTenantAccessControllerApiAuthentication> auths = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<IAMTenantAccessControllerApiAuthentication> auths = new ArrayList<>();
 
   public IAMTenantAccessControllerApiUserTenantAccess() {
   }
 
-  public IAMTenantAccessControllerApiUserTenantAccess id(@javax.annotation.Nonnull String id) {
+  public IAMTenantAccessControllerApiUserTenantAccess id(@jakarta.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -79,9 +73,8 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
     return id;
@@ -89,12 +82,12 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
 
 
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(@javax.annotation.Nonnull String id) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@jakarta.annotation.Nullable String id) {
     this.id = id;
   }
 
-  public IAMTenantAccessControllerApiUserTenantAccess username(@javax.annotation.Nonnull String username) {
+  public IAMTenantAccessControllerApiUserTenantAccess username(@jakarta.annotation.Nullable String username) {
     
     this.username = username;
     return this;
@@ -104,9 +97,8 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
    * Get username
    * @return username
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_USERNAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_USERNAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUsername() {
     return username;
@@ -114,12 +106,12 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
 
 
   @JsonProperty(JSON_PROPERTY_USERNAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setUsername(@javax.annotation.Nonnull String username) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUsername(@jakarta.annotation.Nullable String username) {
     this.username = username;
   }
 
-  public IAMTenantAccessControllerApiUserTenantAccess displayName(@javax.annotation.Nonnull String displayName) {
+  public IAMTenantAccessControllerApiUserTenantAccess displayName(@jakarta.annotation.Nullable String displayName) {
     
     this.displayName = displayName;
     return this;
@@ -129,9 +121,8 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
    * Get displayName
    * @return displayName
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDisplayName() {
     return displayName;
@@ -139,12 +130,12 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
 
 
   @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDisplayName(@javax.annotation.Nonnull String displayName) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDisplayName(@jakarta.annotation.Nullable String displayName) {
     this.displayName = displayName;
   }
 
-  public IAMTenantAccessControllerApiUserTenantAccess description(@javax.annotation.Nonnull String description) {
+  public IAMTenantAccessControllerApiUserTenantAccess description(@jakarta.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -154,9 +145,8 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
    * Get description
    * @return description
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
     return description;
@@ -164,12 +154,12 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
 
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDescription(@javax.annotation.Nonnull String description) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
     this.description = description;
   }
 
-  public IAMTenantAccessControllerApiUserTenantAccess groups(@javax.annotation.Nonnull List<IAMTenantAccessControllerApiGroup> groups) {
+  public IAMTenantAccessControllerApiUserTenantAccess groups(@jakarta.annotation.Nullable List<IAMTenantAccessControllerApiGroup> groups) {
     
     this.groups = groups;
     return this;
@@ -187,9 +177,8 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
    * Get groups
    * @return groups
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_GROUPS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<IAMTenantAccessControllerApiGroup> getGroups() {
     return groups;
@@ -197,12 +186,12 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
 
 
   @JsonProperty(JSON_PROPERTY_GROUPS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setGroups(@javax.annotation.Nonnull List<IAMTenantAccessControllerApiGroup> groups) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGroups(@jakarta.annotation.Nullable List<IAMTenantAccessControllerApiGroup> groups) {
     this.groups = groups;
   }
 
-  public IAMTenantAccessControllerApiUserTenantAccess auths(@javax.annotation.Nonnull List<IAMTenantAccessControllerApiAuthentication> auths) {
+  public IAMTenantAccessControllerApiUserTenantAccess auths(@jakarta.annotation.Nullable List<IAMTenantAccessControllerApiAuthentication> auths) {
     
     this.auths = auths;
     return this;
@@ -220,9 +209,8 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
    * Get auths
    * @return auths
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_AUTHS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_AUTHS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<IAMTenantAccessControllerApiAuthentication> getAuths() {
     return auths;
@@ -230,8 +218,8 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
 
 
   @JsonProperty(JSON_PROPERTY_AUTHS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setAuths(@javax.annotation.Nonnull List<IAMTenantAccessControllerApiAuthentication> auths) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAuths(@jakarta.annotation.Nullable List<IAMTenantAccessControllerApiAuthentication> auths) {
     this.auths = auths;
   }
 

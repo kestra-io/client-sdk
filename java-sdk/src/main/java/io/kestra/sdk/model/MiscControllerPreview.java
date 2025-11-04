@@ -31,20 +31,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MiscControllerPreview.JSON_PROPERTY_MAX
 })
 @JsonTypeName("MiscController.Preview")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class MiscControllerPreview {
   public static final String JSON_PROPERTY_INITIAL = "initial";
-  @javax.annotation.Nonnull
-  private Integer initial;
+  @jakarta.annotation.Nullable  private Integer initial;
 
   public static final String JSON_PROPERTY_MAX = "max";
-  @javax.annotation.Nonnull
-  private Integer max;
+  @jakarta.annotation.Nullable  private Integer max;
 
   public MiscControllerPreview() {
   }
 
-  public MiscControllerPreview initial(@javax.annotation.Nonnull Integer initial) {
+  public MiscControllerPreview initial(@jakarta.annotation.Nullable Integer initial) {
     
     this.initial = initial;
     return this;
@@ -54,9 +52,8 @@ public class MiscControllerPreview {
    * Get initial
    * @return initial
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_INITIAL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INITIAL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getInitial() {
     return initial;
@@ -64,12 +61,12 @@ public class MiscControllerPreview {
 
 
   @JsonProperty(JSON_PROPERTY_INITIAL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setInitial(@javax.annotation.Nonnull Integer initial) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setInitial(@jakarta.annotation.Nullable Integer initial) {
     this.initial = initial;
   }
 
-  public MiscControllerPreview max(@javax.annotation.Nonnull Integer max) {
+  public MiscControllerPreview max(@jakarta.annotation.Nullable Integer max) {
     
     this.max = max;
     return this;
@@ -79,9 +76,8 @@ public class MiscControllerPreview {
    * Get max
    * @return max
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_MAX)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MAX)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getMax() {
     return max;
@@ -89,8 +85,8 @@ public class MiscControllerPreview {
 
 
   @JsonProperty(JSON_PROPERTY_MAX)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setMax(@javax.annotation.Nonnull Integer max) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMax(@jakarta.annotation.Nullable Integer max) {
     this.max = max;
   }
 

@@ -1,0 +1,26 @@
+kestra:
+  repository:
+    type: h2
+  storage:
+    type: local
+    local:
+      basePath: "/app/storage"
+  queue:
+    type: h2
+  tasks:
+    tmpDir:
+      path: /tmp/kestra-wd/tmp
+  security:
+    super-admin:
+      username: root@root.com
+      password: Root!1234
+      tenantAdminAccess: main
+  secret:
+    type: jdbc
+    jdbc:
+      secret: "f_7wWwcHt2iYzr2EEpUn"
+  encryption:
+    secret-key: LWBErwwlb/BQcxWujsm+/scPeO01cTKzvW44GbAWvII=
+  ee:
+    tenants:
+      enabled: true

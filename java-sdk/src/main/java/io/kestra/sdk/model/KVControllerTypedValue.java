@@ -32,20 +32,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   KVControllerTypedValue.JSON_PROPERTY_VALUE
 })
 @JsonTypeName("KVController.TypedValue")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class KVControllerTypedValue {
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nonnull
-  private KVType type;
+  @jakarta.annotation.Nullable  private KVType type;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nonnull
-  private Object value;
+  @jakarta.annotation.Nullable  private Object value;
 
   public KVControllerTypedValue() {
   }
 
-  public KVControllerTypedValue type(@javax.annotation.Nonnull KVType type) {
+  public KVControllerTypedValue type(@jakarta.annotation.Nullable KVType type) {
     
     this.type = type;
     return this;
@@ -55,9 +53,8 @@ public class KVControllerTypedValue {
    * Get type
    * @return type
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public KVType getType() {
     return type;
@@ -65,12 +62,12 @@ public class KVControllerTypedValue {
 
 
   @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setType(@javax.annotation.Nonnull KVType type) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(@jakarta.annotation.Nullable KVType type) {
     this.type = type;
   }
 
-  public KVControllerTypedValue value(@javax.annotation.Nonnull Object value) {
+  public KVControllerTypedValue value(@jakarta.annotation.Nullable Object value) {
     
     this.value = value;
     return this;
@@ -80,9 +77,8 @@ public class KVControllerTypedValue {
    * Get value
    * @return value
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Object getValue() {
     return value;
@@ -90,8 +86,8 @@ public class KVControllerTypedValue {
 
 
   @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setValue(@javax.annotation.Nonnull Object value) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setValue(@jakarta.annotation.Nullable Object value) {
     this.value = value;
   }
 

@@ -34,20 +34,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MetricAggregations.JSON_PROPERTY_GROUP_BY,
   MetricAggregations.JSON_PROPERTY_AGGREGATIONS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class MetricAggregations {
   public static final String JSON_PROPERTY_GROUP_BY = "groupBy";
-  @javax.annotation.Nonnull
-  private String groupBy;
+  @jakarta.annotation.Nonnull  private String groupBy;
 
   public static final String JSON_PROPERTY_AGGREGATIONS = "aggregations";
-  @javax.annotation.Nonnull
-  private List<MetricAggregation> aggregations = new ArrayList<>();
+  @jakarta.annotation.Nonnull  private List<MetricAggregation> aggregations = new ArrayList<>();
 
   public MetricAggregations() {
   }
 
-  public MetricAggregations groupBy(@javax.annotation.Nonnull String groupBy) {
+  public MetricAggregations groupBy(@jakarta.annotation.Nonnull String groupBy) {
     
     this.groupBy = groupBy;
     return this;
@@ -57,8 +55,7 @@ public class MetricAggregations {
    * Get groupBy
    * @return groupBy
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_GROUP_BY)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_GROUP_BY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getGroupBy() {
@@ -68,11 +65,11 @@ public class MetricAggregations {
 
   @JsonProperty(JSON_PROPERTY_GROUP_BY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setGroupBy(@javax.annotation.Nonnull String groupBy) {
+  public void setGroupBy(@jakarta.annotation.Nonnull String groupBy) {
     this.groupBy = groupBy;
   }
 
-  public MetricAggregations aggregations(@javax.annotation.Nonnull List<MetricAggregation> aggregations) {
+  public MetricAggregations aggregations(@jakarta.annotation.Nonnull List<MetricAggregation> aggregations) {
     
     this.aggregations = aggregations;
     return this;
@@ -90,8 +87,7 @@ public class MetricAggregations {
    * Get aggregations
    * @return aggregations
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_AGGREGATIONS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_AGGREGATIONS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<MetricAggregation> getAggregations() {
@@ -101,7 +97,7 @@ public class MetricAggregations {
 
   @JsonProperty(JSON_PROPERTY_AGGREGATIONS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setAggregations(@javax.annotation.Nonnull List<MetricAggregation> aggregations) {
+  public void setAggregations(@jakarta.annotation.Nonnull List<MetricAggregation> aggregations) {
     this.aggregations = aggregations;
   }
 

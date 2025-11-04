@@ -33,16 +33,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AppsControllerApiBulkOperationRequest.JSON_PROPERTY_UIDS
 })
 @JsonTypeName("AppsController.ApiBulkOperationRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AppsControllerApiBulkOperationRequest {
   public static final String JSON_PROPERTY_UIDS = "uids";
-  @javax.annotation.Nonnull
-  private List<String> uids = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> uids = new ArrayList<>();
 
   public AppsControllerApiBulkOperationRequest() {
   }
 
-  public AppsControllerApiBulkOperationRequest uids(@javax.annotation.Nonnull List<String> uids) {
+  public AppsControllerApiBulkOperationRequest uids(@jakarta.annotation.Nullable List<String> uids) {
     
     this.uids = uids;
     return this;
@@ -60,9 +59,8 @@ public class AppsControllerApiBulkOperationRequest {
    * Get uids
    * @return uids
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_UIDS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UIDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getUids() {
     return uids;
@@ -70,8 +68,8 @@ public class AppsControllerApiBulkOperationRequest {
 
 
   @JsonProperty(JSON_PROPERTY_UIDS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setUids(@javax.annotation.Nonnull List<String> uids) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUids(@jakarta.annotation.Nullable List<String> uids) {
     this.uids = uids;
   }
 

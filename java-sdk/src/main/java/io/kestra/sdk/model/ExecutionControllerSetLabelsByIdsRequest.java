@@ -35,20 +35,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ExecutionControllerSetLabelsByIdsRequest.JSON_PROPERTY_EXECUTION_LABELS
 })
 @JsonTypeName("ExecutionController.SetLabelsByIdsRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ExecutionControllerSetLabelsByIdsRequest {
   public static final String JSON_PROPERTY_EXECUTIONS_ID = "executionsId";
-  @javax.annotation.Nonnull
-  private List<String> executionsId = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> executionsId = new ArrayList<>();
 
   public static final String JSON_PROPERTY_EXECUTION_LABELS = "executionLabels";
-  @javax.annotation.Nonnull
-  private List<Label> executionLabels = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<Label> executionLabels = new ArrayList<>();
 
   public ExecutionControllerSetLabelsByIdsRequest() {
   }
 
-  public ExecutionControllerSetLabelsByIdsRequest executionsId(@javax.annotation.Nonnull List<String> executionsId) {
+  public ExecutionControllerSetLabelsByIdsRequest executionsId(@jakarta.annotation.Nullable List<String> executionsId) {
     
     this.executionsId = executionsId;
     return this;
@@ -66,9 +64,8 @@ public class ExecutionControllerSetLabelsByIdsRequest {
    * Get executionsId
    * @return executionsId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_EXECUTIONS_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXECUTIONS_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getExecutionsId() {
     return executionsId;
@@ -76,12 +73,12 @@ public class ExecutionControllerSetLabelsByIdsRequest {
 
 
   @JsonProperty(JSON_PROPERTY_EXECUTIONS_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setExecutionsId(@javax.annotation.Nonnull List<String> executionsId) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExecutionsId(@jakarta.annotation.Nullable List<String> executionsId) {
     this.executionsId = executionsId;
   }
 
-  public ExecutionControllerSetLabelsByIdsRequest executionLabels(@javax.annotation.Nonnull List<Label> executionLabels) {
+  public ExecutionControllerSetLabelsByIdsRequest executionLabels(@jakarta.annotation.Nullable List<Label> executionLabels) {
     
     this.executionLabels = executionLabels;
     return this;
@@ -99,9 +96,8 @@ public class ExecutionControllerSetLabelsByIdsRequest {
    * Get executionLabels
    * @return executionLabels
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_EXECUTION_LABELS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXECUTION_LABELS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Label> getExecutionLabels() {
     return executionLabels;
@@ -109,8 +105,8 @@ public class ExecutionControllerSetLabelsByIdsRequest {
 
 
   @JsonProperty(JSON_PROPERTY_EXECUTION_LABELS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setExecutionLabels(@javax.annotation.Nonnull List<Label> executionLabels) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExecutionLabels(@jakarta.annotation.Nullable List<Label> executionLabels) {
     this.executionLabels = executionLabels;
   }
 

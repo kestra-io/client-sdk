@@ -7,12 +7,12 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**type** | **String** |  |  |
-|**expiry** | **OffsetDateTime** |  |  |
-|**expired** | **Boolean** |  |  |
-|**maxServers** | **Integer** |  |  |
-|**standalone** | **Boolean** |  |  |
-|**workerGroups** | **Boolean** |  |  |
+|**type** | **String** |  |  [optional] |
+|**expiry** | **OffsetDateTime** |  |  [optional] |
+|**expired** | **Boolean** |  |  [optional] |
+|**maxServers** | **Integer** |  |  [optional] |
+|**standalone** | **Boolean** |  |  [optional] |
+|**workerGroups** | **Boolean** |  |  [optional] |
 
 
 

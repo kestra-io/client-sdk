@@ -30,16 +30,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ServiceProviderConfigurationSupportedConfiguration.JSON_PROPERTY_SUPPORTED
 })
 @JsonTypeName("ServiceProviderConfiguration.SupportedConfiguration")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ServiceProviderConfigurationSupportedConfiguration {
   public static final String JSON_PROPERTY_SUPPORTED = "supported";
-  @javax.annotation.Nullable
-  private Boolean supported;
+  @jakarta.annotation.Nullable  private Boolean supported;
 
   public ServiceProviderConfigurationSupportedConfiguration() {
   }
 
-  public ServiceProviderConfigurationSupportedConfiguration supported(@javax.annotation.Nullable Boolean supported) {
+  public ServiceProviderConfigurationSupportedConfiguration supported(@jakarta.annotation.Nullable Boolean supported) {
     
     this.supported = supported;
     return this;
@@ -49,8 +48,7 @@ public class ServiceProviderConfigurationSupportedConfiguration {
    * Get supported
    * @return supported
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SUPPORTED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPPORTED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getSupported() {
@@ -60,7 +58,7 @@ public class ServiceProviderConfigurationSupportedConfiguration {
 
   @JsonProperty(JSON_PROPERTY_SUPPORTED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSupported(@javax.annotation.Nullable Boolean supported) {
+  public void setSupported(@jakarta.annotation.Nullable Boolean supported) {
     this.supported = supported;
   }
 

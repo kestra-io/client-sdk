@@ -34,16 +34,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TestSuiteControllerTestsLastResultResponse.JSON_PROPERTY_RESULTS
 })
 @JsonTypeName("TestSuiteController.TestsLastResultResponse")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TestSuiteControllerTestsLastResultResponse {
   public static final String JSON_PROPERTY_RESULTS = "results";
-  @javax.annotation.Nonnull
-  private List<TestSuiteRunResult> results = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<TestSuiteRunResult> results = new ArrayList<>();
 
   public TestSuiteControllerTestsLastResultResponse() {
   }
 
-  public TestSuiteControllerTestsLastResultResponse results(@javax.annotation.Nonnull List<TestSuiteRunResult> results) {
+  public TestSuiteControllerTestsLastResultResponse results(@jakarta.annotation.Nullable List<TestSuiteRunResult> results) {
     
     this.results = results;
     return this;
@@ -61,9 +60,8 @@ public class TestSuiteControllerTestsLastResultResponse {
    * Get results
    * @return results
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_RESULTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<TestSuiteRunResult> getResults() {
     return results;
@@ -71,8 +69,8 @@ public class TestSuiteControllerTestsLastResultResponse {
 
 
   @JsonProperty(JSON_PROPERTY_RESULTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setResults(@javax.annotation.Nonnull List<TestSuiteRunResult> results) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setResults(@jakarta.annotation.Nullable List<TestSuiteRunResult> results) {
     this.results = results;
   }
 

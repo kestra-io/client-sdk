@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the KVControllerTypedValue type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &KVControllerTypedValue{}
 
 // KVControllerTypedValue struct for KVControllerTypedValue
 type KVControllerTypedValue struct {
-	Type                 KVType                 `json:"type"`
-	Value                map[string]interface{} `json:"value"`
+	Type                 *KVType                      `json:"type,omitempty"`
+	Value                *KVControllerTypedValueValue `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,10 +30,8 @@ type _KVControllerTypedValue KVControllerTypedValue
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewKVControllerTypedValue(type_ KVType, value map[string]interface{}) *KVControllerTypedValue {
+func NewKVControllerTypedValue() *KVControllerTypedValue {
 	this := KVControllerTypedValue{}
-	this.Type = type_
-	this.Value = value
 	return &this
 }
 
@@ -46,52 +43,68 @@ func NewKVControllerTypedValueWithDefaults() *KVControllerTypedValue {
 	return &this
 }
 
-// GetType returns the Type field value
+// GetType returns the Type field value if set, zero value otherwise.
 func (o *KVControllerTypedValue) GetType() KVType {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret KVType
 		return ret
 	}
-
-	return o.Type
+	return *o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KVControllerTypedValue) GetTypeOk() (*KVType, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
-	return &o.Type, true
+	return o.Type, true
 }
 
-// SetType sets field value
-func (o *KVControllerTypedValue) SetType(v KVType) {
-	o.Type = v
-}
-
-// GetValue returns the Value field value
-func (o *KVControllerTypedValue) GetValue() map[string]interface{} {
-	if o == nil {
-		var ret map[string]interface{}
-		return ret
+// HasType returns a boolean if a field has been set.
+func (o *KVControllerTypedValue) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
 	}
 
-	return o.Value
+	return false
 }
 
-// GetValueOk returns a tuple with the Value field value
+// SetType gets a reference to the given KVType and assigns it to the Type field.
+func (o *KVControllerTypedValue) SetType(v KVType) {
+	o.Type = &v
+}
+
+// GetValue returns the Value field value if set, zero value otherwise.
+func (o *KVControllerTypedValue) GetValue() KVControllerTypedValueValue {
+	if o == nil || IsNil(o.Value) {
+		var ret KVControllerTypedValueValue
+		return ret
+	}
+	return *o.Value
+}
+
+// GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *KVControllerTypedValue) GetValueOk() (map[string]interface{}, bool) {
-	if o == nil {
-		return map[string]interface{}{}, false
+func (o *KVControllerTypedValue) GetValueOk() (*KVControllerTypedValueValue, bool) {
+	if o == nil || IsNil(o.Value) {
+		return nil, false
 	}
 	return o.Value, true
 }
 
-// SetValue sets field value
-func (o *KVControllerTypedValue) SetValue(v map[string]interface{}) {
-	o.Value = v
+// HasValue returns a boolean if a field has been set.
+func (o *KVControllerTypedValue) HasValue() bool {
+	if o != nil && !IsNil(o.Value) {
+		return true
+	}
+
+	return false
+}
+
+// SetValue gets a reference to the given KVControllerTypedValueValue and assigns it to the Value field.
+func (o *KVControllerTypedValue) SetValue(v KVControllerTypedValueValue) {
+	o.Value = &v
 }
 
 func (o KVControllerTypedValue) MarshalJSON() ([]byte, error) {
@@ -104,8 +117,12 @@ func (o KVControllerTypedValue) MarshalJSON() ([]byte, error) {
 
 func (o KVControllerTypedValue) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["type"] = o.Type
-	toSerialize["value"] = o.Value
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Value) {
+		toSerialize["value"] = o.Value
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -115,28 +132,6 @@ func (o KVControllerTypedValue) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *KVControllerTypedValue) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"type",
-		"value",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varKVControllerTypedValue := _KVControllerTypedValue{}
 
 	err = json.Unmarshal(data, &varKVControllerTypedValue)

@@ -12,13 +12,12 @@
  */
 
 import ApiClient from '../ApiClient';
-import AbstractMetricEntryObject from './AbstractMetricEntryObject';
 import State from './State';
 
 /**
  * The TaskRunAttempt model module.
  * @module model/TaskRunAttempt
- * @version 1.0.0
+ * @version v1.0.5
  */
 class TaskRunAttempt {
     /**
@@ -51,9 +50,6 @@ class TaskRunAttempt {
         if (data) {
             obj = obj || new TaskRunAttempt();
 
-            if (data.hasOwnProperty('metrics')) {
-                obj['metrics'] = ApiClient.convertToType(data['metrics'], [AbstractMetricEntryObject]);
-            }
             if (data.hasOwnProperty('state')) {
                 obj['state'] = State.constructFromObject(data['state']);
             }
@@ -79,16 +75,6 @@ class TaskRunAttempt {
                 throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
             }
         }
-        if (data['metrics']) { // data not null
-            // ensure the json data is an array
-            if (!Array.isArray(data['metrics'])) {
-                throw new Error("Expected the field `metrics` to be an array in the JSON data but got " + data['metrics']);
-            }
-            // validate the optional field `metrics` (array)
-            for (const item of data['metrics']) {
-                AbstractMetricEntryObject.validateJSON(item);
-            };
-        }
         // validate the optional field `state`
         if (data['state']) { // data not null
           State.validateJSON(data['state']);
@@ -109,11 +95,6 @@ class TaskRunAttempt {
 }
 
 TaskRunAttempt.RequiredProperties = ["state"];
-
-/**
- * @member {Array.<module:model/AbstractMetricEntryObject>} metrics
- */
-TaskRunAttempt.prototype['metrics'] = undefined;
 
 /**
  * @member {module:model/State} state

@@ -16,26 +16,50 @@ import ApiClient from '../ApiClient';
 /**
  * The PropertyListString model module.
  * @module model/PropertyListString
- * @version 1.0.0
+ * @version v1.0.5
  */
 class PropertyListString {
     /**
      * Constructs a new <code>PropertyListString</code>.
      * @alias module:model/PropertyListString
-     * @param expression {String} 
+     * @param {(module:model/Object|module:model/String)} instance The actual instance to initialize PropertyListString.
      */
-    constructor(expression) { 
-        
-        PropertyListString.initialize(this, expression);
-    }
+    constructor(instance = null) {
+        if (instance === null) {
+            this.actualInstance = null;
+            return;
+        }
+        var match = 0;
+        var errorMessages = [];
+        try {
+            this.actualInstance = instance;
+            match++;
+        } catch(err) {
+            // json data failed to deserialize into Object
+            errorMessages.push("Failed to construct Object: " + err)
+        }
 
-    /**
-     * Initializes the fields of this object.
-     * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
-     * Only for internal use.
-     */
-    static initialize(obj, expression) { 
-        obj['expression'] = expression;
+        try {
+            // validate string
+            if (!(typeof instance === 'string')) {
+                throw new Error("Invalid value. Must be string. Input: " + JSON.stringify(instance));
+            }
+            this.actualInstance = instance;
+            match++;
+        } catch(err) {
+            // json data failed to deserialize into String
+            errorMessages.push("Failed to construct String: " + err)
+        }
+
+        if (match > 1) {
+            throw new Error("Multiple matches found constructing `PropertyListString` with oneOf schemas Object, String. Input: " + JSON.stringify(instance));
+        } else if (match === 0) {
+            this.actualInstance = null; // clear the actual instance in case there are multiple matches
+            throw new Error("No match found constructing `PropertyListString` with oneOf schemas Object, String. Details: " +
+                            errorMessages.join(", "));
+        } else { // only 1 match
+            // the input is valid
+        }
     }
 
     /**
@@ -46,47 +70,42 @@ class PropertyListString {
      * @return {module:model/PropertyListString} The populated <code>PropertyListString</code> instance.
      */
     static constructFromObject(data, obj) {
-        if (data) {
-            obj = obj || new PropertyListString();
-
-            if (data.hasOwnProperty('expression')) {
-                obj['expression'] = ApiClient.convertToType(data['expression'], 'String');
-            }
-            if (data.hasOwnProperty('value')) {
-                obj['value'] = ApiClient.convertToType(data['value'], ['String']);
-            }
-        }
-        return obj;
+        return new PropertyListString(data);
     }
 
     /**
-     * Validates the JSON data with respect to <code>PropertyListString</code>.
-     * @param {Object} data The plain JavaScript object bearing properties of interest.
-     * @return {boolean} to indicate whether the JSON data is valid with respect to <code>PropertyListString</code>.
+     * Gets the actual instance, which can be <code>Object</code>, <code>String</code>.
+     * @return {(module:model/Object|module:model/String)} The actual instance.
      */
-    static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of PropertyListString.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
-        // ensure the json data is a string
-        if (data['expression'] && !(typeof data['expression'] === 'string' || data['expression'] instanceof String)) {
-            throw new Error("Expected the field `expression` to be a primitive type in the JSON string but got " + data['expression']);
-        }
-        // ensure the json data is an array
-        if (!Array.isArray(data['value'])) {
-            throw new Error("Expected the field `value` to be an array in the JSON data but got " + data['value']);
-        }
-
-        return true;
+    getActualInstance() {
+        return this.actualInstance;
     }
 
+    /**
+     * Sets the actual instance, which can be <code>Object</code>, <code>String</code>.
+     * @param {(module:model/Object|module:model/String)} obj The actual instance.
+     */
+    setActualInstance(obj) {
+       this.actualInstance = PropertyListString.constructFromObject(obj).getActualInstance();
+    }
 
+    /**
+     * Returns the JSON representation of the actual instance.
+     * @return {string}
+     */
+    toJSON = function(){
+        return this.getActualInstance();
+    }
+
+    /**
+     * Create an instance of PropertyListString from a JSON string.
+     * @param {string} json_string JSON string.
+     * @return {module:model/PropertyListString} An instance of PropertyListString.
+     */
+    static fromJSON = function(json_string){
+        return PropertyListString.constructFromObject(JSON.parse(json_string));
+    }
 }
-
-PropertyListString.RequiredProperties = ["expression"];
 
 /**
  * @member {String} expression
@@ -99,9 +118,7 @@ PropertyListString.prototype['expression'] = undefined;
 PropertyListString.prototype['value'] = undefined;
 
 
-
-
-
+PropertyListString.OneOf = ["Object", "String"];
 
 export default PropertyListString;
 

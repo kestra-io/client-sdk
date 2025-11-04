@@ -43,27 +43,22 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   State.JSON_PROPERTY_CURRENT,
   State.JSON_PROPERTY_HISTORIES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class State {
   public static final String JSON_PROPERTY_DURATION = "duration";
-  @javax.annotation.Nullable
-  private String duration;
+  @jakarta.annotation.Nullable  private String duration;
 
   public static final String JSON_PROPERTY_START_DATE = "startDate";
-  @javax.annotation.Nullable
-  private OffsetDateTime startDate;
+  @jakarta.annotation.Nullable  private OffsetDateTime startDate;
 
   public static final String JSON_PROPERTY_END_DATE = "endDate";
-  @javax.annotation.Nullable
-  private JsonNullable<OffsetDateTime> endDate = JsonNullable.<OffsetDateTime>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<OffsetDateTime> endDate = JsonNullable.<OffsetDateTime>undefined();
 
   public static final String JSON_PROPERTY_CURRENT = "current";
-  @javax.annotation.Nonnull
-  private StateType current;
+  @jakarta.annotation.Nonnull  private StateType current;
 
   public static final String JSON_PROPERTY_HISTORIES = "histories";
-  @javax.annotation.Nullable
-  private List<StateHistory> histories = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<StateHistory> histories = new ArrayList<>();
 
   public State() {
   }
@@ -86,8 +81,7 @@ public class State {
    * Get duration
    * @return duration
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DURATION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DURATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDuration() {
@@ -100,8 +94,7 @@ public class State {
    * Get startDate
    * @return startDate
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_START_DATE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_START_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getStartDate() {
@@ -114,8 +107,7 @@ public class State {
    * Get endDate
    * @return endDate
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public OffsetDateTime getEndDate() {
     
@@ -127,7 +119,6 @@ public class State {
 
   @JsonProperty(JSON_PROPERTY_END_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<OffsetDateTime> getEndDate_JsonNullable() {
     return endDate;
   }
@@ -138,7 +129,7 @@ public class State {
   }
 
 
-  public State current(@javax.annotation.Nonnull StateType current) {
+  public State current(@jakarta.annotation.Nonnull StateType current) {
     
     this.current = current;
     return this;
@@ -148,8 +139,7 @@ public class State {
    * Get current
    * @return current
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_CURRENT)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_CURRENT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public StateType getCurrent() {
@@ -159,11 +149,11 @@ public class State {
 
   @JsonProperty(JSON_PROPERTY_CURRENT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setCurrent(@javax.annotation.Nonnull StateType current) {
+  public void setCurrent(@jakarta.annotation.Nonnull StateType current) {
     this.current = current;
   }
 
-  public State histories(@javax.annotation.Nullable List<StateHistory> histories) {
+  public State histories(@jakarta.annotation.Nullable List<StateHistory> histories) {
     
     this.histories = histories;
     return this;
@@ -181,8 +171,7 @@ public class State {
    * Get histories
    * @return histories
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_HISTORIES)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_HISTORIES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<StateHistory> getHistories() {
@@ -192,7 +181,7 @@ public class State {
 
   @JsonProperty(JSON_PROPERTY_HISTORIES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setHistories(@javax.annotation.Nullable List<StateHistory> histories) {
+  public void setHistories(@jakarta.annotation.Nullable List<StateHistory> histories) {
     this.histories = histories;
   }
 

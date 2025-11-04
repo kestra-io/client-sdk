@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** |  | 
-**username** | **String** |  | 
-**displayName** | **String** |  | 
-**type** | [**UserType**](UserType.md) |  | 
+**id** | **String** |  | [optional] 
+**username** | **String** |  | [optional] 
+**displayName** | **String** |  | [optional] 
+**type** | [**UserType**](UserType.md) |  | [optional] 
 
 

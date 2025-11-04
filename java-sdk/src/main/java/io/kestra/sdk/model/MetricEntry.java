@@ -48,60 +48,48 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MetricEntry.JSON_PROPERTY_DELETED,
   MetricEntry.JSON_PROPERTY_EXECUTION_KIND
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class MetricEntry {
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nonnull
-  private String namespace;
+  @jakarta.annotation.Nonnull  private String namespace;
 
   public static final String JSON_PROPERTY_FLOW_ID = "flowId";
-  @javax.annotation.Nonnull
-  private String flowId;
+  @jakarta.annotation.Nonnull  private String flowId;
 
   public static final String JSON_PROPERTY_TASK_ID = "taskId";
-  @javax.annotation.Nullable
-  private JsonNullable<String> taskId = JsonNullable.<String>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<String> taskId = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_EXECUTION_ID = "executionId";
-  @javax.annotation.Nullable
-  private JsonNullable<String> executionId = JsonNullable.<String>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<String> executionId = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_TASK_RUN_ID = "taskRunId";
-  @javax.annotation.Nullable
-  private JsonNullable<String> taskRunId = JsonNullable.<String>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<String> taskRunId = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nonnull
-  private String type;
+  @jakarta.annotation.Nonnull  private String type;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nonnull
-  private String name;
+  @jakarta.annotation.Nonnull  private String name;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nonnull
-  private Double value;
+  @jakarta.annotation.Nonnull  private Double value;
 
   public static final String JSON_PROPERTY_TIMESTAMP = "timestamp";
-  @javax.annotation.Nonnull
-  private OffsetDateTime timestamp;
+  @jakarta.annotation.Nonnull  private OffsetDateTime timestamp;
 
   public static final String JSON_PROPERTY_TAGS = "tags";
-  @javax.annotation.Nullable
-  private JsonNullable<Map<String, String>> tags = JsonNullable.<Map<String, String>>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<Map<String, String>> tags = JsonNullable.<Map<String, String>>undefined();
 
   public static final String JSON_PROPERTY_DELETED = "deleted";
-  @javax.annotation.Nonnull
-  private Boolean deleted;
+  @jakarta.annotation.Nonnull  private Boolean deleted;
 
   public static final String JSON_PROPERTY_EXECUTION_KIND = "executionKind";
-  @javax.annotation.Nullable
-  private JsonNullable<ExecutionKind> executionKind = JsonNullable.<ExecutionKind>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<ExecutionKind> executionKind = JsonNullable.<ExecutionKind>undefined();
 
   public MetricEntry() {
   }
 
-  public MetricEntry namespace(@javax.annotation.Nonnull String namespace) {
+  public MetricEntry namespace(@jakarta.annotation.Nonnull String namespace) {
     
     this.namespace = namespace;
     return this;
@@ -111,8 +99,7 @@ public class MetricEntry {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getNamespace() {
@@ -122,11 +109,11 @@ public class MetricEntry {
 
   @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setNamespace(@javax.annotation.Nonnull String namespace) {
+  public void setNamespace(@jakarta.annotation.Nonnull String namespace) {
     this.namespace = namespace;
   }
 
-  public MetricEntry flowId(@javax.annotation.Nonnull String flowId) {
+  public MetricEntry flowId(@jakarta.annotation.Nonnull String flowId) {
     
     this.flowId = flowId;
     return this;
@@ -136,8 +123,7 @@ public class MetricEntry {
    * Get flowId
    * @return flowId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_FLOW_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getFlowId() {
@@ -147,11 +133,11 @@ public class MetricEntry {
 
   @JsonProperty(JSON_PROPERTY_FLOW_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFlowId(@javax.annotation.Nonnull String flowId) {
+  public void setFlowId(@jakarta.annotation.Nonnull String flowId) {
     this.flowId = flowId;
   }
 
-  public MetricEntry taskId(@javax.annotation.Nullable String taskId) {
+  public MetricEntry taskId(@jakarta.annotation.Nullable String taskId) {
     this.taskId = JsonNullable.<String>of(taskId);
     
     return this;
@@ -161,8 +147,7 @@ public class MetricEntry {
    * Get taskId
    * @return taskId
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public String getTaskId() {
         return taskId.orElse(null);
@@ -170,7 +155,6 @@ public class MetricEntry {
 
   @JsonProperty(JSON_PROPERTY_TASK_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<String> getTaskId_JsonNullable() {
     return taskId;
   }
@@ -180,11 +164,11 @@ public class MetricEntry {
     this.taskId = taskId;
   }
 
-  public void setTaskId(@javax.annotation.Nullable String taskId) {
+  public void setTaskId(@jakarta.annotation.Nullable String taskId) {
     this.taskId = JsonNullable.<String>of(taskId);
   }
 
-  public MetricEntry executionId(@javax.annotation.Nullable String executionId) {
+  public MetricEntry executionId(@jakarta.annotation.Nullable String executionId) {
     this.executionId = JsonNullable.<String>of(executionId);
     
     return this;
@@ -194,8 +178,7 @@ public class MetricEntry {
    * Get executionId
    * @return executionId
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public String getExecutionId() {
         return executionId.orElse(null);
@@ -203,7 +186,6 @@ public class MetricEntry {
 
   @JsonProperty(JSON_PROPERTY_EXECUTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<String> getExecutionId_JsonNullable() {
     return executionId;
   }
@@ -213,11 +195,11 @@ public class MetricEntry {
     this.executionId = executionId;
   }
 
-  public void setExecutionId(@javax.annotation.Nullable String executionId) {
+  public void setExecutionId(@jakarta.annotation.Nullable String executionId) {
     this.executionId = JsonNullable.<String>of(executionId);
   }
 
-  public MetricEntry taskRunId(@javax.annotation.Nullable String taskRunId) {
+  public MetricEntry taskRunId(@jakarta.annotation.Nullable String taskRunId) {
     this.taskRunId = JsonNullable.<String>of(taskRunId);
     
     return this;
@@ -227,8 +209,7 @@ public class MetricEntry {
    * Get taskRunId
    * @return taskRunId
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public String getTaskRunId() {
         return taskRunId.orElse(null);
@@ -236,7 +217,6 @@ public class MetricEntry {
 
   @JsonProperty(JSON_PROPERTY_TASK_RUN_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<String> getTaskRunId_JsonNullable() {
     return taskRunId;
   }
@@ -246,11 +226,11 @@ public class MetricEntry {
     this.taskRunId = taskRunId;
   }
 
-  public void setTaskRunId(@javax.annotation.Nullable String taskRunId) {
+  public void setTaskRunId(@jakarta.annotation.Nullable String taskRunId) {
     this.taskRunId = JsonNullable.<String>of(taskRunId);
   }
 
-  public MetricEntry type(@javax.annotation.Nonnull String type) {
+  public MetricEntry type(@jakarta.annotation.Nonnull String type) {
     
     this.type = type;
     return this;
@@ -260,8 +240,7 @@ public class MetricEntry {
    * Get type
    * @return type
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getType() {
@@ -271,11 +250,11 @@ public class MetricEntry {
 
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setType(@javax.annotation.Nonnull String type) {
+  public void setType(@jakarta.annotation.Nonnull String type) {
     this.type = type;
   }
 
-  public MetricEntry name(@javax.annotation.Nonnull String name) {
+  public MetricEntry name(@jakarta.annotation.Nonnull String name) {
     
     this.name = name;
     return this;
@@ -285,8 +264,7 @@ public class MetricEntry {
    * Get name
    * @return name
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getName() {
@@ -296,11 +274,11 @@ public class MetricEntry {
 
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setName(@javax.annotation.Nonnull String name) {
+  public void setName(@jakarta.annotation.Nonnull String name) {
     this.name = name;
   }
 
-  public MetricEntry value(@javax.annotation.Nonnull Double value) {
+  public MetricEntry value(@jakarta.annotation.Nonnull Double value) {
     
     this.value = value;
     return this;
@@ -310,8 +288,7 @@ public class MetricEntry {
    * Get value
    * @return value
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_VALUE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Double getValue() {
@@ -321,11 +298,11 @@ public class MetricEntry {
 
   @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setValue(@javax.annotation.Nonnull Double value) {
+  public void setValue(@jakarta.annotation.Nonnull Double value) {
     this.value = value;
   }
 
-  public MetricEntry timestamp(@javax.annotation.Nonnull OffsetDateTime timestamp) {
+  public MetricEntry timestamp(@jakarta.annotation.Nonnull OffsetDateTime timestamp) {
     
     this.timestamp = timestamp;
     return this;
@@ -335,8 +312,7 @@ public class MetricEntry {
    * Get timestamp
    * @return timestamp
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TIMESTAMP)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TIMESTAMP)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public OffsetDateTime getTimestamp() {
@@ -346,11 +322,11 @@ public class MetricEntry {
 
   @JsonProperty(JSON_PROPERTY_TIMESTAMP)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTimestamp(@javax.annotation.Nonnull OffsetDateTime timestamp) {
+  public void setTimestamp(@jakarta.annotation.Nonnull OffsetDateTime timestamp) {
     this.timestamp = timestamp;
   }
 
-  public MetricEntry tags(@javax.annotation.Nullable Map<String, String> tags) {
+  public MetricEntry tags(@jakarta.annotation.Nullable Map<String, String> tags) {
     this.tags = JsonNullable.<Map<String, String>>of(tags);
     
     return this;
@@ -372,8 +348,7 @@ public class MetricEntry {
    * Get tags
    * @return tags
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public Map<String, String> getTags() {
         return tags.orElse(null);
@@ -381,7 +356,6 @@ public class MetricEntry {
 
   @JsonProperty(JSON_PROPERTY_TAGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<Map<String, String>> getTags_JsonNullable() {
     return tags;
   }
@@ -391,11 +365,11 @@ public class MetricEntry {
     this.tags = tags;
   }
 
-  public void setTags(@javax.annotation.Nullable Map<String, String> tags) {
+  public void setTags(@jakarta.annotation.Nullable Map<String, String> tags) {
     this.tags = JsonNullable.<Map<String, String>>of(tags);
   }
 
-  public MetricEntry deleted(@javax.annotation.Nonnull Boolean deleted) {
+  public MetricEntry deleted(@jakarta.annotation.Nonnull Boolean deleted) {
     
     this.deleted = deleted;
     return this;
@@ -405,8 +379,7 @@ public class MetricEntry {
    * Get deleted
    * @return deleted
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DELETED)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getDeleted() {
@@ -416,11 +389,11 @@ public class MetricEntry {
 
   @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDeleted(@javax.annotation.Nonnull Boolean deleted) {
+  public void setDeleted(@jakarta.annotation.Nonnull Boolean deleted) {
     this.deleted = deleted;
   }
 
-  public MetricEntry executionKind(@javax.annotation.Nullable ExecutionKind executionKind) {
+  public MetricEntry executionKind(@jakarta.annotation.Nullable ExecutionKind executionKind) {
     this.executionKind = JsonNullable.<ExecutionKind>of(executionKind);
     
     return this;
@@ -430,8 +403,7 @@ public class MetricEntry {
    * Get executionKind
    * @return executionKind
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public ExecutionKind getExecutionKind() {
         return executionKind.orElse(null);
@@ -439,7 +411,6 @@ public class MetricEntry {
 
   @JsonProperty(JSON_PROPERTY_EXECUTION_KIND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<ExecutionKind> getExecutionKind_JsonNullable() {
     return executionKind;
   }
@@ -449,7 +420,7 @@ public class MetricEntry {
     this.executionKind = executionKind;
   }
 
-  public void setExecutionKind(@javax.annotation.Nullable ExecutionKind executionKind) {
+  public void setExecutionKind(@jakarta.annotation.Nullable ExecutionKind executionKind) {
     this.executionKind = JsonNullable.<ExecutionKind>of(executionKind);
   }
 

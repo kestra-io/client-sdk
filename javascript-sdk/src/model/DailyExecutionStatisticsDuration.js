@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The DailyExecutionStatisticsDuration model module.
  * @module model/DailyExecutionStatisticsDuration
- * @version 1.0.0
+ * @version v1.0.5
  */
 class DailyExecutionStatisticsDuration {
     /**

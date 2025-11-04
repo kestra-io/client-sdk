@@ -33,20 +33,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MiscControllerApiUsage.JSON_PROPERTY_EXECUTIONS
 })
 @JsonTypeName("MiscController.ApiUsage")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class MiscControllerApiUsage {
   public static final String JSON_PROPERTY_FLOWS = "flows";
-  @javax.annotation.Nullable
-  private FlowUsage flows;
+  @jakarta.annotation.Nullable  private FlowUsage flows;
 
   public static final String JSON_PROPERTY_EXECUTIONS = "executions";
-  @javax.annotation.Nullable
-  private ExecutionUsage executions;
+  @jakarta.annotation.Nullable  private ExecutionUsage executions;
 
   public MiscControllerApiUsage() {
   }
 
-  public MiscControllerApiUsage flows(@javax.annotation.Nullable FlowUsage flows) {
+  public MiscControllerApiUsage flows(@jakarta.annotation.Nullable FlowUsage flows) {
     
     this.flows = flows;
     return this;
@@ -56,8 +54,7 @@ public class MiscControllerApiUsage {
    * Get flows
    * @return flows
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FLOWS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FLOWS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public FlowUsage getFlows() {
@@ -67,11 +64,11 @@ public class MiscControllerApiUsage {
 
   @JsonProperty(JSON_PROPERTY_FLOWS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFlows(@javax.annotation.Nullable FlowUsage flows) {
+  public void setFlows(@jakarta.annotation.Nullable FlowUsage flows) {
     this.flows = flows;
   }
 
-  public MiscControllerApiUsage executions(@javax.annotation.Nullable ExecutionUsage executions) {
+  public MiscControllerApiUsage executions(@jakarta.annotation.Nullable ExecutionUsage executions) {
     
     this.executions = executions;
     return this;
@@ -81,8 +78,7 @@ public class MiscControllerApiUsage {
    * Get executions
    * @return executions
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_EXECUTIONS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXECUTIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ExecutionUsage getExecutions() {
@@ -92,7 +88,7 @@ public class MiscControllerApiUsage {
 
   @JsonProperty(JSON_PROPERTY_EXECUTIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExecutions(@javax.annotation.Nullable ExecutionUsage executions) {
+  public void setExecutions(@jakarta.annotation.Nullable ExecutionUsage executions) {
     this.executions = executions;
   }
 

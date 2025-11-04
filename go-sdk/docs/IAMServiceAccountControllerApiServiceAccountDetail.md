@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | the identifier of this service account. | 
+**Id** | Pointer to **string** | the identifier of this service account. | [optional] 
 **Name** | **string** | the name of this service account. | 
-**Description** | **string** | the description of this service account. | 
-**Tenants** | [**[]ApiTenantSummary**](ApiTenantSummary.md) |  | 
-**SuperAdmin** | **bool** |  | 
+**Description** | Pointer to **string** | the description of this service account. | [optional] 
+**Tenants** | Pointer to [**[]ApiTenantSummary**](ApiTenantSummary.md) |  | [optional] 
+**SuperAdmin** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
 ### NewIAMServiceAccountControllerApiServiceAccountDetail
 
-`func NewIAMServiceAccountControllerApiServiceAccountDetail(id string, name string, description string, tenants []ApiTenantSummary, superAdmin bool, ) *IAMServiceAccountControllerApiServiceAccountDetail`
+`func NewIAMServiceAccountControllerApiServiceAccountDetail(name string, ) *IAMServiceAccountControllerApiServiceAccountDetail`
 
 NewIAMServiceAccountControllerApiServiceAccountDetail instantiates a new IAMServiceAccountControllerApiServiceAccountDetail object
 This constructor will assign default values to properties that have it defined,
@@ -48,6 +48,11 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
+### HasId
+
+`func (o *IAMServiceAccountControllerApiServiceAccountDetail) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetName
 
@@ -88,6 +93,11 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
+### HasDescription
+
+`func (o *IAMServiceAccountControllerApiServiceAccountDetail) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetTenants
 
@@ -108,6 +118,11 @@ and a boolean to check if the value has been set.
 
 SetTenants sets Tenants field to given value.
 
+### HasTenants
+
+`func (o *IAMServiceAccountControllerApiServiceAccountDetail) HasTenants() bool`
+
+HasTenants returns a boolean if a field has been set.
 
 ### GetSuperAdmin
 
@@ -128,6 +143,11 @@ and a boolean to check if the value has been set.
 
 SetSuperAdmin sets SuperAdmin field to given value.
 
+### HasSuperAdmin
+
+`func (o *IAMServiceAccountControllerApiServiceAccountDetail) HasSuperAdmin() bool`
+
+HasSuperAdmin returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

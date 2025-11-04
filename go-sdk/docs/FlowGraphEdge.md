@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Source** | **string** |  | 
-**Target** | **string** |  | 
-**Relation** | [**Relation**](Relation.md) |  | 
+**Source** | Pointer to **string** |  | [optional] 
+**Target** | Pointer to **string** |  | [optional] 
+**Relation** | Pointer to [**Relation**](Relation.md) |  | [optional] 
 
 ## Methods
 
 ### NewFlowGraphEdge
 
-`func NewFlowGraphEdge(source string, target string, relation Relation, ) *FlowGraphEdge`
+`func NewFlowGraphEdge() *FlowGraphEdge`
 
 NewFlowGraphEdge instantiates a new FlowGraphEdge object
 This constructor will assign default values to properties that have it defined,
@@ -46,6 +46,11 @@ and a boolean to check if the value has been set.
 
 SetSource sets Source field to given value.
 
+### HasSource
+
+`func (o *FlowGraphEdge) HasSource() bool`
+
+HasSource returns a boolean if a field has been set.
 
 ### GetTarget
 
@@ -66,6 +71,11 @@ and a boolean to check if the value has been set.
 
 SetTarget sets Target field to given value.
 
+### HasTarget
+
+`func (o *FlowGraphEdge) HasTarget() bool`
+
+HasTarget returns a boolean if a field has been set.
 
 ### GetRelation
 
@@ -86,6 +96,11 @@ and a boolean to check if the value has been set.
 
 SetRelation sets Relation field to given value.
 
+### HasRelation
+
+`func (o *FlowGraphEdge) HasRelation() bool`
+
+HasRelation returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

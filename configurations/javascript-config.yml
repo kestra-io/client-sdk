@@ -3,8 +3,13 @@ inputSpec: /local/kestra-ee.yml
 outputDir: /local/javascript-sdk
 
 globalProperties:
-  apiTests: false
+  apiTests: true
   modelTests: false
+  apiDocs: true
+  modelDocs: true
+  skipFormModel: false
+
+usePromises: true
 
 hideGenerationTimestamp: true
 
@@ -12,3 +17,6 @@ additionalProperties:
   packageName: "@kestra-io/kestra-sdk"
   projectName: "@kestra-io/kestra-sdk"
   disallowAdditionalPropertiesIfNotPresent: false
+
+openapiNormalizer:
+  FILTER: 'tag:Executions|Flows|Namespaces|Triggers|Users|Groups|KV|Roles|ServiceAccount'

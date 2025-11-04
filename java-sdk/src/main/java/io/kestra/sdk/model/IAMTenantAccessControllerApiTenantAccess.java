@@ -41,40 +41,33 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMTenantAccessControllerApiTenantAccess.JSON_PROPERTY_SUPER_ADMIN
 })
 @JsonTypeName("IAMTenantAccessController.ApiTenantAccess")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMTenantAccessControllerApiTenantAccess {
   public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
-  @javax.annotation.Nonnull
-  private String tenantId;
+  @jakarta.annotation.Nullable  private String tenantId;
 
   public static final String JSON_PROPERTY_USER_ID = "userId";
-  @javax.annotation.Nonnull
-  private String userId;
+  @jakarta.annotation.Nullable  private String userId;
 
   public static final String JSON_PROPERTY_USERNAME = "username";
-  @javax.annotation.Nonnull
-  private String username;
+  @jakarta.annotation.Nullable  private String username;
 
   public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
-  @javax.annotation.Nonnull
-  private String displayName;
+  @jakarta.annotation.Nullable  private String displayName;
 
   public static final String JSON_PROPERTY_GROUPS = "groups";
-  @javax.annotation.Nonnull
-  private List<IAMTenantAccessControllerApiGroup> groups = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<IAMTenantAccessControllerApiGroup> groups = new ArrayList<>();
 
   public static final String JSON_PROPERTY_ROLES = "roles";
-  @javax.annotation.Nonnull
-  private List<IAMTenantAccessControllerApiRoleAssignment> roles = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<IAMTenantAccessControllerApiRoleAssignment> roles = new ArrayList<>();
 
   public static final String JSON_PROPERTY_SUPER_ADMIN = "superAdmin";
-  @javax.annotation.Nonnull
-  private Boolean superAdmin;
+  @jakarta.annotation.Nullable  private Boolean superAdmin;
 
   public IAMTenantAccessControllerApiTenantAccess() {
   }
 
-  public IAMTenantAccessControllerApiTenantAccess tenantId(@javax.annotation.Nonnull String tenantId) {
+  public IAMTenantAccessControllerApiTenantAccess tenantId(@jakarta.annotation.Nullable String tenantId) {
     
     this.tenantId = tenantId;
     return this;
@@ -84,9 +77,8 @@ public class IAMTenantAccessControllerApiTenantAccess {
    * Get tenantId
    * @return tenantId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TENANT_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTenantId() {
     return tenantId;
@@ -94,12 +86,12 @@ public class IAMTenantAccessControllerApiTenantAccess {
 
 
   @JsonProperty(JSON_PROPERTY_TENANT_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTenantId(@javax.annotation.Nonnull String tenantId) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTenantId(@jakarta.annotation.Nullable String tenantId) {
     this.tenantId = tenantId;
   }
 
-  public IAMTenantAccessControllerApiTenantAccess userId(@javax.annotation.Nonnull String userId) {
+  public IAMTenantAccessControllerApiTenantAccess userId(@jakarta.annotation.Nullable String userId) {
     
     this.userId = userId;
     return this;
@@ -109,9 +101,8 @@ public class IAMTenantAccessControllerApiTenantAccess {
    * Get userId
    * @return userId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_USER_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_USER_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUserId() {
     return userId;
@@ -119,12 +110,12 @@ public class IAMTenantAccessControllerApiTenantAccess {
 
 
   @JsonProperty(JSON_PROPERTY_USER_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setUserId(@javax.annotation.Nonnull String userId) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUserId(@jakarta.annotation.Nullable String userId) {
     this.userId = userId;
   }
 
-  public IAMTenantAccessControllerApiTenantAccess username(@javax.annotation.Nonnull String username) {
+  public IAMTenantAccessControllerApiTenantAccess username(@jakarta.annotation.Nullable String username) {
     
     this.username = username;
     return this;
@@ -134,9 +125,8 @@ public class IAMTenantAccessControllerApiTenantAccess {
    * Get username
    * @return username
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_USERNAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_USERNAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUsername() {
     return username;
@@ -144,12 +134,12 @@ public class IAMTenantAccessControllerApiTenantAccess {
 
 
   @JsonProperty(JSON_PROPERTY_USERNAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setUsername(@javax.annotation.Nonnull String username) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUsername(@jakarta.annotation.Nullable String username) {
     this.username = username;
   }
 
-  public IAMTenantAccessControllerApiTenantAccess displayName(@javax.annotation.Nonnull String displayName) {
+  public IAMTenantAccessControllerApiTenantAccess displayName(@jakarta.annotation.Nullable String displayName) {
     
     this.displayName = displayName;
     return this;
@@ -159,9 +149,8 @@ public class IAMTenantAccessControllerApiTenantAccess {
    * Get displayName
    * @return displayName
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDisplayName() {
     return displayName;
@@ -169,12 +158,12 @@ public class IAMTenantAccessControllerApiTenantAccess {
 
 
   @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDisplayName(@javax.annotation.Nonnull String displayName) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDisplayName(@jakarta.annotation.Nullable String displayName) {
     this.displayName = displayName;
   }
 
-  public IAMTenantAccessControllerApiTenantAccess groups(@javax.annotation.Nonnull List<IAMTenantAccessControllerApiGroup> groups) {
+  public IAMTenantAccessControllerApiTenantAccess groups(@jakarta.annotation.Nullable List<IAMTenantAccessControllerApiGroup> groups) {
     
     this.groups = groups;
     return this;
@@ -192,9 +181,8 @@ public class IAMTenantAccessControllerApiTenantAccess {
    * Get groups
    * @return groups
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_GROUPS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<IAMTenantAccessControllerApiGroup> getGroups() {
     return groups;
@@ -202,12 +190,12 @@ public class IAMTenantAccessControllerApiTenantAccess {
 
 
   @JsonProperty(JSON_PROPERTY_GROUPS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setGroups(@javax.annotation.Nonnull List<IAMTenantAccessControllerApiGroup> groups) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGroups(@jakarta.annotation.Nullable List<IAMTenantAccessControllerApiGroup> groups) {
     this.groups = groups;
   }
 
-  public IAMTenantAccessControllerApiTenantAccess roles(@javax.annotation.Nonnull List<IAMTenantAccessControllerApiRoleAssignment> roles) {
+  public IAMTenantAccessControllerApiTenantAccess roles(@jakarta.annotation.Nullable List<IAMTenantAccessControllerApiRoleAssignment> roles) {
     
     this.roles = roles;
     return this;
@@ -225,9 +213,8 @@ public class IAMTenantAccessControllerApiTenantAccess {
    * Get roles
    * @return roles
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ROLES)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ROLES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<IAMTenantAccessControllerApiRoleAssignment> getRoles() {
     return roles;
@@ -235,12 +222,12 @@ public class IAMTenantAccessControllerApiTenantAccess {
 
 
   @JsonProperty(JSON_PROPERTY_ROLES)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setRoles(@javax.annotation.Nonnull List<IAMTenantAccessControllerApiRoleAssignment> roles) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRoles(@jakarta.annotation.Nullable List<IAMTenantAccessControllerApiRoleAssignment> roles) {
     this.roles = roles;
   }
 
-  public IAMTenantAccessControllerApiTenantAccess superAdmin(@javax.annotation.Nonnull Boolean superAdmin) {
+  public IAMTenantAccessControllerApiTenantAccess superAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
     
     this.superAdmin = superAdmin;
     return this;
@@ -250,9 +237,8 @@ public class IAMTenantAccessControllerApiTenantAccess {
    * Get superAdmin
    * @return superAdmin
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getSuperAdmin() {
     return superAdmin;
@@ -260,8 +246,8 @@ public class IAMTenantAccessControllerApiTenantAccess {
 
 
   @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setSuperAdmin(@javax.annotation.Nonnull Boolean superAdmin) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSuperAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
     this.superAdmin = superAdmin;
   }
 

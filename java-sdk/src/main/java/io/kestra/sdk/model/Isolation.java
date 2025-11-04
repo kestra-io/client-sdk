@@ -34,20 +34,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Isolation.JSON_PROPERTY_DENIED_SERVICES,
   Isolation.JSON_PROPERTY_ENABLED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Isolation {
   public static final String JSON_PROPERTY_DENIED_SERVICES = "deniedServices";
-  @javax.annotation.Nonnull
-  private List<ServiceType> deniedServices = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<ServiceType> deniedServices = new ArrayList<>();
 
   public static final String JSON_PROPERTY_ENABLED = "enabled";
-  @javax.annotation.Nonnull
-  private Boolean enabled;
+  @jakarta.annotation.Nullable  private Boolean enabled;
 
   public Isolation() {
   }
 
-  public Isolation deniedServices(@javax.annotation.Nonnull List<ServiceType> deniedServices) {
+  public Isolation deniedServices(@jakarta.annotation.Nullable List<ServiceType> deniedServices) {
     
     this.deniedServices = deniedServices;
     return this;
@@ -65,9 +63,8 @@ public class Isolation {
    * Get deniedServices
    * @return deniedServices
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DENIED_SERVICES)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DENIED_SERVICES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<ServiceType> getDeniedServices() {
     return deniedServices;
@@ -75,12 +72,12 @@ public class Isolation {
 
 
   @JsonProperty(JSON_PROPERTY_DENIED_SERVICES)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDeniedServices(@javax.annotation.Nonnull List<ServiceType> deniedServices) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDeniedServices(@jakarta.annotation.Nullable List<ServiceType> deniedServices) {
     this.deniedServices = deniedServices;
   }
 
-  public Isolation enabled(@javax.annotation.Nonnull Boolean enabled) {
+  public Isolation enabled(@jakarta.annotation.Nullable Boolean enabled) {
     
     this.enabled = enabled;
     return this;
@@ -90,9 +87,8 @@ public class Isolation {
    * Get enabled
    * @return enabled
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getEnabled() {
     return enabled;
@@ -100,8 +96,8 @@ public class Isolation {
 
 
   @JsonProperty(JSON_PROPERTY_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setEnabled(@javax.annotation.Nonnull Boolean enabled) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEnabled(@jakarta.annotation.Nullable Boolean enabled) {
     this.enabled = enabled;
   }
 

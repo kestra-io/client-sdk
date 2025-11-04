@@ -104,7 +104,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	iAMRoleControllerApiRoleCreateOrUpdateRequest := *openapiclient.NewIAMRoleControllerApiRoleCreateOrUpdateRequest(*openapiclient.NewIAMRoleControllerApiRoleCreateOrUpdateRequestPermissions(), "Name_example", "Description_example", false) // IAMRoleControllerApiRoleCreateOrUpdateRequest | 
+	iAMRoleControllerApiRoleCreateOrUpdateRequest := *openapiclient.NewIAMRoleControllerApiRoleCreateOrUpdateRequest(*openapiclient.NewIAMRoleControllerApiRoleCreateOrUpdateRequestPermissions(), "Name_example") // IAMRoleControllerApiRoleCreateOrUpdateRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -314,7 +314,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	apiIds := *openapiclient.NewApiIds([]string{"Ids_example"}) // ApiIds | The ids that must be present on results
+	apiIds := *openapiclient.NewApiIds() // ApiIds | The ids that must be present on results
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -461,7 +461,7 @@ import (
 func main() {
 	id := "id_example" // string | The role id
 	tenant := "tenant_example" // string | 
-	iAMRoleControllerApiRoleCreateOrUpdateRequest := *openapiclient.NewIAMRoleControllerApiRoleCreateOrUpdateRequest(*openapiclient.NewIAMRoleControllerApiRoleCreateOrUpdateRequestPermissions(), "Name_example", "Description_example", false) // IAMRoleControllerApiRoleCreateOrUpdateRequest | 
+	iAMRoleControllerApiRoleCreateOrUpdateRequest := *openapiclient.NewIAMRoleControllerApiRoleCreateOrUpdateRequest(*openapiclient.NewIAMRoleControllerApiRoleCreateOrUpdateRequestPermissions(), "Name_example") // IAMRoleControllerApiRoleCreateOrUpdateRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

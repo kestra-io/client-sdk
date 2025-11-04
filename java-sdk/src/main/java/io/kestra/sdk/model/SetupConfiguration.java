@@ -32,38 +32,36 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   SetupConfiguration.JSON_PROPERTY_QUEUE_TYPE,
   SetupConfiguration.JSON_PROPERTY_STORAGE_TYPE,
   SetupConfiguration.JSON_PROPERTY_SECRET_TYPE,
-  SetupConfiguration.JSON_PROPERTY_PASSWORD_REGEXP
+  SetupConfiguration.JSON_PROPERTY_PASSWORD_REGEXP,
+  SetupConfiguration.JSON_PROPERTY_HAVE_AUTH_NOT_BASIC
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class SetupConfiguration {
   public static final String JSON_PROPERTY_DONE = "done";
-  @javax.annotation.Nonnull
-  private Boolean done;
+  @jakarta.annotation.Nullable  private Boolean done;
 
   public static final String JSON_PROPERTY_REPOSITORY_TYPE = "repositoryType";
-  @javax.annotation.Nullable
-  private String repositoryType;
+  @jakarta.annotation.Nullable  private String repositoryType;
 
   public static final String JSON_PROPERTY_QUEUE_TYPE = "queueType";
-  @javax.annotation.Nullable
-  private String queueType;
+  @jakarta.annotation.Nullable  private String queueType;
 
   public static final String JSON_PROPERTY_STORAGE_TYPE = "storageType";
-  @javax.annotation.Nullable
-  private String storageType;
+  @jakarta.annotation.Nullable  private String storageType;
 
   public static final String JSON_PROPERTY_SECRET_TYPE = "secretType";
-  @javax.annotation.Nullable
-  private String secretType;
+  @jakarta.annotation.Nullable  private String secretType;
 
   public static final String JSON_PROPERTY_PASSWORD_REGEXP = "passwordRegexp";
-  @javax.annotation.Nonnull
-  private String passwordRegexp;
+  @jakarta.annotation.Nullable  private String passwordRegexp;
+
+  public static final String JSON_PROPERTY_HAVE_AUTH_NOT_BASIC = "haveAuthNotBasic";
+  @jakarta.annotation.Nullable  private Boolean haveAuthNotBasic;
 
   public SetupConfiguration() {
   }
 
-  public SetupConfiguration done(@javax.annotation.Nonnull Boolean done) {
+  public SetupConfiguration done(@jakarta.annotation.Nullable Boolean done) {
     
     this.done = done;
     return this;
@@ -73,9 +71,8 @@ public class SetupConfiguration {
    * Get done
    * @return done
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DONE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DONE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getDone() {
     return done;
@@ -83,12 +80,12 @@ public class SetupConfiguration {
 
 
   @JsonProperty(JSON_PROPERTY_DONE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDone(@javax.annotation.Nonnull Boolean done) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDone(@jakarta.annotation.Nullable Boolean done) {
     this.done = done;
   }
 
-  public SetupConfiguration repositoryType(@javax.annotation.Nullable String repositoryType) {
+  public SetupConfiguration repositoryType(@jakarta.annotation.Nullable String repositoryType) {
     
     this.repositoryType = repositoryType;
     return this;
@@ -98,8 +95,7 @@ public class SetupConfiguration {
    * Get repositoryType
    * @return repositoryType
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_REPOSITORY_TYPE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REPOSITORY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getRepositoryType() {
@@ -109,11 +105,11 @@ public class SetupConfiguration {
 
   @JsonProperty(JSON_PROPERTY_REPOSITORY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRepositoryType(@javax.annotation.Nullable String repositoryType) {
+  public void setRepositoryType(@jakarta.annotation.Nullable String repositoryType) {
     this.repositoryType = repositoryType;
   }
 
-  public SetupConfiguration queueType(@javax.annotation.Nullable String queueType) {
+  public SetupConfiguration queueType(@jakarta.annotation.Nullable String queueType) {
     
     this.queueType = queueType;
     return this;
@@ -123,8 +119,7 @@ public class SetupConfiguration {
    * Get queueType
    * @return queueType
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_QUEUE_TYPE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_QUEUE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getQueueType() {
@@ -134,11 +129,11 @@ public class SetupConfiguration {
 
   @JsonProperty(JSON_PROPERTY_QUEUE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setQueueType(@javax.annotation.Nullable String queueType) {
+  public void setQueueType(@jakarta.annotation.Nullable String queueType) {
     this.queueType = queueType;
   }
 
-  public SetupConfiguration storageType(@javax.annotation.Nullable String storageType) {
+  public SetupConfiguration storageType(@jakarta.annotation.Nullable String storageType) {
     
     this.storageType = storageType;
     return this;
@@ -148,8 +143,7 @@ public class SetupConfiguration {
    * Get storageType
    * @return storageType
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_STORAGE_TYPE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STORAGE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getStorageType() {
@@ -159,11 +153,11 @@ public class SetupConfiguration {
 
   @JsonProperty(JSON_PROPERTY_STORAGE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStorageType(@javax.annotation.Nullable String storageType) {
+  public void setStorageType(@jakarta.annotation.Nullable String storageType) {
     this.storageType = storageType;
   }
 
-  public SetupConfiguration secretType(@javax.annotation.Nullable String secretType) {
+  public SetupConfiguration secretType(@jakarta.annotation.Nullable String secretType) {
     
     this.secretType = secretType;
     return this;
@@ -173,8 +167,7 @@ public class SetupConfiguration {
    * Get secretType
    * @return secretType
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SECRET_TYPE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SECRET_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSecretType() {
@@ -184,11 +177,11 @@ public class SetupConfiguration {
 
   @JsonProperty(JSON_PROPERTY_SECRET_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSecretType(@javax.annotation.Nullable String secretType) {
+  public void setSecretType(@jakarta.annotation.Nullable String secretType) {
     this.secretType = secretType;
   }
 
-  public SetupConfiguration passwordRegexp(@javax.annotation.Nonnull String passwordRegexp) {
+  public SetupConfiguration passwordRegexp(@jakarta.annotation.Nullable String passwordRegexp) {
     
     this.passwordRegexp = passwordRegexp;
     return this;
@@ -198,9 +191,8 @@ public class SetupConfiguration {
    * Get passwordRegexp
    * @return passwordRegexp
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_PASSWORD_REGEXP)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PASSWORD_REGEXP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getPasswordRegexp() {
     return passwordRegexp;
@@ -208,9 +200,33 @@ public class SetupConfiguration {
 
 
   @JsonProperty(JSON_PROPERTY_PASSWORD_REGEXP)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPasswordRegexp(@javax.annotation.Nonnull String passwordRegexp) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPasswordRegexp(@jakarta.annotation.Nullable String passwordRegexp) {
     this.passwordRegexp = passwordRegexp;
+  }
+
+  public SetupConfiguration haveAuthNotBasic(@jakarta.annotation.Nullable Boolean haveAuthNotBasic) {
+    
+    this.haveAuthNotBasic = haveAuthNotBasic;
+    return this;
+  }
+
+  /**
+   * Get haveAuthNotBasic
+   * @return haveAuthNotBasic
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_HAVE_AUTH_NOT_BASIC)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getHaveAuthNotBasic() {
+    return haveAuthNotBasic;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_HAVE_AUTH_NOT_BASIC)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setHaveAuthNotBasic(@jakarta.annotation.Nullable Boolean haveAuthNotBasic) {
+    this.haveAuthNotBasic = haveAuthNotBasic;
   }
 
   @Override
@@ -227,12 +243,13 @@ public class SetupConfiguration {
         Objects.equals(this.queueType, setupConfiguration.queueType) &&
         Objects.equals(this.storageType, setupConfiguration.storageType) &&
         Objects.equals(this.secretType, setupConfiguration.secretType) &&
-        Objects.equals(this.passwordRegexp, setupConfiguration.passwordRegexp);
+        Objects.equals(this.passwordRegexp, setupConfiguration.passwordRegexp) &&
+        Objects.equals(this.haveAuthNotBasic, setupConfiguration.haveAuthNotBasic);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(done, repositoryType, queueType, storageType, secretType, passwordRegexp);
+    return Objects.hash(done, repositoryType, queueType, storageType, secretType, passwordRegexp, haveAuthNotBasic);
   }
 
   @Override
@@ -245,6 +262,7 @@ public class SetupConfiguration {
     sb.append("    storageType: ").append(toIndentedString(storageType)).append("\n");
     sb.append("    secretType: ").append(toIndentedString(secretType)).append("\n");
     sb.append("    passwordRegexp: ").append(toIndentedString(passwordRegexp)).append("\n");
+    sb.append("    haveAuthNotBasic: ").append(toIndentedString(haveAuthNotBasic)).append("\n");
     sb.append("}");
     return sb.toString();
   }

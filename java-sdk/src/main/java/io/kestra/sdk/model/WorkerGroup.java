@@ -31,20 +31,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   WorkerGroup.JSON_PROPERTY_KEY,
   WorkerGroup.JSON_PROPERTY_FALLBACK
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class WorkerGroup {
   public static final String JSON_PROPERTY_KEY = "key";
-  @javax.annotation.Nullable
-  private String key;
+  @jakarta.annotation.Nullable  private String key;
 
   public static final String JSON_PROPERTY_FALLBACK = "fallback";
-  @javax.annotation.Nullable
-  private WorkerGroupFallback fallback;
+  @jakarta.annotation.Nullable  private WorkerGroupFallback fallback;
 
   public WorkerGroup() {
   }
 
-  public WorkerGroup key(@javax.annotation.Nullable String key) {
+  public WorkerGroup key(@jakarta.annotation.Nullable String key) {
     
     this.key = key;
     return this;
@@ -54,8 +52,7 @@ public class WorkerGroup {
    * Get key
    * @return key
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_KEY)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_KEY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getKey() {
@@ -65,11 +62,11 @@ public class WorkerGroup {
 
   @JsonProperty(JSON_PROPERTY_KEY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setKey(@javax.annotation.Nullable String key) {
+  public void setKey(@jakarta.annotation.Nullable String key) {
     this.key = key;
   }
 
-  public WorkerGroup fallback(@javax.annotation.Nullable WorkerGroupFallback fallback) {
+  public WorkerGroup fallback(@jakarta.annotation.Nullable WorkerGroupFallback fallback) {
     
     this.fallback = fallback;
     return this;
@@ -79,8 +76,7 @@ public class WorkerGroup {
    * Get fallback
    * @return fallback
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FALLBACK)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FALLBACK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public WorkerGroupFallback getFallback() {
@@ -90,7 +86,7 @@ public class WorkerGroup {
 
   @JsonProperty(JSON_PROPERTY_FALLBACK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFallback(@javax.annotation.Nullable WorkerGroupFallback fallback) {
+  public void setFallback(@jakarta.annotation.Nullable WorkerGroupFallback fallback) {
     this.fallback = fallback;
   }
 

@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the AuditLogControllerAuditLogDiff type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &AuditLogControllerAuditLogDiff{}
 
 // AuditLogControllerAuditLogDiff struct for AuditLogControllerAuditLogDiff
 type AuditLogControllerAuditLogDiff struct {
-	Before               string `json:"before"`
-	After                string `json:"after"`
+	Before               *string `json:"before,omitempty"`
+	After                *string `json:"after,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,10 +30,8 @@ type _AuditLogControllerAuditLogDiff AuditLogControllerAuditLogDiff
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAuditLogControllerAuditLogDiff(before string, after string) *AuditLogControllerAuditLogDiff {
+func NewAuditLogControllerAuditLogDiff() *AuditLogControllerAuditLogDiff {
 	this := AuditLogControllerAuditLogDiff{}
-	this.Before = before
-	this.After = after
 	return &this
 }
 
@@ -46,52 +43,68 @@ func NewAuditLogControllerAuditLogDiffWithDefaults() *AuditLogControllerAuditLog
 	return &this
 }
 
-// GetBefore returns the Before field value
+// GetBefore returns the Before field value if set, zero value otherwise.
 func (o *AuditLogControllerAuditLogDiff) GetBefore() string {
-	if o == nil {
+	if o == nil || IsNil(o.Before) {
 		var ret string
 		return ret
 	}
-
-	return o.Before
+	return *o.Before
 }
 
-// GetBeforeOk returns a tuple with the Before field value
+// GetBeforeOk returns a tuple with the Before field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuditLogControllerAuditLogDiff) GetBeforeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Before) {
 		return nil, false
 	}
-	return &o.Before, true
+	return o.Before, true
 }
 
-// SetBefore sets field value
+// HasBefore returns a boolean if a field has been set.
+func (o *AuditLogControllerAuditLogDiff) HasBefore() bool {
+	if o != nil && !IsNil(o.Before) {
+		return true
+	}
+
+	return false
+}
+
+// SetBefore gets a reference to the given string and assigns it to the Before field.
 func (o *AuditLogControllerAuditLogDiff) SetBefore(v string) {
-	o.Before = v
+	o.Before = &v
 }
 
-// GetAfter returns the After field value
+// GetAfter returns the After field value if set, zero value otherwise.
 func (o *AuditLogControllerAuditLogDiff) GetAfter() string {
-	if o == nil {
+	if o == nil || IsNil(o.After) {
 		var ret string
 		return ret
 	}
-
-	return o.After
+	return *o.After
 }
 
-// GetAfterOk returns a tuple with the After field value
+// GetAfterOk returns a tuple with the After field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuditLogControllerAuditLogDiff) GetAfterOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.After) {
 		return nil, false
 	}
-	return &o.After, true
+	return o.After, true
 }
 
-// SetAfter sets field value
+// HasAfter returns a boolean if a field has been set.
+func (o *AuditLogControllerAuditLogDiff) HasAfter() bool {
+	if o != nil && !IsNil(o.After) {
+		return true
+	}
+
+	return false
+}
+
+// SetAfter gets a reference to the given string and assigns it to the After field.
 func (o *AuditLogControllerAuditLogDiff) SetAfter(v string) {
-	o.After = v
+	o.After = &v
 }
 
 func (o AuditLogControllerAuditLogDiff) MarshalJSON() ([]byte, error) {
@@ -104,8 +117,12 @@ func (o AuditLogControllerAuditLogDiff) MarshalJSON() ([]byte, error) {
 
 func (o AuditLogControllerAuditLogDiff) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["before"] = o.Before
-	toSerialize["after"] = o.After
+	if !IsNil(o.Before) {
+		toSerialize["before"] = o.Before
+	}
+	if !IsNil(o.After) {
+		toSerialize["after"] = o.After
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -115,28 +132,6 @@ func (o AuditLogControllerAuditLogDiff) ToMap() (map[string]interface{}, error) 
 }
 
 func (o *AuditLogControllerAuditLogDiff) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"before",
-		"after",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varAuditLogControllerAuditLogDiff := _AuditLogControllerAuditLogDiff{}
 
 	err = json.Unmarshal(data, &varAuditLogControllerAuditLogDiff)

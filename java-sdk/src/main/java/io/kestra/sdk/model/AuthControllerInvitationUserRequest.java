@@ -32,24 +32,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AuthControllerInvitationUserRequest.JSON_PROPERTY_PASSWORD
 })
 @JsonTypeName("AuthController.InvitationUserRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AuthControllerInvitationUserRequest {
   public static final String JSON_PROPERTY_FIRST_NAME = "firstName";
-  @javax.annotation.Nonnull
-  private String firstName;
+  @jakarta.annotation.Nonnull  private String firstName;
 
   public static final String JSON_PROPERTY_LAST_NAME = "lastName";
-  @javax.annotation.Nonnull
-  private String lastName;
+  @jakarta.annotation.Nonnull  private String lastName;
 
   public static final String JSON_PROPERTY_PASSWORD = "password";
-  @javax.annotation.Nonnull
-  private String password;
+  @jakarta.annotation.Nonnull  private String password;
 
   public AuthControllerInvitationUserRequest() {
   }
 
-  public AuthControllerInvitationUserRequest firstName(@javax.annotation.Nonnull String firstName) {
+  public AuthControllerInvitationUserRequest firstName(@jakarta.annotation.Nonnull String firstName) {
     
     this.firstName = firstName;
     return this;
@@ -59,8 +56,7 @@ public class AuthControllerInvitationUserRequest {
    * Get firstName
    * @return firstName
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getFirstName() {
@@ -70,11 +66,11 @@ public class AuthControllerInvitationUserRequest {
 
   @JsonProperty(JSON_PROPERTY_FIRST_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFirstName(@javax.annotation.Nonnull String firstName) {
+  public void setFirstName(@jakarta.annotation.Nonnull String firstName) {
     this.firstName = firstName;
   }
 
-  public AuthControllerInvitationUserRequest lastName(@javax.annotation.Nonnull String lastName) {
+  public AuthControllerInvitationUserRequest lastName(@jakarta.annotation.Nonnull String lastName) {
     
     this.lastName = lastName;
     return this;
@@ -84,8 +80,7 @@ public class AuthControllerInvitationUserRequest {
    * Get lastName
    * @return lastName
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_LAST_NAME)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_LAST_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getLastName() {
@@ -95,11 +90,11 @@ public class AuthControllerInvitationUserRequest {
 
   @JsonProperty(JSON_PROPERTY_LAST_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setLastName(@javax.annotation.Nonnull String lastName) {
+  public void setLastName(@jakarta.annotation.Nonnull String lastName) {
     this.lastName = lastName;
   }
 
-  public AuthControllerInvitationUserRequest password(@javax.annotation.Nonnull String password) {
+  public AuthControllerInvitationUserRequest password(@jakarta.annotation.Nonnull String password) {
     
     this.password = password;
     return this;
@@ -109,8 +104,7 @@ public class AuthControllerInvitationUserRequest {
    * Get password
    * @return password
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_PASSWORD)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getPassword() {
@@ -120,7 +114,7 @@ public class AuthControllerInvitationUserRequest {
 
   @JsonProperty(JSON_PROPERTY_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPassword(@javax.annotation.Nonnull String password) {
+  public void setPassword(@jakarta.annotation.Nonnull String password) {
     this.password = password;
   }
 

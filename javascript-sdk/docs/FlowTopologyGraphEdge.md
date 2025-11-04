@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**source** | **String** |  | 
-**target** | **String** |  | 
-**relation** | [**FlowRelation**](FlowRelation.md) |  | 
+**source** | **String** |  | [optional] 
+**target** | **String** |  | [optional] 
+**relation** | [**FlowRelation**](FlowRelation.md) |  | [optional] 
 
 

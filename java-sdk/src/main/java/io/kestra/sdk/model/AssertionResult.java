@@ -35,40 +35,33 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AssertionResult.JSON_PROPERTY_DESCRIPTION,
   AssertionResult.JSON_PROPERTY_ERROR_MESSAGE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AssertionResult {
   public static final String JSON_PROPERTY_OPERATOR = "operator";
-  @javax.annotation.Nonnull
-  private String operator;
+  @jakarta.annotation.Nonnull  private String operator;
 
   public static final String JSON_PROPERTY_EXPECTED = "expected";
-  @javax.annotation.Nonnull
-  private Object expected;
+  @jakarta.annotation.Nonnull  private Object expected;
 
   public static final String JSON_PROPERTY_ACTUAL = "actual";
-  @javax.annotation.Nonnull
-  private Object actual;
+  @jakarta.annotation.Nonnull  private Object actual;
 
   public static final String JSON_PROPERTY_IS_SUCCESS = "isSuccess";
-  @javax.annotation.Nonnull
-  private Boolean isSuccess;
+  @jakarta.annotation.Nonnull  private Boolean isSuccess;
 
   public static final String JSON_PROPERTY_TASK_ID = "taskId";
-  @javax.annotation.Nonnull
-  private String taskId;
+  @jakarta.annotation.Nullable  private String taskId;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nonnull
-  private String description;
+  @jakarta.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_ERROR_MESSAGE = "errorMessage";
-  @javax.annotation.Nonnull
-  private String errorMessage;
+  @jakarta.annotation.Nullable  private String errorMessage;
 
   public AssertionResult() {
   }
 
-  public AssertionResult operator(@javax.annotation.Nonnull String operator) {
+  public AssertionResult operator(@jakarta.annotation.Nonnull String operator) {
     
     this.operator = operator;
     return this;
@@ -78,8 +71,7 @@ public class AssertionResult {
    * Get operator
    * @return operator
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_OPERATOR)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_OPERATOR)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getOperator() {
@@ -89,11 +81,11 @@ public class AssertionResult {
 
   @JsonProperty(JSON_PROPERTY_OPERATOR)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setOperator(@javax.annotation.Nonnull String operator) {
+  public void setOperator(@jakarta.annotation.Nonnull String operator) {
     this.operator = operator;
   }
 
-  public AssertionResult expected(@javax.annotation.Nonnull Object expected) {
+  public AssertionResult expected(@jakarta.annotation.Nonnull Object expected) {
     
     this.expected = expected;
     return this;
@@ -103,8 +95,7 @@ public class AssertionResult {
    * Get expected
    * @return expected
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_EXPECTED)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_EXPECTED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Object getExpected() {
@@ -114,11 +105,11 @@ public class AssertionResult {
 
   @JsonProperty(JSON_PROPERTY_EXPECTED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setExpected(@javax.annotation.Nonnull Object expected) {
+  public void setExpected(@jakarta.annotation.Nonnull Object expected) {
     this.expected = expected;
   }
 
-  public AssertionResult actual(@javax.annotation.Nonnull Object actual) {
+  public AssertionResult actual(@jakarta.annotation.Nonnull Object actual) {
     
     this.actual = actual;
     return this;
@@ -128,8 +119,7 @@ public class AssertionResult {
    * Get actual
    * @return actual
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ACTUAL)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ACTUAL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Object getActual() {
@@ -139,11 +129,11 @@ public class AssertionResult {
 
   @JsonProperty(JSON_PROPERTY_ACTUAL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setActual(@javax.annotation.Nonnull Object actual) {
+  public void setActual(@jakarta.annotation.Nonnull Object actual) {
     this.actual = actual;
   }
 
-  public AssertionResult isSuccess(@javax.annotation.Nonnull Boolean isSuccess) {
+  public AssertionResult isSuccess(@jakarta.annotation.Nonnull Boolean isSuccess) {
     
     this.isSuccess = isSuccess;
     return this;
@@ -153,8 +143,7 @@ public class AssertionResult {
    * Get isSuccess
    * @return isSuccess
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_IS_SUCCESS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_IS_SUCCESS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getIsSuccess() {
@@ -164,11 +153,11 @@ public class AssertionResult {
 
   @JsonProperty(JSON_PROPERTY_IS_SUCCESS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setIsSuccess(@javax.annotation.Nonnull Boolean isSuccess) {
+  public void setIsSuccess(@jakarta.annotation.Nonnull Boolean isSuccess) {
     this.isSuccess = isSuccess;
   }
 
-  public AssertionResult taskId(@javax.annotation.Nonnull String taskId) {
+  public AssertionResult taskId(@jakarta.annotation.Nullable String taskId) {
     
     this.taskId = taskId;
     return this;
@@ -178,9 +167,8 @@ public class AssertionResult {
    * Get taskId
    * @return taskId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TASK_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TASK_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTaskId() {
     return taskId;
@@ -188,12 +176,12 @@ public class AssertionResult {
 
 
   @JsonProperty(JSON_PROPERTY_TASK_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTaskId(@javax.annotation.Nonnull String taskId) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTaskId(@jakarta.annotation.Nullable String taskId) {
     this.taskId = taskId;
   }
 
-  public AssertionResult description(@javax.annotation.Nonnull String description) {
+  public AssertionResult description(@jakarta.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -203,9 +191,8 @@ public class AssertionResult {
    * Get description
    * @return description
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
     return description;
@@ -213,12 +200,12 @@ public class AssertionResult {
 
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDescription(@javax.annotation.Nonnull String description) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
     this.description = description;
   }
 
-  public AssertionResult errorMessage(@javax.annotation.Nonnull String errorMessage) {
+  public AssertionResult errorMessage(@jakarta.annotation.Nullable String errorMessage) {
     
     this.errorMessage = errorMessage;
     return this;
@@ -228,9 +215,8 @@ public class AssertionResult {
    * Get errorMessage
    * @return errorMessage
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ERROR_MESSAGE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ERROR_MESSAGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getErrorMessage() {
     return errorMessage;
@@ -238,8 +224,8 @@ public class AssertionResult {
 
 
   @JsonProperty(JSON_PROPERTY_ERROR_MESSAGE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setErrorMessage(@javax.annotation.Nonnull String errorMessage) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setErrorMessage(@jakarta.annotation.Nullable String errorMessage) {
     this.errorMessage = errorMessage;
   }
 

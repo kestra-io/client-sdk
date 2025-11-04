@@ -36,20 +36,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   DashboardControllerPreviewRequest.JSON_PROPERTY_GLOBAL_FILTER
 })
 @JsonTypeName("DashboardController.PreviewRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class DashboardControllerPreviewRequest {
   public static final String JSON_PROPERTY_CHART = "chart";
-  @javax.annotation.Nonnull
-  private String chart;
+  @jakarta.annotation.Nonnull  private String chart;
 
   public static final String JSON_PROPERTY_GLOBAL_FILTER = "globalFilter";
-  @javax.annotation.Nullable
-  private JsonNullable<ChartFiltersOverrides> globalFilter = JsonNullable.<ChartFiltersOverrides>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<ChartFiltersOverrides> globalFilter = JsonNullable.<ChartFiltersOverrides>undefined();
 
   public DashboardControllerPreviewRequest() {
   }
 
-  public DashboardControllerPreviewRequest chart(@javax.annotation.Nonnull String chart) {
+  public DashboardControllerPreviewRequest chart(@jakarta.annotation.Nonnull String chart) {
     
     this.chart = chart;
     return this;
@@ -59,8 +57,7 @@ public class DashboardControllerPreviewRequest {
    * Get chart
    * @return chart
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_CHART)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_CHART)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getChart() {
@@ -70,11 +67,11 @@ public class DashboardControllerPreviewRequest {
 
   @JsonProperty(JSON_PROPERTY_CHART)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setChart(@javax.annotation.Nonnull String chart) {
+  public void setChart(@jakarta.annotation.Nonnull String chart) {
     this.chart = chart;
   }
 
-  public DashboardControllerPreviewRequest globalFilter(@javax.annotation.Nullable ChartFiltersOverrides globalFilter) {
+  public DashboardControllerPreviewRequest globalFilter(@jakarta.annotation.Nullable ChartFiltersOverrides globalFilter) {
     this.globalFilter = JsonNullable.<ChartFiltersOverrides>of(globalFilter);
     
     return this;
@@ -84,8 +81,7 @@ public class DashboardControllerPreviewRequest {
    * Get globalFilter
    * @return globalFilter
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public ChartFiltersOverrides getGlobalFilter() {
         return globalFilter.orElse(null);
@@ -93,7 +89,6 @@ public class DashboardControllerPreviewRequest {
 
   @JsonProperty(JSON_PROPERTY_GLOBAL_FILTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<ChartFiltersOverrides> getGlobalFilter_JsonNullable() {
     return globalFilter;
   }
@@ -103,7 +98,7 @@ public class DashboardControllerPreviewRequest {
     this.globalFilter = globalFilter;
   }
 
-  public void setGlobalFilter(@javax.annotation.Nullable ChartFiltersOverrides globalFilter) {
+  public void setGlobalFilter(@jakarta.annotation.Nullable ChartFiltersOverrides globalFilter) {
     this.globalFilter = JsonNullable.<ChartFiltersOverrides>of(globalFilter);
   }
 

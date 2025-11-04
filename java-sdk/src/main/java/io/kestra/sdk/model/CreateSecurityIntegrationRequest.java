@@ -32,24 +32,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CreateSecurityIntegrationRequest.JSON_PROPERTY_DESCRIPTION,
   CreateSecurityIntegrationRequest.JSON_PROPERTY_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class CreateSecurityIntegrationRequest {
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nonnull
-  private String name;
+  @jakarta.annotation.Nonnull  private String name;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nonnull
-  private String description;
+  @jakarta.annotation.Nonnull  private String description;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nonnull
-  private SecurityIntegrationType type;
+  @jakarta.annotation.Nonnull  private SecurityIntegrationType type;
 
   public CreateSecurityIntegrationRequest() {
   }
 
-  public CreateSecurityIntegrationRequest name(@javax.annotation.Nonnull String name) {
+  public CreateSecurityIntegrationRequest name(@jakarta.annotation.Nonnull String name) {
     
     this.name = name;
     return this;
@@ -59,8 +56,7 @@ public class CreateSecurityIntegrationRequest {
    * The name of security integration.
    * @return name
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getName() {
@@ -70,11 +66,11 @@ public class CreateSecurityIntegrationRequest {
 
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setName(@javax.annotation.Nonnull String name) {
+  public void setName(@jakarta.annotation.Nonnull String name) {
     this.name = name;
   }
 
-  public CreateSecurityIntegrationRequest description(@javax.annotation.Nonnull String description) {
+  public CreateSecurityIntegrationRequest description(@jakarta.annotation.Nonnull String description) {
     
     this.description = description;
     return this;
@@ -84,8 +80,7 @@ public class CreateSecurityIntegrationRequest {
    * The description of security integration.
    * @return description
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getDescription() {
@@ -95,11 +90,11 @@ public class CreateSecurityIntegrationRequest {
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDescription(@javax.annotation.Nonnull String description) {
+  public void setDescription(@jakarta.annotation.Nonnull String description) {
     this.description = description;
   }
 
-  public CreateSecurityIntegrationRequest type(@javax.annotation.Nonnull SecurityIntegrationType type) {
+  public CreateSecurityIntegrationRequest type(@jakarta.annotation.Nonnull SecurityIntegrationType type) {
     
     this.type = type;
     return this;
@@ -109,8 +104,7 @@ public class CreateSecurityIntegrationRequest {
    * Get type
    * @return type
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public SecurityIntegrationType getType() {
@@ -120,7 +114,7 @@ public class CreateSecurityIntegrationRequest {
 
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setType(@javax.annotation.Nonnull SecurityIntegrationType type) {
+  public void setType(@jakarta.annotation.Nonnull SecurityIntegrationType type) {
     this.type = type;
   }
 

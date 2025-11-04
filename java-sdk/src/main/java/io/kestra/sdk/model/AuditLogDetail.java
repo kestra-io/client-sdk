@@ -34,28 +34,24 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AuditLogDetail.JSON_PROPERTY_TYPE,
   AuditLogDetail.JSON_PROPERTY_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AuditLogDetail {
   public static final String JSON_PROPERTY_PERMISSION = "permission";
-  @javax.annotation.Nullable
-  private Permission permission;
+  @jakarta.annotation.Nullable  private Permission permission;
 
   public static final String JSON_PROPERTY_RESOURCE_TYPE = "resourceType";
-  @javax.annotation.Nullable
-  private ResourceType1 resourceType;
+  @jakarta.annotation.Nullable  private ResourceType1 resourceType;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nonnull
-  private String type;
+  @jakarta.annotation.Nonnull  private String type;
 
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
-  private String id;
+  @jakarta.annotation.Nullable  private String id;
 
   public AuditLogDetail() {
   }
 
-  public AuditLogDetail permission(@javax.annotation.Nullable Permission permission) {
+  public AuditLogDetail permission(@jakarta.annotation.Nullable Permission permission) {
     
     this.permission = permission;
     return this;
@@ -65,8 +61,7 @@ public class AuditLogDetail {
    * Get permission
    * @return permission
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PERMISSION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PERMISSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Permission getPermission() {
@@ -76,11 +71,11 @@ public class AuditLogDetail {
 
   @JsonProperty(JSON_PROPERTY_PERMISSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPermission(@javax.annotation.Nullable Permission permission) {
+  public void setPermission(@jakarta.annotation.Nullable Permission permission) {
     this.permission = permission;
   }
 
-  public AuditLogDetail resourceType(@javax.annotation.Nullable ResourceType1 resourceType) {
+  public AuditLogDetail resourceType(@jakarta.annotation.Nullable ResourceType1 resourceType) {
     
     this.resourceType = resourceType;
     return this;
@@ -90,8 +85,7 @@ public class AuditLogDetail {
    * Get resourceType
    * @return resourceType
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ResourceType1 getResourceType() {
@@ -101,11 +95,11 @@ public class AuditLogDetail {
 
   @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setResourceType(@javax.annotation.Nullable ResourceType1 resourceType) {
+  public void setResourceType(@jakarta.annotation.Nullable ResourceType1 resourceType) {
     this.resourceType = resourceType;
   }
 
-  public AuditLogDetail type(@javax.annotation.Nonnull String type) {
+  public AuditLogDetail type(@jakarta.annotation.Nonnull String type) {
     
     this.type = type;
     return this;
@@ -115,8 +109,7 @@ public class AuditLogDetail {
    * Get type
    * @return type
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getType() {
@@ -126,11 +119,11 @@ public class AuditLogDetail {
 
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setType(@javax.annotation.Nonnull String type) {
+  public void setType(@jakarta.annotation.Nonnull String type) {
     this.type = type;
   }
 
-  public AuditLogDetail id(@javax.annotation.Nullable String id) {
+  public AuditLogDetail id(@jakarta.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -140,8 +133,7 @@ public class AuditLogDetail {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -151,7 +143,7 @@ public class AuditLogDetail {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  public void setId(@jakarta.annotation.Nullable String id) {
     this.id = id;
   }
 

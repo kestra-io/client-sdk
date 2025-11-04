@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**nodes** | [**[FlowNode]**](FlowNode.md) |  | 
-**edges** | [**[FlowTopologyGraphEdge]**](FlowTopologyGraphEdge.md) |  | 
+**nodes** | [**[FlowNode]**](FlowNode.md) |  | [optional] 
+**edges** | [**[FlowTopologyGraphEdge]**](FlowTopologyGraphEdge.md) |  | [optional] 
 
 

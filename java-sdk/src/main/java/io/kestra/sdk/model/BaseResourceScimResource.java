@@ -33,16 +33,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   BaseResourceScimResource.JSON_PROPERTY_SCHEMAS
 })
 @JsonTypeName("BaseResource_ScimResource_")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class BaseResourceScimResource {
   public static final String JSON_PROPERTY_SCHEMAS = "schemas";
-  @javax.annotation.Nullable
-  private List<String> schemas = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> schemas = new ArrayList<>();
 
   public BaseResourceScimResource() {
   }
 
-  public BaseResourceScimResource schemas(@javax.annotation.Nullable List<String> schemas) {
+  public BaseResourceScimResource schemas(@jakarta.annotation.Nullable List<String> schemas) {
     
     this.schemas = schemas;
     return this;
@@ -60,8 +59,7 @@ public class BaseResourceScimResource {
    * Get schemas
    * @return schemas
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SCHEMAS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SCHEMAS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getSchemas() {
@@ -71,7 +69,7 @@ public class BaseResourceScimResource {
 
   @JsonProperty(JSON_PROPERTY_SCHEMAS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSchemas(@javax.annotation.Nullable List<String> schemas) {
+  public void setSchemas(@jakarta.annotation.Nullable List<String> schemas) {
     this.schemas = schemas;
   }
 

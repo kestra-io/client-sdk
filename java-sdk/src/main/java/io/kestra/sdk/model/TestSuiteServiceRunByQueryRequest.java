@@ -20,6 +20,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -32,26 +36,23 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TestSuiteServiceRunByQueryRequest.JSON_PROPERTY_INCLUDE_CHILD_NAMESPACES
 })
 @JsonTypeName("TestSuiteService.RunByQueryRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TestSuiteServiceRunByQueryRequest {
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nullable
-  private String namespace;
+  @jakarta.annotation.Nullable  private JsonNullable<String> namespace = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_FLOW_ID = "flowId";
-  @javax.annotation.Nullable
-  private String flowId;
+  @jakarta.annotation.Nullable  private JsonNullable<String> flowId = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_INCLUDE_CHILD_NAMESPACES = "includeChildNamespaces";
-  @javax.annotation.Nonnull
-  private Boolean includeChildNamespaces = true;
+  @jakarta.annotation.Nonnull  private Boolean includeChildNamespaces = true;
 
   public TestSuiteServiceRunByQueryRequest() {
   }
 
-  public TestSuiteServiceRunByQueryRequest namespace(@javax.annotation.Nullable String namespace) {
+  public TestSuiteServiceRunByQueryRequest namespace(@jakarta.annotation.Nullable String namespace) {
+    this.namespace = JsonNullable.<String>of(namespace);
     
-    this.namespace = namespace;
     return this;
   }
 
@@ -59,24 +60,30 @@ public class TestSuiteServiceRunByQueryRequest {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public String getNamespace() {
-    return namespace;
+        return namespace.orElse(null);
   }
 
-
   @JsonProperty(JSON_PROPERTY_NAMESPACE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setNamespace(@javax.annotation.Nullable String namespace) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<String> getNamespace_JsonNullable() {
+    return namespace;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  public void setNamespace_JsonNullable(JsonNullable<String> namespace) {
     this.namespace = namespace;
   }
 
-  public TestSuiteServiceRunByQueryRequest flowId(@javax.annotation.Nullable String flowId) {
+  public void setNamespace(@jakarta.annotation.Nullable String namespace) {
+    this.namespace = JsonNullable.<String>of(namespace);
+  }
+
+  public TestSuiteServiceRunByQueryRequest flowId(@jakarta.annotation.Nullable String flowId) {
+    this.flowId = JsonNullable.<String>of(flowId);
     
-    this.flowId = flowId;
     return this;
   }
 
@@ -84,22 +91,28 @@ public class TestSuiteServiceRunByQueryRequest {
    * Get flowId
    * @return flowId
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FLOW_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public String getFlowId() {
-    return flowId;
+        return flowId.orElse(null);
   }
 
-
   @JsonProperty(JSON_PROPERTY_FLOW_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFlowId(@javax.annotation.Nullable String flowId) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<String> getFlowId_JsonNullable() {
+    return flowId;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  public void setFlowId_JsonNullable(JsonNullable<String> flowId) {
     this.flowId = flowId;
   }
 
-  public TestSuiteServiceRunByQueryRequest includeChildNamespaces(@javax.annotation.Nonnull Boolean includeChildNamespaces) {
+  public void setFlowId(@jakarta.annotation.Nullable String flowId) {
+    this.flowId = JsonNullable.<String>of(flowId);
+  }
+
+  public TestSuiteServiceRunByQueryRequest includeChildNamespaces(@jakarta.annotation.Nonnull Boolean includeChildNamespaces) {
     
     this.includeChildNamespaces = includeChildNamespaces;
     return this;
@@ -109,8 +122,7 @@ public class TestSuiteServiceRunByQueryRequest {
    * Should child namespaces be included or not
    * @return includeChildNamespaces
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_INCLUDE_CHILD_NAMESPACES)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_INCLUDE_CHILD_NAMESPACES)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getIncludeChildNamespaces() {
@@ -120,7 +132,7 @@ public class TestSuiteServiceRunByQueryRequest {
 
   @JsonProperty(JSON_PROPERTY_INCLUDE_CHILD_NAMESPACES)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setIncludeChildNamespaces(@javax.annotation.Nonnull Boolean includeChildNamespaces) {
+  public void setIncludeChildNamespaces(@jakarta.annotation.Nonnull Boolean includeChildNamespaces) {
     this.includeChildNamespaces = includeChildNamespaces;
   }
 
@@ -133,14 +145,25 @@ public class TestSuiteServiceRunByQueryRequest {
       return false;
     }
     TestSuiteServiceRunByQueryRequest testSuiteServiceRunByQueryRequest = (TestSuiteServiceRunByQueryRequest) o;
-    return Objects.equals(this.namespace, testSuiteServiceRunByQueryRequest.namespace) &&
-        Objects.equals(this.flowId, testSuiteServiceRunByQueryRequest.flowId) &&
+    return equalsNullable(this.namespace, testSuiteServiceRunByQueryRequest.namespace) &&
+        equalsNullable(this.flowId, testSuiteServiceRunByQueryRequest.flowId) &&
         Objects.equals(this.includeChildNamespaces, testSuiteServiceRunByQueryRequest.includeChildNamespaces);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(namespace, flowId, includeChildNamespaces);
+    return Objects.hash(hashCodeNullable(namespace), hashCodeNullable(flowId), includeChildNamespaces);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override

@@ -32,24 +32,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MiscControllerBasicAuthCredentials.JSON_PROPERTY_PASSWORD
 })
 @JsonTypeName("MiscController.BasicAuthCredentials")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class MiscControllerBasicAuthCredentials {
   public static final String JSON_PROPERTY_UID = "uid";
-  @javax.annotation.Nonnull
-  private String uid;
+  @jakarta.annotation.Nullable  private String uid;
 
   public static final String JSON_PROPERTY_USERNAME = "username";
-  @javax.annotation.Nonnull
-  private String username;
+  @jakarta.annotation.Nullable  private String username;
 
   public static final String JSON_PROPERTY_PASSWORD = "password";
-  @javax.annotation.Nonnull
-  private String password;
+  @jakarta.annotation.Nullable  private String password;
 
   public MiscControllerBasicAuthCredentials() {
   }
 
-  public MiscControllerBasicAuthCredentials uid(@javax.annotation.Nonnull String uid) {
+  public MiscControllerBasicAuthCredentials uid(@jakarta.annotation.Nullable String uid) {
     
     this.uid = uid;
     return this;
@@ -59,9 +56,8 @@ public class MiscControllerBasicAuthCredentials {
    * Get uid
    * @return uid
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_UID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUid() {
     return uid;
@@ -69,12 +65,12 @@ public class MiscControllerBasicAuthCredentials {
 
 
   @JsonProperty(JSON_PROPERTY_UID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setUid(@javax.annotation.Nonnull String uid) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUid(@jakarta.annotation.Nullable String uid) {
     this.uid = uid;
   }
 
-  public MiscControllerBasicAuthCredentials username(@javax.annotation.Nonnull String username) {
+  public MiscControllerBasicAuthCredentials username(@jakarta.annotation.Nullable String username) {
     
     this.username = username;
     return this;
@@ -84,9 +80,8 @@ public class MiscControllerBasicAuthCredentials {
    * Get username
    * @return username
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_USERNAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_USERNAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUsername() {
     return username;
@@ -94,12 +89,12 @@ public class MiscControllerBasicAuthCredentials {
 
 
   @JsonProperty(JSON_PROPERTY_USERNAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setUsername(@javax.annotation.Nonnull String username) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUsername(@jakarta.annotation.Nullable String username) {
     this.username = username;
   }
 
-  public MiscControllerBasicAuthCredentials password(@javax.annotation.Nonnull String password) {
+  public MiscControllerBasicAuthCredentials password(@jakarta.annotation.Nullable String password) {
     
     this.password = password;
     return this;
@@ -109,9 +104,8 @@ public class MiscControllerBasicAuthCredentials {
    * Get password
    * @return password
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_PASSWORD)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PASSWORD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getPassword() {
     return password;
@@ -119,8 +113,8 @@ public class MiscControllerBasicAuthCredentials {
 
 
   @JsonProperty(JSON_PROPERTY_PASSWORD)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPassword(@javax.annotation.Nonnull String password) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPassword(@jakarta.annotation.Nullable String password) {
     this.password = password;
   }
 

@@ -38,32 +38,27 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Schema.JSON_PROPERTY_DESCRIPTION,
   Schema.JSON_PROPERTY_META
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Schema {
   public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
-  @javax.annotation.Nullable
-  private List<SchemaAttribute> attributes = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<SchemaAttribute> attributes = new ArrayList<>();
 
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
-  private String id;
+  @jakarta.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nullable
-  private String name;
+  @jakarta.annotation.Nullable  private String name;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
-  private String description;
+  @jakarta.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_META = "meta";
-  @javax.annotation.Nullable
-  private Meta meta;
+  @jakarta.annotation.Nullable  private Meta meta;
 
   public Schema() {
   }
 
-  public Schema attributes(@javax.annotation.Nullable List<SchemaAttribute> attributes) {
+  public Schema attributes(@jakarta.annotation.Nullable List<SchemaAttribute> attributes) {
     
     this.attributes = attributes;
     return this;
@@ -81,8 +76,7 @@ public class Schema {
    * Get attributes
    * @return attributes
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<SchemaAttribute> getAttributes() {
@@ -92,11 +86,11 @@ public class Schema {
 
   @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAttributes(@javax.annotation.Nullable List<SchemaAttribute> attributes) {
+  public void setAttributes(@jakarta.annotation.Nullable List<SchemaAttribute> attributes) {
     this.attributes = attributes;
   }
 
-  public Schema id(@javax.annotation.Nonnull String id) {
+  public Schema id(@jakarta.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -106,8 +100,7 @@ public class Schema {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -117,11 +110,11 @@ public class Schema {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(@javax.annotation.Nonnull String id) {
+  public void setId(@jakarta.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public Schema name(@javax.annotation.Nullable String name) {
+  public Schema name(@jakarta.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -131,8 +124,7 @@ public class Schema {
    * Get name
    * @return name
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
@@ -142,11 +134,11 @@ public class Schema {
 
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(@javax.annotation.Nullable String name) {
+  public void setName(@jakarta.annotation.Nullable String name) {
     this.name = name;
   }
 
-  public Schema description(@javax.annotation.Nullable String description) {
+  public Schema description(@jakarta.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -156,8 +148,7 @@ public class Schema {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -167,11 +158,11 @@ public class Schema {
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(@javax.annotation.Nullable String description) {
+  public void setDescription(@jakarta.annotation.Nullable String description) {
     this.description = description;
   }
 
-  public Schema meta(@javax.annotation.Nullable Meta meta) {
+  public Schema meta(@jakarta.annotation.Nullable Meta meta) {
     
     this.meta = meta;
     return this;
@@ -181,8 +172,7 @@ public class Schema {
    * Get meta
    * @return meta
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_META)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_META)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Meta getMeta() {
@@ -192,7 +182,7 @@ public class Schema {
 
   @JsonProperty(JSON_PROPERTY_META)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMeta(@javax.annotation.Nullable Meta meta) {
+  public void setMeta(@jakarta.annotation.Nullable Meta meta) {
     this.meta = meta;
   }
 

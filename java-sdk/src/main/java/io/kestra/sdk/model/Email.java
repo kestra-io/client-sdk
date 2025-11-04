@@ -31,24 +31,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Email.JSON_PROPERTY_VALUE,
   Email.JSON_PROPERTY_PRIMARY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Email {
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nullable
-  private String type;
+  @jakarta.annotation.Nullable  private String type;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nullable
-  private String value;
+  @jakarta.annotation.Nullable  private String value;
 
   public static final String JSON_PROPERTY_PRIMARY = "primary";
-  @javax.annotation.Nullable
-  private Boolean primary;
+  @jakarta.annotation.Nullable  private Boolean primary;
 
   public Email() {
   }
 
-  public Email type(@javax.annotation.Nullable String type) {
+  public Email type(@jakarta.annotation.Nullable String type) {
     
     this.type = type;
     return this;
@@ -58,8 +55,7 @@ public class Email {
    * Get type
    * @return type
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getType() {
@@ -69,11 +65,11 @@ public class Email {
 
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setType(@javax.annotation.Nullable String type) {
+  public void setType(@jakarta.annotation.Nullable String type) {
     this.type = type;
   }
 
-  public Email value(@javax.annotation.Nullable String value) {
+  public Email value(@jakarta.annotation.Nullable String value) {
     
     this.value = value;
     return this;
@@ -83,8 +79,7 @@ public class Email {
    * Get value
    * @return value
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_VALUE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getValue() {
@@ -94,11 +89,11 @@ public class Email {
 
   @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setValue(@javax.annotation.Nullable String value) {
+  public void setValue(@jakarta.annotation.Nullable String value) {
     this.value = value;
   }
 
-  public Email primary(@javax.annotation.Nullable Boolean primary) {
+  public Email primary(@jakarta.annotation.Nullable Boolean primary) {
     
     this.primary = primary;
     return this;
@@ -108,8 +103,7 @@ public class Email {
    * Get primary
    * @return primary
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PRIMARY)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PRIMARY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getPrimary() {
@@ -119,7 +113,7 @@ public class Email {
 
   @JsonProperty(JSON_PROPERTY_PRIMARY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPrimary(@javax.annotation.Nullable Boolean primary) {
+  public void setPrimary(@jakarta.annotation.Nullable Boolean primary) {
     this.primary = primary;
   }
 

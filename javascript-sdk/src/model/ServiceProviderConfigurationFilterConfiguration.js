@@ -17,7 +17,7 @@ import ServiceProviderConfigurationSupportedConfiguration from './ServiceProvide
 /**
  * The ServiceProviderConfigurationFilterConfiguration model module.
  * @module model/ServiceProviderConfigurationFilterConfiguration
- * @version 1.0.0
+ * @version v1.0.5
  */
 class ServiceProviderConfigurationFilterConfiguration {
     /**

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**resource** | [**ResourceType1**](ResourceType1.md) |  | 
+**resource** | [**ResourceType1**](ResourceType1.md) |  | [optional] 
 **type** | [**CrudEventType**](CrudEventType.md) |  | [optional] 
-**detail** | **{String: Object}** |  | 
+**detail** | **{String: Object}** |  | [optional] 
 
 

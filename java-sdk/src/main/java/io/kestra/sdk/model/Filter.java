@@ -30,20 +30,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Filter.JSON_PROPERTY_FILTER,
   Filter.JSON_PROPERTY_EXPRESSION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Filter {
   public static final String JSON_PROPERTY_FILTER = "filter";
-  @javax.annotation.Nonnull
-  private String filter;
+  @jakarta.annotation.Nullable  private String filter;
 
   public static final String JSON_PROPERTY_EXPRESSION = "expression";
-  @javax.annotation.Nullable
-  private Object expression;
+  @jakarta.annotation.Nullable  private Object expression;
 
   public Filter() {
   }
 
-  public Filter filter(@javax.annotation.Nonnull String filter) {
+  public Filter filter(@jakarta.annotation.Nullable String filter) {
     
     this.filter = filter;
     return this;
@@ -53,9 +51,8 @@ public class Filter {
    * Get filter
    * @return filter
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FILTER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FILTER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFilter() {
     return filter;
@@ -63,12 +60,12 @@ public class Filter {
 
 
   @JsonProperty(JSON_PROPERTY_FILTER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFilter(@javax.annotation.Nonnull String filter) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFilter(@jakarta.annotation.Nullable String filter) {
     this.filter = filter;
   }
 
-  public Filter expression(@javax.annotation.Nullable Object expression) {
+  public Filter expression(@jakarta.annotation.Nullable Object expression) {
     
     this.expression = expression;
     return this;
@@ -78,8 +75,7 @@ public class Filter {
    * Get expression
    * @return expression
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_EXPRESSION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXPRESSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Object getExpression() {
@@ -89,7 +85,7 @@ public class Filter {
 
   @JsonProperty(JSON_PROPERTY_EXPRESSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExpression(@javax.annotation.Nullable Object expression) {
+  public void setExpression(@jakarta.annotation.Nullable Object expression) {
     this.expression = expression;
   }
 

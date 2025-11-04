@@ -35,32 +35,27 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   EventExecution.JSON_PROPERTY_RETRY
 })
 @JsonTypeName("Event_Execution_")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class EventExecution {
   public static final String JSON_PROPERTY_DATA = "data";
-  @javax.annotation.Nullable
-  private Execution data;
+  @jakarta.annotation.Nullable  private Execution data;
 
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
-  private String id;
+  @jakarta.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nullable
-  private String name;
+  @jakarta.annotation.Nullable  private String name;
 
   public static final String JSON_PROPERTY_COMMENT = "comment";
-  @javax.annotation.Nullable
-  private String comment;
+  @jakarta.annotation.Nullable  private String comment;
 
   public static final String JSON_PROPERTY_RETRY = "retry";
-  @javax.annotation.Nullable
-  private String retry;
+  @jakarta.annotation.Nullable  private String retry;
 
   public EventExecution() {
   }
 
-  public EventExecution data(@javax.annotation.Nullable Execution data) {
+  public EventExecution data(@jakarta.annotation.Nullable Execution data) {
     
     this.data = data;
     return this;
@@ -70,8 +65,7 @@ public class EventExecution {
    * Get data
    * @return data
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DATA)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Execution getData() {
@@ -81,11 +75,11 @@ public class EventExecution {
 
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setData(@javax.annotation.Nullable Execution data) {
+  public void setData(@jakarta.annotation.Nullable Execution data) {
     this.data = data;
   }
 
-  public EventExecution id(@javax.annotation.Nullable String id) {
+  public EventExecution id(@jakarta.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -95,8 +89,7 @@ public class EventExecution {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -106,11 +99,11 @@ public class EventExecution {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  public void setId(@jakarta.annotation.Nullable String id) {
     this.id = id;
   }
 
-  public EventExecution name(@javax.annotation.Nullable String name) {
+  public EventExecution name(@jakarta.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -120,8 +113,7 @@ public class EventExecution {
    * Get name
    * @return name
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
@@ -131,11 +123,11 @@ public class EventExecution {
 
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(@javax.annotation.Nullable String name) {
+  public void setName(@jakarta.annotation.Nullable String name) {
     this.name = name;
   }
 
-  public EventExecution comment(@javax.annotation.Nullable String comment) {
+  public EventExecution comment(@jakarta.annotation.Nullable String comment) {
     
     this.comment = comment;
     return this;
@@ -145,8 +137,7 @@ public class EventExecution {
    * Get comment
    * @return comment
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_COMMENT)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_COMMENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getComment() {
@@ -156,11 +147,11 @@ public class EventExecution {
 
   @JsonProperty(JSON_PROPERTY_COMMENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setComment(@javax.annotation.Nullable String comment) {
+  public void setComment(@jakarta.annotation.Nullable String comment) {
     this.comment = comment;
   }
 
-  public EventExecution retry(@javax.annotation.Nullable String retry) {
+  public EventExecution retry(@jakarta.annotation.Nullable String retry) {
     
     this.retry = retry;
     return this;
@@ -170,8 +161,7 @@ public class EventExecution {
    * Get retry
    * @return retry
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_RETRY)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RETRY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getRetry() {
@@ -181,7 +171,7 @@ public class EventExecution {
 
   @JsonProperty(JSON_PROPERTY_RETRY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRetry(@javax.annotation.Nullable String retry) {
+  public void setRetry(@jakarta.annotation.Nullable String retry) {
     this.retry = retry;
   }
 

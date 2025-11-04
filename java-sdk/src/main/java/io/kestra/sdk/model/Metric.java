@@ -38,36 +38,30 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Metric.JSON_PROPERTY_TAGS,
   Metric.JSON_PROPERTY_VALUE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Metric {
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nonnull
-  private String name;
+  @jakarta.annotation.Nullable  private String name;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nonnull
-  private String type;
+  @jakarta.annotation.Nullable  private String type;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nonnull
-  private String description;
+  @jakarta.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_BASE_UNIT = "baseUnit";
-  @javax.annotation.Nonnull
-  private String baseUnit;
+  @jakarta.annotation.Nullable  private String baseUnit;
 
   public static final String JSON_PROPERTY_TAGS = "tags";
-  @javax.annotation.Nonnull
-  private List<MetricTag> tags = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<MetricTag> tags = new ArrayList<>();
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nonnull
-  private Object value;
+  @jakarta.annotation.Nullable  private Object value;
 
   public Metric() {
   }
 
-  public Metric name(@javax.annotation.Nonnull String name) {
+  public Metric name(@jakarta.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -77,9 +71,8 @@ public class Metric {
    * Get name
    * @return name
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
     return name;
@@ -87,12 +80,12 @@ public class Metric {
 
 
   @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setName(@javax.annotation.Nonnull String name) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(@jakarta.annotation.Nullable String name) {
     this.name = name;
   }
 
-  public Metric type(@javax.annotation.Nonnull String type) {
+  public Metric type(@jakarta.annotation.Nullable String type) {
     
     this.type = type;
     return this;
@@ -102,9 +95,8 @@ public class Metric {
    * Get type
    * @return type
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getType() {
     return type;
@@ -112,12 +104,12 @@ public class Metric {
 
 
   @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setType(@javax.annotation.Nonnull String type) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(@jakarta.annotation.Nullable String type) {
     this.type = type;
   }
 
-  public Metric description(@javax.annotation.Nonnull String description) {
+  public Metric description(@jakarta.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -127,9 +119,8 @@ public class Metric {
    * Get description
    * @return description
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
     return description;
@@ -137,12 +128,12 @@ public class Metric {
 
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDescription(@javax.annotation.Nonnull String description) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
     this.description = description;
   }
 
-  public Metric baseUnit(@javax.annotation.Nonnull String baseUnit) {
+  public Metric baseUnit(@jakarta.annotation.Nullable String baseUnit) {
     
     this.baseUnit = baseUnit;
     return this;
@@ -152,9 +143,8 @@ public class Metric {
    * Get baseUnit
    * @return baseUnit
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_BASE_UNIT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_BASE_UNIT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getBaseUnit() {
     return baseUnit;
@@ -162,12 +152,12 @@ public class Metric {
 
 
   @JsonProperty(JSON_PROPERTY_BASE_UNIT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setBaseUnit(@javax.annotation.Nonnull String baseUnit) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setBaseUnit(@jakarta.annotation.Nullable String baseUnit) {
     this.baseUnit = baseUnit;
   }
 
-  public Metric tags(@javax.annotation.Nonnull List<MetricTag> tags) {
+  public Metric tags(@jakarta.annotation.Nullable List<MetricTag> tags) {
     
     this.tags = tags;
     return this;
@@ -185,9 +175,8 @@ public class Metric {
    * Get tags
    * @return tags
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TAGS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TAGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<MetricTag> getTags() {
     return tags;
@@ -195,12 +184,12 @@ public class Metric {
 
 
   @JsonProperty(JSON_PROPERTY_TAGS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTags(@javax.annotation.Nonnull List<MetricTag> tags) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTags(@jakarta.annotation.Nullable List<MetricTag> tags) {
     this.tags = tags;
   }
 
-  public Metric value(@javax.annotation.Nonnull Object value) {
+  public Metric value(@jakarta.annotation.Nullable Object value) {
     
     this.value = value;
     return this;
@@ -210,9 +199,8 @@ public class Metric {
    * Get value
    * @return value
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Object getValue() {
     return value;
@@ -220,8 +208,8 @@ public class Metric {
 
 
   @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setValue(@javax.annotation.Nonnull Object value) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setValue(@jakarta.annotation.Nullable Object value) {
     this.value = value;
   }
 

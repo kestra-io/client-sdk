@@ -35,20 +35,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   QueryFilterResourceField.JSON_PROPERTY_FIELDS
 })
 @JsonTypeName("QueryFilter.ResourceField")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class QueryFilterResourceField {
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nonnull
-  private String name;
+  @jakarta.annotation.Nullable  private String name;
 
   public static final String JSON_PROPERTY_FIELDS = "fields";
-  @javax.annotation.Nonnull
-  private List<QueryFilterFieldOp> fields = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<QueryFilterFieldOp> fields = new ArrayList<>();
 
   public QueryFilterResourceField() {
   }
 
-  public QueryFilterResourceField name(@javax.annotation.Nonnull String name) {
+  public QueryFilterResourceField name(@jakarta.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -58,9 +56,8 @@ public class QueryFilterResourceField {
    * Get name
    * @return name
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
     return name;
@@ -68,12 +65,12 @@ public class QueryFilterResourceField {
 
 
   @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setName(@javax.annotation.Nonnull String name) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(@jakarta.annotation.Nullable String name) {
     this.name = name;
   }
 
-  public QueryFilterResourceField fields(@javax.annotation.Nonnull List<QueryFilterFieldOp> fields) {
+  public QueryFilterResourceField fields(@jakarta.annotation.Nullable List<QueryFilterFieldOp> fields) {
     
     this.fields = fields;
     return this;
@@ -91,9 +88,8 @@ public class QueryFilterResourceField {
    * Get fields
    * @return fields
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FIELDS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FIELDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<QueryFilterFieldOp> getFields() {
     return fields;
@@ -101,8 +97,8 @@ public class QueryFilterResourceField {
 
 
   @JsonProperty(JSON_PROPERTY_FIELDS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFields(@javax.annotation.Nonnull List<QueryFilterFieldOp> fields) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFields(@jakarta.annotation.Nullable List<QueryFilterFieldOp> fields) {
     this.fields = fields;
   }
 

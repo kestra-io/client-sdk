@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The AuthControllerAuth model module.
  * @module model/AuthControllerAuth
- * @version 1.0.0
+ * @version v1.0.5
  */
 class AuthControllerAuth {
     /**
@@ -53,6 +53,9 @@ class AuthControllerAuth {
             if (data.hasOwnProperty('mailsEnabled')) {
                 obj['mailsEnabled'] = ApiClient.convertToType(data['mailsEnabled'], 'Boolean');
             }
+            if (data.hasOwnProperty('passwordless')) {
+                obj['passwordless'] = ApiClient.convertToType(data['passwordless'], 'Boolean');
+            }
             if (data.hasOwnProperty('oauths')) {
                 obj['oauths'] = ApiClient.convertToType(data['oauths'], ['String']);
             }
@@ -88,6 +91,11 @@ AuthControllerAuth.prototype['loginPassword'] = undefined;
  * @member {Boolean} mailsEnabled
  */
 AuthControllerAuth.prototype['mailsEnabled'] = undefined;
+
+/**
+ * @member {Boolean} passwordless
+ */
+AuthControllerAuth.prototype['passwordless'] = undefined;
 
 /**
  * @member {Array.<String>} oauths

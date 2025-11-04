@@ -16,18 +16,16 @@ import ApiClient from '../ApiClient';
 /**
  * The AppsControllerApiBulkImportResponseError model module.
  * @module model/AppsControllerApiBulkImportResponseError
- * @version 1.0.0
+ * @version v1.0.5
  */
 class AppsControllerApiBulkImportResponseError {
     /**
      * Constructs a new <code>AppsControllerApiBulkImportResponseError</code>.
      * @alias module:model/AppsControllerApiBulkImportResponseError
-     * @param source {String} 
-     * @param message {String} 
      */
-    constructor(source, message) { 
+    constructor() { 
         
-        AppsControllerApiBulkImportResponseError.initialize(this, source, message);
+        AppsControllerApiBulkImportResponseError.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class AppsControllerApiBulkImportResponseError {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, source, message) { 
-        obj['source'] = source;
-        obj['message'] = message;
+    static initialize(obj) { 
     }
 
     /**
@@ -67,12 +63,6 @@ class AppsControllerApiBulkImportResponseError {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>AppsControllerApiBulkImportResponseError</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of AppsControllerApiBulkImportResponseError.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['source'] && !(typeof data['source'] === 'string' || data['source'] instanceof String)) {
             throw new Error("Expected the field `source` to be a primitive type in the JSON string but got " + data['source']);
@@ -88,7 +78,7 @@ class AppsControllerApiBulkImportResponseError {
 
 }
 
-AppsControllerApiBulkImportResponseError.RequiredProperties = ["source", "message"];
+
 
 /**
  * @member {String} source

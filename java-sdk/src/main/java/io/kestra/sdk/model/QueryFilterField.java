@@ -56,7 +56,9 @@ public enum QueryFilterField {
   
   EXISTING_ONLY("EXISTING_ONLY"),
   
-  MIN_LEVEL("MIN_LEVEL");
+  MIN_LEVEL("MIN_LEVEL"),
+  
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;
 
@@ -81,7 +83,7 @@ public enum QueryFilterField {
         return b;
       }
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    return UNKNOWN_DEFAULT_OPEN_API;
   }
 }
 

@@ -17,18 +17,16 @@ import KVType from './KVType';
 /**
  * The KVControllerTypedValue model module.
  * @module model/KVControllerTypedValue
- * @version 1.0.0
+ * @version v1.0.5
  */
 class KVControllerTypedValue {
     /**
      * Constructs a new <code>KVControllerTypedValue</code>.
      * @alias module:model/KVControllerTypedValue
-     * @param type {module:model/KVType} 
-     * @param value {Object} 
      */
-    constructor(type, value) { 
+    constructor() { 
         
-        KVControllerTypedValue.initialize(this, type, value);
+        KVControllerTypedValue.initialize(this);
     }
 
     /**
@@ -36,9 +34,7 @@ class KVControllerTypedValue {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, type, value) { 
-        obj['type'] = type;
-        obj['value'] = value;
+    static initialize(obj) { 
     }
 
     /**
@@ -68,12 +64,6 @@ class KVControllerTypedValue {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>KVControllerTypedValue</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of KVControllerTypedValue.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
 
         return true;
     }
@@ -81,7 +71,7 @@ class KVControllerTypedValue {
 
 }
 
-KVControllerTypedValue.RequiredProperties = ["type", "value"];
+
 
 /**
  * @member {module:model/KVType} type

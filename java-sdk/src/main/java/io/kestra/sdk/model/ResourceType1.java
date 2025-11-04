@@ -32,6 +32,8 @@ public enum ResourceType1 {
   
   APP_EXECUTION("APP_EXECUTION"),
   
+  BLUEPRINT("BLUEPRINT"),
+  
   BINDING("BINDING"),
   
   DASHBOARD("DASHBOARD"),
@@ -40,11 +42,15 @@ public enum ResourceType1 {
   
   FLOW("FLOW"),
   
+  KV_STORE("KV_STORE"),
+  
   GROUP("GROUP"),
   
   INVITATION("INVITATION"),
   
   NAMESPACE("NAMESPACE"),
+  
+  NAMESPACE_FILE("NAMESPACE_FILE"),
   
   ROLE("ROLE"),
   
@@ -55,6 +61,8 @@ public enum ResourceType1 {
   SETTING("SETTING"),
   
   TEMPLATE("TEMPLATE"),
+  
+  TRIGGER("TRIGGER"),
   
   TENANT("TENANT"),
   
@@ -72,7 +80,9 @@ public enum ResourceType1 {
   
   INSTANCE("INSTANCE"),
   
-  UNKNOWN("UNKNOWN");
+  UNKNOWN("UNKNOWN"),
+  
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;
 
@@ -97,7 +107,7 @@ public enum ResourceType1 {
         return b;
       }
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    return UNKNOWN_DEFAULT_OPEN_API;
   }
 }
 

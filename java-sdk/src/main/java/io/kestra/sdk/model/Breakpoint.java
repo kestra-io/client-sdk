@@ -34,20 +34,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Breakpoint.JSON_PROPERTY_ID,
   Breakpoint.JSON_PROPERTY_VALUE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Breakpoint {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
-  private String id;
+  @jakarta.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nullable
-  private JsonNullable<String> value = JsonNullable.<String>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<String> value = JsonNullable.<String>undefined();
 
   public Breakpoint() {
   }
 
-  public Breakpoint id(@javax.annotation.Nonnull String id) {
+  public Breakpoint id(@jakarta.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -57,8 +55,7 @@ public class Breakpoint {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -68,11 +65,11 @@ public class Breakpoint {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(@javax.annotation.Nonnull String id) {
+  public void setId(@jakarta.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public Breakpoint value(@javax.annotation.Nullable String value) {
+  public Breakpoint value(@jakarta.annotation.Nullable String value) {
     this.value = JsonNullable.<String>of(value);
     
     return this;
@@ -82,8 +79,7 @@ public class Breakpoint {
    * Get value
    * @return value
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public String getValue() {
         return value.orElse(null);
@@ -91,7 +87,6 @@ public class Breakpoint {
 
   @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<String> getValue_JsonNullable() {
     return value;
   }
@@ -101,7 +96,7 @@ public class Breakpoint {
     this.value = value;
   }
 
-  public void setValue(@javax.annotation.Nullable String value) {
+  public void setValue(@jakarta.annotation.Nullable String value) {
     this.value = JsonNullable.<String>of(value);
   }
 

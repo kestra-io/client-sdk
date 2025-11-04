@@ -35,20 +35,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PagedResultsTestSuiteRunResult.JSON_PROPERTY_TOTAL
 })
 @JsonTypeName("PagedResults_TestSuiteRunResult_")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PagedResultsTestSuiteRunResult {
   public static final String JSON_PROPERTY_RESULTS = "results";
-  @javax.annotation.Nonnull
-  private List<TestSuiteRunResult> results = new ArrayList<>();
+  @jakarta.annotation.Nonnull  private List<TestSuiteRunResult> results = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TOTAL = "total";
-  @javax.annotation.Nonnull
-  private Long total;
+  @jakarta.annotation.Nonnull  private Long total;
 
   public PagedResultsTestSuiteRunResult() {
   }
 
-  public PagedResultsTestSuiteRunResult results(@javax.annotation.Nonnull List<TestSuiteRunResult> results) {
+  public PagedResultsTestSuiteRunResult results(@jakarta.annotation.Nonnull List<TestSuiteRunResult> results) {
     
     this.results = results;
     return this;
@@ -66,8 +64,7 @@ public class PagedResultsTestSuiteRunResult {
    * Get results
    * @return results
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<TestSuiteRunResult> getResults() {
@@ -77,11 +74,11 @@ public class PagedResultsTestSuiteRunResult {
 
   @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setResults(@javax.annotation.Nonnull List<TestSuiteRunResult> results) {
+  public void setResults(@jakarta.annotation.Nonnull List<TestSuiteRunResult> results) {
     this.results = results;
   }
 
-  public PagedResultsTestSuiteRunResult total(@javax.annotation.Nonnull Long total) {
+  public PagedResultsTestSuiteRunResult total(@jakarta.annotation.Nonnull Long total) {
     
     this.total = total;
     return this;
@@ -91,8 +88,7 @@ public class PagedResultsTestSuiteRunResult {
    * Get total
    * @return total
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TOTAL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Long getTotal() {
@@ -102,7 +98,7 @@ public class PagedResultsTestSuiteRunResult {
 
   @JsonProperty(JSON_PROPERTY_TOTAL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTotal(@javax.annotation.Nonnull Long total) {
+  public void setTotal(@jakarta.annotation.Nonnull Long total) {
     this.total = total;
   }
 

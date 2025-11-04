@@ -32,24 +32,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ServiceProviderConfigurationBulkConfiguration.JSON_PROPERTY_MAX_PAYLOAD_SIZE
 })
 @JsonTypeName("ServiceProviderConfiguration.BulkConfiguration")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ServiceProviderConfigurationBulkConfiguration {
   public static final String JSON_PROPERTY_SUPPORTED = "supported";
-  @javax.annotation.Nullable
-  private Boolean supported;
+  @jakarta.annotation.Nullable  private Boolean supported;
 
   public static final String JSON_PROPERTY_MAX_OPERATIONS = "maxOperations";
-  @javax.annotation.Nullable
-  private Integer maxOperations;
+  @jakarta.annotation.Nullable  private Integer maxOperations;
 
   public static final String JSON_PROPERTY_MAX_PAYLOAD_SIZE = "maxPayloadSize";
-  @javax.annotation.Nullable
-  private Integer maxPayloadSize;
+  @jakarta.annotation.Nullable  private Integer maxPayloadSize;
 
   public ServiceProviderConfigurationBulkConfiguration() {
   }
 
-  public ServiceProviderConfigurationBulkConfiguration supported(@javax.annotation.Nullable Boolean supported) {
+  public ServiceProviderConfigurationBulkConfiguration supported(@jakarta.annotation.Nullable Boolean supported) {
     
     this.supported = supported;
     return this;
@@ -59,8 +56,7 @@ public class ServiceProviderConfigurationBulkConfiguration {
    * Get supported
    * @return supported
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SUPPORTED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPPORTED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getSupported() {
@@ -70,11 +66,11 @@ public class ServiceProviderConfigurationBulkConfiguration {
 
   @JsonProperty(JSON_PROPERTY_SUPPORTED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSupported(@javax.annotation.Nullable Boolean supported) {
+  public void setSupported(@jakarta.annotation.Nullable Boolean supported) {
     this.supported = supported;
   }
 
-  public ServiceProviderConfigurationBulkConfiguration maxOperations(@javax.annotation.Nullable Integer maxOperations) {
+  public ServiceProviderConfigurationBulkConfiguration maxOperations(@jakarta.annotation.Nullable Integer maxOperations) {
     
     this.maxOperations = maxOperations;
     return this;
@@ -84,8 +80,7 @@ public class ServiceProviderConfigurationBulkConfiguration {
    * Get maxOperations
    * @return maxOperations
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_MAX_OPERATIONS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MAX_OPERATIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getMaxOperations() {
@@ -95,11 +90,11 @@ public class ServiceProviderConfigurationBulkConfiguration {
 
   @JsonProperty(JSON_PROPERTY_MAX_OPERATIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMaxOperations(@javax.annotation.Nullable Integer maxOperations) {
+  public void setMaxOperations(@jakarta.annotation.Nullable Integer maxOperations) {
     this.maxOperations = maxOperations;
   }
 
-  public ServiceProviderConfigurationBulkConfiguration maxPayloadSize(@javax.annotation.Nullable Integer maxPayloadSize) {
+  public ServiceProviderConfigurationBulkConfiguration maxPayloadSize(@jakarta.annotation.Nullable Integer maxPayloadSize) {
     
     this.maxPayloadSize = maxPayloadSize;
     return this;
@@ -109,8 +104,7 @@ public class ServiceProviderConfigurationBulkConfiguration {
    * Get maxPayloadSize
    * @return maxPayloadSize
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_MAX_PAYLOAD_SIZE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MAX_PAYLOAD_SIZE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getMaxPayloadSize() {
@@ -120,7 +114,7 @@ public class ServiceProviderConfigurationBulkConfiguration {
 
   @JsonProperty(JSON_PROPERTY_MAX_PAYLOAD_SIZE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMaxPayloadSize(@javax.annotation.Nullable Integer maxPayloadSize) {
+  public void setMaxPayloadSize(@jakarta.annotation.Nullable Integer maxPayloadSize) {
     this.maxPayloadSize = maxPayloadSize;
   }
 

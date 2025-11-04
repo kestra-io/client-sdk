@@ -54,72 +54,57 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ServiceProviderConfiguration.JSON_PROPERTY_ETAG,
   ServiceProviderConfiguration.JSON_PROPERTY_AUTHENTICATION_SCHEMES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ServiceProviderConfiguration {
   public static final String JSON_PROPERTY_SCHEMAS = "schemas";
-  @javax.annotation.Nullable
-  private List<String> schemas = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> schemas = new ArrayList<>();
 
   public static final String JSON_PROPERTY_BASE_URN = "baseUrn";
-  @javax.annotation.Nullable
-  private String baseUrn;
+  @jakarta.annotation.Nullable  private String baseUrn;
 
   public static final String JSON_PROPERTY_EXTENSIONS = "extensions";
-  @javax.annotation.Nullable
-  private Map<String, ScimExtension> extensions = new HashMap<>();
+  @jakarta.annotation.Nullable  private Map<String, ScimExtension> extensions = new HashMap<>();
 
   public static final String JSON_PROPERTY_META = "meta";
-  @javax.annotation.Nonnull
-  private Meta meta;
+  @jakarta.annotation.Nonnull  private Meta meta;
 
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
-  private String id;
+  @jakarta.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_EXTERNAL_ID = "externalId";
-  @javax.annotation.Nullable
-  private String externalId;
+  @jakarta.annotation.Nullable  private String externalId;
 
   public static final String JSON_PROPERTY_RESOURCE_TYPE = "resourceType";
-  @javax.annotation.Nonnull
-  private String resourceType;
+  @jakarta.annotation.Nullable  private String resourceType;
 
   public static final String JSON_PROPERTY_DOCUMENTATION_URL = "documentationUrl";
-  @javax.annotation.Nullable
-  private String documentationUrl;
+  @jakarta.annotation.Nullable  private String documentationUrl;
 
   public static final String JSON_PROPERTY_PATCH = "patch";
-  @javax.annotation.Nullable
-  private ServiceProviderConfigurationSupportedConfiguration patch;
+  @jakarta.annotation.Nullable  private ServiceProviderConfigurationSupportedConfiguration patch;
 
   public static final String JSON_PROPERTY_BULK = "bulk";
-  @javax.annotation.Nullable
-  private ServiceProviderConfigurationBulkConfiguration bulk;
+  @jakarta.annotation.Nullable  private ServiceProviderConfigurationBulkConfiguration bulk;
 
   public static final String JSON_PROPERTY_FILTER = "filter";
-  @javax.annotation.Nullable
-  private ServiceProviderConfigurationFilterConfiguration filter;
+  @jakarta.annotation.Nullable  private ServiceProviderConfigurationFilterConfiguration filter;
 
   public static final String JSON_PROPERTY_CHANGE_PASSWORD = "changePassword";
-  @javax.annotation.Nullable
-  private ServiceProviderConfigurationSupportedConfiguration changePassword;
+  @jakarta.annotation.Nullable  private ServiceProviderConfigurationSupportedConfiguration changePassword;
 
   public static final String JSON_PROPERTY_SORT = "sort";
-  @javax.annotation.Nullable
-  private ServiceProviderConfigurationSupportedConfiguration sort;
+  @jakarta.annotation.Nullable  private ServiceProviderConfigurationSupportedConfiguration sort;
 
   public static final String JSON_PROPERTY_ETAG = "etag";
-  @javax.annotation.Nullable
-  private ServiceProviderConfigurationSupportedConfiguration etag;
+  @jakarta.annotation.Nullable  private ServiceProviderConfigurationSupportedConfiguration etag;
 
   public static final String JSON_PROPERTY_AUTHENTICATION_SCHEMES = "authenticationSchemes";
-  @javax.annotation.Nullable
-  private List<ServiceProviderConfigurationAuthenticationSchema> authenticationSchemes = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<ServiceProviderConfigurationAuthenticationSchema> authenticationSchemes = new ArrayList<>();
 
   public ServiceProviderConfiguration() {
   }
 
-  public ServiceProviderConfiguration schemas(@javax.annotation.Nullable List<String> schemas) {
+  public ServiceProviderConfiguration schemas(@jakarta.annotation.Nullable List<String> schemas) {
     
     this.schemas = schemas;
     return this;
@@ -137,8 +122,7 @@ public class ServiceProviderConfiguration {
    * Get schemas
    * @return schemas
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SCHEMAS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SCHEMAS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getSchemas() {
@@ -148,11 +132,11 @@ public class ServiceProviderConfiguration {
 
   @JsonProperty(JSON_PROPERTY_SCHEMAS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSchemas(@javax.annotation.Nullable List<String> schemas) {
+  public void setSchemas(@jakarta.annotation.Nullable List<String> schemas) {
     this.schemas = schemas;
   }
 
-  public ServiceProviderConfiguration baseUrn(@javax.annotation.Nullable String baseUrn) {
+  public ServiceProviderConfiguration baseUrn(@jakarta.annotation.Nullable String baseUrn) {
     
     this.baseUrn = baseUrn;
     return this;
@@ -162,8 +146,7 @@ public class ServiceProviderConfiguration {
    * Get baseUrn
    * @return baseUrn
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_BASE_URN)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_BASE_URN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getBaseUrn() {
@@ -173,11 +156,11 @@ public class ServiceProviderConfiguration {
 
   @JsonProperty(JSON_PROPERTY_BASE_URN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBaseUrn(@javax.annotation.Nullable String baseUrn) {
+  public void setBaseUrn(@jakarta.annotation.Nullable String baseUrn) {
     this.baseUrn = baseUrn;
   }
 
-  public ServiceProviderConfiguration extensions(@javax.annotation.Nullable Map<String, ScimExtension> extensions) {
+  public ServiceProviderConfiguration extensions(@jakarta.annotation.Nullable Map<String, ScimExtension> extensions) {
     
     this.extensions = extensions;
     return this;
@@ -195,8 +178,7 @@ public class ServiceProviderConfiguration {
    * Get extensions
    * @return extensions
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_EXTENSIONS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXTENSIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, ScimExtension> getExtensions() {
@@ -206,11 +188,11 @@ public class ServiceProviderConfiguration {
 
   @JsonProperty(JSON_PROPERTY_EXTENSIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExtensions(@javax.annotation.Nullable Map<String, ScimExtension> extensions) {
+  public void setExtensions(@jakarta.annotation.Nullable Map<String, ScimExtension> extensions) {
     this.extensions = extensions;
   }
 
-  public ServiceProviderConfiguration meta(@javax.annotation.Nonnull Meta meta) {
+  public ServiceProviderConfiguration meta(@jakarta.annotation.Nonnull Meta meta) {
     
     this.meta = meta;
     return this;
@@ -220,8 +202,7 @@ public class ServiceProviderConfiguration {
    * Get meta
    * @return meta
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_META)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_META)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Meta getMeta() {
@@ -231,11 +212,11 @@ public class ServiceProviderConfiguration {
 
   @JsonProperty(JSON_PROPERTY_META)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setMeta(@javax.annotation.Nonnull Meta meta) {
+  public void setMeta(@jakarta.annotation.Nonnull Meta meta) {
     this.meta = meta;
   }
 
-  public ServiceProviderConfiguration id(@javax.annotation.Nullable String id) {
+  public ServiceProviderConfiguration id(@jakarta.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -245,8 +226,7 @@ public class ServiceProviderConfiguration {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -256,11 +236,11 @@ public class ServiceProviderConfiguration {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  public void setId(@jakarta.annotation.Nullable String id) {
     this.id = id;
   }
 
-  public ServiceProviderConfiguration externalId(@javax.annotation.Nullable String externalId) {
+  public ServiceProviderConfiguration externalId(@jakarta.annotation.Nullable String externalId) {
     
     this.externalId = externalId;
     return this;
@@ -270,8 +250,7 @@ public class ServiceProviderConfiguration {
    * Get externalId
    * @return externalId
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getExternalId() {
@@ -281,11 +260,11 @@ public class ServiceProviderConfiguration {
 
   @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExternalId(@javax.annotation.Nullable String externalId) {
+  public void setExternalId(@jakarta.annotation.Nullable String externalId) {
     this.externalId = externalId;
   }
 
-  public ServiceProviderConfiguration resourceType(@javax.annotation.Nonnull String resourceType) {
+  public ServiceProviderConfiguration resourceType(@jakarta.annotation.Nullable String resourceType) {
     
     this.resourceType = resourceType;
     return this;
@@ -295,9 +274,8 @@ public class ServiceProviderConfiguration {
    * Get resourceType
    * @return resourceType
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getResourceType() {
     return resourceType;
@@ -305,12 +283,12 @@ public class ServiceProviderConfiguration {
 
 
   @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setResourceType(@javax.annotation.Nonnull String resourceType) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setResourceType(@jakarta.annotation.Nullable String resourceType) {
     this.resourceType = resourceType;
   }
 
-  public ServiceProviderConfiguration documentationUrl(@javax.annotation.Nullable String documentationUrl) {
+  public ServiceProviderConfiguration documentationUrl(@jakarta.annotation.Nullable String documentationUrl) {
     
     this.documentationUrl = documentationUrl;
     return this;
@@ -320,8 +298,7 @@ public class ServiceProviderConfiguration {
    * Get documentationUrl
    * @return documentationUrl
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DOCUMENTATION_URL)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DOCUMENTATION_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDocumentationUrl() {
@@ -331,11 +308,11 @@ public class ServiceProviderConfiguration {
 
   @JsonProperty(JSON_PROPERTY_DOCUMENTATION_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDocumentationUrl(@javax.annotation.Nullable String documentationUrl) {
+  public void setDocumentationUrl(@jakarta.annotation.Nullable String documentationUrl) {
     this.documentationUrl = documentationUrl;
   }
 
-  public ServiceProviderConfiguration patch(@javax.annotation.Nullable ServiceProviderConfigurationSupportedConfiguration patch) {
+  public ServiceProviderConfiguration patch(@jakarta.annotation.Nullable ServiceProviderConfigurationSupportedConfiguration patch) {
     
     this.patch = patch;
     return this;
@@ -345,8 +322,7 @@ public class ServiceProviderConfiguration {
    * Get patch
    * @return patch
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PATCH)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PATCH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServiceProviderConfigurationSupportedConfiguration getPatch() {
@@ -356,11 +332,11 @@ public class ServiceProviderConfiguration {
 
   @JsonProperty(JSON_PROPERTY_PATCH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPatch(@javax.annotation.Nullable ServiceProviderConfigurationSupportedConfiguration patch) {
+  public void setPatch(@jakarta.annotation.Nullable ServiceProviderConfigurationSupportedConfiguration patch) {
     this.patch = patch;
   }
 
-  public ServiceProviderConfiguration bulk(@javax.annotation.Nullable ServiceProviderConfigurationBulkConfiguration bulk) {
+  public ServiceProviderConfiguration bulk(@jakarta.annotation.Nullable ServiceProviderConfigurationBulkConfiguration bulk) {
     
     this.bulk = bulk;
     return this;
@@ -370,8 +346,7 @@ public class ServiceProviderConfiguration {
    * Get bulk
    * @return bulk
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_BULK)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_BULK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServiceProviderConfigurationBulkConfiguration getBulk() {
@@ -381,11 +356,11 @@ public class ServiceProviderConfiguration {
 
   @JsonProperty(JSON_PROPERTY_BULK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBulk(@javax.annotation.Nullable ServiceProviderConfigurationBulkConfiguration bulk) {
+  public void setBulk(@jakarta.annotation.Nullable ServiceProviderConfigurationBulkConfiguration bulk) {
     this.bulk = bulk;
   }
 
-  public ServiceProviderConfiguration filter(@javax.annotation.Nullable ServiceProviderConfigurationFilterConfiguration filter) {
+  public ServiceProviderConfiguration filter(@jakarta.annotation.Nullable ServiceProviderConfigurationFilterConfiguration filter) {
     
     this.filter = filter;
     return this;
@@ -395,8 +370,7 @@ public class ServiceProviderConfiguration {
    * Get filter
    * @return filter
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FILTER)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FILTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServiceProviderConfigurationFilterConfiguration getFilter() {
@@ -406,11 +380,11 @@ public class ServiceProviderConfiguration {
 
   @JsonProperty(JSON_PROPERTY_FILTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFilter(@javax.annotation.Nullable ServiceProviderConfigurationFilterConfiguration filter) {
+  public void setFilter(@jakarta.annotation.Nullable ServiceProviderConfigurationFilterConfiguration filter) {
     this.filter = filter;
   }
 
-  public ServiceProviderConfiguration changePassword(@javax.annotation.Nullable ServiceProviderConfigurationSupportedConfiguration changePassword) {
+  public ServiceProviderConfiguration changePassword(@jakarta.annotation.Nullable ServiceProviderConfigurationSupportedConfiguration changePassword) {
     
     this.changePassword = changePassword;
     return this;
@@ -420,8 +394,7 @@ public class ServiceProviderConfiguration {
    * Get changePassword
    * @return changePassword
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CHANGE_PASSWORD)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CHANGE_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServiceProviderConfigurationSupportedConfiguration getChangePassword() {
@@ -431,11 +404,11 @@ public class ServiceProviderConfiguration {
 
   @JsonProperty(JSON_PROPERTY_CHANGE_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setChangePassword(@javax.annotation.Nullable ServiceProviderConfigurationSupportedConfiguration changePassword) {
+  public void setChangePassword(@jakarta.annotation.Nullable ServiceProviderConfigurationSupportedConfiguration changePassword) {
     this.changePassword = changePassword;
   }
 
-  public ServiceProviderConfiguration sort(@javax.annotation.Nullable ServiceProviderConfigurationSupportedConfiguration sort) {
+  public ServiceProviderConfiguration sort(@jakarta.annotation.Nullable ServiceProviderConfigurationSupportedConfiguration sort) {
     
     this.sort = sort;
     return this;
@@ -445,8 +418,7 @@ public class ServiceProviderConfiguration {
    * Get sort
    * @return sort
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SORT)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SORT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServiceProviderConfigurationSupportedConfiguration getSort() {
@@ -456,11 +428,11 @@ public class ServiceProviderConfiguration {
 
   @JsonProperty(JSON_PROPERTY_SORT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSort(@javax.annotation.Nullable ServiceProviderConfigurationSupportedConfiguration sort) {
+  public void setSort(@jakarta.annotation.Nullable ServiceProviderConfigurationSupportedConfiguration sort) {
     this.sort = sort;
   }
 
-  public ServiceProviderConfiguration etag(@javax.annotation.Nullable ServiceProviderConfigurationSupportedConfiguration etag) {
+  public ServiceProviderConfiguration etag(@jakarta.annotation.Nullable ServiceProviderConfigurationSupportedConfiguration etag) {
     
     this.etag = etag;
     return this;
@@ -470,8 +442,7 @@ public class ServiceProviderConfiguration {
    * Get etag
    * @return etag
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ETAG)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ETAG)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServiceProviderConfigurationSupportedConfiguration getEtag() {
@@ -481,11 +452,11 @@ public class ServiceProviderConfiguration {
 
   @JsonProperty(JSON_PROPERTY_ETAG)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEtag(@javax.annotation.Nullable ServiceProviderConfigurationSupportedConfiguration etag) {
+  public void setEtag(@jakarta.annotation.Nullable ServiceProviderConfigurationSupportedConfiguration etag) {
     this.etag = etag;
   }
 
-  public ServiceProviderConfiguration authenticationSchemes(@javax.annotation.Nullable List<ServiceProviderConfigurationAuthenticationSchema> authenticationSchemes) {
+  public ServiceProviderConfiguration authenticationSchemes(@jakarta.annotation.Nullable List<ServiceProviderConfigurationAuthenticationSchema> authenticationSchemes) {
     
     this.authenticationSchemes = authenticationSchemes;
     return this;
@@ -503,8 +474,7 @@ public class ServiceProviderConfiguration {
    * Get authenticationSchemes
    * @return authenticationSchemes
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_AUTHENTICATION_SCHEMES)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_AUTHENTICATION_SCHEMES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<ServiceProviderConfigurationAuthenticationSchema> getAuthenticationSchemes() {
@@ -514,7 +484,7 @@ public class ServiceProviderConfiguration {
 
   @JsonProperty(JSON_PROPERTY_AUTHENTICATION_SCHEMES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAuthenticationSchemes(@javax.annotation.Nullable List<ServiceProviderConfigurationAuthenticationSchema> authenticationSchemes) {
+  public void setAuthenticationSchemes(@jakarta.annotation.Nullable List<ServiceProviderConfigurationAuthenticationSchema> authenticationSchemes) {
     this.authenticationSchemes = authenticationSchemes;
   }
 

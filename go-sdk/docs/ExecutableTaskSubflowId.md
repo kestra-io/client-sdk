@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Namespace** | **string** |  | 
-**FlowId** | **string** |  | 
+**Namespace** | Pointer to **string** |  | [optional] 
+**FlowId** | Pointer to **string** |  | [optional] 
 **Revision** | Pointer to **NullableInt32** |  | [optional] 
 
 ## Methods
 
 ### NewExecutableTaskSubflowId
 
-`func NewExecutableTaskSubflowId(namespace string, flowId string, ) *ExecutableTaskSubflowId`
+`func NewExecutableTaskSubflowId() *ExecutableTaskSubflowId`
 
 NewExecutableTaskSubflowId instantiates a new ExecutableTaskSubflowId object
 This constructor will assign default values to properties that have it defined,
@@ -46,6 +46,11 @@ and a boolean to check if the value has been set.
 
 SetNamespace sets Namespace field to given value.
 
+### HasNamespace
+
+`func (o *ExecutableTaskSubflowId) HasNamespace() bool`
+
+HasNamespace returns a boolean if a field has been set.
 
 ### GetFlowId
 
@@ -66,6 +71,11 @@ and a boolean to check if the value has been set.
 
 SetFlowId sets FlowId field to given value.
 
+### HasFlowId
+
+`func (o *ExecutableTaskSubflowId) HasFlowId() bool`
+
+HasFlowId returns a boolean if a field has been set.
 
 ### GetRevision
 

@@ -20,20 +20,20 @@ var _ MappedNullable = &ApiTenant{}
 
 // ApiTenant struct for ApiTenant
 type ApiTenant struct {
-	StorageIsolation         Isolation                         `json:"storageIsolation"`
-	SecretIsolation          Isolation                         `json:"secretIsolation"`
+	StorageIsolation         *Isolation                        `json:"storageIsolation,omitempty"`
+	SecretIsolation          *Isolation                        `json:"secretIsolation,omitempty"`
 	Id                       string                            `json:"id" validate:"regexp=^[a-z0-9][a-z0-9_-]*"`
 	Name                     string                            `json:"name"`
 	Deleted                  bool                              `json:"deleted"`
-	WorkerGroup              WorkerGroup                       `json:"workerGroup"`
-	StorageType              string                            `json:"storageType"`
-	StorageConfiguration     map[string]map[string]interface{} `json:"storageConfiguration"`
-	SecretType               string                            `json:"secretType"`
-	SecretReadOnly           bool                              `json:"secretReadOnly"`
-	SecretConfiguration      map[string]map[string]interface{} `json:"secretConfiguration"`
-	RequireExistingNamespace bool                              `json:"requireExistingNamespace"`
-	OutputsInInternalStorage bool                              `json:"outputsInInternalStorage"`
-	Logo                     string                            `json:"logo"`
+	WorkerGroup              *WorkerGroup                      `json:"workerGroup,omitempty"`
+	StorageType              *string                           `json:"storageType,omitempty"`
+	StorageConfiguration     map[string]map[string]interface{} `json:"storageConfiguration,omitempty"`
+	SecretType               *string                           `json:"secretType,omitempty"`
+	SecretReadOnly           *bool                             `json:"secretReadOnly,omitempty"`
+	SecretConfiguration      map[string]map[string]interface{} `json:"secretConfiguration,omitempty"`
+	RequireExistingNamespace *bool                             `json:"requireExistingNamespace,omitempty"`
+	OutputsInInternalStorage *bool                             `json:"outputsInInternalStorage,omitempty"`
+	Logo                     *string                           `json:"logo,omitempty"`
 	AdditionalProperties     map[string]interface{}
 }
 
@@ -43,22 +43,11 @@ type _ApiTenant ApiTenant
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewApiTenant(storageIsolation Isolation, secretIsolation Isolation, id string, name string, deleted bool, workerGroup WorkerGroup, storageType string, storageConfiguration map[string]map[string]interface{}, secretType string, secretReadOnly bool, secretConfiguration map[string]map[string]interface{}, requireExistingNamespace bool, outputsInInternalStorage bool, logo string) *ApiTenant {
+func NewApiTenant(id string, name string, deleted bool) *ApiTenant {
 	this := ApiTenant{}
-	this.StorageIsolation = storageIsolation
-	this.SecretIsolation = secretIsolation
 	this.Id = id
 	this.Name = name
 	this.Deleted = deleted
-	this.WorkerGroup = workerGroup
-	this.StorageType = storageType
-	this.StorageConfiguration = storageConfiguration
-	this.SecretType = secretType
-	this.SecretReadOnly = secretReadOnly
-	this.SecretConfiguration = secretConfiguration
-	this.RequireExistingNamespace = requireExistingNamespace
-	this.OutputsInInternalStorage = outputsInInternalStorage
-	this.Logo = logo
 	return &this
 }
 
@@ -70,52 +59,68 @@ func NewApiTenantWithDefaults() *ApiTenant {
 	return &this
 }
 
-// GetStorageIsolation returns the StorageIsolation field value
+// GetStorageIsolation returns the StorageIsolation field value if set, zero value otherwise.
 func (o *ApiTenant) GetStorageIsolation() Isolation {
-	if o == nil {
+	if o == nil || IsNil(o.StorageIsolation) {
 		var ret Isolation
 		return ret
 	}
-
-	return o.StorageIsolation
+	return *o.StorageIsolation
 }
 
-// GetStorageIsolationOk returns a tuple with the StorageIsolation field value
+// GetStorageIsolationOk returns a tuple with the StorageIsolation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiTenant) GetStorageIsolationOk() (*Isolation, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.StorageIsolation) {
 		return nil, false
 	}
-	return &o.StorageIsolation, true
+	return o.StorageIsolation, true
 }
 
-// SetStorageIsolation sets field value
+// HasStorageIsolation returns a boolean if a field has been set.
+func (o *ApiTenant) HasStorageIsolation() bool {
+	if o != nil && !IsNil(o.StorageIsolation) {
+		return true
+	}
+
+	return false
+}
+
+// SetStorageIsolation gets a reference to the given Isolation and assigns it to the StorageIsolation field.
 func (o *ApiTenant) SetStorageIsolation(v Isolation) {
-	o.StorageIsolation = v
+	o.StorageIsolation = &v
 }
 
-// GetSecretIsolation returns the SecretIsolation field value
+// GetSecretIsolation returns the SecretIsolation field value if set, zero value otherwise.
 func (o *ApiTenant) GetSecretIsolation() Isolation {
-	if o == nil {
+	if o == nil || IsNil(o.SecretIsolation) {
 		var ret Isolation
 		return ret
 	}
-
-	return o.SecretIsolation
+	return *o.SecretIsolation
 }
 
-// GetSecretIsolationOk returns a tuple with the SecretIsolation field value
+// GetSecretIsolationOk returns a tuple with the SecretIsolation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiTenant) GetSecretIsolationOk() (*Isolation, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.SecretIsolation) {
 		return nil, false
 	}
-	return &o.SecretIsolation, true
+	return o.SecretIsolation, true
 }
 
-// SetSecretIsolation sets field value
+// HasSecretIsolation returns a boolean if a field has been set.
+func (o *ApiTenant) HasSecretIsolation() bool {
+	if o != nil && !IsNil(o.SecretIsolation) {
+		return true
+	}
+
+	return false
+}
+
+// SetSecretIsolation gets a reference to the given Isolation and assigns it to the SecretIsolation field.
 func (o *ApiTenant) SetSecretIsolation(v Isolation) {
-	o.SecretIsolation = v
+	o.SecretIsolation = &v
 }
 
 // GetId returns the Id field value
@@ -190,220 +195,292 @@ func (o *ApiTenant) SetDeleted(v bool) {
 	o.Deleted = v
 }
 
-// GetWorkerGroup returns the WorkerGroup field value
+// GetWorkerGroup returns the WorkerGroup field value if set, zero value otherwise.
 func (o *ApiTenant) GetWorkerGroup() WorkerGroup {
-	if o == nil {
+	if o == nil || IsNil(o.WorkerGroup) {
 		var ret WorkerGroup
 		return ret
 	}
-
-	return o.WorkerGroup
+	return *o.WorkerGroup
 }
 
-// GetWorkerGroupOk returns a tuple with the WorkerGroup field value
+// GetWorkerGroupOk returns a tuple with the WorkerGroup field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiTenant) GetWorkerGroupOk() (*WorkerGroup, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.WorkerGroup) {
 		return nil, false
 	}
-	return &o.WorkerGroup, true
+	return o.WorkerGroup, true
 }
 
-// SetWorkerGroup sets field value
+// HasWorkerGroup returns a boolean if a field has been set.
+func (o *ApiTenant) HasWorkerGroup() bool {
+	if o != nil && !IsNil(o.WorkerGroup) {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkerGroup gets a reference to the given WorkerGroup and assigns it to the WorkerGroup field.
 func (o *ApiTenant) SetWorkerGroup(v WorkerGroup) {
-	o.WorkerGroup = v
+	o.WorkerGroup = &v
 }
 
-// GetStorageType returns the StorageType field value
+// GetStorageType returns the StorageType field value if set, zero value otherwise.
 func (o *ApiTenant) GetStorageType() string {
-	if o == nil {
+	if o == nil || IsNil(o.StorageType) {
 		var ret string
 		return ret
 	}
-
-	return o.StorageType
+	return *o.StorageType
 }
 
-// GetStorageTypeOk returns a tuple with the StorageType field value
+// GetStorageTypeOk returns a tuple with the StorageType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiTenant) GetStorageTypeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.StorageType) {
 		return nil, false
 	}
-	return &o.StorageType, true
+	return o.StorageType, true
 }
 
-// SetStorageType sets field value
+// HasStorageType returns a boolean if a field has been set.
+func (o *ApiTenant) HasStorageType() bool {
+	if o != nil && !IsNil(o.StorageType) {
+		return true
+	}
+
+	return false
+}
+
+// SetStorageType gets a reference to the given string and assigns it to the StorageType field.
 func (o *ApiTenant) SetStorageType(v string) {
-	o.StorageType = v
+	o.StorageType = &v
 }
 
-// GetStorageConfiguration returns the StorageConfiguration field value
+// GetStorageConfiguration returns the StorageConfiguration field value if set, zero value otherwise.
 func (o *ApiTenant) GetStorageConfiguration() map[string]map[string]interface{} {
-	if o == nil {
+	if o == nil || IsNil(o.StorageConfiguration) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
-
 	return o.StorageConfiguration
 }
 
-// GetStorageConfigurationOk returns a tuple with the StorageConfiguration field value
+// GetStorageConfigurationOk returns a tuple with the StorageConfiguration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiTenant) GetStorageConfigurationOk() (map[string]map[string]interface{}, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.StorageConfiguration) {
 		return map[string]map[string]interface{}{}, false
 	}
 	return o.StorageConfiguration, true
 }
 
-// SetStorageConfiguration sets field value
+// HasStorageConfiguration returns a boolean if a field has been set.
+func (o *ApiTenant) HasStorageConfiguration() bool {
+	if o != nil && !IsNil(o.StorageConfiguration) {
+		return true
+	}
+
+	return false
+}
+
+// SetStorageConfiguration gets a reference to the given map[string]map[string]interface{} and assigns it to the StorageConfiguration field.
 func (o *ApiTenant) SetStorageConfiguration(v map[string]map[string]interface{}) {
 	o.StorageConfiguration = v
 }
 
-// GetSecretType returns the SecretType field value
+// GetSecretType returns the SecretType field value if set, zero value otherwise.
 func (o *ApiTenant) GetSecretType() string {
-	if o == nil {
+	if o == nil || IsNil(o.SecretType) {
 		var ret string
 		return ret
 	}
-
-	return o.SecretType
+	return *o.SecretType
 }
 
-// GetSecretTypeOk returns a tuple with the SecretType field value
+// GetSecretTypeOk returns a tuple with the SecretType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiTenant) GetSecretTypeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.SecretType) {
 		return nil, false
 	}
-	return &o.SecretType, true
+	return o.SecretType, true
 }
 
-// SetSecretType sets field value
+// HasSecretType returns a boolean if a field has been set.
+func (o *ApiTenant) HasSecretType() bool {
+	if o != nil && !IsNil(o.SecretType) {
+		return true
+	}
+
+	return false
+}
+
+// SetSecretType gets a reference to the given string and assigns it to the SecretType field.
 func (o *ApiTenant) SetSecretType(v string) {
-	o.SecretType = v
+	o.SecretType = &v
 }
 
-// GetSecretReadOnly returns the SecretReadOnly field value
+// GetSecretReadOnly returns the SecretReadOnly field value if set, zero value otherwise.
 func (o *ApiTenant) GetSecretReadOnly() bool {
-	if o == nil {
+	if o == nil || IsNil(o.SecretReadOnly) {
 		var ret bool
 		return ret
 	}
-
-	return o.SecretReadOnly
+	return *o.SecretReadOnly
 }
 
-// GetSecretReadOnlyOk returns a tuple with the SecretReadOnly field value
+// GetSecretReadOnlyOk returns a tuple with the SecretReadOnly field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiTenant) GetSecretReadOnlyOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.SecretReadOnly) {
 		return nil, false
 	}
-	return &o.SecretReadOnly, true
+	return o.SecretReadOnly, true
 }
 
-// SetSecretReadOnly sets field value
+// HasSecretReadOnly returns a boolean if a field has been set.
+func (o *ApiTenant) HasSecretReadOnly() bool {
+	if o != nil && !IsNil(o.SecretReadOnly) {
+		return true
+	}
+
+	return false
+}
+
+// SetSecretReadOnly gets a reference to the given bool and assigns it to the SecretReadOnly field.
 func (o *ApiTenant) SetSecretReadOnly(v bool) {
-	o.SecretReadOnly = v
+	o.SecretReadOnly = &v
 }
 
-// GetSecretConfiguration returns the SecretConfiguration field value
+// GetSecretConfiguration returns the SecretConfiguration field value if set, zero value otherwise.
 func (o *ApiTenant) GetSecretConfiguration() map[string]map[string]interface{} {
-	if o == nil {
+	if o == nil || IsNil(o.SecretConfiguration) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
-
 	return o.SecretConfiguration
 }
 
-// GetSecretConfigurationOk returns a tuple with the SecretConfiguration field value
+// GetSecretConfigurationOk returns a tuple with the SecretConfiguration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiTenant) GetSecretConfigurationOk() (map[string]map[string]interface{}, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.SecretConfiguration) {
 		return map[string]map[string]interface{}{}, false
 	}
 	return o.SecretConfiguration, true
 }
 
-// SetSecretConfiguration sets field value
+// HasSecretConfiguration returns a boolean if a field has been set.
+func (o *ApiTenant) HasSecretConfiguration() bool {
+	if o != nil && !IsNil(o.SecretConfiguration) {
+		return true
+	}
+
+	return false
+}
+
+// SetSecretConfiguration gets a reference to the given map[string]map[string]interface{} and assigns it to the SecretConfiguration field.
 func (o *ApiTenant) SetSecretConfiguration(v map[string]map[string]interface{}) {
 	o.SecretConfiguration = v
 }
 
-// GetRequireExistingNamespace returns the RequireExistingNamespace field value
+// GetRequireExistingNamespace returns the RequireExistingNamespace field value if set, zero value otherwise.
 func (o *ApiTenant) GetRequireExistingNamespace() bool {
-	if o == nil {
+	if o == nil || IsNil(o.RequireExistingNamespace) {
 		var ret bool
 		return ret
 	}
-
-	return o.RequireExistingNamespace
+	return *o.RequireExistingNamespace
 }
 
-// GetRequireExistingNamespaceOk returns a tuple with the RequireExistingNamespace field value
+// GetRequireExistingNamespaceOk returns a tuple with the RequireExistingNamespace field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiTenant) GetRequireExistingNamespaceOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.RequireExistingNamespace) {
 		return nil, false
 	}
-	return &o.RequireExistingNamespace, true
+	return o.RequireExistingNamespace, true
 }
 
-// SetRequireExistingNamespace sets field value
+// HasRequireExistingNamespace returns a boolean if a field has been set.
+func (o *ApiTenant) HasRequireExistingNamespace() bool {
+	if o != nil && !IsNil(o.RequireExistingNamespace) {
+		return true
+	}
+
+	return false
+}
+
+// SetRequireExistingNamespace gets a reference to the given bool and assigns it to the RequireExistingNamespace field.
 func (o *ApiTenant) SetRequireExistingNamespace(v bool) {
-	o.RequireExistingNamespace = v
+	o.RequireExistingNamespace = &v
 }
 
-// GetOutputsInInternalStorage returns the OutputsInInternalStorage field value
+// GetOutputsInInternalStorage returns the OutputsInInternalStorage field value if set, zero value otherwise.
 func (o *ApiTenant) GetOutputsInInternalStorage() bool {
-	if o == nil {
+	if o == nil || IsNil(o.OutputsInInternalStorage) {
 		var ret bool
 		return ret
 	}
-
-	return o.OutputsInInternalStorage
+	return *o.OutputsInInternalStorage
 }
 
-// GetOutputsInInternalStorageOk returns a tuple with the OutputsInInternalStorage field value
+// GetOutputsInInternalStorageOk returns a tuple with the OutputsInInternalStorage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiTenant) GetOutputsInInternalStorageOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.OutputsInInternalStorage) {
 		return nil, false
 	}
-	return &o.OutputsInInternalStorage, true
+	return o.OutputsInInternalStorage, true
 }
 
-// SetOutputsInInternalStorage sets field value
+// HasOutputsInInternalStorage returns a boolean if a field has been set.
+func (o *ApiTenant) HasOutputsInInternalStorage() bool {
+	if o != nil && !IsNil(o.OutputsInInternalStorage) {
+		return true
+	}
+
+	return false
+}
+
+// SetOutputsInInternalStorage gets a reference to the given bool and assigns it to the OutputsInInternalStorage field.
 func (o *ApiTenant) SetOutputsInInternalStorage(v bool) {
-	o.OutputsInInternalStorage = v
+	o.OutputsInInternalStorage = &v
 }
 
-// GetLogo returns the Logo field value
+// GetLogo returns the Logo field value if set, zero value otherwise.
 func (o *ApiTenant) GetLogo() string {
-	if o == nil {
+	if o == nil || IsNil(o.Logo) {
 		var ret string
 		return ret
 	}
-
-	return o.Logo
+	return *o.Logo
 }
 
-// GetLogoOk returns a tuple with the Logo field value
+// GetLogoOk returns a tuple with the Logo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiTenant) GetLogoOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Logo) {
 		return nil, false
 	}
-	return &o.Logo, true
+	return o.Logo, true
 }
 
-// SetLogo sets field value
+// HasLogo returns a boolean if a field has been set.
+func (o *ApiTenant) HasLogo() bool {
+	if o != nil && !IsNil(o.Logo) {
+		return true
+	}
+
+	return false
+}
+
+// SetLogo gets a reference to the given string and assigns it to the Logo field.
 func (o *ApiTenant) SetLogo(v string) {
-	o.Logo = v
+	o.Logo = &v
 }
 
 func (o ApiTenant) MarshalJSON() ([]byte, error) {
@@ -416,20 +493,42 @@ func (o ApiTenant) MarshalJSON() ([]byte, error) {
 
 func (o ApiTenant) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["storageIsolation"] = o.StorageIsolation
-	toSerialize["secretIsolation"] = o.SecretIsolation
+	if !IsNil(o.StorageIsolation) {
+		toSerialize["storageIsolation"] = o.StorageIsolation
+	}
+	if !IsNil(o.SecretIsolation) {
+		toSerialize["secretIsolation"] = o.SecretIsolation
+	}
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
 	toSerialize["deleted"] = o.Deleted
-	toSerialize["workerGroup"] = o.WorkerGroup
-	toSerialize["storageType"] = o.StorageType
-	toSerialize["storageConfiguration"] = o.StorageConfiguration
-	toSerialize["secretType"] = o.SecretType
-	toSerialize["secretReadOnly"] = o.SecretReadOnly
-	toSerialize["secretConfiguration"] = o.SecretConfiguration
-	toSerialize["requireExistingNamespace"] = o.RequireExistingNamespace
-	toSerialize["outputsInInternalStorage"] = o.OutputsInInternalStorage
-	toSerialize["logo"] = o.Logo
+	if !IsNil(o.WorkerGroup) {
+		toSerialize["workerGroup"] = o.WorkerGroup
+	}
+	if !IsNil(o.StorageType) {
+		toSerialize["storageType"] = o.StorageType
+	}
+	if !IsNil(o.StorageConfiguration) {
+		toSerialize["storageConfiguration"] = o.StorageConfiguration
+	}
+	if !IsNil(o.SecretType) {
+		toSerialize["secretType"] = o.SecretType
+	}
+	if !IsNil(o.SecretReadOnly) {
+		toSerialize["secretReadOnly"] = o.SecretReadOnly
+	}
+	if !IsNil(o.SecretConfiguration) {
+		toSerialize["secretConfiguration"] = o.SecretConfiguration
+	}
+	if !IsNil(o.RequireExistingNamespace) {
+		toSerialize["requireExistingNamespace"] = o.RequireExistingNamespace
+	}
+	if !IsNil(o.OutputsInInternalStorage) {
+		toSerialize["outputsInInternalStorage"] = o.OutputsInInternalStorage
+	}
+	if !IsNil(o.Logo) {
+		toSerialize["logo"] = o.Logo
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -443,20 +542,9 @@ func (o *ApiTenant) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"storageIsolation",
-		"secretIsolation",
 		"id",
 		"name",
 		"deleted",
-		"workerGroup",
-		"storageType",
-		"storageConfiguration",
-		"secretType",
-		"secretReadOnly",
-		"secretConfiguration",
-		"requireExistingNamespace",
-		"outputsInInternalStorage",
-		"logo",
 	}
 
 	allProperties := make(map[string]interface{})

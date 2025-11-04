@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** |  | 
-**type** | [**ServerInstanceType**](ServerInstanceType.md) |  | 
-**version** | **String** |  | 
-**hostname** | **String** |  | 
-**props** | **{String: Object}** |  | 
-**metrics** | [**[Metric]**](Metric.md) |  | 
+**id** | **String** |  | [optional] 
+**type** | [**ServerInstanceType**](ServerInstanceType.md) |  | [optional] 
+**version** | **String** |  | [optional] 
+**hostname** | **String** |  | [optional] 
+**props** | **{String: Object}** |  | [optional] 
+**metrics** | [**[Metric]**](Metric.md) |  | [optional] 
 
 

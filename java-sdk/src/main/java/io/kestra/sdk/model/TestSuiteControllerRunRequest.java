@@ -33,16 +33,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TestSuiteControllerRunRequest.JSON_PROPERTY_TEST_CASES
 })
 @JsonTypeName("TestSuiteController.RunRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TestSuiteControllerRunRequest {
   public static final String JSON_PROPERTY_TEST_CASES = "testCases";
-  @javax.annotation.Nonnull
-  private List<String> testCases = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> testCases = new ArrayList<>();
 
   public TestSuiteControllerRunRequest() {
   }
 
-  public TestSuiteControllerRunRequest testCases(@javax.annotation.Nonnull List<String> testCases) {
+  public TestSuiteControllerRunRequest testCases(@jakarta.annotation.Nullable List<String> testCases) {
     
     this.testCases = testCases;
     return this;
@@ -60,9 +59,8 @@ public class TestSuiteControllerRunRequest {
    * Get testCases
    * @return testCases
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TEST_CASES)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TEST_CASES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getTestCases() {
     return testCases;
@@ -70,8 +68,8 @@ public class TestSuiteControllerRunRequest {
 
 
   @JsonProperty(JSON_PROPERTY_TEST_CASES)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTestCases(@javax.annotation.Nonnull List<String> testCases) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTestCases(@jakarta.annotation.Nullable List<String> testCases) {
     this.testCases = testCases;
   }
 

@@ -16,18 +16,16 @@ import ApiClient from '../ApiClient';
 /**
  * The MiscControllerPluginIdAndVersion model module.
  * @module model/MiscControllerPluginIdAndVersion
- * @version 1.0.0
+ * @version v1.0.5
  */
 class MiscControllerPluginIdAndVersion {
     /**
      * Constructs a new <code>MiscControllerPluginIdAndVersion</code>.
      * @alias module:model/MiscControllerPluginIdAndVersion
-     * @param id {String} 
-     * @param version {String} 
      */
-    constructor(id, version) { 
+    constructor() { 
         
-        MiscControllerPluginIdAndVersion.initialize(this, id, version);
+        MiscControllerPluginIdAndVersion.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class MiscControllerPluginIdAndVersion {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, version) { 
-        obj['id'] = id;
-        obj['version'] = version;
+    static initialize(obj) { 
     }
 
     /**
@@ -67,12 +63,6 @@ class MiscControllerPluginIdAndVersion {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>MiscControllerPluginIdAndVersion</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of MiscControllerPluginIdAndVersion.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -88,7 +78,7 @@ class MiscControllerPluginIdAndVersion {
 
 }
 
-MiscControllerPluginIdAndVersion.RequiredProperties = ["id", "version"];
+
 
 /**
  * @member {String} id

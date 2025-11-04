@@ -35,20 +35,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PagedResultsAuditLogControllerApiAuditLogItem.JSON_PROPERTY_TOTAL
 })
 @JsonTypeName("PagedResults_AuditLogController.ApiAuditLogItem_")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PagedResultsAuditLogControllerApiAuditLogItem {
   public static final String JSON_PROPERTY_RESULTS = "results";
-  @javax.annotation.Nonnull
-  private List<AuditLogControllerApiAuditLogItem> results = new ArrayList<>();
+  @jakarta.annotation.Nonnull  private List<AuditLogControllerApiAuditLogItem> results = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TOTAL = "total";
-  @javax.annotation.Nonnull
-  private Long total;
+  @jakarta.annotation.Nonnull  private Long total;
 
   public PagedResultsAuditLogControllerApiAuditLogItem() {
   }
 
-  public PagedResultsAuditLogControllerApiAuditLogItem results(@javax.annotation.Nonnull List<AuditLogControllerApiAuditLogItem> results) {
+  public PagedResultsAuditLogControllerApiAuditLogItem results(@jakarta.annotation.Nonnull List<AuditLogControllerApiAuditLogItem> results) {
     
     this.results = results;
     return this;
@@ -66,8 +64,7 @@ public class PagedResultsAuditLogControllerApiAuditLogItem {
    * Get results
    * @return results
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<AuditLogControllerApiAuditLogItem> getResults() {
@@ -77,11 +74,11 @@ public class PagedResultsAuditLogControllerApiAuditLogItem {
 
   @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setResults(@javax.annotation.Nonnull List<AuditLogControllerApiAuditLogItem> results) {
+  public void setResults(@jakarta.annotation.Nonnull List<AuditLogControllerApiAuditLogItem> results) {
     this.results = results;
   }
 
-  public PagedResultsAuditLogControllerApiAuditLogItem total(@javax.annotation.Nonnull Long total) {
+  public PagedResultsAuditLogControllerApiAuditLogItem total(@jakarta.annotation.Nonnull Long total) {
     
     this.total = total;
     return this;
@@ -91,8 +88,7 @@ public class PagedResultsAuditLogControllerApiAuditLogItem {
    * Get total
    * @return total
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TOTAL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Long getTotal() {
@@ -102,7 +98,7 @@ public class PagedResultsAuditLogControllerApiAuditLogItem {
 
   @JsonProperty(JSON_PROPERTY_TOTAL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTotal(@javax.annotation.Nonnull Long total) {
+  public void setTotal(@jakarta.annotation.Nonnull Long total) {
     this.total = total;
   }
 

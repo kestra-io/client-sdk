@@ -31,20 +31,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   RightSidebarConfigurationCustomLink.JSON_PROPERTY_URL
 })
 @JsonTypeName("RightSidebarConfiguration.CustomLink")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class RightSidebarConfigurationCustomLink {
   public static final String JSON_PROPERTY_TITLE = "title";
-  @javax.annotation.Nonnull
-  private String title;
+  @jakarta.annotation.Nullable  private String title;
 
   public static final String JSON_PROPERTY_URL = "url";
-  @javax.annotation.Nonnull
-  private String url;
+  @jakarta.annotation.Nullable  private String url;
 
   public RightSidebarConfigurationCustomLink() {
   }
 
-  public RightSidebarConfigurationCustomLink title(@javax.annotation.Nonnull String title) {
+  public RightSidebarConfigurationCustomLink title(@jakarta.annotation.Nullable String title) {
     
     this.title = title;
     return this;
@@ -54,9 +52,8 @@ public class RightSidebarConfigurationCustomLink {
    * Get title
    * @return title
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TITLE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TITLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTitle() {
     return title;
@@ -64,12 +61,12 @@ public class RightSidebarConfigurationCustomLink {
 
 
   @JsonProperty(JSON_PROPERTY_TITLE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTitle(@javax.annotation.Nonnull String title) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTitle(@jakarta.annotation.Nullable String title) {
     this.title = title;
   }
 
-  public RightSidebarConfigurationCustomLink url(@javax.annotation.Nonnull String url) {
+  public RightSidebarConfigurationCustomLink url(@jakarta.annotation.Nullable String url) {
     
     this.url = url;
     return this;
@@ -79,9 +76,8 @@ public class RightSidebarConfigurationCustomLink {
    * Get url
    * @return url
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_URL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUrl() {
     return url;
@@ -89,8 +85,8 @@ public class RightSidebarConfigurationCustomLink {
 
 
   @JsonProperty(JSON_PROPERTY_URL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setUrl(@javax.annotation.Nonnull String url) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUrl(@jakarta.annotation.Nullable String url) {
     this.url = url;
   }
 

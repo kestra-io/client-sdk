@@ -1,6 +1,13 @@
 {{>licenseInfo}}
 package {{package}};
 
+// Custom imports for injected code
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import reactor.core.publisher.Flux;
+import java.io.BufferedReader;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import {{invokerPackage}}.ApiException;
@@ -41,6 +48,7 @@ public class {{classname}} extends BaseApi {
   }
 
   {{#operation}}
+  {{^vendorExtensions.x-sdk-customization.x-skipped}}
   /**
    * {{summary}}
    * {{notes}}
@@ -63,9 +71,13 @@ public class {{classname}} extends BaseApi {
   @Deprecated
   {{/isDeprecated}}
   public {{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}void {{/returnType}}{{operationId}}({{#allParams}}{{>nullable_var_annotations}} {{{dataType}}} {{paramName}}{{^-last}}, {{/-last}}{{/allParams}}) throws ApiException {
-    {{#returnType}}return {{/returnType}}this.{{operationId}}({{#allParams}}{{paramName}}, {{/allParams}}Collections.emptyMap());
+    {{#returnType}}return {{/returnType}}this.{{operationId}}({{#allParams}}{{paramName}}, {{/allParams}}Collections.emptyMap(){{#vendorExtensions.x-sdk-customization.x-multipart}}, null{{/vendorExtensions.x-sdk-customization.x-multipart}});
   }
-
+  {{#vendorExtensions.x-sdk-customization.x-multipart}}
+  public {{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}void {{/returnType}}{{operationId}}({{#allParams}}{{>nullable_var_annotations}} {{{dataType}}} {{paramName}}{{^-last}}, {{/-last}}{{/allParams}}, HashMap<String, Object> additionalFormDatas)  throws ApiException {
+  {{#returnType}}return {{/returnType}}this.{{operationId}}({{#allParams}}{{paramName}}, {{/allParams}}Collections.emptyMap(), additionalFormDatas);
+  }
+  {{/vendorExtensions.x-sdk-customization.x-multipart}}
 
   /**
    * {{summary}}
@@ -89,7 +101,7 @@ public class {{classname}} extends BaseApi {
   {{#isDeprecated}}
   @Deprecated
   {{/isDeprecated}}
-  public {{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}void {{/returnType}}{{operationId}}({{#allParams}}{{>nullable_var_annotations}} {{{dataType}}} {{paramName}}, {{/allParams}}Map<String, String> additionalHeaders) throws ApiException {
+  public {{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}void {{/returnType}}{{operationId}}({{#allParams}}{{>nullable_var_annotations}} {{{dataType}}} {{paramName}}, {{/allParams}}Map<String, String> additionalHeaders{{#vendorExtensions.x-sdk-customization.x-multipart}}, HashMap<String, Object> additionalFormDatas{{/vendorExtensions.x-sdk-customization.x-multipart}}) throws ApiException {
     Object localVarPostBody = {{#bodyParam}}{{paramName}}{{/bodyParam}}{{^bodyParam}}null{{/bodyParam}};
     {{#allParams}}{{#required}}
     // verify the required parameter '{{paramName}}' is set
@@ -107,8 +119,12 @@ public class {{classname}} extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    {{#vendorExtensions.x-sdk-customization.x-multipart}}
+    Map<String, Object> localVarFormParams = additionalFormDatas != null ? new HashMap<String, Object>(additionalFormDatas) : new HashMap<String, Object>();
+    {{/vendorExtensions.x-sdk-customization.x-multipart}}
+    {{^vendorExtensions.x-sdk-customization.x-multipart}}
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    {{/vendorExtensions.x-sdk-customization.x-multipart}}
     {{#queryParams}}
         {{#isDeepObject}}
     localVarQueryParameterBaseName = "{{{baseName}}}";
@@ -238,6 +254,226 @@ public class {{classname}} extends BaseApi {
     );
   }
   {{/-last}}
+
+  {{/vendorExtensions.x-sdk-customization.x-skipped}}
+
+
+  {{#vendorExtensions.x-sdk-customization.x-replace-follow-execution}}
+  public Flux<Execution> followExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant) throws ApiException {
+    return Flux.create(sink -> {
+      org.apache.hc.client5.http.impl.classic.CloseableHttpResponse response = null;
+      BufferedReader reader = null;
+
+      try {
+        response = _followExecutions(executionId, tenant, Collections.emptyMap());
+        java.io.InputStream is = response.getEntity().getContent();
+        reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+
+        String line;
+        StringBuilder dataBuffer = new StringBuilder();
+
+        while (!sink.isCancelled() && (line = reader.readLine()) != null) {
+          if (line.isEmpty()) {
+            if (dataBuffer.length() > 0) {
+              String data = dataBuffer.toString();
+              dataBuffer.setLength(0);
+
+              try {
+                Execution ev = apiClient.getObjectMapper().readValue(data, Execution.class);
+                sink.next(ev);
+              } catch (Exception e) {
+                sink.error(new ApiException(e));
+                return;
+              }
+            }
+            continue;
+          }
+
+          if (line.startsWith("data:")) {
+            String payload = line.substring(5);
+            if (payload.startsWith(" ")) payload = payload.substring(1);
+            dataBuffer.append(payload).append('\n');
+          }
+        }
+
+        if (dataBuffer.length() > 0) {
+          String data = dataBuffer.toString();
+          try {
+            Execution ev = apiClient.getObjectMapper().readValue(data, Execution.class);
+            sink.next(ev);
+          } catch (Exception e) {
+            sink.error(new ApiException(e));
+            return;
+          }
+        }
+
+        sink.complete();
+
+      } catch (IOException e) {
+        if (!sink.isCancelled()) {
+          System.err.println("Stream connection closed or error occurred: " + e.getMessage());
+          sink.error(new ApiException(e));
+        }
+      } catch (ApiException e) {
+        sink.error(e);
+      } finally {
+        try {
+          if (reader != null) reader.close();
+          if (response != null) response.close();
+        } catch (IOException cleanupException) {
+          System.err.println("Error during stream cleanup: " + cleanupException.getMessage());
+        }
+      }
+    });
+  }
+
+  private org.apache.hc.client5.http.impl.classic.CloseableHttpResponse _followExecutions(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+    if (executionId == null) {
+      throw new ApiException(400, "Missing the required parameter 'executionId' when calling _followExecutions");
+    }
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling _followExecutions");
+    }
+
+    String localVarPath = "/api/v1/{tenant}/executions/{executionId}/follow"
+            .replaceAll("\\{" + "executionId" + "\\}", apiClient.escapeString(apiClient.parameterToString(executionId)))
+            .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    List<Pair> localVarQueryParams = new ArrayList<>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<>();
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    Map<String, String> localVarHeaderParams = new HashMap<>();
+    Map<String, String> localVarCookieParams = new HashMap<>();
+
+    if (additionalHeaders != null) {
+      localVarHeaderParams.putAll(additionalHeaders);
+    }
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    return apiClient.openEventStream(
+            localVarPath,
+            localVarQueryParams,
+            localVarCollectionQueryParams,
+            localVarQueryStringJoiner.toString(),
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarAuthNames
+    );
+  }
+  {{/vendorExtensions.x-sdk-customization.x-replace-follow-execution}}
+
+
+  {{#vendorExtensions.x-sdk-customization.x-replace-follow-dependencies-execution}}
+  public Flux<Execution> followDependenciesExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, boolean destinationOnly, boolean expandAll) throws ApiException {
+    return Flux.create(sink -> {
+      org.apache.hc.client5.http.impl.classic.CloseableHttpResponse response = null;
+      BufferedReader reader = null;
+
+      try {
+        response = _followDependenciesExecutions(executionId, tenant, Collections.emptyMap(), destinationOnly, expandAll);
+        java.io.InputStream is = response.getEntity().getContent();
+        reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+
+        String line;
+        StringBuilder dataBuffer = new StringBuilder();
+
+        while (!sink.isCancelled() && (line = reader.readLine()) != null) {
+          if (line.isEmpty()) {
+            if (dataBuffer.length() > 0) {
+              String data = dataBuffer.toString();
+              dataBuffer.setLength(0);
+
+              try {
+                Execution ev = apiClient.getObjectMapper().readValue(data, Execution.class);
+                sink.next(ev);
+              } catch (Exception e) {
+                sink.error(new ApiException(e));
+                return;
+              }
+            }
+            continue;
+          }
+
+          if (line.startsWith("data:")) {
+            String payload = line.substring(5);
+            if (payload.startsWith(" ")) payload = payload.substring(1);
+            dataBuffer.append(payload).append('\n');
+          }
+        }
+
+        if (dataBuffer.length() > 0) {
+          String data = dataBuffer.toString();
+          try {
+            Execution ev = apiClient.getObjectMapper().readValue(data, Execution.class);
+            sink.next(ev);
+          } catch (Exception e) {
+            sink.error(new ApiException(e));
+            return;
+          }
+        }
+
+        sink.complete();
+
+      } catch (IOException e) {
+        if (!sink.isCancelled()) {
+          System.err.println("Stream connection closed or error occurred: " + e.getMessage());
+          sink.error(new ApiException(e));
+        }
+      } catch (ApiException e) {
+        sink.error(e);
+      } finally {
+        try {
+          if (reader != null) reader.close();
+          if (response != null) response.close();
+        } catch (IOException cleanupException) {
+          System.err.println("Error during stream cleanup: " + cleanupException.getMessage());
+        }
+      }
+    });
+  }
+
+  private org.apache.hc.client5.http.impl.classic.CloseableHttpResponse _followDependenciesExecutions(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders, boolean destinationOnly, boolean expandAll) throws ApiException {
+    if (executionId == null) {
+      throw new ApiException(400, "Missing the required parameter 'executionId' when calling _followDependenciesExecutions");
+    }
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling _followDependenciesExecutions");
+    }
+
+    String localVarPath = "/api/v1/{tenant}/executions/{executionId}/follow-dependencies"
+            .replaceAll("\\{" + "executionId" + "\\}", apiClient.escapeString(apiClient.parameterToString(executionId)))
+            .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    List<Pair> localVarQueryParams = new ArrayList<>();
+    if (destinationOnly != false) {
+      localVarQueryParams.addAll(apiClient.parameterToPair("destinationOnly", destinationOnly));
+    }
+    if (expandAll != false) {
+      localVarQueryParams.addAll(apiClient.parameterToPair("expandAll", expandAll));
+    }
+    List<Pair> localVarCollectionQueryParams = new ArrayList<>();
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    Map<String, String> localVarHeaderParams = new HashMap<>();
+    Map<String, String> localVarCookieParams = new HashMap<>();
+
+    if (additionalHeaders != null) {
+      localVarHeaderParams.putAll(additionalHeaders);
+    }
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    return apiClient.openEventStream(
+            localVarPath,
+            localVarQueryParams,
+            localVarCollectionQueryParams,
+            localVarQueryStringJoiner.toString(),
+            localVarHeaderParams,
+            localVarCookieParams,
+            localVarAuthNames
+    );
+  }
+  {{/vendorExtensions.x-sdk-customization.x-replace-follow-dependencies-execution}}
   {{/operation}}
 }
 {{/operations}}

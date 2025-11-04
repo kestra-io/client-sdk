@@ -9,7 +9,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**workerTaskRestartStrategy** | **WorkerTaskRestartStrategy** |  |  [optional] |
 |**terminationGracePeriod** | **String** |  |  |
-|**liveness** | [**ServerConfigLiveness**](ServerConfigLiveness.md) |  |  |
+|**liveness** | [**ServerConfigLiveness**](ServerConfigLiveness.md) |  |  [optional] |
 
 
 

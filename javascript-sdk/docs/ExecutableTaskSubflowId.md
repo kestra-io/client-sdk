@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**namespace** | **String** |  | 
-**flowId** | **String** |  | 
+**namespace** | **String** |  | [optional] 
+**flowId** | **String** |  | [optional] 
 **revision** | **Number** |  | [optional] 
 
 

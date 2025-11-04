@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Tags** | **[]string** |  | 
+**Tags** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
 ### NewAppsControllerApiAppTags
 
-`func NewAppsControllerApiAppTags(tags []string, ) *AppsControllerApiAppTags`
+`func NewAppsControllerApiAppTags() *AppsControllerApiAppTags`
 
 NewAppsControllerApiAppTags instantiates a new AppsControllerApiAppTags object
 This constructor will assign default values to properties that have it defined,
@@ -44,6 +44,11 @@ and a boolean to check if the value has been set.
 
 SetTags sets Tags field to given value.
 
+### HasTags
+
+`func (o *AppsControllerApiAppTags) HasTags() bool`
+
+HasTags returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

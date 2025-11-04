@@ -35,24 +35,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InstanceControllerApiCreateOrUpdateWorkerGroupRequest.JSON_PROPERTY_ALLOWED_TENANTS
 })
 @JsonTypeName("InstanceController.ApiCreateOrUpdateWorkerGroupRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
   public static final String JSON_PROPERTY_KEY = "key";
-  @javax.annotation.Nonnull
-  private String key;
+  @jakarta.annotation.Nonnull  private String key;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nonnull
-  private String description;
+  @jakarta.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_ALLOWED_TENANTS = "allowedTenants";
-  @javax.annotation.Nonnull
-  private List<String> allowedTenants = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> allowedTenants = new ArrayList<>();
 
   public InstanceControllerApiCreateOrUpdateWorkerGroupRequest() {
   }
 
-  public InstanceControllerApiCreateOrUpdateWorkerGroupRequest key(@javax.annotation.Nonnull String key) {
+  public InstanceControllerApiCreateOrUpdateWorkerGroupRequest key(@jakarta.annotation.Nonnull String key) {
     
     this.key = key;
     return this;
@@ -62,8 +59,7 @@ public class InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
    * The key of the worker group.
    * @return key
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_KEY)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_KEY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getKey() {
@@ -73,11 +69,11 @@ public class InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
 
   @JsonProperty(JSON_PROPERTY_KEY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setKey(@javax.annotation.Nonnull String key) {
+  public void setKey(@jakarta.annotation.Nonnull String key) {
     this.key = key;
   }
 
-  public InstanceControllerApiCreateOrUpdateWorkerGroupRequest description(@javax.annotation.Nonnull String description) {
+  public InstanceControllerApiCreateOrUpdateWorkerGroupRequest description(@jakarta.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -87,9 +83,8 @@ public class InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
    * The description of the worker group.
    * @return description
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
     return description;
@@ -97,12 +92,12 @@ public class InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
 
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDescription(@javax.annotation.Nonnull String description) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
     this.description = description;
   }
 
-  public InstanceControllerApiCreateOrUpdateWorkerGroupRequest allowedTenants(@javax.annotation.Nonnull List<String> allowedTenants) {
+  public InstanceControllerApiCreateOrUpdateWorkerGroupRequest allowedTenants(@jakarta.annotation.Nullable List<String> allowedTenants) {
     
     this.allowedTenants = allowedTenants;
     return this;
@@ -120,9 +115,8 @@ public class InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
    * Get allowedTenants
    * @return allowedTenants
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ALLOWED_TENANTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ALLOWED_TENANTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getAllowedTenants() {
     return allowedTenants;
@@ -130,8 +124,8 @@ public class InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
 
 
   @JsonProperty(JSON_PROPERTY_ALLOWED_TENANTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setAllowedTenants(@javax.annotation.Nonnull List<String> allowedTenants) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAllowedTenants(@jakarta.annotation.Nullable List<String> allowedTenants) {
     this.allowedTenants = allowedTenants;
   }
 

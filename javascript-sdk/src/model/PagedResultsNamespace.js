@@ -17,7 +17,7 @@ import Namespace from './Namespace';
 /**
  * The PagedResultsNamespace model module.
  * @module model/PagedResultsNamespace
- * @version 1.0.0
+ * @version v1.0.5
  */
 class PagedResultsNamespace {
     /**

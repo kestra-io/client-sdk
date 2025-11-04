@@ -30,20 +30,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PageRequest.JSON_PROPERTY_START_INDEX,
   PageRequest.JSON_PROPERTY_COUNT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PageRequest {
   public static final String JSON_PROPERTY_START_INDEX = "startIndex";
-  @javax.annotation.Nullable
-  private Integer startIndex;
+  @jakarta.annotation.Nullable  private Integer startIndex;
 
   public static final String JSON_PROPERTY_COUNT = "count";
-  @javax.annotation.Nullable
-  private Integer count;
+  @jakarta.annotation.Nullable  private Integer count;
 
   public PageRequest() {
   }
 
-  public PageRequest startIndex(@javax.annotation.Nullable Integer startIndex) {
+  public PageRequest startIndex(@jakarta.annotation.Nullable Integer startIndex) {
     
     this.startIndex = startIndex;
     return this;
@@ -53,8 +51,7 @@ public class PageRequest {
    * Get startIndex
    * @return startIndex
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_START_INDEX)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_START_INDEX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getStartIndex() {
@@ -64,11 +61,11 @@ public class PageRequest {
 
   @JsonProperty(JSON_PROPERTY_START_INDEX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStartIndex(@javax.annotation.Nullable Integer startIndex) {
+  public void setStartIndex(@jakarta.annotation.Nullable Integer startIndex) {
     this.startIndex = startIndex;
   }
 
-  public PageRequest count(@javax.annotation.Nullable Integer count) {
+  public PageRequest count(@jakarta.annotation.Nullable Integer count) {
     
     this.count = count;
     return this;
@@ -78,8 +75,7 @@ public class PageRequest {
    * Get count
    * @return count
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_COUNT)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getCount() {
@@ -89,7 +85,7 @@ public class PageRequest {
 
   @JsonProperty(JSON_PROPERTY_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCount(@javax.annotation.Nullable Integer count) {
+  public void setCount(@jakarta.annotation.Nullable Integer count) {
     this.count = count;
   }
 

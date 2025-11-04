@@ -48,52 +48,42 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ExecutionControllerWebhookResponse.JSON_PROPERTY_URL
 })
 @JsonTypeName("ExecutionController.WebhookResponse")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ExecutionControllerWebhookResponse {
   public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
-  @javax.annotation.Nonnull
-  private String tenantId;
+  @jakarta.annotation.Nullable  private String tenantId;
 
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
-  private String id;
+  @jakarta.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nonnull
-  private String namespace;
+  @jakarta.annotation.Nullable  private String namespace;
 
   public static final String JSON_PROPERTY_FLOW_ID = "flowId";
-  @javax.annotation.Nonnull
-  private String flowId;
+  @jakarta.annotation.Nullable  private String flowId;
 
   public static final String JSON_PROPERTY_FLOW_REVISION = "flowRevision";
-  @javax.annotation.Nonnull
-  private Integer flowRevision;
+  @jakarta.annotation.Nullable  private Integer flowRevision;
 
   public static final String JSON_PROPERTY_TRIGGER = "trigger";
-  @javax.annotation.Nonnull
-  private ExecutionTrigger trigger;
+  @jakarta.annotation.Nullable  private ExecutionTrigger trigger;
 
   public static final String JSON_PROPERTY_OUTPUTS = "outputs";
-  @javax.annotation.Nonnull
-  private Map<String, Object> outputs = new HashMap<>();
+  @jakarta.annotation.Nullable  private Map<String, Object> outputs = new HashMap<>();
 
   public static final String JSON_PROPERTY_LABELS = "labels";
-  @javax.annotation.Nonnull
-  private List<Label> labels = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<Label> labels = new ArrayList<>();
 
   public static final String JSON_PROPERTY_STATE = "state";
-  @javax.annotation.Nonnull
-  private State state;
+  @jakarta.annotation.Nullable  private State state;
 
   public static final String JSON_PROPERTY_URL = "url";
-  @javax.annotation.Nonnull
-  private URI url;
+  @jakarta.annotation.Nullable  private URI url;
 
   public ExecutionControllerWebhookResponse() {
   }
 
-  public ExecutionControllerWebhookResponse tenantId(@javax.annotation.Nonnull String tenantId) {
+  public ExecutionControllerWebhookResponse tenantId(@jakarta.annotation.Nullable String tenantId) {
     
     this.tenantId = tenantId;
     return this;
@@ -103,9 +93,8 @@ public class ExecutionControllerWebhookResponse {
    * Get tenantId
    * @return tenantId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TENANT_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTenantId() {
     return tenantId;
@@ -113,12 +102,12 @@ public class ExecutionControllerWebhookResponse {
 
 
   @JsonProperty(JSON_PROPERTY_TENANT_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTenantId(@javax.annotation.Nonnull String tenantId) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTenantId(@jakarta.annotation.Nullable String tenantId) {
     this.tenantId = tenantId;
   }
 
-  public ExecutionControllerWebhookResponse id(@javax.annotation.Nonnull String id) {
+  public ExecutionControllerWebhookResponse id(@jakarta.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -128,9 +117,8 @@ public class ExecutionControllerWebhookResponse {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
     return id;
@@ -138,12 +126,12 @@ public class ExecutionControllerWebhookResponse {
 
 
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(@javax.annotation.Nonnull String id) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@jakarta.annotation.Nullable String id) {
     this.id = id;
   }
 
-  public ExecutionControllerWebhookResponse namespace(@javax.annotation.Nonnull String namespace) {
+  public ExecutionControllerWebhookResponse namespace(@jakarta.annotation.Nullable String namespace) {
     
     this.namespace = namespace;
     return this;
@@ -153,9 +141,8 @@ public class ExecutionControllerWebhookResponse {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getNamespace() {
     return namespace;
@@ -163,12 +150,12 @@ public class ExecutionControllerWebhookResponse {
 
 
   @JsonProperty(JSON_PROPERTY_NAMESPACE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setNamespace(@javax.annotation.Nonnull String namespace) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNamespace(@jakarta.annotation.Nullable String namespace) {
     this.namespace = namespace;
   }
 
-  public ExecutionControllerWebhookResponse flowId(@javax.annotation.Nonnull String flowId) {
+  public ExecutionControllerWebhookResponse flowId(@jakarta.annotation.Nullable String flowId) {
     
     this.flowId = flowId;
     return this;
@@ -178,9 +165,8 @@ public class ExecutionControllerWebhookResponse {
    * Get flowId
    * @return flowId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FLOW_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFlowId() {
     return flowId;
@@ -188,12 +174,12 @@ public class ExecutionControllerWebhookResponse {
 
 
   @JsonProperty(JSON_PROPERTY_FLOW_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFlowId(@javax.annotation.Nonnull String flowId) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFlowId(@jakarta.annotation.Nullable String flowId) {
     this.flowId = flowId;
   }
 
-  public ExecutionControllerWebhookResponse flowRevision(@javax.annotation.Nonnull Integer flowRevision) {
+  public ExecutionControllerWebhookResponse flowRevision(@jakarta.annotation.Nullable Integer flowRevision) {
     
     this.flowRevision = flowRevision;
     return this;
@@ -203,9 +189,8 @@ public class ExecutionControllerWebhookResponse {
    * Get flowRevision
    * @return flowRevision
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FLOW_REVISION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FLOW_REVISION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getFlowRevision() {
     return flowRevision;
@@ -213,12 +198,12 @@ public class ExecutionControllerWebhookResponse {
 
 
   @JsonProperty(JSON_PROPERTY_FLOW_REVISION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFlowRevision(@javax.annotation.Nonnull Integer flowRevision) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFlowRevision(@jakarta.annotation.Nullable Integer flowRevision) {
     this.flowRevision = flowRevision;
   }
 
-  public ExecutionControllerWebhookResponse trigger(@javax.annotation.Nonnull ExecutionTrigger trigger) {
+  public ExecutionControllerWebhookResponse trigger(@jakarta.annotation.Nullable ExecutionTrigger trigger) {
     
     this.trigger = trigger;
     return this;
@@ -228,9 +213,8 @@ public class ExecutionControllerWebhookResponse {
    * Get trigger
    * @return trigger
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TRIGGER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TRIGGER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ExecutionTrigger getTrigger() {
     return trigger;
@@ -238,18 +222,21 @@ public class ExecutionControllerWebhookResponse {
 
 
   @JsonProperty(JSON_PROPERTY_TRIGGER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTrigger(@javax.annotation.Nonnull ExecutionTrigger trigger) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTrigger(@jakarta.annotation.Nullable ExecutionTrigger trigger) {
     this.trigger = trigger;
   }
 
-  public ExecutionControllerWebhookResponse outputs(@javax.annotation.Nonnull Map<String, Object> outputs) {
+  public ExecutionControllerWebhookResponse outputs(@jakarta.annotation.Nullable Map<String, Object> outputs) {
     
     this.outputs = outputs;
     return this;
   }
 
   public ExecutionControllerWebhookResponse putOutputsItem(String key, Object outputsItem) {
+    if (this.outputs == null) {
+      this.outputs = new HashMap<>();
+    }
     this.outputs.put(key, outputsItem);
     return this;
   }
@@ -258,9 +245,8 @@ public class ExecutionControllerWebhookResponse {
    * Get outputs
    * @return outputs
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_OUTPUTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTPUTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getOutputs() {
     return outputs;
@@ -268,12 +254,12 @@ public class ExecutionControllerWebhookResponse {
 
 
   @JsonProperty(JSON_PROPERTY_OUTPUTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setOutputs(@javax.annotation.Nonnull Map<String, Object> outputs) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOutputs(@jakarta.annotation.Nullable Map<String, Object> outputs) {
     this.outputs = outputs;
   }
 
-  public ExecutionControllerWebhookResponse labels(@javax.annotation.Nonnull List<Label> labels) {
+  public ExecutionControllerWebhookResponse labels(@jakarta.annotation.Nullable List<Label> labels) {
     
     this.labels = labels;
     return this;
@@ -291,9 +277,8 @@ public class ExecutionControllerWebhookResponse {
    * Get labels
    * @return labels
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_LABELS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LABELS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Label> getLabels() {
     return labels;
@@ -301,12 +286,12 @@ public class ExecutionControllerWebhookResponse {
 
 
   @JsonProperty(JSON_PROPERTY_LABELS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setLabels(@javax.annotation.Nonnull List<Label> labels) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLabels(@jakarta.annotation.Nullable List<Label> labels) {
     this.labels = labels;
   }
 
-  public ExecutionControllerWebhookResponse state(@javax.annotation.Nonnull State state) {
+  public ExecutionControllerWebhookResponse state(@jakarta.annotation.Nullable State state) {
     
     this.state = state;
     return this;
@@ -316,9 +301,8 @@ public class ExecutionControllerWebhookResponse {
    * Get state
    * @return state
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_STATE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public State getState() {
     return state;
@@ -326,12 +310,12 @@ public class ExecutionControllerWebhookResponse {
 
 
   @JsonProperty(JSON_PROPERTY_STATE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setState(@javax.annotation.Nonnull State state) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setState(@jakarta.annotation.Nullable State state) {
     this.state = state;
   }
 
-  public ExecutionControllerWebhookResponse url(@javax.annotation.Nonnull URI url) {
+  public ExecutionControllerWebhookResponse url(@jakarta.annotation.Nullable URI url) {
     
     this.url = url;
     return this;
@@ -341,9 +325,8 @@ public class ExecutionControllerWebhookResponse {
    * Get url
    * @return url
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_URL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_URL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public URI getUrl() {
     return url;
@@ -351,8 +334,8 @@ public class ExecutionControllerWebhookResponse {
 
 
   @JsonProperty(JSON_PROPERTY_URL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setUrl(@javax.annotation.Nonnull URI url) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUrl(@jakarta.annotation.Nullable URI url) {
     this.url = url;
   }
 

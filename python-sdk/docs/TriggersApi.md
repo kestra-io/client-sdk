@@ -1,27 +1,27 @@
-# kestrapy.TriggersApi
+# kestrapy.triggers
 
 All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**delete_backfill**](TriggersApi.md#delete_backfill) | **POST** /api/v1/{tenant}/triggers/backfill/delete | Delete a backfill
-[**delete_backfill_by_ids**](TriggersApi.md#delete_backfill_by_ids) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-triggers | Delete backfill for given triggers
-[**delete_backfill_by_query**](TriggersApi.md#delete_backfill_by_query) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-query | Delete backfill for given triggers
-[**disabled_triggers_by_ids**](TriggersApi.md#disabled_triggers_by_ids) | **POST** /api/v1/{tenant}/triggers/set-disabled/by-triggers | Disable/enable given triggers
-[**disabled_triggers_by_query**](TriggersApi.md#disabled_triggers_by_query) | **POST** /api/v1/{tenant}/triggers/set-disabled/by-query | Disable/enable triggers by query parameters
-[**pause_backfill**](TriggersApi.md#pause_backfill) | **PUT** /api/v1/{tenant}/triggers/backfill/pause | Pause a backfill
-[**pause_backfill_by_ids**](TriggersApi.md#pause_backfill_by_ids) | **POST** /api/v1/{tenant}/triggers/backfill/pause/by-triggers | Pause backfill for given triggers
-[**pause_backfill_by_query**](TriggersApi.md#pause_backfill_by_query) | **POST** /api/v1/{tenant}/triggers/backfill/pause/by-query | Pause backfill for given triggers
-[**restart_trigger**](TriggersApi.md#restart_trigger) | **POST** /api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId}/restart | Restart a trigger
-[**search_triggers**](TriggersApi.md#search_triggers) | **GET** /api/v1/{tenant}/triggers/search | Search for triggers
-[**search_triggers_for_flow**](TriggersApi.md#search_triggers_for_flow) | **GET** /api/v1/{tenant}/triggers/{namespace}/{flowId} | Get all triggers for a flow
-[**unlock_trigger**](TriggersApi.md#unlock_trigger) | **POST** /api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId}/unlock | Unlock a trigger
-[**unlock_triggers_by_ids**](TriggersApi.md#unlock_triggers_by_ids) | **POST** /api/v1/{tenant}/triggers/unlock/by-triggers | Unlock given triggers
-[**unlock_triggers_by_query**](TriggersApi.md#unlock_triggers_by_query) | **POST** /api/v1/{tenant}/triggers/unlock/by-query | Unlock triggers by query parameters
-[**unpause_backfill**](TriggersApi.md#unpause_backfill) | **PUT** /api/v1/{tenant}/triggers/backfill/unpause | Unpause a backfill
-[**unpause_backfill_by_ids**](TriggersApi.md#unpause_backfill_by_ids) | **POST** /api/v1/{tenant}/triggers/backfill/unpause/by-triggers | Unpause backfill for given triggers
-[**unpause_backfill_by_query**](TriggersApi.md#unpause_backfill_by_query) | **POST** /api/v1/{tenant}/triggers/backfill/unpause/by-query | Unpause backfill for given triggers
-[**update_trigger**](TriggersApi.md#update_trigger) | **PUT** /api/v1/{tenant}/triggers | Update a trigger
+[**delete_backfill**](triggers.md#delete_backfill) | **POST** /api/v1/{tenant}/triggers/backfill/delete | Delete a backfill
+[**delete_backfill_by_ids**](triggers.md#delete_backfill_by_ids) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-triggers | Delete backfill for given triggers
+[**delete_backfill_by_query**](triggers.md#delete_backfill_by_query) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-query | Delete backfill for given triggers
+[**disabled_triggers_by_ids**](triggers.md#disabled_triggers_by_ids) | **POST** /api/v1/{tenant}/triggers/set-disabled/by-triggers | Disable/enable given triggers
+[**disabled_triggers_by_query**](triggers.md#disabled_triggers_by_query) | **POST** /api/v1/{tenant}/triggers/set-disabled/by-query | Disable/enable triggers by query parameters
+[**pause_backfill**](triggers.md#pause_backfill) | **PUT** /api/v1/{tenant}/triggers/backfill/pause | Pause a backfill
+[**pause_backfill_by_ids**](triggers.md#pause_backfill_by_ids) | **POST** /api/v1/{tenant}/triggers/backfill/pause/by-triggers | Pause backfill for given triggers
+[**pause_backfill_by_query**](triggers.md#pause_backfill_by_query) | **POST** /api/v1/{tenant}/triggers/backfill/pause/by-query | Pause backfill for given triggers
+[**restart_trigger**](triggers.md#restart_trigger) | **POST** /api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId}/restart | Restart a trigger
+[**search_triggers**](triggers.md#search_triggers) | **GET** /api/v1/{tenant}/triggers/search | Search for triggers
+[**search_triggers_for_flow**](triggers.md#search_triggers_for_flow) | **GET** /api/v1/{tenant}/triggers/{namespace}/{flowId} | Get all triggers for a flow
+[**unlock_trigger**](triggers.md#unlock_trigger) | **POST** /api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId}/unlock | Unlock a trigger
+[**unlock_triggers_by_ids**](triggers.md#unlock_triggers_by_ids) | **POST** /api/v1/{tenant}/triggers/unlock/by-triggers | Unlock given triggers
+[**unlock_triggers_by_query**](triggers.md#unlock_triggers_by_query) | **POST** /api/v1/{tenant}/triggers/unlock/by-query | Unlock triggers by query parameters
+[**unpause_backfill**](triggers.md#unpause_backfill) | **PUT** /api/v1/{tenant}/triggers/backfill/unpause | Unpause a backfill
+[**unpause_backfill_by_ids**](triggers.md#unpause_backfill_by_ids) | **POST** /api/v1/{tenant}/triggers/backfill/unpause/by-triggers | Unpause backfill for given triggers
+[**unpause_backfill_by_query**](triggers.md#unpause_backfill_by_query) | **POST** /api/v1/{tenant}/triggers/backfill/unpause/by-query | Unpause backfill for given triggers
+[**update_trigger**](triggers.md#update_trigger) | **PUT** /api/v1/{tenant}/triggers | Update a trigger
 
 
 # **delete_backfill**
@@ -35,47 +35,26 @@ Delete a backfill
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.trigger import Trigger
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.TriggersApi(api_client)
+with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
     trigger = kestrapy.Trigger() # Trigger | 
 
     try:
         # Delete a backfill
-        api_response = api_instance.delete_backfill(tenant, trigger)
-        print("The response of TriggersApi->delete_backfill:\n")
+        api_response = kestra_client.triggers.delete_backfill(tenant, trigger)
+        print("The response of triggers->delete_backfill:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling TriggersApi->delete_backfill: %s\n" % e)
+        print("Exception when calling triggers->delete_backfill: %s\n" % e)
 ```
 
 
@@ -120,47 +99,26 @@ Delete backfill for given triggers
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.trigger import Trigger
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.TriggersApi(api_client)
+with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
     trigger = [kestrapy.Trigger()] # List[Trigger] | 
 
     try:
         # Delete backfill for given triggers
-        api_response = api_instance.delete_backfill_by_ids(tenant, trigger)
-        print("The response of TriggersApi->delete_backfill_by_ids:\n")
+        api_response = kestra_client.triggers.delete_backfill_by_ids(tenant, trigger)
+        print("The response of triggers->delete_backfill_by_ids:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling TriggersApi->delete_backfill_by_ids: %s\n" % e)
+        print("Exception when calling triggers->delete_backfill_by_ids: %s\n" % e)
 ```
 
 
@@ -195,7 +153,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_backfill_by_query**
-> object delete_backfill_by_query(tenant, delete_executions_by_query_request, q=q, namespace=namespace)
+> object delete_backfill_by_query(tenant, filters=filters)
 
 Delete backfill for given triggers
 
@@ -205,49 +163,26 @@ Delete backfill for given triggers
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.TriggersApi(api_client)
+with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
-    delete_executions_by_query_request = kestrapy.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
-    q = 'q_example' # str | A string filter (optional)
-    namespace = 'namespace_example' # str | A namespace filter prefix (optional)
+    filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters (optional)
 
     try:
         # Delete backfill for given triggers
-        api_response = api_instance.delete_backfill_by_query(tenant, delete_executions_by_query_request, q=q, namespace=namespace)
-        print("The response of TriggersApi->delete_backfill_by_query:\n")
+        api_response = kestra_client.triggers.delete_backfill_by_query(tenant, filters=filters)
+        print("The response of triggers->delete_backfill_by_query:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling TriggersApi->delete_backfill_by_query: %s\n" % e)
+        print("Exception when calling triggers->delete_backfill_by_query: %s\n" % e)
 ```
 
 
@@ -258,9 +193,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **delete_executions_by_query_request** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | 
- **q** | **str**| A string filter | [optional] 
- **namespace** | **str**| A namespace filter prefix | [optional] 
+ **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
@@ -272,7 +205,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 ### HTTP response details
@@ -294,47 +227,26 @@ Disable/enable given triggers
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.trigger_controller_set_disabled_request import TriggerControllerSetDisabledRequest
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.TriggersApi(api_client)
+with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
     trigger_controller_set_disabled_request = kestrapy.TriggerControllerSetDisabledRequest() # TriggerControllerSetDisabledRequest | 
 
     try:
         # Disable/enable given triggers
-        api_response = api_instance.disabled_triggers_by_ids(tenant, trigger_controller_set_disabled_request)
-        print("The response of TriggersApi->disabled_triggers_by_ids:\n")
+        api_response = kestra_client.triggers.disabled_triggers_by_ids(tenant, trigger_controller_set_disabled_request)
+        print("The response of triggers->disabled_triggers_by_ids:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling TriggersApi->disabled_triggers_by_ids: %s\n" % e)
+        print("Exception when calling triggers->disabled_triggers_by_ids: %s\n" % e)
 ```
 
 
@@ -369,7 +281,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **disabled_triggers_by_query**
-> object disabled_triggers_by_query(disabled, tenant, delete_executions_by_query_request, q=q, namespace=namespace)
+> object disabled_triggers_by_query(disabled, tenant, filters=filters)
 
 Disable/enable triggers by query parameters
 
@@ -379,50 +291,27 @@ Disable/enable triggers by query parameters
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.TriggersApi(api_client)
+with KestraClient(configuration) as kestra_client:
     disabled = True # bool | The disabled state (default to True)
     tenant = 'tenant_example' # str | 
-    delete_executions_by_query_request = kestrapy.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
-    q = 'q_example' # str | A string filter (optional)
-    namespace = 'namespace_example' # str | A namespace filter prefix (optional)
+    filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters (optional)
 
     try:
         # Disable/enable triggers by query parameters
-        api_response = api_instance.disabled_triggers_by_query(disabled, tenant, delete_executions_by_query_request, q=q, namespace=namespace)
-        print("The response of TriggersApi->disabled_triggers_by_query:\n")
+        api_response = kestra_client.triggers.disabled_triggers_by_query(disabled, tenant, filters=filters)
+        print("The response of triggers->disabled_triggers_by_query:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling TriggersApi->disabled_triggers_by_query: %s\n" % e)
+        print("Exception when calling triggers->disabled_triggers_by_query: %s\n" % e)
 ```
 
 
@@ -434,9 +323,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **disabled** | **bool**| The disabled state | [default to True]
  **tenant** | **str**|  | 
- **delete_executions_by_query_request** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | 
- **q** | **str**| A string filter | [optional] 
- **namespace** | **str**| A namespace filter prefix | [optional] 
+ **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
@@ -448,7 +335,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 ### HTTP response details
@@ -470,47 +357,26 @@ Pause a backfill
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.trigger import Trigger
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.TriggersApi(api_client)
+with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
     trigger = kestrapy.Trigger() # Trigger | 
 
     try:
         # Pause a backfill
-        api_response = api_instance.pause_backfill(tenant, trigger)
-        print("The response of TriggersApi->pause_backfill:\n")
+        api_response = kestra_client.triggers.pause_backfill(tenant, trigger)
+        print("The response of triggers->pause_backfill:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling TriggersApi->pause_backfill: %s\n" % e)
+        print("Exception when calling triggers->pause_backfill: %s\n" % e)
 ```
 
 
@@ -555,47 +421,26 @@ Pause backfill for given triggers
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.trigger import Trigger
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.TriggersApi(api_client)
+with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
     trigger = [kestrapy.Trigger()] # List[Trigger] | 
 
     try:
         # Pause backfill for given triggers
-        api_response = api_instance.pause_backfill_by_ids(tenant, trigger)
-        print("The response of TriggersApi->pause_backfill_by_ids:\n")
+        api_response = kestra_client.triggers.pause_backfill_by_ids(tenant, trigger)
+        print("The response of triggers->pause_backfill_by_ids:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling TriggersApi->pause_backfill_by_ids: %s\n" % e)
+        print("Exception when calling triggers->pause_backfill_by_ids: %s\n" % e)
 ```
 
 
@@ -630,7 +475,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **pause_backfill_by_query**
-> object pause_backfill_by_query(tenant, delete_executions_by_query_request, q=q, namespace=namespace)
+> object pause_backfill_by_query(tenant, filters=filters)
 
 Pause backfill for given triggers
 
@@ -640,49 +485,26 @@ Pause backfill for given triggers
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.TriggersApi(api_client)
+with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
-    delete_executions_by_query_request = kestrapy.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
-    q = 'q_example' # str | A string filter (optional)
-    namespace = 'namespace_example' # str | A namespace filter prefix (optional)
+    filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters (optional)
 
     try:
         # Pause backfill for given triggers
-        api_response = api_instance.pause_backfill_by_query(tenant, delete_executions_by_query_request, q=q, namespace=namespace)
-        print("The response of TriggersApi->pause_backfill_by_query:\n")
+        api_response = kestra_client.triggers.pause_backfill_by_query(tenant, filters=filters)
+        print("The response of triggers->pause_backfill_by_query:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling TriggersApi->pause_backfill_by_query: %s\n" % e)
+        print("Exception when calling triggers->pause_backfill_by_query: %s\n" % e)
 ```
 
 
@@ -693,9 +515,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **delete_executions_by_query_request** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | 
- **q** | **str**| A string filter | [optional] 
- **namespace** | **str**| A namespace filter prefix | [optional] 
+ **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
@@ -707,7 +527,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 ### HTTP response details
@@ -729,36 +549,16 @@ Restart a trigger
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.TriggersApi(api_client)
+with KestraClient(configuration) as kestra_client:
     namespace = 'namespace_example' # str | The namespace
     flow_id = 'flow_id_example' # str | The flow id
     trigger_id = 'trigger_id_example' # str | The trigger id
@@ -766,11 +566,11 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Restart a trigger
-        api_response = api_instance.restart_trigger(namespace, flow_id, trigger_id, tenant)
-        print("The response of TriggersApi->restart_trigger:\n")
+        api_response = kestra_client.triggers.restart_trigger(namespace, flow_id, trigger_id, tenant)
+        print("The response of triggers->restart_trigger:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling TriggersApi->restart_trigger: %s\n" % e)
+        print("Exception when calling triggers->restart_trigger: %s\n" % e)
 ```
 
 
@@ -807,7 +607,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **search_triggers**
-> PagedResultsTriggerControllerTriggers search_triggers(page, size, tenant, sort=sort, filters=filters, q=q, namespace=namespace, worker_id=worker_id, flow_id=flow_id)
+> PagedResultsTriggerControllerTriggers search_triggers(page, size, tenant, sort=sort, filters=filters)
 
 Search for triggers
 
@@ -817,55 +617,29 @@ Search for triggers
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.paged_results_trigger_controller_triggers import PagedResultsTriggerControllerTriggers
-from kestrapy.models.query_filter import QueryFilter
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.TriggersApi(api_client)
+with KestraClient(configuration) as kestra_client:
     page = 1 # int | The current page (default to 1)
     size = 10 # int | The current page size (default to 10)
     tenant = 'tenant_example' # str | 
     sort = ['sort_example'] # List[str] | The sort of current page (optional)
     filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters (optional)
-    q = 'q_example' # str | A string filter (optional)
-    namespace = 'namespace_example' # str | A namespace filter prefix (optional)
-    worker_id = 'worker_id_example' # str | The identifier of the worker currently evaluating the trigger (optional)
-    flow_id = 'flow_id_example' # str | The flow identifier (optional)
 
     try:
         # Search for triggers
-        api_response = api_instance.search_triggers(page, size, tenant, sort=sort, filters=filters, q=q, namespace=namespace, worker_id=worker_id, flow_id=flow_id)
-        print("The response of TriggersApi->search_triggers:\n")
+        api_response = kestra_client.triggers.search_triggers(page, size, tenant, sort=sort, filters=filters)
+        print("The response of triggers->search_triggers:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling TriggersApi->search_triggers: %s\n" % e)
+        print("Exception when calling triggers->search_triggers: %s\n" % e)
 ```
 
 
@@ -880,10 +654,6 @@ Name | Type | Description  | Notes
  **tenant** | **str**|  | 
  **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
  **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
- **q** | **str**| A string filter | [optional] 
- **namespace** | **str**| A namespace filter prefix | [optional] 
- **worker_id** | **str**| The identifier of the worker currently evaluating the trigger | [optional] 
- **flow_id** | **str**| The flow identifier | [optional] 
 
 ### Return type
 
@@ -917,37 +687,16 @@ Get all triggers for a flow
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.paged_results_trigger import PagedResultsTrigger
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.TriggersApi(api_client)
+with KestraClient(configuration) as kestra_client:
     page = 1 # int | The current page (default to 1)
     size = 10 # int | The current page size (default to 10)
     namespace = 'namespace_example' # str | The namespace
@@ -958,11 +707,11 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Get all triggers for a flow
-        api_response = api_instance.search_triggers_for_flow(page, size, namespace, flow_id, tenant, sort=sort, q=q)
-        print("The response of TriggersApi->search_triggers_for_flow:\n")
+        api_response = kestra_client.triggers.search_triggers_for_flow(page, size, namespace, flow_id, tenant, sort=sort, q=q)
+        print("The response of triggers->search_triggers_for_flow:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling TriggersApi->search_triggers_for_flow: %s\n" % e)
+        print("Exception when calling triggers->search_triggers_for_flow: %s\n" % e)
 ```
 
 
@@ -1012,37 +761,16 @@ Unlock a trigger
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.trigger import Trigger
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.TriggersApi(api_client)
+with KestraClient(configuration) as kestra_client:
     namespace = 'namespace_example' # str | The namespace
     flow_id = 'flow_id_example' # str | The flow id
     trigger_id = 'trigger_id_example' # str | The trigger id
@@ -1050,11 +778,11 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Unlock a trigger
-        api_response = api_instance.unlock_trigger(namespace, flow_id, trigger_id, tenant)
-        print("The response of TriggersApi->unlock_trigger:\n")
+        api_response = kestra_client.triggers.unlock_trigger(namespace, flow_id, trigger_id, tenant)
+        print("The response of triggers->unlock_trigger:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling TriggersApi->unlock_trigger: %s\n" % e)
+        print("Exception when calling triggers->unlock_trigger: %s\n" % e)
 ```
 
 
@@ -1101,47 +829,26 @@ Unlock given triggers
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.trigger import Trigger
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.TriggersApi(api_client)
+with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
     trigger = [kestrapy.Trigger()] # List[Trigger] | 
 
     try:
         # Unlock given triggers
-        api_response = api_instance.unlock_triggers_by_ids(tenant, trigger)
-        print("The response of TriggersApi->unlock_triggers_by_ids:\n")
+        api_response = kestra_client.triggers.unlock_triggers_by_ids(tenant, trigger)
+        print("The response of triggers->unlock_triggers_by_ids:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling TriggersApi->unlock_triggers_by_ids: %s\n" % e)
+        print("Exception when calling triggers->unlock_triggers_by_ids: %s\n" % e)
 ```
 
 
@@ -1176,7 +883,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **unlock_triggers_by_query**
-> object unlock_triggers_by_query(tenant, delete_executions_by_query_request, q=q, namespace=namespace)
+> object unlock_triggers_by_query(tenant, filters=filters)
 
 Unlock triggers by query parameters
 
@@ -1186,49 +893,26 @@ Unlock triggers by query parameters
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.TriggersApi(api_client)
+with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
-    delete_executions_by_query_request = kestrapy.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
-    q = 'q_example' # str | A string filter (optional)
-    namespace = 'namespace_example' # str | A namespace filter prefix (optional)
+    filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters (optional)
 
     try:
         # Unlock triggers by query parameters
-        api_response = api_instance.unlock_triggers_by_query(tenant, delete_executions_by_query_request, q=q, namespace=namespace)
-        print("The response of TriggersApi->unlock_triggers_by_query:\n")
+        api_response = kestra_client.triggers.unlock_triggers_by_query(tenant, filters=filters)
+        print("The response of triggers->unlock_triggers_by_query:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling TriggersApi->unlock_triggers_by_query: %s\n" % e)
+        print("Exception when calling triggers->unlock_triggers_by_query: %s\n" % e)
 ```
 
 
@@ -1239,9 +923,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **delete_executions_by_query_request** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | 
- **q** | **str**| A string filter | [optional] 
- **namespace** | **str**| A namespace filter prefix | [optional] 
+ **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
@@ -1253,7 +935,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 ### HTTP response details
@@ -1275,47 +957,26 @@ Unpause a backfill
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.trigger import Trigger
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.TriggersApi(api_client)
+with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
     trigger = kestrapy.Trigger() # Trigger | 
 
     try:
         # Unpause a backfill
-        api_response = api_instance.unpause_backfill(tenant, trigger)
-        print("The response of TriggersApi->unpause_backfill:\n")
+        api_response = kestra_client.triggers.unpause_backfill(tenant, trigger)
+        print("The response of triggers->unpause_backfill:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling TriggersApi->unpause_backfill: %s\n" % e)
+        print("Exception when calling triggers->unpause_backfill: %s\n" % e)
 ```
 
 
@@ -1360,47 +1021,26 @@ Unpause backfill for given triggers
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.trigger import Trigger
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.TriggersApi(api_client)
+with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
     trigger = [kestrapy.Trigger()] # List[Trigger] | 
 
     try:
         # Unpause backfill for given triggers
-        api_response = api_instance.unpause_backfill_by_ids(tenant, trigger)
-        print("The response of TriggersApi->unpause_backfill_by_ids:\n")
+        api_response = kestra_client.triggers.unpause_backfill_by_ids(tenant, trigger)
+        print("The response of triggers->unpause_backfill_by_ids:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling TriggersApi->unpause_backfill_by_ids: %s\n" % e)
+        print("Exception when calling triggers->unpause_backfill_by_ids: %s\n" % e)
 ```
 
 
@@ -1435,7 +1075,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **unpause_backfill_by_query**
-> object unpause_backfill_by_query(tenant, delete_executions_by_query_request, q=q, namespace=namespace)
+> object unpause_backfill_by_query(tenant, filters=filters)
 
 Unpause backfill for given triggers
 
@@ -1445,49 +1085,26 @@ Unpause backfill for given triggers
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.TriggersApi(api_client)
+with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
-    delete_executions_by_query_request = kestrapy.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
-    q = 'q_example' # str | A string filter (optional)
-    namespace = 'namespace_example' # str | A namespace filter prefix (optional)
+    filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters (optional)
 
     try:
         # Unpause backfill for given triggers
-        api_response = api_instance.unpause_backfill_by_query(tenant, delete_executions_by_query_request, q=q, namespace=namespace)
-        print("The response of TriggersApi->unpause_backfill_by_query:\n")
+        api_response = kestra_client.triggers.unpause_backfill_by_query(tenant, filters=filters)
+        print("The response of triggers->unpause_backfill_by_query:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling TriggersApi->unpause_backfill_by_query: %s\n" % e)
+        print("Exception when calling triggers->unpause_backfill_by_query: %s\n" % e)
 ```
 
 
@@ -1498,9 +1115,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **delete_executions_by_query_request** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | 
- **q** | **str**| A string filter | [optional] 
- **namespace** | **str**| A namespace filter prefix | [optional] 
+ **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
@@ -1512,7 +1127,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 ### HTTP response details
@@ -1534,47 +1149,26 @@ Update a trigger
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.trigger import Trigger
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.TriggersApi(api_client)
+with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
     trigger = kestrapy.Trigger() # Trigger | 
 
     try:
         # Update a trigger
-        api_response = api_instance.update_trigger(tenant, trigger)
-        print("The response of TriggersApi->update_trigger:\n")
+        api_response = kestra_client.triggers.update_trigger(tenant, trigger)
+        print("The response of triggers->update_trigger:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling TriggersApi->update_trigger: %s\n" % e)
+        print("Exception when calling triggers->update_trigger: %s\n" % e)
 ```
 
 

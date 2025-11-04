@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** |  | [optional] 
 **id** | **String** |  | 
 **type** | [**Type**](Type.md) |  | 
 **description** | **String** |  | [optional] 

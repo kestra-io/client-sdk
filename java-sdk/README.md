@@ -4,7 +4,7 @@ Kestra EE
 
 - API version: v1
 
-- Generator version: 7.16.0-SNAPSHOT
+- Generator version: 7.16.0
 
 All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>
 Endpoints designated as Superadmin-only are not tenant-scoped.
@@ -43,7 +43,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>io.kestra</groupId>
   <artifactId>kestra-api-client</artifactId>
-  <version>1.0.0</version>
+  <version>v1.0.5</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -53,7 +53,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "io.kestra:kestra-api-client:1.0.0"
+compile "io.kestra:kestra-api-client:v1.0.5"
 ```
 
 ### Others
@@ -66,7 +66,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/kestra-api-client-1.0.0.jar`
+- `target/kestra-api-client-v1.0.5.jar`
 - `target/lib/*.jar`
 
 ## Getting Started
@@ -78,22 +78,38 @@ Please follow the [installation](#installation) instruction and execute the foll
 import io.kestra.sdk.internal.*;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.model.*;
-import io.kestra.sdk.api.AiApi;
+import io.kestra.sdk.api.ExecutionsApi;
 
-public class AiApiExample {
+public class ExecutionsApiExample {
 
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         defaultClient.setBasePath("http://localhost");
         
-        AiApi apiInstance = new AiApi(defaultClient);
+        // Configure HTTP basic authorization: basicAuth
+        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
+        basicAuth.setUsername("YOUR USERNAME");
+        basicAuth.setPassword("YOUR PASSWORD");
+
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
+        String namespace = "namespace_example"; // String | The flow namespace
+        String id = "id_example"; // String | The flow id
+        Boolean wait = false; // Boolean | If the server will wait the end of the execution
         String tenant = "tenant_example"; // String | 
-        FlowGenerationPrompt flowGenerationPrompt = new FlowGenerationPrompt(); // FlowGenerationPrompt | Prompt and context required for flow generation
+        List<String> labels = Arrays.asList(); // List<String> | The labels as a list of 'key:value'
+        Integer revision = 56; // Integer | The flow revision or latest if null
+        OffsetDateTime scheduleDate = OffsetDateTime.now(); // OffsetDateTime | Schedule the flow on a specific date
+        String breakpoints = "breakpoints_example"; // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+        ExecutionKind kind = ExecutionKind.fromValue("NORMAL"); // ExecutionKind | Specific execution kind
         try {
-            String result = apiInstance.generateFlow(tenant, flowGenerationPrompt);
+            ExecutionControllerExecutionResponse result = apiInstance.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling AiApi#generateFlow");
+            System.err.println("Exception when calling ExecutionsApi#createExecution");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -110,107 +126,28 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AiApi* | [**generateFlow**](docs/AiApi.md#generateFlow) | **POST** /api/v1/{tenant}/ai/generate/flow | Generate or regenerate a flow based on a prompt
-*AppsApi* | [**bulkDeleteApps**](docs/AppsApi.md#bulkDeleteApps) | **DELETE** /api/v1/{tenant}/apps | Delete existing apps
-*AppsApi* | [**bulkDisableApps**](docs/AppsApi.md#bulkDisableApps) | **POST** /api/v1/{tenant}/apps/disable | Disable existing apps
-*AppsApi* | [**bulkEnableApps**](docs/AppsApi.md#bulkEnableApps) | **POST** /api/v1/{tenant}/apps/enable | Enable existing apps
-*AppsApi* | [**bulkExportApps**](docs/AppsApi.md#bulkExportApps) | **POST** /api/v1/{tenant}/apps/export | Export apps as a ZIP archive of YAML sources.
-*AppsApi* | [**createApp**](docs/AppsApi.md#createApp) | **POST** /api/v1/{tenant}/apps | Create a new app
-*AppsApi* | [**deleteApp**](docs/AppsApi.md#deleteApp) | **DELETE** /api/v1/{tenant}/apps/{uid} | Delete an existing app
-*AppsApi* | [**disableApp**](docs/AppsApi.md#disableApp) | **POST** /api/v1/{tenant}/apps/{uid}/disable | Disable the app.
-*AppsApi* | [**dispatchApp**](docs/AppsApi.md#dispatchApp) | **POST** /api/v1/{tenant}/apps/view/{id}/dispatch/{dispatch} | Dispatch for a given app.
-*AppsApi* | [**downloadFileFromAppExecution**](docs/AppsApi.md#downloadFileFromAppExecution) | **GET** /api/v1/{tenant}/apps/view/{id}/file/download | Download file from an app execution
-*AppsApi* | [**enableApp**](docs/AppsApi.md#enableApp) | **POST** /api/v1/{tenant}/apps/{uid}/enable | Enable the app.
-*AppsApi* | [**getApp**](docs/AppsApi.md#getApp) | **GET** /api/v1/{tenant}/apps/{uid} | Retrieve an app
-*AppsApi* | [**getFileMetaFromAppExecution**](docs/AppsApi.md#getFileMetaFromAppExecution) | **GET** /api/v1/{tenant}/apps/view/{id}/file/meta | Get file meta information from an app execution
-*AppsApi* | [**getFilePreviewFromAppExecution**](docs/AppsApi.md#getFilePreviewFromAppExecution) | **GET** /api/v1/{tenant}/apps/view/{id}/file/preview | Get file preview from an app execution
-*AppsApi* | [**getLogsFromAppExecution**](docs/AppsApi.md#getLogsFromAppExecution) | **GET** /api/v1/{tenant}/apps/view/{uid}/logs/download | Download logs for an app execution
-*AppsApi* | [**getStreamEventsFromApp**](docs/AppsApi.md#getStreamEventsFromApp) | **GET** /api/v1/{tenant}/apps/view/{id}/streams/{stream} | Get an event stream from a given app.
-*AppsApi* | [**listTags**](docs/AppsApi.md#listTags) | **GET** /api/v1/{tenant}/apps/tags | Get all the app tags
-*AppsApi* | [**openApp**](docs/AppsApi.md#openApp) | **GET** /api/v1/{tenant}/apps/view/{uid} | Open an app
-*AppsApi* | [**previewApp**](docs/AppsApi.md#previewApp) | **POST** /api/v1/{tenant}/apps/preview | Open the app for the given source
-*AppsApi* | [**searchApps**](docs/AppsApi.md#searchApps) | **GET** /api/v1/{tenant}/apps/search | Search for apps
-*AppsApi* | [**searchAppsFromCatalog**](docs/AppsApi.md#searchAppsFromCatalog) | **GET** /api/v1/{tenant}/apps/catalog | Search for apps from catalog
-*AppsApi* | [**updateApp**](docs/AppsApi.md#updateApp) | **PUT** /api/v1/{tenant}/apps/{uid} | Update an existing app
-*AuditLogsApi* | [**exportAuditLogs**](docs/AuditLogsApi.md#exportAuditLogs) | **GET** /api/v1/{tenant}/auditlogs/export | Export all audit logs as a streamed CSV file
-*AuditLogsApi* | [**findAuditLog**](docs/AuditLogsApi.md#findAuditLog) | **POST** /api/v1/{tenant}/auditlogs/find | Find a specific audit log
-*AuditLogsApi* | [**getGlobalResourceDiffFromAuditLog**](docs/AuditLogsApi.md#getGlobalResourceDiffFromAuditLog) | **GET** /api/v1/auditlogs/{id}/diff | Retrieve the diff between audit logs from global resource like users
-*AuditLogsApi* | [**getResourceDiffFromAuditLog**](docs/AuditLogsApi.md#getResourceDiffFromAuditLog) | **GET** /api/v1/{tenant}/auditlogs/{id}/diff | Retrieve the diff between audit logs
-*AuditLogsApi* | [**listAuditLogFromResourceId**](docs/AuditLogsApi.md#listAuditLogFromResourceId) | **GET** /api/v1/{tenant}/auditlogs/history/{detailId} | Find all audit logs about a specific resource.
-*AuditLogsApi* | [**searchAuditLogs**](docs/AuditLogsApi.md#searchAuditLogs) | **GET** /api/v1/{tenant}/auditlogs/search | Search for audit logs
-*AuditLogsApi* | [**searchAuditLogsForAllTenants**](docs/AuditLogsApi.md#searchAuditLogsForAllTenants) | **GET** /api/v1/auditlogs/search | Search for audit logs across all tenants, required to be SuperAdmin
-*AuthsApi* | [**createApiTokenForCurrentUser**](docs/AuthsApi.md#createApiTokenForCurrentUser) | **POST** /api/v1/me/api-tokens | Create API token for the authenticated user
-*AuthsApi* | [**deleteApiTokenForCurrentUser**](docs/AuthsApi.md#deleteApiTokenForCurrentUser) | **DELETE** /api/v1/me/api-tokens/{tokenId} | Delete API token for the authenticated user
-*AuthsApi* | [**getCurrentUser**](docs/AuthsApi.md#getCurrentUser) | **GET** /api/v1/me | Get details about the authenticated user
-*AuthsApi* | [**index**](docs/AuthsApi.md#index) | **GET** /api/v1/auths | Retrieve list of authentication methods
-*AuthsApi* | [**listApiTokensForCurrentUser**](docs/AuthsApi.md#listApiTokensForCurrentUser) | **GET** /api/v1/me/api-tokens | List API tokens for authenticated user
-*AuthsApi* | [**patchCurrentUser**](docs/AuthsApi.md#patchCurrentUser) | **PATCH** /api/v1/me | Update authenticated user details
-*BannersApi* | [**createBanner**](docs/BannersApi.md#createBanner) | **POST** /api/v1/banners | Create an announcement banner
-*BannersApi* | [**deleteBanner**](docs/BannersApi.md#deleteBanner) | **DELETE** /api/v1/banners/{id} | Delete an announcement banner
-*BannersApi* | [**searchBanners**](docs/BannersApi.md#searchBanners) | **GET** /api/v1/banners/search | Retrieve all announcement banners
-*BannersApi* | [**updateBanner**](docs/BannersApi.md#updateBanner) | **PUT** /api/v1/banners/{id} | Update an announcement banner
-*BindingsApi* | [**bulkCreateBinding**](docs/BindingsApi.md#bulkCreateBinding) | **POST** /api/v1/{tenant}/bindings/bulk | Create multiple bindings
-*BindingsApi* | [**createBinding**](docs/BindingsApi.md#createBinding) | **POST** /api/v1/{tenant}/bindings | Create a binding
-*BindingsApi* | [**deleteBinding**](docs/BindingsApi.md#deleteBinding) | **DELETE** /api/v1/{tenant}/bindings/{id} | Delete a binding
-*BindingsApi* | [**getBinding**](docs/BindingsApi.md#getBinding) | **GET** /api/v1/{tenant}/bindings/{id} | Retrieve a binding
-*BindingsApi* | [**searchBindings**](docs/BindingsApi.md#searchBindings) | **GET** /api/v1/{tenant}/bindings/search | Search for bindings
-*BlueprintTagsApi* | [**internalBlueprintTags**](docs/BlueprintTagsApi.md#internalBlueprintTags) | **GET** /api/v1/{tenant}/blueprints/custom/tags | List all internal blueprint tags
-*BlueprintTagsApi* | [**listBlueprintTags**](docs/BlueprintTagsApi.md#listBlueprintTags) | **GET** /api/v1/{tenant}/blueprints/community/{kind}/tags | List blueprint tags matching the filter
-*BlueprintsApi* | [**createInternalBlueprints**](docs/BlueprintsApi.md#createInternalBlueprints) | **POST** /api/v1/{tenant}/blueprints/custom | Create a new internal blueprint
-*BlueprintsApi* | [**deleteInternalBlueprints**](docs/BlueprintsApi.md#deleteInternalBlueprints) | **DELETE** /api/v1/{tenant}/blueprints/custom/{id} | Delete an internal blueprint
-*BlueprintsApi* | [**getBlueprint**](docs/BlueprintsApi.md#getBlueprint) | **GET** /api/v1/{tenant}/blueprints/community/{kind}/{id} | Retrieve a blueprint
-*BlueprintsApi* | [**getBlueprintGraph**](docs/BlueprintsApi.md#getBlueprintGraph) | **GET** /api/v1/{tenant}/blueprints/community/{kind}/{id}/graph | Retrieve a blueprint graph
-*BlueprintsApi* | [**getBlueprintSource**](docs/BlueprintsApi.md#getBlueprintSource) | **GET** /api/v1/{tenant}/blueprints/community/{kind}/{id}/source | Retrieve a blueprint source code
-*BlueprintsApi* | [**internalBlueprint**](docs/BlueprintsApi.md#internalBlueprint) | **GET** /api/v1/{tenant}/blueprints/custom/{id} | Retrieve an internal blueprint
-*BlueprintsApi* | [**internalBlueprintFlow**](docs/BlueprintsApi.md#internalBlueprintFlow) | **GET** /api/v1/{tenant}/blueprints/custom/{id}/source | Retrieve an internal blueprint source code
-*BlueprintsApi* | [**searchBlueprints**](docs/BlueprintsApi.md#searchBlueprints) | **GET** /api/v1/{tenant}/blueprints/community/{kind} | List all blueprints
-*BlueprintsApi* | [**searchInternalBlueprints**](docs/BlueprintsApi.md#searchInternalBlueprints) | **GET** /api/v1/{tenant}/blueprints/custom | List all internal blueprints
-*BlueprintsApi* | [**updateInternalBlueprints**](docs/BlueprintsApi.md#updateInternalBlueprints) | **PUT** /api/v1/{tenant}/blueprints/custom/{id} | Update an internal blueprint
-*ClusterApi* | [**enterMaintenance**](docs/ClusterApi.md#enterMaintenance) | **POST** /api/v1/instance/maintenance/enter | Enter cluster maintenance mode
-*ClusterApi* | [**exitMaintenance**](docs/ClusterApi.md#exitMaintenance) | **POST** /api/v1/instance/maintenance/exit | Exit cluster maintenance mode
-*DashboardsApi* | [**createDashboard**](docs/DashboardsApi.md#createDashboard) | **POST** /api/v1/{tenant}/dashboards | Create a dashboard from yaml source
-*DashboardsApi* | [**deleteDashboard**](docs/DashboardsApi.md#deleteDashboard) | **DELETE** /api/v1/{tenant}/dashboards/{id} | Delete a dashboard
-*DashboardsApi* | [**exportChartToCsv**](docs/DashboardsApi.md#exportChartToCsv) | **POST** /api/v1/{tenant}/dashboards/charts/export/to-csv | Export a table chart data to CSV
-*DashboardsApi* | [**exportDashboardChartDataToCSV**](docs/DashboardsApi.md#exportDashboardChartDataToCSV) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId}/export/to-csv | Export a dashboard chart data to CSV
-*DashboardsApi* | [**getDashboard**](docs/DashboardsApi.md#getDashboard) | **GET** /api/v1/{tenant}/dashboards/{id} | Get a dashboard
-*DashboardsApi* | [**getDashboardChartData**](docs/DashboardsApi.md#getDashboardChartData) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId} | Generate a dashboard chart data
-*DashboardsApi* | [**previewChart**](docs/DashboardsApi.md#previewChart) | **POST** /api/v1/{tenant}/dashboards/charts/preview | Preview a chart data
-*DashboardsApi* | [**searchDashboards**](docs/DashboardsApi.md#searchDashboards) | **GET** /api/v1/{tenant}/dashboards | Search for dashboards
-*DashboardsApi* | [**updateDashboard**](docs/DashboardsApi.md#updateDashboard) | **PUT** /api/v1/{tenant}/dashboards/{id} | Update a dashboard
-*DashboardsApi* | [**validateChart**](docs/DashboardsApi.md#validateChart) | **POST** /api/v1/{tenant}/dashboards/validate/chart | Validate a chart from yaml source
-*DashboardsApi* | [**validateDashboard**](docs/DashboardsApi.md#validateDashboard) | **POST** /api/v1/{tenant}/dashboards/validate | Validate dashboard from yaml source
-*DefaultApi* | [**acceptInvitation**](docs/DefaultApi.md#acceptInvitation) | **POST** /api/v1/invitation/accept/{invitationId} | 
-*DefaultApi* | [**createFromInvitation**](docs/DefaultApi.md#createFromInvitation) | **POST** /api/v1/invitation/create/{invitationId} | 
-*DefaultApi* | [**forgottenPassword**](docs/DefaultApi.md#forgottenPassword) | **GET** /api/v1/forgotten-password | Sends an email to reset a password.
-*DefaultApi* | [**generate**](docs/DefaultApi.md#generate) | **GET** /api/v1/{tenant}/stats/generate-reports | 
-*DefaultApi* | [**login**](docs/DefaultApi.md#login) | **POST** /login | 
-*DefaultApi* | [**resetPassword**](docs/DefaultApi.md#resetPassword) | **POST** /api/v1/reset-password | Change a password for given token.
 *ExecutionsApi* | [**createExecution**](docs/ExecutionsApi.md#createExecution) | **POST** /api/v1/{tenant}/executions/{namespace}/{id} | Create a new execution for a flow
 *ExecutionsApi* | [**deleteExecution**](docs/ExecutionsApi.md#deleteExecution) | **DELETE** /api/v1/{tenant}/executions/{executionId} | Delete an execution
 *ExecutionsApi* | [**deleteExecutionsByIds**](docs/ExecutionsApi.md#deleteExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/by-ids | Delete a list of executions
 *ExecutionsApi* | [**deleteExecutionsByQuery**](docs/ExecutionsApi.md#deleteExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/by-query | Delete executions filter by query parameters
 *ExecutionsApi* | [**downloadFileFromExecution**](docs/ExecutionsApi.md#downloadFileFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution
-*ExecutionsApi* | [**evalTaskRunExpression**](docs/ExecutionsApi.md#evalTaskRunExpression) | **POST** /api/v1/{tenant}/executions/{executionId}/eval/{taskRunId} | Evaluate a variable expression for this taskrun
+*ExecutionsApi* | [**execution**](docs/ExecutionsApi.md#execution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution
+*ExecutionsApi* | [**executionFlowGraph**](docs/ExecutionsApi.md#executionFlowGraph) | **GET** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution
+*ExecutionsApi* | [**fileMetadatasFromExecution**](docs/ExecutionsApi.md#fileMetadatasFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution
+*ExecutionsApi* | [**flowFromExecution**](docs/ExecutionsApi.md#flowFromExecution) | **GET** /api/v1/{tenant}/executions/flows/{namespace}/{flowId} | Get flow information&#39;s for an execution
+*ExecutionsApi* | [**flowFromExecutionById**](docs/ExecutionsApi.md#flowFromExecutionById) | **GET** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution
 *ExecutionsApi* | [**followDependenciesExecutions**](docs/ExecutionsApi.md#followDependenciesExecutions) | **GET** /api/v1/{tenant}/executions/{executionId}/follow-dependencies | Follow all execution dependencies executions
 *ExecutionsApi* | [**followExecution**](docs/ExecutionsApi.md#followExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/follow | Follow an execution
 *ExecutionsApi* | [**forceRunByIds**](docs/ExecutionsApi.md#forceRunByIds) | **POST** /api/v1/{tenant}/executions/force-run/by-ids | Force run a list of executions
 *ExecutionsApi* | [**forceRunExecution**](docs/ExecutionsApi.md#forceRunExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/force-run | Force run an execution
 *ExecutionsApi* | [**forceRunExecutionsByQuery**](docs/ExecutionsApi.md#forceRunExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/force-run/by-query | Force run executions filter by query parameters
-*ExecutionsApi* | [**getExecution**](docs/ExecutionsApi.md#getExecution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution
-*ExecutionsApi* | [**getExecutionFlowGraph**](docs/ExecutionsApi.md#getExecutionFlowGraph) | **GET** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution
-*ExecutionsApi* | [**getFileMetadatasFromExecution**](docs/ExecutionsApi.md#getFileMetadatasFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution
-*ExecutionsApi* | [**getFlowFromExecution**](docs/ExecutionsApi.md#getFlowFromExecution) | **GET** /api/v1/{tenant}/executions/flows/{namespace}/{flowId} | Get flow information&#39;s for an execution
-*ExecutionsApi* | [**getFlowFromExecutionById**](docs/ExecutionsApi.md#getFlowFromExecutionById) | **GET** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution
-*ExecutionsApi* | [**getLatestExecutions**](docs/ExecutionsApi.md#getLatestExecutions) | **POST** /api/v1/{tenant}/executions/latest | Get the latest execution for given flows
 *ExecutionsApi* | [**killExecution**](docs/ExecutionsApi.md#killExecution) | **DELETE** /api/v1/{tenant}/executions/{executionId}/kill | Kill an execution
 *ExecutionsApi* | [**killExecutionsByIds**](docs/ExecutionsApi.md#killExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/kill/by-ids | Kill a list of executions
 *ExecutionsApi* | [**killExecutionsByQuery**](docs/ExecutionsApi.md#killExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/kill/by-query | Kill executions filter by query parameters
-*ExecutionsApi* | [**listExecutableDistinctNamespaces**](docs/ExecutionsApi.md#listExecutableDistinctNamespaces) | **GET** /api/v1/{tenant}/executions/namespaces | Get all namespaces that have executable flows
-*ExecutionsApi* | [**listFlowExecutionsByNamespace**](docs/ExecutionsApi.md#listFlowExecutionsByNamespace) | **GET** /api/v1/{tenant}/executions/namespaces/{namespace}/flows | Get all flow ids for a namespace. Data returned are FlowForExecution containing minimal information about a Flow for when you are allowed to executing but not reading.
+*ExecutionsApi* | [**latestExecutions**](docs/ExecutionsApi.md#latestExecutions) | **POST** /api/v1/{tenant}/executions/latest | Get the latest execution for given flows
 *ExecutionsApi* | [**pauseExecution**](docs/ExecutionsApi.md#pauseExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/pause | Pause a running execution.
 *ExecutionsApi* | [**pauseExecutionsByIds**](docs/ExecutionsApi.md#pauseExecutionsByIds) | **POST** /api/v1/{tenant}/executions/pause/by-ids | Pause a list of running executions
 *ExecutionsApi* | [**pauseExecutionsByQuery**](docs/ExecutionsApi.md#pauseExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/pause/by-query | Pause executions filter by query parameters
-*ExecutionsApi* | [**previewFileFromExecution**](docs/ExecutionsApi.md#previewFileFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/preview | Get file preview for an execution
 *ExecutionsApi* | [**replayExecution**](docs/ExecutionsApi.md#replayExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/replay | Create a new execution from an old one and start it from a specified task run id
 *ExecutionsApi* | [**replayExecutionWithinputs**](docs/ExecutionsApi.md#replayExecutionWithinputs) | **POST** /api/v1/{tenant}/executions/{executionId}/replay-with-inputs | Create a new execution from an old one and start it from a specified task run id
 *ExecutionsApi* | [**replayExecutionsByIds**](docs/ExecutionsApi.md#replayExecutionsByIds) | **POST** /api/v1/{tenant}/executions/replay/by-ids | Create new executions from old ones. Keep the flow revision
@@ -219,38 +156,20 @@ Class | Method | HTTP request | Description
 *ExecutionsApi* | [**restartExecutionsByIds**](docs/ExecutionsApi.md#restartExecutionsByIds) | **POST** /api/v1/{tenant}/executions/restart/by-ids | Restart a list of executions
 *ExecutionsApi* | [**restartExecutionsByQuery**](docs/ExecutionsApi.md#restartExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/restart/by-query | Restart executions filter by query parameters
 *ExecutionsApi* | [**resumeExecution**](docs/ExecutionsApi.md#resumeExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/resume | Resume a paused execution.
-*ExecutionsApi* | [**resumeExecutionFromBreakpoint**](docs/ExecutionsApi.md#resumeExecutionFromBreakpoint) | **POST** /api/v1/{tenant}/executions/{executionId}/resume-from-breakpoint | Resume an execution from a breakpoint (in the &#39;BREAKPOINT&#39; state).
 *ExecutionsApi* | [**resumeExecutionsByIds**](docs/ExecutionsApi.md#resumeExecutionsByIds) | **POST** /api/v1/{tenant}/executions/resume/by-ids | Resume a list of paused executions
 *ExecutionsApi* | [**resumeExecutionsByQuery**](docs/ExecutionsApi.md#resumeExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/resume/by-query | Resume executions filter by query parameters
 *ExecutionsApi* | [**searchExecutions**](docs/ExecutionsApi.md#searchExecutions) | **GET** /api/v1/{tenant}/executions/search | Search for executions
 *ExecutionsApi* | [**searchExecutionsByFlowId**](docs/ExecutionsApi.md#searchExecutionsByFlowId) | **GET** /api/v1/{tenant}/executions | Search for executions for a flow
-*ExecutionsApi* | [**searchTaskRun**](docs/ExecutionsApi.md#searchTaskRun) | **GET** /api/v1/{tenant}/taskruns/search | Search for taskruns, only available with the Elasticsearch repository
 *ExecutionsApi* | [**setLabelsOnTerminatedExecution**](docs/ExecutionsApi.md#setLabelsOnTerminatedExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/labels | Add or update labels of a terminated execution
 *ExecutionsApi* | [**setLabelsOnTerminatedExecutionsByIds**](docs/ExecutionsApi.md#setLabelsOnTerminatedExecutionsByIds) | **POST** /api/v1/{tenant}/executions/labels/by-ids | Set labels on a list of executions
 *ExecutionsApi* | [**setLabelsOnTerminatedExecutionsByQuery**](docs/ExecutionsApi.md#setLabelsOnTerminatedExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/labels/by-query | Set label on executions filter by query parameters
-*ExecutionsApi* | [**triggerExecution**](docs/ExecutionsApi.md#triggerExecution) | **POST** /api/v1/{tenant}/executions/trigger/{namespace}/{id} | Trigger a new execution for a flow
 *ExecutionsApi* | [**triggerExecutionByGetWebhook**](docs/ExecutionsApi.md#triggerExecutionByGetWebhook) | **GET** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key} | Trigger a new execution by GET webhook trigger
-*ExecutionsApi* | [**triggerExecutionByPostWebhook**](docs/ExecutionsApi.md#triggerExecutionByPostWebhook) | **POST** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key} | Trigger a new execution by POST webhook trigger
-*ExecutionsApi* | [**triggerExecutionByPutWebhook**](docs/ExecutionsApi.md#triggerExecutionByPutWebhook) | **PUT** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key} | Trigger a new execution by PUT webhook trigger
 *ExecutionsApi* | [**unqueueExecution**](docs/ExecutionsApi.md#unqueueExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/unqueue | Unqueue an execution
 *ExecutionsApi* | [**unqueueExecutionsByIds**](docs/ExecutionsApi.md#unqueueExecutionsByIds) | **POST** /api/v1/{tenant}/executions/unqueue/by-ids | Unqueue a list of executions
 *ExecutionsApi* | [**unqueueExecutionsByQuery**](docs/ExecutionsApi.md#unqueueExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/unqueue/by-query | Unqueue executions filter by query parameters
 *ExecutionsApi* | [**updateExecutionStatus**](docs/ExecutionsApi.md#updateExecutionStatus) | **POST** /api/v1/{tenant}/executions/{executionId}/change-status | Change the state of an execution
 *ExecutionsApi* | [**updateExecutionsStatusByIds**](docs/ExecutionsApi.md#updateExecutionsStatusByIds) | **POST** /api/v1/{tenant}/executions/change-status/by-ids | Change executions state by id
 *ExecutionsApi* | [**updateExecutionsStatusByQuery**](docs/ExecutionsApi.md#updateExecutionsStatusByQuery) | **POST** /api/v1/{tenant}/executions/change-status/by-query | Change executions state by query parameters
-*ExecutionsApi* | [**updateTaskRunState**](docs/ExecutionsApi.md#updateTaskRunState) | **POST** /api/v1/{tenant}/executions/{executionId}/state | Change state for a taskrun in an execution
-*ExecutionsApi* | [**validateNewExecutionInputs**](docs/ExecutionsApi.md#validateNewExecutionInputs) | **POST** /api/v1/{tenant}/executions/{namespace}/{id}/validate | Validate the creation of a new execution for a flow
-*ExecutionsApi* | [**validateResumeExecutionInputs**](docs/ExecutionsApi.md#validateResumeExecutionInputs) | **POST** /api/v1/{tenant}/executions/{executionId}/resume/validate | Validate inputs to resume a paused execution.
-*FilesApi* | [**createNamespaceDirectory**](docs/FilesApi.md#createNamespaceDirectory) | **POST** /api/v1/{tenant}/namespaces/{namespace}/files/directory | Create a directory
-*FilesApi* | [**createNamespaceFile**](docs/FilesApi.md#createNamespaceFile) | **POST** /api/v1/{tenant}/namespaces/{namespace}/files | Create a file
-*FilesApi* | [**deleteFileDirectory**](docs/FilesApi.md#deleteFileDirectory) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/files | Delete a file or directory
-*FilesApi* | [**exportNamespaceFiles**](docs/FilesApi.md#exportNamespaceFiles) | **GET** /api/v1/{tenant}/namespaces/{namespace}/files/export | Export namespace files as a ZIP
-*FilesApi* | [**getFileContent**](docs/FilesApi.md#getFileContent) | **GET** /api/v1/{tenant}/namespaces/{namespace}/files | Get namespace file content
-*FilesApi* | [**getFileMetadatas**](docs/FilesApi.md#getFileMetadatas) | **GET** /api/v1/{tenant}/namespaces/{namespace}/files/stats | Get namespace file stats such as size, creation &amp; modification dates and type
-*FilesApi* | [**listNamespaceDirectoryFiles**](docs/FilesApi.md#listNamespaceDirectoryFiles) | **GET** /api/v1/{tenant}/namespaces/{namespace}/files/directory | List directory content
-*FilesApi* | [**moveFileDirectory**](docs/FilesApi.md#moveFileDirectory) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/files | Move a file or directory
-*FilesApi* | [**searchNamespaceFiles**](docs/FilesApi.md#searchNamespaceFiles) | **GET** /api/v1/{tenant}/namespaces/{namespace}/files/search | Find files which path contain the given string in their URI
-*FlowsApi* | [**bulkImportApps**](docs/FlowsApi.md#bulkImportApps) | **POST** /api/v1/{tenant}/apps/import |     Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
 *FlowsApi* | [**bulkUpdateFlows**](docs/FlowsApi.md#bulkUpdateFlows) | **POST** /api/v1/{tenant}/flows/bulk | Update from multiples yaml sources
 *FlowsApi* | [**createFlow**](docs/FlowsApi.md#createFlow) | **POST** /api/v1/{tenant}/flows | Create a flow from yaml source
 *FlowsApi* | [**deleteFlow**](docs/FlowsApi.md#deleteFlow) | **DELETE** /api/v1/{tenant}/flows/{namespace}/{id} | Delete a flow
@@ -262,21 +181,20 @@ Class | Method | HTTP request | Description
 *FlowsApi* | [**enableFlowsByQuery**](docs/FlowsApi.md#enableFlowsByQuery) | **POST** /api/v1/{tenant}/flows/enable/by-query | Enable flows returned by the query parameters.
 *FlowsApi* | [**exportFlowsByIds**](docs/FlowsApi.md#exportFlowsByIds) | **POST** /api/v1/{tenant}/flows/export/by-ids | Export flows as a ZIP archive of yaml sources.
 *FlowsApi* | [**exportFlowsByQuery**](docs/FlowsApi.md#exportFlowsByQuery) | **GET** /api/v1/{tenant}/flows/export/by-query | Export flows as a ZIP archive of yaml sources.
+*FlowsApi* | [**flow**](docs/FlowsApi.md#flow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id} | Get a flow
+*FlowsApi* | [**flowDependencies**](docs/FlowsApi.md#flowDependencies) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/dependencies | Get flow dependencies
+*FlowsApi* | [**flowDependenciesFromNamespace**](docs/FlowsApi.md#flowDependenciesFromNamespace) | **GET** /api/v1/{tenant}/namespaces/{namespace}/dependencies | Retrieve flow dependencies
 *FlowsApi* | [**generateFlowGraph**](docs/FlowsApi.md#generateFlowGraph) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/graph | Generate a graph for a flow
 *FlowsApi* | [**generateFlowGraphFromSource**](docs/FlowsApi.md#generateFlowGraphFromSource) | **POST** /api/v1/{tenant}/flows/graph | Generate a graph for a flow source
-*FlowsApi* | [**getFlow**](docs/FlowsApi.md#getFlow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id} | Get a flow
-*FlowsApi* | [**getFlowDependencies**](docs/FlowsApi.md#getFlowDependencies) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/dependencies | Get flow dependencies
-*FlowsApi* | [**getFlowDependenciesFromNamespace**](docs/FlowsApi.md#getFlowDependenciesFromNamespace) | **GET** /api/v1/{tenant}/namespaces/{namespace}/dependencies | Retrieve flow dependencies
-*FlowsApi* | [**getTaskFromFlow**](docs/FlowsApi.md#getTaskFromFlow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId} | Get a flow task
 *FlowsApi* | [**importFlows**](docs/FlowsApi.md#importFlows) | **POST** /api/v1/{tenant}/flows/import |     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
 *FlowsApi* | [**listDistinctNamespaces**](docs/FlowsApi.md#listDistinctNamespaces) | **GET** /api/v1/{tenant}/flows/distinct-namespaces | List all distinct namespaces
 *FlowsApi* | [**listFlowRevisions**](docs/FlowsApi.md#listFlowRevisions) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/revisions | Get revisions for a flow
 *FlowsApi* | [**listFlowsByNamespace**](docs/FlowsApi.md#listFlowsByNamespace) | **GET** /api/v1/{tenant}/flows/{namespace} | Retrieve all flows from a given namespace
 *FlowsApi* | [**searchFlows**](docs/FlowsApi.md#searchFlows) | **GET** /api/v1/{tenant}/flows/search | Search for flows
 *FlowsApi* | [**searchFlowsBySourceCode**](docs/FlowsApi.md#searchFlowsBySourceCode) | **GET** /api/v1/{tenant}/flows/source | Search for flows source code
+*FlowsApi* | [**taskFromFlow**](docs/FlowsApi.md#taskFromFlow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId} | Get a flow task
 *FlowsApi* | [**updateFlow**](docs/FlowsApi.md#updateFlow) | **PUT** /api/v1/{tenant}/flows/{namespace}/{id} | Update a flow
-*FlowsApi* | [**updateFlowsInNamespaceFromJson**](docs/FlowsApi.md#updateFlowsInNamespaceFromJson) | **POST** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from json object
-*FlowsApi* | [**updateTask**](docs/FlowsApi.md#updateTask) | **PATCH** /api/v1/{tenant}/flows/{namespace}/{id}/{taskId} | Update a single task on a flow
+*FlowsApi* | [**updateFlowsInNamespace**](docs/FlowsApi.md#updateFlowsInNamespace) | **POST** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from yaml source
 *FlowsApi* | [**validateFlows**](docs/FlowsApi.md#validateFlows) | **POST** /api/v1/{tenant}/flows/validate | Validate a list of flows
 *FlowsApi* | [**validateTask**](docs/FlowsApi.md#validateTask) | **POST** /api/v1/{tenant}/flows/validate/task | Validate a task
 *FlowsApi* | [**validateTrigger**](docs/FlowsApi.md#validateTrigger) | **POST** /api/v1/{tenant}/flows/validate/trigger | Validate trigger
@@ -285,153 +203,54 @@ Class | Method | HTTP request | Description
 *GroupsApi* | [**createGroup**](docs/GroupsApi.md#createGroup) | **POST** /api/v1/{tenant}/groups | Create a group
 *GroupsApi* | [**deleteGroup**](docs/GroupsApi.md#deleteGroup) | **DELETE** /api/v1/{tenant}/groups/{id} | Delete a group
 *GroupsApi* | [**deleteUserFromGroup**](docs/GroupsApi.md#deleteUserFromGroup) | **DELETE** /api/v1/{tenant}/groups/{id}/members/{userId} | Remove a user from a group
-*GroupsApi* | [**getGroup**](docs/GroupsApi.md#getGroup) | **GET** /api/v1/{tenant}/groups/{id} | Retrieve a group
+*GroupsApi* | [**group**](docs/GroupsApi.md#group) | **GET** /api/v1/{tenant}/groups/{id} | Retrieve a group
 *GroupsApi* | [**listGroupIds**](docs/GroupsApi.md#listGroupIds) | **POST** /api/v1/{tenant}/groups/ids | List groups by ids
 *GroupsApi* | [**searchGroupMembers**](docs/GroupsApi.md#searchGroupMembers) | **GET** /api/v1/{tenant}/groups/{id}/members | Search for users in a group
 *GroupsApi* | [**searchGroups**](docs/GroupsApi.md#searchGroups) | **GET** /api/v1/{tenant}/groups/search | Search for groups
 *GroupsApi* | [**setUserMembershipForGroup**](docs/GroupsApi.md#setUserMembershipForGroup) | **PUT** /api/v1/{tenant}/groups/{id}/members/membership/{userId} | Update a user&#39;s membership type in a group
 *GroupsApi* | [**updateGroup**](docs/GroupsApi.md#updateGroup) | **PUT** /api/v1/{tenant}/groups/{id} | Update a group
-*InvitationsApi* | [**createInvitation**](docs/InvitationsApi.md#createInvitation) | **POST** /api/v1/{tenant}/invitations | Create an invitation
-*InvitationsApi* | [**deleteInvitation**](docs/InvitationsApi.md#deleteInvitation) | **DELETE** /api/v1/{tenant}/invitations/{id} | Delete an invitation
-*InvitationsApi* | [**findAllInvitationsForCurrentUser**](docs/InvitationsApi.md#findAllInvitationsForCurrentUser) | **GET** /api/v1/me/invitations | List invitations for the authenticated user
-*InvitationsApi* | [**getInvitation**](docs/InvitationsApi.md#getInvitation) | **GET** /api/v1/{tenant}/invitations/{id} | Retrieve an invitation
-*InvitationsApi* | [**listInvitationsByEmail**](docs/InvitationsApi.md#listInvitationsByEmail) | **GET** /api/v1/{tenant}/invitations/email/{email} | Retrieve all invitations for a given email
-*InvitationsApi* | [**searchInvitations**](docs/InvitationsApi.md#searchInvitations) | **GET** /api/v1/{tenant}/invitations/search | Search for invitations
 *KvApi* | [**deleteKeyValue**](docs/KvApi.md#deleteKeyValue) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Delete a key-value pair
 *KvApi* | [**deleteKeyValues**](docs/KvApi.md#deleteKeyValues) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/kv | Bulk-delete multiple key/value pairs from the given namespace.
-*KvApi* | [**getKeyValue**](docs/KvApi.md#getKeyValue) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Get value for a key
+*KvApi* | [**keyValue**](docs/KvApi.md#keyValue) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Get value for a key
 *KvApi* | [**listKeys**](docs/KvApi.md#listKeys) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv | List all keys for a namespace
-*KvApi* | [**listKeysWithInheritence**](docs/KvApi.md#listKeysWithInheritence) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/inheritance | List all keys for a namespace and parent namespaces
+*KvApi* | [**listKeysWithInheritence**](docs/KvApi.md#listKeysWithInheritence) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/inheritance | List all keys for inherited namespaces
 *KvApi* | [**setKeyValue**](docs/KvApi.md#setKeyValue) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Puts a key-value pair in store
-*LogsApi* | [**deleteLogsFromExecution**](docs/LogsApi.md#deleteLogsFromExecution) | **DELETE** /api/v1/{tenant}/logs/{executionId} | Delete logs for a specific execution, taskrun or task
-*LogsApi* | [**deleteLogsFromFlow**](docs/LogsApi.md#deleteLogsFromFlow) | **DELETE** /api/v1/{tenant}/logs/{namespace}/{flowId} | Delete logs for a specific execution, taskrun or task
-*LogsApi* | [**downloadLogsFromExecution**](docs/LogsApi.md#downloadLogsFromExecution) | **GET** /api/v1/{tenant}/logs/{executionId}/download | Download logs for a specific execution, taskrun or task
-*LogsApi* | [**followLogsFromExecution**](docs/LogsApi.md#followLogsFromExecution) | **GET** /api/v1/{tenant}/logs/{executionId}/follow | Follow logs for a specific execution
-*LogsApi* | [**listLogsFromExecution**](docs/LogsApi.md#listLogsFromExecution) | **GET** /api/v1/{tenant}/logs/{executionId} | Get logs for a specific execution, taskrun or task
-*LogsApi* | [**searchLogs**](docs/LogsApi.md#searchLogs) | **GET** /api/v1/{tenant}/logs/search | Search for logs
-*MaintenanceApi* | [**enterMaintenance**](docs/MaintenanceApi.md#enterMaintenance) | **POST** /api/v1/instance/maintenance/enter | Enter cluster maintenance mode
-*MaintenanceApi* | [**exitMaintenance**](docs/MaintenanceApi.md#exitMaintenance) | **POST** /api/v1/instance/maintenance/exit | Exit cluster maintenance mode
-*MetricsApi* | [**aggregateMetricsFromFlow**](docs/MetricsApi.md#aggregateMetricsFromFlow) | **GET** /api/v1/{tenant}/metrics/aggregates/{namespace}/{flowId}/{metric} | Get metrics aggregations for a specific flow
-*MetricsApi* | [**aggregateMetricsFromTask**](docs/MetricsApi.md#aggregateMetricsFromTask) | **GET** /api/v1/{tenant}/metrics/aggregates/{namespace}/{flowId}/{taskId}/{metric} | Get metrics aggregations for a specific flow
-*MetricsApi* | [**listFlowMetrics**](docs/MetricsApi.md#listFlowMetrics) | **GET** /api/v1/{tenant}/metrics/names/{namespace}/{flowId} | Get metrics names for a specific flow
-*MetricsApi* | [**listTaskMetrics**](docs/MetricsApi.md#listTaskMetrics) | **GET** /api/v1/{tenant}/metrics/names/{namespace}/{flowId}/{taskId} | Get metrics names for a specific task in a flow
-*MetricsApi* | [**listTasksWithMetrics**](docs/MetricsApi.md#listTasksWithMetrics) | **GET** /api/v1/{tenant}/metrics/tasks/{namespace}/{flowId} | Get tasks id that have metrics for a specific flow, include deleted or renamed tasks
-*MetricsApi* | [**searchByExecution**](docs/MetricsApi.md#searchByExecution) | **GET** /api/v1/{tenant}/metrics/{executionId} | Get metrics for a specific execution
-*MiscApi* | [**createBasicAuth**](docs/MiscApi.md#createBasicAuth) | **POST** /api/v1/{tenant}/basicAuth | Configure basic authentication for the instance.
-*MiscApi* | [**getBasicAuthConfigErrors**](docs/MiscApi.md#getBasicAuthConfigErrors) | **GET** /api/v1/basicAuthValidationErrors | Retrieve the instance configuration.
-*MiscApi* | [**getConfiguration**](docs/MiscApi.md#getConfiguration) | **GET** /api/v1/configs | Retrieve the instance configuration.
-*MiscApi* | [**getUsages**](docs/MiscApi.md#getUsages) | **GET** /api/v1/{tenant}/usages/all | Retrieve instance usage information
-*MiscApi* | [**licenseInfo**](docs/MiscApi.md#licenseInfo) | **GET** /api/v1/license-info | Retrieve license information
-*MiscApi* | [**listActions**](docs/MiscApi.md#listActions) | **GET** /api/v1/{tenant}/acls/actions | Retrieve list of actions
-*MiscApi* | [**listPermissions**](docs/MiscApi.md#listPermissions) | **GET** /api/v1/{tenant}/acls/permissions | Retrieve list of permissions
-*MiscApi* | [**setupConfiguration**](docs/MiscApi.md#setupConfiguration) | **GET** /api/v1/setup | Retrieve current setup configuration
-*MiscApi* | [**setupKestra**](docs/MiscApi.md#setupKestra) | **POST** /api/v1/setup | Create the first Superadmin user
-*MiscApi* | [**tenantUsage**](docs/MiscApi.md#tenantUsage) | **GET** /api/v1/{tenant}/usages | Retrieve usage information for the current tenant
 *NamespacesApi* | [**autocompleteNamespaces**](docs/NamespacesApi.md#autocompleteNamespaces) | **POST** /api/v1/{tenant}/namespaces/autocomplete | List namespaces for autocomplete
 *NamespacesApi* | [**createNamespace**](docs/NamespacesApi.md#createNamespace) | **POST** /api/v1/{tenant}/namespaces | Create a namespace
 *NamespacesApi* | [**deleteNamespace**](docs/NamespacesApi.md#deleteNamespace) | **DELETE** /api/v1/{tenant}/namespaces/{id} | Delete a namespace
 *NamespacesApi* | [**deleteSecret**](docs/NamespacesApi.md#deleteSecret) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Delete a secret for a namespace
-*NamespacesApi* | [**getInheritedSecrets**](docs/NamespacesApi.md#getInheritedSecrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets
-*NamespacesApi* | [**getNamespace**](docs/NamespacesApi.md#getNamespace) | **GET** /api/v1/{tenant}/namespaces/{id} | Get a namespace
 *NamespacesApi* | [**inheritedPluginDefaults**](docs/NamespacesApi.md#inheritedPluginDefaults) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-plugindefaults | List inherited plugin defaults
+*NamespacesApi* | [**inheritedSecrets**](docs/NamespacesApi.md#inheritedSecrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets
 *NamespacesApi* | [**inheritedVariables**](docs/NamespacesApi.md#inheritedVariables) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-variables | List inherited variables
 *NamespacesApi* | [**listNamespaceSecrets**](docs/NamespacesApi.md#listNamespaceSecrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/secrets | Get secrets for a namespace
+*NamespacesApi* | [**namespace**](docs/NamespacesApi.md#namespace) | **GET** /api/v1/{tenant}/namespaces/{id} | Get a namespace
 *NamespacesApi* | [**patchSecret**](docs/NamespacesApi.md#patchSecret) | **PATCH** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Patch a secret metadata for a namespace
 *NamespacesApi* | [**putSecrets**](docs/NamespacesApi.md#putSecrets) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/secrets | Update secrets for a namespace
 *NamespacesApi* | [**searchNamespaces**](docs/NamespacesApi.md#searchNamespaces) | **GET** /api/v1/{tenant}/namespaces/search | Search for namespaces
 *NamespacesApi* | [**updateNamespace**](docs/NamespacesApi.md#updateNamespace) | **PUT** /api/v1/{tenant}/namespaces/{id} | Update a namespace
-*PluginsApi* | [**getAllInputTypes**](docs/PluginsApi.md#getAllInputTypes) | **GET** /api/v1/plugins/inputs | Get all types for an inputs
-*PluginsApi* | [**getPluginBySubgroups**](docs/PluginsApi.md#getPluginBySubgroups) | **GET** /api/v1/plugins/groups/subgroups | Get plugins group by subgroups
-*PluginsApi* | [**getPluginDocumentation**](docs/PluginsApi.md#getPluginDocumentation) | **GET** /api/v1/plugins/{cls} | Get plugin documentation
-*PluginsApi* | [**getPluginDocumentationFromVersion**](docs/PluginsApi.md#getPluginDocumentationFromVersion) | **GET** /api/v1/plugins/{cls}/versions/{version} | Get plugin documentation
-*PluginsApi* | [**getPluginGroupIcons**](docs/PluginsApi.md#getPluginGroupIcons) | **GET** /api/v1/plugins/icons/groups | Get plugins icons
-*PluginsApi* | [**getPluginIcons**](docs/PluginsApi.md#getPluginIcons) | **GET** /api/v1/plugins/icons | Get plugins icons
-*PluginsApi* | [**getPluginVersions**](docs/PluginsApi.md#getPluginVersions) | **GET** /api/v1/plugins/{cls}/versions | Get all versions for a plugin
-*PluginsApi* | [**getPropertiesFromType**](docs/PluginsApi.md#getPropertiesFromType) | **GET** /api/v1/plugins/properties/{type} | Get the properties part of the JSON schema for a type
-*PluginsApi* | [**getSchemaFromInputType**](docs/PluginsApi.md#getSchemaFromInputType) | **GET** /api/v1/plugins/inputs/{type} | Get the JSON schema for an input type
-*PluginsApi* | [**getSchemasFromType**](docs/PluginsApi.md#getSchemasFromType) | **GET** /api/v1/plugins/schemas/{type} | Get the JSON schema for a type
-*PluginsApi* | [**getVersionedPluginDetails**](docs/PluginsApi.md#getVersionedPluginDetails) | **GET** /api/v1/instance/versioned-plugins/{groupId}/{artifactId} | Retrieve details of a plugin artifact
-*PluginsApi* | [**getVersionedPluginDetailsFromVersion**](docs/PluginsApi.md#getVersionedPluginDetailsFromVersion) | **GET** /api/v1/instance/versioned-plugins/{groupId}/{artifactId}/{version} | Retrieve details of a specific plugin artifact version
-*PluginsApi* | [**installVersionedPlugins**](docs/PluginsApi.md#installVersionedPlugins) | **POST** /api/v1/instance/versioned-plugins/install | Install specified plugin artifacts
-*PluginsApi* | [**listAvailableVersionedPlugins**](docs/PluginsApi.md#listAvailableVersionedPlugins) | **GET** /api/v1/instance/versioned-plugins/available | List available plugin artifacts
-*PluginsApi* | [**listAvailableVersionedPluginsForSecretManager**](docs/PluginsApi.md#listAvailableVersionedPluginsForSecretManager) | **GET** /api/v1/instance/versioned-plugins/available/secrets-managers | List available plugin artifacts for Kestra Secret Manager
-*PluginsApi* | [**listAvailableVersionedPluginsForStorage**](docs/PluginsApi.md#listAvailableVersionedPluginsForStorage) | **GET** /api/v1/instance/versioned-plugins/available/storages | List available plugin artifacts for Kestra Internal Storage
-*PluginsApi* | [**listPlugins**](docs/PluginsApi.md#listPlugins) | **GET** /api/v1/plugins | Get list of plugins
-*PluginsApi* | [**listVersionedPlugin**](docs/PluginsApi.md#listVersionedPlugin) | **GET** /api/v1/instance/versioned-plugins | List installed plugin artifacts
-*PluginsApi* | [**resolveVersionedPlugins**](docs/PluginsApi.md#resolveVersionedPlugins) | **POST** /api/v1/instance/versioned-plugins/resolve | Resolve versions for specified plugin artifacts
-*PluginsApi* | [**uninstallVersionedPlugins**](docs/PluginsApi.md#uninstallVersionedPlugins) | **DELETE** /api/v1/instance/versioned-plugins/uninstall | Uninstall plugin artifacts
-*PluginsApi* | [**uploadVersionedPlugins**](docs/PluginsApi.md#uploadVersionedPlugins) | **POST** /api/v1/instance/versioned-plugins/upload | Upload a plugin artifact JAR file
 *RolesApi* | [**autocompleteRoles**](docs/RolesApi.md#autocompleteRoles) | **POST** /api/v1/{tenant}/roles/autocomplete | List roles for autocomplete
 *RolesApi* | [**createRole**](docs/RolesApi.md#createRole) | **POST** /api/v1/{tenant}/roles | Create a role
 *RolesApi* | [**deleteRole**](docs/RolesApi.md#deleteRole) | **DELETE** /api/v1/{tenant}/roles/{id} | Delete a role
-*RolesApi* | [**getRole**](docs/RolesApi.md#getRole) | **GET** /api/v1/{tenant}/roles/{id} | Retrieve a role
 *RolesApi* | [**listRolesFromGivenIds**](docs/RolesApi.md#listRolesFromGivenIds) | **POST** /api/v1/{tenant}/roles/ids | List roles by ids
+*RolesApi* | [**role**](docs/RolesApi.md#role) | **GET** /api/v1/{tenant}/roles/{id} | Retrieve a role
 *RolesApi* | [**searchRoles**](docs/RolesApi.md#searchRoles) | **GET** /api/v1/{tenant}/roles/search | Search for roles
 *RolesApi* | [**updateRole**](docs/RolesApi.md#updateRole) | **PUT** /api/v1/{tenant}/roles/{id} | Update a role
-*ScimConfigurationApi* | [**getAllResourceTypes**](docs/ScimConfigurationApi.md#getAllResourceTypes) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/ResourceTypes | 
-*ScimConfigurationApi* | [**getAllSchemas**](docs/ScimConfigurationApi.md#getAllSchemas) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/Schemas | 
-*ScimConfigurationApi* | [**getResourceType**](docs/ScimConfigurationApi.md#getResourceType) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/ResourceTypes/{name} | 
-*ScimConfigurationApi* | [**getSchema**](docs/ScimConfigurationApi.md#getSchema) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/Schemas/{uri} | 
-*ScimConfigurationApi* | [**getServiceProviderConfiguration**](docs/ScimConfigurationApi.md#getServiceProviderConfiguration) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/ServiceProviderConfig | 
-*ScimGroupsApi* | [**createSCIMResourceByIdGroups**](docs/ScimGroupsApi.md#createSCIMResourceByIdGroups) | **POST** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups | 
-*ScimGroupsApi* | [**deleteGroups**](docs/ScimGroupsApi.md#deleteGroups) | **DELETE** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/{id} | 
-*ScimGroupsApi* | [**findGroups**](docs/ScimGroupsApi.md#findGroups) | **POST** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/.search | 
-*ScimGroupsApi* | [**getSCIMResourceByIdGroups**](docs/ScimGroupsApi.md#getSCIMResourceByIdGroups) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/{id} | 
-*ScimGroupsApi* | [**patchGroups**](docs/ScimGroupsApi.md#patchGroups) | **PATCH** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/{id} | 
-*ScimGroupsApi* | [**queryGroups**](docs/ScimGroupsApi.md#queryGroups) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups | 
-*ScimGroupsApi* | [**updateGroups**](docs/ScimGroupsApi.md#updateGroups) | **PUT** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/{id} | 
-*ScimUsersApi* | [**createSCIMResourceByIdUsers**](docs/ScimUsersApi.md#createSCIMResourceByIdUsers) | **POST** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users | 
-*ScimUsersApi* | [**deleteUsers**](docs/ScimUsersApi.md#deleteUsers) | **DELETE** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/{id} | 
-*ScimUsersApi* | [**findUsers**](docs/ScimUsersApi.md#findUsers) | **POST** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/.search | 
-*ScimUsersApi* | [**getSCIMResourceByIdUsers**](docs/ScimUsersApi.md#getSCIMResourceByIdUsers) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/{id} | 
-*ScimUsersApi* | [**patchUsers**](docs/ScimUsersApi.md#patchUsers) | **PATCH** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/{id} | 
-*ScimUsersApi* | [**queryUsers**](docs/ScimUsersApi.md#queryUsers) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users | 
-*ScimUsersApi* | [**updateUsers**](docs/ScimUsersApi.md#updateUsers) | **PUT** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/{id} | 
-*SecurityIntegrationsApi* | [**createSecurityIntegration**](docs/SecurityIntegrationsApi.md#createSecurityIntegration) | **POST** /api/v1/{tenant}/security-integrations | Create a security integration
-*SecurityIntegrationsApi* | [**deleteSecurityIntegration**](docs/SecurityIntegrationsApi.md#deleteSecurityIntegration) | **DELETE** /api/v1/{tenant}/security-integrations/{id} | Delete a security integration
-*SecurityIntegrationsApi* | [**disableSecurityIntegration**](docs/SecurityIntegrationsApi.md#disableSecurityIntegration) | **POST** /api/v1/{tenant}/security-integrations/{id}/disable | Disable a security integration
-*SecurityIntegrationsApi* | [**enableSecurityIntegration**](docs/SecurityIntegrationsApi.md#enableSecurityIntegration) | **POST** /api/v1/{tenant}/security-integrations/{id}/enable | Enable a security integration
-*SecurityIntegrationsApi* | [**getSecurityIntegration**](docs/SecurityIntegrationsApi.md#getSecurityIntegration) | **GET** /api/v1/{tenant}/security-integrations/{id} | Retrieve a security integration
-*SecurityIntegrationsApi* | [**listSecurityIntegrations**](docs/SecurityIntegrationsApi.md#listSecurityIntegrations) | **GET** /api/v1/{tenant}/security-integrations | List all security integrations
+*ServiceAccountApi* | [**createApiTokensForServiceAccount**](docs/ServiceAccountApi.md#createApiTokensForServiceAccount) | **POST** /api/v1/service-accounts/{id}/api-tokens | Create new API Token for a specific service account
+*ServiceAccountApi* | [**createApiTokensForServiceAccountWithTenant**](docs/ServiceAccountApi.md#createApiTokensForServiceAccountWithTenant) | **POST** /api/v1/{tenant}/service-accounts/{id}/api-tokens | Create new API Token for a specific service account
 *ServiceAccountApi* | [**createServiceAccount**](docs/ServiceAccountApi.md#createServiceAccount) | **POST** /api/v1/service-accounts | Create a service account
 *ServiceAccountApi* | [**createServiceAccountForTenant**](docs/ServiceAccountApi.md#createServiceAccountForTenant) | **POST** /api/v1/{tenant}/service-accounts | Create a service account for the given tenant
+*ServiceAccountApi* | [**deleteApiTokenForServiceAccount**](docs/ServiceAccountApi.md#deleteApiTokenForServiceAccount) | **DELETE** /api/v1/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific service account and token id
+*ServiceAccountApi* | [**deleteApiTokenForServiceAccountWithTenant**](docs/ServiceAccountApi.md#deleteApiTokenForServiceAccountWithTenant) | **DELETE** /api/v1/{tenant}/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific service account and token id
 *ServiceAccountApi* | [**deleteServiceAccount**](docs/ServiceAccountApi.md#deleteServiceAccount) | **DELETE** /api/v1/service-accounts/{id} | Delete a service account
 *ServiceAccountApi* | [**deleteServiceAccountForTenant**](docs/ServiceAccountApi.md#deleteServiceAccountForTenant) | **DELETE** /api/v1/{tenant}/service-accounts/{id} | Delete a service account
-*ServiceAccountApi* | [**getServiceAccount**](docs/ServiceAccountApi.md#getServiceAccount) | **GET** /api/v1/service-accounts/{id} | Get a service account
-*ServiceAccountApi* | [**getServiceAccountForTenant**](docs/ServiceAccountApi.md#getServiceAccountForTenant) | **GET** /api/v1/{tenant}/service-accounts/{id} | Retrieve a service account
+*ServiceAccountApi* | [**listApiTokensForServiceAccount**](docs/ServiceAccountApi.md#listApiTokensForServiceAccount) | **GET** /api/v1/service-accounts/{id}/api-tokens | List API tokens for a specific service account
+*ServiceAccountApi* | [**listApiTokensForServiceAccountWithTenant**](docs/ServiceAccountApi.md#listApiTokensForServiceAccountWithTenant) | **GET** /api/v1/{tenant}/service-accounts/{id}/api-tokens | List API tokens for a specific service account
 *ServiceAccountApi* | [**listServiceAccounts**](docs/ServiceAccountApi.md#listServiceAccounts) | **GET** /api/v1/service-accounts | List service accounts. Superadmin-only. 
 *ServiceAccountApi* | [**patchServiceAccountDetails**](docs/ServiceAccountApi.md#patchServiceAccountDetails) | **PATCH** /api/v1/service-accounts/{id} | Update service account details
 *ServiceAccountApi* | [**patchServiceAccountSuperAdmin**](docs/ServiceAccountApi.md#patchServiceAccountSuperAdmin) | **PATCH** /api/v1/service-accounts/{id}/superadmin | Update service account superadmin privileges
+*ServiceAccountApi* | [**serviceAccount**](docs/ServiceAccountApi.md#serviceAccount) | **GET** /api/v1/service-accounts/{id} | Get a service account
+*ServiceAccountApi* | [**serviceAccountForTenant**](docs/ServiceAccountApi.md#serviceAccountForTenant) | **GET** /api/v1/{tenant}/service-accounts/{id} | Retrieve a service account
 *ServiceAccountApi* | [**updateServiceAccount**](docs/ServiceAccountApi.md#updateServiceAccount) | **PUT** /api/v1/{tenant}/service-accounts/{id} | Update a user service account
-*ServicesApi* | [**getActiveServices**](docs/ServicesApi.md#getActiveServices) | **GET** /api/v1/instance/services/active | List all active services
-*ServicesApi* | [**getService**](docs/ServicesApi.md#getService) | **GET** /api/v1/instance/services/{id} | Retrieve details of a specific service
-*ServicesApi* | [**searchServices**](docs/ServicesApi.md#searchServices) | **GET** /api/v1/instance/services/search | Search for a service (e.g. Worker, Executor, etc)
-*TenantAccessApi* | [**createTenantAccess**](docs/TenantAccessApi.md#createTenantAccess) | **POST** /api/v1/{tenant}/tenant-access | Create tenant access for a user
-*TenantAccessApi* | [**createTenantAccess1**](docs/TenantAccessApi.md#createTenantAccess1) | **PUT** /api/v1/{tenant}/tenant-access/{userId} | Create tenant access for a user
-*TenantAccessApi* | [**deleteTenantAccess**](docs/TenantAccessApi.md#deleteTenantAccess) | **DELETE** /api/v1/{tenant}/tenant-access/{userId} | Delete tenant access for a user
-*TenantAccessApi* | [**getTenantAccess**](docs/TenantAccessApi.md#getTenantAccess) | **GET** /api/v1/{tenant}/tenant-access/{userId} | Retrieve tenant access for a user
-*TenantAccessApi* | [**listTenantAccess**](docs/TenantAccessApi.md#listTenantAccess) | **GET** /api/v1/{tenant}/tenant-access | Retrieve users belonging to the tenant
-*TenantsApi* | [**create**](docs/TenantsApi.md#create) | **POST** /api/v1/tenants | Create a tenant
-*TenantsApi* | [**delete**](docs/TenantsApi.md#delete) | **DELETE** /api/v1/tenants/{id} | Delete a tenant and all its resources
-*TenantsApi* | [**find**](docs/TenantsApi.md#find) | **GET** /api/v1/tenants/search | Search for tenants
-*TenantsApi* | [**get**](docs/TenantsApi.md#get) | **GET** /api/v1/tenants/{id} | Retrieve a tenant
-*TenantsApi* | [**getFlowDependenciesFromTenant**](docs/TenantsApi.md#getFlowDependenciesFromTenant) | **GET** /api/v1/{tenant}/dependencies | Get tenant dependencies
-*TenantsApi* | [**setLogo**](docs/TenantsApi.md#setLogo) | **POST** /api/v1/tenants/{id}/logo | Set a tenant logo
-*TenantsApi* | [**update**](docs/TenantsApi.md#update) | **PUT** /api/v1/tenants/{id} | Update a tenant
-*TestSuitesApi* | [**createTestSuite**](docs/TestSuitesApi.md#createTestSuite) | **POST** /api/v1/{tenant}/tests | Create a test from YAML source
-*TestSuitesApi* | [**deleteTestSuite**](docs/TestSuitesApi.md#deleteTestSuite) | **DELETE** /api/v1/{tenant}/tests/{namespace}/{id} | Delete a test
-*TestSuitesApi* | [**deleteTestSuitesByIds**](docs/TestSuitesApi.md#deleteTestSuitesByIds) | **DELETE** /api/v1/{tenant}/tests/by-ids | Delete multiple tests by id
-*TestSuitesApi* | [**disableTestSuitesByIds**](docs/TestSuitesApi.md#disableTestSuitesByIds) | **POST** /api/v1/{tenant}/tests/disable/by-ids | Disable multiple tests by id
-*TestSuitesApi* | [**enableTestSuitesByIds**](docs/TestSuitesApi.md#enableTestSuitesByIds) | **POST** /api/v1/{tenant}/tests/enable/by-ids | Enable multiple tests by id
-*TestSuitesApi* | [**getTestResult**](docs/TestSuitesApi.md#getTestResult) | **GET** /api/v1/{tenant}/tests/results/{id} | Get a test result
-*TestSuitesApi* | [**getTestSuite**](docs/TestSuitesApi.md#getTestSuite) | **GET** /api/v1/{tenant}/tests/{namespace}/{id} | Retrieve a test
-*TestSuitesApi* | [**getTestsLastResult**](docs/TestSuitesApi.md#getTestsLastResult) | **POST** /api/v1/{tenant}/tests/results/search/last | Get tests last result
-*TestSuitesApi* | [**runTestSuite**](docs/TestSuitesApi.md#runTestSuite) | **POST** /api/v1/{tenant}/tests/{namespace}/{id}/run | Run a full test
-*TestSuitesApi* | [**runTestSuitesByQuery**](docs/TestSuitesApi.md#runTestSuitesByQuery) | **POST** /api/v1/{tenant}/tests/run | Run multiple TestSuites by query
-*TestSuitesApi* | [**searchTestSuites**](docs/TestSuitesApi.md#searchTestSuites) | **GET** /api/v1/{tenant}/tests/search | Search for tests
-*TestSuitesApi* | [**searchTestSuitesResults**](docs/TestSuitesApi.md#searchTestSuitesResults) | **GET** /api/v1/{tenant}/tests/results/search | Search for tests results
-*TestSuitesApi* | [**updateTestSuite**](docs/TestSuitesApi.md#updateTestSuite) | **PUT** /api/v1/{tenant}/tests/{namespace}/{id} | Update a test from YAML source
-*TestSuitesApi* | [**validateTestSuite**](docs/TestSuitesApi.md#validateTestSuite) | **POST** /api/v1/{tenant}/tests/validate | Validate a test
 *TriggersApi* | [**deleteBackfill**](docs/TriggersApi.md#deleteBackfill) | **POST** /api/v1/{tenant}/triggers/backfill/delete | Delete a backfill
 *TriggersApi* | [**deleteBackfillByIds**](docs/TriggersApi.md#deleteBackfillByIds) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-triggers | Delete backfill for given triggers
 *TriggersApi* | [**deleteBackfillByQuery**](docs/TriggersApi.md#deleteBackfillByQuery) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-query | Delete backfill for given triggers
@@ -451,21 +270,14 @@ Class | Method | HTTP request | Description
 *TriggersApi* | [**unpauseBackfillByQuery**](docs/TriggersApi.md#unpauseBackfillByQuery) | **POST** /api/v1/{tenant}/triggers/backfill/unpause/by-query | Unpause backfill for given triggers
 *TriggersApi* | [**updateTrigger**](docs/TriggersApi.md#updateTrigger) | **PUT** /api/v1/{tenant}/triggers | Update a trigger
 *UsersApi* | [**autocompleteUsers**](docs/UsersApi.md#autocompleteUsers) | **POST** /api/v1/{tenant}/tenant-access/autocomplete | List users for autocomplete
-*UsersApi* | [**createApiTokensForUser**](docs/UsersApi.md#createApiTokensForUser) | **POST** /api/v1/service-accounts/{id}/api-tokens | Create new API Token for a specific user
-*UsersApi* | [**createApiTokensForUser1**](docs/UsersApi.md#createApiTokensForUser1) | **POST** /api/v1/users/{id}/api-tokens | Create new API Token for a specific user
-*UsersApi* | [**createApiTokensForUserWithTenant**](docs/UsersApi.md#createApiTokensForUserWithTenant) | **POST** /api/v1/{tenant}/service-accounts/{id}/api-tokens | Create new API Token for a specific user
+*UsersApi* | [**createApiTokensForUser**](docs/UsersApi.md#createApiTokensForUser) | **POST** /api/v1/users/{id}/api-tokens | Create new API Token for a specific user
 *UsersApi* | [**createUser**](docs/UsersApi.md#createUser) | **POST** /api/v1/users | Create a new user account
-*UsersApi* | [**deleteApiToken**](docs/UsersApi.md#deleteApiToken) | **DELETE** /api/v1/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
-*UsersApi* | [**deleteApiToken1**](docs/UsersApi.md#deleteApiToken1) | **DELETE** /api/v1/users/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
-*UsersApi* | [**deleteApiTokenWithTenant**](docs/UsersApi.md#deleteApiTokenWithTenant) | **DELETE** /api/v1/{tenant}/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
+*UsersApi* | [**deleteApiTokenForUser**](docs/UsersApi.md#deleteApiTokenForUser) | **DELETE** /api/v1/users/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
 *UsersApi* | [**deleteRefreshToken**](docs/UsersApi.md#deleteRefreshToken) | **DELETE** /api/v1/users/{id}/refresh-token | Delete a user refresh token
 *UsersApi* | [**deleteUser**](docs/UsersApi.md#deleteUser) | **DELETE** /api/v1/users/{id} | Delete a user
 *UsersApi* | [**deleteUserAuthMethod**](docs/UsersApi.md#deleteUserAuthMethod) | **DELETE** /api/v1/users/{id}/auths/{auth} | Update user password
-*UsersApi* | [**getUser**](docs/UsersApi.md#getUser) | **GET** /api/v1/users/{id} | Get a user
 *UsersApi* | [**impersonate**](docs/UsersApi.md#impersonate) | **POST** /api/v1/users/{id}/impersonate | Impersonate a user
-*UsersApi* | [**listApiTokens**](docs/UsersApi.md#listApiTokens) | **GET** /api/v1/service-accounts/{id}/api-tokens | List API tokens for a specific user
-*UsersApi* | [**listApiTokens1**](docs/UsersApi.md#listApiTokens1) | **GET** /api/v1/users/{id}/api-tokens | List API tokens for a specific user
-*UsersApi* | [**listApiTokensWithTenant**](docs/UsersApi.md#listApiTokensWithTenant) | **GET** /api/v1/{tenant}/service-accounts/{id}/api-tokens | List API tokens for a specific user
+*UsersApi* | [**listApiTokensForUser**](docs/UsersApi.md#listApiTokensForUser) | **GET** /api/v1/users/{id}/api-tokens | List API tokens for a specific user
 *UsersApi* | [**listUsers**](docs/UsersApi.md#listUsers) | **GET** /api/v1/users | Retrieve users
 *UsersApi* | [**patchUser**](docs/UsersApi.md#patchUser) | **PATCH** /api/v1/users/{id} | Update user details
 *UsersApi* | [**patchUserDemo**](docs/UsersApi.md#patchUserDemo) | **PATCH** /api/v1/users/{id}/restricted | Update user demo
@@ -474,17 +286,12 @@ Class | Method | HTTP request | Description
 *UsersApi* | [**updateCurrentUserPassword**](docs/UsersApi.md#updateCurrentUserPassword) | **PUT** /api/v1/me/password | Update authenticated user password
 *UsersApi* | [**updateUser**](docs/UsersApi.md#updateUser) | **PUT** /api/v1/users/{id} | Update a user account
 *UsersApi* | [**updateUserGroups**](docs/UsersApi.md#updateUserGroups) | **PUT** /api/v1/{tenant}/users/{id}/groups | Update the list of groups a user belongs to for the given tenant
-*WorkerGroupsApi* | [**createWorkerGroup**](docs/WorkerGroupsApi.md#createWorkerGroup) | **POST** /api/v1/instance/workergroups | Create a worker group
-*WorkerGroupsApi* | [**deleteWorkerGroupById**](docs/WorkerGroupsApi.md#deleteWorkerGroupById) | **DELETE** /api/v1/instance/workergroups/{id} | Delete a worker group
-*WorkerGroupsApi* | [**getWorkerGroupById**](docs/WorkerGroupsApi.md#getWorkerGroupById) | **GET** /api/v1/instance/workergroups/{id} | Retrieve details of a specific worker group
-*WorkerGroupsApi* | [**listWorkerGroups**](docs/WorkerGroupsApi.md#listWorkerGroups) | **GET** /api/v1/instance/workergroups | List all worker groups
-*WorkerGroupsApi* | [**updateWorkerGroupById**](docs/WorkerGroupsApi.md#updateWorkerGroupById) | **PUT** /api/v1/instance/workergroups/{id} | Update a worker group
+*UsersApi* | [**user**](docs/UsersApi.md#user) | **GET** /api/v1/users/{id} | Get a user
 
 
 ## Documentation for Models
 
  - [AbstractFlow](docs/AbstractFlow.md)
- - [AbstractFlowLabels](docs/AbstractFlowLabels.md)
  - [AbstractGraph](docs/AbstractGraph.md)
  - [AbstractGraphBranchType](docs/AbstractGraphBranchType.md)
  - [AbstractMetricEntryObject](docs/AbstractMetricEntryObject.md)
@@ -506,6 +313,8 @@ Class | Method | HTTP request | Description
  - [ApiSecretValue](docs/ApiSecretValue.md)
  - [ApiTenant](docs/ApiTenant.md)
  - [ApiTenantSummary](docs/ApiTenantSummary.md)
+ - [ApiToken](docs/ApiToken.md)
+ - [ApiTokenList](docs/ApiTokenList.md)
  - [ApiUser](docs/ApiUser.md)
  - [AppResponse](docs/AppResponse.md)
  - [AppResponseUILayout](docs/AppResponseUILayout.md)
@@ -546,6 +355,7 @@ Class | Method | HTTP request | Description
  - [BlueprintWithFlow](docs/BlueprintWithFlow.md)
  - [Breakpoint](docs/Breakpoint.md)
  - [BulkErrorResponse](docs/BulkErrorResponse.md)
+ - [BulkImportAppsRequest](docs/BulkImportAppsRequest.md)
  - [BulkResponse](docs/BulkResponse.md)
  - [Cache](docs/Cache.md)
  - [ChartChartOption](docs/ChartChartOption.md)
@@ -558,6 +368,7 @@ Class | Method | HTTP request | Description
  - [ConvertibleValuesListString](docs/ConvertibleValuesListString.md)
  - [CreateApiTokenRequest](docs/CreateApiTokenRequest.md)
  - [CreateApiTokenResponse](docs/CreateApiTokenResponse.md)
+ - [CreateNamespaceFileRequest](docs/CreateNamespaceFileRequest.md)
  - [CreateSecurityIntegrationRequest](docs/CreateSecurityIntegrationRequest.md)
  - [CrudEventType](docs/CrudEventType.md)
  - [DailyExecutionStatistics](docs/DailyExecutionStatistics.md)
@@ -565,7 +376,6 @@ Class | Method | HTTP request | Description
  - [DailyExecutionStatisticsExecutionCounts](docs/DailyExecutionStatisticsExecutionCounts.md)
  - [Dashboard](docs/Dashboard.md)
  - [DashboardControllerPreviewRequest](docs/DashboardControllerPreviewRequest.md)
- - [DeleteExecutionsByQueryRequest](docs/DeleteExecutionsByQueryRequest.md)
  - [DeletedInterface](docs/DeletedInterface.md)
  - [DependsOn](docs/DependsOn.md)
  - [DocumentationWithSchema](docs/DocumentationWithSchema.md)
@@ -599,10 +409,8 @@ Class | Method | HTTP request | Description
  - [Filter](docs/Filter.md)
  - [Fixtures](docs/Fixtures.md)
  - [Flow](docs/Flow.md)
- - [FlowAllOfLabels](docs/FlowAllOfLabels.md)
  - [FlowControllerTaskValidationType](docs/FlowControllerTaskValidationType.md)
  - [FlowForExecution](docs/FlowForExecution.md)
- - [FlowForExecutionAllOfLabels](docs/FlowForExecutionAllOfLabels.md)
  - [FlowGenerationPrompt](docs/FlowGenerationPrompt.md)
  - [FlowGraph](docs/FlowGraph.md)
  - [FlowGraphCluster](docs/FlowGraphCluster.md)
@@ -616,7 +424,6 @@ Class | Method | HTTP request | Description
  - [FlowTopologyGraphEdge](docs/FlowTopologyGraphEdge.md)
  - [FlowUsage](docs/FlowUsage.md)
  - [FlowWithSource](docs/FlowWithSource.md)
- - [FlowWithSourceAllOfLabels](docs/FlowWithSourceAllOfLabels.md)
  - [GroupIdentifier](docs/GroupIdentifier.md)
  - [GroupIdentifierMembership](docs/GroupIdentifierMembership.md)
  - [GroupUsage](docs/GroupUsage.md)
@@ -721,6 +528,7 @@ Class | Method | HTTP request | Description
  - [NamespaceAllowedTrigger](docs/NamespaceAllowedTrigger.md)
  - [NamespaceLight](docs/NamespaceLight.md)
  - [Output](docs/Output.md)
+ - [OutputValue](docs/OutputValue.md)
  - [PageRequest](docs/PageRequest.md)
  - [PagedResultsApiGroupSummary](docs/PagedResultsApiGroupSummary.md)
  - [PagedResultsApiRoleSummary](docs/PagedResultsApiRoleSummary.md)
@@ -790,6 +598,7 @@ Class | Method | HTTP request | Description
  - [RoleUsage](docs/RoleUsage.md)
  - [SLA](docs/SLA.md)
  - [SLABehavior](docs/SLABehavior.md)
+ - [SLALabels](docs/SLALabels.md)
  - [SLAType](docs/SLAType.md)
  - [Schema](docs/Schema.md)
  - [SchemaAttribute](docs/SchemaAttribute.md)
@@ -819,6 +628,7 @@ Class | Method | HTTP request | Description
  - [ServiceProviderConfigurationSupportedConfiguration](docs/ServiceProviderConfigurationSupportedConfiguration.md)
  - [ServiceServiceState](docs/ServiceServiceState.md)
  - [ServiceType](docs/ServiceType.md)
+ - [SetLogoRequest](docs/SetLogoRequest.md)
  - [SetupConfiguration](docs/SetupConfiguration.md)
  - [SetupConfigurationSetupData](docs/SetupConfigurationSetupData.md)
  - [SortOrder](docs/SortOrder.md)
@@ -854,8 +664,7 @@ Class | Method | HTTP request | Description
  - [Type](docs/Type.md)
  - [UnitTest](docs/UnitTest.md)
  - [UnitTestResult](docs/UnitTestResult.md)
- - [UpdateFlow200Response](docs/UpdateFlow200Response.md)
- - [UpdateFlowsInNamespaceFromJson200Response](docs/UpdateFlowsInNamespaceFromJson200Response.md)
+ - [UploadVersionedPluginsRequest](docs/UploadVersionedPluginsRequest.md)
  - [UsageEE](docs/UsageEE.md)
  - [UserGroup](docs/UserGroup.md)
  - [UserGroupType](docs/UserGroupType.md)

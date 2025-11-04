@@ -32,24 +32,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AbstractGraph.JSON_PROPERTY_TYPE,
   AbstractGraph.JSON_PROPERTY_BRANCH_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AbstractGraph {
   public static final String JSON_PROPERTY_UID = "uid";
-  @javax.annotation.Nullable
-  private String uid;
+  @jakarta.annotation.Nullable  private String uid;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nullable
-  private String type;
+  @jakarta.annotation.Nullable  private String type;
 
   public static final String JSON_PROPERTY_BRANCH_TYPE = "branchType";
-  @javax.annotation.Nullable
-  private AbstractGraphBranchType branchType;
+  @jakarta.annotation.Nullable  private AbstractGraphBranchType branchType;
 
   public AbstractGraph() {
   }
 
-  public AbstractGraph uid(@javax.annotation.Nullable String uid) {
+  public AbstractGraph uid(@jakarta.annotation.Nullable String uid) {
     
     this.uid = uid;
     return this;
@@ -59,8 +56,7 @@ public class AbstractGraph {
    * Get uid
    * @return uid
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_UID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUid() {
@@ -70,11 +66,11 @@ public class AbstractGraph {
 
   @JsonProperty(JSON_PROPERTY_UID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUid(@javax.annotation.Nullable String uid) {
+  public void setUid(@jakarta.annotation.Nullable String uid) {
     this.uid = uid;
   }
 
-  public AbstractGraph type(@javax.annotation.Nullable String type) {
+  public AbstractGraph type(@jakarta.annotation.Nullable String type) {
     
     this.type = type;
     return this;
@@ -84,8 +80,7 @@ public class AbstractGraph {
    * Get type
    * @return type
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getType() {
@@ -95,11 +90,11 @@ public class AbstractGraph {
 
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setType(@javax.annotation.Nullable String type) {
+  public void setType(@jakarta.annotation.Nullable String type) {
     this.type = type;
   }
 
-  public AbstractGraph branchType(@javax.annotation.Nullable AbstractGraphBranchType branchType) {
+  public AbstractGraph branchType(@jakarta.annotation.Nullable AbstractGraphBranchType branchType) {
     
     this.branchType = branchType;
     return this;
@@ -109,8 +104,7 @@ public class AbstractGraph {
    * Get branchType
    * @return branchType
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_BRANCH_TYPE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_BRANCH_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public AbstractGraphBranchType getBranchType() {
@@ -120,7 +114,7 @@ public class AbstractGraph {
 
   @JsonProperty(JSON_PROPERTY_BRANCH_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBranchType(@javax.annotation.Nullable AbstractGraphBranchType branchType) {
+  public void setBranchType(@jakarta.annotation.Nullable AbstractGraphBranchType branchType) {
     this.branchType = branchType;
   }
 

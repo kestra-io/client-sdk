@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**GroupId** | **string** |  | 
-**ArtifactId** | **string** |  | 
-**Extension** | **string** |  | 
-**Classifier** | **string** |  | 
-**Version** | **string** |  | 
-**Uri** | **string** |  | 
+**GroupId** | Pointer to **string** |  | [optional] 
+**ArtifactId** | Pointer to **string** |  | [optional] 
+**Extension** | Pointer to **string** |  | [optional] 
+**Classifier** | Pointer to **string** |  | [optional] 
+**Version** | Pointer to **string** |  | [optional] 
+**Uri** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewPluginArtifact
 
-`func NewPluginArtifact(groupId string, artifactId string, extension string, classifier string, version string, uri string, ) *PluginArtifact`
+`func NewPluginArtifact() *PluginArtifact`
 
 NewPluginArtifact instantiates a new PluginArtifact object
 This constructor will assign default values to properties that have it defined,
@@ -49,6 +49,11 @@ and a boolean to check if the value has been set.
 
 SetGroupId sets GroupId field to given value.
 
+### HasGroupId
+
+`func (o *PluginArtifact) HasGroupId() bool`
+
+HasGroupId returns a boolean if a field has been set.
 
 ### GetArtifactId
 
@@ -69,6 +74,11 @@ and a boolean to check if the value has been set.
 
 SetArtifactId sets ArtifactId field to given value.
 
+### HasArtifactId
+
+`func (o *PluginArtifact) HasArtifactId() bool`
+
+HasArtifactId returns a boolean if a field has been set.
 
 ### GetExtension
 
@@ -89,6 +99,11 @@ and a boolean to check if the value has been set.
 
 SetExtension sets Extension field to given value.
 
+### HasExtension
+
+`func (o *PluginArtifact) HasExtension() bool`
+
+HasExtension returns a boolean if a field has been set.
 
 ### GetClassifier
 
@@ -109,6 +124,11 @@ and a boolean to check if the value has been set.
 
 SetClassifier sets Classifier field to given value.
 
+### HasClassifier
+
+`func (o *PluginArtifact) HasClassifier() bool`
+
+HasClassifier returns a boolean if a field has been set.
 
 ### GetVersion
 
@@ -129,6 +149,11 @@ and a boolean to check if the value has been set.
 
 SetVersion sets Version field to given value.
 
+### HasVersion
+
+`func (o *PluginArtifact) HasVersion() bool`
+
+HasVersion returns a boolean if a field has been set.
 
 ### GetUri
 
@@ -149,6 +174,11 @@ and a boolean to check if the value has been set.
 
 SetUri sets Uri field to given value.
 
+### HasUri
+
+`func (o *PluginArtifact) HasUri() bool`
+
+HasUri returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

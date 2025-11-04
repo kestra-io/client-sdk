@@ -34,20 +34,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InstanceControllerApiPluginArtifactListPluginArtifact.JSON_PROPERTY_RESULTS
 })
 @JsonTypeName("InstanceController.ApiPluginArtifactList_PluginArtifact_")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class InstanceControllerApiPluginArtifactListPluginArtifact {
   public static final String JSON_PROPERTY_TOTAL = "total";
-  @javax.annotation.Nonnull
-  private Integer total;
+  @jakarta.annotation.Nullable  private Integer total;
 
   public static final String JSON_PROPERTY_RESULTS = "results";
-  @javax.annotation.Nonnull
-  private List<Object> results = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<Object> results = new ArrayList<>();
 
   public InstanceControllerApiPluginArtifactListPluginArtifact() {
   }
 
-  public InstanceControllerApiPluginArtifactListPluginArtifact total(@javax.annotation.Nonnull Integer total) {
+  public InstanceControllerApiPluginArtifactListPluginArtifact total(@jakarta.annotation.Nullable Integer total) {
     
     this.total = total;
     return this;
@@ -57,9 +55,8 @@ public class InstanceControllerApiPluginArtifactListPluginArtifact {
    * Get total
    * @return total
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TOTAL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getTotal() {
     return total;
@@ -67,12 +64,12 @@ public class InstanceControllerApiPluginArtifactListPluginArtifact {
 
 
   @JsonProperty(JSON_PROPERTY_TOTAL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTotal(@javax.annotation.Nonnull Integer total) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTotal(@jakarta.annotation.Nullable Integer total) {
     this.total = total;
   }
 
-  public InstanceControllerApiPluginArtifactListPluginArtifact results(@javax.annotation.Nonnull List<Object> results) {
+  public InstanceControllerApiPluginArtifactListPluginArtifact results(@jakarta.annotation.Nullable List<Object> results) {
     
     this.results = results;
     return this;
@@ -90,9 +87,8 @@ public class InstanceControllerApiPluginArtifactListPluginArtifact {
    * Get results
    * @return results
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_RESULTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Object> getResults() {
     return results;
@@ -100,8 +96,8 @@ public class InstanceControllerApiPluginArtifactListPluginArtifact {
 
 
   @JsonProperty(JSON_PROPERTY_RESULTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setResults(@javax.annotation.Nonnull List<Object> results) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setResults(@jakarta.annotation.Nullable List<Object> results) {
     this.results = results;
   }
 

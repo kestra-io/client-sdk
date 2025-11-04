@@ -16,18 +16,17 @@ import ApiClient from '../ApiClient';
 /**
  * The IAMInvitationControllerApiInvitationRole model module.
  * @module model/IAMInvitationControllerApiInvitationRole
- * @version 1.0.0
+ * @version v1.0.5
  */
 class IAMInvitationControllerApiInvitationRole {
     /**
      * Constructs a new <code>IAMInvitationControllerApiInvitationRole</code>.
      * @alias module:model/IAMInvitationControllerApiInvitationRole
      * @param id {String} 
-     * @param namespaces {Array.<String>} 
      */
-    constructor(id, namespaces) { 
+    constructor(id) { 
         
-        IAMInvitationControllerApiInvitationRole.initialize(this, id, namespaces);
+        IAMInvitationControllerApiInvitationRole.initialize(this, id);
     }
 
     /**
@@ -35,9 +34,8 @@ class IAMInvitationControllerApiInvitationRole {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, namespaces) { 
+    static initialize(obj, id) { 
         obj['id'] = id;
-        obj['namespaces'] = namespaces;
     }
 
     /**
@@ -88,7 +86,7 @@ class IAMInvitationControllerApiInvitationRole {
 
 }
 
-IAMInvitationControllerApiInvitationRole.RequiredProperties = ["id", "namespaces"];
+IAMInvitationControllerApiInvitationRole.RequiredProperties = ["id"];
 
 /**
  * @member {String} id

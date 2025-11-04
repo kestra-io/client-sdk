@@ -37,20 +37,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   DependsOn.JSON_PROPERTY_INPUTS,
   DependsOn.JSON_PROPERTY_CONDITION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class DependsOn {
   public static final String JSON_PROPERTY_INPUTS = "inputs";
-  @javax.annotation.Nullable
-  private JsonNullable<List<String>> inputs = JsonNullable.<List<String>>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<List<String>> inputs = JsonNullable.<List<String>>undefined();
 
   public static final String JSON_PROPERTY_CONDITION = "condition";
-  @javax.annotation.Nullable
-  private JsonNullable<String> condition = JsonNullable.<String>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<String> condition = JsonNullable.<String>undefined();
 
   public DependsOn() {
   }
 
-  public DependsOn inputs(@javax.annotation.Nullable List<String> inputs) {
+  public DependsOn inputs(@jakarta.annotation.Nullable List<String> inputs) {
     this.inputs = JsonNullable.<List<String>>of(inputs);
     
     return this;
@@ -72,8 +70,7 @@ public class DependsOn {
    * Get inputs
    * @return inputs
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public List<String> getInputs() {
         return inputs.orElse(null);
@@ -81,7 +78,6 @@ public class DependsOn {
 
   @JsonProperty(JSON_PROPERTY_INPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<List<String>> getInputs_JsonNullable() {
     return inputs;
   }
@@ -91,11 +87,11 @@ public class DependsOn {
     this.inputs = inputs;
   }
 
-  public void setInputs(@javax.annotation.Nullable List<String> inputs) {
+  public void setInputs(@jakarta.annotation.Nullable List<String> inputs) {
     this.inputs = JsonNullable.<List<String>>of(inputs);
   }
 
-  public DependsOn condition(@javax.annotation.Nullable String condition) {
+  public DependsOn condition(@jakarta.annotation.Nullable String condition) {
     this.condition = JsonNullable.<String>of(condition);
     
     return this;
@@ -105,8 +101,7 @@ public class DependsOn {
    * Get condition
    * @return condition
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public String getCondition() {
         return condition.orElse(null);
@@ -114,7 +109,6 @@ public class DependsOn {
 
   @JsonProperty(JSON_PROPERTY_CONDITION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<String> getCondition_JsonNullable() {
     return condition;
   }
@@ -124,7 +118,7 @@ public class DependsOn {
     this.condition = condition;
   }
 
-  public void setCondition(@javax.annotation.Nullable String condition) {
+  public void setCondition(@jakarta.annotation.Nullable String condition) {
     this.condition = JsonNullable.<String>of(condition);
   }
 

@@ -16,18 +16,16 @@ import ApiClient from '../ApiClient';
 /**
  * The SetupConfiguration model module.
  * @module model/SetupConfiguration
- * @version 1.0.0
+ * @version v1.0.5
  */
 class SetupConfiguration {
     /**
      * Constructs a new <code>SetupConfiguration</code>.
      * @alias module:model/SetupConfiguration
-     * @param done {Boolean} 
-     * @param passwordRegexp {String} 
      */
-    constructor(done, passwordRegexp) { 
+    constructor() { 
         
-        SetupConfiguration.initialize(this, done, passwordRegexp);
+        SetupConfiguration.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class SetupConfiguration {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, done, passwordRegexp) { 
-        obj['done'] = done;
-        obj['passwordRegexp'] = passwordRegexp;
+    static initialize(obj) { 
     }
 
     /**
@@ -69,6 +65,9 @@ class SetupConfiguration {
             if (data.hasOwnProperty('passwordRegexp')) {
                 obj['passwordRegexp'] = ApiClient.convertToType(data['passwordRegexp'], 'String');
             }
+            if (data.hasOwnProperty('haveAuthNotBasic')) {
+                obj['haveAuthNotBasic'] = ApiClient.convertToType(data['haveAuthNotBasic'], 'Boolean');
+            }
         }
         return obj;
     }
@@ -79,12 +78,6 @@ class SetupConfiguration {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>SetupConfiguration</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of SetupConfiguration.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['repositoryType'] && !(typeof data['repositoryType'] === 'string' || data['repositoryType'] instanceof String)) {
             throw new Error("Expected the field `repositoryType` to be a primitive type in the JSON string but got " + data['repositoryType']);
@@ -112,7 +105,7 @@ class SetupConfiguration {
 
 }
 
-SetupConfiguration.RequiredProperties = ["done", "passwordRegexp"];
+
 
 /**
  * @member {Boolean} done
@@ -143,6 +136,11 @@ SetupConfiguration.prototype['secretType'] = undefined;
  * @member {String} passwordRegexp
  */
 SetupConfiguration.prototype['passwordRegexp'] = undefined;
+
+/**
+ * @member {Boolean} haveAuthNotBasic
+ */
+SetupConfiguration.prototype['haveAuthNotBasic'] = undefined;
 
 
 

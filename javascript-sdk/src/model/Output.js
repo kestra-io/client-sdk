@@ -12,19 +12,20 @@
  */
 
 import ApiClient from '../ApiClient';
+import OutputValue from './OutputValue';
 import Type from './Type';
 
 /**
  * The Output model module.
  * @module model/Output
- * @version 1.0.0
+ * @version v1.0.5
  */
 class Output {
     /**
      * Constructs a new <code>Output</code>.
      * @alias module:model/Output
      * @param id {String} 
-     * @param value {Object} 
+     * @param value {module:model/OutputValue} 
      * @param type {module:model/Type} 
      */
     constructor(id, value, type) { 
@@ -61,7 +62,7 @@ class Output {
                 obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
             if (data.hasOwnProperty('value')) {
-                obj['value'] = ApiClient.convertToType(data['value'], Object);
+                obj['value'] = OutputValue.constructFromObject(data['value']);
             }
             if (data.hasOwnProperty('type')) {
                 obj['type'] = Type.constructFromObject(data['type']);
@@ -96,6 +97,10 @@ class Output {
         if (data['description'] && !(typeof data['description'] === 'string' || data['description'] instanceof String)) {
             throw new Error("Expected the field `description` to be a primitive type in the JSON string but got " + data['description']);
         }
+        // validate the optional field `value`
+        if (data['value']) { // data not null
+          OutputValue.validateJSON(data['value']);
+        }
         // ensure the json data is a string
         if (data['displayName'] && !(typeof data['displayName'] === 'string' || data['displayName'] instanceof String)) {
             throw new Error("Expected the field `displayName` to be a primitive type in the JSON string but got " + data['displayName']);
@@ -120,7 +125,7 @@ Output.prototype['id'] = undefined;
 Output.prototype['description'] = undefined;
 
 /**
- * @member {Object} value
+ * @member {module:model/OutputValue} value
  */
 Output.prototype['value'] = undefined;
 

@@ -12,6 +12,13 @@
 
 package io.kestra.sdk.api;
 
+// Custom imports for injected code
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import reactor.core.publisher.Flux;
+import java.io.BufferedReader;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import io.kestra.sdk.internal.ApiException;
@@ -36,8 +43,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
-public class RolesApi extends BaseApi {
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")public class RolesApi extends BaseApi {
 
   public RolesApi() {
     super(Configuration.getDefaultApiClient());
@@ -55,10 +61,9 @@ public class RolesApi extends BaseApi {
    * @return List&lt;ApiRoleSummary&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<ApiRoleSummary> autocompleteRoles(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiAutocomplete apiAutocomplete) throws ApiException {
+  public List<ApiRoleSummary> autocompleteRoles(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull ApiAutocomplete apiAutocomplete) throws ApiException {
     return this.autocompleteRoles(tenant, apiAutocomplete, Collections.emptyMap());
   }
-
 
   /**
    * List roles for autocomplete
@@ -69,7 +74,7 @@ public class RolesApi extends BaseApi {
    * @return List&lt;ApiRoleSummary&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<ApiRoleSummary> autocompleteRoles(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiAutocomplete apiAutocomplete, Map<String, String> additionalHeaders) throws ApiException {
+  public List<ApiRoleSummary> autocompleteRoles(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull ApiAutocomplete apiAutocomplete, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = apiAutocomplete;
     
     // verify the required parameter 'tenant' is set
@@ -92,8 +97,7 @@ public class RolesApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -129,6 +133,11 @@ public class RolesApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Create a role
    * 
@@ -137,10 +146,9 @@ public class RolesApi extends BaseApi {
    * @return IAMRoleControllerApiRoleDetail
    * @throws ApiException if fails to make API call
    */
-  public IAMRoleControllerApiRoleDetail createRole(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMRoleControllerApiRoleCreateOrUpdateRequest iaMRoleControllerApiRoleCreateOrUpdateRequest) throws ApiException {
+  public IAMRoleControllerApiRoleDetail createRole(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull IAMRoleControllerApiRoleCreateOrUpdateRequest iaMRoleControllerApiRoleCreateOrUpdateRequest) throws ApiException {
     return this.createRole(tenant, iaMRoleControllerApiRoleCreateOrUpdateRequest, Collections.emptyMap());
   }
-
 
   /**
    * Create a role
@@ -151,7 +159,7 @@ public class RolesApi extends BaseApi {
    * @return IAMRoleControllerApiRoleDetail
    * @throws ApiException if fails to make API call
    */
-  public IAMRoleControllerApiRoleDetail createRole(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMRoleControllerApiRoleCreateOrUpdateRequest iaMRoleControllerApiRoleCreateOrUpdateRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMRoleControllerApiRoleDetail createRole(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull IAMRoleControllerApiRoleCreateOrUpdateRequest iaMRoleControllerApiRoleCreateOrUpdateRequest, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = iaMRoleControllerApiRoleCreateOrUpdateRequest;
     
     // verify the required parameter 'tenant' is set
@@ -174,8 +182,7 @@ public class RolesApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -211,6 +218,11 @@ public class RolesApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Delete a role
    * 
@@ -218,10 +230,9 @@ public class RolesApi extends BaseApi {
    * @param tenant  (required)
    * @throws ApiException if fails to make API call
    */
-  public void deleteRole(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant) throws ApiException {
+  public void deleteRole(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant) throws ApiException {
     this.deleteRole(id, tenant, Collections.emptyMap());
   }
-
 
   /**
    * Delete a role
@@ -231,7 +242,7 @@ public class RolesApi extends BaseApi {
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void deleteRole(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public void deleteRole(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -255,8 +266,7 @@ public class RolesApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -291,88 +301,10 @@ public class RolesApi extends BaseApi {
     );
   }
 
-  /**
-   * Retrieve a role
-   * 
-   * @param id The role id (required)
-   * @param tenant  (required)
-   * @return IAMRoleControllerApiRoleDetail
-   * @throws ApiException if fails to make API call
-   */
-  public IAMRoleControllerApiRoleDetail getRole(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.getRole(id, tenant, Collections.emptyMap());
-  }
 
 
-  /**
-   * Retrieve a role
-   * 
-   * @param id The role id (required)
-   * @param tenant  (required)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return IAMRoleControllerApiRoleDetail
-   * @throws ApiException if fails to make API call
-   */
-  public IAMRoleControllerApiRoleDetail getRole(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getRole");
-    }
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling getRole");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/roles/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
 
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<IAMRoleControllerApiRoleDetail> localVarReturnType = new TypeReference<IAMRoleControllerApiRoleDetail>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "GET",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
 
   /**
    * List roles by ids
@@ -382,11 +314,10 @@ public class RolesApi extends BaseApi {
    * @return List&lt;Role&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<Role> listRolesFromGivenIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiIds apiIds) throws ApiException {
+  public List<Role> listRolesFromGivenIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull ApiIds apiIds) throws ApiException {
     return this.listRolesFromGivenIds(tenant, apiIds, Collections.emptyMap());
   }
 
-
   /**
    * List roles by ids
    * 
@@ -396,7 +327,7 @@ public class RolesApi extends BaseApi {
    * @return List&lt;Role&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<Role> listRolesFromGivenIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiIds apiIds, Map<String, String> additionalHeaders) throws ApiException {
+  public List<Role> listRolesFromGivenIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull ApiIds apiIds, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = apiIds;
     
     // verify the required parameter 'tenant' is set
@@ -419,8 +350,7 @@ public class RolesApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -456,6 +386,97 @@ public class RolesApi extends BaseApi {
     );
   }
 
+
+
+
+
+
+  /**
+   * Retrieve a role
+   * 
+   * @param id The role id (required)
+   * @param tenant  (required)
+   * @return IAMRoleControllerApiRoleDetail
+   * @throws ApiException if fails to make API call
+   */
+  public IAMRoleControllerApiRoleDetail role(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.role(id, tenant, Collections.emptyMap());
+  }
+
+  /**
+   * Retrieve a role
+   * 
+   * @param id The role id (required)
+   * @param tenant  (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return IAMRoleControllerApiRoleDetail
+   * @throws ApiException if fails to make API call
+   */
+  public IAMRoleControllerApiRoleDetail role(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling role");
+    }
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling role");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/roles/{id}"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<IAMRoleControllerApiRoleDetail> localVarReturnType = new TypeReference<IAMRoleControllerApiRoleDetail>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "GET",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+
+
+
+
+
   /**
    * Search for roles
    * 
@@ -467,10 +488,9 @@ public class RolesApi extends BaseApi {
    * @return PagedResultsApiRoleSummary
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsApiRoleSummary searchRoles(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort) throws ApiException {
+  public PagedResultsApiRoleSummary searchRoles(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
     return this.searchRoles(page, size, tenant, q, sort, Collections.emptyMap());
   }
-
 
   /**
    * Search for roles
@@ -484,7 +504,7 @@ public class RolesApi extends BaseApi {
    * @return PagedResultsApiRoleSummary
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsApiRoleSummary searchRoles(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsApiRoleSummary searchRoles(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'page' is set
@@ -512,8 +532,7 @@ public class RolesApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
     localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
@@ -553,6 +572,11 @@ public class RolesApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Update a role
    * 
@@ -562,10 +586,9 @@ public class RolesApi extends BaseApi {
    * @return IAMRoleControllerApiRoleDetail
    * @throws ApiException if fails to make API call
    */
-  public IAMRoleControllerApiRoleDetail updateRole(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMRoleControllerApiRoleCreateOrUpdateRequest iaMRoleControllerApiRoleCreateOrUpdateRequest) throws ApiException {
+  public IAMRoleControllerApiRoleDetail updateRole(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull IAMRoleControllerApiRoleCreateOrUpdateRequest iaMRoleControllerApiRoleCreateOrUpdateRequest) throws ApiException {
     return this.updateRole(id, tenant, iaMRoleControllerApiRoleCreateOrUpdateRequest, Collections.emptyMap());
   }
-
 
   /**
    * Update a role
@@ -577,7 +600,7 @@ public class RolesApi extends BaseApi {
    * @return IAMRoleControllerApiRoleDetail
    * @throws ApiException if fails to make API call
    */
-  public IAMRoleControllerApiRoleDetail updateRole(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMRoleControllerApiRoleCreateOrUpdateRequest iaMRoleControllerApiRoleCreateOrUpdateRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMRoleControllerApiRoleDetail updateRole(@jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull IAMRoleControllerApiRoleCreateOrUpdateRequest iaMRoleControllerApiRoleCreateOrUpdateRequest, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = iaMRoleControllerApiRoleCreateOrUpdateRequest;
     
     // verify the required parameter 'id' is set
@@ -606,8 +629,7 @@ public class RolesApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -683,4 +705,9 @@ public class RolesApi extends BaseApi {
         returnType
     );
   }
+
+
+
+
+
 }

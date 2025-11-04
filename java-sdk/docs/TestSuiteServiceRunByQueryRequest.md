@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**namespace** | **String** |  |  |
-|**flowId** | **String** |  |  |
+|**namespace** | **String** |  |  [optional] |
+|**flowId** | **String** |  |  [optional] |
 |**includeChildNamespaces** | **Boolean** | Should child namespaces be included or not |  |
 
 

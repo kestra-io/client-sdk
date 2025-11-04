@@ -36,24 +36,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   QueryFilterFieldOp.JSON_PROPERTY_OPERATIONS
 })
 @JsonTypeName("QueryFilter.FieldOp")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class QueryFilterFieldOp {
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nonnull
-  private String name;
+  @jakarta.annotation.Nullable  private String name;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nonnull
-  private String value;
+  @jakarta.annotation.Nullable  private String value;
 
   public static final String JSON_PROPERTY_OPERATIONS = "operations";
-  @javax.annotation.Nonnull
-  private List<QueryFilterOperation> operations = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<QueryFilterOperation> operations = new ArrayList<>();
 
   public QueryFilterFieldOp() {
   }
 
-  public QueryFilterFieldOp name(@javax.annotation.Nonnull String name) {
+  public QueryFilterFieldOp name(@jakarta.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -63,9 +60,8 @@ public class QueryFilterFieldOp {
    * Get name
    * @return name
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
     return name;
@@ -73,12 +69,12 @@ public class QueryFilterFieldOp {
 
 
   @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setName(@javax.annotation.Nonnull String name) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(@jakarta.annotation.Nullable String name) {
     this.name = name;
   }
 
-  public QueryFilterFieldOp value(@javax.annotation.Nonnull String value) {
+  public QueryFilterFieldOp value(@jakarta.annotation.Nullable String value) {
     
     this.value = value;
     return this;
@@ -88,9 +84,8 @@ public class QueryFilterFieldOp {
    * Get value
    * @return value
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getValue() {
     return value;
@@ -98,12 +93,12 @@ public class QueryFilterFieldOp {
 
 
   @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setValue(@javax.annotation.Nonnull String value) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setValue(@jakarta.annotation.Nullable String value) {
     this.value = value;
   }
 
-  public QueryFilterFieldOp operations(@javax.annotation.Nonnull List<QueryFilterOperation> operations) {
+  public QueryFilterFieldOp operations(@jakarta.annotation.Nullable List<QueryFilterOperation> operations) {
     
     this.operations = operations;
     return this;
@@ -121,9 +116,8 @@ public class QueryFilterFieldOp {
    * Get operations
    * @return operations
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_OPERATIONS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OPERATIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<QueryFilterOperation> getOperations() {
     return operations;
@@ -131,8 +125,8 @@ public class QueryFilterFieldOp {
 
 
   @JsonProperty(JSON_PROPERTY_OPERATIONS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setOperations(@javax.annotation.Nonnull List<QueryFilterOperation> operations) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOperations(@jakarta.annotation.Nullable List<QueryFilterOperation> operations) {
     this.operations = operations;
   }
 

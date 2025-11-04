@@ -30,7 +30,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * InputObject
  */
 @JsonPropertyOrder({
-  InputObject.JSON_PROPERTY_NAME,
   InputObject.JSON_PROPERTY_ID,
   InputObject.JSON_PROPERTY_TYPE,
   InputObject.JSON_PROPERTY_DESCRIPTION,
@@ -40,71 +39,33 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InputObject.JSON_PROPERTY_DISPLAY_NAME
 })
 @JsonTypeName("Input_Object_")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class InputObject {
-  public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nullable
-  private String name;
-
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
-  private String id;
+  @jakarta.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nonnull
-  private Type type;
+  @jakarta.annotation.Nonnull  private Type type;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
-  private String description;
+  @jakarta.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_DEPENDS_ON = "dependsOn";
-  @javax.annotation.Nullable
-  private DependsOn dependsOn;
+  @jakarta.annotation.Nullable  private DependsOn dependsOn;
 
   public static final String JSON_PROPERTY_REQUIRED = "required";
-  @javax.annotation.Nullable
-  private Boolean required;
+  @jakarta.annotation.Nullable  private Boolean required;
 
   public static final String JSON_PROPERTY_DEFAULTS = "defaults";
-  @javax.annotation.Nullable
-  private String defaults;
+  @jakarta.annotation.Nullable  private String defaults;
 
   public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
-  @javax.annotation.Nullable
-  private String displayName;
+  @jakarta.annotation.Nullable  private String displayName;
 
   public InputObject() {
   }
 
-  public InputObject name(@javax.annotation.Nullable String name) {
-    
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Get name
-   * @return name
-   * @deprecated
-   */
-  @Deprecated
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getName() {
-    return name;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(@javax.annotation.Nullable String name) {
-    this.name = name;
-  }
-
-  public InputObject id(@javax.annotation.Nonnull String id) {
+  public InputObject id(@jakarta.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -114,8 +75,7 @@ public class InputObject {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -125,11 +85,11 @@ public class InputObject {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(@javax.annotation.Nonnull String id) {
+  public void setId(@jakarta.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public InputObject type(@javax.annotation.Nonnull Type type) {
+  public InputObject type(@jakarta.annotation.Nonnull Type type) {
     
     this.type = type;
     return this;
@@ -139,8 +99,7 @@ public class InputObject {
    * Get type
    * @return type
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Type getType() {
@@ -150,11 +109,11 @@ public class InputObject {
 
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setType(@javax.annotation.Nonnull Type type) {
+  public void setType(@jakarta.annotation.Nonnull Type type) {
     this.type = type;
   }
 
-  public InputObject description(@javax.annotation.Nullable String description) {
+  public InputObject description(@jakarta.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -164,8 +123,7 @@ public class InputObject {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -175,11 +133,11 @@ public class InputObject {
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(@javax.annotation.Nullable String description) {
+  public void setDescription(@jakarta.annotation.Nullable String description) {
     this.description = description;
   }
 
-  public InputObject dependsOn(@javax.annotation.Nullable DependsOn dependsOn) {
+  public InputObject dependsOn(@jakarta.annotation.Nullable DependsOn dependsOn) {
     
     this.dependsOn = dependsOn;
     return this;
@@ -189,8 +147,7 @@ public class InputObject {
    * Get dependsOn
    * @return dependsOn
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DEPENDS_ON)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DEPENDS_ON)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public DependsOn getDependsOn() {
@@ -200,11 +157,11 @@ public class InputObject {
 
   @JsonProperty(JSON_PROPERTY_DEPENDS_ON)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDependsOn(@javax.annotation.Nullable DependsOn dependsOn) {
+  public void setDependsOn(@jakarta.annotation.Nullable DependsOn dependsOn) {
     this.dependsOn = dependsOn;
   }
 
-  public InputObject required(@javax.annotation.Nullable Boolean required) {
+  public InputObject required(@jakarta.annotation.Nullable Boolean required) {
     
     this.required = required;
     return this;
@@ -214,8 +171,7 @@ public class InputObject {
    * Get required
    * @return required
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_REQUIRED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REQUIRED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getRequired() {
@@ -225,11 +181,11 @@ public class InputObject {
 
   @JsonProperty(JSON_PROPERTY_REQUIRED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRequired(@javax.annotation.Nullable Boolean required) {
+  public void setRequired(@jakarta.annotation.Nullable Boolean required) {
     this.required = required;
   }
 
-  public InputObject defaults(@javax.annotation.Nullable String defaults) {
+  public InputObject defaults(@jakarta.annotation.Nullable String defaults) {
     
     this.defaults = defaults;
     return this;
@@ -239,8 +195,7 @@ public class InputObject {
    * Get defaults
    * @return defaults
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DEFAULTS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DEFAULTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDefaults() {
@@ -250,11 +205,11 @@ public class InputObject {
 
   @JsonProperty(JSON_PROPERTY_DEFAULTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDefaults(@javax.annotation.Nullable String defaults) {
+  public void setDefaults(@jakarta.annotation.Nullable String defaults) {
     this.defaults = defaults;
   }
 
-  public InputObject displayName(@javax.annotation.Nullable String displayName) {
+  public InputObject displayName(@jakarta.annotation.Nullable String displayName) {
     
     this.displayName = displayName;
     return this;
@@ -264,8 +219,7 @@ public class InputObject {
    * Get displayName
    * @return displayName
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDisplayName() {
@@ -275,7 +229,7 @@ public class InputObject {
 
   @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDisplayName(@javax.annotation.Nullable String displayName) {
+  public void setDisplayName(@jakarta.annotation.Nullable String displayName) {
     this.displayName = displayName;
   }
 
@@ -288,8 +242,7 @@ public class InputObject {
       return false;
     }
     InputObject inputObject = (InputObject) o;
-    return Objects.equals(this.name, inputObject.name) &&
-        Objects.equals(this.id, inputObject.id) &&
+    return Objects.equals(this.id, inputObject.id) &&
         Objects.equals(this.type, inputObject.type) &&
         Objects.equals(this.description, inputObject.description) &&
         Objects.equals(this.dependsOn, inputObject.dependsOn) &&
@@ -300,14 +253,13 @@ public class InputObject {
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, id, type, description, dependsOn, required, defaults, displayName);
+    return Objects.hash(id, type, description, dependsOn, required, defaults, displayName);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class InputObject {\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");

@@ -33,24 +33,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TriggerFixture.JSON_PROPERTY_TYPE,
   TriggerFixture.JSON_PROPERTY_VARIABLES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TriggerFixture {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
-  private String id;
+  @jakarta.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nonnull
-  private String type;
+  @jakarta.annotation.Nonnull  private String type;
 
   public static final String JSON_PROPERTY_VARIABLES = "variables";
-  @javax.annotation.Nullable
-  private Map<String, Object> variables = new HashMap<>();
+  @jakarta.annotation.Nullable  private Map<String, Object> variables = new HashMap<>();
 
   public TriggerFixture() {
   }
 
-  public TriggerFixture id(@javax.annotation.Nonnull String id) {
+  public TriggerFixture id(@jakarta.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -60,8 +57,7 @@ public class TriggerFixture {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -71,11 +67,11 @@ public class TriggerFixture {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(@javax.annotation.Nonnull String id) {
+  public void setId(@jakarta.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public TriggerFixture type(@javax.annotation.Nonnull String type) {
+  public TriggerFixture type(@jakarta.annotation.Nonnull String type) {
     
     this.type = type;
     return this;
@@ -85,8 +81,7 @@ public class TriggerFixture {
    * Get type
    * @return type
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getType() {
@@ -96,11 +91,11 @@ public class TriggerFixture {
 
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setType(@javax.annotation.Nonnull String type) {
+  public void setType(@jakarta.annotation.Nonnull String type) {
     this.type = type;
   }
 
-  public TriggerFixture variables(@javax.annotation.Nullable Map<String, Object> variables) {
+  public TriggerFixture variables(@jakarta.annotation.Nullable Map<String, Object> variables) {
     
     this.variables = variables;
     return this;
@@ -118,8 +113,7 @@ public class TriggerFixture {
    * Get variables
    * @return variables
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_VARIABLES)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VARIABLES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getVariables() {
@@ -129,7 +123,7 @@ public class TriggerFixture {
 
   @JsonProperty(JSON_PROPERTY_VARIABLES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVariables(@javax.annotation.Nullable Map<String, Object> variables) {
+  public void setVariables(@jakarta.annotation.Nullable Map<String, Object> variables) {
     this.variables = variables;
   }
 

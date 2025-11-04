@@ -13,5 +13,7 @@
 
 * `WRITE_ONLY` (value: `"WRITE_ONLY"`)
 
+* `UNKNOWN_DEFAULT_OPEN_API` (value: `"unknown_default_open_api"`)
+
 
 

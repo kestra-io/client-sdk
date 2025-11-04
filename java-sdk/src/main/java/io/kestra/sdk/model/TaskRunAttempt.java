@@ -20,12 +20,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.kestra.sdk.model.AbstractMetricEntryObject;
 import io.kestra.sdk.model.State;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -37,68 +33,25 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * TaskRunAttempt
  */
 @JsonPropertyOrder({
-  TaskRunAttempt.JSON_PROPERTY_METRICS,
   TaskRunAttempt.JSON_PROPERTY_STATE,
   TaskRunAttempt.JSON_PROPERTY_WORKER_ID,
   TaskRunAttempt.JSON_PROPERTY_LOG_FILE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TaskRunAttempt {
-  public static final String JSON_PROPERTY_METRICS = "metrics";
-  @javax.annotation.Nullable
-  private List<AbstractMetricEntryObject> metrics = new ArrayList<>();
-
   public static final String JSON_PROPERTY_STATE = "state";
-  @javax.annotation.Nonnull
-  private State state;
+  @jakarta.annotation.Nonnull  private State state;
 
   public static final String JSON_PROPERTY_WORKER_ID = "workerId";
-  @javax.annotation.Nullable
-  private JsonNullable<String> workerId = JsonNullable.<String>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<String> workerId = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_LOG_FILE = "logFile";
-  @javax.annotation.Nullable
-  private JsonNullable<URI> logFile = JsonNullable.<URI>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<URI> logFile = JsonNullable.<URI>undefined();
 
   public TaskRunAttempt() {
   }
 
-  public TaskRunAttempt metrics(@javax.annotation.Nullable List<AbstractMetricEntryObject> metrics) {
-    
-    this.metrics = metrics;
-    return this;
-  }
-
-  public TaskRunAttempt addMetricsItem(AbstractMetricEntryObject metricsItem) {
-    if (this.metrics == null) {
-      this.metrics = new ArrayList<>();
-    }
-    this.metrics.add(metricsItem);
-    return this;
-  }
-
-  /**
-   * Get metrics
-   * @return metrics
-   * @deprecated
-   */
-  @Deprecated
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_METRICS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<AbstractMetricEntryObject> getMetrics() {
-    return metrics;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_METRICS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMetrics(@javax.annotation.Nullable List<AbstractMetricEntryObject> metrics) {
-    this.metrics = metrics;
-  }
-
-  public TaskRunAttempt state(@javax.annotation.Nonnull State state) {
+  public TaskRunAttempt state(@jakarta.annotation.Nonnull State state) {
     
     this.state = state;
     return this;
@@ -108,8 +61,7 @@ public class TaskRunAttempt {
    * Get state
    * @return state
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_STATE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public State getState() {
@@ -119,11 +71,11 @@ public class TaskRunAttempt {
 
   @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setState(@javax.annotation.Nonnull State state) {
+  public void setState(@jakarta.annotation.Nonnull State state) {
     this.state = state;
   }
 
-  public TaskRunAttempt workerId(@javax.annotation.Nullable String workerId) {
+  public TaskRunAttempt workerId(@jakarta.annotation.Nullable String workerId) {
     this.workerId = JsonNullable.<String>of(workerId);
     
     return this;
@@ -133,8 +85,7 @@ public class TaskRunAttempt {
    * Get workerId
    * @return workerId
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public String getWorkerId() {
         return workerId.orElse(null);
@@ -142,7 +93,6 @@ public class TaskRunAttempt {
 
   @JsonProperty(JSON_PROPERTY_WORKER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<String> getWorkerId_JsonNullable() {
     return workerId;
   }
@@ -152,11 +102,11 @@ public class TaskRunAttempt {
     this.workerId = workerId;
   }
 
-  public void setWorkerId(@javax.annotation.Nullable String workerId) {
+  public void setWorkerId(@jakarta.annotation.Nullable String workerId) {
     this.workerId = JsonNullable.<String>of(workerId);
   }
 
-  public TaskRunAttempt logFile(@javax.annotation.Nullable URI logFile) {
+  public TaskRunAttempt logFile(@jakarta.annotation.Nullable URI logFile) {
     this.logFile = JsonNullable.<URI>of(logFile);
     
     return this;
@@ -166,8 +116,7 @@ public class TaskRunAttempt {
    * Get logFile
    * @return logFile
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public URI getLogFile() {
         return logFile.orElse(null);
@@ -175,7 +124,6 @@ public class TaskRunAttempt {
 
   @JsonProperty(JSON_PROPERTY_LOG_FILE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<URI> getLogFile_JsonNullable() {
     return logFile;
   }
@@ -185,7 +133,7 @@ public class TaskRunAttempt {
     this.logFile = logFile;
   }
 
-  public void setLogFile(@javax.annotation.Nullable URI logFile) {
+  public void setLogFile(@jakarta.annotation.Nullable URI logFile) {
     this.logFile = JsonNullable.<URI>of(logFile);
   }
 
@@ -198,8 +146,7 @@ public class TaskRunAttempt {
       return false;
     }
     TaskRunAttempt taskRunAttempt = (TaskRunAttempt) o;
-    return Objects.equals(this.metrics, taskRunAttempt.metrics) &&
-        Objects.equals(this.state, taskRunAttempt.state) &&
+    return Objects.equals(this.state, taskRunAttempt.state) &&
         equalsNullable(this.workerId, taskRunAttempt.workerId) &&
         equalsNullable(this.logFile, taskRunAttempt.logFile);
   }
@@ -210,7 +157,7 @@ public class TaskRunAttempt {
 
   @Override
   public int hashCode() {
-    return Objects.hash(metrics, state, hashCodeNullable(workerId), hashCodeNullable(logFile));
+    return Objects.hash(state, hashCodeNullable(workerId), hashCodeNullable(logFile));
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -224,7 +171,6 @@ public class TaskRunAttempt {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class TaskRunAttempt {\n");
-    sb.append("    metrics: ").append(toIndentedString(metrics)).append("\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    workerId: ").append(toIndentedString(workerId)).append("\n");
     sb.append("    logFile: ").append(toIndentedString(logFile)).append("\n");

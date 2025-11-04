@@ -31,20 +31,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ExecutionRepositoryInterfaceFlowFilter.JSON_PROPERTY_ID
 })
 @JsonTypeName("ExecutionRepositoryInterface.FlowFilter")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ExecutionRepositoryInterfaceFlowFilter {
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nonnull
-  private String namespace;
+  @jakarta.annotation.Nonnull  private String namespace;
 
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
-  private String id;
+  @jakarta.annotation.Nonnull  private String id;
 
   public ExecutionRepositoryInterfaceFlowFilter() {
   }
 
-  public ExecutionRepositoryInterfaceFlowFilter namespace(@javax.annotation.Nonnull String namespace) {
+  public ExecutionRepositoryInterfaceFlowFilter namespace(@jakarta.annotation.Nonnull String namespace) {
     
     this.namespace = namespace;
     return this;
@@ -54,8 +52,7 @@ public class ExecutionRepositoryInterfaceFlowFilter {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getNamespace() {
@@ -65,11 +62,11 @@ public class ExecutionRepositoryInterfaceFlowFilter {
 
   @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setNamespace(@javax.annotation.Nonnull String namespace) {
+  public void setNamespace(@jakarta.annotation.Nonnull String namespace) {
     this.namespace = namespace;
   }
 
-  public ExecutionRepositoryInterfaceFlowFilter id(@javax.annotation.Nonnull String id) {
+  public ExecutionRepositoryInterfaceFlowFilter id(@jakarta.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -79,8 +76,7 @@ public class ExecutionRepositoryInterfaceFlowFilter {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -90,7 +86,7 @@ public class ExecutionRepositoryInterfaceFlowFilter {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(@javax.annotation.Nonnull String id) {
+  public void setId(@jakarta.annotation.Nonnull String id) {
     this.id = id;
   }
 

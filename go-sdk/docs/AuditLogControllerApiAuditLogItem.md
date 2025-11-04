@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AuditLog** | [**AuditLog**](AuditLog.md) |  | 
-**User** | [**ApiUser**](ApiUser.md) |  | 
+**AuditLog** | Pointer to [**AuditLog**](AuditLog.md) |  | [optional] 
+**User** | Pointer to [**ApiUser**](ApiUser.md) |  | [optional] 
 
 ## Methods
 
 ### NewAuditLogControllerApiAuditLogItem
 
-`func NewAuditLogControllerApiAuditLogItem(auditLog AuditLog, user ApiUser, ) *AuditLogControllerApiAuditLogItem`
+`func NewAuditLogControllerApiAuditLogItem() *AuditLogControllerApiAuditLogItem`
 
 NewAuditLogControllerApiAuditLogItem instantiates a new AuditLogControllerApiAuditLogItem object
 This constructor will assign default values to properties that have it defined,
@@ -45,6 +45,11 @@ and a boolean to check if the value has been set.
 
 SetAuditLog sets AuditLog field to given value.
 
+### HasAuditLog
+
+`func (o *AuditLogControllerApiAuditLogItem) HasAuditLog() bool`
+
+HasAuditLog returns a boolean if a field has been set.
 
 ### GetUser
 
@@ -65,6 +70,11 @@ and a boolean to check if the value has been set.
 
 SetUser sets User field to given value.
 
+### HasUser
+
+`func (o *AuditLogControllerApiAuditLogItem) HasUser() bool`
+
+HasUser returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -21,13 +21,13 @@ var _ MappedNullable = &IAMServiceAccountControllerApiServiceAccountResponse{}
 // IAMServiceAccountControllerApiServiceAccountResponse A User Service Account.
 type IAMServiceAccountControllerApiServiceAccountResponse struct {
 	// the identifier of this service account.
-	Id string `json:"id"`
+	Id *string `json:"id,omitempty"`
 	// the name of this service account.
 	Name string `json:"name" validate:"regexp=^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$"`
 	// the description of this service account.
-	Description          string                                `json:"description"`
-	Groups               []IAMServiceAccountControllerApiGroup `json:"groups"`
-	SuperAdmin           bool                                  `json:"superAdmin"`
+	Description          *string                               `json:"description,omitempty"`
+	Groups               []IAMServiceAccountControllerApiGroup `json:"groups,omitempty"`
+	SuperAdmin           *bool                                 `json:"superAdmin,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -37,13 +37,9 @@ type _IAMServiceAccountControllerApiServiceAccountResponse IAMServiceAccountCont
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIAMServiceAccountControllerApiServiceAccountResponse(id string, name string, description string, groups []IAMServiceAccountControllerApiGroup, superAdmin bool) *IAMServiceAccountControllerApiServiceAccountResponse {
+func NewIAMServiceAccountControllerApiServiceAccountResponse(name string) *IAMServiceAccountControllerApiServiceAccountResponse {
 	this := IAMServiceAccountControllerApiServiceAccountResponse{}
-	this.Id = id
 	this.Name = name
-	this.Description = description
-	this.Groups = groups
-	this.SuperAdmin = superAdmin
 	return &this
 }
 
@@ -55,28 +51,36 @@ func NewIAMServiceAccountControllerApiServiceAccountResponseWithDefaults() *IAMS
 	return &this
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *IAMServiceAccountControllerApiServiceAccountResponse) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMServiceAccountControllerApiServiceAccountResponse) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *IAMServiceAccountControllerApiServiceAccountResponse) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *IAMServiceAccountControllerApiServiceAccountResponse) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
 // GetName returns the Name field value
@@ -103,76 +107,100 @@ func (o *IAMServiceAccountControllerApiServiceAccountResponse) SetName(v string)
 	o.Name = v
 }
 
-// GetDescription returns the Description field value
+// GetDescription returns the Description field value if set, zero value otherwise.
 func (o *IAMServiceAccountControllerApiServiceAccountResponse) GetDescription() string {
-	if o == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
-
-	return o.Description
+	return *o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMServiceAccountControllerApiServiceAccountResponse) GetDescriptionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
-	return &o.Description, true
+	return o.Description, true
 }
 
-// SetDescription sets field value
+// HasDescription returns a boolean if a field has been set.
+func (o *IAMServiceAccountControllerApiServiceAccountResponse) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *IAMServiceAccountControllerApiServiceAccountResponse) SetDescription(v string) {
-	o.Description = v
+	o.Description = &v
 }
 
-// GetGroups returns the Groups field value
+// GetGroups returns the Groups field value if set, zero value otherwise.
 func (o *IAMServiceAccountControllerApiServiceAccountResponse) GetGroups() []IAMServiceAccountControllerApiGroup {
-	if o == nil {
+	if o == nil || IsNil(o.Groups) {
 		var ret []IAMServiceAccountControllerApiGroup
 		return ret
 	}
-
 	return o.Groups
 }
 
-// GetGroupsOk returns a tuple with the Groups field value
+// GetGroupsOk returns a tuple with the Groups field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMServiceAccountControllerApiServiceAccountResponse) GetGroupsOk() ([]IAMServiceAccountControllerApiGroup, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Groups) {
 		return nil, false
 	}
 	return o.Groups, true
 }
 
-// SetGroups sets field value
+// HasGroups returns a boolean if a field has been set.
+func (o *IAMServiceAccountControllerApiServiceAccountResponse) HasGroups() bool {
+	if o != nil && !IsNil(o.Groups) {
+		return true
+	}
+
+	return false
+}
+
+// SetGroups gets a reference to the given []IAMServiceAccountControllerApiGroup and assigns it to the Groups field.
 func (o *IAMServiceAccountControllerApiServiceAccountResponse) SetGroups(v []IAMServiceAccountControllerApiGroup) {
 	o.Groups = v
 }
 
-// GetSuperAdmin returns the SuperAdmin field value
+// GetSuperAdmin returns the SuperAdmin field value if set, zero value otherwise.
 func (o *IAMServiceAccountControllerApiServiceAccountResponse) GetSuperAdmin() bool {
-	if o == nil {
+	if o == nil || IsNil(o.SuperAdmin) {
 		var ret bool
 		return ret
 	}
-
-	return o.SuperAdmin
+	return *o.SuperAdmin
 }
 
-// GetSuperAdminOk returns a tuple with the SuperAdmin field value
+// GetSuperAdminOk returns a tuple with the SuperAdmin field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMServiceAccountControllerApiServiceAccountResponse) GetSuperAdminOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.SuperAdmin) {
 		return nil, false
 	}
-	return &o.SuperAdmin, true
+	return o.SuperAdmin, true
 }
 
-// SetSuperAdmin sets field value
+// HasSuperAdmin returns a boolean if a field has been set.
+func (o *IAMServiceAccountControllerApiServiceAccountResponse) HasSuperAdmin() bool {
+	if o != nil && !IsNil(o.SuperAdmin) {
+		return true
+	}
+
+	return false
+}
+
+// SetSuperAdmin gets a reference to the given bool and assigns it to the SuperAdmin field.
 func (o *IAMServiceAccountControllerApiServiceAccountResponse) SetSuperAdmin(v bool) {
-	o.SuperAdmin = v
+	o.SuperAdmin = &v
 }
 
 func (o IAMServiceAccountControllerApiServiceAccountResponse) MarshalJSON() ([]byte, error) {
@@ -185,11 +213,19 @@ func (o IAMServiceAccountControllerApiServiceAccountResponse) MarshalJSON() ([]b
 
 func (o IAMServiceAccountControllerApiServiceAccountResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["id"] = o.Id
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
 	toSerialize["name"] = o.Name
-	toSerialize["description"] = o.Description
-	toSerialize["groups"] = o.Groups
-	toSerialize["superAdmin"] = o.SuperAdmin
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Groups) {
+		toSerialize["groups"] = o.Groups
+	}
+	if !IsNil(o.SuperAdmin) {
+		toSerialize["superAdmin"] = o.SuperAdmin
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -203,11 +239,7 @@ func (o *IAMServiceAccountControllerApiServiceAccountResponse) UnmarshalJSON(dat
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"id",
 		"name",
-		"description",
-		"groups",
-		"superAdmin",
 	}
 
 	allProperties := make(map[string]interface{})

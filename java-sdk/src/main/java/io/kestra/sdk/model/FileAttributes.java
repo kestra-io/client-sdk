@@ -37,36 +37,30 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FileAttributes.JSON_PROPERTY_SIZE,
   FileAttributes.JSON_PROPERTY_METADATA
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class FileAttributes {
   public static final String JSON_PROPERTY_FILE_NAME = "fileName";
-  @javax.annotation.Nullable
-  private String fileName;
+  @jakarta.annotation.Nullable  private String fileName;
 
   public static final String JSON_PROPERTY_LAST_MODIFIED_TIME = "lastModifiedTime";
-  @javax.annotation.Nullable
-  private Long lastModifiedTime;
+  @jakarta.annotation.Nullable  private Long lastModifiedTime;
 
   public static final String JSON_PROPERTY_CREATION_TIME = "creationTime";
-  @javax.annotation.Nullable
-  private Long creationTime;
+  @jakarta.annotation.Nullable  private Long creationTime;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nullable
-  private FileAttributesFileType type;
+  @jakarta.annotation.Nullable  private FileAttributesFileType type;
 
   public static final String JSON_PROPERTY_SIZE = "size";
-  @javax.annotation.Nullable
-  private Long size;
+  @jakarta.annotation.Nullable  private Long size;
 
   public static final String JSON_PROPERTY_METADATA = "metadata";
-  @javax.annotation.Nullable
-  private Map<String, String> metadata = new HashMap<>();
+  @jakarta.annotation.Nullable  private Map<String, String> metadata = new HashMap<>();
 
   public FileAttributes() {
   }
 
-  public FileAttributes fileName(@javax.annotation.Nullable String fileName) {
+  public FileAttributes fileName(@jakarta.annotation.Nullable String fileName) {
     
     this.fileName = fileName;
     return this;
@@ -76,8 +70,7 @@ public class FileAttributes {
    * Get fileName
    * @return fileName
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FILE_NAME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FILE_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFileName() {
@@ -87,11 +80,11 @@ public class FileAttributes {
 
   @JsonProperty(JSON_PROPERTY_FILE_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFileName(@javax.annotation.Nullable String fileName) {
+  public void setFileName(@jakarta.annotation.Nullable String fileName) {
     this.fileName = fileName;
   }
 
-  public FileAttributes lastModifiedTime(@javax.annotation.Nullable Long lastModifiedTime) {
+  public FileAttributes lastModifiedTime(@jakarta.annotation.Nullable Long lastModifiedTime) {
     
     this.lastModifiedTime = lastModifiedTime;
     return this;
@@ -101,8 +94,7 @@ public class FileAttributes {
    * Get lastModifiedTime
    * @return lastModifiedTime
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LAST_MODIFIED_TIME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LAST_MODIFIED_TIME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getLastModifiedTime() {
@@ -112,11 +104,11 @@ public class FileAttributes {
 
   @JsonProperty(JSON_PROPERTY_LAST_MODIFIED_TIME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLastModifiedTime(@javax.annotation.Nullable Long lastModifiedTime) {
+  public void setLastModifiedTime(@jakarta.annotation.Nullable Long lastModifiedTime) {
     this.lastModifiedTime = lastModifiedTime;
   }
 
-  public FileAttributes creationTime(@javax.annotation.Nullable Long creationTime) {
+  public FileAttributes creationTime(@jakarta.annotation.Nullable Long creationTime) {
     
     this.creationTime = creationTime;
     return this;
@@ -126,8 +118,7 @@ public class FileAttributes {
    * Get creationTime
    * @return creationTime
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CREATION_TIME)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CREATION_TIME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getCreationTime() {
@@ -137,11 +128,11 @@ public class FileAttributes {
 
   @JsonProperty(JSON_PROPERTY_CREATION_TIME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCreationTime(@javax.annotation.Nullable Long creationTime) {
+  public void setCreationTime(@jakarta.annotation.Nullable Long creationTime) {
     this.creationTime = creationTime;
   }
 
-  public FileAttributes type(@javax.annotation.Nullable FileAttributesFileType type) {
+  public FileAttributes type(@jakarta.annotation.Nullable FileAttributesFileType type) {
     
     this.type = type;
     return this;
@@ -151,8 +142,7 @@ public class FileAttributes {
    * Get type
    * @return type
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public FileAttributesFileType getType() {
@@ -162,11 +152,11 @@ public class FileAttributes {
 
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setType(@javax.annotation.Nullable FileAttributesFileType type) {
+  public void setType(@jakarta.annotation.Nullable FileAttributesFileType type) {
     this.type = type;
   }
 
-  public FileAttributes size(@javax.annotation.Nullable Long size) {
+  public FileAttributes size(@jakarta.annotation.Nullable Long size) {
     
     this.size = size;
     return this;
@@ -176,8 +166,7 @@ public class FileAttributes {
    * Get size
    * @return size
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SIZE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SIZE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getSize() {
@@ -187,11 +176,11 @@ public class FileAttributes {
 
   @JsonProperty(JSON_PROPERTY_SIZE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSize(@javax.annotation.Nullable Long size) {
+  public void setSize(@jakarta.annotation.Nullable Long size) {
     this.size = size;
   }
 
-  public FileAttributes metadata(@javax.annotation.Nullable Map<String, String> metadata) {
+  public FileAttributes metadata(@jakarta.annotation.Nullable Map<String, String> metadata) {
     
     this.metadata = metadata;
     return this;
@@ -209,8 +198,7 @@ public class FileAttributes {
    * Get metadata
    * @return metadata
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_METADATA)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_METADATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, String> getMetadata() {
@@ -220,7 +208,7 @@ public class FileAttributes {
 
   @JsonProperty(JSON_PROPERTY_METADATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMetadata(@javax.annotation.Nullable Map<String, String> metadata) {
+  public void setMetadata(@jakarta.annotation.Nullable Map<String, String> metadata) {
     this.metadata = metadata;
   }
 

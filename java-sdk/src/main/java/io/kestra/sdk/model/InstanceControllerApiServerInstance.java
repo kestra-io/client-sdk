@@ -34,28 +34,24 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InstanceControllerApiServerInstance.JSON_PROPERTY_HOSTNAME
 })
 @JsonTypeName("InstanceController.ApiServerInstance")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class InstanceControllerApiServerInstance {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
-  private String id;
+  @jakarta.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nonnull
-  private ServerInstanceType type;
+  @jakarta.annotation.Nullable  private ServerInstanceType type;
 
   public static final String JSON_PROPERTY_VERSION = "version";
-  @javax.annotation.Nonnull
-  private String version;
+  @jakarta.annotation.Nullable  private String version;
 
   public static final String JSON_PROPERTY_HOSTNAME = "hostname";
-  @javax.annotation.Nonnull
-  private String hostname;
+  @jakarta.annotation.Nullable  private String hostname;
 
   public InstanceControllerApiServerInstance() {
   }
 
-  public InstanceControllerApiServerInstance id(@javax.annotation.Nonnull String id) {
+  public InstanceControllerApiServerInstance id(@jakarta.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -65,9 +61,8 @@ public class InstanceControllerApiServerInstance {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
     return id;
@@ -75,12 +70,12 @@ public class InstanceControllerApiServerInstance {
 
 
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(@javax.annotation.Nonnull String id) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@jakarta.annotation.Nullable String id) {
     this.id = id;
   }
 
-  public InstanceControllerApiServerInstance type(@javax.annotation.Nonnull ServerInstanceType type) {
+  public InstanceControllerApiServerInstance type(@jakarta.annotation.Nullable ServerInstanceType type) {
     
     this.type = type;
     return this;
@@ -90,9 +85,8 @@ public class InstanceControllerApiServerInstance {
    * Get type
    * @return type
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServerInstanceType getType() {
     return type;
@@ -100,12 +94,12 @@ public class InstanceControllerApiServerInstance {
 
 
   @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setType(@javax.annotation.Nonnull ServerInstanceType type) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(@jakarta.annotation.Nullable ServerInstanceType type) {
     this.type = type;
   }
 
-  public InstanceControllerApiServerInstance version(@javax.annotation.Nonnull String version) {
+  public InstanceControllerApiServerInstance version(@jakarta.annotation.Nullable String version) {
     
     this.version = version;
     return this;
@@ -115,9 +109,8 @@ public class InstanceControllerApiServerInstance {
    * Get version
    * @return version
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_VERSION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getVersion() {
     return version;
@@ -125,12 +118,12 @@ public class InstanceControllerApiServerInstance {
 
 
   @JsonProperty(JSON_PROPERTY_VERSION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setVersion(@javax.annotation.Nonnull String version) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVersion(@jakarta.annotation.Nullable String version) {
     this.version = version;
   }
 
-  public InstanceControllerApiServerInstance hostname(@javax.annotation.Nonnull String hostname) {
+  public InstanceControllerApiServerInstance hostname(@jakarta.annotation.Nullable String hostname) {
     
     this.hostname = hostname;
     return this;
@@ -140,9 +133,8 @@ public class InstanceControllerApiServerInstance {
    * Get hostname
    * @return hostname
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_HOSTNAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_HOSTNAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getHostname() {
     return hostname;
@@ -150,8 +142,8 @@ public class InstanceControllerApiServerInstance {
 
 
   @JsonProperty(JSON_PROPERTY_HOSTNAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setHostname(@javax.annotation.Nonnull String hostname) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setHostname(@jakarta.annotation.Nullable String hostname) {
     this.hostname = hostname;
   }
 

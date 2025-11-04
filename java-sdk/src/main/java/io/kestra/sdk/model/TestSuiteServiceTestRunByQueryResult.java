@@ -39,32 +39,27 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TestSuiteServiceTestRunByQueryResult.JSON_PROPERTY_RESULTS
 })
 @JsonTypeName("TestSuiteService.TestRunByQueryResult")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TestSuiteServiceTestRunByQueryResult {
   public static final String JSON_PROPERTY_REQUEST_MADE = "requestMade";
-  @javax.annotation.Nonnull
-  private TestSuiteServiceRunByQueryRequest requestMade;
+  @jakarta.annotation.Nullable  private TestSuiteServiceRunByQueryRequest requestMade;
 
   public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
-  @javax.annotation.Nonnull
-  private String tenantId;
+  @jakarta.annotation.Nullable  private String tenantId;
 
   public static final String JSON_PROPERTY_NUMBER_OF_TEST_SUITES_TO_BE_RUN = "numberOfTestSuitesToBeRun";
-  @javax.annotation.Nonnull
-  private Integer numberOfTestSuitesToBeRun;
+  @jakarta.annotation.Nullable  private Integer numberOfTestSuitesToBeRun;
 
   public static final String JSON_PROPERTY_NUMBER_OF_TEST_CASES_TO_BE_RUN = "numberOfTestCasesToBeRun";
-  @javax.annotation.Nonnull
-  private Integer numberOfTestCasesToBeRun;
+  @jakarta.annotation.Nullable  private Integer numberOfTestCasesToBeRun;
 
   public static final String JSON_PROPERTY_RESULTS = "results";
-  @javax.annotation.Nonnull
-  private List<TestSuiteRunResult> results = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<TestSuiteRunResult> results = new ArrayList<>();
 
   public TestSuiteServiceTestRunByQueryResult() {
   }
 
-  public TestSuiteServiceTestRunByQueryResult requestMade(@javax.annotation.Nonnull TestSuiteServiceRunByQueryRequest requestMade) {
+  public TestSuiteServiceTestRunByQueryResult requestMade(@jakarta.annotation.Nullable TestSuiteServiceRunByQueryRequest requestMade) {
     
     this.requestMade = requestMade;
     return this;
@@ -74,9 +69,8 @@ public class TestSuiteServiceTestRunByQueryResult {
    * Get requestMade
    * @return requestMade
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_REQUEST_MADE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REQUEST_MADE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public TestSuiteServiceRunByQueryRequest getRequestMade() {
     return requestMade;
@@ -84,12 +78,12 @@ public class TestSuiteServiceTestRunByQueryResult {
 
 
   @JsonProperty(JSON_PROPERTY_REQUEST_MADE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setRequestMade(@javax.annotation.Nonnull TestSuiteServiceRunByQueryRequest requestMade) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRequestMade(@jakarta.annotation.Nullable TestSuiteServiceRunByQueryRequest requestMade) {
     this.requestMade = requestMade;
   }
 
-  public TestSuiteServiceTestRunByQueryResult tenantId(@javax.annotation.Nonnull String tenantId) {
+  public TestSuiteServiceTestRunByQueryResult tenantId(@jakarta.annotation.Nullable String tenantId) {
     
     this.tenantId = tenantId;
     return this;
@@ -99,9 +93,8 @@ public class TestSuiteServiceTestRunByQueryResult {
    * Get tenantId
    * @return tenantId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TENANT_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTenantId() {
     return tenantId;
@@ -109,12 +102,12 @@ public class TestSuiteServiceTestRunByQueryResult {
 
 
   @JsonProperty(JSON_PROPERTY_TENANT_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTenantId(@javax.annotation.Nonnull String tenantId) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTenantId(@jakarta.annotation.Nullable String tenantId) {
     this.tenantId = tenantId;
   }
 
-  public TestSuiteServiceTestRunByQueryResult numberOfTestSuitesToBeRun(@javax.annotation.Nonnull Integer numberOfTestSuitesToBeRun) {
+  public TestSuiteServiceTestRunByQueryResult numberOfTestSuitesToBeRun(@jakarta.annotation.Nullable Integer numberOfTestSuitesToBeRun) {
     
     this.numberOfTestSuitesToBeRun = numberOfTestSuitesToBeRun;
     return this;
@@ -124,9 +117,8 @@ public class TestSuiteServiceTestRunByQueryResult {
    * Get numberOfTestSuitesToBeRun
    * @return numberOfTestSuitesToBeRun
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NUMBER_OF_TEST_SUITES_TO_BE_RUN)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NUMBER_OF_TEST_SUITES_TO_BE_RUN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getNumberOfTestSuitesToBeRun() {
     return numberOfTestSuitesToBeRun;
@@ -134,12 +126,12 @@ public class TestSuiteServiceTestRunByQueryResult {
 
 
   @JsonProperty(JSON_PROPERTY_NUMBER_OF_TEST_SUITES_TO_BE_RUN)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setNumberOfTestSuitesToBeRun(@javax.annotation.Nonnull Integer numberOfTestSuitesToBeRun) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNumberOfTestSuitesToBeRun(@jakarta.annotation.Nullable Integer numberOfTestSuitesToBeRun) {
     this.numberOfTestSuitesToBeRun = numberOfTestSuitesToBeRun;
   }
 
-  public TestSuiteServiceTestRunByQueryResult numberOfTestCasesToBeRun(@javax.annotation.Nonnull Integer numberOfTestCasesToBeRun) {
+  public TestSuiteServiceTestRunByQueryResult numberOfTestCasesToBeRun(@jakarta.annotation.Nullable Integer numberOfTestCasesToBeRun) {
     
     this.numberOfTestCasesToBeRun = numberOfTestCasesToBeRun;
     return this;
@@ -149,9 +141,8 @@ public class TestSuiteServiceTestRunByQueryResult {
    * Get numberOfTestCasesToBeRun
    * @return numberOfTestCasesToBeRun
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NUMBER_OF_TEST_CASES_TO_BE_RUN)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NUMBER_OF_TEST_CASES_TO_BE_RUN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getNumberOfTestCasesToBeRun() {
     return numberOfTestCasesToBeRun;
@@ -159,12 +150,12 @@ public class TestSuiteServiceTestRunByQueryResult {
 
 
   @JsonProperty(JSON_PROPERTY_NUMBER_OF_TEST_CASES_TO_BE_RUN)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setNumberOfTestCasesToBeRun(@javax.annotation.Nonnull Integer numberOfTestCasesToBeRun) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNumberOfTestCasesToBeRun(@jakarta.annotation.Nullable Integer numberOfTestCasesToBeRun) {
     this.numberOfTestCasesToBeRun = numberOfTestCasesToBeRun;
   }
 
-  public TestSuiteServiceTestRunByQueryResult results(@javax.annotation.Nonnull List<TestSuiteRunResult> results) {
+  public TestSuiteServiceTestRunByQueryResult results(@jakarta.annotation.Nullable List<TestSuiteRunResult> results) {
     
     this.results = results;
     return this;
@@ -182,9 +173,8 @@ public class TestSuiteServiceTestRunByQueryResult {
    * Get results
    * @return results
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_RESULTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<TestSuiteRunResult> getResults() {
     return results;
@@ -192,8 +182,8 @@ public class TestSuiteServiceTestRunByQueryResult {
 
 
   @JsonProperty(JSON_PROPERTY_RESULTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setResults(@javax.annotation.Nonnull List<TestSuiteRunResult> results) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setResults(@jakarta.annotation.Nullable List<TestSuiteRunResult> results) {
     this.results = results;
   }
 

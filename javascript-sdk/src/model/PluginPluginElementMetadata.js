@@ -16,18 +16,16 @@ import ApiClient from '../ApiClient';
 /**
  * The PluginPluginElementMetadata model module.
  * @module model/PluginPluginElementMetadata
- * @version 1.0.0
+ * @version v1.0.5
  */
 class PluginPluginElementMetadata {
     /**
      * Constructs a new <code>PluginPluginElementMetadata</code>.
      * @alias module:model/PluginPluginElementMetadata
-     * @param cls {String} 
-     * @param deprecated {Boolean} 
      */
-    constructor(cls, deprecated) { 
+    constructor() { 
         
-        PluginPluginElementMetadata.initialize(this, cls, deprecated);
+        PluginPluginElementMetadata.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class PluginPluginElementMetadata {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, cls, deprecated) { 
-        obj['cls'] = cls;
-        obj['deprecated'] = deprecated;
+    static initialize(obj) { 
     }
 
     /**
@@ -67,12 +63,6 @@ class PluginPluginElementMetadata {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>PluginPluginElementMetadata</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of PluginPluginElementMetadata.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['cls'] && !(typeof data['cls'] === 'string' || data['cls'] instanceof String)) {
             throw new Error("Expected the field `cls` to be a primitive type in the JSON string but got " + data['cls']);
@@ -84,7 +74,7 @@ class PluginPluginElementMetadata {
 
 }
 
-PluginPluginElementMetadata.RequiredProperties = ["cls", "deprecated"];
+
 
 /**
  * @member {String} cls

@@ -38,32 +38,27 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMInvitationControllerApiInvitationCreateRequest.JSON_PROPERTY_EMAIL
 })
 @JsonTypeName("IAMInvitationController.ApiInvitationCreateRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMInvitationControllerApiInvitationCreateRequest {
   public static final String JSON_PROPERTY_CREATE_USER_IF_NOT_EXIST = "createUserIfNotExist";
-  @javax.annotation.Nonnull
-  private Boolean createUserIfNotExist;
+  @jakarta.annotation.Nullable  private Boolean createUserIfNotExist;
 
   public static final String JSON_PROPERTY_SUPER_ADMIN = "superAdmin";
-  @javax.annotation.Nonnull
-  private Boolean superAdmin;
+  @jakarta.annotation.Nullable  private Boolean superAdmin;
 
   public static final String JSON_PROPERTY_ROLES = "roles";
-  @javax.annotation.Nonnull
-  private List<IAMInvitationControllerApiInvitationRole> roles = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<IAMInvitationControllerApiInvitationRole> roles = new ArrayList<>();
 
   public static final String JSON_PROPERTY_GROUPS = "groups";
-  @javax.annotation.Nonnull
-  private List<String> groups = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> groups = new ArrayList<>();
 
   public static final String JSON_PROPERTY_EMAIL = "email";
-  @javax.annotation.Nonnull
-  private String email;
+  @jakarta.annotation.Nonnull  private String email;
 
   public IAMInvitationControllerApiInvitationCreateRequest() {
   }
 
-  public IAMInvitationControllerApiInvitationCreateRequest createUserIfNotExist(@javax.annotation.Nonnull Boolean createUserIfNotExist) {
+  public IAMInvitationControllerApiInvitationCreateRequest createUserIfNotExist(@jakarta.annotation.Nullable Boolean createUserIfNotExist) {
     
     this.createUserIfNotExist = createUserIfNotExist;
     return this;
@@ -73,9 +68,8 @@ public class IAMInvitationControllerApiInvitationCreateRequest {
    * Get createUserIfNotExist
    * @return createUserIfNotExist
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_CREATE_USER_IF_NOT_EXIST)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CREATE_USER_IF_NOT_EXIST)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getCreateUserIfNotExist() {
     return createUserIfNotExist;
@@ -83,12 +77,12 @@ public class IAMInvitationControllerApiInvitationCreateRequest {
 
 
   @JsonProperty(JSON_PROPERTY_CREATE_USER_IF_NOT_EXIST)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setCreateUserIfNotExist(@javax.annotation.Nonnull Boolean createUserIfNotExist) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCreateUserIfNotExist(@jakarta.annotation.Nullable Boolean createUserIfNotExist) {
     this.createUserIfNotExist = createUserIfNotExist;
   }
 
-  public IAMInvitationControllerApiInvitationCreateRequest superAdmin(@javax.annotation.Nonnull Boolean superAdmin) {
+  public IAMInvitationControllerApiInvitationCreateRequest superAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
     
     this.superAdmin = superAdmin;
     return this;
@@ -98,9 +92,8 @@ public class IAMInvitationControllerApiInvitationCreateRequest {
    * Get superAdmin
    * @return superAdmin
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getSuperAdmin() {
     return superAdmin;
@@ -108,12 +101,12 @@ public class IAMInvitationControllerApiInvitationCreateRequest {
 
 
   @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setSuperAdmin(@javax.annotation.Nonnull Boolean superAdmin) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSuperAdmin(@jakarta.annotation.Nullable Boolean superAdmin) {
     this.superAdmin = superAdmin;
   }
 
-  public IAMInvitationControllerApiInvitationCreateRequest roles(@javax.annotation.Nonnull List<IAMInvitationControllerApiInvitationRole> roles) {
+  public IAMInvitationControllerApiInvitationCreateRequest roles(@jakarta.annotation.Nullable List<IAMInvitationControllerApiInvitationRole> roles) {
     
     this.roles = roles;
     return this;
@@ -131,9 +124,8 @@ public class IAMInvitationControllerApiInvitationCreateRequest {
    * Get roles
    * @return roles
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ROLES)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ROLES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<IAMInvitationControllerApiInvitationRole> getRoles() {
     return roles;
@@ -141,12 +133,12 @@ public class IAMInvitationControllerApiInvitationCreateRequest {
 
 
   @JsonProperty(JSON_PROPERTY_ROLES)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setRoles(@javax.annotation.Nonnull List<IAMInvitationControllerApiInvitationRole> roles) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRoles(@jakarta.annotation.Nullable List<IAMInvitationControllerApiInvitationRole> roles) {
     this.roles = roles;
   }
 
-  public IAMInvitationControllerApiInvitationCreateRequest groups(@javax.annotation.Nonnull List<String> groups) {
+  public IAMInvitationControllerApiInvitationCreateRequest groups(@jakarta.annotation.Nullable List<String> groups) {
     
     this.groups = groups;
     return this;
@@ -164,9 +156,8 @@ public class IAMInvitationControllerApiInvitationCreateRequest {
    * Get groups
    * @return groups
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_GROUPS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getGroups() {
     return groups;
@@ -174,12 +165,12 @@ public class IAMInvitationControllerApiInvitationCreateRequest {
 
 
   @JsonProperty(JSON_PROPERTY_GROUPS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setGroups(@javax.annotation.Nonnull List<String> groups) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGroups(@jakarta.annotation.Nullable List<String> groups) {
     this.groups = groups;
   }
 
-  public IAMInvitationControllerApiInvitationCreateRequest email(@javax.annotation.Nonnull String email) {
+  public IAMInvitationControllerApiInvitationCreateRequest email(@jakarta.annotation.Nonnull String email) {
     
     this.email = email;
     return this;
@@ -189,8 +180,7 @@ public class IAMInvitationControllerApiInvitationCreateRequest {
    * Get email
    * @return email
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_EMAIL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getEmail() {
@@ -200,7 +190,7 @@ public class IAMInvitationControllerApiInvitationCreateRequest {
 
   @JsonProperty(JSON_PROPERTY_EMAIL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setEmail(@javax.annotation.Nonnull String email) {
+  public void setEmail(@jakarta.annotation.Nonnull String email) {
     this.email = email;
   }
 

@@ -6,14 +6,14 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Permissions** | [**IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions**](IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.md) |  | 
 **Name** | **string** |  | 
-**Description** | **string** |  | 
-**IsDefault** | **bool** |  | 
+**Description** | Pointer to **string** |  | [optional] 
+**IsDefault** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
 ### NewIAMRoleControllerApiRoleCreateOrUpdateRequest
 
-`func NewIAMRoleControllerApiRoleCreateOrUpdateRequest(permissions IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions, name string, description string, isDefault bool, ) *IAMRoleControllerApiRoleCreateOrUpdateRequest`
+`func NewIAMRoleControllerApiRoleCreateOrUpdateRequest(permissions IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions, name string, ) *IAMRoleControllerApiRoleCreateOrUpdateRequest`
 
 NewIAMRoleControllerApiRoleCreateOrUpdateRequest instantiates a new IAMRoleControllerApiRoleCreateOrUpdateRequest object
 This constructor will assign default values to properties that have it defined,
@@ -87,6 +87,11 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
+### HasDescription
+
+`func (o *IAMRoleControllerApiRoleCreateOrUpdateRequest) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetIsDefault
 
@@ -107,6 +112,11 @@ and a boolean to check if the value has been set.
 
 SetIsDefault sets IsDefault field to given value.
 
+### HasIsDefault
+
+`func (o *IAMRoleControllerApiRoleCreateOrUpdateRequest) HasIsDefault() bool`
+
+HasIsDefault returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

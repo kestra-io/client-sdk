@@ -28,7 +28,6 @@ class TaskRun(BaseModel):
     """
     TaskRun
     """ # noqa: E501
-    items: Optional[StrictStr] = None
     id: StrictStr
     execution_id: StrictStr = Field(alias="executionId")
     namespace: StrictStr
@@ -37,13 +36,13 @@ class TaskRun(BaseModel):
     parent_task_run_id: Optional[StrictStr] = Field(default=None, alias="parentTaskRunId")
     value: Optional[StrictStr] = None
     attempts: Optional[List[TaskRunAttempt]] = None
-    outputs: Optional[Dict[str, Dict[str, Any]]] = None
+    outputs: Optional[Dict[str, Any]] = None
     state: State
     iteration: Optional[StrictInt] = None
     dynamic: Optional[StrictBool] = None
     force_execution: Optional[StrictBool] = Field(default=None, alias="forceExecution")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["items", "id", "executionId", "namespace", "flowId", "taskId", "parentTaskRunId", "value", "attempts", "outputs", "state", "iteration", "dynamic", "forceExecution"]
+    __properties: ClassVar[List[str]] = ["id", "executionId", "namespace", "flowId", "taskId", "parentTaskRunId", "value", "attempts", "outputs", "state", "iteration", "dynamic", "forceExecution"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -118,7 +117,6 @@ class TaskRun(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "items": obj.get("items"),
             "id": obj.get("id"),
             "executionId": obj.get("executionId"),
             "namespace": obj.get("namespace"),

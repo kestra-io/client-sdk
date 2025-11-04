@@ -42,40 +42,33 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Backfill.JSON_PROPERTY_LABELS,
   Backfill.JSON_PROPERTY_PREVIOUS_NEXT_EXECUTION_DATE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Backfill {
   public static final String JSON_PROPERTY_START = "start";
-  @javax.annotation.Nonnull
-  private OffsetDateTime start;
+  @jakarta.annotation.Nonnull  private OffsetDateTime start;
 
   public static final String JSON_PROPERTY_END = "end";
-  @javax.annotation.Nullable
-  private OffsetDateTime end;
+  @jakarta.annotation.Nullable  private OffsetDateTime end;
 
   public static final String JSON_PROPERTY_CURRENT_DATE = "currentDate";
-  @javax.annotation.Nullable
-  private OffsetDateTime currentDate;
+  @jakarta.annotation.Nullable  private OffsetDateTime currentDate;
 
   public static final String JSON_PROPERTY_PAUSED = "paused";
-  @javax.annotation.Nullable
-  private Boolean paused;
+  @jakarta.annotation.Nullable  private Boolean paused;
 
   public static final String JSON_PROPERTY_INPUTS = "inputs";
-  @javax.annotation.Nullable
-  private Map<String, Object> inputs = new HashMap<>();
+  @jakarta.annotation.Nullable  private Map<String, Object> inputs = new HashMap<>();
 
   public static final String JSON_PROPERTY_LABELS = "labels";
-  @javax.annotation.Nullable
-  private List<Label> labels = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<Label> labels = new ArrayList<>();
 
   public static final String JSON_PROPERTY_PREVIOUS_NEXT_EXECUTION_DATE = "previousNextExecutionDate";
-  @javax.annotation.Nullable
-  private OffsetDateTime previousNextExecutionDate;
+  @jakarta.annotation.Nullable  private OffsetDateTime previousNextExecutionDate;
 
   public Backfill() {
   }
 
-  public Backfill start(@javax.annotation.Nonnull OffsetDateTime start) {
+  public Backfill start(@jakarta.annotation.Nonnull OffsetDateTime start) {
     
     this.start = start;
     return this;
@@ -85,8 +78,7 @@ public class Backfill {
    * Get start
    * @return start
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_START)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_START)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public OffsetDateTime getStart() {
@@ -96,11 +88,11 @@ public class Backfill {
 
   @JsonProperty(JSON_PROPERTY_START)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setStart(@javax.annotation.Nonnull OffsetDateTime start) {
+  public void setStart(@jakarta.annotation.Nonnull OffsetDateTime start) {
     this.start = start;
   }
 
-  public Backfill end(@javax.annotation.Nullable OffsetDateTime end) {
+  public Backfill end(@jakarta.annotation.Nullable OffsetDateTime end) {
     
     this.end = end;
     return this;
@@ -110,8 +102,7 @@ public class Backfill {
    * Get end
    * @return end
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_END)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_END)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getEnd() {
@@ -121,11 +112,11 @@ public class Backfill {
 
   @JsonProperty(JSON_PROPERTY_END)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEnd(@javax.annotation.Nullable OffsetDateTime end) {
+  public void setEnd(@jakarta.annotation.Nullable OffsetDateTime end) {
     this.end = end;
   }
 
-  public Backfill currentDate(@javax.annotation.Nullable OffsetDateTime currentDate) {
+  public Backfill currentDate(@jakarta.annotation.Nullable OffsetDateTime currentDate) {
     
     this.currentDate = currentDate;
     return this;
@@ -135,8 +126,7 @@ public class Backfill {
    * Get currentDate
    * @return currentDate
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CURRENT_DATE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CURRENT_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getCurrentDate() {
@@ -146,11 +136,11 @@ public class Backfill {
 
   @JsonProperty(JSON_PROPERTY_CURRENT_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCurrentDate(@javax.annotation.Nullable OffsetDateTime currentDate) {
+  public void setCurrentDate(@jakarta.annotation.Nullable OffsetDateTime currentDate) {
     this.currentDate = currentDate;
   }
 
-  public Backfill paused(@javax.annotation.Nullable Boolean paused) {
+  public Backfill paused(@jakarta.annotation.Nullable Boolean paused) {
     
     this.paused = paused;
     return this;
@@ -160,8 +150,7 @@ public class Backfill {
    * Get paused
    * @return paused
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PAUSED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PAUSED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getPaused() {
@@ -171,11 +160,11 @@ public class Backfill {
 
   @JsonProperty(JSON_PROPERTY_PAUSED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPaused(@javax.annotation.Nullable Boolean paused) {
+  public void setPaused(@jakarta.annotation.Nullable Boolean paused) {
     this.paused = paused;
   }
 
-  public Backfill inputs(@javax.annotation.Nullable Map<String, Object> inputs) {
+  public Backfill inputs(@jakarta.annotation.Nullable Map<String, Object> inputs) {
     
     this.inputs = inputs;
     return this;
@@ -193,8 +182,7 @@ public class Backfill {
    * Get inputs
    * @return inputs
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_INPUTS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getInputs() {
@@ -204,11 +192,11 @@ public class Backfill {
 
   @JsonProperty(JSON_PROPERTY_INPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setInputs(@javax.annotation.Nullable Map<String, Object> inputs) {
+  public void setInputs(@jakarta.annotation.Nullable Map<String, Object> inputs) {
     this.inputs = inputs;
   }
 
-  public Backfill labels(@javax.annotation.Nullable List<Label> labels) {
+  public Backfill labels(@jakarta.annotation.Nullable List<Label> labels) {
     
     this.labels = labels;
     return this;
@@ -226,8 +214,7 @@ public class Backfill {
    * Get labels
    * @return labels
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LABELS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Label> getLabels() {
@@ -237,11 +224,11 @@ public class Backfill {
 
   @JsonProperty(JSON_PROPERTY_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLabels(@javax.annotation.Nullable List<Label> labels) {
+  public void setLabels(@jakarta.annotation.Nullable List<Label> labels) {
     this.labels = labels;
   }
 
-  public Backfill previousNextExecutionDate(@javax.annotation.Nullable OffsetDateTime previousNextExecutionDate) {
+  public Backfill previousNextExecutionDate(@jakarta.annotation.Nullable OffsetDateTime previousNextExecutionDate) {
     
     this.previousNextExecutionDate = previousNextExecutionDate;
     return this;
@@ -251,8 +238,7 @@ public class Backfill {
    * Get previousNextExecutionDate
    * @return previousNextExecutionDate
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PREVIOUS_NEXT_EXECUTION_DATE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PREVIOUS_NEXT_EXECUTION_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getPreviousNextExecutionDate() {
@@ -262,7 +248,7 @@ public class Backfill {
 
   @JsonProperty(JSON_PROPERTY_PREVIOUS_NEXT_EXECUTION_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPreviousNextExecutionDate(@javax.annotation.Nullable OffsetDateTime previousNextExecutionDate) {
+  public void setPreviousNextExecutionDate(@jakarta.annotation.Nullable OffsetDateTime previousNextExecutionDate) {
     this.previousNextExecutionDate = previousNextExecutionDate;
   }
 

@@ -7,10 +7,10 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**tenantId** | **String** |  |  |
-|**groupId** | **String** |  |  |
-|**membership** | **GroupIdentifierMembership** |  |  |
-|**managedExternally** | **Boolean** |  |  |
+|**tenantId** | **String** |  |  [optional] |
+|**groupId** | **String** |  |  [optional] |
+|**membership** | **GroupIdentifierMembership** |  |  [optional] |
+|**managedExternally** | **Boolean** |  |  [optional] |
 
 
 

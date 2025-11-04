@@ -21,16 +21,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.AbstractTriggerForExecution;
-import io.kestra.sdk.model.FlowForExecutionAllOfLabels;
 import io.kestra.sdk.model.InputObject;
+import io.kestra.sdk.model.Label;
 import io.kestra.sdk.model.Output;
 import io.kestra.sdk.model.TaskForExecution;
 import io.kestra.sdk.model.WorkerGroup;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -55,76 +53,60 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowForExecution.JSON_PROPERTY_AFTER_EXECUTION,
   FlowForExecution.JSON_PROPERTY_TRIGGERS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class FlowForExecution {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
-  private String id;
+  @jakarta.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nonnull
-  private String namespace;
+  @jakarta.annotation.Nonnull  private String namespace;
 
   public static final String JSON_PROPERTY_REVISION = "revision";
-  @javax.annotation.Nullable
-  private Integer revision;
+  @jakarta.annotation.Nullable  private Integer revision;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
-  private String description;
+  @jakarta.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_INPUTS = "inputs";
-  @javax.annotation.Nullable
-  private List<InputObject> inputs = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<InputObject> inputs = new ArrayList<>();
 
   public static final String JSON_PROPERTY_OUTPUTS = "outputs";
-  @javax.annotation.Nullable
-  private List<Output> outputs = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<Output> outputs = new ArrayList<>();
 
   public static final String JSON_PROPERTY_DISABLED = "disabled";
-  @javax.annotation.Nonnull
-  private Boolean disabled;
+  @jakarta.annotation.Nonnull  private Boolean disabled;
 
   public static final String JSON_PROPERTY_LABELS = "labels";
-  @javax.annotation.Nullable
-  private FlowForExecutionAllOfLabels labels;
+  @jakarta.annotation.Nullable  private List<Label> labels = new ArrayList<>();
 
   public static final String JSON_PROPERTY_VARIABLES = "variables";
-  @javax.annotation.Nullable
-  private Map<String, Object> variables = new HashMap<>();
+  @jakarta.annotation.Nullable  private Object variables;
 
   public static final String JSON_PROPERTY_WORKER_GROUP = "workerGroup";
-  @javax.annotation.Nullable
-  private WorkerGroup workerGroup;
+  @jakarta.annotation.Nullable  private WorkerGroup workerGroup;
 
   public static final String JSON_PROPERTY_DELETED = "deleted";
-  @javax.annotation.Nonnull
-  private Boolean deleted;
+  @jakarta.annotation.Nonnull  private Boolean deleted;
 
   public static final String JSON_PROPERTY_TASKS = "tasks";
-  @javax.annotation.Nonnull
-  private List<TaskForExecution> tasks = new ArrayList<>();
+  @jakarta.annotation.Nonnull  private List<TaskForExecution> tasks = new ArrayList<>();
 
   public static final String JSON_PROPERTY_ERRORS = "errors";
-  @javax.annotation.Nullable
-  private List<TaskForExecution> errors = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<TaskForExecution> errors = new ArrayList<>();
 
   public static final String JSON_PROPERTY_FINALLY = "finally";
-  @javax.annotation.Nullable
-  private List<TaskForExecution> _finally = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<TaskForExecution> _finally = new ArrayList<>();
 
   public static final String JSON_PROPERTY_AFTER_EXECUTION = "afterExecution";
-  @javax.annotation.Nullable
-  private List<TaskForExecution> afterExecution = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<TaskForExecution> afterExecution = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TRIGGERS = "triggers";
-  @javax.annotation.Nullable
-  private List<AbstractTriggerForExecution> triggers = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<AbstractTriggerForExecution> triggers = new ArrayList<>();
 
   public FlowForExecution() {
   }
 
-  public FlowForExecution id(@javax.annotation.Nonnull String id) {
+  public FlowForExecution id(@jakarta.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -134,8 +116,7 @@ public class FlowForExecution {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -145,11 +126,11 @@ public class FlowForExecution {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(@javax.annotation.Nonnull String id) {
+  public void setId(@jakarta.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public FlowForExecution namespace(@javax.annotation.Nonnull String namespace) {
+  public FlowForExecution namespace(@jakarta.annotation.Nonnull String namespace) {
     
     this.namespace = namespace;
     return this;
@@ -159,8 +140,7 @@ public class FlowForExecution {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getNamespace() {
@@ -170,11 +150,11 @@ public class FlowForExecution {
 
   @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setNamespace(@javax.annotation.Nonnull String namespace) {
+  public void setNamespace(@jakarta.annotation.Nonnull String namespace) {
     this.namespace = namespace;
   }
 
-  public FlowForExecution revision(@javax.annotation.Nullable Integer revision) {
+  public FlowForExecution revision(@jakarta.annotation.Nullable Integer revision) {
     
     this.revision = revision;
     return this;
@@ -185,8 +165,7 @@ public class FlowForExecution {
    * minimum: 1
    * @return revision
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_REVISION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REVISION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getRevision() {
@@ -196,11 +175,11 @@ public class FlowForExecution {
 
   @JsonProperty(JSON_PROPERTY_REVISION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRevision(@javax.annotation.Nullable Integer revision) {
+  public void setRevision(@jakarta.annotation.Nullable Integer revision) {
     this.revision = revision;
   }
 
-  public FlowForExecution description(@javax.annotation.Nullable String description) {
+  public FlowForExecution description(@jakarta.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -210,8 +189,7 @@ public class FlowForExecution {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -221,11 +199,11 @@ public class FlowForExecution {
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(@javax.annotation.Nullable String description) {
+  public void setDescription(@jakarta.annotation.Nullable String description) {
     this.description = description;
   }
 
-  public FlowForExecution inputs(@javax.annotation.Nullable List<InputObject> inputs) {
+  public FlowForExecution inputs(@jakarta.annotation.Nullable List<InputObject> inputs) {
     
     this.inputs = inputs;
     return this;
@@ -243,8 +221,7 @@ public class FlowForExecution {
    * Get inputs
    * @return inputs
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_INPUTS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_INPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<InputObject> getInputs() {
@@ -254,11 +231,11 @@ public class FlowForExecution {
 
   @JsonProperty(JSON_PROPERTY_INPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setInputs(@javax.annotation.Nullable List<InputObject> inputs) {
+  public void setInputs(@jakarta.annotation.Nullable List<InputObject> inputs) {
     this.inputs = inputs;
   }
 
-  public FlowForExecution outputs(@javax.annotation.Nullable List<Output> outputs) {
+  public FlowForExecution outputs(@jakarta.annotation.Nullable List<Output> outputs) {
     
     this.outputs = outputs;
     return this;
@@ -276,8 +253,7 @@ public class FlowForExecution {
    * Get outputs
    * @return outputs
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_OUTPUTS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Output> getOutputs() {
@@ -287,11 +263,11 @@ public class FlowForExecution {
 
   @JsonProperty(JSON_PROPERTY_OUTPUTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOutputs(@javax.annotation.Nullable List<Output> outputs) {
+  public void setOutputs(@jakarta.annotation.Nullable List<Output> outputs) {
     this.outputs = outputs;
   }
 
-  public FlowForExecution disabled(@javax.annotation.Nonnull Boolean disabled) {
+  public FlowForExecution disabled(@jakarta.annotation.Nonnull Boolean disabled) {
     
     this.disabled = disabled;
     return this;
@@ -301,8 +277,7 @@ public class FlowForExecution {
    * Get disabled
    * @return disabled
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DISABLED)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DISABLED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getDisabled() {
@@ -312,46 +287,45 @@ public class FlowForExecution {
 
   @JsonProperty(JSON_PROPERTY_DISABLED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDisabled(@javax.annotation.Nonnull Boolean disabled) {
+  public void setDisabled(@jakarta.annotation.Nonnull Boolean disabled) {
     this.disabled = disabled;
   }
 
-  public FlowForExecution labels(@javax.annotation.Nullable FlowForExecutionAllOfLabels labels) {
+  public FlowForExecution labels(@jakarta.annotation.Nullable List<Label> labels) {
     
     this.labels = labels;
     return this;
   }
 
+  public FlowForExecution addLabelsItem(Label labelsItem) {
+    if (this.labels == null) {
+      this.labels = new ArrayList<>();
+    }
+    this.labels.add(labelsItem);
+    return this;
+  }
+
   /**
-   * Get labels
+   * Labels as a list of Label (key/value pairs) or as a map of string to string.
    * @return labels
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LABELS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public FlowForExecutionAllOfLabels getLabels() {
+  public List<Label> getLabels() {
     return labels;
   }
 
 
   @JsonProperty(JSON_PROPERTY_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLabels(@javax.annotation.Nullable FlowForExecutionAllOfLabels labels) {
+  public void setLabels(@jakarta.annotation.Nullable List<Label> labels) {
     this.labels = labels;
   }
 
-  public FlowForExecution variables(@javax.annotation.Nullable Map<String, Object> variables) {
+  public FlowForExecution variables(@jakarta.annotation.Nullable Object variables) {
     
     this.variables = variables;
-    return this;
-  }
-
-  public FlowForExecution putVariablesItem(String key, Object variablesItem) {
-    if (this.variables == null) {
-      this.variables = new HashMap<>();
-    }
-    this.variables.put(key, variablesItem);
     return this;
   }
 
@@ -359,22 +333,21 @@ public class FlowForExecution {
    * Get variables
    * @return variables
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_VARIABLES)
-  @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VARIABLES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Map<String, Object> getVariables() {
+  public Object getVariables() {
     return variables;
   }
 
 
   @JsonProperty(JSON_PROPERTY_VARIABLES)
-  @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVariables(@javax.annotation.Nullable Map<String, Object> variables) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVariables(@jakarta.annotation.Nullable Object variables) {
     this.variables = variables;
   }
 
-  public FlowForExecution workerGroup(@javax.annotation.Nullable WorkerGroup workerGroup) {
+  public FlowForExecution workerGroup(@jakarta.annotation.Nullable WorkerGroup workerGroup) {
     
     this.workerGroup = workerGroup;
     return this;
@@ -384,8 +357,7 @@ public class FlowForExecution {
    * Get workerGroup
    * @return workerGroup
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public WorkerGroup getWorkerGroup() {
@@ -395,11 +367,11 @@ public class FlowForExecution {
 
   @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWorkerGroup(@javax.annotation.Nullable WorkerGroup workerGroup) {
+  public void setWorkerGroup(@jakarta.annotation.Nullable WorkerGroup workerGroup) {
     this.workerGroup = workerGroup;
   }
 
-  public FlowForExecution deleted(@javax.annotation.Nonnull Boolean deleted) {
+  public FlowForExecution deleted(@jakarta.annotation.Nonnull Boolean deleted) {
     
     this.deleted = deleted;
     return this;
@@ -409,8 +381,7 @@ public class FlowForExecution {
    * Get deleted
    * @return deleted
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DELETED)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getDeleted() {
@@ -420,11 +391,11 @@ public class FlowForExecution {
 
   @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDeleted(@javax.annotation.Nonnull Boolean deleted) {
+  public void setDeleted(@jakarta.annotation.Nonnull Boolean deleted) {
     this.deleted = deleted;
   }
 
-  public FlowForExecution tasks(@javax.annotation.Nonnull List<TaskForExecution> tasks) {
+  public FlowForExecution tasks(@jakarta.annotation.Nonnull List<TaskForExecution> tasks) {
     
     this.tasks = tasks;
     return this;
@@ -442,8 +413,7 @@ public class FlowForExecution {
    * Get tasks
    * @return tasks
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TASKS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TASKS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<TaskForExecution> getTasks() {
@@ -453,11 +423,11 @@ public class FlowForExecution {
 
   @JsonProperty(JSON_PROPERTY_TASKS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTasks(@javax.annotation.Nonnull List<TaskForExecution> tasks) {
+  public void setTasks(@jakarta.annotation.Nonnull List<TaskForExecution> tasks) {
     this.tasks = tasks;
   }
 
-  public FlowForExecution errors(@javax.annotation.Nullable List<TaskForExecution> errors) {
+  public FlowForExecution errors(@jakarta.annotation.Nullable List<TaskForExecution> errors) {
     
     this.errors = errors;
     return this;
@@ -475,8 +445,7 @@ public class FlowForExecution {
    * Get errors
    * @return errors
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ERRORS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ERRORS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<TaskForExecution> getErrors() {
@@ -486,11 +455,11 @@ public class FlowForExecution {
 
   @JsonProperty(JSON_PROPERTY_ERRORS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setErrors(@javax.annotation.Nullable List<TaskForExecution> errors) {
+  public void setErrors(@jakarta.annotation.Nullable List<TaskForExecution> errors) {
     this.errors = errors;
   }
 
-  public FlowForExecution _finally(@javax.annotation.Nullable List<TaskForExecution> _finally) {
+  public FlowForExecution _finally(@jakarta.annotation.Nullable List<TaskForExecution> _finally) {
     
     this._finally = _finally;
     return this;
@@ -508,8 +477,7 @@ public class FlowForExecution {
    * Get _finally
    * @return _finally
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FINALLY)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FINALLY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<TaskForExecution> getFinally() {
@@ -519,11 +487,11 @@ public class FlowForExecution {
 
   @JsonProperty(JSON_PROPERTY_FINALLY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFinally(@javax.annotation.Nullable List<TaskForExecution> _finally) {
+  public void setFinally(@jakarta.annotation.Nullable List<TaskForExecution> _finally) {
     this._finally = _finally;
   }
 
-  public FlowForExecution afterExecution(@javax.annotation.Nullable List<TaskForExecution> afterExecution) {
+  public FlowForExecution afterExecution(@jakarta.annotation.Nullable List<TaskForExecution> afterExecution) {
     
     this.afterExecution = afterExecution;
     return this;
@@ -541,8 +509,7 @@ public class FlowForExecution {
    * Get afterExecution
    * @return afterExecution
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_AFTER_EXECUTION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_AFTER_EXECUTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<TaskForExecution> getAfterExecution() {
@@ -552,11 +519,11 @@ public class FlowForExecution {
 
   @JsonProperty(JSON_PROPERTY_AFTER_EXECUTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAfterExecution(@javax.annotation.Nullable List<TaskForExecution> afterExecution) {
+  public void setAfterExecution(@jakarta.annotation.Nullable List<TaskForExecution> afterExecution) {
     this.afterExecution = afterExecution;
   }
 
-  public FlowForExecution triggers(@javax.annotation.Nullable List<AbstractTriggerForExecution> triggers) {
+  public FlowForExecution triggers(@jakarta.annotation.Nullable List<AbstractTriggerForExecution> triggers) {
     
     this.triggers = triggers;
     return this;
@@ -574,8 +541,7 @@ public class FlowForExecution {
    * Get triggers
    * @return triggers
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TRIGGERS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TRIGGERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<AbstractTriggerForExecution> getTriggers() {
@@ -585,7 +551,7 @@ public class FlowForExecution {
 
   @JsonProperty(JSON_PROPERTY_TRIGGERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTriggers(@javax.annotation.Nullable List<AbstractTriggerForExecution> triggers) {
+  public void setTriggers(@jakarta.annotation.Nullable List<AbstractTriggerForExecution> triggers) {
     this.triggers = triggers;
   }
 

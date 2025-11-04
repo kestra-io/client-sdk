@@ -30,16 +30,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   PatchOperationPath.JSON_PROPERTY_VALUE_PATH_EXPRESSION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PatchOperationPath {
   public static final String JSON_PROPERTY_VALUE_PATH_EXPRESSION = "valuePathExpression";
-  @javax.annotation.Nonnull
-  private ValuePathExpression valuePathExpression;
+  @jakarta.annotation.Nullable  private ValuePathExpression valuePathExpression;
 
   public PatchOperationPath() {
   }
 
-  public PatchOperationPath valuePathExpression(@javax.annotation.Nonnull ValuePathExpression valuePathExpression) {
+  public PatchOperationPath valuePathExpression(@jakarta.annotation.Nullable ValuePathExpression valuePathExpression) {
     
     this.valuePathExpression = valuePathExpression;
     return this;
@@ -49,9 +48,8 @@ public class PatchOperationPath {
    * Get valuePathExpression
    * @return valuePathExpression
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_VALUE_PATH_EXPRESSION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE_PATH_EXPRESSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ValuePathExpression getValuePathExpression() {
     return valuePathExpression;
@@ -59,8 +57,8 @@ public class PatchOperationPath {
 
 
   @JsonProperty(JSON_PROPERTY_VALUE_PATH_EXPRESSION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setValuePathExpression(@javax.annotation.Nonnull ValuePathExpression valuePathExpression) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setValuePathExpression(@jakarta.annotation.Nullable ValuePathExpression valuePathExpression) {
     this.valuePathExpression = valuePathExpression;
   }
 

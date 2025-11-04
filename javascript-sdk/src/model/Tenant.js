@@ -18,29 +18,19 @@ import WorkerGroup from './WorkerGroup';
 /**
  * The Tenant model module.
  * @module model/Tenant
- * @version 1.0.0
+ * @version v1.0.5
  */
 class Tenant {
     /**
      * Constructs a new <code>Tenant</code>.
      * @alias module:model/Tenant
-     * @param storageIsolation {module:model/Isolation} 
-     * @param secretIsolation {module:model/Isolation} 
      * @param id {String} 
      * @param name {String} 
      * @param deleted {Boolean} 
-     * @param workerGroup {module:model/WorkerGroup} 
-     * @param storageType {String} 
-     * @param storageConfiguration {Object.<String, Object>} 
-     * @param secretType {String} 
-     * @param secretReadOnly {Boolean} 
-     * @param secretConfiguration {Object.<String, Object>} 
-     * @param requireExistingNamespace {Boolean} 
-     * @param outputsInInternalStorage {Boolean} 
      */
-    constructor(storageIsolation, secretIsolation, id, name, deleted, workerGroup, storageType, storageConfiguration, secretType, secretReadOnly, secretConfiguration, requireExistingNamespace, outputsInInternalStorage) { 
+    constructor(id, name, deleted) { 
         
-        Tenant.initialize(this, storageIsolation, secretIsolation, id, name, deleted, workerGroup, storageType, storageConfiguration, secretType, secretReadOnly, secretConfiguration, requireExistingNamespace, outputsInInternalStorage);
+        Tenant.initialize(this, id, name, deleted);
     }
 
     /**
@@ -48,20 +38,10 @@ class Tenant {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, storageIsolation, secretIsolation, id, name, deleted, workerGroup, storageType, storageConfiguration, secretType, secretReadOnly, secretConfiguration, requireExistingNamespace, outputsInInternalStorage) { 
-        obj['storageIsolation'] = storageIsolation;
-        obj['secretIsolation'] = secretIsolation;
+    static initialize(obj, id, name, deleted) { 
         obj['id'] = id;
         obj['name'] = name;
         obj['deleted'] = deleted;
-        obj['workerGroup'] = workerGroup;
-        obj['storageType'] = storageType;
-        obj['storageConfiguration'] = storageConfiguration;
-        obj['secretType'] = secretType;
-        obj['secretReadOnly'] = secretReadOnly;
-        obj['secretConfiguration'] = secretConfiguration;
-        obj['requireExistingNamespace'] = requireExistingNamespace;
-        obj['outputsInInternalStorage'] = outputsInInternalStorage;
     }
 
     /**
@@ -165,7 +145,7 @@ class Tenant {
 
 }
 
-Tenant.RequiredProperties = ["storageIsolation", "secretIsolation", "id", "name", "deleted", "workerGroup", "storageType", "storageConfiguration", "secretType", "secretReadOnly", "secretConfiguration", "requireExistingNamespace", "outputsInInternalStorage"];
+Tenant.RequiredProperties = ["id", "name", "deleted"];
 
 /**
  * @member {module:model/Isolation} storageIsolation

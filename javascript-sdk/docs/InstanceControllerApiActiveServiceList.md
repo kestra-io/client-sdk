@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**total** | **Number** |  | 
-**services** | [**[InstanceControllerApiActiveService]**](InstanceControllerApiActiveService.md) |  | 
+**total** | **Number** |  | [optional] 
+**services** | [**[InstanceControllerApiActiveService]**](InstanceControllerApiActiveService.md) |  | [optional] 
 
 

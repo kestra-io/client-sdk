@@ -41,6 +41,8 @@ type _TriggerContext TriggerContext
 // will change when the set of required properties is changed
 func NewTriggerContext(namespace string, flowId string, triggerId string, date time.Time) *TriggerContext {
 	this := TriggerContext{}
+	var disabled bool = false
+	this.Disabled = &disabled
 	this.Namespace = namespace
 	this.FlowId = flowId
 	this.TriggerId = triggerId
@@ -53,6 +55,8 @@ func NewTriggerContext(namespace string, flowId string, triggerId string, date t
 // but it doesn't guarantee that properties required by API are set
 func NewTriggerContextWithDefaults() *TriggerContext {
 	this := TriggerContext{}
+	var disabled bool = false
+	this.Disabled = &disabled
 	return &this
 }
 

@@ -42,44 +42,36 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TestSuiteRunResult.JSON_PROPERTY_END_DATE,
   TestSuiteRunResult.JSON_PROPERTY_RESULTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TestSuiteRunResult {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
-  private String id;
+  @jakarta.annotation.Nonnull  private String id;
 
   public static final String JSON_PROPERTY_TEST_SUITE_ID = "testSuiteId";
-  @javax.annotation.Nonnull
-  private String testSuiteId;
+  @jakarta.annotation.Nonnull  private String testSuiteId;
 
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nonnull
-  private String namespace;
+  @jakarta.annotation.Nonnull  private String namespace;
 
   public static final String JSON_PROPERTY_FLOW_ID = "flowId";
-  @javax.annotation.Nonnull
-  private String flowId;
+  @jakarta.annotation.Nonnull  private String flowId;
 
   public static final String JSON_PROPERTY_STATE = "state";
-  @javax.annotation.Nonnull
-  private TestState state;
+  @jakarta.annotation.Nonnull  private TestState state;
 
   public static final String JSON_PROPERTY_START_DATE = "startDate";
-  @javax.annotation.Nonnull
-  private OffsetDateTime startDate;
+  @jakarta.annotation.Nonnull  private OffsetDateTime startDate;
 
   public static final String JSON_PROPERTY_END_DATE = "endDate";
-  @javax.annotation.Nonnull
-  private OffsetDateTime endDate;
+  @jakarta.annotation.Nonnull  private OffsetDateTime endDate;
 
   public static final String JSON_PROPERTY_RESULTS = "results";
-  @javax.annotation.Nonnull
-  private List<UnitTestResult> results = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<UnitTestResult> results = new ArrayList<>();
 
   public TestSuiteRunResult() {
   }
 
-  public TestSuiteRunResult id(@javax.annotation.Nonnull String id) {
+  public TestSuiteRunResult id(@jakarta.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -89,8 +81,7 @@ public class TestSuiteRunResult {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -100,11 +91,11 @@ public class TestSuiteRunResult {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(@javax.annotation.Nonnull String id) {
+  public void setId(@jakarta.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public TestSuiteRunResult testSuiteId(@javax.annotation.Nonnull String testSuiteId) {
+  public TestSuiteRunResult testSuiteId(@jakarta.annotation.Nonnull String testSuiteId) {
     
     this.testSuiteId = testSuiteId;
     return this;
@@ -114,8 +105,7 @@ public class TestSuiteRunResult {
    * Get testSuiteId
    * @return testSuiteId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TEST_SUITE_ID)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TEST_SUITE_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getTestSuiteId() {
@@ -125,11 +115,11 @@ public class TestSuiteRunResult {
 
   @JsonProperty(JSON_PROPERTY_TEST_SUITE_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTestSuiteId(@javax.annotation.Nonnull String testSuiteId) {
+  public void setTestSuiteId(@jakarta.annotation.Nonnull String testSuiteId) {
     this.testSuiteId = testSuiteId;
   }
 
-  public TestSuiteRunResult namespace(@javax.annotation.Nonnull String namespace) {
+  public TestSuiteRunResult namespace(@jakarta.annotation.Nonnull String namespace) {
     
     this.namespace = namespace;
     return this;
@@ -139,8 +129,7 @@ public class TestSuiteRunResult {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getNamespace() {
@@ -150,11 +139,11 @@ public class TestSuiteRunResult {
 
   @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setNamespace(@javax.annotation.Nonnull String namespace) {
+  public void setNamespace(@jakarta.annotation.Nonnull String namespace) {
     this.namespace = namespace;
   }
 
-  public TestSuiteRunResult flowId(@javax.annotation.Nonnull String flowId) {
+  public TestSuiteRunResult flowId(@jakarta.annotation.Nonnull String flowId) {
     
     this.flowId = flowId;
     return this;
@@ -164,8 +153,7 @@ public class TestSuiteRunResult {
    * Get flowId
    * @return flowId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_FLOW_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getFlowId() {
@@ -175,11 +163,11 @@ public class TestSuiteRunResult {
 
   @JsonProperty(JSON_PROPERTY_FLOW_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFlowId(@javax.annotation.Nonnull String flowId) {
+  public void setFlowId(@jakarta.annotation.Nonnull String flowId) {
     this.flowId = flowId;
   }
 
-  public TestSuiteRunResult state(@javax.annotation.Nonnull TestState state) {
+  public TestSuiteRunResult state(@jakarta.annotation.Nonnull TestState state) {
     
     this.state = state;
     return this;
@@ -189,8 +177,7 @@ public class TestSuiteRunResult {
    * Get state
    * @return state
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_STATE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public TestState getState() {
@@ -200,11 +187,11 @@ public class TestSuiteRunResult {
 
   @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setState(@javax.annotation.Nonnull TestState state) {
+  public void setState(@jakarta.annotation.Nonnull TestState state) {
     this.state = state;
   }
 
-  public TestSuiteRunResult startDate(@javax.annotation.Nonnull OffsetDateTime startDate) {
+  public TestSuiteRunResult startDate(@jakarta.annotation.Nonnull OffsetDateTime startDate) {
     
     this.startDate = startDate;
     return this;
@@ -214,8 +201,7 @@ public class TestSuiteRunResult {
    * Get startDate
    * @return startDate
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_START_DATE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_START_DATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public OffsetDateTime getStartDate() {
@@ -225,11 +211,11 @@ public class TestSuiteRunResult {
 
   @JsonProperty(JSON_PROPERTY_START_DATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setStartDate(@javax.annotation.Nonnull OffsetDateTime startDate) {
+  public void setStartDate(@jakarta.annotation.Nonnull OffsetDateTime startDate) {
     this.startDate = startDate;
   }
 
-  public TestSuiteRunResult endDate(@javax.annotation.Nonnull OffsetDateTime endDate) {
+  public TestSuiteRunResult endDate(@jakarta.annotation.Nonnull OffsetDateTime endDate) {
     
     this.endDate = endDate;
     return this;
@@ -239,8 +225,7 @@ public class TestSuiteRunResult {
    * Get endDate
    * @return endDate
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_END_DATE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_END_DATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public OffsetDateTime getEndDate() {
@@ -250,11 +235,11 @@ public class TestSuiteRunResult {
 
   @JsonProperty(JSON_PROPERTY_END_DATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setEndDate(@javax.annotation.Nonnull OffsetDateTime endDate) {
+  public void setEndDate(@jakarta.annotation.Nonnull OffsetDateTime endDate) {
     this.endDate = endDate;
   }
 
-  public TestSuiteRunResult results(@javax.annotation.Nonnull List<UnitTestResult> results) {
+  public TestSuiteRunResult results(@jakarta.annotation.Nullable List<UnitTestResult> results) {
     
     this.results = results;
     return this;
@@ -272,9 +257,8 @@ public class TestSuiteRunResult {
    * Get results
    * @return results
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_RESULTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<UnitTestResult> getResults() {
     return results;
@@ -282,8 +266,8 @@ public class TestSuiteRunResult {
 
 
   @JsonProperty(JSON_PROPERTY_RESULTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setResults(@javax.annotation.Nonnull List<UnitTestResult> results) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setResults(@jakarta.annotation.Nullable List<UnitTestResult> results) {
     this.results = results;
   }
 

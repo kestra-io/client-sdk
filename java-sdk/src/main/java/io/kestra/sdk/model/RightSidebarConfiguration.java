@@ -32,16 +32,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   RightSidebarConfiguration.JSON_PROPERTY_CUSTOM_LINKS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class RightSidebarConfiguration {
   public static final String JSON_PROPERTY_CUSTOM_LINKS = "customLinks";
-  @javax.annotation.Nullable
-  private Map<String, RightSidebarConfigurationCustomLink> customLinks = new HashMap<>();
+  @jakarta.annotation.Nullable  private Map<String, RightSidebarConfigurationCustomLink> customLinks = new HashMap<>();
 
   public RightSidebarConfiguration() {
   }
 
-  public RightSidebarConfiguration customLinks(@javax.annotation.Nullable Map<String, RightSidebarConfigurationCustomLink> customLinks) {
+  public RightSidebarConfiguration customLinks(@jakarta.annotation.Nullable Map<String, RightSidebarConfigurationCustomLink> customLinks) {
     
     this.customLinks = customLinks;
     return this;
@@ -59,8 +58,7 @@ public class RightSidebarConfiguration {
    * Get customLinks
    * @return customLinks
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CUSTOM_LINKS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CUSTOM_LINKS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, RightSidebarConfigurationCustomLink> getCustomLinks() {
@@ -70,7 +68,7 @@ public class RightSidebarConfiguration {
 
   @JsonProperty(JSON_PROPERTY_CUSTOM_LINKS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCustomLinks(@javax.annotation.Nullable Map<String, RightSidebarConfigurationCustomLink> customLinks) {
+  public void setCustomLinks(@jakarta.annotation.Nullable Map<String, RightSidebarConfigurationCustomLink> customLinks) {
     this.customLinks = customLinks;
   }
 

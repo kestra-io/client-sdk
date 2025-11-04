@@ -33,24 +33,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowTopologyGraphEdge.JSON_PROPERTY_RELATION
 })
 @JsonTypeName("FlowTopologyGraph.Edge")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class FlowTopologyGraphEdge {
   public static final String JSON_PROPERTY_SOURCE = "source";
-  @javax.annotation.Nonnull
-  private String source;
+  @jakarta.annotation.Nullable  private String source;
 
   public static final String JSON_PROPERTY_TARGET = "target";
-  @javax.annotation.Nonnull
-  private String target;
+  @jakarta.annotation.Nullable  private String target;
 
   public static final String JSON_PROPERTY_RELATION = "relation";
-  @javax.annotation.Nonnull
-  private FlowRelation relation;
+  @jakarta.annotation.Nullable  private FlowRelation relation;
 
   public FlowTopologyGraphEdge() {
   }
 
-  public FlowTopologyGraphEdge source(@javax.annotation.Nonnull String source) {
+  public FlowTopologyGraphEdge source(@jakarta.annotation.Nullable String source) {
     
     this.source = source;
     return this;
@@ -60,9 +57,8 @@ public class FlowTopologyGraphEdge {
    * Get source
    * @return source
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_SOURCE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SOURCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSource() {
     return source;
@@ -70,12 +66,12 @@ public class FlowTopologyGraphEdge {
 
 
   @JsonProperty(JSON_PROPERTY_SOURCE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setSource(@javax.annotation.Nonnull String source) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSource(@jakarta.annotation.Nullable String source) {
     this.source = source;
   }
 
-  public FlowTopologyGraphEdge target(@javax.annotation.Nonnull String target) {
+  public FlowTopologyGraphEdge target(@jakarta.annotation.Nullable String target) {
     
     this.target = target;
     return this;
@@ -85,9 +81,8 @@ public class FlowTopologyGraphEdge {
    * Get target
    * @return target
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TARGET)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TARGET)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTarget() {
     return target;
@@ -95,12 +90,12 @@ public class FlowTopologyGraphEdge {
 
 
   @JsonProperty(JSON_PROPERTY_TARGET)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTarget(@javax.annotation.Nonnull String target) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTarget(@jakarta.annotation.Nullable String target) {
     this.target = target;
   }
 
-  public FlowTopologyGraphEdge relation(@javax.annotation.Nonnull FlowRelation relation) {
+  public FlowTopologyGraphEdge relation(@jakarta.annotation.Nullable FlowRelation relation) {
     
     this.relation = relation;
     return this;
@@ -110,9 +105,8 @@ public class FlowTopologyGraphEdge {
    * Get relation
    * @return relation
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_RELATION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RELATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public FlowRelation getRelation() {
     return relation;
@@ -120,8 +114,8 @@ public class FlowTopologyGraphEdge {
 
 
   @JsonProperty(JSON_PROPERTY_RELATION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setRelation(@javax.annotation.Nonnull FlowRelation relation) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRelation(@jakarta.annotation.Nullable FlowRelation relation) {
     this.relation = relation;
   }
 

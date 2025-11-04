@@ -35,20 +35,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InstanceControllerApiActiveServiceList.JSON_PROPERTY_SERVICES
 })
 @JsonTypeName("InstanceController.ApiActiveServiceList")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class InstanceControllerApiActiveServiceList {
   public static final String JSON_PROPERTY_TOTAL = "total";
-  @javax.annotation.Nonnull
-  private Integer total;
+  @jakarta.annotation.Nullable  private Integer total;
 
   public static final String JSON_PROPERTY_SERVICES = "services";
-  @javax.annotation.Nonnull
-  private List<InstanceControllerApiActiveService> services = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<InstanceControllerApiActiveService> services = new ArrayList<>();
 
   public InstanceControllerApiActiveServiceList() {
   }
 
-  public InstanceControllerApiActiveServiceList total(@javax.annotation.Nonnull Integer total) {
+  public InstanceControllerApiActiveServiceList total(@jakarta.annotation.Nullable Integer total) {
     
     this.total = total;
     return this;
@@ -58,9 +56,8 @@ public class InstanceControllerApiActiveServiceList {
    * Get total
    * @return total
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TOTAL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getTotal() {
     return total;
@@ -68,12 +65,12 @@ public class InstanceControllerApiActiveServiceList {
 
 
   @JsonProperty(JSON_PROPERTY_TOTAL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTotal(@javax.annotation.Nonnull Integer total) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTotal(@jakarta.annotation.Nullable Integer total) {
     this.total = total;
   }
 
-  public InstanceControllerApiActiveServiceList services(@javax.annotation.Nonnull List<InstanceControllerApiActiveService> services) {
+  public InstanceControllerApiActiveServiceList services(@jakarta.annotation.Nullable List<InstanceControllerApiActiveService> services) {
     
     this.services = services;
     return this;
@@ -91,9 +88,8 @@ public class InstanceControllerApiActiveServiceList {
    * Get services
    * @return services
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_SERVICES)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SERVICES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<InstanceControllerApiActiveService> getServices() {
     return services;
@@ -101,8 +97,8 @@ public class InstanceControllerApiActiveServiceList {
 
 
   @JsonProperty(JSON_PROPERTY_SERVICES)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setServices(@javax.annotation.Nonnull List<InstanceControllerApiActiveService> services) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setServices(@jakarta.annotation.Nullable List<InstanceControllerApiActiveService> services) {
     this.services = services;
   }
 

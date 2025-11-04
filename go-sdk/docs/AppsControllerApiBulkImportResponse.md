@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Success** | **[]string** |  | 
-**Errors** | [**[]AppsControllerApiBulkImportResponseError**](AppsControllerApiBulkImportResponseError.md) |  | 
+**Success** | Pointer to **[]string** |  | [optional] 
+**Errors** | Pointer to [**[]AppsControllerApiBulkImportResponseError**](AppsControllerApiBulkImportResponseError.md) |  | [optional] 
 
 ## Methods
 
 ### NewAppsControllerApiBulkImportResponse
 
-`func NewAppsControllerApiBulkImportResponse(success []string, errors []AppsControllerApiBulkImportResponseError, ) *AppsControllerApiBulkImportResponse`
+`func NewAppsControllerApiBulkImportResponse() *AppsControllerApiBulkImportResponse`
 
 NewAppsControllerApiBulkImportResponse instantiates a new AppsControllerApiBulkImportResponse object
 This constructor will assign default values to properties that have it defined,
@@ -45,6 +45,11 @@ and a boolean to check if the value has been set.
 
 SetSuccess sets Success field to given value.
 
+### HasSuccess
+
+`func (o *AppsControllerApiBulkImportResponse) HasSuccess() bool`
+
+HasSuccess returns a boolean if a field has been set.
 
 ### GetErrors
 
@@ -65,6 +70,11 @@ and a boolean to check if the value has been set.
 
 SetErrors sets Errors field to given value.
 
+### HasErrors
+
+`func (o *AppsControllerApiBulkImportResponse) HasErrors() bool`
+
+HasErrors returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -15,6 +15,8 @@ package io.kestra.sdk.internal;
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import io.kestra.sdk.model.QueryFilter;
+import io.kestra.sdk.model.QueryFilterField;
 import java.time.OffsetDateTime;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -56,8 +58,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.function.Supplier;
 import java.util.TimeZone;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import java.net.URLEncoder;
 
@@ -80,7 +84,7 @@ import io.kestra.sdk.internal.auth.Authentication;
 import io.kestra.sdk.internal.auth.HttpBasicAuth;
 import io.kestra.sdk.internal.auth.HttpBearerAuth;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ApiClient extends JavaTimeFormatter {
   protected Map<String, String> defaultHeaderMap = new HashMap<String, String>();
   protected Map<String, String> defaultCookieMap = new HashMap<String, String>();
@@ -127,7 +131,7 @@ public class ApiClient extends JavaTimeFormatter {
     dateFormat = ApiClient.buildDefaultDateFormat();
 
     // Set default User-Agent.
-    setUserAgent("OpenAPI-Generator/1.0.0/java");
+    setUserAgent("OpenAPI-Generator/v1.0.5/java");
 
     // Setup authentications (key: authentication name, value: authentication).
     authentications = new HashMap<String, Authentication>();
@@ -530,6 +534,33 @@ public class ApiClient extends JavaTimeFormatter {
     return params;
   }
 
+    protected static String toCamelCaseFromFolder(String input) {
+        if (input == null) {
+            return null;
+        }
+        String trimmed = input.trim();
+        if (trimmed.isEmpty()) {
+            return "";
+        }
+
+        // split on underscores, hyphens or whitespace
+        String[] parts = trimmed.split("[_\\-\\s]+");
+        if (parts.length == 0) {
+            return "";
+        }
+
+        StringBuilder sb = new StringBuilder(parts[0].toLowerCase());
+        for (int i = 1; i < parts.length; i++) {
+            String part = parts[i];
+            if (part.isEmpty()) continue;
+            sb.append(Character.toUpperCase(part.charAt(0)));
+            if (part.length() > 1) {
+                sb.append(part.substring(1).toLowerCase());
+            }
+        }
+        return sb.toString();
+    }
+
   /**
    * Formats the specified collection query parameters to a list of {@code Pair} objects.
    *
@@ -546,6 +577,43 @@ public class ApiClient extends JavaTimeFormatter {
     // preconditions
     if (name == null || name.isEmpty() || value == null || value.isEmpty()) {
       return params;
+    }
+
+    if (value.stream().findFirst().get() instanceof QueryFilter) {
+        for (Object o : value) {
+            if (o instanceof QueryFilter queryFilter) {
+                if (queryFilter.getField().equals(QueryFilterField.LABELS)) {
+                    if (queryFilter.getValue() instanceof Map<?,?> mapValue) {
+                        for (Entry<?, ?> entry : mapValue.entrySet()) {
+                            params.add(new Pair(new StringBuilder()
+                                .append("filters[")
+                                .append("query".equalsIgnoreCase(queryFilter.getField().toString()) ? "q" : toCamelCaseFromFolder(queryFilter.getField().toString()))
+
+                                .append("][")
+                                .append(queryFilter.getOperation())
+                                .append("]")
+                                .append("[")
+                                .append(entry.getKey())
+                                .append("]")
+                                .toString(), convertValueToString(entry.getValue())));
+                        }
+                    } else {
+                        throw new ApiException(400, "Filter LABEL value must be instance of Map<String, Object>");
+                    }
+                } else {
+                    params.add(new Pair(new StringBuilder()
+                        .append("filters[")
+                        .append("query".equalsIgnoreCase(queryFilter.getField().toString()) ? "q" : toCamelCaseFromFolder(queryFilter.getField().toString()))
+                        .append("][")
+                        .append(queryFilter.getOperation())
+                        .append("]")
+                        .toString(), convertValueToString(queryFilter.getValue())));
+                }
+            } else {
+                throw new ApiException(400, "Filter parameters must be instance of QueryFilter");
+            }
+        }
+        return params;
     }
 
     // create the params based on the collection format
@@ -580,7 +648,14 @@ public class ApiClient extends JavaTimeFormatter {
     return params;
   }
 
-  /**
+    private String convertValueToString(Object value){
+        if (value instanceof List<?> list) {
+            return list.stream().map(Object::toString).collect(Collectors.joining(","));
+        } else {
+            return value.toString();
+        }
+    }
+                                                /**
    * Check if the given MIME is a JSON MIME.
    * JSON MIME examples:
    *   application/json
@@ -595,11 +670,6 @@ public class ApiClient extends JavaTimeFormatter {
     return mime != null && (mime.matches(jsonMime) || mime.equals("*/*"));
   }
 
-  public boolean isYamlMime(String mime) {
-    // This regex matches application/x-yaml, text/yaml, or any subtype like application/vnd.api+yaml
-    String yamlMime = "(?i)^(application/x-yaml|text/yaml|[^;/ \t]+/[^;/ \t]+[+]yaml)[ \t]*(;.*)?$";
-    return mime != null && mime.matches(yamlMime);
-  }
   /**
    * Select the Accept header's value from the given accepts array:
    *   if JSON exists in the given array, use it;
@@ -697,7 +767,11 @@ public class ApiClient extends JavaTimeFormatter {
     }
     return null;
   }
-
+    public boolean isYamlMime(String mime) {
+        // This regex matches application/x-yaml, text/yaml, or any subtype like application/vnd.api+yaml
+        String yamlMime = "(?i)^(application/x-yaml|text/yaml|[^;/ \t]+/[^;/ \t]+[+]yaml)[ \t]*(;.*)?$";
+        return mime != null && mime.matches(yamlMime);
+    }
   /**
    * Serialize the given Java object into string according the given
    * Content-Type (only JSON is supported for now).
@@ -715,8 +789,6 @@ public class ApiClient extends JavaTimeFormatter {
       } catch (JsonProcessingException e) {
         throw new ApiException(e);
       }
-    } else if (isYamlMime(mimeType)) {
-        return new StringEntity((String) obj, contentType.withCharset(StandardCharsets.UTF_8));
     } else if (mimeType.equals(ContentType.MULTIPART_FORM_DATA.getMimeType())) {
       MultipartEntityBuilder multiPartBuilder = MultipartEntityBuilder.create();
       for (Entry<String, Object> paramEntry : formParams.entrySet()) {
@@ -743,6 +815,10 @@ public class ApiClient extends JavaTimeFormatter {
         formValues.add(new BasicNameValuePair(paramEntry.getKey(), parameterToString(paramEntry.getValue())));
       }
       return new UrlEncodedFormEntity(formValues, contentType.getCharset());
+    } else if (isYamlMime(mimeType)) {
+        return new StringEntity((String) obj, contentType.withCharset(StandardCharsets.UTF_8));
+    } else if (mimeType.equals(ContentType.TEXT_PLAIN.getMimeType())) {
+        return new StringEntity((String)obj, contentType.withCharset(StandardCharsets.UTF_8));
     } else {
       // Handle files with unknown content type
       if (obj instanceof File) {
@@ -853,6 +929,7 @@ public class ApiClient extends JavaTimeFormatter {
     if (serverIndex != null) {
       if (serverIndex < 0 || serverIndex >= servers.size()) {
         throw new ArrayIndexOutOfBoundsException(String.format(
+          Locale.ROOT,
           "Invalid index %d when selecting the host settings. Must be less than %d", serverIndex, servers.size()
         ));
       }
@@ -1058,4 +1135,53 @@ public class ApiClient extends JavaTimeFormatter {
       auth.applyToParams(queryParams, headerParams, cookieParams);
     }
   }
+
+
+  public org.apache.hc.client5.http.impl.classic.CloseableHttpResponse openEventStream(
+          String path,
+          List<Pair> queryParams,
+          List<Pair> collectionQueryParams,
+          String urlQueryDeepObject,
+          Map<String, String> headerParams,
+          Map<String, String> cookieParams,
+          String[] authNames) throws ApiException {
+    updateParamsForAuth(authNames, queryParams, headerParams, cookieParams);
+    final String url = buildUrl(path, queryParams, collectionQueryParams, urlQueryDeepObject);
+
+    ClassicRequestBuilder builder = ClassicRequestBuilder.create("GET");
+    builder.setUri(url);
+
+    builder.addHeader("Accept", "text/event-stream");
+
+    for (Entry<String, String> keyValue : headerParams.entrySet()) {
+      builder.addHeader(keyValue.getKey(), keyValue.getValue());
+    }
+    for (Map.Entry<String,String> keyValue : defaultHeaderMap.entrySet()) {
+      if (!headerParams.containsKey(keyValue.getKey())) {
+        builder.addHeader(keyValue.getKey(), keyValue.getValue());
+      }
+    }
+
+    BasicCookieStore store = new BasicCookieStore();
+    for (Entry<String, String> keyValue : cookieParams.entrySet()) {
+      store.addCookie(buildCookie(keyValue.getKey(), keyValue.getValue(), builder.getUri()));
+    }
+    for (Entry<String,String> keyValue : defaultCookieMap.entrySet()) {
+      if (!cookieParams.containsKey(keyValue.getKey())) {
+        store.addCookie(buildCookie(keyValue.getKey(), keyValue.getValue(), builder.getUri()));
+      }
+    }
+
+    HttpClientContext context = HttpClientContext.create();
+    context.setCookieStore(store);
+
+    try {
+      return httpClient.execute(builder.build(), context);
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+  }
+
+
+
 }

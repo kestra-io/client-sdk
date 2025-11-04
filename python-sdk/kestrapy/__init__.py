@@ -14,49 +14,20 @@
 """  # noqa: E501
 
 
-__version__ = "v1.0.4"
+__version__ = "v1.0.5"
 
 # Define package exports
 __all__ = [
-    "AIApi",
-    "AppsApi",
-    "AuditLogsApi",
-    "AuthenticationCodeApi",
-    "AuthsApi",
-    "BannersApi",
-    "BindingsApi",
-    "BlueprintTagsApi",
-    "BlueprintsApi",
-    "ClusterApi",
-    "DashboardsApi",
     "ExecutionsApi",
-    "FilesApi",
     "FlowsApi",
     "GroupsApi",
-    "InvitationsApi",
     "KVApi",
-    "LogsApi",
-    "MaintenanceApi",
-    "MetricsApi",
-    "MiscApi",
     "NamespacesApi",
-    "PluginsApi",
     "RolesApi",
-    "SCIMConfigurationApi",
-    "SCIMGroupsApi",
-    "SCIMUsersApi",
-    "SecurityIntegrationsApi",
     "ServiceAccountApi",
-    "ServicesApi",
-    "TenantAccessApi",
-    "TenantsApi",
-    "TestSuitesApi",
     "TriggersApi",
     "UsersApi",
-    "WorkerGroupsApi",
-    "DefaultApi",
     "ApiResponse",
-    "ApiClient",
     "Configuration",
     "OpenApiException",
     "ApiTypeError",
@@ -86,6 +57,8 @@ __all__ = [
     "ApiSecretValue",
     "ApiTenant",
     "ApiTenantSummary",
+    "ApiToken",
+    "ApiTokenList",
     "ApiUser",
     "AppResponse",
     "AppResponseUILayout",
@@ -126,6 +99,7 @@ __all__ = [
     "BlueprintWithFlow",
     "Breakpoint",
     "BulkErrorResponse",
+    "BulkImportAppsRequest",
     "BulkResponse",
     "Cache",
     "ChartChartOption",
@@ -138,6 +112,7 @@ __all__ = [
     "ConvertibleValuesListString",
     "CreateApiTokenRequest",
     "CreateApiTokenResponse",
+    "CreateNamespaceFileRequest",
     "CreateSecurityIntegrationRequest",
     "CrudEventType",
     "DailyExecutionStatistics",
@@ -145,7 +120,6 @@ __all__ = [
     "DailyExecutionStatisticsExecutionCounts",
     "Dashboard",
     "DashboardControllerPreviewRequest",
-    "DeleteExecutionsByQueryRequest",
     "DeletedInterface",
     "DependsOn",
     "DocumentationWithSchema",
@@ -398,6 +372,7 @@ __all__ = [
     "ServiceProviderConfigurationSupportedConfiguration",
     "ServiceServiceState",
     "ServiceType",
+    "SetLogoRequest",
     "SetupConfiguration",
     "SetupConfigurationSetupData",
     "SortOrder",
@@ -433,7 +408,7 @@ __all__ = [
     "Type",
     "UnitTest",
     "UnitTestResult",
-    "UpdateFlowsInNamespaceFromJson200Response",
+    "UploadVersionedPluginsRequest",
     "UsageEE",
     "UserGroup",
     "UserGroupType",
@@ -448,43 +423,15 @@ __all__ = [
 ]
 
 # import apis into sdk package
-from kestrapy.api.ai_api import AIApi as AIApi
-from kestrapy.api.apps_api import AppsApi as AppsApi
-from kestrapy.api.audit_logs_api import AuditLogsApi as AuditLogsApi
-from kestrapy.api.authentication_code_api import AuthenticationCodeApi as AuthenticationCodeApi
-from kestrapy.api.auths_api import AuthsApi as AuthsApi
-from kestrapy.api.banners_api import BannersApi as BannersApi
-from kestrapy.api.bindings_api import BindingsApi as BindingsApi
-from kestrapy.api.blueprint_tags_api import BlueprintTagsApi as BlueprintTagsApi
-from kestrapy.api.blueprints_api import BlueprintsApi as BlueprintsApi
-from kestrapy.api.cluster_api import ClusterApi as ClusterApi
-from kestrapy.api.dashboards_api import DashboardsApi as DashboardsApi
 from kestrapy.api.executions_api import ExecutionsApi as ExecutionsApi
-from kestrapy.api.files_api import FilesApi as FilesApi
 from kestrapy.api.flows_api import FlowsApi as FlowsApi
 from kestrapy.api.groups_api import GroupsApi as GroupsApi
-from kestrapy.api.invitations_api import InvitationsApi as InvitationsApi
 from kestrapy.api.kv_api import KVApi as KVApi
-from kestrapy.api.logs_api import LogsApi as LogsApi
-from kestrapy.api.maintenance_api import MaintenanceApi as MaintenanceApi
-from kestrapy.api.metrics_api import MetricsApi as MetricsApi
-from kestrapy.api.misc_api import MiscApi as MiscApi
 from kestrapy.api.namespaces_api import NamespacesApi as NamespacesApi
-from kestrapy.api.plugins_api import PluginsApi as PluginsApi
 from kestrapy.api.roles_api import RolesApi as RolesApi
-from kestrapy.api.scim_configuration_api import SCIMConfigurationApi as SCIMConfigurationApi
-from kestrapy.api.scim_groups_api import SCIMGroupsApi as SCIMGroupsApi
-from kestrapy.api.scim_users_api import SCIMUsersApi as SCIMUsersApi
-from kestrapy.api.security_integrations_api import SecurityIntegrationsApi as SecurityIntegrationsApi
 from kestrapy.api.service_account_api import ServiceAccountApi as ServiceAccountApi
-from kestrapy.api.services_api import ServicesApi as ServicesApi
-from kestrapy.api.tenant_access_api import TenantAccessApi as TenantAccessApi
-from kestrapy.api.tenants_api import TenantsApi as TenantsApi
-from kestrapy.api.test_suites_api import TestSuitesApi as TestSuitesApi
 from kestrapy.api.triggers_api import TriggersApi as TriggersApi
 from kestrapy.api.users_api import UsersApi as UsersApi
-from kestrapy.api.worker_groups_api import WorkerGroupsApi as WorkerGroupsApi
-from kestrapy.api.default_api import DefaultApi as DefaultApi
 
 # import ApiClient
 from kestrapy.api_response import ApiResponse as ApiResponse
@@ -520,6 +467,8 @@ from kestrapy.models.api_secret_tag import ApiSecretTag as ApiSecretTag
 from kestrapy.models.api_secret_value import ApiSecretValue as ApiSecretValue
 from kestrapy.models.api_tenant import ApiTenant as ApiTenant
 from kestrapy.models.api_tenant_summary import ApiTenantSummary as ApiTenantSummary
+from kestrapy.models.api_token import ApiToken as ApiToken
+from kestrapy.models.api_token_list import ApiTokenList as ApiTokenList
 from kestrapy.models.api_user import ApiUser as ApiUser
 from kestrapy.models.app_response import AppResponse as AppResponse
 from kestrapy.models.app_response_ui_layout import AppResponseUILayout as AppResponseUILayout
@@ -560,6 +509,7 @@ from kestrapy.models.blueprint_controller_kind import BlueprintControllerKind as
 from kestrapy.models.blueprint_with_flow import BlueprintWithFlow as BlueprintWithFlow
 from kestrapy.models.breakpoint import Breakpoint as Breakpoint
 from kestrapy.models.bulk_error_response import BulkErrorResponse as BulkErrorResponse
+from kestrapy.models.bulk_import_apps_request import BulkImportAppsRequest as BulkImportAppsRequest
 from kestrapy.models.bulk_response import BulkResponse as BulkResponse
 from kestrapy.models.cache import Cache as Cache
 from kestrapy.models.chart_chart_option import ChartChartOption as ChartChartOption
@@ -572,6 +522,7 @@ from kestrapy.models.convertible_multi_values_string import ConvertibleMultiValu
 from kestrapy.models.convertible_values_list_string import ConvertibleValuesListString as ConvertibleValuesListString
 from kestrapy.models.create_api_token_request import CreateApiTokenRequest as CreateApiTokenRequest
 from kestrapy.models.create_api_token_response import CreateApiTokenResponse as CreateApiTokenResponse
+from kestrapy.models.create_namespace_file_request import CreateNamespaceFileRequest as CreateNamespaceFileRequest
 from kestrapy.models.create_security_integration_request import CreateSecurityIntegrationRequest as CreateSecurityIntegrationRequest
 from kestrapy.models.crud_event_type import CrudEventType as CrudEventType
 from kestrapy.models.daily_execution_statistics import DailyExecutionStatistics as DailyExecutionStatistics
@@ -579,7 +530,6 @@ from kestrapy.models.daily_execution_statistics_duration import DailyExecutionSt
 from kestrapy.models.daily_execution_statistics_execution_counts import DailyExecutionStatisticsExecutionCounts as DailyExecutionStatisticsExecutionCounts
 from kestrapy.models.dashboard import Dashboard as Dashboard
 from kestrapy.models.dashboard_controller_preview_request import DashboardControllerPreviewRequest as DashboardControllerPreviewRequest
-from kestrapy.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest as DeleteExecutionsByQueryRequest
 from kestrapy.models.deleted_interface import DeletedInterface as DeletedInterface
 from kestrapy.models.depends_on import DependsOn as DependsOn
 from kestrapy.models.documentation_with_schema import DocumentationWithSchema as DocumentationWithSchema
@@ -832,6 +782,7 @@ from kestrapy.models.service_provider_configuration_filter_configuration import 
 from kestrapy.models.service_provider_configuration_supported_configuration import ServiceProviderConfigurationSupportedConfiguration as ServiceProviderConfigurationSupportedConfiguration
 from kestrapy.models.service_service_state import ServiceServiceState as ServiceServiceState
 from kestrapy.models.service_type import ServiceType as ServiceType
+from kestrapy.models.set_logo_request import SetLogoRequest as SetLogoRequest
 from kestrapy.models.setup_configuration import SetupConfiguration as SetupConfiguration
 from kestrapy.models.setup_configuration_setup_data import SetupConfigurationSetupData as SetupConfigurationSetupData
 from kestrapy.models.sort_order import SortOrder as SortOrder
@@ -867,7 +818,7 @@ from kestrapy.models.trigger_fixture import TriggerFixture as TriggerFixture
 from kestrapy.models.type import Type as Type
 from kestrapy.models.unit_test import UnitTest as UnitTest
 from kestrapy.models.unit_test_result import UnitTestResult as UnitTestResult
-from kestrapy.models.update_flows_in_namespace_from_json200_response import UpdateFlowsInNamespaceFromJson200Response as UpdateFlowsInNamespaceFromJson200Response
+from kestrapy.models.upload_versioned_plugins_request import UploadVersionedPluginsRequest as UploadVersionedPluginsRequest
 from kestrapy.models.usage_ee import UsageEE as UsageEE
 from kestrapy.models.user_group import UserGroup as UserGroup
 from kestrapy.models.user_group_type import UserGroupType as UserGroupType

@@ -5,6 +5,9 @@ outputDir: /local/java-sdk
 globalProperties:
   apiTests: false
   modelTests: false
+  apiDocs: true
+  modelDocs: true
+  skipFormModel: false
 
 additionalProperties:
   disallowAdditionalPropertiesIfNotPresent: false
@@ -15,9 +18,13 @@ modelPackage: io.kestra.sdk.model
 apiPackage: io.kestra.sdk.api
 groupId: io.kestra
 artifactId: kestra-api-client
+enumUnknownDefaultCase: true
+useOneOfInterfaces: true
+useJakartaEe: true
 
 hideGenerationTimestamp: true
 supportUrlQuery: false
+useRuntimeException: true
 
 typeMappings:
   PropertyDuration: String
@@ -26,3 +33,6 @@ typeMappings:
   PropertyDouble: String
   PropertyListString: String
   PropertyObject: String
+
+openapiNormalizer:
+  FILTER: 'tag:Executions|Flows|Namespaces|Triggers|Users|Groups|KV|Roles|ServiceAccount'

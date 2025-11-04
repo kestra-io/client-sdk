@@ -21,7 +21,7 @@ import WorkerGroup from './WorkerGroup';
 /**
  * The AbstractTrigger model module.
  * @module model/AbstractTrigger
- * @version 1.0.0
+ * @version v1.0.5
  */
 class AbstractTrigger {
     /**
@@ -29,11 +29,10 @@ class AbstractTrigger {
      * @alias module:model/AbstractTrigger
      * @param id {String} 
      * @param type {String} 
-     * @param disabled {Boolean} 
      */
-    constructor(id, type, disabled) { 
+    constructor(id, type) { 
         
-        AbstractTrigger.initialize(this, id, type, disabled);
+        AbstractTrigger.initialize(this, id, type);
     }
 
     /**
@@ -41,10 +40,10 @@ class AbstractTrigger {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, type, disabled) { 
+    static initialize(obj, id, type) { 
         obj['id'] = id;
         obj['type'] = type;
-        obj['disabled'] = disabled;
+        obj['disabled'] = false;
     }
 
     /**
@@ -58,9 +57,6 @@ class AbstractTrigger {
         if (data) {
             obj = obj || new AbstractTrigger();
 
-            if (data.hasOwnProperty('minLogLevel')) {
-                obj['minLogLevel'] = ApiClient.convertToType(data['minLogLevel'], Level);
-            }
             if (data.hasOwnProperty('id')) {
                 obj['id'] = ApiClient.convertToType(data['id'], 'String');
             }
@@ -158,12 +154,7 @@ class AbstractTrigger {
 
 }
 
-AbstractTrigger.RequiredProperties = ["id", "type", "disabled"];
-
-/**
- * @member {module:model/Level} minLogLevel
- */
-AbstractTrigger.prototype['minLogLevel'] = undefined;
+AbstractTrigger.RequiredProperties = ["id", "type"];
 
 /**
  * @member {String} id
@@ -192,8 +183,9 @@ AbstractTrigger.prototype['conditions'] = undefined;
 
 /**
  * @member {Boolean} disabled
+ * @default false
  */
-AbstractTrigger.prototype['disabled'] = undefined;
+AbstractTrigger.prototype['disabled'] = false;
 
 /**
  * @member {module:model/WorkerGroup} workerGroup

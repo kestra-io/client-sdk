@@ -30,7 +30,9 @@ public enum PatchOperationType {
   
   REMOVE("REMOVE"),
   
-  REPLACE("REPLACE");
+  REPLACE("REPLACE"),
+  
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;
 
@@ -55,7 +57,7 @@ public enum PatchOperationType {
         return b;
       }
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    return UNKNOWN_DEFAULT_OPEN_API;
   }
 }
 

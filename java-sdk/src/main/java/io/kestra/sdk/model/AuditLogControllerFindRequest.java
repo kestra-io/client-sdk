@@ -40,24 +40,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AuditLogControllerFindRequest.JSON_PROPERTY_DETAIL
 })
 @JsonTypeName("AuditLogController.FindRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AuditLogControllerFindRequest {
   public static final String JSON_PROPERTY_RESOURCE = "resource";
-  @javax.annotation.Nonnull
-  private ResourceType1 resource;
+  @jakarta.annotation.Nullable  private ResourceType1 resource;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nullable
-  private JsonNullable<CrudEventType> type = JsonNullable.<CrudEventType>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<CrudEventType> type = JsonNullable.<CrudEventType>undefined();
 
   public static final String JSON_PROPERTY_DETAIL = "detail";
-  @javax.annotation.Nonnull
-  private Map<String, Object> detail = new HashMap<>();
+  @jakarta.annotation.Nullable  private Map<String, Object> detail = new HashMap<>();
 
   public AuditLogControllerFindRequest() {
   }
 
-  public AuditLogControllerFindRequest resource(@javax.annotation.Nonnull ResourceType1 resource) {
+  public AuditLogControllerFindRequest resource(@jakarta.annotation.Nullable ResourceType1 resource) {
     
     this.resource = resource;
     return this;
@@ -67,9 +64,8 @@ public class AuditLogControllerFindRequest {
    * Get resource
    * @return resource
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_RESOURCE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESOURCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ResourceType1 getResource() {
     return resource;
@@ -77,12 +73,12 @@ public class AuditLogControllerFindRequest {
 
 
   @JsonProperty(JSON_PROPERTY_RESOURCE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setResource(@javax.annotation.Nonnull ResourceType1 resource) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setResource(@jakarta.annotation.Nullable ResourceType1 resource) {
     this.resource = resource;
   }
 
-  public AuditLogControllerFindRequest type(@javax.annotation.Nullable CrudEventType type) {
+  public AuditLogControllerFindRequest type(@jakarta.annotation.Nullable CrudEventType type) {
     this.type = JsonNullable.<CrudEventType>of(type);
     
     return this;
@@ -92,8 +88,7 @@ public class AuditLogControllerFindRequest {
    * Get type
    * @return type
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public CrudEventType getType() {
         return type.orElse(null);
@@ -101,7 +96,6 @@ public class AuditLogControllerFindRequest {
 
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<CrudEventType> getType_JsonNullable() {
     return type;
   }
@@ -111,17 +105,20 @@ public class AuditLogControllerFindRequest {
     this.type = type;
   }
 
-  public void setType(@javax.annotation.Nullable CrudEventType type) {
+  public void setType(@jakarta.annotation.Nullable CrudEventType type) {
     this.type = JsonNullable.<CrudEventType>of(type);
   }
 
-  public AuditLogControllerFindRequest detail(@javax.annotation.Nonnull Map<String, Object> detail) {
+  public AuditLogControllerFindRequest detail(@jakarta.annotation.Nullable Map<String, Object> detail) {
     
     this.detail = detail;
     return this;
   }
 
   public AuditLogControllerFindRequest putDetailItem(String key, Object detailItem) {
+    if (this.detail == null) {
+      this.detail = new HashMap<>();
+    }
     this.detail.put(key, detailItem);
     return this;
   }
@@ -130,9 +127,8 @@ public class AuditLogControllerFindRequest {
    * Get detail
    * @return detail
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DETAIL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DETAIL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getDetail() {
     return detail;
@@ -140,8 +136,8 @@ public class AuditLogControllerFindRequest {
 
 
   @JsonProperty(JSON_PROPERTY_DETAIL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDetail(@javax.annotation.Nonnull Map<String, Object> detail) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDetail(@jakarta.annotation.Nullable Map<String, Object> detail) {
     this.detail = detail;
   }
 

@@ -1,125 +1,38 @@
-# kestrapy.FlowsApi
+# kestrapy.flows
 
 All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**bulk_import_apps**](FlowsApi.md#bulk_import_apps) | **POST** /api/v1/{tenant}/apps/import |     Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
-[**bulk_update_flows**](FlowsApi.md#bulk_update_flows) | **POST** /api/v1/{tenant}/flows/bulk | Update from multiples yaml sources
-[**create_flow**](FlowsApi.md#create_flow) | **POST** /api/v1/{tenant}/flows | Create a flow from yaml source
-[**delete_flow**](FlowsApi.md#delete_flow) | **DELETE** /api/v1/{tenant}/flows/{namespace}/{id} | Delete a flow
-[**delete_flows_by_ids**](FlowsApi.md#delete_flows_by_ids) | **DELETE** /api/v1/{tenant}/flows/delete/by-ids | Delete flows by their IDs.
-[**delete_flows_by_query**](FlowsApi.md#delete_flows_by_query) | **DELETE** /api/v1/{tenant}/flows/delete/by-query | Delete flows returned by the query parameters.
-[**disable_flows_by_ids**](FlowsApi.md#disable_flows_by_ids) | **POST** /api/v1/{tenant}/flows/disable/by-ids | Disable flows by their IDs.
-[**disable_flows_by_query**](FlowsApi.md#disable_flows_by_query) | **POST** /api/v1/{tenant}/flows/disable/by-query | Disable flows returned by the query parameters.
-[**enable_flows_by_ids**](FlowsApi.md#enable_flows_by_ids) | **POST** /api/v1/{tenant}/flows/enable/by-ids | Enable flows by their IDs.
-[**enable_flows_by_query**](FlowsApi.md#enable_flows_by_query) | **POST** /api/v1/{tenant}/flows/enable/by-query | Enable flows returned by the query parameters.
-[**export_flows_by_ids**](FlowsApi.md#export_flows_by_ids) | **POST** /api/v1/{tenant}/flows/export/by-ids | Export flows as a ZIP archive of yaml sources.
-[**export_flows_by_query**](FlowsApi.md#export_flows_by_query) | **GET** /api/v1/{tenant}/flows/export/by-query | Export flows as a ZIP archive of yaml sources.
-[**generate_flow_graph**](FlowsApi.md#generate_flow_graph) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/graph | Generate a graph for a flow
-[**generate_flow_graph_from_source**](FlowsApi.md#generate_flow_graph_from_source) | **POST** /api/v1/{tenant}/flows/graph | Generate a graph for a flow source
-[**get_flow**](FlowsApi.md#get_flow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id} | Get a flow
-[**get_flow_dependencies**](FlowsApi.md#get_flow_dependencies) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/dependencies | Get flow dependencies
-[**get_flow_dependencies_from_namespace**](FlowsApi.md#get_flow_dependencies_from_namespace) | **GET** /api/v1/{tenant}/namespaces/{namespace}/dependencies | Retrieve flow dependencies
-[**get_task_from_flow**](FlowsApi.md#get_task_from_flow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId} | Get a flow task
-[**import_flows**](FlowsApi.md#import_flows) | **POST** /api/v1/{tenant}/flows/import |     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
-[**list_distinct_namespaces**](FlowsApi.md#list_distinct_namespaces) | **GET** /api/v1/{tenant}/flows/distinct-namespaces | List all distinct namespaces
-[**list_flow_revisions**](FlowsApi.md#list_flow_revisions) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/revisions | Get revisions for a flow
-[**list_flows_by_namespace**](FlowsApi.md#list_flows_by_namespace) | **GET** /api/v1/{tenant}/flows/{namespace} | Retrieve all flows from a given namespace
-[**search_flows**](FlowsApi.md#search_flows) | **GET** /api/v1/{tenant}/flows/search | Search for flows
-[**search_flows_by_source_code**](FlowsApi.md#search_flows_by_source_code) | **GET** /api/v1/{tenant}/flows/source | Search for flows source code
-[**update_flow**](FlowsApi.md#update_flow) | **PUT** /api/v1/{tenant}/flows/{namespace}/{id} | Update a flow
-[**update_flows_in_namespace_from_json**](FlowsApi.md#update_flows_in_namespace_from_json) | **POST** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from json object
-[**update_task**](FlowsApi.md#update_task) | **PATCH** /api/v1/{tenant}/flows/{namespace}/{id}/{taskId} | Update a single task on a flow
-[**validate_flows**](FlowsApi.md#validate_flows) | **POST** /api/v1/{tenant}/flows/validate | Validate a list of flows
-[**validate_task**](FlowsApi.md#validate_task) | **POST** /api/v1/{tenant}/flows/validate/task | Validate a task
-[**validate_trigger**](FlowsApi.md#validate_trigger) | **POST** /api/v1/{tenant}/flows/validate/trigger | Validate trigger
+[**bulk_update_flows**](flows.md#bulk_update_flows) | **POST** /api/v1/{tenant}/flows/bulk | Update from multiples yaml sources
+[**create_flow**](flows.md#create_flow) | **POST** /api/v1/{tenant}/flows | Create a flow from yaml source
+[**delete_flow**](flows.md#delete_flow) | **DELETE** /api/v1/{tenant}/flows/{namespace}/{id} | Delete a flow
+[**delete_flows_by_ids**](flows.md#delete_flows_by_ids) | **DELETE** /api/v1/{tenant}/flows/delete/by-ids | Delete flows by their IDs.
+[**delete_flows_by_query**](flows.md#delete_flows_by_query) | **DELETE** /api/v1/{tenant}/flows/delete/by-query | Delete flows returned by the query parameters.
+[**disable_flows_by_ids**](flows.md#disable_flows_by_ids) | **POST** /api/v1/{tenant}/flows/disable/by-ids | Disable flows by their IDs.
+[**disable_flows_by_query**](flows.md#disable_flows_by_query) | **POST** /api/v1/{tenant}/flows/disable/by-query | Disable flows returned by the query parameters.
+[**enable_flows_by_ids**](flows.md#enable_flows_by_ids) | **POST** /api/v1/{tenant}/flows/enable/by-ids | Enable flows by their IDs.
+[**enable_flows_by_query**](flows.md#enable_flows_by_query) | **POST** /api/v1/{tenant}/flows/enable/by-query | Enable flows returned by the query parameters.
+[**export_flows_by_ids**](flows.md#export_flows_by_ids) | **POST** /api/v1/{tenant}/flows/export/by-ids | Export flows as a ZIP archive of yaml sources.
+[**export_flows_by_query**](flows.md#export_flows_by_query) | **GET** /api/v1/{tenant}/flows/export/by-query | Export flows as a ZIP archive of yaml sources.
+[**flow**](flows.md#flow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id} | Get a flow
+[**flow_dependencies**](flows.md#flow_dependencies) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/dependencies | Get flow dependencies
+[**flow_dependencies_from_namespace**](flows.md#flow_dependencies_from_namespace) | **GET** /api/v1/{tenant}/namespaces/{namespace}/dependencies | Retrieve flow dependencies
+[**generate_flow_graph**](flows.md#generate_flow_graph) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/graph | Generate a graph for a flow
+[**generate_flow_graph_from_source**](flows.md#generate_flow_graph_from_source) | **POST** /api/v1/{tenant}/flows/graph | Generate a graph for a flow source
+[**import_flows**](flows.md#import_flows) | **POST** /api/v1/{tenant}/flows/import |     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
+[**list_distinct_namespaces**](flows.md#list_distinct_namespaces) | **GET** /api/v1/{tenant}/flows/distinct-namespaces | List all distinct namespaces
+[**list_flow_revisions**](flows.md#list_flow_revisions) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/revisions | Get revisions for a flow
+[**list_flows_by_namespace**](flows.md#list_flows_by_namespace) | **GET** /api/v1/{tenant}/flows/{namespace} | Retrieve all flows from a given namespace
+[**search_flows**](flows.md#search_flows) | **GET** /api/v1/{tenant}/flows/search | Search for flows
+[**search_flows_by_source_code**](flows.md#search_flows_by_source_code) | **GET** /api/v1/{tenant}/flows/source | Search for flows source code
+[**task_from_flow**](flows.md#task_from_flow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId} | Get a flow task
+[**update_flow**](flows.md#update_flow) | **PUT** /api/v1/{tenant}/flows/{namespace}/{id} | Update a flow
+[**update_flows_in_namespace**](flows.md#update_flows_in_namespace) | **POST** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from yaml source
+[**validate_flows**](flows.md#validate_flows) | **POST** /api/v1/{tenant}/flows/validate | Validate a list of flows
+[**validate_task**](flows.md#validate_task) | **POST** /api/v1/{tenant}/flows/validate/task | Validate a task
+[**validate_trigger**](flows.md#validate_trigger) | **POST** /api/v1/{tenant}/flows/validate/trigger | Validate trigger
 
-
-# **bulk_import_apps**
-> AppsControllerApiBulkImportResponse bulk_import_apps(tenant, file_upload=file_upload)
-
-    Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn't be imported is returned. 
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-import kestrapy
-from kestrapy.models.apps_controller_api_bulk_import_response import AppsControllerApiBulkImportResponse
-from kestrapy.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
-# Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
-    tenant = 'tenant_example' # str | 
-    file_upload = None # bytearray | The file to import, can be a ZIP archive or a multi-objects YAML file (optional)
-
-    try:
-        #     Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn't be imported is returned. 
-        api_response = api_instance.bulk_import_apps(tenant, file_upload=file_upload)
-        print("The response of FlowsApi->bulk_import_apps:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling FlowsApi->bulk_import_apps: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **tenant** | **str**|  | 
- **file_upload** | **bytearray**| The file to import, can be a ZIP archive or a multi-objects YAML file | [optional] 
-
-### Return type
-
-[**AppsControllerApiBulkImportResponse**](AppsControllerApiBulkImportResponse.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: multipart/form-data
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | On success |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_update_flows**
 > List[FlowInterface] bulk_update_flows(delete, allow_namespace_child, tenant, namespace=namespace, body=body)
@@ -135,37 +48,16 @@ Flow that already created but not in `flows` will be deleted if the query delete
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.flow_interface import FlowInterface
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
+with KestraClient(configuration) as kestra_client:
     delete = True # bool | If missing flow should be deleted (default to True)
     allow_namespace_child = False # bool | If namespace child should are allowed to be updated (default to False)
     tenant = 'tenant_example' # str | 
@@ -174,11 +66,11 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Update from multiples yaml sources
-        api_response = api_instance.bulk_update_flows(delete, allow_namespace_child, tenant, namespace=namespace, body=body)
-        print("The response of FlowsApi->bulk_update_flows:\n")
+        api_response = kestra_client.flows.bulk_update_flows(delete, allow_namespace_child, tenant, namespace=namespace, body=body)
+        print("The response of flows->bulk_update_flows:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling FlowsApi->bulk_update_flows: %s\n" % e)
+        print("Exception when calling flows->bulk_update_flows: %s\n" % e)
 ```
 
 
@@ -226,47 +118,26 @@ Create a flow from yaml source
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.flow_with_source import FlowWithSource
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
+with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
     body = 'body_example' # str | The flow source code
 
     try:
         # Create a flow from yaml source
-        api_response = api_instance.create_flow(tenant, body)
-        print("The response of FlowsApi->create_flow:\n")
+        api_response = kestra_client.flows.create_flow(tenant, body)
+        print("The response of flows->create_flow:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling FlowsApi->create_flow: %s\n" % e)
+        print("Exception when calling flows->create_flow: %s\n" % e)
 ```
 
 
@@ -311,45 +182,25 @@ Delete a flow
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
+with KestraClient(configuration) as kestra_client:
     namespace = 'namespace_example' # str | The flow namespace
     id = 'id_example' # str | The flow id
     tenant = 'tenant_example' # str | 
 
     try:
         # Delete a flow
-        api_instance.delete_flow(namespace, id, tenant)
+        kestra_client.flows.delete_flow(namespace, id, tenant)
     except Exception as e:
-        print("Exception when calling FlowsApi->delete_flow: %s\n" % e)
+        print("Exception when calling flows->delete_flow: %s\n" % e)
 ```
 
 
@@ -380,8 +231,8 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | On success |  -  |
 **200** | deleteFlow 200 response |  -  |
+**204** | On success |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -396,48 +247,26 @@ Delete flows by their IDs.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.bulk_response import BulkResponse
-from kestrapy.models.id_with_namespace import IdWithNamespace
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
+with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
     id_with_namespace = [kestrapy.IdWithNamespace()] # List[IdWithNamespace] | A list of tuple flow ID and namespace as flow identifiers
 
     try:
         # Delete flows by their IDs.
-        api_response = api_instance.delete_flows_by_ids(tenant, id_with_namespace)
-        print("The response of FlowsApi->delete_flows_by_ids:\n")
+        api_response = kestra_client.flows.delete_flows_by_ids(tenant, id_with_namespace)
+        print("The response of flows->delete_flows_by_ids:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling FlowsApi->delete_flows_by_ids: %s\n" % e)
+        print("Exception when calling flows->delete_flows_by_ids: %s\n" % e)
 ```
 
 
@@ -472,7 +301,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_flows_by_query**
-> BulkResponse delete_flows_by_query(tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, labels=labels)
+> BulkResponse delete_flows_by_query(tenant, filters=filters)
 
 Delete flows returned by the query parameters.
 
@@ -482,53 +311,26 @@ Delete flows returned by the query parameters.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.bulk_response import BulkResponse
-from kestrapy.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
-from kestrapy.models.flow_scope import FlowScope
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
+with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
-    delete_executions_by_query_request = kestrapy.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
-    q = 'q_example' # str | A string filter (optional)
-    scope = [kestrapy.FlowScope()] # List[FlowScope] | The scope of the flows to include (optional)
-    namespace = 'namespace_example' # str | A namespace filter prefix (optional)
-    labels = ['labels_example'] # List[str] | A labels filter as a list of 'key:value' (optional)
+    filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters (optional)
 
     try:
         # Delete flows returned by the query parameters.
-        api_response = api_instance.delete_flows_by_query(tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, labels=labels)
-        print("The response of FlowsApi->delete_flows_by_query:\n")
+        api_response = kestra_client.flows.delete_flows_by_query(tenant, filters=filters)
+        print("The response of flows->delete_flows_by_query:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling FlowsApi->delete_flows_by_query: %s\n" % e)
+        print("Exception when calling flows->delete_flows_by_query: %s\n" % e)
 ```
 
 
@@ -539,11 +341,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **delete_executions_by_query_request** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | 
- **q** | **str**| A string filter | [optional] 
- **scope** | [**List[FlowScope]**](FlowScope.md)| The scope of the flows to include | [optional] 
- **namespace** | **str**| A namespace filter prefix | [optional] 
- **labels** | [**List[str]**](str.md)| A labels filter as a list of &#39;key:value&#39; | [optional] 
+ **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
@@ -555,7 +353,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 ### HTTP response details
@@ -577,48 +375,26 @@ Disable flows by their IDs.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.bulk_response import BulkResponse
-from kestrapy.models.id_with_namespace import IdWithNamespace
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
+with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
     id_with_namespace = [kestrapy.IdWithNamespace()] # List[IdWithNamespace] | A list of tuple flow ID and namespace as flow identifiers
 
     try:
         # Disable flows by their IDs.
-        api_response = api_instance.disable_flows_by_ids(tenant, id_with_namespace)
-        print("The response of FlowsApi->disable_flows_by_ids:\n")
+        api_response = kestra_client.flows.disable_flows_by_ids(tenant, id_with_namespace)
+        print("The response of flows->disable_flows_by_ids:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling FlowsApi->disable_flows_by_ids: %s\n" % e)
+        print("Exception when calling flows->disable_flows_by_ids: %s\n" % e)
 ```
 
 
@@ -653,7 +429,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **disable_flows_by_query**
-> BulkResponse disable_flows_by_query(tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, labels=labels)
+> BulkResponse disable_flows_by_query(tenant, filters=filters)
 
 Disable flows returned by the query parameters.
 
@@ -663,53 +439,26 @@ Disable flows returned by the query parameters.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.bulk_response import BulkResponse
-from kestrapy.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
-from kestrapy.models.flow_scope import FlowScope
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
+with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
-    delete_executions_by_query_request = kestrapy.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
-    q = 'q_example' # str | A string filter (optional)
-    scope = [kestrapy.FlowScope()] # List[FlowScope] | The scope of the flows to include (optional)
-    namespace = 'namespace_example' # str | A namespace filter prefix (optional)
-    labels = ['labels_example'] # List[str] | A labels filter as a list of 'key:value' (optional)
+    filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters (optional)
 
     try:
         # Disable flows returned by the query parameters.
-        api_response = api_instance.disable_flows_by_query(tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, labels=labels)
-        print("The response of FlowsApi->disable_flows_by_query:\n")
+        api_response = kestra_client.flows.disable_flows_by_query(tenant, filters=filters)
+        print("The response of flows->disable_flows_by_query:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling FlowsApi->disable_flows_by_query: %s\n" % e)
+        print("Exception when calling flows->disable_flows_by_query: %s\n" % e)
 ```
 
 
@@ -720,11 +469,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **delete_executions_by_query_request** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | 
- **q** | **str**| A string filter | [optional] 
- **scope** | [**List[FlowScope]**](FlowScope.md)| The scope of the flows to include | [optional] 
- **namespace** | **str**| A namespace filter prefix | [optional] 
- **labels** | [**List[str]**](str.md)| A labels filter as a list of &#39;key:value&#39; | [optional] 
+ **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
@@ -736,7 +481,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 ### HTTP response details
@@ -758,48 +503,26 @@ Enable flows by their IDs.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.bulk_response import BulkResponse
-from kestrapy.models.id_with_namespace import IdWithNamespace
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
+with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
     id_with_namespace = [kestrapy.IdWithNamespace()] # List[IdWithNamespace] | A list of tuple flow ID and namespace as flow identifiers
 
     try:
         # Enable flows by their IDs.
-        api_response = api_instance.enable_flows_by_ids(tenant, id_with_namespace)
-        print("The response of FlowsApi->enable_flows_by_ids:\n")
+        api_response = kestra_client.flows.enable_flows_by_ids(tenant, id_with_namespace)
+        print("The response of flows->enable_flows_by_ids:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling FlowsApi->enable_flows_by_ids: %s\n" % e)
+        print("Exception when calling flows->enable_flows_by_ids: %s\n" % e)
 ```
 
 
@@ -834,7 +557,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **enable_flows_by_query**
-> BulkResponse enable_flows_by_query(tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, labels=labels)
+> BulkResponse enable_flows_by_query(tenant, filters=filters)
 
 Enable flows returned by the query parameters.
 
@@ -844,53 +567,26 @@ Enable flows returned by the query parameters.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.bulk_response import BulkResponse
-from kestrapy.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
-from kestrapy.models.flow_scope import FlowScope
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
+with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
-    delete_executions_by_query_request = kestrapy.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
-    q = 'q_example' # str | A string filter (optional)
-    scope = [kestrapy.FlowScope()] # List[FlowScope] | The scope of the flows to include (optional)
-    namespace = 'namespace_example' # str | A namespace filter prefix (optional)
-    labels = ['labels_example'] # List[str] | A labels filter as a list of 'key:value' (optional)
+    filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters (optional)
 
     try:
         # Enable flows returned by the query parameters.
-        api_response = api_instance.enable_flows_by_query(tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, labels=labels)
-        print("The response of FlowsApi->enable_flows_by_query:\n")
+        api_response = kestra_client.flows.enable_flows_by_query(tenant, filters=filters)
+        print("The response of flows->enable_flows_by_query:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling FlowsApi->enable_flows_by_query: %s\n" % e)
+        print("Exception when calling flows->enable_flows_by_query: %s\n" % e)
 ```
 
 
@@ -901,11 +597,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **delete_executions_by_query_request** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | 
- **q** | **str**| A string filter | [optional] 
- **scope** | [**List[FlowScope]**](FlowScope.md)| The scope of the flows to include | [optional] 
- **namespace** | **str**| A namespace filter prefix | [optional] 
- **labels** | [**List[str]**](str.md)| A labels filter as a list of &#39;key:value&#39; | [optional] 
+ **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
 
 ### Return type
 
@@ -917,7 +609,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 ### HTTP response details
@@ -939,47 +631,26 @@ Export flows as a ZIP archive of yaml sources.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.id_with_namespace import IdWithNamespace
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
+with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
     id_with_namespace = [kestrapy.IdWithNamespace()] # List[IdWithNamespace] | A list of tuple flow ID and namespace as flow identifiers
 
     try:
         # Export flows as a ZIP archive of yaml sources.
-        api_response = api_instance.export_flows_by_ids(tenant, id_with_namespace)
-        print("The response of FlowsApi->export_flows_by_ids:\n")
+        api_response = kestra_client.flows.export_flows_by_ids(tenant, id_with_namespace)
+        print("The response of flows->export_flows_by_ids:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling FlowsApi->export_flows_by_ids: %s\n" % e)
+        print("Exception when calling flows->export_flows_by_ids: %s\n" % e)
 ```
 
 
@@ -1014,7 +685,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **export_flows_by_query**
-> bytearray export_flows_by_query(tenant, filters=filters, q=q, scope=scope, namespace=namespace, labels=labels)
+> bytearray export_flows_by_query(tenant, filters=filters)
 
 Export flows as a ZIP archive of yaml sources.
 
@@ -1024,52 +695,26 @@ Export flows as a ZIP archive of yaml sources.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.flow_scope import FlowScope
-from kestrapy.models.query_filter import QueryFilter
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
+with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
     filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters (optional)
-    q = 'q_example' # str | A string filter (optional)
-    scope = [kestrapy.FlowScope()] # List[FlowScope] | The scope of the flows to include (optional)
-    namespace = 'namespace_example' # str | A namespace filter prefix (optional)
-    labels = ['labels_example'] # List[str] | A labels filter as a list of 'key:value' (optional)
 
     try:
         # Export flows as a ZIP archive of yaml sources.
-        api_response = api_instance.export_flows_by_query(tenant, filters=filters, q=q, scope=scope, namespace=namespace, labels=labels)
-        print("The response of FlowsApi->export_flows_by_query:\n")
+        api_response = kestra_client.flows.export_flows_by_query(tenant, filters=filters)
+        print("The response of flows->export_flows_by_query:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling FlowsApi->export_flows_by_query: %s\n" % e)
+        print("Exception when calling flows->export_flows_by_query: %s\n" % e)
 ```
 
 
@@ -1081,10 +726,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
  **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
- **q** | **str**| A string filter | [optional] 
- **scope** | [**List[FlowScope]**](FlowScope.md)| The scope of the flows to include | [optional] 
- **namespace** | **str**| A namespace filter prefix | [optional] 
- **labels** | [**List[str]**](str.md)| A labels filter as a list of &#39;key:value&#39; | [optional] 
 
 ### Return type
 
@@ -1107,6 +748,214 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **flow**
+> FlowWithSource flow(namespace, id, source, allow_deleted, tenant, revision=revision)
+
+Get a flow
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    namespace = 'namespace_example' # str | The flow namespace
+    id = 'id_example' # str | The flow id
+    source = False # bool | Include the source code (default to False)
+    allow_deleted = False # bool | Get flow even if deleted (default to False)
+    tenant = 'tenant_example' # str | 
+    revision = 56 # int | Get latest revision by default (optional)
+
+    try:
+        # Get a flow
+        api_response = kestra_client.flows.flow(namespace, id, source, allow_deleted, tenant, revision=revision)
+        print("The response of flows->flow:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling flows->flow: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **namespace** | **str**| The flow namespace | 
+ **id** | **str**| The flow id | 
+ **source** | **bool**| Include the source code | [default to False]
+ **allow_deleted** | **bool**| Get flow even if deleted | [default to False]
+ **tenant** | **str**|  | 
+ **revision** | **int**| Get latest revision by default | [optional] 
+
+### Return type
+
+[**FlowWithSource**](FlowWithSource.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | getFlow 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **flow_dependencies**
+> FlowTopologyGraph flow_dependencies(namespace, id, destination_only, expand_all, tenant)
+
+Get flow dependencies
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    namespace = 'namespace_example' # str | The flow namespace
+    id = 'id_example' # str | The flow id
+    destination_only = False # bool | If true, list only destination dependencies, otherwise list also source dependencies (default to False)
+    expand_all = False # bool | If true, expand all dependencies recursively (default to False)
+    tenant = 'tenant_example' # str | 
+
+    try:
+        # Get flow dependencies
+        api_response = kestra_client.flows.flow_dependencies(namespace, id, destination_only, expand_all, tenant)
+        print("The response of flows->flow_dependencies:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling flows->flow_dependencies: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **namespace** | **str**| The flow namespace | 
+ **id** | **str**| The flow id | 
+ **destination_only** | **bool**| If true, list only destination dependencies, otherwise list also source dependencies | [default to False]
+ **expand_all** | **bool**| If true, expand all dependencies recursively | [default to False]
+ **tenant** | **str**|  | 
+
+### Return type
+
+[**FlowTopologyGraph**](FlowTopologyGraph.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | getFlowDependencies 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **flow_dependencies_from_namespace**
+> FlowTopologyGraph flow_dependencies_from_namespace(namespace, destination_only, tenant)
+
+Retrieve flow dependencies
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    namespace = 'namespace_example' # str | The flow namespace
+    destination_only = False # bool | if true, list only destination dependencies, otherwise list also source dependencies (default to False)
+    tenant = 'tenant_example' # str | 
+
+    try:
+        # Retrieve flow dependencies
+        api_response = kestra_client.flows.flow_dependencies_from_namespace(namespace, destination_only, tenant)
+        print("The response of flows->flow_dependencies_from_namespace:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling flows->flow_dependencies_from_namespace: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **namespace** | **str**| The flow namespace | 
+ **destination_only** | **bool**| if true, list only destination dependencies, otherwise list also source dependencies | [default to False]
+ **tenant** | **str**|  | 
+
+### Return type
+
+[**FlowTopologyGraph**](FlowTopologyGraph.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | getFlowDependenciesFromNamespace 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **generate_flow_graph**
 > FlowGraph generate_flow_graph(namespace, id, tenant, revision=revision, subflows=subflows)
 
@@ -1118,37 +967,16 @@ Generate a graph for a flow
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.flow_graph import FlowGraph
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
+with KestraClient(configuration) as kestra_client:
     namespace = 'namespace_example' # str | The flow namespace
     id = 'id_example' # str | The flow id
     tenant = 'tenant_example' # str | 
@@ -1157,11 +985,11 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Generate a graph for a flow
-        api_response = api_instance.generate_flow_graph(namespace, id, tenant, revision=revision, subflows=subflows)
-        print("The response of FlowsApi->generate_flow_graph:\n")
+        api_response = kestra_client.flows.generate_flow_graph(namespace, id, tenant, revision=revision, subflows=subflows)
+        print("The response of flows->generate_flow_graph:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling FlowsApi->generate_flow_graph: %s\n" % e)
+        print("Exception when calling flows->generate_flow_graph: %s\n" % e)
 ```
 
 
@@ -1209,48 +1037,27 @@ Generate a graph for a flow source
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.flow_graph import FlowGraph
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
+with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
     body = 'body_example' # str | The flow source code
     subflows = ['subflows_example'] # List[str] | The subflow tasks to display (optional)
 
     try:
         # Generate a graph for a flow source
-        api_response = api_instance.generate_flow_graph_from_source(tenant, body, subflows=subflows)
-        print("The response of FlowsApi->generate_flow_graph_from_source:\n")
+        api_response = kestra_client.flows.generate_flow_graph_from_source(tenant, body, subflows=subflows)
+        print("The response of flows->generate_flow_graph_from_source:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling FlowsApi->generate_flow_graph_from_source: %s\n" % e)
+        print("Exception when calling flows->generate_flow_graph_from_source: %s\n" % e)
 ```
 
 
@@ -1285,367 +1092,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_flow**
-> object get_flow(namespace, id, source, allow_deleted, tenant, revision=revision)
-
-Get a flow
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-import kestrapy
-from kestrapy.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
-# Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
-    namespace = 'namespace_example' # str | The flow namespace
-    id = 'id_example' # str | The flow id
-    source = False # bool | Include the source code (default to False)
-    allow_deleted = False # bool | Get flow even if deleted (default to False)
-    tenant = 'tenant_example' # str | 
-    revision = 56 # int | Get latest revision by default (optional)
-
-    try:
-        # Get a flow
-        api_response = api_instance.get_flow(namespace, id, source, allow_deleted, tenant, revision=revision)
-        print("The response of FlowsApi->get_flow:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling FlowsApi->get_flow: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **namespace** | **str**| The flow namespace | 
- **id** | **str**| The flow id | 
- **source** | **bool**| Include the source code | [default to False]
- **allow_deleted** | **bool**| Get flow even if deleted | [default to False]
- **tenant** | **str**|  | 
- **revision** | **int**| Get latest revision by default | [optional] 
-
-### Return type
-
-**object**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | getFlow 200 response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_flow_dependencies**
-> FlowTopologyGraph get_flow_dependencies(namespace, id, destination_only, expand_all, tenant)
-
-Get flow dependencies
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-import kestrapy
-from kestrapy.models.flow_topology_graph import FlowTopologyGraph
-from kestrapy.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
-# Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
-    namespace = 'namespace_example' # str | The flow namespace
-    id = 'id_example' # str | The flow id
-    destination_only = False # bool | If true, list only destination dependencies, otherwise list also source dependencies (default to False)
-    expand_all = False # bool | If true, expand all dependencies recursively (default to False)
-    tenant = 'tenant_example' # str | 
-
-    try:
-        # Get flow dependencies
-        api_response = api_instance.get_flow_dependencies(namespace, id, destination_only, expand_all, tenant)
-        print("The response of FlowsApi->get_flow_dependencies:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling FlowsApi->get_flow_dependencies: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **namespace** | **str**| The flow namespace | 
- **id** | **str**| The flow id | 
- **destination_only** | **bool**| If true, list only destination dependencies, otherwise list also source dependencies | [default to False]
- **expand_all** | **bool**| If true, expand all dependencies recursively | [default to False]
- **tenant** | **str**|  | 
-
-### Return type
-
-[**FlowTopologyGraph**](FlowTopologyGraph.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | getFlowDependencies 200 response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_flow_dependencies_from_namespace**
-> FlowTopologyGraph get_flow_dependencies_from_namespace(namespace, destination_only, tenant)
-
-Retrieve flow dependencies
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-import kestrapy
-from kestrapy.models.flow_topology_graph import FlowTopologyGraph
-from kestrapy.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
-# Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
-    namespace = 'namespace_example' # str | The flow namespace
-    destination_only = False # bool | if true, list only destination dependencies, otherwise list also source dependencies (default to False)
-    tenant = 'tenant_example' # str | 
-
-    try:
-        # Retrieve flow dependencies
-        api_response = api_instance.get_flow_dependencies_from_namespace(namespace, destination_only, tenant)
-        print("The response of FlowsApi->get_flow_dependencies_from_namespace:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling FlowsApi->get_flow_dependencies_from_namespace: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **namespace** | **str**| The flow namespace | 
- **destination_only** | **bool**| if true, list only destination dependencies, otherwise list also source dependencies | [default to False]
- **tenant** | **str**|  | 
-
-### Return type
-
-[**FlowTopologyGraph**](FlowTopologyGraph.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | getFlowDependenciesFromNamespace 200 response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_task_from_flow**
-> Task get_task_from_flow(namespace, id, task_id, tenant, revision=revision)
-
-Get a flow task
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-import kestrapy
-from kestrapy.models.task import Task
-from kestrapy.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
-# Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
-    namespace = 'namespace_example' # str | The flow namespace
-    id = 'id_example' # str | The flow id
-    task_id = 'task_id_example' # str | The task id
-    tenant = 'tenant_example' # str | 
-    revision = 56 # int | The flow revision (optional)
-
-    try:
-        # Get a flow task
-        api_response = api_instance.get_task_from_flow(namespace, id, task_id, tenant, revision=revision)
-        print("The response of FlowsApi->get_task_from_flow:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling FlowsApi->get_task_from_flow: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **namespace** | **str**| The flow namespace | 
- **id** | **str**| The flow id | 
- **task_id** | **str**| The task id | 
- **tenant** | **str**|  | 
- **revision** | **int**| The flow revision | [optional] 
-
-### Return type
-
-[**Task**](Task.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | getTaskFromFlow 200 response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **import_flows**
 > List[str] import_flows(tenant, file_upload=file_upload)
 
@@ -1657,46 +1103,26 @@ Name | Type | Description  | Notes
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
+with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
     file_upload = None # bytearray | The file to import, can be a ZIP archive or a multi-objects YAML file (optional)
 
     try:
         #     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn't be imported is returned. 
-        api_response = api_instance.import_flows(tenant, file_upload=file_upload)
-        print("The response of FlowsApi->import_flows:\n")
+        api_response = kestra_client.flows.import_flows(tenant, file_upload=file_upload)
+        print("The response of flows->import_flows:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling FlowsApi->import_flows: %s\n" % e)
+        print("Exception when calling flows->import_flows: %s\n" % e)
 ```
 
 
@@ -1741,46 +1167,26 @@ List all distinct namespaces
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
+with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
     q = 'q_example' # str | A string filter (optional)
 
     try:
         # List all distinct namespaces
-        api_response = api_instance.list_distinct_namespaces(tenant, q=q)
-        print("The response of FlowsApi->list_distinct_namespaces:\n")
+        api_response = kestra_client.flows.list_distinct_namespaces(tenant, q=q)
+        print("The response of flows->list_distinct_namespaces:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling FlowsApi->list_distinct_namespaces: %s\n" % e)
+        print("Exception when calling flows->list_distinct_namespaces: %s\n" % e)
 ```
 
 
@@ -1825,48 +1231,27 @@ Get revisions for a flow
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.flow_with_source import FlowWithSource
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
+with KestraClient(configuration) as kestra_client:
     namespace = 'namespace_example' # str | The flow namespace
     id = 'id_example' # str | The flow id
     tenant = 'tenant_example' # str | 
 
     try:
         # Get revisions for a flow
-        api_response = api_instance.list_flow_revisions(namespace, id, tenant)
-        print("The response of FlowsApi->list_flow_revisions:\n")
+        api_response = kestra_client.flows.list_flow_revisions(namespace, id, tenant)
+        print("The response of flows->list_flow_revisions:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling FlowsApi->list_flow_revisions: %s\n" % e)
+        print("Exception when calling flows->list_flow_revisions: %s\n" % e)
 ```
 
 
@@ -1912,47 +1297,26 @@ Retrieve all flows from a given namespace
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.flow import Flow
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
+with KestraClient(configuration) as kestra_client:
     namespace = 'namespace_example' # str | Namespace to filter flows
     tenant = 'tenant_example' # str | 
 
     try:
         # Retrieve all flows from a given namespace
-        api_response = api_instance.list_flows_by_namespace(namespace, tenant)
-        print("The response of FlowsApi->list_flows_by_namespace:\n")
+        api_response = kestra_client.flows.list_flows_by_namespace(namespace, tenant)
+        print("The response of flows->list_flows_by_namespace:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling FlowsApi->list_flows_by_namespace: %s\n" % e)
+        print("Exception when calling flows->list_flows_by_namespace: %s\n" % e)
 ```
 
 
@@ -1987,7 +1351,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **search_flows**
-> PagedResultsFlow search_flows(page, size, tenant, sort=sort, filters=filters, q=q, scope=scope, namespace=namespace, labels=labels)
+> PagedResultsFlow search_flows(page, size, tenant, sort=sort, filters=filters)
 
 Search for flows
 
@@ -1997,56 +1361,29 @@ Search for flows
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.flow_scope import FlowScope
-from kestrapy.models.paged_results_flow import PagedResultsFlow
-from kestrapy.models.query_filter import QueryFilter
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
+with KestraClient(configuration) as kestra_client:
     page = 1 # int | The current page (default to 1)
     size = 10 # int | The current page size (default to 10)
     tenant = 'tenant_example' # str | 
     sort = ['sort_example'] # List[str] | The sort of current page (optional)
     filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters (optional)
-    q = 'q_example' # str | A string filter (optional)
-    scope = [kestrapy.FlowScope()] # List[FlowScope] | The scope of the flows to include (optional)
-    namespace = 'namespace_example' # str | A namespace filter prefix (optional)
-    labels = ['labels_example'] # List[str] | A labels filter as a list of 'key:value' (optional)
 
     try:
         # Search for flows
-        api_response = api_instance.search_flows(page, size, tenant, sort=sort, filters=filters, q=q, scope=scope, namespace=namespace, labels=labels)
-        print("The response of FlowsApi->search_flows:\n")
+        api_response = kestra_client.flows.search_flows(page, size, tenant, sort=sort, filters=filters)
+        print("The response of flows->search_flows:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling FlowsApi->search_flows: %s\n" % e)
+        print("Exception when calling flows->search_flows: %s\n" % e)
 ```
 
 
@@ -2061,10 +1398,6 @@ Name | Type | Description  | Notes
  **tenant** | **str**|  | 
  **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
  **filters** | [**List[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
- **q** | **str**| A string filter | [optional] 
- **scope** | [**List[FlowScope]**](FlowScope.md)| The scope of the flows to include | [optional] 
- **namespace** | **str**| A namespace filter prefix | [optional] 
- **labels** | [**List[str]**](str.md)| A labels filter as a list of &#39;key:value&#39; | [optional] 
 
 ### Return type
 
@@ -2098,37 +1431,16 @@ Search for flows source code
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.paged_results_search_result_flow import PagedResultsSearchResultFlow
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
+with KestraClient(configuration) as kestra_client:
     page = 1 # int | The current page (default to 1)
     size = 10 # int | The current page size (default to 10)
     tenant = 'tenant_example' # str | 
@@ -2138,11 +1450,11 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Search for flows source code
-        api_response = api_instance.search_flows_by_source_code(page, size, tenant, sort=sort, q=q, namespace=namespace)
-        print("The response of FlowsApi->search_flows_by_source_code:\n")
+        api_response = kestra_client.flows.search_flows_by_source_code(page, size, tenant, sort=sort, q=q, namespace=namespace)
+        print("The response of flows->search_flows_by_source_code:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling FlowsApi->search_flows_by_source_code: %s\n" % e)
+        print("Exception when calling flows->search_flows_by_source_code: %s\n" % e)
 ```
 
 
@@ -2180,10 +1492,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update_flow**
-> FlowWithSource update_flow(id, namespace, tenant, body)
+# **task_from_flow**
+> Task task_from_flow(namespace, id, task_id, tenant, revision=revision)
 
-Update a flow
+Get a flow task
 
 ### Example
 
@@ -2191,49 +1503,29 @@ Update a flow
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.flow_with_source import FlowWithSource
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
-    id = 'id_example' # str | The flow id
+with KestraClient(configuration) as kestra_client:
     namespace = 'namespace_example' # str | The flow namespace
+    id = 'id_example' # str | The flow id
+    task_id = 'task_id_example' # str | The task id
     tenant = 'tenant_example' # str | 
-    body = 'body_example' # str | The flow source code
+    revision = 56 # int | The flow revision (optional)
 
     try:
-        # Update a flow
-        api_response = api_instance.update_flow(id, namespace, tenant, body)
-        print("The response of FlowsApi->update_flow:\n")
+        # Get a flow task
+        api_response = kestra_client.flows.task_from_flow(namespace, id, task_id, tenant, revision=revision)
+        print("The response of flows->task_from_flow:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling FlowsApi->update_flow: %s\n" % e)
+        print("Exception when calling flows->task_from_flow: %s\n" % e)
 ```
 
 
@@ -2243,8 +1535,77 @@ with kestrapy.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| The flow id | 
  **namespace** | **str**| The flow namespace | 
+ **id** | **str**| The flow id | 
+ **task_id** | **str**| The task id | 
+ **tenant** | **str**|  | 
+ **revision** | **int**| The flow revision | [optional] 
+
+### Return type
+
+[**Task**](Task.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | getTaskFromFlow 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **update_flow**
+> FlowWithSource update_flow(namespace, id, tenant, body)
+
+Update a flow
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    namespace = 'namespace_example' # str | The flow namespace
+    id = 'id_example' # str | The flow id
+    tenant = 'tenant_example' # str | 
+    body = 'body_example' # str | The flow source code
+
+    try:
+        # Update a flow
+        api_response = kestra_client.flows.update_flow(namespace, id, tenant, body)
+        print("The response of flows->update_flow:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling flows->update_flow: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **namespace** | **str**| The flow namespace | 
+ **id** | **str**| The flow id | 
  **tenant** | **str**|  | 
  **body** | **str**| The flow source code | 
 
@@ -2269,10 +1630,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update_flows_in_namespace_from_json**
-> UpdateFlowsInNamespaceFromJson200Response update_flows_in_namespace_from_json(delete, namespace, tenant, flow)
+# **update_flows_in_namespace**
+> List[FlowInterface] update_flows_in_namespace(namespace, delete, tenant, body)
 
-Update a complete namespace from json object
+Update a complete namespace from yaml source
 
 All flow will be created / updated for this namespace.
 Flow that already created but not in `flows` will be deleted if the query delete is `true`
@@ -2283,50 +1644,28 @@ Flow that already created but not in `flows` will be deleted if the query delete
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.flow import Flow
-from kestrapy.models.update_flows_in_namespace_from_json200_response import UpdateFlowsInNamespaceFromJson200Response
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
+with KestraClient(configuration) as kestra_client:
+    namespace = 'namespace_example' # str | The flow namespace
     delete = True # bool | If missing flow should be deleted (default to True)
-    namespace = 'namespace_example' # str | The flow namespace
     tenant = 'tenant_example' # str | 
-    flow = [kestrapy.Flow()] # List[Flow] | A list of flows
+    body = 'body_example' # str | A list of flows source code
 
     try:
-        # Update a complete namespace from json object
-        api_response = api_instance.update_flows_in_namespace_from_json(delete, namespace, tenant, flow)
-        print("The response of FlowsApi->update_flows_in_namespace_from_json:\n")
+        # Update a complete namespace from yaml source
+        api_response = kestra_client.flows.update_flows_in_namespace(namespace, delete, tenant, body)
+        print("The response of flows->update_flows_in_namespace:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling FlowsApi->update_flows_in_namespace_from_json: %s\n" % e)
+        print("Exception when calling flows->update_flows_in_namespace: %s\n" % e)
 ```
 
 
@@ -2336,14 +1675,14 @@ with kestrapy.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **namespace** | **str**| The flow namespace | 
  **delete** | **bool**| If missing flow should be deleted | [default to True]
- **namespace** | **str**| The flow namespace | 
  **tenant** | **str**|  | 
- **flow** | [**List[Flow]**](Flow.md)| A list of flows | 
+ **body** | **str**| A list of flows source code | 
 
 ### Return type
 
-[**UpdateFlowsInNamespaceFromJson200Response**](UpdateFlowsInNamespaceFromJson200Response.md)
+[**List[FlowInterface]**](FlowInterface.md)
 
 ### Authorization
 
@@ -2351,106 +1690,14 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, application/x-yaml
+ - **Content-Type**: application/x-yaml
  - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | updateFlowsInNamespaceFromJson 200 response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **update_task**
-> Flow update_task(namespace, id, task_id, tenant, task)
-
-Update a single task on a flow
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-import kestrapy
-from kestrapy.models.flow import Flow
-from kestrapy.models.task import Task
-from kestrapy.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
-# Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
-    namespace = 'namespace_example' # str | The flow namespace
-    id = 'id_example' # str | The flow id
-    task_id = 'task_id_example' # str | The task id
-    tenant = 'tenant_example' # str | 
-    task = kestrapy.Task() # Task | The task
-
-    try:
-        # Update a single task on a flow
-        api_response = api_instance.update_task(namespace, id, task_id, tenant, task)
-        print("The response of FlowsApi->update_task:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling FlowsApi->update_task: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **namespace** | **str**| The flow namespace | 
- **id** | **str**| The flow id | 
- **task_id** | **str**| The task id | 
- **tenant** | **str**|  | 
- **task** | [**Task**](Task.md)| The task | 
-
-### Return type
-
-[**Flow**](Flow.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | updateTask 200 response |  -  |
+**200** | updateFlowsInNamespace 200 response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2465,47 +1712,26 @@ Validate a list of flows
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.validate_constraint_violation import ValidateConstraintViolation
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
+with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
     body = 'body_example' # str | A list of flows source code in a single string
 
     try:
         # Validate a list of flows
-        api_response = api_instance.validate_flows(tenant, body)
-        print("The response of FlowsApi->validate_flows:\n")
+        api_response = kestra_client.flows.validate_flows(tenant, body)
+        print("The response of flows->validate_flows:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling FlowsApi->validate_flows: %s\n" % e)
+        print("Exception when calling flows->validate_flows: %s\n" % e)
 ```
 
 
@@ -2550,49 +1776,27 @@ Validate a task
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.flow_controller_task_validation_type import FlowControllerTaskValidationType
-from kestrapy.models.validate_constraint_violation import ValidateConstraintViolation
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
+with KestraClient(configuration) as kestra_client:
     section = kestrapy.FlowControllerTaskValidationType() # FlowControllerTaskValidationType | The type of task
     tenant = 'tenant_example' # str | 
-    body = 'body_example' # str | A task definition that can be from tasks or triggers
+    body = None # object | A task definition that can be from tasks or triggers
 
     try:
         # Validate a task
-        api_response = api_instance.validate_task(section, tenant, body)
-        print("The response of FlowsApi->validate_task:\n")
+        api_response = kestra_client.flows.validate_task(section, tenant, body)
+        print("The response of flows->validate_task:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling FlowsApi->validate_task: %s\n" % e)
+        print("Exception when calling flows->validate_task: %s\n" % e)
 ```
 
 
@@ -2604,7 +1808,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **section** | [**FlowControllerTaskValidationType**](.md)| The type of task | 
  **tenant** | **str**|  | 
- **body** | **str**| A task definition that can be from tasks or triggers | 
+ **body** | **object**| A task definition that can be from tasks or triggers | 
 
 ### Return type
 
@@ -2638,47 +1842,26 @@ Validate trigger
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.validate_constraint_violation import ValidateConstraintViolation
-from kestrapy.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
+configuration = Configuration()
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.FlowsApi(api_client)
+with KestraClient(configuration) as kestra_client:
     tenant = 'tenant_example' # str | 
     body = None # object | The trigger
 
     try:
         # Validate trigger
-        api_response = api_instance.validate_trigger(tenant, body)
-        print("The response of FlowsApi->validate_trigger:\n")
+        api_response = kestra_client.flows.validate_trigger(tenant, body)
+        print("The response of flows->validate_trigger:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling FlowsApi->validate_trigger: %s\n" % e)
+        print("Exception when calling flows->validate_trigger: %s\n" % e)
 ```
 
 

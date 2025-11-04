@@ -12,6 +12,13 @@
 
 package io.kestra.sdk.api;
 
+// Custom imports for injected code
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import reactor.core.publisher.Flux;
+import java.io.BufferedReader;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import io.kestra.sdk.internal.ApiException;
@@ -20,15 +27,12 @@ import io.kestra.sdk.internal.BaseApi;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.Pair;
 
-import io.kestra.sdk.model.AppsControllerApiBulkImportResponse;
 import io.kestra.sdk.model.BulkResponse;
-import io.kestra.sdk.model.DeleteExecutionsByQueryRequest;
 import java.io.File;
 import io.kestra.sdk.model.Flow;
 import io.kestra.sdk.model.FlowControllerTaskValidationType;
 import io.kestra.sdk.model.FlowGraph;
 import io.kestra.sdk.model.FlowInterface;
-import io.kestra.sdk.model.FlowScope;
 import io.kestra.sdk.model.FlowTopologyGraph;
 import io.kestra.sdk.model.FlowWithSource;
 import io.kestra.sdk.model.IdWithNamespace;
@@ -36,8 +40,6 @@ import io.kestra.sdk.model.PagedResultsFlow;
 import io.kestra.sdk.model.PagedResultsSearchResultFlow;
 import io.kestra.sdk.model.QueryFilter;
 import io.kestra.sdk.model.Task;
-import io.kestra.sdk.model.UpdateFlow200Response;
-import io.kestra.sdk.model.UpdateFlowsInNamespaceFromJson200Response;
 import io.kestra.sdk.model.ValidateConstraintViolation;
 
 
@@ -48,8 +50,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
-public class FlowsApi extends BaseApi {
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")public class FlowsApi extends BaseApi {
 
   public FlowsApi() {
     super(Configuration.getDefaultApiClient());
@@ -60,85 +61,6 @@ public class FlowsApi extends BaseApi {
   }
 
   /**
-   *     Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
-   * 
-   * @param tenant  (required)
-   * @param fileUpload The file to import, can be a ZIP archive or a multi-objects YAML file (optional)
-   * @return AppsControllerApiBulkImportResponse
-   * @throws ApiException if fails to make API call
-   */
-  public AppsControllerApiBulkImportResponse bulkImportApps(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable File fileUpload) throws ApiException {
-    return this.bulkImportApps(tenant, fileUpload, Collections.emptyMap());
-  }
-
-
-  /**
-   *     Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
-   * 
-   * @param tenant  (required)
-   * @param fileUpload The file to import, can be a ZIP archive or a multi-objects YAML file (optional)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return AppsControllerApiBulkImportResponse
-   * @throws ApiException if fails to make API call
-   */
-  public AppsControllerApiBulkImportResponse bulkImportApps(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable File fileUpload, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling bulkImportApps");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/apps/import"
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    if (fileUpload != null)
-      localVarFormParams.put("fileUpload", fileUpload);
-
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "multipart/form-data"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<AppsControllerApiBulkImportResponse> localVarReturnType = new TypeReference<AppsControllerApiBulkImportResponse>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "POST",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
-
-  /**
    * Update from multiples yaml sources
    * All flow will be created / updated for this namespace. Flow that already created but not in &#x60;flows&#x60; will be deleted if the query delete is &#x60;true&#x60;
    * @param delete If missing flow should be deleted (required)
@@ -149,11 +71,10 @@ public class FlowsApi extends BaseApi {
    * @return List&lt;FlowInterface&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<FlowInterface> bulkUpdateFlows(@javax.annotation.Nonnull Boolean delete, @javax.annotation.Nonnull Boolean allowNamespaceChild, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String body) throws ApiException {
+  public List<FlowInterface> bulkUpdateFlows(@jakarta.annotation.Nonnull Boolean delete, @jakarta.annotation.Nonnull Boolean allowNamespaceChild, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String namespace, @jakarta.annotation.Nullable String body) throws ApiException {
     return this.bulkUpdateFlows(delete, allowNamespaceChild, tenant, namespace, body, Collections.emptyMap());
   }
 
-
   /**
    * Update from multiples yaml sources
    * All flow will be created / updated for this namespace. Flow that already created but not in &#x60;flows&#x60; will be deleted if the query delete is &#x60;true&#x60;
@@ -166,7 +87,7 @@ public class FlowsApi extends BaseApi {
    * @return List&lt;FlowInterface&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<FlowInterface> bulkUpdateFlows(@javax.annotation.Nonnull Boolean delete, @javax.annotation.Nonnull Boolean allowNamespaceChild, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String body, Map<String, String> additionalHeaders) throws ApiException {
+  public List<FlowInterface> bulkUpdateFlows(@jakarta.annotation.Nonnull Boolean delete, @jakarta.annotation.Nonnull Boolean allowNamespaceChild, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String namespace, @jakarta.annotation.Nullable String body, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'delete' is set
@@ -194,8 +115,7 @@ public class FlowsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     localVarQueryParams.addAll(apiClient.parameterToPair("delete", delete));
     localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
     localVarQueryParams.addAll(apiClient.parameterToPair("allowNamespaceChild", allowNamespaceChild));
@@ -234,6 +154,11 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Create a flow from yaml source
    * 
@@ -242,10 +167,9 @@ public class FlowsApi extends BaseApi {
    * @return FlowWithSource
    * @throws ApiException if fails to make API call
    */
-  public FlowWithSource createFlow(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body) throws ApiException {
+  public FlowWithSource createFlow(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body) throws ApiException {
     return this.createFlow(tenant, body, Collections.emptyMap());
   }
-
 
   /**
    * Create a flow from yaml source
@@ -256,7 +180,7 @@ public class FlowsApi extends BaseApi {
    * @return FlowWithSource
    * @throws ApiException if fails to make API call
    */
-  public FlowWithSource createFlow(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
+  public FlowWithSource createFlow(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'tenant' is set
@@ -279,8 +203,7 @@ public class FlowsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -316,6 +239,11 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Delete a flow
    * 
@@ -324,10 +252,9 @@ public class FlowsApi extends BaseApi {
    * @param tenant  (required)
    * @throws ApiException if fails to make API call
    */
-  public void deleteFlow(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant) throws ApiException {
+  public void deleteFlow(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant) throws ApiException {
     this.deleteFlow(namespace, id, tenant, Collections.emptyMap());
   }
-
 
   /**
    * Delete a flow
@@ -338,7 +265,7 @@ public class FlowsApi extends BaseApi {
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void deleteFlow(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public void deleteFlow(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -368,8 +295,7 @@ public class FlowsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -404,6 +330,11 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Delete flows by their IDs.
    * 
@@ -412,10 +343,9 @@ public class FlowsApi extends BaseApi {
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse deleteFlowsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<IdWithNamespace> idWithNamespace) throws ApiException {
+  public BulkResponse deleteFlowsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<IdWithNamespace> idWithNamespace) throws ApiException {
     return this.deleteFlowsByIds(tenant, idWithNamespace, Collections.emptyMap());
   }
-
 
   /**
    * Delete flows by their IDs.
@@ -426,7 +356,7 @@ public class FlowsApi extends BaseApi {
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse deleteFlowsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<IdWithNamespace> idWithNamespace, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse deleteFlowsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<IdWithNamespace> idWithNamespace, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = idWithNamespace;
     
     // verify the required parameter 'tenant' is set
@@ -449,8 +379,7 @@ public class FlowsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -486,47 +415,38 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Delete flows returned by the query parameters.
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the flows to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
+   * @param filters Filters (optional)
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse deleteFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable List<String> labels) throws ApiException {
-    return this.deleteFlowsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, labels, Collections.emptyMap());
+  public BulkResponse deleteFlowsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.deleteFlowsByQuery(tenant, filters, Collections.emptyMap());
   }
-
 
   /**
    * Delete flows returned by the query parameters.
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the flows to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
+   * @param filters Filters (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse deleteFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable List<String> labels, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public BulkResponse deleteFlowsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling deleteFlowsByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling deleteFlowsByQuery");
     }
     
     // create path and map variables
@@ -539,12 +459,8 @@ public class FlowsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -556,7 +472,7 @@ public class FlowsApi extends BaseApi {
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -580,6 +496,11 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Disable flows by their IDs.
    * 
@@ -588,10 +509,9 @@ public class FlowsApi extends BaseApi {
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse disableFlowsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<IdWithNamespace> idWithNamespace) throws ApiException {
+  public BulkResponse disableFlowsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<IdWithNamespace> idWithNamespace) throws ApiException {
     return this.disableFlowsByIds(tenant, idWithNamespace, Collections.emptyMap());
   }
-
 
   /**
    * Disable flows by their IDs.
@@ -602,7 +522,7 @@ public class FlowsApi extends BaseApi {
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse disableFlowsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<IdWithNamespace> idWithNamespace, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse disableFlowsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<IdWithNamespace> idWithNamespace, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = idWithNamespace;
     
     // verify the required parameter 'tenant' is set
@@ -625,8 +545,7 @@ public class FlowsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -662,47 +581,38 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Disable flows returned by the query parameters.
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the flows to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
+   * @param filters Filters (optional)
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse disableFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable List<String> labels) throws ApiException {
-    return this.disableFlowsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, labels, Collections.emptyMap());
+  public BulkResponse disableFlowsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.disableFlowsByQuery(tenant, filters, Collections.emptyMap());
   }
-
 
   /**
    * Disable flows returned by the query parameters.
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the flows to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
+   * @param filters Filters (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse disableFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable List<String> labels, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public BulkResponse disableFlowsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling disableFlowsByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling disableFlowsByQuery");
     }
     
     // create path and map variables
@@ -715,12 +625,8 @@ public class FlowsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -732,7 +638,7 @@ public class FlowsApi extends BaseApi {
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -756,6 +662,11 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Enable flows by their IDs.
    * 
@@ -764,10 +675,9 @@ public class FlowsApi extends BaseApi {
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse enableFlowsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<IdWithNamespace> idWithNamespace) throws ApiException {
+  public BulkResponse enableFlowsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<IdWithNamespace> idWithNamespace) throws ApiException {
     return this.enableFlowsByIds(tenant, idWithNamespace, Collections.emptyMap());
   }
-
 
   /**
    * Enable flows by their IDs.
@@ -778,7 +688,7 @@ public class FlowsApi extends BaseApi {
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse enableFlowsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<IdWithNamespace> idWithNamespace, Map<String, String> additionalHeaders) throws ApiException {
+  public BulkResponse enableFlowsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<IdWithNamespace> idWithNamespace, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = idWithNamespace;
     
     // verify the required parameter 'tenant' is set
@@ -801,8 +711,7 @@ public class FlowsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -838,47 +747,38 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Enable flows returned by the query parameters.
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the flows to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
+   * @param filters Filters (optional)
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse enableFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable List<String> labels) throws ApiException {
-    return this.enableFlowsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, labels, Collections.emptyMap());
+  public BulkResponse enableFlowsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.enableFlowsByQuery(tenant, filters, Collections.emptyMap());
   }
-
 
   /**
    * Enable flows returned by the query parameters.
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the flows to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
+   * @param filters Filters (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return BulkResponse
    * @throws ApiException if fails to make API call
    */
-  public BulkResponse enableFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable List<String> labels, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public BulkResponse enableFlowsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling enableFlowsByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling enableFlowsByQuery");
     }
     
     // create path and map variables
@@ -891,12 +791,8 @@ public class FlowsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -908,7 +804,7 @@ public class FlowsApi extends BaseApi {
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -932,6 +828,11 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Export flows as a ZIP archive of yaml sources.
    * 
@@ -940,10 +841,9 @@ public class FlowsApi extends BaseApi {
    * @return byte[]
    * @throws ApiException if fails to make API call
    */
-  public byte[] exportFlowsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<IdWithNamespace> idWithNamespace) throws ApiException {
+  public byte[] exportFlowsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<IdWithNamespace> idWithNamespace) throws ApiException {
     return this.exportFlowsByIds(tenant, idWithNamespace, Collections.emptyMap());
   }
-
 
   /**
    * Export flows as a ZIP archive of yaml sources.
@@ -954,7 +854,7 @@ public class FlowsApi extends BaseApi {
    * @return byte[]
    * @throws ApiException if fails to make API call
    */
-  public byte[] exportFlowsByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<IdWithNamespace> idWithNamespace, Map<String, String> additionalHeaders) throws ApiException {
+  public byte[] exportFlowsByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<IdWithNamespace> idWithNamespace, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = idWithNamespace;
     
     // verify the required parameter 'tenant' is set
@@ -977,8 +877,7 @@ public class FlowsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -1014,37 +913,33 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Export flows as a ZIP archive of yaml sources.
    * 
    * @param tenant  (required)
    * @param filters Filters (optional)
-   * @param q A string filter (optional)
-   * @param scope The scope of the flows to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
    * @return byte[]
    * @throws ApiException if fails to make API call
    */
-  public byte[] exportFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable List<String> labels) throws ApiException {
-    return this.exportFlowsByQuery(tenant, filters, q, scope, namespace, labels, Collections.emptyMap());
+  public byte[] exportFlowsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.exportFlowsByQuery(tenant, filters, Collections.emptyMap());
   }
-
 
   /**
    * Export flows as a ZIP archive of yaml sources.
    * 
    * @param tenant  (required)
    * @param filters Filters (optional)
-   * @param q A string filter (optional)
-   * @param scope The scope of the flows to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return byte[]
    * @throws ApiException if fails to make API call
    */
-  public byte[] exportFlowsByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable List<String> labels, Map<String, String> additionalHeaders) throws ApiException {
+  public byte[] exportFlowsByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -1062,13 +957,8 @@ public class FlowsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -1104,203 +994,9 @@ public class FlowsApi extends BaseApi {
     );
   }
 
-  /**
-   * Generate a graph for a flow
-   * 
-   * @param namespace The flow namespace (required)
-   * @param id The flow id (required)
-   * @param tenant  (required)
-   * @param revision The flow revision (optional)
-   * @param subflows The subflow tasks to display (optional)
-   * @return FlowGraph
-   * @throws ApiException if fails to make API call
-   */
-  public FlowGraph generateFlowGraph(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable List<String> subflows) throws ApiException {
-    return this.generateFlowGraph(namespace, id, tenant, revision, subflows, Collections.emptyMap());
-  }
 
 
-  /**
-   * Generate a graph for a flow
-   * 
-   * @param namespace The flow namespace (required)
-   * @param id The flow id (required)
-   * @param tenant  (required)
-   * @param revision The flow revision (optional)
-   * @param subflows The subflow tasks to display (optional)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return FlowGraph
-   * @throws ApiException if fails to make API call
-   */
-  public FlowGraph generateFlowGraph(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable List<String> subflows, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'namespace' is set
-    if (namespace == null) {
-      throw new ApiException(400, "Missing the required parameter 'namespace' when calling generateFlowGraph");
-    }
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling generateFlowGraph");
-    }
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling generateFlowGraph");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/flows/{namespace}/{id}/graph"
-      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
 
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "subflows", subflows));
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<FlowGraph> localVarReturnType = new TypeReference<FlowGraph>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "GET",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
-
-  /**
-   * Generate a graph for a flow source
-   * 
-   * @param tenant  (required)
-   * @param body The flow source code (required)
-   * @param subflows The subflow tasks to display (optional)
-   * @return FlowGraph
-   * @throws ApiException if fails to make API call
-   */
-  public FlowGraph generateFlowGraphFromSource(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, @javax.annotation.Nullable List<String> subflows) throws ApiException {
-    return this.generateFlowGraphFromSource(tenant, body, subflows, Collections.emptyMap());
-  }
-
-
-  /**
-   * Generate a graph for a flow source
-   * 
-   * @param tenant  (required)
-   * @param body The flow source code (required)
-   * @param subflows The subflow tasks to display (optional)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return FlowGraph
-   * @throws ApiException if fails to make API call
-   */
-  public FlowGraph generateFlowGraphFromSource(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, @javax.annotation.Nullable List<String> subflows, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = body;
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling generateFlowGraphFromSource");
-    }
-    
-    // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new ApiException(400, "Missing the required parameter 'body' when calling generateFlowGraphFromSource");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/flows/graph"
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "subflows", subflows));
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/x-yaml"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<FlowGraph> localVarReturnType = new TypeReference<FlowGraph>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "POST",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
-
-  /**
-   * Get a flow
-   * 
-   * @param namespace The flow namespace (required)
-   * @param id The flow id (required)
-   * @param source Include the source code (required)
-   * @param allowDeleted Get flow even if deleted (required)
-   * @param tenant  (required)
-   * @param revision Get latest revision by default (optional)
-   * @return Object
-   * @throws ApiException if fails to make API call
-   */
-  public Object getFlow(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean source, @javax.annotation.Nonnull Boolean allowDeleted, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision) throws ApiException {
-    return this.getFlow(namespace, id, source, allowDeleted, tenant, revision, Collections.emptyMap());
-  }
 
 
   /**
@@ -1312,36 +1008,52 @@ public class FlowsApi extends BaseApi {
    * @param allowDeleted Get flow even if deleted (required)
    * @param tenant  (required)
    * @param revision Get latest revision by default (optional)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return Object
+   * @return FlowWithSource
    * @throws ApiException if fails to make API call
    */
-  public Object getFlow(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean source, @javax.annotation.Nonnull Boolean allowDeleted, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision, Map<String, String> additionalHeaders) throws ApiException {
+  public FlowWithSource flow(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull Boolean source, @jakarta.annotation.Nonnull Boolean allowDeleted, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer revision) throws ApiException {
+    return this.flow(namespace, id, source, allowDeleted, tenant, revision, Collections.emptyMap());
+  }
+
+  /**
+   * Get a flow
+   * 
+   * @param namespace The flow namespace (required)
+   * @param id The flow id (required)
+   * @param source Include the source code (required)
+   * @param allowDeleted Get flow even if deleted (required)
+   * @param tenant  (required)
+   * @param revision Get latest revision by default (optional)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return FlowWithSource
+   * @throws ApiException if fails to make API call
+   */
+  public FlowWithSource flow(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull Boolean source, @jakarta.annotation.Nonnull Boolean allowDeleted, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer revision, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
     if (namespace == null) {
-      throw new ApiException(400, "Missing the required parameter 'namespace' when calling getFlow");
+      throw new ApiException(400, "Missing the required parameter 'namespace' when calling flow");
     }
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getFlow");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling flow");
     }
     
     // verify the required parameter 'source' is set
     if (source == null) {
-      throw new ApiException(400, "Missing the required parameter 'source' when calling getFlow");
+      throw new ApiException(400, "Missing the required parameter 'source' when calling flow");
     }
     
     // verify the required parameter 'allowDeleted' is set
     if (allowDeleted == null) {
-      throw new ApiException(400, "Missing the required parameter 'allowDeleted' when calling getFlow");
+      throw new ApiException(400, "Missing the required parameter 'allowDeleted' when calling flow");
     }
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling getFlow");
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling flow");
     }
     
     // create path and map variables
@@ -1356,8 +1068,7 @@ public class FlowsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     localVarQueryParams.addAll(apiClient.parameterToPair("source", source));
     localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
     localVarQueryParams.addAll(apiClient.parameterToPair("allowDeleted", allowDeleted));
@@ -1378,7 +1089,7 @@ public class FlowsApi extends BaseApi {
 
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
-    TypeReference<Object> localVarReturnType = new TypeReference<Object>() {};
+    TypeReference<FlowWithSource> localVarReturnType = new TypeReference<FlowWithSource>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "GET",
@@ -1396,6 +1107,11 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Get flow dependencies
    * 
@@ -1407,10 +1123,9 @@ public class FlowsApi extends BaseApi {
    * @return FlowTopologyGraph
    * @throws ApiException if fails to make API call
    */
-  public FlowTopologyGraph getFlowDependencies(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean destinationOnly, @javax.annotation.Nonnull Boolean expandAll, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.getFlowDependencies(namespace, id, destinationOnly, expandAll, tenant, Collections.emptyMap());
+  public FlowTopologyGraph flowDependencies(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull Boolean destinationOnly, @jakarta.annotation.Nonnull Boolean expandAll, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.flowDependencies(namespace, id, destinationOnly, expandAll, tenant, Collections.emptyMap());
   }
-
 
   /**
    * Get flow dependencies
@@ -1424,32 +1139,32 @@ public class FlowsApi extends BaseApi {
    * @return FlowTopologyGraph
    * @throws ApiException if fails to make API call
    */
-  public FlowTopologyGraph getFlowDependencies(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean destinationOnly, @javax.annotation.Nonnull Boolean expandAll, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public FlowTopologyGraph flowDependencies(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull Boolean destinationOnly, @jakarta.annotation.Nonnull Boolean expandAll, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
     if (namespace == null) {
-      throw new ApiException(400, "Missing the required parameter 'namespace' when calling getFlowDependencies");
+      throw new ApiException(400, "Missing the required parameter 'namespace' when calling flowDependencies");
     }
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getFlowDependencies");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling flowDependencies");
     }
     
     // verify the required parameter 'destinationOnly' is set
     if (destinationOnly == null) {
-      throw new ApiException(400, "Missing the required parameter 'destinationOnly' when calling getFlowDependencies");
+      throw new ApiException(400, "Missing the required parameter 'destinationOnly' when calling flowDependencies");
     }
     
     // verify the required parameter 'expandAll' is set
     if (expandAll == null) {
-      throw new ApiException(400, "Missing the required parameter 'expandAll' when calling getFlowDependencies");
+      throw new ApiException(400, "Missing the required parameter 'expandAll' when calling flowDependencies");
     }
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling getFlowDependencies");
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling flowDependencies");
     }
     
     // create path and map variables
@@ -1464,8 +1179,7 @@ public class FlowsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     localVarQueryParams.addAll(apiClient.parameterToPair("destinationOnly", destinationOnly));
     localVarQueryParams.addAll(apiClient.parameterToPair("expandAll", expandAll));
     
@@ -1503,6 +1217,11 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Retrieve flow dependencies
    * 
@@ -1512,10 +1231,9 @@ public class FlowsApi extends BaseApi {
    * @return FlowTopologyGraph
    * @throws ApiException if fails to make API call
    */
-  public FlowTopologyGraph getFlowDependenciesFromNamespace(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull Boolean destinationOnly, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.getFlowDependenciesFromNamespace(namespace, destinationOnly, tenant, Collections.emptyMap());
+  public FlowTopologyGraph flowDependenciesFromNamespace(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull Boolean destinationOnly, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.flowDependenciesFromNamespace(namespace, destinationOnly, tenant, Collections.emptyMap());
   }
-
 
   /**
    * Retrieve flow dependencies
@@ -1527,22 +1245,22 @@ public class FlowsApi extends BaseApi {
    * @return FlowTopologyGraph
    * @throws ApiException if fails to make API call
    */
-  public FlowTopologyGraph getFlowDependenciesFromNamespace(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull Boolean destinationOnly, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public FlowTopologyGraph flowDependenciesFromNamespace(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull Boolean destinationOnly, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
     if (namespace == null) {
-      throw new ApiException(400, "Missing the required parameter 'namespace' when calling getFlowDependenciesFromNamespace");
+      throw new ApiException(400, "Missing the required parameter 'namespace' when calling flowDependenciesFromNamespace");
     }
     
     // verify the required parameter 'destinationOnly' is set
     if (destinationOnly == null) {
-      throw new ApiException(400, "Missing the required parameter 'destinationOnly' when calling getFlowDependenciesFromNamespace");
+      throw new ApiException(400, "Missing the required parameter 'destinationOnly' when calling flowDependenciesFromNamespace");
     }
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling getFlowDependenciesFromNamespace");
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling flowDependenciesFromNamespace");
     }
     
     // create path and map variables
@@ -1556,8 +1274,7 @@ public class FlowsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     localVarQueryParams.addAll(apiClient.parameterToPair("destinationOnly", destinationOnly));
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -1594,62 +1311,60 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
-   * Get a flow task
+   * Generate a graph for a flow
    * 
    * @param namespace The flow namespace (required)
    * @param id The flow id (required)
-   * @param taskId The task id (required)
    * @param tenant  (required)
    * @param revision The flow revision (optional)
-   * @return Task
+   * @param subflows The subflow tasks to display (optional)
+   * @return FlowGraph
    * @throws ApiException if fails to make API call
    */
-  public Task getTaskFromFlow(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String taskId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision) throws ApiException {
-    return this.getTaskFromFlow(namespace, id, taskId, tenant, revision, Collections.emptyMap());
+  public FlowGraph generateFlowGraph(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer revision, @jakarta.annotation.Nullable List<String> subflows) throws ApiException {
+    return this.generateFlowGraph(namespace, id, tenant, revision, subflows, Collections.emptyMap());
   }
 
-
   /**
-   * Get a flow task
+   * Generate a graph for a flow
    * 
    * @param namespace The flow namespace (required)
    * @param id The flow id (required)
-   * @param taskId The task id (required)
    * @param tenant  (required)
    * @param revision The flow revision (optional)
+   * @param subflows The subflow tasks to display (optional)
    * @param additionalHeaders additionalHeaders for this call
-   * @return Task
+   * @return FlowGraph
    * @throws ApiException if fails to make API call
    */
-  public Task getTaskFromFlow(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String taskId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable Integer revision, Map<String, String> additionalHeaders) throws ApiException {
+  public FlowGraph generateFlowGraph(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer revision, @jakarta.annotation.Nullable List<String> subflows, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
     if (namespace == null) {
-      throw new ApiException(400, "Missing the required parameter 'namespace' when calling getTaskFromFlow");
+      throw new ApiException(400, "Missing the required parameter 'namespace' when calling generateFlowGraph");
     }
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getTaskFromFlow");
-    }
-    
-    // verify the required parameter 'taskId' is set
-    if (taskId == null) {
-      throw new ApiException(400, "Missing the required parameter 'taskId' when calling getTaskFromFlow");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling generateFlowGraph");
     }
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling getTaskFromFlow");
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling generateFlowGraph");
     }
     
     // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId}"
+    String localVarPath = "/api/v1/{tenant}/flows/{namespace}/{id}/graph"
       .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
       .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
-      .replaceAll("\\{" + "taskId" + "\\}", apiClient.escapeString(apiClient.parameterToString(taskId)))
       .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
 
     StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
@@ -1658,9 +1373,9 @@ public class FlowsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "subflows", subflows));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -1678,7 +1393,7 @@ public class FlowsApi extends BaseApi {
 
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
-    TypeReference<Task> localVarReturnType = new TypeReference<Task>() {};
+    TypeReference<FlowGraph> localVarReturnType = new TypeReference<FlowGraph>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "GET",
@@ -1696,6 +1411,99 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
+  /**
+   * Generate a graph for a flow source
+   * 
+   * @param tenant  (required)
+   * @param body The flow source code (required)
+   * @param subflows The subflow tasks to display (optional)
+   * @return FlowGraph
+   * @throws ApiException if fails to make API call
+   */
+  public FlowGraph generateFlowGraphFromSource(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body, @jakarta.annotation.Nullable List<String> subflows) throws ApiException {
+    return this.generateFlowGraphFromSource(tenant, body, subflows, Collections.emptyMap());
+  }
+
+  /**
+   * Generate a graph for a flow source
+   * 
+   * @param tenant  (required)
+   * @param body The flow source code (required)
+   * @param subflows The subflow tasks to display (optional)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return FlowGraph
+   * @throws ApiException if fails to make API call
+   */
+  public FlowGraph generateFlowGraphFromSource(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body, @jakarta.annotation.Nullable List<String> subflows, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling generateFlowGraphFromSource");
+    }
+    
+    // verify the required parameter 'body' is set
+    if (body == null) {
+      throw new ApiException(400, "Missing the required parameter 'body' when calling generateFlowGraphFromSource");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/flows/graph"
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "subflows", subflows));
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/x-yaml"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<FlowGraph> localVarReturnType = new TypeReference<FlowGraph>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "POST",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+
+
+
+
+
   /**
    *     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
    * 
@@ -1704,10 +1512,9 @@ public class FlowsApi extends BaseApi {
    * @return List&lt;String&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<String> importFlows(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable File fileUpload) throws ApiException {
+  public List<String> importFlows(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable File fileUpload) throws ApiException {
     return this.importFlows(tenant, fileUpload, Collections.emptyMap());
   }
-
 
   /**
    *     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
@@ -1718,7 +1525,7 @@ public class FlowsApi extends BaseApi {
    * @return List&lt;String&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<String> importFlows(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable File fileUpload, Map<String, String> additionalHeaders) throws ApiException {
+  public List<String> importFlows(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable File fileUpload, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -1736,8 +1543,7 @@ public class FlowsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -1775,6 +1581,11 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * List all distinct namespaces
    * 
@@ -1783,10 +1594,9 @@ public class FlowsApi extends BaseApi {
    * @return List&lt;String&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<String> listDistinctNamespaces(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q) throws ApiException {
+  public List<String> listDistinctNamespaces(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q) throws ApiException {
     return this.listDistinctNamespaces(tenant, q, Collections.emptyMap());
   }
-
 
   /**
    * List all distinct namespaces
@@ -1797,7 +1607,7 @@ public class FlowsApi extends BaseApi {
    * @return List&lt;String&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<String> listDistinctNamespaces(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, Map<String, String> additionalHeaders) throws ApiException {
+  public List<String> listDistinctNamespaces(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable String q, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -1815,8 +1625,7 @@ public class FlowsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -1853,6 +1662,11 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Get revisions for a flow
    * 
@@ -1862,10 +1676,9 @@ public class FlowsApi extends BaseApi {
    * @return List&lt;FlowWithSource&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<FlowWithSource> listFlowRevisions(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant) throws ApiException {
+  public List<FlowWithSource> listFlowRevisions(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant) throws ApiException {
     return this.listFlowRevisions(namespace, id, tenant, Collections.emptyMap());
   }
-
 
   /**
    * Get revisions for a flow
@@ -1877,7 +1690,7 @@ public class FlowsApi extends BaseApi {
    * @return List&lt;FlowWithSource&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<FlowWithSource> listFlowRevisions(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public List<FlowWithSource> listFlowRevisions(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -1907,8 +1720,7 @@ public class FlowsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -1944,6 +1756,11 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Retrieve all flows from a given namespace
    * 
@@ -1952,10 +1769,9 @@ public class FlowsApi extends BaseApi {
    * @return List&lt;Flow&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<Flow> listFlowsByNamespace(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant) throws ApiException {
+  public List<Flow> listFlowsByNamespace(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant) throws ApiException {
     return this.listFlowsByNamespace(namespace, tenant, Collections.emptyMap());
   }
-
 
   /**
    * Retrieve all flows from a given namespace
@@ -1966,7 +1782,7 @@ public class FlowsApi extends BaseApi {
    * @return List&lt;Flow&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<Flow> listFlowsByNamespace(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public List<Flow> listFlowsByNamespace(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -1990,8 +1806,7 @@ public class FlowsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -2027,6 +1842,11 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Search for flows
    * 
@@ -2035,17 +1855,12 @@ public class FlowsApi extends BaseApi {
    * @param tenant  (required)
    * @param sort The sort of current page (optional)
    * @param filters Filters (optional)
-   * @param q A string filter (optional)
-   * @param scope The scope of the flows to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
    * @return PagedResultsFlow
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsFlow searchFlows(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable List<String> labels) throws ApiException {
-    return this.searchFlows(page, size, tenant, sort, filters, q, scope, namespace, labels, Collections.emptyMap());
+  public PagedResultsFlow searchFlows(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.searchFlows(page, size, tenant, sort, filters, Collections.emptyMap());
   }
-
 
   /**
    * Search for flows
@@ -2055,15 +1870,11 @@ public class FlowsApi extends BaseApi {
    * @param tenant  (required)
    * @param sort The sort of current page (optional)
    * @param filters Filters (optional)
-   * @param q A string filter (optional)
-   * @param scope The scope of the flows to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return PagedResultsFlow
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsFlow searchFlows(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable List<String> labels, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsFlow searchFlows(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'page' is set
@@ -2091,16 +1902,11 @@ public class FlowsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
     localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -2136,6 +1942,11 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Search for flows source code
    * 
@@ -2148,10 +1959,9 @@ public class FlowsApi extends BaseApi {
    * @return PagedResultsSearchResultFlow
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsSearchResultFlow searchFlowsBySourceCode(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace) throws ApiException {
+  public PagedResultsSearchResultFlow searchFlowsBySourceCode(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable String namespace) throws ApiException {
     return this.searchFlowsBySourceCode(page, size, tenant, sort, q, namespace, Collections.emptyMap());
   }
-
 
   /**
    * Search for flows source code
@@ -2166,7 +1976,7 @@ public class FlowsApi extends BaseApi {
    * @return PagedResultsSearchResultFlow
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsSearchResultFlow searchFlowsBySourceCode(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsSearchResultFlow searchFlowsBySourceCode(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable String q, @jakarta.annotation.Nullable String namespace, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'page' is set
@@ -2194,8 +2004,7 @@ public class FlowsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
     localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
@@ -2236,47 +2045,152 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
-   * Update a flow
+   * Get a flow task
    * 
-   * @param id The flow id (required)
    * @param namespace The flow namespace (required)
+   * @param id The flow id (required)
+   * @param taskId The task id (required)
    * @param tenant  (required)
-   * @param body The flow source code (required)
-   * @return UpdateFlow200Response
+   * @param revision The flow revision (optional)
+   * @return Task
    * @throws ApiException if fails to make API call
-   * @deprecated
    */
-  @Deprecated
-  public UpdateFlow200Response updateFlow(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body) throws ApiException {
-    return this.updateFlow(id, namespace, tenant, body, Collections.emptyMap());
+  public Task taskFromFlow(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String taskId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer revision) throws ApiException {
+    return this.taskFromFlow(namespace, id, taskId, tenant, revision, Collections.emptyMap());
   }
 
-
   /**
-   * Update a flow
+   * Get a flow task
    * 
-   * @param id The flow id (required)
    * @param namespace The flow namespace (required)
+   * @param id The flow id (required)
+   * @param taskId The task id (required)
    * @param tenant  (required)
-   * @param body The flow source code (required)
+   * @param revision The flow revision (optional)
    * @param additionalHeaders additionalHeaders for this call
-   * @return UpdateFlow200Response
+   * @return Task
    * @throws ApiException if fails to make API call
-   * @deprecated
    */
-  @Deprecated
-  public UpdateFlow200Response updateFlow(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = body;
+  public Task taskFromFlow(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String taskId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable Integer revision, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'namespace' is set
+    if (namespace == null) {
+      throw new ApiException(400, "Missing the required parameter 'namespace' when calling taskFromFlow");
+    }
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling updateFlow");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling taskFromFlow");
     }
+    
+    // verify the required parameter 'taskId' is set
+    if (taskId == null) {
+      throw new ApiException(400, "Missing the required parameter 'taskId' when calling taskFromFlow");
+    }
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling taskFromFlow");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId}"
+      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
+      .replaceAll("\\{" + "taskId" + "\\}", apiClient.escapeString(apiClient.parameterToString(taskId)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<Task> localVarReturnType = new TypeReference<Task>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "GET",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+
+
+
+
+
+  /**
+   * Update a flow
+   * 
+   * @param namespace The flow namespace (required)
+   * @param id The flow id (required)
+   * @param tenant  (required)
+   * @param body The flow source code (required)
+   * @return FlowWithSource
+   * @throws ApiException if fails to make API call
+   */
+  public FlowWithSource updateFlow(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body) throws ApiException {
+    return this.updateFlow(namespace, id, tenant, body, Collections.emptyMap());
+  }
+
+  /**
+   * Update a flow
+   * 
+   * @param namespace The flow namespace (required)
+   * @param id The flow id (required)
+   * @param tenant  (required)
+   * @param body The flow source code (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return FlowWithSource
+   * @throws ApiException if fails to make API call
+   */
+  public FlowWithSource updateFlow(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = body;
     
     // verify the required parameter 'namespace' is set
     if (namespace == null) {
       throw new ApiException(400, "Missing the required parameter 'namespace' when calling updateFlow");
+    }
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling updateFlow");
     }
     
     // verify the required parameter 'tenant' is set
@@ -2291,8 +2205,8 @@ public class FlowsApi extends BaseApi {
     
     // create path and map variables
     String localVarPath = "/api/v1/{tenant}/flows/{namespace}/{id}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
       .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
       .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
 
     StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
@@ -2301,8 +2215,7 @@ public class FlowsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -2320,7 +2233,7 @@ public class FlowsApi extends BaseApi {
 
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
-    TypeReference<UpdateFlow200Response> localVarReturnType = new TypeReference<UpdateFlow200Response>() {};
+    TypeReference<FlowWithSource> localVarReturnType = new TypeReference<FlowWithSource>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "PUT",
@@ -2338,57 +2251,57 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
-   * Update a complete namespace from json object
+   * Update a complete namespace from yaml source
    * All flow will be created / updated for this namespace. Flow that already created but not in &#x60;flows&#x60; will be deleted if the query delete is &#x60;true&#x60;
-   * @param delete If missing flow should be deleted (required)
    * @param namespace The flow namespace (required)
+   * @param delete If missing flow should be deleted (required)
    * @param tenant  (required)
-   * @param flow A list of flows (required)
-   * @return UpdateFlowsInNamespaceFromJson200Response
+   * @param body A list of flows source code (required)
+   * @return List&lt;FlowInterface&gt;
    * @throws ApiException if fails to make API call
-   * @deprecated
    */
-  @Deprecated
-  public UpdateFlowsInNamespaceFromJson200Response updateFlowsInNamespaceFromJson(@javax.annotation.Nonnull Boolean delete, @javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Flow> flow) throws ApiException {
-    return this.updateFlowsInNamespaceFromJson(delete, namespace, tenant, flow, Collections.emptyMap());
+  public List<FlowInterface> updateFlowsInNamespace(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull Boolean delete, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body) throws ApiException {
+    return this.updateFlowsInNamespace(namespace, delete, tenant, body, Collections.emptyMap());
   }
 
-
   /**
-   * Update a complete namespace from json object
+   * Update a complete namespace from yaml source
    * All flow will be created / updated for this namespace. Flow that already created but not in &#x60;flows&#x60; will be deleted if the query delete is &#x60;true&#x60;
-   * @param delete If missing flow should be deleted (required)
    * @param namespace The flow namespace (required)
+   * @param delete If missing flow should be deleted (required)
    * @param tenant  (required)
-   * @param flow A list of flows (required)
+   * @param body A list of flows source code (required)
    * @param additionalHeaders additionalHeaders for this call
-   * @return UpdateFlowsInNamespaceFromJson200Response
+   * @return List&lt;FlowInterface&gt;
    * @throws ApiException if fails to make API call
-   * @deprecated
    */
-  @Deprecated
-  public UpdateFlowsInNamespaceFromJson200Response updateFlowsInNamespaceFromJson(@javax.annotation.Nonnull Boolean delete, @javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Flow> flow, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = flow;
-    
-    // verify the required parameter 'delete' is set
-    if (delete == null) {
-      throw new ApiException(400, "Missing the required parameter 'delete' when calling updateFlowsInNamespaceFromJson");
-    }
+  public List<FlowInterface> updateFlowsInNamespace(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull Boolean delete, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = body;
     
     // verify the required parameter 'namespace' is set
     if (namespace == null) {
-      throw new ApiException(400, "Missing the required parameter 'namespace' when calling updateFlowsInNamespaceFromJson");
+      throw new ApiException(400, "Missing the required parameter 'namespace' when calling updateFlowsInNamespace");
+    }
+    
+    // verify the required parameter 'delete' is set
+    if (delete == null) {
+      throw new ApiException(400, "Missing the required parameter 'delete' when calling updateFlowsInNamespace");
     }
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling updateFlowsInNamespaceFromJson");
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling updateFlowsInNamespace");
     }
     
-    // verify the required parameter 'flow' is set
-    if (flow == null) {
-      throw new ApiException(400, "Missing the required parameter 'flow' when calling updateFlowsInNamespaceFromJson");
+    // verify the required parameter 'body' is set
+    if (body == null) {
+      throw new ApiException(400, "Missing the required parameter 'body' when calling updateFlowsInNamespace");
     }
     
     // create path and map variables
@@ -2402,8 +2315,7 @@ public class FlowsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     localVarQueryParams.addAll(apiClient.parameterToPair("delete", delete));
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -2416,13 +2328,13 @@ public class FlowsApi extends BaseApi {
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json", "application/x-yaml"
+      "application/x-yaml"
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
-    TypeReference<UpdateFlowsInNamespaceFromJson200Response> localVarReturnType = new TypeReference<UpdateFlowsInNamespaceFromJson200Response>() {};
+    TypeReference<List<FlowInterface>> localVarReturnType = new TypeReference<List<FlowInterface>>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "POST",
@@ -2440,115 +2352,10 @@ public class FlowsApi extends BaseApi {
     );
   }
 
-  /**
-   * Update a single task on a flow
-   * 
-   * @param namespace The flow namespace (required)
-   * @param id The flow id (required)
-   * @param taskId The task id (required)
-   * @param tenant  (required)
-   * @param task The task (required)
-   * @return Flow
-   * @throws ApiException if fails to make API call
-   * @deprecated
-   */
-  @Deprecated
-  public Flow updateTask(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String taskId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Task task) throws ApiException {
-    return this.updateTask(namespace, id, taskId, tenant, task, Collections.emptyMap());
-  }
 
 
-  /**
-   * Update a single task on a flow
-   * 
-   * @param namespace The flow namespace (required)
-   * @param id The flow id (required)
-   * @param taskId The task id (required)
-   * @param tenant  (required)
-   * @param task The task (required)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return Flow
-   * @throws ApiException if fails to make API call
-   * @deprecated
-   */
-  @Deprecated
-  public Flow updateTask(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String taskId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Task task, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = task;
-    
-    // verify the required parameter 'namespace' is set
-    if (namespace == null) {
-      throw new ApiException(400, "Missing the required parameter 'namespace' when calling updateTask");
-    }
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling updateTask");
-    }
-    
-    // verify the required parameter 'taskId' is set
-    if (taskId == null) {
-      throw new ApiException(400, "Missing the required parameter 'taskId' when calling updateTask");
-    }
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling updateTask");
-    }
-    
-    // verify the required parameter 'task' is set
-    if (task == null) {
-      throw new ApiException(400, "Missing the required parameter 'task' when calling updateTask");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/flows/{namespace}/{id}/{taskId}"
-      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
-      .replaceAll("\\{" + "taskId" + "\\}", apiClient.escapeString(apiClient.parameterToString(taskId)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
 
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<Flow> localVarReturnType = new TypeReference<Flow>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "PATCH",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
 
   /**
    * Validate a list of flows
@@ -2558,11 +2365,10 @@ public class FlowsApi extends BaseApi {
    * @return List&lt;ValidateConstraintViolation&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<ValidateConstraintViolation> validateFlows(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body) throws ApiException {
+  public List<ValidateConstraintViolation> validateFlows(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body) throws ApiException {
     return this.validateFlows(tenant, body, Collections.emptyMap());
   }
 
-
   /**
    * Validate a list of flows
    * 
@@ -2572,7 +2378,7 @@ public class FlowsApi extends BaseApi {
    * @return List&lt;ValidateConstraintViolation&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<ValidateConstraintViolation> validateFlows(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
+  public List<ValidateConstraintViolation> validateFlows(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'tenant' is set
@@ -2595,8 +2401,7 @@ public class FlowsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -2632,6 +2437,11 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Validate a task
    * 
@@ -2641,10 +2451,9 @@ public class FlowsApi extends BaseApi {
    * @return ValidateConstraintViolation
    * @throws ApiException if fails to make API call
    */
-  public ValidateConstraintViolation validateTask(@javax.annotation.Nonnull FlowControllerTaskValidationType section, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body) throws ApiException {
+  public ValidateConstraintViolation validateTask(@jakarta.annotation.Nonnull FlowControllerTaskValidationType section, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull Object body) throws ApiException {
     return this.validateTask(section, tenant, body, Collections.emptyMap());
   }
-
 
   /**
    * Validate a task
@@ -2656,7 +2465,7 @@ public class FlowsApi extends BaseApi {
    * @return ValidateConstraintViolation
    * @throws ApiException if fails to make API call
    */
-  public ValidateConstraintViolation validateTask(@javax.annotation.Nonnull FlowControllerTaskValidationType section, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
+  public ValidateConstraintViolation validateTask(@jakarta.annotation.Nonnull FlowControllerTaskValidationType section, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull Object body, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'section' is set
@@ -2684,8 +2493,7 @@ public class FlowsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     localVarQueryParams.addAll(apiClient.parameterToPair("section", section));
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -2722,6 +2530,11 @@ public class FlowsApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Validate trigger
    * 
@@ -2730,10 +2543,9 @@ public class FlowsApi extends BaseApi {
    * @return ValidateConstraintViolation
    * @throws ApiException if fails to make API call
    */
-  public ValidateConstraintViolation validateTrigger(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body) throws ApiException {
+  public ValidateConstraintViolation validateTrigger(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull Object body) throws ApiException {
     return this.validateTrigger(tenant, body, Collections.emptyMap());
   }
-
 
   /**
    * Validate trigger
@@ -2744,7 +2556,7 @@ public class FlowsApi extends BaseApi {
    * @return ValidateConstraintViolation
    * @throws ApiException if fails to make API call
    */
-  public ValidateConstraintViolation validateTrigger(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
+  public ValidateConstraintViolation validateTrigger(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull Object body, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'tenant' is set
@@ -2767,8 +2579,7 @@ public class FlowsApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -2844,4 +2655,9 @@ public class FlowsApi extends BaseApi {
         returnType
     );
   }
+
+
+
+
+
 }

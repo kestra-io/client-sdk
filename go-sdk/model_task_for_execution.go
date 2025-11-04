@@ -21,7 +21,7 @@ var _ MappedNullable = &TaskForExecution{}
 // TaskForExecution struct for TaskForExecution
 type TaskForExecution struct {
 	Id                   string                   `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9_-]*"`
-	Type                 string                   `json:"type" validate:"regexp=\\\\p{javaJavaIdentifierStart}\\\\p{javaJavaIdentifierPart}*(\\\\.\\\\p{javaJavaIdentifierStart}\\\\p{javaJavaIdentifierPart}*)*"`
+	Type                 string                   `json:"type" validate:"regexp=^[A-Za-z_$][A-Za-z0-9_$]*(\\\\.[A-Za-z_$][A-Za-z0-9_$]*)*$"`
 	Version              *string                  `json:"version,omitempty" validate:"regexp=\\\\d+\\\\.\\\\d+\\\\.\\\\d+(-[a-zA-Z0-9-]+)?|([a-zA-Z0-9]+)"`
 	Tasks                []TaskForExecution       `json:"tasks,omitempty"`
 	Inputs               []InputObject            `json:"inputs,omitempty"`

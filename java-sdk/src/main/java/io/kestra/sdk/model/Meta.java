@@ -34,32 +34,27 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Meta.JSON_PROPERTY_LOCATION,
   Meta.JSON_PROPERTY_VERSION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Meta {
   public static final String JSON_PROPERTY_RESOURCE_TYPE = "resourceType";
-  @javax.annotation.Nullable
-  private String resourceType;
+  @jakarta.annotation.Nullable  private String resourceType;
 
   public static final String JSON_PROPERTY_CREATED = "created";
-  @javax.annotation.Nullable
-  private OffsetDateTime created;
+  @jakarta.annotation.Nullable  private OffsetDateTime created;
 
   public static final String JSON_PROPERTY_LAST_MODIFIED = "lastModified";
-  @javax.annotation.Nullable
-  private OffsetDateTime lastModified;
+  @jakarta.annotation.Nullable  private OffsetDateTime lastModified;
 
   public static final String JSON_PROPERTY_LOCATION = "location";
-  @javax.annotation.Nullable
-  private String location;
+  @jakarta.annotation.Nullable  private String location;
 
   public static final String JSON_PROPERTY_VERSION = "version";
-  @javax.annotation.Nullable
-  private String version;
+  @jakarta.annotation.Nullable  private String version;
 
   public Meta() {
   }
 
-  public Meta resourceType(@javax.annotation.Nullable String resourceType) {
+  public Meta resourceType(@jakarta.annotation.Nullable String resourceType) {
     
     this.resourceType = resourceType;
     return this;
@@ -69,8 +64,7 @@ public class Meta {
    * Get resourceType
    * @return resourceType
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getResourceType() {
@@ -80,11 +74,11 @@ public class Meta {
 
   @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setResourceType(@javax.annotation.Nullable String resourceType) {
+  public void setResourceType(@jakarta.annotation.Nullable String resourceType) {
     this.resourceType = resourceType;
   }
 
-  public Meta created(@javax.annotation.Nullable OffsetDateTime created) {
+  public Meta created(@jakarta.annotation.Nullable OffsetDateTime created) {
     
     this.created = created;
     return this;
@@ -94,8 +88,7 @@ public class Meta {
    * Get created
    * @return created
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CREATED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CREATED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getCreated() {
@@ -105,11 +98,11 @@ public class Meta {
 
   @JsonProperty(JSON_PROPERTY_CREATED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCreated(@javax.annotation.Nullable OffsetDateTime created) {
+  public void setCreated(@jakarta.annotation.Nullable OffsetDateTime created) {
     this.created = created;
   }
 
-  public Meta lastModified(@javax.annotation.Nullable OffsetDateTime lastModified) {
+  public Meta lastModified(@jakarta.annotation.Nullable OffsetDateTime lastModified) {
     
     this.lastModified = lastModified;
     return this;
@@ -119,8 +112,7 @@ public class Meta {
    * Get lastModified
    * @return lastModified
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LAST_MODIFIED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LAST_MODIFIED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getLastModified() {
@@ -130,11 +122,11 @@ public class Meta {
 
   @JsonProperty(JSON_PROPERTY_LAST_MODIFIED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLastModified(@javax.annotation.Nullable OffsetDateTime lastModified) {
+  public void setLastModified(@jakarta.annotation.Nullable OffsetDateTime lastModified) {
     this.lastModified = lastModified;
   }
 
-  public Meta location(@javax.annotation.Nullable String location) {
+  public Meta location(@jakarta.annotation.Nullable String location) {
     
     this.location = location;
     return this;
@@ -144,8 +136,7 @@ public class Meta {
    * Get location
    * @return location
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LOCATION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LOCATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getLocation() {
@@ -155,11 +146,11 @@ public class Meta {
 
   @JsonProperty(JSON_PROPERTY_LOCATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLocation(@javax.annotation.Nullable String location) {
+  public void setLocation(@jakarta.annotation.Nullable String location) {
     this.location = location;
   }
 
-  public Meta version(@javax.annotation.Nullable String version) {
+  public Meta version(@jakarta.annotation.Nullable String version) {
     
     this.version = version;
     return this;
@@ -169,8 +160,7 @@ public class Meta {
    * Get version
    * @return version
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_VERSION)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getVersion() {
@@ -180,7 +170,7 @@ public class Meta {
 
   @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVersion(@javax.annotation.Nullable String version) {
+  public void setVersion(@jakarta.annotation.Nullable String version) {
     this.version = version;
   }
 

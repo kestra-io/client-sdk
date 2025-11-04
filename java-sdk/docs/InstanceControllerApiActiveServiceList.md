@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**total** | **Integer** |  |  |
-|**services** | [**List&lt;InstanceControllerApiActiveService&gt;**](InstanceControllerApiActiveService.md) |  |  |
+|**total** | **Integer** |  |  [optional] |
+|**services** | [**List&lt;InstanceControllerApiActiveService&gt;**](InstanceControllerApiActiveService.md) |  |  [optional] |
 
 
 

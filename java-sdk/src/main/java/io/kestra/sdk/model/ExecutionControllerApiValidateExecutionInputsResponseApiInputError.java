@@ -30,16 +30,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ExecutionControllerApiValidateExecutionInputsResponseApiInputError.JSON_PROPERTY_MESSAGE
 })
 @JsonTypeName("ExecutionController.ApiValidateExecutionInputsResponse.ApiInputError")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ExecutionControllerApiValidateExecutionInputsResponseApiInputError {
   public static final String JSON_PROPERTY_MESSAGE = "message";
-  @javax.annotation.Nonnull
-  private String message;
+  @jakarta.annotation.Nullable  private String message;
 
   public ExecutionControllerApiValidateExecutionInputsResponseApiInputError() {
   }
 
-  public ExecutionControllerApiValidateExecutionInputsResponseApiInputError message(@javax.annotation.Nonnull String message) {
+  public ExecutionControllerApiValidateExecutionInputsResponseApiInputError message(@jakarta.annotation.Nullable String message) {
     
     this.message = message;
     return this;
@@ -49,9 +48,8 @@ public class ExecutionControllerApiValidateExecutionInputsResponseApiInputError 
    * Get message
    * @return message
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_MESSAGE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_MESSAGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getMessage() {
     return message;
@@ -59,8 +57,8 @@ public class ExecutionControllerApiValidateExecutionInputsResponseApiInputError 
 
 
   @JsonProperty(JSON_PROPERTY_MESSAGE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setMessage(@javax.annotation.Nonnull String message) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMessage(@jakarta.annotation.Nullable String message) {
     this.message = message;
   }
 

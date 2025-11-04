@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ValuePathExpression** | [**ValuePathExpression**](ValuePathExpression.md) |  | 
+**ValuePathExpression** | Pointer to [**ValuePathExpression**](ValuePathExpression.md) |  | [optional] 
 
 ## Methods
 
 ### NewPatchOperationPath
 
-`func NewPatchOperationPath(valuePathExpression ValuePathExpression, ) *PatchOperationPath`
+`func NewPatchOperationPath() *PatchOperationPath`
 
 NewPatchOperationPath instantiates a new PatchOperationPath object
 This constructor will assign default values to properties that have it defined,
@@ -44,6 +44,11 @@ and a boolean to check if the value has been set.
 
 SetValuePathExpression sets ValuePathExpression field to given value.
 
+### HasValuePathExpression
+
+`func (o *PatchOperationPath) HasValuePathExpression() bool`
+
+HasValuePathExpression returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

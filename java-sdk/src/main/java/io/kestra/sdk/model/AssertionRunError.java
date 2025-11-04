@@ -30,20 +30,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AssertionRunError.JSON_PROPERTY_MESSAGE,
   AssertionRunError.JSON_PROPERTY_DETAILS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AssertionRunError {
   public static final String JSON_PROPERTY_MESSAGE = "message";
-  @javax.annotation.Nonnull
-  private String message;
+  @jakarta.annotation.Nonnull  private String message;
 
   public static final String JSON_PROPERTY_DETAILS = "details";
-  @javax.annotation.Nonnull
-  private String details;
+  @jakarta.annotation.Nullable  private String details;
 
   public AssertionRunError() {
   }
 
-  public AssertionRunError message(@javax.annotation.Nonnull String message) {
+  public AssertionRunError message(@jakarta.annotation.Nonnull String message) {
     
     this.message = message;
     return this;
@@ -53,8 +51,7 @@ public class AssertionRunError {
    * Get message
    * @return message
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_MESSAGE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getMessage() {
@@ -64,11 +61,11 @@ public class AssertionRunError {
 
   @JsonProperty(JSON_PROPERTY_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setMessage(@javax.annotation.Nonnull String message) {
+  public void setMessage(@jakarta.annotation.Nonnull String message) {
     this.message = message;
   }
 
-  public AssertionRunError details(@javax.annotation.Nonnull String details) {
+  public AssertionRunError details(@jakarta.annotation.Nullable String details) {
     
     this.details = details;
     return this;
@@ -78,9 +75,8 @@ public class AssertionRunError {
    * Get details
    * @return details
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DETAILS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DETAILS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDetails() {
     return details;
@@ -88,8 +84,8 @@ public class AssertionRunError {
 
 
   @JsonProperty(JSON_PROPERTY_DETAILS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDetails(@javax.annotation.Nonnull String details) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDetails(@jakarta.annotation.Nullable String details) {
     this.details = details;
   }
 

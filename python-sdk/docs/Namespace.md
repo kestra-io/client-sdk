@@ -8,7 +8,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** |  | 
 **deleted** | **bool** |  | 
-**allowed_triggers** | [**List[NamespaceAllowedTrigger]**](NamespaceAllowedTrigger.md) |  | [optional] 
 **storage_isolation** | [**Isolation**](Isolation.md) |  | [optional] 
 **secret_isolation** | [**Isolation**](Isolation.md) |  | [optional] 
 **description** | **str** |  | [optional] 

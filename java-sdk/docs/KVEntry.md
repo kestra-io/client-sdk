@@ -7,10 +7,10 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**key** | **String** |  |  |
+|**key** | **String** |  |  [optional] |
 |**description** | **String** |  |  [optional] |
-|**creationDate** | **OffsetDateTime** |  |  |
-|**updateDate** | **OffsetDateTime** |  |  |
+|**creationDate** | **OffsetDateTime** |  |  [optional] |
+|**updateDate** | **OffsetDateTime** |  |  [optional] |
 |**expirationDate** | **OffsetDateTime** |  |  [optional] |
 
 

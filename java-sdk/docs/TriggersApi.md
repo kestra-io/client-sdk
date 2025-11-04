@@ -1,27 +1,27 @@
-# TriggersApi
+# triggers
 
 All URIs are relative to *http://localhost*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**deleteBackfill**](TriggersApi.md#deleteBackfill) | **POST** /api/v1/{tenant}/triggers/backfill/delete | Delete a backfill |
-| [**deleteBackfillByIds**](TriggersApi.md#deleteBackfillByIds) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-triggers | Delete backfill for given triggers |
-| [**deleteBackfillByQuery**](TriggersApi.md#deleteBackfillByQuery) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-query | Delete backfill for given triggers |
-| [**disabledTriggersByIds**](TriggersApi.md#disabledTriggersByIds) | **POST** /api/v1/{tenant}/triggers/set-disabled/by-triggers | Disable/enable given triggers |
-| [**disabledTriggersByQuery**](TriggersApi.md#disabledTriggersByQuery) | **POST** /api/v1/{tenant}/triggers/set-disabled/by-query | Disable/enable triggers by query parameters |
-| [**pauseBackfill**](TriggersApi.md#pauseBackfill) | **PUT** /api/v1/{tenant}/triggers/backfill/pause | Pause a backfill |
-| [**pauseBackfillByIds**](TriggersApi.md#pauseBackfillByIds) | **POST** /api/v1/{tenant}/triggers/backfill/pause/by-triggers | Pause backfill for given triggers |
-| [**pauseBackfillByQuery**](TriggersApi.md#pauseBackfillByQuery) | **POST** /api/v1/{tenant}/triggers/backfill/pause/by-query | Pause backfill for given triggers |
-| [**restartTrigger**](TriggersApi.md#restartTrigger) | **POST** /api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId}/restart | Restart a trigger |
-| [**searchTriggers**](TriggersApi.md#searchTriggers) | **GET** /api/v1/{tenant}/triggers/search | Search for triggers |
-| [**searchTriggersForFlow**](TriggersApi.md#searchTriggersForFlow) | **GET** /api/v1/{tenant}/triggers/{namespace}/{flowId} | Get all triggers for a flow |
-| [**unlockTrigger**](TriggersApi.md#unlockTrigger) | **POST** /api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId}/unlock | Unlock a trigger |
-| [**unlockTriggersByIds**](TriggersApi.md#unlockTriggersByIds) | **POST** /api/v1/{tenant}/triggers/unlock/by-triggers | Unlock given triggers |
-| [**unlockTriggersByQuery**](TriggersApi.md#unlockTriggersByQuery) | **POST** /api/v1/{tenant}/triggers/unlock/by-query | Unlock triggers by query parameters |
-| [**unpauseBackfill**](TriggersApi.md#unpauseBackfill) | **PUT** /api/v1/{tenant}/triggers/backfill/unpause | Unpause a backfill |
-| [**unpauseBackfillByIds**](TriggersApi.md#unpauseBackfillByIds) | **POST** /api/v1/{tenant}/triggers/backfill/unpause/by-triggers | Unpause backfill for given triggers |
-| [**unpauseBackfillByQuery**](TriggersApi.md#unpauseBackfillByQuery) | **POST** /api/v1/{tenant}/triggers/backfill/unpause/by-query | Unpause backfill for given triggers |
-| [**updateTrigger**](TriggersApi.md#updateTrigger) | **PUT** /api/v1/{tenant}/triggers | Update a trigger |
+| [**deleteBackfill**](triggers.md#deleteBackfill) | **POST** /api/v1/{tenant}/triggers/backfill/delete | Delete a backfill |
+| [**deleteBackfillByIds**](triggers.md#deleteBackfillByIds) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-triggers | Delete backfill for given triggers |
+| [**deleteBackfillByQuery**](triggers.md#deleteBackfillByQuery) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-query | Delete backfill for given triggers |
+| [**disabledTriggersByIds**](triggers.md#disabledTriggersByIds) | **POST** /api/v1/{tenant}/triggers/set-disabled/by-triggers | Disable/enable given triggers |
+| [**disabledTriggersByQuery**](triggers.md#disabledTriggersByQuery) | **POST** /api/v1/{tenant}/triggers/set-disabled/by-query | Disable/enable triggers by query parameters |
+| [**pauseBackfill**](triggers.md#pauseBackfill) | **PUT** /api/v1/{tenant}/triggers/backfill/pause | Pause a backfill |
+| [**pauseBackfillByIds**](triggers.md#pauseBackfillByIds) | **POST** /api/v1/{tenant}/triggers/backfill/pause/by-triggers | Pause backfill for given triggers |
+| [**pauseBackfillByQuery**](triggers.md#pauseBackfillByQuery) | **POST** /api/v1/{tenant}/triggers/backfill/pause/by-query | Pause backfill for given triggers |
+| [**restartTrigger**](triggers.md#restartTrigger) | **POST** /api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId}/restart | Restart a trigger |
+| [**searchTriggers**](triggers.md#searchTriggers) | **GET** /api/v1/{tenant}/triggers/search | Search for triggers |
+| [**searchTriggersForFlow**](triggers.md#searchTriggersForFlow) | **GET** /api/v1/{tenant}/triggers/{namespace}/{flowId} | Get all triggers for a flow |
+| [**unlockTrigger**](triggers.md#unlockTrigger) | **POST** /api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId}/unlock | Unlock a trigger |
+| [**unlockTriggersByIds**](triggers.md#unlockTriggersByIds) | **POST** /api/v1/{tenant}/triggers/unlock/by-triggers | Unlock given triggers |
+| [**unlockTriggersByQuery**](triggers.md#unlockTriggersByQuery) | **POST** /api/v1/{tenant}/triggers/unlock/by-query | Unlock triggers by query parameters |
+| [**unpauseBackfill**](triggers.md#unpauseBackfill) | **PUT** /api/v1/{tenant}/triggers/backfill/unpause | Unpause a backfill |
+| [**unpauseBackfillByIds**](triggers.md#unpauseBackfillByIds) | **POST** /api/v1/{tenant}/triggers/backfill/unpause/by-triggers | Unpause backfill for given triggers |
+| [**unpauseBackfillByQuery**](triggers.md#unpauseBackfillByQuery) | **POST** /api/v1/{tenant}/triggers/backfill/unpause/by-query | Unpause backfill for given triggers |
+| [**updateTrigger**](triggers.md#updateTrigger) | **PUT** /api/v1/{tenant}/triggers | Update a trigger |
 
 
 
@@ -40,30 +40,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.TriggersApi;
+import io.kestra.sdk.api.triggers;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        TriggersApi apiInstance = new TriggersApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         Trigger trigger = new Trigger(); // Trigger | 
         try {
-            Trigger result = apiInstance.deleteBackfill(tenant, trigger);
+            Trigger result = kestraClient.triggers().deleteBackfill(tenant, trigger);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling TriggersApi#deleteBackfill");
+            System.err.println("Exception when calling triggers#deleteBackfill");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -116,30 +110,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.TriggersApi;
+import io.kestra.sdk.api.triggers;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        TriggersApi apiInstance = new TriggersApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         List<Trigger> trigger = Arrays.asList(); // List<Trigger> | 
         try {
-            Object result = apiInstance.deleteBackfillByIds(tenant, trigger);
+            Object result = kestraClient.triggers().deleteBackfillByIds(tenant, trigger);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling TriggersApi#deleteBackfillByIds");
+            System.err.println("Exception when calling triggers#deleteBackfillByIds");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -179,7 +167,7 @@ public class Example {
 
 ## deleteBackfillByQuery
 
-> Object deleteBackfillByQuery(tenant, deleteExecutionsByQueryRequest, q, namespace)
+> Object deleteBackfillByQuery(tenant, filters)
 
 Delete backfill for given triggers
 
@@ -192,32 +180,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.TriggersApi;
+import io.kestra.sdk.api.triggers;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        TriggersApi apiInstance = new TriggersApi(defaultClient);
         String tenant = "tenant_example"; // String | 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = new DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
-        String q = "q_example"; // String | A string filter
-        String namespace = "namespace_example"; // String | A namespace filter prefix
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         try {
-            Object result = apiInstance.deleteBackfillByQuery(tenant, deleteExecutionsByQueryRequest, q, namespace);
+            Object result = kestraClient.triggers().deleteBackfillByQuery(tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling TriggersApi#deleteBackfillByQuery");
+            System.err.println("Exception when calling triggers#deleteBackfillByQuery");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -233,9 +213,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | |
-| **q** | **String**| A string filter | [optional] |
-| **namespace** | **String**| A namespace filter prefix | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
 
 ### Return type
 
@@ -247,7 +225,7 @@ public class Example {
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -272,30 +250,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.TriggersApi;
+import io.kestra.sdk.api.triggers;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        TriggersApi apiInstance = new TriggersApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         TriggerControllerSetDisabledRequest triggerControllerSetDisabledRequest = new TriggerControllerSetDisabledRequest(); // TriggerControllerSetDisabledRequest | 
         try {
-            Object result = apiInstance.disabledTriggersByIds(tenant, triggerControllerSetDisabledRequest);
+            Object result = kestraClient.triggers().disabledTriggersByIds(tenant, triggerControllerSetDisabledRequest);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling TriggersApi#disabledTriggersByIds");
+            System.err.println("Exception when calling triggers#disabledTriggersByIds");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -335,7 +307,7 @@ public class Example {
 
 ## disabledTriggersByQuery
 
-> Object disabledTriggersByQuery(disabled, tenant, deleteExecutionsByQueryRequest, q, namespace)
+> Object disabledTriggersByQuery(disabled, tenant, filters)
 
 Disable/enable triggers by query parameters
 
@@ -348,33 +320,25 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.TriggersApi;
+import io.kestra.sdk.api.triggers;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        TriggersApi apiInstance = new TriggersApi(defaultClient);
         Boolean disabled = true; // Boolean | The disabled state
         String tenant = "tenant_example"; // String | 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = new DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
-        String q = "q_example"; // String | A string filter
-        String namespace = "namespace_example"; // String | A namespace filter prefix
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         try {
-            Object result = apiInstance.disabledTriggersByQuery(disabled, tenant, deleteExecutionsByQueryRequest, q, namespace);
+            Object result = kestraClient.triggers().disabledTriggersByQuery(disabled, tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling TriggersApi#disabledTriggersByQuery");
+            System.err.println("Exception when calling triggers#disabledTriggersByQuery");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -391,9 +355,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **disabled** | **Boolean**| The disabled state | [default to true] |
 | **tenant** | **String**|  | |
-| **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | |
-| **q** | **String**| A string filter | [optional] |
-| **namespace** | **String**| A namespace filter prefix | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
 
 ### Return type
 
@@ -405,7 +367,7 @@ public class Example {
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -430,30 +392,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.TriggersApi;
+import io.kestra.sdk.api.triggers;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        TriggersApi apiInstance = new TriggersApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         Trigger trigger = new Trigger(); // Trigger | 
         try {
-            Trigger result = apiInstance.pauseBackfill(tenant, trigger);
+            Trigger result = kestraClient.triggers().pauseBackfill(tenant, trigger);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling TriggersApi#pauseBackfill");
+            System.err.println("Exception when calling triggers#pauseBackfill");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -506,30 +462,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.TriggersApi;
+import io.kestra.sdk.api.triggers;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        TriggersApi apiInstance = new TriggersApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         List<Trigger> trigger = Arrays.asList(); // List<Trigger> | 
         try {
-            Object result = apiInstance.pauseBackfillByIds(tenant, trigger);
+            Object result = kestraClient.triggers().pauseBackfillByIds(tenant, trigger);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling TriggersApi#pauseBackfillByIds");
+            System.err.println("Exception when calling triggers#pauseBackfillByIds");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -569,7 +519,7 @@ public class Example {
 
 ## pauseBackfillByQuery
 
-> Object pauseBackfillByQuery(tenant, deleteExecutionsByQueryRequest, q, namespace)
+> Object pauseBackfillByQuery(tenant, filters)
 
 Pause backfill for given triggers
 
@@ -582,32 +532,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.TriggersApi;
+import io.kestra.sdk.api.triggers;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        TriggersApi apiInstance = new TriggersApi(defaultClient);
         String tenant = "tenant_example"; // String | 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = new DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
-        String q = "q_example"; // String | A string filter
-        String namespace = "namespace_example"; // String | A namespace filter prefix
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         try {
-            Object result = apiInstance.pauseBackfillByQuery(tenant, deleteExecutionsByQueryRequest, q, namespace);
+            Object result = kestraClient.triggers().pauseBackfillByQuery(tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling TriggersApi#pauseBackfillByQuery");
+            System.err.println("Exception when calling triggers#pauseBackfillByQuery");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -623,9 +565,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | |
-| **q** | **String**| A string filter | [optional] |
-| **namespace** | **String**| A namespace filter prefix | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
 
 ### Return type
 
@@ -637,7 +577,7 @@ public class Example {
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -662,32 +602,26 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.TriggersApi;
+import io.kestra.sdk.api.triggers;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        TriggersApi apiInstance = new TriggersApi(defaultClient);
         String namespace = "namespace_example"; // String | The namespace
         String flowId = "flowId_example"; // String | The flow id
         String triggerId = "triggerId_example"; // String | The trigger id
         String tenant = "tenant_example"; // String | 
         try {
-            Object result = apiInstance.restartTrigger(namespace, flowId, triggerId, tenant);
+            Object result = kestraClient.triggers().restartTrigger(namespace, flowId, triggerId, tenant);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling TriggersApi#restartTrigger");
+            System.err.println("Exception when calling triggers#restartTrigger");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -729,7 +663,7 @@ public class Example {
 
 ## searchTriggers
 
-> PagedResultsTriggerControllerTriggers searchTriggers(page, size, tenant, sort, filters, q, namespace, workerId, flowId)
+> PagedResultsTriggerControllerTriggers searchTriggers(page, size, tenant, sort, filters)
 
 Search for triggers
 
@@ -742,37 +676,27 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.TriggersApi;
+import io.kestra.sdk.api.triggers;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        TriggersApi apiInstance = new TriggersApi(defaultClient);
         Integer page = 1; // Integer | The current page
         Integer size = 10; // Integer | The current page size
         String tenant = "tenant_example"; // String | 
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
-        String q = "q_example"; // String | A string filter
-        String namespace = "namespace_example"; // String | A namespace filter prefix
-        String workerId = "workerId_example"; // String | The identifier of the worker currently evaluating the trigger
-        String flowId = "flowId_example"; // String | The flow identifier
         try {
-            PagedResultsTriggerControllerTriggers result = apiInstance.searchTriggers(page, size, tenant, sort, filters, q, namespace, workerId, flowId);
+            PagedResultsTriggerControllerTriggers result = kestraClient.triggers().searchTriggers(page, size, tenant, sort, filters);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling TriggersApi#searchTriggers");
+            System.err.println("Exception when calling triggers#searchTriggers");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -792,10 +716,6 @@ public class Example {
 | **tenant** | **String**|  | |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 | **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
-| **q** | **String**| A string filter | [optional] |
-| **namespace** | **String**| A namespace filter prefix | [optional] |
-| **workerId** | **String**| The identifier of the worker currently evaluating the trigger | [optional] |
-| **flowId** | **String**| The flow identifier | [optional] |
 
 ### Return type
 
@@ -832,23 +752,17 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.TriggersApi;
+import io.kestra.sdk.api.triggers;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        TriggersApi apiInstance = new TriggersApi(defaultClient);
         Integer page = 1; // Integer | The current page
         Integer size = 10; // Integer | The current page size
         String namespace = "namespace_example"; // String | The namespace
@@ -857,10 +771,10 @@ public class Example {
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         String q = "q_example"; // String | A string filter
         try {
-            PagedResultsTrigger result = apiInstance.searchTriggersForFlow(page, size, namespace, flowId, tenant, sort, q);
+            PagedResultsTrigger result = kestraClient.triggers().searchTriggersForFlow(page, size, namespace, flowId, tenant, sort, q);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling TriggersApi#searchTriggersForFlow");
+            System.err.println("Exception when calling triggers#searchTriggersForFlow");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -918,32 +832,26 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.TriggersApi;
+import io.kestra.sdk.api.triggers;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        TriggersApi apiInstance = new TriggersApi(defaultClient);
         String namespace = "namespace_example"; // String | The namespace
         String flowId = "flowId_example"; // String | The flow id
         String triggerId = "triggerId_example"; // String | The trigger id
         String tenant = "tenant_example"; // String | 
         try {
-            Trigger result = apiInstance.unlockTrigger(namespace, flowId, triggerId, tenant);
+            Trigger result = kestraClient.triggers().unlockTrigger(namespace, flowId, triggerId, tenant);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling TriggersApi#unlockTrigger");
+            System.err.println("Exception when calling triggers#unlockTrigger");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -998,30 +906,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.TriggersApi;
+import io.kestra.sdk.api.triggers;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        TriggersApi apiInstance = new TriggersApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         List<Trigger> trigger = Arrays.asList(); // List<Trigger> | 
         try {
-            Object result = apiInstance.unlockTriggersByIds(tenant, trigger);
+            Object result = kestraClient.triggers().unlockTriggersByIds(tenant, trigger);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling TriggersApi#unlockTriggersByIds");
+            System.err.println("Exception when calling triggers#unlockTriggersByIds");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1061,7 +963,7 @@ public class Example {
 
 ## unlockTriggersByQuery
 
-> Object unlockTriggersByQuery(tenant, deleteExecutionsByQueryRequest, q, namespace)
+> Object unlockTriggersByQuery(tenant, filters)
 
 Unlock triggers by query parameters
 
@@ -1074,32 +976,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.TriggersApi;
+import io.kestra.sdk.api.triggers;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        TriggersApi apiInstance = new TriggersApi(defaultClient);
         String tenant = "tenant_example"; // String | 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = new DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
-        String q = "q_example"; // String | A string filter
-        String namespace = "namespace_example"; // String | A namespace filter prefix
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         try {
-            Object result = apiInstance.unlockTriggersByQuery(tenant, deleteExecutionsByQueryRequest, q, namespace);
+            Object result = kestraClient.triggers().unlockTriggersByQuery(tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling TriggersApi#unlockTriggersByQuery");
+            System.err.println("Exception when calling triggers#unlockTriggersByQuery");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1115,9 +1009,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | |
-| **q** | **String**| A string filter | [optional] |
-| **namespace** | **String**| A namespace filter prefix | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
 
 ### Return type
 
@@ -1129,7 +1021,7 @@ public class Example {
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -1154,30 +1046,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.TriggersApi;
+import io.kestra.sdk.api.triggers;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        TriggersApi apiInstance = new TriggersApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         Trigger trigger = new Trigger(); // Trigger | 
         try {
-            Trigger result = apiInstance.unpauseBackfill(tenant, trigger);
+            Trigger result = kestraClient.triggers().unpauseBackfill(tenant, trigger);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling TriggersApi#unpauseBackfill");
+            System.err.println("Exception when calling triggers#unpauseBackfill");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1230,30 +1116,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.TriggersApi;
+import io.kestra.sdk.api.triggers;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        TriggersApi apiInstance = new TriggersApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         List<Trigger> trigger = Arrays.asList(); // List<Trigger> | 
         try {
-            Object result = apiInstance.unpauseBackfillByIds(tenant, trigger);
+            Object result = kestraClient.triggers().unpauseBackfillByIds(tenant, trigger);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling TriggersApi#unpauseBackfillByIds");
+            System.err.println("Exception when calling triggers#unpauseBackfillByIds");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1293,7 +1173,7 @@ public class Example {
 
 ## unpauseBackfillByQuery
 
-> Object unpauseBackfillByQuery(tenant, deleteExecutionsByQueryRequest, q, namespace)
+> Object unpauseBackfillByQuery(tenant, filters)
 
 Unpause backfill for given triggers
 
@@ -1306,32 +1186,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.TriggersApi;
+import io.kestra.sdk.api.triggers;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        TriggersApi apiInstance = new TriggersApi(defaultClient);
         String tenant = "tenant_example"; // String | 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = new DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
-        String q = "q_example"; // String | A string filter
-        String namespace = "namespace_example"; // String | A namespace filter prefix
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         try {
-            Object result = apiInstance.unpauseBackfillByQuery(tenant, deleteExecutionsByQueryRequest, q, namespace);
+            Object result = kestraClient.triggers().unpauseBackfillByQuery(tenant, filters);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling TriggersApi#unpauseBackfillByQuery");
+            System.err.println("Exception when calling triggers#unpauseBackfillByQuery");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1347,9 +1219,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md)|  | |
-| **q** | **String**| A string filter | [optional] |
-| **namespace** | **String**| A namespace filter prefix | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
 
 ### Return type
 
@@ -1361,7 +1231,7 @@ public class Example {
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -1386,30 +1256,24 @@ import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.TriggersApi;
+import io.kestra.sdk.api.triggers;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
+        public static String MAIN_TENANT = "main";
 
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
 
-        TriggersApi apiInstance = new TriggersApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         Trigger trigger = new Trigger(); // Trigger | 
         try {
-            Trigger result = apiInstance.updateTrigger(tenant, trigger);
+            Trigger result = kestraClient.triggers().updateTrigger(tenant, trigger);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling TriggersApi#updateTrigger");
+            System.err.println("Exception when calling triggers#updateTrigger");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());

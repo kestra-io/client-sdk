@@ -17,7 +17,7 @@ import TestSuiteControllerTestSuiteApiId from './TestSuiteControllerTestSuiteApi
 /**
  * The TestSuiteControllerTestSuiteBulkRequest model module.
  * @module model/TestSuiteControllerTestSuiteBulkRequest
- * @version 1.0.0
+ * @version v1.0.5
  */
 class TestSuiteControllerTestSuiteBulkRequest {
     /**

@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Title** | **string** |  | 
-**Icon** | **string** |  | 
-**GroupId** | **string** |  | 
-**ArtifactId** | **string** |  | 
-**Versions** | **[]string** |  | 
+**Title** | Pointer to **string** |  | [optional] 
+**Icon** | Pointer to **string** |  | [optional] 
+**GroupId** | Pointer to **string** |  | [optional] 
+**ArtifactId** | Pointer to **string** |  | [optional] 
+**Versions** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
 ### NewInstanceControllerApiPluginArtifact
 
-`func NewInstanceControllerApiPluginArtifact(title string, icon string, groupId string, artifactId string, versions []string, ) *InstanceControllerApiPluginArtifact`
+`func NewInstanceControllerApiPluginArtifact() *InstanceControllerApiPluginArtifact`
 
 NewInstanceControllerApiPluginArtifact instantiates a new InstanceControllerApiPluginArtifact object
 This constructor will assign default values to properties that have it defined,
@@ -48,6 +48,11 @@ and a boolean to check if the value has been set.
 
 SetTitle sets Title field to given value.
 
+### HasTitle
+
+`func (o *InstanceControllerApiPluginArtifact) HasTitle() bool`
+
+HasTitle returns a boolean if a field has been set.
 
 ### GetIcon
 
@@ -68,6 +73,11 @@ and a boolean to check if the value has been set.
 
 SetIcon sets Icon field to given value.
 
+### HasIcon
+
+`func (o *InstanceControllerApiPluginArtifact) HasIcon() bool`
+
+HasIcon returns a boolean if a field has been set.
 
 ### GetGroupId
 
@@ -88,6 +98,11 @@ and a boolean to check if the value has been set.
 
 SetGroupId sets GroupId field to given value.
 
+### HasGroupId
+
+`func (o *InstanceControllerApiPluginArtifact) HasGroupId() bool`
+
+HasGroupId returns a boolean if a field has been set.
 
 ### GetArtifactId
 
@@ -108,6 +123,11 @@ and a boolean to check if the value has been set.
 
 SetArtifactId sets ArtifactId field to given value.
 
+### HasArtifactId
+
+`func (o *InstanceControllerApiPluginArtifact) HasArtifactId() bool`
+
+HasArtifactId returns a boolean if a field has been set.
 
 ### GetVersions
 
@@ -128,6 +148,11 @@ and a boolean to check if the value has been set.
 
 SetVersions sets Versions field to given value.
 
+### HasVersions
+
+`func (o *InstanceControllerApiPluginArtifact) HasVersions() bool`
+
+HasVersions returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

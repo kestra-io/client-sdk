@@ -17,7 +17,7 @@ import Flow from './Flow';
 /**
  * The PagedResultsFlow model module.
  * @module model/PagedResultsFlow
- * @version 1.0.0
+ * @version v1.0.5
  */
 class PagedResultsFlow {
     /**

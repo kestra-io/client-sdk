@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the AppsControllerApiBulkImportResponseError type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &AppsControllerApiBulkImportResponseError{}
 
 // AppsControllerApiBulkImportResponseError struct for AppsControllerApiBulkImportResponseError
 type AppsControllerApiBulkImportResponseError struct {
-	Source               string `json:"source"`
-	Message              string `json:"message"`
+	Source               *string `json:"source,omitempty"`
+	Message              *string `json:"message,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,10 +30,8 @@ type _AppsControllerApiBulkImportResponseError AppsControllerApiBulkImportRespon
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAppsControllerApiBulkImportResponseError(source string, message string) *AppsControllerApiBulkImportResponseError {
+func NewAppsControllerApiBulkImportResponseError() *AppsControllerApiBulkImportResponseError {
 	this := AppsControllerApiBulkImportResponseError{}
-	this.Source = source
-	this.Message = message
 	return &this
 }
 
@@ -46,52 +43,68 @@ func NewAppsControllerApiBulkImportResponseErrorWithDefaults() *AppsControllerAp
 	return &this
 }
 
-// GetSource returns the Source field value
+// GetSource returns the Source field value if set, zero value otherwise.
 func (o *AppsControllerApiBulkImportResponseError) GetSource() string {
-	if o == nil {
+	if o == nil || IsNil(o.Source) {
 		var ret string
 		return ret
 	}
-
-	return o.Source
+	return *o.Source
 }
 
-// GetSourceOk returns a tuple with the Source field value
+// GetSourceOk returns a tuple with the Source field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppsControllerApiBulkImportResponseError) GetSourceOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Source) {
 		return nil, false
 	}
-	return &o.Source, true
+	return o.Source, true
 }
 
-// SetSource sets field value
+// HasSource returns a boolean if a field has been set.
+func (o *AppsControllerApiBulkImportResponseError) HasSource() bool {
+	if o != nil && !IsNil(o.Source) {
+		return true
+	}
+
+	return false
+}
+
+// SetSource gets a reference to the given string and assigns it to the Source field.
 func (o *AppsControllerApiBulkImportResponseError) SetSource(v string) {
-	o.Source = v
+	o.Source = &v
 }
 
-// GetMessage returns the Message field value
+// GetMessage returns the Message field value if set, zero value otherwise.
 func (o *AppsControllerApiBulkImportResponseError) GetMessage() string {
-	if o == nil {
+	if o == nil || IsNil(o.Message) {
 		var ret string
 		return ret
 	}
-
-	return o.Message
+	return *o.Message
 }
 
-// GetMessageOk returns a tuple with the Message field value
+// GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppsControllerApiBulkImportResponseError) GetMessageOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
-	return &o.Message, true
+	return o.Message, true
 }
 
-// SetMessage sets field value
+// HasMessage returns a boolean if a field has been set.
+func (o *AppsControllerApiBulkImportResponseError) HasMessage() bool {
+	if o != nil && !IsNil(o.Message) {
+		return true
+	}
+
+	return false
+}
+
+// SetMessage gets a reference to the given string and assigns it to the Message field.
 func (o *AppsControllerApiBulkImportResponseError) SetMessage(v string) {
-	o.Message = v
+	o.Message = &v
 }
 
 func (o AppsControllerApiBulkImportResponseError) MarshalJSON() ([]byte, error) {
@@ -104,8 +117,12 @@ func (o AppsControllerApiBulkImportResponseError) MarshalJSON() ([]byte, error) 
 
 func (o AppsControllerApiBulkImportResponseError) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["source"] = o.Source
-	toSerialize["message"] = o.Message
+	if !IsNil(o.Source) {
+		toSerialize["source"] = o.Source
+	}
+	if !IsNil(o.Message) {
+		toSerialize["message"] = o.Message
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -115,28 +132,6 @@ func (o AppsControllerApiBulkImportResponseError) ToMap() (map[string]interface{
 }
 
 func (o *AppsControllerApiBulkImportResponseError) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"source",
-		"message",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varAppsControllerApiBulkImportResponseError := _AppsControllerApiBulkImportResponseError{}
 
 	err = json.Unmarshal(data, &varAppsControllerApiBulkImportResponseError)

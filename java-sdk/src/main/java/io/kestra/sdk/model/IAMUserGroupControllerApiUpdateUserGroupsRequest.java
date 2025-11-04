@@ -33,16 +33,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMUserGroupControllerApiUpdateUserGroupsRequest.JSON_PROPERTY_GROUP_IDS
 })
 @JsonTypeName("IAMUserGroupController.ApiUpdateUserGroupsRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMUserGroupControllerApiUpdateUserGroupsRequest {
   public static final String JSON_PROPERTY_GROUP_IDS = "groupIds";
-  @javax.annotation.Nonnull
-  private List<String> groupIds = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> groupIds = new ArrayList<>();
 
   public IAMUserGroupControllerApiUpdateUserGroupsRequest() {
   }
 
-  public IAMUserGroupControllerApiUpdateUserGroupsRequest groupIds(@javax.annotation.Nonnull List<String> groupIds) {
+  public IAMUserGroupControllerApiUpdateUserGroupsRequest groupIds(@jakarta.annotation.Nullable List<String> groupIds) {
     
     this.groupIds = groupIds;
     return this;
@@ -60,9 +59,8 @@ public class IAMUserGroupControllerApiUpdateUserGroupsRequest {
    * Get groupIds
    * @return groupIds
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_GROUP_IDS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_GROUP_IDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getGroupIds() {
     return groupIds;
@@ -70,8 +68,8 @@ public class IAMUserGroupControllerApiUpdateUserGroupsRequest {
 
 
   @JsonProperty(JSON_PROPERTY_GROUP_IDS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setGroupIds(@javax.annotation.Nonnull List<String> groupIds) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGroupIds(@jakarta.annotation.Nullable List<String> groupIds) {
     this.groupIds = groupIds;
   }
 

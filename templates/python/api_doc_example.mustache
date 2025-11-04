@@ -1,18 +1,15 @@
 
 ```python
-import {{{packageName}}}
-{{#vendorExtensions.x-py-example-import}}
-{{{.}}}
-{{/vendorExtensions.x-py-example-import}}
-from {{{packageName}}}.rest import ApiException
-from pprint import pprint
+from kestrapy import KestraClient, Configuration
 
-{{> python_doc_auth_partial}}
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
 
 # Enter a context with an instance of the API client
-{{#async}}async {{/async}}with {{{packageName}}}.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = {{{packageName}}}.{{{classname}}}(api_client)
+{{#async}}async {{/async}}with KestraClient(configuration) as kestra_client:
     {{#allParams}}
     {{paramName}} = {{{example}}} # {{{dataType}}} | {{{description}}}{{^required}} (optional){{/required}}{{#defaultValue}} (default to {{{.}}}){{/defaultValue}}
     {{/allParams}}
@@ -21,7 +18,7 @@ from pprint import pprint
         {{#summary}}
         # {{{.}}}
         {{/summary}}
-        {{#returnType}}api_response = {{/returnType}}{{#async}}await {{/async}}api_instance.{{{operationId}}}({{#allParams}}{{#required}}{{paramName}}{{/required}}{{^required}}{{paramName}}={{paramName}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}})
+        {{#returnType}}api_response = {{/returnType}}{{#async}}await {{/async}}kestra_client.{{classname}}.{{{operationId}}}({{#allParams}}{{#required}}{{paramName}}{{/required}}{{^required}}{{paramName}}={{paramName}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}})
         {{#returnType}}
         print("The response of {{classname}}->{{operationId}}:\n")
         pprint(api_response)

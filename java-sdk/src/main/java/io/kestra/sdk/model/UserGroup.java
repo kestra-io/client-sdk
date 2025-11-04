@@ -33,28 +33,24 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   UserGroup.JSON_PROPERTY_DISPLAY,
   UserGroup.JSON_PROPERTY_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class UserGroup {
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nullable
-  private String value;
+  @jakarta.annotation.Nullable  private String value;
 
   public static final String JSON_PROPERTY_REF = "ref";
-  @javax.annotation.Nullable
-  private String ref;
+  @jakarta.annotation.Nullable  private String ref;
 
   public static final String JSON_PROPERTY_DISPLAY = "display";
-  @javax.annotation.Nullable
-  private String display;
+  @jakarta.annotation.Nullable  private String display;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nullable
-  private UserGroupType type;
+  @jakarta.annotation.Nullable  private UserGroupType type;
 
   public UserGroup() {
   }
 
-  public UserGroup value(@javax.annotation.Nullable String value) {
+  public UserGroup value(@jakarta.annotation.Nullable String value) {
     
     this.value = value;
     return this;
@@ -64,8 +60,7 @@ public class UserGroup {
    * Get value
    * @return value
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_VALUE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getValue() {
@@ -75,11 +70,11 @@ public class UserGroup {
 
   @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setValue(@javax.annotation.Nullable String value) {
+  public void setValue(@jakarta.annotation.Nullable String value) {
     this.value = value;
   }
 
-  public UserGroup ref(@javax.annotation.Nullable String ref) {
+  public UserGroup ref(@jakarta.annotation.Nullable String ref) {
     
     this.ref = ref;
     return this;
@@ -89,8 +84,7 @@ public class UserGroup {
    * Get ref
    * @return ref
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_REF)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_REF)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getRef() {
@@ -100,11 +94,11 @@ public class UserGroup {
 
   @JsonProperty(JSON_PROPERTY_REF)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRef(@javax.annotation.Nullable String ref) {
+  public void setRef(@jakarta.annotation.Nullable String ref) {
     this.ref = ref;
   }
 
-  public UserGroup display(@javax.annotation.Nullable String display) {
+  public UserGroup display(@jakarta.annotation.Nullable String display) {
     
     this.display = display;
     return this;
@@ -114,8 +108,7 @@ public class UserGroup {
    * Get display
    * @return display
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DISPLAY)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISPLAY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDisplay() {
@@ -125,11 +118,11 @@ public class UserGroup {
 
   @JsonProperty(JSON_PROPERTY_DISPLAY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDisplay(@javax.annotation.Nullable String display) {
+  public void setDisplay(@jakarta.annotation.Nullable String display) {
     this.display = display;
   }
 
-  public UserGroup type(@javax.annotation.Nullable UserGroupType type) {
+  public UserGroup type(@jakarta.annotation.Nullable UserGroupType type) {
     
     this.type = type;
     return this;
@@ -139,8 +132,7 @@ public class UserGroup {
    * Get type
    * @return type
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public UserGroupType getType() {
@@ -150,7 +142,7 @@ public class UserGroup {
 
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setType(@javax.annotation.Nullable UserGroupType type) {
+  public void setType(@jakarta.annotation.Nullable UserGroupType type) {
     this.type = type;
   }
 

@@ -36,28 +36,24 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   UsernamePasswordCredentials.JSON_PROPERTY_IDENTITY,
   UsernamePasswordCredentials.JSON_PROPERTY_SECRET
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class UsernamePasswordCredentials {
   public static final String JSON_PROPERTY_USERNAME = "username";
-  @javax.annotation.Nonnull
-  private String username;
+  @jakarta.annotation.Nonnull  private String username;
 
   public static final String JSON_PROPERTY_PASSWORD = "password";
-  @javax.annotation.Nonnull
-  private String password;
+  @jakarta.annotation.Nonnull  private String password;
 
   public static final String JSON_PROPERTY_IDENTITY = "identity";
-  @javax.annotation.Nullable
-  private JsonNullable<String> identity = JsonNullable.<String>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<String> identity = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_SECRET = "secret";
-  @javax.annotation.Nullable
-  private JsonNullable<String> secret = JsonNullable.<String>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<String> secret = JsonNullable.<String>undefined();
 
   public UsernamePasswordCredentials() {
   }
 
-  public UsernamePasswordCredentials username(@javax.annotation.Nonnull String username) {
+  public UsernamePasswordCredentials username(@jakarta.annotation.Nonnull String username) {
     
     this.username = username;
     return this;
@@ -67,8 +63,7 @@ public class UsernamePasswordCredentials {
    * Get username
    * @return username
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_USERNAME)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_USERNAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getUsername() {
@@ -78,11 +73,11 @@ public class UsernamePasswordCredentials {
 
   @JsonProperty(JSON_PROPERTY_USERNAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setUsername(@javax.annotation.Nonnull String username) {
+  public void setUsername(@jakarta.annotation.Nonnull String username) {
     this.username = username;
   }
 
-  public UsernamePasswordCredentials password(@javax.annotation.Nonnull String password) {
+  public UsernamePasswordCredentials password(@jakarta.annotation.Nonnull String password) {
     
     this.password = password;
     return this;
@@ -92,8 +87,7 @@ public class UsernamePasswordCredentials {
    * Get password
    * @return password
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_PASSWORD)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getPassword() {
@@ -103,11 +97,11 @@ public class UsernamePasswordCredentials {
 
   @JsonProperty(JSON_PROPERTY_PASSWORD)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPassword(@javax.annotation.Nonnull String password) {
+  public void setPassword(@jakarta.annotation.Nonnull String password) {
     this.password = password;
   }
 
-  public UsernamePasswordCredentials identity(@javax.annotation.Nullable String identity) {
+  public UsernamePasswordCredentials identity(@jakarta.annotation.Nullable String identity) {
     this.identity = JsonNullable.<String>of(identity);
     
     return this;
@@ -117,8 +111,7 @@ public class UsernamePasswordCredentials {
    * Get identity
    * @return identity
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public String getIdentity() {
         return identity.orElse(null);
@@ -126,7 +119,6 @@ public class UsernamePasswordCredentials {
 
   @JsonProperty(JSON_PROPERTY_IDENTITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<String> getIdentity_JsonNullable() {
     return identity;
   }
@@ -136,11 +128,11 @@ public class UsernamePasswordCredentials {
     this.identity = identity;
   }
 
-  public void setIdentity(@javax.annotation.Nullable String identity) {
+  public void setIdentity(@jakarta.annotation.Nullable String identity) {
     this.identity = JsonNullable.<String>of(identity);
   }
 
-  public UsernamePasswordCredentials secret(@javax.annotation.Nullable String secret) {
+  public UsernamePasswordCredentials secret(@jakarta.annotation.Nullable String secret) {
     this.secret = JsonNullable.<String>of(secret);
     
     return this;
@@ -150,8 +142,7 @@ public class UsernamePasswordCredentials {
    * Get secret
    * @return secret
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public String getSecret() {
         return secret.orElse(null);
@@ -159,7 +150,6 @@ public class UsernamePasswordCredentials {
 
   @JsonProperty(JSON_PROPERTY_SECRET)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<String> getSecret_JsonNullable() {
     return secret;
   }
@@ -169,7 +159,7 @@ public class UsernamePasswordCredentials {
     this.secret = secret;
   }
 
-  public void setSecret(@javax.annotation.Nullable String secret) {
+  public void setSecret(@jakarta.annotation.Nullable String secret) {
     this.secret = JsonNullable.<String>of(secret);
   }
 

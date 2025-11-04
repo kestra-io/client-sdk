@@ -47,48 +47,39 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TriggerContext.JSON_PROPERTY_BACKFILL,
   TriggerContext.JSON_PROPERTY_STOP_AFTER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TriggerContext {
   public static final String JSON_PROPERTY_DISABLED = "disabled";
-  @javax.annotation.Nullable
-  private Boolean disabled;
+  @jakarta.annotation.Nullable  private Boolean disabled = false;
 
   public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
-  @javax.annotation.Nullable
-  private String tenantId;
+  @jakarta.annotation.Nullable  private String tenantId;
 
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nonnull
-  private String namespace;
+  @jakarta.annotation.Nonnull  private String namespace;
 
   public static final String JSON_PROPERTY_FLOW_ID = "flowId";
-  @javax.annotation.Nonnull
-  private String flowId;
+  @jakarta.annotation.Nonnull  private String flowId;
 
   public static final String JSON_PROPERTY_TRIGGER_ID = "triggerId";
-  @javax.annotation.Nonnull
-  private String triggerId;
+  @jakarta.annotation.Nonnull  private String triggerId;
 
   public static final String JSON_PROPERTY_DATE = "date";
-  @javax.annotation.Nonnull
-  private OffsetDateTime date;
+  @jakarta.annotation.Nonnull  private OffsetDateTime date;
 
   public static final String JSON_PROPERTY_NEXT_EXECUTION_DATE = "nextExecutionDate";
-  @javax.annotation.Nullable
-  private JsonNullable<OffsetDateTime> nextExecutionDate = JsonNullable.<OffsetDateTime>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<OffsetDateTime> nextExecutionDate = JsonNullable.<OffsetDateTime>undefined();
 
   public static final String JSON_PROPERTY_BACKFILL = "backfill";
-  @javax.annotation.Nullable
-  private JsonNullable<Backfill> backfill = JsonNullable.<Backfill>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<Backfill> backfill = JsonNullable.<Backfill>undefined();
 
   public static final String JSON_PROPERTY_STOP_AFTER = "stopAfter";
-  @javax.annotation.Nullable
-  private JsonNullable<List<StateType>> stopAfter = JsonNullable.<List<StateType>>undefined();
+  @jakarta.annotation.Nullable  private JsonNullable<List<StateType>> stopAfter = JsonNullable.<List<StateType>>undefined();
 
   public TriggerContext() {
   }
 
-  public TriggerContext disabled(@javax.annotation.Nullable Boolean disabled) {
+  public TriggerContext disabled(@jakarta.annotation.Nullable Boolean disabled) {
     
     this.disabled = disabled;
     return this;
@@ -98,8 +89,7 @@ public class TriggerContext {
    * Get disabled
    * @return disabled
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DISABLED)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getDisabled() {
@@ -109,11 +99,11 @@ public class TriggerContext {
 
   @JsonProperty(JSON_PROPERTY_DISABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDisabled(@javax.annotation.Nullable Boolean disabled) {
+  public void setDisabled(@jakarta.annotation.Nullable Boolean disabled) {
     this.disabled = disabled;
   }
 
-  public TriggerContext tenantId(@javax.annotation.Nullable String tenantId) {
+  public TriggerContext tenantId(@jakarta.annotation.Nullable String tenantId) {
     
     this.tenantId = tenantId;
     return this;
@@ -123,8 +113,7 @@ public class TriggerContext {
    * Get tenantId
    * @return tenantId
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TENANT_ID)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TENANT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTenantId() {
@@ -134,11 +123,11 @@ public class TriggerContext {
 
   @JsonProperty(JSON_PROPERTY_TENANT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTenantId(@javax.annotation.Nullable String tenantId) {
+  public void setTenantId(@jakarta.annotation.Nullable String tenantId) {
     this.tenantId = tenantId;
   }
 
-  public TriggerContext namespace(@javax.annotation.Nonnull String namespace) {
+  public TriggerContext namespace(@jakarta.annotation.Nonnull String namespace) {
     
     this.namespace = namespace;
     return this;
@@ -148,8 +137,7 @@ public class TriggerContext {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getNamespace() {
@@ -159,11 +147,11 @@ public class TriggerContext {
 
   @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setNamespace(@javax.annotation.Nonnull String namespace) {
+  public void setNamespace(@jakarta.annotation.Nonnull String namespace) {
     this.namespace = namespace;
   }
 
-  public TriggerContext flowId(@javax.annotation.Nonnull String flowId) {
+  public TriggerContext flowId(@jakarta.annotation.Nonnull String flowId) {
     
     this.flowId = flowId;
     return this;
@@ -173,8 +161,7 @@ public class TriggerContext {
    * Get flowId
    * @return flowId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_FLOW_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getFlowId() {
@@ -184,11 +171,11 @@ public class TriggerContext {
 
   @JsonProperty(JSON_PROPERTY_FLOW_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFlowId(@javax.annotation.Nonnull String flowId) {
+  public void setFlowId(@jakarta.annotation.Nonnull String flowId) {
     this.flowId = flowId;
   }
 
-  public TriggerContext triggerId(@javax.annotation.Nonnull String triggerId) {
+  public TriggerContext triggerId(@jakarta.annotation.Nonnull String triggerId) {
     
     this.triggerId = triggerId;
     return this;
@@ -198,8 +185,7 @@ public class TriggerContext {
    * Get triggerId
    * @return triggerId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TRIGGER_ID)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TRIGGER_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getTriggerId() {
@@ -209,11 +195,11 @@ public class TriggerContext {
 
   @JsonProperty(JSON_PROPERTY_TRIGGER_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTriggerId(@javax.annotation.Nonnull String triggerId) {
+  public void setTriggerId(@jakarta.annotation.Nonnull String triggerId) {
     this.triggerId = triggerId;
   }
 
-  public TriggerContext date(@javax.annotation.Nonnull OffsetDateTime date) {
+  public TriggerContext date(@jakarta.annotation.Nonnull OffsetDateTime date) {
     
     this.date = date;
     return this;
@@ -223,8 +209,7 @@ public class TriggerContext {
    * Get date
    * @return date
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DATE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_DATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public OffsetDateTime getDate() {
@@ -234,11 +219,11 @@ public class TriggerContext {
 
   @JsonProperty(JSON_PROPERTY_DATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDate(@javax.annotation.Nonnull OffsetDateTime date) {
+  public void setDate(@jakarta.annotation.Nonnull OffsetDateTime date) {
     this.date = date;
   }
 
-  public TriggerContext nextExecutionDate(@javax.annotation.Nullable OffsetDateTime nextExecutionDate) {
+  public TriggerContext nextExecutionDate(@jakarta.annotation.Nullable OffsetDateTime nextExecutionDate) {
     this.nextExecutionDate = JsonNullable.<OffsetDateTime>of(nextExecutionDate);
     
     return this;
@@ -248,8 +233,7 @@ public class TriggerContext {
    * Get nextExecutionDate
    * @return nextExecutionDate
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public OffsetDateTime getNextExecutionDate() {
         return nextExecutionDate.orElse(null);
@@ -257,7 +241,6 @@ public class TriggerContext {
 
   @JsonProperty(JSON_PROPERTY_NEXT_EXECUTION_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<OffsetDateTime> getNextExecutionDate_JsonNullable() {
     return nextExecutionDate;
   }
@@ -267,11 +250,11 @@ public class TriggerContext {
     this.nextExecutionDate = nextExecutionDate;
   }
 
-  public void setNextExecutionDate(@javax.annotation.Nullable OffsetDateTime nextExecutionDate) {
+  public void setNextExecutionDate(@jakarta.annotation.Nullable OffsetDateTime nextExecutionDate) {
     this.nextExecutionDate = JsonNullable.<OffsetDateTime>of(nextExecutionDate);
   }
 
-  public TriggerContext backfill(@javax.annotation.Nullable Backfill backfill) {
+  public TriggerContext backfill(@jakarta.annotation.Nullable Backfill backfill) {
     this.backfill = JsonNullable.<Backfill>of(backfill);
     
     return this;
@@ -281,8 +264,7 @@ public class TriggerContext {
    * Get backfill
    * @return backfill
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public Backfill getBackfill() {
         return backfill.orElse(null);
@@ -290,7 +272,6 @@ public class TriggerContext {
 
   @JsonProperty(JSON_PROPERTY_BACKFILL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<Backfill> getBackfill_JsonNullable() {
     return backfill;
   }
@@ -300,11 +281,11 @@ public class TriggerContext {
     this.backfill = backfill;
   }
 
-  public void setBackfill(@javax.annotation.Nullable Backfill backfill) {
+  public void setBackfill(@jakarta.annotation.Nullable Backfill backfill) {
     this.backfill = JsonNullable.<Backfill>of(backfill);
   }
 
-  public TriggerContext stopAfter(@javax.annotation.Nullable List<StateType> stopAfter) {
+  public TriggerContext stopAfter(@jakarta.annotation.Nullable List<StateType> stopAfter) {
     this.stopAfter = JsonNullable.<List<StateType>>of(stopAfter);
     
     return this;
@@ -326,8 +307,7 @@ public class TriggerContext {
    * Get stopAfter
    * @return stopAfter
    */
-  @javax.annotation.Nullable
-  @JsonIgnore
+  @jakarta.annotation.Nullable  @JsonIgnore
 
   public List<StateType> getStopAfter() {
         return stopAfter.orElse(null);
@@ -335,7 +315,6 @@ public class TriggerContext {
 
   @JsonProperty(JSON_PROPERTY_STOP_AFTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
   public JsonNullable<List<StateType>> getStopAfter_JsonNullable() {
     return stopAfter;
   }
@@ -345,7 +324,7 @@ public class TriggerContext {
     this.stopAfter = stopAfter;
   }
 
-  public void setStopAfter(@javax.annotation.Nullable List<StateType> stopAfter) {
+  public void setStopAfter(@jakarta.annotation.Nullable List<StateType> stopAfter) {
     this.stopAfter = JsonNullable.<List<StateType>>of(stopAfter);
   }
 

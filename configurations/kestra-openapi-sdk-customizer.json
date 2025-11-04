@@ -1,0 +1,18 @@
+{
+  "removeDeprecatedParameters": true,
+  "removeDeprecatedOperations": true,
+  "operationIdsToSkip": [
+    "triggerExecutionByPostWebhook",
+    "validateNewExecutionInputs",
+    "validateResumeExecutionInputs",
+    "triggerExecutionByPutWebhook",
+    "triggerExecution",
+    "searchTaskRun",
+    "resumeExecutionFromBreakpoint",
+    "previewFileFromExecution",
+    "listFlowExecutionsByNamespace",
+    "listExecutableDistinctNamespaces",
+    "evalTaskRunExpression",
+    "updateTaskRunState"
+  ]
+}

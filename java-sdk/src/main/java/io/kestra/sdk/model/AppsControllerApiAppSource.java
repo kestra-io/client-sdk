@@ -41,44 +41,36 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AppsControllerApiAppSource.JSON_PROPERTY_UPDATED
 })
 @JsonTypeName("AppsController.ApiAppSource")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AppsControllerApiAppSource {
   public static final String JSON_PROPERTY_UID = "uid";
-  @javax.annotation.Nonnull
-  private String uid;
+  @jakarta.annotation.Nullable  private String uid;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nonnull
-  private String name;
+  @jakarta.annotation.Nullable  private String name;
 
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nonnull
-  private String namespace;
+  @jakarta.annotation.Nullable  private String namespace;
 
   public static final String JSON_PROPERTY_TAGS = "tags";
-  @javax.annotation.Nonnull
-  private List<String> tags = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> tags = new ArrayList<>();
 
   public static final String JSON_PROPERTY_DISABLED = "disabled";
-  @javax.annotation.Nonnull
-  private Boolean disabled;
+  @jakarta.annotation.Nullable  private Boolean disabled;
 
   public static final String JSON_PROPERTY_SOURCE = "source";
-  @javax.annotation.Nonnull
-  private String source;
+  @jakarta.annotation.Nullable  private String source;
 
   public static final String JSON_PROPERTY_CREATED = "created";
-  @javax.annotation.Nonnull
-  private OffsetDateTime created;
+  @jakarta.annotation.Nullable  private OffsetDateTime created;
 
   public static final String JSON_PROPERTY_UPDATED = "updated";
-  @javax.annotation.Nonnull
-  private OffsetDateTime updated;
+  @jakarta.annotation.Nullable  private OffsetDateTime updated;
 
   public AppsControllerApiAppSource() {
   }
 
-  public AppsControllerApiAppSource uid(@javax.annotation.Nonnull String uid) {
+  public AppsControllerApiAppSource uid(@jakarta.annotation.Nullable String uid) {
     
     this.uid = uid;
     return this;
@@ -88,9 +80,8 @@ public class AppsControllerApiAppSource {
    * Get uid
    * @return uid
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_UID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUid() {
     return uid;
@@ -98,12 +89,12 @@ public class AppsControllerApiAppSource {
 
 
   @JsonProperty(JSON_PROPERTY_UID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setUid(@javax.annotation.Nonnull String uid) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUid(@jakarta.annotation.Nullable String uid) {
     this.uid = uid;
   }
 
-  public AppsControllerApiAppSource name(@javax.annotation.Nonnull String name) {
+  public AppsControllerApiAppSource name(@jakarta.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -113,9 +104,8 @@ public class AppsControllerApiAppSource {
    * Get name
    * @return name
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
     return name;
@@ -123,12 +113,12 @@ public class AppsControllerApiAppSource {
 
 
   @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setName(@javax.annotation.Nonnull String name) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(@jakarta.annotation.Nullable String name) {
     this.name = name;
   }
 
-  public AppsControllerApiAppSource namespace(@javax.annotation.Nonnull String namespace) {
+  public AppsControllerApiAppSource namespace(@jakarta.annotation.Nullable String namespace) {
     
     this.namespace = namespace;
     return this;
@@ -138,9 +128,8 @@ public class AppsControllerApiAppSource {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getNamespace() {
     return namespace;
@@ -148,12 +137,12 @@ public class AppsControllerApiAppSource {
 
 
   @JsonProperty(JSON_PROPERTY_NAMESPACE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setNamespace(@javax.annotation.Nonnull String namespace) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNamespace(@jakarta.annotation.Nullable String namespace) {
     this.namespace = namespace;
   }
 
-  public AppsControllerApiAppSource tags(@javax.annotation.Nonnull List<String> tags) {
+  public AppsControllerApiAppSource tags(@jakarta.annotation.Nullable List<String> tags) {
     
     this.tags = tags;
     return this;
@@ -171,9 +160,8 @@ public class AppsControllerApiAppSource {
    * Get tags
    * @return tags
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TAGS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TAGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getTags() {
     return tags;
@@ -181,12 +169,12 @@ public class AppsControllerApiAppSource {
 
 
   @JsonProperty(JSON_PROPERTY_TAGS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTags(@javax.annotation.Nonnull List<String> tags) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTags(@jakarta.annotation.Nullable List<String> tags) {
     this.tags = tags;
   }
 
-  public AppsControllerApiAppSource disabled(@javax.annotation.Nonnull Boolean disabled) {
+  public AppsControllerApiAppSource disabled(@jakarta.annotation.Nullable Boolean disabled) {
     
     this.disabled = disabled;
     return this;
@@ -196,9 +184,8 @@ public class AppsControllerApiAppSource {
    * Get disabled
    * @return disabled
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DISABLED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DISABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getDisabled() {
     return disabled;
@@ -206,12 +193,12 @@ public class AppsControllerApiAppSource {
 
 
   @JsonProperty(JSON_PROPERTY_DISABLED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDisabled(@javax.annotation.Nonnull Boolean disabled) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDisabled(@jakarta.annotation.Nullable Boolean disabled) {
     this.disabled = disabled;
   }
 
-  public AppsControllerApiAppSource source(@javax.annotation.Nonnull String source) {
+  public AppsControllerApiAppSource source(@jakarta.annotation.Nullable String source) {
     
     this.source = source;
     return this;
@@ -221,9 +208,8 @@ public class AppsControllerApiAppSource {
    * Get source
    * @return source
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_SOURCE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SOURCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSource() {
     return source;
@@ -231,12 +217,12 @@ public class AppsControllerApiAppSource {
 
 
   @JsonProperty(JSON_PROPERTY_SOURCE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setSource(@javax.annotation.Nonnull String source) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSource(@jakarta.annotation.Nullable String source) {
     this.source = source;
   }
 
-  public AppsControllerApiAppSource created(@javax.annotation.Nonnull OffsetDateTime created) {
+  public AppsControllerApiAppSource created(@jakarta.annotation.Nullable OffsetDateTime created) {
     
     this.created = created;
     return this;
@@ -246,9 +232,8 @@ public class AppsControllerApiAppSource {
    * Get created
    * @return created
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_CREATED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CREATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getCreated() {
     return created;
@@ -256,12 +241,12 @@ public class AppsControllerApiAppSource {
 
 
   @JsonProperty(JSON_PROPERTY_CREATED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setCreated(@javax.annotation.Nonnull OffsetDateTime created) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCreated(@jakarta.annotation.Nullable OffsetDateTime created) {
     this.created = created;
   }
 
-  public AppsControllerApiAppSource updated(@javax.annotation.Nonnull OffsetDateTime updated) {
+  public AppsControllerApiAppSource updated(@jakarta.annotation.Nullable OffsetDateTime updated) {
     
     this.updated = updated;
     return this;
@@ -271,9 +256,8 @@ public class AppsControllerApiAppSource {
    * Get updated
    * @return updated
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_UPDATED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_UPDATED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getUpdated() {
     return updated;
@@ -281,8 +265,8 @@ public class AppsControllerApiAppSource {
 
 
   @JsonProperty(JSON_PROPERTY_UPDATED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setUpdated(@javax.annotation.Nonnull OffsetDateTime updated) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUpdated(@jakarta.annotation.Nullable OffsetDateTime updated) {
     this.updated = updated;
   }
 

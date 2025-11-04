@@ -12,14 +12,14 @@
  */
 
 import ApiClient from '../ApiClient';
-import FlowWithSourceAllOfLabels from './FlowWithSourceAllOfLabels';
 import SLABehavior from './SLABehavior';
+import SLALabels from './SLALabels';
 import SLAType from './SLAType';
 
 /**
  * The SLA model module.
  * @module model/SLA
- * @version 1.0.0
+ * @version v1.0.5
  */
 class SLA {
     /**
@@ -66,7 +66,7 @@ class SLA {
                 obj['behavior'] = SLABehavior.constructFromObject(data['behavior']);
             }
             if (data.hasOwnProperty('labels')) {
-                obj['labels'] = FlowWithSourceAllOfLabels.constructFromObject(data['labels']);
+                obj['labels'] = SLALabels.constructFromObject(data['labels']);
             }
         }
         return obj;
@@ -90,7 +90,7 @@ class SLA {
         }
         // validate the optional field `labels`
         if (data['labels']) { // data not null
-          FlowWithSourceAllOfLabels.validateJSON(data['labels']);
+          SLALabels.validateJSON(data['labels']);
         }
 
         return true;
@@ -117,7 +117,7 @@ SLA.prototype['type'] = undefined;
 SLA.prototype['behavior'] = undefined;
 
 /**
- * @member {module:model/FlowWithSourceAllOfLabels} labels
+ * @member {module:model/SLALabels} labels
  */
 SLA.prototype['labels'] = undefined;
 

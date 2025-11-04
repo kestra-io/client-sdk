@@ -13,6 +13,9 @@ repositories {
 dependencies {
     implementation 'io.kestra:kestra-api-client:local-ci-version'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+    testImplementation("org.assertj:assertj-core:3.27.6")
+    testImplementation("org.awaitility:awaitility:4.3.0")
+    testImplementation("com.fasterxml.jackson.core:jackson-databind:2.20.0")
 
     // Logging API and runtime binding
     implementation 'org.slf4j:slf4j-api:2.0.13'
@@ -21,6 +24,7 @@ dependencies {
     // Jackson annotations needed at compile-time for @JsonInclude, etc.
     compileOnly platform('com.fasterxml.jackson:jackson-bom:2.17.2')
     compileOnly 'com.fasterxml.jackson.core:jackson-annotations'
+    implementation "io.projectreactor:reactor-core:3.7.12"
 }
 
 test {

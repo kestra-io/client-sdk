@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Version** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Conditions** | Pointer to [**[]Condition**](Condition.md) |  | [optional] 
-**Disabled** | **bool** |  | 
+**Disabled** | Pointer to **bool** |  | [optional] [default to false]
 **WorkerGroup** | Pointer to [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
 **LogLevel** | Pointer to [**Level**](Level.md) |  | [optional] 
 **Labels** | Pointer to [**TheLabelsToPassToTheExecutionCreated**](TheLabelsToPassToTheExecutionCreated.md) |  | [optional] 
@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 
 ### NewAbstractTrigger
 
-`func NewAbstractTrigger(id string, type_ string, disabled bool, ) *AbstractTrigger`
+`func NewAbstractTrigger(id string, type_ string, ) *AbstractTrigger`
 
 NewAbstractTrigger instantiates a new AbstractTrigger object
 This constructor will assign default values to properties that have it defined,
@@ -196,6 +196,11 @@ and a boolean to check if the value has been set.
 
 SetDisabled sets Disabled field to given value.
 
+### HasDisabled
+
+`func (o *AbstractTrigger) HasDisabled() bool`
+
+HasDisabled returns a boolean if a field has been set.
 
 ### GetWorkerGroup
 

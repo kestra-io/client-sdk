@@ -36,36 +36,30 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMRoleControllerApiRoleDetail.JSON_PROPERTY_IS_MANAGED
 })
 @JsonTypeName("IAMRoleController.ApiRoleDetail")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMRoleControllerApiRoleDetail {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
-  private String id;
+  @jakarta.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nonnull
-  private String name;
+  @jakarta.annotation.Nullable  private String name;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nonnull
-  private String description;
+  @jakarta.annotation.Nullable  private String description;
 
   public static final String JSON_PROPERTY_PERMISSIONS = "permissions";
-  @javax.annotation.Nonnull
-  private IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions permissions;
+  @jakarta.annotation.Nullable  private IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions permissions;
 
   public static final String JSON_PROPERTY_IS_DEFAULT = "isDefault";
-  @javax.annotation.Nonnull
-  private Boolean isDefault;
+  @jakarta.annotation.Nullable  private Boolean isDefault;
 
   public static final String JSON_PROPERTY_IS_MANAGED = "isManaged";
-  @javax.annotation.Nonnull
-  private Boolean isManaged;
+  @jakarta.annotation.Nullable  private Boolean isManaged;
 
   public IAMRoleControllerApiRoleDetail() {
   }
 
-  public IAMRoleControllerApiRoleDetail id(@javax.annotation.Nonnull String id) {
+  public IAMRoleControllerApiRoleDetail id(@jakarta.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -75,9 +69,8 @@ public class IAMRoleControllerApiRoleDetail {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
     return id;
@@ -85,12 +78,12 @@ public class IAMRoleControllerApiRoleDetail {
 
 
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(@javax.annotation.Nonnull String id) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@jakarta.annotation.Nullable String id) {
     this.id = id;
   }
 
-  public IAMRoleControllerApiRoleDetail name(@javax.annotation.Nonnull String name) {
+  public IAMRoleControllerApiRoleDetail name(@jakarta.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -100,9 +93,8 @@ public class IAMRoleControllerApiRoleDetail {
    * Get name
    * @return name
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
     return name;
@@ -110,12 +102,12 @@ public class IAMRoleControllerApiRoleDetail {
 
 
   @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setName(@javax.annotation.Nonnull String name) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(@jakarta.annotation.Nullable String name) {
     this.name = name;
   }
 
-  public IAMRoleControllerApiRoleDetail description(@javax.annotation.Nonnull String description) {
+  public IAMRoleControllerApiRoleDetail description(@jakarta.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -125,9 +117,8 @@ public class IAMRoleControllerApiRoleDetail {
    * Get description
    * @return description
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
     return description;
@@ -135,12 +126,12 @@ public class IAMRoleControllerApiRoleDetail {
 
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDescription(@javax.annotation.Nonnull String description) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@jakarta.annotation.Nullable String description) {
     this.description = description;
   }
 
-  public IAMRoleControllerApiRoleDetail permissions(@javax.annotation.Nonnull IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions permissions) {
+  public IAMRoleControllerApiRoleDetail permissions(@jakarta.annotation.Nullable IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions permissions) {
     
     this.permissions = permissions;
     return this;
@@ -150,9 +141,8 @@ public class IAMRoleControllerApiRoleDetail {
    * Get permissions
    * @return permissions
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_PERMISSIONS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PERMISSIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions getPermissions() {
     return permissions;
@@ -160,12 +150,12 @@ public class IAMRoleControllerApiRoleDetail {
 
 
   @JsonProperty(JSON_PROPERTY_PERMISSIONS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPermissions(@javax.annotation.Nonnull IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions permissions) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPermissions(@jakarta.annotation.Nullable IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions permissions) {
     this.permissions = permissions;
   }
 
-  public IAMRoleControllerApiRoleDetail isDefault(@javax.annotation.Nonnull Boolean isDefault) {
+  public IAMRoleControllerApiRoleDetail isDefault(@jakarta.annotation.Nullable Boolean isDefault) {
     
     this.isDefault = isDefault;
     return this;
@@ -175,9 +165,8 @@ public class IAMRoleControllerApiRoleDetail {
    * Get isDefault
    * @return isDefault
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_IS_DEFAULT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_DEFAULT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getIsDefault() {
     return isDefault;
@@ -185,12 +174,12 @@ public class IAMRoleControllerApiRoleDetail {
 
 
   @JsonProperty(JSON_PROPERTY_IS_DEFAULT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setIsDefault(@javax.annotation.Nonnull Boolean isDefault) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsDefault(@jakarta.annotation.Nullable Boolean isDefault) {
     this.isDefault = isDefault;
   }
 
-  public IAMRoleControllerApiRoleDetail isManaged(@javax.annotation.Nonnull Boolean isManaged) {
+  public IAMRoleControllerApiRoleDetail isManaged(@jakarta.annotation.Nullable Boolean isManaged) {
     
     this.isManaged = isManaged;
     return this;
@@ -200,9 +189,8 @@ public class IAMRoleControllerApiRoleDetail {
    * Get isManaged
    * @return isManaged
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_IS_MANAGED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_IS_MANAGED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getIsManaged() {
     return isManaged;
@@ -210,8 +198,8 @@ public class IAMRoleControllerApiRoleDetail {
 
 
   @JsonProperty(JSON_PROPERTY_IS_MANAGED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setIsManaged(@javax.annotation.Nonnull Boolean isManaged) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsManaged(@jakarta.annotation.Nullable Boolean isManaged) {
     this.isManaged = isManaged;
   }
 

@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the AuditLogControllerFindRequest type satisfies the MappedNullable interface at compile time
@@ -20,9 +19,9 @@ var _ MappedNullable = &AuditLogControllerFindRequest{}
 
 // AuditLogControllerFindRequest struct for AuditLogControllerFindRequest
 type AuditLogControllerFindRequest struct {
-	Resource             ResourceType1                     `json:"resource"`
+	Resource             *ResourceType1                    `json:"resource,omitempty"`
 	Type                 NullableCrudEventType             `json:"type,omitempty"`
-	Detail               map[string]map[string]interface{} `json:"detail"`
+	Detail               map[string]map[string]interface{} `json:"detail,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,10 +31,8 @@ type _AuditLogControllerFindRequest AuditLogControllerFindRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAuditLogControllerFindRequest(resource ResourceType1, detail map[string]map[string]interface{}) *AuditLogControllerFindRequest {
+func NewAuditLogControllerFindRequest() *AuditLogControllerFindRequest {
 	this := AuditLogControllerFindRequest{}
-	this.Resource = resource
-	this.Detail = detail
 	return &this
 }
 
@@ -47,28 +44,36 @@ func NewAuditLogControllerFindRequestWithDefaults() *AuditLogControllerFindReque
 	return &this
 }
 
-// GetResource returns the Resource field value
+// GetResource returns the Resource field value if set, zero value otherwise.
 func (o *AuditLogControllerFindRequest) GetResource() ResourceType1 {
-	if o == nil {
+	if o == nil || IsNil(o.Resource) {
 		var ret ResourceType1
 		return ret
 	}
-
-	return o.Resource
+	return *o.Resource
 }
 
-// GetResourceOk returns a tuple with the Resource field value
+// GetResourceOk returns a tuple with the Resource field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuditLogControllerFindRequest) GetResourceOk() (*ResourceType1, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Resource) {
 		return nil, false
 	}
-	return &o.Resource, true
+	return o.Resource, true
 }
 
-// SetResource sets field value
+// HasResource returns a boolean if a field has been set.
+func (o *AuditLogControllerFindRequest) HasResource() bool {
+	if o != nil && !IsNil(o.Resource) {
+		return true
+	}
+
+	return false
+}
+
+// SetResource gets a reference to the given ResourceType1 and assigns it to the Resource field.
 func (o *AuditLogControllerFindRequest) SetResource(v ResourceType1) {
-	o.Resource = v
+	o.Resource = &v
 }
 
 // GetType returns the Type field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -114,26 +119,34 @@ func (o *AuditLogControllerFindRequest) UnsetType() {
 	o.Type.Unset()
 }
 
-// GetDetail returns the Detail field value
+// GetDetail returns the Detail field value if set, zero value otherwise.
 func (o *AuditLogControllerFindRequest) GetDetail() map[string]map[string]interface{} {
-	if o == nil {
+	if o == nil || IsNil(o.Detail) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
-
 	return o.Detail
 }
 
-// GetDetailOk returns a tuple with the Detail field value
+// GetDetailOk returns a tuple with the Detail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuditLogControllerFindRequest) GetDetailOk() (map[string]map[string]interface{}, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Detail) {
 		return map[string]map[string]interface{}{}, false
 	}
 	return o.Detail, true
 }
 
-// SetDetail sets field value
+// HasDetail returns a boolean if a field has been set.
+func (o *AuditLogControllerFindRequest) HasDetail() bool {
+	if o != nil && !IsNil(o.Detail) {
+		return true
+	}
+
+	return false
+}
+
+// SetDetail gets a reference to the given map[string]map[string]interface{} and assigns it to the Detail field.
 func (o *AuditLogControllerFindRequest) SetDetail(v map[string]map[string]interface{}) {
 	o.Detail = v
 }
@@ -148,11 +161,15 @@ func (o AuditLogControllerFindRequest) MarshalJSON() ([]byte, error) {
 
 func (o AuditLogControllerFindRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["resource"] = o.Resource
+	if !IsNil(o.Resource) {
+		toSerialize["resource"] = o.Resource
+	}
 	if o.Type.IsSet() {
 		toSerialize["type"] = o.Type.Get()
 	}
-	toSerialize["detail"] = o.Detail
+	if !IsNil(o.Detail) {
+		toSerialize["detail"] = o.Detail
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -162,28 +179,6 @@ func (o AuditLogControllerFindRequest) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *AuditLogControllerFindRequest) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"resource",
-		"detail",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varAuditLogControllerFindRequest := _AuditLogControllerFindRequest{}
 
 	err = json.Unmarshal(data, &varAuditLogControllerFindRequest)

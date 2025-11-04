@@ -28,7 +28,7 @@ class KVControllerTypedValue(BaseModel):
     KVControllerTypedValue
     """ # noqa: E501
     type: Optional[KVType] = None
-    value: Optional[Dict[str, Any]] = None
+    value: Optional[Any] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["type", "value"]
 

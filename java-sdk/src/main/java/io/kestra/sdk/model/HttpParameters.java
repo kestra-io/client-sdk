@@ -30,20 +30,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   HttpParameters.JSON_PROPERTY_CONVERSION_SERVICE,
   HttpParameters.JSON_PROPERTY_EMPTY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class HttpParameters {
   public static final String JSON_PROPERTY_CONVERSION_SERVICE = "conversionService";
-  @javax.annotation.Nonnull
-  private Object conversionService;
+  @jakarta.annotation.Nonnull  private Object conversionService;
 
   public static final String JSON_PROPERTY_EMPTY = "empty";
-  @javax.annotation.Nullable
-  private Boolean empty;
+  @jakarta.annotation.Nullable  private Boolean empty;
 
   public HttpParameters() {
   }
 
-  public HttpParameters conversionService(@javax.annotation.Nonnull Object conversionService) {
+  public HttpParameters conversionService(@jakarta.annotation.Nonnull Object conversionService) {
     
     this.conversionService = conversionService;
     return this;
@@ -53,8 +51,7 @@ public class HttpParameters {
    * Get conversionService
    * @return conversionService
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_CONVERSION_SERVICE)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_CONVERSION_SERVICE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Object getConversionService() {
@@ -64,11 +61,11 @@ public class HttpParameters {
 
   @JsonProperty(JSON_PROPERTY_CONVERSION_SERVICE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setConversionService(@javax.annotation.Nonnull Object conversionService) {
+  public void setConversionService(@jakarta.annotation.Nonnull Object conversionService) {
     this.conversionService = conversionService;
   }
 
-  public HttpParameters empty(@javax.annotation.Nullable Boolean empty) {
+  public HttpParameters empty(@jakarta.annotation.Nullable Boolean empty) {
     
     this.empty = empty;
     return this;
@@ -78,8 +75,7 @@ public class HttpParameters {
    * Get empty
    * @return empty
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_EMPTY)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EMPTY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getEmpty() {
@@ -89,7 +85,7 @@ public class HttpParameters {
 
   @JsonProperty(JSON_PROPERTY_EMPTY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEmpty(@javax.annotation.Nullable Boolean empty) {
+  public void setEmpty(@jakarta.annotation.Nullable Boolean empty) {
     this.empty = empty;
   }
 

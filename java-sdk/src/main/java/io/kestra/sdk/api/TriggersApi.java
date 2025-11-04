@@ -12,6 +12,13 @@
 
 package io.kestra.sdk.api;
 
+// Custom imports for injected code
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import reactor.core.publisher.Flux;
+import java.io.BufferedReader;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import io.kestra.sdk.internal.ApiException;
@@ -20,7 +27,6 @@ import io.kestra.sdk.internal.BaseApi;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.Pair;
 
-import io.kestra.sdk.model.DeleteExecutionsByQueryRequest;
 import io.kestra.sdk.model.PagedResultsTrigger;
 import io.kestra.sdk.model.PagedResultsTriggerControllerTriggers;
 import io.kestra.sdk.model.QueryFilter;
@@ -35,8 +41,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
-public class TriggersApi extends BaseApi {
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")public class TriggersApi extends BaseApi {
 
   public TriggersApi() {
     super(Configuration.getDefaultApiClient());
@@ -54,10 +59,9 @@ public class TriggersApi extends BaseApi {
    * @return Trigger
    * @throws ApiException if fails to make API call
    */
-  public Trigger deleteBackfill(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger) throws ApiException {
+  public Trigger deleteBackfill(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull Trigger trigger) throws ApiException {
     return this.deleteBackfill(tenant, trigger, Collections.emptyMap());
   }
-
 
   /**
    * Delete a backfill
@@ -68,7 +72,7 @@ public class TriggersApi extends BaseApi {
    * @return Trigger
    * @throws ApiException if fails to make API call
    */
-  public Trigger deleteBackfill(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger, Map<String, String> additionalHeaders) throws ApiException {
+  public Trigger deleteBackfill(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull Trigger trigger, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = trigger;
     
     // verify the required parameter 'tenant' is set
@@ -91,8 +95,7 @@ public class TriggersApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -128,6 +131,11 @@ public class TriggersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Delete backfill for given triggers
    * 
@@ -136,10 +144,9 @@ public class TriggersApi extends BaseApi {
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteBackfillByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger) throws ApiException {
+  public Object deleteBackfillByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<Trigger> trigger) throws ApiException {
     return this.deleteBackfillByIds(tenant, trigger, Collections.emptyMap());
   }
-
 
   /**
    * Delete backfill for given triggers
@@ -150,7 +157,7 @@ public class TriggersApi extends BaseApi {
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteBackfillByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger, Map<String, String> additionalHeaders) throws ApiException {
+  public Object deleteBackfillByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<Trigger> trigger, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = trigger;
     
     // verify the required parameter 'tenant' is set
@@ -173,8 +180,7 @@ public class TriggersApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -210,43 +216,38 @@ public class TriggersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Delete backfill for given triggers
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param namespace A namespace filter prefix (optional)
+   * @param filters Filters (optional)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace) throws ApiException {
-    return this.deleteBackfillByQuery(tenant, deleteExecutionsByQueryRequest, q, namespace, Collections.emptyMap());
+  public Object deleteBackfillByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.deleteBackfillByQuery(tenant, filters, Collections.emptyMap());
   }
-
 
   /**
    * Delete backfill for given triggers
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param namespace A namespace filter prefix (optional)
+   * @param filters Filters (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object deleteBackfillByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling deleteBackfillByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling deleteBackfillByQuery");
     }
     
     // create path and map variables
@@ -259,10 +260,8 @@ public class TriggersApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -274,7 +273,7 @@ public class TriggersApi extends BaseApi {
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -298,6 +297,11 @@ public class TriggersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Disable/enable given triggers
    * 
@@ -306,10 +310,9 @@ public class TriggersApi extends BaseApi {
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object disabledTriggersByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull TriggerControllerSetDisabledRequest triggerControllerSetDisabledRequest) throws ApiException {
+  public Object disabledTriggersByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull TriggerControllerSetDisabledRequest triggerControllerSetDisabledRequest) throws ApiException {
     return this.disabledTriggersByIds(tenant, triggerControllerSetDisabledRequest, Collections.emptyMap());
   }
-
 
   /**
    * Disable/enable given triggers
@@ -320,7 +323,7 @@ public class TriggersApi extends BaseApi {
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object disabledTriggersByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull TriggerControllerSetDisabledRequest triggerControllerSetDisabledRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public Object disabledTriggersByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull TriggerControllerSetDisabledRequest triggerControllerSetDisabledRequest, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = triggerControllerSetDisabledRequest;
     
     // verify the required parameter 'tenant' is set
@@ -343,8 +346,7 @@ public class TriggersApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -380,36 +382,36 @@ public class TriggersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Disable/enable triggers by query parameters
    * 
    * @param disabled The disabled state (required)
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param namespace A namespace filter prefix (optional)
+   * @param filters Filters (optional)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object disabledTriggersByQuery(@javax.annotation.Nonnull Boolean disabled, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace) throws ApiException {
-    return this.disabledTriggersByQuery(disabled, tenant, deleteExecutionsByQueryRequest, q, namespace, Collections.emptyMap());
+  public Object disabledTriggersByQuery(@jakarta.annotation.Nonnull Boolean disabled, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.disabledTriggersByQuery(disabled, tenant, filters, Collections.emptyMap());
   }
-
 
   /**
    * Disable/enable triggers by query parameters
    * 
    * @param disabled The disabled state (required)
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param namespace A namespace filter prefix (optional)
+   * @param filters Filters (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object disabledTriggersByQuery(@javax.annotation.Nonnull Boolean disabled, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object disabledTriggersByQuery(@jakarta.annotation.Nonnull Boolean disabled, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'disabled' is set
     if (disabled == null) {
@@ -419,11 +421,6 @@ public class TriggersApi extends BaseApi {
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling disabledTriggersByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling disabledTriggersByQuery");
     }
     
     // create path and map variables
@@ -436,10 +433,8 @@ public class TriggersApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     localVarQueryParams.addAll(apiClient.parameterToPair("disabled", disabled));
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -452,7 +447,7 @@ public class TriggersApi extends BaseApi {
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -476,6 +471,11 @@ public class TriggersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Pause a backfill
    * 
@@ -484,10 +484,9 @@ public class TriggersApi extends BaseApi {
    * @return Trigger
    * @throws ApiException if fails to make API call
    */
-  public Trigger pauseBackfill(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger) throws ApiException {
+  public Trigger pauseBackfill(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull Trigger trigger) throws ApiException {
     return this.pauseBackfill(tenant, trigger, Collections.emptyMap());
   }
-
 
   /**
    * Pause a backfill
@@ -498,7 +497,7 @@ public class TriggersApi extends BaseApi {
    * @return Trigger
    * @throws ApiException if fails to make API call
    */
-  public Trigger pauseBackfill(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger, Map<String, String> additionalHeaders) throws ApiException {
+  public Trigger pauseBackfill(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull Trigger trigger, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = trigger;
     
     // verify the required parameter 'tenant' is set
@@ -521,8 +520,7 @@ public class TriggersApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -558,6 +556,11 @@ public class TriggersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Pause backfill for given triggers
    * 
@@ -566,10 +569,9 @@ public class TriggersApi extends BaseApi {
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object pauseBackfillByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger) throws ApiException {
+  public Object pauseBackfillByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<Trigger> trigger) throws ApiException {
     return this.pauseBackfillByIds(tenant, trigger, Collections.emptyMap());
   }
-
 
   /**
    * Pause backfill for given triggers
@@ -580,7 +582,7 @@ public class TriggersApi extends BaseApi {
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object pauseBackfillByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger, Map<String, String> additionalHeaders) throws ApiException {
+  public Object pauseBackfillByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<Trigger> trigger, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = trigger;
     
     // verify the required parameter 'tenant' is set
@@ -603,8 +605,7 @@ public class TriggersApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -640,43 +641,38 @@ public class TriggersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Pause backfill for given triggers
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param namespace A namespace filter prefix (optional)
+   * @param filters Filters (optional)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object pauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace) throws ApiException {
-    return this.pauseBackfillByQuery(tenant, deleteExecutionsByQueryRequest, q, namespace, Collections.emptyMap());
+  public Object pauseBackfillByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.pauseBackfillByQuery(tenant, filters, Collections.emptyMap());
   }
-
 
   /**
    * Pause backfill for given triggers
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param namespace A namespace filter prefix (optional)
+   * @param filters Filters (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object pauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object pauseBackfillByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling pauseBackfillByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling pauseBackfillByQuery");
     }
     
     // create path and map variables
@@ -689,10 +685,8 @@ public class TriggersApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -704,7 +698,7 @@ public class TriggersApi extends BaseApi {
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -728,6 +722,11 @@ public class TriggersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Restart a trigger
    * 
@@ -738,10 +737,9 @@ public class TriggersApi extends BaseApi {
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object restartTrigger(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull String triggerId, @javax.annotation.Nonnull String tenant) throws ApiException {
+  public Object restartTrigger(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String triggerId, @jakarta.annotation.Nonnull String tenant) throws ApiException {
     return this.restartTrigger(namespace, flowId, triggerId, tenant, Collections.emptyMap());
   }
-
 
   /**
    * Restart a trigger
@@ -754,7 +752,7 @@ public class TriggersApi extends BaseApi {
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object restartTrigger(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull String triggerId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Object restartTrigger(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String triggerId, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -790,8 +788,7 @@ public class TriggersApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -827,6 +824,11 @@ public class TriggersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Search for triggers
    * 
@@ -835,17 +837,12 @@ public class TriggersApi extends BaseApi {
    * @param tenant  (required)
    * @param sort The sort of current page (optional)
    * @param filters Filters (optional)
-   * @param q A string filter (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param workerId The identifier of the worker currently evaluating the trigger (optional)
-   * @param flowId The flow identifier (optional)
    * @return PagedResultsTriggerControllerTriggers
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsTriggerControllerTriggers searchTriggers(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String workerId, @javax.annotation.Nullable String flowId) throws ApiException {
-    return this.searchTriggers(page, size, tenant, sort, filters, q, namespace, workerId, flowId, Collections.emptyMap());
+  public PagedResultsTriggerControllerTriggers searchTriggers(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.searchTriggers(page, size, tenant, sort, filters, Collections.emptyMap());
   }
-
 
   /**
    * Search for triggers
@@ -855,15 +852,11 @@ public class TriggersApi extends BaseApi {
    * @param tenant  (required)
    * @param sort The sort of current page (optional)
    * @param filters Filters (optional)
-   * @param q A string filter (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param workerId The identifier of the worker currently evaluating the trigger (optional)
-   * @param flowId The flow identifier (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return PagedResultsTriggerControllerTriggers
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsTriggerControllerTriggers searchTriggers(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable List<QueryFilter> filters, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String workerId, @javax.annotation.Nullable String flowId, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsTriggerControllerTriggers searchTriggers(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'page' is set
@@ -891,16 +884,11 @@ public class TriggersApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
     localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarQueryParams.addAll(apiClient.parameterToPair("workerId", workerId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -936,6 +924,11 @@ public class TriggersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Get all triggers for a flow
    * 
@@ -949,10 +942,9 @@ public class TriggersApi extends BaseApi {
    * @return PagedResultsTrigger
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsTrigger searchTriggersForFlow(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable String q) throws ApiException {
+  public PagedResultsTrigger searchTriggersForFlow(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nullable String namespace, @jakarta.annotation.Nullable String flowId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable String q) throws ApiException {
     return this.searchTriggersForFlow(page, size, namespace, flowId, tenant, sort, q, Collections.emptyMap());
   }
-
 
   /**
    * Get all triggers for a flow
@@ -968,7 +960,7 @@ public class TriggersApi extends BaseApi {
    * @return PagedResultsTrigger
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsTrigger searchTriggersForFlow(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable String q, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsTrigger searchTriggersForFlow(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nullable String namespace, @jakarta.annotation.Nullable String flowId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable String q, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'page' is set
@@ -1008,8 +1000,7 @@ public class TriggersApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
     localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
@@ -1049,6 +1040,11 @@ public class TriggersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Unlock a trigger
    * 
@@ -1059,10 +1055,9 @@ public class TriggersApi extends BaseApi {
    * @return Trigger
    * @throws ApiException if fails to make API call
    */
-  public Trigger unlockTrigger(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull String triggerId, @javax.annotation.Nonnull String tenant) throws ApiException {
+  public Trigger unlockTrigger(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String triggerId, @jakarta.annotation.Nonnull String tenant) throws ApiException {
     return this.unlockTrigger(namespace, flowId, triggerId, tenant, Collections.emptyMap());
   }
-
 
   /**
    * Unlock a trigger
@@ -1075,7 +1070,7 @@ public class TriggersApi extends BaseApi {
    * @return Trigger
    * @throws ApiException if fails to make API call
    */
-  public Trigger unlockTrigger(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String flowId, @javax.annotation.Nonnull String triggerId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Trigger unlockTrigger(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String triggerId, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -1111,8 +1106,7 @@ public class TriggersApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -1148,6 +1142,11 @@ public class TriggersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Unlock given triggers
    * 
@@ -1156,10 +1155,9 @@ public class TriggersApi extends BaseApi {
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unlockTriggersByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger) throws ApiException {
+  public Object unlockTriggersByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<Trigger> trigger) throws ApiException {
     return this.unlockTriggersByIds(tenant, trigger, Collections.emptyMap());
   }
-
 
   /**
    * Unlock given triggers
@@ -1170,7 +1168,7 @@ public class TriggersApi extends BaseApi {
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unlockTriggersByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger, Map<String, String> additionalHeaders) throws ApiException {
+  public Object unlockTriggersByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<Trigger> trigger, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = trigger;
     
     // verify the required parameter 'tenant' is set
@@ -1193,8 +1191,7 @@ public class TriggersApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -1230,43 +1227,38 @@ public class TriggersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Unlock triggers by query parameters
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param namespace A namespace filter prefix (optional)
+   * @param filters Filters (optional)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unlockTriggersByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace) throws ApiException {
-    return this.unlockTriggersByQuery(tenant, deleteExecutionsByQueryRequest, q, namespace, Collections.emptyMap());
+  public Object unlockTriggersByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.unlockTriggersByQuery(tenant, filters, Collections.emptyMap());
   }
-
 
   /**
    * Unlock triggers by query parameters
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param namespace A namespace filter prefix (optional)
+   * @param filters Filters (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unlockTriggersByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object unlockTriggersByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling unlockTriggersByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling unlockTriggersByQuery");
     }
     
     // create path and map variables
@@ -1279,10 +1271,8 @@ public class TriggersApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -1294,7 +1284,7 @@ public class TriggersApi extends BaseApi {
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -1318,6 +1308,11 @@ public class TriggersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Unpause a backfill
    * 
@@ -1326,10 +1321,9 @@ public class TriggersApi extends BaseApi {
    * @return Trigger
    * @throws ApiException if fails to make API call
    */
-  public Trigger unpauseBackfill(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger) throws ApiException {
+  public Trigger unpauseBackfill(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull Trigger trigger) throws ApiException {
     return this.unpauseBackfill(tenant, trigger, Collections.emptyMap());
   }
-
 
   /**
    * Unpause a backfill
@@ -1340,7 +1334,7 @@ public class TriggersApi extends BaseApi {
    * @return Trigger
    * @throws ApiException if fails to make API call
    */
-  public Trigger unpauseBackfill(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger, Map<String, String> additionalHeaders) throws ApiException {
+  public Trigger unpauseBackfill(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull Trigger trigger, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = trigger;
     
     // verify the required parameter 'tenant' is set
@@ -1363,8 +1357,7 @@ public class TriggersApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -1400,6 +1393,11 @@ public class TriggersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Unpause backfill for given triggers
    * 
@@ -1408,10 +1406,9 @@ public class TriggersApi extends BaseApi {
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unpauseBackfillByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger) throws ApiException {
+  public Object unpauseBackfillByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<Trigger> trigger) throws ApiException {
     return this.unpauseBackfillByIds(tenant, trigger, Collections.emptyMap());
   }
-
 
   /**
    * Unpause backfill for given triggers
@@ -1422,7 +1419,7 @@ public class TriggersApi extends BaseApi {
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unpauseBackfillByIds(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<Trigger> trigger, Map<String, String> additionalHeaders) throws ApiException {
+  public Object unpauseBackfillByIds(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull List<Trigger> trigger, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = trigger;
     
     // verify the required parameter 'tenant' is set
@@ -1445,8 +1442,7 @@ public class TriggersApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -1482,43 +1478,38 @@ public class TriggersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Unpause backfill for given triggers
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param namespace A namespace filter prefix (optional)
+   * @param filters Filters (optional)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unpauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace) throws ApiException {
-    return this.unpauseBackfillByQuery(tenant, deleteExecutionsByQueryRequest, q, namespace, Collections.emptyMap());
+  public Object unpauseBackfillByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.unpauseBackfillByQuery(tenant, filters, Collections.emptyMap());
   }
-
 
   /**
    * Unpause backfill for given triggers
    * 
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param namespace A namespace filter prefix (optional)
+   * @param filters Filters (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object unpauseBackfillByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
+  public Object unpauseBackfillByQuery(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling unpauseBackfillByQuery");
-    }
-    
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling unpauseBackfillByQuery");
     }
     
     // create path and map variables
@@ -1531,10 +1522,8 @@ public class TriggersApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -1546,7 +1535,7 @@ public class TriggersApi extends BaseApi {
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+      
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
@@ -1570,6 +1559,11 @@ public class TriggersApi extends BaseApi {
     );
   }
 
+
+
+
+
+
   /**
    * Update a trigger
    * 
@@ -1578,10 +1572,9 @@ public class TriggersApi extends BaseApi {
    * @return Trigger
    * @throws ApiException if fails to make API call
    */
-  public Trigger updateTrigger(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger) throws ApiException {
+  public Trigger updateTrigger(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull Trigger trigger) throws ApiException {
     return this.updateTrigger(tenant, trigger, Collections.emptyMap());
   }
-
 
   /**
    * Update a trigger
@@ -1592,7 +1585,7 @@ public class TriggersApi extends BaseApi {
    * @return Trigger
    * @throws ApiException if fails to make API call
    */
-  public Trigger updateTrigger(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Trigger trigger, Map<String, String> additionalHeaders) throws ApiException {
+  public Trigger updateTrigger(@jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull Trigger trigger, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = trigger;
     
     // verify the required parameter 'tenant' is set
@@ -1615,8 +1608,7 @@ public class TriggersApi extends BaseApi {
     List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -1692,4 +1684,9 @@ public class TriggersApi extends BaseApi {
         returnType
     );
   }
+
+
+
+
+
 }

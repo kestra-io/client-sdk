@@ -31,20 +31,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Concurrency.JSON_PROPERTY_LIMIT,
   Concurrency.JSON_PROPERTY_BEHAVIOR
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Concurrency {
   public static final String JSON_PROPERTY_LIMIT = "limit";
-  @javax.annotation.Nonnull
-  private Integer limit;
+  @jakarta.annotation.Nonnull  private Integer limit;
 
   public static final String JSON_PROPERTY_BEHAVIOR = "behavior";
-  @javax.annotation.Nonnull
-  private ConcurrencyBehavior behavior;
+  @jakarta.annotation.Nonnull  private ConcurrencyBehavior behavior;
 
   public Concurrency() {
   }
 
-  public Concurrency limit(@javax.annotation.Nonnull Integer limit) {
+  public Concurrency limit(@jakarta.annotation.Nonnull Integer limit) {
     
     this.limit = limit;
     return this;
@@ -55,8 +53,7 @@ public class Concurrency {
    * minimum: 1
    * @return limit
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_LIMIT)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_LIMIT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Integer getLimit() {
@@ -66,11 +63,11 @@ public class Concurrency {
 
   @JsonProperty(JSON_PROPERTY_LIMIT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setLimit(@javax.annotation.Nonnull Integer limit) {
+  public void setLimit(@jakarta.annotation.Nonnull Integer limit) {
     this.limit = limit;
   }
 
-  public Concurrency behavior(@javax.annotation.Nonnull ConcurrencyBehavior behavior) {
+  public Concurrency behavior(@jakarta.annotation.Nonnull ConcurrencyBehavior behavior) {
     
     this.behavior = behavior;
     return this;
@@ -80,8 +77,7 @@ public class Concurrency {
    * Get behavior
    * @return behavior
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_BEHAVIOR)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_BEHAVIOR)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public ConcurrencyBehavior getBehavior() {
@@ -91,7 +87,7 @@ public class Concurrency {
 
   @JsonProperty(JSON_PROPERTY_BEHAVIOR)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setBehavior(@javax.annotation.Nonnull ConcurrencyBehavior behavior) {
+  public void setBehavior(@jakarta.annotation.Nonnull ConcurrencyBehavior behavior) {
     this.behavior = behavior;
   }
 

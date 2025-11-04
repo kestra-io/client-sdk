@@ -48,77 +48,23 @@ type APIClient struct {
 
 	// API Services
 
-	AIAPI *AIAPIService
-
-	AppsAPI *AppsAPIService
-
-	AuditLogsAPI *AuditLogsAPIService
-
-	AuthsAPI *AuthsAPIService
-
-	BannersAPI *BannersAPIService
-
-	BindingsAPI *BindingsAPIService
-
-	BlueprintTagsAPI *BlueprintTagsAPIService
-
-	BlueprintsAPI *BlueprintsAPIService
-
-	ClusterAPI *ClusterAPIService
-
-	DashboardsAPI *DashboardsAPIService
-
-	DefaultAPI *DefaultAPIService
-
 	ExecutionsAPI *ExecutionsAPIService
-
-	FilesAPI *FilesAPIService
 
 	FlowsAPI *FlowsAPIService
 
 	GroupsAPI *GroupsAPIService
 
-	InvitationsAPI *InvitationsAPIService
-
 	KVAPI *KVAPIService
-
-	LogsAPI *LogsAPIService
-
-	MaintenanceAPI *MaintenanceAPIService
-
-	MetricsAPI *MetricsAPIService
-
-	MiscAPI *MiscAPIService
 
 	NamespacesAPI *NamespacesAPIService
 
-	PluginsAPI *PluginsAPIService
-
 	RolesAPI *RolesAPIService
 
-	SCIMConfigurationAPI *SCIMConfigurationAPIService
-
-	SCIMGroupsAPI *SCIMGroupsAPIService
-
-	SCIMUsersAPI *SCIMUsersAPIService
-
-	SecurityIntegrationsAPI *SecurityIntegrationsAPIService
-
 	ServiceAccountAPI *ServiceAccountAPIService
-
-	ServicesAPI *ServicesAPIService
-
-	TenantAccessAPI *TenantAccessAPIService
-
-	TenantsAPI *TenantsAPIService
-
-	TestSuitesAPI *TestSuitesAPIService
 
 	TriggersAPI *TriggersAPIService
 
 	UsersAPI *UsersAPIService
-
-	WorkerGroupsAPI *WorkerGroupsAPIService
 }
 
 type service struct {
@@ -137,42 +83,15 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
-	c.AIAPI = (*AIAPIService)(&c.common)
-	c.AppsAPI = (*AppsAPIService)(&c.common)
-	c.AuditLogsAPI = (*AuditLogsAPIService)(&c.common)
-	c.AuthsAPI = (*AuthsAPIService)(&c.common)
-	c.BannersAPI = (*BannersAPIService)(&c.common)
-	c.BindingsAPI = (*BindingsAPIService)(&c.common)
-	c.BlueprintTagsAPI = (*BlueprintTagsAPIService)(&c.common)
-	c.BlueprintsAPI = (*BlueprintsAPIService)(&c.common)
-	c.ClusterAPI = (*ClusterAPIService)(&c.common)
-	c.DashboardsAPI = (*DashboardsAPIService)(&c.common)
-	c.DefaultAPI = (*DefaultAPIService)(&c.common)
 	c.ExecutionsAPI = (*ExecutionsAPIService)(&c.common)
-	c.FilesAPI = (*FilesAPIService)(&c.common)
 	c.FlowsAPI = (*FlowsAPIService)(&c.common)
 	c.GroupsAPI = (*GroupsAPIService)(&c.common)
-	c.InvitationsAPI = (*InvitationsAPIService)(&c.common)
 	c.KVAPI = (*KVAPIService)(&c.common)
-	c.LogsAPI = (*LogsAPIService)(&c.common)
-	c.MaintenanceAPI = (*MaintenanceAPIService)(&c.common)
-	c.MetricsAPI = (*MetricsAPIService)(&c.common)
-	c.MiscAPI = (*MiscAPIService)(&c.common)
 	c.NamespacesAPI = (*NamespacesAPIService)(&c.common)
-	c.PluginsAPI = (*PluginsAPIService)(&c.common)
 	c.RolesAPI = (*RolesAPIService)(&c.common)
-	c.SCIMConfigurationAPI = (*SCIMConfigurationAPIService)(&c.common)
-	c.SCIMGroupsAPI = (*SCIMGroupsAPIService)(&c.common)
-	c.SCIMUsersAPI = (*SCIMUsersAPIService)(&c.common)
-	c.SecurityIntegrationsAPI = (*SecurityIntegrationsAPIService)(&c.common)
 	c.ServiceAccountAPI = (*ServiceAccountAPIService)(&c.common)
-	c.ServicesAPI = (*ServicesAPIService)(&c.common)
-	c.TenantAccessAPI = (*TenantAccessAPIService)(&c.common)
-	c.TenantsAPI = (*TenantsAPIService)(&c.common)
-	c.TestSuitesAPI = (*TestSuitesAPIService)(&c.common)
 	c.TriggersAPI = (*TriggersAPIService)(&c.common)
 	c.UsersAPI = (*UsersAPIService)(&c.common)
-	c.WorkerGroupsAPI = (*WorkerGroupsAPIService)(&c.common)
 
 	return c
 }

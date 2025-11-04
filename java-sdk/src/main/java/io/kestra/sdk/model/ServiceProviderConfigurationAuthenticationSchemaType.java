@@ -34,7 +34,9 @@ public enum ServiceProviderConfigurationAuthenticationSchemaType {
   
   HTTP_BASIC("HTTP_BASIC"),
   
-  HTTP_DIGEST("HTTP_DIGEST");
+  HTTP_DIGEST("HTTP_DIGEST"),
+  
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;
 
@@ -59,7 +61,7 @@ public enum ServiceProviderConfigurationAuthenticationSchemaType {
         return b;
       }
     }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    return UNKNOWN_DEFAULT_OPEN_API;
   }
 }
 

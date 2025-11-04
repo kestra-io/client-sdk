@@ -17,7 +17,7 @@ import ExecutionKind from './ExecutionKind';
 /**
  * The MetricEntry model module.
  * @module model/MetricEntry
- * @version 1.0.0
+ * @version v1.0.5
  */
 class MetricEntry {
     /**

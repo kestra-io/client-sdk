@@ -32,24 +32,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MeControllerApiTenant.JSON_PROPERTY_LOGO
 })
 @JsonTypeName("MeController.ApiTenant")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class MeControllerApiTenant {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
-  private String id;
+  @jakarta.annotation.Nullable  private String id;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nonnull
-  private String name;
+  @jakarta.annotation.Nullable  private String name;
 
   public static final String JSON_PROPERTY_LOGO = "logo";
-  @javax.annotation.Nonnull
-  private String logo;
+  @jakarta.annotation.Nullable  private String logo;
 
   public MeControllerApiTenant() {
   }
 
-  public MeControllerApiTenant id(@javax.annotation.Nonnull String id) {
+  public MeControllerApiTenant id(@jakarta.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -59,9 +56,8 @@ public class MeControllerApiTenant {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
     return id;
@@ -69,12 +65,12 @@ public class MeControllerApiTenant {
 
 
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(@javax.annotation.Nonnull String id) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@jakarta.annotation.Nullable String id) {
     this.id = id;
   }
 
-  public MeControllerApiTenant name(@javax.annotation.Nonnull String name) {
+  public MeControllerApiTenant name(@jakarta.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -84,9 +80,8 @@ public class MeControllerApiTenant {
    * Get name
    * @return name
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
     return name;
@@ -94,12 +89,12 @@ public class MeControllerApiTenant {
 
 
   @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setName(@javax.annotation.Nonnull String name) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(@jakarta.annotation.Nullable String name) {
     this.name = name;
   }
 
-  public MeControllerApiTenant logo(@javax.annotation.Nonnull String logo) {
+  public MeControllerApiTenant logo(@jakarta.annotation.Nullable String logo) {
     
     this.logo = logo;
     return this;
@@ -109,9 +104,8 @@ public class MeControllerApiTenant {
    * Get logo
    * @return logo
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_LOGO)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LOGO)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getLogo() {
     return logo;
@@ -119,8 +113,8 @@ public class MeControllerApiTenant {
 
 
   @JsonProperty(JSON_PROPERTY_LOGO)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setLogo(@javax.annotation.Nonnull String logo) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLogo(@jakarta.annotation.Nullable String logo) {
     this.logo = logo;
   }
 

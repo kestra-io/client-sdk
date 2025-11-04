@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -30,16 +31,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MapObjectObject.JSON_PROPERTY_EMPTY
 })
 @JsonTypeName("Map_Object.Object_")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
-public class MapObjectObject {
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+public class MapObjectObject implements SLALabels, TheLabelsToPassToTheExecutionCreated {
   public static final String JSON_PROPERTY_EMPTY = "empty";
-  @javax.annotation.Nullable
-  private Boolean empty;
+  @jakarta.annotation.Nullable  private Boolean empty;
 
   public MapObjectObject() {
   }
 
-  public MapObjectObject empty(@javax.annotation.Nullable Boolean empty) {
+  public MapObjectObject empty(@jakarta.annotation.Nullable Boolean empty) {
     
     this.empty = empty;
     return this;
@@ -49,8 +49,7 @@ public class MapObjectObject {
    * Get empty
    * @return empty
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_EMPTY)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EMPTY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getEmpty() {
@@ -60,7 +59,7 @@ public class MapObjectObject {
 
   @JsonProperty(JSON_PROPERTY_EMPTY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEmpty(@javax.annotation.Nullable Boolean empty) {
+  public void setEmpty(@jakarta.annotation.Nullable Boolean empty) {
     this.empty = empty;
   }
 

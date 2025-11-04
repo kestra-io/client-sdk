@@ -33,16 +33,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InstanceControllerApiPluginListRequest.JSON_PROPERTY_PLUGINS
 })
 @JsonTypeName("InstanceController.ApiPluginListRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class InstanceControllerApiPluginListRequest {
   public static final String JSON_PROPERTY_PLUGINS = "plugins";
-  @javax.annotation.Nonnull
-  private List<String> plugins = new ArrayList<>();
+  @jakarta.annotation.Nullable  private List<String> plugins = new ArrayList<>();
 
   public InstanceControllerApiPluginListRequest() {
   }
 
-  public InstanceControllerApiPluginListRequest plugins(@javax.annotation.Nonnull List<String> plugins) {
+  public InstanceControllerApiPluginListRequest plugins(@jakarta.annotation.Nullable List<String> plugins) {
     
     this.plugins = plugins;
     return this;
@@ -60,9 +59,8 @@ public class InstanceControllerApiPluginListRequest {
    * Get plugins
    * @return plugins
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_PLUGINS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PLUGINS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getPlugins() {
     return plugins;
@@ -70,8 +68,8 @@ public class InstanceControllerApiPluginListRequest {
 
 
   @JsonProperty(JSON_PROPERTY_PLUGINS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPlugins(@javax.annotation.Nonnull List<String> plugins) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPlugins(@jakarta.annotation.Nullable List<String> plugins) {
     this.plugins = plugins;
   }
 
