@@ -33,7 +33,7 @@ BASE_PKG=io.kestra.sdk
 
 if [ -n "$TEMPLATE_FLAG" ]; then
   echo "Generating templates"
-  docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release author template -g "$LANGUAGES" -o /local/templates/$LANGUAGES
+  docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release author template -g "$LANGUAGES" -o /local/$LANGUAGES/templates
   exit 0
 fi
 
@@ -43,18 +43,18 @@ sh -c "cd ./generation-helpers/kestra-openapi-sdk-customizer && npm i && npm run
 
 # Generate Java SDK
 if [[ ",$LANGUAGES," == *",java,"* ]]; then
-rm -rf ./java-sdk/docs
-rm -rf ./java-sdk/src/main/java/io/kestra/sdk/api
-rm -rf ./java-sdk/src/main/java/io/kestra/sdk/internal
-rm -rf ./java-sdk/src/main/java/io/kestra/sdk/model
+rm -rf ./java/java-sdk/docs
+rm -rf ./java/java-sdk/src/main/java/io/kestra/sdk/api
+rm -rf ./java/java-sdk/src/main/java/io/kestra/sdk/internal
+rm -rf ./java/java-sdk/src/main/java/io/kestra/sdk/model
 
 docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release generate \
-     -c /local/configurations/java-config.yml --artifact-version $VERSION \
+     -c /local/java/configuration/java-config.yml --artifact-version $VERSION \
       --skip-validate-spec \
-      --template-dir=/local/templates/java
+      --template-dir=/local/java/template
 
-find ./java-sdk/src/main/java -type f -name "*.java" -exec sed -i.bak 's/Map<Task>/List<Task>/g' {} + && find ./java-sdk/src/main/java -name "*.bak" -delete
-echo "version=$VERSION" > ./java-sdk/gradle.properties
+find ./java/java-sdk/src/main/java -type f -name "*.java" -exec sed -i.bak 's/Map<Task>/List<Task>/g' {} + && find ./java/java-sdk/src/main/java -name "*.bak" -delete
+echo "version=$VERSION" > ./java/java-sdk/gradle.properties
 
 
 # Replace wrong prop in docs for each api
@@ -67,14 +67,14 @@ fi
 # Generate Python SDK
 if [[ ",$LANGUAGES," == *",python,"* ]]; then
 docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release generate \
-    -c /local/configurations/python-config.yml \
+    -c /local/python/configuration/python-config.yml \
     --skip-validate-spec \
     --additional-properties=packageVersion=$VERSION \
-    --template-dir=/local/templates/python
+    --template-dir=/local/python/template
 
-sed $SED_INPLACE -E '/from kestrapy\.models\.list\[label\] import List\[Label\]/d' python-sdk/kestrapy/api/executions_api.py
-sed $SED_INPLACE -E 's/value: Optional\[Dict\[str, Any\]\] = None/value: Optional[Any] = None/' python-sdk/kestrapy/models/kv_controller_typed_value.py
-echo "from kestrapy.kestra_client import KestraClient as KestraClient" >> python-sdk/kestrapy/__init__.py
+sed $SED_INPLACE -E '/from kestrapy\.models\.list\[label\] import List\[Label\]/d' python/python-sdk/kestrapy/api/executions_api.py
+sed $SED_INPLACE -E 's/value: Optional\[Dict\[str, Any\]\] = None/value: Optional[Any] = None/' python/python-sdk/kestrapy/models/kv_controller_typed_value.py
+echo "from kestrapy.kestra_client import KestraClient as KestraClient" >> python/python-sdk/kestrapy/__init__.py
 
 # Replace wrong prop in docs for each api
 for f in python-sdk/docs/*.md; do
@@ -86,21 +86,21 @@ fi
 # Generate Javascript SDK
 if [[ ",$LANGUAGES," == *",javascript,"* ]]; then
 docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release generate \
-    -c /local/configurations/javascript-config.yml \
+    -c /local/javascript/configuration/javascript-config.yml \
     --skip-validate-spec \
     --additional-properties=projectVersion=$VERSION \
-    --template-dir=/local/templates/javascript
+    --template-dir=/local/javascript/template
 fi
 
 # Generate GoLang SDK
 if [[ ",$LANGUAGES," == *",go,"* ]]; then
 docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release generate \
-      -c /local/configurations/go-config.yml \
-      --skip-validate-spec \
-      --additional-properties=packageVersion=$VERSION \
-    --template-dir=/local/templates/go
+    -c /local/go/configuration/go-config.yml \
+    --skip-validate-spec \
+    --additional-properties=packageVersion=$VERSION \
+    --template-dir=/local/go/template
 # these generated structs collides between api_cluster.go and api_maintenance.go, needs to be improved TODO
-sed $SED_INPLACE.bak -e 's/ApiEnterMaintenanceRequest/ApiClusterEnterMaintenanceRequest/g' ./go-sdk/api_cluster.go && rm ./go-sdk/api_cluster.go.bak
-sed $SED_INPLACE.bak -e 's/ApiExitMaintenanceRequest/ApiClusterExitMaintenanceRequest/g' ./go-sdk/api_cluster.go && rm ./go-sdk/api_cluster.go.bak
+sed $SED_INPLACE.bak -e 's/ApiEnterMaintenanceRequest/ApiClusterEnterMaintenanceRequest/g' ./go/go-sdk/api_cluster.go && rm ./go/go-sdk/api_cluster.go.bak
+sed $SED_INPLACE.bak -e 's/ApiExitMaintenanceRequest/ApiClusterExitMaintenanceRequest/g' ./go/go-sdk/api_cluster.go && rm ./go/go-sdk/api_cluster.go.bak
 gofmt -w ./go-sdk
 fi

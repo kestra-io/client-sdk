@@ -1,13 +1,14 @@
 name: Javascript SDK release
 
 on:
-  push:
-    branches:
-      - main
-
-  pull_request:
-    branches:
-      - main
+  workflow_call:
+    secrets:
+      NPM_TOKEN:
+        required: true
+      GCP_SERVICE_ACCOUNT:
+        required: true
+      APPLICATION_SECRETS:
+        required: false
 
   workflow_dispatch:
     inputs:
@@ -23,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./javascript-sdk
+        working-directory: ./javascript/javascript-sdk
 
     steps:
       - uses: actions/checkout@v5
@@ -55,7 +56,7 @@ jobs:
         env:
           APPLICATION_SECRETS: ${{ secrets.APPLICATION_SECRETS }}
         run: |
-          echo $APPLICATION_SECRETS | base64 -d > ../test-utils/docker-setup/application-secrets.yml
+          echo $APPLICATION_SECRETS | base64 -d > ../../test-utils/docker-setup/application-secrets.yml
           ./run-tests.sh
 
       - name: Publish to npm

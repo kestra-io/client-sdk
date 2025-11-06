@@ -1,20 +1,15 @@
 name: GO SDK tests
 
 on:
-  push:
-    branches:
-      - main
+  workflow_call:
 
-  pull_request:
-    branches:
-      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./go-sdk
+        working-directory: ./go/go-sdk
 
     steps:
       - uses: actions/checkout@v5
