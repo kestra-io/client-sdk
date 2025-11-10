@@ -1,0 +1,69 @@
+name: main.yml
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:
+    inputs:
+      skip-test:
+        description: 'Skip test'
+        required: false
+        type: string
+        default: "false"
+
+jobs:
+  file-changes:
+    name: File changes detection
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    outputs:
+      ui: ${{ steps.changes.outputs.ui }}
+      translations: ${{ steps.changes.outputs.translations }}
+      backend: ${{ steps.changes.outputs.backend }}
+    steps:
+      - uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            go:
+              - 'go-sdk/**'
+            java:
+              - 'java-sdk/**'
+            python:
+              - 'python-sdk/**'
+            javascript:
+              - 'javascript-sdk/**'
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  go:
+    needs: file-changes
+    uses: ./.github/workflows/go-sdk.yml
+
+  java:
+    needs: file-changes
+    uses: ./.github/workflows/java-sdk.yml
+    secrets:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
+      GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+      APPLICATION_SECRETS: ${{ secrets.APPLICATION_SECRETS }}
+  javascript:
+    needs: file-changes
+    uses: ./.github/workflows/javascript-sdk.yml
+    secrets:
+      GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+      APPLICATION_SECRETS: ${{ secrets.APPLICATION_SECRETS }}
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  python:
+    needs: file-changes
+    uses: ./.github/workflows/python-sdk.yml
+    secrets:
+      GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+      APPLICATION_SECRETS: ${{ secrets.APPLICATION_SECRETS }}
+      PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}

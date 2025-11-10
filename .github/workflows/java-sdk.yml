@@ -1,14 +1,16 @@
 name: Java SDK release
 
 on:
-  push:
-    branches:
-      - main
-
-  pull_request:
-    branches:
-      - main
-
+  workflow_call:
+    secrets:
+      SLACK_WEBHOOK_URL:
+        required: true
+      GOOGLE_SERVICE_ACCOUNT:
+        required: true
+      GCP_SERVICE_ACCOUNT:
+        required: true
+      APPLICATION_SECRETS:
+        required: false
   workflow_dispatch:
     inputs:
       skip-test:
@@ -26,7 +28,7 @@ jobs:
       GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
     defaults:
       run:
-        working-directory: ./java-sdk
+        working-directory: ./java/java-sdk
     steps:
       - uses: actions/checkout@v5
 
@@ -69,7 +71,7 @@ jobs:
         env:
           APPLICATION_SECRETS: ${{ secrets.APPLICATION_SECRETS }}
         run: |
-          echo $APPLICATION_SECRETS | base64 -d > ../test-utils/docker-setup/application-secrets.yml
+          echo $APPLICATION_SECRETS | base64 -d > ../../test-utils/docker-setup/application-secrets.yml
           ./run-tests.sh
 
       - name: Test - Publish Test Results
