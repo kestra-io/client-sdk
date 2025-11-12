@@ -101,15 +101,38 @@ public class TestSuitesApiTest {
         createSimpleFlow(flowId, namespace);
 
         // create it
-        kestraClient().testSuites().createTestSuite(MAIN_TENANT, testSuiteYaml);
-        assertThatCode(() -> kestraClient().testSuites().testSuite(namespace, testSuiteId, MAIN_TENANT))
-            .as("test suite should exist")
-            .doesNotThrowAnyException();
+        var testSuite = kestraClient().testSuites().createTestSuite(MAIN_TENANT, testSuiteYaml);
+        assertTestSuiteExists(testSuite);
+
         // delete it
         kestraClient().testSuites().deleteTestSuite(namespace, testSuiteId, MAIN_TENANT);
-        ApiException apiException = assertThrows(ApiException.class,
-            () -> kestraClient().testSuites().testSuite(namespace, testSuiteId, MAIN_TENANT));
-        assertThat(apiException.getCode()).isEqualTo(404);
+        assertTestSuiteDoesNotExist(testSuite);
+    }
+
+    @Test
+    public void updateTestSuiteTest() throws ApiException {
+        var testSuiteId = randomId();
+        var namespace = randomId();
+        var flowId = randomId();
+        var testSuiteYaml = getTestSuiteYaml(SIMPLE_TEST_SUITE, testSuiteId, namespace, flowId);
+
+        createSimpleFlow(flowId, namespace);
+
+        // create it
+        var testSuite = kestraClient().testSuites().createTestSuite(MAIN_TENANT, testSuiteYaml);
+        assertTestSuiteExists(testSuite);
+
+        // update it
+        testSuiteYaml = testSuiteYaml
+            .replace("assert flow is returning the input value as output", "updated testsuite description")
+            .replace("test_case_1 description", "updated testcase description");
+
+        kestraClient().testSuites().updateTestSuite(namespace, testSuiteId, MAIN_TENANT, testSuiteYaml);
+
+        var fetchedTestSuite = kestraClient().testSuites().testSuite(namespace, testSuiteId, MAIN_TENANT);
+        assertThat(fetchedTestSuite.getId()).isEqualTo(testSuiteId);
+        assertThat(fetchedTestSuite.getDescription()).isEqualTo("updated testsuite description");
+        assertThat(fetchedTestSuite.getTestCases()).first().extracting(UnitTest::getDescription).isEqualTo("updated testcase description");
     }
 
     @Test
@@ -144,37 +167,145 @@ public class TestSuitesApiTest {
         assertThat(validationResult.getConstraints()).contains("testCases: must not be empty", "flowId: must not be null");
     }
 
-//    @Test
+    @Test
     public void deleteTestSuiteByIdsTest() throws ApiException {
-        var flow = createSimpleFlow(LOG_FLOW);
-        // FIXME flow is not in the same namespace
+        var flowId = randomId();
         var namespace = randomId();
-        var testSuite1 = kestraClient().testSuites().createTestSuite(MAIN_TENANT, getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), randomId(), flow.getId()));
-        var testSuite2 = kestraClient().testSuites().createTestSuite(MAIN_TENANT, getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), randomId(), flow.getId()));
-        var testSuite3 = kestraClient().testSuites().createTestSuite(MAIN_TENANT, getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), randomId(), flow.getId()));
+        var flow = createSimpleFlow(LOG_FLOW.formatted(flowId, namespace));
+        var testSuite1 = kestraClient().testSuites().createTestSuite(MAIN_TENANT, getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flow.getId()));
+        var testSuite2 = kestraClient().testSuites().createTestSuite(MAIN_TENANT, getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flow.getId()));
+        var testSuite3 = kestraClient().testSuites().createTestSuite(MAIN_TENANT, getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flow.getId()));
+
+        assertTestSuiteExists(testSuite2);
+        assertTestSuiteExists(testSuite1);
+        assertTestSuiteExists(testSuite3);
 
         var idsToDelete = List.of(
             new TestSuiteControllerTestSuiteApiId().id(testSuite1.getId()).namespace(testSuite1.getNamespace()),
             new TestSuiteControllerTestSuiteApiId().id(testSuite3.getId()).namespace(testSuite3.getNamespace())
         );
-        kestraClient().testSuites().deleteTestSuitesByIds(MAIN_TENANT,
-            new TestSuiteControllerTestSuiteBulkRequest().ids(idsToDelete)
+        kestraClient().testSuites().deleteTestSuitesByIds(MAIN_TENANT, new TestSuiteControllerTestSuiteBulkRequest().ids(idsToDelete));
+
+        assertTestSuiteExists(testSuite2);
+        assertTestSuiteDoesNotExist(testSuite1);
+        assertTestSuiteDoesNotExist(testSuite3);
+    }
+
+    private void assertTestSuiteExists(TestSuite testSuite) {
+        assertThatCode(() -> kestraClient().testSuites().testSuite(testSuite.getNamespace(), testSuite.getId(), MAIN_TENANT))
+            .as("test suite should exist")
+            .doesNotThrowAnyException();
+    }
+
+    private void assertTestSuiteDoesNotExist(TestSuite testSuite) {
+        ApiException apiException = assertThrows(ApiException.class,
+            () -> kestraClient().testSuites().testSuite(testSuite.getNamespace(), testSuite.getId(), MAIN_TENANT));
+        assertThat(apiException.getCode()).isEqualTo(404);
+    }
+
+    @Test
+    public void disableTestSuiteByIdsTest() throws ApiException {
+        var flowId = randomId();
+        var namespace = randomId();
+        var flow = createSimpleFlow(LOG_FLOW.formatted(flowId, namespace));
+        var testSuite1 = kestraClient().testSuites().createTestSuite(MAIN_TENANT, getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flow.getId()));
+        var testSuite2 = kestraClient().testSuites().createTestSuite(MAIN_TENANT, getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flow.getId()));
+        var testSuite3 = kestraClient().testSuites().createTestSuite(MAIN_TENANT, getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flow.getId()));
+
+        assertThat(isTestSuiteDisabled(testSuite1)).isFalse();
+        assertThat(isTestSuiteDisabled(testSuite2)).isFalse();
+        assertThat(isTestSuiteDisabled(testSuite3)).isFalse();
+
+        var idsToDisable = List.of(
+            new TestSuiteControllerTestSuiteApiId().id(testSuite1.getId()).namespace(testSuite1.getNamespace()),
+            new TestSuiteControllerTestSuiteApiId().id(testSuite3.getId()).namespace(testSuite3.getNamespace())
         );
-        // TODO assert
+        kestraClient().testSuites().disableTestSuitesByIds(MAIN_TENANT, new TestSuiteControllerTestSuiteBulkRequest().ids(idsToDisable));
+
+        assertThat(isTestSuiteDisabled(testSuite1)).isTrue();
+        assertThat(isTestSuiteDisabled(testSuite2)).isFalse();
+        assertThat(isTestSuiteDisabled(testSuite3)).isTrue();
+    }
+
+    private boolean isTestSuiteDisabled(TestSuite testSuite) {
+        return kestraClient().testSuites().testSuite(testSuite.getNamespace(), testSuite.getId(), MAIN_TENANT).getDisabled();
+    }
+
+    @Test
+    public void enableTestSuiteByIdsTest() throws ApiException {
+        var flowId = randomId();
+        var namespace = randomId();
+        var flow = createSimpleFlow(LOG_FLOW.formatted(flowId, namespace));
+        var testSuite1 = kestraClient().testSuites().createTestSuite(MAIN_TENANT, getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flow.getId()));
+        var testSuite2 = kestraClient().testSuites().createTestSuite(MAIN_TENANT, getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flow.getId()));
+        var testSuite3 = kestraClient().testSuites().createTestSuite(MAIN_TENANT, getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flow.getId()));
+
+        assertThat(isTestSuiteDisabled(testSuite1)).isFalse();
+        assertThat(isTestSuiteDisabled(testSuite2)).isFalse();
+        assertThat(isTestSuiteDisabled(testSuite3)).isFalse();
+
+        // disabling
+        var idsToDisable = List.of(
+            new TestSuiteControllerTestSuiteApiId().id(testSuite1.getId()).namespace(testSuite1.getNamespace()),
+            new TestSuiteControllerTestSuiteApiId().id(testSuite3.getId()).namespace(testSuite3.getNamespace())
+        );
+        kestraClient().testSuites().disableTestSuitesByIds(MAIN_TENANT, new TestSuiteControllerTestSuiteBulkRequest().ids(idsToDisable));
+
+        assertThat(isTestSuiteDisabled(testSuite1)).isTrue();
+        assertThat(isTestSuiteDisabled(testSuite2)).isFalse();
+        assertThat(isTestSuiteDisabled(testSuite3)).isTrue();
+
+        // re enabling the first one
+        var idsToEnable = List.of(
+            new TestSuiteControllerTestSuiteApiId().id(testSuite1.getId()).namespace(testSuite1.getNamespace())
+        );
+        kestraClient().testSuites().enableTestSuitesByIds(MAIN_TENANT, new TestSuiteControllerTestSuiteBulkRequest().ids(idsToEnable));
+
+        assertThat(isTestSuiteDisabled(testSuite1)).isFalse();
+        assertThat(isTestSuiteDisabled(testSuite2)).isFalse();
+        assertThat(isTestSuiteDisabled(testSuite3)).isTrue();
+    }
+
+    @Test
+    public void searchTestSuiteTest() throws ApiException {
+        var namespaceXXX = "namespacexxx_" + randomId();
+        var namespaceYYY = "namespaceyyy_" + randomId();
+        var flowAAA = createSimpleFlow(LOG_FLOW.formatted("flowaaa_" + randomId(), namespaceXXX));
+        var flowBBB = createSimpleFlow(LOG_FLOW.formatted("flowbbb_" + randomId(), namespaceXXX));
+        var flowCCC = createSimpleFlow(LOG_FLOW.formatted("flowccc_" + randomId(), namespaceYYY));
+
+        var testSuite1 = kestraClient().testSuites().createTestSuite(MAIN_TENANT, getTestSuiteYaml(SIMPLE_TEST_SUITE, "testsuite111_" + randomId(), namespaceXXX, flowAAA.getId()));
+        var testSuite2 = kestraClient().testSuites().createTestSuite(MAIN_TENANT, getTestSuiteYaml(SIMPLE_TEST_SUITE, "testsuite222_" + randomId(), namespaceXXX, flowAAA.getId()));
+
+        var testSuite3 = kestraClient().testSuites().createTestSuite(MAIN_TENANT, getTestSuiteYaml(SIMPLE_TEST_SUITE, "testsuite333_" + randomId(), namespaceXXX, flowBBB.getId()));
+
+        var testSuite4 = kestraClient().testSuites().createTestSuite(MAIN_TENANT, getTestSuiteYaml(SIMPLE_TEST_SUITE, "testsuite444_" + randomId(), namespaceYYY, flowCCC.getId()));
+
+        var page = 1;
+        var size = 1000;
+        var includeChildNamespaces = false;
+        List<String> sort = null;
+
+        var flowIdToSearch = flowAAA.getId();
+        var searchByFlowResult = kestraClient().testSuites().searchTestSuites(page, size, includeChildNamespaces, MAIN_TENANT, sort, null, flowIdToSearch);
+        assertThat(searchByFlowResult.getResults())
+            .as("search by flow id: " + flowIdToSearch)
+            .usingRecursiveFieldByFieldElementComparatorOnFields("id").containsExactly(testSuite1, testSuite2);
+
+        var namespaceToSearch = namespaceYYY;
+        var searchByNamespaceResult = kestraClient().testSuites().searchTestSuites(page, size, includeChildNamespaces, MAIN_TENANT, sort, namespaceToSearch, null);
+        assertThat(searchByNamespaceResult.getResults())
+            .as("search by namespace: " + namespaceToSearch)
+            .usingRecursiveFieldByFieldElementComparatorOnFields("id").containsExactly(testSuite4);
     }
     /*
 
-
-| [**deleteTestSuitesByIds**](TestSuitesApi.md#deleteTestSuitesByIds) | **DELETE** /api/v1/{tenant}/tests/by-ids | Delete multiple tests by id |
-| [**disableTestSuitesByIds**](TestSuitesApi.md#disableTestSuitesByIds) | **POST** /api/v1/{tenant}/tests/disable/by-ids | Disable multiple tests by id |
-| [**enableTestSuitesByIds**](TestSuitesApi.md#enableTestSuitesByIds) | **POST** /api/v1/{tenant}/tests/enable/by-ids | Enable multiple tests by id |
 | [**runTestSuite**](TestSuitesApi.md#runTestSuite) | **POST** /api/v1/{tenant}/tests/{namespace}/{id}/run | Run a full test |
 | [**runTestSuitesByQuery**](TestSuitesApi.md#runTestSuitesByQuery) | **POST** /api/v1/{tenant}/tests/run | Run multiple TestSuites by query |
 | [**searchTestSuites**](TestSuitesApi.md#searchTestSuites) | **GET** /api/v1/{tenant}/tests/search | Search for tests |
 | [**searchTestSuitesResults**](TestSuitesApi.md#searchTestSuitesResults) | **GET** /api/v1/{tenant}/tests/results/search | Search for tests results |
 | [**testResult**](TestSuitesApi.md#testResult) | **GET** /api/v1/{tenant}/tests/results/{id} | Get a test result |
 | [**testsLastResult**](TestSuitesApi.md#testsLastResult) | **POST** /api/v1/{tenant}/tests/results/search/last | Get tests last result |
-| [**updateTestSuite**](TestSuitesApi.md#updateTestSuite) | **PUT** /api/v1/{tenant}/tests/{namespace}/{id} | Update a test from YAML source |
      */
 
     public static final String LOG_FLOW = """
