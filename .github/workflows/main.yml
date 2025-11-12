@@ -31,20 +31,22 @@ jobs:
         with:
           filters: |
             go:
-              - 'go-sdk/**'
+              - 'go/**'
             java:
-              - 'java-sdk/**'
+              - 'java/**'
             python:
-              - 'python-sdk/**'
+              - 'python/**'
             javascript:
-              - 'javascript-sdk/**'
+              - 'javascript/**'
           token: ${{ secrets.GITHUB_TOKEN }}
 
   go:
+    if: "needs.file-changes.outputs.go == 'true'"
     needs: file-changes
     uses: ./.github/workflows/go-sdk.yml
 
   java:
+    if: "needs.file-changes.outputs.java == 'true'"
     needs: file-changes
     uses: ./.github/workflows/java-sdk.yml
     secrets:
@@ -53,14 +55,15 @@ jobs:
       GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
       APPLICATION_SECRETS: ${{ secrets.APPLICATION_SECRETS }}
   javascript:
+    if: "needs.file-changes.outputs.javascript == 'true'"
     needs: file-changes
     uses: ./.github/workflows/javascript-sdk.yml
     secrets:
       GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
       APPLICATION_SECRETS: ${{ secrets.APPLICATION_SECRETS }}
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
   python:
+    if: "needs.file-changes.outputs.python == 'true'"
     needs: file-changes
     uses: ./.github/workflows/python-sdk.yml
     secrets:
