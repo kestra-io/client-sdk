@@ -388,13 +388,88 @@ public class TestSuitesApiTest {
             .as("run by namespace: " + namespaceToRun)
             .extracting(TestSuiteRunResult::getTestSuiteId).containsExactlyInAnyOrder(testSuite4.getId());
     }
-    /*
 
-| [**runTestSuitesByQuery**](TestSuitesApi.md#runTestSuitesByQuery) | **POST** /api/v1/{tenant}/tests/run | Run multiple TestSuites by query |
-| [**searchTestSuitesResults**](TestSuitesApi.md#searchTestSuitesResults) | **GET** /api/v1/{tenant}/tests/results/search | Search for tests results |
-| [**testResult**](TestSuitesApi.md#testResult) | **GET** /api/v1/{tenant}/tests/results/{id} | Get a test result |
-| [**testsLastResult**](TestSuitesApi.md#testsLastResult) | **POST** /api/v1/{tenant}/tests/results/search/last | Get tests last result |
-     */
+    @Test
+    public void searchTestSuitesResultsTest() throws ApiException {
+        var namespaceXXX = "namespacexxx_" + randomId();
+        var namespaceYYY = "namespaceyyy_" + randomId();
+        var flowAAA = createSimpleFlow(LOG_FLOW.formatted("flowaaa_" + randomId(), namespaceXXX));
+        var flowBBB = createSimpleFlow(LOG_FLOW.formatted("flowbbb_" + randomId(), namespaceXXX));
+        var flowCCC = createSimpleFlow(LOG_FLOW.formatted("flowccc_" + randomId(), namespaceYYY));
+
+        var testSuite1 = kestraClient().testSuites().createTestSuite(MAIN_TENANT, getTestSuiteYaml(SIMPLE_TEST_SUITE, "testsuite111_" + randomId(), namespaceXXX, flowAAA.getId()));
+        var testSuite2 = kestraClient().testSuites().createTestSuite(MAIN_TENANT, getTestSuiteYaml(SIMPLE_TEST_SUITE, "testsuite222_" + randomId(), namespaceXXX, flowAAA.getId()));
+
+        var testSuite3 = kestraClient().testSuites().createTestSuite(MAIN_TENANT, getTestSuiteYaml(SIMPLE_TEST_SUITE, "testsuite333_" + randomId(), namespaceXXX, flowBBB.getId()));
+
+        var testSuite4 = kestraClient().testSuites().createTestSuite(MAIN_TENANT, getTestSuiteYaml(SIMPLE_TEST_SUITE, "testsuite444_" + randomId(), namespaceYYY, flowCCC.getId()));
+
+        // run all of them
+        kestraClient().testSuites().runTestSuite(testSuite1.getNamespace(), testSuite1.getId(), MAIN_TENANT, new TestSuiteControllerRunRequest());
+        kestraClient().testSuites().runTestSuite(testSuite1.getNamespace(), testSuite1.getId(), MAIN_TENANT, new TestSuiteControllerRunRequest());
+        kestraClient().testSuites().runTestSuite(testSuite2.getNamespace(), testSuite2.getId(), MAIN_TENANT, new TestSuiteControllerRunRequest());
+        kestraClient().testSuites().runTestSuite(testSuite3.getNamespace(), testSuite3.getId(), MAIN_TENANT, new TestSuiteControllerRunRequest());
+        kestraClient().testSuites().runTestSuite(testSuite4.getNamespace(), testSuite4.getId(), MAIN_TENANT, new TestSuiteControllerRunRequest());
+
+
+        var page = 1;
+        var size = 1000;
+        var includeChildNamespaces = false;
+        List<String> sort = null;
+
+        // TODO regenerate openapi spec with testSuiteId optional
+        var testsuiteIdToSearch = testSuite1.getId();
+        assertThat(kestraClient().testSuites().searchTestSuitesResults(page, size, testsuiteIdToSearch, MAIN_TENANT, sort, null, null).getResults())
+            .as("search results by test suite id: " + testsuiteIdToSearch)
+            .allMatch(result -> result.getTestSuiteId().equals(testSuite1.getId()))
+            .hasSize(2);
+
+
+        var flowIdToSearch = flowAAA.getId();
+        assertThat(kestraClient().testSuites().searchTestSuitesResults(page, size, null, MAIN_TENANT, sort, null, flowIdToSearch).getResults())
+            .as("search results by flow id: " + flowIdToSearch)
+            .allMatch(result -> result.getFlowId().equals(flowIdToSearch))
+            .extracting(TestSuiteRunResult::getTestSuiteId)
+            .containsExactlyInAnyOrder(testSuite1.getId(), testSuite1.getId(), testSuite2.getId());
+
+
+        var namespaceToSearch = namespaceYYY;
+        assertThat(kestraClient().testSuites().searchTestSuitesResults(page, size, null, MAIN_TENANT, sort, namespaceToSearch, null).getResults())
+            .as("search results by namespace: " + namespaceToSearch)
+            .allMatch(result -> result.getNamespace().equals(namespaceToSearch))
+            .extracting(TestSuiteRunResult::getTestSuiteId)
+            .containsExactlyInAnyOrder(testSuite4.getId());
+    }
+
+    @Test
+    public void getTestResult() throws ApiException {
+        var namespace = randomId();
+        var flowId = randomId();
+        createSimpleFlow(flowId, namespace);
+        var testSuite = kestraClient().testSuites().createTestSuite(MAIN_TENANT, getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flowId));
+
+        var testResult = kestraClient().testSuites().runTestSuite(namespace, testSuite.getId(), MAIN_TENANT, null);
+
+        var fetchedResult = kestraClient().testSuites().testResult(testResult.getId(), MAIN_TENANT);
+        assertThat(fetchedResult.getId()).isEqualTo(testResult.getId());
+    }
+
+    @Test
+    public void getTestsLastResultTest() throws ApiException {
+        var namespace = randomId();
+        var flowId = randomId();
+        createSimpleFlow(flowId, namespace);
+        var testSuite = kestraClient().testSuites().createTestSuite(MAIN_TENANT, getTestSuiteYaml(SIMPLE_TEST_SUITE, randomId(), namespace, flowId));
+
+        var testResult1 = kestraClient().testSuites().runTestSuite(namespace, testSuite.getId(), MAIN_TENANT, null);
+        var testResult2 = kestraClient().testSuites().runTestSuite(namespace, testSuite.getId(), MAIN_TENANT, null);
+
+        var fetchedResult = kestraClient().testSuites().testsLastResult(
+            MAIN_TENANT,
+            new TestSuiteControllerSearchTestsLastResult().addTestSuiteIdsItem(new TestSuiteControllerTestSuiteApiId().id(testSuite.getId()).namespace(testSuite.getNamespace()))
+        );
+        assertThat(fetchedResult.getResults()).usingRecursiveFieldByFieldElementComparatorOnFields("id").containsExactly(testResult2);
+    }
 
     public static final String LOG_FLOW = """
         id: %s
