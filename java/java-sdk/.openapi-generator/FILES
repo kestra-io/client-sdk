@@ -375,6 +375,7 @@ docs/TestSuiteControllerTestsLastResultResponse.md
 docs/TestSuiteRunResult.md
 docs/TestSuiteServiceRunByQueryRequest.md
 docs/TestSuiteServiceTestRunByQueryResult.md
+docs/TestSuitesApi.md
 docs/TheLabelsToPassToTheExecutionCreated.md
 docs/TimeWindow.md
 docs/Trigger.md
@@ -415,6 +416,7 @@ src/main/java/io/kestra/sdk/api/KvApi.java
 src/main/java/io/kestra/sdk/api/NamespacesApi.java
 src/main/java/io/kestra/sdk/api/RolesApi.java
 src/main/java/io/kestra/sdk/api/ServiceAccountApi.java
+src/main/java/io/kestra/sdk/api/TestSuitesApi.java
 src/main/java/io/kestra/sdk/api/TriggersApi.java
 src/main/java/io/kestra/sdk/api/UsersApi.java
 src/main/java/io/kestra/sdk/internal/ApiClient.java
