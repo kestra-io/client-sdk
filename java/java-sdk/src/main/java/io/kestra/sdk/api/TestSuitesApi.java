@@ -789,16 +789,16 @@ import java.util.StringJoiner;
    * with optional filtering by namespace, test suite ID and flow ID. Requires TEST permission with the READ action.
    * @param page The current page (required)
    * @param size The current page size (required)
-   * @param testSuiteId The test suite id to filter on (required)
    * @param tenant  (required)
    * @param sort The sort of current page (optional)
+   * @param testSuiteId The test suite id to filter on (optional)
    * @param namespace The namespace to filter on (optional)
    * @param flowId The flow id to filter on (optional)
    * @return PagedResultsTestSuiteRunResult
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsTestSuiteRunResult searchTestSuitesResults(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String testSuiteId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable String namespace, @jakarta.annotation.Nullable String flowId) throws ApiException {
-    return this.searchTestSuitesResults(page, size, testSuiteId, tenant, sort, namespace, flowId, Collections.emptyMap());
+  public PagedResultsTestSuiteRunResult searchTestSuitesResults(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable String testSuiteId, @jakarta.annotation.Nullable String namespace, @jakarta.annotation.Nullable String flowId) throws ApiException {
+    return this.searchTestSuitesResults(page, size, tenant, sort, testSuiteId, namespace, flowId, Collections.emptyMap());
   }
 
   /**
@@ -806,16 +806,16 @@ import java.util.StringJoiner;
    * with optional filtering by namespace, test suite ID and flow ID. Requires TEST permission with the READ action.
    * @param page The current page (required)
    * @param size The current page size (required)
-   * @param testSuiteId The test suite id to filter on (required)
    * @param tenant  (required)
    * @param sort The sort of current page (optional)
+   * @param testSuiteId The test suite id to filter on (optional)
    * @param namespace The namespace to filter on (optional)
    * @param flowId The flow id to filter on (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return PagedResultsTestSuiteRunResult
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsTestSuiteRunResult searchTestSuitesResults(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String testSuiteId, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable String namespace, @jakarta.annotation.Nullable String flowId, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsTestSuiteRunResult searchTestSuitesResults(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable String testSuiteId, @jakarta.annotation.Nullable String namespace, @jakarta.annotation.Nullable String flowId, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'page' is set
@@ -826,11 +826,6 @@ import java.util.StringJoiner;
     // verify the required parameter 'size' is set
     if (size == null) {
       throw new ApiException(400, "Missing the required parameter 'size' when calling searchTestSuitesResults");
-    }
-    
-    // verify the required parameter 'testSuiteId' is set
-    if (testSuiteId == null) {
-      throw new ApiException(400, "Missing the required parameter 'testSuiteId' when calling searchTestSuitesResults");
     }
     
     // verify the required parameter 'tenant' is set

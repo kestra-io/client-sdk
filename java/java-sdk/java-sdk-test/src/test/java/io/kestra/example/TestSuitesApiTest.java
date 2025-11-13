@@ -417,16 +417,15 @@ public class TestSuitesApiTest {
         var includeChildNamespaces = false;
         List<String> sort = null;
 
-        // TODO regenerate openapi spec with testSuiteId optional
         var testsuiteIdToSearch = testSuite1.getId();
-        assertThat(kestraClient().testSuites().searchTestSuitesResults(page, size, testsuiteIdToSearch, MAIN_TENANT, sort, null, null).getResults())
+        assertThat(kestraClient().testSuites().searchTestSuitesResults(page, size, MAIN_TENANT, sort, testsuiteIdToSearch, null, null).getResults())
             .as("search results by test suite id: " + testsuiteIdToSearch)
             .allMatch(result -> result.getTestSuiteId().equals(testSuite1.getId()))
             .hasSize(2);
 
 
         var flowIdToSearch = flowAAA.getId();
-        assertThat(kestraClient().testSuites().searchTestSuitesResults(page, size, null, MAIN_TENANT, sort, null, flowIdToSearch).getResults())
+        assertThat(kestraClient().testSuites().searchTestSuitesResults(page, size,  MAIN_TENANT, sort, null, null, flowIdToSearch).getResults())
             .as("search results by flow id: " + flowIdToSearch)
             .allMatch(result -> result.getFlowId().equals(flowIdToSearch))
             .extracting(TestSuiteRunResult::getTestSuiteId)
@@ -434,7 +433,7 @@ public class TestSuitesApiTest {
 
 
         var namespaceToSearch = namespaceYYY;
-        assertThat(kestraClient().testSuites().searchTestSuitesResults(page, size, null, MAIN_TENANT, sort, namespaceToSearch, null).getResults())
+        assertThat(kestraClient().testSuites().searchTestSuitesResults(page, size, MAIN_TENANT, sort, null, namespaceToSearch, null).getResults())
             .as("search results by namespace: " + namespaceToSearch)
             .allMatch(result -> result.getNamespace().equals(namespaceToSearch))
             .extracting(TestSuiteRunResult::getTestSuiteId)

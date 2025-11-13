@@ -607,7 +607,7 @@ No authorization required
 
 ## searchTestSuitesResults
 
-> PagedResultsTestSuiteRunResult searchTestSuitesResults(page, size, testSuiteId, tenant, sort, namespace, flowId)
+> PagedResultsTestSuiteRunResult searchTestSuitesResults(page, size, tenant, sort, testSuiteId, namespace, flowId)
 
 Search for tests results
 
@@ -634,13 +634,13 @@ public class Example {
 
         Integer page = 1; // Integer | The current page
         Integer size = 10; // Integer | The current page size
-        String testSuiteId = "testSuiteId_example"; // String | The test suite id to filter on
         String tenant = "tenant_example"; // String | 
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
+        String testSuiteId = "testSuiteId_example"; // String | The test suite id to filter on
         String namespace = "namespace_example"; // String | The namespace to filter on
         String flowId = "flowId_example"; // String | The flow id to filter on
         try {
-            PagedResultsTestSuiteRunResult result = kestraClient.TestSuitesApi().searchTestSuitesResults(page, size, testSuiteId, tenant, sort, namespace, flowId);
+            PagedResultsTestSuiteRunResult result = kestraClient.TestSuitesApi().searchTestSuitesResults(page, size, tenant, sort, testSuiteId, namespace, flowId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TestSuitesApi#searchTestSuitesResults");
@@ -660,9 +660,9 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **page** | **Integer**| The current page | [default to 1] |
 | **size** | **Integer**| The current page size | [default to 10] |
-| **testSuiteId** | **String**| The test suite id to filter on | |
 | **tenant** | **String**|  | |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
+| **testSuiteId** | **String**| The test suite id to filter on | [optional] |
 | **namespace** | **String**| The namespace to filter on | [optional] |
 | **flowId** | **String**| The flow id to filter on | [optional] |
 

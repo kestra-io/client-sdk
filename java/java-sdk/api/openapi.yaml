@@ -14201,8 +14201,9 @@ paths:
         explode: false
         in: query
         name: testSuiteId
-        required: true
+        required: false
         schema:
+          nullable: true
           type: string
         style: form
       - description: The namespace to filter on
@@ -15659,8 +15660,15 @@ components:
           title: The class name for this current trigger.
           type: string
         version:
-          pattern: "\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9-]+)?|([a-zA-Z0-9]+)"
-          title: The version of the plugin to use.
+          description: |
+            Defines the version of the plugin to use.
+
+            The version must follow the Semantic Versioning (SemVer) specification:
+              - A single-digit MAJOR version (e.g., `1`).
+              - A MAJOR.MINOR version (e.g., `1.1`).
+              - A MAJOR.MINOR.PATCH version, optionally with any qualifier
+                (e.g., `1.1.2`, `1.1.0-SNAPSHOT`).
+          title: Plugin Version
           type: string
         description:
           type: string
@@ -15709,8 +15717,15 @@ components:
           title: The class name for this current trigger.
           type: string
         version:
-          pattern: "\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9-]+)?|([a-zA-Z0-9]+)"
-          title: The version of the plugin to use.
+          description: |
+            Defines the version of the plugin to use.
+
+            The version must follow the Semantic Versioning (SemVer) specification:
+              - A single-digit MAJOR version (e.g., `1`).
+              - A MAJOR.MINOR version (e.g., `1.1`).
+              - A MAJOR.MINOR.PATCH version, optionally with any qualifier
+                (e.g., `1.1.2`, `1.1.0-SNAPSHOT`).
+          title: Plugin Version
           type: string
       required:
       - id
@@ -24918,8 +24933,15 @@ components:
           title: The class name of this task.
           type: string
         version:
-          pattern: "\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9-]+)?|([a-zA-Z0-9]+)"
-          title: The version of the plugin to use.
+          description: |
+            Defines the version of the plugin to use.
+
+            The version must follow the Semantic Versioning (SemVer) specification:
+              - A single-digit MAJOR version (e.g., `1`).
+              - A MAJOR.MINOR version (e.g., `1.1`).
+              - A MAJOR.MINOR.PATCH version, optionally with any qualifier
+                (e.g., `1.1.2`, `1.1.0-SNAPSHOT`).
+          title: Plugin Version
           type: string
         description:
           type: string
@@ -25011,8 +25033,15 @@ components:
           title: The class name of this task.
           type: string
         version:
-          pattern: "\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9-]+)?|([a-zA-Z0-9]+)"
-          title: The version of the plugin to use.
+          description: |
+            Defines the version of the plugin to use.
+
+            The version must follow the Semantic Versioning (SemVer) specification:
+              - A single-digit MAJOR version (e.g., `1`).
+              - A MAJOR.MINOR version (e.g., `1.1`).
+              - A MAJOR.MINOR.PATCH version, optionally with any qualifier
+                (e.g., `1.1.2`, `1.1.0-SNAPSHOT`).
+          title: Plugin Version
           type: string
         tasks:
           items:
