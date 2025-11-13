@@ -34,7 +34,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AppsControllerApiAppCatalogItem.JSON_PROPERTY_NAME,
   AppsControllerApiAppCatalogItem.JSON_PROPERTY_DESCRIPTION,
   AppsControllerApiAppCatalogItem.JSON_PROPERTY_TYPE,
-  AppsControllerApiAppCatalogItem.JSON_PROPERTY_TAGS
+  AppsControllerApiAppCatalogItem.JSON_PROPERTY_TAGS,
+  AppsControllerApiAppCatalogItem.JSON_PROPERTY_THUMBNAIL
 })
 @JsonTypeName("AppsController.ApiAppCatalogItem")
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
@@ -53,6 +54,9 @@ public class AppsControllerApiAppCatalogItem {
 
   public static final String JSON_PROPERTY_TAGS = "tags";
   @jakarta.annotation.Nullable  private List<String> tags = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_THUMBNAIL = "thumbnail";
+  @jakarta.annotation.Nullable  private String thumbnail;
 
   public AppsControllerApiAppCatalogItem() {
   }
@@ -185,6 +189,30 @@ public class AppsControllerApiAppCatalogItem {
     this.tags = tags;
   }
 
+  public AppsControllerApiAppCatalogItem thumbnail(@jakarta.annotation.Nullable String thumbnail) {
+    
+    this.thumbnail = thumbnail;
+    return this;
+  }
+
+  /**
+   * Get thumbnail
+   * @return thumbnail
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_THUMBNAIL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getThumbnail() {
+    return thumbnail;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_THUMBNAIL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setThumbnail(@jakarta.annotation.Nullable String thumbnail) {
+    this.thumbnail = thumbnail;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -198,12 +226,13 @@ public class AppsControllerApiAppCatalogItem {
         Objects.equals(this.name, appsControllerApiAppCatalogItem.name) &&
         Objects.equals(this.description, appsControllerApiAppCatalogItem.description) &&
         Objects.equals(this.type, appsControllerApiAppCatalogItem.type) &&
-        Objects.equals(this.tags, appsControllerApiAppCatalogItem.tags);
+        Objects.equals(this.tags, appsControllerApiAppCatalogItem.tags) &&
+        Objects.equals(this.thumbnail, appsControllerApiAppCatalogItem.thumbnail);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(uid, name, description, type, tags);
+    return Objects.hash(uid, name, description, type, tags, thumbnail);
   }
 
   @Override
@@ -215,6 +244,7 @@ public class AppsControllerApiAppCatalogItem {
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
+    sb.append("    thumbnail: ").append(toIndentedString(thumbnail)).append("\n");
     sb.append("}");
     return sb.toString();
   }

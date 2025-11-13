@@ -32,9 +32,13 @@ public enum QueryFilterField {
   
   NAMESPACE("NAMESPACE"),
   
+  KIND("KIND"),
+  
   LABELS("LABELS"),
   
   FLOW_ID("FLOW_ID"),
+  
+  UPDATED("UPDATED"),
   
   START_DATE("START_DATE"),
   

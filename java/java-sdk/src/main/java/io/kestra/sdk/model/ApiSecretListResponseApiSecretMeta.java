@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.kestra.sdk.model.TaskRun;
+import io.kestra.sdk.model.ApiSecretMetaEE;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,31 +28,59 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
- * PagedResultsTaskRun
+ * ApiSecretListResponseApiSecretMeta
  */
 @JsonPropertyOrder({
-  PagedResultsTaskRun.JSON_PROPERTY_RESULTS,
-  PagedResultsTaskRun.JSON_PROPERTY_TOTAL
+  ApiSecretListResponseApiSecretMeta.JSON_PROPERTY_READ_ONLY,
+  ApiSecretListResponseApiSecretMeta.JSON_PROPERTY_RESULTS,
+  ApiSecretListResponseApiSecretMeta.JSON_PROPERTY_TOTAL
 })
-@JsonTypeName("PagedResults_TaskRun_")
+@JsonTypeName("ApiSecretListResponse_ApiSecretMeta_")
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
-public class PagedResultsTaskRun {
+public class ApiSecretListResponseApiSecretMeta {
+  public static final String JSON_PROPERTY_READ_ONLY = "readOnly";
+  @jakarta.annotation.Nonnull  private Boolean readOnly;
+
   public static final String JSON_PROPERTY_RESULTS = "results";
-  @jakarta.annotation.Nonnull  private List<TaskRun> results = new ArrayList<>();
+  @jakarta.annotation.Nonnull  private List<ApiSecretMetaEE> results = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TOTAL = "total";
-  @jakarta.annotation.Nonnull  private Long total;
+  @jakarta.annotation.Nullable  private Long total;
 
-  public PagedResultsTaskRun() {
+  public ApiSecretListResponseApiSecretMeta() {
   }
 
-  public PagedResultsTaskRun results(@jakarta.annotation.Nonnull List<TaskRun> results) {
+  public ApiSecretListResponseApiSecretMeta readOnly(@jakarta.annotation.Nonnull Boolean readOnly) {
+    
+    this.readOnly = readOnly;
+    return this;
+  }
+
+  /**
+   * Get readOnly
+   * @return readOnly
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_READ_ONLY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Boolean getReadOnly() {
+    return readOnly;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_READ_ONLY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setReadOnly(@jakarta.annotation.Nonnull Boolean readOnly) {
+    this.readOnly = readOnly;
+  }
+
+  public ApiSecretListResponseApiSecretMeta results(@jakarta.annotation.Nonnull List<ApiSecretMetaEE> results) {
     
     this.results = results;
     return this;
   }
 
-  public PagedResultsTaskRun addResultsItem(TaskRun resultsItem) {
+  public ApiSecretListResponseApiSecretMeta addResultsItem(ApiSecretMetaEE resultsItem) {
     if (this.results == null) {
       this.results = new ArrayList<>();
     }
@@ -67,18 +95,18 @@ public class PagedResultsTaskRun {
   @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public List<TaskRun> getResults() {
+  public List<ApiSecretMetaEE> getResults() {
     return results;
   }
 
 
   @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setResults(@jakarta.annotation.Nonnull List<TaskRun> results) {
+  public void setResults(@jakarta.annotation.Nonnull List<ApiSecretMetaEE> results) {
     this.results = results;
   }
 
-  public PagedResultsTaskRun total(@jakarta.annotation.Nonnull Long total) {
+  public ApiSecretListResponseApiSecretMeta total(@jakarta.annotation.Nullable Long total) {
     
     this.total = total;
     return this;
@@ -88,8 +116,8 @@ public class PagedResultsTaskRun {
    * Get total
    * @return total
    */
-  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TOTAL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getTotal() {
     return total;
@@ -97,8 +125,8 @@ public class PagedResultsTaskRun {
 
 
   @JsonProperty(JSON_PROPERTY_TOTAL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTotal(@jakarta.annotation.Nonnull Long total) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTotal(@jakarta.annotation.Nullable Long total) {
     this.total = total;
   }
 
@@ -110,20 +138,22 @@ public class PagedResultsTaskRun {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PagedResultsTaskRun pagedResultsTaskRun = (PagedResultsTaskRun) o;
-    return Objects.equals(this.results, pagedResultsTaskRun.results) &&
-        Objects.equals(this.total, pagedResultsTaskRun.total);
+    ApiSecretListResponseApiSecretMeta apiSecretListResponseApiSecretMeta = (ApiSecretListResponseApiSecretMeta) o;
+    return Objects.equals(this.readOnly, apiSecretListResponseApiSecretMeta.readOnly) &&
+        Objects.equals(this.results, apiSecretListResponseApiSecretMeta.results) &&
+        Objects.equals(this.total, apiSecretListResponseApiSecretMeta.total);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(results, total);
+    return Objects.hash(readOnly, results, total);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PagedResultsTaskRun {\n");
+    sb.append("class ApiSecretListResponseApiSecretMeta {\n");
+    sb.append("    readOnly: ").append(toIndentedString(readOnly)).append("\n");
     sb.append("    results: ").append(toIndentedString(results)).append("\n");
     sb.append("    total: ").append(toIndentedString(total)).append("\n");
     sb.append("}");

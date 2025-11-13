@@ -45,21 +45,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowWithSource.JSON_PROPERTY_REVISION,
   FlowWithSource.JSON_PROPERTY_DESCRIPTION,
   FlowWithSource.JSON_PROPERTY_INPUTS,
+  FlowWithSource.JSON_PROPERTY_OUTPUTS,
   FlowWithSource.JSON_PROPERTY_DISABLED,
   FlowWithSource.JSON_PROPERTY_LABELS,
+  FlowWithSource.JSON_PROPERTY_VARIABLES,
   FlowWithSource.JSON_PROPERTY_WORKER_GROUP,
   FlowWithSource.JSON_PROPERTY_DELETED,
-  FlowWithSource.JSON_PROPERTY_VARIABLES,
-  FlowWithSource.JSON_PROPERTY_CONCURRENCY,
-  FlowWithSource.JSON_PROPERTY_OUTPUTS,
-  FlowWithSource.JSON_PROPERTY_SLA,
   FlowWithSource.JSON_PROPERTY_FINALLY,
   FlowWithSource.JSON_PROPERTY_TASKS,
   FlowWithSource.JSON_PROPERTY_ERRORS,
   FlowWithSource.JSON_PROPERTY_AFTER_EXECUTION,
   FlowWithSource.JSON_PROPERTY_TRIGGERS,
   FlowWithSource.JSON_PROPERTY_PLUGIN_DEFAULTS,
-  FlowWithSource.JSON_PROPERTY_RETRY
+  FlowWithSource.JSON_PROPERTY_CONCURRENCY,
+  FlowWithSource.JSON_PROPERTY_RETRY,
+  FlowWithSource.JSON_PROPERTY_SLA
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class FlowWithSource {
@@ -78,29 +78,23 @@ public class FlowWithSource {
   public static final String JSON_PROPERTY_INPUTS = "inputs";
   @jakarta.annotation.Nullable  private List<InputObject> inputs = new ArrayList<>();
 
+  public static final String JSON_PROPERTY_OUTPUTS = "outputs";
+  @jakarta.annotation.Nullable  private List<Output> outputs = new ArrayList<>();
+
   public static final String JSON_PROPERTY_DISABLED = "disabled";
   @jakarta.annotation.Nonnull  private Boolean disabled;
 
   public static final String JSON_PROPERTY_LABELS = "labels";
   @jakarta.annotation.Nullable  private List<Label> labels = new ArrayList<>();
 
+  public static final String JSON_PROPERTY_VARIABLES = "variables";
+  @jakarta.annotation.Nullable  private Object variables;
+
   public static final String JSON_PROPERTY_WORKER_GROUP = "workerGroup";
   @jakarta.annotation.Nullable  private WorkerGroup workerGroup;
 
   public static final String JSON_PROPERTY_DELETED = "deleted";
   @jakarta.annotation.Nonnull  private Boolean deleted;
-
-  public static final String JSON_PROPERTY_VARIABLES = "variables";
-  @jakarta.annotation.Nullable  private Object variables;
-
-  public static final String JSON_PROPERTY_CONCURRENCY = "concurrency";
-  @jakarta.annotation.Nullable  private Concurrency concurrency;
-
-  public static final String JSON_PROPERTY_OUTPUTS = "outputs";
-  @jakarta.annotation.Nullable  private List<Output> outputs = new ArrayList<>();
-
-  public static final String JSON_PROPERTY_SLA = "sla";
-  @jakarta.annotation.Nullable  private List<SLA> sla = new ArrayList<>();
 
   public static final String JSON_PROPERTY_FINALLY = "finally";
   @jakarta.annotation.Nullable  private List<Task> _finally = new ArrayList<>();
@@ -120,8 +114,14 @@ public class FlowWithSource {
   public static final String JSON_PROPERTY_PLUGIN_DEFAULTS = "pluginDefaults";
   @jakarta.annotation.Nullable  private List<PluginDefault> pluginDefaults = new ArrayList<>();
 
+  public static final String JSON_PROPERTY_CONCURRENCY = "concurrency";
+  @jakarta.annotation.Nullable  private Concurrency concurrency;
+
   public static final String JSON_PROPERTY_RETRY = "retry";
   @jakarta.annotation.Nullable  private Object retry;
+
+  public static final String JSON_PROPERTY_SLA = "sla";
+  @jakarta.annotation.Nullable  private List<SLA> sla = new ArrayList<>();
 
   public FlowWithSource() {
   }
@@ -255,6 +255,38 @@ public class FlowWithSource {
     this.inputs = inputs;
   }
 
+  public FlowWithSource outputs(@jakarta.annotation.Nullable List<Output> outputs) {
+    
+    this.outputs = outputs;
+    return this;
+  }
+
+  public FlowWithSource addOutputsItem(Output outputsItem) {
+    if (this.outputs == null) {
+      this.outputs = new ArrayList<>();
+    }
+    this.outputs.add(outputsItem);
+    return this;
+  }
+
+  /**
+   * Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages.
+   * @return outputs
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTPUTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<Output> getOutputs() {
+    return outputs;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_OUTPUTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOutputs(@jakarta.annotation.Nullable List<Output> outputs) {
+    this.outputs = outputs;
+  }
+
   public FlowWithSource disabled(@jakarta.annotation.Nonnull Boolean disabled) {
     
     this.disabled = disabled;
@@ -311,6 +343,30 @@ public class FlowWithSource {
     this.labels = labels;
   }
 
+  public FlowWithSource variables(@jakarta.annotation.Nullable Object variables) {
+    
+    this.variables = variables;
+    return this;
+  }
+
+  /**
+   * Get variables
+   * @return variables
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VARIABLES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Object getVariables() {
+    return variables;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VARIABLES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVariables(@jakarta.annotation.Nullable Object variables) {
+    this.variables = variables;
+  }
+
   public FlowWithSource workerGroup(@jakarta.annotation.Nullable WorkerGroup workerGroup) {
     
     this.workerGroup = workerGroup;
@@ -357,118 +413,6 @@ public class FlowWithSource {
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDeleted(@jakarta.annotation.Nonnull Boolean deleted) {
     this.deleted = deleted;
-  }
-
-  public FlowWithSource variables(@jakarta.annotation.Nullable Object variables) {
-    
-    this.variables = variables;
-    return this;
-  }
-
-  /**
-   * Get variables
-   * @return variables
-   */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VARIABLES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Object getVariables() {
-    return variables;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_VARIABLES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVariables(@jakarta.annotation.Nullable Object variables) {
-    this.variables = variables;
-  }
-
-  public FlowWithSource concurrency(@jakarta.annotation.Nullable Concurrency concurrency) {
-    
-    this.concurrency = concurrency;
-    return this;
-  }
-
-  /**
-   * Get concurrency
-   * @return concurrency
-   */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CONCURRENCY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Concurrency getConcurrency() {
-    return concurrency;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CONCURRENCY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setConcurrency(@jakarta.annotation.Nullable Concurrency concurrency) {
-    this.concurrency = concurrency;
-  }
-
-  public FlowWithSource outputs(@jakarta.annotation.Nullable List<Output> outputs) {
-    
-    this.outputs = outputs;
-    return this;
-  }
-
-  public FlowWithSource addOutputsItem(Output outputsItem) {
-    if (this.outputs == null) {
-      this.outputs = new ArrayList<>();
-    }
-    this.outputs.add(outputsItem);
-    return this;
-  }
-
-  /**
-   * Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages.
-   * @return outputs
-   */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_OUTPUTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<Output> getOutputs() {
-    return outputs;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_OUTPUTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOutputs(@jakarta.annotation.Nullable List<Output> outputs) {
-    this.outputs = outputs;
-  }
-
-  public FlowWithSource sla(@jakarta.annotation.Nullable List<SLA> sla) {
-    
-    this.sla = sla;
-    return this;
-  }
-
-  public FlowWithSource addSlaItem(SLA slaItem) {
-    if (this.sla == null) {
-      this.sla = new ArrayList<>();
-    }
-    this.sla.add(slaItem);
-    return this;
-  }
-
-  /**
-   * Get sla
-   * @return sla
-   */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SLA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<SLA> getSla() {
-    return sla;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_SLA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSla(@jakarta.annotation.Nullable List<SLA> sla) {
-    this.sla = sla;
   }
 
   public FlowWithSource _finally(@jakarta.annotation.Nullable List<Task> _finally) {
@@ -663,6 +607,30 @@ public class FlowWithSource {
     this.pluginDefaults = pluginDefaults;
   }
 
+  public FlowWithSource concurrency(@jakarta.annotation.Nullable Concurrency concurrency) {
+    
+    this.concurrency = concurrency;
+    return this;
+  }
+
+  /**
+   * Get concurrency
+   * @return concurrency
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_CONCURRENCY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Concurrency getConcurrency() {
+    return concurrency;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CONCURRENCY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setConcurrency(@jakarta.annotation.Nullable Concurrency concurrency) {
+    this.concurrency = concurrency;
+  }
+
   public FlowWithSource retry(@jakarta.annotation.Nullable Object retry) {
     
     this.retry = retry;
@@ -687,6 +655,38 @@ public class FlowWithSource {
     this.retry = retry;
   }
 
+  public FlowWithSource sla(@jakarta.annotation.Nullable List<SLA> sla) {
+    
+    this.sla = sla;
+    return this;
+  }
+
+  public FlowWithSource addSlaItem(SLA slaItem) {
+    if (this.sla == null) {
+      this.sla = new ArrayList<>();
+    }
+    this.sla.add(slaItem);
+    return this;
+  }
+
+  /**
+   * Get sla
+   * @return sla
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_SLA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<SLA> getSla() {
+    return sla;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SLA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSla(@jakarta.annotation.Nullable List<SLA> sla) {
+    this.sla = sla;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -701,26 +701,26 @@ public class FlowWithSource {
         Objects.equals(this.revision, flowWithSource.revision) &&
         Objects.equals(this.description, flowWithSource.description) &&
         Objects.equals(this.inputs, flowWithSource.inputs) &&
+        Objects.equals(this.outputs, flowWithSource.outputs) &&
         Objects.equals(this.disabled, flowWithSource.disabled) &&
         Objects.equals(this.labels, flowWithSource.labels) &&
+        Objects.equals(this.variables, flowWithSource.variables) &&
         Objects.equals(this.workerGroup, flowWithSource.workerGroup) &&
         Objects.equals(this.deleted, flowWithSource.deleted) &&
-        Objects.equals(this.variables, flowWithSource.variables) &&
-        Objects.equals(this.concurrency, flowWithSource.concurrency) &&
-        Objects.equals(this.outputs, flowWithSource.outputs) &&
-        Objects.equals(this.sla, flowWithSource.sla) &&
         Objects.equals(this._finally, flowWithSource._finally) &&
         Objects.equals(this.tasks, flowWithSource.tasks) &&
         Objects.equals(this.errors, flowWithSource.errors) &&
         Objects.equals(this.afterExecution, flowWithSource.afterExecution) &&
         Objects.equals(this.triggers, flowWithSource.triggers) &&
         Objects.equals(this.pluginDefaults, flowWithSource.pluginDefaults) &&
-        Objects.equals(this.retry, flowWithSource.retry);
+        Objects.equals(this.concurrency, flowWithSource.concurrency) &&
+        Objects.equals(this.retry, flowWithSource.retry) &&
+        Objects.equals(this.sla, flowWithSource.sla);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, namespace, revision, description, inputs, disabled, labels, workerGroup, deleted, variables, concurrency, outputs, sla, _finally, tasks, errors, afterExecution, triggers, pluginDefaults, retry);
+    return Objects.hash(id, namespace, revision, description, inputs, outputs, disabled, labels, variables, workerGroup, deleted, _finally, tasks, errors, afterExecution, triggers, pluginDefaults, concurrency, retry, sla);
   }
 
   @Override
@@ -732,21 +732,21 @@ public class FlowWithSource {
     sb.append("    revision: ").append(toIndentedString(revision)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    inputs: ").append(toIndentedString(inputs)).append("\n");
+    sb.append("    outputs: ").append(toIndentedString(outputs)).append("\n");
     sb.append("    disabled: ").append(toIndentedString(disabled)).append("\n");
     sb.append("    labels: ").append(toIndentedString(labels)).append("\n");
+    sb.append("    variables: ").append(toIndentedString(variables)).append("\n");
     sb.append("    workerGroup: ").append(toIndentedString(workerGroup)).append("\n");
     sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
-    sb.append("    variables: ").append(toIndentedString(variables)).append("\n");
-    sb.append("    concurrency: ").append(toIndentedString(concurrency)).append("\n");
-    sb.append("    outputs: ").append(toIndentedString(outputs)).append("\n");
-    sb.append("    sla: ").append(toIndentedString(sla)).append("\n");
     sb.append("    _finally: ").append(toIndentedString(_finally)).append("\n");
     sb.append("    tasks: ").append(toIndentedString(tasks)).append("\n");
     sb.append("    errors: ").append(toIndentedString(errors)).append("\n");
     sb.append("    afterExecution: ").append(toIndentedString(afterExecution)).append("\n");
     sb.append("    triggers: ").append(toIndentedString(triggers)).append("\n");
     sb.append("    pluginDefaults: ").append(toIndentedString(pluginDefaults)).append("\n");
+    sb.append("    concurrency: ").append(toIndentedString(concurrency)).append("\n");
     sb.append("    retry: ").append(toIndentedString(retry)).append("\n");
+    sb.append("    sla: ").append(toIndentedString(sla)).append("\n");
     sb.append("}");
     return sb.toString();
   }

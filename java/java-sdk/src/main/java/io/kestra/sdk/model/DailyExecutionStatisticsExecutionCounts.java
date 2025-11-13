@@ -28,6 +28,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  */
 @JsonPropertyOrder({
   DailyExecutionStatisticsExecutionCounts.JSON_PROPERTY_C_R_E_A_T_E_D,
+  DailyExecutionStatisticsExecutionCounts.JSON_PROPERTY_S_U_B_M_I_T_T_E_D,
   DailyExecutionStatisticsExecutionCounts.JSON_PROPERTY_R_U_N_N_I_N_G,
   DailyExecutionStatisticsExecutionCounts.JSON_PROPERTY_P_A_U_S_E_D,
   DailyExecutionStatisticsExecutionCounts.JSON_PROPERTY_R_E_S_T_A_R_T_E_D,
@@ -41,13 +42,17 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   DailyExecutionStatisticsExecutionCounts.JSON_PROPERTY_R_E_T_R_Y_I_N_G,
   DailyExecutionStatisticsExecutionCounts.JSON_PROPERTY_R_E_T_R_I_E_D,
   DailyExecutionStatisticsExecutionCounts.JSON_PROPERTY_S_K_I_P_P_E_D,
-  DailyExecutionStatisticsExecutionCounts.JSON_PROPERTY_B_R_E_A_K_P_O_I_N_T
+  DailyExecutionStatisticsExecutionCounts.JSON_PROPERTY_B_R_E_A_K_P_O_I_N_T,
+  DailyExecutionStatisticsExecutionCounts.JSON_PROPERTY_R_E_S_U_B_M_I_T_T_E_D
 })
 @JsonTypeName("DailyExecutionStatistics_executionCounts")
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class DailyExecutionStatisticsExecutionCounts {
   public static final String JSON_PROPERTY_C_R_E_A_T_E_D = "CREATED";
   @jakarta.annotation.Nullable  private Long CREATED;
+
+  public static final String JSON_PROPERTY_S_U_B_M_I_T_T_E_D = "SUBMITTED";
+  @jakarta.annotation.Nullable  private Long SUBMITTED;
 
   public static final String JSON_PROPERTY_R_U_N_N_I_N_G = "RUNNING";
   @jakarta.annotation.Nullable  private Long RUNNING;
@@ -91,6 +96,9 @@ public class DailyExecutionStatisticsExecutionCounts {
   public static final String JSON_PROPERTY_B_R_E_A_K_P_O_I_N_T = "BREAKPOINT";
   @jakarta.annotation.Nullable  private Long BREAKPOINT;
 
+  public static final String JSON_PROPERTY_R_E_S_U_B_M_I_T_T_E_D = "RESUBMITTED";
+  @jakarta.annotation.Nullable  private Long RESUBMITTED;
+
   public DailyExecutionStatisticsExecutionCounts() {
   }
 
@@ -116,6 +124,30 @@ public class DailyExecutionStatisticsExecutionCounts {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCREATED(@jakarta.annotation.Nullable Long CREATED) {
     this.CREATED = CREATED;
+  }
+
+  public DailyExecutionStatisticsExecutionCounts SUBMITTED(@jakarta.annotation.Nullable Long SUBMITTED) {
+    
+    this.SUBMITTED = SUBMITTED;
+    return this;
+  }
+
+  /**
+   * Get SUBMITTED
+   * @return SUBMITTED
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_S_U_B_M_I_T_T_E_D)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Long getSUBMITTED() {
+    return SUBMITTED;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_S_U_B_M_I_T_T_E_D)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSUBMITTED(@jakarta.annotation.Nullable Long SUBMITTED) {
+    this.SUBMITTED = SUBMITTED;
   }
 
   public DailyExecutionStatisticsExecutionCounts RUNNING(@jakarta.annotation.Nullable Long RUNNING) {
@@ -454,6 +486,30 @@ public class DailyExecutionStatisticsExecutionCounts {
     this.BREAKPOINT = BREAKPOINT;
   }
 
+  public DailyExecutionStatisticsExecutionCounts RESUBMITTED(@jakarta.annotation.Nullable Long RESUBMITTED) {
+    
+    this.RESUBMITTED = RESUBMITTED;
+    return this;
+  }
+
+  /**
+   * Get RESUBMITTED
+   * @return RESUBMITTED
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_R_E_S_U_B_M_I_T_T_E_D)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Long getRESUBMITTED() {
+    return RESUBMITTED;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_R_E_S_U_B_M_I_T_T_E_D)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRESUBMITTED(@jakarta.annotation.Nullable Long RESUBMITTED) {
+    this.RESUBMITTED = RESUBMITTED;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -464,6 +520,7 @@ public class DailyExecutionStatisticsExecutionCounts {
     }
     DailyExecutionStatisticsExecutionCounts dailyExecutionStatisticsExecutionCounts = (DailyExecutionStatisticsExecutionCounts) o;
     return Objects.equals(this.CREATED, dailyExecutionStatisticsExecutionCounts.CREATED) &&
+        Objects.equals(this.SUBMITTED, dailyExecutionStatisticsExecutionCounts.SUBMITTED) &&
         Objects.equals(this.RUNNING, dailyExecutionStatisticsExecutionCounts.RUNNING) &&
         Objects.equals(this.PAUSED, dailyExecutionStatisticsExecutionCounts.PAUSED) &&
         Objects.equals(this.RESTARTED, dailyExecutionStatisticsExecutionCounts.RESTARTED) &&
@@ -477,12 +534,13 @@ public class DailyExecutionStatisticsExecutionCounts {
         Objects.equals(this.RETRYING, dailyExecutionStatisticsExecutionCounts.RETRYING) &&
         Objects.equals(this.RETRIED, dailyExecutionStatisticsExecutionCounts.RETRIED) &&
         Objects.equals(this.SKIPPED, dailyExecutionStatisticsExecutionCounts.SKIPPED) &&
-        Objects.equals(this.BREAKPOINT, dailyExecutionStatisticsExecutionCounts.BREAKPOINT);
+        Objects.equals(this.BREAKPOINT, dailyExecutionStatisticsExecutionCounts.BREAKPOINT) &&
+        Objects.equals(this.RESUBMITTED, dailyExecutionStatisticsExecutionCounts.RESUBMITTED);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(CREATED, RUNNING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT);
+    return Objects.hash(CREATED, SUBMITTED, RUNNING, PAUSED, RESTARTED, KILLING, SUCCESS, WARNING, FAILED, KILLED, CANCELLED, QUEUED, RETRYING, RETRIED, SKIPPED, BREAKPOINT, RESUBMITTED);
   }
 
   @Override
@@ -490,6 +548,7 @@ public class DailyExecutionStatisticsExecutionCounts {
     StringBuilder sb = new StringBuilder();
     sb.append("class DailyExecutionStatisticsExecutionCounts {\n");
     sb.append("    CREATED: ").append(toIndentedString(CREATED)).append("\n");
+    sb.append("    SUBMITTED: ").append(toIndentedString(SUBMITTED)).append("\n");
     sb.append("    RUNNING: ").append(toIndentedString(RUNNING)).append("\n");
     sb.append("    PAUSED: ").append(toIndentedString(PAUSED)).append("\n");
     sb.append("    RESTARTED: ").append(toIndentedString(RESTARTED)).append("\n");
@@ -504,6 +563,7 @@ public class DailyExecutionStatisticsExecutionCounts {
     sb.append("    RETRIED: ").append(toIndentedString(RETRIED)).append("\n");
     sb.append("    SKIPPED: ").append(toIndentedString(SKIPPED)).append("\n");
     sb.append("    BREAKPOINT: ").append(toIndentedString(BREAKPOINT)).append("\n");
+    sb.append("    RESUBMITTED: ").append(toIndentedString(RESUBMITTED)).append("\n");
     sb.append("}");
     return sb.toString();
   }

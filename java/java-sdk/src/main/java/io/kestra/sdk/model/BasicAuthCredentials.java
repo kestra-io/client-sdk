@@ -24,16 +24,15 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
- * MiscControllerBasicAuthCredentials
+ * BasicAuthCredentials
  */
 @JsonPropertyOrder({
-  MiscControllerBasicAuthCredentials.JSON_PROPERTY_UID,
-  MiscControllerBasicAuthCredentials.JSON_PROPERTY_USERNAME,
-  MiscControllerBasicAuthCredentials.JSON_PROPERTY_PASSWORD
+  BasicAuthCredentials.JSON_PROPERTY_UID,
+  BasicAuthCredentials.JSON_PROPERTY_USERNAME,
+  BasicAuthCredentials.JSON_PROPERTY_PASSWORD
 })
-@JsonTypeName("MiscController.BasicAuthCredentials")
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
-public class MiscControllerBasicAuthCredentials {
+public class BasicAuthCredentials {
   public static final String JSON_PROPERTY_UID = "uid";
   @jakarta.annotation.Nullable  private String uid;
 
@@ -43,10 +42,10 @@ public class MiscControllerBasicAuthCredentials {
   public static final String JSON_PROPERTY_PASSWORD = "password";
   @jakarta.annotation.Nullable  private String password;
 
-  public MiscControllerBasicAuthCredentials() {
+  public BasicAuthCredentials() {
   }
 
-  public MiscControllerBasicAuthCredentials uid(@jakarta.annotation.Nullable String uid) {
+  public BasicAuthCredentials uid(@jakarta.annotation.Nullable String uid) {
     
     this.uid = uid;
     return this;
@@ -70,7 +69,7 @@ public class MiscControllerBasicAuthCredentials {
     this.uid = uid;
   }
 
-  public MiscControllerBasicAuthCredentials username(@jakarta.annotation.Nullable String username) {
+  public BasicAuthCredentials username(@jakarta.annotation.Nullable String username) {
     
     this.username = username;
     return this;
@@ -94,7 +93,7 @@ public class MiscControllerBasicAuthCredentials {
     this.username = username;
   }
 
-  public MiscControllerBasicAuthCredentials password(@jakarta.annotation.Nullable String password) {
+  public BasicAuthCredentials password(@jakarta.annotation.Nullable String password) {
     
     this.password = password;
     return this;
@@ -126,10 +125,10 @@ public class MiscControllerBasicAuthCredentials {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MiscControllerBasicAuthCredentials miscControllerBasicAuthCredentials = (MiscControllerBasicAuthCredentials) o;
-    return Objects.equals(this.uid, miscControllerBasicAuthCredentials.uid) &&
-        Objects.equals(this.username, miscControllerBasicAuthCredentials.username) &&
-        Objects.equals(this.password, miscControllerBasicAuthCredentials.password);
+    BasicAuthCredentials basicAuthCredentials = (BasicAuthCredentials) o;
+    return Objects.equals(this.uid, basicAuthCredentials.uid) &&
+        Objects.equals(this.username, basicAuthCredentials.username) &&
+        Objects.equals(this.password, basicAuthCredentials.password);
   }
 
   @Override
@@ -140,7 +139,7 @@ public class MiscControllerBasicAuthCredentials {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MiscControllerBasicAuthCredentials {\n");
+    sb.append("class BasicAuthCredentials {\n");
     sb.append("    uid: ").append(toIndentedString(uid)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
     sb.append("    password: ").append(toIndentedString(password)).append("\n");

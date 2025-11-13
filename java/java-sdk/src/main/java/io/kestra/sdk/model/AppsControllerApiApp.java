@@ -36,6 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AppsControllerApiApp.JSON_PROPERTY_NAME,
   AppsControllerApiApp.JSON_PROPERTY_TYPE,
   AppsControllerApiApp.JSON_PROPERTY_NAMESPACE,
+  AppsControllerApiApp.JSON_PROPERTY_FLOW_ID,
   AppsControllerApiApp.JSON_PROPERTY_TAGS,
   AppsControllerApiApp.JSON_PROPERTY_ENABLED,
   AppsControllerApiApp.JSON_PROPERTY_CREATED,
@@ -58,6 +59,9 @@ public class AppsControllerApiApp {
 
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
   @jakarta.annotation.Nullable  private String namespace;
+
+  public static final String JSON_PROPERTY_FLOW_ID = "flowId";
+  @jakarta.annotation.Nullable  private String flowId;
 
   public static final String JSON_PROPERTY_TAGS = "tags";
   @jakarta.annotation.Nullable  private List<String> tags = new ArrayList<>();
@@ -194,6 +198,30 @@ public class AppsControllerApiApp {
     this.namespace = namespace;
   }
 
+  public AppsControllerApiApp flowId(@jakarta.annotation.Nullable String flowId) {
+    
+    this.flowId = flowId;
+    return this;
+  }
+
+  /**
+   * Get flowId
+   * @return flowId
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getFlowId() {
+    return flowId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFlowId(@jakarta.annotation.Nullable String flowId) {
+    this.flowId = flowId;
+  }
+
   public AppsControllerApiApp tags(@jakarta.annotation.Nullable List<String> tags) {
     
     this.tags = tags;
@@ -312,6 +340,7 @@ public class AppsControllerApiApp {
         Objects.equals(this.name, appsControllerApiApp.name) &&
         Objects.equals(this.type, appsControllerApiApp.type) &&
         Objects.equals(this.namespace, appsControllerApiApp.namespace) &&
+        Objects.equals(this.flowId, appsControllerApiApp.flowId) &&
         Objects.equals(this.tags, appsControllerApiApp.tags) &&
         Objects.equals(this.enabled, appsControllerApiApp.enabled) &&
         Objects.equals(this.created, appsControllerApiApp.created) &&
@@ -320,7 +349,7 @@ public class AppsControllerApiApp {
 
   @Override
   public int hashCode() {
-    return Objects.hash(uid, id, name, type, namespace, tags, enabled, created, updated);
+    return Objects.hash(uid, id, name, type, namespace, flowId, tags, enabled, created, updated);
   }
 
   @Override
@@ -332,6 +361,7 @@ public class AppsControllerApiApp {
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
+    sb.append("    flowId: ").append(toIndentedString(flowId)).append("\n");
     sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
     sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
     sb.append("    created: ").append(toIndentedString(created)).append("\n");

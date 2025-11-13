@@ -28,6 +28,8 @@ public enum StateType {
   
   CREATED("CREATED"),
   
+  SUBMITTED("SUBMITTED"),
+  
   RUNNING("RUNNING"),
   
   PAUSED("PAUSED"),
@@ -55,6 +57,8 @@ public enum StateType {
   SKIPPED("SKIPPED"),
   
   BREAKPOINT("BREAKPOINT"),
+  
+  RESUBMITTED("RESUBMITTED"),
   
   UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 

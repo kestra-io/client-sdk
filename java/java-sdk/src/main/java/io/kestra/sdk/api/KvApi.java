@@ -31,6 +31,8 @@ import io.kestra.sdk.model.KVControllerApiDeleteBulkRequest;
 import io.kestra.sdk.model.KVControllerApiDeleteBulkResponse;
 import io.kestra.sdk.model.KVControllerTypedValue;
 import io.kestra.sdk.model.KVEntry;
+import io.kestra.sdk.model.PagedResultsKVEntry;
+import io.kestra.sdk.model.QueryFilter;
 
 
 import java.util.ArrayList;
@@ -332,42 +334,52 @@ import java.util.StringJoiner;
 
 
   /**
-   * List all keys for a namespace
+   * List all keys
    * 
-   * @param namespace The namespace id (required)
+   * @param page The current page (required)
+   * @param size The current page size (required)
    * @param tenant  (required)
-   * @return List&lt;KVEntry&gt;
+   * @param sort The sort of current page (optional)
+   * @param filters Filters (optional)
+   * @return PagedResultsKVEntry
    * @throws ApiException if fails to make API call
    */
-  public List<KVEntry> listKeys(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant) throws ApiException {
-    return this.listKeys(namespace, tenant, Collections.emptyMap());
+  public PagedResultsKVEntry listAllKeys(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable List<QueryFilter> filters) throws ApiException {
+    return this.listAllKeys(page, size, tenant, sort, filters, Collections.emptyMap());
   }
 
   /**
-   * List all keys for a namespace
+   * List all keys
    * 
-   * @param namespace The namespace id (required)
+   * @param page The current page (required)
+   * @param size The current page size (required)
    * @param tenant  (required)
+   * @param sort The sort of current page (optional)
+   * @param filters Filters (optional)
    * @param additionalHeaders additionalHeaders for this call
-   * @return List&lt;KVEntry&gt;
+   * @return PagedResultsKVEntry
    * @throws ApiException if fails to make API call
    */
-  public List<KVEntry> listKeys(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsKVEntry listAllKeys(@jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, @jakarta.annotation.Nullable List<QueryFilter> filters, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
-    // verify the required parameter 'namespace' is set
-    if (namespace == null) {
-      throw new ApiException(400, "Missing the required parameter 'namespace' when calling listKeys");
+    // verify the required parameter 'page' is set
+    if (page == null) {
+      throw new ApiException(400, "Missing the required parameter 'page' when calling listAllKeys");
+    }
+    
+    // verify the required parameter 'size' is set
+    if (size == null) {
+      throw new ApiException(400, "Missing the required parameter 'size' when calling listAllKeys");
     }
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling listKeys");
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling listAllKeys");
     }
     
     // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/namespaces/{namespace}/kv"
-      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
+    String localVarPath = "/api/v1/{tenant}/kv"
       .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
 
     StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
@@ -377,6 +389,10 @@ import java.util.StringJoiner;
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
+    localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -394,7 +410,7 @@ import java.util.StringJoiner;
 
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
-    TypeReference<List<KVEntry>> localVarReturnType = new TypeReference<List<KVEntry>>() {};
+    TypeReference<PagedResultsKVEntry> localVarReturnType = new TypeReference<PagedResultsKVEntry>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "GET",

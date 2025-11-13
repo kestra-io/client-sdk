@@ -29,13 +29,13 @@ import io.kestra.sdk.internal.Pair;
 
 import io.kestra.sdk.model.BulkErrorResponse;
 import io.kestra.sdk.model.BulkResponse;
+import io.kestra.sdk.model.ConcurrencyLimit;
 import io.kestra.sdk.model.EventExecution;
 import io.kestra.sdk.model.EventExecutionStatusEvent;
 import io.kestra.sdk.model.Execution;
 import io.kestra.sdk.model.ExecutionControllerExecutionResponse;
 import io.kestra.sdk.model.ExecutionControllerLastExecutionResponse;
 import io.kestra.sdk.model.ExecutionControllerSetLabelsByIdsRequest;
-import io.kestra.sdk.model.ExecutionControllerWebhookResponse;
 import io.kestra.sdk.model.ExecutionKind;
 import io.kestra.sdk.model.ExecutionRepositoryInterfaceFlowFilter;
 import java.io.File;
@@ -44,6 +44,7 @@ import io.kestra.sdk.model.FlowForExecution;
 import io.kestra.sdk.model.FlowGraph;
 import io.kestra.sdk.model.Label;
 import java.time.OffsetDateTime;
+import io.kestra.sdk.model.PagedResultsConcurrencyLimit;
 import io.kestra.sdk.model.PagedResultsExecution;
 import io.kestra.sdk.model.QueryFilter;
 import io.kestra.sdk.model.StateType;
@@ -2952,6 +2953,84 @@ import java.util.StringJoiner;
 
 
   /**
+   * Search for flow concurrency limits
+   * 
+   * @param tenant  (required)
+   * @return PagedResultsConcurrencyLimit
+   * @throws ApiException if fails to make API call
+   */
+  public PagedResultsConcurrencyLimit searchConcurrencyLimits(@jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.searchConcurrencyLimits(tenant, Collections.emptyMap());
+  }
+
+  /**
+   * Search for flow concurrency limits
+   * 
+   * @param tenant  (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return PagedResultsConcurrencyLimit
+   * @throws ApiException if fails to make API call
+   */
+  public PagedResultsConcurrencyLimit searchConcurrencyLimits(@jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling searchConcurrencyLimits");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/concurrency-limit/search"
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    TypeReference<PagedResultsConcurrencyLimit> localVarReturnType = new TypeReference<PagedResultsConcurrencyLimit>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "GET",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+
+
+
+
+
+  /**
    * Search for executions
    * 
    * @param page The current page (required)
@@ -3434,10 +3513,10 @@ import java.util.StringJoiner;
    * @param id The flow id (required)
    * @param key The webhook trigger uid (required)
    * @param tenant  (required)
-   * @return ExecutionControllerWebhookResponse
+   * @return Object
    * @throws ApiException if fails to make API call
    */
-  public ExecutionControllerWebhookResponse triggerExecutionByGetWebhook(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+  public Object triggerExecutionByGetWebhook(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant) throws ApiException {
     return this.triggerExecutionByGetWebhook(namespace, id, key, tenant, Collections.emptyMap());
   }
 
@@ -3449,10 +3528,10 @@ import java.util.StringJoiner;
    * @param key The webhook trigger uid (required)
    * @param tenant  (required)
    * @param additionalHeaders additionalHeaders for this call
-   * @return ExecutionControllerWebhookResponse
+   * @return Object
    * @throws ApiException if fails to make API call
    */
-  public ExecutionControllerWebhookResponse triggerExecutionByGetWebhook(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public Object triggerExecutionByGetWebhook(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -3506,7 +3585,7 @@ import java.util.StringJoiner;
 
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
-    TypeReference<ExecutionControllerWebhookResponse> localVarReturnType = new TypeReference<ExecutionControllerWebhookResponse>() {};
+    TypeReference<Object> localVarReturnType = new TypeReference<Object>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "GET",
@@ -3781,6 +3860,107 @@ import java.util.StringJoiner;
     return apiClient.invokeAPI(
         localVarPath,
         "POST",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+
+
+
+
+
+  /**
+   * Update a flow concurrency limit
+   * 
+   * @param flowId  (required)
+   * @param namespace  (required)
+   * @param tenant  (required)
+   * @param concurrencyLimit  (required)
+   * @return ConcurrencyLimit
+   * @throws ApiException if fails to make API call
+   */
+  public ConcurrencyLimit updateConcurrencyLimit(@jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull ConcurrencyLimit concurrencyLimit) throws ApiException {
+    return this.updateConcurrencyLimit(flowId, namespace, tenant, concurrencyLimit, Collections.emptyMap());
+  }
+
+  /**
+   * Update a flow concurrency limit
+   * 
+   * @param flowId  (required)
+   * @param namespace  (required)
+   * @param tenant  (required)
+   * @param concurrencyLimit  (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return ConcurrencyLimit
+   * @throws ApiException if fails to make API call
+   */
+  public ConcurrencyLimit updateConcurrencyLimit(@jakarta.annotation.Nonnull String flowId, @jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull ConcurrencyLimit concurrencyLimit, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = concurrencyLimit;
+    
+    // verify the required parameter 'flowId' is set
+    if (flowId == null) {
+      throw new ApiException(400, "Missing the required parameter 'flowId' when calling updateConcurrencyLimit");
+    }
+    
+    // verify the required parameter 'namespace' is set
+    if (namespace == null) {
+      throw new ApiException(400, "Missing the required parameter 'namespace' when calling updateConcurrencyLimit");
+    }
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling updateConcurrencyLimit");
+    }
+    
+    // verify the required parameter 'concurrencyLimit' is set
+    if (concurrencyLimit == null) {
+      throw new ApiException(400, "Missing the required parameter 'concurrencyLimit' when calling updateConcurrencyLimit");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/concurrency-limit/{namespace}/{flowId}"
+      .replaceAll("\\{" + "flowId" + "\\}", apiClient.escapeString(apiClient.parameterToString(flowId)))
+      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    TypeReference<ConcurrencyLimit> localVarReturnType = new TypeReference<ConcurrencyLimit>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "PUT",
         localVarQueryParams,
         localVarCollectionQueryParams,
         localVarQueryStringJoiner.toString(),

@@ -36,6 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InputObject.JSON_PROPERTY_DEPENDS_ON,
   InputObject.JSON_PROPERTY_REQUIRED,
   InputObject.JSON_PROPERTY_DEFAULTS,
+  InputObject.JSON_PROPERTY_PREFILL,
   InputObject.JSON_PROPERTY_DISPLAY_NAME
 })
 @JsonTypeName("Input_Object_")
@@ -58,6 +59,9 @@ public class InputObject {
 
   public static final String JSON_PROPERTY_DEFAULTS = "defaults";
   @jakarta.annotation.Nullable  private String defaults;
+
+  public static final String JSON_PROPERTY_PREFILL = "prefill";
+  @jakarta.annotation.Nullable  private String prefill;
 
   public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
   @jakarta.annotation.Nullable  private String displayName;
@@ -209,6 +213,30 @@ public class InputObject {
     this.defaults = defaults;
   }
 
+  public InputObject prefill(@jakarta.annotation.Nullable String prefill) {
+    
+    this.prefill = prefill;
+    return this;
+  }
+
+  /**
+   * Optional UI hint for pre-filling the input. Cannot be used together with a default value.
+   * @return prefill
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_PREFILL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getPrefill() {
+    return prefill;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PREFILL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPrefill(@jakarta.annotation.Nullable String prefill) {
+    this.prefill = prefill;
+  }
+
   public InputObject displayName(@jakarta.annotation.Nullable String displayName) {
     
     this.displayName = displayName;
@@ -248,12 +276,13 @@ public class InputObject {
         Objects.equals(this.dependsOn, inputObject.dependsOn) &&
         Objects.equals(this.required, inputObject.required) &&
         Objects.equals(this.defaults, inputObject.defaults) &&
+        Objects.equals(this.prefill, inputObject.prefill) &&
         Objects.equals(this.displayName, inputObject.displayName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, type, description, dependsOn, required, defaults, displayName);
+    return Objects.hash(id, type, description, dependsOn, required, defaults, prefill, displayName);
   }
 
   @Override
@@ -266,6 +295,7 @@ public class InputObject {
     sb.append("    dependsOn: ").append(toIndentedString(dependsOn)).append("\n");
     sb.append("    required: ").append(toIndentedString(required)).append("\n");
     sb.append("    defaults: ").append(toIndentedString(defaults)).append("\n");
+    sb.append("    prefill: ").append(toIndentedString(prefill)).append("\n");
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
     sb.append("}");
     return sb.toString();

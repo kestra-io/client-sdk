@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.kestra.sdk.model.ApiSecretMeta;
+import io.kestra.sdk.model.ConcurrencyLimit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,58 +28,31 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
- * ApiSecretListResponse
+ * PagedResultsConcurrencyLimit
  */
 @JsonPropertyOrder({
-  ApiSecretListResponse.JSON_PROPERTY_READ_ONLY,
-  ApiSecretListResponse.JSON_PROPERTY_RESULTS,
-  ApiSecretListResponse.JSON_PROPERTY_TOTAL
+  PagedResultsConcurrencyLimit.JSON_PROPERTY_RESULTS,
+  PagedResultsConcurrencyLimit.JSON_PROPERTY_TOTAL
 })
+@JsonTypeName("PagedResults_ConcurrencyLimit_")
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
-public class ApiSecretListResponse {
-  public static final String JSON_PROPERTY_READ_ONLY = "readOnly";
-  @jakarta.annotation.Nonnull  private Boolean readOnly;
-
+public class PagedResultsConcurrencyLimit {
   public static final String JSON_PROPERTY_RESULTS = "results";
-  @jakarta.annotation.Nonnull  private List<ApiSecretMeta> results = new ArrayList<>();
+  @jakarta.annotation.Nonnull  private List<ConcurrencyLimit> results = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TOTAL = "total";
-  @jakarta.annotation.Nullable  private Long total;
+  @jakarta.annotation.Nonnull  private Long total;
 
-  public ApiSecretListResponse() {
+  public PagedResultsConcurrencyLimit() {
   }
 
-  public ApiSecretListResponse readOnly(@jakarta.annotation.Nonnull Boolean readOnly) {
-    
-    this.readOnly = readOnly;
-    return this;
-  }
-
-  /**
-   * Get readOnly
-   * @return readOnly
-   */
-  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_READ_ONLY)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public Boolean getReadOnly() {
-    return readOnly;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_READ_ONLY)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setReadOnly(@jakarta.annotation.Nonnull Boolean readOnly) {
-    this.readOnly = readOnly;
-  }
-
-  public ApiSecretListResponse results(@jakarta.annotation.Nonnull List<ApiSecretMeta> results) {
+  public PagedResultsConcurrencyLimit results(@jakarta.annotation.Nonnull List<ConcurrencyLimit> results) {
     
     this.results = results;
     return this;
   }
 
-  public ApiSecretListResponse addResultsItem(ApiSecretMeta resultsItem) {
+  public PagedResultsConcurrencyLimit addResultsItem(ConcurrencyLimit resultsItem) {
     if (this.results == null) {
       this.results = new ArrayList<>();
     }
@@ -94,18 +67,18 @@ public class ApiSecretListResponse {
   @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public List<ApiSecretMeta> getResults() {
+  public List<ConcurrencyLimit> getResults() {
     return results;
   }
 
 
   @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setResults(@jakarta.annotation.Nonnull List<ApiSecretMeta> results) {
+  public void setResults(@jakarta.annotation.Nonnull List<ConcurrencyLimit> results) {
     this.results = results;
   }
 
-  public ApiSecretListResponse total(@jakarta.annotation.Nullable Long total) {
+  public PagedResultsConcurrencyLimit total(@jakarta.annotation.Nonnull Long total) {
     
     this.total = total;
     return this;
@@ -115,8 +88,8 @@ public class ApiSecretListResponse {
    * Get total
    * @return total
    */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TOTAL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Long getTotal() {
     return total;
@@ -124,8 +97,8 @@ public class ApiSecretListResponse {
 
 
   @JsonProperty(JSON_PROPERTY_TOTAL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTotal(@jakarta.annotation.Nullable Long total) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTotal(@jakarta.annotation.Nonnull Long total) {
     this.total = total;
   }
 
@@ -137,22 +110,20 @@ public class ApiSecretListResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ApiSecretListResponse apiSecretListResponse = (ApiSecretListResponse) o;
-    return Objects.equals(this.readOnly, apiSecretListResponse.readOnly) &&
-        Objects.equals(this.results, apiSecretListResponse.results) &&
-        Objects.equals(this.total, apiSecretListResponse.total);
+    PagedResultsConcurrencyLimit pagedResultsConcurrencyLimit = (PagedResultsConcurrencyLimit) o;
+    return Objects.equals(this.results, pagedResultsConcurrencyLimit.results) &&
+        Objects.equals(this.total, pagedResultsConcurrencyLimit.total);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(readOnly, results, total);
+    return Objects.hash(results, total);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ApiSecretListResponse {\n");
-    sb.append("    readOnly: ").append(toIndentedString(readOnly)).append("\n");
+    sb.append("class PagedResultsConcurrencyLimit {\n");
     sb.append("    results: ").append(toIndentedString(results)).append("\n");
     sb.append("    total: ").append(toIndentedString(total)).append("\n");
     sb.append("}");

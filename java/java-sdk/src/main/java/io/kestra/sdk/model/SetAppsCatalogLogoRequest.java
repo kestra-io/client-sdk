@@ -25,21 +25,21 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
- * SetLogoRequest
+ * SetAppsCatalogLogoRequest
  */
 @JsonPropertyOrder({
-  SetLogoRequest.JSON_PROPERTY_LOGO
+  SetAppsCatalogLogoRequest.JSON_PROPERTY_LOGO
 })
-@JsonTypeName("setLogo_request")
+@JsonTypeName("setAppsCatalogLogo_request")
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
-public class SetLogoRequest {
+public class SetAppsCatalogLogoRequest {
   public static final String JSON_PROPERTY_LOGO = "logo";
   @jakarta.annotation.Nullable  private File logo;
 
-  public SetLogoRequest() {
+  public SetAppsCatalogLogoRequest() {
   }
 
-  public SetLogoRequest logo(@jakarta.annotation.Nullable File logo) {
+  public SetAppsCatalogLogoRequest logo(@jakarta.annotation.Nullable File logo) {
     
     this.logo = logo;
     return this;
@@ -71,8 +71,8 @@ public class SetLogoRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SetLogoRequest setLogoRequest = (SetLogoRequest) o;
-    return Objects.equals(this.logo, setLogoRequest.logo);
+    SetAppsCatalogLogoRequest setAppsCatalogLogoRequest = (SetAppsCatalogLogoRequest) o;
+    return Objects.equals(this.logo, setAppsCatalogLogoRequest.logo);
   }
 
   @Override
@@ -83,7 +83,7 @@ public class SetLogoRequest {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SetLogoRequest {\n");
+    sb.append("class SetAppsCatalogLogoRequest {\n");
     sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
     sb.append("}");
     return sb.toString();

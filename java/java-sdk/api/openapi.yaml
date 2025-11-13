@@ -1257,6 +1257,25 @@ paths:
       x-internal: true
       x-accepts:
       - application/json
+  /api/v1/main-tenant-flows:
+    get:
+      operationId: mainTenantFlows
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: boolean
+          description: mainTenantFlows 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Check if flows are present on the main tenant.
+      tags:
+      - Misc
+      x-internal: true
+      x-accepts:
+      - application/json
   /api/v1/me:
     get:
       description: Requires the ME permission.
@@ -2316,6 +2335,123 @@ paths:
       x-content-type: application/json
       x-accepts:
       - application/json
+  /api/v1/tenants/{id}/apps-catalog:
+    get:
+      description: Superadmin-only.
+      operationId: appsCatalogConfig
+      parameters:
+      - description: The tenant id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TenantController.AppsCatalogConfigResponse"
+          description: getAppsCatalogConfig 200 response
+      summary: Get the apps catalog config for the specified tenant.
+      tags:
+      - Tenants
+      x-internal: true
+      x-accepts:
+      - application/json
+    post:
+      description: Superadmin-only.
+      operationId: setAppsCatalogConfig
+      parameters:
+      - description: The tenant id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TenantController.AppsCatalogConfigRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TenantController.AppsCatalogConfigResponse"
+          description: setAppsCatalogConfig 200 response
+      summary: Set the apps catalog config for the specified tenant.
+      tags:
+      - Tenants
+      x-internal: true
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /api/v1/tenants/{id}/apps-catalog/logo:
+    delete:
+      description: Superadmin-only.
+      operationId: deleteAppsCatalogLogo
+      parameters:
+      - description: The tenant id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: deleteAppsCatalogLogo 200 response
+      summary: Remove the apps catalog logo for the specified tenant.
+      tags:
+      - Tenants
+      x-internal: true
+      x-accepts:
+      - application/json
+    post:
+      description: Superadmin-only.
+      operationId: setAppsCatalogLogo
+      parameters:
+      - description: The tenant id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          multipart/form-data:
+            encoding:
+              logo:
+                contentType: application/octet-stream
+                explode: false
+                style: form
+            schema:
+              $ref: "#/components/schemas/setAppsCatalogLogo_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TenantController.AppsCatalogConfigResponse"
+          description: setAppsCatalogLogo 200 response
+      summary: Set the apps catalog logo for the specified tenant.
+      tags:
+      - Tenants
+      x-internal: true
+      x-content-type: multipart/form-data
+      x-accepts:
+      - application/json
   /api/v1/tenants/{id}/logo:
     post:
       description: Superadmin-only.
@@ -2338,7 +2474,7 @@ paths:
                 explode: false
                 style: form
             schema:
-              $ref: "#/components/schemas/setLogo_request"
+              $ref: "#/components/schemas/setAppsCatalogLogo_request"
         required: true
       responses:
         "200":
@@ -4400,7 +4536,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/MiscController.BasicAuthCredentials"
+              $ref: "#/components/schemas/BasicAuthCredentials"
         required: true
       responses:
         "200":
@@ -5188,6 +5324,77 @@ paths:
       x-internal: true
       x-accepts:
       - application/yaml
+  /api/v1/{tenant}/concurrency-limit/search:
+    get:
+      operationId: searchConcurrencyLimits
+      parameters:
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_ConcurrencyLimit_"
+          description: searchConcurrencyLimits 200 response
+      summary: Search for flow concurrency limits
+      tags:
+      - Executions
+      - Flows
+      x-internal: false
+      x-accepts:
+      - application/json
+  /api/v1/{tenant}/concurrency-limit/{namespace}/{flowId}:
+    put:
+      operationId: updateConcurrencyLimit
+      parameters:
+      - explode: false
+        in: path
+        name: flowId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: namespace
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConcurrencyLimit"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConcurrencyLimit"
+          description: updateConcurrencyLimit 200 response
+      summary: Update a flow concurrency limit
+      tags:
+      - Executions
+      - Flows
+      x-internal: false
+      x-content-type: application/json
+      x-accepts:
+      - application/json
   /api/v1/{tenant}/dashboards:
     get:
       operationId: searchDashboards
@@ -6863,7 +7070,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ExecutionController.WebhookResponse"
+                type: object
           description: triggerExecutionByGetWebhook 200 response
       security:
       - bearerAuth: []
@@ -8838,7 +9045,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/FlowWithSource"
+                type: object
           description: getFlow 200 response
       security:
       - bearerAuth: []
@@ -10930,6 +11137,75 @@ paths:
       x-internal: true
       x-accepts:
       - application/json
+  /api/v1/{tenant}/kv:
+    get:
+      operationId: listAllKeys
+      parameters:
+      - description: The current page
+        explode: false
+        in: query
+        name: page
+        required: true
+        schema:
+          default: 1
+          format: int32
+          type: integer
+        style: form
+      - description: The current page size
+        explode: false
+        in: query
+        name: size
+        required: true
+        schema:
+          default: 10
+          format: int32
+          type: integer
+        style: form
+      - description: The sort of current page
+        explode: false
+        in: query
+        name: sort
+        required: false
+        schema:
+          items:
+            type: string
+          nullable: true
+          type: array
+        style: form
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: false
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          nullable: true
+          type: array
+        style: form
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_KVEntry_"
+          description: listAllKeys 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: List all keys
+      tags:
+      - KV
+      x-internal: false
+      x-accepts:
+      - application/json
   /api/v1/{tenant}/logs/search:
     get:
       operationId: searchLogs
@@ -12558,42 +12834,6 @@ paths:
       x-content-type: application/json
       x-accepts:
       - application/json
-    get:
-      operationId: listKeys
-      parameters:
-      - description: The namespace id
-        explode: false
-        in: path
-        name: namespace
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: tenant
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: "#/components/schemas/KVEntry"
-                type: array
-          description: listKeys 200 response
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      summary: List all keys for a namespace
-      tags:
-      - KV
-      x-internal: false
-      x-accepts:
-      - application/json
   /api/v1/{tenant}/namespaces/{namespace}/kv/inheritance:
     get:
       operationId: listKeysWithInheritence
@@ -12763,81 +13003,6 @@ paths:
       x-accepts:
       - application/json
   /api/v1/{tenant}/namespaces/{namespace}/secrets:
-    get:
-      operationId: listNamespaceSecrets
-      parameters:
-      - description: The namespace id
-        explode: false
-        in: path
-        name: namespace
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The current page
-        explode: false
-        in: query
-        name: page
-        required: true
-        schema:
-          default: 1
-          format: int32
-          type: integer
-        style: form
-      - description: The current page size
-        explode: false
-        in: query
-        name: size
-        required: true
-        schema:
-          default: 10
-          format: int32
-          type: integer
-        style: form
-      - description: The sort of current page
-        explode: false
-        in: query
-        name: sort
-        required: false
-        schema:
-          items:
-            type: string
-          nullable: true
-          type: array
-        style: form
-      - description: Filters
-        explode: false
-        in: query
-        name: filters
-        required: true
-        schema:
-          items:
-            $ref: "#/components/schemas/QueryFilter"
-          type: array
-        style: form
-      - explode: false
-        in: path
-        name: tenant
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiSecretListResponse"
-          description: listNamespaceSecrets 200 response
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      summary: Get secrets for a namespace
-      tags:
-      - Namespaces
-      x-internal: false
-      x-accepts:
-      - application/json
     put:
       operationId: putSecrets
       parameters:
@@ -12868,7 +13033,7 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: "#/components/schemas/ApiSecretMeta"
+                  $ref: "#/components/schemas/ApiSecretMetaEE"
                 type: array
           description: putSecrets 200 response
       security:
@@ -12958,7 +13123,7 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: "#/components/schemas/ApiSecretMeta"
+                  $ref: "#/components/schemas/ApiSecretMetaEE"
                 type: array
           description: patchSecret 200 response
       security:
@@ -13258,6 +13423,71 @@ paths:
       - Roles
       x-internal: false
       x-content-type: application/json
+      x-accepts:
+      - application/json
+  /api/v1/{tenant}/secrets:
+    get:
+      operationId: listSecrets
+      parameters:
+      - description: The current page
+        explode: false
+        in: query
+        name: page
+        required: true
+        schema:
+          default: 1
+          format: int32
+          type: integer
+        style: form
+      - description: The current page size
+        explode: false
+        in: query
+        name: size
+        required: true
+        schema:
+          default: 10
+          format: int32
+          type: integer
+        style: form
+      - description: The sort of current page
+        explode: false
+        in: query
+        name: sort
+        required: false
+        schema:
+          items:
+            type: string
+          nullable: true
+          type: array
+        style: form
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: true
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          type: array
+        style: form
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSecretListResponse_ApiSecretMeta_"
+          description: listSecrets 200 response
+      summary: Search secrets of all namespaces
+      tags:
+      - Secrets
+      x-internal: true
       x-accepts:
       - application/json
   /api/v1/{tenant}/security-integrations:
@@ -15859,19 +16089,13 @@ components:
         isManaged:
           type: boolean
       type: object
-    ApiSecretListResponse:
-      example:
-        total: 0
-        readOnly: true
-        results:
-        - key: key
-        - key: key
+    ApiSecretListResponse_ApiSecretMeta_:
       properties:
         readOnly:
           type: boolean
         results:
           items:
-            $ref: "#/components/schemas/ApiSecretMeta"
+            $ref: "#/components/schemas/ApiSecretMetaEE"
           type: array
         total:
           format: int64
@@ -15881,8 +16105,6 @@ components:
       - results
       type: object
     ApiSecretMeta:
-      example:
-        key: key
       properties:
         key:
           type: string
@@ -15893,6 +16115,7 @@ components:
       allOf:
       - $ref: "#/components/schemas/ApiSecretMeta"
       example:
+        namespace: namespace
         description: description
         tags:
         - value: value
@@ -15900,6 +16123,8 @@ components:
         - value: value
           key: key
       properties:
+        namespace:
+          type: string
         description:
           type: string
         tags:
@@ -16077,6 +16302,8 @@ components:
           type: string
         namespace:
           type: string
+        flowId:
+          type: string
         tags:
           items:
             type: string
@@ -16104,6 +16331,8 @@ components:
           items:
             type: string
           type: array
+        thumbnail:
+          type: string
       type: object
     AppsController.ApiAppSource:
       properties:
@@ -16526,6 +16755,15 @@ components:
           minItems: 1
           type: array
       type: object
+    BasicAuthCredentials:
+      properties:
+        uid:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+      type: object
     Binding:
       properties:
         id:
@@ -16743,6 +16981,27 @@ components:
       - CANCEL
       - FAIL
       type: string
+    ConcurrencyLimit:
+      example:
+        running: 0
+        tenantId: tenantId
+        namespace: namespace
+        flowId: flowId
+      properties:
+        tenantId:
+          type: string
+        namespace:
+          type: string
+        flowId:
+          type: string
+        running:
+          format: int32
+          type: integer
+      required:
+      - flowId
+      - namespace
+      - tenantId
+      type: object
     Condition:
       example:
         type: type
@@ -17475,65 +17734,6 @@ components:
         state:
           $ref: "#/components/schemas/State.Type"
       type: object
-    ExecutionController.WebhookResponse:
-      example:
-        outputs:
-          key: "{}"
-        flowRevision: 0
-        tenantId: tenantId
-        namespace: namespace
-        id: id
-        trigger:
-          variables:
-            key: "{}"
-          logFile: https://openapi-generator.tech
-          id: id
-          type: type
-        state:
-          duration: duration
-          current: CREATED
-          endDate: 2000-01-23T04:56:07.000+00:00
-          histories:
-          - date: 2000-01-23T04:56:07.000+00:00
-            state: null
-          - date: 2000-01-23T04:56:07.000+00:00
-            state: null
-          startDate: 2000-01-23T04:56:07.000+00:00
-        flowId: flowId
-        url: https://openapi-generator.tech
-        labels:
-        - value: value
-          key: key
-        - value: value
-          key: key
-      properties:
-        tenantId:
-          type: string
-        id:
-          type: string
-        namespace:
-          type: string
-        flowId:
-          type: string
-        flowRevision:
-          format: int32
-          type: integer
-        trigger:
-          $ref: "#/components/schemas/ExecutionTrigger"
-        outputs:
-          additionalProperties:
-            type: object
-          type: object
-        labels:
-          items:
-            $ref: "#/components/schemas/Label"
-          type: array
-        state:
-          $ref: "#/components/schemas/State"
-        url:
-          format: uri
-          type: string
-      type: object
     ExecutionKind:
       enum:
       - NORMAL
@@ -17606,10 +17806,6 @@ components:
     ExecutionUsage:
       properties:
         dailyExecutionsCount:
-          items:
-            $ref: "#/components/schemas/DailyExecutionStatistics"
-          type: array
-        dailyTaskRunsCount:
           items:
             $ref: "#/components/schemas/DailyExecutionStatistics"
           type: array
@@ -17804,6 +18000,7 @@ components:
         - dependsOn: ""
           defaults: ""
           displayName: displayName
+          prefill: ""
           description: description
           id: id
           type: ""
@@ -17811,6 +18008,7 @@ components:
         - dependsOn: ""
           defaults: ""
           displayName: displayName
+          prefill: ""
           description: description
           id: id
           type: ""
@@ -18153,6 +18351,7 @@ components:
         - dependsOn: ""
           defaults: ""
           displayName: displayName
+          prefill: ""
           description: description
           id: id
           type: ""
@@ -18160,6 +18359,7 @@ components:
         - dependsOn: ""
           defaults: ""
           displayName: displayName
+          prefill: ""
           description: description
           id: id
           type: ""
@@ -18169,6 +18369,7 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
+            prefill: ""
             description: description
             id: id
             type: ""
@@ -18176,6 +18377,7 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
+            prefill: ""
             description: description
             id: id
             type: ""
@@ -18194,6 +18396,7 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
+            prefill: ""
             description: description
             id: id
             type: ""
@@ -18201,6 +18404,7 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
+            prefill: ""
             description: description
             id: id
             type: ""
@@ -18221,6 +18425,7 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
+            prefill: ""
             description: description
             id: id
             type: ""
@@ -18228,6 +18433,7 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
+            prefill: ""
             description: description
             id: id
             type: ""
@@ -18246,6 +18452,7 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
+            prefill: ""
             description: description
             id: id
             type: ""
@@ -18253,6 +18460,7 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
+            prefill: ""
             description: description
             id: id
             type: ""
@@ -18292,6 +18500,7 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
+            prefill: ""
             description: description
             id: id
             type: ""
@@ -18299,6 +18508,7 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
+            prefill: ""
             description: description
             id: id
             type: ""
@@ -18317,6 +18527,7 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
+            prefill: ""
             description: description
             id: id
             type: ""
@@ -18324,6 +18535,7 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
+            prefill: ""
             description: description
             id: id
             type: ""
@@ -18343,6 +18555,7 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
+            prefill: ""
             description: description
             id: id
             type: ""
@@ -18350,6 +18563,7 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
+            prefill: ""
             description: description
             id: id
             type: ""
@@ -18368,6 +18582,7 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
+            prefill: ""
             description: description
             id: id
             type: ""
@@ -18375,6 +18590,7 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
+            prefill: ""
             description: description
             id: id
             type: ""
@@ -18590,6 +18806,7 @@ components:
         - dependsOn: ""
           defaults: ""
           displayName: displayName
+          prefill: ""
           description: description
           id: id
           type: ""
@@ -18597,6 +18814,7 @@ components:
         - dependsOn: ""
           defaults: ""
           displayName: displayName
+          prefill: ""
           description: description
           id: id
           type: ""
@@ -18726,6 +18944,56 @@ components:
       allOf:
       - $ref: "#/components/schemas/Flow"
       - $ref: "#/components/schemas/AbstractFlow"
+      - properties:
+          id:
+            maxLength: 100
+            minLength: 1
+            pattern: "^[a-zA-Z0-9][a-zA-Z0-9._-]*"
+            type: string
+          namespace:
+            maxLength: 150
+            minLength: 1
+            pattern: "^[a-z0-9][a-z0-9._-]*"
+            type: string
+          revision:
+            format: int32
+            minimum: 1
+            type: integer
+          description:
+            type: string
+          inputs:
+            items:
+              $ref: "#/components/schemas/Input_Object_"
+            type: array
+          disabled:
+            type: boolean
+          labels:
+            description: Labels as a list of Label (key/value pairs) or as a map of
+              string to string.
+            items:
+              $ref: "#/components/schemas/Label"
+            type: array
+          workerGroup:
+            $ref: "#/components/schemas/WorkerGroup"
+          deleted:
+            type: boolean
+          variables:
+            $ref: "#/components/schemas/Flow_allOf_variables"
+          concurrency:
+            $ref: "#/components/schemas/Concurrency"
+          outputs:
+            description: Output values make information about the execution of your
+              Flow available and expose for other Kestra flows to use. Output values
+              are similar to return values in programming languages.
+            items:
+              $ref: "#/components/schemas/Output"
+            title: Output values available and exposes to other flows.
+            type: array
+          sla:
+            items:
+              $ref: "#/components/schemas/SLA"
+            type: array
+        type: object
       example:
         outputs:
         - displayName: displayName
@@ -18740,11 +19008,12 @@ components:
           type: STRING
           value: "{}"
           required: true
-        variables: "{}"
+        variables: null
         inputs:
         - dependsOn: ""
           defaults: ""
           displayName: displayName
+          prefill: ""
           description: description
           id: id
           type: ""
@@ -18752,10 +19021,52 @@ components:
         - dependsOn: ""
           defaults: ""
           displayName: displayName
+          prefill: ""
           description: description
           id: id
           type: ""
           required: true
+        finally:
+        - taskCache:
+            ttl: ttl
+            enabled: true
+          description: description
+          type: type
+          logToFile: true
+          version: version
+          timeout:
+            expression: expression
+            value: value
+          allowWarning: true
+          allowFailure: true
+          logLevel: ERROR
+          runIf: runIf
+          disabled: true
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          retry: "{}"
+        - taskCache:
+            ttl: ttl
+            enabled: true
+          description: description
+          type: type
+          logToFile: true
+          version: version
+          timeout:
+            expression: expression
+            value: value
+          allowWarning: true
+          allowFailure: true
+          logLevel: ERROR
+          runIf: runIf
+          disabled: true
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          retry: "{}"
         description: description
         sla:
         - id: id
@@ -18770,6 +19081,95 @@ components:
           labels:
           - SLA_labels
           - SLA_labels
+        afterExecution:
+        - taskCache:
+            ttl: ttl
+            enabled: true
+          description: description
+          type: type
+          logToFile: true
+          version: version
+          timeout:
+            expression: expression
+            value: value
+          allowWarning: true
+          allowFailure: true
+          logLevel: ERROR
+          runIf: runIf
+          disabled: true
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          retry: "{}"
+        - taskCache:
+            ttl: ttl
+            enabled: true
+          description: description
+          type: type
+          logToFile: true
+          version: version
+          timeout:
+            expression: expression
+            value: value
+          allowWarning: true
+          allowFailure: true
+          logLevel: ERROR
+          runIf: runIf
+          disabled: true
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          retry: "{}"
+        triggers:
+        - logLevel: null
+          stopAfter:
+          - CREATED
+          - CREATED
+          description: description
+          disabled: false
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          type: type
+          conditions:
+          - type: type
+          - type: type
+          logToFile: true
+          version: version
+          labels:
+          - The_labels_to_pass_to_the_execution_created_
+          - The_labels_to_pass_to_the_execution_created_
+          failOnTriggerError: true
+        - logLevel: null
+          stopAfter:
+          - CREATED
+          - CREATED
+          description: description
+          disabled: false
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          type: type
+          conditions:
+          - type: type
+          - type: type
+          logToFile: true
+          version: version
+          labels:
+          - The_labels_to_pass_to_the_execution_created_
+          - The_labels_to_pass_to_the_execution_created_
+          failOnTriggerError: true
+        pluginDefaults:
+        - forced: true
+          values: "{}"
+          type: type
+        - forced: true
+          values: "{}"
+          type: type
         revision: 1
         labels:
         - value: value
@@ -18786,56 +19186,89 @@ components:
         workerGroup:
           fallback: FAIL
           key: key
-      properties:
-        id:
-          maxLength: 100
-          minLength: 1
-          pattern: "^[a-zA-Z0-9][a-zA-Z0-9._-]*"
-          type: string
-        namespace:
-          maxLength: 150
-          minLength: 1
-          pattern: "^[a-z0-9][a-z0-9._-]*"
-          type: string
-        revision:
-          format: int32
-          minimum: 1
-          type: integer
-        description:
-          type: string
-        inputs:
-          items:
-            $ref: "#/components/schemas/Input_Object_"
-          type: array
-        disabled:
-          type: boolean
-        labels:
-          description: Labels as a list of Label (key/value pairs) or as a map of
-            string to string.
-          items:
-            $ref: "#/components/schemas/Label"
-          type: array
-        workerGroup:
-          $ref: "#/components/schemas/WorkerGroup"
-        deleted:
-          type: boolean
-        variables:
-          additionalProperties: false
-          type: object
-        concurrency:
-          $ref: "#/components/schemas/Concurrency"
-        outputs:
-          description: Output values make information about the execution of your
-            Flow available and expose for other Kestra flows to use. Output values
-            are similar to return values in programming languages.
-          items:
-            $ref: "#/components/schemas/Output"
-          title: Output values available and exposes to other flows.
-          type: array
-        sla:
-          items:
-            $ref: "#/components/schemas/SLA"
-          type: array
+        tasks:
+        - taskCache:
+            ttl: ttl
+            enabled: true
+          description: description
+          type: type
+          logToFile: true
+          version: version
+          timeout:
+            expression: expression
+            value: value
+          allowWarning: true
+          allowFailure: true
+          logLevel: ERROR
+          runIf: runIf
+          disabled: true
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          retry: "{}"
+        - taskCache:
+            ttl: ttl
+            enabled: true
+          description: description
+          type: type
+          logToFile: true
+          version: version
+          timeout:
+            expression: expression
+            value: value
+          allowWarning: true
+          allowFailure: true
+          logLevel: ERROR
+          runIf: runIf
+          disabled: true
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          retry: "{}"
+        errors:
+        - taskCache:
+            ttl: ttl
+            enabled: true
+          description: description
+          type: type
+          logToFile: true
+          version: version
+          timeout:
+            expression: expression
+            value: value
+          allowWarning: true
+          allowFailure: true
+          logLevel: ERROR
+          runIf: runIf
+          disabled: true
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          retry: "{}"
+        - taskCache:
+            ttl: ttl
+            enabled: true
+          description: description
+          type: type
+          logToFile: true
+          version: version
+          timeout:
+            expression: expression
+            value: value
+          allowWarning: true
+          allowFailure: true
+          logLevel: ERROR
+          runIf: runIf
+          disabled: true
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          retry: "{}"
+        retry: null
       required:
       - deleted
       - disabled
@@ -19615,6 +20048,7 @@ components:
         dependsOn: ""
         defaults: ""
         displayName: displayName
+        prefill: ""
         description: description
         id: id
         type: ""
@@ -19642,6 +20076,12 @@ components:
           allOf:
           - $ref: "#/components/schemas/Property_Object_"
           title: The default value to use if no value is specified.
+        prefill:
+          allOf:
+          - $ref: "#/components/schemas/Property_Object_"
+          description: Optional UI hint for pre-filling the input. Cannot be used
+            together with a default value.
+          title: The suggested value for the input.
         displayName:
           title: The display name of the input.
           type: string
@@ -19964,13 +20404,20 @@ components:
     KVEntry:
       example:
         updateDate: 2000-01-23T04:56:07.000+00:00
+        namespace: namespace
         description: description
         creationDate: 2000-01-23T04:56:07.000+00:00
+        version: 0
         key: key
         expirationDate: 2000-01-23T04:56:07.000+00:00
       properties:
+        namespace:
+          type: string
         key:
           type: string
+        version:
+          format: int32
+          type: integer
         description:
           nullable: true
           type: string
@@ -20263,15 +20710,6 @@ components:
         executions:
           $ref: "#/components/schemas/ExecutionUsage"
       type: object
-    MiscController.BasicAuthCredentials:
-      properties:
-        uid:
-          type: string
-        username:
-          type: string
-        password:
-          type: string
-      type: object
     MiscController.Configuration:
       properties:
         uuid:
@@ -20282,12 +20720,12 @@ components:
           $ref: "#/components/schemas/EditionProvider.Edition"
         commitId:
           type: string
+        chartDefaultDuration:
+          type: string
         commitDate:
           format: date-time
           type: string
         isCustomDashboardsEnabled:
-          type: boolean
-        isTaskRunEnabled:
           type: boolean
         isAnonymousUsageEnabled:
           type: boolean
@@ -20306,10 +20744,6 @@ components:
         hiddenLabelsPrefixes:
           items:
             type: string
-          type: array
-        resourceToFilters:
-          items:
-            $ref: "#/components/schemas/QueryFilter.ResourceField"
           type: array
         isAiEnabled:
           type: boolean
@@ -20354,6 +20788,8 @@ components:
           passwordRegexp:
             type: string
           passwordlessEnabled:
+            type: boolean
+          airgapped:
             type: boolean
         type: object
       type: object
@@ -20668,6 +21104,30 @@ components:
         results:
           items:
             $ref: "#/components/schemas/Blueprint"
+          type: array
+        total:
+          format: int64
+          type: integer
+      required:
+      - results
+      - total
+      type: object
+    PagedResults_ConcurrencyLimit_:
+      example:
+        total: 6
+        results:
+        - running: 0
+          tenantId: tenantId
+          namespace: namespace
+          flowId: flowId
+        - running: 0
+          tenantId: tenantId
+          namespace: namespace
+          flowId: flowId
+      properties:
+        results:
+          items:
+            $ref: "#/components/schemas/ConcurrencyLimit"
           type: array
         total:
           format: int64
@@ -21031,6 +21491,7 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
+            prefill: ""
             description: description
             id: id
             type: ""
@@ -21038,6 +21499,7 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
+            prefill: ""
             description: description
             id: id
             type: ""
@@ -21303,6 +21765,7 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
+            prefill: ""
             description: description
             id: id
             type: ""
@@ -21310,6 +21773,7 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
+            prefill: ""
             description: description
             id: id
             type: ""
@@ -21756,6 +22220,36 @@ components:
       - results
       - total
       type: object
+    PagedResults_KVEntry_:
+      example:
+        total: 6
+        results:
+        - updateDate: 2000-01-23T04:56:07.000+00:00
+          namespace: namespace
+          description: description
+          creationDate: 2000-01-23T04:56:07.000+00:00
+          version: 0
+          key: key
+          expirationDate: 2000-01-23T04:56:07.000+00:00
+        - updateDate: 2000-01-23T04:56:07.000+00:00
+          namespace: namespace
+          description: description
+          creationDate: 2000-01-23T04:56:07.000+00:00
+          version: 0
+          key: key
+          expirationDate: 2000-01-23T04:56:07.000+00:00
+      properties:
+        results:
+          items:
+            $ref: "#/components/schemas/KVEntry"
+          type: array
+        total:
+          format: int64
+          type: integer
+      required:
+      - results
+      - total
+      type: object
     PagedResults_LogEntry_:
       properties:
         results:
@@ -21908,6 +22402,7 @@ components:
             - dependsOn: ""
               defaults: ""
               displayName: displayName
+              prefill: ""
               description: description
               id: id
               type: ""
@@ -21915,6 +22410,7 @@ components:
             - dependsOn: ""
               defaults: ""
               displayName: displayName
+              prefill: ""
               description: description
               id: id
               type: ""
@@ -22184,6 +22680,7 @@ components:
             - dependsOn: ""
               defaults: ""
               displayName: displayName
+              prefill: ""
               description: description
               id: id
               type: ""
@@ -22191,6 +22688,7 @@ components:
             - dependsOn: ""
               defaults: ""
               displayName: displayName
+              prefill: ""
               description: description
               id: id
               type: ""
@@ -22445,19 +22943,6 @@ components:
         results:
           items:
             $ref: "#/components/schemas/SearchResult_Flow_"
-          type: array
-        total:
-          format: int64
-          type: integer
-      required:
-      - results
-      - total
-      type: object
-    PagedResults_TaskRun_:
-      properties:
-        results:
-          items:
-            $ref: "#/components/schemas/TaskRun"
           type: array
         total:
           format: int64
@@ -23796,8 +24281,10 @@ components:
       - QUERY
       - SCOPE
       - NAMESPACE
+      - KIND
       - LABELS
       - FLOW_ID
+      - UPDATED
       - START_DATE
       - END_DATE
       - STATE
@@ -23811,17 +24298,6 @@ components:
       - MIN_LEVEL
       type: string
       x-type: String
-    QueryFilter.FieldOp:
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-        operations:
-          items:
-            $ref: "#/components/schemas/QueryFilter.Operation"
-          type: array
-      type: object
     QueryFilter.Op:
       enum:
       - EQUALS
@@ -23838,22 +24314,6 @@ components:
       - REGEX
       - PREFIX
       type: string
-    QueryFilter.Operation:
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-      type: object
-    QueryFilter.ResourceField:
-      properties:
-        name:
-          type: string
-        fields:
-          items:
-            $ref: "#/components/schemas/QueryFilter.FieldOp"
-          type: array
-      type: object
     RBACService.RoleAssignment.RoleOrigin:
       enum:
       - BINDING
@@ -24321,6 +24781,7 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
+            prefill: ""
             description: description
             id: id
             type: ""
@@ -24328,6 +24789,7 @@ components:
           - dependsOn: ""
             defaults: ""
             displayName: displayName
+            prefill: ""
             description: description
             id: id
             type: ""
@@ -24883,6 +25345,7 @@ components:
     State.Type:
       enum:
       - CREATED
+      - SUBMITTED
       - RUNNING
       - PAUSED
       - RESTARTED
@@ -24897,6 +25360,7 @@ components:
       - RETRIED
       - SKIPPED
       - BREAKPOINT
+      - RESUBMITTED
       type: string
     Task:
       example:
@@ -25001,6 +25465,7 @@ components:
         - dependsOn: ""
           defaults: ""
           displayName: displayName
+          prefill: ""
           description: description
           id: id
           type: ""
@@ -25008,6 +25473,7 @@ components:
         - dependsOn: ""
           defaults: ""
           displayName: displayName
+          prefill: ""
           description: description
           id: id
           type: ""
@@ -25204,10 +25670,41 @@ components:
           type: boolean
         outputsInInternalStorage:
           type: boolean
+        appCatalogConfig:
+          $ref: "#/components/schemas/Tenant.AppCatalogConfig"
       required:
       - deleted
       - id
       - name
+      type: object
+    Tenant.AppCatalogConfig:
+      properties:
+        title:
+          type: string
+        titleColor:
+          type: string
+        primaryColor:
+          type: string
+      type: object
+    TenantController.AppsCatalogConfigRequest:
+      properties:
+        title:
+          type: string
+        titleColor:
+          type: string
+        primaryColor:
+          type: string
+      type: object
+    TenantController.AppsCatalogConfigResponse:
+      properties:
+        title:
+          type: string
+        titleColor:
+          type: string
+        primaryColor:
+          type: string
+        logo:
+          type: string
       type: object
     TenantInterface:
       properties:
@@ -26805,7 +27302,7 @@ components:
       required:
       - file
       type: object
-    setLogo_request:
+    setAppsCatalogLogo_request:
       properties:
         logo:
           description: The logo file
@@ -26844,6 +27341,9 @@ components:
     DailyExecutionStatistics_executionCounts:
       properties:
         CREATED:
+          format: int64
+          type: integer
+        SUBMITTED:
           format: int64
           type: integer
         RUNNING:
@@ -26886,6 +27386,9 @@ components:
           format: int64
           type: integer
         BREAKPOINT:
+          format: int64
+          type: integer
+        RESUBMITTED:
           format: int64
           type: integer
       type: object

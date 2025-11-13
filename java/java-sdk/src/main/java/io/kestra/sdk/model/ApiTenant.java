@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.Isolation;
+import io.kestra.sdk.model.TenantAppCatalogConfig;
 import io.kestra.sdk.model.WorkerGroup;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,6 +45,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ApiTenant.JSON_PROPERTY_SECRET_CONFIGURATION,
   ApiTenant.JSON_PROPERTY_REQUIRE_EXISTING_NAMESPACE,
   ApiTenant.JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE,
+  ApiTenant.JSON_PROPERTY_APP_CATALOG_CONFIG,
   ApiTenant.JSON_PROPERTY_LOGO
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
@@ -86,6 +88,9 @@ public class ApiTenant {
 
   public static final String JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE = "outputsInInternalStorage";
   @jakarta.annotation.Nullable  private Boolean outputsInInternalStorage;
+
+  public static final String JSON_PROPERTY_APP_CATALOG_CONFIG = "appCatalogConfig";
+  @jakarta.annotation.Nullable  private TenantAppCatalogConfig appCatalogConfig;
 
   public static final String JSON_PROPERTY_LOGO = "logo";
   @jakarta.annotation.Nullable  private String logo;
@@ -421,6 +426,30 @@ public class ApiTenant {
     this.outputsInInternalStorage = outputsInInternalStorage;
   }
 
+  public ApiTenant appCatalogConfig(@jakarta.annotation.Nullable TenantAppCatalogConfig appCatalogConfig) {
+    
+    this.appCatalogConfig = appCatalogConfig;
+    return this;
+  }
+
+  /**
+   * Get appCatalogConfig
+   * @return appCatalogConfig
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_APP_CATALOG_CONFIG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public TenantAppCatalogConfig getAppCatalogConfig() {
+    return appCatalogConfig;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_APP_CATALOG_CONFIG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAppCatalogConfig(@jakarta.annotation.Nullable TenantAppCatalogConfig appCatalogConfig) {
+    this.appCatalogConfig = appCatalogConfig;
+  }
+
   public ApiTenant logo(@jakarta.annotation.Nullable String logo) {
     
     this.logo = logo;
@@ -467,12 +496,13 @@ public class ApiTenant {
         Objects.equals(this.secretConfiguration, apiTenant.secretConfiguration) &&
         Objects.equals(this.requireExistingNamespace, apiTenant.requireExistingNamespace) &&
         Objects.equals(this.outputsInInternalStorage, apiTenant.outputsInInternalStorage) &&
+        Objects.equals(this.appCatalogConfig, apiTenant.appCatalogConfig) &&
         Objects.equals(this.logo, apiTenant.logo);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(storageIsolation, secretIsolation, id, name, deleted, workerGroup, storageType, storageConfiguration, secretType, secretReadOnly, secretConfiguration, requireExistingNamespace, outputsInInternalStorage, logo);
+    return Objects.hash(storageIsolation, secretIsolation, id, name, deleted, workerGroup, storageType, storageConfiguration, secretType, secretReadOnly, secretConfiguration, requireExistingNamespace, outputsInInternalStorage, appCatalogConfig, logo);
   }
 
   @Override
@@ -492,6 +522,7 @@ public class ApiTenant {
     sb.append("    secretConfiguration: ").append(toIndentedString(secretConfiguration)).append("\n");
     sb.append("    requireExistingNamespace: ").append(toIndentedString(requireExistingNamespace)).append("\n");
     sb.append("    outputsInInternalStorage: ").append(toIndentedString(outputsInInternalStorage)).append("\n");
+    sb.append("    appCatalogConfig: ").append(toIndentedString(appCatalogConfig)).append("\n");
     sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
     sb.append("}");
     return sb.toString();

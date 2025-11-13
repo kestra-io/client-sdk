@@ -32,7 +32,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * KVEntry
  */
 @JsonPropertyOrder({
+  KVEntry.JSON_PROPERTY_NAMESPACE,
   KVEntry.JSON_PROPERTY_KEY,
+  KVEntry.JSON_PROPERTY_VERSION,
   KVEntry.JSON_PROPERTY_DESCRIPTION,
   KVEntry.JSON_PROPERTY_CREATION_DATE,
   KVEntry.JSON_PROPERTY_UPDATE_DATE,
@@ -40,8 +42,14 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class KVEntry {
+  public static final String JSON_PROPERTY_NAMESPACE = "namespace";
+  @jakarta.annotation.Nullable  private String namespace;
+
   public static final String JSON_PROPERTY_KEY = "key";
   @jakarta.annotation.Nullable  private String key;
+
+  public static final String JSON_PROPERTY_VERSION = "version";
+  @jakarta.annotation.Nullable  private Integer version;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
   @jakarta.annotation.Nullable  private JsonNullable<String> description = JsonNullable.<String>undefined();
@@ -56,6 +64,30 @@ public class KVEntry {
   @jakarta.annotation.Nullable  private JsonNullable<OffsetDateTime> expirationDate = JsonNullable.<OffsetDateTime>undefined();
 
   public KVEntry() {
+  }
+
+  public KVEntry namespace(@jakarta.annotation.Nullable String namespace) {
+    
+    this.namespace = namespace;
+    return this;
+  }
+
+  /**
+   * Get namespace
+   * @return namespace
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getNamespace() {
+    return namespace;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNamespace(@jakarta.annotation.Nullable String namespace) {
+    this.namespace = namespace;
   }
 
   public KVEntry key(@jakarta.annotation.Nullable String key) {
@@ -80,6 +112,30 @@ public class KVEntry {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setKey(@jakarta.annotation.Nullable String key) {
     this.key = key;
+  }
+
+  public KVEntry version(@jakarta.annotation.Nullable Integer version) {
+    
+    this.version = version;
+    return this;
+  }
+
+  /**
+   * Get version
+   * @return version
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getVersion() {
+    return version;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVersion(@jakarta.annotation.Nullable Integer version) {
+    this.version = version;
   }
 
   public KVEntry description(@jakarta.annotation.Nullable String description) {
@@ -201,7 +257,9 @@ public class KVEntry {
       return false;
     }
     KVEntry kvEntry = (KVEntry) o;
-    return Objects.equals(this.key, kvEntry.key) &&
+    return Objects.equals(this.namespace, kvEntry.namespace) &&
+        Objects.equals(this.key, kvEntry.key) &&
+        Objects.equals(this.version, kvEntry.version) &&
         equalsNullable(this.description, kvEntry.description) &&
         Objects.equals(this.creationDate, kvEntry.creationDate) &&
         Objects.equals(this.updateDate, kvEntry.updateDate) &&
@@ -214,7 +272,7 @@ public class KVEntry {
 
   @Override
   public int hashCode() {
-    return Objects.hash(key, hashCodeNullable(description), creationDate, updateDate, hashCodeNullable(expirationDate));
+    return Objects.hash(namespace, key, version, hashCodeNullable(description), creationDate, updateDate, hashCodeNullable(expirationDate));
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -228,7 +286,9 @@ public class KVEntry {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class KVEntry {\n");
+    sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
     sb.append("    key: ").append(toIndentedString(key)).append("\n");
+    sb.append("    version: ").append(toIndentedString(version)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
     sb.append("    updateDate: ").append(toIndentedString(updateDate)).append("\n");

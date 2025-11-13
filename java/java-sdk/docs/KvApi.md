@@ -7,7 +7,7 @@ All URIs are relative to *http://localhost*
 | [**deleteKeyValue**](KvApi.md#deleteKeyValue) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Delete a key-value pair |
 | [**deleteKeyValues**](KvApi.md#deleteKeyValues) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/kv | Bulk-delete multiple key/value pairs from the given namespace. |
 | [**keyValue**](KvApi.md#keyValue) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Get value for a key |
-| [**listKeys**](KvApi.md#listKeys) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv | List all keys for a namespace |
+| [**listAllKeys**](KvApi.md#listAllKeys) | **GET** /api/v1/{tenant}/kv | List all keys |
 | [**listKeysWithInheritence**](KvApi.md#listKeysWithInheritence) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/inheritance | List all keys for inherited namespaces |
 | [**setKeyValue**](KvApi.md#setKeyValue) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Puts a key-value pair in store |
 
@@ -229,11 +229,11 @@ public class Example {
 | **200** | getKeyValue 200 response |  -  |
 
 
-## listKeys
+## listAllKeys
 
-> List&lt;KVEntry&gt; listKeys(namespace, tenant)
+> PagedResultsKVEntry listAllKeys(page, size, tenant, sort, filters)
 
-List all keys for a namespace
+List all keys
 
 ### Example
 
@@ -255,13 +255,16 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
-        String namespace = "namespace_example"; // String | The namespace id
+        Integer page = 1; // Integer | The current page
+        Integer size = 10; // Integer | The current page size
         String tenant = "tenant_example"; // String | 
+        List<String> sort = Arrays.asList(); // List<String> | The sort of current page
+        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
         try {
-            List<KVEntry> result = kestraClient.KvApi().listKeys(namespace, tenant);
+            PagedResultsKVEntry result = kestraClient.KvApi().listAllKeys(page, size, tenant, sort, filters);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling KvApi#listKeys");
+            System.err.println("Exception when calling KvApi#listAllKeys");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -276,12 +279,15 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace id | |
+| **page** | **Integer**| The current page | [default to 1] |
+| **size** | **Integer**| The current page size | [default to 10] |
 | **tenant** | **String**|  | |
+| **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
+| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | [optional] |
 
 ### Return type
 
-[**List&lt;KVEntry&gt;**](KVEntry.md)
+[**PagedResultsKVEntry**](PagedResultsKVEntry.md)
 
 ### Authorization
 
@@ -296,7 +302,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | listKeys 200 response |  -  |
+| **200** | listAllKeys 200 response |  -  |
 
 
 ## listKeysWithInheritence

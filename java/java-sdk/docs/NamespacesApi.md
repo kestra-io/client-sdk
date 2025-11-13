@@ -11,7 +11,6 @@ All URIs are relative to *http://localhost*
 | [**inheritedPluginDefaults**](NamespacesApi.md#inheritedPluginDefaults) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-plugindefaults | List inherited plugin defaults |
 | [**inheritedSecrets**](NamespacesApi.md#inheritedSecrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets |
 | [**inheritedVariables**](NamespacesApi.md#inheritedVariables) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-variables | List inherited variables |
-| [**listNamespaceSecrets**](NamespacesApi.md#listNamespaceSecrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/secrets | Get secrets for a namespace |
 | [**namespace**](NamespacesApi.md#namespace) | **GET** /api/v1/{tenant}/namespaces/{id} | Get a namespace |
 | [**patchSecret**](NamespacesApi.md#patchSecret) | **PATCH** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Patch a secret metadata for a namespace |
 | [**putSecrets**](NamespacesApi.md#putSecrets) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/secrets | Update secrets for a namespace |
@@ -512,84 +511,6 @@ public class Example {
 | **200** | inheritedVariables 200 response |  -  |
 
 
-## listNamespaceSecrets
-
-> ApiSecretListResponse listNamespaceSecrets(namespace, page, size, filters, tenant, sort)
-
-Get secrets for a namespace
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.NamespacesApi;
-
-public class Example {
-    public static void main(String[] args) {
-        public static String MAIN_TENANT = "main";
-
-        KestraClient kestraClient = KestraClient.builder()
-        .basicAuth("root@root.com", "Root!1234")
-        .url("http://localhost:8080")
-        .build();
-
-        String namespace = "namespace_example"; // String | The namespace id
-        Integer page = 1; // Integer | The current page
-        Integer size = 10; // Integer | The current page size
-        List<QueryFilter> filters = Arrays.asList(); // List<QueryFilter> | Filters
-        String tenant = "tenant_example"; // String | 
-        List<String> sort = Arrays.asList(); // List<String> | The sort of current page
-        try {
-            ApiSecretListResponse result = kestraClient.NamespacesApi().listNamespaceSecrets(namespace, page, size, filters, tenant, sort);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling NamespacesApi#listNamespaceSecrets");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace id | |
-| **page** | **Integer**| The current page | [default to 1] |
-| **size** | **Integer**| The current page size | [default to 10] |
-| **filters** | [**List&lt;QueryFilter&gt;**](QueryFilter.md)| Filters | |
-| **tenant** | **String**|  | |
-| **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
-
-### Return type
-
-[**ApiSecretListResponse**](ApiSecretListResponse.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | listNamespaceSecrets 200 response |  -  |
-
-
 ## namespace
 
 > Namespace namespace(id, tenant)
@@ -662,7 +583,7 @@ public class Example {
 
 ## patchSecret
 
-> List&lt;ApiSecretMeta&gt; patchSecret(namespace, key, tenant, apiSecretMetaEE)
+> List&lt;ApiSecretMetaEE&gt; patchSecret(namespace, key, tenant, apiSecretMetaEE)
 
 Patch a secret metadata for a namespace
 
@@ -691,7 +612,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         ApiSecretMetaEE apiSecretMetaEE = new ApiSecretMetaEE(); // ApiSecretMetaEE | 
         try {
-            List<ApiSecretMeta> result = kestraClient.NamespacesApi().patchSecret(namespace, key, tenant, apiSecretMetaEE);
+            List<ApiSecretMetaEE> result = kestraClient.NamespacesApi().patchSecret(namespace, key, tenant, apiSecretMetaEE);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NamespacesApi#patchSecret");
@@ -716,7 +637,7 @@ public class Example {
 
 ### Return type
 
-[**List&lt;ApiSecretMeta&gt;**](ApiSecretMeta.md)
+[**List&lt;ApiSecretMetaEE&gt;**](ApiSecretMetaEE.md)
 
 ### Authorization
 
@@ -736,7 +657,7 @@ public class Example {
 
 ## putSecrets
 
-> List&lt;ApiSecretMeta&gt; putSecrets(namespace, tenant, apiSecretValue)
+> List&lt;ApiSecretMetaEE&gt; putSecrets(namespace, tenant, apiSecretValue)
 
 Update secrets for a namespace
 
@@ -764,7 +685,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         ApiSecretValue apiSecretValue = new ApiSecretValue(); // ApiSecretValue | 
         try {
-            List<ApiSecretMeta> result = kestraClient.NamespacesApi().putSecrets(namespace, tenant, apiSecretValue);
+            List<ApiSecretMetaEE> result = kestraClient.NamespacesApi().putSecrets(namespace, tenant, apiSecretValue);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NamespacesApi#putSecrets");
@@ -788,7 +709,7 @@ public class Example {
 
 ### Return type
 
-[**List&lt;ApiSecretMeta&gt;**](ApiSecretMeta.md)
+[**List&lt;ApiSecretMetaEE&gt;**](ApiSecretMetaEE.md)
 
 ### Authorization
 

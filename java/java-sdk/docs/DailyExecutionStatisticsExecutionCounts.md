@@ -8,6 +8,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**CREATED** | **Long** |  |  [optional] |
+|**SUBMITTED** | **Long** |  |  [optional] |
 |**RUNNING** | **Long** |  |  [optional] |
 |**PAUSED** | **Long** |  |  [optional] |
 |**RESTARTED** | **Long** |  |  [optional] |
@@ -22,6 +23,7 @@
 |**RETRIED** | **Long** |  |  [optional] |
 |**SKIPPED** | **Long** |  |  [optional] |
 |**BREAKPOINT** | **Long** |  |  [optional] |
+|**RESUBMITTED** | **Long** |  |  [optional] |
 
 
 

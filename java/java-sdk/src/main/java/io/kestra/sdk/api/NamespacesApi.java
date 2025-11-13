@@ -28,14 +28,11 @@ import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.Pair;
 
 import io.kestra.sdk.model.ApiAutocomplete;
-import io.kestra.sdk.model.ApiSecretListResponse;
-import io.kestra.sdk.model.ApiSecretMeta;
 import io.kestra.sdk.model.ApiSecretMetaEE;
 import io.kestra.sdk.model.ApiSecretValue;
 import io.kestra.sdk.model.Namespace;
 import io.kestra.sdk.model.PagedResultsNamespace;
 import io.kestra.sdk.model.PluginDefault;
-import io.kestra.sdk.model.QueryFilter;
 
 
 import java.util.ArrayList;
@@ -658,119 +655,6 @@ import java.util.StringJoiner;
 
 
   /**
-   * Get secrets for a namespace
-   * 
-   * @param namespace The namespace id (required)
-   * @param page The current page (required)
-   * @param size The current page size (required)
-   * @param filters Filters (required)
-   * @param tenant  (required)
-   * @param sort The sort of current page (optional)
-   * @return ApiSecretListResponse
-   * @throws ApiException if fails to make API call
-   */
-  public ApiSecretListResponse listNamespaceSecrets(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort) throws ApiException {
-    return this.listNamespaceSecrets(namespace, page, size, filters, tenant, sort, Collections.emptyMap());
-  }
-
-  /**
-   * Get secrets for a namespace
-   * 
-   * @param namespace The namespace id (required)
-   * @param page The current page (required)
-   * @param size The current page size (required)
-   * @param filters Filters (required)
-   * @param tenant  (required)
-   * @param sort The sort of current page (optional)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return ApiSecretListResponse
-   * @throws ApiException if fails to make API call
-   */
-  public ApiSecretListResponse listNamespaceSecrets(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull Integer page, @jakarta.annotation.Nonnull Integer size, @jakarta.annotation.Nonnull List<QueryFilter> filters, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'namespace' is set
-    if (namespace == null) {
-      throw new ApiException(400, "Missing the required parameter 'namespace' when calling listNamespaceSecrets");
-    }
-    
-    // verify the required parameter 'page' is set
-    if (page == null) {
-      throw new ApiException(400, "Missing the required parameter 'page' when calling listNamespaceSecrets");
-    }
-    
-    // verify the required parameter 'size' is set
-    if (size == null) {
-      throw new ApiException(400, "Missing the required parameter 'size' when calling listNamespaceSecrets");
-    }
-    
-    // verify the required parameter 'filters' is set
-    if (filters == null) {
-      throw new ApiException(400, "Missing the required parameter 'filters' when calling listNamespaceSecrets");
-    }
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling listNamespaceSecrets");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/namespaces/{namespace}/secrets"
-      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
-    localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
-    localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<ApiSecretListResponse> localVarReturnType = new TypeReference<ApiSecretListResponse>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "GET",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
-
-
-
-
-
-
-  /**
    * Get a namespace
    * 
    * @param id The namespace id (required)
@@ -863,10 +747,10 @@ import java.util.StringJoiner;
    * @param key The secret key (required)
    * @param tenant  (required)
    * @param apiSecretMetaEE  (required)
-   * @return List&lt;ApiSecretMeta&gt;
+   * @return List&lt;ApiSecretMetaEE&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<ApiSecretMeta> patchSecret(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull ApiSecretMetaEE apiSecretMetaEE) throws ApiException {
+  public List<ApiSecretMetaEE> patchSecret(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull ApiSecretMetaEE apiSecretMetaEE) throws ApiException {
     return this.patchSecret(namespace, key, tenant, apiSecretMetaEE, Collections.emptyMap());
   }
 
@@ -878,10 +762,10 @@ import java.util.StringJoiner;
    * @param tenant  (required)
    * @param apiSecretMetaEE  (required)
    * @param additionalHeaders additionalHeaders for this call
-   * @return List&lt;ApiSecretMeta&gt;
+   * @return List&lt;ApiSecretMetaEE&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<ApiSecretMeta> patchSecret(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull ApiSecretMetaEE apiSecretMetaEE, Map<String, String> additionalHeaders) throws ApiException {
+  public List<ApiSecretMetaEE> patchSecret(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String key, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull ApiSecretMetaEE apiSecretMetaEE, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = apiSecretMetaEE;
     
     // verify the required parameter 'namespace' is set
@@ -934,7 +818,7 @@ import java.util.StringJoiner;
 
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
-    TypeReference<List<ApiSecretMeta>> localVarReturnType = new TypeReference<List<ApiSecretMeta>>() {};
+    TypeReference<List<ApiSecretMetaEE>> localVarReturnType = new TypeReference<List<ApiSecretMetaEE>>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "PATCH",
@@ -963,10 +847,10 @@ import java.util.StringJoiner;
    * @param namespace The namespace id (required)
    * @param tenant  (required)
    * @param apiSecretValue  (required)
-   * @return List&lt;ApiSecretMeta&gt;
+   * @return List&lt;ApiSecretMetaEE&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<ApiSecretMeta> putSecrets(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull ApiSecretValue apiSecretValue) throws ApiException {
+  public List<ApiSecretMetaEE> putSecrets(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull ApiSecretValue apiSecretValue) throws ApiException {
     return this.putSecrets(namespace, tenant, apiSecretValue, Collections.emptyMap());
   }
 
@@ -977,10 +861,10 @@ import java.util.StringJoiner;
    * @param tenant  (required)
    * @param apiSecretValue  (required)
    * @param additionalHeaders additionalHeaders for this call
-   * @return List&lt;ApiSecretMeta&gt;
+   * @return List&lt;ApiSecretMetaEE&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<ApiSecretMeta> putSecrets(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull ApiSecretValue apiSecretValue, Map<String, String> additionalHeaders) throws ApiException {
+  public List<ApiSecretMetaEE> putSecrets(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String tenant, @jakarta.annotation.Nonnull ApiSecretValue apiSecretValue, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = apiSecretValue;
     
     // verify the required parameter 'namespace' is set
@@ -1027,7 +911,7 @@ import java.util.StringJoiner;
 
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
-    TypeReference<List<ApiSecretMeta>> localVarReturnType = new TypeReference<List<ApiSecretMeta>>() {};
+    TypeReference<List<ApiSecretMetaEE>> localVarReturnType = new TypeReference<List<ApiSecretMetaEE>>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "PUT",
