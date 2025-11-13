@@ -46,7 +46,7 @@ jobs:
     uses: ./.github/workflows/go-sdk.yml
 
   java:
-    if: "needs.file-changes.outputs.java == 'true'"
+#    if: "needs.file-changes.outputs.java == 'true'"
     needs: file-changes
     uses: ./.github/workflows/java-sdk.yml
     secrets:
