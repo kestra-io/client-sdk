@@ -47,7 +47,7 @@ jobs:
 
   java:
 #    if: "needs.file-changes.outputs.java == 'true'"
-    needs: file-changes
+#    needs: file-changes
     uses: ./.github/workflows/java-sdk.yml
     secrets:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
