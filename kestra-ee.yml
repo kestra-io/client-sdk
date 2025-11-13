@@ -11620,10 +11620,10 @@ paths:
         - name: testSuiteId
           in: query
           description: The test suite id to filter on
-          required: true
           explode: false
           schema:
             type: string
+            nullable: true
         - name: namespace
           in: query
           description: The namespace to filter on
@@ -12806,9 +12806,16 @@ components:
           pattern: ^[A-Za-z_$][A-Za-z0-9_$]*(\.[A-Za-z_$][A-Za-z0-9_$]*)*$
           type: string
         version:
-          title: The version of the plugin to use.
-          pattern: \d+\.\d+\.\d+(-[a-zA-Z0-9-]+)?|([a-zA-Z0-9]+)
+          title: Plugin Version
           type: string
+          description: |
+            Defines the version of the plugin to use.
+
+            The version must follow the Semantic Versioning (SemVer) specification:
+              - A single-digit MAJOR version (e.g., `1`).
+              - A MAJOR.MINOR version (e.g., `1.1`).
+              - A MAJOR.MINOR.PATCH version, optionally with any qualifier
+                (e.g., `1.1.2`, `1.1.0-SNAPSHOT`).
         description:
           type: string
         conditions:
@@ -12854,9 +12861,16 @@ components:
           pattern: ^[A-Za-z_$][A-Za-z0-9_$]*(\.[A-Za-z_$][A-Za-z0-9_$]*)*$
           type: string
         version:
-          title: The version of the plugin to use.
-          pattern: \d+\.\d+\.\d+(-[a-zA-Z0-9-]+)?|([a-zA-Z0-9]+)
+          title: Plugin Version
           type: string
+          description: |
+            Defines the version of the plugin to use.
+
+            The version must follow the Semantic Versioning (SemVer) specification:
+              - A single-digit MAJOR version (e.g., `1`).
+              - A MAJOR.MINOR version (e.g., `1.1`).
+              - A MAJOR.MINOR.PATCH version, optionally with any qualifier
+                (e.g., `1.1.2`, `1.1.0-SNAPSHOT`).
     AbstractUser:
       required:
         - email
@@ -17774,9 +17788,16 @@ components:
           pattern: ^[A-Za-z_$][A-Za-z0-9_$]*(\.[A-Za-z_$][A-Za-z0-9_$]*)*$
           type: string
         version:
-          title: The version of the plugin to use.
-          pattern: \d+\.\d+\.\d+(-[a-zA-Z0-9-]+)?|([a-zA-Z0-9]+)
+          title: Plugin Version
           type: string
+          description: |
+            Defines the version of the plugin to use.
+
+            The version must follow the Semantic Versioning (SemVer) specification:
+              - A single-digit MAJOR version (e.g., `1`).
+              - A MAJOR.MINOR version (e.g., `1.1`).
+              - A MAJOR.MINOR.PATCH version, optionally with any qualifier
+                (e.g., `1.1.2`, `1.1.0-SNAPSHOT`).
         description:
           type: string
         retry:
@@ -17832,9 +17853,16 @@ components:
           pattern: ^[A-Za-z_$][A-Za-z0-9_$]*(\.[A-Za-z_$][A-Za-z0-9_$]*)*$
           type: string
         version:
-          title: The version of the plugin to use.
-          pattern: \d+\.\d+\.\d+(-[a-zA-Z0-9-]+)?|([a-zA-Z0-9]+)
+          title: Plugin Version
           type: string
+          description: |
+            Defines the version of the plugin to use.
+
+            The version must follow the Semantic Versioning (SemVer) specification:
+              - A single-digit MAJOR version (e.g., `1`).
+              - A MAJOR.MINOR version (e.g., `1.1`).
+              - A MAJOR.MINOR.PATCH version, optionally with any qualifier
+                (e.g., `1.1.2`, `1.1.0-SNAPSHOT`).
         tasks:
           type: array
           items:

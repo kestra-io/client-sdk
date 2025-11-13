@@ -22,9 +22,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     outputs:
-      ui: ${{ steps.changes.outputs.ui }}
-      translations: ${{ steps.changes.outputs.translations }}
-      backend: ${{ steps.changes.outputs.backend }}
+      go: ${{ steps.changes.outputs.go }}
+      java: ${{ steps.changes.outputs.java }}
+      javascript: ${{ steps.changes.outputs.javascript }}
+      python: ${{ steps.changes.outputs.python }}
     steps:
       - uses: dorny/paths-filter@v3
         id: changes

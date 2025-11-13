@@ -43,7 +43,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>io.kestra</groupId>
   <artifactId>kestra-api-client</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -53,7 +53,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "io.kestra:kestra-api-client:1.0.1"
+compile "io.kestra:kestra-api-client:1.0.2"
 ```
 
 ### Others
@@ -66,7 +66,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/kestra-api-client-1.0.1.jar`
+- `target/kestra-api-client-1.0.2.jar`
 - `target/lib/*.jar`
 
 ## Getting Started
@@ -251,6 +251,20 @@ Class | Method | HTTP request | Description
 *ServiceAccountApi* | [**serviceAccount**](docs/ServiceAccountApi.md#serviceAccount) | **GET** /api/v1/service-accounts/{id} | Get a service account
 *ServiceAccountApi* | [**serviceAccountForTenant**](docs/ServiceAccountApi.md#serviceAccountForTenant) | **GET** /api/v1/{tenant}/service-accounts/{id} | Retrieve a service account
 *ServiceAccountApi* | [**updateServiceAccount**](docs/ServiceAccountApi.md#updateServiceAccount) | **PUT** /api/v1/{tenant}/service-accounts/{id} | Update a user service account
+*TestSuitesApi* | [**createTestSuite**](docs/TestSuitesApi.md#createTestSuite) | **POST** /api/v1/{tenant}/tests | Create a test from YAML source
+*TestSuitesApi* | [**deleteTestSuite**](docs/TestSuitesApi.md#deleteTestSuite) | **DELETE** /api/v1/{tenant}/tests/{namespace}/{id} | Delete a test
+*TestSuitesApi* | [**deleteTestSuitesByIds**](docs/TestSuitesApi.md#deleteTestSuitesByIds) | **DELETE** /api/v1/{tenant}/tests/by-ids | Delete multiple tests by id
+*TestSuitesApi* | [**disableTestSuitesByIds**](docs/TestSuitesApi.md#disableTestSuitesByIds) | **POST** /api/v1/{tenant}/tests/disable/by-ids | Disable multiple tests by id
+*TestSuitesApi* | [**enableTestSuitesByIds**](docs/TestSuitesApi.md#enableTestSuitesByIds) | **POST** /api/v1/{tenant}/tests/enable/by-ids | Enable multiple tests by id
+*TestSuitesApi* | [**runTestSuite**](docs/TestSuitesApi.md#runTestSuite) | **POST** /api/v1/{tenant}/tests/{namespace}/{id}/run | Run a full test
+*TestSuitesApi* | [**runTestSuitesByQuery**](docs/TestSuitesApi.md#runTestSuitesByQuery) | **POST** /api/v1/{tenant}/tests/run | Run multiple TestSuites by query
+*TestSuitesApi* | [**searchTestSuites**](docs/TestSuitesApi.md#searchTestSuites) | **GET** /api/v1/{tenant}/tests/search | Search for tests
+*TestSuitesApi* | [**searchTestSuitesResults**](docs/TestSuitesApi.md#searchTestSuitesResults) | **GET** /api/v1/{tenant}/tests/results/search | Search for tests results
+*TestSuitesApi* | [**testResult**](docs/TestSuitesApi.md#testResult) | **GET** /api/v1/{tenant}/tests/results/{id} | Get a test result
+*TestSuitesApi* | [**testSuite**](docs/TestSuitesApi.md#testSuite) | **GET** /api/v1/{tenant}/tests/{namespace}/{id} | Retrieve a test
+*TestSuitesApi* | [**testsLastResult**](docs/TestSuitesApi.md#testsLastResult) | **POST** /api/v1/{tenant}/tests/results/search/last | Get tests last result
+*TestSuitesApi* | [**updateTestSuite**](docs/TestSuitesApi.md#updateTestSuite) | **PUT** /api/v1/{tenant}/tests/{namespace}/{id} | Update a test from YAML source
+*TestSuitesApi* | [**validateTestSuite**](docs/TestSuitesApi.md#validateTestSuite) | **POST** /api/v1/{tenant}/tests/validate | Validate a test
 *TriggersApi* | [**deleteBackfill**](docs/TriggersApi.md#deleteBackfill) | **POST** /api/v1/{tenant}/triggers/backfill/delete | Delete a backfill
 *TriggersApi* | [**deleteBackfillByIds**](docs/TriggersApi.md#deleteBackfillByIds) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-triggers | Delete backfill for given triggers
 *TriggersApi* | [**deleteBackfillByQuery**](docs/TriggersApi.md#deleteBackfillByQuery) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-query | Delete backfill for given triggers
