@@ -385,7 +385,7 @@ public class {{classname}} extends BaseApi {
               dataBuffer.setLength(0);
 
               try {
-                Execution ev = apiClient.getObjectMapper().readValue(data, Execution.class);
+                ExecutionStatusEvent ev = apiClient.getObjectMapper().readValue(data, ExecutionStatusEvent.class);
                 sink.next(ev);
               } catch (Exception e) {
                 sink.error(new ApiException(e));
@@ -405,7 +405,7 @@ public class {{classname}} extends BaseApi {
         if (dataBuffer.length() > 0) {
           String data = dataBuffer.toString();
           try {
-            Execution ev = apiClient.getObjectMapper().readValue(data, Execution.class);
+            ExecutionStatusEvent ev = apiClient.getObjectMapper().readValue(data, ExecutionStatusEvent.class);
             sink.next(ev);
           } catch (Exception e) {
             sink.error(new ApiException(e));
