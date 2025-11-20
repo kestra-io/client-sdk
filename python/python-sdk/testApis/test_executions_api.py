@@ -15,7 +15,7 @@
 
 import unittest
 
-from kestrapy import Configuration, KestraClient, State, ExecutionControllerStateRequest
+from kestrapy import Configuration, KestraClient, ExecutionTrigger, ExecutionControllerStateRequest
 from typing import Optional
 from kestrapy import QueryFilter, QueryFilterField, QueryFilterOp, ExecutionControllerSetLabelsByIdsRequest, Label, StateType
 import time
@@ -153,6 +153,51 @@ triggers:
         created = self.kestra_client.flows.create_flow(self.tenant, flow)
         return created
 
+    def create_trigger_flow(
+            self, flow_id: Optional[str] = None, namespace: str = "test.executions"
+        ) -> str:
+            if flow_id is None:
+                flow_id = f"{self._testMethodName}"
+            body = f"""id: {flow_id}
+namespace: {namespace}
+
+tasks:
+  - id: triggering
+    type: io.kestra.plugin.core.debug.Return
+    format: "from parents: {{execution.id}}"
+"""
+            created = self.kestra_client.flows.create_flow(
+                tenant=self.tenant, body=body
+            )
+            return getattr(created, "id", flow_id)
+
+    def create_trigger_listener_flow(
+        self, listener_flow_id: str, *, trigger_flow_id: str, namespace: str = "test.executions"
+    ) -> str:
+        if listener_flow_id is None:
+            listener_flow_id = f"{self._testMethodName}"
+        body = f"""id: {listener_flow_id}
+namespace: {namespace}
+
+tasks:
+  - id: triggered
+    type: io.kestra.plugin.core.debug.Return
+    format: "v1: {{trigger.executionId}}"
+
+triggers:
+  - id: listen-flow
+    type: io.kestra.plugin.core.trigger.Flow
+    conditions:
+      - type: io.kestra.plugin.core.condition.ExecutionStatus
+        in:
+          - SUCCESS
+      - type: io.kestra.plugin.core.condition.ExecutionFlow
+        namespace: {namespace}
+        flowId: {trigger_flow_id}
+"""
+        created = self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
+        return getattr(created, "id", listener_flow_id)
+
     def test_create_execution(self) -> None:
         """Test case for create_execution
 
@@ -166,6 +211,35 @@ triggers:
         assert resp is not None
         exec_id = getattr(resp, 'id', None)
         assert exec_id is not None
+
+    def test_create_execution_with_trigger(self) -> None:
+        namespace = f"test_create_execution_with_trigger_ns"
+        trigger_flow_id = f"{self._testMethodName}_flow"
+        listener_flow_id = f"{self._testMethodName}_listener_flow"
+        self.create_trigger_flow(flow_id=trigger_flow_id, namespace=namespace)
+        self.create_trigger_listener_flow(
+            listener_flow_id, trigger_flow_id=trigger_flow_id, namespace=namespace
+        )
+
+        resp = self.kestra_client.executions.create_execution(
+            namespace=namespace, id=trigger_flow_id, wait=True, tenant=self.tenant
+        )
+        assert resp.state.current is StateType.SUCCESS
+
+        qf = QueryFilter(
+            field=QueryFilterField.FLOW_ID,
+            operation=QueryFilterOp.EQUALS,
+            value={"value": listener_flow_id},
+        )
+        resp = self.kestra_client.executions.search_executions(
+            tenant=self.tenant, filters=[qf], page=1, size=10
+        )
+        assert len(resp.results) == 1
+        triggered = resp.results[0]
+        assert isinstance(triggered.trigger, ExecutionTrigger)
+        variables = triggered.trigger.variables
+        assert isinstance(variables, ExecutionTrigger)
+        assert any(not isinstance(v, dict) for v in variables)
 
     def test_delete_execution(self) -> None:
         """Test case for delete_execution
@@ -606,7 +680,7 @@ tasks:
         assert length == 2
 
 
-    
+
     def test_kill_execution(self) -> None:
         """Test case for kill_execution
 
