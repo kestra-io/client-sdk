@@ -9,7 +9,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.time.Duration;
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
@@ -157,6 +156,36 @@ public class ExecutionsApiTest {
             return executionAtomicReference.get().getState().getCurrent().equals(state);
         });
         return executionAtomicReference.get();
+    }
+
+    private Execution createFlowAndDependentFlowAndExecute(String baseFlowId, String dependentFlowId, String namespace) throws ApiException {
+        createSimpleFlow(baseFlowId, namespace);
+
+        String DEPENDENT_FLOW = """
+        id: %s
+        namespace: %s
+
+        triggers:
+          - id: upstream_dependancy
+            type: io.kestra.plugin.core.trigger.Flow
+            preconditions:
+                id: flow_trigger
+                flows:
+                  - flowId: %s
+                    namespace: %s
+
+
+        tasks:
+          - id: hello
+            type: io.kestra.plugin.core.log.Log
+            message: Dependent flow triggered
+        """;
+
+        String dependentFlowYaml = DEPENDENT_FLOW.formatted(dependentFlowId, namespace, baseFlowId, namespace);
+        createSimpleFlow(dependentFlowYaml);
+
+        ExecutionControllerExecutionResponse baseExecResp = kestraClient().executions().createExecution(namespace, baseFlowId, false, MAIN_TENANT, null, null, null, null, null);
+        return awaitExecution(StateType.SUCCESS, baseExecResp.getId());
     }
 
     /**
@@ -1028,40 +1057,50 @@ public class ExecutionsApiTest {
         Execution execution = createdExecution(LOG_FLOW, StateType.SUCCESS);
         String executionId = execution.getId();
 
+        AtomicReference<String> followedFlowId = new AtomicReference<>();
         CountDownLatch completionLatch = new CountDownLatch(1);
 
+        Thread.sleep(2000L);
         kestraClient().executions().followExecution(executionId, MAIN_TENANT)
                 .doOnNext(event -> {
-                    assertThat(event.getFlowId()).isEqualTo(execution.getFlowId());
+                    if (event.getFlowId() != null) {
+                        followedFlowId.set(event.getFlowId());
+                        completionLatch.countDown();
+                    }
                 })
-                .doFinally(signalType -> {
-                    completionLatch.countDown();
-                })
+                .doOnError(Throwable::printStackTrace)
                 .subscribe();
 
         boolean completed = completionLatch.await(30, TimeUnit.SECONDS);
 
         assertThat(completed).isTrue();
+        assertThat(followedFlowId.get()).isEqualTo(execution.getFlowId());
     }
 
     @Test
     public void followDependenciesExecution() throws Exception {
-        Execution execution = createdExecution(LOG_FLOW, StateType.SUCCESS);
-        String executionId = execution.getId();
+        String namespace = randomId();
+        String baseFlowId = randomId();
+        String dependentFlowId = randomId();
 
+        Execution baseExecution = createFlowAndDependentFlowAndExecute(baseFlowId, dependentFlowId, namespace);
+
+        AtomicReference<String> followedFlowId = new AtomicReference<>();
         CountDownLatch completionLatch = new CountDownLatch(1);
 
-        kestraClient().executions().followDependenciesExecution(executionId, MAIN_TENANT, false, true)
+        kestraClient().executions().followDependenciesExecution(baseExecution.getId(), MAIN_TENANT, false, true)
                 .doOnNext(event -> {
-                    assertThat(event.getFlowId()).isEqualTo(execution.getFlowId());
+                    if (event.getFlowId() != null) {
+                        followedFlowId.set(event.getFlowId());
+                        completionLatch.countDown();
+                    }
                 })
-                .doFinally(signalType -> {
-                    completionLatch.countDown();
-                })
+                .doOnError(Throwable::printStackTrace)
                 .subscribe();
 
         boolean completed = completionLatch.await(30, TimeUnit.SECONDS);
 
         assertThat(completed).isTrue();
+        assertThat(followedFlowId.get()).isEqualTo(dependentFlowId);
     }
 }
