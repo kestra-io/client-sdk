@@ -67,4 +67,4 @@ jobs:
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
           verbose: true
-          packages-dir: python-sdk/dist
+          packages-dir: python/python-sdk/dist
