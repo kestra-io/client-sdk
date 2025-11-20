@@ -1090,7 +1090,7 @@ public class ExecutionsApiTest {
 
         kestraClient().executions().followDependenciesExecution(baseExecution.getId(), MAIN_TENANT, false, true)
                 .doOnNext(event -> {
-                    if (event.getFlowId() != null) {
+                    if (event.getFlowId() != null && event.getFlowId().equals(dependentFlowId)) {
                         followedFlowId.set(event.getFlowId());
                         completionLatch.countDown();
                     }

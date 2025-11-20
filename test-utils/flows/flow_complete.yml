@@ -13,7 +13,7 @@ labels:
 inputs:
   - id: user
     type: STRING
-    required: false
+    required: true
     defaults: Kestrel
     description: This is an optional input — if not set at runtime, it will use the default value Kestrel
 

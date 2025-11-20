@@ -123,8 +123,8 @@ public class NamespacesApiTest {
 
         QueryFilter queryFilter = new QueryFilter();
         queryFilter.setField(QueryFilterField.QUERY);
-        queryFilter.setOperation(QueryFilterOp.CONTAINS);
-        queryFilter.setValue("keys");
+        queryFilter.setOperation(QueryFilterOp.EQUALS);
+        queryFilter.setValue(key);
 
         ApiSecretListResponseApiSecretMeta entries =
             kestraClient().namespaces().listNamespaceSecrets(created.getId(), 1, 10, List.of(queryFilter), MAIN_TENANT, null);
