@@ -1,6 +1,6 @@
 
 
-# MiscControllerBasicAuthCredentials
+# BasicAuthCredentials
 
 
 ## Properties

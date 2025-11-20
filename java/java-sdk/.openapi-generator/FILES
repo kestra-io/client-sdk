@@ -20,7 +20,7 @@ docs/ApiGroupSummary.md
 docs/ApiIds.md
 docs/ApiPatchSuperAdminRequest.md
 docs/ApiRoleSummary.md
-docs/ApiSecretListResponse.md
+docs/ApiSecretListResponseApiSecretMeta.md
 docs/ApiSecretMeta.md
 docs/ApiSecretMetaEE.md
 docs/ApiSecretTag.md
@@ -59,6 +59,7 @@ docs/BaseAuditLog.md
 docs/BaseResourcePatchRequest.md
 docs/BaseResourceScimResource.md
 docs/BaseResourceSearchRequest.md
+docs/BasicAuthCredentials.md
 docs/Binding.md
 docs/BindingType.md
 docs/Blueprint.md
@@ -76,6 +77,7 @@ docs/ChartChartOption.md
 docs/ChartFiltersOverrides.md
 docs/Concurrency.md
 docs/ConcurrencyBehavior.md
+docs/ConcurrencyLimit.md
 docs/Condition.md
 docs/ConversionServiceProvider.md
 docs/ConvertibleMultiValuesString.md
@@ -232,7 +234,6 @@ docs/MetricAggregations.md
 docs/MetricEntry.md
 docs/MetricTag.md
 docs/MiscControllerApiUsage.md
-docs/MiscControllerBasicAuthCredentials.md
 docs/MiscControllerConfiguration.md
 docs/MiscControllerEEConfiguration.md
 docs/MiscControllerEnvironment.md
@@ -256,6 +257,7 @@ docs/PagedResultsAppsControllerApiAppCatalogItem.md
 docs/PagedResultsAuditLogControllerApiAuditLogItem.md
 docs/PagedResultsBlueprint.md
 docs/PagedResultsBlueprintControllerApiBlueprintItem.md
+docs/PagedResultsConcurrencyLimit.md
 docs/PagedResultsDashboard.md
 docs/PagedResultsExecution.md
 docs/PagedResultsFlow.md
@@ -267,12 +269,12 @@ docs/PagedResultsIAMTenantAccessControllerApiUserTenantAccess.md
 docs/PagedResultsIAMUserControllerApiUserSummary.md
 docs/PagedResultsInstanceControllerApiPluginArtifact.md
 docs/PagedResultsInstanceControllerApiServiceInstance.md
+docs/PagedResultsKVEntry.md
 docs/PagedResultsLogEntry.md
 docs/PagedResultsMapStringObject.md
 docs/PagedResultsMetricEntry.md
 docs/PagedResultsNamespace.md
 docs/PagedResultsSearchResultFlow.md
-docs/PagedResultsTaskRun.md
 docs/PagedResultsTenant.md
 docs/PagedResultsTestSuite.md
 docs/PagedResultsTestSuiteRunResult.md
@@ -301,10 +303,7 @@ docs/PropertyObject.md
 docs/PropertyString.md
 docs/QueryFilter.md
 docs/QueryFilterField.md
-docs/QueryFilterFieldOp.md
 docs/QueryFilterOp.md
-docs/QueryFilterOperation.md
-docs/QueryFilterResourceField.md
 docs/RBACServiceRoleAssignmentRoleOrigin.md
 docs/Relation.md
 docs/RelationType.md
@@ -349,7 +348,7 @@ docs/ServiceProviderConfigurationFilterConfiguration.md
 docs/ServiceProviderConfigurationSupportedConfiguration.md
 docs/ServiceServiceState.md
 docs/ServiceType.md
-docs/SetLogoRequest.md
+docs/SetAppsCatalogLogoRequest.md
 docs/SetupConfiguration.md
 docs/SetupConfigurationSetupData.md
 docs/SortOrder.md
@@ -363,6 +362,9 @@ docs/TaskForExecution.md
 docs/TaskRun.md
 docs/TaskRunAttempt.md
 docs/Tenant.md
+docs/TenantAppCatalogConfig.md
+docs/TenantControllerAppsCatalogConfigRequest.md
+docs/TenantControllerAppsCatalogConfigResponse.md
 docs/TenantInterface.md
 docs/TenantUsage.md
 docs/TestState.md
@@ -450,7 +452,7 @@ src/main/java/io/kestra/sdk/model/ApiGroupSummary.java
 src/main/java/io/kestra/sdk/model/ApiIds.java
 src/main/java/io/kestra/sdk/model/ApiPatchSuperAdminRequest.java
 src/main/java/io/kestra/sdk/model/ApiRoleSummary.java
-src/main/java/io/kestra/sdk/model/ApiSecretListResponse.java
+src/main/java/io/kestra/sdk/model/ApiSecretListResponseApiSecretMeta.java
 src/main/java/io/kestra/sdk/model/ApiSecretMeta.java
 src/main/java/io/kestra/sdk/model/ApiSecretMetaEE.java
 src/main/java/io/kestra/sdk/model/ApiSecretTag.java
@@ -489,6 +491,7 @@ src/main/java/io/kestra/sdk/model/BaseAuditLog.java
 src/main/java/io/kestra/sdk/model/BaseResourcePatchRequest.java
 src/main/java/io/kestra/sdk/model/BaseResourceScimResource.java
 src/main/java/io/kestra/sdk/model/BaseResourceSearchRequest.java
+src/main/java/io/kestra/sdk/model/BasicAuthCredentials.java
 src/main/java/io/kestra/sdk/model/Binding.java
 src/main/java/io/kestra/sdk/model/BindingType.java
 src/main/java/io/kestra/sdk/model/Blueprint.java
@@ -506,6 +509,7 @@ src/main/java/io/kestra/sdk/model/ChartChartOption.java
 src/main/java/io/kestra/sdk/model/ChartFiltersOverrides.java
 src/main/java/io/kestra/sdk/model/Concurrency.java
 src/main/java/io/kestra/sdk/model/ConcurrencyBehavior.java
+src/main/java/io/kestra/sdk/model/ConcurrencyLimit.java
 src/main/java/io/kestra/sdk/model/Condition.java
 src/main/java/io/kestra/sdk/model/ConversionServiceProvider.java
 src/main/java/io/kestra/sdk/model/ConvertibleMultiValuesString.java
@@ -658,7 +662,6 @@ src/main/java/io/kestra/sdk/model/MetricAggregations.java
 src/main/java/io/kestra/sdk/model/MetricEntry.java
 src/main/java/io/kestra/sdk/model/MetricTag.java
 src/main/java/io/kestra/sdk/model/MiscControllerApiUsage.java
-src/main/java/io/kestra/sdk/model/MiscControllerBasicAuthCredentials.java
 src/main/java/io/kestra/sdk/model/MiscControllerConfiguration.java
 src/main/java/io/kestra/sdk/model/MiscControllerEEConfiguration.java
 src/main/java/io/kestra/sdk/model/MiscControllerEnvironment.java
@@ -681,6 +684,7 @@ src/main/java/io/kestra/sdk/model/PagedResultsAppsControllerApiAppCatalogItem.ja
 src/main/java/io/kestra/sdk/model/PagedResultsAuditLogControllerApiAuditLogItem.java
 src/main/java/io/kestra/sdk/model/PagedResultsBlueprint.java
 src/main/java/io/kestra/sdk/model/PagedResultsBlueprintControllerApiBlueprintItem.java
+src/main/java/io/kestra/sdk/model/PagedResultsConcurrencyLimit.java
 src/main/java/io/kestra/sdk/model/PagedResultsDashboard.java
 src/main/java/io/kestra/sdk/model/PagedResultsExecution.java
 src/main/java/io/kestra/sdk/model/PagedResultsFlow.java
@@ -692,12 +696,12 @@ src/main/java/io/kestra/sdk/model/PagedResultsIAMTenantAccessControllerApiUserTe
 src/main/java/io/kestra/sdk/model/PagedResultsIAMUserControllerApiUserSummary.java
 src/main/java/io/kestra/sdk/model/PagedResultsInstanceControllerApiPluginArtifact.java
 src/main/java/io/kestra/sdk/model/PagedResultsInstanceControllerApiServiceInstance.java
+src/main/java/io/kestra/sdk/model/PagedResultsKVEntry.java
 src/main/java/io/kestra/sdk/model/PagedResultsLogEntry.java
 src/main/java/io/kestra/sdk/model/PagedResultsMapStringObject.java
 src/main/java/io/kestra/sdk/model/PagedResultsMetricEntry.java
 src/main/java/io/kestra/sdk/model/PagedResultsNamespace.java
 src/main/java/io/kestra/sdk/model/PagedResultsSearchResultFlow.java
-src/main/java/io/kestra/sdk/model/PagedResultsTaskRun.java
 src/main/java/io/kestra/sdk/model/PagedResultsTenant.java
 src/main/java/io/kestra/sdk/model/PagedResultsTestSuite.java
 src/main/java/io/kestra/sdk/model/PagedResultsTestSuiteRunResult.java
@@ -726,10 +730,7 @@ src/main/java/io/kestra/sdk/model/PropertyObject.java
 src/main/java/io/kestra/sdk/model/PropertyString.java
 src/main/java/io/kestra/sdk/model/QueryFilter.java
 src/main/java/io/kestra/sdk/model/QueryFilterField.java
-src/main/java/io/kestra/sdk/model/QueryFilterFieldOp.java
 src/main/java/io/kestra/sdk/model/QueryFilterOp.java
-src/main/java/io/kestra/sdk/model/QueryFilterOperation.java
-src/main/java/io/kestra/sdk/model/QueryFilterResourceField.java
 src/main/java/io/kestra/sdk/model/RBACServiceRoleAssignmentRoleOrigin.java
 src/main/java/io/kestra/sdk/model/Relation.java
 src/main/java/io/kestra/sdk/model/RelationType.java
@@ -772,7 +773,7 @@ src/main/java/io/kestra/sdk/model/ServiceProviderConfigurationFilterConfiguratio
 src/main/java/io/kestra/sdk/model/ServiceProviderConfigurationSupportedConfiguration.java
 src/main/java/io/kestra/sdk/model/ServiceServiceState.java
 src/main/java/io/kestra/sdk/model/ServiceType.java
-src/main/java/io/kestra/sdk/model/SetLogoRequest.java
+src/main/java/io/kestra/sdk/model/SetAppsCatalogLogoRequest.java
 src/main/java/io/kestra/sdk/model/SetupConfiguration.java
 src/main/java/io/kestra/sdk/model/SetupConfigurationSetupData.java
 src/main/java/io/kestra/sdk/model/SortOrder.java
@@ -786,6 +787,9 @@ src/main/java/io/kestra/sdk/model/TaskForExecution.java
 src/main/java/io/kestra/sdk/model/TaskRun.java
 src/main/java/io/kestra/sdk/model/TaskRunAttempt.java
 src/main/java/io/kestra/sdk/model/Tenant.java
+src/main/java/io/kestra/sdk/model/TenantAppCatalogConfig.java
+src/main/java/io/kestra/sdk/model/TenantControllerAppsCatalogConfigRequest.java
+src/main/java/io/kestra/sdk/model/TenantControllerAppsCatalogConfigResponse.java
 src/main/java/io/kestra/sdk/model/TenantInterface.java
 src/main/java/io/kestra/sdk/model/TenantUsage.java
 src/main/java/io/kestra/sdk/model/TestState.java

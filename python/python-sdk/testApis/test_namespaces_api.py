@@ -18,7 +18,7 @@ from kestrapy import (
     KestraClient,
     Namespace,
     ApiAutocomplete,
-    ApiSecretValue,
+    ApiSecretValue, ApiSecretMetaEE,
 )
 
 
@@ -149,8 +149,17 @@ class TestNamespacesApi(unittest.TestCase):
         ns = Namespace(id=ns_id, deleted=False)
         created = self.kestra_client.namespaces.create_namespace(tenant=self.tenant, namespace=ns)
 
-        secret = ApiSecretValue(key="test_patch_secret_key", value="secretValue")
-        metas = self.kestra_client.namespaces.put_secrets(namespace=created.id, tenant=self.tenant, api_secret_value=secret)
+        api_secret_meta = ApiSecretMetaEE(
+            key="test_patch_secret_key",
+            description="patched description",
+            tags=[],
+        )
+        metas = self.kestra_client.namespaces.patch_secret(
+            namespace=created.id,
+            key=api_secret_meta.key,
+            tenant=self.tenant,
+            api_secret_meta_ee=api_secret_meta,
+        )
         assert isinstance(metas, list)
 
     def test_put_secrets(self) -> None:
@@ -158,13 +167,23 @@ class TestNamespacesApi(unittest.TestCase):
 
         Update secrets for a namespace
         """
-        ns_id = "test_put_secrets"
+        ns_id = "test_put_secrets4"
         ns = Namespace(id=ns_id, deleted=False)
         created = self.kestra_client.namespaces.create_namespace(tenant=self.tenant, namespace=ns)
 
-        secret = ApiSecretValue(key="test_put_secrets_key", value="value-put")
-        metas = self.kestra_client.namespaces.put_secrets(namespace=created.id, tenant=self.tenant, api_secret_value=secret)
-        assert isinstance(metas, list)
+        secret = ApiSecretValue(
+            key="test-key",
+            value="super-secret-value",
+            description="Test secret for put_secrets"
+        )
+
+        response = self.kestra_client.namespaces.put_secrets(
+            namespace=ns_id,
+            tenant=self.tenant,
+            api_secret_value=secret
+        )
+
+        assert isinstance(response, list)
 
     def test_search_namespaces(self) -> None:
         """Test case for search_namespaces

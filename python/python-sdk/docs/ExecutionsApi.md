@@ -1,53 +1,55 @@
-# kestrapy.executions
+# kestrapy.ExecutionsApi
 
 All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_execution**](executions.md#create_execution) | **POST** /api/v1/{tenant}/executions/{namespace}/{id} | Create a new execution for a flow
-[**delete_execution**](executions.md#delete_execution) | **DELETE** /api/v1/{tenant}/executions/{executionId} | Delete an execution
-[**delete_executions_by_ids**](executions.md#delete_executions_by_ids) | **DELETE** /api/v1/{tenant}/executions/by-ids | Delete a list of executions
-[**delete_executions_by_query**](executions.md#delete_executions_by_query) | **DELETE** /api/v1/{tenant}/executions/by-query | Delete executions filter by query parameters
-[**download_file_from_execution**](executions.md#download_file_from_execution) | **GET** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution
-[**execution**](executions.md#execution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution
-[**execution_flow_graph**](executions.md#execution_flow_graph) | **GET** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution
-[**file_metadatas_from_execution**](executions.md#file_metadatas_from_execution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution
-[**flow_from_execution**](executions.md#flow_from_execution) | **GET** /api/v1/{tenant}/executions/flows/{namespace}/{flowId} | Get flow information&#39;s for an execution
-[**flow_from_execution_by_id**](executions.md#flow_from_execution_by_id) | **GET** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution
-[**follow_dependencies_executions**](executions.md#follow_dependencies_executions) | **GET** /api/v1/{tenant}/executions/{executionId}/follow-dependencies | Follow all execution dependencies executions
-[**follow_execution**](executions.md#follow_execution) | **GET** /api/v1/{tenant}/executions/{executionId}/follow | Follow an execution
-[**force_run_by_ids**](executions.md#force_run_by_ids) | **POST** /api/v1/{tenant}/executions/force-run/by-ids | Force run a list of executions
-[**force_run_execution**](executions.md#force_run_execution) | **POST** /api/v1/{tenant}/executions/{executionId}/force-run | Force run an execution
-[**force_run_executions_by_query**](executions.md#force_run_executions_by_query) | **POST** /api/v1/{tenant}/executions/force-run/by-query | Force run executions filter by query parameters
-[**kill_execution**](executions.md#kill_execution) | **DELETE** /api/v1/{tenant}/executions/{executionId}/kill | Kill an execution
-[**kill_executions_by_ids**](executions.md#kill_executions_by_ids) | **DELETE** /api/v1/{tenant}/executions/kill/by-ids | Kill a list of executions
-[**kill_executions_by_query**](executions.md#kill_executions_by_query) | **DELETE** /api/v1/{tenant}/executions/kill/by-query | Kill executions filter by query parameters
-[**latest_executions**](executions.md#latest_executions) | **POST** /api/v1/{tenant}/executions/latest | Get the latest execution for given flows
-[**pause_execution**](executions.md#pause_execution) | **POST** /api/v1/{tenant}/executions/{executionId}/pause | Pause a running execution.
-[**pause_executions_by_ids**](executions.md#pause_executions_by_ids) | **POST** /api/v1/{tenant}/executions/pause/by-ids | Pause a list of running executions
-[**pause_executions_by_query**](executions.md#pause_executions_by_query) | **POST** /api/v1/{tenant}/executions/pause/by-query | Pause executions filter by query parameters
-[**replay_execution**](executions.md#replay_execution) | **POST** /api/v1/{tenant}/executions/{executionId}/replay | Create a new execution from an old one and start it from a specified task run id
-[**replay_execution_withinputs**](executions.md#replay_execution_withinputs) | **POST** /api/v1/{tenant}/executions/{executionId}/replay-with-inputs | Create a new execution from an old one and start it from a specified task run id
-[**replay_executions_by_ids**](executions.md#replay_executions_by_ids) | **POST** /api/v1/{tenant}/executions/replay/by-ids | Create new executions from old ones. Keep the flow revision
-[**replay_executions_by_query**](executions.md#replay_executions_by_query) | **POST** /api/v1/{tenant}/executions/replay/by-query | Create new executions from old ones filter by query parameters. Keep the flow revision
-[**restart_execution**](executions.md#restart_execution) | **POST** /api/v1/{tenant}/executions/{executionId}/restart | Restart a new execution from an old one
-[**restart_executions_by_ids**](executions.md#restart_executions_by_ids) | **POST** /api/v1/{tenant}/executions/restart/by-ids | Restart a list of executions
-[**restart_executions_by_query**](executions.md#restart_executions_by_query) | **POST** /api/v1/{tenant}/executions/restart/by-query | Restart executions filter by query parameters
-[**resume_execution**](executions.md#resume_execution) | **POST** /api/v1/{tenant}/executions/{executionId}/resume | Resume a paused execution.
-[**resume_executions_by_ids**](executions.md#resume_executions_by_ids) | **POST** /api/v1/{tenant}/executions/resume/by-ids | Resume a list of paused executions
-[**resume_executions_by_query**](executions.md#resume_executions_by_query) | **POST** /api/v1/{tenant}/executions/resume/by-query | Resume executions filter by query parameters
-[**search_executions**](executions.md#search_executions) | **GET** /api/v1/{tenant}/executions/search | Search for executions
-[**search_executions_by_flow_id**](executions.md#search_executions_by_flow_id) | **GET** /api/v1/{tenant}/executions | Search for executions for a flow
-[**set_labels_on_terminated_execution**](executions.md#set_labels_on_terminated_execution) | **POST** /api/v1/{tenant}/executions/{executionId}/labels | Add or update labels of a terminated execution
-[**set_labels_on_terminated_executions_by_ids**](executions.md#set_labels_on_terminated_executions_by_ids) | **POST** /api/v1/{tenant}/executions/labels/by-ids | Set labels on a list of executions
-[**set_labels_on_terminated_executions_by_query**](executions.md#set_labels_on_terminated_executions_by_query) | **POST** /api/v1/{tenant}/executions/labels/by-query | Set label on executions filter by query parameters
-[**trigger_execution_by_get_webhook**](executions.md#trigger_execution_by_get_webhook) | **GET** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key} | Trigger a new execution by GET webhook trigger
-[**unqueue_execution**](executions.md#unqueue_execution) | **POST** /api/v1/{tenant}/executions/{executionId}/unqueue | Unqueue an execution
-[**unqueue_executions_by_ids**](executions.md#unqueue_executions_by_ids) | **POST** /api/v1/{tenant}/executions/unqueue/by-ids | Unqueue a list of executions
-[**unqueue_executions_by_query**](executions.md#unqueue_executions_by_query) | **POST** /api/v1/{tenant}/executions/unqueue/by-query | Unqueue executions filter by query parameters
-[**update_execution_status**](executions.md#update_execution_status) | **POST** /api/v1/{tenant}/executions/{executionId}/change-status | Change the state of an execution
-[**update_executions_status_by_ids**](executions.md#update_executions_status_by_ids) | **POST** /api/v1/{tenant}/executions/change-status/by-ids | Change executions state by id
-[**update_executions_status_by_query**](executions.md#update_executions_status_by_query) | **POST** /api/v1/{tenant}/executions/change-status/by-query | Change executions state by query parameters
+[**create_execution**](ExecutionsApi.md#create_execution) | **POST** /api/v1/{tenant}/executions/{namespace}/{id} | Create a new execution for a flow
+[**delete_execution**](ExecutionsApi.md#delete_execution) | **DELETE** /api/v1/{tenant}/executions/{executionId} | Delete an execution
+[**delete_executions_by_ids**](ExecutionsApi.md#delete_executions_by_ids) | **DELETE** /api/v1/{tenant}/executions/by-ids | Delete a list of executions
+[**delete_executions_by_query**](ExecutionsApi.md#delete_executions_by_query) | **DELETE** /api/v1/{tenant}/executions/by-query | Delete executions filter by query parameters
+[**download_file_from_execution**](ExecutionsApi.md#download_file_from_execution) | **GET** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution
+[**execution**](ExecutionsApi.md#execution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution
+[**execution_flow_graph**](ExecutionsApi.md#execution_flow_graph) | **GET** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution
+[**file_metadatas_from_execution**](ExecutionsApi.md#file_metadatas_from_execution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution
+[**flow_from_execution**](ExecutionsApi.md#flow_from_execution) | **GET** /api/v1/{tenant}/executions/flows/{namespace}/{flowId} | Get flow information&#39;s for an execution
+[**flow_from_execution_by_id**](ExecutionsApi.md#flow_from_execution_by_id) | **GET** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution
+[**follow_dependencies_executions**](ExecutionsApi.md#follow_dependencies_executions) | **GET** /api/v1/{tenant}/executions/{executionId}/follow-dependencies | Follow all execution dependencies executions
+[**follow_execution**](ExecutionsApi.md#follow_execution) | **GET** /api/v1/{tenant}/executions/{executionId}/follow | Follow an execution
+[**force_run_by_ids**](ExecutionsApi.md#force_run_by_ids) | **POST** /api/v1/{tenant}/executions/force-run/by-ids | Force run a list of executions
+[**force_run_execution**](ExecutionsApi.md#force_run_execution) | **POST** /api/v1/{tenant}/executions/{executionId}/force-run | Force run an execution
+[**force_run_executions_by_query**](ExecutionsApi.md#force_run_executions_by_query) | **POST** /api/v1/{tenant}/executions/force-run/by-query | Force run executions filter by query parameters
+[**kill_execution**](ExecutionsApi.md#kill_execution) | **DELETE** /api/v1/{tenant}/executions/{executionId}/kill | Kill an execution
+[**kill_executions_by_ids**](ExecutionsApi.md#kill_executions_by_ids) | **DELETE** /api/v1/{tenant}/executions/kill/by-ids | Kill a list of executions
+[**kill_executions_by_query**](ExecutionsApi.md#kill_executions_by_query) | **DELETE** /api/v1/{tenant}/executions/kill/by-query | Kill executions filter by query parameters
+[**latest_executions**](ExecutionsApi.md#latest_executions) | **POST** /api/v1/{tenant}/executions/latest | Get the latest execution for given flows
+[**pause_execution**](ExecutionsApi.md#pause_execution) | **POST** /api/v1/{tenant}/executions/{executionId}/pause | Pause a running execution.
+[**pause_executions_by_ids**](ExecutionsApi.md#pause_executions_by_ids) | **POST** /api/v1/{tenant}/executions/pause/by-ids | Pause a list of running executions
+[**pause_executions_by_query**](ExecutionsApi.md#pause_executions_by_query) | **POST** /api/v1/{tenant}/executions/pause/by-query | Pause executions filter by query parameters
+[**replay_execution**](ExecutionsApi.md#replay_execution) | **POST** /api/v1/{tenant}/executions/{executionId}/replay | Create a new execution from an old one and start it from a specified task run id
+[**replay_execution_withinputs**](ExecutionsApi.md#replay_execution_withinputs) | **POST** /api/v1/{tenant}/executions/{executionId}/replay-with-inputs | Create a new execution from an old one and start it from a specified task run id
+[**replay_executions_by_ids**](ExecutionsApi.md#replay_executions_by_ids) | **POST** /api/v1/{tenant}/executions/replay/by-ids | Create new executions from old ones. Keep the flow revision
+[**replay_executions_by_query**](ExecutionsApi.md#replay_executions_by_query) | **POST** /api/v1/{tenant}/executions/replay/by-query | Create new executions from old ones filter by query parameters. Keep the flow revision
+[**restart_execution**](ExecutionsApi.md#restart_execution) | **POST** /api/v1/{tenant}/executions/{executionId}/restart | Restart a new execution from an old one
+[**restart_executions_by_ids**](ExecutionsApi.md#restart_executions_by_ids) | **POST** /api/v1/{tenant}/executions/restart/by-ids | Restart a list of executions
+[**restart_executions_by_query**](ExecutionsApi.md#restart_executions_by_query) | **POST** /api/v1/{tenant}/executions/restart/by-query | Restart executions filter by query parameters
+[**resume_execution**](ExecutionsApi.md#resume_execution) | **POST** /api/v1/{tenant}/executions/{executionId}/resume | Resume a paused execution.
+[**resume_executions_by_ids**](ExecutionsApi.md#resume_executions_by_ids) | **POST** /api/v1/{tenant}/executions/resume/by-ids | Resume a list of paused executions
+[**resume_executions_by_query**](ExecutionsApi.md#resume_executions_by_query) | **POST** /api/v1/{tenant}/executions/resume/by-query | Resume executions filter by query parameters
+[**search_concurrency_limits**](ExecutionsApi.md#search_concurrency_limits) | **GET** /api/v1/{tenant}/concurrency-limit/search | Search for flow concurrency limits
+[**search_executions**](ExecutionsApi.md#search_executions) | **GET** /api/v1/{tenant}/executions/search | Search for executions
+[**search_executions_by_flow_id**](ExecutionsApi.md#search_executions_by_flow_id) | **GET** /api/v1/{tenant}/executions | Search for executions for a flow
+[**set_labels_on_terminated_execution**](ExecutionsApi.md#set_labels_on_terminated_execution) | **POST** /api/v1/{tenant}/executions/{executionId}/labels | Add or update labels of a terminated execution
+[**set_labels_on_terminated_executions_by_ids**](ExecutionsApi.md#set_labels_on_terminated_executions_by_ids) | **POST** /api/v1/{tenant}/executions/labels/by-ids | Set labels on a list of executions
+[**set_labels_on_terminated_executions_by_query**](ExecutionsApi.md#set_labels_on_terminated_executions_by_query) | **POST** /api/v1/{tenant}/executions/labels/by-query | Set label on executions filter by query parameters
+[**trigger_execution_by_get_webhook**](ExecutionsApi.md#trigger_execution_by_get_webhook) | **GET** /api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key} | Trigger a new execution by GET webhook trigger
+[**unqueue_execution**](ExecutionsApi.md#unqueue_execution) | **POST** /api/v1/{tenant}/executions/{executionId}/unqueue | Unqueue an execution
+[**unqueue_executions_by_ids**](ExecutionsApi.md#unqueue_executions_by_ids) | **POST** /api/v1/{tenant}/executions/unqueue/by-ids | Unqueue a list of executions
+[**unqueue_executions_by_query**](ExecutionsApi.md#unqueue_executions_by_query) | **POST** /api/v1/{tenant}/executions/unqueue/by-query | Unqueue executions filter by query parameters
+[**update_concurrency_limit**](ExecutionsApi.md#update_concurrency_limit) | **PUT** /api/v1/{tenant}/concurrency-limit/{namespace}/{flowId} | Update a flow concurrency limit
+[**update_execution_status**](ExecutionsApi.md#update_execution_status) | **POST** /api/v1/{tenant}/executions/{executionId}/change-status | Change the state of an execution
+[**update_executions_status_by_ids**](ExecutionsApi.md#update_executions_status_by_ids) | **POST** /api/v1/{tenant}/executions/change-status/by-ids | Change executions state by id
+[**update_executions_status_by_query**](ExecutionsApi.md#update_executions_status_by_query) | **POST** /api/v1/{tenant}/executions/change-status/by-query | Change executions state by query parameters
 
 
 # **create_execution**
@@ -83,11 +85,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create a new execution for a flow
-        api_response = kestra_client.executions.create_execution(namespace, id, wait, tenant, labels=labels, revision=revision, schedule_date=schedule_date, breakpoints=breakpoints, kind=kind)
-        print("The response of executions->create_execution:\n")
+        api_response = kestra_client.ExecutionsApi.create_execution(namespace, id, wait, tenant, labels=labels, revision=revision, schedule_date=schedule_date, breakpoints=breakpoints, kind=kind)
+        print("The response of ExecutionsApi->create_execution:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->create_execution: %s\n" % e)
+        print("Exception when calling ExecutionsApi->create_execution: %s\n" % e)
 ```
 
 
@@ -158,9 +160,9 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete an execution
-        kestra_client.executions.delete_execution(execution_id, tenant, delete_logs=delete_logs, delete_metrics=delete_metrics, delete_storage=delete_storage)
+        kestra_client.ExecutionsApi.delete_execution(execution_id, tenant, delete_logs=delete_logs, delete_metrics=delete_metrics, delete_storage=delete_storage)
     except Exception as e:
-        print("Exception when calling executions->delete_execution: %s\n" % e)
+        print("Exception when calling ExecutionsApi->delete_execution: %s\n" % e)
 ```
 
 
@@ -228,11 +230,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete a list of executions
-        api_response = kestra_client.executions.delete_executions_by_ids(tenant, request_body, include_non_terminated=include_non_terminated, delete_logs=delete_logs, delete_metrics=delete_metrics, delete_storage=delete_storage)
-        print("The response of executions->delete_executions_by_ids:\n")
+        api_response = kestra_client.ExecutionsApi.delete_executions_by_ids(tenant, request_body, include_non_terminated=include_non_terminated, delete_logs=delete_logs, delete_metrics=delete_metrics, delete_storage=delete_storage)
+        print("The response of ExecutionsApi->delete_executions_by_ids:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->delete_executions_by_ids: %s\n" % e)
+        print("Exception when calling ExecutionsApi->delete_executions_by_ids: %s\n" % e)
 ```
 
 
@@ -301,11 +303,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete executions filter by query parameters
-        api_response = kestra_client.executions.delete_executions_by_query(tenant, filters=filters, include_non_terminated=include_non_terminated, delete_logs=delete_logs, delete_metrics=delete_metrics, delete_storage=delete_storage)
-        print("The response of executions->delete_executions_by_query:\n")
+        api_response = kestra_client.ExecutionsApi.delete_executions_by_query(tenant, filters=filters, include_non_terminated=include_non_terminated, delete_logs=delete_logs, delete_metrics=delete_metrics, delete_storage=delete_storage)
+        print("The response of ExecutionsApi->delete_executions_by_query:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->delete_executions_by_query: %s\n" % e)
+        print("Exception when calling ExecutionsApi->delete_executions_by_query: %s\n" % e)
 ```
 
 
@@ -370,11 +372,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Download file for an execution
-        api_response = kestra_client.executions.download_file_from_execution(execution_id, path, tenant)
-        print("The response of executions->download_file_from_execution:\n")
+        api_response = kestra_client.ExecutionsApi.download_file_from_execution(execution_id, path, tenant)
+        print("The response of ExecutionsApi->download_file_from_execution:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->download_file_from_execution: %s\n" % e)
+        print("Exception when calling ExecutionsApi->download_file_from_execution: %s\n" % e)
 ```
 
 
@@ -435,11 +437,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Get an execution
-        api_response = kestra_client.executions.execution(execution_id, tenant)
-        print("The response of executions->execution:\n")
+        api_response = kestra_client.ExecutionsApi.execution(execution_id, tenant)
+        print("The response of ExecutionsApi->execution:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->execution: %s\n" % e)
+        print("Exception when calling ExecutionsApi->execution: %s\n" % e)
 ```
 
 
@@ -500,11 +502,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Generate a graph for an execution
-        api_response = kestra_client.executions.execution_flow_graph(execution_id, tenant, subflows=subflows)
-        print("The response of executions->execution_flow_graph:\n")
+        api_response = kestra_client.ExecutionsApi.execution_flow_graph(execution_id, tenant, subflows=subflows)
+        print("The response of ExecutionsApi->execution_flow_graph:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->execution_flow_graph: %s\n" % e)
+        print("Exception when calling ExecutionsApi->execution_flow_graph: %s\n" % e)
 ```
 
 
@@ -566,11 +568,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Get file meta information for an execution
-        api_response = kestra_client.executions.file_metadatas_from_execution(execution_id, path, tenant)
-        print("The response of executions->file_metadatas_from_execution:\n")
+        api_response = kestra_client.ExecutionsApi.file_metadatas_from_execution(execution_id, path, tenant)
+        print("The response of ExecutionsApi->file_metadatas_from_execution:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->file_metadatas_from_execution: %s\n" % e)
+        print("Exception when calling ExecutionsApi->file_metadatas_from_execution: %s\n" % e)
 ```
 
 
@@ -633,11 +635,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Get flow information's for an execution
-        api_response = kestra_client.executions.flow_from_execution(namespace, flow_id, tenant, revision=revision)
-        print("The response of executions->flow_from_execution:\n")
+        api_response = kestra_client.ExecutionsApi.flow_from_execution(namespace, flow_id, tenant, revision=revision)
+        print("The response of ExecutionsApi->flow_from_execution:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->flow_from_execution: %s\n" % e)
+        print("Exception when calling ExecutionsApi->flow_from_execution: %s\n" % e)
 ```
 
 
@@ -699,11 +701,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Get flow information's for an execution
-        api_response = kestra_client.executions.flow_from_execution_by_id(execution_id, tenant)
-        print("The response of executions->flow_from_execution_by_id:\n")
+        api_response = kestra_client.ExecutionsApi.flow_from_execution_by_id(execution_id, tenant)
+        print("The response of ExecutionsApi->flow_from_execution_by_id:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->flow_from_execution_by_id: %s\n" % e)
+        print("Exception when calling ExecutionsApi->flow_from_execution_by_id: %s\n" % e)
 ```
 
 
@@ -765,11 +767,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Follow all execution dependencies executions
-        api_response = kestra_client.executions.follow_dependencies_executions(execution_id, destination_only, expand_all, tenant)
-        print("The response of executions->follow_dependencies_executions:\n")
+        api_response = kestra_client.ExecutionsApi.follow_dependencies_executions(execution_id, destination_only, expand_all, tenant)
+        print("The response of ExecutionsApi->follow_dependencies_executions:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->follow_dependencies_executions: %s\n" % e)
+        print("Exception when calling ExecutionsApi->follow_dependencies_executions: %s\n" % e)
 ```
 
 
@@ -831,11 +833,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Follow an execution
-        api_response = kestra_client.executions.follow_execution(execution_id, tenant)
-        print("The response of executions->follow_execution:\n")
+        api_response = kestra_client.ExecutionsApi.follow_execution(execution_id, tenant)
+        print("The response of ExecutionsApi->follow_execution:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->follow_execution: %s\n" % e)
+        print("Exception when calling ExecutionsApi->follow_execution: %s\n" % e)
 ```
 
 
@@ -895,11 +897,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Force run a list of executions
-        api_response = kestra_client.executions.force_run_by_ids(tenant, request_body)
-        print("The response of executions->force_run_by_ids:\n")
+        api_response = kestra_client.ExecutionsApi.force_run_by_ids(tenant, request_body)
+        print("The response of ExecutionsApi->force_run_by_ids:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->force_run_by_ids: %s\n" % e)
+        print("Exception when calling ExecutionsApi->force_run_by_ids: %s\n" % e)
 ```
 
 
@@ -960,11 +962,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Force run an execution
-        api_response = kestra_client.executions.force_run_execution(execution_id, tenant)
-        print("The response of executions->force_run_execution:\n")
+        api_response = kestra_client.ExecutionsApi.force_run_execution(execution_id, tenant)
+        print("The response of ExecutionsApi->force_run_execution:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->force_run_execution: %s\n" % e)
+        print("Exception when calling ExecutionsApi->force_run_execution: %s\n" % e)
 ```
 
 
@@ -1024,11 +1026,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Force run executions filter by query parameters
-        api_response = kestra_client.executions.force_run_executions_by_query(tenant, filters=filters)
-        print("The response of executions->force_run_executions_by_query:\n")
+        api_response = kestra_client.ExecutionsApi.force_run_executions_by_query(tenant, filters=filters)
+        print("The response of ExecutionsApi->force_run_executions_by_query:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->force_run_executions_by_query: %s\n" % e)
+        print("Exception when calling ExecutionsApi->force_run_executions_by_query: %s\n" % e)
 ```
 
 
@@ -1089,11 +1091,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Kill an execution
-        api_response = kestra_client.executions.kill_execution(execution_id, is_on_kill_cascade, tenant)
-        print("The response of executions->kill_execution:\n")
+        api_response = kestra_client.ExecutionsApi.kill_execution(execution_id, is_on_kill_cascade, tenant)
+        print("The response of ExecutionsApi->kill_execution:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->kill_execution: %s\n" % e)
+        print("Exception when calling ExecutionsApi->kill_execution: %s\n" % e)
 ```
 
 
@@ -1157,11 +1159,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Kill a list of executions
-        api_response = kestra_client.executions.kill_executions_by_ids(tenant, request_body)
-        print("The response of executions->kill_executions_by_ids:\n")
+        api_response = kestra_client.ExecutionsApi.kill_executions_by_ids(tenant, request_body)
+        print("The response of ExecutionsApi->kill_executions_by_ids:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->kill_executions_by_ids: %s\n" % e)
+        print("Exception when calling ExecutionsApi->kill_executions_by_ids: %s\n" % e)
 ```
 
 
@@ -1222,11 +1224,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Kill executions filter by query parameters
-        api_response = kestra_client.executions.kill_executions_by_query(tenant, filters=filters)
-        print("The response of executions->kill_executions_by_query:\n")
+        api_response = kestra_client.ExecutionsApi.kill_executions_by_query(tenant, filters=filters)
+        print("The response of ExecutionsApi->kill_executions_by_query:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->kill_executions_by_query: %s\n" % e)
+        print("Exception when calling ExecutionsApi->kill_executions_by_query: %s\n" % e)
 ```
 
 
@@ -1286,11 +1288,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Get the latest execution for given flows
-        api_response = kestra_client.executions.latest_executions(tenant, execution_repository_interface_flow_filter)
-        print("The response of executions->latest_executions:\n")
+        api_response = kestra_client.ExecutionsApi.latest_executions(tenant, execution_repository_interface_flow_filter)
+        print("The response of ExecutionsApi->latest_executions:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->latest_executions: %s\n" % e)
+        print("Exception when calling ExecutionsApi->latest_executions: %s\n" % e)
 ```
 
 
@@ -1350,9 +1352,9 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Pause a running execution.
-        kestra_client.executions.pause_execution(execution_id, tenant)
+        kestra_client.ExecutionsApi.pause_execution(execution_id, tenant)
     except Exception as e:
-        print("Exception when calling executions->pause_execution: %s\n" % e)
+        print("Exception when calling ExecutionsApi->pause_execution: %s\n" % e)
 ```
 
 
@@ -1414,11 +1416,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Pause a list of running executions
-        api_response = kestra_client.executions.pause_executions_by_ids(tenant, request_body)
-        print("The response of executions->pause_executions_by_ids:\n")
+        api_response = kestra_client.ExecutionsApi.pause_executions_by_ids(tenant, request_body)
+        print("The response of ExecutionsApi->pause_executions_by_ids:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->pause_executions_by_ids: %s\n" % e)
+        print("Exception when calling ExecutionsApi->pause_executions_by_ids: %s\n" % e)
 ```
 
 
@@ -1479,11 +1481,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Pause executions filter by query parameters
-        api_response = kestra_client.executions.pause_executions_by_query(tenant, filters=filters)
-        print("The response of executions->pause_executions_by_query:\n")
+        api_response = kestra_client.ExecutionsApi.pause_executions_by_query(tenant, filters=filters)
+        print("The response of ExecutionsApi->pause_executions_by_query:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->pause_executions_by_query: %s\n" % e)
+        print("Exception when calling ExecutionsApi->pause_executions_by_query: %s\n" % e)
 ```
 
 
@@ -1546,11 +1548,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create a new execution from an old one and start it from a specified task run id
-        api_response = kestra_client.executions.replay_execution(execution_id, tenant, task_run_id=task_run_id, revision=revision, breakpoints=breakpoints)
-        print("The response of executions->replay_execution:\n")
+        api_response = kestra_client.ExecutionsApi.replay_execution(execution_id, tenant, task_run_id=task_run_id, revision=revision, breakpoints=breakpoints)
+        print("The response of ExecutionsApi->replay_execution:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->replay_execution: %s\n" % e)
+        print("Exception when calling ExecutionsApi->replay_execution: %s\n" % e)
 ```
 
 
@@ -1616,11 +1618,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create a new execution from an old one and start it from a specified task run id
-        api_response = kestra_client.executions.replay_execution_withinputs(execution_id, tenant, task_run_id=task_run_id, revision=revision, breakpoints=breakpoints)
-        print("The response of executions->replay_execution_withinputs:\n")
+        api_response = kestra_client.ExecutionsApi.replay_execution_withinputs(execution_id, tenant, task_run_id=task_run_id, revision=revision, breakpoints=breakpoints)
+        print("The response of ExecutionsApi->replay_execution_withinputs:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->replay_execution_withinputs: %s\n" % e)
+        print("Exception when calling ExecutionsApi->replay_execution_withinputs: %s\n" % e)
 ```
 
 
@@ -1684,11 +1686,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create new executions from old ones. Keep the flow revision
-        api_response = kestra_client.executions.replay_executions_by_ids(tenant, request_body, latest_revision=latest_revision)
-        print("The response of executions->replay_executions_by_ids:\n")
+        api_response = kestra_client.ExecutionsApi.replay_executions_by_ids(tenant, request_body, latest_revision=latest_revision)
+        print("The response of ExecutionsApi->replay_executions_by_ids:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->replay_executions_by_ids: %s\n" % e)
+        print("Exception when calling ExecutionsApi->replay_executions_by_ids: %s\n" % e)
 ```
 
 
@@ -1751,11 +1753,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create new executions from old ones filter by query parameters. Keep the flow revision
-        api_response = kestra_client.executions.replay_executions_by_query(tenant, filters=filters, latest_revision=latest_revision)
-        print("The response of executions->replay_executions_by_query:\n")
+        api_response = kestra_client.ExecutionsApi.replay_executions_by_query(tenant, filters=filters, latest_revision=latest_revision)
+        print("The response of ExecutionsApi->replay_executions_by_query:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->replay_executions_by_query: %s\n" % e)
+        print("Exception when calling ExecutionsApi->replay_executions_by_query: %s\n" % e)
 ```
 
 
@@ -1817,11 +1819,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Restart a new execution from an old one
-        api_response = kestra_client.executions.restart_execution(execution_id, tenant, revision=revision)
-        print("The response of executions->restart_execution:\n")
+        api_response = kestra_client.ExecutionsApi.restart_execution(execution_id, tenant, revision=revision)
+        print("The response of ExecutionsApi->restart_execution:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->restart_execution: %s\n" % e)
+        print("Exception when calling ExecutionsApi->restart_execution: %s\n" % e)
 ```
 
 
@@ -1882,11 +1884,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Restart a list of executions
-        api_response = kestra_client.executions.restart_executions_by_ids(tenant, request_body)
-        print("The response of executions->restart_executions_by_ids:\n")
+        api_response = kestra_client.ExecutionsApi.restart_executions_by_ids(tenant, request_body)
+        print("The response of ExecutionsApi->restart_executions_by_ids:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->restart_executions_by_ids: %s\n" % e)
+        print("Exception when calling ExecutionsApi->restart_executions_by_ids: %s\n" % e)
 ```
 
 
@@ -1947,11 +1949,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Restart executions filter by query parameters
-        api_response = kestra_client.executions.restart_executions_by_query(tenant, filters=filters)
-        print("The response of executions->restart_executions_by_query:\n")
+        api_response = kestra_client.ExecutionsApi.restart_executions_by_query(tenant, filters=filters)
+        print("The response of ExecutionsApi->restart_executions_by_query:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->restart_executions_by_query: %s\n" % e)
+        print("Exception when calling ExecutionsApi->restart_executions_by_query: %s\n" % e)
 ```
 
 
@@ -2011,11 +2013,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Resume a paused execution.
-        api_response = kestra_client.executions.resume_execution(execution_id, tenant)
-        print("The response of executions->resume_execution:\n")
+        api_response = kestra_client.ExecutionsApi.resume_execution(execution_id, tenant)
+        print("The response of ExecutionsApi->resume_execution:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->resume_execution: %s\n" % e)
+        print("Exception when calling ExecutionsApi->resume_execution: %s\n" % e)
 ```
 
 
@@ -2077,11 +2079,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Resume a list of paused executions
-        api_response = kestra_client.executions.resume_executions_by_ids(tenant, request_body)
-        print("The response of executions->resume_executions_by_ids:\n")
+        api_response = kestra_client.ExecutionsApi.resume_executions_by_ids(tenant, request_body)
+        print("The response of ExecutionsApi->resume_executions_by_ids:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->resume_executions_by_ids: %s\n" % e)
+        print("Exception when calling ExecutionsApi->resume_executions_by_ids: %s\n" % e)
 ```
 
 
@@ -2142,11 +2144,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Resume executions filter by query parameters
-        api_response = kestra_client.executions.resume_executions_by_query(tenant, filters=filters)
-        print("The response of executions->resume_executions_by_query:\n")
+        api_response = kestra_client.ExecutionsApi.resume_executions_by_query(tenant, filters=filters)
+        print("The response of ExecutionsApi->resume_executions_by_query:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->resume_executions_by_query: %s\n" % e)
+        print("Exception when calling ExecutionsApi->resume_executions_by_query: %s\n" % e)
 ```
 
 
@@ -2180,6 +2182,66 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **search_concurrency_limits**
+> PagedResultsConcurrencyLimit search_concurrency_limits(tenant)
+
+Search for flow concurrency limits
+
+### Example
+
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    tenant = 'tenant_example' # str | 
+
+    try:
+        # Search for flow concurrency limits
+        api_response = kestra_client.ExecutionsApi.search_concurrency_limits(tenant)
+        print("The response of ExecutionsApi->search_concurrency_limits:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ExecutionsApi->search_concurrency_limits: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant** | **str**|  | 
+
+### Return type
+
+[**PagedResultsConcurrencyLimit**](PagedResultsConcurrencyLimit.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | searchConcurrencyLimits 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **search_executions**
 > PagedResultsExecution search_executions(page, size, tenant, sort=sort, filters=filters)
 
@@ -2209,11 +2271,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Search for executions
-        api_response = kestra_client.executions.search_executions(page, size, tenant, sort=sort, filters=filters)
-        print("The response of executions->search_executions:\n")
+        api_response = kestra_client.ExecutionsApi.search_executions(page, size, tenant, sort=sort, filters=filters)
+        print("The response of ExecutionsApi->search_executions:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->search_executions: %s\n" % e)
+        print("Exception when calling ExecutionsApi->search_executions: %s\n" % e)
 ```
 
 
@@ -2279,11 +2341,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Search for executions for a flow
-        api_response = kestra_client.executions.search_executions_by_flow_id(namespace, flow_id, page, size, tenant)
-        print("The response of executions->search_executions_by_flow_id:\n")
+        api_response = kestra_client.ExecutionsApi.search_executions_by_flow_id(namespace, flow_id, page, size, tenant)
+        print("The response of ExecutionsApi->search_executions_by_flow_id:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->search_executions_by_flow_id: %s\n" % e)
+        print("Exception when calling ExecutionsApi->search_executions_by_flow_id: %s\n" % e)
 ```
 
 
@@ -2347,11 +2409,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Add or update labels of a terminated execution
-        api_response = kestra_client.executions.set_labels_on_terminated_execution(execution_id, tenant, label)
-        print("The response of executions->set_labels_on_terminated_execution:\n")
+        api_response = kestra_client.ExecutionsApi.set_labels_on_terminated_execution(execution_id, tenant, label)
+        print("The response of ExecutionsApi->set_labels_on_terminated_execution:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->set_labels_on_terminated_execution: %s\n" % e)
+        print("Exception when calling ExecutionsApi->set_labels_on_terminated_execution: %s\n" % e)
 ```
 
 
@@ -2414,11 +2476,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Set labels on a list of executions
-        api_response = kestra_client.executions.set_labels_on_terminated_executions_by_ids(tenant, execution_controller_set_labels_by_ids_request)
-        print("The response of executions->set_labels_on_terminated_executions_by_ids:\n")
+        api_response = kestra_client.ExecutionsApi.set_labels_on_terminated_executions_by_ids(tenant, execution_controller_set_labels_by_ids_request)
+        print("The response of ExecutionsApi->set_labels_on_terminated_executions_by_ids:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->set_labels_on_terminated_executions_by_ids: %s\n" % e)
+        print("Exception when calling ExecutionsApi->set_labels_on_terminated_executions_by_ids: %s\n" % e)
 ```
 
 
@@ -2480,11 +2542,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Set label on executions filter by query parameters
-        api_response = kestra_client.executions.set_labels_on_terminated_executions_by_query(tenant, label, filters=filters)
-        print("The response of executions->set_labels_on_terminated_executions_by_query:\n")
+        api_response = kestra_client.ExecutionsApi.set_labels_on_terminated_executions_by_query(tenant, label, filters=filters)
+        print("The response of ExecutionsApi->set_labels_on_terminated_executions_by_query:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->set_labels_on_terminated_executions_by_query: %s\n" % e)
+        print("Exception when calling ExecutionsApi->set_labels_on_terminated_executions_by_query: %s\n" % e)
 ```
 
 
@@ -2547,11 +2609,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Trigger a new execution by GET webhook trigger
-        api_response = kestra_client.executions.trigger_execution_by_get_webhook(namespace, id, key, tenant)
-        print("The response of executions->trigger_execution_by_get_webhook:\n")
+        api_response = kestra_client.ExecutionsApi.trigger_execution_by_get_webhook(namespace, id, key, tenant)
+        print("The response of ExecutionsApi->trigger_execution_by_get_webhook:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->trigger_execution_by_get_webhook: %s\n" % e)
+        print("Exception when calling ExecutionsApi->trigger_execution_by_get_webhook: %s\n" % e)
 ```
 
 
@@ -2583,7 +2645,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | triggerExecutionByGetWebhook 200 response |  -  |
+**200** | On success |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2614,11 +2676,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Unqueue an execution
-        api_response = kestra_client.executions.unqueue_execution(execution_id, state, tenant)
-        print("The response of executions->unqueue_execution:\n")
+        api_response = kestra_client.ExecutionsApi.unqueue_execution(execution_id, state, tenant)
+        print("The response of ExecutionsApi->unqueue_execution:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->unqueue_execution: %s\n" % e)
+        print("Exception when calling ExecutionsApi->unqueue_execution: %s\n" % e)
 ```
 
 
@@ -2680,11 +2742,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Unqueue a list of executions
-        api_response = kestra_client.executions.unqueue_executions_by_ids(state, tenant, request_body)
-        print("The response of executions->unqueue_executions_by_ids:\n")
+        api_response = kestra_client.ExecutionsApi.unqueue_executions_by_ids(state, tenant, request_body)
+        print("The response of ExecutionsApi->unqueue_executions_by_ids:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->unqueue_executions_by_ids: %s\n" % e)
+        print("Exception when calling ExecutionsApi->unqueue_executions_by_ids: %s\n" % e)
 ```
 
 
@@ -2747,11 +2809,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Unqueue executions filter by query parameters
-        api_response = kestra_client.executions.unqueue_executions_by_query(tenant, filters=filters, new_state=new_state)
-        print("The response of executions->unqueue_executions_by_query:\n")
+        api_response = kestra_client.ExecutionsApi.unqueue_executions_by_query(tenant, filters=filters, new_state=new_state)
+        print("The response of ExecutionsApi->unqueue_executions_by_query:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->unqueue_executions_by_query: %s\n" % e)
+        print("Exception when calling ExecutionsApi->unqueue_executions_by_query: %s\n" % e)
 ```
 
 
@@ -2786,6 +2848,72 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **update_concurrency_limit**
+> ConcurrencyLimit update_concurrency_limit(flow_id, namespace, tenant, concurrency_limit)
+
+Update a flow concurrency limit
+
+### Example
+
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    flow_id = 'flow_id_example' # str | 
+    namespace = 'namespace_example' # str | 
+    tenant = 'tenant_example' # str | 
+    concurrency_limit = kestrapy.ConcurrencyLimit() # ConcurrencyLimit | 
+
+    try:
+        # Update a flow concurrency limit
+        api_response = kestra_client.ExecutionsApi.update_concurrency_limit(flow_id, namespace, tenant, concurrency_limit)
+        print("The response of ExecutionsApi->update_concurrency_limit:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ExecutionsApi->update_concurrency_limit: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **flow_id** | **str**|  | 
+ **namespace** | **str**|  | 
+ **tenant** | **str**|  | 
+ **concurrency_limit** | [**ConcurrencyLimit**](ConcurrencyLimit.md)|  | 
+
+### Return type
+
+[**ConcurrencyLimit**](ConcurrencyLimit.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | updateConcurrencyLimit 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **update_execution_status**
 > Execution update_execution_status(execution_id, status, tenant)
 
@@ -2813,11 +2941,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Change the state of an execution
-        api_response = kestra_client.executions.update_execution_status(execution_id, status, tenant)
-        print("The response of executions->update_execution_status:\n")
+        api_response = kestra_client.ExecutionsApi.update_execution_status(execution_id, status, tenant)
+        print("The response of ExecutionsApi->update_execution_status:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->update_execution_status: %s\n" % e)
+        print("Exception when calling ExecutionsApi->update_execution_status: %s\n" % e)
 ```
 
 
@@ -2879,11 +3007,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Change executions state by id
-        api_response = kestra_client.executions.update_executions_status_by_ids(new_status, tenant, request_body)
-        print("The response of executions->update_executions_status_by_ids:\n")
+        api_response = kestra_client.ExecutionsApi.update_executions_status_by_ids(new_status, tenant, request_body)
+        print("The response of ExecutionsApi->update_executions_status_by_ids:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->update_executions_status_by_ids: %s\n" % e)
+        print("Exception when calling ExecutionsApi->update_executions_status_by_ids: %s\n" % e)
 ```
 
 
@@ -2946,11 +3074,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Change executions state by query parameters
-        api_response = kestra_client.executions.update_executions_status_by_query(new_status, tenant, filters=filters)
-        print("The response of executions->update_executions_status_by_query:\n")
+        api_response = kestra_client.ExecutionsApi.update_executions_status_by_query(new_status, tenant, filters=filters)
+        print("The response of ExecutionsApi->update_executions_status_by_query:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling executions->update_executions_status_by_query: %s\n" % e)
+        print("Exception when calling ExecutionsApi->update_executions_status_by_query: %s\n" % e)
 ```
 
 

@@ -126,13 +126,13 @@ public class NamespacesApiTest {
         queryFilter.setOperation(QueryFilterOp.CONTAINS);
         queryFilter.setValue("keys");
 
-        ApiSecretListResponse entries =
+        ApiSecretListResponseApiSecretMeta entries =
             kestraClient().namespaces().listNamespaceSecrets(created.getId(), 1, 10, List.of(queryFilter), MAIN_TENANT, null);
 
         assertNotNull(entries);
         assertNotNull(entries.getResults(), "Results should not be null");
-        assertThat(entries.getResults().stream().map(ApiSecretMeta::getKey)).contains(key);
-        assertThat(entries.getResults().stream().map(ApiSecretMeta::getKey)).doesNotContain(unwantedKey);
+        assertThat(entries.getResults().stream().map(ApiSecretMetaEE::getKey)).contains(key);
+        assertThat(entries.getResults().stream().map(ApiSecretMetaEE::getKey)).doesNotContain(unwantedKey);
     }
 
     @Test
@@ -150,7 +150,7 @@ public class NamespacesApiTest {
         // Now patch its metadata (description, tags, etc. as supported by your SDK)
         ApiSecretMetaEE meta = new ApiSecretMetaEE();
         meta.setKey(key);
-        List<ApiSecretMeta> metas =
+        List<ApiSecretMetaEE> metas =
             kestraClient().namespaces().patchSecret(created.getId(), key, MAIN_TENANT, meta);
 
         assertNotNull(metas, "Patch response metas should not be null");
@@ -162,8 +162,9 @@ public class NamespacesApiTest {
         Namespace ns = new Namespace().id(nsId).deleted(false);
         Namespace created = kestraClient().namespaces().createNamespace(MAIN_TENANT, ns);
 
-        List<ApiSecretMeta> metas = kestraClient().namespaces().putSecrets(
-            created.getId(), MAIN_TENANT,
+        List<ApiSecretMetaEE> metas = kestraClient().namespaces().putSecrets(
+            created.getId(),
+            MAIN_TENANT,
             new ApiSecretValue().key("test_put_secrets_key_" + randomId()).value("value-put"));
 
         assertNotNull(metas);
@@ -211,7 +212,7 @@ public class NamespacesApiTest {
 
         kestraClient().namespaces().deleteSecret(created.getId(), key, MAIN_TENANT);
 
-        ApiSecretListResponse list =
+        ApiSecretListResponseApiSecretMeta list =
             kestraClient().namespaces().listNamespaceSecrets(created.getId(), 1, 10, List.of(), MAIN_TENANT, null);
 
         boolean stillPresent = list != null && list.getResults() != null

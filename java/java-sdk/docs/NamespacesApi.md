@@ -514,7 +514,7 @@ public class Example {
 
 ## listNamespaceSecrets
 
-> ApiSecretListResponse listNamespaceSecrets(namespace, page, size, filters, tenant, sort)
+> ApiSecretListResponseApiSecretMeta listNamespaceSecrets(namespace, page, size, filters, tenant, sort)
 
 Get secrets for a namespace
 
@@ -545,7 +545,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         try {
-            ApiSecretListResponse result = kestraClient.NamespacesApi().listNamespaceSecrets(namespace, page, size, filters, tenant, sort);
+            ApiSecretListResponseApiSecretMeta result = kestraClient.NamespacesApi().listNamespaceSecrets(namespace, page, size, filters, tenant, sort);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NamespacesApi#listNamespaceSecrets");
@@ -572,7 +572,7 @@ public class Example {
 
 ### Return type
 
-[**ApiSecretListResponse**](ApiSecretListResponse.md)
+[**ApiSecretListResponseApiSecretMeta**](ApiSecretListResponseApiSecretMeta.md)
 
 ### Authorization
 
@@ -662,7 +662,7 @@ public class Example {
 
 ## patchSecret
 
-> List&lt;ApiSecretMeta&gt; patchSecret(namespace, key, tenant, apiSecretMetaEE)
+> List&lt;ApiSecretMetaEE&gt; patchSecret(namespace, key, tenant, apiSecretMetaEE)
 
 Patch a secret metadata for a namespace
 
@@ -691,7 +691,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         ApiSecretMetaEE apiSecretMetaEE = new ApiSecretMetaEE(); // ApiSecretMetaEE | 
         try {
-            List<ApiSecretMeta> result = kestraClient.NamespacesApi().patchSecret(namespace, key, tenant, apiSecretMetaEE);
+            List<ApiSecretMetaEE> result = kestraClient.NamespacesApi().patchSecret(namespace, key, tenant, apiSecretMetaEE);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NamespacesApi#patchSecret");
@@ -716,7 +716,7 @@ public class Example {
 
 ### Return type
 
-[**List&lt;ApiSecretMeta&gt;**](ApiSecretMeta.md)
+[**List&lt;ApiSecretMetaEE&gt;**](ApiSecretMetaEE.md)
 
 ### Authorization
 
@@ -736,7 +736,7 @@ public class Example {
 
 ## putSecrets
 
-> List&lt;ApiSecretMeta&gt; putSecrets(namespace, tenant, apiSecretValue)
+> List&lt;ApiSecretMetaEE&gt; putSecrets(namespace, tenant, apiSecretValue)
 
 Update secrets for a namespace
 
@@ -764,7 +764,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         ApiSecretValue apiSecretValue = new ApiSecretValue(); // ApiSecretValue | 
         try {
-            List<ApiSecretMeta> result = kestraClient.NamespacesApi().putSecrets(namespace, tenant, apiSecretValue);
+            List<ApiSecretMetaEE> result = kestraClient.NamespacesApi().putSecrets(namespace, tenant, apiSecretValue);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NamespacesApi#putSecrets");
@@ -788,7 +788,7 @@ public class Example {
 
 ### Return type
 
-[**List&lt;ApiSecretMeta&gt;**](ApiSecretMeta.md)
+[**List&lt;ApiSecretMetaEE&gt;**](ApiSecretMetaEE.md)
 
 ### Authorization
 

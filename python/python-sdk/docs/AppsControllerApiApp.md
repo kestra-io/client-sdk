@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **name** | **str** |  | [optional] 
 **type** | **str** |  | [optional] 
 **namespace** | **str** |  | [optional] 
+**flow_id** | **str** |  | [optional] 
 **tags** | **List[str]** |  | [optional] 
 **enabled** | **bool** |  | [optional] 
 **created** | **datetime** |  | [optional] 

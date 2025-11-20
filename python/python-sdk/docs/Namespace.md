@@ -1,6 +1,5 @@
 # Namespace
 
-A namespace is a logical grouping of flows and tasks. It is used to organize and manage flows and tasks within Kestra.
 
 ## Properties
 

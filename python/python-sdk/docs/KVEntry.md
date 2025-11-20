@@ -5,7 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**namespace** | **str** |  | [optional] 
 **key** | **str** |  | [optional] 
+**version** | **int** |  | [optional] 
 **description** | **str** |  | [optional] 
 **creation_date** | **datetime** |  | [optional] 
 **update_date** | **datetime** |  | [optional] 

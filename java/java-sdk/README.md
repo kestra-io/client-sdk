@@ -2,7 +2,7 @@
 
 Kestra EE
 
-- API version: v1
+- API version: 1.1.4
 
 - Generator version: 7.16.0
 
@@ -43,7 +43,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>io.kestra</groupId>
   <artifactId>kestra-api-client</artifactId>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -53,7 +53,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "io.kestra:kestra-api-client:1.0.2"
+compile "io.kestra:kestra-api-client:1.0.3"
 ```
 
 ### Others
@@ -66,7 +66,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/kestra-api-client-1.0.2.jar`
+- `target/kestra-api-client-1.0.3.jar`
 - `target/lib/*.jar`
 
 ## Getting Started
@@ -158,6 +158,7 @@ Class | Method | HTTP request | Description
 *ExecutionsApi* | [**resumeExecution**](docs/ExecutionsApi.md#resumeExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/resume | Resume a paused execution.
 *ExecutionsApi* | [**resumeExecutionsByIds**](docs/ExecutionsApi.md#resumeExecutionsByIds) | **POST** /api/v1/{tenant}/executions/resume/by-ids | Resume a list of paused executions
 *ExecutionsApi* | [**resumeExecutionsByQuery**](docs/ExecutionsApi.md#resumeExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/resume/by-query | Resume executions filter by query parameters
+*ExecutionsApi* | [**searchConcurrencyLimits**](docs/ExecutionsApi.md#searchConcurrencyLimits) | **GET** /api/v1/{tenant}/concurrency-limit/search | Search for flow concurrency limits
 *ExecutionsApi* | [**searchExecutions**](docs/ExecutionsApi.md#searchExecutions) | **GET** /api/v1/{tenant}/executions/search | Search for executions
 *ExecutionsApi* | [**searchExecutionsByFlowId**](docs/ExecutionsApi.md#searchExecutionsByFlowId) | **GET** /api/v1/{tenant}/executions | Search for executions for a flow
 *ExecutionsApi* | [**setLabelsOnTerminatedExecution**](docs/ExecutionsApi.md#setLabelsOnTerminatedExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/labels | Add or update labels of a terminated execution
@@ -167,6 +168,7 @@ Class | Method | HTTP request | Description
 *ExecutionsApi* | [**unqueueExecution**](docs/ExecutionsApi.md#unqueueExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/unqueue | Unqueue an execution
 *ExecutionsApi* | [**unqueueExecutionsByIds**](docs/ExecutionsApi.md#unqueueExecutionsByIds) | **POST** /api/v1/{tenant}/executions/unqueue/by-ids | Unqueue a list of executions
 *ExecutionsApi* | [**unqueueExecutionsByQuery**](docs/ExecutionsApi.md#unqueueExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/unqueue/by-query | Unqueue executions filter by query parameters
+*ExecutionsApi* | [**updateConcurrencyLimit**](docs/ExecutionsApi.md#updateConcurrencyLimit) | **PUT** /api/v1/{tenant}/concurrency-limit/{namespace}/{flowId} | Update a flow concurrency limit
 *ExecutionsApi* | [**updateExecutionStatus**](docs/ExecutionsApi.md#updateExecutionStatus) | **POST** /api/v1/{tenant}/executions/{executionId}/change-status | Change the state of an execution
 *ExecutionsApi* | [**updateExecutionsStatusByIds**](docs/ExecutionsApi.md#updateExecutionsStatusByIds) | **POST** /api/v1/{tenant}/executions/change-status/by-ids | Change executions state by id
 *ExecutionsApi* | [**updateExecutionsStatusByQuery**](docs/ExecutionsApi.md#updateExecutionsStatusByQuery) | **POST** /api/v1/{tenant}/executions/change-status/by-query | Change executions state by query parameters
@@ -190,11 +192,14 @@ Class | Method | HTTP request | Description
 *FlowsApi* | [**listDistinctNamespaces**](docs/FlowsApi.md#listDistinctNamespaces) | **GET** /api/v1/{tenant}/flows/distinct-namespaces | List all distinct namespaces
 *FlowsApi* | [**listFlowRevisions**](docs/FlowsApi.md#listFlowRevisions) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/revisions | Get revisions for a flow
 *FlowsApi* | [**listFlowsByNamespace**](docs/FlowsApi.md#listFlowsByNamespace) | **GET** /api/v1/{tenant}/flows/{namespace} | Retrieve all flows from a given namespace
+*FlowsApi* | [**searchConcurrencyLimits**](docs/FlowsApi.md#searchConcurrencyLimits) | **GET** /api/v1/{tenant}/concurrency-limit/search | Search for flow concurrency limits
 *FlowsApi* | [**searchFlows**](docs/FlowsApi.md#searchFlows) | **GET** /api/v1/{tenant}/flows/search | Search for flows
 *FlowsApi* | [**searchFlowsBySourceCode**](docs/FlowsApi.md#searchFlowsBySourceCode) | **GET** /api/v1/{tenant}/flows/source | Search for flows source code
 *FlowsApi* | [**taskFromFlow**](docs/FlowsApi.md#taskFromFlow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId} | Get a flow task
+*FlowsApi* | [**updateConcurrencyLimit**](docs/FlowsApi.md#updateConcurrencyLimit) | **PUT** /api/v1/{tenant}/concurrency-limit/{namespace}/{flowId} | Update a flow concurrency limit
 *FlowsApi* | [**updateFlow**](docs/FlowsApi.md#updateFlow) | **PUT** /api/v1/{tenant}/flows/{namespace}/{id} | Update a flow
 *FlowsApi* | [**updateFlowsInNamespace**](docs/FlowsApi.md#updateFlowsInNamespace) | **POST** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from yaml source
+*FlowsApi* | [**updateTask**](docs/FlowsApi.md#updateTask) | **PATCH** /api/v1/{tenant}/flows/{namespace}/{id}/{taskId} | Update a single task on a flow
 *FlowsApi* | [**validateFlows**](docs/FlowsApi.md#validateFlows) | **POST** /api/v1/{tenant}/flows/validate | Validate a list of flows
 *FlowsApi* | [**validateTask**](docs/FlowsApi.md#validateTask) | **POST** /api/v1/{tenant}/flows/validate/task | Validate a task
 *FlowsApi* | [**validateTrigger**](docs/FlowsApi.md#validateTrigger) | **POST** /api/v1/{tenant}/flows/validate/trigger | Validate trigger
@@ -212,6 +217,7 @@ Class | Method | HTTP request | Description
 *KvApi* | [**deleteKeyValue**](docs/KvApi.md#deleteKeyValue) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Delete a key-value pair
 *KvApi* | [**deleteKeyValues**](docs/KvApi.md#deleteKeyValues) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/kv | Bulk-delete multiple key/value pairs from the given namespace.
 *KvApi* | [**keyValue**](docs/KvApi.md#keyValue) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Get value for a key
+*KvApi* | [**listAllKeys**](docs/KvApi.md#listAllKeys) | **GET** /api/v1/{tenant}/kv | List all keys
 *KvApi* | [**listKeys**](docs/KvApi.md#listKeys) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv | List all keys for a namespace
 *KvApi* | [**listKeysWithInheritence**](docs/KvApi.md#listKeysWithInheritence) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/inheritance | List all keys for inherited namespaces
 *KvApi* | [**setKeyValue**](docs/KvApi.md#setKeyValue) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Puts a key-value pair in store
@@ -320,7 +326,7 @@ Class | Method | HTTP request | Description
  - [ApiIds](docs/ApiIds.md)
  - [ApiPatchSuperAdminRequest](docs/ApiPatchSuperAdminRequest.md)
  - [ApiRoleSummary](docs/ApiRoleSummary.md)
- - [ApiSecretListResponse](docs/ApiSecretListResponse.md)
+ - [ApiSecretListResponseApiSecretMeta](docs/ApiSecretListResponseApiSecretMeta.md)
  - [ApiSecretMeta](docs/ApiSecretMeta.md)
  - [ApiSecretMetaEE](docs/ApiSecretMetaEE.md)
  - [ApiSecretTag](docs/ApiSecretTag.md)
@@ -359,6 +365,7 @@ Class | Method | HTTP request | Description
  - [BaseResourcePatchRequest](docs/BaseResourcePatchRequest.md)
  - [BaseResourceScimResource](docs/BaseResourceScimResource.md)
  - [BaseResourceSearchRequest](docs/BaseResourceSearchRequest.md)
+ - [BasicAuthCredentials](docs/BasicAuthCredentials.md)
  - [Binding](docs/Binding.md)
  - [BindingType](docs/BindingType.md)
  - [Blueprint](docs/Blueprint.md)
@@ -376,6 +383,7 @@ Class | Method | HTTP request | Description
  - [ChartFiltersOverrides](docs/ChartFiltersOverrides.md)
  - [Concurrency](docs/Concurrency.md)
  - [ConcurrencyBehavior](docs/ConcurrencyBehavior.md)
+ - [ConcurrencyLimit](docs/ConcurrencyLimit.md)
  - [Condition](docs/Condition.md)
  - [ConversionServiceProvider](docs/ConversionServiceProvider.md)
  - [ConvertibleMultiValuesString](docs/ConvertibleMultiValuesString.md)
@@ -528,7 +536,6 @@ Class | Method | HTTP request | Description
  - [MetricEntry](docs/MetricEntry.md)
  - [MetricTag](docs/MetricTag.md)
  - [MiscControllerApiUsage](docs/MiscControllerApiUsage.md)
- - [MiscControllerBasicAuthCredentials](docs/MiscControllerBasicAuthCredentials.md)
  - [MiscControllerConfiguration](docs/MiscControllerConfiguration.md)
  - [MiscControllerEEConfiguration](docs/MiscControllerEEConfiguration.md)
  - [MiscControllerEnvironment](docs/MiscControllerEnvironment.md)
@@ -551,6 +558,7 @@ Class | Method | HTTP request | Description
  - [PagedResultsAuditLogControllerApiAuditLogItem](docs/PagedResultsAuditLogControllerApiAuditLogItem.md)
  - [PagedResultsBlueprint](docs/PagedResultsBlueprint.md)
  - [PagedResultsBlueprintControllerApiBlueprintItem](docs/PagedResultsBlueprintControllerApiBlueprintItem.md)
+ - [PagedResultsConcurrencyLimit](docs/PagedResultsConcurrencyLimit.md)
  - [PagedResultsDashboard](docs/PagedResultsDashboard.md)
  - [PagedResultsExecution](docs/PagedResultsExecution.md)
  - [PagedResultsFlow](docs/PagedResultsFlow.md)
@@ -562,12 +570,12 @@ Class | Method | HTTP request | Description
  - [PagedResultsIAMUserControllerApiUserSummary](docs/PagedResultsIAMUserControllerApiUserSummary.md)
  - [PagedResultsInstanceControllerApiPluginArtifact](docs/PagedResultsInstanceControllerApiPluginArtifact.md)
  - [PagedResultsInstanceControllerApiServiceInstance](docs/PagedResultsInstanceControllerApiServiceInstance.md)
+ - [PagedResultsKVEntry](docs/PagedResultsKVEntry.md)
  - [PagedResultsLogEntry](docs/PagedResultsLogEntry.md)
  - [PagedResultsMapStringObject](docs/PagedResultsMapStringObject.md)
  - [PagedResultsMetricEntry](docs/PagedResultsMetricEntry.md)
  - [PagedResultsNamespace](docs/PagedResultsNamespace.md)
  - [PagedResultsSearchResultFlow](docs/PagedResultsSearchResultFlow.md)
- - [PagedResultsTaskRun](docs/PagedResultsTaskRun.md)
  - [PagedResultsTenant](docs/PagedResultsTenant.md)
  - [PagedResultsTestSuite](docs/PagedResultsTestSuite.md)
  - [PagedResultsTestSuiteRunResult](docs/PagedResultsTestSuiteRunResult.md)
@@ -596,10 +604,7 @@ Class | Method | HTTP request | Description
  - [PropertyString](docs/PropertyString.md)
  - [QueryFilter](docs/QueryFilter.md)
  - [QueryFilterField](docs/QueryFilterField.md)
- - [QueryFilterFieldOp](docs/QueryFilterFieldOp.md)
  - [QueryFilterOp](docs/QueryFilterOp.md)
- - [QueryFilterOperation](docs/QueryFilterOperation.md)
- - [QueryFilterResourceField](docs/QueryFilterResourceField.md)
  - [RBACServiceRoleAssignmentRoleOrigin](docs/RBACServiceRoleAssignmentRoleOrigin.md)
  - [Relation](docs/Relation.md)
  - [RelationType](docs/RelationType.md)
@@ -642,7 +647,7 @@ Class | Method | HTTP request | Description
  - [ServiceProviderConfigurationSupportedConfiguration](docs/ServiceProviderConfigurationSupportedConfiguration.md)
  - [ServiceServiceState](docs/ServiceServiceState.md)
  - [ServiceType](docs/ServiceType.md)
- - [SetLogoRequest](docs/SetLogoRequest.md)
+ - [SetAppsCatalogLogoRequest](docs/SetAppsCatalogLogoRequest.md)
  - [SetupConfiguration](docs/SetupConfiguration.md)
  - [SetupConfigurationSetupData](docs/SetupConfigurationSetupData.md)
  - [SortOrder](docs/SortOrder.md)
@@ -656,6 +661,9 @@ Class | Method | HTTP request | Description
  - [TaskRun](docs/TaskRun.md)
  - [TaskRunAttempt](docs/TaskRunAttempt.md)
  - [Tenant](docs/Tenant.md)
+ - [TenantAppCatalogConfig](docs/TenantAppCatalogConfig.md)
+ - [TenantControllerAppsCatalogConfigRequest](docs/TenantControllerAppsCatalogConfigRequest.md)
+ - [TenantControllerAppsCatalogConfigResponse](docs/TenantControllerAppsCatalogConfigResponse.md)
  - [TenantInterface](docs/TenantInterface.md)
  - [TenantUsage](docs/TenantUsage.md)
  - [TestState](docs/TestState.md)

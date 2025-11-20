@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **depends_on** | [**DependsOn**](DependsOn.md) |  | [optional] 
 **required** | **bool** |  | [optional] 
 **defaults** | [**PropertyObject**](PropertyObject.md) |  | [optional] 
+**prefill** | [**PropertyObject**](PropertyObject.md) | Optional UI hint for pre-filling the input. Cannot be used together with a default value. | [optional] 
 **display_name** | **str** |  | [optional] 
 
 ## Example

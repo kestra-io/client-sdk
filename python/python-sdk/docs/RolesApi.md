@@ -1,16 +1,16 @@
-# kestrapy.roles
+# kestrapy.RolesApi
 
 All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**autocomplete_roles**](roles.md#autocomplete_roles) | **POST** /api/v1/{tenant}/roles/autocomplete | List roles for autocomplete
-[**create_role**](roles.md#create_role) | **POST** /api/v1/{tenant}/roles | Create a role
-[**delete_role**](roles.md#delete_role) | **DELETE** /api/v1/{tenant}/roles/{id} | Delete a role
-[**list_roles_from_given_ids**](roles.md#list_roles_from_given_ids) | **POST** /api/v1/{tenant}/roles/ids | List roles by ids
-[**role**](roles.md#role) | **GET** /api/v1/{tenant}/roles/{id} | Retrieve a role
-[**search_roles**](roles.md#search_roles) | **GET** /api/v1/{tenant}/roles/search | Search for roles
-[**update_role**](roles.md#update_role) | **PUT** /api/v1/{tenant}/roles/{id} | Update a role
+[**autocomplete_roles**](RolesApi.md#autocomplete_roles) | **POST** /api/v1/{tenant}/roles/autocomplete | List roles for autocomplete
+[**create_role**](RolesApi.md#create_role) | **POST** /api/v1/{tenant}/roles | Create a role
+[**delete_role**](RolesApi.md#delete_role) | **DELETE** /api/v1/{tenant}/roles/{id} | Delete a role
+[**list_roles_from_given_ids**](RolesApi.md#list_roles_from_given_ids) | **POST** /api/v1/{tenant}/roles/ids | List roles by ids
+[**role**](RolesApi.md#role) | **GET** /api/v1/{tenant}/roles/{id} | Retrieve a role
+[**search_roles**](RolesApi.md#search_roles) | **GET** /api/v1/{tenant}/roles/search | Search for roles
+[**update_role**](RolesApi.md#update_role) | **PUT** /api/v1/{tenant}/roles/{id} | Update a role
 
 
 # **autocomplete_roles**
@@ -39,11 +39,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List roles for autocomplete
-        api_response = kestra_client.roles.autocomplete_roles(tenant, api_autocomplete)
-        print("The response of roles->autocomplete_roles:\n")
+        api_response = kestra_client.RolesApi.autocomplete_roles(tenant, api_autocomplete)
+        print("The response of RolesApi->autocomplete_roles:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling roles->autocomplete_roles: %s\n" % e)
+        print("Exception when calling RolesApi->autocomplete_roles: %s\n" % e)
 ```
 
 
@@ -103,11 +103,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create a role
-        api_response = kestra_client.roles.create_role(tenant, iam_role_controller_api_role_create_or_update_request)
-        print("The response of roles->create_role:\n")
+        api_response = kestra_client.RolesApi.create_role(tenant, iam_role_controller_api_role_create_or_update_request)
+        print("The response of RolesApi->create_role:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling roles->create_role: %s\n" % e)
+        print("Exception when calling RolesApi->create_role: %s\n" % e)
 ```
 
 
@@ -168,9 +168,9 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete a role
-        kestra_client.roles.delete_role(id, tenant)
+        kestra_client.RolesApi.delete_role(id, tenant)
     except Exception as e:
-        print("Exception when calling roles->delete_role: %s\n" % e)
+        print("Exception when calling RolesApi->delete_role: %s\n" % e)
 ```
 
 
@@ -230,11 +230,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List roles by ids
-        api_response = kestra_client.roles.list_roles_from_given_ids(tenant, api_ids)
-        print("The response of roles->list_roles_from_given_ids:\n")
+        api_response = kestra_client.RolesApi.list_roles_from_given_ids(tenant, api_ids)
+        print("The response of RolesApi->list_roles_from_given_ids:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling roles->list_roles_from_given_ids: %s\n" % e)
+        print("Exception when calling RolesApi->list_roles_from_given_ids: %s\n" % e)
 ```
 
 
@@ -294,11 +294,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Retrieve a role
-        api_response = kestra_client.roles.role(id, tenant)
-        print("The response of roles->role:\n")
+        api_response = kestra_client.RolesApi.role(id, tenant)
+        print("The response of RolesApi->role:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling roles->role: %s\n" % e)
+        print("Exception when calling RolesApi->role: %s\n" % e)
 ```
 
 
@@ -362,11 +362,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Search for roles
-        api_response = kestra_client.roles.search_roles(page, size, tenant, q=q, sort=sort)
-        print("The response of roles->search_roles:\n")
+        api_response = kestra_client.RolesApi.search_roles(page, size, tenant, q=q, sort=sort)
+        print("The response of RolesApi->search_roles:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling roles->search_roles: %s\n" % e)
+        print("Exception when calling RolesApi->search_roles: %s\n" % e)
 ```
 
 
@@ -430,11 +430,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update a role
-        api_response = kestra_client.roles.update_role(id, tenant, iam_role_controller_api_role_create_or_update_request)
-        print("The response of roles->update_role:\n")
+        api_response = kestra_client.RolesApi.update_role(id, tenant, iam_role_controller_api_role_create_or_update_request)
+        print("The response of RolesApi->update_role:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling roles->update_role: %s\n" % e)
+        print("Exception when calling RolesApi->update_role: %s\n" % e)
 ```
 
 

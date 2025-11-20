@@ -5,6 +5,8 @@
 
 * `CREATED` (value: `'CREATED'`)
 
+* `SUBMITTED` (value: `'SUBMITTED'`)
+
 * `RUNNING` (value: `'RUNNING'`)
 
 * `PAUSED` (value: `'PAUSED'`)
@@ -32,6 +34,8 @@
 * `SKIPPED` (value: `'SKIPPED'`)
 
 * `BREAKPOINT` (value: `'BREAKPOINT'`)
+
+* `RESUBMITTED` (value: `'RESUBMITTED'`)
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

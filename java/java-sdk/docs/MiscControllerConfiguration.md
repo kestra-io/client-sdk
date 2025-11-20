@@ -11,9 +11,9 @@
 |**version** | **String** |  |  [optional] |
 |**edition** | **EditionProviderEdition** |  |  [optional] |
 |**commitId** | **String** |  |  [optional] |
+|**chartDefaultDuration** | **String** |  |  [optional] |
 |**commitDate** | **OffsetDateTime** |  |  [optional] |
 |**isCustomDashboardsEnabled** | **Boolean** |  |  [optional] |
-|**isTaskRunEnabled** | **Boolean** |  |  [optional] |
 |**isAnonymousUsageEnabled** | **Boolean** |  |  [optional] |
 |**isUiAnonymousUsageEnabled** | **Boolean** |  |  [optional] |
 |**isTemplateEnabled** | **Boolean** |  |  [optional] |
@@ -22,7 +22,6 @@
 |**preview** | [**MiscControllerPreview**](MiscControllerPreview.md) |  |  [optional] |
 |**systemNamespace** | **String** |  |  [optional] |
 |**hiddenLabelsPrefixes** | **List&lt;String&gt;** |  |  [optional] |
-|**resourceToFilters** | [**List&lt;QueryFilterResourceField&gt;**](QueryFilterResourceField.md) |  |  [optional] |
 |**isAiEnabled** | **Boolean** |  |  [optional] |
 |**isBasicAuthInitialized** | **Boolean** |  |  [optional] |
 |**pluginsHash** | **Long** |  |  [optional] |

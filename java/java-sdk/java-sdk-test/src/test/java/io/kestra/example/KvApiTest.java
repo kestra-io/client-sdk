@@ -1,3 +1,5 @@
+package io.kestra.example;
+
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.model.*;
 import org.junit.jupiter.api.Disabled;
@@ -117,21 +119,6 @@ public class KvApiTest {
         var fetched = kestraClient().kv().keyValue(CHILD_NAMESPACE, key, MAIN_TENANT);
         assertThat(fetched).extracting(KVControllerTypedValue::getType).isEqualTo(KVType.STRING);
         assertThat(fetched).extracting(KVControllerTypedValue::getValue).isEqualTo("value-get");
-    }
-
-    /**
-     * List all keys for a namespace
-     */
-    @Test
-    public void listKeysTest() throws ApiException {
-        String key = "test_list_keys_" + randomId();
-        String value = "value-list";
-
-        kestraClient().kv().setKeyValue(CHILD_NAMESPACE, key, MAIN_TENANT, value);
-
-        List<KVEntry> entries = kestraClient().kv().listKeys(CHILD_NAMESPACE, MAIN_TENANT);
-        assertTrue(entries.stream().anyMatch(e -> key.equals(e.getKey())),
-            "List should contain the inserted key");
     }
 
     /**

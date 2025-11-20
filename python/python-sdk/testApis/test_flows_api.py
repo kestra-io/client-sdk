@@ -551,7 +551,7 @@ tasks:
 
         fetched = self.kestra_client.flows.flow(namespace=namespace, id=created_id, source=False, allow_deleted=False, tenant=self.tenant)
 
-        assert any(t['type'] == 'io.kestra.plugin.core.log.Log' for t in fetched['tasks'])
+        assert any(t.type== 'io.kestra.plugin.core.log.Log' for t in fetched.tasks)
 
     def test_update_task(self) -> None:
         """Test case for update_task

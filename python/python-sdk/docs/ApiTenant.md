@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **secret_configuration** | **Dict[str, object]** |  | [optional] 
 **require_existing_namespace** | **bool** |  | [optional] 
 **outputs_in_internal_storage** | **bool** |  | [optional] 
+**app_catalog_config** | [**TenantAppCatalogConfig**](TenantAppCatalogConfig.md) |  | [optional] 
 **logo** | **str** |  | [optional] 
 
 ## Example

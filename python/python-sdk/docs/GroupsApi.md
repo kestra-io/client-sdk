@@ -1,20 +1,20 @@
-# kestrapy.groups
+# kestrapy.GroupsApi
 
 All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**add_user_to_group**](groups.md#add_user_to_group) | **PUT** /api/v1/{tenant}/groups/{id}/members/{userId} | Add a user to a group
-[**autocomplete_groups**](groups.md#autocomplete_groups) | **POST** /api/v1/{tenant}/groups/autocomplete | List groups for autocomplete
-[**create_group**](groups.md#create_group) | **POST** /api/v1/{tenant}/groups | Create a group
-[**delete_group**](groups.md#delete_group) | **DELETE** /api/v1/{tenant}/groups/{id} | Delete a group
-[**delete_user_from_group**](groups.md#delete_user_from_group) | **DELETE** /api/v1/{tenant}/groups/{id}/members/{userId} | Remove a user from a group
-[**group**](groups.md#group) | **GET** /api/v1/{tenant}/groups/{id} | Retrieve a group
-[**list_group_ids**](groups.md#list_group_ids) | **POST** /api/v1/{tenant}/groups/ids | List groups by ids
-[**search_group_members**](groups.md#search_group_members) | **GET** /api/v1/{tenant}/groups/{id}/members | Search for users in a group
-[**search_groups**](groups.md#search_groups) | **GET** /api/v1/{tenant}/groups/search | Search for groups
-[**set_user_membership_for_group**](groups.md#set_user_membership_for_group) | **PUT** /api/v1/{tenant}/groups/{id}/members/membership/{userId} | Update a user&#39;s membership type in a group
-[**update_group**](groups.md#update_group) | **PUT** /api/v1/{tenant}/groups/{id} | Update a group
+[**add_user_to_group**](GroupsApi.md#add_user_to_group) | **PUT** /api/v1/{tenant}/groups/{id}/members/{userId} | Add a user to a group
+[**autocomplete_groups**](GroupsApi.md#autocomplete_groups) | **POST** /api/v1/{tenant}/groups/autocomplete | List groups for autocomplete
+[**create_group**](GroupsApi.md#create_group) | **POST** /api/v1/{tenant}/groups | Create a group
+[**delete_group**](GroupsApi.md#delete_group) | **DELETE** /api/v1/{tenant}/groups/{id} | Delete a group
+[**delete_user_from_group**](GroupsApi.md#delete_user_from_group) | **DELETE** /api/v1/{tenant}/groups/{id}/members/{userId} | Remove a user from a group
+[**group**](GroupsApi.md#group) | **GET** /api/v1/{tenant}/groups/{id} | Retrieve a group
+[**list_group_ids**](GroupsApi.md#list_group_ids) | **POST** /api/v1/{tenant}/groups/ids | List groups by ids
+[**search_group_members**](GroupsApi.md#search_group_members) | **GET** /api/v1/{tenant}/groups/{id}/members | Search for users in a group
+[**search_groups**](GroupsApi.md#search_groups) | **GET** /api/v1/{tenant}/groups/search | Search for groups
+[**set_user_membership_for_group**](GroupsApi.md#set_user_membership_for_group) | **PUT** /api/v1/{tenant}/groups/{id}/members/membership/{userId} | Update a user&#39;s membership type in a group
+[**update_group**](GroupsApi.md#update_group) | **PUT** /api/v1/{tenant}/groups/{id} | Update a group
 
 
 # **add_user_to_group**
@@ -46,11 +46,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Add a user to a group
-        api_response = kestra_client.groups.add_user_to_group(id, user_id, tenant)
-        print("The response of groups->add_user_to_group:\n")
+        api_response = kestra_client.GroupsApi.add_user_to_group(id, user_id, tenant)
+        print("The response of GroupsApi->add_user_to_group:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling groups->add_user_to_group: %s\n" % e)
+        print("Exception when calling GroupsApi->add_user_to_group: %s\n" % e)
 ```
 
 
@@ -113,11 +113,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List groups for autocomplete
-        api_response = kestra_client.groups.autocomplete_groups(tenant, api_autocomplete)
-        print("The response of groups->autocomplete_groups:\n")
+        api_response = kestra_client.GroupsApi.autocomplete_groups(tenant, api_autocomplete)
+        print("The response of GroupsApi->autocomplete_groups:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling groups->autocomplete_groups: %s\n" % e)
+        print("Exception when calling GroupsApi->autocomplete_groups: %s\n" % e)
 ```
 
 
@@ -177,11 +177,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create a group
-        api_response = kestra_client.groups.create_group(tenant, iam_group_controller_api_create_group_request)
-        print("The response of groups->create_group:\n")
+        api_response = kestra_client.GroupsApi.create_group(tenant, iam_group_controller_api_create_group_request)
+        print("The response of GroupsApi->create_group:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling groups->create_group: %s\n" % e)
+        print("Exception when calling GroupsApi->create_group: %s\n" % e)
 ```
 
 
@@ -242,9 +242,9 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete a group
-        kestra_client.groups.delete_group(id, tenant)
+        kestra_client.GroupsApi.delete_group(id, tenant)
     except Exception as e:
-        print("Exception when calling groups->delete_group: %s\n" % e)
+        print("Exception when calling GroupsApi->delete_group: %s\n" % e)
 ```
 
 
@@ -308,11 +308,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Remove a user from a group
-        api_response = kestra_client.groups.delete_user_from_group(id, user_id, tenant)
-        print("The response of groups->delete_user_from_group:\n")
+        api_response = kestra_client.GroupsApi.delete_user_from_group(id, user_id, tenant)
+        print("The response of GroupsApi->delete_user_from_group:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling groups->delete_user_from_group: %s\n" % e)
+        print("Exception when calling GroupsApi->delete_user_from_group: %s\n" % e)
 ```
 
 
@@ -377,11 +377,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Retrieve a group
-        api_response = kestra_client.groups.group(id, tenant)
-        print("The response of groups->group:\n")
+        api_response = kestra_client.GroupsApi.group(id, tenant)
+        print("The response of GroupsApi->group:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling groups->group: %s\n" % e)
+        print("Exception when calling GroupsApi->group: %s\n" % e)
 ```
 
 
@@ -442,11 +442,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List groups by ids
-        api_response = kestra_client.groups.list_group_ids(tenant, api_ids)
-        print("The response of groups->list_group_ids:\n")
+        api_response = kestra_client.GroupsApi.list_group_ids(tenant, api_ids)
+        print("The response of GroupsApi->list_group_ids:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling groups->list_group_ids: %s\n" % e)
+        print("Exception when calling GroupsApi->list_group_ids: %s\n" % e)
 ```
 
 
@@ -510,11 +510,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Search for users in a group
-        api_response = kestra_client.groups.search_group_members(id, page, size, tenant, q=q, sort=sort)
-        print("The response of groups->search_group_members:\n")
+        api_response = kestra_client.GroupsApi.search_group_members(id, page, size, tenant, q=q, sort=sort)
+        print("The response of GroupsApi->search_group_members:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling groups->search_group_members: %s\n" % e)
+        print("Exception when calling GroupsApi->search_group_members: %s\n" % e)
 ```
 
 
@@ -581,11 +581,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Search for groups
-        api_response = kestra_client.groups.search_groups(page, size, tenant, q=q, sort=sort)
-        print("The response of groups->search_groups:\n")
+        api_response = kestra_client.GroupsApi.search_groups(page, size, tenant, q=q, sort=sort)
+        print("The response of GroupsApi->search_groups:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling groups->search_groups: %s\n" % e)
+        print("Exception when calling GroupsApi->search_groups: %s\n" % e)
 ```
 
 
@@ -652,11 +652,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update a user's membership type in a group
-        api_response = kestra_client.groups.set_user_membership_for_group(id, user_id, membership, tenant)
-        print("The response of groups->set_user_membership_for_group:\n")
+        api_response = kestra_client.GroupsApi.set_user_membership_for_group(id, user_id, membership, tenant)
+        print("The response of GroupsApi->set_user_membership_for_group:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling groups->set_user_membership_for_group: %s\n" % e)
+        print("Exception when calling GroupsApi->set_user_membership_for_group: %s\n" % e)
 ```
 
 
@@ -721,11 +721,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update a group
-        api_response = kestra_client.groups.update_group(id, tenant, iam_group_controller_api_update_group_request)
-        print("The response of groups->update_group:\n")
+        api_response = kestra_client.GroupsApi.update_group(id, tenant, iam_group_controller_api_update_group_request)
+        print("The response of GroupsApi->update_group:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling groups->update_group: %s\n" % e)
+        print("Exception when calling GroupsApi->update_group: %s\n" % e)
 ```
 
 

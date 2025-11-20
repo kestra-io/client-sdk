@@ -1,27 +1,27 @@
-# kestrapy.users
+# kestrapy.UsersApi
 
 All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**autocomplete_users**](users.md#autocomplete_users) | **POST** /api/v1/{tenant}/tenant-access/autocomplete | List users for autocomplete
-[**create_api_tokens_for_user**](users.md#create_api_tokens_for_user) | **POST** /api/v1/users/{id}/api-tokens | Create new API Token for a specific user
-[**create_user**](users.md#create_user) | **POST** /api/v1/users | Create a new user account
-[**delete_api_token_for_user**](users.md#delete_api_token_for_user) | **DELETE** /api/v1/users/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
-[**delete_refresh_token**](users.md#delete_refresh_token) | **DELETE** /api/v1/users/{id}/refresh-token | Delete a user refresh token
-[**delete_user**](users.md#delete_user) | **DELETE** /api/v1/users/{id} | Delete a user
-[**delete_user_auth_method**](users.md#delete_user_auth_method) | **DELETE** /api/v1/users/{id}/auths/{auth} | Update user password
-[**impersonate**](users.md#impersonate) | **POST** /api/v1/users/{id}/impersonate | Impersonate a user
-[**list_api_tokens_for_user**](users.md#list_api_tokens_for_user) | **GET** /api/v1/users/{id}/api-tokens | List API tokens for a specific user
-[**list_users**](users.md#list_users) | **GET** /api/v1/users | Retrieve users
-[**patch_user**](users.md#patch_user) | **PATCH** /api/v1/users/{id} | Update user details
-[**patch_user_demo**](users.md#patch_user_demo) | **PATCH** /api/v1/users/{id}/restricted | Update user demo
-[**patch_user_password**](users.md#patch_user_password) | **PATCH** /api/v1/users/{id}/password | Update user password
-[**patch_user_super_admin**](users.md#patch_user_super_admin) | **PATCH** /api/v1/users/{id}/superadmin | Update user superadmin privileges
-[**update_current_user_password**](users.md#update_current_user_password) | **PUT** /api/v1/me/password | Update authenticated user password
-[**update_user**](users.md#update_user) | **PUT** /api/v1/users/{id} | Update a user account
-[**update_user_groups**](users.md#update_user_groups) | **PUT** /api/v1/{tenant}/users/{id}/groups | Update the list of groups a user belongs to for the given tenant
-[**user**](users.md#user) | **GET** /api/v1/users/{id} | Get a user
+[**autocomplete_users**](UsersApi.md#autocomplete_users) | **POST** /api/v1/{tenant}/tenant-access/autocomplete | List users for autocomplete
+[**create_api_tokens_for_user**](UsersApi.md#create_api_tokens_for_user) | **POST** /api/v1/users/{id}/api-tokens | Create new API Token for a specific user
+[**create_user**](UsersApi.md#create_user) | **POST** /api/v1/users | Create a new user account
+[**delete_api_token_for_user**](UsersApi.md#delete_api_token_for_user) | **DELETE** /api/v1/users/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
+[**delete_refresh_token**](UsersApi.md#delete_refresh_token) | **DELETE** /api/v1/users/{id}/refresh-token | Delete a user refresh token
+[**delete_user**](UsersApi.md#delete_user) | **DELETE** /api/v1/users/{id} | Delete a user
+[**delete_user_auth_method**](UsersApi.md#delete_user_auth_method) | **DELETE** /api/v1/users/{id}/auths/{auth} | Update user password
+[**impersonate**](UsersApi.md#impersonate) | **POST** /api/v1/users/{id}/impersonate | Impersonate a user
+[**list_api_tokens_for_user**](UsersApi.md#list_api_tokens_for_user) | **GET** /api/v1/users/{id}/api-tokens | List API tokens for a specific user
+[**list_users**](UsersApi.md#list_users) | **GET** /api/v1/users | Retrieve users
+[**patch_user**](UsersApi.md#patch_user) | **PATCH** /api/v1/users/{id} | Update user details
+[**patch_user_demo**](UsersApi.md#patch_user_demo) | **PATCH** /api/v1/users/{id}/restricted | Update user demo
+[**patch_user_password**](UsersApi.md#patch_user_password) | **PATCH** /api/v1/users/{id}/password | Update user password
+[**patch_user_super_admin**](UsersApi.md#patch_user_super_admin) | **PATCH** /api/v1/users/{id}/superadmin | Update user superadmin privileges
+[**update_current_user_password**](UsersApi.md#update_current_user_password) | **PUT** /api/v1/me/password | Update authenticated user password
+[**update_user**](UsersApi.md#update_user) | **PUT** /api/v1/users/{id} | Update a user account
+[**update_user_groups**](UsersApi.md#update_user_groups) | **PUT** /api/v1/{tenant}/users/{id}/groups | Update the list of groups a user belongs to for the given tenant
+[**user**](UsersApi.md#user) | **GET** /api/v1/users/{id} | Get a user
 
 
 # **autocomplete_users**
@@ -50,11 +50,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List users for autocomplete
-        api_response = kestra_client.users.autocomplete_users(tenant, iam_tenant_access_controller_user_api_autocomplete)
-        print("The response of users->autocomplete_users:\n")
+        api_response = kestra_client.UsersApi.autocomplete_users(tenant, iam_tenant_access_controller_user_api_autocomplete)
+        print("The response of UsersApi->autocomplete_users:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling users->autocomplete_users: %s\n" % e)
+        print("Exception when calling UsersApi->autocomplete_users: %s\n" % e)
 ```
 
 
@@ -116,11 +116,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create new API Token for a specific user
-        api_response = kestra_client.users.create_api_tokens_for_user(id, create_api_token_request)
-        print("The response of users->create_api_tokens_for_user:\n")
+        api_response = kestra_client.UsersApi.create_api_tokens_for_user(id, create_api_token_request)
+        print("The response of UsersApi->create_api_tokens_for_user:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling users->create_api_tokens_for_user: %s\n" % e)
+        print("Exception when calling UsersApi->create_api_tokens_for_user: %s\n" % e)
 ```
 
 
@@ -182,11 +182,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create a new user account
-        api_response = kestra_client.users.create_user(iam_user_controller_api_create_or_update_user_request)
-        print("The response of users->create_user:\n")
+        api_response = kestra_client.UsersApi.create_user(iam_user_controller_api_create_or_update_user_request)
+        print("The response of UsersApi->create_user:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling users->create_user: %s\n" % e)
+        print("Exception when calling UsersApi->create_user: %s\n" % e)
 ```
 
 
@@ -248,9 +248,9 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete an API Token for specific user and token id
-        kestra_client.users.delete_api_token_for_user(id, token_id)
+        kestra_client.UsersApi.delete_api_token_for_user(id, token_id)
     except Exception as e:
-        print("Exception when calling users->delete_api_token_for_user: %s\n" % e)
+        print("Exception when calling UsersApi->delete_api_token_for_user: %s\n" % e)
 ```
 
 
@@ -310,9 +310,9 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete a user refresh token
-        kestra_client.users.delete_refresh_token(id)
+        kestra_client.UsersApi.delete_refresh_token(id)
     except Exception as e:
-        print("Exception when calling users->delete_refresh_token: %s\n" % e)
+        print("Exception when calling UsersApi->delete_refresh_token: %s\n" % e)
 ```
 
 
@@ -373,9 +373,9 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete a user
-        kestra_client.users.delete_user(id)
+        kestra_client.UsersApi.delete_user(id)
     except Exception as e:
-        print("Exception when calling users->delete_user: %s\n" % e)
+        print("Exception when calling UsersApi->delete_user: %s\n" % e)
 ```
 
 
@@ -437,11 +437,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update user password
-        api_response = kestra_client.users.delete_user_auth_method(id, auth)
-        print("The response of users->delete_user_auth_method:\n")
+        api_response = kestra_client.UsersApi.delete_user_auth_method(id, auth)
+        print("The response of UsersApi->delete_user_auth_method:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling users->delete_user_auth_method: %s\n" % e)
+        print("Exception when calling UsersApi->delete_user_auth_method: %s\n" % e)
 ```
 
 
@@ -503,11 +503,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Impersonate a user
-        api_response = kestra_client.users.impersonate(id)
-        print("The response of users->impersonate:\n")
+        api_response = kestra_client.UsersApi.impersonate(id)
+        print("The response of UsersApi->impersonate:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling users->impersonate: %s\n" % e)
+        print("Exception when calling UsersApi->impersonate: %s\n" % e)
 ```
 
 
@@ -568,11 +568,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List API tokens for a specific user
-        api_response = kestra_client.users.list_api_tokens_for_user(id)
-        print("The response of users->list_api_tokens_for_user:\n")
+        api_response = kestra_client.UsersApi.list_api_tokens_for_user(id)
+        print("The response of UsersApi->list_api_tokens_for_user:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling users->list_api_tokens_for_user: %s\n" % e)
+        print("Exception when calling UsersApi->list_api_tokens_for_user: %s\n" % e)
 ```
 
 
@@ -634,11 +634,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Retrieve users
-        api_response = kestra_client.users.list_users(page, size, q=q, sort=sort)
-        print("The response of users->list_users:\n")
+        api_response = kestra_client.UsersApi.list_users(page, size, q=q, sort=sort)
+        print("The response of UsersApi->list_users:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling users->list_users: %s\n" % e)
+        print("Exception when calling UsersApi->list_users: %s\n" % e)
 ```
 
 
@@ -702,11 +702,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update user details
-        api_response = kestra_client.users.patch_user(id, me_controller_api_user_details_request)
-        print("The response of users->patch_user:\n")
+        api_response = kestra_client.UsersApi.patch_user(id, me_controller_api_user_details_request)
+        print("The response of UsersApi->patch_user:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling users->patch_user: %s\n" % e)
+        print("Exception when calling UsersApi->patch_user: %s\n" % e)
 ```
 
 
@@ -768,9 +768,9 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update user demo
-        kestra_client.users.patch_user_demo(id, iam_user_controller_api_patch_restricted_request)
+        kestra_client.UsersApi.patch_user_demo(id, iam_user_controller_api_patch_restricted_request)
     except Exception as e:
-        print("Exception when calling users->patch_user_demo: %s\n" % e)
+        print("Exception when calling UsersApi->patch_user_demo: %s\n" % e)
 ```
 
 
@@ -833,11 +833,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update user password
-        api_response = kestra_client.users.patch_user_password(id, iam_user_controller_api_patch_user_password_request)
-        print("The response of users->patch_user_password:\n")
+        api_response = kestra_client.UsersApi.patch_user_password(id, iam_user_controller_api_patch_user_password_request)
+        print("The response of UsersApi->patch_user_password:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling users->patch_user_password: %s\n" % e)
+        print("Exception when calling UsersApi->patch_user_password: %s\n" % e)
 ```
 
 
@@ -900,9 +900,9 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update user superadmin privileges
-        kestra_client.users.patch_user_super_admin(id, api_patch_super_admin_request)
+        kestra_client.UsersApi.patch_user_super_admin(id, api_patch_super_admin_request)
     except Exception as e:
-        print("Exception when calling users->patch_user_super_admin: %s\n" % e)
+        print("Exception when calling UsersApi->patch_user_super_admin: %s\n" % e)
 ```
 
 
@@ -964,11 +964,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update authenticated user password
-        api_response = kestra_client.users.update_current_user_password(me_controller_api_update_password_request)
-        print("The response of users->update_current_user_password:\n")
+        api_response = kestra_client.UsersApi.update_current_user_password(me_controller_api_update_password_request)
+        print("The response of UsersApi->update_current_user_password:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling users->update_current_user_password: %s\n" % e)
+        print("Exception when calling UsersApi->update_current_user_password: %s\n" % e)
 ```
 
 
@@ -1029,11 +1029,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update a user account
-        api_response = kestra_client.users.update_user(id, iam_user_controller_api_create_or_update_user_request)
-        print("The response of users->update_user:\n")
+        api_response = kestra_client.UsersApi.update_user(id, iam_user_controller_api_create_or_update_user_request)
+        print("The response of UsersApi->update_user:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling users->update_user: %s\n" % e)
+        print("Exception when calling UsersApi->update_user: %s\n" % e)
 ```
 
 
@@ -1095,9 +1095,9 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update the list of groups a user belongs to for the given tenant
-        kestra_client.users.update_user_groups(id, tenant, iam_user_group_controller_api_update_user_groups_request)
+        kestra_client.UsersApi.update_user_groups(id, tenant, iam_user_group_controller_api_update_user_groups_request)
     except Exception as e:
-        print("Exception when calling users->update_user_groups: %s\n" % e)
+        print("Exception when calling UsersApi->update_user_groups: %s\n" % e)
 ```
 
 
@@ -1161,11 +1161,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Get a user
-        api_response = kestra_client.users.user(id)
-        print("The response of users->user:\n")
+        api_response = kestra_client.UsersApi.user(id)
+        print("The response of UsersApi->user:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling users->user: %s\n" % e)
+        print("Exception when calling UsersApi->user: %s\n" % e)
 ```
 
 

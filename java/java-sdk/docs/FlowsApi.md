@@ -24,11 +24,14 @@ All URIs are relative to *http://localhost*
 | [**listDistinctNamespaces**](FlowsApi.md#listDistinctNamespaces) | **GET** /api/v1/{tenant}/flows/distinct-namespaces | List all distinct namespaces |
 | [**listFlowRevisions**](FlowsApi.md#listFlowRevisions) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/revisions | Get revisions for a flow |
 | [**listFlowsByNamespace**](FlowsApi.md#listFlowsByNamespace) | **GET** /api/v1/{tenant}/flows/{namespace} | Retrieve all flows from a given namespace |
+| [**searchConcurrencyLimits**](FlowsApi.md#searchConcurrencyLimits) | **GET** /api/v1/{tenant}/concurrency-limit/search | Search for flow concurrency limits |
 | [**searchFlows**](FlowsApi.md#searchFlows) | **GET** /api/v1/{tenant}/flows/search | Search for flows |
 | [**searchFlowsBySourceCode**](FlowsApi.md#searchFlowsBySourceCode) | **GET** /api/v1/{tenant}/flows/source | Search for flows source code |
 | [**taskFromFlow**](FlowsApi.md#taskFromFlow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId} | Get a flow task |
+| [**updateConcurrencyLimit**](FlowsApi.md#updateConcurrencyLimit) | **PUT** /api/v1/{tenant}/concurrency-limit/{namespace}/{flowId} | Update a flow concurrency limit |
 | [**updateFlow**](FlowsApi.md#updateFlow) | **PUT** /api/v1/{tenant}/flows/{namespace}/{id} | Update a flow |
 | [**updateFlowsInNamespace**](FlowsApi.md#updateFlowsInNamespace) | **POST** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from yaml source |
+| [**updateTask**](FlowsApi.md#updateTask) | **PATCH** /api/v1/{tenant}/flows/{namespace}/{id}/{taskId} | Update a single task on a flow |
 | [**validateFlows**](FlowsApi.md#validateFlows) | **POST** /api/v1/{tenant}/flows/validate | Validate a list of flows |
 | [**validateTask**](FlowsApi.md#validateTask) | **POST** /api/v1/{tenant}/flows/validate/task | Validate a task |
 | [**validateTrigger**](FlowsApi.md#validateTrigger) | **POST** /api/v1/{tenant}/flows/validate/trigger | Validate trigger |
@@ -890,7 +893,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | getFlow 200 response |  -  |
+| **200** | On success |  -  |
 
 
 ## flowDependencies
@@ -1191,7 +1194,7 @@ public class Example {
 
 ## importFlows
 
-> List&lt;String&gt; importFlows(tenant, fileUpload)
+> List&lt;String&gt; importFlows(failOnError, tenant, fileUpload)
 
     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
 
@@ -1215,10 +1218,11 @@ public class Example {
         .url("http://localhost:8080")
         .build();
 
+        Boolean failOnError = false; // Boolean | If should fail on invalid flows
         String tenant = "tenant_example"; // String | 
         File fileUpload = new File("/path/to/file"); // File | The file to import, can be a ZIP archive or a multi-objects YAML file
         try {
-            List<String> result = kestraClient.FlowsApi().importFlows(tenant, fileUpload);
+            List<String> result = kestraClient.FlowsApi().importFlows(failOnError, tenant, fileUpload);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#importFlows");
@@ -1236,6 +1240,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **failOnError** | **Boolean**| If should fail on invalid flows | [default to false] |
 | **tenant** | **String**|  | |
 | **fileUpload** | **File**| The file to import, can be a ZIP archive or a multi-objects YAML file | [optional] |
 
@@ -1471,6 +1476,73 @@ public class Example {
 | **200** | listFlowsByNamespace 200 response |  -  |
 
 
+## searchConcurrencyLimits
+
+> PagedResultsConcurrencyLimit searchConcurrencyLimits(tenant)
+
+Search for flow concurrency limits
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.FlowsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String tenant = "tenant_example"; // String | 
+        try {
+            PagedResultsConcurrencyLimit result = kestraClient.FlowsApi().searchConcurrencyLimits(tenant);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling FlowsApi#searchConcurrencyLimits");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
+
+### Return type
+
+[**PagedResultsConcurrencyLimit**](PagedResultsConcurrencyLimit.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | searchConcurrencyLimits 200 response |  -  |
+
+
 ## searchFlows
 
 > PagedResultsFlow searchFlows(page, size, tenant, sort, filters)
@@ -1701,6 +1773,79 @@ public class Example {
 | **200** | getTaskFromFlow 200 response |  -  |
 
 
+## updateConcurrencyLimit
+
+> ConcurrencyLimit updateConcurrencyLimit(flowId, namespace, tenant, concurrencyLimit)
+
+Update a flow concurrency limit
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.FlowsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String flowId = "flowId_example"; // String | 
+        String namespace = "namespace_example"; // String | 
+        String tenant = "tenant_example"; // String | 
+        ConcurrencyLimit concurrencyLimit = new ConcurrencyLimit(); // ConcurrencyLimit | 
+        try {
+            ConcurrencyLimit result = kestraClient.FlowsApi().updateConcurrencyLimit(flowId, namespace, tenant, concurrencyLimit);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling FlowsApi#updateConcurrencyLimit");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **flowId** | **String**|  | |
+| **namespace** | **String**|  | |
+| **tenant** | **String**|  | |
+| **concurrencyLimit** | [**ConcurrencyLimit**](ConcurrencyLimit.md)|  | |
+
+### Return type
+
+[**ConcurrencyLimit**](ConcurrencyLimit.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | updateConcurrencyLimit 200 response |  -  |
+
+
 ## updateFlow
 
 > FlowWithSource updateFlow(namespace, id, tenant, body)
@@ -1849,6 +1994,82 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | updateFlowsInNamespace 200 response |  -  |
+
+
+## updateTask
+
+> Flow updateTask(namespace, id, taskId, tenant, task)
+
+Update a single task on a flow
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.FlowsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String namespace = "namespace_example"; // String | The flow namespace
+        String id = "id_example"; // String | The flow id
+        String taskId = "taskId_example"; // String | The task id
+        String tenant = "tenant_example"; // String | 
+        Task task = new Task(); // Task | The task
+        try {
+            Flow result = kestraClient.FlowsApi().updateTask(namespace, id, taskId, tenant, task);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling FlowsApi#updateTask");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **namespace** | **String**| The flow namespace | |
+| **id** | **String**| The flow id | |
+| **taskId** | **String**| The task id | |
+| **tenant** | **String**|  | |
+| **task** | [**Task**](Task.md)| The task | |
+
+### Return type
+
+[**Flow**](Flow.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | updateTask 200 response |  -  |
 
 
 ## validateFlows

@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **description** | **str** |  | [optional] 
 **type** | **str** |  | [optional] 
 **tags** | **List[str]** |  | [optional] 
+**thumbnail** | **str** |  | [optional] 
 
 ## Example
 

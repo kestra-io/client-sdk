@@ -29,13 +29,13 @@ log_and_run docker compose -f docker-compose-ci.yml up -d --wait || {
 }
 
 echo "install requirements"
-log_and_run pip install -r requirements.txt -r test-requirements.txt
+log_and_run pip install -r requirements.txt -r test-requirements.txt --break-system-packages
 
 echo "install SDK locally so it can be imported and used in e2e tests"
-log_and_run pip install -e .
+log_and_run pip install -e . --break-system-packages
 
 echo "start tests"
-log_and_run python -m pytest ./testApis/test_kv_api.py -vv -s --log-cli-level=DEBUG --log-cli-format="%(asctime)s [%(levelname)s] %(name)s: %(message)s)" --showlocals --timeout=10
+log_and_run python3 -m pytest -vv -s --log-cli-format="%(asctime)s [%(levelname)s] %(name)s: %(message)s)" --showlocals --timeout=10
 
 echo "stop Kestra container"
 log_and_run docker compose -f docker-compose-ci.yml down

@@ -1,13 +1,14 @@
 
 
-# SetLogoRequest
+# PagedResultsKVEntry
 
 
 ## Properties
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**logo** | **File** | The logo file |  [optional] |
+|**results** | [**List&lt;KVEntry&gt;**](KVEntry.md) |  |  |
+|**total** | **Long** |  |  |
 
 
 

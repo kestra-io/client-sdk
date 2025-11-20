@@ -4,7 +4,7 @@ info:
   description: |-
     All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>
     Endpoints designated as Superadmin-only are not tenant-scoped.
-  version: v1
+  version: 1.1.4
 tags:
   - name: Flows
     description: Flows api
@@ -1056,6 +1056,22 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+  /api/v1/main-tenant-flows:
+    get:
+      tags:
+        - Misc
+      summary: Check if flows are present on the main tenant.
+      operationId: mainTenantFlows
+      responses:
+        "200":
+          description: mainTenantFlows 200 response
+          content:
+            application/json:
+              schema:
+                type: boolean
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/me:
     get:
       tags:
@@ -1936,6 +1952,105 @@ paths:
       responses:
         "204":
           description: On success
+  /api/v1/tenants/{id}/apps-catalog:
+    get:
+      tags:
+        - Tenants
+      summary: Get the apps catalog config for the specified tenant.
+      description: Superadmin-only.
+      operationId: appsCatalogConfig
+      parameters:
+        - name: id
+          in: path
+          description: The tenant id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: getAppsCatalogConfig 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TenantController.AppsCatalogConfigResponse"
+    post:
+      tags:
+        - Tenants
+      summary: Set the apps catalog config for the specified tenant.
+      description: Superadmin-only.
+      operationId: setAppsCatalogConfig
+      parameters:
+        - name: id
+          in: path
+          description: The tenant id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TenantController.AppsCatalogConfigRequest"
+        required: true
+      responses:
+        "200":
+          description: setAppsCatalogConfig 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TenantController.AppsCatalogConfigResponse"
+  /api/v1/tenants/{id}/apps-catalog/logo:
+    post:
+      tags:
+        - Tenants
+      summary: Set the apps catalog logo for the specified tenant.
+      description: Superadmin-only.
+      operationId: setAppsCatalogLogo
+      parameters:
+        - name: id
+          in: path
+          description: The tenant id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                logo:
+                  type: string
+                  description: The logo file
+                  format: binary
+            encoding:
+              logo:
+                contentType: application/octet-stream
+                explode: false
+        required: true
+      responses:
+        "200":
+          description: setAppsCatalogLogo 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TenantController.AppsCatalogConfigResponse"
+    delete:
+      tags:
+        - Tenants
+      summary: Remove the apps catalog logo for the specified tenant.
+      description: Superadmin-only.
+      operationId: deleteAppsCatalogLogo
+      parameters:
+        - name: id
+          in: path
+          description: The tenant id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: deleteAppsCatalogLogo 200 response
   /api/v1/tenants/{id}/logo:
     post:
       tags:
@@ -3663,7 +3778,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/MiscController.BasicAuthCredentials"
+              $ref: "#/components/schemas/BasicAuthCredentials"
         required: true
       responses:
         "200":
@@ -4285,6 +4400,62 @@ paths:
             application/yaml:
               schema:
                 type: string
+  /api/v1/{tenant}/concurrency-limit/search:
+    get:
+      tags:
+        - Executions
+        - Flows
+      summary: Search for flow concurrency limits
+      operationId: searchConcurrencyLimits
+      parameters:
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: searchConcurrencyLimits 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_ConcurrencyLimit_"
+  /api/v1/{tenant}/concurrency-limit/{namespace}/{flowId}:
+    put:
+      tags:
+        - Executions
+        - Flows
+      summary: Update a flow concurrency limit
+      operationId: updateConcurrencyLimit
+      parameters:
+        - name: flowId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: namespace
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConcurrencyLimit"
+        required: true
+      responses:
+        "200":
+          description: updateConcurrencyLimit 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConcurrencyLimit"
   /api/v1/{tenant}/dashboards:
     get:
       tags:
@@ -5672,7 +5843,7 @@ paths:
             type: string
       responses:
         "200":
-          description: triggerExecutionByGetWebhook 200 response
+          description: On success
           content:
             application/json:
               schema:
@@ -6338,6 +6509,8 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+      x-sdk-customization:
+        x-multipart: "true"
   /api/v1/{tenant}/executions/{executionId}/unqueue:
     post:
       tags:
@@ -6882,6 +7055,14 @@ paths:
             When sending a ZIP archive, a list of files that couldn't be imported is returned.
       operationId: importFlows
       parameters:
+        - name: failOnError
+          in: query
+          description: If should fail on invalid flows
+          required: true
+          explode: false
+          schema:
+            type: boolean
+            default: false
         - name: tenant
           in: path
           required: true
@@ -7266,7 +7447,7 @@ paths:
             type: string
       responses:
         "200":
-          description: getFlow 200 response
+          description: On success
           content:
             application/json:
               schema:
@@ -7527,6 +7708,54 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Task"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/{tenant}/flows/{namespace}/{id}/{taskId}:
+    patch:
+      tags:
+        - Flows
+      summary: Update a single task on a flow
+      operationId: updateTask
+      parameters:
+        - name: namespace
+          in: path
+          description: The flow namespace
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: The flow id
+          required: true
+          schema:
+            type: string
+        - name: taskId
+          in: path
+          description: The task id
+          required: true
+          schema:
+            type: string
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The task
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Task"
+        required: true
+      responses:
+        "200":
+          description: updateTask 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Flow"
+      deprecated: true
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -8971,6 +9200,64 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+  /api/v1/{tenant}/kv:
+    get:
+      tags:
+        - KV
+      summary: List all keys
+      operationId: listAllKeys
+      parameters:
+        - name: page
+          in: query
+          description: The current page
+          required: true
+          explode: false
+          schema:
+            type: integer
+            format: int32
+            default: 1
+        - name: size
+          in: query
+          description: The current page size
+          required: true
+          explode: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: sort
+          in: query
+          description: The sort of current page
+          explode: false
+          schema:
+            type: array
+            nullable: true
+            items:
+              type: string
+        - name: filters
+          in: query
+          description: Filters
+          explode: false
+          schema:
+            type: array
+            nullable: true
+            items:
+              $ref: "#/components/schemas/QueryFilter"
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: listAllKeys 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_KVEntry_"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/logs/search:
     get:
       tags:
@@ -10277,6 +10564,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/KVEntry"
+      deprecated: true
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -10507,7 +10795,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiSecretListResponse"
+                $ref: "#/components/schemas/ApiSecretListResponse_ApiSecretMeta_"
+      deprecated: true
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -10542,7 +10831,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/ApiSecretMeta"
+                  $ref: "#/components/schemas/ApiSecretMetaEE"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -10613,7 +10902,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/ApiSecretMeta"
+                  $ref: "#/components/schemas/ApiSecretMetaEE"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -10855,6 +11144,61 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+  /api/v1/{tenant}/secrets:
+    get:
+      tags:
+        - Secrets
+      summary: Search secrets of all namespaces
+      operationId: listSecrets
+      parameters:
+        - name: page
+          in: query
+          description: The current page
+          required: true
+          explode: false
+          schema:
+            type: integer
+            format: int32
+            default: 1
+        - name: size
+          in: query
+          description: The current page size
+          required: true
+          explode: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: sort
+          in: query
+          description: The sort of current page
+          explode: false
+          schema:
+            type: array
+            nullable: true
+            items:
+              type: string
+        - name: filters
+          in: query
+          description: Filters
+          required: true
+          explode: false
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/QueryFilter"
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: listSecrets 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiSecretListResponse_ApiSecretMeta_"
   /api/v1/{tenant}/security-integrations:
     get:
       tags:
@@ -12979,7 +13323,7 @@ components:
           type: boolean
         isManaged:
           type: boolean
-    ApiSecretListResponse:
+    ApiSecretListResponse_ApiSecretMeta_:
       required:
         - readOnly
         - results
@@ -12990,7 +13334,7 @@ components:
         results:
           type: array
           items:
-            $ref: "#/components/schemas/ApiSecretMeta"
+            $ref: "#/components/schemas/ApiSecretMetaEE"
         total:
           type: integer
           format: int64
@@ -13007,6 +13351,8 @@ components:
         - tags
       type: object
       properties:
+        namespace:
+          type: string
         description:
           type: string
         tags:
@@ -13137,6 +13483,8 @@ components:
           type: string
         namespace:
           type: string
+        flowId:
+          type: string
         tags:
           type: array
           items:
@@ -13164,6 +13512,8 @@ components:
           type: array
           items:
             type: string
+        thumbnail:
+          type: string
     AppsController.ApiAppSource:
       type: object
       properties:
@@ -13520,6 +13870,15 @@ components:
           type: array
           items:
             type: string
+    BasicAuthCredentials:
+      type: object
+      properties:
+        uid:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
     Binding:
       required:
         - deleted
@@ -13723,6 +14082,22 @@ components:
         - QUEUE
         - CANCEL
         - FAIL
+    ConcurrencyLimit:
+      required:
+        - flowId
+        - namespace
+        - tenantId
+      type: object
+      properties:
+        tenantId:
+          type: string
+        namespace:
+          type: string
+        flowId:
+          type: string
+        running:
+          type: integer
+          format: int32
     Condition:
       required:
         - type
@@ -13828,6 +14203,9 @@ components:
             CREATED:
               type: integer
               format: int64
+            SUBMITTED:
+              type: integer
+              format: int64
             RUNNING:
               type: integer
               format: int64
@@ -13868,6 +14246,9 @@ components:
               type: integer
               format: int64
             BREAKPOINT:
+              type: integer
+              format: int64
+            RESUBMITTED:
               type: integer
               format: int64
         groupBy:
@@ -14257,8 +14638,7 @@ components:
           type: string
         variables:
           type: object
-          additionalProperties:
-            type: object
+          additionalProperties: true
         logFile:
           type: string
           format: uri
@@ -14266,10 +14646,6 @@ components:
       type: object
       properties:
         dailyExecutionsCount:
-          type: array
-          items:
-            $ref: "#/components/schemas/DailyExecutionStatistics"
-        dailyTaskRunsCount:
           type: array
           items:
             $ref: "#/components/schemas/DailyExecutionStatistics"
@@ -14683,60 +15059,61 @@ components:
         - id
         - namespace
       type: object
-      properties:
-        id:
-          maxLength: 100
-          minLength: 1
-          pattern: ^[a-zA-Z0-9][a-zA-Z0-9._-]*
-          type: string
-        namespace:
-          maxLength: 150
-          minLength: 1
-          pattern: ^[a-z0-9][a-z0-9._-]*
-          type: string
-        revision:
-          minimum: 1
-          type: integer
-          format: int32
-        description:
-          type: string
-        inputs:
-          type: array
-          items:
-            $ref: "#/components/schemas/Input_Object_"
-        disabled:
-          type: boolean
-        labels:
-          type: array
-          description: Labels as a list of Label (key/value pairs) or as a map of string to string.
-          oneOf:
-            - $ref: "#/components/schemas/Map_Object.Object_"
-          items:
-            $ref: "#/components/schemas/Label"
-        workerGroup:
-          $ref: "#/components/schemas/WorkerGroup"
-        deleted:
-          type: boolean
-        variables:
-          type: object
-          additionalProperties: false
-        concurrency:
-          $ref: "#/components/schemas/Concurrency"
-        outputs:
-          title: Output values available and exposes to other flows.
-          type: array
-          description: >-
-            Output values make information about the execution of your Flow available and expose for other Kestra flows
-            to use. Output values are similar to return values in programming languages.
-          items:
-            $ref: "#/components/schemas/Output"
-        sla:
-          type: array
-          items:
-            $ref: "#/components/schemas/SLA"
       allOf:
         - $ref: "#/components/schemas/Flow"
         - $ref: "#/components/schemas/AbstractFlow"
+        - type: object
+          properties:
+            id:
+              maxLength: 100
+              minLength: 1
+              pattern: ^[a-zA-Z0-9][a-zA-Z0-9._-]*
+              type: string
+            namespace:
+              maxLength: 150
+              minLength: 1
+              pattern: ^[a-z0-9][a-z0-9._-]*
+              type: string
+            revision:
+              minimum: 1
+              type: integer
+              format: int32
+            description:
+              type: string
+            inputs:
+              type: array
+              items:
+                $ref: "#/components/schemas/Input_Object_"
+            disabled:
+              type: boolean
+            labels:
+              type: array
+              description: Labels as a list of Label (key/value pairs) or as a map of string to string.
+              oneOf:
+                - $ref: "#/components/schemas/Map_Object.Object_"
+              items:
+                $ref: "#/components/schemas/Label"
+            workerGroup:
+              $ref: "#/components/schemas/WorkerGroup"
+            deleted:
+              type: boolean
+            variables:
+              type: object
+              additionalProperties: false
+            concurrency:
+              $ref: "#/components/schemas/Concurrency"
+            outputs:
+              title: Output values available and exposes to other flows.
+              type: array
+              description: >-
+                Output values make information about the execution of your Flow available and expose for other Kestra
+                flows to use. Output values are similar to return values in programming languages.
+              items:
+                $ref: "#/components/schemas/Output"
+            sla:
+              type: array
+              items:
+                $ref: "#/components/schemas/SLA"
     GroupIdentifier:
       type: object
       properties:
@@ -15433,6 +15810,11 @@ components:
           title: The default value to use if no value is specified.
           allOf:
             - $ref: "#/components/schemas/Property_Object_"
+        prefill:
+          title: The suggested value for the input.
+          description: Optional UI hint for pre-filling the input. Cannot be used together with a default value.
+          allOf:
+            - $ref: "#/components/schemas/Property_Object_"
         displayName:
           title: The display name of the input.
           type: string
@@ -15739,8 +16121,13 @@ components:
     KVEntry:
       type: object
       properties:
+        namespace:
+          type: string
         key:
           type: string
+        version:
+          type: integer
+          format: int32
         description:
           type: string
           nullable: true
@@ -16030,15 +16417,6 @@ components:
           $ref: "#/components/schemas/FlowUsage"
         executions:
           $ref: "#/components/schemas/ExecutionUsage"
-    MiscController.BasicAuthCredentials:
-      type: object
-      properties:
-        uid:
-          type: string
-        username:
-          type: string
-        password:
-          type: string
     MiscController.Configuration:
       type: object
       properties:
@@ -16050,12 +16428,12 @@ components:
           $ref: "#/components/schemas/EditionProvider.Edition"
         commitId:
           type: string
+        chartDefaultDuration:
+          type: string
         commitDate:
           type: string
           format: date-time
         isCustomDashboardsEnabled:
-          type: boolean
-        isTaskRunEnabled:
           type: boolean
         isAnonymousUsageEnabled:
           type: boolean
@@ -16075,10 +16453,6 @@ components:
           type: array
           items:
             type: string
-        resourceToFilters:
-          type: array
-          items:
-            $ref: "#/components/schemas/QueryFilter.ResourceField"
         isAiEnabled:
           type: boolean
         isBasicAuthInitialized:
@@ -16123,6 +16497,8 @@ components:
             passwordRegexp:
               type: string
             passwordlessEnabled:
+              type: boolean
+            airgapped:
               type: boolean
     MiscController.Environment:
       type: object
@@ -16382,6 +16758,19 @@ components:
         total:
           type: integer
           format: int64
+    PagedResults_ConcurrencyLimit_:
+      required:
+        - results
+        - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ConcurrencyLimit"
+        total:
+          type: integer
+          format: int64
     PagedResults_Dashboard_:
       required:
         - results
@@ -16525,6 +16914,19 @@ components:
         total:
           type: integer
           format: int64
+    PagedResults_KVEntry_:
+      required:
+        - results
+        - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/KVEntry"
+        total:
+          type: integer
+          format: int64
     PagedResults_LogEntry_:
       required:
         - results
@@ -16589,19 +16991,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/SearchResult_Flow_"
-        total:
-          type: integer
-          format: int64
-    PagedResults_TaskRun_:
-      required:
-        - results
-        - total
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            $ref: "#/components/schemas/TaskRun"
         total:
           type: integer
           format: int64
@@ -16998,8 +17387,10 @@ components:
         - QUERY
         - SCOPE
         - NAMESPACE
+        - KIND
         - LABELS
         - FLOW_ID
+        - UPDATED
         - START_DATE
         - END_DATE
         - STATE
@@ -17012,17 +17403,6 @@ components:
         - EXISTING_ONLY
         - MIN_LEVEL
       x-type: String
-    QueryFilter.FieldOp:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-        operations:
-          type: array
-          items:
-            $ref: "#/components/schemas/QueryFilter.Operation"
     QueryFilter.Op:
       type: string
       enum:
@@ -17039,22 +17419,6 @@ components:
         - CONTAINS
         - REGEX
         - PREFIX
-    QueryFilter.Operation:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-    QueryFilter.ResourceField:
-      type: object
-      properties:
-        name:
-          type: string
-        fields:
-          type: array
-          items:
-            $ref: "#/components/schemas/QueryFilter.FieldOp"
     RBACService.RoleAssignment.RoleOrigin:
       type: string
       enum:
@@ -17756,6 +18120,7 @@ components:
       type: string
       enum:
         - CREATED
+        - SUBMITTED
         - RUNNING
         - PAUSED
         - RESTARTED
@@ -17770,6 +18135,7 @@ components:
         - RETRIED
         - SKIPPED
         - BREAKPOINT
+        - RESUBMITTED
     Task:
       required:
         - id
@@ -17965,6 +18331,37 @@ components:
           type: boolean
         outputsInInternalStorage:
           type: boolean
+        appCatalogConfig:
+          $ref: "#/components/schemas/Tenant.AppCatalogConfig"
+    Tenant.AppCatalogConfig:
+      type: object
+      properties:
+        title:
+          type: string
+        titleColor:
+          type: string
+        primaryColor:
+          type: string
+    TenantController.AppsCatalogConfigRequest:
+      type: object
+      properties:
+        title:
+          type: string
+        titleColor:
+          type: string
+        primaryColor:
+          type: string
+    TenantController.AppsCatalogConfigResponse:
+      type: object
+      properties:
+        title:
+          type: string
+        titleColor:
+          type: string
+        primaryColor:
+          type: string
+        logo:
+          type: string
     TenantInterface:
       type: object
       properties:

@@ -1,22 +1,22 @@
-# kestrapy.namespaces
+# kestrapy.NamespacesApi
 
 All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**autocomplete_namespaces**](namespaces.md#autocomplete_namespaces) | **POST** /api/v1/{tenant}/namespaces/autocomplete | List namespaces for autocomplete
-[**create_namespace**](namespaces.md#create_namespace) | **POST** /api/v1/{tenant}/namespaces | Create a namespace
-[**delete_namespace**](namespaces.md#delete_namespace) | **DELETE** /api/v1/{tenant}/namespaces/{id} | Delete a namespace
-[**delete_secret**](namespaces.md#delete_secret) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Delete a secret for a namespace
-[**inherited_plugin_defaults**](namespaces.md#inherited_plugin_defaults) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-plugindefaults | List inherited plugin defaults
-[**inherited_secrets**](namespaces.md#inherited_secrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets
-[**inherited_variables**](namespaces.md#inherited_variables) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-variables | List inherited variables
-[**list_namespace_secrets**](namespaces.md#list_namespace_secrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/secrets | Get secrets for a namespace
-[**namespace**](namespaces.md#namespace) | **GET** /api/v1/{tenant}/namespaces/{id} | Get a namespace
-[**patch_secret**](namespaces.md#patch_secret) | **PATCH** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Patch a secret metadata for a namespace
-[**put_secrets**](namespaces.md#put_secrets) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/secrets | Update secrets for a namespace
-[**search_namespaces**](namespaces.md#search_namespaces) | **GET** /api/v1/{tenant}/namespaces/search | Search for namespaces
-[**update_namespace**](namespaces.md#update_namespace) | **PUT** /api/v1/{tenant}/namespaces/{id} | Update a namespace
+[**autocomplete_namespaces**](NamespacesApi.md#autocomplete_namespaces) | **POST** /api/v1/{tenant}/namespaces/autocomplete | List namespaces for autocomplete
+[**create_namespace**](NamespacesApi.md#create_namespace) | **POST** /api/v1/{tenant}/namespaces | Create a namespace
+[**delete_namespace**](NamespacesApi.md#delete_namespace) | **DELETE** /api/v1/{tenant}/namespaces/{id} | Delete a namespace
+[**delete_secret**](NamespacesApi.md#delete_secret) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Delete a secret for a namespace
+[**inherited_plugin_defaults**](NamespacesApi.md#inherited_plugin_defaults) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-plugindefaults | List inherited plugin defaults
+[**inherited_secrets**](NamespacesApi.md#inherited_secrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets
+[**inherited_variables**](NamespacesApi.md#inherited_variables) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-variables | List inherited variables
+[**list_namespace_secrets**](NamespacesApi.md#list_namespace_secrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/secrets | Get secrets for a namespace
+[**namespace**](NamespacesApi.md#namespace) | **GET** /api/v1/{tenant}/namespaces/{id} | Get a namespace
+[**patch_secret**](NamespacesApi.md#patch_secret) | **PATCH** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Patch a secret metadata for a namespace
+[**put_secrets**](NamespacesApi.md#put_secrets) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/secrets | Update secrets for a namespace
+[**search_namespaces**](NamespacesApi.md#search_namespaces) | **GET** /api/v1/{tenant}/namespaces/search | Search for namespaces
+[**update_namespace**](NamespacesApi.md#update_namespace) | **PUT** /api/v1/{tenant}/namespaces/{id} | Update a namespace
 
 
 # **autocomplete_namespaces**
@@ -47,11 +47,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List namespaces for autocomplete
-        api_response = kestra_client.namespaces.autocomplete_namespaces(tenant, api_autocomplete)
-        print("The response of namespaces->autocomplete_namespaces:\n")
+        api_response = kestra_client.NamespacesApi.autocomplete_namespaces(tenant, api_autocomplete)
+        print("The response of NamespacesApi->autocomplete_namespaces:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling namespaces->autocomplete_namespaces: %s\n" % e)
+        print("Exception when calling NamespacesApi->autocomplete_namespaces: %s\n" % e)
 ```
 
 
@@ -111,11 +111,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create a namespace
-        api_response = kestra_client.namespaces.create_namespace(tenant, namespace)
-        print("The response of namespaces->create_namespace:\n")
+        api_response = kestra_client.NamespacesApi.create_namespace(tenant, namespace)
+        print("The response of NamespacesApi->create_namespace:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling namespaces->create_namespace: %s\n" % e)
+        print("Exception when calling NamespacesApi->create_namespace: %s\n" % e)
 ```
 
 
@@ -175,9 +175,9 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete a namespace
-        kestra_client.namespaces.delete_namespace(id, tenant)
+        kestra_client.NamespacesApi.delete_namespace(id, tenant)
     except Exception as e:
-        print("Exception when calling namespaces->delete_namespace: %s\n" % e)
+        print("Exception when calling NamespacesApi->delete_namespace: %s\n" % e)
 ```
 
 
@@ -238,9 +238,9 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete a secret for a namespace
-        kestra_client.namespaces.delete_secret(namespace, key, tenant)
+        kestra_client.NamespacesApi.delete_secret(namespace, key, tenant)
     except Exception as e:
-        print("Exception when calling namespaces->delete_secret: %s\n" % e)
+        print("Exception when calling NamespacesApi->delete_secret: %s\n" % e)
 ```
 
 
@@ -301,11 +301,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List inherited plugin defaults
-        api_response = kestra_client.namespaces.inherited_plugin_defaults(id, tenant)
-        print("The response of namespaces->inherited_plugin_defaults:\n")
+        api_response = kestra_client.NamespacesApi.inherited_plugin_defaults(id, tenant)
+        print("The response of NamespacesApi->inherited_plugin_defaults:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling namespaces->inherited_plugin_defaults: %s\n" % e)
+        print("Exception when calling NamespacesApi->inherited_plugin_defaults: %s\n" % e)
 ```
 
 
@@ -365,11 +365,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List inherited secrets
-        api_response = kestra_client.namespaces.inherited_secrets(namespace, tenant)
-        print("The response of namespaces->inherited_secrets:\n")
+        api_response = kestra_client.NamespacesApi.inherited_secrets(namespace, tenant)
+        print("The response of NamespacesApi->inherited_secrets:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling namespaces->inherited_secrets: %s\n" % e)
+        print("Exception when calling NamespacesApi->inherited_secrets: %s\n" % e)
 ```
 
 
@@ -429,11 +429,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List inherited variables
-        api_response = kestra_client.namespaces.inherited_variables(id, tenant)
-        print("The response of namespaces->inherited_variables:\n")
+        api_response = kestra_client.NamespacesApi.inherited_variables(id, tenant)
+        print("The response of NamespacesApi->inherited_variables:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling namespaces->inherited_variables: %s\n" % e)
+        print("Exception when calling NamespacesApi->inherited_variables: %s\n" % e)
 ```
 
 
@@ -468,7 +468,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_namespace_secrets**
-> ApiSecretListResponse list_namespace_secrets(namespace, page, size, filters, tenant, sort=sort)
+> ApiSecretListResponseApiSecretMeta list_namespace_secrets(namespace, page, size, filters, tenant, sort=sort)
 
 Get secrets for a namespace
 
@@ -497,11 +497,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Get secrets for a namespace
-        api_response = kestra_client.namespaces.list_namespace_secrets(namespace, page, size, filters, tenant, sort=sort)
-        print("The response of namespaces->list_namespace_secrets:\n")
+        api_response = kestra_client.NamespacesApi.list_namespace_secrets(namespace, page, size, filters, tenant, sort=sort)
+        print("The response of NamespacesApi->list_namespace_secrets:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling namespaces->list_namespace_secrets: %s\n" % e)
+        print("Exception when calling NamespacesApi->list_namespace_secrets: %s\n" % e)
 ```
 
 
@@ -520,7 +520,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiSecretListResponse**](ApiSecretListResponse.md)
+[**ApiSecretListResponseApiSecretMeta**](ApiSecretListResponseApiSecretMeta.md)
 
 ### Authorization
 
@@ -565,11 +565,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Get a namespace
-        api_response = kestra_client.namespaces.namespace(id, tenant)
-        print("The response of namespaces->namespace:\n")
+        api_response = kestra_client.NamespacesApi.namespace(id, tenant)
+        print("The response of NamespacesApi->namespace:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling namespaces->namespace: %s\n" % e)
+        print("Exception when calling NamespacesApi->namespace: %s\n" % e)
 ```
 
 
@@ -604,7 +604,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_secret**
-> List[ApiSecretMeta] patch_secret(namespace, key, tenant, api_secret_meta_ee)
+> List[ApiSecretMetaEE] patch_secret(namespace, key, tenant, api_secret_meta_ee)
 
 Patch a secret metadata for a namespace
 
@@ -631,11 +631,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Patch a secret metadata for a namespace
-        api_response = kestra_client.namespaces.patch_secret(namespace, key, tenant, api_secret_meta_ee)
-        print("The response of namespaces->patch_secret:\n")
+        api_response = kestra_client.NamespacesApi.patch_secret(namespace, key, tenant, api_secret_meta_ee)
+        print("The response of NamespacesApi->patch_secret:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling namespaces->patch_secret: %s\n" % e)
+        print("Exception when calling NamespacesApi->patch_secret: %s\n" % e)
 ```
 
 
@@ -652,7 +652,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[ApiSecretMeta]**](ApiSecretMeta.md)
+[**List[ApiSecretMetaEE]**](ApiSecretMetaEE.md)
 
 ### Authorization
 
@@ -672,7 +672,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **put_secrets**
-> List[ApiSecretMeta] put_secrets(namespace, tenant, api_secret_value)
+> List[ApiSecretMetaEE] put_secrets(namespace, tenant, api_secret_value)
 
 Update secrets for a namespace
 
@@ -698,11 +698,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update secrets for a namespace
-        api_response = kestra_client.namespaces.put_secrets(namespace, tenant, api_secret_value)
-        print("The response of namespaces->put_secrets:\n")
+        api_response = kestra_client.NamespacesApi.put_secrets(namespace, tenant, api_secret_value)
+        print("The response of NamespacesApi->put_secrets:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling namespaces->put_secrets: %s\n" % e)
+        print("Exception when calling NamespacesApi->put_secrets: %s\n" % e)
 ```
 
 
@@ -718,7 +718,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[ApiSecretMeta]**](ApiSecretMeta.md)
+[**List[ApiSecretMetaEE]**](ApiSecretMetaEE.md)
 
 ### Authorization
 
@@ -767,11 +767,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Search for namespaces
-        api_response = kestra_client.namespaces.search_namespaces(page, size, existing, tenant, q=q, sort=sort)
-        print("The response of namespaces->search_namespaces:\n")
+        api_response = kestra_client.NamespacesApi.search_namespaces(page, size, existing, tenant, q=q, sort=sort)
+        print("The response of NamespacesApi->search_namespaces:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling namespaces->search_namespaces: %s\n" % e)
+        print("Exception when calling NamespacesApi->search_namespaces: %s\n" % e)
 ```
 
 
@@ -836,11 +836,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update a namespace
-        api_response = kestra_client.namespaces.update_namespace(id, tenant, namespace)
-        print("The response of namespaces->update_namespace:\n")
+        api_response = kestra_client.NamespacesApi.update_namespace(id, tenant, namespace)
+        print("The response of NamespacesApi->update_namespace:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling namespaces->update_namespace: %s\n" % e)
+        print("Exception when calling NamespacesApi->update_namespace: %s\n" % e)
 ```
 
 

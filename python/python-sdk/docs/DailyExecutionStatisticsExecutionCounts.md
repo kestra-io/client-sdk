@@ -6,6 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **created** | **int** |  | [optional] 
+**submitted** | **int** |  | [optional] 
 **running** | **int** |  | [optional] 
 **paused** | **int** |  | [optional] 
 **restarted** | **int** |  | [optional] 
@@ -20,6 +21,7 @@ Name | Type | Description | Notes
 **retried** | **int** |  | [optional] 
 **skipped** | **int** |  | [optional] 
 **breakpoint** | **int** |  | [optional] 
+**resubmitted** | **int** |  | [optional] 
 
 ## Example
 

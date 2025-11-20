@@ -12,6 +12,7 @@
 |**description** | **String** |  |  [optional] |
 |**type** | **String** |  |  [optional] |
 |**tags** | **List&lt;String&gt;** |  |  [optional] |
+|**thumbnail** | **String** |  |  [optional] |
 
 
 

@@ -21,3 +21,4 @@ additionalProperties:
 
 openapiNormalizer:
   FILTER: 'tag:Executions|Flows|Namespaces|Triggers|Users|Groups|KV|Roles|ServiceAccount'
+  REFACTOR_ALLOF_WITH_PROPERTIES_ONLY: true

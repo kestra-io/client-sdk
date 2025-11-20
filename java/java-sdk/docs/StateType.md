@@ -7,6 +7,8 @@
 
 * `CREATED` (value: `"CREATED"`)
 
+* `SUBMITTED` (value: `"SUBMITTED"`)
+
 * `RUNNING` (value: `"RUNNING"`)
 
 * `PAUSED` (value: `"PAUSED"`)
@@ -34,6 +36,8 @@
 * `SKIPPED` (value: `"SKIPPED"`)
 
 * `BREAKPOINT` (value: `"BREAKPOINT"`)
+
+* `RESUBMITTED` (value: `"RESUBMITTED"`)
 
 * `UNKNOWN_DEFAULT_OPEN_API` (value: `"unknown_default_open_api"`)
 

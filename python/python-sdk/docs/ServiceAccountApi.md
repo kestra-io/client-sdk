@@ -1,25 +1,25 @@
-# kestrapy.serviceaccount
+# kestrapy.ServiceAccountApi
 
 All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_api_tokens_for_service_account**](serviceaccount.md#create_api_tokens_for_service_account) | **POST** /api/v1/service-accounts/{id}/api-tokens | Create new API Token for a specific service account
-[**create_api_tokens_for_service_account_with_tenant**](serviceaccount.md#create_api_tokens_for_service_account_with_tenant) | **POST** /api/v1/{tenant}/service-accounts/{id}/api-tokens | Create new API Token for a specific service account
-[**create_service_account**](serviceaccount.md#create_service_account) | **POST** /api/v1/service-accounts | Create a service account
-[**create_service_account_for_tenant**](serviceaccount.md#create_service_account_for_tenant) | **POST** /api/v1/{tenant}/service-accounts | Create a service account for the given tenant
-[**delete_api_token_for_service_account**](serviceaccount.md#delete_api_token_for_service_account) | **DELETE** /api/v1/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific service account and token id
-[**delete_api_token_for_service_account_with_tenant**](serviceaccount.md#delete_api_token_for_service_account_with_tenant) | **DELETE** /api/v1/{tenant}/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific service account and token id
-[**delete_service_account**](serviceaccount.md#delete_service_account) | **DELETE** /api/v1/service-accounts/{id} | Delete a service account
-[**delete_service_account_for_tenant**](serviceaccount.md#delete_service_account_for_tenant) | **DELETE** /api/v1/{tenant}/service-accounts/{id} | Delete a service account
-[**list_api_tokens_for_service_account**](serviceaccount.md#list_api_tokens_for_service_account) | **GET** /api/v1/service-accounts/{id}/api-tokens | List API tokens for a specific service account
-[**list_api_tokens_for_service_account_with_tenant**](serviceaccount.md#list_api_tokens_for_service_account_with_tenant) | **GET** /api/v1/{tenant}/service-accounts/{id}/api-tokens | List API tokens for a specific service account
-[**list_service_accounts**](serviceaccount.md#list_service_accounts) | **GET** /api/v1/service-accounts | List service accounts. Superadmin-only. 
-[**patch_service_account_details**](serviceaccount.md#patch_service_account_details) | **PATCH** /api/v1/service-accounts/{id} | Update service account details
-[**patch_service_account_super_admin**](serviceaccount.md#patch_service_account_super_admin) | **PATCH** /api/v1/service-accounts/{id}/superadmin | Update service account superadmin privileges
-[**service_account**](serviceaccount.md#service_account) | **GET** /api/v1/service-accounts/{id} | Get a service account
-[**service_account_for_tenant**](serviceaccount.md#service_account_for_tenant) | **GET** /api/v1/{tenant}/service-accounts/{id} | Retrieve a service account
-[**update_service_account**](serviceaccount.md#update_service_account) | **PUT** /api/v1/{tenant}/service-accounts/{id} | Update a user service account
+[**create_api_tokens_for_service_account**](ServiceAccountApi.md#create_api_tokens_for_service_account) | **POST** /api/v1/service-accounts/{id}/api-tokens | Create new API Token for a specific service account
+[**create_api_tokens_for_service_account_with_tenant**](ServiceAccountApi.md#create_api_tokens_for_service_account_with_tenant) | **POST** /api/v1/{tenant}/service-accounts/{id}/api-tokens | Create new API Token for a specific service account
+[**create_service_account**](ServiceAccountApi.md#create_service_account) | **POST** /api/v1/service-accounts | Create a service account
+[**create_service_account_for_tenant**](ServiceAccountApi.md#create_service_account_for_tenant) | **POST** /api/v1/{tenant}/service-accounts | Create a service account for the given tenant
+[**delete_api_token_for_service_account**](ServiceAccountApi.md#delete_api_token_for_service_account) | **DELETE** /api/v1/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific service account and token id
+[**delete_api_token_for_service_account_with_tenant**](ServiceAccountApi.md#delete_api_token_for_service_account_with_tenant) | **DELETE** /api/v1/{tenant}/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific service account and token id
+[**delete_service_account**](ServiceAccountApi.md#delete_service_account) | **DELETE** /api/v1/service-accounts/{id} | Delete a service account
+[**delete_service_account_for_tenant**](ServiceAccountApi.md#delete_service_account_for_tenant) | **DELETE** /api/v1/{tenant}/service-accounts/{id} | Delete a service account
+[**list_api_tokens_for_service_account**](ServiceAccountApi.md#list_api_tokens_for_service_account) | **GET** /api/v1/service-accounts/{id}/api-tokens | List API tokens for a specific service account
+[**list_api_tokens_for_service_account_with_tenant**](ServiceAccountApi.md#list_api_tokens_for_service_account_with_tenant) | **GET** /api/v1/{tenant}/service-accounts/{id}/api-tokens | List API tokens for a specific service account
+[**list_service_accounts**](ServiceAccountApi.md#list_service_accounts) | **GET** /api/v1/service-accounts | List service accounts. Superadmin-only. 
+[**patch_service_account_details**](ServiceAccountApi.md#patch_service_account_details) | **PATCH** /api/v1/service-accounts/{id} | Update service account details
+[**patch_service_account_super_admin**](ServiceAccountApi.md#patch_service_account_super_admin) | **PATCH** /api/v1/service-accounts/{id}/superadmin | Update service account superadmin privileges
+[**service_account**](ServiceAccountApi.md#service_account) | **GET** /api/v1/service-accounts/{id} | Get a service account
+[**service_account_for_tenant**](ServiceAccountApi.md#service_account_for_tenant) | **GET** /api/v1/{tenant}/service-accounts/{id} | Retrieve a service account
+[**update_service_account**](ServiceAccountApi.md#update_service_account) | **PUT** /api/v1/{tenant}/service-accounts/{id} | Update a user service account
 
 
 # **create_api_tokens_for_service_account**
@@ -48,11 +48,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create new API Token for a specific service account
-        api_response = kestra_client.serviceaccount.create_api_tokens_for_service_account(id, create_api_token_request)
-        print("The response of serviceaccount->create_api_tokens_for_service_account:\n")
+        api_response = kestra_client.ServiceAccountApi.create_api_tokens_for_service_account(id, create_api_token_request)
+        print("The response of ServiceAccountApi->create_api_tokens_for_service_account:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling serviceaccount->create_api_tokens_for_service_account: %s\n" % e)
+        print("Exception when calling ServiceAccountApi->create_api_tokens_for_service_account: %s\n" % e)
 ```
 
 
@@ -113,11 +113,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create new API Token for a specific service account
-        api_response = kestra_client.serviceaccount.create_api_tokens_for_service_account_with_tenant(id, tenant, create_api_token_request)
-        print("The response of serviceaccount->create_api_tokens_for_service_account_with_tenant:\n")
+        api_response = kestra_client.ServiceAccountApi.create_api_tokens_for_service_account_with_tenant(id, tenant, create_api_token_request)
+        print("The response of ServiceAccountApi->create_api_tokens_for_service_account_with_tenant:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling serviceaccount->create_api_tokens_for_service_account_with_tenant: %s\n" % e)
+        print("Exception when calling ServiceAccountApi->create_api_tokens_for_service_account_with_tenant: %s\n" % e)
 ```
 
 
@@ -179,11 +179,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create a service account
-        api_response = kestra_client.serviceaccount.create_service_account(iam_service_account_controller_api_create_service_account_request)
-        print("The response of serviceaccount->create_service_account:\n")
+        api_response = kestra_client.ServiceAccountApi.create_service_account(iam_service_account_controller_api_create_service_account_request)
+        print("The response of ServiceAccountApi->create_service_account:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling serviceaccount->create_service_account: %s\n" % e)
+        print("Exception when calling ServiceAccountApi->create_service_account: %s\n" % e)
 ```
 
 
@@ -242,11 +242,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Create a service account for the given tenant
-        api_response = kestra_client.serviceaccount.create_service_account_for_tenant(tenant, iam_service_account_controller_api_service_account_request)
-        print("The response of serviceaccount->create_service_account_for_tenant:\n")
+        api_response = kestra_client.ServiceAccountApi.create_service_account_for_tenant(tenant, iam_service_account_controller_api_service_account_request)
+        print("The response of ServiceAccountApi->create_service_account_for_tenant:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling serviceaccount->create_service_account_for_tenant: %s\n" % e)
+        print("Exception when calling ServiceAccountApi->create_service_account_for_tenant: %s\n" % e)
 ```
 
 
@@ -307,11 +307,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete an API Token for specific service account and token id
-        api_response = kestra_client.serviceaccount.delete_api_token_for_service_account(id, token_id)
-        print("The response of serviceaccount->delete_api_token_for_service_account:\n")
+        api_response = kestra_client.ServiceAccountApi.delete_api_token_for_service_account(id, token_id)
+        print("The response of ServiceAccountApi->delete_api_token_for_service_account:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling serviceaccount->delete_api_token_for_service_account: %s\n" % e)
+        print("Exception when calling ServiceAccountApi->delete_api_token_for_service_account: %s\n" % e)
 ```
 
 
@@ -372,11 +372,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete an API Token for specific service account and token id
-        api_response = kestra_client.serviceaccount.delete_api_token_for_service_account_with_tenant(id, token_id, tenant)
-        print("The response of serviceaccount->delete_api_token_for_service_account_with_tenant:\n")
+        api_response = kestra_client.ServiceAccountApi.delete_api_token_for_service_account_with_tenant(id, token_id, tenant)
+        print("The response of ServiceAccountApi->delete_api_token_for_service_account_with_tenant:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling serviceaccount->delete_api_token_for_service_account_with_tenant: %s\n" % e)
+        print("Exception when calling ServiceAccountApi->delete_api_token_for_service_account_with_tenant: %s\n" % e)
 ```
 
 
@@ -438,9 +438,9 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete a service account
-        kestra_client.serviceaccount.delete_service_account(id)
+        kestra_client.ServiceAccountApi.delete_service_account(id)
     except Exception as e:
-        print("Exception when calling serviceaccount->delete_service_account: %s\n" % e)
+        print("Exception when calling ServiceAccountApi->delete_service_account: %s\n" % e)
 ```
 
 
@@ -500,9 +500,9 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete a service account
-        kestra_client.serviceaccount.delete_service_account_for_tenant(id, tenant)
+        kestra_client.ServiceAccountApi.delete_service_account_for_tenant(id, tenant)
     except Exception as e:
-        print("Exception when calling serviceaccount->delete_service_account_for_tenant: %s\n" % e)
+        print("Exception when calling ServiceAccountApi->delete_service_account_for_tenant: %s\n" % e)
 ```
 
 
@@ -562,11 +562,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List API tokens for a specific service account
-        api_response = kestra_client.serviceaccount.list_api_tokens_for_service_account(id)
-        print("The response of serviceaccount->list_api_tokens_for_service_account:\n")
+        api_response = kestra_client.ServiceAccountApi.list_api_tokens_for_service_account(id)
+        print("The response of ServiceAccountApi->list_api_tokens_for_service_account:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling serviceaccount->list_api_tokens_for_service_account: %s\n" % e)
+        print("Exception when calling ServiceAccountApi->list_api_tokens_for_service_account: %s\n" % e)
 ```
 
 
@@ -625,11 +625,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List API tokens for a specific service account
-        api_response = kestra_client.serviceaccount.list_api_tokens_for_service_account_with_tenant(id, tenant)
-        print("The response of serviceaccount->list_api_tokens_for_service_account_with_tenant:\n")
+        api_response = kestra_client.ServiceAccountApi.list_api_tokens_for_service_account_with_tenant(id, tenant)
+        print("The response of ServiceAccountApi->list_api_tokens_for_service_account_with_tenant:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling serviceaccount->list_api_tokens_for_service_account_with_tenant: %s\n" % e)
+        print("Exception when calling ServiceAccountApi->list_api_tokens_for_service_account_with_tenant: %s\n" % e)
 ```
 
 
@@ -691,11 +691,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # List service accounts. Superadmin-only. 
-        api_response = kestra_client.serviceaccount.list_service_accounts(page, size, q=q, sort=sort)
-        print("The response of serviceaccount->list_service_accounts:\n")
+        api_response = kestra_client.ServiceAccountApi.list_service_accounts(page, size, q=q, sort=sort)
+        print("The response of ServiceAccountApi->list_service_accounts:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling serviceaccount->list_service_accounts: %s\n" % e)
+        print("Exception when calling ServiceAccountApi->list_service_accounts: %s\n" % e)
 ```
 
 
@@ -760,11 +760,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update service account details
-        api_response = kestra_client.serviceaccount.patch_service_account_details(id, iam_service_account_controller_api_patch_service_account_request)
-        print("The response of serviceaccount->patch_service_account_details:\n")
+        api_response = kestra_client.ServiceAccountApi.patch_service_account_details(id, iam_service_account_controller_api_patch_service_account_request)
+        print("The response of ServiceAccountApi->patch_service_account_details:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling serviceaccount->patch_service_account_details: %s\n" % e)
+        print("Exception when calling ServiceAccountApi->patch_service_account_details: %s\n" % e)
 ```
 
 
@@ -826,9 +826,9 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update service account superadmin privileges
-        kestra_client.serviceaccount.patch_service_account_super_admin(id, api_patch_super_admin_request)
+        kestra_client.ServiceAccountApi.patch_service_account_super_admin(id, api_patch_super_admin_request)
     except Exception as e:
-        print("Exception when calling serviceaccount->patch_service_account_super_admin: %s\n" % e)
+        print("Exception when calling ServiceAccountApi->patch_service_account_super_admin: %s\n" % e)
 ```
 
 
@@ -890,11 +890,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Get a service account
-        api_response = kestra_client.serviceaccount.service_account(id)
-        print("The response of serviceaccount->service_account:\n")
+        api_response = kestra_client.ServiceAccountApi.service_account(id)
+        print("The response of ServiceAccountApi->service_account:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling serviceaccount->service_account: %s\n" % e)
+        print("Exception when calling ServiceAccountApi->service_account: %s\n" % e)
 ```
 
 
@@ -954,11 +954,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Retrieve a service account
-        api_response = kestra_client.serviceaccount.service_account_for_tenant(id, tenant)
-        print("The response of serviceaccount->service_account_for_tenant:\n")
+        api_response = kestra_client.ServiceAccountApi.service_account_for_tenant(id, tenant)
+        print("The response of ServiceAccountApi->service_account_for_tenant:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling serviceaccount->service_account_for_tenant: %s\n" % e)
+        print("Exception when calling ServiceAccountApi->service_account_for_tenant: %s\n" % e)
 ```
 
 
@@ -1020,11 +1020,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update a user service account
-        api_response = kestra_client.serviceaccount.update_service_account(id, tenant, iam_service_account_controller_api_service_account_request)
-        print("The response of serviceaccount->update_service_account:\n")
+        api_response = kestra_client.ServiceAccountApi.update_service_account(id, tenant, iam_service_account_controller_api_service_account_request)
+        print("The response of ServiceAccountApi->update_service_account:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling serviceaccount->update_service_account: %s\n" % e)
+        print("Exception when calling ServiceAccountApi->update_service_account: %s\n" % e)
 ```
 
 

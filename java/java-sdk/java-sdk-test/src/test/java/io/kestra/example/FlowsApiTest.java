@@ -1,3 +1,5 @@
+package io.kestra.example;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.kestra.sdk.internal.ApiException;
@@ -313,7 +315,7 @@ public class FlowsApiTest {
         var fileContent = flow1 + "\n---\n" + flow2;
         Files.writeString(tmpFile.toPath(), fileContent, StandardOpenOption.WRITE);
 
-        var flows = kestraClient().flows().importFlows(MAIN_TENANT, tmpFile);
+        var flows = kestraClient().flows().importFlows(false, MAIN_TENANT, tmpFile);
         assertThat(flows).containsOnly(flow1.flowId(), flow2.flowId());
         assertFlowExist(flow1.flowNamespace(), flow1.flowId());
         assertFlowExist(flow2.flowNamespace(), flow2.flowId());

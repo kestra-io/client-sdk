@@ -1,6 +1,6 @@
 {
   "removeDeprecatedParameters": true,
-  "removeDeprecatedOperations": true,
+  "removeDeprecatedOperations": false,
   "operationIdsToSkip": [
     "triggerExecutionByPostWebhook",
     "validateNewExecutionInputs",

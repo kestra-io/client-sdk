@@ -1,27 +1,27 @@
-# kestrapy.triggers
+# kestrapy.TriggersApi
 
 All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**delete_backfill**](triggers.md#delete_backfill) | **POST** /api/v1/{tenant}/triggers/backfill/delete | Delete a backfill
-[**delete_backfill_by_ids**](triggers.md#delete_backfill_by_ids) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-triggers | Delete backfill for given triggers
-[**delete_backfill_by_query**](triggers.md#delete_backfill_by_query) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-query | Delete backfill for given triggers
-[**disabled_triggers_by_ids**](triggers.md#disabled_triggers_by_ids) | **POST** /api/v1/{tenant}/triggers/set-disabled/by-triggers | Disable/enable given triggers
-[**disabled_triggers_by_query**](triggers.md#disabled_triggers_by_query) | **POST** /api/v1/{tenant}/triggers/set-disabled/by-query | Disable/enable triggers by query parameters
-[**pause_backfill**](triggers.md#pause_backfill) | **PUT** /api/v1/{tenant}/triggers/backfill/pause | Pause a backfill
-[**pause_backfill_by_ids**](triggers.md#pause_backfill_by_ids) | **POST** /api/v1/{tenant}/triggers/backfill/pause/by-triggers | Pause backfill for given triggers
-[**pause_backfill_by_query**](triggers.md#pause_backfill_by_query) | **POST** /api/v1/{tenant}/triggers/backfill/pause/by-query | Pause backfill for given triggers
-[**restart_trigger**](triggers.md#restart_trigger) | **POST** /api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId}/restart | Restart a trigger
-[**search_triggers**](triggers.md#search_triggers) | **GET** /api/v1/{tenant}/triggers/search | Search for triggers
-[**search_triggers_for_flow**](triggers.md#search_triggers_for_flow) | **GET** /api/v1/{tenant}/triggers/{namespace}/{flowId} | Get all triggers for a flow
-[**unlock_trigger**](triggers.md#unlock_trigger) | **POST** /api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId}/unlock | Unlock a trigger
-[**unlock_triggers_by_ids**](triggers.md#unlock_triggers_by_ids) | **POST** /api/v1/{tenant}/triggers/unlock/by-triggers | Unlock given triggers
-[**unlock_triggers_by_query**](triggers.md#unlock_triggers_by_query) | **POST** /api/v1/{tenant}/triggers/unlock/by-query | Unlock triggers by query parameters
-[**unpause_backfill**](triggers.md#unpause_backfill) | **PUT** /api/v1/{tenant}/triggers/backfill/unpause | Unpause a backfill
-[**unpause_backfill_by_ids**](triggers.md#unpause_backfill_by_ids) | **POST** /api/v1/{tenant}/triggers/backfill/unpause/by-triggers | Unpause backfill for given triggers
-[**unpause_backfill_by_query**](triggers.md#unpause_backfill_by_query) | **POST** /api/v1/{tenant}/triggers/backfill/unpause/by-query | Unpause backfill for given triggers
-[**update_trigger**](triggers.md#update_trigger) | **PUT** /api/v1/{tenant}/triggers | Update a trigger
+[**delete_backfill**](TriggersApi.md#delete_backfill) | **POST** /api/v1/{tenant}/triggers/backfill/delete | Delete a backfill
+[**delete_backfill_by_ids**](TriggersApi.md#delete_backfill_by_ids) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-triggers | Delete backfill for given triggers
+[**delete_backfill_by_query**](TriggersApi.md#delete_backfill_by_query) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-query | Delete backfill for given triggers
+[**disabled_triggers_by_ids**](TriggersApi.md#disabled_triggers_by_ids) | **POST** /api/v1/{tenant}/triggers/set-disabled/by-triggers | Disable/enable given triggers
+[**disabled_triggers_by_query**](TriggersApi.md#disabled_triggers_by_query) | **POST** /api/v1/{tenant}/triggers/set-disabled/by-query | Disable/enable triggers by query parameters
+[**pause_backfill**](TriggersApi.md#pause_backfill) | **PUT** /api/v1/{tenant}/triggers/backfill/pause | Pause a backfill
+[**pause_backfill_by_ids**](TriggersApi.md#pause_backfill_by_ids) | **POST** /api/v1/{tenant}/triggers/backfill/pause/by-triggers | Pause backfill for given triggers
+[**pause_backfill_by_query**](TriggersApi.md#pause_backfill_by_query) | **POST** /api/v1/{tenant}/triggers/backfill/pause/by-query | Pause backfill for given triggers
+[**restart_trigger**](TriggersApi.md#restart_trigger) | **POST** /api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId}/restart | Restart a trigger
+[**search_triggers**](TriggersApi.md#search_triggers) | **GET** /api/v1/{tenant}/triggers/search | Search for triggers
+[**search_triggers_for_flow**](TriggersApi.md#search_triggers_for_flow) | **GET** /api/v1/{tenant}/triggers/{namespace}/{flowId} | Get all triggers for a flow
+[**unlock_trigger**](TriggersApi.md#unlock_trigger) | **POST** /api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId}/unlock | Unlock a trigger
+[**unlock_triggers_by_ids**](TriggersApi.md#unlock_triggers_by_ids) | **POST** /api/v1/{tenant}/triggers/unlock/by-triggers | Unlock given triggers
+[**unlock_triggers_by_query**](TriggersApi.md#unlock_triggers_by_query) | **POST** /api/v1/{tenant}/triggers/unlock/by-query | Unlock triggers by query parameters
+[**unpause_backfill**](TriggersApi.md#unpause_backfill) | **PUT** /api/v1/{tenant}/triggers/backfill/unpause | Unpause a backfill
+[**unpause_backfill_by_ids**](TriggersApi.md#unpause_backfill_by_ids) | **POST** /api/v1/{tenant}/triggers/backfill/unpause/by-triggers | Unpause backfill for given triggers
+[**unpause_backfill_by_query**](TriggersApi.md#unpause_backfill_by_query) | **POST** /api/v1/{tenant}/triggers/backfill/unpause/by-query | Unpause backfill for given triggers
+[**update_trigger**](TriggersApi.md#update_trigger) | **PUT** /api/v1/{tenant}/triggers | Update a trigger
 
 
 # **delete_backfill**
@@ -50,11 +50,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete a backfill
-        api_response = kestra_client.triggers.delete_backfill(tenant, trigger)
-        print("The response of triggers->delete_backfill:\n")
+        api_response = kestra_client.TriggersApi.delete_backfill(tenant, trigger)
+        print("The response of TriggersApi->delete_backfill:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling triggers->delete_backfill: %s\n" % e)
+        print("Exception when calling TriggersApi->delete_backfill: %s\n" % e)
 ```
 
 
@@ -114,11 +114,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete backfill for given triggers
-        api_response = kestra_client.triggers.delete_backfill_by_ids(tenant, trigger)
-        print("The response of triggers->delete_backfill_by_ids:\n")
+        api_response = kestra_client.TriggersApi.delete_backfill_by_ids(tenant, trigger)
+        print("The response of TriggersApi->delete_backfill_by_ids:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling triggers->delete_backfill_by_ids: %s\n" % e)
+        print("Exception when calling TriggersApi->delete_backfill_by_ids: %s\n" % e)
 ```
 
 
@@ -178,11 +178,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Delete backfill for given triggers
-        api_response = kestra_client.triggers.delete_backfill_by_query(tenant, filters=filters)
-        print("The response of triggers->delete_backfill_by_query:\n")
+        api_response = kestra_client.TriggersApi.delete_backfill_by_query(tenant, filters=filters)
+        print("The response of TriggersApi->delete_backfill_by_query:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling triggers->delete_backfill_by_query: %s\n" % e)
+        print("Exception when calling TriggersApi->delete_backfill_by_query: %s\n" % e)
 ```
 
 
@@ -242,11 +242,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Disable/enable given triggers
-        api_response = kestra_client.triggers.disabled_triggers_by_ids(tenant, trigger_controller_set_disabled_request)
-        print("The response of triggers->disabled_triggers_by_ids:\n")
+        api_response = kestra_client.TriggersApi.disabled_triggers_by_ids(tenant, trigger_controller_set_disabled_request)
+        print("The response of TriggersApi->disabled_triggers_by_ids:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling triggers->disabled_triggers_by_ids: %s\n" % e)
+        print("Exception when calling TriggersApi->disabled_triggers_by_ids: %s\n" % e)
 ```
 
 
@@ -307,11 +307,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Disable/enable triggers by query parameters
-        api_response = kestra_client.triggers.disabled_triggers_by_query(disabled, tenant, filters=filters)
-        print("The response of triggers->disabled_triggers_by_query:\n")
+        api_response = kestra_client.TriggersApi.disabled_triggers_by_query(disabled, tenant, filters=filters)
+        print("The response of TriggersApi->disabled_triggers_by_query:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling triggers->disabled_triggers_by_query: %s\n" % e)
+        print("Exception when calling TriggersApi->disabled_triggers_by_query: %s\n" % e)
 ```
 
 
@@ -372,11 +372,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Pause a backfill
-        api_response = kestra_client.triggers.pause_backfill(tenant, trigger)
-        print("The response of triggers->pause_backfill:\n")
+        api_response = kestra_client.TriggersApi.pause_backfill(tenant, trigger)
+        print("The response of TriggersApi->pause_backfill:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling triggers->pause_backfill: %s\n" % e)
+        print("Exception when calling TriggersApi->pause_backfill: %s\n" % e)
 ```
 
 
@@ -436,11 +436,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Pause backfill for given triggers
-        api_response = kestra_client.triggers.pause_backfill_by_ids(tenant, trigger)
-        print("The response of triggers->pause_backfill_by_ids:\n")
+        api_response = kestra_client.TriggersApi.pause_backfill_by_ids(tenant, trigger)
+        print("The response of TriggersApi->pause_backfill_by_ids:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling triggers->pause_backfill_by_ids: %s\n" % e)
+        print("Exception when calling TriggersApi->pause_backfill_by_ids: %s\n" % e)
 ```
 
 
@@ -500,11 +500,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Pause backfill for given triggers
-        api_response = kestra_client.triggers.pause_backfill_by_query(tenant, filters=filters)
-        print("The response of triggers->pause_backfill_by_query:\n")
+        api_response = kestra_client.TriggersApi.pause_backfill_by_query(tenant, filters=filters)
+        print("The response of TriggersApi->pause_backfill_by_query:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling triggers->pause_backfill_by_query: %s\n" % e)
+        print("Exception when calling TriggersApi->pause_backfill_by_query: %s\n" % e)
 ```
 
 
@@ -566,11 +566,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Restart a trigger
-        api_response = kestra_client.triggers.restart_trigger(namespace, flow_id, trigger_id, tenant)
-        print("The response of triggers->restart_trigger:\n")
+        api_response = kestra_client.TriggersApi.restart_trigger(namespace, flow_id, trigger_id, tenant)
+        print("The response of TriggersApi->restart_trigger:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling triggers->restart_trigger: %s\n" % e)
+        print("Exception when calling TriggersApi->restart_trigger: %s\n" % e)
 ```
 
 
@@ -635,11 +635,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Search for triggers
-        api_response = kestra_client.triggers.search_triggers(page, size, tenant, sort=sort, filters=filters)
-        print("The response of triggers->search_triggers:\n")
+        api_response = kestra_client.TriggersApi.search_triggers(page, size, tenant, sort=sort, filters=filters)
+        print("The response of TriggersApi->search_triggers:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling triggers->search_triggers: %s\n" % e)
+        print("Exception when calling TriggersApi->search_triggers: %s\n" % e)
 ```
 
 
@@ -707,11 +707,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Get all triggers for a flow
-        api_response = kestra_client.triggers.search_triggers_for_flow(page, size, namespace, flow_id, tenant, sort=sort, q=q)
-        print("The response of triggers->search_triggers_for_flow:\n")
+        api_response = kestra_client.TriggersApi.search_triggers_for_flow(page, size, namespace, flow_id, tenant, sort=sort, q=q)
+        print("The response of TriggersApi->search_triggers_for_flow:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling triggers->search_triggers_for_flow: %s\n" % e)
+        print("Exception when calling TriggersApi->search_triggers_for_flow: %s\n" % e)
 ```
 
 
@@ -778,11 +778,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Unlock a trigger
-        api_response = kestra_client.triggers.unlock_trigger(namespace, flow_id, trigger_id, tenant)
-        print("The response of triggers->unlock_trigger:\n")
+        api_response = kestra_client.TriggersApi.unlock_trigger(namespace, flow_id, trigger_id, tenant)
+        print("The response of TriggersApi->unlock_trigger:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling triggers->unlock_trigger: %s\n" % e)
+        print("Exception when calling TriggersApi->unlock_trigger: %s\n" % e)
 ```
 
 
@@ -844,11 +844,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Unlock given triggers
-        api_response = kestra_client.triggers.unlock_triggers_by_ids(tenant, trigger)
-        print("The response of triggers->unlock_triggers_by_ids:\n")
+        api_response = kestra_client.TriggersApi.unlock_triggers_by_ids(tenant, trigger)
+        print("The response of TriggersApi->unlock_triggers_by_ids:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling triggers->unlock_triggers_by_ids: %s\n" % e)
+        print("Exception when calling TriggersApi->unlock_triggers_by_ids: %s\n" % e)
 ```
 
 
@@ -908,11 +908,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Unlock triggers by query parameters
-        api_response = kestra_client.triggers.unlock_triggers_by_query(tenant, filters=filters)
-        print("The response of triggers->unlock_triggers_by_query:\n")
+        api_response = kestra_client.TriggersApi.unlock_triggers_by_query(tenant, filters=filters)
+        print("The response of TriggersApi->unlock_triggers_by_query:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling triggers->unlock_triggers_by_query: %s\n" % e)
+        print("Exception when calling TriggersApi->unlock_triggers_by_query: %s\n" % e)
 ```
 
 
@@ -972,11 +972,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Unpause a backfill
-        api_response = kestra_client.triggers.unpause_backfill(tenant, trigger)
-        print("The response of triggers->unpause_backfill:\n")
+        api_response = kestra_client.TriggersApi.unpause_backfill(tenant, trigger)
+        print("The response of TriggersApi->unpause_backfill:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling triggers->unpause_backfill: %s\n" % e)
+        print("Exception when calling TriggersApi->unpause_backfill: %s\n" % e)
 ```
 
 
@@ -1036,11 +1036,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Unpause backfill for given triggers
-        api_response = kestra_client.triggers.unpause_backfill_by_ids(tenant, trigger)
-        print("The response of triggers->unpause_backfill_by_ids:\n")
+        api_response = kestra_client.TriggersApi.unpause_backfill_by_ids(tenant, trigger)
+        print("The response of TriggersApi->unpause_backfill_by_ids:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling triggers->unpause_backfill_by_ids: %s\n" % e)
+        print("Exception when calling TriggersApi->unpause_backfill_by_ids: %s\n" % e)
 ```
 
 
@@ -1100,11 +1100,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Unpause backfill for given triggers
-        api_response = kestra_client.triggers.unpause_backfill_by_query(tenant, filters=filters)
-        print("The response of triggers->unpause_backfill_by_query:\n")
+        api_response = kestra_client.TriggersApi.unpause_backfill_by_query(tenant, filters=filters)
+        print("The response of TriggersApi->unpause_backfill_by_query:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling triggers->unpause_backfill_by_query: %s\n" % e)
+        print("Exception when calling TriggersApi->unpause_backfill_by_query: %s\n" % e)
 ```
 
 
@@ -1164,11 +1164,11 @@ with KestraClient(configuration) as kestra_client:
 
     try:
         # Update a trigger
-        api_response = kestra_client.triggers.update_trigger(tenant, trigger)
-        print("The response of triggers->update_trigger:\n")
+        api_response = kestra_client.TriggersApi.update_trigger(tenant, trigger)
+        print("The response of TriggersApi->update_trigger:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling triggers->update_trigger: %s\n" % e)
+        print("Exception when calling TriggersApi->update_trigger: %s\n" % e)
 ```
 
 

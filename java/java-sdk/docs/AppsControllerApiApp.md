@@ -12,6 +12,7 @@
 |**name** | **String** |  |  [optional] |
 |**type** | **String** |  |  [optional] |
 |**namespace** | **String** |  |  [optional] |
+|**flowId** | **String** |  |  [optional] |
 |**tags** | **List&lt;String&gt;** |  |  [optional] |
 |**enabled** | **Boolean** |  |  [optional] |
 |**created** | **OffsetDateTime** |  |  [optional] |
