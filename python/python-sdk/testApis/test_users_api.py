@@ -30,7 +30,7 @@ class TestUsersApi(unittest.TestCase):
 
     def setUp(self) -> None:
         configuration = Configuration()
-        configuration.host = "http://localhost:9902"
+        configuration.host = "http://localhost:8080"
         configuration.username = "root@root.com"
         configuration.password = "Root!1234"
 
@@ -250,11 +250,27 @@ class TestUsersApi(unittest.TestCase):
         results = self.kestra_client.users.list_users(page=1, size=50, q=name_base)
         assert any(getattr(r, 'id', None) == created_user.id for r in results.results)
 
-        # cleanup
-        try:
-            self.kestra_client.users.delete_user(id=created_user.id)
-        except Exception:
-            pass
+    def test_list_users_fetch_all_pages(self) -> None:
+        """Retrieve users without query"""
+        name_base = "test_list_users_no_query"
+        for i in range(60):
+            user_req = IAMUserControllerApiCreateOrUpdateUserRequest(
+                email=f"{name_base + "_" + str(i)}@kestra.io"
+            )
+            self.kestra_client.users.create_user(iam_user_controller_api_create_or_update_user_request=user_req)
+
+        users = []
+        page = 1
+        size = 25
+
+        while True:
+            results = self.kestra_client.users.list_users(page=page, size=size)
+            users.extend(results.results)
+            if len(results.results) < size:
+                break
+            page += 1
+
+        assert len(users) >= 60
 
     def test_patch_user(self) -> None:
         """Update user details"""
