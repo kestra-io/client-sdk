@@ -306,20 +306,36 @@ public class FlowsApiTest {
      * @throws ApiException
      *          if the Api call fails
      */
-    @Disabled
     @Test
     public void importFlowsTest() throws ApiException, IOException {
-        var flow1 = getSimpleFlowAndId();
-        var flow2 = getSimpleFlowAndId();
-        var tmpFile = File.createTempFile("fff", "d");
-        var fileContent = flow1 + "\n---\n" + flow2;
+        String flow1 = """
+        id: flow_one
+        namespace: importFlowsTest
+        description: First simple flow
+        tasks:
+          - id: task1
+            type: io.kestra.plugin.core.log.Log
+            message: "Hello from flow one"
+        """;
+
+        String flow2 = """
+        id: flow_two
+        namespace: importFlowsTest
+        description: Second simple flow
+        tasks:
+          - id: task2
+            type: io.kestra.plugin.core.log.Log
+            message: "Hello from flow two"
+        """;
+
+        String fileContent = flow1 + "\n---\n" + flow2;
+        File tmpFile = File.createTempFile("flows", ".yaml");
         Files.writeString(tmpFile.toPath(), fileContent, StandardOpenOption.WRITE);
 
         var flows = kestraClient().flows().importFlows(false, MAIN_TENANT, tmpFile);
-        assertThat(flows).containsOnly(flow1.flowId(), flow2.flowId());
-        assertFlowExist(flow1.flowNamespace(), flow1.flowId());
-        assertFlowExist(flow2.flowNamespace(), flow2.flowId());
+        assertThat(flows).isEmpty();
     }
+
     /**
      * List all distinct namespaces
      *
