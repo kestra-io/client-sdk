@@ -70,7 +70,7 @@ public class TestSuitesApiTest {
 
         createSimpleFlow(flowId, namespace);
 
-        var response = kestraLocalClient().testSuites().createTestSuite(MAIN_TENANT, testSuiteYaml);
+        var response = kestraClient().testSuites().createTestSuite(MAIN_TENANT, testSuiteYaml);
 
         assertThat(response.getId()).isEqualTo(testSuiteId);
         assertThat(response.getFlowId()).isEqualTo(flowId);
