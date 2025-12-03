@@ -284,23 +284,59 @@ class ApiClient {
     * <code>param</code> as is if <code>collectionFormat</code> is <code>multi</code>.
     */{{/emitJSDoc}}
     buildCollectionParam(param, collectionFormat) {
-        if (param == null) {
-            return null;
+        if (param == null) return null;
+
+        const looksLikeQueryFilterArray =
+            Array.isArray(param) &&
+            param.length > 0 &&
+            typeof param[0] === 'object' &&
+            param[0] != null &&
+            ('field' in param[0]) &&
+            ('operation' in param[0]) &&
+            ('value' in param[0]);
+
+        if (looksLikeQueryFilterArray) {
+            const kvpairs = {};
+            const toCamel = (s) => {
+                const parts = String(s || '')
+                .trim()
+                .split(/[^A-Za-z0-9]+/g)   // split on any non-alphanumeric: _, -, spaces, etc.
+                .filter(Boolean);          // remove empties from multiple separators
+
+                if (parts.length === 0) return '';
+
+                const [first, ...rest] = parts;
+                return first.toLowerCase() +
+                    rest.map(p => p.charAt(0).toUpperCase() + p.slice(1).toLowerCase()).join('');
+            };
+
+            for (const qf of param) {
+                const fieldStr = String(qf.field);
+                const op = String(qf.operation);
+                const keyField = fieldStr.toLowerCase() === 'query' ? 'q' : toCamel(fieldStr);
+
+                if (fieldStr.toLowerCase() === 'labels') {
+                    if (typeof qf.value !== 'object' || qf.value == null || Array.isArray(qf.value)) {
+                        throw new Error('Filter LABEL value must be a Map-like object');
+                    }
+                    for (const [k, v] of Object.entries(qf.value)) {
+                        kvpairs[`filters[${keyField}][${op}][${k}]`] = this.paramToString(v);
+                    }
+                } else {
+                    kvpairs[`filters[${keyField}][${op}]`] = this.paramToString(qf.value);
+                }
+            }
+            // IMPORTANT: return a PLAIN OBJECT, not a string.
+            return { __kvpairs: kvpairs };
         }
+
         switch (collectionFormat) {
-            case 'csv':
-                return param.map(this.paramToString, this).join(',');
-            case 'ssv':
-                return param.map(this.paramToString, this).join(' ');
-            case 'tsv':
-                return param.map(this.paramToString, this).join('\t');
-            case 'pipes':
-                return param.map(this.paramToString, this).join('|');
-            case 'multi':
-                //return the array directly as SuperAgent will handle it as expected
-                return param.map(this.paramToString, this);
-            case 'passthrough':
-                return param;
+            case 'csv':   return param.map(this.paramToString, this).join(',');
+            case 'ssv':   return param.map(this.paramToString, this).join(' ');
+            case 'tsv':   return param.map(this.paramToString, this).join('\t');
+            case 'pipes': return param.map(this.paramToString, this).join('|');
+            case 'multi': return param.map(this.paramToString, this);
+            case 'passthrough': return param;
             default:
                 throw new Error('Unknown collection format: ' + collectionFormat);
         }
@@ -443,7 +479,19 @@ class ApiClient {
             queryParams['_'] = new Date().getTime();
         }
 
-        request.query(this.normalizeParams(queryParams));
+        // Flatten any __kvpairs into top-level query params and drop their original keys
+        const expandedQuery = {};
+        for (const [k, v] of Object.entries(queryParams || {})) {
+            if (v && typeof v === 'object' && !Array.isArray(v) && v.__kvpairs) {
+                // merge flattened pairs
+                Object.assign(expandedQuery, v.__kvpairs);
+                // DO NOT keep the original 'filters' key
+            } else {
+                expandedQuery[k] = v;
+            }
+        }
+
+        request.query(this.normalizeParams(expandedQuery));
 
         // set header parameters
         request.set(this.defaultHeaders).set(this.normalizeParams(headerParams));

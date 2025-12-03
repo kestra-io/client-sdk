@@ -1,3 +1,5 @@
+package io.kestra.example;
+
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.model.*;
 import org.junit.jupiter.api.Test;

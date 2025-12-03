@@ -47,7 +47,7 @@ describe('ServiceAccountApi', () => {
         const name = randomIdWith('test-get-service-account');
 
         const created = await kestraClient().serviceAccountApi.createServiceAccount({name});
-        const fetched = await kestraClient().serviceAccountApi.getServiceAccount(created.id);
+        const fetched = await kestraClient().serviceAccountApi.serviceAccount(created.id);
 
         expect(fetched?.id).toBe(created.id);
     });
@@ -56,7 +56,7 @@ describe('ServiceAccountApi', () => {
         const name = randomIdWith('test-get-service-account-for-main');
 
         const created = await kestraClient().serviceAccountApi.createServiceAccountForTenant(MAIN_TENANT, {name});
-        const fetched = await kestraClient().serviceAccountApi.getServiceAccountForTenant(created.id, MAIN_TENANT);
+        const fetched = await kestraClient().serviceAccountApi.serviceAccountForTenant(created.id, MAIN_TENANT);
 
         expect(fetched?.id).toBe(created.id);
     });
@@ -96,7 +96,7 @@ describe('ServiceAccountApi', () => {
         // In Python you had a small typo in the method name; fixed here.
         await kestraClient().serviceAccountApi.patchServiceAccountSuperAdmin(created.id, {superAdmin: true});
 
-        const fetched = await kestraClient().serviceAccountApi.getServiceAccount(created.id);
+        const fetched = await kestraClient().serviceAccountApi.serviceAccount(created.id);
         // Depending on the SDK, the property could be super_admin or superAdmin
         expect(fetched.superAdmin).toBe(true);
     });

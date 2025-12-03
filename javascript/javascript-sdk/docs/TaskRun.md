@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **parentTaskRunId** | **String** |  | [optional] 
 **value** | **String** |  | [optional] 
 **attempts** | [**[TaskRunAttempt]**](TaskRunAttempt.md) |  | [optional] 
-**outputs** | **{String: Object}** |  | [optional] 
+**outputs** | **Object** |  | [optional] 
 **state** | [**State**](State.md) |  | 
 **iteration** | **Number** |  | [optional] 
 **dynamic** | **Boolean** |  | [optional] 
