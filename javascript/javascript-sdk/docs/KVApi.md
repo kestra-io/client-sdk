@@ -6,7 +6,8 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**deleteKeyValue**](KVApi.md#deleteKeyValue) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Delete a key-value pair
 [**deleteKeyValues**](KVApi.md#deleteKeyValues) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/kv | Bulk-delete multiple key/value pairs from the given namespace.
-[**getKeyValue**](KVApi.md#getKeyValue) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Get value for a key
+[**keyValue**](KVApi.md#keyValue) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Get value for a key
+[**listAllKeys**](KVApi.md#listAllKeys) | **GET** /api/v1/{tenant}/kv | List all keys
 [**listKeys**](KVApi.md#listKeys) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv | List all keys for a namespace
 [**listKeysWithInheritence**](KVApi.md#listKeysWithInheritence) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/inheritance | List all keys for inherited namespaces
 [**setKeyValue**](KVApi.md#setKeyValue) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Puts a key-value pair in store
@@ -121,9 +122,9 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## getKeyValue
+## keyValue
 
-> KVControllerTypedValue getKeyValue(namespace, key, tenant)
+> KVControllerTypedValue keyValue(namespace, key, tenant)
 
 Get value for a key
 
@@ -144,7 +145,7 @@ let apiInstance = new KestraIoKestraSdk.KVApi();
 let namespace = "namespace_example"; // String | The namespace id
 let key = "key_example"; // String | The key
 let tenant = "tenant_example"; // String | 
-apiInstance.getKeyValue(namespace, key, tenant).then((data) => {
+apiInstance.keyValue(namespace, key, tenant).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -164,6 +165,66 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**KVControllerTypedValue**](KVControllerTypedValue.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## listAllKeys
+
+> PagedResultsKVEntry listAllKeys(page, size, tenant, opts)
+
+List all keys
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraIoKestraSdk.KVApi();
+let page = 1; // Number | The current page
+let size = 10; // Number | The current page size
+let tenant = "tenant_example"; // String | 
+let opts = {
+  'sort': ["null"], // [String] | The sort of current page
+  'filters': [new KestraIoKestraSdk.QueryFilter()] // [QueryFilter] | Filters
+};
+apiInstance.listAllKeys(page, size, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page** | **Number**| The current page | [default to 1]
+ **size** | **Number**| The current page size | [default to 10]
+ **tenant** | **String**|  | 
+ **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
+ **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
+
+### Return type
+
+[**PagedResultsKVEntry**](PagedResultsKVEntry.md)
 
 ### Authorization
 
@@ -331,6 +392,6 @@ null (empty response body)
 
 ### HTTP request headers
 
-- **Content-Type**: application/json, text/plain
+- **Content-Type**: text/plain
 - **Accept**: Not defined
 

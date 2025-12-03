@@ -7,8 +7,8 @@ Method | HTTP request | Description
 [**autocompleteRoles**](RolesApi.md#autocompleteRoles) | **POST** /api/v1/{tenant}/roles/autocomplete | List roles for autocomplete
 [**createRole**](RolesApi.md#createRole) | **POST** /api/v1/{tenant}/roles | Create a role
 [**deleteRole**](RolesApi.md#deleteRole) | **DELETE** /api/v1/{tenant}/roles/{id} | Delete a role
-[**getRole**](RolesApi.md#getRole) | **GET** /api/v1/{tenant}/roles/{id} | Retrieve a role
 [**listRolesFromGivenIds**](RolesApi.md#listRolesFromGivenIds) | **POST** /api/v1/{tenant}/roles/ids | List roles by ids
+[**role**](RolesApi.md#role) | **GET** /api/v1/{tenant}/roles/{id} | Retrieve a role
 [**searchRoles**](RolesApi.md#searchRoles) | **GET** /api/v1/{tenant}/roles/search | Search for roles
 [**updateRole**](RolesApi.md#updateRole) | **PUT** /api/v1/{tenant}/roles/{id} | Update a role
 
@@ -170,58 +170,6 @@ null (empty response body)
 - **Accept**: Not defined
 
 
-## getRole
-
-> IAMRoleControllerApiRoleDetail getRole(id, tenant)
-
-Retrieve a role
-
-### Example
-
-```javascript
-import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
-let defaultClient = KestraIoKestraSdk.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraIoKestraSdk.RolesApi();
-let id = "id_example"; // String | The role id
-let tenant = "tenant_example"; // String | 
-apiInstance.getRole(id, tenant).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The role id | 
- **tenant** | **String**|  | 
-
-### Return type
-
-[**IAMRoleControllerApiRoleDetail**](IAMRoleControllerApiRoleDetail.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
 ## listRolesFromGivenIds
 
 > [Role] listRolesFromGivenIds(tenant, apiIds)
@@ -271,6 +219,58 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## role
+
+> IAMRoleControllerApiRoleDetail role(id, tenant)
+
+Retrieve a role
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraIoKestraSdk.RolesApi();
+let id = "id_example"; // String | The role id
+let tenant = "tenant_example"; // String | 
+apiInstance.role(id, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| The role id | 
+ **tenant** | **String**|  | 
+
+### Return type
+
+[**IAMRoleControllerApiRoleDetail**](IAMRoleControllerApiRoleDetail.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 

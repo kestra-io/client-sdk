@@ -38,16 +38,19 @@ export default class <&classname> {
      */</usePromises>
 
     /**<#summary>
-     * <&summary></summary><#notes>
-     * <&notes></notes><#allParams><#required>
-     * @param {<&vendorExtensions.x-jsdoc-type>} <&paramName> <&description></required></allParams><#hasOptionalParams>
-     * @param {Object} opts Optional parameters<#allParams><^required>
-     * @param {<&vendorExtensions.x-jsdoc-type>} [<&paramName><#defaultValue> = <&.>)</defaultValue>] <&description></required></allParams></hasOptionalParams><^usePromises>
-     * @param {module:<#invokerPackage><&invokerPackage>/</invokerPackage><#apiPackage><&apiPackage>/</apiPackage><&classname>~<&operationId>Callback} callback The callback function, accepting three arguments: error, data, response<#returnType>
-     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}</returnType></usePromises><#usePromises>
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}<#returnType>, with an object containing data of type {@link <&vendorExtensions.x-jsdoc-type>} and HTTP response</returnType><^returnType>, with an object containing HTTP response</returnType></usePromises>
-     */
-</emitJSDoc>    <operationId><#usePromises>WithHttpInfo</usePromises>(<vendorExtensions.x-codegen-arg-list>) {
+    * <&summary></summary><#notes>
+    * <&notes></notes><#allParams><#required>
+    * @param {<&vendorExtensions.x-jsdoc-type>} <&paramName> <&description></required></allParams><#hasOptionalParams>
+    * @param {Object} opts Optional parameters<#allParams><^required>
+    * @param {<&vendorExtensions.x-jsdoc-type>} [<&paramName><#defaultValue> = <&.>)</defaultValue>] <&description></required></allParams></hasOptionalParams>
+    <#vendorExtensions.x-sdk-customization.x-multipart>
+    * @param {Object} [formData] Extra multipart fields/files (key → value). Values may be strings, File/Blob (browser) or Buffer/stream (Node).
+    </vendorExtensions.x-sdk-customization.x-multipart><^usePromises>
+    * @param {module:<#invokerPackage><&invokerPackage>/</invokerPackage><#apiPackage><&apiPackage>/</apiPackage><&classname>~<&operationId>Callback} callback The callback function, accepting three arguments: error, data, response<#returnType>
+    * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}</returnType></usePromises><#usePromises>
+    * @return {Promise} a {@link https://www.promisejs.org/|Promise}<#returnType>, with an object containing data of type {@link <&vendorExtensions.x-jsdoc-type>} and HTTP response</returnType><^returnType>, with an object containing HTTP response</returnType></usePromises>
+    */
+</emitJSDoc>    <operationId><#usePromises>WithHttpInfo</usePromises>(<vendorExtensions.x-codegen-arg-list><#vendorExtensions.x-sdk-customization.x-multipart>, formData</vendorExtensions.x-sdk-customization.x-multipart>) {
       <#vendorExtensions.x-codegen-has-optional-params>
       opts = opts || {};
       </vendorExtensions.x-codegen-has-optional-params>
@@ -78,6 +81,16 @@ export default class <&classname> {
       let contentTypes = [<#consumes>'<& mediaType>'<^-last>, </-last></consumes>];
       let accepts = [<#produces>'<& mediaType>'<^-last>, </-last></produces>];
       let returnType = <#vendorExtensions.x-return-type><&vendorExtensions.x-return-type></vendorExtensions.x-return-type><^vendorExtensions.x-return-type>null</vendorExtensions.x-return-type>;
+      <#vendorExtensions.x-sdk-customization.x-multipart>
+      // Merge explicit formData parameter (only for multipart ops)
+      if (formData && typeof formData === 'object') {
+        for (const [k, v] of Object.entries(formData)) {
+          if (v !== undefined && v !== null) {
+            formParams[k] = v;
+          }
+        }
+      }
+      </vendorExtensions.x-sdk-customization.x-multipart>
       <#servers.0>
       let basePaths = [<#servers>'<url>'<^-last>, </-last></servers>];
       let basePath = basePaths[0]; // by default use the first one in "servers" defined in OpenAPI
@@ -99,18 +112,21 @@ export default class <&classname> {
 <#emitJSDoc>
 
     /**<#summary>
-     * <&summary></summary><#notes>
-     * <&notes></notes><#allParams><#required>
-     * @param {<&vendorExtensions.x-jsdoc-type>} <&paramName> <&description></required></allParams><#hasOptionalParams>
-     * @param {Object} opts Optional parameters<#allParams><^required>
-     * @param {<&vendorExtensions.x-jsdoc-type>} opts.<&paramName> <&description><#defaultValue> (default to <&.>)</defaultValue></required></allParams></hasOptionalParams><^usePromises>
-     * @param {module:<#invokerPackage><&invokerPackage>/</invokerPackage><#apiPackage><&apiPackage>/</apiPackage><&classname>~<&operationId>Callback} callback The callback function, accepting three arguments: error, data, response<#returnType>
-     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}</returnType></usePromises><#usePromises>
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}<#returnType>, with data of type {@link <&vendorExtensions.x-jsdoc-type>}</returnType></usePromises>
-     */
+    * <&summary></summary><#notes>
+    * <&notes></notes><#allParams><#required>
+    * @param {<&vendorExtensions.x-jsdoc-type>} <&paramName> <&description></required></allParams><#hasOptionalParams>
+    * @param {Object} opts Optional parameters<#allParams><^required>
+    * @param {<&vendorExtensions.x-jsdoc-type>} opts.<&paramName> <&description><#defaultValue> (default to <&.>)</defaultValue></required></allParams></hasOptionalParams>
+    <#vendorExtensions.x-sdk-customization.x-multipart>
+    * @param {Object} formData Extra multipart fields/files (key → value). Values may be strings, File/Blob (browser) or Buffer/stream (Node).
+    </vendorExtensions.x-sdk-customization.x-multipart><^usePromises>
+    * @param {module:<#invokerPackage><&invokerPackage>/</invokerPackage><#apiPackage><&apiPackage>/</apiPackage><&classname>~<&operationId>Callback} callback The callback function, accepting three arguments: error, data, response<#returnType>
+    * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}</returnType></usePromises><#usePromises>
+    * @return {Promise} a {@link https://www.promisejs.org/|Promise}<#returnType>, with data of type {@link <&vendorExtensions.x-jsdoc-type>}</returnType></usePromises>
+    */
 </emitJSDoc>
-    <operationId>(<vendorExtensions.x-codegen-arg-list>) {
-      return this.<operationId>WithHttpInfo(<vendorExtensions.x-codegen-arg-list>)
+    <operationId>(<vendorExtensions.x-codegen-arg-list><#vendorExtensions.x-sdk-customization.x-multipart>, formData</vendorExtensions.x-sdk-customization.x-multipart>) {
+      return this.<operationId>WithHttpInfo(<vendorExtensions.x-codegen-arg-list><#vendorExtensions.x-sdk-customization.x-multipart>, formData</vendorExtensions.x-sdk-customization.x-multipart>)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

@@ -15,20 +15,23 @@ Method | HTTP request | Description
 [**enableFlowsByQuery**](FlowsApi.md#enableFlowsByQuery) | **POST** /api/v1/{tenant}/flows/enable/by-query | Enable flows returned by the query parameters.
 [**exportFlowsByIds**](FlowsApi.md#exportFlowsByIds) | **POST** /api/v1/{tenant}/flows/export/by-ids | Export flows as a ZIP archive of yaml sources.
 [**exportFlowsByQuery**](FlowsApi.md#exportFlowsByQuery) | **GET** /api/v1/{tenant}/flows/export/by-query | Export flows as a ZIP archive of yaml sources.
+[**flow**](FlowsApi.md#flow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id} | Get a flow
+[**flowDependencies**](FlowsApi.md#flowDependencies) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/dependencies | Get flow dependencies
+[**flowDependenciesFromNamespace**](FlowsApi.md#flowDependenciesFromNamespace) | **GET** /api/v1/{tenant}/namespaces/{namespace}/dependencies | Retrieve flow dependencies
 [**generateFlowGraph**](FlowsApi.md#generateFlowGraph) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/graph | Generate a graph for a flow
 [**generateFlowGraphFromSource**](FlowsApi.md#generateFlowGraphFromSource) | **POST** /api/v1/{tenant}/flows/graph | Generate a graph for a flow source
-[**getFlow**](FlowsApi.md#getFlow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id} | Get a flow
-[**getFlowDependencies**](FlowsApi.md#getFlowDependencies) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/dependencies | Get flow dependencies
-[**getFlowDependenciesFromNamespace**](FlowsApi.md#getFlowDependenciesFromNamespace) | **GET** /api/v1/{tenant}/namespaces/{namespace}/dependencies | Retrieve flow dependencies
-[**getTaskFromFlow**](FlowsApi.md#getTaskFromFlow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId} | Get a flow task
 [**importFlows**](FlowsApi.md#importFlows) | **POST** /api/v1/{tenant}/flows/import |     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
 [**listDistinctNamespaces**](FlowsApi.md#listDistinctNamespaces) | **GET** /api/v1/{tenant}/flows/distinct-namespaces | List all distinct namespaces
 [**listFlowRevisions**](FlowsApi.md#listFlowRevisions) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/revisions | Get revisions for a flow
 [**listFlowsByNamespace**](FlowsApi.md#listFlowsByNamespace) | **GET** /api/v1/{tenant}/flows/{namespace} | Retrieve all flows from a given namespace
+[**searchConcurrencyLimits**](FlowsApi.md#searchConcurrencyLimits) | **GET** /api/v1/{tenant}/concurrency-limit/search | Search for flow concurrency limits
 [**searchFlows**](FlowsApi.md#searchFlows) | **GET** /api/v1/{tenant}/flows/search | Search for flows
 [**searchFlowsBySourceCode**](FlowsApi.md#searchFlowsBySourceCode) | **GET** /api/v1/{tenant}/flows/source | Search for flows source code
+[**taskFromFlow**](FlowsApi.md#taskFromFlow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId} | Get a flow task
+[**updateConcurrencyLimit**](FlowsApi.md#updateConcurrencyLimit) | **PUT** /api/v1/{tenant}/concurrency-limit/{namespace}/{flowId} | Update a flow concurrency limit
 [**updateFlow**](FlowsApi.md#updateFlow) | **PUT** /api/v1/{tenant}/flows/{namespace}/{id} | Update a flow
 [**updateFlowsInNamespace**](FlowsApi.md#updateFlowsInNamespace) | **POST** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from yaml source
+[**updateTask**](FlowsApi.md#updateTask) | **PATCH** /api/v1/{tenant}/flows/{namespace}/{id}/{taskId} | Update a single task on a flow
 [**validateFlows**](FlowsApi.md#validateFlows) | **POST** /api/v1/{tenant}/flows/validate | Validate a list of flows
 [**validateTask**](FlowsApi.md#validateTask) | **POST** /api/v1/{tenant}/flows/validate/task | Validate a task
 [**validateTrigger**](FlowsApi.md#validateTrigger) | **POST** /api/v1/{tenant}/flows/validate/trigger | Validate trigger
@@ -627,6 +630,180 @@ Name | Type | Description  | Notes
 - **Accept**: application/octet-stream
 
 
+## flow
+
+> FlowWithSource flow(namespace, id, source, allowDeleted, tenant, opts)
+
+Get a flow
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraIoKestraSdk.FlowsApi();
+let namespace = "namespace_example"; // String | The flow namespace
+let id = "id_example"; // String | The flow id
+let source = false; // Boolean | Include the source code
+let allowDeleted = false; // Boolean | Get flow even if deleted
+let tenant = "tenant_example"; // String | 
+let opts = {
+  'revision': 56 // Number | Get latest revision by default
+};
+apiInstance.flow(namespace, id, source, allowDeleted, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **namespace** | **String**| The flow namespace | 
+ **id** | **String**| The flow id | 
+ **source** | **Boolean**| Include the source code | [default to false]
+ **allowDeleted** | **Boolean**| Get flow even if deleted | [default to false]
+ **tenant** | **String**|  | 
+ **revision** | **Number**| Get latest revision by default | [optional] 
+
+### Return type
+
+[**FlowWithSource**](FlowWithSource.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## flowDependencies
+
+> FlowTopologyGraph flowDependencies(namespace, id, destinationOnly, expandAll, tenant)
+
+Get flow dependencies
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraIoKestraSdk.FlowsApi();
+let namespace = "namespace_example"; // String | The flow namespace
+let id = "id_example"; // String | The flow id
+let destinationOnly = false; // Boolean | If true, list only destination dependencies, otherwise list also source dependencies
+let expandAll = false; // Boolean | If true, expand all dependencies recursively
+let tenant = "tenant_example"; // String | 
+apiInstance.flowDependencies(namespace, id, destinationOnly, expandAll, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **namespace** | **String**| The flow namespace | 
+ **id** | **String**| The flow id | 
+ **destinationOnly** | **Boolean**| If true, list only destination dependencies, otherwise list also source dependencies | [default to false]
+ **expandAll** | **Boolean**| If true, expand all dependencies recursively | [default to false]
+ **tenant** | **String**|  | 
+
+### Return type
+
+[**FlowTopologyGraph**](FlowTopologyGraph.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## flowDependenciesFromNamespace
+
+> FlowTopologyGraph flowDependenciesFromNamespace(namespace, destinationOnly, tenant)
+
+Retrieve flow dependencies
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraIoKestraSdk.FlowsApi();
+let namespace = "namespace_example"; // String | The flow namespace
+let destinationOnly = false; // Boolean | if true, list only destination dependencies, otherwise list also source dependencies
+let tenant = "tenant_example"; // String | 
+apiInstance.flowDependenciesFromNamespace(namespace, destinationOnly, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **namespace** | **String**| The flow namespace | 
+ **destinationOnly** | **Boolean**| if true, list only destination dependencies, otherwise list also source dependencies | [default to false]
+ **tenant** | **String**|  | 
+
+### Return type
+
+[**FlowTopologyGraph**](FlowTopologyGraph.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## generateFlowGraph
 
 > FlowGraph generateFlowGraph(namespace, id, tenant, opts)
@@ -743,243 +920,9 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## getFlow
-
-> Object getFlow(namespace, id, source, allowDeleted, tenant, opts)
-
-Get a flow
-
-### Example
-
-```javascript
-import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
-let defaultClient = KestraIoKestraSdk.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraIoKestraSdk.FlowsApi();
-let namespace = "namespace_example"; // String | The flow namespace
-let id = "id_example"; // String | The flow id
-let source = false; // Boolean | Include the source code
-let allowDeleted = false; // Boolean | Get flow even if deleted
-let tenant = "tenant_example"; // String | 
-let opts = {
-  'revision': 56 // Number | Get latest revision by default
-};
-apiInstance.getFlow(namespace, id, source, allowDeleted, tenant, opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **namespace** | **String**| The flow namespace | 
- **id** | **String**| The flow id | 
- **source** | **Boolean**| Include the source code | [default to false]
- **allowDeleted** | **Boolean**| Get flow even if deleted | [default to false]
- **tenant** | **String**|  | 
- **revision** | **Number**| Get latest revision by default | [optional] 
-
-### Return type
-
-**Object**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## getFlowDependencies
-
-> FlowTopologyGraph getFlowDependencies(namespace, id, destinationOnly, expandAll, tenant)
-
-Get flow dependencies
-
-### Example
-
-```javascript
-import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
-let defaultClient = KestraIoKestraSdk.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraIoKestraSdk.FlowsApi();
-let namespace = "namespace_example"; // String | The flow namespace
-let id = "id_example"; // String | The flow id
-let destinationOnly = false; // Boolean | If true, list only destination dependencies, otherwise list also source dependencies
-let expandAll = false; // Boolean | If true, expand all dependencies recursively
-let tenant = "tenant_example"; // String | 
-apiInstance.getFlowDependencies(namespace, id, destinationOnly, expandAll, tenant).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **namespace** | **String**| The flow namespace | 
- **id** | **String**| The flow id | 
- **destinationOnly** | **Boolean**| If true, list only destination dependencies, otherwise list also source dependencies | [default to false]
- **expandAll** | **Boolean**| If true, expand all dependencies recursively | [default to false]
- **tenant** | **String**|  | 
-
-### Return type
-
-[**FlowTopologyGraph**](FlowTopologyGraph.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## getFlowDependenciesFromNamespace
-
-> FlowTopologyGraph getFlowDependenciesFromNamespace(namespace, destinationOnly, tenant)
-
-Retrieve flow dependencies
-
-### Example
-
-```javascript
-import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
-let defaultClient = KestraIoKestraSdk.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraIoKestraSdk.FlowsApi();
-let namespace = "namespace_example"; // String | The flow namespace
-let destinationOnly = false; // Boolean | if true, list only destination dependencies, otherwise list also source dependencies
-let tenant = "tenant_example"; // String | 
-apiInstance.getFlowDependenciesFromNamespace(namespace, destinationOnly, tenant).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **namespace** | **String**| The flow namespace | 
- **destinationOnly** | **Boolean**| if true, list only destination dependencies, otherwise list also source dependencies | [default to false]
- **tenant** | **String**|  | 
-
-### Return type
-
-[**FlowTopologyGraph**](FlowTopologyGraph.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## getTaskFromFlow
-
-> Task getTaskFromFlow(namespace, id, taskId, tenant, opts)
-
-Get a flow task
-
-### Example
-
-```javascript
-import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
-let defaultClient = KestraIoKestraSdk.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraIoKestraSdk.FlowsApi();
-let namespace = "namespace_example"; // String | The flow namespace
-let id = "id_example"; // String | The flow id
-let taskId = "taskId_example"; // String | The task id
-let tenant = "tenant_example"; // String | 
-let opts = {
-  'revision': 56 // Number | The flow revision
-};
-apiInstance.getTaskFromFlow(namespace, id, taskId, tenant, opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **namespace** | **String**| The flow namespace | 
- **id** | **String**| The flow id | 
- **taskId** | **String**| The task id | 
- **tenant** | **String**|  | 
- **revision** | **Number**| The flow revision | [optional] 
-
-### Return type
-
-[**Task**](Task.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
 ## importFlows
 
-> [String] importFlows(tenant, opts)
+> [String] importFlows(failOnError, tenant, opts)
 
     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
 
@@ -997,11 +940,12 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.FlowsApi();
+let failOnError = false; // Boolean | If should fail on invalid flows
 let tenant = "tenant_example"; // String | 
 let opts = {
   'fileUpload': "/path/to/file" // File | The file to import, can be a ZIP archive or a multi-objects YAML file
 };
-apiInstance.importFlows(tenant, opts).then((data) => {
+apiInstance.importFlows(failOnError, tenant, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -1014,6 +958,7 @@ apiInstance.importFlows(tenant, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **failOnError** | **Boolean**| If should fail on invalid flows | [default to false]
  **tenant** | **String**|  | 
  **fileUpload** | **File**| The file to import, can be a ZIP archive or a multi-objects YAML file | [optional] 
 
@@ -1191,6 +1136,48 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
+## searchConcurrencyLimits
+
+> PagedResultsConcurrencyLimit searchConcurrencyLimits(tenant)
+
+Search for flow concurrency limits
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+
+let apiInstance = new KestraIoKestraSdk.FlowsApi();
+let tenant = "tenant_example"; // String | 
+apiInstance.searchConcurrencyLimits(tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant** | **String**|  | 
+
+### Return type
+
+[**PagedResultsConcurrencyLimit**](PagedResultsConcurrencyLimit.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## searchFlows
 
 > PagedResultsFlow searchFlows(page, size, tenant, opts)
@@ -1313,6 +1300,114 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
+## taskFromFlow
+
+> Task taskFromFlow(namespace, id, taskId, tenant, opts)
+
+Get a flow task
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraIoKestraSdk.FlowsApi();
+let namespace = "namespace_example"; // String | The flow namespace
+let id = "id_example"; // String | The flow id
+let taskId = "taskId_example"; // String | The task id
+let tenant = "tenant_example"; // String | 
+let opts = {
+  'revision': 56 // Number | The flow revision
+};
+apiInstance.taskFromFlow(namespace, id, taskId, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **namespace** | **String**| The flow namespace | 
+ **id** | **String**| The flow id | 
+ **taskId** | **String**| The task id | 
+ **tenant** | **String**|  | 
+ **revision** | **Number**| The flow revision | [optional] 
+
+### Return type
+
+[**Task**](Task.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## updateConcurrencyLimit
+
+> ConcurrencyLimit updateConcurrencyLimit(flowId, namespace, tenant, concurrencyLimit)
+
+Update a flow concurrency limit
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+
+let apiInstance = new KestraIoKestraSdk.FlowsApi();
+let flowId = "flowId_example"; // String | 
+let namespace = "namespace_example"; // String | 
+let tenant = "tenant_example"; // String | 
+let concurrencyLimit = new KestraIoKestraSdk.ConcurrencyLimit(); // ConcurrencyLimit | 
+apiInstance.updateConcurrencyLimit(flowId, namespace, tenant, concurrencyLimit).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **flowId** | **String**|  | 
+ **namespace** | **String**|  | 
+ **tenant** | **String**|  | 
+ **concurrencyLimit** | [**ConcurrencyLimit**](ConcurrencyLimit.md)|  | 
+
+### Return type
+
+[**ConcurrencyLimit**](ConcurrencyLimit.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
 ## updateFlow
 
 > FlowWithSource updateFlow(namespace, id, tenant, body)
@@ -1424,6 +1519,64 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/x-yaml
+- **Accept**: application/json
+
+
+## updateTask
+
+> Flow updateTask(namespace, id, taskId, tenant, task)
+
+Update a single task on a flow
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraIoKestraSdk.FlowsApi();
+let namespace = "namespace_example"; // String | The flow namespace
+let id = "id_example"; // String | The flow id
+let taskId = "taskId_example"; // String | The task id
+let tenant = "tenant_example"; // String | 
+let task = new KestraIoKestraSdk.Task(); // Task | The task
+apiInstance.updateTask(namespace, id, taskId, tenant, task).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **namespace** | **String**| The flow namespace | 
+ **id** | **String**| The flow id | 
+ **taskId** | **String**| The task id | 
+ **tenant** | **String**|  | 
+ **task** | [**Task**](Task.md)| The task | 
+
+### Return type
+
+[**Flow**](Flow.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 

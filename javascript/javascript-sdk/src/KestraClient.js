@@ -10,6 +10,7 @@ import ServicesApi from './api/ServiceAccountApi';
 import TriggersApi from './api/TriggersApi';
 import UsersApi from './api/UsersApi';
 import {ServiceAccountApi} from "./index";
+import TestSuitesApi from "./api/TestSuitesApi";
 
 
 class KestraClient {
@@ -40,6 +41,7 @@ class KestraClient {
         this.serviceAccountApi = new ServiceAccountApi(this.apiClient);
         this.triggersApi = new TriggersApi(this.apiClient);
         this.usersApi = new UsersApi(this.apiClient);
+        this.testSuitesApi = new TestSuitesApi(this.apiClient);
 
     }
 
