@@ -10,6 +10,7 @@ HOST_GID=$(id -g)
 
 get_sed_inplace_option() {
   if [[ "$(uname)" == "Darwin" ]]; then
+    # on MacOS -i needs an empty string to not create a backup file
     echo "-i ''"
   else
     echo "-i"
@@ -107,7 +108,9 @@ docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/ope
     --additional-properties=projectVersion=$VERSION \
     --template-dir=/local/typescript/template
 
-sed $SED_INPLACE "s/'tasks': any<Task>;/'tasks': Array<Task>;/g" "./typescript/typescript-sdk/api.ts"
+sed -i '' "s/'tasks': any<Task>;/'tasks': Array<Task>;/g" "./typescript/typescript-sdk/api.ts"
+rm ./typescript/typescript-sdk/git_push.sh
+cp ./typescript/files/* ./typescript/typescript-sdk/
 fi
 
 # Generate GoLang SDK
