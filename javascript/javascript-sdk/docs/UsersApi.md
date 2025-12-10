@@ -11,7 +11,6 @@ Method | HTTP request | Description
 [**deleteRefreshToken**](UsersApi.md#deleteRefreshToken) | **DELETE** /api/v1/users/{id}/refresh-token | Delete a user refresh token
 [**deleteUser**](UsersApi.md#deleteUser) | **DELETE** /api/v1/users/{id} | Delete a user
 [**deleteUserAuthMethod**](UsersApi.md#deleteUserAuthMethod) | **DELETE** /api/v1/users/{id}/auths/{auth} | Update user password
-[**getUser**](UsersApi.md#getUser) | **GET** /api/v1/users/{id} | Get a user
 [**impersonate**](UsersApi.md#impersonate) | **POST** /api/v1/users/{id}/impersonate | Impersonate a user
 [**listApiTokensForUser**](UsersApi.md#listApiTokensForUser) | **GET** /api/v1/users/{id}/api-tokens | List API tokens for a specific user
 [**listUsers**](UsersApi.md#listUsers) | **GET** /api/v1/users | Retrieve users
@@ -22,6 +21,7 @@ Method | HTTP request | Description
 [**updateCurrentUserPassword**](UsersApi.md#updateCurrentUserPassword) | **PUT** /api/v1/me/password | Update authenticated user password
 [**updateUser**](UsersApi.md#updateUser) | **PUT** /api/v1/users/{id} | Update a user account
 [**updateUserGroups**](UsersApi.md#updateUserGroups) | **PUT** /api/v1/{tenant}/users/{id}/groups | Update the list of groups a user belongs to for the given tenant
+[**user**](UsersApi.md#user) | **GET** /api/v1/users/{id} | Get a user
 
 
 
@@ -378,58 +378,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**| The user id | 
  **auth** | **String**| The user auth method id | 
-
-### Return type
-
-[**IAMUserControllerApiUser**](IAMUserControllerApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## getUser
-
-> IAMUserControllerApiUser getUser(id)
-
-Get a user
-
-Superadmin-only. Get user account details.
-
-### Example
-
-```javascript
-import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
-let defaultClient = KestraIoKestraSdk.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraIoKestraSdk.UsersApi();
-let id = "id_example"; // String | The user id
-apiInstance.getUser(id).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The user id | 
 
 ### Return type
 
@@ -981,4 +929,56 @@ null (empty response body)
 
 - **Content-Type**: application/json
 - **Accept**: Not defined
+
+
+## user
+
+> IAMUserControllerApiUser user(id)
+
+Get a user
+
+Superadmin-only. Get user account details.
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraIoKestraSdk.UsersApi();
+let id = "id_example"; // String | The user id
+apiInstance.user(id).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| The user id | 
+
+### Return type
+
+[**IAMUserControllerApiUser**](IAMUserControllerApiUser.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 

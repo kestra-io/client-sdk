@@ -1,10 +1,10 @@
-# KestraIoKestraSdk.PagedResultsTaskRun
+# KestraIoKestraSdk.PagedResultsKVEntry
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**results** | [**[TaskRun]**](TaskRun.md) |  | 
+**results** | [**[KVEntry]**](KVEntry.md) |  | 
 **total** | **Number** |  | 
 
 

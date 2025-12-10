@@ -1,11 +1,11 @@
-# KestraIoKestraSdk.ApiSecretListResponse
+# KestraIoKestraSdk.ApiSecretListResponseApiSecretMeta
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **readOnly** | **Boolean** |  | 
-**results** | [**[ApiSecretMeta]**](ApiSecretMeta.md) |  | 
+**results** | [**[ApiSecretMetaEE]**](ApiSecretMetaEE.md) |  | 
 **total** | **Number** |  | [optional] 
 
 
