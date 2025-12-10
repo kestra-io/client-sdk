@@ -1,0 +1,4 @@
+javascript-sdk
+
+!javascript-sdk/.openapi-generator-ignore
+!javascript-sdk/docker-compose-ci.yml
