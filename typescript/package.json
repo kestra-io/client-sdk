@@ -1,0 +1,9 @@
+{
+  "name": "typescript-sdk-workspace",
+  "version": "0.0.0-dev",
+  "private": true,
+  "workspaces": [
+    "typescript-sdk",
+    "test_typescript_sdk"
+  ]
+}

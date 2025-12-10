@@ -1,0 +1,19 @@
+{
+  "name": "test_javascript_sdk",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "test": "vitest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@kestra-io/kestra-api": "*",
+    "kestra_api": "*"
+  },
+  "devDependencies": {
+    "vitest": "^0.34.0"
+  }
+}
