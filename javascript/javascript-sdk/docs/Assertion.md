@@ -4,22 +4,22 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**value** | [**PropertyObject**](PropertyObject.md) |  | 
+**value** | **Object** |  | 
 **taskId** | **String** |  | [optional] 
-**errorMessage** | [**PropertyString**](PropertyString.md) |  | [optional] 
-**description** | [**PropertyString**](PropertyString.md) |  | [optional] 
-**endsWith** | [**PropertyString**](PropertyString.md) |  | [optional] 
-**startsWith** | [**PropertyString**](PropertyString.md) |  | [optional] 
-**contains** | [**PropertyString**](PropertyString.md) |  | [optional] 
-**equalTo** | [**PropertyObject**](PropertyObject.md) |  | [optional] 
-**notEqualTo** | [**PropertyObject**](PropertyObject.md) |  | [optional] 
-**greaterThan** | [**PropertyDouble**](PropertyDouble.md) |  | [optional] 
-**greaterThanOrEqualTo** | [**PropertyDouble**](PropertyDouble.md) |  | [optional] 
-**lessThan** | [**PropertyDouble**](PropertyDouble.md) |  | [optional] 
-**lessThanOrEqualTo** | [**PropertyDouble**](PropertyDouble.md) |  | [optional] 
-**_in** | [**PropertyListString**](PropertyListString.md) |  | [optional] 
-**notIn** | [**PropertyListString**](PropertyListString.md) |  | [optional] 
-**isNull** | [**PropertyBoolean**](PropertyBoolean.md) |  | [optional] 
-**isNotNull** | [**PropertyBoolean**](PropertyBoolean.md) |  | [optional] 
+**errorMessage** | **String** |  | [optional] 
+**description** | **String** |  | [optional] 
+**endsWith** | **String** |  | [optional] 
+**startsWith** | **String** |  | [optional] 
+**contains** | **String** |  | [optional] 
+**equalTo** | **Object** |  | [optional] 
+**notEqualTo** | **Object** |  | [optional] 
+**greaterThan** | **Object** |  | [optional] 
+**greaterThanOrEqualTo** | **Object** |  | [optional] 
+**lessThan** | **Object** |  | [optional] 
+**lessThanOrEqualTo** | **Object** |  | [optional] 
+**_in** | **Object** |  | [optional] 
+**notIn** | **Object** |  | [optional] 
+**isNull** | **Object** |  | [optional] 
+**isNotNull** | **Object** |  | [optional] 
 
 

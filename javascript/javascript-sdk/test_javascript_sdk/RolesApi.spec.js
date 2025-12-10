@@ -72,7 +72,7 @@ describe('RolesApi', () => {
 
         await kestraClient().rolesApi.deleteRole(created.id, MAIN_TENANT);
 
-        await expect(kestraClient().rolesApi.getRole(created.id, MAIN_TENANT)).rejects.toThrow();
+        await expect(kestraClient().rolesApi.role(created.id, MAIN_TENANT)).rejects.toThrow();
     });
 
     it('get_role — retrieves a role', async () => {
@@ -89,7 +89,7 @@ describe('RolesApi', () => {
             roleReq,
         );
 
-        const fetched = await kestraClient().rolesApi.getRole(created.id, MAIN_TENANT);
+        const fetched = await kestraClient().rolesApi.role(created.id, MAIN_TENANT);
         expect(fetched.id).toBe(created.id);
     });
 

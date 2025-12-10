@@ -8,6 +8,6 @@ Name | Type | Description | Notes
 **value** | **String** |  | [optional] 
 **state** | [**StateType**](StateType.md) |  | [optional] 
 **outputs** | **{String: Object}** |  | [optional] 
-**description** | [**PropertyString**](PropertyString.md) |  | [optional] 
+**description** | **String** |  | [optional] 
 
 

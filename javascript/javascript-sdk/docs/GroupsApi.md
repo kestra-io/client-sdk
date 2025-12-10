@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**createGroup**](GroupsApi.md#createGroup) | **POST** /api/v1/{tenant}/groups | Create a group
 [**deleteGroup**](GroupsApi.md#deleteGroup) | **DELETE** /api/v1/{tenant}/groups/{id} | Delete a group
 [**deleteUserFromGroup**](GroupsApi.md#deleteUserFromGroup) | **DELETE** /api/v1/{tenant}/groups/{id}/members/{userId} | Remove a user from a group
-[**getGroup**](GroupsApi.md#getGroup) | **GET** /api/v1/{tenant}/groups/{id} | Retrieve a group
+[**group**](GroupsApi.md#group) | **GET** /api/v1/{tenant}/groups/{id} | Retrieve a group
 [**listGroupIds**](GroupsApi.md#listGroupIds) | **POST** /api/v1/{tenant}/groups/ids | List groups by ids
 [**searchGroupMembers**](GroupsApi.md#searchGroupMembers) | **GET** /api/v1/{tenant}/groups/{id}/members | Search for users in a group
 [**searchGroups**](GroupsApi.md#searchGroups) | **GET** /api/v1/{tenant}/groups/search | Search for groups
@@ -286,9 +286,9 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## getGroup
+## group
 
-> IAMGroupControllerApiGroupDetail getGroup(id, tenant)
+> IAMGroupControllerApiGroupDetail group(id, tenant)
 
 Retrieve a group
 
@@ -310,7 +310,7 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.GroupsApi();
 let id = "id_example"; // String | The group id
 let tenant = "tenant_example"; // String | 
-apiInstance.getGroup(id, tenant).then((data) => {
+apiInstance.group(id, tenant).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
