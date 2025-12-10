@@ -106,6 +106,8 @@ docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/ope
     --skip-validate-spec \
     --additional-properties=projectVersion=$VERSION \
     --template-dir=/local/typescript/template
+
+sed $SED_INPLACE -E "s/'tasks': any<Task>;/'tasks': Array<Task>;/g" ./typescript/typescript-sdk/api.ts
 fi
 
 # Generate GoLang SDK
