@@ -10,9 +10,9 @@ Name | Type | Description | Notes
 **flowId** | **String** |  | 
 **flowRevision** | **Number** |  | 
 **taskRunList** | [**[TaskRun]**](TaskRun.md) |  | [optional] 
-**inputs** | **Object** |  | [optional] 
-**outputs** | **Object** |  | [optional] 
-**variables** | **Object** |  | [optional] 
+**inputs** | **{String: Object}** |  | [optional] 
+**outputs** | **{String: Object}** |  | [optional] 
+**variables** | **{String: Object}** |  | [optional] 
 **state** | [**State**](State.md) |  | 
 **parentId** | **String** |  | [optional] 
 **originalId** | **String** |  | [optional] 

@@ -17,6 +17,5 @@ Name | Type | Description | Notes
 **secretConfiguration** | **{String: Object}** |  | [optional] 
 **requireExistingNamespace** | **Boolean** |  | [optional] 
 **outputsInInternalStorage** | **Boolean** |  | [optional] 
-**appCatalogConfig** | [**TenantAppCatalogConfig**](TenantAppCatalogConfig.md) |  | [optional] 
 
 

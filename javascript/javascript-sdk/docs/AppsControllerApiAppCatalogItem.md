@@ -9,6 +9,5 @@ Name | Type | Description | Notes
 **description** | **String** |  | [optional] 
 **type** | **String** |  | [optional] 
 **tags** | **[String]** |  | [optional] 
-**thumbnail** | **String** |  | [optional] 
 
 

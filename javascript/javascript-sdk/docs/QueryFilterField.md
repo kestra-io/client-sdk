@@ -9,13 +9,9 @@
 
 * `NAMESPACE` (value: `"NAMESPACE"`)
 
-* `KIND` (value: `"KIND"`)
-
 * `LABELS` (value: `"LABELS"`)
 
 * `FLOW_ID` (value: `"FLOW_ID"`)
-
-* `UPDATED` (value: `"UPDATED"`)
 
 * `START_DATE` (value: `"START_DATE"`)
 

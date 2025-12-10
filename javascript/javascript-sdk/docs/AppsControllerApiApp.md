@@ -9,7 +9,6 @@ Name | Type | Description | Notes
 **name** | **String** |  | [optional] 
 **type** | **String** |  | [optional] 
 **namespace** | **String** |  | [optional] 
-**flowId** | **String** |  | [optional] 
 **tags** | **[String]** |  | [optional] 
 **enabled** | **Boolean** |  | [optional] 
 **created** | **Date** |  | [optional] 

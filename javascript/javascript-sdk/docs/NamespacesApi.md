@@ -8,11 +8,11 @@ Method | HTTP request | Description
 [**createNamespace**](NamespacesApi.md#createNamespace) | **POST** /api/v1/{tenant}/namespaces | Create a namespace
 [**deleteNamespace**](NamespacesApi.md#deleteNamespace) | **DELETE** /api/v1/{tenant}/namespaces/{id} | Delete a namespace
 [**deleteSecret**](NamespacesApi.md#deleteSecret) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Delete a secret for a namespace
+[**getInheritedSecrets**](NamespacesApi.md#getInheritedSecrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets
+[**getNamespace**](NamespacesApi.md#getNamespace) | **GET** /api/v1/{tenant}/namespaces/{id} | Get a namespace
 [**inheritedPluginDefaults**](NamespacesApi.md#inheritedPluginDefaults) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-plugindefaults | List inherited plugin defaults
-[**inheritedSecrets**](NamespacesApi.md#inheritedSecrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets
 [**inheritedVariables**](NamespacesApi.md#inheritedVariables) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-variables | List inherited variables
 [**listNamespaceSecrets**](NamespacesApi.md#listNamespaceSecrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/secrets | Get secrets for a namespace
-[**namespace**](NamespacesApi.md#namespace) | **GET** /api/v1/{tenant}/namespaces/{id} | Get a namespace
 [**patchSecret**](NamespacesApi.md#patchSecret) | **PATCH** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Patch a secret metadata for a namespace
 [**putSecrets**](NamespacesApi.md#putSecrets) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/secrets | Update secrets for a namespace
 [**searchNamespaces**](NamespacesApi.md#searchNamespaces) | **GET** /api/v1/{tenant}/namespaces/search | Search for namespaces
@@ -232,6 +232,110 @@ null (empty response body)
 - **Accept**: Not defined
 
 
+## getInheritedSecrets
+
+> {String: [String]} getInheritedSecrets(namespace, tenant)
+
+List inherited secrets
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraIoKestraSdk.NamespacesApi();
+let namespace = "namespace_example"; // String | The namespace id
+let tenant = "tenant_example"; // String | 
+apiInstance.getInheritedSecrets(namespace, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **namespace** | **String**| The namespace id | 
+ **tenant** | **String**|  | 
+
+### Return type
+
+**{String: [String]}**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## getNamespace
+
+> Namespace getNamespace(id, tenant)
+
+Get a namespace
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraIoKestraSdk.NamespacesApi();
+let id = "id_example"; // String | The namespace id
+let tenant = "tenant_example"; // String | 
+apiInstance.getNamespace(id, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| The namespace id | 
+ **tenant** | **String**|  | 
+
+### Return type
+
+[**Namespace**](Namespace.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## inheritedPluginDefaults
 
 > [PluginDefault] inheritedPluginDefaults(id, tenant)
@@ -273,58 +377,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**[PluginDefault]**](PluginDefault.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## inheritedSecrets
-
-> {String: [String]} inheritedSecrets(namespace, tenant)
-
-List inherited secrets
-
-### Example
-
-```javascript
-import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
-let defaultClient = KestraIoKestraSdk.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraIoKestraSdk.NamespacesApi();
-let namespace = "namespace_example"; // String | The namespace id
-let tenant = "tenant_example"; // String | 
-apiInstance.inheritedSecrets(namespace, tenant).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **namespace** | **String**| The namespace id | 
- **tenant** | **String**|  | 
-
-### Return type
-
-**{String: [String]}**
 
 ### Authorization
 
@@ -390,7 +442,7 @@ Name | Type | Description  | Notes
 
 ## listNamespaceSecrets
 
-> ApiSecretListResponseApiSecretMeta listNamespaceSecrets(namespace, page, size, filters, tenant, opts)
+> ApiSecretListResponse listNamespaceSecrets(namespace, page, size, filters, tenant, opts)
 
 Get secrets for a namespace
 
@@ -438,59 +490,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiSecretListResponseApiSecretMeta**](ApiSecretListResponseApiSecretMeta.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## namespace
-
-> Namespace namespace(id, tenant)
-
-Get a namespace
-
-### Example
-
-```javascript
-import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
-let defaultClient = KestraIoKestraSdk.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraIoKestraSdk.NamespacesApi();
-let id = "id_example"; // String | The namespace id
-let tenant = "tenant_example"; // String | 
-apiInstance.namespace(id, tenant).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The namespace id | 
- **tenant** | **String**|  | 
-
-### Return type
-
-[**Namespace**](Namespace.md)
+[**ApiSecretListResponse**](ApiSecretListResponse.md)
 
 ### Authorization
 
@@ -504,7 +504,7 @@ Name | Type | Description  | Notes
 
 ## patchSecret
 
-> [ApiSecretMetaEE] patchSecret(namespace, key, tenant, apiSecretMetaEE)
+> [ApiSecretMeta] patchSecret(namespace, key, tenant, apiSecretMetaEE)
 
 Patch a secret metadata for a namespace
 
@@ -546,7 +546,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[ApiSecretMetaEE]**](ApiSecretMetaEE.md)
+[**[ApiSecretMeta]**](ApiSecretMeta.md)
 
 ### Authorization
 
@@ -560,7 +560,7 @@ Name | Type | Description  | Notes
 
 ## putSecrets
 
-> [ApiSecretMetaEE] putSecrets(namespace, tenant, apiSecretValue)
+> [ApiSecretMeta] putSecrets(namespace, tenant, apiSecretValue)
 
 Update secrets for a namespace
 
@@ -600,7 +600,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[ApiSecretMetaEE]**](ApiSecretMetaEE.md)
+[**[ApiSecretMeta]**](ApiSecretMeta.md)
 
 ### Authorization
 

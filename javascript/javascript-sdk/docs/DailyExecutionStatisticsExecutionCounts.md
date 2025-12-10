@@ -5,7 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CREATED** | **Number** |  | [optional] 
-**SUBMITTED** | **Number** |  | [optional] 
 **RUNNING** | **Number** |  | [optional] 
 **PAUSED** | **Number** |  | [optional] 
 **RESTARTED** | **Number** |  | [optional] 
@@ -20,6 +19,5 @@ Name | Type | Description | Notes
 **RETRIED** | **Number** |  | [optional] 
 **SKIPPED** | **Number** |  | [optional] 
 **BREAKPOINT** | **Number** |  | [optional] 
-**RESUBMITTED** | **Number** |  | [optional] 
 
 
