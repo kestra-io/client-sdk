@@ -1,0 +1,26 @@
+generatorName: typescript-axios
+inputSpec: /local/kestra-ee.yml
+outputDir: /local/typescript/typescript-sdk
+
+globalProperties:
+  apiTests: true
+  modelTests: false
+  apiDocs: true
+  modelDocs: true
+  skipFormModel: false
+
+additionalProperties:
+  npmName: "@kestra-io/kestra-sdk"
+  npmVersion: "1.0.1"
+  projectName: "@kestra-io/kestra-sdk"
+  disallowAdditionalPropertiesIfNotPresent: false
+
+supportsES6: true
+useSingleRequestParameter: true
+withSeparateModelsAndApi: true
+apiPackage: apis
+modelPackage: models
+enumPropertyNaming: original
+
+openapiNormalizer:
+  FILTER: 'tag:Executions|Flows|Namespaces|Triggers|Users|Groups|KV|Roles|ServiceAccount|TestSuites'
