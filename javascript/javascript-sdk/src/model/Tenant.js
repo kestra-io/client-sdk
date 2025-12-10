@@ -19,7 +19,6 @@ import WorkerGroup from './WorkerGroup';
 /**
  * The Tenant model module.
  * @module model/Tenant
- * @version 1.0.0
  */
 class Tenant {
     /**

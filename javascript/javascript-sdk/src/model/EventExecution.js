@@ -17,7 +17,6 @@ import Execution from './Execution';
 /**
  * The EventExecution model module.
  * @module model/EventExecution
- * @version 1.0.0
  */
 class EventExecution {
     /**

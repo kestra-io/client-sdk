@@ -17,7 +17,6 @@ import Trigger from './Trigger';
 /**
  * The PagedResultsTrigger model module.
  * @module model/PagedResultsTrigger
- * @version 1.0.0
  */
 class PagedResultsTrigger {
     /**

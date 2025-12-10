@@ -17,7 +17,6 @@ import BlueprintControllerApiBlueprintItem from './BlueprintControllerApiBluepri
 /**
  * The PagedResultsBlueprintControllerApiBlueprintItem model module.
  * @module model/PagedResultsBlueprintControllerApiBlueprintItem
- * @version 1.0.0
  */
 class PagedResultsBlueprintControllerApiBlueprintItem {
     /**

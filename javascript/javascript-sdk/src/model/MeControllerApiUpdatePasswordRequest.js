@@ -16,7 +16,6 @@ import ApiClient from '../ApiClient';
 /**
  * The MeControllerApiUpdatePasswordRequest model module.
  * @module model/MeControllerApiUpdatePasswordRequest
- * @version 1.0.0
  */
 class MeControllerApiUpdatePasswordRequest {
     /**

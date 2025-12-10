@@ -16,7 +16,6 @@ import ApiClient from '../ApiClient';
 /**
  * The IAMBindingControllerApiRole model module.
  * @module model/IAMBindingControllerApiRole
- * @version 1.0.0
  */
 class IAMBindingControllerApiRole {
     /**

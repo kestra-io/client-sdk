@@ -16,7 +16,6 @@ import ApiClient from '../ApiClient';
 /**
  * The UsernamePasswordCredentials model module.
  * @module model/UsernamePasswordCredentials
- * @version 1.0.0
  */
 class UsernamePasswordCredentials {
     /**

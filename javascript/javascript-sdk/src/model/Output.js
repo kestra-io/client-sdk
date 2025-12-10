@@ -18,7 +18,6 @@ import Type from './Type';
 /**
  * The Output model module.
  * @module model/Output
- * @version 1.0.0
  */
 class Output {
     /**

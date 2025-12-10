@@ -16,7 +16,6 @@ import ApiClient from '../ApiClient';
 /**
  * The IdentityProvider model module.
  * @module model/IdentityProvider
- * @version 1.0.0
  */
 class IdentityProvider {
     /**

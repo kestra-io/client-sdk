@@ -23,7 +23,6 @@ import WorkerGroup from './WorkerGroup';
 /**
  * The FlowForExecution model module.
  * @module model/FlowForExecution
- * @version 1.0.0
  */
 class FlowForExecution {
     /**

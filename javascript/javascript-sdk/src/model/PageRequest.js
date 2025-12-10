@@ -16,7 +16,6 @@ import ApiClient from '../ApiClient';
 /**
  * The PageRequest model module.
  * @module model/PageRequest
- * @version 1.0.0
  */
 class PageRequest {
     /**

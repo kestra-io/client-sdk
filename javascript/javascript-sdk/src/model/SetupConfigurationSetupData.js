@@ -17,7 +17,6 @@ import Tenant from './Tenant';
 /**
  * The SetupConfigurationSetupData model module.
  * @module model/SetupConfigurationSetupData
- * @version 1.0.0
  */
 class SetupConfigurationSetupData {
     /**

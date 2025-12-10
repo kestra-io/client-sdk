@@ -16,7 +16,6 @@ import ApiClient from '../ApiClient';
 /**
  * The PropertyDuration model module.
  * @module model/PropertyDuration
- * @version 1.0.0
  */
 class PropertyDuration {
     /**

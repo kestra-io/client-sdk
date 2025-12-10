@@ -19,7 +19,6 @@ import MeControllerApiTenant from './MeControllerApiTenant';
 /**
  * The MeControllerApiMe model module.
  * @module model/MeControllerApiMe
- * @version 1.0.0
  */
 class MeControllerApiMe {
     /**

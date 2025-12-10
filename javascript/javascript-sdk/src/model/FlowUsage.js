@@ -16,7 +16,6 @@ import ApiClient from '../ApiClient';
 /**
  * The FlowUsage model module.
  * @module model/FlowUsage
- * @version 1.0.0
  */
 class FlowUsage {
     /**

@@ -17,7 +17,6 @@ import PluginSchema from './PluginSchema';
 /**
  * The DocumentationWithSchema model module.
  * @module model/DocumentationWithSchema
- * @version 1.0.0
  */
 class DocumentationWithSchema {
     /**

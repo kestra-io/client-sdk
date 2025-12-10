@@ -17,7 +17,6 @@ import ApiTenantSummary from './ApiTenantSummary';
 /**
  * The IAMServiceAccountControllerApiServiceAccountDetail model module.
  * @module model/IAMServiceAccountControllerApiServiceAccountDetail
- * @version 1.0.0
  */
 class IAMServiceAccountControllerApiServiceAccountDetail {
     /**

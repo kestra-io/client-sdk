@@ -16,7 +16,6 @@ import ApiClient from '../ApiClient';
 /**
  * The IAMUserControllerApiPatchUserPasswordRequest model module.
  * @module model/IAMUserControllerApiPatchUserPasswordRequest
- * @version 1.0.0
  */
 class IAMUserControllerApiPatchUserPasswordRequest {
     /**

@@ -32,7 +32,6 @@ import ValidateConstraintViolation from '../model/ValidateConstraintViolation';
 /**
 * Flows service.
 * @module api/FlowsApi
-* @version 1.0.0
 */
 export default class FlowsApi {
 

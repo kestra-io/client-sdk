@@ -16,7 +16,6 @@ import ApiClient from '../ApiClient';
 /**
  * The TenantControllerAppsCatalogConfigResponse model module.
  * @module model/TenantControllerAppsCatalogConfigResponse
- * @version 1.0.0
  */
 class TenantControllerAppsCatalogConfigResponse {
     /**

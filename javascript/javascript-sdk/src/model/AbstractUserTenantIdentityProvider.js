@@ -17,7 +17,6 @@ import IdentityProvider from './IdentityProvider';
 /**
  * The AbstractUserTenantIdentityProvider model module.
  * @module model/AbstractUserTenantIdentityProvider
- * @version 1.0.0
  */
 class AbstractUserTenantIdentityProvider {
     /**

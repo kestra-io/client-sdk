@@ -16,7 +16,6 @@ import ApiClient from '../ApiClient';
 /**
  * The ChartChartOption model module.
  * @module model/ChartChartOption
- * @version 1.0.0
  */
 class ChartChartOption {
     /**

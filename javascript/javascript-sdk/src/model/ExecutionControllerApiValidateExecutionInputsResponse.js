@@ -17,7 +17,6 @@ import ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue fro
 /**
  * The ExecutionControllerApiValidateExecutionInputsResponse model module.
  * @module model/ExecutionControllerApiValidateExecutionInputsResponse
- * @version 1.0.0
  */
 class ExecutionControllerApiValidateExecutionInputsResponse {
     /**

@@ -16,7 +16,6 @@ import ApiClient from '../ApiClient';
 /**
  * The BasicAuthCredentials model module.
  * @module model/BasicAuthCredentials
- * @version 1.0.0
  */
 class BasicAuthCredentials {
     /**

@@ -17,7 +17,6 @@ import InstanceControllerApiWorkerGroupItem from './InstanceControllerApiWorkerG
 /**
  * The InstanceControllerApiWorkerGroupList model module.
  * @module model/InstanceControllerApiWorkerGroupList
- * @version 1.0.0
  */
 class InstanceControllerApiWorkerGroupList {
     /**

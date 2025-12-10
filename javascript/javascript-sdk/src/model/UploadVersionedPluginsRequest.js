@@ -16,7 +16,6 @@ import ApiClient from '../ApiClient';
 /**
  * The UploadVersionedPluginsRequest model module.
  * @module model/UploadVersionedPluginsRequest
- * @version 1.0.0
  */
 class UploadVersionedPluginsRequest {
     /**

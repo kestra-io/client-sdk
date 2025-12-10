@@ -17,7 +17,6 @@ import AttributeReference from './AttributeReference';
 /**
  * The ValuePathExpression model module.
  * @module model/ValuePathExpression
- * @version 1.0.0
  */
 class ValuePathExpression {
     /**

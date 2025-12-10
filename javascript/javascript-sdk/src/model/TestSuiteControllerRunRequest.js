@@ -16,7 +16,6 @@ import ApiClient from '../ApiClient';
 /**
  * The TestSuiteControllerRunRequest model module.
  * @module model/TestSuiteControllerRunRequest
- * @version 1.0.0
  */
 class TestSuiteControllerRunRequest {
     /**

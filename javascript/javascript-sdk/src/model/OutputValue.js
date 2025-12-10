@@ -16,7 +16,6 @@ import ApiClient from '../ApiClient';
 /**
  * The OutputValue model module.
  * @module model/OutputValue
- * @version 1.0.0
  */
 class OutputValue {
     /**

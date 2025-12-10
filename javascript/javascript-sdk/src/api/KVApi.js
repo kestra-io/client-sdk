@@ -23,7 +23,6 @@ import QueryFilter from '../model/QueryFilter';
 /**
 * KV service.
 * @module api/KVApi
-* @version 1.0.0
 */
 export default class KVApi {
 

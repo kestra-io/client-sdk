@@ -16,7 +16,6 @@ import ApiClient from '../ApiClient';
 /**
  * The FlowGenerationPrompt model module.
  * @module model/FlowGenerationPrompt
- * @version 1.0.0
  */
 class FlowGenerationPrompt {
     /**

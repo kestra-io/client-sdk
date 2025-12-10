@@ -16,7 +16,6 @@ import ApiClient from '../ApiClient';
 /**
  * The ApiTenantSummary model module.
  * @module model/ApiTenantSummary
- * @version 1.0.0
  */
 class ApiTenantSummary {
     /**

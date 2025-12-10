@@ -16,7 +16,6 @@ import ApiClient from '../ApiClient';
 /**
  * The IAMTenantAccessControllerApiCreateTenantAccessRequest model module.
  * @module model/IAMTenantAccessControllerApiCreateTenantAccessRequest
- * @version 1.0.0
  */
 class IAMTenantAccessControllerApiCreateTenantAccessRequest {
     /**

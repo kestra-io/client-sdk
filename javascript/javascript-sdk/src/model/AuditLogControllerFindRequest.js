@@ -18,7 +18,6 @@ import ResourceType1 from './ResourceType1';
 /**
  * The AuditLogControllerFindRequest model module.
  * @module model/AuditLogControllerFindRequest
- * @version 1.0.0
  */
 class AuditLogControllerFindRequest {
     /**

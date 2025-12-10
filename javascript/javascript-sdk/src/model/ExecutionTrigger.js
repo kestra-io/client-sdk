@@ -16,7 +16,6 @@ import ApiClient from '../ApiClient';
 /**
  * The ExecutionTrigger model module.
  * @module model/ExecutionTrigger
- * @version 1.0.0
  */
 class ExecutionTrigger {
     /**

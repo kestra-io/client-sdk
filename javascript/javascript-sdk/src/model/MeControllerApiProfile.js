@@ -16,7 +16,6 @@ import ApiClient from '../ApiClient';
 /**
  * The MeControllerApiProfile model module.
  * @module model/MeControllerApiProfile
- * @version 1.0.0
  */
 class MeControllerApiProfile {
     /**

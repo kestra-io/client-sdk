@@ -17,7 +17,6 @@ import ConcurrencyLimit from './ConcurrencyLimit';
 /**
  * The PagedResultsConcurrencyLimit model module.
  * @module model/PagedResultsConcurrencyLimit
- * @version 1.0.0
  */
 class PagedResultsConcurrencyLimit {
     /**

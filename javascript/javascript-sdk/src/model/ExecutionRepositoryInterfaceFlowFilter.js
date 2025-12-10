@@ -16,7 +16,6 @@ import ApiClient from '../ApiClient';
 /**
  * The ExecutionRepositoryInterfaceFlowFilter model module.
  * @module model/ExecutionRepositoryInterfaceFlowFilter
- * @version 1.0.0
  */
 class ExecutionRepositoryInterfaceFlowFilter {
     /**

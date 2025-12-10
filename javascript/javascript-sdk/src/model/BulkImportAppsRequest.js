@@ -16,7 +16,6 @@ import ApiClient from '../ApiClient';
 /**
  * The BulkImportAppsRequest model module.
  * @module model/BulkImportAppsRequest
- * @version 1.0.0
  */
 class BulkImportAppsRequest {
     /**

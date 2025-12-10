@@ -16,7 +16,6 @@ import ApiClient from '../ApiClient';
 /**
  * The ResourceTypeSchemaExtensionConfiguration model module.
  * @module model/ResourceTypeSchemaExtensionConfiguration
- * @version 1.0.0
  */
 class ResourceTypeSchemaExtensionConfiguration {
     /**

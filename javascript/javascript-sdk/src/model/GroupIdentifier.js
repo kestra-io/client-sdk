@@ -17,7 +17,6 @@ import GroupIdentifierMembership from './GroupIdentifierMembership';
 /**
  * The GroupIdentifier model module.
  * @module model/GroupIdentifier
- * @version 1.0.0
  */
 class GroupIdentifier {
     /**

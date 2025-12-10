@@ -17,7 +17,6 @@ import ChartFiltersOverrides from './ChartFiltersOverrides';
 /**
  * The DashboardControllerPreviewRequest model module.
  * @module model/DashboardControllerPreviewRequest
- * @version 1.0.0
  */
 class DashboardControllerPreviewRequest {
     /**

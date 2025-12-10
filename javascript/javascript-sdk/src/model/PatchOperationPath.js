@@ -17,7 +17,6 @@ import ValuePathExpression from './ValuePathExpression';
 /**
  * The PatchOperationPath model module.
  * @module model/PatchOperationPath
- * @version 1.0.0
  */
 class PatchOperationPath {
     /**

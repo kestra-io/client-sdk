@@ -16,7 +16,6 @@ import ApiClient from '../ApiClient';
 /**
  * The CreateNamespaceFileRequest model module.
  * @module model/CreateNamespaceFileRequest
- * @version 1.0.0
  */
 class CreateNamespaceFileRequest {
     /**

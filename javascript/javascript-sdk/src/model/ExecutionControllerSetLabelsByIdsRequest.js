@@ -17,7 +17,6 @@ import Label from './Label';
 /**
  * The ExecutionControllerSetLabelsByIdsRequest model module.
  * @module model/ExecutionControllerSetLabelsByIdsRequest
- * @version 1.0.0
  */
 class ExecutionControllerSetLabelsByIdsRequest {
     /**

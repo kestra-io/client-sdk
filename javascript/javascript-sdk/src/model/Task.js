@@ -20,7 +20,6 @@ import WorkerGroup from './WorkerGroup';
 /**
  * The Task model module.
  * @module model/Task
- * @version 1.0.0
  */
 class Task {
     /**

@@ -16,7 +16,6 @@ import ApiClient from '../ApiClient';
 /**
  * The IAMServiceAccountControllerApiGroup model module.
  * @module model/IAMServiceAccountControllerApiGroup
- * @version 1.0.0
  */
 class IAMServiceAccountControllerApiGroup {
     /**
