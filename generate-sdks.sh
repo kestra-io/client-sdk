@@ -33,7 +33,7 @@ BASE_PKG=io.kestra.sdk
 
 if [ -n "$TEMPLATE_FLAG" ]; then
   echo "Generating templates"
-  docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release author template -g "$LANGUAGES" -o /local/$LANGUAGES/templates
+  docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release author template -g "$LANGUAGES" -o /local/$LANGUAGES/template
   exit 0
 fi
 
@@ -97,6 +97,15 @@ sed $SED_INPLACE -E "s/obj\['value'\][[:space:]]*=[[:space:]]*OutputValue\.const
 sed $SED_INPLACE -E "s/obj\[([\"'])([A-Za-z0-9_]+)\1\] = Object\.constructFromObject\(data\[\1\2\1\]\);/obj[\1\2\1] = ApiClient.convertToType(data[\1\2\1], 'Object');/g" ./javascript/javascript-sdk/src/model/Assertion.js
 sed $SED_INPLACE -E "s/obj\[([\"'])([A-Za-z0-9_]+)\1\] = ([\"'])([A-Za-z]+)\3\.constructFromObject\(data\[\1\2\1\]\);/obj[\1\2\1] = ApiClient.convertToType(data[\1\2\1], \3\4\3);/g" ./javascript/javascript-sdk/src/model/Assertion.js
 sed $SED_INPLACE -E "s/let authNames = \[\];/let authNames = \['basicAuth', 'bearerAuth'\];/" ./javascript/javascript-sdk/src/api/TestSuitesApi.js
+fi
+
+# Generate Typescript SDK
+if [[ ",$LANGUAGES," == *",typescript,"* ]]; then
+docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release generate \
+    -c /local/typescript/configuration/typescript-config.yml \
+    --skip-validate-spec \
+    --additional-properties=projectVersion=$VERSION \
+    --template-dir=/local/typescript/template
 fi
 
 # Generate GoLang SDK
