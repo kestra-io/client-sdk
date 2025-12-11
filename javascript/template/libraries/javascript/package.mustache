@@ -7,7 +7,7 @@
   "scripts": {
     "build": "babel src -d dist",
     "prepare": "npm run build",
-    "test": "mocha --require @babel/register --recursive"
+    "test": "vitest"
   },
   "browser": {
     "fs": false
@@ -43,7 +43,8 @@
     "@babel/register": "^7.0.0",
     "expect.js": "^0.3.1",
     "mocha": "^8.0.1",
-    "sinon": "^7.2.0"
+    "sinon": "^7.2.0",
+    "vitest": "^4.0.15"
   },
   "files": [
     "dist"

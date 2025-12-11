@@ -11,183 +11,169 @@
  *
  */
 
-(function(root, factory) {
-  if (typeof define === 'function' && define.amd) {
-    // AMD.
-    define(['expect.js', process.cwd()+'/src/index'], factory);
-  } else if (typeof module === 'object' && module.exports) {
-    // CommonJS-like environments that support module.exports, like Node.
-    factory(require('expect.js'), require(process.cwd()+'/src/index'));
-  } else {
-    // Browser globals (root is window)
-    factory(root.expect, root.KestraIoKestraSdk);
-  }
-}(this, function(expect, KestraIoKestraSdk) {
-  'use strict';
+import { describe, it, beforeEach } from 'vitest';
 
-  var instance;
+let instance;
 
-  beforeEach(function() {
+beforeEach(function() {
     instance = new KestraIoKestraSdk.TestSuitesApi();
-  });
+});
 
-  var getProperty = function(object, getter, property) {
-    // Use getter method if present; otherwise, get the property directly.
-    if (typeof object[getter] === 'function')
-      return object[getter]();
-    else
-      return object[property];
-  }
+let getProperty = function(object, getter, property) {
+// Use getter method if present; otherwise, get the property directly.
+if (typeof object[getter] === 'function')
+    return object[getter]();
+else
+    return object[property];
+}
 
-  var setProperty = function(object, setter, property, value) {
-    // Use setter method if present; otherwise, set the property directly.
-    if (typeof object[setter] === 'function')
-      object[setter](value);
-    else
-      object[property] = value;
-  }
+var setProperty = function(object, setter, property, value) {
+// Use setter method if present; otherwise, set the property directly.
+if (typeof object[setter] === 'function')
+    object[setter](value);
+else
+    object[property] = value;
+}
 
-  describe('TestSuitesApi', function() {
+describe('TestSuitesApi', function() {
     describe('createTestSuite', function() {
-      it('should call createTestSuite successfully', function(done) {
-        //uncomment below and update the code to test createTestSuite
-        //instance.createTestSuite(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
+        it('should call createTestSuite successfully', function(done) {
+            //uncomment below and update the code to test createTestSuite
+            //instance.createTestSuite(function(error) {
+            //  if (error) throw error;
+            //expect().to.be();
+            //});
+            done();
+        });
     });
     describe('deleteTestSuite', function() {
-      it('should call deleteTestSuite successfully', function(done) {
-        //uncomment below and update the code to test deleteTestSuite
-        //instance.deleteTestSuite(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
+        it('should call deleteTestSuite successfully', function(done) {
+            //uncomment below and update the code to test deleteTestSuite
+            //instance.deleteTestSuite(function(error) {
+            //  if (error) throw error;
+            //expect().to.be();
+            //});
+            done();
+        });
     });
     describe('deleteTestSuitesByIds', function() {
-      it('should call deleteTestSuitesByIds successfully', function(done) {
-        //uncomment below and update the code to test deleteTestSuitesByIds
-        //instance.deleteTestSuitesByIds(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
+        it('should call deleteTestSuitesByIds successfully', function(done) {
+            //uncomment below and update the code to test deleteTestSuitesByIds
+            //instance.deleteTestSuitesByIds(function(error) {
+            //  if (error) throw error;
+            //expect().to.be();
+            //});
+            done();
+        });
     });
     describe('disableTestSuitesByIds', function() {
-      it('should call disableTestSuitesByIds successfully', function(done) {
-        //uncomment below and update the code to test disableTestSuitesByIds
-        //instance.disableTestSuitesByIds(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
+        it('should call disableTestSuitesByIds successfully', function(done) {
+            //uncomment below and update the code to test disableTestSuitesByIds
+            //instance.disableTestSuitesByIds(function(error) {
+            //  if (error) throw error;
+            //expect().to.be();
+            //});
+            done();
+        });
     });
     describe('enableTestSuitesByIds', function() {
-      it('should call enableTestSuitesByIds successfully', function(done) {
-        //uncomment below and update the code to test enableTestSuitesByIds
-        //instance.enableTestSuitesByIds(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
+        it('should call enableTestSuitesByIds successfully', function(done) {
+            //uncomment below and update the code to test enableTestSuitesByIds
+            //instance.enableTestSuitesByIds(function(error) {
+            //  if (error) throw error;
+            //expect().to.be();
+            //});
+            done();
+        });
     });
     describe('runTestSuite', function() {
-      it('should call runTestSuite successfully', function(done) {
-        //uncomment below and update the code to test runTestSuite
-        //instance.runTestSuite(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
+        it('should call runTestSuite successfully', function(done) {
+            //uncomment below and update the code to test runTestSuite
+            //instance.runTestSuite(function(error) {
+            //  if (error) throw error;
+            //expect().to.be();
+            //});
+            done();
+        });
     });
     describe('runTestSuitesByQuery', function() {
-      it('should call runTestSuitesByQuery successfully', function(done) {
-        //uncomment below and update the code to test runTestSuitesByQuery
-        //instance.runTestSuitesByQuery(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
+        it('should call runTestSuitesByQuery successfully', function(done) {
+            //uncomment below and update the code to test runTestSuitesByQuery
+            //instance.runTestSuitesByQuery(function(error) {
+            //  if (error) throw error;
+            //expect().to.be();
+            //});
+            done();
+        });
     });
     describe('searchTestSuites', function() {
-      it('should call searchTestSuites successfully', function(done) {
-        //uncomment below and update the code to test searchTestSuites
-        //instance.searchTestSuites(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
+        it('should call searchTestSuites successfully', function(done) {
+            //uncomment below and update the code to test searchTestSuites
+            //instance.searchTestSuites(function(error) {
+            //  if (error) throw error;
+            //expect().to.be();
+            //});
+            done();
+        });
     });
     describe('searchTestSuitesResults', function() {
-      it('should call searchTestSuitesResults successfully', function(done) {
-        //uncomment below and update the code to test searchTestSuitesResults
-        //instance.searchTestSuitesResults(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
+        it('should call searchTestSuitesResults successfully', function(done) {
+            //uncomment below and update the code to test searchTestSuitesResults
+            //instance.searchTestSuitesResults(function(error) {
+            //  if (error) throw error;
+            //expect().to.be();
+            //});
+            done();
+        });
     });
     describe('testResult', function() {
-      it('should call testResult successfully', function(done) {
-        //uncomment below and update the code to test testResult
-        //instance.testResult(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
+        it('should call testResult successfully', function(done) {
+            //uncomment below and update the code to test testResult
+            //instance.testResult(function(error) {
+            //  if (error) throw error;
+            //expect().to.be();
+            //});
+            done();
+        });
     });
     describe('testSuite', function() {
-      it('should call testSuite successfully', function(done) {
-        //uncomment below and update the code to test testSuite
-        //instance.testSuite(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
+        it('should call testSuite successfully', function(done) {
+            //uncomment below and update the code to test testSuite
+            //instance.testSuite(function(error) {
+            //  if (error) throw error;
+            //expect().to.be();
+            //});
+            done();
+        });
     });
     describe('testsLastResult', function() {
-      it('should call testsLastResult successfully', function(done) {
-        //uncomment below and update the code to test testsLastResult
-        //instance.testsLastResult(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
+        it('should call testsLastResult successfully', function(done) {
+            //uncomment below and update the code to test testsLastResult
+            //instance.testsLastResult(function(error) {
+            //  if (error) throw error;
+            //expect().to.be();
+            //});
+            done();
+        });
     });
     describe('updateTestSuite', function() {
-      it('should call updateTestSuite successfully', function(done) {
-        //uncomment below and update the code to test updateTestSuite
-        //instance.updateTestSuite(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
+        it('should call updateTestSuite successfully', function(done) {
+            //uncomment below and update the code to test updateTestSuite
+            //instance.updateTestSuite(function(error) {
+            //  if (error) throw error;
+            //expect().to.be();
+            //});
+            done();
+        });
     });
     describe('validateTestSuite', function() {
-      it('should call validateTestSuite successfully', function(done) {
-        //uncomment below and update the code to test validateTestSuite
-        //instance.validateTestSuite(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
+        it('should call validateTestSuite successfully', function(done) {
+            //uncomment below and update the code to test validateTestSuite
+            //instance.validateTestSuite(function(error) {
+            //  if (error) throw error;
+            //expect().to.be();
+            //});
+            done();
+        });
     });
-  });
-
-}));
+});

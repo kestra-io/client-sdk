@@ -50,55 +50,55 @@ class Assertion {
             obj = obj || new Assertion();
 
             if (data.hasOwnProperty('value')) {
-                obj['value'] = ApiClient.convertToType(data['value'], 'Object');
+                obj['value'] = Object.constructFromObject(data['value']);
             }
             if (data.hasOwnProperty('taskId')) {
                 obj['taskId'] = ApiClient.convertToType(data['taskId'], 'String');
             }
             if (data.hasOwnProperty('errorMessage')) {
-                obj['errorMessage'] = ApiClient.convertToType(data['errorMessage'], 'String');
+                obj['errorMessage'] = 'String'.constructFromObject(data['errorMessage']);
             }
             if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+                obj['description'] = 'String'.constructFromObject(data['description']);
             }
             if (data.hasOwnProperty('endsWith')) {
-                obj['endsWith'] = ApiClient.convertToType(data['endsWith'], 'String');
+                obj['endsWith'] = 'String'.constructFromObject(data['endsWith']);
             }
             if (data.hasOwnProperty('startsWith')) {
-                obj['startsWith'] = ApiClient.convertToType(data['startsWith'], 'String');
+                obj['startsWith'] = 'String'.constructFromObject(data['startsWith']);
             }
             if (data.hasOwnProperty('contains')) {
-                obj['contains'] = ApiClient.convertToType(data['contains'], 'String');
+                obj['contains'] = 'String'.constructFromObject(data['contains']);
             }
             if (data.hasOwnProperty('equalTo')) {
-                obj['equalTo'] = ApiClient.convertToType(data['equalTo'], 'Object');
+                obj['equalTo'] = Object.constructFromObject(data['equalTo']);
             }
             if (data.hasOwnProperty('notEqualTo')) {
-                obj['notEqualTo'] = ApiClient.convertToType(data['notEqualTo'], 'Object');
+                obj['notEqualTo'] = Object.constructFromObject(data['notEqualTo']);
             }
             if (data.hasOwnProperty('greaterThan')) {
-                obj['greaterThan'] = ApiClient.convertToType(data['greaterThan'], 'Object');
+                obj['greaterThan'] = Object.constructFromObject(data['greaterThan']);
             }
             if (data.hasOwnProperty('greaterThanOrEqualTo')) {
-                obj['greaterThanOrEqualTo'] = ApiClient.convertToType(data['greaterThanOrEqualTo'], 'Object');
+                obj['greaterThanOrEqualTo'] = Object.constructFromObject(data['greaterThanOrEqualTo']);
             }
             if (data.hasOwnProperty('lessThan')) {
-                obj['lessThan'] = ApiClient.convertToType(data['lessThan'], 'Object');
+                obj['lessThan'] = Object.constructFromObject(data['lessThan']);
             }
             if (data.hasOwnProperty('lessThanOrEqualTo')) {
-                obj['lessThanOrEqualTo'] = ApiClient.convertToType(data['lessThanOrEqualTo'], 'Object');
+                obj['lessThanOrEqualTo'] = Object.constructFromObject(data['lessThanOrEqualTo']);
             }
             if (data.hasOwnProperty('in')) {
-                obj['in'] = ApiClient.convertToType(data['in'], 'Object');
+                obj['in'] = Object.constructFromObject(data['in']);
             }
             if (data.hasOwnProperty('notIn')) {
-                obj['notIn'] = ApiClient.convertToType(data['notIn'], 'Object');
+                obj['notIn'] = Object.constructFromObject(data['notIn']);
             }
             if (data.hasOwnProperty('isNull')) {
-                obj['isNull'] = ApiClient.convertToType(data['isNull'], 'Object');
+                obj['isNull'] = Object.constructFromObject(data['isNull']);
             }
             if (data.hasOwnProperty('isNotNull')) {
-                obj['isNotNull'] = ApiClient.convertToType(data['isNotNull'], 'Object');
+                obj['isNotNull'] = Object.constructFromObject(data['isNotNull']);
             }
         }
         return obj;
