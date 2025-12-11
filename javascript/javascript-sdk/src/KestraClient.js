@@ -15,6 +15,13 @@ import TestSuitesApi from "./api/TestSuitesApi";
 
 class KestraClient {
 
+    /**
+     * Constructs a new KestraClient.
+     * @param {String} host The base path to the Kestra server.
+     * @param {String} accessToken The access token for bearer authentication.
+     * @param {String} username The username for basic authentication.
+     * @param {String} password The password for basic authentication.
+     */
     constructor(host, accessToken, username, password) {
         this.apiClient = ApiClient.instance;
 
