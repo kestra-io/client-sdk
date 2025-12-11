@@ -12,11 +12,12 @@
  */
 
 import { describe, it, beforeEach } from 'vitest';
+import KestraClient from "../../src/KestraClient"
 
 let instance;
 
 beforeEach(function() {
-    instance = new KestraIoKestraSdk.KVApi();
+    instance = new KestraClient().KVApi;
 });
 
 let getProperty = function(object, getter, property) {
@@ -37,73 +38,66 @@ else
 
 describe('KVApi', function() {
     describe('deleteKeyValue', function() {
-        it('should call deleteKeyValue successfully', function(done) {
+        it('should call deleteKeyValue successfully', function() {
             //uncomment below and update the code to test deleteKeyValue
             //instance.deleteKeyValue(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('deleteKeyValues', function() {
-        it('should call deleteKeyValues successfully', function(done) {
+        it('should call deleteKeyValues successfully', function() {
             //uncomment below and update the code to test deleteKeyValues
             //instance.deleteKeyValues(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('keyValue', function() {
-        it('should call keyValue successfully', function(done) {
+        it('should call keyValue successfully', function() {
             //uncomment below and update the code to test keyValue
             //instance.keyValue(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('listAllKeys', function() {
-        it('should call listAllKeys successfully', function(done) {
+        it('should call listAllKeys successfully', function() {
             //uncomment below and update the code to test listAllKeys
             //instance.listAllKeys(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('listKeys', function() {
-        it('should call listKeys successfully', function(done) {
+        it('should call listKeys successfully', function() {
             //uncomment below and update the code to test listKeys
             //instance.listKeys(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('listKeysWithInheritence', function() {
-        it('should call listKeysWithInheritence successfully', function(done) {
+        it('should call listKeysWithInheritence successfully', function() {
             //uncomment below and update the code to test listKeysWithInheritence
             //instance.listKeysWithInheritence(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('setKeyValue', function() {
-        it('should call setKeyValue successfully', function(done) {
+        it('should call setKeyValue successfully', function() {
             //uncomment below and update the code to test setKeyValue
             //instance.setKeyValue(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
 });

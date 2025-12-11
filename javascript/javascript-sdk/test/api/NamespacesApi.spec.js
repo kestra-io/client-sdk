@@ -12,11 +12,12 @@
  */
 
 import { describe, it, beforeEach } from 'vitest';
+import KestraClient from "../../src/KestraClient"
 
 let instance;
 
 beforeEach(function() {
-    instance = new KestraIoKestraSdk.NamespacesApi();
+    instance = new KestraClient().NamespacesApi;
 });
 
 let getProperty = function(object, getter, property) {
@@ -37,133 +38,120 @@ else
 
 describe('NamespacesApi', function() {
     describe('autocompleteNamespaces', function() {
-        it('should call autocompleteNamespaces successfully', function(done) {
+        it('should call autocompleteNamespaces successfully', function() {
             //uncomment below and update the code to test autocompleteNamespaces
             //instance.autocompleteNamespaces(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('createNamespace', function() {
-        it('should call createNamespace successfully', function(done) {
+        it('should call createNamespace successfully', function() {
             //uncomment below and update the code to test createNamespace
             //instance.createNamespace(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('deleteNamespace', function() {
-        it('should call deleteNamespace successfully', function(done) {
+        it('should call deleteNamespace successfully', function() {
             //uncomment below and update the code to test deleteNamespace
             //instance.deleteNamespace(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('deleteSecret', function() {
-        it('should call deleteSecret successfully', function(done) {
+        it('should call deleteSecret successfully', function() {
             //uncomment below and update the code to test deleteSecret
             //instance.deleteSecret(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('inheritedPluginDefaults', function() {
-        it('should call inheritedPluginDefaults successfully', function(done) {
+        it('should call inheritedPluginDefaults successfully', function() {
             //uncomment below and update the code to test inheritedPluginDefaults
             //instance.inheritedPluginDefaults(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('inheritedSecrets', function() {
-        it('should call inheritedSecrets successfully', function(done) {
+        it('should call inheritedSecrets successfully', function() {
             //uncomment below and update the code to test inheritedSecrets
             //instance.inheritedSecrets(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('inheritedVariables', function() {
-        it('should call inheritedVariables successfully', function(done) {
+        it('should call inheritedVariables successfully', function() {
             //uncomment below and update the code to test inheritedVariables
             //instance.inheritedVariables(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('listNamespaceSecrets', function() {
-        it('should call listNamespaceSecrets successfully', function(done) {
+        it('should call listNamespaceSecrets successfully', function() {
             //uncomment below and update the code to test listNamespaceSecrets
             //instance.listNamespaceSecrets(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('namespace', function() {
-        it('should call namespace successfully', function(done) {
+        it('should call namespace successfully', function() {
             //uncomment below and update the code to test namespace
             //instance.namespace(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('patchSecret', function() {
-        it('should call patchSecret successfully', function(done) {
+        it('should call patchSecret successfully', function() {
             //uncomment below and update the code to test patchSecret
             //instance.patchSecret(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('putSecrets', function() {
-        it('should call putSecrets successfully', function(done) {
+        it('should call putSecrets successfully', function() {
             //uncomment below and update the code to test putSecrets
             //instance.putSecrets(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('searchNamespaces', function() {
-        it('should call searchNamespaces successfully', function(done) {
+        it('should call searchNamespaces successfully', function() {
             //uncomment below and update the code to test searchNamespaces
             //instance.searchNamespaces(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('updateNamespace', function() {
-        it('should call updateNamespace successfully', function(done) {
+        it('should call updateNamespace successfully', function() {
             //uncomment below and update the code to test updateNamespace
             //instance.updateNamespace(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
 });

@@ -1,10 +1,11 @@
 {{>licenseInfo}}
 import { describe, it, beforeEach } from 'vitest';
+import KestraClient from "../../src/KestraClient"
 
 let instance;
 
 beforeEach(function() {
-    instance = new {{moduleName}}.{{classname}}();
+    instance = new KestraClient().{{classname}};
 });
 
 let getProperty = function(object, getter, property) {

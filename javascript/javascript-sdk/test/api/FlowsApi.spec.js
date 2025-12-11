@@ -12,11 +12,12 @@
  */
 
 import { describe, it, beforeEach } from 'vitest';
+import KestraClient from "../../src/KestraClient"
 
 let instance;
 
 beforeEach(function() {
-    instance = new KestraIoKestraSdk.FlowsApi();
+    instance = new KestraClient().FlowsApi;
 });
 
 let getProperty = function(object, getter, property) {
@@ -37,313 +38,282 @@ else
 
 describe('FlowsApi', function() {
     describe('bulkUpdateFlows', function() {
-        it('should call bulkUpdateFlows successfully', function(done) {
+        it('should call bulkUpdateFlows successfully', function() {
             //uncomment below and update the code to test bulkUpdateFlows
             //instance.bulkUpdateFlows(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('createFlow', function() {
-        it('should call createFlow successfully', function(done) {
+        it('should call createFlow successfully', function() {
             //uncomment below and update the code to test createFlow
             //instance.createFlow(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('deleteFlow', function() {
-        it('should call deleteFlow successfully', function(done) {
+        it('should call deleteFlow successfully', function() {
             //uncomment below and update the code to test deleteFlow
             //instance.deleteFlow(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('deleteFlowsByIds', function() {
-        it('should call deleteFlowsByIds successfully', function(done) {
+        it('should call deleteFlowsByIds successfully', function() {
             //uncomment below and update the code to test deleteFlowsByIds
             //instance.deleteFlowsByIds(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('deleteFlowsByQuery', function() {
-        it('should call deleteFlowsByQuery successfully', function(done) {
+        it('should call deleteFlowsByQuery successfully', function() {
             //uncomment below and update the code to test deleteFlowsByQuery
             //instance.deleteFlowsByQuery(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('disableFlowsByIds', function() {
-        it('should call disableFlowsByIds successfully', function(done) {
+        it('should call disableFlowsByIds successfully', function() {
             //uncomment below and update the code to test disableFlowsByIds
             //instance.disableFlowsByIds(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('disableFlowsByQuery', function() {
-        it('should call disableFlowsByQuery successfully', function(done) {
+        it('should call disableFlowsByQuery successfully', function() {
             //uncomment below and update the code to test disableFlowsByQuery
             //instance.disableFlowsByQuery(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('enableFlowsByIds', function() {
-        it('should call enableFlowsByIds successfully', function(done) {
+        it('should call enableFlowsByIds successfully', function() {
             //uncomment below and update the code to test enableFlowsByIds
             //instance.enableFlowsByIds(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('enableFlowsByQuery', function() {
-        it('should call enableFlowsByQuery successfully', function(done) {
+        it('should call enableFlowsByQuery successfully', function() {
             //uncomment below and update the code to test enableFlowsByQuery
             //instance.enableFlowsByQuery(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('exportFlowsByIds', function() {
-        it('should call exportFlowsByIds successfully', function(done) {
+        it('should call exportFlowsByIds successfully', function() {
             //uncomment below and update the code to test exportFlowsByIds
             //instance.exportFlowsByIds(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('exportFlowsByQuery', function() {
-        it('should call exportFlowsByQuery successfully', function(done) {
+        it('should call exportFlowsByQuery successfully', function() {
             //uncomment below and update the code to test exportFlowsByQuery
             //instance.exportFlowsByQuery(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('flow', function() {
-        it('should call flow successfully', function(done) {
+        it('should call flow successfully', function() {
             //uncomment below and update the code to test flow
             //instance.flow(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('flowDependencies', function() {
-        it('should call flowDependencies successfully', function(done) {
+        it('should call flowDependencies successfully', function() {
             //uncomment below and update the code to test flowDependencies
             //instance.flowDependencies(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('flowDependenciesFromNamespace', function() {
-        it('should call flowDependenciesFromNamespace successfully', function(done) {
+        it('should call flowDependenciesFromNamespace successfully', function() {
             //uncomment below and update the code to test flowDependenciesFromNamespace
             //instance.flowDependenciesFromNamespace(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('generateFlowGraph', function() {
-        it('should call generateFlowGraph successfully', function(done) {
+        it('should call generateFlowGraph successfully', function() {
             //uncomment below and update the code to test generateFlowGraph
             //instance.generateFlowGraph(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('generateFlowGraphFromSource', function() {
-        it('should call generateFlowGraphFromSource successfully', function(done) {
+        it('should call generateFlowGraphFromSource successfully', function() {
             //uncomment below and update the code to test generateFlowGraphFromSource
             //instance.generateFlowGraphFromSource(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('importFlows', function() {
-        it('should call importFlows successfully', function(done) {
+        it('should call importFlows successfully', function() {
             //uncomment below and update the code to test importFlows
             //instance.importFlows(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('listDistinctNamespaces', function() {
-        it('should call listDistinctNamespaces successfully', function(done) {
+        it('should call listDistinctNamespaces successfully', function() {
             //uncomment below and update the code to test listDistinctNamespaces
             //instance.listDistinctNamespaces(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('listFlowRevisions', function() {
-        it('should call listFlowRevisions successfully', function(done) {
+        it('should call listFlowRevisions successfully', function() {
             //uncomment below and update the code to test listFlowRevisions
             //instance.listFlowRevisions(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('listFlowsByNamespace', function() {
-        it('should call listFlowsByNamespace successfully', function(done) {
+        it('should call listFlowsByNamespace successfully', function() {
             //uncomment below and update the code to test listFlowsByNamespace
             //instance.listFlowsByNamespace(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('searchConcurrencyLimits', function() {
-        it('should call searchConcurrencyLimits successfully', function(done) {
+        it('should call searchConcurrencyLimits successfully', function() {
             //uncomment below and update the code to test searchConcurrencyLimits
             //instance.searchConcurrencyLimits(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('searchFlows', function() {
-        it('should call searchFlows successfully', function(done) {
+        it('should call searchFlows successfully', function() {
             //uncomment below and update the code to test searchFlows
             //instance.searchFlows(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('searchFlowsBySourceCode', function() {
-        it('should call searchFlowsBySourceCode successfully', function(done) {
+        it('should call searchFlowsBySourceCode successfully', function() {
             //uncomment below and update the code to test searchFlowsBySourceCode
             //instance.searchFlowsBySourceCode(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('taskFromFlow', function() {
-        it('should call taskFromFlow successfully', function(done) {
+        it('should call taskFromFlow successfully', function() {
             //uncomment below and update the code to test taskFromFlow
             //instance.taskFromFlow(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('updateConcurrencyLimit', function() {
-        it('should call updateConcurrencyLimit successfully', function(done) {
+        it('should call updateConcurrencyLimit successfully', function() {
             //uncomment below and update the code to test updateConcurrencyLimit
             //instance.updateConcurrencyLimit(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('updateFlow', function() {
-        it('should call updateFlow successfully', function(done) {
+        it('should call updateFlow successfully', function() {
             //uncomment below and update the code to test updateFlow
             //instance.updateFlow(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('updateFlowsInNamespace', function() {
-        it('should call updateFlowsInNamespace successfully', function(done) {
+        it('should call updateFlowsInNamespace successfully', function() {
             //uncomment below and update the code to test updateFlowsInNamespace
             //instance.updateFlowsInNamespace(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('updateTask', function() {
-        it('should call updateTask successfully', function(done) {
+        it('should call updateTask successfully', function() {
             //uncomment below and update the code to test updateTask
             //instance.updateTask(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('validateFlows', function() {
-        it('should call validateFlows successfully', function(done) {
+        it('should call validateFlows successfully', function() {
             //uncomment below and update the code to test validateFlows
             //instance.validateFlows(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('validateTask', function() {
-        it('should call validateTask successfully', function(done) {
+        it('should call validateTask successfully', function() {
             //uncomment below and update the code to test validateTask
             //instance.validateTask(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('validateTrigger', function() {
-        it('should call validateTrigger successfully', function(done) {
+        it('should call validateTrigger successfully', function() {
             //uncomment below and update the code to test validateTrigger
             //instance.validateTrigger(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
 });

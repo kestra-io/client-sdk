@@ -12,11 +12,12 @@
  */
 
 import { describe, it, beforeEach } from 'vitest';
+import KestraClient from "../../src/KestraClient"
 
 let instance;
 
 beforeEach(function() {
-    instance = new KestraIoKestraSdk.RolesApi();
+    instance = new KestraClient().RolesApi;
 });
 
 let getProperty = function(object, getter, property) {
@@ -37,73 +38,66 @@ else
 
 describe('RolesApi', function() {
     describe('autocompleteRoles', function() {
-        it('should call autocompleteRoles successfully', function(done) {
+        it('should call autocompleteRoles successfully', function() {
             //uncomment below and update the code to test autocompleteRoles
             //instance.autocompleteRoles(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('createRole', function() {
-        it('should call createRole successfully', function(done) {
+        it('should call createRole successfully', function() {
             //uncomment below and update the code to test createRole
             //instance.createRole(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('deleteRole', function() {
-        it('should call deleteRole successfully', function(done) {
+        it('should call deleteRole successfully', function() {
             //uncomment below and update the code to test deleteRole
             //instance.deleteRole(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('listRolesFromGivenIds', function() {
-        it('should call listRolesFromGivenIds successfully', function(done) {
+        it('should call listRolesFromGivenIds successfully', function() {
             //uncomment below and update the code to test listRolesFromGivenIds
             //instance.listRolesFromGivenIds(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('role', function() {
-        it('should call role successfully', function(done) {
+        it('should call role successfully', function() {
             //uncomment below and update the code to test role
             //instance.role(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('searchRoles', function() {
-        it('should call searchRoles successfully', function(done) {
+        it('should call searchRoles successfully', function() {
             //uncomment below and update the code to test searchRoles
             //instance.searchRoles(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('updateRole', function() {
-        it('should call updateRole successfully', function(done) {
+        it('should call updateRole successfully', function() {
             //uncomment below and update the code to test updateRole
             //instance.updateRole(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
 });

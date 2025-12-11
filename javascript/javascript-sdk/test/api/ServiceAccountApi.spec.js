@@ -12,11 +12,12 @@
  */
 
 import { describe, it, beforeEach } from 'vitest';
+import KestraClient from "../../src/KestraClient"
 
 let instance;
 
 beforeEach(function() {
-    instance = new KestraIoKestraSdk.ServiceAccountApi();
+    instance = new KestraClient().ServiceAccountApi;
 });
 
 let getProperty = function(object, getter, property) {
@@ -37,163 +38,147 @@ else
 
 describe('ServiceAccountApi', function() {
     describe('createApiTokensForServiceAccount', function() {
-        it('should call createApiTokensForServiceAccount successfully', function(done) {
+        it('should call createApiTokensForServiceAccount successfully', function() {
             //uncomment below and update the code to test createApiTokensForServiceAccount
             //instance.createApiTokensForServiceAccount(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('createApiTokensForServiceAccountWithTenant', function() {
-        it('should call createApiTokensForServiceAccountWithTenant successfully', function(done) {
+        it('should call createApiTokensForServiceAccountWithTenant successfully', function() {
             //uncomment below and update the code to test createApiTokensForServiceAccountWithTenant
             //instance.createApiTokensForServiceAccountWithTenant(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('createServiceAccount', function() {
-        it('should call createServiceAccount successfully', function(done) {
+        it('should call createServiceAccount successfully', function() {
             //uncomment below and update the code to test createServiceAccount
             //instance.createServiceAccount(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('createServiceAccountForTenant', function() {
-        it('should call createServiceAccountForTenant successfully', function(done) {
+        it('should call createServiceAccountForTenant successfully', function() {
             //uncomment below and update the code to test createServiceAccountForTenant
             //instance.createServiceAccountForTenant(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('deleteApiTokenForServiceAccount', function() {
-        it('should call deleteApiTokenForServiceAccount successfully', function(done) {
+        it('should call deleteApiTokenForServiceAccount successfully', function() {
             //uncomment below and update the code to test deleteApiTokenForServiceAccount
             //instance.deleteApiTokenForServiceAccount(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('deleteApiTokenForServiceAccountWithTenant', function() {
-        it('should call deleteApiTokenForServiceAccountWithTenant successfully', function(done) {
+        it('should call deleteApiTokenForServiceAccountWithTenant successfully', function() {
             //uncomment below and update the code to test deleteApiTokenForServiceAccountWithTenant
             //instance.deleteApiTokenForServiceAccountWithTenant(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('deleteServiceAccount', function() {
-        it('should call deleteServiceAccount successfully', function(done) {
+        it('should call deleteServiceAccount successfully', function() {
             //uncomment below and update the code to test deleteServiceAccount
             //instance.deleteServiceAccount(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('deleteServiceAccountForTenant', function() {
-        it('should call deleteServiceAccountForTenant successfully', function(done) {
+        it('should call deleteServiceAccountForTenant successfully', function() {
             //uncomment below and update the code to test deleteServiceAccountForTenant
             //instance.deleteServiceAccountForTenant(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('listApiTokensForServiceAccount', function() {
-        it('should call listApiTokensForServiceAccount successfully', function(done) {
+        it('should call listApiTokensForServiceAccount successfully', function() {
             //uncomment below and update the code to test listApiTokensForServiceAccount
             //instance.listApiTokensForServiceAccount(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('listApiTokensForServiceAccountWithTenant', function() {
-        it('should call listApiTokensForServiceAccountWithTenant successfully', function(done) {
+        it('should call listApiTokensForServiceAccountWithTenant successfully', function() {
             //uncomment below and update the code to test listApiTokensForServiceAccountWithTenant
             //instance.listApiTokensForServiceAccountWithTenant(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('listServiceAccounts', function() {
-        it('should call listServiceAccounts successfully', function(done) {
+        it('should call listServiceAccounts successfully', function() {
             //uncomment below and update the code to test listServiceAccounts
             //instance.listServiceAccounts(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('patchServiceAccountDetails', function() {
-        it('should call patchServiceAccountDetails successfully', function(done) {
+        it('should call patchServiceAccountDetails successfully', function() {
             //uncomment below and update the code to test patchServiceAccountDetails
             //instance.patchServiceAccountDetails(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('patchServiceAccountSuperAdmin', function() {
-        it('should call patchServiceAccountSuperAdmin successfully', function(done) {
+        it('should call patchServiceAccountSuperAdmin successfully', function() {
             //uncomment below and update the code to test patchServiceAccountSuperAdmin
             //instance.patchServiceAccountSuperAdmin(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('serviceAccount', function() {
-        it('should call serviceAccount successfully', function(done) {
+        it('should call serviceAccount successfully', function() {
             //uncomment below and update the code to test serviceAccount
             //instance.serviceAccount(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('serviceAccountForTenant', function() {
-        it('should call serviceAccountForTenant successfully', function(done) {
+        it('should call serviceAccountForTenant successfully', function() {
             //uncomment below and update the code to test serviceAccountForTenant
             //instance.serviceAccountForTenant(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('updateServiceAccount', function() {
-        it('should call updateServiceAccount successfully', function(done) {
+        it('should call updateServiceAccount successfully', function() {
             //uncomment below and update the code to test updateServiceAccount
             //instance.updateServiceAccount(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
 });

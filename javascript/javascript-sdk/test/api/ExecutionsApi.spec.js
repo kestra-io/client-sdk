@@ -12,11 +12,12 @@
  */
 
 import { describe, it, beforeEach } from 'vitest';
+import KestraClient from "../../src/KestraClient"
 
 let instance;
 
 beforeEach(function() {
-    instance = new KestraIoKestraSdk.ExecutionsApi();
+    instance = new KestraClient().ExecutionsApi;
 });
 
 let getProperty = function(object, getter, property) {
@@ -37,463 +38,417 @@ else
 
 describe('ExecutionsApi', function() {
     describe('createExecution', function() {
-        it('should call createExecution successfully', function(done) {
+        it('should call createExecution successfully', function() {
             //uncomment below and update the code to test createExecution
             //instance.createExecution(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('deleteExecution', function() {
-        it('should call deleteExecution successfully', function(done) {
+        it('should call deleteExecution successfully', function() {
             //uncomment below and update the code to test deleteExecution
             //instance.deleteExecution(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('deleteExecutionsByIds', function() {
-        it('should call deleteExecutionsByIds successfully', function(done) {
+        it('should call deleteExecutionsByIds successfully', function() {
             //uncomment below and update the code to test deleteExecutionsByIds
             //instance.deleteExecutionsByIds(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('deleteExecutionsByQuery', function() {
-        it('should call deleteExecutionsByQuery successfully', function(done) {
+        it('should call deleteExecutionsByQuery successfully', function() {
             //uncomment below and update the code to test deleteExecutionsByQuery
             //instance.deleteExecutionsByQuery(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('downloadFileFromExecution', function() {
-        it('should call downloadFileFromExecution successfully', function(done) {
+        it('should call downloadFileFromExecution successfully', function() {
             //uncomment below and update the code to test downloadFileFromExecution
             //instance.downloadFileFromExecution(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('execution', function() {
-        it('should call execution successfully', function(done) {
+        it('should call execution successfully', function() {
             //uncomment below and update the code to test execution
             //instance.execution(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('executionFlowGraph', function() {
-        it('should call executionFlowGraph successfully', function(done) {
+        it('should call executionFlowGraph successfully', function() {
             //uncomment below and update the code to test executionFlowGraph
             //instance.executionFlowGraph(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('fileMetadatasFromExecution', function() {
-        it('should call fileMetadatasFromExecution successfully', function(done) {
+        it('should call fileMetadatasFromExecution successfully', function() {
             //uncomment below and update the code to test fileMetadatasFromExecution
             //instance.fileMetadatasFromExecution(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('flowFromExecution', function() {
-        it('should call flowFromExecution successfully', function(done) {
+        it('should call flowFromExecution successfully', function() {
             //uncomment below and update the code to test flowFromExecution
             //instance.flowFromExecution(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('flowFromExecutionById', function() {
-        it('should call flowFromExecutionById successfully', function(done) {
+        it('should call flowFromExecutionById successfully', function() {
             //uncomment below and update the code to test flowFromExecutionById
             //instance.flowFromExecutionById(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('followDependenciesExecutions', function() {
-        it('should call followDependenciesExecutions successfully', function(done) {
+        it('should call followDependenciesExecutions successfully', function() {
             //uncomment below and update the code to test followDependenciesExecutions
             //instance.followDependenciesExecutions(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('followExecution', function() {
-        it('should call followExecution successfully', function(done) {
+        it('should call followExecution successfully', function() {
             //uncomment below and update the code to test followExecution
             //instance.followExecution(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('forceRunByIds', function() {
-        it('should call forceRunByIds successfully', function(done) {
+        it('should call forceRunByIds successfully', function() {
             //uncomment below and update the code to test forceRunByIds
             //instance.forceRunByIds(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('forceRunExecution', function() {
-        it('should call forceRunExecution successfully', function(done) {
+        it('should call forceRunExecution successfully', function() {
             //uncomment below and update the code to test forceRunExecution
             //instance.forceRunExecution(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('forceRunExecutionsByQuery', function() {
-        it('should call forceRunExecutionsByQuery successfully', function(done) {
+        it('should call forceRunExecutionsByQuery successfully', function() {
             //uncomment below and update the code to test forceRunExecutionsByQuery
             //instance.forceRunExecutionsByQuery(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('killExecution', function() {
-        it('should call killExecution successfully', function(done) {
+        it('should call killExecution successfully', function() {
             //uncomment below and update the code to test killExecution
             //instance.killExecution(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('killExecutionsByIds', function() {
-        it('should call killExecutionsByIds successfully', function(done) {
+        it('should call killExecutionsByIds successfully', function() {
             //uncomment below and update the code to test killExecutionsByIds
             //instance.killExecutionsByIds(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('killExecutionsByQuery', function() {
-        it('should call killExecutionsByQuery successfully', function(done) {
+        it('should call killExecutionsByQuery successfully', function() {
             //uncomment below and update the code to test killExecutionsByQuery
             //instance.killExecutionsByQuery(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('latestExecutions', function() {
-        it('should call latestExecutions successfully', function(done) {
+        it('should call latestExecutions successfully', function() {
             //uncomment below and update the code to test latestExecutions
             //instance.latestExecutions(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('pauseExecution', function() {
-        it('should call pauseExecution successfully', function(done) {
+        it('should call pauseExecution successfully', function() {
             //uncomment below and update the code to test pauseExecution
             //instance.pauseExecution(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('pauseExecutionsByIds', function() {
-        it('should call pauseExecutionsByIds successfully', function(done) {
+        it('should call pauseExecutionsByIds successfully', function() {
             //uncomment below and update the code to test pauseExecutionsByIds
             //instance.pauseExecutionsByIds(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('pauseExecutionsByQuery', function() {
-        it('should call pauseExecutionsByQuery successfully', function(done) {
+        it('should call pauseExecutionsByQuery successfully', function() {
             //uncomment below and update the code to test pauseExecutionsByQuery
             //instance.pauseExecutionsByQuery(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('replayExecution', function() {
-        it('should call replayExecution successfully', function(done) {
+        it('should call replayExecution successfully', function() {
             //uncomment below and update the code to test replayExecution
             //instance.replayExecution(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('replayExecutionWithinputs', function() {
-        it('should call replayExecutionWithinputs successfully', function(done) {
+        it('should call replayExecutionWithinputs successfully', function() {
             //uncomment below and update the code to test replayExecutionWithinputs
             //instance.replayExecutionWithinputs(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('replayExecutionsByIds', function() {
-        it('should call replayExecutionsByIds successfully', function(done) {
+        it('should call replayExecutionsByIds successfully', function() {
             //uncomment below and update the code to test replayExecutionsByIds
             //instance.replayExecutionsByIds(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('replayExecutionsByQuery', function() {
-        it('should call replayExecutionsByQuery successfully', function(done) {
+        it('should call replayExecutionsByQuery successfully', function() {
             //uncomment below and update the code to test replayExecutionsByQuery
             //instance.replayExecutionsByQuery(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('restartExecution', function() {
-        it('should call restartExecution successfully', function(done) {
+        it('should call restartExecution successfully', function() {
             //uncomment below and update the code to test restartExecution
             //instance.restartExecution(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('restartExecutionsByIds', function() {
-        it('should call restartExecutionsByIds successfully', function(done) {
+        it('should call restartExecutionsByIds successfully', function() {
             //uncomment below and update the code to test restartExecutionsByIds
             //instance.restartExecutionsByIds(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('restartExecutionsByQuery', function() {
-        it('should call restartExecutionsByQuery successfully', function(done) {
+        it('should call restartExecutionsByQuery successfully', function() {
             //uncomment below and update the code to test restartExecutionsByQuery
             //instance.restartExecutionsByQuery(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('resumeExecution', function() {
-        it('should call resumeExecution successfully', function(done) {
+        it('should call resumeExecution successfully', function() {
             //uncomment below and update the code to test resumeExecution
             //instance.resumeExecution(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('resumeExecutionsByIds', function() {
-        it('should call resumeExecutionsByIds successfully', function(done) {
+        it('should call resumeExecutionsByIds successfully', function() {
             //uncomment below and update the code to test resumeExecutionsByIds
             //instance.resumeExecutionsByIds(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('resumeExecutionsByQuery', function() {
-        it('should call resumeExecutionsByQuery successfully', function(done) {
+        it('should call resumeExecutionsByQuery successfully', function() {
             //uncomment below and update the code to test resumeExecutionsByQuery
             //instance.resumeExecutionsByQuery(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('searchConcurrencyLimits', function() {
-        it('should call searchConcurrencyLimits successfully', function(done) {
+        it('should call searchConcurrencyLimits successfully', function() {
             //uncomment below and update the code to test searchConcurrencyLimits
             //instance.searchConcurrencyLimits(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('searchExecutions', function() {
-        it('should call searchExecutions successfully', function(done) {
+        it('should call searchExecutions successfully', function() {
             //uncomment below and update the code to test searchExecutions
             //instance.searchExecutions(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('searchExecutionsByFlowId', function() {
-        it('should call searchExecutionsByFlowId successfully', function(done) {
+        it('should call searchExecutionsByFlowId successfully', function() {
             //uncomment below and update the code to test searchExecutionsByFlowId
             //instance.searchExecutionsByFlowId(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('setLabelsOnTerminatedExecution', function() {
-        it('should call setLabelsOnTerminatedExecution successfully', function(done) {
+        it('should call setLabelsOnTerminatedExecution successfully', function() {
             //uncomment below and update the code to test setLabelsOnTerminatedExecution
             //instance.setLabelsOnTerminatedExecution(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('setLabelsOnTerminatedExecutionsByIds', function() {
-        it('should call setLabelsOnTerminatedExecutionsByIds successfully', function(done) {
+        it('should call setLabelsOnTerminatedExecutionsByIds successfully', function() {
             //uncomment below and update the code to test setLabelsOnTerminatedExecutionsByIds
             //instance.setLabelsOnTerminatedExecutionsByIds(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('setLabelsOnTerminatedExecutionsByQuery', function() {
-        it('should call setLabelsOnTerminatedExecutionsByQuery successfully', function(done) {
+        it('should call setLabelsOnTerminatedExecutionsByQuery successfully', function() {
             //uncomment below and update the code to test setLabelsOnTerminatedExecutionsByQuery
             //instance.setLabelsOnTerminatedExecutionsByQuery(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('triggerExecutionByGetWebhook', function() {
-        it('should call triggerExecutionByGetWebhook successfully', function(done) {
+        it('should call triggerExecutionByGetWebhook successfully', function() {
             //uncomment below and update the code to test triggerExecutionByGetWebhook
             //instance.triggerExecutionByGetWebhook(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('unqueueExecution', function() {
-        it('should call unqueueExecution successfully', function(done) {
+        it('should call unqueueExecution successfully', function() {
             //uncomment below and update the code to test unqueueExecution
             //instance.unqueueExecution(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('unqueueExecutionsByIds', function() {
-        it('should call unqueueExecutionsByIds successfully', function(done) {
+        it('should call unqueueExecutionsByIds successfully', function() {
             //uncomment below and update the code to test unqueueExecutionsByIds
             //instance.unqueueExecutionsByIds(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('unqueueExecutionsByQuery', function() {
-        it('should call unqueueExecutionsByQuery successfully', function(done) {
+        it('should call unqueueExecutionsByQuery successfully', function() {
             //uncomment below and update the code to test unqueueExecutionsByQuery
             //instance.unqueueExecutionsByQuery(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('updateConcurrencyLimit', function() {
-        it('should call updateConcurrencyLimit successfully', function(done) {
+        it('should call updateConcurrencyLimit successfully', function() {
             //uncomment below and update the code to test updateConcurrencyLimit
             //instance.updateConcurrencyLimit(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('updateExecutionStatus', function() {
-        it('should call updateExecutionStatus successfully', function(done) {
+        it('should call updateExecutionStatus successfully', function() {
             //uncomment below and update the code to test updateExecutionStatus
             //instance.updateExecutionStatus(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('updateExecutionsStatusByIds', function() {
-        it('should call updateExecutionsStatusByIds successfully', function(done) {
+        it('should call updateExecutionsStatusByIds successfully', function() {
             //uncomment below and update the code to test updateExecutionsStatusByIds
             //instance.updateExecutionsStatusByIds(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('updateExecutionsStatusByQuery', function() {
-        it('should call updateExecutionsStatusByQuery successfully', function(done) {
+        it('should call updateExecutionsStatusByQuery successfully', function() {
             //uncomment below and update the code to test updateExecutionsStatusByQuery
             //instance.updateExecutionsStatusByQuery(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
 });

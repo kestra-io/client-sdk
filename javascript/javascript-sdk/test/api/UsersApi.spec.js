@@ -12,11 +12,12 @@
  */
 
 import { describe, it, beforeEach } from 'vitest';
+import KestraClient from "../../src/KestraClient"
 
 let instance;
 
 beforeEach(function() {
-    instance = new KestraIoKestraSdk.UsersApi();
+    instance = new KestraClient().UsersApi;
 });
 
 let getProperty = function(object, getter, property) {
@@ -37,183 +38,165 @@ else
 
 describe('UsersApi', function() {
     describe('autocompleteUsers', function() {
-        it('should call autocompleteUsers successfully', function(done) {
+        it('should call autocompleteUsers successfully', function() {
             //uncomment below and update the code to test autocompleteUsers
             //instance.autocompleteUsers(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('createApiTokensForUser', function() {
-        it('should call createApiTokensForUser successfully', function(done) {
+        it('should call createApiTokensForUser successfully', function() {
             //uncomment below and update the code to test createApiTokensForUser
             //instance.createApiTokensForUser(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('createUser', function() {
-        it('should call createUser successfully', function(done) {
+        it('should call createUser successfully', function() {
             //uncomment below and update the code to test createUser
             //instance.createUser(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('deleteApiTokenForUser', function() {
-        it('should call deleteApiTokenForUser successfully', function(done) {
+        it('should call deleteApiTokenForUser successfully', function() {
             //uncomment below and update the code to test deleteApiTokenForUser
             //instance.deleteApiTokenForUser(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('deleteRefreshToken', function() {
-        it('should call deleteRefreshToken successfully', function(done) {
+        it('should call deleteRefreshToken successfully', function() {
             //uncomment below and update the code to test deleteRefreshToken
             //instance.deleteRefreshToken(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('deleteUser', function() {
-        it('should call deleteUser successfully', function(done) {
+        it('should call deleteUser successfully', function() {
             //uncomment below and update the code to test deleteUser
             //instance.deleteUser(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('deleteUserAuthMethod', function() {
-        it('should call deleteUserAuthMethod successfully', function(done) {
+        it('should call deleteUserAuthMethod successfully', function() {
             //uncomment below and update the code to test deleteUserAuthMethod
             //instance.deleteUserAuthMethod(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('impersonate', function() {
-        it('should call impersonate successfully', function(done) {
+        it('should call impersonate successfully', function() {
             //uncomment below and update the code to test impersonate
             //instance.impersonate(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('listApiTokensForUser', function() {
-        it('should call listApiTokensForUser successfully', function(done) {
+        it('should call listApiTokensForUser successfully', function() {
             //uncomment below and update the code to test listApiTokensForUser
             //instance.listApiTokensForUser(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('listUsers', function() {
-        it('should call listUsers successfully', function(done) {
+        it('should call listUsers successfully', function() {
             //uncomment below and update the code to test listUsers
             //instance.listUsers(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('patchUser', function() {
-        it('should call patchUser successfully', function(done) {
+        it('should call patchUser successfully', function() {
             //uncomment below and update the code to test patchUser
             //instance.patchUser(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('patchUserDemo', function() {
-        it('should call patchUserDemo successfully', function(done) {
+        it('should call patchUserDemo successfully', function() {
             //uncomment below and update the code to test patchUserDemo
             //instance.patchUserDemo(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('patchUserPassword', function() {
-        it('should call patchUserPassword successfully', function(done) {
+        it('should call patchUserPassword successfully', function() {
             //uncomment below and update the code to test patchUserPassword
             //instance.patchUserPassword(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('patchUserSuperAdmin', function() {
-        it('should call patchUserSuperAdmin successfully', function(done) {
+        it('should call patchUserSuperAdmin successfully', function() {
             //uncomment below and update the code to test patchUserSuperAdmin
             //instance.patchUserSuperAdmin(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('updateCurrentUserPassword', function() {
-        it('should call updateCurrentUserPassword successfully', function(done) {
+        it('should call updateCurrentUserPassword successfully', function() {
             //uncomment below and update the code to test updateCurrentUserPassword
             //instance.updateCurrentUserPassword(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('updateUser', function() {
-        it('should call updateUser successfully', function(done) {
+        it('should call updateUser successfully', function() {
             //uncomment below and update the code to test updateUser
             //instance.updateUser(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('updateUserGroups', function() {
-        it('should call updateUserGroups successfully', function(done) {
+        it('should call updateUserGroups successfully', function() {
             //uncomment below and update the code to test updateUserGroups
             //instance.updateUserGroups(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('user', function() {
-        it('should call user successfully', function(done) {
+        it('should call user successfully', function() {
             //uncomment below and update the code to test user
             //instance.user(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
 });

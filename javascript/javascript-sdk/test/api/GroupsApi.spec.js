@@ -12,11 +12,12 @@
  */
 
 import { describe, it, beforeEach } from 'vitest';
+import KestraClient from "../../src/KestraClient"
 
 let instance;
 
 beforeEach(function() {
-    instance = new KestraIoKestraSdk.GroupsApi();
+    instance = new KestraClient().GroupsApi;
 });
 
 let getProperty = function(object, getter, property) {
@@ -37,113 +38,102 @@ else
 
 describe('GroupsApi', function() {
     describe('addUserToGroup', function() {
-        it('should call addUserToGroup successfully', function(done) {
+        it('should call addUserToGroup successfully', function() {
             //uncomment below and update the code to test addUserToGroup
             //instance.addUserToGroup(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('autocompleteGroups', function() {
-        it('should call autocompleteGroups successfully', function(done) {
+        it('should call autocompleteGroups successfully', function() {
             //uncomment below and update the code to test autocompleteGroups
             //instance.autocompleteGroups(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('createGroup', function() {
-        it('should call createGroup successfully', function(done) {
+        it('should call createGroup successfully', function() {
             //uncomment below and update the code to test createGroup
             //instance.createGroup(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('deleteGroup', function() {
-        it('should call deleteGroup successfully', function(done) {
+        it('should call deleteGroup successfully', function() {
             //uncomment below and update the code to test deleteGroup
             //instance.deleteGroup(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('deleteUserFromGroup', function() {
-        it('should call deleteUserFromGroup successfully', function(done) {
+        it('should call deleteUserFromGroup successfully', function() {
             //uncomment below and update the code to test deleteUserFromGroup
             //instance.deleteUserFromGroup(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('group', function() {
-        it('should call group successfully', function(done) {
+        it('should call group successfully', function() {
             //uncomment below and update the code to test group
             //instance.group(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('listGroupIds', function() {
-        it('should call listGroupIds successfully', function(done) {
+        it('should call listGroupIds successfully', function() {
             //uncomment below and update the code to test listGroupIds
             //instance.listGroupIds(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('searchGroupMembers', function() {
-        it('should call searchGroupMembers successfully', function(done) {
+        it('should call searchGroupMembers successfully', function() {
             //uncomment below and update the code to test searchGroupMembers
             //instance.searchGroupMembers(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('searchGroups', function() {
-        it('should call searchGroups successfully', function(done) {
+        it('should call searchGroups successfully', function() {
             //uncomment below and update the code to test searchGroups
             //instance.searchGroups(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('setUserMembershipForGroup', function() {
-        it('should call setUserMembershipForGroup successfully', function(done) {
+        it('should call setUserMembershipForGroup successfully', function() {
             //uncomment below and update the code to test setUserMembershipForGroup
             //instance.setUserMembershipForGroup(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('updateGroup', function() {
-        it('should call updateGroup successfully', function(done) {
+        it('should call updateGroup successfully', function() {
             //uncomment below and update the code to test updateGroup
             //instance.updateGroup(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
 });

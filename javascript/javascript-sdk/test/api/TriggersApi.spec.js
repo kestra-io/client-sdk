@@ -12,11 +12,12 @@
  */
 
 import { describe, it, beforeEach } from 'vitest';
+import KestraClient from "../../src/KestraClient"
 
 let instance;
 
 beforeEach(function() {
-    instance = new KestraIoKestraSdk.TriggersApi();
+    instance = new KestraClient().TriggersApi;
 });
 
 let getProperty = function(object, getter, property) {
@@ -37,183 +38,165 @@ else
 
 describe('TriggersApi', function() {
     describe('deleteBackfill', function() {
-        it('should call deleteBackfill successfully', function(done) {
+        it('should call deleteBackfill successfully', function() {
             //uncomment below and update the code to test deleteBackfill
             //instance.deleteBackfill(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('deleteBackfillByIds', function() {
-        it('should call deleteBackfillByIds successfully', function(done) {
+        it('should call deleteBackfillByIds successfully', function() {
             //uncomment below and update the code to test deleteBackfillByIds
             //instance.deleteBackfillByIds(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('deleteBackfillByQuery', function() {
-        it('should call deleteBackfillByQuery successfully', function(done) {
+        it('should call deleteBackfillByQuery successfully', function() {
             //uncomment below and update the code to test deleteBackfillByQuery
             //instance.deleteBackfillByQuery(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('disabledTriggersByIds', function() {
-        it('should call disabledTriggersByIds successfully', function(done) {
+        it('should call disabledTriggersByIds successfully', function() {
             //uncomment below and update the code to test disabledTriggersByIds
             //instance.disabledTriggersByIds(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('disabledTriggersByQuery', function() {
-        it('should call disabledTriggersByQuery successfully', function(done) {
+        it('should call disabledTriggersByQuery successfully', function() {
             //uncomment below and update the code to test disabledTriggersByQuery
             //instance.disabledTriggersByQuery(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('pauseBackfill', function() {
-        it('should call pauseBackfill successfully', function(done) {
+        it('should call pauseBackfill successfully', function() {
             //uncomment below and update the code to test pauseBackfill
             //instance.pauseBackfill(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('pauseBackfillByIds', function() {
-        it('should call pauseBackfillByIds successfully', function(done) {
+        it('should call pauseBackfillByIds successfully', function() {
             //uncomment below and update the code to test pauseBackfillByIds
             //instance.pauseBackfillByIds(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('pauseBackfillByQuery', function() {
-        it('should call pauseBackfillByQuery successfully', function(done) {
+        it('should call pauseBackfillByQuery successfully', function() {
             //uncomment below and update the code to test pauseBackfillByQuery
             //instance.pauseBackfillByQuery(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('restartTrigger', function() {
-        it('should call restartTrigger successfully', function(done) {
+        it('should call restartTrigger successfully', function() {
             //uncomment below and update the code to test restartTrigger
             //instance.restartTrigger(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('searchTriggers', function() {
-        it('should call searchTriggers successfully', function(done) {
+        it('should call searchTriggers successfully', function() {
             //uncomment below and update the code to test searchTriggers
             //instance.searchTriggers(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('searchTriggersForFlow', function() {
-        it('should call searchTriggersForFlow successfully', function(done) {
+        it('should call searchTriggersForFlow successfully', function() {
             //uncomment below and update the code to test searchTriggersForFlow
             //instance.searchTriggersForFlow(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('unlockTrigger', function() {
-        it('should call unlockTrigger successfully', function(done) {
+        it('should call unlockTrigger successfully', function() {
             //uncomment below and update the code to test unlockTrigger
             //instance.unlockTrigger(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('unlockTriggersByIds', function() {
-        it('should call unlockTriggersByIds successfully', function(done) {
+        it('should call unlockTriggersByIds successfully', function() {
             //uncomment below and update the code to test unlockTriggersByIds
             //instance.unlockTriggersByIds(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('unlockTriggersByQuery', function() {
-        it('should call unlockTriggersByQuery successfully', function(done) {
+        it('should call unlockTriggersByQuery successfully', function() {
             //uncomment below and update the code to test unlockTriggersByQuery
             //instance.unlockTriggersByQuery(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('unpauseBackfill', function() {
-        it('should call unpauseBackfill successfully', function(done) {
+        it('should call unpauseBackfill successfully', function() {
             //uncomment below and update the code to test unpauseBackfill
             //instance.unpauseBackfill(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('unpauseBackfillByIds', function() {
-        it('should call unpauseBackfillByIds successfully', function(done) {
+        it('should call unpauseBackfillByIds successfully', function() {
             //uncomment below and update the code to test unpauseBackfillByIds
             //instance.unpauseBackfillByIds(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('unpauseBackfillByQuery', function() {
-        it('should call unpauseBackfillByQuery successfully', function(done) {
+        it('should call unpauseBackfillByQuery successfully', function() {
             //uncomment below and update the code to test unpauseBackfillByQuery
             //instance.unpauseBackfillByQuery(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
     describe('updateTrigger', function() {
-        it('should call updateTrigger successfully', function(done) {
+        it('should call updateTrigger successfully', function() {
             //uncomment below and update the code to test updateTrigger
             //instance.updateTrigger(function(error) {
             //  if (error) throw error;
             //expect().to.be();
             //});
-            done();
         });
     });
 });

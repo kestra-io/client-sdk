@@ -29,16 +29,13 @@ log_and_run docker compose -f docker-compose-ci.yml up -d --wait || {
 }
 
 echo "install requirements"
-log_and_run npm ci
+log_and_run sh -c 'cd javascript_sdk && npm ci'
 
 echo "install SDK locally so it can be imported and used in e2e tests"
-log_and_run npm run build
-
-echo "install test_javascript_sdk dependencies"
-log_and_run sh -c 'cd test_javascript_sdk && npm ci'
+log_and_run sh -c 'cd javascript_sdk && npm run build'
 
 echo "run test_javascript_sdk tests"
-log_and_run sh -c 'cd test_javascript_sdk && npm run test'
+log_and_run sh -c 'cd javascript_sdk && npm run test -- _sdk'
 
 echo "stop Kestra container"
 log_and_run docker compose -f docker-compose-ci.yml down
