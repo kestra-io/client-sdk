@@ -17,7 +17,7 @@ import KestraClient from "../../src/KestraClient"
 let instance;
 
 beforeEach(function() {
-    instance = new KestraClient().NamespacesApi;
+    instance = new KestraClient().namespacesApi;
 });
 
 let getProperty = function(object, getter, property) {

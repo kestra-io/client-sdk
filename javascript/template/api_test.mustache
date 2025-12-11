@@ -5,7 +5,7 @@ import KestraClient from "../../src/KestraClient"
 let instance;
 
 beforeEach(function() {
-    instance = new KestraClient().{{classname}};
+    instance = new KestraClient().{{#lambda.camelcase}}{{classname}}{{/lambda.camelcase}};
 });
 
 let getProperty = function(object, getter, property) {

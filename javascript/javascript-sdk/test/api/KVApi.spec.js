@@ -17,7 +17,7 @@ import KestraClient from "../../src/KestraClient"
 let instance;
 
 beforeEach(function() {
-    instance = new KestraClient().KVApi;
+    instance = new KestraClient().kVApi;
 });
 
 let getProperty = function(object, getter, property) {

@@ -17,7 +17,7 @@ import KestraClient from "../../src/KestraClient"
 let instance;
 
 beforeEach(function() {
-    instance = new KestraClient().GroupsApi;
+    instance = new KestraClient().groupsApi;
 });
 
 let getProperty = function(object, getter, property) {
