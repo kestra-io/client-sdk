@@ -10,7 +10,7 @@ log_and_run() {
 if [ $# -ge 1 ]; then
   KESTRA_VERSION="$1"
 else
-  KESTRA_VERSION=$(cat ../../COMPATIBLE_KESTRA_VERSION.properties)
+  KESTRA_VERSION=$(cat ../COMPATIBLE_KESTRA_VERSION.properties)
 fi
 
 echo "/n------------------------------------------------"
