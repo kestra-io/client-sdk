@@ -14,7 +14,7 @@ export function randomId() {
     return Math.random().toString(36).substring(2, 10);
 }
 
-export function randomIdWith(str) {
+export function randomIdWith(str: string) {
     return Math.random().toString(36).substring(2, 10) + str;
 }
 
@@ -24,7 +24,7 @@ export function randomEmail() {
 
 export const TEST_DATA_PATH = '../../../test-utils';
 
-export function get(filePath) {
+export function get(filePath: string) {
     const absolute = path.isAbsolute(filePath)
         ? filePath
         : path.resolve(process.cwd(), filePath);

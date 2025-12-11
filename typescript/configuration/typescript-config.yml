@@ -1,4 +1,4 @@
-generatorName: typescript-axios
+generatorName: typescript-node
 inputSpec: /local/kestra-ee.yml
 outputDir: /local/typescript/typescript-sdk
 
@@ -16,7 +16,6 @@ additionalProperties:
   disallowAdditionalPropertiesIfNotPresent: false
 
 supportsES6: true
-useSingleRequestParameter: true
 withSeparateModelsAndApi: true
 apiPackage: apis
 modelPackage: models
@@ -24,3 +23,4 @@ enumPropertyNaming: original
 
 openapiNormalizer:
   FILTER: 'tag:Executions|Flows|Namespaces|Triggers|Users|Groups|KV|Roles|ServiceAccount|TestSuites'
+  SIMPLIFY_BOOLEAN_ENUM: true

@@ -21,11 +21,11 @@
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "pnpm run build"
   },
-  "peerDependencies": {
+  "dependencies": {
+    "@types/axios": "*",
     "axios": "*"
   },
   "devDependencies": {
-    "@types/axios": "^0.14.4",
     "@types/node": "^24.10.1",
     "bumpp": "^10.3.2",
     "tsdown": "^0.17.0",

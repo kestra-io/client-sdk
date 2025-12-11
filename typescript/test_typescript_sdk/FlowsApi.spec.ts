@@ -7,15 +7,17 @@ import {
 } from './CommonTestSetup';
 import { describe, it, expect } from 'vitest';
 
+interface Flow  { id: string, namespace: string, description?: string, tasks?: Array<{ id: string }> }
+
 // ----- Helpers (mirror Java helpers) -----
 async function createSimpleFlow() {
     const body = getSimpleFlow();
     const flow = await kestraClient().flowsApi.createFlow(MAIN_TENANT, body);
-    await assertFlowExist(flow);
-    return flow;
+    await assertFlowExist(flow.data);
+    return flow.data;
 }
 
-async function assertFlowExist(flow) {
+async function assertFlowExist(flow: Flow) {
     await expect(
         kestraClient().flowsApi.flow(
             flow.namespace,
@@ -28,11 +30,11 @@ async function assertFlowExist(flow) {
     ).resolves.toBeDefined();
 }
 
-async function assertFlowDoesNotExist(flow) {
+async function assertFlowDoesNotExist(flow: Flow) {
     try {
-        await kestraClient().flowsApi.flow(flow.namespace, flow.id, false, false, MAIN_TENANT, {});
+        await kestraClient().flowsApi.flow(flow.namespace, flow.id, false, false, MAIN_TENANT);
         throw new Error('Expected a 404 Not Found, but the call succeeded.');
-    } catch (err) {
+    } catch (err: any) {
         const status = err?.status ?? err?.code ?? err?.response?.status;
         expect(status).toBe(404);
     }
@@ -42,7 +44,7 @@ describe('FlowsApi', () => {
     // Update from multiples yaml sources
     it('bulk_update_flows: Update from multiple yaml sources', async () => {
         const flowBody = getSimpleFlow();
-        const flow = await kestraClient().flowsApi.createFlow(MAIN_TENANT, flowBody);
+        const {data:flow} = await kestraClient().flowsApi.createFlow(MAIN_TENANT, flowBody);
         await assertFlowExist(flow);
         expect(flow.description).toBe('simple_flow_description');
 
@@ -51,7 +53,7 @@ describe('FlowsApi', () => {
         const updatedBody = flowBody.replace('simple_flow_description', 'simple_flow_description_updated');
 
         // Java: bulkUpdateFlows(false, false, MAIN_TENANT, namespace, body)
-        const resp = await kestraClient().flowsApi.bulkUpdateFlows(false, false, MAIN_TENANT, {namespace: namespace, body:updatedBody});
+        const resp = await kestraClient().flowsApi.bulkUpdateFlows(false, false, MAIN_TENANT, namespace, updatedBody);
 
         // resp is a list; check first description updated
         const first = Array.isArray(resp) ? resp[0] : resp?.data?.[0];
@@ -62,14 +64,14 @@ describe('FlowsApi', () => {
     it('create_flow: simple', async () => {
         const body = getSimpleFlow();
         const flow = await kestraClient().flowsApi.createFlow(MAIN_TENANT, body);
-        await assertFlowExist(flow);
+        await assertFlowExist(flow.data);
     });
 
     // Create a flow from yaml source (full)
     it('create_flow: full', async () => {
         const body = getCompleteFlow();
         const flow = await kestraClient().flowsApi.createFlow(MAIN_TENANT, body);
-        await assertFlowExist(flow);
+        await assertFlowExist(flow.data);
     });
 
     // Delete a flow
@@ -96,9 +98,9 @@ describe('FlowsApi', () => {
         const flow = await createSimpleFlow();
 
         const filters = [
-            { field: 'NAMESPACE', operation: 'EQUALS', value: flow.namespace }
-        ];
-        await kestraClient().flowsApi.deleteFlowsByQuery(MAIN_TENANT, {filters:filters});
+            { field: 'NAMESPACE' as const, operation: 'EQUALS' as const, value: {ns: flow.namespace} }
+        ] ;
+        await kestraClient().flowsApi.deleteFlowsByQuery(MAIN_TENANT, filters);
 
         await assertFlowDoesNotExist(flow);
     });

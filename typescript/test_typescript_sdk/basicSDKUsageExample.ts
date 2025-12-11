@@ -26,7 +26,7 @@ tasks:
     console.log("Creating flow with id: " + flowId + " in namespace: " + namespace);
 
     console.log("flows api: ", kestraClient.flowsApi);
-    const createRes = await kestraClient.flowsApi.createFlow({tenantId, flow);
+    const createRes = await kestraClient.flowsApi.createFlow(tenantId, flow);
     console.log(createRes);
 
 }
