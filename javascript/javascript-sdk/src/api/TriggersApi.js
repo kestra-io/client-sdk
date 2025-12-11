@@ -47,7 +47,7 @@ export default class TriggersApi {
     * @param {String} tenant 
     * @param {module:model/Trigger} trigger 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Trigger} and HTTP response
+    * @return {Promise<Trigger>}
     */
     deleteBackfillWithHttpInfo(tenant, trigger) {
       let postBody = trigger;
@@ -86,7 +86,7 @@ export default class TriggersApi {
     * @param {String} tenant 
     * @param {module:model/Trigger} trigger 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Trigger}
+    * @return {Promise<Trigger>}
     */
     deleteBackfill(tenant, trigger) {
       return this.deleteBackfillWithHttpInfo(tenant, trigger)
@@ -110,7 +110,7 @@ export default class TriggersApi {
     * @param {String} tenant 
     * @param {Array.<module:model/Trigger>} trigger 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     deleteBackfillByIdsWithHttpInfo(tenant, trigger) {
       let postBody = trigger;
@@ -149,7 +149,7 @@ export default class TriggersApi {
     * @param {String} tenant 
     * @param {Array.<module:model/Trigger>} trigger 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     deleteBackfillByIds(tenant, trigger) {
       return this.deleteBackfillByIdsWithHttpInfo(tenant, trigger)
@@ -174,7 +174,7 @@ export default class TriggersApi {
     * @param {Object} opts Optional parameters
     * @param {Array.<module:model/QueryFilter>} [filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     deleteBackfillByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
@@ -212,7 +212,7 @@ export default class TriggersApi {
     * @param {Object} opts Optional parameters
     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     deleteBackfillByQuery(tenant, opts) {
       return this.deleteBackfillByQueryWithHttpInfo(tenant, opts)
@@ -236,7 +236,7 @@ export default class TriggersApi {
     * @param {String} tenant 
     * @param {module:model/TriggerControllerSetDisabledRequest} triggerControllerSetDisabledRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     disabledTriggersByIdsWithHttpInfo(tenant, triggerControllerSetDisabledRequest) {
       let postBody = triggerControllerSetDisabledRequest;
@@ -275,7 +275,7 @@ export default class TriggersApi {
     * @param {String} tenant 
     * @param {module:model/TriggerControllerSetDisabledRequest} triggerControllerSetDisabledRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     disabledTriggersByIds(tenant, triggerControllerSetDisabledRequest) {
       return this.disabledTriggersByIdsWithHttpInfo(tenant, triggerControllerSetDisabledRequest)
@@ -301,7 +301,7 @@ export default class TriggersApi {
     * @param {Object} opts Optional parameters
     * @param {Array.<module:model/QueryFilter>} [filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     disabledTriggersByQueryWithHttpInfo(disabled, tenant, opts) {
       opts = opts || {};
@@ -345,7 +345,7 @@ export default class TriggersApi {
     * @param {Object} opts Optional parameters
     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     disabledTriggersByQuery(disabled, tenant, opts) {
       return this.disabledTriggersByQueryWithHttpInfo(disabled, tenant, opts)
@@ -369,7 +369,7 @@ export default class TriggersApi {
     * @param {String} tenant 
     * @param {module:model/Trigger} trigger 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Trigger} and HTTP response
+    * @return {Promise<Trigger>}
     */
     pauseBackfillWithHttpInfo(tenant, trigger) {
       let postBody = trigger;
@@ -408,7 +408,7 @@ export default class TriggersApi {
     * @param {String} tenant 
     * @param {module:model/Trigger} trigger 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Trigger}
+    * @return {Promise<Trigger>}
     */
     pauseBackfill(tenant, trigger) {
       return this.pauseBackfillWithHttpInfo(tenant, trigger)
@@ -432,7 +432,7 @@ export default class TriggersApi {
     * @param {String} tenant 
     * @param {Array.<module:model/Trigger>} trigger 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     pauseBackfillByIdsWithHttpInfo(tenant, trigger) {
       let postBody = trigger;
@@ -471,7 +471,7 @@ export default class TriggersApi {
     * @param {String} tenant 
     * @param {Array.<module:model/Trigger>} trigger 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     pauseBackfillByIds(tenant, trigger) {
       return this.pauseBackfillByIdsWithHttpInfo(tenant, trigger)
@@ -496,7 +496,7 @@ export default class TriggersApi {
     * @param {Object} opts Optional parameters
     * @param {Array.<module:model/QueryFilter>} [filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     pauseBackfillByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
@@ -534,7 +534,7 @@ export default class TriggersApi {
     * @param {Object} opts Optional parameters
     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     pauseBackfillByQuery(tenant, opts) {
       return this.pauseBackfillByQueryWithHttpInfo(tenant, opts)
@@ -560,7 +560,7 @@ export default class TriggersApi {
     * @param {String} triggerId The trigger id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     restartTriggerWithHttpInfo(namespace, flowId, triggerId, tenant) {
       let postBody = null;
@@ -612,7 +612,7 @@ export default class TriggersApi {
     * @param {String} triggerId The trigger id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     restartTrigger(namespace, flowId, triggerId, tenant) {
       return this.restartTriggerWithHttpInfo(namespace, flowId, triggerId, tenant)
@@ -640,7 +640,7 @@ export default class TriggersApi {
     * @param {Array.<String>} [sort] The sort of current page
     * @param {Array.<module:model/QueryFilter>} [filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsTriggerControllerTriggers} and HTTP response
+    * @return {Promise<PagedResultsTriggerControllerTriggers>}
     */
     searchTriggersWithHttpInfo(page, size, tenant, opts) {
       opts = opts || {};
@@ -692,7 +692,7 @@ export default class TriggersApi {
     * @param {Array.<String>} opts.sort The sort of current page
     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsTriggerControllerTriggers}
+    * @return {Promise<PagedResultsTriggerControllerTriggers>}
     */
     searchTriggers(page, size, tenant, opts) {
       return this.searchTriggersWithHttpInfo(page, size, tenant, opts)
@@ -722,7 +722,7 @@ export default class TriggersApi {
     * @param {Array.<String>} [sort] The sort of current page
     * @param {String} [q] A string filter
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsTrigger} and HTTP response
+    * @return {Promise<PagedResultsTrigger>}
     */
     searchTriggersForFlowWithHttpInfo(page, size, namespace, flowId, tenant, opts) {
       opts = opts || {};
@@ -786,7 +786,7 @@ export default class TriggersApi {
     * @param {Array.<String>} opts.sort The sort of current page
     * @param {String} opts.q A string filter
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsTrigger}
+    * @return {Promise<PagedResultsTrigger>}
     */
     searchTriggersForFlow(page, size, namespace, flowId, tenant, opts) {
       return this.searchTriggersForFlowWithHttpInfo(page, size, namespace, flowId, tenant, opts)
@@ -812,7 +812,7 @@ export default class TriggersApi {
     * @param {String} triggerId The trigger id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Trigger} and HTTP response
+    * @return {Promise<Trigger>}
     */
     unlockTriggerWithHttpInfo(namespace, flowId, triggerId, tenant) {
       let postBody = null;
@@ -864,7 +864,7 @@ export default class TriggersApi {
     * @param {String} triggerId The trigger id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Trigger}
+    * @return {Promise<Trigger>}
     */
     unlockTrigger(namespace, flowId, triggerId, tenant) {
       return this.unlockTriggerWithHttpInfo(namespace, flowId, triggerId, tenant)
@@ -888,7 +888,7 @@ export default class TriggersApi {
     * @param {String} tenant 
     * @param {Array.<module:model/Trigger>} trigger 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     unlockTriggersByIdsWithHttpInfo(tenant, trigger) {
       let postBody = trigger;
@@ -927,7 +927,7 @@ export default class TriggersApi {
     * @param {String} tenant 
     * @param {Array.<module:model/Trigger>} trigger 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     unlockTriggersByIds(tenant, trigger) {
       return this.unlockTriggersByIdsWithHttpInfo(tenant, trigger)
@@ -952,7 +952,7 @@ export default class TriggersApi {
     * @param {Object} opts Optional parameters
     * @param {Array.<module:model/QueryFilter>} [filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     unlockTriggersByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
@@ -990,7 +990,7 @@ export default class TriggersApi {
     * @param {Object} opts Optional parameters
     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     unlockTriggersByQuery(tenant, opts) {
       return this.unlockTriggersByQueryWithHttpInfo(tenant, opts)
@@ -1014,7 +1014,7 @@ export default class TriggersApi {
     * @param {String} tenant 
     * @param {module:model/Trigger} trigger 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Trigger} and HTTP response
+    * @return {Promise<Trigger>}
     */
     unpauseBackfillWithHttpInfo(tenant, trigger) {
       let postBody = trigger;
@@ -1053,7 +1053,7 @@ export default class TriggersApi {
     * @param {String} tenant 
     * @param {module:model/Trigger} trigger 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Trigger}
+    * @return {Promise<Trigger>}
     */
     unpauseBackfill(tenant, trigger) {
       return this.unpauseBackfillWithHttpInfo(tenant, trigger)
@@ -1077,7 +1077,7 @@ export default class TriggersApi {
     * @param {String} tenant 
     * @param {Array.<module:model/Trigger>} trigger 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     unpauseBackfillByIdsWithHttpInfo(tenant, trigger) {
       let postBody = trigger;
@@ -1116,7 +1116,7 @@ export default class TriggersApi {
     * @param {String} tenant 
     * @param {Array.<module:model/Trigger>} trigger 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     unpauseBackfillByIds(tenant, trigger) {
       return this.unpauseBackfillByIdsWithHttpInfo(tenant, trigger)
@@ -1141,7 +1141,7 @@ export default class TriggersApi {
     * @param {Object} opts Optional parameters
     * @param {Array.<module:model/QueryFilter>} [filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     unpauseBackfillByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
@@ -1179,7 +1179,7 @@ export default class TriggersApi {
     * @param {Object} opts Optional parameters
     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     unpauseBackfillByQuery(tenant, opts) {
       return this.unpauseBackfillByQueryWithHttpInfo(tenant, opts)
@@ -1203,7 +1203,7 @@ export default class TriggersApi {
     * @param {String} tenant 
     * @param {module:model/Trigger} trigger 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Trigger} and HTTP response
+    * @return {Promise<Trigger>}
     */
     updateTriggerWithHttpInfo(tenant, trigger) {
       let postBody = trigger;
@@ -1242,7 +1242,7 @@ export default class TriggersApi {
     * @param {String} tenant 
     * @param {module:model/Trigger} trigger 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Trigger}
+    * @return {Promise<Trigger>}
     */
     updateTrigger(tenant, trigger) {
       return this.updateTriggerWithHttpInfo(tenant, trigger)

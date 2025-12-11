@@ -51,7 +51,7 @@ export default class NamespacesApi {
     * @param {String} tenant 
     * @param {module:model/ApiAutocomplete} apiAutocomplete 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<String>} and HTTP response
+    * @return {Promise< Array.<String> >}
     */
     autocompleteNamespacesWithHttpInfo(tenant, apiAutocomplete) {
       let postBody = apiAutocomplete;
@@ -91,7 +91,7 @@ export default class NamespacesApi {
     * @param {String} tenant 
     * @param {module:model/ApiAutocomplete} apiAutocomplete 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<String>}
+    * @return {Promise< Array.<String> >}
     */
     autocompleteNamespaces(tenant, apiAutocomplete) {
       return this.autocompleteNamespacesWithHttpInfo(tenant, apiAutocomplete)
@@ -115,7 +115,7 @@ export default class NamespacesApi {
     * @param {String} tenant 
     * @param {module:model/Namespace} namespace The namespace
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Namespace} and HTTP response
+    * @return {Promise<Namespace>}
     */
     createNamespaceWithHttpInfo(tenant, namespace) {
       let postBody = namespace;
@@ -154,7 +154,7 @@ export default class NamespacesApi {
     * @param {String} tenant 
     * @param {module:model/Namespace} namespace The namespace
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Namespace}
+    * @return {Promise<Namespace>}
     */
     createNamespace(tenant, namespace) {
       return this.createNamespaceWithHttpInfo(tenant, namespace)
@@ -178,7 +178,7 @@ export default class NamespacesApi {
     * @param {String} id The namespace id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+    * @return {Promise<  >}
     */
     deleteNamespaceWithHttpInfo(id, tenant) {
       let postBody = null;
@@ -218,7 +218,7 @@ export default class NamespacesApi {
     * @param {String} id The namespace id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+    * @return {Promise<  >}
     */
     deleteNamespace(id, tenant) {
       return this.deleteNamespaceWithHttpInfo(id, tenant)
@@ -243,7 +243,7 @@ export default class NamespacesApi {
     * @param {String} key The secret key
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+    * @return {Promise<  >}
     */
     deleteSecretWithHttpInfo(namespace, key, tenant) {
       let postBody = null;
@@ -289,7 +289,7 @@ export default class NamespacesApi {
     * @param {String} key The secret key
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+    * @return {Promise<  >}
     */
     deleteSecret(namespace, key, tenant) {
       return this.deleteSecretWithHttpInfo(namespace, key, tenant)
@@ -313,7 +313,7 @@ export default class NamespacesApi {
     * @param {String} id The namespace id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/PluginDefault>} and HTTP response
+    * @return {Promise< Array.<module:model/PluginDefault> >}
     */
     inheritedPluginDefaultsWithHttpInfo(id, tenant) {
       let postBody = null;
@@ -353,7 +353,7 @@ export default class NamespacesApi {
     * @param {String} id The namespace id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/PluginDefault>}
+    * @return {Promise< Array.<module:model/PluginDefault> >}
     */
     inheritedPluginDefaults(id, tenant) {
       return this.inheritedPluginDefaultsWithHttpInfo(id, tenant)
@@ -377,7 +377,7 @@ export default class NamespacesApi {
     * @param {String} namespace The namespace id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object.<String, {String: [String]}>} and HTTP response
+    * @return {Promise< Object.<String, {String: [String]}> >}
     */
     inheritedSecretsWithHttpInfo(namespace, tenant) {
       let postBody = null;
@@ -417,7 +417,7 @@ export default class NamespacesApi {
     * @param {String} namespace The namespace id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object.<String, {String: [String]}>}
+    * @return {Promise< Object.<String, {String: [String]}> >}
     */
     inheritedSecrets(namespace, tenant) {
       return this.inheritedSecretsWithHttpInfo(namespace, tenant)
@@ -441,7 +441,7 @@ export default class NamespacesApi {
     * @param {String} id The namespace id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object.<String, {String: Object}>} and HTTP response
+    * @return {Promise< Object.<String, {String: Object}> >}
     */
     inheritedVariablesWithHttpInfo(id, tenant) {
       let postBody = null;
@@ -481,7 +481,7 @@ export default class NamespacesApi {
     * @param {String} id The namespace id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object.<String, {String: Object}>}
+    * @return {Promise< Object.<String, {String: Object}> >}
     */
     inheritedVariables(id, tenant) {
       return this.inheritedVariablesWithHttpInfo(id, tenant)
@@ -510,7 +510,7 @@ export default class NamespacesApi {
     * @param {Object} opts Optional parameters
     * @param {Array.<String>} [sort] The sort of current page
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiSecretListResponseApiSecretMeta} and HTTP response
+    * @return {Promise<ApiSecretListResponseApiSecretMeta>}
     */
     listNamespaceSecretsWithHttpInfo(namespace, page, size, filters, tenant, opts) {
       opts = opts || {};
@@ -572,7 +572,7 @@ export default class NamespacesApi {
     * @param {Object} opts Optional parameters
     * @param {Array.<String>} opts.sort The sort of current page
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiSecretListResponseApiSecretMeta}
+    * @return {Promise<ApiSecretListResponseApiSecretMeta>}
     */
     listNamespaceSecrets(namespace, page, size, filters, tenant, opts) {
       return this.listNamespaceSecretsWithHttpInfo(namespace, page, size, filters, tenant, opts)
@@ -596,7 +596,7 @@ export default class NamespacesApi {
     * @param {String} id The namespace id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Namespace} and HTTP response
+    * @return {Promise<Namespace>}
     */
     namespaceWithHttpInfo(id, tenant) {
       let postBody = null;
@@ -636,7 +636,7 @@ export default class NamespacesApi {
     * @param {String} id The namespace id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Namespace}
+    * @return {Promise<Namespace>}
     */
     namespace(id, tenant) {
       return this.namespaceWithHttpInfo(id, tenant)
@@ -662,7 +662,7 @@ export default class NamespacesApi {
     * @param {String} tenant 
     * @param {module:model/ApiSecretMetaEE} apiSecretMetaEE 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiSecretMetaEE>} and HTTP response
+    * @return {Promise< Array.<module:model/ApiSecretMetaEE> >}
     */
     patchSecretWithHttpInfo(namespace, key, tenant, apiSecretMetaEE) {
       let postBody = apiSecretMetaEE;
@@ -713,7 +713,7 @@ export default class NamespacesApi {
     * @param {String} tenant 
     * @param {module:model/ApiSecretMetaEE} apiSecretMetaEE 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiSecretMetaEE>}
+    * @return {Promise< Array.<module:model/ApiSecretMetaEE> >}
     */
     patchSecret(namespace, key, tenant, apiSecretMetaEE) {
       return this.patchSecretWithHttpInfo(namespace, key, tenant, apiSecretMetaEE)
@@ -738,7 +738,7 @@ export default class NamespacesApi {
     * @param {String} tenant 
     * @param {module:model/ApiSecretValue} apiSecretValue 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiSecretMetaEE>} and HTTP response
+    * @return {Promise< Array.<module:model/ApiSecretMetaEE> >}
     */
     putSecretsWithHttpInfo(namespace, tenant, apiSecretValue) {
       let postBody = apiSecretValue;
@@ -783,7 +783,7 @@ export default class NamespacesApi {
     * @param {String} tenant 
     * @param {module:model/ApiSecretValue} apiSecretValue 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiSecretMetaEE>}
+    * @return {Promise< Array.<module:model/ApiSecretMetaEE> >}
     */
     putSecrets(namespace, tenant, apiSecretValue) {
       return this.putSecretsWithHttpInfo(namespace, tenant, apiSecretValue)
@@ -812,7 +812,7 @@ export default class NamespacesApi {
     * @param {String} [q] A string filter
     * @param {Array.<String>} [sort] The sort of current page
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsNamespace} and HTTP response
+    * @return {Promise<PagedResultsNamespace>}
     */
     searchNamespacesWithHttpInfo(page, size, existing, tenant, opts) {
       opts = opts || {};
@@ -870,7 +870,7 @@ export default class NamespacesApi {
     * @param {String} opts.q A string filter
     * @param {Array.<String>} opts.sort The sort of current page
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsNamespace}
+    * @return {Promise<PagedResultsNamespace>}
     */
     searchNamespaces(page, size, existing, tenant, opts) {
       return this.searchNamespacesWithHttpInfo(page, size, existing, tenant, opts)
@@ -895,7 +895,7 @@ export default class NamespacesApi {
     * @param {String} tenant 
     * @param {module:model/Namespace} namespace The namespace
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Namespace} and HTTP response
+    * @return {Promise<Namespace>}
     */
     updateNamespaceWithHttpInfo(id, tenant, namespace) {
       let postBody = namespace;
@@ -940,7 +940,7 @@ export default class NamespacesApi {
     * @param {String} tenant 
     * @param {module:model/Namespace} namespace The namespace
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Namespace}
+    * @return {Promise<Namespace>}
     */
     updateNamespace(id, tenant, namespace) {
       return this.updateNamespaceWithHttpInfo(id, tenant, namespace)

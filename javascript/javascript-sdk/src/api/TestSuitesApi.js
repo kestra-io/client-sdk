@@ -55,7 +55,7 @@ export default class TestSuitesApi {
     * @param {String} tenant 
     * @param {String} body The TestSuite source code
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/TestSuite} and HTTP response
+    * @return {Promise<TestSuite>}
     */
     createTestSuiteWithHttpInfo(tenant, body) {
       let postBody = body;
@@ -95,7 +95,7 @@ export default class TestSuitesApi {
     * @param {String} tenant 
     * @param {String} body The TestSuite source code
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/TestSuite}
+    * @return {Promise<TestSuite>}
     */
     createTestSuite(tenant, body) {
       return this.createTestSuiteWithHttpInfo(tenant, body)
@@ -121,7 +121,7 @@ export default class TestSuitesApi {
     * @param {String} id The TestSuite ID
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     deleteTestSuiteWithHttpInfo(namespace, id, tenant) {
       let postBody = null;
@@ -168,7 +168,7 @@ export default class TestSuitesApi {
     * @param {String} id The TestSuite ID
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     deleteTestSuite(namespace, id, tenant) {
       return this.deleteTestSuiteWithHttpInfo(namespace, id, tenant)
@@ -193,7 +193,7 @@ export default class TestSuitesApi {
     * @param {String} tenant 
     * @param {module:model/TestSuiteControllerTestSuiteBulkRequest} testSuiteControllerTestSuiteBulkRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
+    * @return {Promise<BulkResponse>}
     */
     deleteTestSuitesByIdsWithHttpInfo(tenant, testSuiteControllerTestSuiteBulkRequest) {
       let postBody = testSuiteControllerTestSuiteBulkRequest;
@@ -233,7 +233,7 @@ export default class TestSuitesApi {
     * @param {String} tenant 
     * @param {module:model/TestSuiteControllerTestSuiteBulkRequest} testSuiteControllerTestSuiteBulkRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
+    * @return {Promise<BulkResponse>}
     */
     deleteTestSuitesByIds(tenant, testSuiteControllerTestSuiteBulkRequest) {
       return this.deleteTestSuitesByIdsWithHttpInfo(tenant, testSuiteControllerTestSuiteBulkRequest)
@@ -258,7 +258,7 @@ export default class TestSuitesApi {
     * @param {String} tenant 
     * @param {module:model/TestSuiteControllerTestSuiteBulkRequest} testSuiteControllerTestSuiteBulkRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
+    * @return {Promise<BulkResponse>}
     */
     disableTestSuitesByIdsWithHttpInfo(tenant, testSuiteControllerTestSuiteBulkRequest) {
       let postBody = testSuiteControllerTestSuiteBulkRequest;
@@ -298,7 +298,7 @@ export default class TestSuitesApi {
     * @param {String} tenant 
     * @param {module:model/TestSuiteControllerTestSuiteBulkRequest} testSuiteControllerTestSuiteBulkRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
+    * @return {Promise<BulkResponse>}
     */
     disableTestSuitesByIds(tenant, testSuiteControllerTestSuiteBulkRequest) {
       return this.disableTestSuitesByIdsWithHttpInfo(tenant, testSuiteControllerTestSuiteBulkRequest)
@@ -323,7 +323,7 @@ export default class TestSuitesApi {
     * @param {String} tenant 
     * @param {module:model/TestSuiteControllerTestSuiteBulkRequest} testSuiteControllerTestSuiteBulkRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
+    * @return {Promise<BulkResponse>}
     */
     enableTestSuitesByIdsWithHttpInfo(tenant, testSuiteControllerTestSuiteBulkRequest) {
       let postBody = testSuiteControllerTestSuiteBulkRequest;
@@ -363,7 +363,7 @@ export default class TestSuitesApi {
     * @param {String} tenant 
     * @param {module:model/TestSuiteControllerTestSuiteBulkRequest} testSuiteControllerTestSuiteBulkRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
+    * @return {Promise<BulkResponse>}
     */
     enableTestSuitesByIds(tenant, testSuiteControllerTestSuiteBulkRequest) {
       return this.enableTestSuitesByIdsWithHttpInfo(tenant, testSuiteControllerTestSuiteBulkRequest)
@@ -391,7 +391,7 @@ export default class TestSuitesApi {
     * @param {Object} opts Optional parameters
     * @param {module:model/TestSuiteControllerRunRequest} [testSuiteControllerRunRequest] 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/TestSuiteRunResult} and HTTP response
+    * @return {Promise<TestSuiteRunResult>}
     */
     runTestSuiteWithHttpInfo(namespace, id, tenant, opts) {
       opts = opts || {};
@@ -441,7 +441,7 @@ export default class TestSuitesApi {
     * @param {Object} opts Optional parameters
     * @param {module:model/TestSuiteControllerRunRequest} opts.testSuiteControllerRunRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/TestSuiteRunResult}
+    * @return {Promise<TestSuiteRunResult>}
     */
     runTestSuite(namespace, id, tenant, opts) {
       return this.runTestSuiteWithHttpInfo(namespace, id, tenant, opts)
@@ -466,7 +466,7 @@ export default class TestSuitesApi {
     * @param {String} tenant 
     * @param {module:model/TestSuiteServiceRunByQueryRequest} testSuiteServiceRunByQueryRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/TestSuiteServiceTestRunByQueryResult} and HTTP response
+    * @return {Promise<TestSuiteServiceTestRunByQueryResult>}
     */
     runTestSuitesByQueryWithHttpInfo(tenant, testSuiteServiceRunByQueryRequest) {
       let postBody = testSuiteServiceRunByQueryRequest;
@@ -506,7 +506,7 @@ export default class TestSuitesApi {
     * @param {String} tenant 
     * @param {module:model/TestSuiteServiceRunByQueryRequest} testSuiteServiceRunByQueryRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/TestSuiteServiceTestRunByQueryResult}
+    * @return {Promise<TestSuiteServiceTestRunByQueryResult>}
     */
     runTestSuitesByQuery(tenant, testSuiteServiceRunByQueryRequest) {
       return this.runTestSuitesByQueryWithHttpInfo(tenant, testSuiteServiceRunByQueryRequest)
@@ -537,7 +537,7 @@ export default class TestSuitesApi {
     * @param {String} [namespace] The namespace to filter on
     * @param {String} [flowId] The flow id to filter on
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsTestSuite} and HTTP response
+    * @return {Promise<PagedResultsTestSuite>}
     */
     searchTestSuitesWithHttpInfo(page, size, includeChildNamespaces, tenant, opts) {
       opts = opts || {};
@@ -598,7 +598,7 @@ export default class TestSuitesApi {
     * @param {String} opts.namespace The namespace to filter on
     * @param {String} opts.flowId The flow id to filter on
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsTestSuite}
+    * @return {Promise<PagedResultsTestSuite>}
     */
     searchTestSuites(page, size, includeChildNamespaces, tenant, opts) {
       return this.searchTestSuitesWithHttpInfo(page, size, includeChildNamespaces, tenant, opts)
@@ -629,7 +629,7 @@ export default class TestSuitesApi {
     * @param {String} [namespace] The namespace to filter on
     * @param {String} [flowId] The flow id to filter on
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsTestSuiteRunResult} and HTTP response
+    * @return {Promise<PagedResultsTestSuiteRunResult>}
     */
     searchTestSuitesResultsWithHttpInfo(page, size, tenant, opts) {
       opts = opts || {};
@@ -686,7 +686,7 @@ export default class TestSuitesApi {
     * @param {String} opts.namespace The namespace to filter on
     * @param {String} opts.flowId The flow id to filter on
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsTestSuiteRunResult}
+    * @return {Promise<PagedResultsTestSuiteRunResult>}
     */
     searchTestSuitesResults(page, size, tenant, opts) {
       return this.searchTestSuitesResultsWithHttpInfo(page, size, tenant, opts)
@@ -711,7 +711,7 @@ export default class TestSuitesApi {
     * @param {String} id The test run ID
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/TestSuiteRunResult} and HTTP response
+    * @return {Promise<TestSuiteRunResult>}
     */
     testResultWithHttpInfo(id, tenant) {
       let postBody = null;
@@ -752,7 +752,7 @@ export default class TestSuitesApi {
     * @param {String} id The test run ID
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/TestSuiteRunResult}
+    * @return {Promise<TestSuiteRunResult>}
     */
     testResult(id, tenant) {
       return this.testResultWithHttpInfo(id, tenant)
@@ -778,7 +778,7 @@ export default class TestSuitesApi {
     * @param {String} id The TestSuite ID
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/TestSuite} and HTTP response
+    * @return {Promise<TestSuite>}
     */
     testSuiteWithHttpInfo(namespace, id, tenant) {
       let postBody = null;
@@ -825,7 +825,7 @@ export default class TestSuitesApi {
     * @param {String} id The TestSuite ID
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/TestSuite}
+    * @return {Promise<TestSuite>}
     */
     testSuite(namespace, id, tenant) {
       return this.testSuiteWithHttpInfo(namespace, id, tenant)
@@ -850,7 +850,7 @@ export default class TestSuitesApi {
     * @param {String} tenant 
     * @param {module:model/TestSuiteControllerSearchTestsLastResult} testSuiteControllerSearchTestsLastResult 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/TestSuiteControllerTestsLastResultResponse} and HTTP response
+    * @return {Promise<TestSuiteControllerTestsLastResultResponse>}
     */
     testsLastResultWithHttpInfo(tenant, testSuiteControllerSearchTestsLastResult) {
       let postBody = testSuiteControllerSearchTestsLastResult;
@@ -890,7 +890,7 @@ export default class TestSuitesApi {
     * @param {String} tenant 
     * @param {module:model/TestSuiteControllerSearchTestsLastResult} testSuiteControllerSearchTestsLastResult 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/TestSuiteControllerTestsLastResultResponse}
+    * @return {Promise<TestSuiteControllerTestsLastResultResponse>}
     */
     testsLastResult(tenant, testSuiteControllerSearchTestsLastResult) {
       return this.testsLastResultWithHttpInfo(tenant, testSuiteControllerSearchTestsLastResult)
@@ -917,7 +917,7 @@ export default class TestSuitesApi {
     * @param {String} tenant 
     * @param {String} body The TestSuite source code
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/TestSuite} and HTTP response
+    * @return {Promise<TestSuite>}
     */
     updateTestSuiteWithHttpInfo(namespace, id, tenant, body) {
       let postBody = body;
@@ -969,7 +969,7 @@ export default class TestSuitesApi {
     * @param {String} tenant 
     * @param {String} body The TestSuite source code
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/TestSuite}
+    * @return {Promise<TestSuite>}
     */
     updateTestSuite(namespace, id, tenant, body) {
       return this.updateTestSuiteWithHttpInfo(namespace, id, tenant, body)
@@ -994,7 +994,7 @@ export default class TestSuitesApi {
     * @param {String} tenant 
     * @param {String} body The TestSuite source code
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ValidateConstraintViolation} and HTTP response
+    * @return {Promise<ValidateConstraintViolation>}
     */
     validateTestSuiteWithHttpInfo(tenant, body) {
       let postBody = body;
@@ -1034,7 +1034,7 @@ export default class TestSuitesApi {
     * @param {String} tenant 
     * @param {String} body The TestSuite source code
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ValidateConstraintViolation}
+    * @return {Promise<ValidateConstraintViolation>}
     */
     validateTestSuite(tenant, body) {
       return this.validateTestSuiteWithHttpInfo(tenant, body)

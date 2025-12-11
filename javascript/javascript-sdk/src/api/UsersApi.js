@@ -56,7 +56,7 @@ export default class UsersApi {
     * @param {String} tenant 
     * @param {module:model/IAMTenantAccessControllerUserApiAutocomplete} iAMTenantAccessControllerUserApiAutocomplete Autocomplete request
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/IAMTenantAccessControllerApiUserTenantAccess>} and HTTP response
+    * @return {Promise< Array.<module:model/IAMTenantAccessControllerApiUserTenantAccess> >}
     */
     autocompleteUsersWithHttpInfo(tenant, iAMTenantAccessControllerUserApiAutocomplete) {
       let postBody = iAMTenantAccessControllerUserApiAutocomplete;
@@ -95,7 +95,7 @@ export default class UsersApi {
     * @param {String} tenant 
     * @param {module:model/IAMTenantAccessControllerUserApiAutocomplete} iAMTenantAccessControllerUserApiAutocomplete Autocomplete request
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/IAMTenantAccessControllerApiUserTenantAccess>}
+    * @return {Promise< Array.<module:model/IAMTenantAccessControllerApiUserTenantAccess> >}
     */
     autocompleteUsers(tenant, iAMTenantAccessControllerUserApiAutocomplete) {
       return this.autocompleteUsersWithHttpInfo(tenant, iAMTenantAccessControllerUserApiAutocomplete)
@@ -120,7 +120,7 @@ export default class UsersApi {
     * @param {String} id The user id
     * @param {module:model/CreateApiTokenRequest} createApiTokenRequest The create api-token request
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/CreateApiTokenResponse} and HTTP response
+    * @return {Promise<CreateApiTokenResponse>}
     */
     createApiTokensForUserWithHttpInfo(id, createApiTokenRequest) {
       let postBody = createApiTokenRequest;
@@ -160,7 +160,7 @@ export default class UsersApi {
     * @param {String} id The user id
     * @param {module:model/CreateApiTokenRequest} createApiTokenRequest The create api-token request
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CreateApiTokenResponse}
+    * @return {Promise<CreateApiTokenResponse>}
     */
     createApiTokensForUser(id, createApiTokenRequest) {
       return this.createApiTokensForUserWithHttpInfo(id, createApiTokenRequest)
@@ -184,7 +184,7 @@ export default class UsersApi {
     * Superadmin-only. Create a new user account with an optional password based authentication method.
     * @param {module:model/IAMUserControllerApiCreateOrUpdateUserRequest} iAMUserControllerApiCreateOrUpdateUserRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMUserControllerApiUser} and HTTP response
+    * @return {Promise<IAMUserControllerApiUser>}
     */
     createUserWithHttpInfo(iAMUserControllerApiCreateOrUpdateUserRequest) {
       let postBody = iAMUserControllerApiCreateOrUpdateUserRequest;
@@ -218,7 +218,7 @@ export default class UsersApi {
     * Superadmin-only. Create a new user account with an optional password based authentication method.
     * @param {module:model/IAMUserControllerApiCreateOrUpdateUserRequest} iAMUserControllerApiCreateOrUpdateUserRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMUserControllerApiUser}
+    * @return {Promise<IAMUserControllerApiUser>}
     */
     createUser(iAMUserControllerApiCreateOrUpdateUserRequest) {
       return this.createUserWithHttpInfo(iAMUserControllerApiCreateOrUpdateUserRequest)
@@ -243,7 +243,7 @@ export default class UsersApi {
     * @param {String} id The user id
     * @param {String} tokenId The token id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+    * @return {Promise<  >}
     */
     deleteApiTokenForUserWithHttpInfo(id, tokenId) {
       let postBody = null;
@@ -284,7 +284,7 @@ export default class UsersApi {
     * @param {String} id The user id
     * @param {String} tokenId The token id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+    * @return {Promise<  >}
     */
     deleteApiTokenForUser(id, tokenId) {
       return this.deleteApiTokenForUserWithHttpInfo(id, tokenId)
@@ -307,7 +307,7 @@ export default class UsersApi {
     * Delete a user refresh token
     * @param {String} id The user id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+    * @return {Promise<  >}
     */
     deleteRefreshTokenWithHttpInfo(id) {
       let postBody = null;
@@ -341,7 +341,7 @@ export default class UsersApi {
     * Delete a user refresh token
     * @param {String} id The user id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+    * @return {Promise<  >}
     */
     deleteRefreshToken(id) {
       return this.deleteRefreshTokenWithHttpInfo(id)
@@ -365,7 +365,7 @@ export default class UsersApi {
     * Superadmin-only. Delete a user including all its access.
     * @param {String} id The user id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+    * @return {Promise<  >}
     */
     deleteUserWithHttpInfo(id) {
       let postBody = null;
@@ -400,7 +400,7 @@ export default class UsersApi {
     * Superadmin-only. Delete a user including all its access.
     * @param {String} id The user id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+    * @return {Promise<  >}
     */
     deleteUser(id) {
       return this.deleteUserWithHttpInfo(id)
@@ -425,7 +425,7 @@ export default class UsersApi {
     * @param {String} id The user id
     * @param {String} auth The user auth method id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMUserControllerApiUser} and HTTP response
+    * @return {Promise<IAMUserControllerApiUser>}
     */
     deleteUserAuthMethodWithHttpInfo(id, auth) {
       let postBody = null;
@@ -466,7 +466,7 @@ export default class UsersApi {
     * @param {String} id The user id
     * @param {String} auth The user auth method id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMUserControllerApiUser}
+    * @return {Promise<IAMUserControllerApiUser>}
     */
     deleteUserAuthMethod(id, auth) {
       return this.deleteUserAuthMethodWithHttpInfo(id, auth)
@@ -490,7 +490,7 @@ export default class UsersApi {
     * Superadmin-only. Allows an admin to impersonate another user.
     * @param {String} id The user id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     impersonateWithHttpInfo(id) {
       let postBody = null;
@@ -525,7 +525,7 @@ export default class UsersApi {
     * Superadmin-only. Allows an admin to impersonate another user.
     * @param {String} id The user id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     impersonate(id) {
       return this.impersonateWithHttpInfo(id)
@@ -549,7 +549,7 @@ export default class UsersApi {
     * Superadmin-only. Get all API token existing for a user.
     * @param {String} id The user id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiTokenList} and HTTP response
+    * @return {Promise<ApiTokenList>}
     */
     listApiTokensForUserWithHttpInfo(id) {
       let postBody = null;
@@ -584,7 +584,7 @@ export default class UsersApi {
     * Superadmin-only. Get all API token existing for a user.
     * @param {String} id The user id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiTokenList}
+    * @return {Promise<ApiTokenList>}
     */
     listApiTokensForUser(id) {
       return this.listApiTokensForUserWithHttpInfo(id)
@@ -611,7 +611,7 @@ export default class UsersApi {
     * @param {String} [q] A string filter
     * @param {Array.<String>} [sort] The sort of current page
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsIAMUserControllerApiUserSummary} and HTTP response
+    * @return {Promise<PagedResultsIAMUserControllerApiUserSummary>}
     */
     listUsersWithHttpInfo(page, size, opts) {
       opts = opts || {};
@@ -657,7 +657,7 @@ export default class UsersApi {
     * @param {String} opts.q A string filter
     * @param {Array.<String>} opts.sort The sort of current page
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsIAMUserControllerApiUserSummary}
+    * @return {Promise<PagedResultsIAMUserControllerApiUserSummary>}
     */
     listUsers(page, size, opts) {
       return this.listUsersWithHttpInfo(page, size, opts)
@@ -682,7 +682,7 @@ export default class UsersApi {
     * @param {String} id The user id
     * @param {module:model/MeControllerApiUserDetailsRequest} meControllerApiUserDetailsRequest The user details
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMUserControllerApiUser} and HTTP response
+    * @return {Promise<IAMUserControllerApiUser>}
     */
     patchUserWithHttpInfo(id, meControllerApiUserDetailsRequest) {
       let postBody = meControllerApiUserDetailsRequest;
@@ -722,7 +722,7 @@ export default class UsersApi {
     * @param {String} id The user id
     * @param {module:model/MeControllerApiUserDetailsRequest} meControllerApiUserDetailsRequest The user details
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMUserControllerApiUser}
+    * @return {Promise<IAMUserControllerApiUser>}
     */
     patchUser(id, meControllerApiUserDetailsRequest) {
       return this.patchUserWithHttpInfo(id, meControllerApiUserDetailsRequest)
@@ -747,7 +747,7 @@ export default class UsersApi {
     * @param {String} id The user id
     * @param {module:model/IAMUserControllerApiPatchRestrictedRequest} iAMUserControllerApiPatchRestrictedRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+    * @return {Promise<  >}
     */
     patchUserDemoWithHttpInfo(id, iAMUserControllerApiPatchRestrictedRequest) {
       let postBody = iAMUserControllerApiPatchRestrictedRequest;
@@ -787,7 +787,7 @@ export default class UsersApi {
     * @param {String} id The user id
     * @param {module:model/IAMUserControllerApiPatchRestrictedRequest} iAMUserControllerApiPatchRestrictedRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+    * @return {Promise<  >}
     */
     patchUserDemo(id, iAMUserControllerApiPatchRestrictedRequest) {
       return this.patchUserDemoWithHttpInfo(id, iAMUserControllerApiPatchRestrictedRequest)
@@ -812,7 +812,7 @@ export default class UsersApi {
     * @param {String} id The user id
     * @param {module:model/IAMUserControllerApiPatchUserPasswordRequest} iAMUserControllerApiPatchUserPasswordRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMUserControllerApiUser} and HTTP response
+    * @return {Promise<IAMUserControllerApiUser>}
     */
     patchUserPasswordWithHttpInfo(id, iAMUserControllerApiPatchUserPasswordRequest) {
       let postBody = iAMUserControllerApiPatchUserPasswordRequest;
@@ -852,7 +852,7 @@ export default class UsersApi {
     * @param {String} id The user id
     * @param {module:model/IAMUserControllerApiPatchUserPasswordRequest} iAMUserControllerApiPatchUserPasswordRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMUserControllerApiUser}
+    * @return {Promise<IAMUserControllerApiUser>}
     */
     patchUserPassword(id, iAMUserControllerApiPatchUserPasswordRequest) {
       return this.patchUserPasswordWithHttpInfo(id, iAMUserControllerApiPatchUserPasswordRequest)
@@ -877,7 +877,7 @@ export default class UsersApi {
     * @param {String} id The user id
     * @param {module:model/ApiPatchSuperAdminRequest} apiPatchSuperAdminRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+    * @return {Promise<  >}
     */
     patchUserSuperAdminWithHttpInfo(id, apiPatchSuperAdminRequest) {
       let postBody = apiPatchSuperAdminRequest;
@@ -917,7 +917,7 @@ export default class UsersApi {
     * @param {String} id The user id
     * @param {module:model/ApiPatchSuperAdminRequest} apiPatchSuperAdminRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+    * @return {Promise<  >}
     */
     patchUserSuperAdmin(id, apiPatchSuperAdminRequest) {
       return this.patchUserSuperAdminWithHttpInfo(id, apiPatchSuperAdminRequest)
@@ -941,7 +941,7 @@ export default class UsersApi {
     * Changes the login password for the authenticated user.
     * @param {module:model/MeControllerApiUpdatePasswordRequest} meControllerApiUpdatePasswordRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     updateCurrentUserPasswordWithHttpInfo(meControllerApiUpdatePasswordRequest) {
       let postBody = meControllerApiUpdatePasswordRequest;
@@ -975,7 +975,7 @@ export default class UsersApi {
     * Changes the login password for the authenticated user.
     * @param {module:model/MeControllerApiUpdatePasswordRequest} meControllerApiUpdatePasswordRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     updateCurrentUserPassword(meControllerApiUpdatePasswordRequest) {
       return this.updateCurrentUserPasswordWithHttpInfo(meControllerApiUpdatePasswordRequest)
@@ -1000,7 +1000,7 @@ export default class UsersApi {
     * @param {String} id The user id
     * @param {module:model/IAMUserControllerApiCreateOrUpdateUserRequest} iAMUserControllerApiCreateOrUpdateUserRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMUserControllerApiUser} and HTTP response
+    * @return {Promise<IAMUserControllerApiUser>}
     */
     updateUserWithHttpInfo(id, iAMUserControllerApiCreateOrUpdateUserRequest) {
       let postBody = iAMUserControllerApiCreateOrUpdateUserRequest;
@@ -1040,7 +1040,7 @@ export default class UsersApi {
     * @param {String} id The user id
     * @param {module:model/IAMUserControllerApiCreateOrUpdateUserRequest} iAMUserControllerApiCreateOrUpdateUserRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMUserControllerApiUser}
+    * @return {Promise<IAMUserControllerApiUser>}
     */
     updateUser(id, iAMUserControllerApiCreateOrUpdateUserRequest) {
       return this.updateUserWithHttpInfo(id, iAMUserControllerApiCreateOrUpdateUserRequest)
@@ -1065,7 +1065,7 @@ export default class UsersApi {
     * @param {String} tenant 
     * @param {module:model/IAMUserGroupControllerApiUpdateUserGroupsRequest} iAMUserGroupControllerApiUpdateUserGroupsRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+    * @return {Promise<  >}
     */
     updateUserGroupsWithHttpInfo(id, tenant, iAMUserGroupControllerApiUpdateUserGroupsRequest) {
       let postBody = iAMUserGroupControllerApiUpdateUserGroupsRequest;
@@ -1110,7 +1110,7 @@ export default class UsersApi {
     * @param {String} tenant 
     * @param {module:model/IAMUserGroupControllerApiUpdateUserGroupsRequest} iAMUserGroupControllerApiUpdateUserGroupsRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+    * @return {Promise<  >}
     */
     updateUserGroups(id, tenant, iAMUserGroupControllerApiUpdateUserGroupsRequest) {
       return this.updateUserGroupsWithHttpInfo(id, tenant, iAMUserGroupControllerApiUpdateUserGroupsRequest)
@@ -1134,7 +1134,7 @@ export default class UsersApi {
     * Superadmin-only. Get user account details.
     * @param {String} id The user id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMUserControllerApiUser} and HTTP response
+    * @return {Promise<IAMUserControllerApiUser>}
     */
     userWithHttpInfo(id) {
       let postBody = null;
@@ -1169,7 +1169,7 @@ export default class UsersApi {
     * Superadmin-only. Get user account details.
     * @param {String} id The user id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMUserControllerApiUser}
+    * @return {Promise<IAMUserControllerApiUser>}
     */
     user(id) {
       return this.userWithHttpInfo(id)

@@ -49,7 +49,7 @@ export default class RolesApi {
     * @param {String} tenant 
     * @param {module:model/ApiAutocomplete} apiAutocomplete Autocomplete request
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiRoleSummary>} and HTTP response
+    * @return {Promise< Array.<module:model/ApiRoleSummary> >}
     */
     autocompleteRolesWithHttpInfo(tenant, apiAutocomplete) {
       let postBody = apiAutocomplete;
@@ -88,7 +88,7 @@ export default class RolesApi {
     * @param {String} tenant 
     * @param {module:model/ApiAutocomplete} apiAutocomplete Autocomplete request
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiRoleSummary>}
+    * @return {Promise< Array.<module:model/ApiRoleSummary> >}
     */
     autocompleteRoles(tenant, apiAutocomplete) {
       return this.autocompleteRolesWithHttpInfo(tenant, apiAutocomplete)
@@ -112,7 +112,7 @@ export default class RolesApi {
     * @param {String} tenant 
     * @param {module:model/IAMRoleControllerApiRoleCreateOrUpdateRequest} iAMRoleControllerApiRoleCreateOrUpdateRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMRoleControllerApiRoleDetail} and HTTP response
+    * @return {Promise<IAMRoleControllerApiRoleDetail>}
     */
     createRoleWithHttpInfo(tenant, iAMRoleControllerApiRoleCreateOrUpdateRequest) {
       let postBody = iAMRoleControllerApiRoleCreateOrUpdateRequest;
@@ -151,7 +151,7 @@ export default class RolesApi {
     * @param {String} tenant 
     * @param {module:model/IAMRoleControllerApiRoleCreateOrUpdateRequest} iAMRoleControllerApiRoleCreateOrUpdateRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMRoleControllerApiRoleDetail}
+    * @return {Promise<IAMRoleControllerApiRoleDetail>}
     */
     createRole(tenant, iAMRoleControllerApiRoleCreateOrUpdateRequest) {
       return this.createRoleWithHttpInfo(tenant, iAMRoleControllerApiRoleCreateOrUpdateRequest)
@@ -175,7 +175,7 @@ export default class RolesApi {
     * @param {String} id The role id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+    * @return {Promise<  >}
     */
     deleteRoleWithHttpInfo(id, tenant) {
       let postBody = null;
@@ -215,7 +215,7 @@ export default class RolesApi {
     * @param {String} id The role id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+    * @return {Promise<  >}
     */
     deleteRole(id, tenant) {
       return this.deleteRoleWithHttpInfo(id, tenant)
@@ -239,7 +239,7 @@ export default class RolesApi {
     * @param {String} tenant 
     * @param {module:model/ApiIds} apiIds The ids that must be present on results
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Role>} and HTTP response
+    * @return {Promise< Array.<module:model/Role> >}
     */
     listRolesFromGivenIdsWithHttpInfo(tenant, apiIds) {
       let postBody = apiIds;
@@ -278,7 +278,7 @@ export default class RolesApi {
     * @param {String} tenant 
     * @param {module:model/ApiIds} apiIds The ids that must be present on results
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Role>}
+    * @return {Promise< Array.<module:model/Role> >}
     */
     listRolesFromGivenIds(tenant, apiIds) {
       return this.listRolesFromGivenIdsWithHttpInfo(tenant, apiIds)
@@ -302,7 +302,7 @@ export default class RolesApi {
     * @param {String} id The role id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMRoleControllerApiRoleDetail} and HTTP response
+    * @return {Promise<IAMRoleControllerApiRoleDetail>}
     */
     roleWithHttpInfo(id, tenant) {
       let postBody = null;
@@ -342,7 +342,7 @@ export default class RolesApi {
     * @param {String} id The role id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMRoleControllerApiRoleDetail}
+    * @return {Promise<IAMRoleControllerApiRoleDetail>}
     */
     role(id, tenant) {
       return this.roleWithHttpInfo(id, tenant)
@@ -370,7 +370,7 @@ export default class RolesApi {
     * @param {String} [q] A string filter
     * @param {Array.<String>} [sort] The sort of current page
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsApiRoleSummary} and HTTP response
+    * @return {Promise<PagedResultsApiRoleSummary>}
     */
     searchRolesWithHttpInfo(page, size, tenant, opts) {
       opts = opts || {};
@@ -422,7 +422,7 @@ export default class RolesApi {
     * @param {String} opts.q A string filter
     * @param {Array.<String>} opts.sort The sort of current page
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsApiRoleSummary}
+    * @return {Promise<PagedResultsApiRoleSummary>}
     */
     searchRoles(page, size, tenant, opts) {
       return this.searchRolesWithHttpInfo(page, size, tenant, opts)
@@ -447,7 +447,7 @@ export default class RolesApi {
     * @param {String} tenant 
     * @param {module:model/IAMRoleControllerApiRoleCreateOrUpdateRequest} iAMRoleControllerApiRoleCreateOrUpdateRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMRoleControllerApiRoleDetail} and HTTP response
+    * @return {Promise<IAMRoleControllerApiRoleDetail>}
     */
     updateRoleWithHttpInfo(id, tenant, iAMRoleControllerApiRoleCreateOrUpdateRequest) {
       let postBody = iAMRoleControllerApiRoleCreateOrUpdateRequest;
@@ -492,7 +492,7 @@ export default class RolesApi {
     * @param {String} tenant 
     * @param {module:model/IAMRoleControllerApiRoleCreateOrUpdateRequest} iAMRoleControllerApiRoleCreateOrUpdateRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMRoleControllerApiRoleDetail}
+    * @return {Promise<IAMRoleControllerApiRoleDetail>}
     */
     updateRole(id, tenant, iAMRoleControllerApiRoleCreateOrUpdateRequest) {
       return this.updateRoleWithHttpInfo(id, tenant, iAMRoleControllerApiRoleCreateOrUpdateRequest)

@@ -97,6 +97,7 @@ sed -i '' -E "s/obj\['value'\][[:space:]]*=[[:space:]]*OutputValue\.constructFro
 sed -i '' -E "s/obj\[([\"'])([A-Za-z0-9_]+)\1\] = Object\.constructFromObject\(data\[\1\2\1\]\);/obj[\1\2\1] = ApiClient.convertToType(data[\1\2\1], 'Object');/g" ./javascript/javascript-sdk/src/model/Assertion.js
 sed -i '' -E "s/obj\[([\"'])([A-Za-z0-9_]+)\1\] = ([\"'])([A-Za-z]+)\3\.constructFromObject\(data\[\1\2\1\]\);/obj[\1\2\1] = ApiClient.convertToType(data[\1\2\1], \3\4\3);/g" ./javascript/javascript-sdk/src/model/Assertion.js
 sed -i '' -E "s/let authNames = \[\];/let authNames = \['basicAuth', 'bearerAuth'\];/" ./javascript/javascript-sdk/src/api/TestSuitesApi.js
+sed -i '' -E "s/    \* @return \{Promise< module:model\/([A-Za-z0-9_]+) >\}/    \* @return \{Promise<\1>\}/" ./javascript/javascript-sdk/src/api/*.js
 rm ./javascript/javascript-sdk/git_push.sh
 rm ./javascript/javascript-sdk/mocha.opts
 rm ./javascript/javascript-sdk/.babelrc
