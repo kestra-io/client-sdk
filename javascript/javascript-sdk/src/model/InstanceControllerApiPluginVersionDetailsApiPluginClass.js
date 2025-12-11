@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The InstanceControllerApiPluginVersionDetailsApiPluginClass model module.
  * @module model/InstanceControllerApiPluginVersionDetailsApiPluginClass
- * @version 1.0.2
- */
+  */
 class InstanceControllerApiPluginVersionDetailsApiPluginClass {
     /**
      * Constructs a new <code>InstanceControllerApiPluginVersionDetailsApiPluginClass</code>.

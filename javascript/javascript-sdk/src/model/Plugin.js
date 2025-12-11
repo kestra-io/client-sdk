@@ -18,8 +18,7 @@ import PluginSubGroupPluginCategory from './PluginSubGroupPluginCategory';
 /**
  * The Plugin model module.
  * @module model/Plugin
- * @version 1.0.2
- */
+  */
 class Plugin {
     /**
      * Constructs a new <code>Plugin</code>.

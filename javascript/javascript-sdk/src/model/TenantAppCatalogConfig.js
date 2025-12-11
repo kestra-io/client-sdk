@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The TenantAppCatalogConfig model module.
  * @module model/TenantAppCatalogConfig
- * @version 1.0.2
- */
+  */
 class TenantAppCatalogConfig {
     /**
      * Constructs a new <code>TenantAppCatalogConfig</code>.

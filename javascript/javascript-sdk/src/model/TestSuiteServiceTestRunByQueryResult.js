@@ -18,8 +18,7 @@ import TestSuiteServiceRunByQueryRequest from './TestSuiteServiceRunByQueryReque
 /**
  * The TestSuiteServiceTestRunByQueryResult model module.
  * @module model/TestSuiteServiceTestRunByQueryResult
- * @version 1.0.2
- */
+  */
 class TestSuiteServiceTestRunByQueryResult {
     /**
      * Constructs a new <code>TestSuiteServiceTestRunByQueryResult</code>.

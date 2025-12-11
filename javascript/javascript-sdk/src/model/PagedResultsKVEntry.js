@@ -17,8 +17,7 @@ import KVEntry from './KVEntry';
 /**
  * The PagedResultsKVEntry model module.
  * @module model/PagedResultsKVEntry
- * @version 1.0.2
- */
+  */
 class PagedResultsKVEntry {
     /**
      * Constructs a new <code>PagedResultsKVEntry</code>.

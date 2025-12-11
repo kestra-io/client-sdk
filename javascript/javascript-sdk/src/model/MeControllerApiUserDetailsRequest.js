@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The MeControllerApiUserDetailsRequest model module.
  * @module model/MeControllerApiUserDetailsRequest
- * @version 1.0.2
- */
+  */
 class MeControllerApiUserDetailsRequest {
     /**
      * Constructs a new <code>MeControllerApiUserDetailsRequest</code>.

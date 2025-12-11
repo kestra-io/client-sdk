@@ -17,8 +17,7 @@ import BindingType from './BindingType';
 /**
  * The Binding model module.
  * @module model/Binding
- * @version 1.0.2
- */
+  */
 class Binding {
     /**
      * Constructs a new <code>Binding</code>.

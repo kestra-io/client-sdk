@@ -17,8 +17,7 @@ import ApiGroupSummary from './ApiGroupSummary';
 /**
  * The PagedResultsApiGroupSummary model module.
  * @module model/PagedResultsApiGroupSummary
- * @version 1.0.2
- */
+  */
 class PagedResultsApiGroupSummary {
     /**
      * Constructs a new <code>PagedResultsApiGroupSummary</code>.

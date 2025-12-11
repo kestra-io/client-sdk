@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The MiscControllerEnvironment model module.
  * @module model/MiscControllerEnvironment
- * @version 1.0.2
- */
+  */
 class MiscControllerEnvironment {
     /**
      * Constructs a new <code>MiscControllerEnvironment</code>.

@@ -21,8 +21,7 @@ import WorkerGroup from './WorkerGroup';
 /**
  * The Namespace model module.
  * @module model/Namespace
- * @version 1.0.2
- */
+  */
 class Namespace {
     /**
      * Constructs a new <code>Namespace</code>.

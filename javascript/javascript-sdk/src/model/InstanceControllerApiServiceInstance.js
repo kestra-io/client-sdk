@@ -19,8 +19,7 @@ import ServiceType from './ServiceType';
 /**
  * The InstanceControllerApiServiceInstance model module.
  * @module model/InstanceControllerApiServiceInstance
- * @version 1.0.2
- */
+  */
 class InstanceControllerApiServiceInstance {
     /**
      * Constructs a new <code>InstanceControllerApiServiceInstance</code>.

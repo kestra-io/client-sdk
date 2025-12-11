@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The TimeWindow model module.
  * @module model/TimeWindow
- * @version 1.0.2
- */
+  */
 class TimeWindow {
     /**
      * Constructs a new <code>TimeWindow</code>.

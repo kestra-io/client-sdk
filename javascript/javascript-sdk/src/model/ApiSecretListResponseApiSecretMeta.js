@@ -17,8 +17,7 @@ import ApiSecretMetaEE from './ApiSecretMetaEE';
 /**
  * The ApiSecretListResponseApiSecretMeta model module.
  * @module model/ApiSecretListResponseApiSecretMeta
- * @version 1.0.2
- */
+  */
 class ApiSecretListResponseApiSecretMeta {
     /**
      * Constructs a new <code>ApiSecretListResponseApiSecretMeta</code>.

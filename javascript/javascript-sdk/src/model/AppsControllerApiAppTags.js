@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The AppsControllerApiAppTags model module.
  * @module model/AppsControllerApiAppTags
- * @version 1.0.2
- */
+  */
 class AppsControllerApiAppTags {
     /**
      * Constructs a new <code>AppsControllerApiAppTags</code>.

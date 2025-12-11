@@ -17,8 +17,7 @@ import ApiToken from './ApiToken';
 /**
  * The ApiTokenList model module.
  * @module model/ApiTokenList
- * @version 1.0.2
- */
+  */
 class ApiTokenList {
     /**
      * Constructs a new <code>ApiTokenList</code>.

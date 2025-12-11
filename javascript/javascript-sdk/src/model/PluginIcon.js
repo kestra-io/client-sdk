@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The PluginIcon model module.
  * @module model/PluginIcon
- * @version 1.0.2
- */
+  */
 class PluginIcon {
     /**
      * Constructs a new <code>PluginIcon</code>.

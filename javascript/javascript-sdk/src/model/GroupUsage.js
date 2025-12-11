@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The GroupUsage model module.
  * @module model/GroupUsage
- * @version 1.0.2
- */
+  */
 class GroupUsage {
     /**
      * Constructs a new <code>GroupUsage</code>.

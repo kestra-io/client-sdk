@@ -17,8 +17,7 @@ import IAMBindingControllerApiBindingDetail from './IAMBindingControllerApiBindi
 /**
  * The PagedResultsIAMBindingControllerApiBindingDetail model module.
  * @module model/PagedResultsIAMBindingControllerApiBindingDetail
- * @version 1.0.2
- */
+  */
 class PagedResultsIAMBindingControllerApiBindingDetail {
     /**
      * Constructs a new <code>PagedResultsIAMBindingControllerApiBindingDetail</code>.

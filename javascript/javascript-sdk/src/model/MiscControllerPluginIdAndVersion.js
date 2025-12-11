@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The MiscControllerPluginIdAndVersion model module.
  * @module model/MiscControllerPluginIdAndVersion
- * @version 1.0.2
- */
+  */
 class MiscControllerPluginIdAndVersion {
     /**
      * Constructs a new <code>MiscControllerPluginIdAndVersion</code>.

@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The ConcurrencyLimit model module.
  * @module model/ConcurrencyLimit
- * @version 1.0.2
- */
+  */
 class ConcurrencyLimit {
     /**
      * Constructs a new <code>ConcurrencyLimit</code>.

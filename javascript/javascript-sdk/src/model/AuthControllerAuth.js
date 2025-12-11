@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The AuthControllerAuth model module.
  * @module model/AuthControllerAuth
- * @version 1.0.2
- */
+  */
 class AuthControllerAuth {
     /**
      * Constructs a new <code>AuthControllerAuth</code>.

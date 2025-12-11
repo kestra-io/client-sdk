@@ -17,8 +17,7 @@ import ConcurrencyBehavior from './ConcurrencyBehavior';
 /**
  * The Concurrency model module.
  * @module model/Concurrency
- * @version 1.0.2
- */
+  */
 class Concurrency {
     /**
      * Constructs a new <code>Concurrency</code>.

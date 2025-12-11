@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The ExecutableTaskSubflowId model module.
  * @module model/ExecutableTaskSubflowId
- * @version 1.0.2
- */
+  */
 class ExecutableTaskSubflowId {
     /**
      * Constructs a new <code>ExecutableTaskSubflowId</code>.

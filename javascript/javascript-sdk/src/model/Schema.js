@@ -18,8 +18,7 @@ import SchemaAttribute from './SchemaAttribute';
 /**
  * The Schema model module.
  * @module model/Schema
- * @version 1.0.2
- */
+  */
 class Schema {
     /**
      * Constructs a new <code>Schema</code>.

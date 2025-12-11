@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The TenantUsage model module.
  * @module model/TenantUsage
- * @version 1.0.2
- */
+  */
 class TenantUsage {
     /**
      * Constructs a new <code>TenantUsage</code>.

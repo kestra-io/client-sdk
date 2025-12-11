@@ -17,8 +17,7 @@ import LogEntry from './LogEntry';
 /**
  * The PagedResultsLogEntry model module.
  * @module model/PagedResultsLogEntry
- * @version 1.0.2
- */
+  */
 class PagedResultsLogEntry {
     /**
      * Constructs a new <code>PagedResultsLogEntry</code>.

@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The SetAppsCatalogLogoRequest model module.
  * @module model/SetAppsCatalogLogoRequest
- * @version 1.0.2
- */
+  */
 class SetAppsCatalogLogoRequest {
     /**
      * Constructs a new <code>SetAppsCatalogLogoRequest</code>.

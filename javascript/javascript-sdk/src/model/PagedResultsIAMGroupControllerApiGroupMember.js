@@ -17,8 +17,7 @@ import IAMGroupControllerApiGroupMember from './IAMGroupControllerApiGroupMember
 /**
  * The PagedResultsIAMGroupControllerApiGroupMember model module.
  * @module model/PagedResultsIAMGroupControllerApiGroupMember
- * @version 1.0.2
- */
+  */
 class PagedResultsIAMGroupControllerApiGroupMember {
     /**
      * Constructs a new <code>PagedResultsIAMGroupControllerApiGroupMember</code>.

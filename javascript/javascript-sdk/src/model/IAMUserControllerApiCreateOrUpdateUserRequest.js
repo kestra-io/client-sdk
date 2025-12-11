@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The IAMUserControllerApiCreateOrUpdateUserRequest model module.
  * @module model/IAMUserControllerApiCreateOrUpdateUserRequest
- * @version 1.0.2
- */
+  */
 class IAMUserControllerApiCreateOrUpdateUserRequest {
     /**
      * Constructs a new <code>IAMUserControllerApiCreateOrUpdateUserRequest</code>.

@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The MetricTag model module.
  * @module model/MetricTag
- * @version 1.0.2
- */
+  */
 class MetricTag {
     /**
      * Constructs a new <code>MetricTag</code>.

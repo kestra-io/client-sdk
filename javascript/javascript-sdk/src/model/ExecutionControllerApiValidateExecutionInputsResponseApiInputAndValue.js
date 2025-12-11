@@ -18,8 +18,7 @@ import InputObject from './InputObject';
 /**
  * The ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue model module.
  * @module model/ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue
- * @version 1.0.2
- */
+  */
 class ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue {
     /**
      * Constructs a new <code>ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue</code>.

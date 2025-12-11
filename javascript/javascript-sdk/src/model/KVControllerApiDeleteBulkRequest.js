@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The KVControllerApiDeleteBulkRequest model module.
  * @module model/KVControllerApiDeleteBulkRequest
- * @version 1.0.2
- */
+  */
 class KVControllerApiDeleteBulkRequest {
     /**
      * Constructs a new <code>KVControllerApiDeleteBulkRequest</code>.
