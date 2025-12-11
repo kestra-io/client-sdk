@@ -91,12 +91,12 @@ docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/ope
     --additional-properties=projectVersion=$VERSION \
     --template-dir=/local/javascript/template
 
-sed $SED_INPLACE -E "s/let returnType = \{'String': \['String'\]\};/let returnType = Object;/" ./javascript/javascript-sdk/src/api/NamespacesApi.js
-sed $SED_INPLACE -E "s/let returnType = File;/let returnType = 'Blob';/" ./javascript/javascript-sdk/src/api/ExecutionsApi.js
-sed $SED_INPLACE -E "s/obj\['value'\][[:space:]]*=[[:space:]]*OutputValue\.constructFromObject\(([^)]*)\);/obj['value'] = ApiClient.convertToType(\1, 'Object');/" ./javascript/javascript-sdk/src/model/Output.js
-sed $SED_INPLACE -E "s/obj\[([\"'])([A-Za-z0-9_]+)\1\] = Object\.constructFromObject\(data\[\1\2\1\]\);/obj[\1\2\1] = ApiClient.convertToType(data[\1\2\1], 'Object');/g" ./javascript/javascript-sdk/src/model/Assertion.js
-sed $SED_INPLACE -E "s/obj\[([\"'])([A-Za-z0-9_]+)\1\] = ([\"'])([A-Za-z]+)\3\.constructFromObject\(data\[\1\2\1\]\);/obj[\1\2\1] = ApiClient.convertToType(data[\1\2\1], \3\4\3);/g" ./javascript/javascript-sdk/src/model/Assertion.js
-sed $SED_INPLACE -E "s/let authNames = \[\];/let authNames = \['basicAuth', 'bearerAuth'\];/" ./javascript/javascript-sdk/src/api/TestSuitesApi.js
+sed -i '' -E "s/let returnType = \{'String': \['String'\]\};/let returnType = Object;/" ./javascript/javascript-sdk/src/api/NamespacesApi.js
+sed -i '' -E "s/let returnType = File;/let returnType = 'Blob';/" ./javascript/javascript-sdk/src/api/ExecutionsApi.js
+sed -i '' -E "s/obj\['value'\][[:space:]]*=[[:space:]]*OutputValue\.constructFromObject\(([^)]*)\);/obj['value'] = ApiClient.convertToType(\1, 'Object');/" ./javascript/javascript-sdk/src/model/Output.js
+sed -i '' -E "s/obj\['([A-Za-z0-9_]+)'\] = Object\.constructFromObject\(data\['([A-Za-z0-9_]+)'\]\);/obj['\1'] = ApiClient.convertToType(data['\1'], 'Object');/g" ./javascript/javascript-sdk/src/model/Assertion.js
+sed -i '' -E "s/obj\['([A-Za-z0-9_]+)'\] = '([A-Za-z]+)'\.constructFromObject\(data\['([A-Za-z0-9_]+)'\]\);/obj['\1'] = ApiClient.convertToType(data['\1'], '\2');/g" ./javascript/javascript-sdk/src/model/Assertion.js
+sed -i '' -E "s/let authNames = \[\];/let authNames = \['basicAuth', 'bearerAuth'\];/" ./javascript/javascript-sdk/src/api/TestSuitesApi.js
 fi
 
 # Generate GoLang SDK
