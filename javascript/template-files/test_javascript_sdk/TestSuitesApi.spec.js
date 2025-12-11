@@ -1,3 +1,4 @@
+// @ts-check
 // TestSuitesApi.spec.js
 
 import { describe, it, expect } from 'vitest';

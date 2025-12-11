@@ -801,13 +801,3 @@ src/model/ValuePathExpression.js
 src/model/WorkerGroup.js
 src/model/WorkerGroupFallback.js
 src/model/WorkerTaskRestartStrategy.js
-test/api/ExecutionsApi.spec.js
-test/api/FlowsApi.spec.js
-test/api/GroupsApi.spec.js
-test/api/KVApi.spec.js
-test/api/NamespacesApi.spec.js
-test/api/RolesApi.spec.js
-test/api/ServiceAccountApi.spec.js
-test/api/TestSuitesApi.spec.js
-test/api/TriggersApi.spec.js
-test/api/UsersApi.spec.js

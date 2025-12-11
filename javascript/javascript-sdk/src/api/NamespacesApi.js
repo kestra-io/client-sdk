@@ -570,7 +570,7 @@ export default class NamespacesApi {
     * @param {Array.<module:model/QueryFilter>} filters Filters
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<String>} opts.sort The sort of current page
+    * @param {Array.<String>} [opts.sort The sort of current page]
 
     * @return {Promise<ApiSecretListResponseApiSecretMeta>}
     */
@@ -867,8 +867,8 @@ export default class NamespacesApi {
     * @param {Boolean} existing Return only existing namespace
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {String} opts.q A string filter
-    * @param {Array.<String>} opts.sort The sort of current page
+    * @param {String} [opts.q A string filter]
+    * @param {Array.<String>} [opts.sort The sort of current page]
 
     * @return {Promise<PagedResultsNamespace>}
     */

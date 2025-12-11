@@ -1,3 +1,4 @@
+// @ts-check
 // testApis/test_kv_api_typed.test.js
 import { describe, it, expect } from 'vitest';
 import { kestraClient, MAIN_TENANT, randomId } from './CommonTestSetup';

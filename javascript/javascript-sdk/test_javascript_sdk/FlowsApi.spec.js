@@ -1,3 +1,4 @@
+// @ts-check
 // FlowsApi.spec.js
 import {
     MAIN_TENANT,

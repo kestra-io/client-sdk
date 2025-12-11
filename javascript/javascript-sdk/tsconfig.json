@@ -1,6 +1,5 @@
 {
-  // Change this to match your project
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "test/**/*", "test_javascript_sdk/**/*"],
   "compilerOptions": {
     // Tells TypeScript to read JS files, as
     // normally they are ignored as source files

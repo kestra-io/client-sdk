@@ -210,7 +210,7 @@ export default class TriggersApi {
     * Delete backfill for given triggers
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+    * @param {Array.<module:model/QueryFilter>} [opts.filters Filters]
 
     * @return {Promise< Object >}
     */
@@ -343,7 +343,7 @@ export default class TriggersApi {
     * @param {Boolean} disabled The disabled state
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+    * @param {Array.<module:model/QueryFilter>} [opts.filters Filters]
 
     * @return {Promise< Object >}
     */
@@ -532,7 +532,7 @@ export default class TriggersApi {
     * Pause backfill for given triggers
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+    * @param {Array.<module:model/QueryFilter>} [opts.filters Filters]
 
     * @return {Promise< Object >}
     */
@@ -689,8 +689,8 @@ export default class TriggersApi {
     * @param {Number} size The current page size
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<String>} opts.sort The sort of current page
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+    * @param {Array.<String>} [opts.sort The sort of current page]
+    * @param {Array.<module:model/QueryFilter>} [opts.filters Filters]
 
     * @return {Promise<PagedResultsTriggerControllerTriggers>}
     */
@@ -783,8 +783,8 @@ export default class TriggersApi {
     * @param {String} flowId The flow id
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<String>} opts.sort The sort of current page
-    * @param {String} opts.q A string filter
+    * @param {Array.<String>} [opts.sort The sort of current page]
+    * @param {String} [opts.q A string filter]
 
     * @return {Promise<PagedResultsTrigger>}
     */
@@ -988,7 +988,7 @@ export default class TriggersApi {
     * Unlock triggers by query parameters
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+    * @param {Array.<module:model/QueryFilter>} [opts.filters Filters]
 
     * @return {Promise< Object >}
     */
@@ -1177,7 +1177,7 @@ export default class TriggersApi {
     * Unpause backfill for given triggers
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+    * @param {Array.<module:model/QueryFilter>} [opts.filters Filters]
 
     * @return {Promise< Object >}
     */

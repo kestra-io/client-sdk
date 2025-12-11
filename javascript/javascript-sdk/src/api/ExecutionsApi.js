@@ -137,11 +137,11 @@ export default class ExecutionsApi {
     * @param {Boolean} wait If the server will wait the end of the execution
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<String>} opts.labels The labels as a list of 'key:value'
-    * @param {Number} opts.revision The flow revision or latest if null
-    * @param {Date} opts.scheduleDate Schedule the flow on a specific date
-    * @param {String} opts.breakpoints Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
-    * @param {module:model/ExecutionKind} opts.kind Specific execution kind
+    * @param {Array.<String>} [opts.labels The labels as a list of 'key:value']
+    * @param {Number} [opts.revision The flow revision or latest if null]
+    * @param {Date} [opts.scheduleDate Schedule the flow on a specific date]
+    * @param {String} [opts.breakpoints Set a list of breakpoints at specific tasks 'id.value', separated by a coma.]
+    * @param {module:model/ExecutionKind} [opts.kind Specific execution kind]
     * @param {Object} formData Extra multipart fields/files (key → value). Values may be strings, File/Blob (browser) or Buffer/stream (Node).
     
     * @return {Promise<ExecutionControllerExecutionResponse>}
@@ -216,9 +216,9 @@ export default class ExecutionsApi {
     * @param {String} executionId The execution id
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Boolean} opts.deleteLogs Whether to delete execution logs (default to true)
-    * @param {Boolean} opts.deleteMetrics Whether to delete execution metrics (default to true)
-    * @param {Boolean} opts.deleteStorage Whether to delete execution files in the internal storage (default to true)
+    * @param {Boolean} [opts.deleteLogs Whether to delete execution logs (default to true)]
+    * @param {Boolean} [opts.deleteMetrics Whether to delete execution metrics (default to true)]
+    * @param {Boolean} [opts.deleteStorage Whether to delete execution files in the internal storage (default to true)]
 
     * @return {Promise<  >}
     */
@@ -293,10 +293,10 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Array.<String>} requestBody The execution id
     * @param {Object} opts Optional parameters
-    * @param {Boolean} opts.includeNonTerminated Whether to delete non-terminated executions (default to false)
-    * @param {Boolean} opts.deleteLogs Whether to delete execution logs (default to true)
-    * @param {Boolean} opts.deleteMetrics Whether to delete execution metrics (default to true)
-    * @param {Boolean} opts.deleteStorage Whether to delete execution files in the internal storage (default to true)
+    * @param {Boolean} [opts.includeNonTerminated Whether to delete non-terminated executions (default to false)]
+    * @param {Boolean} [opts.deleteLogs Whether to delete execution logs (default to true)]
+    * @param {Boolean} [opts.deleteMetrics Whether to delete execution metrics (default to true)]
+    * @param {Boolean} [opts.deleteStorage Whether to delete execution files in the internal storage (default to true)]
 
     * @return {Promise<BulkResponse>}
     */
@@ -367,11 +367,11 @@ export default class ExecutionsApi {
     * Delete executions filter by query parameters
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
-    * @param {Boolean} opts.includeNonTerminated Whether to delete non-terminated executions (default to false)
-    * @param {Boolean} opts.deleteLogs Whether to delete execution logs (default to true)
-    * @param {Boolean} opts.deleteMetrics Whether to delete execution metrics (default to true)
-    * @param {Boolean} opts.deleteStorage Whether to delete execution files in the internal storage (default to true)
+    * @param {Array.<module:model/QueryFilter>} [opts.filters Filters]
+    * @param {Boolean} [opts.includeNonTerminated Whether to delete non-terminated executions (default to false)]
+    * @param {Boolean} [opts.deleteLogs Whether to delete execution logs (default to true)]
+    * @param {Boolean} [opts.deleteMetrics Whether to delete execution metrics (default to true)]
+    * @param {Boolean} [opts.deleteStorage Whether to delete execution files in the internal storage (default to true)]
 
     * @return {Promise< Object >}
     */
@@ -576,7 +576,7 @@ export default class ExecutionsApi {
     * @param {String} executionId The execution id
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<String>} opts.subflows The subflow tasks to display
+    * @param {Array.<String>} [opts.subflows The subflow tasks to display]
 
     * @return {Promise<FlowGraph>}
     */
@@ -724,7 +724,7 @@ export default class ExecutionsApi {
     * @param {String} flowId The flow id
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Number} opts.revision The flow revision
+    * @param {Number} [opts.revision The flow revision]
 
     * @return {Promise<FlowForExecution>}
     */
@@ -992,7 +992,7 @@ export default class ExecutionsApi {
     * Force run executions filter by query parameters
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+    * @param {Array.<module:model/QueryFilter>} [opts.filters Filters]
 
     * @return {Promise< Object >}
     */
@@ -1189,7 +1189,7 @@ export default class ExecutionsApi {
     * Kill executions filter by query parameters
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+    * @param {Array.<module:model/QueryFilter>} [opts.filters Filters]
 
     * @return {Promise< Object >}
     */
@@ -1442,7 +1442,7 @@ export default class ExecutionsApi {
     * Pause executions filter by query parameters
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+    * @param {Array.<module:model/QueryFilter>} [opts.filters Filters]
 
     * @return {Promise< Object >}
     */
@@ -1516,9 +1516,9 @@ export default class ExecutionsApi {
     * @param {String} executionId the original execution id to clone
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {String} opts.taskRunId The taskrun id
-    * @param {Number} opts.revision The flow revision to use for new execution
-    * @param {String} opts.breakpoints Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+    * @param {String} [opts.taskRunId The taskrun id]
+    * @param {Number} [opts.revision The flow revision to use for new execution]
+    * @param {String} [opts.breakpoints Set a list of breakpoints at specific tasks 'id.value', separated by a coma.]
 
     * @return {Promise<Execution>}
     */
@@ -1601,9 +1601,9 @@ export default class ExecutionsApi {
     * @param {String} executionId the original execution id to clone
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {String} opts.taskRunId The taskrun id
-    * @param {Number} opts.revision The flow revision to use for new execution
-    * @param {String} opts.breakpoints Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+    * @param {String} [opts.taskRunId The taskrun id]
+    * @param {Number} [opts.revision The flow revision to use for new execution]
+    * @param {String} [opts.breakpoints Set a list of breakpoints at specific tasks 'id.value', separated by a coma.]
     * @param {Object} formData Extra multipart fields/files (key → value). Values may be strings, File/Blob (browser) or Buffer/stream (Node).
     
     * @return {Promise<Execution>}
@@ -1673,7 +1673,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Array.<String>} requestBody The list of executions id
     * @param {Object} opts Optional parameters
-    * @param {Boolean} opts.latestRevision If latest revision should be used (default to false)
+    * @param {Boolean} [opts.latestRevision If latest revision should be used (default to false)]
 
     * @return {Promise<BulkResponse>}
     */
@@ -1738,8 +1738,8 @@ export default class ExecutionsApi {
     * Create new executions from old ones filter by query parameters. Keep the flow revision
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
-    * @param {Boolean} opts.latestRevision If latest revision should be used (default to false)
+    * @param {Array.<module:model/QueryFilter>} [opts.filters Filters]
+    * @param {Boolean} [opts.latestRevision If latest revision should be used (default to false)]
 
     * @return {Promise< Object >}
     */
@@ -1809,7 +1809,7 @@ export default class ExecutionsApi {
     * @param {String} executionId The execution id
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Number} opts.revision The flow revision to use for new execution
+    * @param {Number} [opts.revision The flow revision to use for new execution]
 
     * @return {Promise<Execution>}
     */
@@ -1935,7 +1935,7 @@ export default class ExecutionsApi {
     * Restart executions filter by query parameters
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+    * @param {Array.<module:model/QueryFilter>} [opts.filters Filters]
 
     * @return {Promise< Object >}
     */
@@ -2135,7 +2135,7 @@ export default class ExecutionsApi {
     * Resume executions filter by query parameters
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+    * @param {Array.<module:model/QueryFilter>} [opts.filters Filters]
 
     * @return {Promise< Object >}
     */
@@ -2271,8 +2271,8 @@ export default class ExecutionsApi {
     * @param {Number} size The current page size
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<String>} opts.sort The sort of current page
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+    * @param {Array.<String>} [opts.sort The sort of current page]
+    * @param {Array.<module:model/QueryFilter>} [opts.filters Filters]
 
     * @return {Promise<PagedResultsExecution>}
     */
@@ -2559,7 +2559,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Array.<module:model/Label>} label The labels to add to the execution
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+    * @param {Array.<module:model/QueryFilter>} [opts.filters Filters]
 
     * @return {Promise< Object >}
     */
@@ -2843,8 +2843,8 @@ export default class ExecutionsApi {
     * Unqueue executions filter by query parameters
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
-    * @param {module:model/StateType} opts.newState The new state of the unqueued executions
+    * @param {Array.<module:model/QueryFilter>} [opts.filters Filters]
+    * @param {module:model/StateType} [opts.newState The new state of the unqueued executions]
 
     * @return {Promise< Object >}
     */
@@ -3132,7 +3132,7 @@ export default class ExecutionsApi {
     * @param {module:model/StateType} newStatus The new state of the executions
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+    * @param {Array.<module:model/QueryFilter>} [opts.filters Filters]
 
     * @return {Promise<BulkResponse>}
     */

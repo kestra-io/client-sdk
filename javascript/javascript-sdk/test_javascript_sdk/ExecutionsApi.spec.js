@@ -1,3 +1,4 @@
+// @ts-check
 // ExecutionsApi.spec.js
 import { describe, it, expect } from 'vitest';
 import { kestraClient, MAIN_TENANT, randomId } from './CommonTestSetup';

@@ -1,3 +1,4 @@
+// @ts-check
 // TriggersApi.spec.js
 /* eslint-disable jest/no-standalone-expect */
 

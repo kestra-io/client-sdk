@@ -729,8 +729,8 @@ export default class ServiceAccountApi {
     * @param {Number} page The current page
     * @param {Number} size The current page size
     * @param {Object} opts Optional parameters
-    * @param {String} opts.q A string filter
-    * @param {Array.<String>} opts.sort The sort of current page
+    * @param {String} [opts.q A string filter]
+    * @param {Array.<String>} [opts.sort The sort of current page]
 
     * @return {Promise<PagedResultsIAMServiceAccountControllerApiServiceAccountDetail>}
     */
