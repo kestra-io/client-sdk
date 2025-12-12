@@ -184,6 +184,12 @@ async function awaitExecution(executionId, desiredState, timeoutMs = 5000, pollM
     }
 }
 
+/**
+ * create execution from flow template and await desired state
+ * @param {(id: string, ns: string) => string} flowTemplate
+ * @param {string} desiredState
+ * @returns
+ */
 async function createdExecution(flowTemplate, desiredState) {
     const ns = randomId();
     const id = randomId();
