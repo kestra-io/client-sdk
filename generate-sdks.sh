@@ -11,11 +11,11 @@ HOST_GID=$(id -g)
 # Cross-platform sed in-place with extended regex
 sed_inplace() {
   local cmd="$1"
-  local file="$2"
+  shift
   if [[ "$(uname)" == "Darwin" ]]; then
-    sed -i '' -E "$cmd" "$file"
+    sed -i '' -E "$cmd" "$@"
   else
-    sed -i -E "$cmd" "$file"
+    sed -i -E "$cmd" "$@"
   fi
 }
 
@@ -100,7 +100,7 @@ sed_inplace "s/obj\['value'\][[:space:]]*=[[:space:]]*OutputValue\.constructFrom
 sed_inplace "s/obj\['([A-Za-z0-9_]+)'\] = Object\.constructFromObject\(data\['([A-Za-z0-9_]+)'\]\);/obj['\1'] = ApiClient.convertToType(data['\1'], 'Object');/g" ./javascript/javascript-sdk/src/model/Assertion.js
 sed_inplace "s/obj\['([A-Za-z0-9_]+)'\] = '([A-Za-z]+)'\.constructFromObject\(data\['([A-Za-z0-9_]+)'\]\);/obj['\1'] = ApiClient.convertToType(data['\1'], '\2');/g" ./javascript/javascript-sdk/src/model/Assertion.js
 sed_inplace "s/let authNames = \[\];/let authNames = \['basicAuth', 'bearerAuth'\];/" ./javascript/javascript-sdk/src/api/TestSuitesApi.js
-sed -i '' -E "s/    \* @return \{Promise< module:model\/([A-Za-z0-9_]+) >\}/    \* @return \{Promise<\1>\}/" ./javascript/javascript-sdk/src/api/*.js
+sed_inplace "s/    \* @return \{Promise< module:model\/([A-Za-z0-9_]+) >\}/    \* @return \{Promise<\1>\}/" ./javascript/javascript-sdk/src/api/*.js
 rm ./javascript/javascript-sdk/git_push.sh
 rm ./javascript/javascript-sdk/mocha.opts
 rm ./javascript/javascript-sdk/.babelrc

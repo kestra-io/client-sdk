@@ -191,12 +191,21 @@ async function createdExecution(flowTemplate, desiredState) {
 }
 
 // filters
+/**
+ *
+ * @param {Object} filter
+ * @param {string} filter.field
+ * @param {'EQUALS' | 'IN'} filter.operation
+ * @param {any} filter.value
+ * @returns
+ */
 const qf = ({ field, operation, value }) => ({ field, operation, value });
 const QF_FIELD = {
     NAMESPACE: 'NAMESPACE',
     FLOW_ID: 'FLOW_ID',
     QUERY: 'QUERY',
 };
+/** @type {Record<string, 'EQUALS' | 'IN'>} */
 const QF_OP = {
     EQUALS: 'EQUALS',
     IN: 'IN',

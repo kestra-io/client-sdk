@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "build": "cd javascript-sdk && npm run build",
-    "test": "cd test_javascript_sdk && npm run test"
+    "test": "cd test_javascript_sdk && npm run test",
+    "test:typecheck": "cd test_javascript_sdk && npm run typecheck"
   },
   "workspaces": [
     "javascript-sdk",
