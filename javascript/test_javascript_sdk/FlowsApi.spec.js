@@ -55,7 +55,7 @@ describe('FlowsApi', () => {
         const resp = await kestraClient().flowsApi.bulkUpdateFlows(false, false, MAIN_TENANT, {namespace: namespace, body:updatedBody});
 
         // resp is a list; check first description updated
-        const first = Array.isArray(resp) ? resp[0] : resp?.data?.[0];
+        const first = resp[0];
         expect(first?.description).toBe('simple_flow_description_updated');
     });
 

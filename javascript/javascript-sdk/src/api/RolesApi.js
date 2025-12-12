@@ -48,7 +48,7 @@ export default class RolesApi {
     * @param {String} tenant 
     * @param {module:model/ApiAutocomplete} apiAutocomplete Autocomplete request
 
-    * @return {Promise< Array.<module:model/ApiRoleSummary> >}
+    * @return {Promise<Array.<ApiRoleSummary>>}
     */
     autocompleteRolesWithHttpInfo(tenant, apiAutocomplete) {
       let postBody = apiAutocomplete;
@@ -87,7 +87,7 @@ export default class RolesApi {
     * @param {String} tenant 
     * @param {module:model/ApiAutocomplete} apiAutocomplete Autocomplete request
 
-    * @return {Promise< Array.<module:model/ApiRoleSummary> >}
+    * @return {Promise<Array.<ApiRoleSummary>>}
     */
     autocompleteRoles(tenant, apiAutocomplete) {
       return this.autocompleteRolesWithHttpInfo(tenant, apiAutocomplete)
@@ -238,7 +238,7 @@ export default class RolesApi {
     * @param {String} tenant 
     * @param {module:model/ApiIds} apiIds The ids that must be present on results
 
-    * @return {Promise< Array.<module:model/Role> >}
+    * @return {Promise<Array.<Role>>}
     */
     listRolesFromGivenIdsWithHttpInfo(tenant, apiIds) {
       let postBody = apiIds;
@@ -277,7 +277,7 @@ export default class RolesApi {
     * @param {String} tenant 
     * @param {module:model/ApiIds} apiIds The ids that must be present on results
 
-    * @return {Promise< Array.<module:model/Role> >}
+    * @return {Promise<Array.<Role>>}
     */
     listRolesFromGivenIds(tenant, apiIds) {
       return this.listRolesFromGivenIdsWithHttpInfo(tenant, apiIds)

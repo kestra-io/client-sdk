@@ -312,7 +312,7 @@ export default class NamespacesApi {
     * @param {String} id The namespace id
     * @param {String} tenant 
 
-    * @return {Promise< Array.<module:model/PluginDefault> >}
+    * @return {Promise<Array.<PluginDefault>>}
     */
     inheritedPluginDefaultsWithHttpInfo(id, tenant) {
       let postBody = null;
@@ -352,7 +352,7 @@ export default class NamespacesApi {
     * @param {String} id The namespace id
     * @param {String} tenant 
 
-    * @return {Promise< Array.<module:model/PluginDefault> >}
+    * @return {Promise<Array.<PluginDefault>>}
     */
     inheritedPluginDefaults(id, tenant) {
       return this.inheritedPluginDefaultsWithHttpInfo(id, tenant)
@@ -661,7 +661,7 @@ export default class NamespacesApi {
     * @param {String} tenant 
     * @param {module:model/ApiSecretMetaEE} apiSecretMetaEE 
 
-    * @return {Promise< Array.<module:model/ApiSecretMetaEE> >}
+    * @return {Promise<Array.<ApiSecretMetaEE>>}
     */
     patchSecretWithHttpInfo(namespace, key, tenant, apiSecretMetaEE) {
       let postBody = apiSecretMetaEE;
@@ -712,7 +712,7 @@ export default class NamespacesApi {
     * @param {String} tenant 
     * @param {module:model/ApiSecretMetaEE} apiSecretMetaEE 
 
-    * @return {Promise< Array.<module:model/ApiSecretMetaEE> >}
+    * @return {Promise<Array.<ApiSecretMetaEE>>}
     */
     patchSecret(namespace, key, tenant, apiSecretMetaEE) {
       return this.patchSecretWithHttpInfo(namespace, key, tenant, apiSecretMetaEE)
@@ -737,7 +737,7 @@ export default class NamespacesApi {
     * @param {String} tenant 
     * @param {module:model/ApiSecretValue} apiSecretValue 
 
-    * @return {Promise< Array.<module:model/ApiSecretMetaEE> >}
+    * @return {Promise<Array.<ApiSecretMetaEE>>}
     */
     putSecretsWithHttpInfo(namespace, tenant, apiSecretValue) {
       let postBody = apiSecretValue;
@@ -782,7 +782,7 @@ export default class NamespacesApi {
     * @param {String} tenant 
     * @param {module:model/ApiSecretValue} apiSecretValue 
 
-    * @return {Promise< Array.<module:model/ApiSecretMetaEE> >}
+    * @return {Promise<Array.<ApiSecretMetaEE>>}
     */
     putSecrets(namespace, tenant, apiSecretValue) {
       return this.putSecretsWithHttpInfo(namespace, tenant, apiSecretValue)

@@ -1214,7 +1214,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Array.<module:model/ExecutionRepositoryInterfaceFlowFilter>} executionRepositoryInterfaceFlowFilter 
 
-    * @return {Promise< Array.<module:model/ExecutionControllerLastExecutionResponse> >}
+    * @return {Promise<Array.<ExecutionControllerLastExecutionResponse>>}
     */
     latestExecutionsWithHttpInfo(tenant, executionRepositoryInterfaceFlowFilter) {
       let postBody = executionRepositoryInterfaceFlowFilter;
@@ -1253,7 +1253,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Array.<module:model/ExecutionRepositoryInterfaceFlowFilter>} executionRepositoryInterfaceFlowFilter 
 
-    * @return {Promise< Array.<module:model/ExecutionControllerLastExecutionResponse> >}
+    * @return {Promise<Array.<ExecutionControllerLastExecutionResponse>>}
     */
     latestExecutions(tenant, executionRepositoryInterfaceFlowFilter) {
       return this.latestExecutionsWithHttpInfo(tenant, executionRepositoryInterfaceFlowFilter)

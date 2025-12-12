@@ -61,7 +61,7 @@ export default class FlowsApi {
     * @param {String} [namespace] The namespace where to update flows
     * @param {String} [body] A list of flows source code splitted with \"---\"
 
-    * @return {Promise< Array.<module:model/FlowInterface> >}
+    * @return {Promise<Array.<FlowInterface>>}
     */
     bulkUpdateFlowsWithHttpInfo(_delete, allowNamespaceChild, tenant, opts) {
       opts = opts || {};
@@ -113,7 +113,7 @@ export default class FlowsApi {
     * @param {String} [opts.namespace] The namespace where to update flows
     * @param {String} [opts.body] A list of flows source code splitted with \"---\"
 
-    * @return {Promise< Array.<module:model/FlowInterface> >}
+    * @return {Promise<Array.<FlowInterface>>}
     */
     bulkUpdateFlows(_delete, allowNamespaceChild, tenant, opts) {
       return this.bulkUpdateFlowsWithHttpInfo(_delete, allowNamespaceChild, tenant, opts)
@@ -1305,7 +1305,7 @@ export default class FlowsApi {
     * @param {String} id The flow id
     * @param {String} tenant 
 
-    * @return {Promise< Array.<module:model/FlowWithSource> >}
+    * @return {Promise<Array.<FlowWithSource>>}
     */
     listFlowRevisionsWithHttpInfo(namespace, id, tenant) {
       let postBody = null;
@@ -1351,7 +1351,7 @@ export default class FlowsApi {
     * @param {String} id The flow id
     * @param {String} tenant 
 
-    * @return {Promise< Array.<module:model/FlowWithSource> >}
+    * @return {Promise<Array.<FlowWithSource>>}
     */
     listFlowRevisions(namespace, id, tenant) {
       return this.listFlowRevisionsWithHttpInfo(namespace, id, tenant)
@@ -1375,7 +1375,7 @@ export default class FlowsApi {
     * @param {String} namespace Namespace to filter flows
     * @param {String} tenant 
 
-    * @return {Promise< Array.<module:model/Flow> >}
+    * @return {Promise<Array.<Flow>>}
     */
     listFlowsByNamespaceWithHttpInfo(namespace, tenant) {
       let postBody = null;
@@ -1415,7 +1415,7 @@ export default class FlowsApi {
     * @param {String} namespace Namespace to filter flows
     * @param {String} tenant 
 
-    * @return {Promise< Array.<module:model/Flow> >}
+    * @return {Promise<Array.<Flow>>}
     */
     listFlowsByNamespace(namespace, tenant) {
       return this.listFlowsByNamespaceWithHttpInfo(namespace, tenant)
@@ -1900,7 +1900,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {String} body A list of flows source code
 
-    * @return {Promise< Array.<module:model/FlowInterface> >}
+    * @return {Promise<Array.<FlowInterface>>}
     */
     updateFlowsInNamespaceWithHttpInfo(namespace, _delete, tenant, body) {
       let postBody = body;
@@ -1952,7 +1952,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {String} body A list of flows source code
 
-    * @return {Promise< Array.<module:model/FlowInterface> >}
+    * @return {Promise<Array.<FlowInterface>>}
     */
     updateFlowsInNamespace(namespace, _delete, tenant, body) {
       return this.updateFlowsInNamespaceWithHttpInfo(namespace, _delete, tenant, body)
@@ -2060,7 +2060,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {String} body A list of flows source code in a single string
 
-    * @return {Promise< Array.<module:model/ValidateConstraintViolation> >}
+    * @return {Promise<Array.<ValidateConstraintViolation>>}
     */
     validateFlowsWithHttpInfo(tenant, body) {
       let postBody = body;
@@ -2099,7 +2099,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {String} body A list of flows source code in a single string
 
-    * @return {Promise< Array.<module:model/ValidateConstraintViolation> >}
+    * @return {Promise<Array.<ValidateConstraintViolation>>}
     */
     validateFlows(tenant, body) {
       return this.validateFlowsWithHttpInfo(tenant, body)

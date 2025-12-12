@@ -55,7 +55,7 @@ export default class UsersApi {
     * @param {String} tenant 
     * @param {module:model/IAMTenantAccessControllerUserApiAutocomplete} iAMTenantAccessControllerUserApiAutocomplete Autocomplete request
 
-    * @return {Promise< Array.<module:model/IAMTenantAccessControllerApiUserTenantAccess> >}
+    * @return {Promise<Array.<IAMTenantAccessControllerApiUserTenantAccess>>}
     */
     autocompleteUsersWithHttpInfo(tenant, iAMTenantAccessControllerUserApiAutocomplete) {
       let postBody = iAMTenantAccessControllerUserApiAutocomplete;
@@ -94,7 +94,7 @@ export default class UsersApi {
     * @param {String} tenant 
     * @param {module:model/IAMTenantAccessControllerUserApiAutocomplete} iAMTenantAccessControllerUserApiAutocomplete Autocomplete request
 
-    * @return {Promise< Array.<module:model/IAMTenantAccessControllerApiUserTenantAccess> >}
+    * @return {Promise<Array.<IAMTenantAccessControllerApiUserTenantAccess>>}
     */
     autocompleteUsers(tenant, iAMTenantAccessControllerUserApiAutocomplete) {
       return this.autocompleteUsersWithHttpInfo(tenant, iAMTenantAccessControllerUserApiAutocomplete)

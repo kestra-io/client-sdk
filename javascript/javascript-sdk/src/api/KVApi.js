@@ -339,7 +339,7 @@ export default class KVApi {
     * @param {String} namespace The namespace id
     * @param {String} tenant 
 
-    * @return {Promise< Array.<module:model/KVEntry> >}
+    * @return {Promise<Array.<KVEntry>>}
     */
     listKeysWithHttpInfo(namespace, tenant) {
       let postBody = null;
@@ -379,7 +379,7 @@ export default class KVApi {
     * @param {String} namespace The namespace id
     * @param {String} tenant 
 
-    * @return {Promise< Array.<module:model/KVEntry> >}
+    * @return {Promise<Array.<KVEntry>>}
     */
     listKeys(namespace, tenant) {
       return this.listKeysWithHttpInfo(namespace, tenant)
@@ -403,7 +403,7 @@ export default class KVApi {
     * @param {String} namespace The namespace id
     * @param {String} tenant 
 
-    * @return {Promise< Array.<module:model/KVEntry> >}
+    * @return {Promise<Array.<KVEntry>>}
     */
     listKeysWithInheritenceWithHttpInfo(namespace, tenant) {
       let postBody = null;
@@ -443,7 +443,7 @@ export default class KVApi {
     * @param {String} namespace The namespace id
     * @param {String} tenant 
 
-    * @return {Promise< Array.<module:model/KVEntry> >}
+    * @return {Promise<Array.<KVEntry>>}
     */
     listKeysWithInheritence(namespace, tenant) {
       return this.listKeysWithInheritenceWithHttpInfo(namespace, tenant)

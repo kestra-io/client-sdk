@@ -124,7 +124,7 @@ export default class GroupsApi {
     * @param {String} tenant 
     * @param {module:model/ApiAutocomplete} apiAutocomplete Autocomplete request
 
-    * @return {Promise< Array.<module:model/ApiGroupSummary> >}
+    * @return {Promise<Array.<ApiGroupSummary>>}
     */
     autocompleteGroupsWithHttpInfo(tenant, apiAutocomplete) {
       let postBody = apiAutocomplete;
@@ -163,7 +163,7 @@ export default class GroupsApi {
     * @param {String} tenant 
     * @param {module:model/ApiAutocomplete} apiAutocomplete Autocomplete request
 
-    * @return {Promise< Array.<module:model/ApiGroupSummary> >}
+    * @return {Promise<Array.<ApiGroupSummary>>}
     */
     autocompleteGroups(tenant, apiAutocomplete) {
       return this.autocompleteGroupsWithHttpInfo(tenant, apiAutocomplete)
@@ -453,7 +453,7 @@ export default class GroupsApi {
     * @param {String} tenant 
     * @param {module:model/ApiIds} apiIds The ids that must be present on results
 
-    * @return {Promise< Array.<module:model/ApiGroupSummary> >}
+    * @return {Promise<Array.<ApiGroupSummary>>}
     */
     listGroupIdsWithHttpInfo(tenant, apiIds) {
       let postBody = apiIds;
@@ -492,7 +492,7 @@ export default class GroupsApi {
     * @param {String} tenant 
     * @param {module:model/ApiIds} apiIds The ids that must be present on results
 
-    * @return {Promise< Array.<module:model/ApiGroupSummary> >}
+    * @return {Promise<Array.<ApiGroupSummary>>}
     */
     listGroupIds(tenant, apiIds) {
       return this.listGroupIdsWithHttpInfo(tenant, apiIds)
