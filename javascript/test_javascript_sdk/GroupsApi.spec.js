@@ -55,7 +55,7 @@ describe('GroupsApi', () => {
 
         await kestraClient().groupsApi.deleteGroup(created.id, MAIN_TENANT);
 
-        expect(() => kestraClient().groupsApi.group?.(created.id, MAIN_TENANT)).toThrow();
+        await expect(() => kestraClient().groupsApi.group?.(created.id, MAIN_TENANT)).rejects.toThrow();
     });
 
     it('delete_user_from_group: Remove a user from a group', async () => {

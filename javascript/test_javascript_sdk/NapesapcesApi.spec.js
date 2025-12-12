@@ -38,7 +38,7 @@ describe('NamespacesApi', () => {
 
         await expect(() =>
             (kestraClient().namespacesApi.namespace?.(created.id, MAIN_TENANT))
-        ).toThrow();
+        ).rejects.toThrow();
     });
 
     it('get_inherited_secrets: List inherited secrets', async () => {
