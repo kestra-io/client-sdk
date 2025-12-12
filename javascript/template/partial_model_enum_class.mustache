@@ -1,4 +1,14 @@
 {{#emitJSDoc}}/**
+ * Enum {{classname}}
+ * @type {{
+ *   {{#allowableValues}}{{#enumVars}}"{{name}}": {{{value}}},{{/enumVars}}{{/allowableValues}}
+ * }}
+ */{{/emitJSDoc}}
+export const {{classname}}Static = { {{#allowableValues}}{{#enumVars}}
+    "{{name}}": {{{value}}},{{/enumVars}}{{/allowableValues}}
+}
+
+{{#emitJSDoc}}/**
 * Enum class {{classname}}.
 * @enum {{=<% %>=}}{<%datatype%>}<%={{ }}=%>
 * @readonly

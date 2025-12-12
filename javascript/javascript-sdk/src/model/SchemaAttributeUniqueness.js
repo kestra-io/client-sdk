@@ -13,6 +13,18 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum SchemaAttributeUniqueness
+ * @type {{
+ *   "GLOBAL": "GLOBAL","NONE": "NONE","SERVER": "SERVER",
+ * }}
+ */
+export const SchemaAttributeUniquenessStatic = { 
+    "GLOBAL": "GLOBAL",
+    "NONE": "NONE",
+    "SERVER": "SERVER",
+}
+
+/**
 * Enum class SchemaAttributeUniqueness.
 * @enum {}
 * @readonly

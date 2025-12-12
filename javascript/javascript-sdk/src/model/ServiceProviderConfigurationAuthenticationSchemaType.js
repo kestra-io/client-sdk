@@ -13,6 +13,20 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum ServiceProviderConfigurationAuthenticationSchemaType
+ * @type {{
+ *   "OAUTH": "OAUTH","OAUTH2": "OAUTH2","OAUTH_BEARER": "OAUTH_BEARER","HTTP_BASIC": "HTTP_BASIC","HTTP_DIGEST": "HTTP_DIGEST",
+ * }}
+ */
+export const ServiceProviderConfigurationAuthenticationSchemaTypeStatic = { 
+    "OAUTH": "OAUTH",
+    "OAUTH2": "OAUTH2",
+    "OAUTH_BEARER": "OAUTH_BEARER",
+    "HTTP_BASIC": "HTTP_BASIC",
+    "HTTP_DIGEST": "HTTP_DIGEST",
+}
+
+/**
 * Enum class ServiceProviderConfigurationAuthenticationSchemaType.
 * @enum {}
 * @readonly

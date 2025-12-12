@@ -13,6 +13,24 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum CrudEventType
+ * @type {{
+ *   "READ": "READ","CREATE": "CREATE","UPDATE": "UPDATE","DELETE": "DELETE","LOGIN": "LOGIN","LOGOUT": "LOGOUT","IMPERSONATE": "IMPERSONATE","LOGIN_FAILURE": "LOGIN_FAILURE","ACCOUNT_LOCKED": "ACCOUNT_LOCKED",
+ * }}
+ */
+export const CrudEventTypeStatic = { 
+    "READ": "READ",
+    "CREATE": "CREATE",
+    "UPDATE": "UPDATE",
+    "DELETE": "DELETE",
+    "LOGIN": "LOGIN",
+    "LOGOUT": "LOGOUT",
+    "IMPERSONATE": "IMPERSONATE",
+    "LOGIN_FAILURE": "LOGIN_FAILURE",
+    "ACCOUNT_LOCKED": "ACCOUNT_LOCKED",
+}
+
+/**
 * Enum class CrudEventType.
 * @enum {}
 * @readonly

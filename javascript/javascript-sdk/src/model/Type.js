@@ -13,6 +13,34 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum Type
+ * @type {{
+ *   "STRING": "STRING","ENUM": "ENUM","SELECT": "SELECT","INT": "INT","FLOAT": "FLOAT","BOOLEAN": "BOOLEAN","BOOL": "BOOL","DATETIME": "DATETIME","DATE": "DATE","TIME": "TIME","DURATION": "DURATION","FILE": "FILE","JSON": "JSON","URI": "URI","SECRET": "SECRET","ARRAY": "ARRAY","MULTISELECT": "MULTISELECT","YAML": "YAML","EMAIL": "EMAIL",
+ * }}
+ */
+export const TypeStatic = { 
+    "STRING": "STRING",
+    "ENUM": "ENUM",
+    "SELECT": "SELECT",
+    "INT": "INT",
+    "FLOAT": "FLOAT",
+    "BOOLEAN": "BOOLEAN",
+    "BOOL": "BOOL",
+    "DATETIME": "DATETIME",
+    "DATE": "DATE",
+    "TIME": "TIME",
+    "DURATION": "DURATION",
+    "FILE": "FILE",
+    "JSON": "JSON",
+    "URI": "URI",
+    "SECRET": "SECRET",
+    "ARRAY": "ARRAY",
+    "MULTISELECT": "MULTISELECT",
+    "YAML": "YAML",
+    "EMAIL": "EMAIL",
+}
+
+/**
 * Enum class Type.
 * @enum {}
 * @readonly

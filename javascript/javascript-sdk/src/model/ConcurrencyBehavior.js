@@ -13,6 +13,18 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum ConcurrencyBehavior
+ * @type {{
+ *   "QUEUE": "QUEUE","CANCEL": "CANCEL","FAIL": "FAIL",
+ * }}
+ */
+export const ConcurrencyBehaviorStatic = { 
+    "QUEUE": "QUEUE",
+    "CANCEL": "CANCEL",
+    "FAIL": "FAIL",
+}
+
+/**
 * Enum class ConcurrencyBehavior.
 * @enum {}
 * @readonly

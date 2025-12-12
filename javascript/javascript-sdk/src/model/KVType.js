@@ -13,6 +13,22 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum KVType
+ * @type {{
+ *   "STRING": "STRING","NUMBER": "NUMBER","BOOLEAN": "BOOLEAN","DATETIME": "DATETIME","DATE": "DATE","DURATION": "DURATION","JSON": "JSON",
+ * }}
+ */
+export const KVTypeStatic = { 
+    "STRING": "STRING",
+    "NUMBER": "NUMBER",
+    "BOOLEAN": "BOOLEAN",
+    "DATETIME": "DATETIME",
+    "DATE": "DATE",
+    "DURATION": "DURATION",
+    "JSON": "JSON",
+}
+
+/**
 * Enum class KVType.
 * @enum {}
 * @readonly

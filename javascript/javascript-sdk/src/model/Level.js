@@ -13,6 +13,20 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum Level
+ * @type {{
+ *   "ERROR": "ERROR","WARN": "WARN","INFO": "INFO","DEBUG": "DEBUG","TRACE": "TRACE",
+ * }}
+ */
+export const LevelStatic = { 
+    "ERROR": "ERROR",
+    "WARN": "WARN",
+    "INFO": "INFO",
+    "DEBUG": "DEBUG",
+    "TRACE": "TRACE",
+}
+
+/**
 * Enum class Level.
 * @enum {}
 * @readonly

@@ -320,7 +320,7 @@ export default class ExecutionsApi {
     * Delete executions filter by query parameters
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
     * @param {Boolean} [includeNonTerminated = false)] Whether to delete non-terminated executions
     * @param {Boolean} [deleteLogs = true)] Whether to delete execution logs
     * @param {Boolean} [deleteMetrics = true)] Whether to delete execution metrics
@@ -366,7 +366,7 @@ export default class ExecutionsApi {
     * Delete executions filter by query parameters
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [opts.filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
     * @param {Boolean} [opts.includeNonTerminated (default to false)] Whether to delete non-terminated executions
     * @param {Boolean} [opts.deleteLogs (default to true)] Whether to delete execution logs
     * @param {Boolean} [opts.deleteMetrics (default to true)] Whether to delete execution metrics
@@ -953,7 +953,7 @@ export default class ExecutionsApi {
     * Force run executions filter by query parameters
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
     * @return {Promise< Object >}
     */
@@ -991,7 +991,7 @@ export default class ExecutionsApi {
     * Force run executions filter by query parameters
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [opts.filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
     * @return {Promise< Object >}
     */
@@ -1150,7 +1150,7 @@ export default class ExecutionsApi {
     * Kill executions filter by query parameters
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
     * @return {Promise< Object >}
     */
@@ -1188,7 +1188,7 @@ export default class ExecutionsApi {
     * Kill executions filter by query parameters
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [opts.filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
     * @return {Promise< Object >}
     */
@@ -1403,7 +1403,7 @@ export default class ExecutionsApi {
     * Pause executions filter by query parameters
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
     * @return {Promise< Object >}
     */
@@ -1441,7 +1441,7 @@ export default class ExecutionsApi {
     * Pause executions filter by query parameters
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [opts.filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
     * @return {Promise< Object >}
     */
@@ -1697,7 +1697,7 @@ export default class ExecutionsApi {
     * Create new executions from old ones filter by query parameters. Keep the flow revision
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
     * @param {Boolean} [latestRevision = false)] If latest revision should be used
 
     * @return {Promise< Object >}
@@ -1737,7 +1737,7 @@ export default class ExecutionsApi {
     * Create new executions from old ones filter by query parameters. Keep the flow revision
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [opts.filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
     * @param {Boolean} [opts.latestRevision (default to false)] If latest revision should be used
 
     * @return {Promise< Object >}
@@ -1896,7 +1896,7 @@ export default class ExecutionsApi {
     * Restart executions filter by query parameters
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
     * @return {Promise< Object >}
     */
@@ -1934,7 +1934,7 @@ export default class ExecutionsApi {
     * Restart executions filter by query parameters
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [opts.filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
     * @return {Promise< Object >}
     */
@@ -2096,7 +2096,7 @@ export default class ExecutionsApi {
     * Resume executions filter by query parameters
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
     * @return {Promise< Object >}
     */
@@ -2134,7 +2134,7 @@ export default class ExecutionsApi {
     * Resume executions filter by query parameters
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [opts.filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
     * @return {Promise< Object >}
     */
@@ -2219,7 +2219,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
     * @param {Array.<String>} [sort] The sort of current page
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
     * @return {Promise<PagedResultsExecution>}
     */
@@ -2271,7 +2271,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
     * @param {Array.<String>} [opts.sort] The sort of current page
-    * @param {Array.<module:model/QueryFilter>} [opts.filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
     * @return {Promise<PagedResultsExecution>}
     */
@@ -2515,7 +2515,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Array.<module:model/Label>} label The labels to add to the execution
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
     * @return {Promise< Object >}
     */
@@ -2558,7 +2558,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Array.<module:model/Label>} label The labels to add to the execution
     * @param {Object} [opts] Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [opts.filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
     * @return {Promise< Object >}
     */
@@ -2802,7 +2802,7 @@ export default class ExecutionsApi {
     * Unqueue executions filter by query parameters
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
     * @param {module:model/StateType} [newState] The new state of the unqueued executions
 
     * @return {Promise< Object >}
@@ -2842,7 +2842,7 @@ export default class ExecutionsApi {
     * Unqueue executions filter by query parameters
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [opts.filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
     * @param {module:model/StateType} [opts.newState] The new state of the unqueued executions
 
     * @return {Promise< Object >}
@@ -3087,7 +3087,7 @@ export default class ExecutionsApi {
     * @param {module:model/StateType} newStatus The new state of the executions
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
     * @return {Promise<BulkResponse>}
     */
@@ -3131,7 +3131,7 @@ export default class ExecutionsApi {
     * @param {module:model/StateType} newStatus The new state of the executions
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [opts.filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
     * @return {Promise<BulkResponse>}
     */

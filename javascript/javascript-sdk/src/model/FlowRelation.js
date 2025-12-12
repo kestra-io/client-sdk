@@ -13,6 +13,17 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum FlowRelation
+ * @type {{
+ *   "FLOW_TASK": "FLOW_TASK","FLOW_TRIGGER": "FLOW_TRIGGER",
+ * }}
+ */
+export const FlowRelationStatic = { 
+    "FLOW_TASK": "FLOW_TASK",
+    "FLOW_TRIGGER": "FLOW_TRIGGER",
+}
+
+/**
 * Enum class FlowRelation.
 * @enum {}
 * @readonly

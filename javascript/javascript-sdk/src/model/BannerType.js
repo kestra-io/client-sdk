@@ -13,6 +13,18 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum BannerType
+ * @type {{
+ *   "INFO": "INFO","WARNING": "WARNING","ERROR": "ERROR",
+ * }}
+ */
+export const BannerTypeStatic = { 
+    "INFO": "INFO",
+    "WARNING": "WARNING",
+    "ERROR": "ERROR",
+}
+
+/**
 * Enum class BannerType.
 * @enum {}
 * @readonly

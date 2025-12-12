@@ -333,7 +333,7 @@ export default class FlowsApi {
     * Delete flows returned by the query parameters.
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
     * @return {Promise<BulkResponse>}
     */
@@ -371,7 +371,7 @@ export default class FlowsApi {
     * Delete flows returned by the query parameters.
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [opts.filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
     * @return {Promise<BulkResponse>}
     */
@@ -459,7 +459,7 @@ export default class FlowsApi {
     * Disable flows returned by the query parameters.
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
     * @return {Promise<BulkResponse>}
     */
@@ -497,7 +497,7 @@ export default class FlowsApi {
     * Disable flows returned by the query parameters.
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [opts.filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
     * @return {Promise<BulkResponse>}
     */
@@ -585,7 +585,7 @@ export default class FlowsApi {
     * Enable flows returned by the query parameters.
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
     * @return {Promise<BulkResponse>}
     */
@@ -623,7 +623,7 @@ export default class FlowsApi {
     * Enable flows returned by the query parameters.
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [opts.filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
     * @return {Promise<BulkResponse>}
     */
@@ -711,7 +711,7 @@ export default class FlowsApi {
     * Export flows as a ZIP archive of yaml sources.
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
     * @return {Promise< Blob >}
     */
@@ -749,7 +749,7 @@ export default class FlowsApi {
     * Export flows as a ZIP archive of yaml sources.
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [opts.filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
     * @return {Promise< Blob >}
     */
@@ -1498,7 +1498,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
     * @param {Array.<String>} [sort] The sort of current page
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
     * @return {Promise<PagedResultsFlow>}
     */
@@ -1550,7 +1550,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
     * @param {Array.<String>} [opts.sort] The sort of current page
-    * @param {Array.<module:model/QueryFilter>} [opts.filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
     * @return {Promise<PagedResultsFlow>}
     */

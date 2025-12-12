@@ -13,6 +13,18 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum WorkerTaskRestartStrategy
+ * @type {{
+ *   "NEVER": "NEVER","IMMEDIATELY": "IMMEDIATELY","AFTER_TERMINATION_GRACE_PERIOD": "AFTER_TERMINATION_GRACE_PERIOD",
+ * }}
+ */
+export const WorkerTaskRestartStrategyStatic = { 
+    "NEVER": "NEVER",
+    "IMMEDIATELY": "IMMEDIATELY",
+    "AFTER_TERMINATION_GRACE_PERIOD": "AFTER_TERMINATION_GRACE_PERIOD",
+}
+
+/**
 * Enum class WorkerTaskRestartStrategy.
 * @enum {}
 * @readonly

@@ -13,6 +13,18 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum SLABehavior
+ * @type {{
+ *   "FAIL": "FAIL","CANCEL": "CANCEL","NONE": "NONE",
+ * }}
+ */
+export const SLABehaviorStatic = { 
+    "FAIL": "FAIL",
+    "CANCEL": "CANCEL",
+    "NONE": "NONE",
+}
+
+/**
 * Enum class SLABehavior.
 * @enum {}
 * @readonly

@@ -13,6 +13,18 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum InvitationInvitationStatus
+ * @type {{
+ *   "PENDING": "PENDING","ACCEPTED": "ACCEPTED","EXPIRED": "EXPIRED",
+ * }}
+ */
+export const InvitationInvitationStatusStatic = { 
+    "PENDING": "PENDING",
+    "ACCEPTED": "ACCEPTED",
+    "EXPIRED": "EXPIRED",
+}
+
+/**
 * Enum class InvitationInvitationStatus.
 * @enum {}
 * @readonly

@@ -13,6 +13,19 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum Action
+ * @type {{
+ *   "READ": "READ","CREATE": "CREATE","UPDATE": "UPDATE","DELETE": "DELETE",
+ * }}
+ */
+export const ActionStatic = { 
+    "READ": "READ",
+    "CREATE": "CREATE",
+    "UPDATE": "UPDATE",
+    "DELETE": "DELETE",
+}
+
+/**
 * Enum class Action.
 * @enum {}
 * @readonly

@@ -171,7 +171,7 @@ export default class TriggersApi {
     * Delete backfill for given triggers
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
     * @return {Promise< Object >}
     */
@@ -209,7 +209,7 @@ export default class TriggersApi {
     * Delete backfill for given triggers
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [opts.filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
     * @return {Promise< Object >}
     */
@@ -298,7 +298,7 @@ export default class TriggersApi {
     * @param {Boolean} disabled The disabled state
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
     * @return {Promise< Object >}
     */
@@ -342,7 +342,7 @@ export default class TriggersApi {
     * @param {Boolean} disabled The disabled state
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [opts.filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
     * @return {Promise< Object >}
     */
@@ -493,7 +493,7 @@ export default class TriggersApi {
     * Pause backfill for given triggers
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
     * @return {Promise< Object >}
     */
@@ -531,7 +531,7 @@ export default class TriggersApi {
     * Pause backfill for given triggers
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [opts.filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
     * @return {Promise< Object >}
     */
@@ -637,7 +637,7 @@ export default class TriggersApi {
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
     * @param {Array.<String>} [sort] The sort of current page
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
     * @return {Promise<PagedResultsTriggerControllerTriggers>}
     */
@@ -689,7 +689,7 @@ export default class TriggersApi {
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
     * @param {Array.<String>} [opts.sort] The sort of current page
-    * @param {Array.<module:model/QueryFilter>} [opts.filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
     * @return {Promise<PagedResultsTriggerControllerTriggers>}
     */
@@ -949,7 +949,7 @@ export default class TriggersApi {
     * Unlock triggers by query parameters
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
     * @return {Promise< Object >}
     */
@@ -987,7 +987,7 @@ export default class TriggersApi {
     * Unlock triggers by query parameters
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [opts.filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
     * @return {Promise< Object >}
     */
@@ -1138,7 +1138,7 @@ export default class TriggersApi {
     * Unpause backfill for given triggers
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
     * @return {Promise< Object >}
     */
@@ -1176,7 +1176,7 @@ export default class TriggersApi {
     * Unpause backfill for given triggers
     * @param {String} tenant 
     * @param {Object} [opts] Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [opts.filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
     * @return {Promise< Object >}
     */
