@@ -1,10 +1,10 @@
 // @ts-check
 import {describe, expect, it} from 'vitest';
-import ApiAutocomplete from "../src/model/ApiAutocomplete";
-import IAMRoleControllerApiRoleCreateOrUpdateRequest from "../src/model/IAMRoleControllerApiRoleCreateOrUpdateRequest";
-import ApiIds from "../src/model/ApiIds";
+import ApiAutocomplete from "../javascript-sdk/src/model/ApiAutocomplete";
+import IAMRoleControllerApiRoleCreateOrUpdateRequest from "../javascript-sdk/src/model/IAMRoleControllerApiRoleCreateOrUpdateRequest";
+import ApiIds from "../javascript-sdk/src/model/ApiIds";
 import IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions
-    from "../src/model/IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions";
+    from "../javascript-sdk/src/model/IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions";
 import {kestraClient, MAIN_TENANT, randomId} from "./CommonTestSetup";
 
 describe('RolesApi', () => {
