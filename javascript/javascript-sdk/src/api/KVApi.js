@@ -311,9 +311,9 @@ export default class KVApi {
     * @param {Number} page The current page
     * @param {Number} size The current page size
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<String>} [opts.sort The sort of current page]
-    * @param {Array.<module:model/QueryFilter>} [opts.filters Filters]
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<String>} [opts.sort] The sort of current page
+    * @param {Array.<module:model/QueryFilter>} [opts.filters] Filters
 
     * @return {Promise<PagedResultsKVEntry>}
     */

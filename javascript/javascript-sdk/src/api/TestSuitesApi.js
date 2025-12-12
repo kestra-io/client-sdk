@@ -437,8 +437,8 @@ export default class TestSuitesApi {
     * @param {String} namespace The TestSuite namespace
     * @param {String} id The TestSuite ID
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {module:model/TestSuiteControllerRunRequest} [opts.testSuiteControllerRunRequest ]
+    * @param {Object} [opts] Optional parameters
+    * @param {module:model/TestSuiteControllerRunRequest} [opts.testSuiteControllerRunRequest] 
 
     * @return {Promise<TestSuiteRunResult>}
     */
@@ -592,10 +592,10 @@ export default class TestSuitesApi {
     * @param {Number} size The current page size
     * @param {Boolean} includeChildNamespaces Include child namespaces in filter or not
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<String>} [opts.sort The sort of current page]
-    * @param {String} [opts.namespace The namespace to filter on]
-    * @param {String} [opts.flowId The flow id to filter on]
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<String>} [opts.sort] The sort of current page
+    * @param {String} [opts.namespace] The namespace to filter on
+    * @param {String} [opts.flowId] The flow id to filter on
 
     * @return {Promise<PagedResultsTestSuite>}
     */
@@ -679,11 +679,11 @@ export default class TestSuitesApi {
     * @param {Number} page The current page
     * @param {Number} size The current page size
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<String>} [opts.sort The sort of current page]
-    * @param {String} [opts.testSuiteId The test suite id to filter on]
-    * @param {String} [opts.namespace The namespace to filter on]
-    * @param {String} [opts.flowId The flow id to filter on]
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<String>} [opts.sort] The sort of current page
+    * @param {String} [opts.testSuiteId] The test suite id to filter on
+    * @param {String} [opts.namespace] The namespace to filter on
+    * @param {String} [opts.flowId] The flow id to filter on
 
     * @return {Promise<PagedResultsTestSuiteRunResult>}
     */

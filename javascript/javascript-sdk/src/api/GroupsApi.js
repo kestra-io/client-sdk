@@ -575,9 +575,9 @@ export default class GroupsApi {
     * @param {Number} page The current page
     * @param {Number} size The current page size
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {String} [opts.q A string filter]
-    * @param {Array.<String>} [opts.sort The sort of current page]
+    * @param {Object} [opts] Optional parameters
+    * @param {String} [opts.q] A string filter
+    * @param {Array.<String>} [opts.sort] The sort of current page
 
     * @return {Promise<PagedResultsIAMGroupControllerApiGroupMember>}
     */
@@ -655,9 +655,9 @@ export default class GroupsApi {
     * @param {Number} page The current page
     * @param {Number} size The current page size
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {String} [opts.q A string filter]
-    * @param {Array.<String>} [opts.sort The sort of current page]
+    * @param {Object} [opts] Optional parameters
+    * @param {String} [opts.q] A string filter
+    * @param {Array.<String>} [opts.sort] The sort of current page
 
     * @return {Promise<PagedResultsApiGroupSummary>}
     */

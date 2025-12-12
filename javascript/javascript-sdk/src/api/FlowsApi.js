@@ -109,9 +109,9 @@ export default class FlowsApi {
     * @param {Boolean} _delete If missing flow should be deleted
     * @param {Boolean} allowNamespaceChild If namespace child should are allowed to be updated
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {String} [opts.namespace The namespace where to update flows]
-    * @param {String} [opts.body A list of flows source code splitted with \"---\"]
+    * @param {Object} [opts] Optional parameters
+    * @param {String} [opts.namespace] The namespace where to update flows
+    * @param {String} [opts.body] A list of flows source code splitted with \"---\"
 
     * @return {Promise< Array.<module:model/FlowInterface> >}
     */
@@ -370,8 +370,8 @@ export default class FlowsApi {
     /**
     * Delete flows returned by the query parameters.
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [opts.filters Filters]
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<module:model/QueryFilter>} [opts.filters] Filters
 
     * @return {Promise<BulkResponse>}
     */
@@ -496,8 +496,8 @@ export default class FlowsApi {
     /**
     * Disable flows returned by the query parameters.
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [opts.filters Filters]
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<module:model/QueryFilter>} [opts.filters] Filters
 
     * @return {Promise<BulkResponse>}
     */
@@ -622,8 +622,8 @@ export default class FlowsApi {
     /**
     * Enable flows returned by the query parameters.
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [opts.filters Filters]
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<module:model/QueryFilter>} [opts.filters] Filters
 
     * @return {Promise<BulkResponse>}
     */
@@ -748,8 +748,8 @@ export default class FlowsApi {
     /**
     * Export flows as a ZIP archive of yaml sources.
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [opts.filters Filters]
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<module:model/QueryFilter>} [opts.filters] Filters
 
     * @return {Promise< Blob >}
     */
@@ -839,8 +839,8 @@ export default class FlowsApi {
     * @param {Boolean} source Include the source code
     * @param {Boolean} allowDeleted Get flow even if deleted
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Number} [opts.revision Get latest revision by default]
+    * @param {Object} [opts] Optional parameters
+    * @param {Number} [opts.revision] Get latest revision by default
 
     * @return {Promise<FlowWithSource>}
     */
@@ -1074,9 +1074,9 @@ export default class FlowsApi {
     * @param {String} namespace The flow namespace
     * @param {String} id The flow id
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Number} [opts.revision The flow revision]
-    * @param {Array.<String>} [opts.subflows The subflow tasks to display]
+    * @param {Object} [opts] Optional parameters
+    * @param {Number} [opts.revision] The flow revision
+    * @param {Array.<String>} [opts.subflows] The subflow tasks to display
 
     * @return {Promise<FlowGraph>}
     */
@@ -1144,8 +1144,8 @@ export default class FlowsApi {
     * Generate a graph for a flow source
     * @param {String} tenant 
     * @param {String} body The flow source code
-    * @param {Object} opts Optional parameters
-    * @param {Array.<String>} [opts.subflows The subflow tasks to display]
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<String>} [opts.subflows] The subflow tasks to display
 
     * @return {Promise<FlowGraph>}
     */
@@ -1214,8 +1214,8 @@ export default class FlowsApi {
     *     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn't be imported is returned. 
     * @param {Boolean} failOnError If should fail on invalid flows
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {File} [opts.fileUpload The file to import, can be a ZIP archive or a multi-objects YAML file]
+    * @param {Object} [opts] Optional parameters
+    * @param {File} [opts.fileUpload] The file to import, can be a ZIP archive or a multi-objects YAML file
 
     * @return {Promise< Array.<String> >}
     */
@@ -1277,8 +1277,8 @@ export default class FlowsApi {
     /**
     * List all distinct namespaces
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {String} [opts.q A string filter]
+    * @param {Object} [opts] Optional parameters
+    * @param {String} [opts.q] A string filter
 
     * @return {Promise< Array.<String> >}
     */
@@ -1548,9 +1548,9 @@ export default class FlowsApi {
     * @param {Number} page The current page
     * @param {Number} size The current page size
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<String>} [opts.sort The sort of current page]
-    * @param {Array.<module:model/QueryFilter>} [opts.filters Filters]
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<String>} [opts.sort] The sort of current page
+    * @param {Array.<module:model/QueryFilter>} [opts.filters] Filters
 
     * @return {Promise<PagedResultsFlow>}
     */
@@ -1630,10 +1630,10 @@ export default class FlowsApi {
     * @param {Number} page The current page
     * @param {Number} size The current page size
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<String>} [opts.sort The sort of current page]
-    * @param {String} [opts.q A string filter]
-    * @param {String} [opts.namespace A namespace filter prefix]
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<String>} [opts.sort] The sort of current page
+    * @param {String} [opts.q] A string filter
+    * @param {String} [opts.namespace] A namespace filter prefix
 
     * @return {Promise<PagedResultsSearchResultFlow>}
     */
@@ -1716,8 +1716,8 @@ export default class FlowsApi {
     * @param {String} id The flow id
     * @param {String} taskId The task id
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Number} [opts.revision The flow revision]
+    * @param {Object} [opts] Optional parameters
+    * @param {Number} [opts.revision] The flow revision
 
     * @return {Promise<Task>}
     */

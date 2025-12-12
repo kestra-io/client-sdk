@@ -151,7 +151,7 @@ async function createSimpleFlow(flowId, ns, tmpl = LOG_FLOW) {
  */
 async function createFlowWithExecution(flowId, ns) {
     await createSimpleFlow(flowId, ns);
-    return kestraClient().executionsApi.createExecution(ns, flowId, false, MAIN_TENANT, null, null, null, null, null);
+    return kestraClient().executionsApi.createExecution(ns, flowId, false, MAIN_TENANT, null, null);
 }
 
 /**
@@ -161,7 +161,7 @@ async function createFlowWithExecution(flowId, ns) {
  */
 async function createFlowWithExecutionFromYaml(flowYaml) {
     const f = await createFlow(flowYaml);
-    return kestraClient().executionsApi.createExecution(f.namespace, f.id, false, MAIN_TENANT, null, null, null, null, null);
+    return kestraClient().executionsApi.createExecution(f.namespace, f.id, false, MAIN_TENANT, null, null);
 }
 
 /**
@@ -228,7 +228,7 @@ describe('ExecutionsApi', () => {
         const flowId = randomId();
         const ex = await createFlowWithExecution(flowId, ns);
 
-        await kestraClient().executionsApi.deleteExecution(ex.id, MAIN_TENANT, false, false, false);
+        await kestraClient().executionsApi.deleteExecution(ex.id, MAIN_TENANT, {});
 
         await expect(kestraClient().executionsApi.execution(ex.id, MAIN_TENANT)).rejects.toThrow();
     });
@@ -284,7 +284,7 @@ describe('ExecutionsApi', () => {
 
         const file = await kestraClient().executionsApi.downloadFileFromExecution(done.id, uri, MAIN_TENANT);
         // depending on generator, this might be a Buffer/string/file path.
-        const txt = file?.text ?? file?.content ?? file;
+        const txt = file?.text ?? file;
         expect(String(txt)).toContain('Hello from file');
     });
 
@@ -528,7 +528,7 @@ describe('ExecutionsApi', () => {
     // --- replay execution (single) ---
     it('replay_execution', async () => {
         const e = await createdExecution(LOG_FLOW, 'SUCCESS');
-        const replay = await kestraClient().executionsApi.replayExecution(e.id, MAIN_TENANT, null, null, null);
+        const replay = await kestraClient().executionsApi.replayExecution(e.id, MAIN_TENANT);
         expect(replay.state.current).toBe('CREATED');
         const done = await awaitExecution(replay.id, 'SUCCESS', 2000, 100);
         expect(done.state.current).toBe('SUCCESS');
@@ -540,7 +540,7 @@ describe('ExecutionsApi', () => {
         const inputs = { key: 'value' };
         const taskRunId = e.taskRunList?.[0]?.id ?? null;
         const resp = await kestraClient().executionsApi.replayExecutionWithinputs(
-            e.id, MAIN_TENANT, taskRunId, e.flowRevision, null, {}, inputs
+            e.id, MAIN_TENANT, {taskRunId, revision: e.flowRevision}, inputs
         );
         expect(resp.id).toBeTruthy();
     });
