@@ -55,10 +55,7 @@ describe('GroupsApi', () => {
 
         await kestraClient().groupsApi.deleteGroup(created.id, MAIN_TENANT);
 
-        await expect(
-            (kestraClient().groupsApi.getGroup?.(created.id, MAIN_TENANT)) ??
-            (kestraClient().groupsApi.group?.(created.id, MAIN_TENANT))
-        ).rejects.toThrow();
+        expect(() => kestraClient().groupsApi.group?.(created.id, MAIN_TENANT)).toThrow();
     });
 
     it('delete_user_from_group: Remove a user from a group', async () => {
@@ -87,8 +84,7 @@ describe('GroupsApi', () => {
         });
 
         const fetched =
-            (await kestraClient().groupsApi.getGroup?.(created.id, MAIN_TENANT)) ??
-            (await kestraClient().groupsApi.group?.(created.id, MAIN_TENANT));
+            await kestraClient().groupsApi.group?.(created.id, MAIN_TENANT);
 
         expect(fetched.id).toBe(created.id);
         expect(fetched.name).toBe(created.name);
@@ -122,7 +118,9 @@ describe('GroupsApi', () => {
 
         // signature: (groupId, page, size, tenant, q, sort)
         const page = await kestraClient().groupsApi.searchGroupMembers(
-            group.id, 1, 10, MAIN_TENANT, user.email, null
+            group.id, 1, 10, MAIN_TENANT, {
+                q: user.email
+            }
         );
 
         const results = page?.results ?? [];

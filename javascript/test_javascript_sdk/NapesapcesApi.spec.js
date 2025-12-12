@@ -36,10 +36,9 @@ describe('NamespacesApi', () => {
 
         await kestraClient().namespacesApi.deleteNamespace(created.id, MAIN_TENANT);
 
-        await expect(
-            (kestraClient().namespacesApi.getNamespace?.(created.id, MAIN_TENANT)) ??
+        await expect(() =>
             (kestraClient().namespacesApi.namespace?.(created.id, MAIN_TENANT))
-        ).rejects.toThrow();
+        ).toThrow();
     });
 
     it('get_inherited_secrets: List inherited secrets', async () => {
@@ -56,8 +55,7 @@ describe('NamespacesApi', () => {
         const created = await kestraClient().namespacesApi.createNamespace(MAIN_TENANT, { id: nsId, deleted: false });
 
         const fetched =
-            (await kestraClient().namespacesApi.getNamespace?.(created.id, MAIN_TENANT)) ??
-            (await kestraClient().namespacesApi.namespace?.(created.id, MAIN_TENANT));
+            await kestraClient().namespacesApi.namespace?.(created.id, MAIN_TENANT);
 
         expect(fetched.id).toBe(created.id);
     });
@@ -96,7 +94,7 @@ describe('NamespacesApi', () => {
 
         // signature: listNamespaceSecrets(namespace, page, size, filters, tenant, sort)
         const resp = await kestraClient().namespacesApi.listNamespaceSecrets(ns.id, 1, 10, filters, MAIN_TENANT, null);
-        const results = resp?.results ?? resp?.data?.results ?? [];
+        const results = resp?.results ?? [];
 
         expect(results.length).toBeGreaterThan(0);
         const gotKeys = results.map(m => m.key);
@@ -138,7 +136,7 @@ describe('NamespacesApi', () => {
 
         // Java sig was (page, size, existing, tenant, q, sort)
         const page = await kestraClient().namespacesApi.searchNamespaces(1, 10, false, MAIN_TENANT, {q: nsId});
-        const results = page?.results ?? page?.data?.results ?? [];
+        const results = page?.results ?? [];
 
         expect(results.some(r => r.id === ns.id)).toBeTruthy();
     });
@@ -167,7 +165,7 @@ describe('NamespacesApi', () => {
         await kestraClient().namespacesApi.deleteSecret(ns.id, key, MAIN_TENANT);
 
         const list = await kestraClient().namespacesApi.listNamespaceSecrets(ns.id, 1, 10, [], MAIN_TENANT, null);
-        const results = list?.results ?? list?.data?.results ?? [];
+        const results = list?.results ?? [];
         expect(results.some(m => m.key === key)).toBeFalsy();
     });
 });

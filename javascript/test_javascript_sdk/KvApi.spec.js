@@ -16,8 +16,7 @@ describe('KVApi (typed)', () => {
         await kestraClient().kvApi.setKeyValue(namespace, key, MAIN_TENANT, value);
 
         const fetched =
-            (await kestraClient().kvApi.keyValue?.(namespace, key, MAIN_TENANT)) ??
-            (await kestraClient().kvApi.getKeyValue(namespace, key, MAIN_TENANT));
+            (await kestraClient().kvApi.keyValue?.(namespace, key, MAIN_TENANT))
 
         expect(fetched?.type ?? 'STRING').toBe('STRING');
         expect(fetched?.value ?? fetched).toBe('hello-kestra');
@@ -29,8 +28,7 @@ describe('KVApi (typed)', () => {
         const value = 'true';
 
         await kestraClient().kvApi.setKeyValue(namespace, key, MAIN_TENANT, value);
-        const fetched = await (kestraClient().kvApi.keyValue?.(namespace, key, MAIN_TENANT)
-            ?? kestraClient().kvApi.getKeyValue(namespace, key, MAIN_TENANT));
+        const fetched = await kestraClient().kvApi.keyValue?.(namespace, key, MAIN_TENANT)
 
         expect(fetched?.type ?? 'BOOLEAN').toBe('BOOLEAN');
         expect(fetched?.value ?? fetched).toBe(true);
@@ -42,8 +40,7 @@ describe('KVApi (typed)', () => {
         const value = '42';
 
         await kestraClient().kvApi.setKeyValue(namespace, key, MAIN_TENANT, value);
-        const fetched = await (kestraClient().kvApi.keyValue?.(namespace, key, MAIN_TENANT)
-            ?? kestraClient().kvApi.getKeyValue(namespace, key, MAIN_TENANT));
+        const fetched = await kestraClient().kvApi.keyValue?.(namespace, key, MAIN_TENANT)
 
         expect(fetched?.type ?? 'NUMBER').toBe('NUMBER');
         expect(fetched?.value ?? fetched).toBe(42);
@@ -55,8 +52,7 @@ describe('KVApi (typed)', () => {
         const value = 'PT15M';
 
         await kestraClient().kvApi.setKeyValue(namespace, key, MAIN_TENANT, value);
-        const fetched = await (kestraClient().kvApi.keyValue?.(namespace, key, MAIN_TENANT)
-            ?? kestraClient().kvApi.getKeyValue(namespace, key, MAIN_TENANT));
+        const fetched = await kestraClient().kvApi.keyValue?.(namespace, key, MAIN_TENANT)
 
         expect(fetched?.type ?? 'DURATION').toBe('DURATION');
         expect(fetched?.value ?? fetched).toBe('PT15M');
@@ -68,8 +64,7 @@ describe('KVApi (typed)', () => {
         const value = '2025-10-13';
 
         await kestraClient().kvApi.setKeyValue(namespace, key, MAIN_TENANT, value);
-        const fetched = await (kestraClient().kvApi.keyValue?.(namespace, key, MAIN_TENANT)
-            ?? kestraClient().kvApi.getKeyValue(namespace, key, MAIN_TENANT));
+        const fetched = await kestraClient().kvApi.keyValue?.(namespace, key, MAIN_TENANT)
 
         expect(fetched?.type ?? 'DATE').toBe('DATE');
         expect(fetched?.value ?? fetched).toBe('2025-10-13');
@@ -81,8 +76,7 @@ describe('KVApi (typed)', () => {
         const value = '2025-10-14T18:02:08.000Z';
 
         await kestraClient().kvApi.setKeyValue(namespace, key, MAIN_TENANT, value);
-        const fetched = await (kestraClient().kvApi.keyValue?.(namespace, key, MAIN_TENANT)
-            ?? kestraClient().kvApi.getKeyValue(namespace, key, MAIN_TENANT));
+        const fetched = await kestraClient().kvApi.keyValue?.(namespace, key, MAIN_TENANT)
 
         // server often normalizes fractional seconds
         expect(fetched?.type ?? 'DATETIME').toBe('DATETIME');
@@ -94,8 +88,7 @@ describe('KVApi (typed)', () => {
         const value = '"value-get"';
 
         await kestraClient().kvApi.setKeyValue(CHILD_NAMESPACE, key, MAIN_TENANT, value);
-        const fetched = await (kestraClient().kvApi.keyValue?.(CHILD_NAMESPACE, key, MAIN_TENANT)
-            ?? kestraClient().kvApi.getKeyValue(CHILD_NAMESPACE, key, MAIN_TENANT));
+        const fetched = await kestraClient().kvApi.keyValue?.(CHILD_NAMESPACE, key, MAIN_TENANT)
 
         expect(fetched?.type ?? 'STRING').toBe('STRING');
         expect(fetched?.value ?? fetched).toBe('value-get');
