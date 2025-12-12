@@ -87,13 +87,9 @@ describe('NamespacesApi', () => {
         await kestraClient().namespacesApi.putSecrets(ns.id, MAIN_TENANT, { key, value: 'list-value' });
         await kestraClient().namespacesApi.putSecrets(ns.id, MAIN_TENANT, { key: unwantedKey, value: 'list-value' });
 
-        // filter by query==key
-        const filters = [
-            { field: 'QUERY', operation: 'EQUALS', value: key },
-        ];
 
         // signature: listNamespaceSecrets(namespace, page, size, filters, tenant, sort)
-        const resp = await kestraClient().namespacesApi.listNamespaceSecrets(ns.id, 1, 10, filters, MAIN_TENANT, null);
+        const resp = await kestraClient().namespacesApi.listNamespaceSecrets(ns.id, 1, 10, [{ field: 'QUERY', operation: 'EQUALS', value: key }], MAIN_TENANT, null);
         const results = resp?.results ?? [];
 
         expect(results.length).toBeGreaterThan(0);

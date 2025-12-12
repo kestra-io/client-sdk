@@ -112,8 +112,7 @@ describe('TriggersApiTest', () => {
         await createFlowWithTrigger(flowId, triggerId, namespace);
         await createBackfillForTrigger(flowId, triggerId, namespace);
 
-        const qf = { field: 'TRIGGER_ID', operation: 'CONTAINS', value: flowId };
-        const resp = await kestraClient().triggersApi.deleteBackfillByQuery(MAIN_TENANT, [qf]);
+        const resp = await kestraClient().triggersApi.deleteBackfillByQuery(MAIN_TENANT, {filters:[{ field: 'TRIGGER_ID', operation: 'CONTAINS', value: flowId }]});
         expect(resp).toBeTruthy();
     });
 
@@ -137,8 +136,13 @@ describe('TriggersApiTest', () => {
 
         await createFlowWithTrigger(flowId, triggerId, namespace);
 
-        const qf = { field: 'TRIGGER_ID', operation: 'CONTAINS', value: flowId };
-        const resp = await kestraClient().triggersApi.disabledTriggersByQuery(true, MAIN_TENANT, [qf]);
+        const resp = await kestraClient().triggersApi.disabledTriggersByQuery(true, MAIN_TENANT, {
+            filters:[{
+                field: 'TRIGGER_ID',
+                operation: 'CONTAINS',
+                value: flowId
+            }]
+        });
         expect(resp).toBeTruthy();
     });
 
@@ -176,7 +180,13 @@ describe('TriggersApiTest', () => {
         await createFlowWithTrigger(flowId, triggerId, namespace);
 
         const qf = { field: 'TRIGGER_ID', operation: 'CONTAINS', value: flowId };
-        const resp = await kestraClient().triggersApi.pauseBackfillByQuery(MAIN_TENANT, [qf]);
+        const resp = await kestraClient().triggersApi.pauseBackfillByQuery(MAIN_TENANT, {
+            filters:[{
+                field: 'TRIGGER_ID',
+                operation: 'CONTAINS',
+                value: flowId
+            }]
+        });
         expect(resp).toBeTruthy();
     });
 
@@ -197,8 +207,13 @@ describe('TriggersApiTest', () => {
         const namespace = `test.triggers.${randomId()}`;
         await createFlowWithTrigger(flowId, triggerId, namespace);
 
-        const filters = [{ field: 'NAMESPACE', operation: 'EQUALS', value: namespace }];
-        const page = await kestraClient().triggersApi.searchTriggers(1, 10, MAIN_TENANT, null, filters);
+        const page = await kestraClient().triggersApi.searchTriggers(1, 10, MAIN_TENANT, {
+            filters:[{
+                field: 'NAMESPACE',
+                operation: 'EQUALS',
+                value: namespace
+            }]
+        });
 
         expect(page).toBeTruthy();
     });
@@ -210,7 +225,7 @@ describe('TriggersApiTest', () => {
 
         await createFlowWithTrigger(flowId, triggerId, namespace);
 
-        const page = await kestraClient().triggersApi.searchTriggersForFlow(1, 10, namespace, flowId, MAIN_TENANT, null, null);
+        const page = await kestraClient().triggersApi.searchTriggersForFlow(1, 10, namespace, flowId, MAIN_TENANT);
         expect(page).toBeTruthy();
     });
 
@@ -247,7 +262,7 @@ describe('TriggersApiTest', () => {
 
         await createFlowWithTrigger(flowId, triggerId, namespace);
 
-        const resp = await kestraClient().triggersApi.unlockTriggersByQuery(MAIN_TENANT, []);
+        const resp = await kestraClient().triggersApi.unlockTriggersByQuery(MAIN_TENANT);
         expect(resp).toBeTruthy();
     });
 
@@ -284,7 +299,7 @@ describe('TriggersApiTest', () => {
 
         await createFlowWithTrigger(flowId, triggerId, namespace);
 
-        const resp = await kestraClient().triggersApi.unpauseBackfillByQuery(MAIN_TENANT, []);
+        const resp = await kestraClient().triggersApi.unpauseBackfillByQuery(MAIN_TENANT);
         expect(resp).toBeTruthy();
     });
 

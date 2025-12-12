@@ -96,10 +96,9 @@ describe('FlowsApi', () => {
     it('delete_flows_by_query', async () => {
         const flow = await createSimpleFlow();
 
-        const filters = [
+        await kestraClient().flowsApi.deleteFlowsByQuery(MAIN_TENANT, {filters:[
             { field: 'NAMESPACE', operation: 'EQUALS', value: flow.namespace }
-        ];
-        await kestraClient().flowsApi.deleteFlowsByQuery(MAIN_TENANT, {filters:filters});
+        ]});
 
         await assertFlowDoesNotExist(flow);
     });

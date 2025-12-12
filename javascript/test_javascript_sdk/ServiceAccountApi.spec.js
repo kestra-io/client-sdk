@@ -85,8 +85,8 @@ describe('ServiceAccountApi', () => {
             description: 'new',
         });
 
-        // Some SDKs expose "desc" instead of "description"
-        expect(patched?.description ?? patched?.desc).toBe('new');
+
+        expect(patched?.description).toBe('new');
     });
 
     it('patch_service_account_super_admin', async () => {
@@ -113,6 +113,6 @@ describe('ServiceAccountApi', () => {
             description: 'After',
         });
 
-        expect(updated?.description ?? updated?.desc).toBe('After');
+        expect(updated?.description).toBe('After');
     });
 });

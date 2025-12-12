@@ -63,7 +63,7 @@ describe('UsersApi', () => {
             description: 'token to delete',
         });
 
-        const tokenId = token?.id ?? token?.result?.id ?? token?.data?.id;
+        const tokenId = token?.id;
         expect(tokenId).toBeTruthy();
 
         await kestraClient().usersApi.deleteApiTokenForUser(user.id, tokenId);
@@ -71,7 +71,6 @@ describe('UsersApi', () => {
         const list = await kestraClient().usersApi.listApiTokensForUser(user.id);
         const ids =
             list?.results?.map(t => t.id) ??
-            list?.data?.results?.map(t => t.id) ??
             [];
         expect(ids).not.toContain(tokenId);
     });
@@ -92,7 +91,7 @@ describe('UsersApi', () => {
 
         await kestraClient().usersApi.deleteUser(user.id);
 
-        await expect(kestraClient().usersApi.getUser?.(user.id) ?? kestraClient().usersApi.user?.(user.id))
+        await expect(kestraClient().usersApi.user?.(user.id))
         .rejects.toThrow();
     });
 
@@ -115,7 +114,6 @@ describe('UsersApi', () => {
         const created = await kestraClient().usersApi.createUser({ email: `${base}@kestra.io` });
 
         const fetched =
-            (await kestraClient().usersApi.getUser?.(created.id)) ??
             (await kestraClient().usersApi.user?.(created.id));
         expect(fetched.id).toBe(created.id);
 
@@ -139,7 +137,7 @@ describe('UsersApi', () => {
         const created = await kestraClient().usersApi.createUser({ email: `${base}@kestra.io` });
 
         const page = await kestraClient().usersApi.listUsers(1, 50, { q: base });
-        const results = page?.results ?? page?.data?.results ?? [];
+        const results = page?.results ?? [];
         expect(results.some(s => s.id === created.id)).toBeTruthy();
 
         await kestraClient().usersApi.deleteUser(created.id);
@@ -157,7 +155,7 @@ describe('UsersApi', () => {
         });
 
         // firstName casing can differ depending on generator
-        expect(updated.firstName ?? updated.first_name).toBe('New');
+        expect(updated.firstName).toBe('New');
 
         await kestraClient().usersApi.deleteUser(created.id);
     });
@@ -193,9 +191,8 @@ describe('UsersApi', () => {
         await kestraClient().usersApi.patchUserSuperAdmin(created.id, { superAdmin: true });
 
         const fetched =
-            (await kestraClient().usersApi.getUser?.(created.id)) ??
             (await kestraClient().usersApi.user?.(created.id));
-        expect(Boolean(fetched.superAdmin ?? fetched.super_admin)).toBe(true);
+        expect(Boolean(fetched.superAdmin)).toBe(true);
 
         await kestraClient().usersApi.deleteUser(created.id);
     });
@@ -247,7 +244,7 @@ describe('UsersApi', () => {
             firstName: 'After',
         });
 
-        expect(updated.firstName ?? updated.first_name).toBe('After');
+        expect(updated.firstName).toBe('After');
 
         await kestraClient().usersApi.deleteUser(created.id);
     });
