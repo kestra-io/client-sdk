@@ -18,9 +18,9 @@
     ".": "./dist/KestraClient.mjs",
     "./package.json": "./package.json"
   },
-  "main": "./dist/KestraClient.mjs",
-  "module": "./dist/KestraClient.mjs",
-  "types": "./dist/KestraClient.d.mts",
+  "main": "dist/KestraClient.mjs",
+  "module": "dist/KestraClient.mjs",
+  "types": "dist/KestraClient.d.mts",
   "files": [
     "dist"
   ],
