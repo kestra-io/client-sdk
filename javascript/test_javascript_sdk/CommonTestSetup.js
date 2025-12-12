@@ -1,4 +1,4 @@
-import KestraClient from "../src/KestraClient";
+import KestraClient from "@kestra-io/kestra-sdk";
 import * as path from "node:path";
 import {readFileSync} from "node:fs";
 

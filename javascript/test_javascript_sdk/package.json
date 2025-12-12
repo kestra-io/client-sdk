@@ -1,0 +1,16 @@
+{
+  "name": "@kestra-io/kestra-sdk-test",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "vitest run"
+  },
+  "browser": {
+    "fs": false
+  },
+  "dependencies": {
+    "@kestra-io/kestra-sdk": "*",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.15"
+  }
+}

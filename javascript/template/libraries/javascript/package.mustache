@@ -5,9 +5,8 @@
   "license": "{{licenseName}}",
   "type": "module",
   "scripts": {
-    "build": "tsdown",
+    "build": "tsdown && tsc -p tsconfig.json --declaration --emitDeclarationOnly --declarationMap",
     "dev": "tsdown --watch",
-    "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build"
   },
@@ -23,9 +22,9 @@
     ".": "./dist{{#invokerPackage}}/{{.}}{{/invokerPackage}}/KestraClient.mjs",
     "./package.json": "./package.json"
   },
-  "main": "dist{{#invokerPackage}}/{{.}}{{/invokerPackage}}/KestraClient.mjs",
-  "module": "dist{{#invokerPackage}}/{{.}}{{/invokerPackage}}/KestraClient.mjs",
-  "types": "dist{{#invokerPackage}}/{{.}}{{/invokerPackage}}/KestraClient.d.mts",
+  "main": "./dist{{#invokerPackage}}/{{.}}{{/invokerPackage}}/KestraClient.mjs",
+  "module": "./dist{{#invokerPackage}}/{{.}}{{/invokerPackage}}/KestraClient.mjs",
+  "types": "./dist{{#invokerPackage}}/{{.}}{{/invokerPackage}}/KestraClient.d.ts",
   "files": [
     "dist"
   ],
@@ -34,9 +33,7 @@
   },
   "devDependencies": {
     "@types/node": "^24.10.1",
-    "bumpp": "^10.3.2",
     "tsdown": "^0.17.0",
-    "typescript": "^5.9.3",
-    "vitest": "^4.0.15"
+    "typescript": "^5.9.3"
   }
 }
