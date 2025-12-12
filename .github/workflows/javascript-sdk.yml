@@ -29,33 +29,17 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./javascript/javascript-sdk
+        working-directory: ./javascript
 
     steps:
       - uses: actions/checkout@v6
 
-      - name: Get OIDC Token
-        env:
-          AUDIENCE: "npm:registry.npmjs.org"
-        run: |
-          TOKEN_JSON=$(curl -s -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=$AUDIENCE")
-          ID_TOKEN=$(echo "$TOKEN_JSON" | jq -r .value)
-          echo "NODE_AUTH_TOKEN=$ID_TOKEN" >> "$GITHUB_ENV"
+
 
       - uses: actions/setup-node@v6
         with:
           node-version: '22.12'
           registry-url: 'https://registry.npmjs.org'
-
-      # Trusted publishing need npm 11.+
-      - name: Upgrade npm
-        run: |
-          npm install -g npm@latest
-          npm version
-
-      - name: Set version
-        id: set_version
-        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
 
       - name: Install dependencies
         run: npm install
@@ -71,16 +55,40 @@ jobs:
       - name: configure docker access to GCP registry for EE image
         run: gcloud auth configure-docker europe-west1-docker.pkg.dev
 
+      - name: type check
+        run: npm run test:typecheck
+
       - name: Test with vitest
-        working-directory: ./javascript/
         env:
           APPLICATION_SECRETS: ${{ secrets.APPLICATION_SECRETS }}
         run: |
           echo $APPLICATION_SECRETS | base64 -d > ../test-utils/docker-setup/application-secrets.yml
           ./run-tests.sh
 
-      - name: Publish to npm
-        run: npm publish --access public
+      # Trusted publishing need npm 11.+
+      - name: Upgrade npm
         if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          npm install -g npm@latest
+          npm version
+
+      - name: Get OIDC Token
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          AUDIENCE: "npm:registry.npmjs.org"
+        run: |
+          TOKEN_JSON=$(curl -s -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=$AUDIENCE")
+          ID_TOKEN=$(echo "$TOKEN_JSON" | jq -r .value)
+          echo "NODE_AUTH_TOKEN=$ID_TOKEN" >> "$GITHUB_ENV"
+
+      - name: Set version
+        if: startsWith(github.ref, 'refs/tags/v')
+        id: set_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+
+      - name: Publish to npm
+        if: startsWith(github.ref, 'refs/tags/v')
+        working-directory: ./javascript/javascript-sdk
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
