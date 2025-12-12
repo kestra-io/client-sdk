@@ -8,14 +8,16 @@ TEMPLATE_FLAG=$3
 HOST_UID=$(id -u)
 HOST_GID=$(id -g)
 
-get_sed_inplace_option() {
+# Cross-platform sed in-place with extended regex
+sed_inplace() {
+  local cmd="$1"
+  local file="$2"
   if [[ "$(uname)" == "Darwin" ]]; then
-    echo "-i ''"
+    sed -i '' -E "$cmd" "$file"
   else
-    echo "-i"
+    sed -i -E "$cmd" "$file"
   fi
 }
-SED_INPLACE=$(get_sed_inplace_option)
 
 # check if LANGUAGES is empty
 if [ -z "$LANGUAGES" ]; then
@@ -72,8 +74,8 @@ docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/ope
     --additional-properties=packageVersion=$VERSION \
     --template-dir=/local/python/template
 
-sed $SED_INPLACE -E '/from kestrapy\.models\.list\[label\] import List\[Label\]/d' python/python-sdk/kestrapy/api/executions_api.py
-sed $SED_INPLACE -E 's/value: Optional\[Dict\[str, Any\]\] = None/value: Optional[Any] = None/' python/python-sdk/kestrapy/models/kv_controller_typed_value.py
+sed_inplace '/from kestrapy\.models\.list\[label\] import List\[Label\]/d' python/python-sdk/kestrapy/api/executions_api.py
+sed_inplace 's/value: Optional\[Dict\[str, Any\]\] = None/value: Optional[Any] = None/' python/python-sdk/kestrapy/models/kv_controller_typed_value.py
 echo "from kestrapy.kestra_client import KestraClient as KestraClient" >> python/python-sdk/kestrapy/__init__.py
 
 # Replace wrong prop in docs for each api
@@ -91,12 +93,12 @@ docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/ope
     --additional-properties=projectVersion=$VERSION \
     --template-dir=/local/javascript/template
 
-sed -i '' -E "s/let returnType = \{'String': \['String'\]\};/let returnType = Object;/" ./javascript/javascript-sdk/src/api/NamespacesApi.js
-sed -i '' -E "s/let returnType = File;/let returnType = 'Blob';/" ./javascript/javascript-sdk/src/api/ExecutionsApi.js
-sed -i '' -E "s/obj\['value'\][[:space:]]*=[[:space:]]*OutputValue\.constructFromObject\(([^)]*)\);/obj['value'] = ApiClient.convertToType(\1, 'Object');/" ./javascript/javascript-sdk/src/model/Output.js
-sed -i '' -E "s/obj\[([\"'])([A-Za-z0-9_]+)\1\] = Object\.constructFromObject\(data\[\1\2\1\]\);/obj[\1\2\1] = ApiClient.convertToType(data[\1\2\1], 'Object');/g" ./javascript/javascript-sdk/src/model/Assertion.js
-sed -i '' -E "s/obj\[([\"'])([A-Za-z0-9_]+)\1\] = ([\"'])([A-Za-z]+)\3\.constructFromObject\(data\[\1\2\1\]\);/obj[\1\2\1] = ApiClient.convertToType(data[\1\2\1], \3\4\3);/g" ./javascript/javascript-sdk/src/model/Assertion.js
-sed -i '' -E "s/let authNames = \[\];/let authNames = \['basicAuth', 'bearerAuth'\];/" ./javascript/javascript-sdk/src/api/TestSuitesApi.js
+sed_inplace "s/let returnType = \{'String': \['String'\]\};/let returnType = Object;/" ./javascript/javascript-sdk/src/api/NamespacesApi.js
+sed_inplace "s/let returnType = File;/let returnType = 'Blob';/" ./javascript/javascript-sdk/src/api/ExecutionsApi.js
+sed_inplace "s/obj\['value'\][[:space:]]*=[[:space:]]*OutputValue\.constructFromObject\(([^)]*)\);/obj['value'] = ApiClient.convertToType(\1, 'Object');/" ./javascript/javascript-sdk/src/model/Output.js
+sed_inplace "s/obj\['([A-Za-z0-9_]+)'\] = Object\.constructFromObject\(data\['([A-Za-z0-9_]+)'\]\);/obj['\1'] = ApiClient.convertToType(data['\1'], 'Object');/g" ./javascript/javascript-sdk/src/model/Assertion.js
+sed_inplace "s/obj\['([A-Za-z0-9_]+)'\] = '([A-Za-z]+)'\.constructFromObject\(data\['([A-Za-z0-9_]+)'\]\);/obj['\1'] = ApiClient.convertToType(data['\1'], '\2');/g" ./javascript/javascript-sdk/src/model/Assertion.js
+sed_inplace "s/let authNames = \[\];/let authNames = \['basicAuth', 'bearerAuth'\];/" ./javascript/javascript-sdk/src/api/TestSuitesApi.js
 sed -i '' -E "s/    \* @return \{Promise< module:model\/([A-Za-z0-9_]+) >\}/    \* @return \{Promise<\1>\}/" ./javascript/javascript-sdk/src/api/*.js
 rm ./javascript/javascript-sdk/git_push.sh
 rm ./javascript/javascript-sdk/mocha.opts
@@ -112,8 +114,8 @@ docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/ope
     --skip-validate-spec \
     --additional-properties=packageVersion=$VERSION \
     --template-dir=/local/go/template
-# these generated structs collides between api_cluster.go and api_maintenance.go, needs to be improved TODO
-sed $SED_INPLACE.bak -e 's/ApiEnterMaintenanceRequest/ApiClusterEnterMaintenanceRequest/g' ./go/go-sdk/api_cluster.go && rm ./go/go-sdk/api_cluster.go.bak
-sed $SED_INPLACE.bak -e 's/ApiExitMaintenanceRequest/ApiClusterExitMaintenanceRequest/g' ./go/go-sdk/api_cluster.go && rm ./go/go-sdk/api_cluster.go.bak
+# these generated structs collide between api_cluster.go and api_maintenance.go, needs to be improved TODO
+sed -i .bak -e 's/ApiEnterMaintenanceRequest/ApiClusterEnterMaintenanceRequest/g' ./go/go-sdk/api_cluster.go && rm ./go/go-sdk/api_cluster.go.bak
+sed -i .bak -e 's/ApiExitMaintenanceRequest/ApiClusterExitMaintenanceRequest/g' ./go/go-sdk/api_cluster.go && rm ./go/go-sdk/api_cluster.go.bak
 gofmt -w ./go-sdk
 fi

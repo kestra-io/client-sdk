@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The InstanceControllerApiPluginListRequest model module.
  * @module model/InstanceControllerApiPluginListRequest
- * @version 1.0.2
- */
+  */
 class InstanceControllerApiPluginListRequest {
     /**
      * Constructs a new <code>InstanceControllerApiPluginListRequest</code>.

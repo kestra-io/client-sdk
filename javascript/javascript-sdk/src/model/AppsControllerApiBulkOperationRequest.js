@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The AppsControllerApiBulkOperationRequest model module.
  * @module model/AppsControllerApiBulkOperationRequest
- * @version 1.0.2
- */
+  */
 class AppsControllerApiBulkOperationRequest {
     /**
      * Constructs a new <code>AppsControllerApiBulkOperationRequest</code>.

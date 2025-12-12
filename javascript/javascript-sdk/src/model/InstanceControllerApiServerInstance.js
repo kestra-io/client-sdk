@@ -17,8 +17,7 @@ import ServerInstanceType from './ServerInstanceType';
 /**
  * The InstanceControllerApiServerInstance model module.
  * @module model/InstanceControllerApiServerInstance
- * @version 1.0.2
- */
+  */
 class InstanceControllerApiServerInstance {
     /**
      * Constructs a new <code>InstanceControllerApiServerInstance</code>.

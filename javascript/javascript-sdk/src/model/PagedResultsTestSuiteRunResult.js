@@ -17,8 +17,7 @@ import TestSuiteRunResult from './TestSuiteRunResult';
 /**
  * The PagedResultsTestSuiteRunResult model module.
  * @module model/PagedResultsTestSuiteRunResult
- * @version 1.0.2
- */
+  */
 class PagedResultsTestSuiteRunResult {
     /**
      * Constructs a new <code>PagedResultsTestSuiteRunResult</code>.

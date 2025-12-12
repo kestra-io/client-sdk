@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The PluginArtifactMetadata model module.
  * @module model/PluginArtifactMetadata
- * @version 1.0.2
- */
+  */
 class PluginArtifactMetadata {
     /**
      * Constructs a new <code>PluginArtifactMetadata</code>.

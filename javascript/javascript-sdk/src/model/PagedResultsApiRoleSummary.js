@@ -17,8 +17,7 @@ import ApiRoleSummary from './ApiRoleSummary';
 /**
  * The PagedResultsApiRoleSummary model module.
  * @module model/PagedResultsApiRoleSummary
- * @version 1.0.2
- */
+  */
 class PagedResultsApiRoleSummary {
     /**
      * Constructs a new <code>PagedResultsApiRoleSummary</code>.

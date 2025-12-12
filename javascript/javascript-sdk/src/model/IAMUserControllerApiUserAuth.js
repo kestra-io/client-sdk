@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The IAMUserControllerApiUserAuth model module.
  * @module model/IAMUserControllerApiUserAuth
- * @version 1.0.2
- */
+  */
 class IAMUserControllerApiUserAuth {
     /**
      * Constructs a new <code>IAMUserControllerApiUserAuth</code>.

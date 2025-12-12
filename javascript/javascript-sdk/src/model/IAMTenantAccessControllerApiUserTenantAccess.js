@@ -18,8 +18,7 @@ import IAMTenantAccessControllerApiGroup from './IAMTenantAccessControllerApiGro
 /**
  * The IAMTenantAccessControllerApiUserTenantAccess model module.
  * @module model/IAMTenantAccessControllerApiUserTenantAccess
- * @version 1.0.2
- */
+  */
 class IAMTenantAccessControllerApiUserTenantAccess {
     /**
      * Constructs a new <code>IAMTenantAccessControllerApiUserTenantAccess</code>.

@@ -17,8 +17,7 @@ import QueryFilter from './QueryFilter';
 /**
  * The ChartFiltersOverrides model module.
  * @module model/ChartFiltersOverrides
- * @version 1.0.2
- */
+  */
 class ChartFiltersOverrides {
     /**
      * Constructs a new <code>ChartFiltersOverrides</code>.

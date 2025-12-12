@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The Cache model module.
  * @module model/Cache
- * @version 1.0.2
- */
+  */
 class Cache {
     /**
      * Constructs a new <code>Cache</code>.

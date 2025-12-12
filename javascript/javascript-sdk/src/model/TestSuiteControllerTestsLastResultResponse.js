@@ -17,8 +17,7 @@ import TestSuiteRunResult from './TestSuiteRunResult';
 /**
  * The TestSuiteControllerTestsLastResultResponse model module.
  * @module model/TestSuiteControllerTestsLastResultResponse
- * @version 1.0.2
- */
+  */
 class TestSuiteControllerTestsLastResultResponse {
     /**
      * Constructs a new <code>TestSuiteControllerTestsLastResultResponse</code>.

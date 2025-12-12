@@ -18,8 +18,7 @@ import Level from './Level';
 /**
  * The LogEntry model module.
  * @module model/LogEntry
- * @version 1.0.2
- */
+  */
 class LogEntry {
     /**
      * Constructs a new <code>LogEntry</code>.

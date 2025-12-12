@@ -17,8 +17,7 @@ import IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions from './IAMRoleC
 /**
  * The IAMRoleControllerApiRoleDetail model module.
  * @module model/IAMRoleControllerApiRoleDetail
- * @version 1.0.2
- */
+  */
 class IAMRoleControllerApiRoleDetail {
     /**
      * Constructs a new <code>IAMRoleControllerApiRoleDetail</code>.

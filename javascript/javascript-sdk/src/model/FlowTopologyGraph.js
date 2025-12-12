@@ -18,8 +18,7 @@ import FlowTopologyGraphEdge from './FlowTopologyGraphEdge';
 /**
  * The FlowTopologyGraph model module.
  * @module model/FlowTopologyGraph
- * @version 1.0.2
- */
+  */
 class FlowTopologyGraph {
     /**
      * Constructs a new <code>FlowTopologyGraph</code>.

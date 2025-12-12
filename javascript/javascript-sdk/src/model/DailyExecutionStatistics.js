@@ -18,8 +18,7 @@ import DailyExecutionStatisticsExecutionCounts from './DailyExecutionStatisticsE
 /**
  * The DailyExecutionStatistics model module.
  * @module model/DailyExecutionStatistics
- * @version 1.0.2
- */
+  */
 class DailyExecutionStatistics {
     /**
      * Constructs a new <code>DailyExecutionStatistics</code>.

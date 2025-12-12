@@ -25,8 +25,7 @@ import ServiceProviderConfigurationSupportedConfiguration from './ServiceProvide
 /**
  * The ServiceProviderConfiguration model module.
  * @module model/ServiceProviderConfiguration
- * @version 1.0.2
- */
+  */
 class ServiceProviderConfiguration {
     /**
      * Constructs a new <code>ServiceProviderConfiguration</code>.

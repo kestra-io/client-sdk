@@ -25,8 +25,7 @@ import RightSidebarConfiguration from './RightSidebarConfiguration';
 /**
  * The MiscControllerEEConfiguration model module.
  * @module model/MiscControllerEEConfiguration
- * @version 1.0.2
- */
+  */
 class MiscControllerEEConfiguration {
     /**
      * Constructs a new <code>MiscControllerEEConfiguration</code>.

@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The MetricAggregation model module.
  * @module model/MetricAggregation
- * @version 1.0.2
- */
+  */
 class MetricAggregation {
     /**
      * Constructs a new <code>MetricAggregation</code>.

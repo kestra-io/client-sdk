@@ -18,8 +18,7 @@ import SortOrder from './SortOrder';
 /**
  * The SortRequest model module.
  * @module model/SortRequest
- * @version 1.0.2
- */
+  */
 class SortRequest {
     /**
      * Constructs a new <code>SortRequest</code>.

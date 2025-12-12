@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The Assertion model module.
  * @module model/Assertion
- * @version 1.0.2
- */
+  */
 class Assertion {
     /**
      * Constructs a new <code>Assertion</code>.

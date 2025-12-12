@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The ApiPatchSuperAdminRequest model module.
  * @module model/ApiPatchSuperAdminRequest
- * @version 1.0.2
- */
+  */
 class ApiPatchSuperAdminRequest {
     /**
      * Constructs a new <code>ApiPatchSuperAdminRequest</code>.

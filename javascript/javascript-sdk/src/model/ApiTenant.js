@@ -20,8 +20,7 @@ import WorkerGroup from './WorkerGroup';
 /**
  * The ApiTenant model module.
  * @module model/ApiTenant
- * @version 1.0.2
- */
+  */
 class ApiTenant {
     /**
      * Constructs a new <code>ApiTenant</code>.

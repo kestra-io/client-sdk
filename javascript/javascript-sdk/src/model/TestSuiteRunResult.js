@@ -18,8 +18,7 @@ import UnitTestResult from './UnitTestResult';
 /**
  * The TestSuiteRunResult model module.
  * @module model/TestSuiteRunResult
- * @version 1.0.2
- */
+  */
 class TestSuiteRunResult {
     /**
      * Constructs a new <code>TestSuiteRunResult</code>.

@@ -27,8 +27,7 @@ import WorkerGroup from './WorkerGroup';
 /**
  * The FlowWithSource model module.
  * @module model/FlowWithSource
- * @version 1.0.2
- */
+  */
 class FlowWithSource {
     /**
      * Constructs a new <code>FlowWithSource</code>.

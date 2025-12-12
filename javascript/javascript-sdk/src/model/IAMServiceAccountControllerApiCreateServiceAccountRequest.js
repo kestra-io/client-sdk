@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The IAMServiceAccountControllerApiCreateServiceAccountRequest model module.
  * @module model/IAMServiceAccountControllerApiCreateServiceAccountRequest
- * @version 1.0.2
- */
+  */
 class IAMServiceAccountControllerApiCreateServiceAccountRequest {
     /**
      * Constructs a new <code>IAMServiceAccountControllerApiCreateServiceAccountRequest</code>.

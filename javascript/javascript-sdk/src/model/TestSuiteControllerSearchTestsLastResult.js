@@ -17,8 +17,7 @@ import TestSuiteControllerTestSuiteApiId from './TestSuiteControllerTestSuiteApi
 /**
  * The TestSuiteControllerSearchTestsLastResult model module.
  * @module model/TestSuiteControllerSearchTestsLastResult
- * @version 1.0.2
- */
+  */
 class TestSuiteControllerSearchTestsLastResult {
     /**
      * Constructs a new <code>TestSuiteControllerSearchTestsLastResult</code>.

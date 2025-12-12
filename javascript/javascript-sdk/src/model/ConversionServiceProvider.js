@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The ConversionServiceProvider model module.
  * @module model/ConversionServiceProvider
- * @version 1.0.2
- */
+  */
 class ConversionServiceProvider {
     /**
      * Constructs a new <code>ConversionServiceProvider</code>.

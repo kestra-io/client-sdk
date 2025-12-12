@@ -17,8 +17,7 @@ import AppsControllerApiAppCatalogItem from './AppsControllerApiAppCatalogItem';
 /**
  * The PagedResultsAppsControllerApiAppCatalogItem model module.
  * @module model/PagedResultsAppsControllerApiAppCatalogItem
- * @version 1.0.2
- */
+  */
 class PagedResultsAppsControllerApiAppCatalogItem {
     /**
      * Constructs a new <code>PagedResultsAppsControllerApiAppCatalogItem</code>.

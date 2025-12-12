@@ -17,8 +17,7 @@ import FlowRelation from './FlowRelation';
 /**
  * The FlowTopologyGraphEdge model module.
  * @module model/FlowTopologyGraphEdge
- * @version 1.0.2
- */
+  */
 class FlowTopologyGraphEdge {
     /**
      * Constructs a new <code>FlowTopologyGraphEdge</code>.

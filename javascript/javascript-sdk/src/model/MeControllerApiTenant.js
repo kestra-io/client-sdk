@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The MeControllerApiTenant model module.
  * @module model/MeControllerApiTenant
- * @version 1.0.2
- */
+  */
 class MeControllerApiTenant {
     /**
      * Constructs a new <code>MeControllerApiTenant</code>.

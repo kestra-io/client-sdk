@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The AssertionResult model module.
  * @module model/AssertionResult
- * @version 1.0.2
- */
+  */
 class AssertionResult {
     /**
      * Constructs a new <code>AssertionResult</code>.

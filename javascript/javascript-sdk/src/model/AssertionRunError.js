@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The AssertionRunError model module.
  * @module model/AssertionRunError
- * @version 1.0.2
- */
+  */
 class AssertionRunError {
     /**
      * Constructs a new <code>AssertionRunError</code>.

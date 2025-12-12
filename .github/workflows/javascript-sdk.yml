@@ -18,6 +18,11 @@ on:
         type: string
         default: "false"
 
+permissions:
+  contents: read
+  id-token: write
+
+
 jobs:
   npm:
     name: Publish to Npm
@@ -27,12 +32,26 @@ jobs:
         working-directory: ./javascript/javascript-sdk
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v4
+      - name: Get OIDC Token
+        env:
+          AUDIENCE: "npm:registry.npmjs.org"
+        run: |
+          TOKEN_JSON=$(curl -s -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=$AUDIENCE")
+          ID_TOKEN=$(echo "$TOKEN_JSON" | jq -r .value)
+          echo "NODE_AUTH_TOKEN=$ID_TOKEN" >> "$GITHUB_ENV"
+
+      - uses: actions/setup-node@v6
         with:
-          node-version: '18.x'
+          node-version: '22.12'
           registry-url: 'https://registry.npmjs.org'
+
+      # Trusted publishing need npm 11.+
+      - name: Upgrade npm
+        run: |
+          npm install -g npm@latest
+          npm version
 
       - name: Set version
         id: set_version

@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The PluginSchema model module.
  * @module model/PluginSchema
- * @version 1.0.2
- */
+  */
 class PluginSchema {
     /**
      * Constructs a new <code>PluginSchema</code>.

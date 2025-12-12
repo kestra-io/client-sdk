@@ -17,8 +17,7 @@ import TestSuite from './TestSuite';
 /**
  * The PagedResultsTestSuite model module.
  * @module model/PagedResultsTestSuite
- * @version 1.0.2
- */
+  */
 class PagedResultsTestSuite {
     /**
      * Constructs a new <code>PagedResultsTestSuite</code>.

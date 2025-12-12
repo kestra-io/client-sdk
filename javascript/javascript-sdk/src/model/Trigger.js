@@ -19,8 +19,7 @@ import TriggerContext from './TriggerContext';
 /**
  * The Trigger model module.
  * @module model/Trigger
- * @version 1.0.2
- */
+  */
 class Trigger {
     /**
      * Constructs a new <code>Trigger</code>.

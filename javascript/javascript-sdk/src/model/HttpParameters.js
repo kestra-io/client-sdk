@@ -19,8 +19,7 @@ import ConvertibleValuesListString from './ConvertibleValuesListString';
 /**
  * The HttpParameters model module.
  * @module model/HttpParameters
- * @version 1.0.2
- */
+  */
 class HttpParameters {
     /**
      * Constructs a new <code>HttpParameters</code>.

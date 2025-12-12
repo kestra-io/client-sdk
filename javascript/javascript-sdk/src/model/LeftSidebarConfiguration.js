@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The LeftSidebarConfiguration model module.
  * @module model/LeftSidebarConfiguration
- * @version 1.0.2
- */
+  */
 class LeftSidebarConfiguration {
     /**
      * Constructs a new <code>LeftSidebarConfiguration</code>.
