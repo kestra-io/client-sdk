@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IIAMUserControllerApiGroup
+  * @property {String} id
+  * @property {String} tenantId
+  */
+
+/**
  * The IAMUserControllerApiGroup model module.
  * @module model/IAMUserControllerApiGroup
-  */
+ * @type {IIAMUserControllerApiGroup}
+ */
 class IAMUserControllerApiGroup {
     /**
      * Constructs a new <code>IAMUserControllerApiGroup</code>.

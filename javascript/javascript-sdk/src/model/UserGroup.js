@@ -15,9 +15,18 @@ import ApiClient from '../ApiClient';
 import UserGroupType from './UserGroupType';
 
 /**
+  * @typedef {Object} IUserGroup
+  * @property {String} value
+  * @property {String} ref
+  * @property {String} display
+  * @property {module:model/UserGroupType} type
+  */
+
+/**
  * The UserGroup model module.
  * @module model/UserGroup
-  */
+ * @type {IUserGroup}
+ */
 class UserGroup {
     /**
      * Constructs a new <code>UserGroup</code>.

@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import StateType from './StateType';
 
 /**
+  * @typedef {Object} IStateHistory
+  * @property {module:model/StateType} state
+  * @property {Date} date
+  */
+
+/**
  * The StateHistory model module.
  * @module model/StateHistory
-  */
+ * @type {IStateHistory}
+ */
 class StateHistory {
     /**
      * Constructs a new <code>StateHistory</code>.

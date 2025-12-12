@@ -16,9 +16,18 @@ import ApiSecretMeta from './ApiSecretMeta';
 import ApiSecretTag from './ApiSecretTag';
 
 /**
+  * @typedef {Object} IApiSecretMetaEE
+  * @property {String} key
+  * @property {String} namespace
+  * @property {String} description
+  * @property {Array.<module:model/ApiSecretTag>} tags
+  */
+
+/**
  * The ApiSecretMetaEE model module.
  * @module model/ApiSecretMetaEE
-  */
+ * @type {IApiSecretMetaEE}
+ */
 class ApiSecretMetaEE {
     /**
      * Constructs a new <code>ApiSecretMetaEE</code>.

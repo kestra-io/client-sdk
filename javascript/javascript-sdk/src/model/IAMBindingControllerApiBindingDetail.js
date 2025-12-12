@@ -18,9 +18,20 @@ import IAMBindingControllerApiBindingUser from './IAMBindingControllerApiBinding
 import IAMBindingControllerApiRole from './IAMBindingControllerApiRole';
 
 /**
+  * @typedef {Object} IIAMBindingControllerApiBindingDetail
+  * @property {String} id
+  * @property {module:model/BindingType} type
+  * @property {String} namespace
+  * @property {module:model/IAMBindingControllerApiRole} role
+  * @property {module:model/IAMBindingControllerApiBindingGroup} group
+  * @property {module:model/IAMBindingControllerApiBindingUser} user
+  */
+
+/**
  * The IAMBindingControllerApiBindingDetail model module.
  * @module model/IAMBindingControllerApiBindingDetail
-  */
+ * @type {IIAMBindingControllerApiBindingDetail}
+ */
 class IAMBindingControllerApiBindingDetail {
     /**
      * Constructs a new <code>IAMBindingControllerApiBindingDetail</code>.

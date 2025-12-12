@@ -17,9 +17,28 @@ import InvitationInvitationStatus from './InvitationInvitationStatus';
 import UserType from './UserType';
 
 /**
+  * @typedef {Object} IInvitation
+  * @property {Boolean} isExpired
+  * @property {String} email
+  * @property {String} id
+  * @property {Array.<module:model/Binding>} bindings
+  * @property {Array.<String>} groupIds
+  * @property {String} tenantId
+  * @property {module:model/InvitationInvitationStatus} status
+  * @property {Date} sentAt
+  * @property {Date} expiredAt
+  * @property {Date} acceptedAt
+  * @property {Boolean} deleted
+  * @property {module:model/UserType} userType
+  * @property {Boolean} superAdmin
+  * @property {String} link
+  */
+
+/**
  * The Invitation model module.
  * @module model/Invitation
-  */
+ * @type {IInvitation}
+ */
 class Invitation {
     /**
      * Constructs a new <code>Invitation</code>.

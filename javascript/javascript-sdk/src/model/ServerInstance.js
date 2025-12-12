@@ -16,9 +16,20 @@ import Metric from './Metric';
 import ServerInstanceType from './ServerInstanceType';
 
 /**
+  * @typedef {Object} IServerInstance
+  * @property {String} id
+  * @property {module:model/ServerInstanceType} type
+  * @property {String} version
+  * @property {String} hostname
+  * @property {Object.<String, Object>} props
+  * @property {Array.<module:model/Metric>} metrics
+  */
+
+/**
  * The ServerInstance model module.
  * @module model/ServerInstance
-  */
+ * @type {IServerInstance}
+ */
 class ServerInstance {
     /**
      * Constructs a new <code>ServerInstance</code>.

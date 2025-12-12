@@ -17,9 +17,25 @@ import IAMUserControllerApiGroup from './IAMUserControllerApiGroup';
 import IAMUserControllerApiUserAuth from './IAMUserControllerApiUserAuth';
 
 /**
+  * @typedef {Object} IIAMUserControllerApiUser
+  * @property {String} id
+  * @property {String} username
+  * @property {String} displayName
+  * @property {String} firstName
+  * @property {String} lastName
+  * @property {String} email
+  * @property {Array.<module:model/ApiTenantSummary>} tenants
+  * @property {Array.<module:model/IAMUserControllerApiUserAuth>} auths
+  * @property {Array.<module:model/IAMUserControllerApiGroup>} groups
+  * @property {Boolean} superAdmin
+  * @property {Boolean} restricted
+  */
+
+/**
  * The IAMUserControllerApiUser model module.
  * @module model/IAMUserControllerApiUser
-  */
+ * @type {IIAMUserControllerApiUser}
+ */
 class IAMUserControllerApiUser {
     /**
      * Constructs a new <code>IAMUserControllerApiUser</code>.

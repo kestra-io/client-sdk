@@ -16,9 +16,22 @@ import BlueprintControllerApiBlueprintItem from './BlueprintControllerApiBluepri
 import BlueprintControllerKind from './BlueprintControllerKind';
 
 /**
+  * @typedef {Object} IBlueprintControllerApiBlueprintItemWithSource
+  * @property {String} id
+  * @property {String} title
+  * @property {String} description
+  * @property {Array.<String>} includedTasks
+  * @property {Array.<String>} tags
+  * @property {Date} publishedAt
+  * @property {String} source
+  * @property {module:model/BlueprintControllerKind} kind
+  */
+
+/**
  * The BlueprintControllerApiBlueprintItemWithSource model module.
  * @module model/BlueprintControllerApiBlueprintItemWithSource
-  */
+ * @type {IBlueprintControllerApiBlueprintItemWithSource}
+ */
 class BlueprintControllerApiBlueprintItemWithSource {
     /**
      * Constructs a new <code>BlueprintControllerApiBlueprintItemWithSource</code>.

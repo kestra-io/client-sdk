@@ -15,9 +15,21 @@ import ApiClient from '../ApiClient';
 import Label from './Label';
 
 /**
+  * @typedef {Object} IBackfill
+  * @property {Date} start
+  * @property {Date} end
+  * @property {Date} currentDate
+  * @property {Boolean} paused
+  * @property {Object.<String, Object>} inputs
+  * @property {Array.<module:model/Label>} labels
+  * @property {Date} previousNextExecutionDate
+  */
+
+/**
  * The Backfill model module.
  * @module model/Backfill
-  */
+ * @type {IBackfill}
+ */
 class Backfill {
     /**
      * Constructs a new <code>Backfill</code>.

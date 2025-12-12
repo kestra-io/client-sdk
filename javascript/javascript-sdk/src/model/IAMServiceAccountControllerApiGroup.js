@@ -14,9 +14,15 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IIAMServiceAccountControllerApiGroup
+  * @property {String} id
+  */
+
+/**
  * The IAMServiceAccountControllerApiGroup model module.
  * @module model/IAMServiceAccountControllerApiGroup
-  */
+ * @type {IIAMServiceAccountControllerApiGroup}
+ */
 class IAMServiceAccountControllerApiGroup {
     /**
      * Constructs a new <code>IAMServiceAccountControllerApiGroup</code>.

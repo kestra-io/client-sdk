@@ -14,9 +14,18 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IFlowId
+  * @property {String} id
+  * @property {String} namespace
+  * @property {Number} revision
+  * @property {String} tenantId
+  */
+
+/**
  * The FlowId model module.
  * @module model/FlowId
-  */
+ * @type {IFlowId}
+ */
 class FlowId {
     /**
      * Constructs a new <code>FlowId</code>.

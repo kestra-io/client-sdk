@@ -14,9 +14,20 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IAbstractMetricEntryObject
+  * @property {String} type
+  * @property {Object} value
+  * @property {String} name
+  * @property {String} description
+  * @property {Object.<String, String>} tags
+  * @property {Date} timestamp
+  */
+
+/**
  * The AbstractMetricEntryObject model module.
  * @module model/AbstractMetricEntryObject
-  */
+ * @type {IAbstractMetricEntryObject}
+ */
 class AbstractMetricEntryObject {
     /**
      * Constructs a new <code>AbstractMetricEntryObject</code>.

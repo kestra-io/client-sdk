@@ -14,9 +14,17 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IPluginDefault
+  * @property {String} type
+  * @property {Boolean} forced
+  * @property {Object} values
+  */
+
+/**
  * The PluginDefault model module.
  * @module model/PluginDefault
-  */
+ * @type {IPluginDefault}
+ */
 class PluginDefault {
     /**
      * Constructs a new <code>PluginDefault</code>.

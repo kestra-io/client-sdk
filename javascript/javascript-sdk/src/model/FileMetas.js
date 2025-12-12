@@ -14,9 +14,15 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IFileMetas
+  * @property {Number} size
+  */
+
+/**
  * The FileMetas model module.
  * @module model/FileMetas
-  */
+ * @type {IFileMetas}
+ */
 class FileMetas {
     /**
      * Constructs a new <code>FileMetas</code>.

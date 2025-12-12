@@ -14,9 +14,20 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IMiscControllerLicenseInfo
+  * @property {String} type
+  * @property {Date} expiry
+  * @property {Boolean} expired
+  * @property {Number} maxServers
+  * @property {Boolean} standalone
+  * @property {Boolean} workerGroups
+  */
+
+/**
  * The MiscControllerLicenseInfo model module.
  * @module model/MiscControllerLicenseInfo
-  */
+ * @type {IMiscControllerLicenseInfo}
+ */
 class MiscControllerLicenseInfo {
     /**
      * Constructs a new <code>MiscControllerLicenseInfo</code>.

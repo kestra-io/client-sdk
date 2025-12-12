@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IPagedResultsMapStringObject
+  * @property {Array.<Object.<String, Object>>} results
+  * @property {Number} total
+  */
+
+/**
  * The PagedResultsMapStringObject model module.
  * @module model/PagedResultsMapStringObject
-  */
+ * @type {IPagedResultsMapStringObject}
+ */
 class PagedResultsMapStringObject {
     /**
      * Constructs a new <code>PagedResultsMapStringObject</code>.

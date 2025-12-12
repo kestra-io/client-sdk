@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} INamespaceLight
+  * @property {String} id
+  * @property {Boolean} deleted
+  */
+
+/**
  * The NamespaceLight model module.
  * @module model/NamespaceLight
-  */
+ * @type {INamespaceLight}
+ */
 class NamespaceLight {
     /**
      * Constructs a new <code>NamespaceLight</code>.

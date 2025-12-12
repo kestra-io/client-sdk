@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IIAMServiceAccountControllerApiPatchServiceAccountRequest
+  * @property {String} name
+  * @property {String} description
+  */
+
+/**
  * The IAMServiceAccountControllerApiPatchServiceAccountRequest model module.
  * @module model/IAMServiceAccountControllerApiPatchServiceAccountRequest
-  */
+ * @type {IIAMServiceAccountControllerApiPatchServiceAccountRequest}
+ */
 class IAMServiceAccountControllerApiPatchServiceAccountRequest {
     /**
      * Constructs a new <code>IAMServiceAccountControllerApiPatchServiceAccountRequest</code>.

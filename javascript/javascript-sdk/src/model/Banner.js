@@ -15,9 +15,21 @@ import ApiClient from '../ApiClient';
 import BannerType from './BannerType';
 
 /**
+  * @typedef {Object} IBanner
+  * @property {String} id
+  * @property {String} message
+  * @property {module:model/BannerType} type
+  * @property {Date} startDate
+  * @property {Date} endDate
+  * @property {String} tenantId
+  * @property {Boolean} active
+  */
+
+/**
  * The Banner model module.
  * @module model/Banner
-  */
+ * @type {IBanner}
+ */
 class Banner {
     /**
      * Constructs a new <code>Banner</code>.

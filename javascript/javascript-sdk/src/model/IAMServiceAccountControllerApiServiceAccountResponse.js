@@ -15,9 +15,19 @@ import ApiClient from '../ApiClient';
 import IAMServiceAccountControllerApiGroup from './IAMServiceAccountControllerApiGroup';
 
 /**
+  * @typedef {Object} IIAMServiceAccountControllerApiServiceAccountResponse
+  * @property {String} id - the identifier of this service account.
+  * @property {String} name - the name of this service account.
+  * @property {String} description - the description of this service account.
+  * @property {Array.<module:model/IAMServiceAccountControllerApiGroup>} groups
+  * @property {Boolean} superAdmin
+  */
+
+/**
  * The IAMServiceAccountControllerApiServiceAccountResponse model module.
  * @module model/IAMServiceAccountControllerApiServiceAccountResponse
-  */
+ * @type {IIAMServiceAccountControllerApiServiceAccountResponse}
+ */
 class IAMServiceAccountControllerApiServiceAccountResponse {
     /**
      * Constructs a new <code>IAMServiceAccountControllerApiServiceAccountResponse</code>.

@@ -15,9 +15,18 @@ import ApiClient from '../ApiClient';
 import ApiAutocomplete from './ApiAutocomplete';
 
 /**
+  * @typedef {Object} IIAMTenantAccessControllerUserApiAutocomplete
+  * @property {String} q
+  * @property {Array.<String>} ids
+  * @property {Boolean} existingOnly
+  * @property {String} username
+  */
+
+/**
  * The IAMTenantAccessControllerUserApiAutocomplete model module.
  * @module model/IAMTenantAccessControllerUserApiAutocomplete
-  */
+ * @type {IIAMTenantAccessControllerUserApiAutocomplete}
+ */
 class IAMTenantAccessControllerUserApiAutocomplete {
     /**
      * Constructs a new <code>IAMTenantAccessControllerUserApiAutocomplete</code>.

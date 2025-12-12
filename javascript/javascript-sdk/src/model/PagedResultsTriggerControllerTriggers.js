@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import TriggerControllerTriggers from './TriggerControllerTriggers';
 
 /**
+  * @typedef {Object} IPagedResultsTriggerControllerTriggers
+  * @property {Array.<module:model/TriggerControllerTriggers>} results
+  * @property {Number} total
+  */
+
+/**
  * The PagedResultsTriggerControllerTriggers model module.
  * @module model/PagedResultsTriggerControllerTriggers
-  */
+ * @type {IPagedResultsTriggerControllerTriggers}
+ */
 class PagedResultsTriggerControllerTriggers {
     /**
      * Constructs a new <code>PagedResultsTriggerControllerTriggers</code>.

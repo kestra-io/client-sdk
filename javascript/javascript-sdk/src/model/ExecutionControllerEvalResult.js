@@ -14,9 +14,17 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IExecutionControllerEvalResult
+  * @property {String} result
+  * @property {String} error
+  * @property {String} stackTrace
+  */
+
+/**
  * The ExecutionControllerEvalResult model module.
  * @module model/ExecutionControllerEvalResult
-  */
+ * @type {IExecutionControllerEvalResult}
+ */
 class ExecutionControllerEvalResult {
     /**
      * Constructs a new <code>ExecutionControllerEvalResult</code>.

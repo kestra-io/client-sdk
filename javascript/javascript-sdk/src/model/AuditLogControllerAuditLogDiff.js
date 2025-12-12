@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IAuditLogControllerAuditLogDiff
+  * @property {String} before
+  * @property {String} after
+  */
+
+/**
  * The AuditLogControllerAuditLogDiff model module.
  * @module model/AuditLogControllerAuditLogDiff
-  */
+ * @type {IAuditLogControllerAuditLogDiff}
+ */
 class AuditLogControllerAuditLogDiff {
     /**
      * Constructs a new <code>AuditLogControllerAuditLogDiff</code>.

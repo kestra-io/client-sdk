@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IInstanceControllerApiPluginArtifactListPluginArtifact
+  * @property {Number} total
+  * @property {Array.<Object>} results
+  */
+
+/**
  * The InstanceControllerApiPluginArtifactListPluginArtifact model module.
  * @module model/InstanceControllerApiPluginArtifactListPluginArtifact
-  */
+ * @type {IInstanceControllerApiPluginArtifactListPluginArtifact}
+ */
 class InstanceControllerApiPluginArtifactListPluginArtifact {
     /**
      * Constructs a new <code>InstanceControllerApiPluginArtifactListPluginArtifact</code>.

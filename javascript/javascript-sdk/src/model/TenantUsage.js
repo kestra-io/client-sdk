@@ -14,9 +14,15 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} ITenantUsage
+  * @property {Number} count
+  */
+
+/**
  * The TenantUsage model module.
  * @module model/TenantUsage
-  */
+ * @type {ITenantUsage}
+ */
 class TenantUsage {
     /**
      * Constructs a new <code>TenantUsage</code>.

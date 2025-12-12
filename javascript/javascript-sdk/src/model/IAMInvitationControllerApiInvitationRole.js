@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IIAMInvitationControllerApiInvitationRole
+  * @property {String} id
+  * @property {Array.<String>} namespaces
+  */
+
+/**
  * The IAMInvitationControllerApiInvitationRole model module.
  * @module model/IAMInvitationControllerApiInvitationRole
-  */
+ * @type {IIAMInvitationControllerApiInvitationRole}
+ */
 class IAMInvitationControllerApiInvitationRole {
     /**
      * Constructs a new <code>IAMInvitationControllerApiInvitationRole</code>.

@@ -15,9 +15,17 @@ import ApiClient from '../ApiClient';
 import ServiceProviderConfigurationSupportedConfiguration from './ServiceProviderConfigurationSupportedConfiguration';
 
 /**
+  * @typedef {Object} IServiceProviderConfigurationBulkConfiguration
+  * @property {Boolean} supported
+  * @property {Number} maxOperations
+  * @property {Number} maxPayloadSize
+  */
+
+/**
  * The ServiceProviderConfigurationBulkConfiguration model module.
  * @module model/ServiceProviderConfigurationBulkConfiguration
-  */
+ * @type {IServiceProviderConfigurationBulkConfiguration}
+ */
 class ServiceProviderConfigurationBulkConfiguration {
     /**
      * Constructs a new <code>ServiceProviderConfigurationBulkConfiguration</code>.

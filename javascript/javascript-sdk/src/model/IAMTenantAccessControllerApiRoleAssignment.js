@@ -16,9 +16,20 @@ import IAMTenantAccessControllerApiUserPermission from './IAMTenantAccessControl
 import RBACServiceRoleAssignmentRoleOrigin from './RBACServiceRoleAssignmentRoleOrigin';
 
 /**
+  * @typedef {Object} IIAMTenantAccessControllerApiRoleAssignment
+  * @property {String} id
+  * @property {String} name
+  * @property {String} namespace
+  * @property {module:model/RBACServiceRoleAssignmentRoleOrigin} origin
+  * @property {String} sourceId
+  * @property {Array.<module:model/IAMTenantAccessControllerApiUserPermission>} permissions
+  */
+
+/**
  * The IAMTenantAccessControllerApiRoleAssignment model module.
  * @module model/IAMTenantAccessControllerApiRoleAssignment
-  */
+ * @type {IIAMTenantAccessControllerApiRoleAssignment}
+ */
 class IAMTenantAccessControllerApiRoleAssignment {
     /**
      * Constructs a new <code>IAMTenantAccessControllerApiRoleAssignment</code>.

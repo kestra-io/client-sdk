@@ -14,9 +14,31 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IAssertion
+  * @property {Object} value
+  * @property {String} taskId
+  * @property {String} errorMessage
+  * @property {String} description
+  * @property {String} endsWith
+  * @property {String} startsWith
+  * @property {String} contains
+  * @property {Object} equalTo
+  * @property {Object} notEqualTo
+  * @property {Object} greaterThan
+  * @property {Object} greaterThanOrEqualTo
+  * @property {Object} lessThan
+  * @property {Object} lessThanOrEqualTo
+  * @property {Object} in
+  * @property {Object} notIn
+  * @property {Object} isNull
+  * @property {Object} isNotNull
+  */
+
+/**
  * The Assertion model module.
  * @module model/Assertion
-  */
+ * @type {IAssertion}
+ */
 class Assertion {
     /**
      * Constructs a new <code>Assertion</code>.

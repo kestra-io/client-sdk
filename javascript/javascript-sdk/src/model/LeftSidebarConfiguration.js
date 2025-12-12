@@ -14,9 +14,15 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} ILeftSidebarConfiguration
+  * @property {Array.<String>} disabledMenus
+  */
+
+/**
  * The LeftSidebarConfiguration model module.
  * @module model/LeftSidebarConfiguration
-  */
+ * @type {ILeftSidebarConfiguration}
+ */
 class LeftSidebarConfiguration {
     /**
      * Constructs a new <code>LeftSidebarConfiguration</code>.

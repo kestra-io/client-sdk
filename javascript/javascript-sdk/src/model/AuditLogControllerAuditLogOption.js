@@ -14,9 +14,17 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IAuditLogControllerAuditLogOption
+  * @property {String} id
+  * @property {Date} date
+  * @property {String} username
+  */
+
+/**
  * The AuditLogControllerAuditLogOption model module.
  * @module model/AuditLogControllerAuditLogOption
-  */
+ * @type {IAuditLogControllerAuditLogOption}
+ */
 class AuditLogControllerAuditLogOption {
     /**
      * Constructs a new <code>AuditLogControllerAuditLogOption</code>.

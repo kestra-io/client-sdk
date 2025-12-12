@@ -15,9 +15,19 @@ import ApiClient from '../ApiClient';
 import StateType from './StateType';
 
 /**
+  * @typedef {Object} ITaskFixture
+  * @property {String} id
+  * @property {String} value
+  * @property {module:model/StateType} state
+  * @property {Object.<String, Object>} outputs
+  * @property {String} description
+  */
+
+/**
  * The TaskFixture model module.
  * @module model/TaskFixture
-  */
+ * @type {ITaskFixture}
+ */
 class TaskFixture {
     /**
      * Constructs a new <code>TaskFixture</code>.

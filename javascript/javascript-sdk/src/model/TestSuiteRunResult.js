@@ -16,9 +16,22 @@ import TestState from './TestState';
 import UnitTestResult from './UnitTestResult';
 
 /**
+  * @typedef {Object} ITestSuiteRunResult
+  * @property {String} id
+  * @property {String} testSuiteId
+  * @property {String} namespace
+  * @property {String} flowId
+  * @property {module:model/TestState} state
+  * @property {Date} startDate
+  * @property {Date} endDate
+  * @property {Array.<module:model/UnitTestResult>} results
+  */
+
+/**
  * The TestSuiteRunResult model module.
  * @module model/TestSuiteRunResult
-  */
+ * @type {ITestSuiteRunResult}
+ */
 class TestSuiteRunResult {
     /**
      * Constructs a new <code>TestSuiteRunResult</code>.

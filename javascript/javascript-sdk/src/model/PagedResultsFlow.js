@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import Flow from './Flow';
 
 /**
+  * @typedef {Object} IPagedResultsFlow
+  * @property {Array.<module:model/Flow>} results
+  * @property {Number} total
+  */
+
+/**
  * The PagedResultsFlow model module.
  * @module model/PagedResultsFlow
-  */
+ * @type {IPagedResultsFlow}
+ */
 class PagedResultsFlow {
     /**
      * Constructs a new <code>PagedResultsFlow</code>.

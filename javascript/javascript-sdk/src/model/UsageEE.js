@@ -21,9 +21,20 @@ import TenantUsage from './TenantUsage';
 import UserUsage from './UserUsage';
 
 /**
+  * @typedef {Object} IUsageEE
+  * @property {module:model/FlowUsage} flows
+  * @property {module:model/ExecutionUsage} executions
+  * @property {module:model/GroupUsage} groups
+  * @property {module:model/UserUsage} users
+  * @property {module:model/RoleUsage} roles
+  * @property {module:model/TenantUsage} tenants
+  */
+
+/**
  * The UsageEE model module.
  * @module model/UsageEE
-  */
+ * @type {IUsageEE}
+ */
 class UsageEE {
     /**
      * Constructs a new <code>UsageEE</code>.

@@ -15,9 +15,15 @@ import ApiClient from '../ApiClient';
 import TestSuiteControllerTestSuiteApiId from './TestSuiteControllerTestSuiteApiId';
 
 /**
+  * @typedef {Object} ITestSuiteControllerTestSuiteBulkRequest
+  * @property {Array.<module:model/TestSuiteControllerTestSuiteApiId>} ids
+  */
+
+/**
  * The TestSuiteControllerTestSuiteBulkRequest model module.
  * @module model/TestSuiteControllerTestSuiteBulkRequest
-  */
+ * @type {ITestSuiteControllerTestSuiteBulkRequest}
+ */
 class TestSuiteControllerTestSuiteBulkRequest {
     /**
      * Constructs a new <code>TestSuiteControllerTestSuiteBulkRequest</code>.

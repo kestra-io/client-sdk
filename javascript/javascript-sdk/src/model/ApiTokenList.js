@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import ApiToken from './ApiToken';
 
 /**
+  * @typedef {Object} IApiTokenList
+  * @property {Number} total
+  * @property {Array.<module:model/ApiToken>} results
+  */
+
+/**
  * The ApiTokenList model module.
  * @module model/ApiTokenList
-  */
+ * @type {IApiTokenList}
+ */
 class ApiTokenList {
     /**
      * Constructs a new <code>ApiTokenList</code>.

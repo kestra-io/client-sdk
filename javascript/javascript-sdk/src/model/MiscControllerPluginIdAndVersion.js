@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IMiscControllerPluginIdAndVersion
+  * @property {String} id
+  * @property {String} version
+  */
+
+/**
  * The MiscControllerPluginIdAndVersion model module.
  * @module model/MiscControllerPluginIdAndVersion
-  */
+ * @type {IMiscControllerPluginIdAndVersion}
+ */
 class MiscControllerPluginIdAndVersion {
     /**
      * Constructs a new <code>MiscControllerPluginIdAndVersion</code>.

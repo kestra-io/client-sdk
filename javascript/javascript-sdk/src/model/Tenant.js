@@ -17,9 +17,28 @@ import TenantAppCatalogConfig from './TenantAppCatalogConfig';
 import WorkerGroup from './WorkerGroup';
 
 /**
+  * @typedef {Object} ITenant
+  * @property {module:model/Isolation} storageIsolation
+  * @property {module:model/Isolation} secretIsolation
+  * @property {String} id
+  * @property {String} name
+  * @property {Boolean} deleted
+  * @property {module:model/WorkerGroup} workerGroup
+  * @property {String} storageType
+  * @property {Object.<String, Object>} storageConfiguration
+  * @property {String} secretType
+  * @property {Boolean} secretReadOnly
+  * @property {Object.<String, Object>} secretConfiguration
+  * @property {Boolean} requireExistingNamespace
+  * @property {Boolean} outputsInInternalStorage
+  * @property {module:model/TenantAppCatalogConfig} appCatalogConfig
+  */
+
+/**
  * The Tenant model module.
  * @module model/Tenant
-  */
+ * @type {ITenant}
+ */
 class Tenant {
     /**
      * Constructs a new <code>Tenant</code>.

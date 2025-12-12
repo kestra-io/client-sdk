@@ -16,9 +16,16 @@ import BaseResourcePatchRequest from './BaseResourcePatchRequest';
 import PatchOperation from './PatchOperation';
 
 /**
+  * @typedef {Object} IPatchRequest
+  * @property {Array.<String>} schemas
+  * @property {Array.<module:model/PatchOperation>} patchOperationList
+  */
+
+/**
  * The PatchRequest model module.
  * @module model/PatchRequest
-  */
+ * @type {IPatchRequest}
+ */
 class PatchRequest {
     /**
      * Constructs a new <code>PatchRequest</code>.

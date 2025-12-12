@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import KVType from './KVType';
 
 /**
+  * @typedef {Object} IKVControllerTypedValue
+  * @property {module:model/KVType} type
+  * @property {Object} value
+  */
+
+/**
  * The KVControllerTypedValue model module.
  * @module model/KVControllerTypedValue
-  */
+ * @type {IKVControllerTypedValue}
+ */
 class KVControllerTypedValue {
     /**
      * Constructs a new <code>KVControllerTypedValue</code>.

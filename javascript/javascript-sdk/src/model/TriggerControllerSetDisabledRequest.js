@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import Trigger from './Trigger';
 
 /**
+  * @typedef {Object} ITriggerControllerSetDisabledRequest
+  * @property {Array.<module:model/Trigger>} triggers
+  * @property {Boolean} disabled
+  */
+
+/**
  * The TriggerControllerSetDisabledRequest model module.
  * @module model/TriggerControllerSetDisabledRequest
-  */
+ * @type {ITriggerControllerSetDisabledRequest}
+ */
 class TriggerControllerSetDisabledRequest {
     /**
      * Constructs a new <code>TriggerControllerSetDisabledRequest</code>.

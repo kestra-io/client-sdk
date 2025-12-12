@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import InstanceControllerApiActiveService from './InstanceControllerApiActiveService';
 
 /**
+  * @typedef {Object} IInstanceControllerApiActiveServiceList
+  * @property {Number} total
+  * @property {Array.<module:model/InstanceControllerApiActiveService>} services
+  */
+
+/**
  * The InstanceControllerApiActiveServiceList model module.
  * @module model/InstanceControllerApiActiveServiceList
-  */
+ * @type {IInstanceControllerApiActiveServiceList}
+ */
 class InstanceControllerApiActiveServiceList {
     /**
      * Constructs a new <code>InstanceControllerApiActiveServiceList</code>.

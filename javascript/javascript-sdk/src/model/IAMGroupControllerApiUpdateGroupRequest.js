@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IIAMGroupControllerApiUpdateGroupRequest
+  * @property {String} name - of the group.
+  * @property {String} description - of the group.
+  */
+
+/**
  * The IAMGroupControllerApiUpdateGroupRequest model module.
  * @module model/IAMGroupControllerApiUpdateGroupRequest
-  */
+ * @type {IIAMGroupControllerApiUpdateGroupRequest}
+ */
 class IAMGroupControllerApiUpdateGroupRequest {
     /**
      * Constructs a new <code>IAMGroupControllerApiUpdateGroupRequest</code>.

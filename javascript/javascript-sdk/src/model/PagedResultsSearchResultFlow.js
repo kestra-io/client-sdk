@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import SearchResultFlow from './SearchResultFlow';
 
 /**
+  * @typedef {Object} IPagedResultsSearchResultFlow
+  * @property {Array.<module:model/SearchResultFlow>} results
+  * @property {Number} total
+  */
+
+/**
  * The PagedResultsSearchResultFlow model module.
  * @module model/PagedResultsSearchResultFlow
-  */
+ * @type {IPagedResultsSearchResultFlow}
+ */
 class PagedResultsSearchResultFlow {
     /**
      * Constructs a new <code>PagedResultsSearchResultFlow</code>.

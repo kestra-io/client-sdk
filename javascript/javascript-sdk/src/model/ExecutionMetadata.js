@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IExecutionMetadata
+  * @property {Number} attemptNumber
+  * @property {Date} originalCreatedDate
+  */
+
+/**
  * The ExecutionMetadata model module.
  * @module model/ExecutionMetadata
-  */
+ * @type {IExecutionMetadata}
+ */
 class ExecutionMetadata {
     /**
      * Constructs a new <code>ExecutionMetadata</code>.

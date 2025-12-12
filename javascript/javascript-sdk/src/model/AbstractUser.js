@@ -17,9 +17,26 @@ import GroupIdentifier from './GroupIdentifier';
 import UserType from './UserType';
 
 /**
+  * @typedef {Object} IAbstractUser
+  * @property {module:model/UserType} type
+  * @property {Array.<module:model/GroupIdentifier>} groupList
+  * @property {Array.<Object>} groups
+  * @property {String} username
+  * @property {String} email
+  * @property {Boolean} superAdmin
+  * @property {String} id
+  * @property {String} name
+  * @property {String} description
+  * @property {String} firstName
+  * @property {String} lastName
+  * @property {Array.<module:model/AbstractUserTenantIdentityProvider>} providers
+  */
+
+/**
  * The AbstractUser model module.
  * @module model/AbstractUser
-  */
+ * @type {IAbstractUser}
+ */
 class AbstractUser {
     /**
      * Constructs a new <code>AbstractUser</code>.

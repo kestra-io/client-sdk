@@ -23,9 +23,47 @@ import MiscControllerTenantConfigurationInfo from './MiscControllerTenantConfigu
 import RightSidebarConfiguration from './RightSidebarConfiguration';
 
 /**
+  * @typedef {Object} IMiscControllerEEConfiguration
+  * @property {String} uuid
+  * @property {String} version
+  * @property {module:model/EditionProviderEdition} edition
+  * @property {String} commitId
+  * @property {String} chartDefaultDuration
+  * @property {Date} commitDate
+  * @property {Boolean} isCustomDashboardsEnabled
+  * @property {Boolean} isAnonymousUsageEnabled
+  * @property {Boolean} isUiAnonymousUsageEnabled
+  * @property {Boolean} isTemplateEnabled
+  * @property {module:model/MiscControllerEnvironment} environment
+  * @property {String} url
+  * @property {module:model/MiscControllerPreview} preview
+  * @property {String} systemNamespace
+  * @property {Array.<String>} hiddenLabelsPrefixes
+  * @property {Boolean} isAiEnabled
+  * @property {Boolean} isBasicAuthInitialized
+  * @property {Number} pluginsHash
+  * @property {module:model/MiscControllerTenantConfigurationInfo} tenants
+  * @property {Boolean} secretsEnabled
+  * @property {Array.<module:model/MiscControllerPluginIdAndVersion>} supportedStorages
+  * @property {Array.<module:model/MiscControllerPluginIdAndVersion>} supportedSecrets
+  * @property {Boolean} pluginManagementEnabled
+  * @property {Boolean} pluginCustomEnabled
+  * @property {module:model/Banner} banner
+  * @property {Boolean} mailServiceEnabled
+  * @property {Boolean} outputsInInternalStorageEnabled
+  * @property {module:model/LeftSidebarConfiguration} leftSidebar
+  * @property {module:model/RightSidebarConfiguration} rightSidebar
+  * @property {Boolean} inMaintenance
+  * @property {String} passwordRegexp
+  * @property {Boolean} passwordlessEnabled
+  * @property {Boolean} airgapped
+  */
+
+/**
  * The MiscControllerEEConfiguration model module.
  * @module model/MiscControllerEEConfiguration
-  */
+ * @type {IMiscControllerEEConfiguration}
+ */
 class MiscControllerEEConfiguration {
     /**
      * Constructs a new <code>MiscControllerEEConfiguration</code>.

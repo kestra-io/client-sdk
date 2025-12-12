@@ -15,9 +15,17 @@ import ApiClient from '../ApiClient';
 import ApiSecretMetaEE from './ApiSecretMetaEE';
 
 /**
+  * @typedef {Object} IApiSecretListResponseApiSecretMeta
+  * @property {Boolean} readOnly
+  * @property {Array.<module:model/ApiSecretMetaEE>} results
+  * @property {Number} total
+  */
+
+/**
  * The ApiSecretListResponseApiSecretMeta model module.
  * @module model/ApiSecretListResponseApiSecretMeta
-  */
+ * @type {IApiSecretListResponseApiSecretMeta}
+ */
 class ApiSecretListResponseApiSecretMeta {
     /**
      * Constructs a new <code>ApiSecretListResponseApiSecretMeta</code>.

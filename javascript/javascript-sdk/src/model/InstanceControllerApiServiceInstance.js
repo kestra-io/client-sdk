@@ -17,9 +17,20 @@ import ServiceServiceState from './ServiceServiceState';
 import ServiceType from './ServiceType';
 
 /**
+  * @typedef {Object} IInstanceControllerApiServiceInstance
+  * @property {String} id
+  * @property {module:model/ServiceType} type
+  * @property {module:model/ServiceServiceState} state
+  * @property {module:model/InstanceControllerApiServerInstance} server
+  * @property {Date} createdAt
+  * @property {Date} updatedAt
+  */
+
+/**
  * The InstanceControllerApiServiceInstance model module.
  * @module model/InstanceControllerApiServiceInstance
-  */
+ * @type {IInstanceControllerApiServiceInstance}
+ */
 class InstanceControllerApiServiceInstance {
     /**
      * Constructs a new <code>InstanceControllerApiServiceInstance</code>.

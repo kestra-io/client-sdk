@@ -171,7 +171,7 @@ describe('FlowsApi', () => {
 
         const revision = null;
         const subflows = null;
-        await kestraClient().flowsApi.generateFlowGraph(namespace, id, MAIN_TENANT, revision, subflows);
+        await kestraClient().flowsApi.generateFlowGraph(namespace, id, MAIN_TENANT, {revision, subflows});
     });
 
     // Generate a graph for a flow source
@@ -271,7 +271,7 @@ describe('FlowsApi', () => {
         const q = flow.id;
         const namespace = flow.namespace;
 
-        const resp = await kestraClient().flowsApi.searchFlowsBySourceCode(page, size, MAIN_TENANT, sort, q, namespace);
+        const resp = await kestraClient().flowsApi.searchFlowsBySourceCode(page, size, MAIN_TENANT, {sort, q, namespace});
         const ids = (resp?.results ?? []).map(x => x?.model?.id);
         expect(ids).toContain(flow.id);
     });
@@ -327,7 +327,7 @@ describe('FlowsApi', () => {
         };
 
         const resp = await kestraClient().flowsApi.validateTask(section, MAIN_TENANT, taskObj);
-        const raw = resp?.constraints ?? resp?.data?.constraints ?? [];
+        const raw = resp?.constraints ?? [];
 
         const constraints = Array.isArray(raw)
             ? raw
@@ -359,7 +359,7 @@ describe('FlowsApi', () => {
         };
 
         const resp = await kestraClient().flowsApi.validateTrigger(MAIN_TENANT, triggerObj);
-        const raw = resp?.constraints ?? resp?.data?.constraints ?? [];
+        const raw = resp?.constraints ?? [];
 
         const constraints = Array.isArray(raw)
             ? raw

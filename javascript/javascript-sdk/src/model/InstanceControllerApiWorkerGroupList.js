@@ -15,9 +15,15 @@ import ApiClient from '../ApiClient';
 import InstanceControllerApiWorkerGroupItem from './InstanceControllerApiWorkerGroupItem';
 
 /**
+  * @typedef {Object} IInstanceControllerApiWorkerGroupList
+  * @property {Array.<module:model/InstanceControllerApiWorkerGroupItem>} workerGroups - The list of worker groups.
+  */
+
+/**
  * The InstanceControllerApiWorkerGroupList model module.
  * @module model/InstanceControllerApiWorkerGroupList
-  */
+ * @type {IInstanceControllerApiWorkerGroupList}
+ */
 class InstanceControllerApiWorkerGroupList {
     /**
      * Constructs a new <code>InstanceControllerApiWorkerGroupList</code>.

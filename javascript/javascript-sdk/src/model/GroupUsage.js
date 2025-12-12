@@ -14,9 +14,15 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IGroupUsage
+  * @property {Number} count
+  */
+
+/**
  * The GroupUsage model module.
  * @module model/GroupUsage
-  */
+ * @type {IGroupUsage}
+ */
 class GroupUsage {
     /**
      * Constructs a new <code>GroupUsage</code>.

@@ -14,9 +14,31 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IDailyExecutionStatisticsExecutionCounts
+  * @property {Number} CREATED
+  * @property {Number} SUBMITTED
+  * @property {Number} RUNNING
+  * @property {Number} PAUSED
+  * @property {Number} RESTARTED
+  * @property {Number} KILLING
+  * @property {Number} SUCCESS
+  * @property {Number} WARNING
+  * @property {Number} FAILED
+  * @property {Number} KILLED
+  * @property {Number} CANCELLED
+  * @property {Number} QUEUED
+  * @property {Number} RETRYING
+  * @property {Number} RETRIED
+  * @property {Number} SKIPPED
+  * @property {Number} BREAKPOINT
+  * @property {Number} RESUBMITTED
+  */
+
+/**
  * The DailyExecutionStatisticsExecutionCounts model module.
  * @module model/DailyExecutionStatisticsExecutionCounts
-  */
+ * @type {IDailyExecutionStatisticsExecutionCounts}
+ */
 class DailyExecutionStatisticsExecutionCounts {
     /**
      * Constructs a new <code>DailyExecutionStatisticsExecutionCounts</code>.

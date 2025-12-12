@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import Tenant from './Tenant';
 
 /**
+  * @typedef {Object} IPagedResultsTenant
+  * @property {Array.<module:model/Tenant>} results
+  * @property {Number} total
+  */
+
+/**
  * The PagedResultsTenant model module.
  * @module model/PagedResultsTenant
-  */
+ * @type {IPagedResultsTenant}
+ */
 class PagedResultsTenant {
     /**
      * Constructs a new <code>PagedResultsTenant</code>.

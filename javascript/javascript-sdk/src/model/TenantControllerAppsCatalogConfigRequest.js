@@ -14,9 +14,17 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} ITenantControllerAppsCatalogConfigRequest
+  * @property {String} title
+  * @property {String} titleColor
+  * @property {String} primaryColor
+  */
+
+/**
  * The TenantControllerAppsCatalogConfigRequest model module.
  * @module model/TenantControllerAppsCatalogConfigRequest
-  */
+ * @type {ITenantControllerAppsCatalogConfigRequest}
+ */
 class TenantControllerAppsCatalogConfigRequest {
     /**
      * Constructs a new <code>TenantControllerAppsCatalogConfigRequest</code>.

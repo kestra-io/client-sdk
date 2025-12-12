@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IIAMBindingControllerApiBindingGroup
+  * @property {String} id
+  * @property {String} name
+  */
+
+/**
  * The IAMBindingControllerApiBindingGroup model module.
  * @module model/IAMBindingControllerApiBindingGroup
-  */
+ * @type {IIAMBindingControllerApiBindingGroup}
+ */
 class IAMBindingControllerApiBindingGroup {
     /**
      * Constructs a new <code>IAMBindingControllerApiBindingGroup</code>.

@@ -17,9 +17,25 @@ import ApiRoleSummary from './ApiRoleSummary';
 import InvitationInvitationStatus from './InvitationInvitationStatus';
 
 /**
+  * @typedef {Object} IIAMInvitationControllerApiInvitationDetail
+  * @property {String} id
+  * @property {Array.<module:model/ApiRoleSummary>} roles
+  * @property {Array.<module:model/ApiGroupSummary>} groups
+  * @property {String} tenantId
+  * @property {String} email
+  * @property {module:model/InvitationInvitationStatus} status
+  * @property {Date} sentAt
+  * @property {Date} expiredAt
+  * @property {Date} acceptedAt
+  * @property {Boolean} superAdmin
+  * @property {String} link
+  */
+
+/**
  * The IAMInvitationControllerApiInvitationDetail model module.
  * @module model/IAMInvitationControllerApiInvitationDetail
-  */
+ * @type {IIAMInvitationControllerApiInvitationDetail}
+ */
 class IAMInvitationControllerApiInvitationDetail {
     /**
      * Constructs a new <code>IAMInvitationControllerApiInvitationDetail</code>.

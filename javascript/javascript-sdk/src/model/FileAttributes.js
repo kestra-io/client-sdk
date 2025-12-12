@@ -15,9 +15,20 @@ import ApiClient from '../ApiClient';
 import FileAttributesFileType from './FileAttributesFileType';
 
 /**
+  * @typedef {Object} IFileAttributes
+  * @property {String} fileName
+  * @property {Number} lastModifiedTime
+  * @property {Number} creationTime
+  * @property {module:model/FileAttributesFileType} type
+  * @property {Number} size
+  * @property {Object.<String, String>} metadata
+  */
+
+/**
  * The FileAttributes model module.
  * @module model/FileAttributes
-  */
+ * @type {IFileAttributes}
+ */
 class FileAttributes {
     /**
      * Constructs a new <code>FileAttributes</code>.

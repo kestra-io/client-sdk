@@ -16,9 +16,18 @@ import DailyExecutionStatisticsDuration from './DailyExecutionStatisticsDuration
 import DailyExecutionStatisticsExecutionCounts from './DailyExecutionStatisticsExecutionCounts';
 
 /**
+  * @typedef {Object} IDailyExecutionStatistics
+  * @property {Date} startDate
+  * @property {module:model/DailyExecutionStatisticsDuration} duration
+  * @property {module:model/DailyExecutionStatisticsExecutionCounts} executionCounts
+  * @property {String} groupBy
+  */
+
+/**
  * The DailyExecutionStatistics model module.
  * @module model/DailyExecutionStatistics
-  */
+ * @type {IDailyExecutionStatistics}
+ */
 class DailyExecutionStatistics {
     /**
      * Constructs a new <code>DailyExecutionStatistics</code>.

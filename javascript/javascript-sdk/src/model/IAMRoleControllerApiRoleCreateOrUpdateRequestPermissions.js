@@ -14,9 +14,38 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IIAMRoleControllerApiRoleCreateOrUpdateRequestPermissions
+  * @property {Array.<String>} FLOW
+  * @property {Array.<String>} BLUEPRINT
+  * @property {Array.<String>} TEMPLATE
+  * @property {Array.<String>} NAMESPACE
+  * @property {Array.<String>} EXECUTION
+  * @property {Array.<String>} USER
+  * @property {Array.<String>} GROUP
+  * @property {Array.<String>} ROLE
+  * @property {Array.<String>} BINDING
+  * @property {Array.<String>} AUDITLOG
+  * @property {Array.<String>} SECRET
+  * @property {Array.<String>} KVSTORE
+  * @property {Array.<String>} IMPERSONATE
+  * @property {Array.<String>} SETTING
+  * @property {Array.<String>} INFRASTRUCTURE
+  * @property {Array.<String>} APP
+  * @property {Array.<String>} APPEXECUTION
+  * @property {Array.<String>} TEST
+  * @property {Array.<String>} DASHBOARD
+  * @property {Array.<String>} TENANT_ACCESS
+  * @property {Array.<String>} SERVICE_ACCOUNT
+  * @property {Array.<String>} INVITATION
+  * @property {Array.<String>} GROUP_MEMBERSHIP
+  * @property {Array.<String>} UNKNOWN
+  */
+
+/**
  * The IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions model module.
  * @module model/IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions
-  */
+ * @type {IIAMRoleControllerApiRoleCreateOrUpdateRequestPermissions}
+ */
 class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
     /**
      * Constructs a new <code>IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions</code>.

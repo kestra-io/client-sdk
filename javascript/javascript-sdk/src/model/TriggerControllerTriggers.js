@@ -16,9 +16,16 @@ import AbstractTrigger from './AbstractTrigger';
 import Trigger from './Trigger';
 
 /**
+  * @typedef {Object} ITriggerControllerTriggers
+  * @property {module:model/AbstractTrigger} abstractTrigger
+  * @property {module:model/Trigger} triggerContext
+  */
+
+/**
  * The TriggerControllerTriggers model module.
  * @module model/TriggerControllerTriggers
-  */
+ * @type {ITriggerControllerTriggers}
+ */
 class TriggerControllerTriggers {
     /**
      * Constructs a new <code>TriggerControllerTriggers</code>.

@@ -23,9 +23,29 @@ import TenantInterface from './TenantInterface';
 import WorkerGroup from './WorkerGroup';
 
 /**
+  * @typedef {Object} IFlowInterface
+  * @property {String} id
+  * @property {String} namespace
+  * @property {Number} revision
+  * @property {String} tenantId
+  * @property {Boolean} deleted
+  * @property {String} description
+  * @property {Boolean} disabled
+  * @property {Array.<module:model/Label>} labels
+  * @property {Array.<module:model/InputObject>} inputs
+  * @property {Array.<module:model/Output>} outputs
+  * @property {Object.<String, Object>} variables
+  * @property {module:model/WorkerGroup} workerGroup
+  * @property {module:model/Concurrency} concurrency
+  * @property {Array.<module:model/SLA>} sla
+  * @property {String} source
+  */
+
+/**
  * The FlowInterface model module.
  * @module model/FlowInterface
-  */
+ * @type {IFlowInterface}
+ */
 class FlowInterface {
     /**
      * Constructs a new <code>FlowInterface</code>.

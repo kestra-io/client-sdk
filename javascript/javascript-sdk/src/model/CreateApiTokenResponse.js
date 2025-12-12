@@ -14,9 +14,17 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} ICreateApiTokenResponse
+  * @property {String} id
+  * @property {String} name
+  * @property {String} fullToken
+  */
+
+/**
  * The CreateApiTokenResponse model module.
  * @module model/CreateApiTokenResponse
-  */
+ * @type {ICreateApiTokenResponse}
+ */
 class CreateApiTokenResponse {
     /**
      * Constructs a new <code>CreateApiTokenResponse</code>.

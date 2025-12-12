@@ -16,9 +16,23 @@ import Backfill from './Backfill';
 import StateType from './StateType';
 
 /**
+  * @typedef {Object} ITriggerContext
+  * @property {Boolean} disabled
+  * @property {String} tenantId
+  * @property {String} namespace
+  * @property {String} flowId
+  * @property {String} triggerId
+  * @property {Date} date
+  * @property {Date} nextExecutionDate
+  * @property {module:model/Backfill} backfill
+  * @property {Array.<module:model/StateType>} stopAfter
+  */
+
+/**
  * The TriggerContext model module.
  * @module model/TriggerContext
-  */
+ * @type {ITriggerContext}
+ */
 class TriggerContext {
     /**
      * Constructs a new <code>TriggerContext</code>.

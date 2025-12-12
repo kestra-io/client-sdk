@@ -17,9 +17,20 @@ import MeControllerApiProfile from './MeControllerApiProfile';
 import MeControllerApiTenant from './MeControllerApiTenant';
 
 /**
+  * @typedef {Object} IMeControllerApiMe
+  * @property {String} id
+  * @property {Boolean} superAdmin
+  * @property {Boolean} restricted
+  * @property {module:model/MeControllerApiProfile} profile
+  * @property {Array.<module:model/IAMTenantAccessControllerApiAuthentication>} auths
+  * @property {Array.<module:model/MeControllerApiTenant>} tenants
+  */
+
+/**
  * The MeControllerApiMe model module.
  * @module model/MeControllerApiMe
-  */
+ * @type {IMeControllerApiMe}
+ */
 class MeControllerApiMe {
     /**
      * Constructs a new <code>MeControllerApiMe</code>.

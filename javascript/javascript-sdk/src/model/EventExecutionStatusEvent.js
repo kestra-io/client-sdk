@@ -15,9 +15,19 @@ import ApiClient from '../ApiClient';
 import ExecutionStatusEvent from './ExecutionStatusEvent';
 
 /**
+  * @typedef {Object} IEventExecutionStatusEvent
+  * @property {module:model/ExecutionStatusEvent} data
+  * @property {String} id
+  * @property {String} name
+  * @property {String} comment
+  * @property {String} retry
+  */
+
+/**
  * The EventExecutionStatusEvent model module.
  * @module model/EventExecutionStatusEvent
-  */
+ * @type {IEventExecutionStatusEvent}
+ */
 class EventExecutionStatusEvent {
     /**
      * Constructs a new <code>EventExecutionStatusEvent</code>.

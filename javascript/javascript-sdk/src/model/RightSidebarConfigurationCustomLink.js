@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IRightSidebarConfigurationCustomLink
+  * @property {String} title
+  * @property {String} url
+  */
+
+/**
  * The RightSidebarConfigurationCustomLink model module.
  * @module model/RightSidebarConfigurationCustomLink
-  */
+ * @type {IRightSidebarConfigurationCustomLink}
+ */
 class RightSidebarConfigurationCustomLink {
     /**
      * Constructs a new <code>RightSidebarConfigurationCustomLink</code>.

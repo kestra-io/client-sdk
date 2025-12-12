@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IAuthControllerResetPasswordRequest
+  * @property {String} token
+  * @property {String} password
+  */
+
+/**
  * The AuthControllerResetPasswordRequest model module.
  * @module model/AuthControllerResetPasswordRequest
-  */
+ * @type {IAuthControllerResetPasswordRequest}
+ */
 class AuthControllerResetPasswordRequest {
     /**
      * Constructs a new <code>AuthControllerResetPasswordRequest</code>.

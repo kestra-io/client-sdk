@@ -23,9 +23,35 @@ import TaskFixture from './TaskFixture';
 import TaskRun from './TaskRun';
 
 /**
+  * @typedef {Object} IExecutionControllerExecutionResponse
+  * @property {Array.<module:model/Label>} labels
+  * @property {String} id
+  * @property {String} namespace
+  * @property {String} flowId
+  * @property {Number} flowRevision
+  * @property {Array.<module:model/TaskRun>} taskRunList
+  * @property {Object} inputs
+  * @property {Object} outputs
+  * @property {Object} variables
+  * @property {module:model/State} state
+  * @property {String} parentId
+  * @property {String} originalId
+  * @property {module:model/ExecutionTrigger} trigger
+  * @property {Boolean} deleted
+  * @property {module:model/ExecutionMetadata} metadata
+  * @property {Date} scheduleDate
+  * @property {String} traceParent
+  * @property {Array.<module:model/TaskFixture>} fixtures
+  * @property {module:model/ExecutionKind} kind
+  * @property {Array.<module:model/Breakpoint>} breakpoints
+  * @property {String} url
+  */
+
+/**
  * The ExecutionControllerExecutionResponse model module.
  * @module model/ExecutionControllerExecutionResponse
-  */
+ * @type {IExecutionControllerExecutionResponse}
+ */
 class ExecutionControllerExecutionResponse {
     /**
      * Constructs a new <code>ExecutionControllerExecutionResponse</code>.

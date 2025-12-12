@@ -14,9 +14,15 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IAppsControllerApiAppTags
+  * @property {Array.<String>} tags
+  */
+
+/**
  * The AppsControllerApiAppTags model module.
  * @module model/AppsControllerApiAppTags
-  */
+ * @type {IAppsControllerApiAppTags}
+ */
 class AppsControllerApiAppTags {
     /**
      * Constructs a new <code>AppsControllerApiAppTags</code>.

@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import WorkerGroupFallback from './WorkerGroupFallback';
 
 /**
+  * @typedef {Object} IWorkerGroup
+  * @property {String} key
+  * @property {module:model/WorkerGroupFallback} fallback
+  */
+
+/**
  * The WorkerGroup model module.
  * @module model/WorkerGroup
-  */
+ * @type {IWorkerGroup}
+ */
 class WorkerGroup {
     /**
      * Constructs a new <code>WorkerGroup</code>.

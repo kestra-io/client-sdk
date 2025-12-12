@@ -16,9 +16,19 @@ import ExecutionControllerApiValidateExecutionInputsResponseApiInputError from '
 import InputObject from './InputObject';
 
 /**
+  * @typedef {Object} IExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue
+  * @property {module:model/InputObject} input
+  * @property {Object} value
+  * @property {Boolean} enabled
+  * @property {Boolean} isDefault
+  * @property {Array.<module:model/ExecutionControllerApiValidateExecutionInputsResponseApiInputError>} errors
+  */
+
+/**
  * The ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue model module.
  * @module model/ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue
-  */
+ * @type {IExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue}
+ */
 class ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue {
     /**
      * Constructs a new <code>ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue</code>.

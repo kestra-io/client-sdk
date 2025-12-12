@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import ApiGroupSummary from './ApiGroupSummary';
 
 /**
+  * @typedef {Object} IPagedResultsApiGroupSummary
+  * @property {Array.<module:model/ApiGroupSummary>} results
+  * @property {Number} total
+  */
+
+/**
  * The PagedResultsApiGroupSummary model module.
  * @module model/PagedResultsApiGroupSummary
-  */
+ * @type {IPagedResultsApiGroupSummary}
+ */
 class PagedResultsApiGroupSummary {
     /**
      * Constructs a new <code>PagedResultsApiGroupSummary</code>.

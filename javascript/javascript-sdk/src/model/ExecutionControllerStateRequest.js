@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import StateType from './StateType';
 
 /**
+  * @typedef {Object} IExecutionControllerStateRequest
+  * @property {String} taskRunId
+  * @property {module:model/StateType} state
+  */
+
+/**
  * The ExecutionControllerStateRequest model module.
  * @module model/ExecutionControllerStateRequest
-  */
+ * @type {IExecutionControllerStateRequest}
+ */
 class ExecutionControllerStateRequest {
     /**
      * Constructs a new <code>ExecutionControllerStateRequest</code>.

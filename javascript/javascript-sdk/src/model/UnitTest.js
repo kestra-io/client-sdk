@@ -16,9 +16,20 @@ import Assertion from './Assertion';
 import Fixtures from './Fixtures';
 
 /**
+  * @typedef {Object} IUnitTest
+  * @property {String} id
+  * @property {String} type
+  * @property {Boolean} disabled
+  * @property {String} description
+  * @property {module:model/Fixtures} fixtures
+  * @property {Array.<module:model/Assertion>} assertions
+  */
+
+/**
  * The UnitTest model module.
  * @module model/UnitTest
-  */
+ * @type {IUnitTest}
+ */
 class UnitTest {
     /**
      * Constructs a new <code>UnitTest</code>.

@@ -14,9 +14,15 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} ISetAppsCatalogLogoRequest
+  * @property {File} logo - The logo file
+  */
+
+/**
  * The SetAppsCatalogLogoRequest model module.
  * @module model/SetAppsCatalogLogoRequest
-  */
+ * @type {ISetAppsCatalogLogoRequest}
+ */
 class SetAppsCatalogLogoRequest {
     /**
      * Constructs a new <code>SetAppsCatalogLogoRequest</code>.

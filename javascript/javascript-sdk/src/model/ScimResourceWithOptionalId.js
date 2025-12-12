@@ -18,9 +18,21 @@ import ScimExtension from './ScimExtension';
 import ScimResource from './ScimResource';
 
 /**
+  * @typedef {Object} IScimResourceWithOptionalId
+  * @property {Array.<String>} schemas
+  * @property {String} baseUrn
+  * @property {Object.<String, module:model/ScimExtension>} extensions
+  * @property {module:model/Meta} meta
+  * @property {String} id
+  * @property {String} externalId
+  * @property {String} resourceType
+  */
+
+/**
  * The ScimResourceWithOptionalId model module.
  * @module model/ScimResourceWithOptionalId
-  */
+ * @type {IScimResourceWithOptionalId}
+ */
 class ScimResourceWithOptionalId {
     /**
      * Constructs a new <code>ScimResourceWithOptionalId</code>.

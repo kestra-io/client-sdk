@@ -15,9 +15,19 @@ import ApiClient from '../ApiClient';
 import ApiTenantSummary from './ApiTenantSummary';
 
 /**
+  * @typedef {Object} IIAMServiceAccountControllerApiServiceAccountDetail
+  * @property {String} id - the identifier of this service account.
+  * @property {String} name - the name of this service account.
+  * @property {String} description - the description of this service account.
+  * @property {Array.<module:model/ApiTenantSummary>} tenants
+  * @property {Boolean} superAdmin
+  */
+
+/**
  * The IAMServiceAccountControllerApiServiceAccountDetail model module.
  * @module model/IAMServiceAccountControllerApiServiceAccountDetail
-  */
+ * @type {IIAMServiceAccountControllerApiServiceAccountDetail}
+ */
 class IAMServiceAccountControllerApiServiceAccountDetail {
     /**
      * Constructs a new <code>IAMServiceAccountControllerApiServiceAccountDetail</code>.

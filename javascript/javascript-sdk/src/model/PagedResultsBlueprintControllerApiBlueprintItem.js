@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import BlueprintControllerApiBlueprintItem from './BlueprintControllerApiBlueprintItem';
 
 /**
+  * @typedef {Object} IPagedResultsBlueprintControllerApiBlueprintItem
+  * @property {Array.<module:model/BlueprintControllerApiBlueprintItem>} results
+  * @property {Number} total
+  */
+
+/**
  * The PagedResultsBlueprintControllerApiBlueprintItem model module.
  * @module model/PagedResultsBlueprintControllerApiBlueprintItem
-  */
+ * @type {IPagedResultsBlueprintControllerApiBlueprintItem}
+ */
 class PagedResultsBlueprintControllerApiBlueprintItem {
     /**
      * Constructs a new <code>PagedResultsBlueprintControllerApiBlueprintItem</code>.

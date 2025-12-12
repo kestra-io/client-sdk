@@ -14,9 +14,17 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IExecutableTaskSubflowId
+  * @property {String} namespace
+  * @property {String} flowId
+  * @property {Number} revision
+  */
+
+/**
  * The ExecutableTaskSubflowId model module.
  * @module model/ExecutableTaskSubflowId
-  */
+ * @type {IExecutableTaskSubflowId}
+ */
 class ExecutableTaskSubflowId {
     /**
      * Constructs a new <code>ExecutableTaskSubflowId</code>.

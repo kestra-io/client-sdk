@@ -15,9 +15,18 @@ import ApiClient from '../ApiClient';
 import UserType from './UserType';
 
 /**
+  * @typedef {Object} IIAMBindingControllerApiBindingUser
+  * @property {String} id
+  * @property {String} username
+  * @property {String} displayName
+  * @property {module:model/UserType} type
+  */
+
+/**
  * The IAMBindingControllerApiBindingUser model module.
  * @module model/IAMBindingControllerApiBindingUser
-  */
+ * @type {IIAMBindingControllerApiBindingUser}
+ */
 class IAMBindingControllerApiBindingUser {
     /**
      * Constructs a new <code>IAMBindingControllerApiBindingUser</code>.

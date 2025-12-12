@@ -17,9 +17,16 @@ import ConvertibleMultiValuesString from './ConvertibleMultiValuesString';
 import ConvertibleValuesListString from './ConvertibleValuesListString';
 
 /**
+  * @typedef {Object} IHttpParameters
+  * @property {Object} conversionService
+  * @property {Boolean} empty
+  */
+
+/**
  * The HttpParameters model module.
  * @module model/HttpParameters
-  */
+ * @type {IHttpParameters}
+ */
 class HttpParameters {
     /**
      * Constructs a new <code>HttpParameters</code>.

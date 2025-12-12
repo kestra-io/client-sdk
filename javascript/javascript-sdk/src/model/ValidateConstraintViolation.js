@@ -14,9 +14,22 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IValidateConstraintViolation
+  * @property {String} flow
+  * @property {String} namespace
+  * @property {Number} index
+  * @property {String} constraints
+  * @property {Boolean} outdated
+  * @property {Array.<String>} deprecationPaths
+  * @property {Array.<String>} warnings
+  * @property {Array.<String>} infos
+  */
+
+/**
  * The ValidateConstraintViolation model module.
  * @module model/ValidateConstraintViolation
-  */
+ * @type {IValidateConstraintViolation}
+ */
 class ValidateConstraintViolation {
     /**
      * Constructs a new <code>ValidateConstraintViolation</code>.

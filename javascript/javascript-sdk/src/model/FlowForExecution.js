@@ -21,9 +21,30 @@ import TaskForExecution from './TaskForExecution';
 import WorkerGroup from './WorkerGroup';
 
 /**
+  * @typedef {Object} IFlowForExecution
+  * @property {String} id
+  * @property {String} namespace
+  * @property {Number} revision
+  * @property {String} description
+  * @property {Array.<module:model/InputObject>} inputs
+  * @property {Array.<module:model/Output>} outputs
+  * @property {Boolean} disabled
+  * @property {Array.<module:model/Label>} labels - Labels as a list of Label (key/value pairs) or as a map of string to string.
+  * @property {Object} variables
+  * @property {module:model/WorkerGroup} workerGroup
+  * @property {Boolean} deleted
+  * @property {Array.<module:model/TaskForExecution>} tasks
+  * @property {Array.<module:model/TaskForExecution>} errors
+  * @property {Array.<module:model/TaskForExecution>} finally
+  * @property {Array.<module:model/TaskForExecution>} afterExecution
+  * @property {Array.<module:model/AbstractTriggerForExecution>} triggers
+  */
+
+/**
  * The FlowForExecution model module.
  * @module model/FlowForExecution
-  */
+ * @type {IFlowForExecution}
+ */
 class FlowForExecution {
     /**
      * Constructs a new <code>FlowForExecution</code>.

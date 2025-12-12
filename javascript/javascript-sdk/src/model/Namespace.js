@@ -19,9 +19,29 @@ import PluginDefault from './PluginDefault';
 import WorkerGroup from './WorkerGroup';
 
 /**
+  * @typedef {Object} INamespace
+  * @property {String} id
+  * @property {Boolean} deleted
+  * @property {module:model/Isolation} storageIsolation
+  * @property {module:model/Isolation} secretIsolation
+  * @property {String} description
+  * @property {Object.<String, Object>} variables
+  * @property {Array.<module:model/PluginDefault>} pluginDefaults
+  * @property {Array.<module:model/NamespaceAllowedNamespace>} allowedNamespaces
+  * @property {module:model/WorkerGroup} workerGroup
+  * @property {String} storageType
+  * @property {Object.<String, Object>} storageConfiguration
+  * @property {String} secretType
+  * @property {Boolean} secretReadOnly
+  * @property {Object.<String, Object>} secretConfiguration
+  * @property {Boolean} outputsInInternalStorage
+  */
+
+/**
  * The Namespace model module.
  * @module model/Namespace
-  */
+ * @type {INamespace}
+ */
 class Namespace {
     /**
      * Constructs a new <code>Namespace</code>.
