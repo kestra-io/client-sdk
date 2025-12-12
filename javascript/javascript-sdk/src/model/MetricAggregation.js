@@ -14,9 +14,17 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IMetricAggregation
+  * @property {String} name
+  * @property {Number} value
+  * @property {Date} date
+  */
+
+/**
  * The MetricAggregation model module.
  * @module model/MetricAggregation
-  */
+ * @type {IMetricAggregation}
+ */
 class MetricAggregation {
     /**
      * Constructs a new <code>MetricAggregation</code>.

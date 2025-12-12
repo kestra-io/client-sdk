@@ -14,9 +14,15 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IIAMTenantAccessControllerApiCreateTenantAccessRequest
+  * @property {String} email
+  */
+
+/**
  * The IAMTenantAccessControllerApiCreateTenantAccessRequest model module.
  * @module model/IAMTenantAccessControllerApiCreateTenantAccessRequest
-  */
+ * @type {IIAMTenantAccessControllerApiCreateTenantAccessRequest}
+ */
 class IAMTenantAccessControllerApiCreateTenantAccessRequest {
     /**
      * Constructs a new <code>IAMTenantAccessControllerApiCreateTenantAccessRequest</code>.

@@ -13,6 +13,18 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum ExecutionKind
+ * @type {{
+ *   "NORMAL": "NORMAL","TEST": "TEST","PLAYGROUND": "PLAYGROUND",
+ * }}
+ */
+export const ExecutionKindStatic = { 
+    "NORMAL": "NORMAL",
+    "TEST": "TEST",
+    "PLAYGROUND": "PLAYGROUND",
+}
+
+/**
 * Enum class ExecutionKind.
 * @enum {}
 * @readonly

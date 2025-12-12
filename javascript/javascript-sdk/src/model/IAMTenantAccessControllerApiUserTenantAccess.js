@@ -16,9 +16,20 @@ import IAMTenantAccessControllerApiAuthentication from './IAMTenantAccessControl
 import IAMTenantAccessControllerApiGroup from './IAMTenantAccessControllerApiGroup';
 
 /**
+  * @typedef {Object} IIAMTenantAccessControllerApiUserTenantAccess
+  * @property {String} id
+  * @property {String} username
+  * @property {String} displayName
+  * @property {String} description
+  * @property {Array.<module:model/IAMTenantAccessControllerApiGroup>} groups
+  * @property {Array.<module:model/IAMTenantAccessControllerApiAuthentication>} auths
+  */
+
+/**
  * The IAMTenantAccessControllerApiUserTenantAccess model module.
  * @module model/IAMTenantAccessControllerApiUserTenantAccess
-  */
+ * @type {IIAMTenantAccessControllerApiUserTenantAccess}
+ */
 class IAMTenantAccessControllerApiUserTenantAccess {
     /**
      * Constructs a new <code>IAMTenantAccessControllerApiUserTenantAccess</code>.

@@ -16,9 +16,17 @@ import QueryFilterField from './QueryFilterField';
 import QueryFilterOp from './QueryFilterOp';
 
 /**
+  * @typedef {Object} IQueryFilter
+  * @property {module:model/QueryFilterField} field
+  * @property {module:model/QueryFilterOp} operation
+  * @property {Object} value
+  */
+
+/**
  * The QueryFilter model module.
  * @module model/QueryFilter
-  */
+ * @type {IQueryFilter}
+ */
 class QueryFilter {
     /**
      * Constructs a new <code>QueryFilter</code>.

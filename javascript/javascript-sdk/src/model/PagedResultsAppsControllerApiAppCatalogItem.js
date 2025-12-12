@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import AppsControllerApiAppCatalogItem from './AppsControllerApiAppCatalogItem';
 
 /**
+  * @typedef {Object} IPagedResultsAppsControllerApiAppCatalogItem
+  * @property {Array.<module:model/AppsControllerApiAppCatalogItem>} results
+  * @property {Number} total
+  */
+
+/**
  * The PagedResultsAppsControllerApiAppCatalogItem model module.
  * @module model/PagedResultsAppsControllerApiAppCatalogItem
-  */
+ * @type {IPagedResultsAppsControllerApiAppCatalogItem}
+ */
 class PagedResultsAppsControllerApiAppCatalogItem {
     /**
      * Constructs a new <code>PagedResultsAppsControllerApiAppCatalogItem</code>.

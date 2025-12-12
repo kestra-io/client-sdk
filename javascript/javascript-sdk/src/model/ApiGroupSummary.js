@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IApiGroupSummary
+  * @property {String} id
+  * @property {String} name
+  */
+
+/**
  * The ApiGroupSummary model module.
  * @module model/ApiGroupSummary
-  */
+ * @type {IApiGroupSummary}
+ */
 class ApiGroupSummary {
     /**
      * Constructs a new <code>ApiGroupSummary</code>.

@@ -13,6 +13,19 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum TestState
+ * @type {{
+ *   "ERROR": "ERROR","SUCCESS": "SUCCESS","FAILED": "FAILED","SKIPPED": "SKIPPED",
+ * }}
+ */
+export const TestStateStatic = { 
+    "ERROR": "ERROR",
+    "SUCCESS": "SUCCESS",
+    "FAILED": "FAILED",
+    "SKIPPED": "SKIPPED",
+}
+
+/**
 * Enum class TestState.
 * @enum {}
 * @readonly

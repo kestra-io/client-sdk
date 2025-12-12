@@ -14,9 +14,17 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IPluginSchema
+  * @property {Object.<String, Object>} properties
+  * @property {Object.<String, Object>} outputs
+  * @property {Object.<String, Object>} definitions
+  */
+
+/**
  * The PluginSchema model module.
  * @module model/PluginSchema
-  */
+ * @type {IPluginSchema}
+ */
 class PluginSchema {
     /**
      * Constructs a new <code>PluginSchema</code>.

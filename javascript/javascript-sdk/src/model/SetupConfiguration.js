@@ -14,9 +14,21 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} ISetupConfiguration
+  * @property {Boolean} done
+  * @property {String} repositoryType
+  * @property {String} queueType
+  * @property {String} storageType
+  * @property {String} secretType
+  * @property {String} passwordRegexp
+  * @property {Boolean} haveAuthNotBasic
+  */
+
+/**
  * The SetupConfiguration model module.
  * @module model/SetupConfiguration
-  */
+ * @type {ISetupConfiguration}
+ */
 class SetupConfiguration {
     /**
      * Constructs a new <code>SetupConfiguration</code>.

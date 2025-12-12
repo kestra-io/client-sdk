@@ -14,9 +14,17 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} ITestSuiteServiceRunByQueryRequest
+  * @property {String} namespace
+  * @property {String} flowId
+  * @property {Boolean} includeChildNamespaces - Should child namespaces be included or not
+  */
+
+/**
  * The TestSuiteServiceRunByQueryRequest model module.
  * @module model/TestSuiteServiceRunByQueryRequest
-  */
+ * @type {ITestSuiteServiceRunByQueryRequest}
+ */
 class TestSuiteServiceRunByQueryRequest {
     /**
      * Constructs a new <code>TestSuiteServiceRunByQueryRequest</code>.

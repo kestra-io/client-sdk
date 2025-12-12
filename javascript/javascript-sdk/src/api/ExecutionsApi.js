@@ -37,7 +37,6 @@ import StateType from '../model/StateType';
 /**
 * Executions service.
 * @module api/ExecutionsApi
-* @version 1.0.2
 */
 export default class ExecutionsApi {
 
@@ -71,7 +70,7 @@ export default class ExecutionsApi {
     * @param {module:model/ExecutionKind} [kind] Specific execution kind
     * @param {Object} [formData] Extra multipart fields/files (key → value). Values may be strings, File/Blob (browser) or Buffer/stream (Node).
     
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ExecutionControllerExecutionResponse} and HTTP response
+    * @return {Promise<ExecutionControllerExecutionResponse>}
     */
     createExecutionWithHttpInfo(namespace, id, wait, tenant, opts, formData) {
       opts = opts || {};
@@ -136,15 +135,15 @@ export default class ExecutionsApi {
     * @param {String} id The flow id
     * @param {Boolean} wait If the server will wait the end of the execution
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<String>} opts.labels The labels as a list of 'key:value'
-    * @param {Number} opts.revision The flow revision or latest if null
-    * @param {Date} opts.scheduleDate Schedule the flow on a specific date
-    * @param {String} opts.breakpoints Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
-    * @param {module:model/ExecutionKind} opts.kind Specific execution kind
-    * @param {Object} formData Extra multipart fields/files (key → value). Values may be strings, File/Blob (browser) or Buffer/stream (Node).
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<String>} [opts.labels] The labels as a list of 'key:value'
+    * @param {Number} [opts.revision] The flow revision or latest if null
+    * @param {Date} [opts.scheduleDate] Schedule the flow on a specific date
+    * @param {String} [opts.breakpoints] Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+    * @param {module:model/ExecutionKind} [opts.kind] Specific execution kind
+    * @param {Object} [formData] Extra multipart fields/files (key → value). Values may be strings, File/Blob (browser) or Buffer/stream (Node).
     
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ExecutionControllerExecutionResponse}
+    * @return {Promise<ExecutionControllerExecutionResponse>}
     */
     createExecution(namespace, id, wait, tenant, opts, formData) {
       return this.createExecutionWithHttpInfo(namespace, id, wait, tenant, opts, formData)
@@ -172,7 +171,7 @@ export default class ExecutionsApi {
     * @param {Boolean} [deleteMetrics = true)] Whether to delete execution metrics
     * @param {Boolean} [deleteStorage = true)] Whether to delete execution files in the internal storage
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+    * @return {Promise<  >}
     */
     deleteExecutionWithHttpInfo(executionId, tenant, opts) {
       opts = opts || {};
@@ -215,12 +214,12 @@ export default class ExecutionsApi {
     * Delete an execution
     * @param {String} executionId The execution id
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Boolean} opts.deleteLogs Whether to delete execution logs (default to true)
-    * @param {Boolean} opts.deleteMetrics Whether to delete execution metrics (default to true)
-    * @param {Boolean} opts.deleteStorage Whether to delete execution files in the internal storage (default to true)
+    * @param {Object} [opts] Optional parameters
+    * @param {Boolean} [opts.deleteLogs (default to true)] Whether to delete execution logs
+    * @param {Boolean} [opts.deleteMetrics (default to true)] Whether to delete execution metrics
+    * @param {Boolean} [opts.deleteStorage (default to true)] Whether to delete execution files in the internal storage
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+    * @return {Promise<  >}
     */
     deleteExecution(executionId, tenant, opts) {
       return this.deleteExecutionWithHttpInfo(executionId, tenant, opts)
@@ -249,7 +248,7 @@ export default class ExecutionsApi {
     * @param {Boolean} [deleteMetrics = true)] Whether to delete execution metrics
     * @param {Boolean} [deleteStorage = true)] Whether to delete execution files in the internal storage
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
+    * @return {Promise<BulkResponse>}
     */
     deleteExecutionsByIdsWithHttpInfo(tenant, requestBody, opts) {
       opts = opts || {};
@@ -292,13 +291,13 @@ export default class ExecutionsApi {
     * Delete a list of executions
     * @param {String} tenant 
     * @param {Array.<String>} requestBody The execution id
-    * @param {Object} opts Optional parameters
-    * @param {Boolean} opts.includeNonTerminated Whether to delete non-terminated executions (default to false)
-    * @param {Boolean} opts.deleteLogs Whether to delete execution logs (default to true)
-    * @param {Boolean} opts.deleteMetrics Whether to delete execution metrics (default to true)
-    * @param {Boolean} opts.deleteStorage Whether to delete execution files in the internal storage (default to true)
+    * @param {Object} [opts] Optional parameters
+    * @param {Boolean} [opts.includeNonTerminated (default to false)] Whether to delete non-terminated executions
+    * @param {Boolean} [opts.deleteLogs (default to true)] Whether to delete execution logs
+    * @param {Boolean} [opts.deleteMetrics (default to true)] Whether to delete execution metrics
+    * @param {Boolean} [opts.deleteStorage (default to true)] Whether to delete execution files in the internal storage
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
+    * @return {Promise<BulkResponse>}
     */
     deleteExecutionsByIds(tenant, requestBody, opts) {
       return this.deleteExecutionsByIdsWithHttpInfo(tenant, requestBody, opts)
@@ -321,13 +320,13 @@ export default class ExecutionsApi {
     * Delete executions filter by query parameters
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
     * @param {Boolean} [includeNonTerminated = false)] Whether to delete non-terminated executions
     * @param {Boolean} [deleteLogs = true)] Whether to delete execution logs
     * @param {Boolean} [deleteMetrics = true)] Whether to delete execution metrics
     * @param {Boolean} [deleteStorage = true)] Whether to delete execution files in the internal storage
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     deleteExecutionsByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
@@ -366,14 +365,14 @@ export default class ExecutionsApi {
     /**
     * Delete executions filter by query parameters
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
-    * @param {Boolean} opts.includeNonTerminated Whether to delete non-terminated executions (default to false)
-    * @param {Boolean} opts.deleteLogs Whether to delete execution logs (default to true)
-    * @param {Boolean} opts.deleteMetrics Whether to delete execution metrics (default to true)
-    * @param {Boolean} opts.deleteStorage Whether to delete execution files in the internal storage (default to true)
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
+    * @param {Boolean} [opts.includeNonTerminated (default to false)] Whether to delete non-terminated executions
+    * @param {Boolean} [opts.deleteLogs (default to true)] Whether to delete execution logs
+    * @param {Boolean} [opts.deleteMetrics (default to true)] Whether to delete execution metrics
+    * @param {Boolean} [opts.deleteStorage (default to true)] Whether to delete execution files in the internal storage
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     deleteExecutionsByQuery(tenant, opts) {
       return this.deleteExecutionsByQueryWithHttpInfo(tenant, opts)
@@ -398,7 +397,7 @@ export default class ExecutionsApi {
     * @param {String} path The internal storage uri
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link File} and HTTP response
+    * @return {Promise< File >}
     */
     downloadFileFromExecutionWithHttpInfo(executionId, path, tenant) {
       let postBody = null;
@@ -444,7 +443,7 @@ export default class ExecutionsApi {
     * @param {String} path The internal storage uri
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link File}
+    * @return {Promise< File >}
     */
     downloadFileFromExecution(executionId, path, tenant) {
       return this.downloadFileFromExecutionWithHttpInfo(executionId, path, tenant)
@@ -468,7 +467,7 @@ export default class ExecutionsApi {
     * @param {String} executionId The execution id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Execution} and HTTP response
+    * @return {Promise<Execution>}
     */
     executionWithHttpInfo(executionId, tenant) {
       let postBody = null;
@@ -508,7 +507,7 @@ export default class ExecutionsApi {
     * @param {String} executionId The execution id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Execution}
+    * @return {Promise<Execution>}
     */
     execution(executionId, tenant) {
       return this.executionWithHttpInfo(executionId, tenant)
@@ -534,7 +533,7 @@ export default class ExecutionsApi {
     * @param {Object} opts Optional parameters
     * @param {Array.<String>} [subflows] The subflow tasks to display
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/FlowGraph} and HTTP response
+    * @return {Promise<FlowGraph>}
     */
     executionFlowGraphWithHttpInfo(executionId, tenant, opts) {
       opts = opts || {};
@@ -575,10 +574,10 @@ export default class ExecutionsApi {
     * Generate a graph for an execution
     * @param {String} executionId The execution id
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<String>} opts.subflows The subflow tasks to display
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<String>} [opts.subflows] The subflow tasks to display
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/FlowGraph}
+    * @return {Promise<FlowGraph>}
     */
     executionFlowGraph(executionId, tenant, opts) {
       return this.executionFlowGraphWithHttpInfo(executionId, tenant, opts)
@@ -603,7 +602,7 @@ export default class ExecutionsApi {
     * @param {String} path The internal storage uri
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/FileMetas} and HTTP response
+    * @return {Promise<FileMetas>}
     */
     fileMetadatasFromExecutionWithHttpInfo(executionId, path, tenant) {
       let postBody = null;
@@ -649,7 +648,7 @@ export default class ExecutionsApi {
     * @param {String} path The internal storage uri
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/FileMetas}
+    * @return {Promise<FileMetas>}
     */
     fileMetadatasFromExecution(executionId, path, tenant) {
       return this.fileMetadatasFromExecutionWithHttpInfo(executionId, path, tenant)
@@ -676,7 +675,7 @@ export default class ExecutionsApi {
     * @param {Object} opts Optional parameters
     * @param {Number} [revision] The flow revision
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/FlowForExecution} and HTTP response
+    * @return {Promise<FlowForExecution>}
     */
     flowFromExecutionWithHttpInfo(namespace, flowId, tenant, opts) {
       opts = opts || {};
@@ -723,10 +722,10 @@ export default class ExecutionsApi {
     * @param {String} namespace The namespace of the flow
     * @param {String} flowId The flow id
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Number} opts.revision The flow revision
+    * @param {Object} [opts] Optional parameters
+    * @param {Number} [opts.revision] The flow revision
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/FlowForExecution}
+    * @return {Promise<FlowForExecution>}
     */
     flowFromExecution(namespace, flowId, tenant, opts) {
       return this.flowFromExecutionWithHttpInfo(namespace, flowId, tenant, opts)
@@ -750,7 +749,7 @@ export default class ExecutionsApi {
     * @param {String} executionId The execution that you want flow informations
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/FlowForExecution} and HTTP response
+    * @return {Promise<FlowForExecution>}
     */
     flowFromExecutionByIdWithHttpInfo(executionId, tenant) {
       let postBody = null;
@@ -790,7 +789,7 @@ export default class ExecutionsApi {
     * @param {String} executionId The execution that you want flow informations
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/FlowForExecution}
+    * @return {Promise<FlowForExecution>}
     */
     flowFromExecutionById(executionId, tenant) {
       return this.flowFromExecutionByIdWithHttpInfo(executionId, tenant)
@@ -828,7 +827,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Array.<String>} requestBody The list of executions id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
+    * @return {Promise<BulkResponse>}
     */
     forceRunByIdsWithHttpInfo(tenant, requestBody) {
       let postBody = requestBody;
@@ -867,7 +866,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Array.<String>} requestBody The list of executions id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
+    * @return {Promise<BulkResponse>}
     */
     forceRunByIds(tenant, requestBody) {
       return this.forceRunByIdsWithHttpInfo(tenant, requestBody)
@@ -891,7 +890,7 @@ export default class ExecutionsApi {
     * @param {String} executionId The execution id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Execution} and HTTP response
+    * @return {Promise<Execution>}
     */
     forceRunExecutionWithHttpInfo(executionId, tenant) {
       let postBody = null;
@@ -931,7 +930,7 @@ export default class ExecutionsApi {
     * @param {String} executionId The execution id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Execution}
+    * @return {Promise<Execution>}
     */
     forceRunExecution(executionId, tenant) {
       return this.forceRunExecutionWithHttpInfo(executionId, tenant)
@@ -954,9 +953,9 @@ export default class ExecutionsApi {
     * Force run executions filter by query parameters
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     forceRunExecutionsByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
@@ -991,10 +990,10 @@ export default class ExecutionsApi {
     /**
     * Force run executions filter by query parameters
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     forceRunExecutionsByQuery(tenant, opts) {
       return this.forceRunExecutionsByQueryWithHttpInfo(tenant, opts)
@@ -1019,7 +1018,7 @@ export default class ExecutionsApi {
     * @param {Boolean} isOnKillCascade Specifies whether killing the execution also kill all subflow executions.
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     killExecutionWithHttpInfo(executionId, isOnKillCascade, tenant) {
       let postBody = null;
@@ -1065,7 +1064,7 @@ export default class ExecutionsApi {
     * @param {Boolean} isOnKillCascade Specifies whether killing the execution also kill all subflow executions.
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     killExecution(executionId, isOnKillCascade, tenant) {
       return this.killExecutionWithHttpInfo(executionId, isOnKillCascade, tenant)
@@ -1089,7 +1088,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Array.<String>} requestBody The list of executions id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
+    * @return {Promise<BulkResponse>}
     */
     killExecutionsByIdsWithHttpInfo(tenant, requestBody) {
       let postBody = requestBody;
@@ -1128,7 +1127,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Array.<String>} requestBody The list of executions id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
+    * @return {Promise<BulkResponse>}
     */
     killExecutionsByIds(tenant, requestBody) {
       return this.killExecutionsByIdsWithHttpInfo(tenant, requestBody)
@@ -1151,9 +1150,9 @@ export default class ExecutionsApi {
     * Kill executions filter by query parameters
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     killExecutionsByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
@@ -1188,10 +1187,10 @@ export default class ExecutionsApi {
     /**
     * Kill executions filter by query parameters
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     killExecutionsByQuery(tenant, opts) {
       return this.killExecutionsByQueryWithHttpInfo(tenant, opts)
@@ -1215,7 +1214,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Array.<module:model/ExecutionRepositoryInterfaceFlowFilter>} executionRepositoryInterfaceFlowFilter 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ExecutionControllerLastExecutionResponse>} and HTTP response
+    * @return {Promise<Array.<ExecutionControllerLastExecutionResponse>>}
     */
     latestExecutionsWithHttpInfo(tenant, executionRepositoryInterfaceFlowFilter) {
       let postBody = executionRepositoryInterfaceFlowFilter;
@@ -1254,7 +1253,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Array.<module:model/ExecutionRepositoryInterfaceFlowFilter>} executionRepositoryInterfaceFlowFilter 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ExecutionControllerLastExecutionResponse>}
+    * @return {Promise<Array.<ExecutionControllerLastExecutionResponse>>}
     */
     latestExecutions(tenant, executionRepositoryInterfaceFlowFilter) {
       return this.latestExecutionsWithHttpInfo(tenant, executionRepositoryInterfaceFlowFilter)
@@ -1278,7 +1277,7 @@ export default class ExecutionsApi {
     * @param {String} executionId The execution id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+    * @return {Promise<  >}
     */
     pauseExecutionWithHttpInfo(executionId, tenant) {
       let postBody = null;
@@ -1318,7 +1317,7 @@ export default class ExecutionsApi {
     * @param {String} executionId The execution id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+    * @return {Promise<  >}
     */
     pauseExecution(executionId, tenant) {
       return this.pauseExecutionWithHttpInfo(executionId, tenant)
@@ -1342,7 +1341,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Array.<String>} requestBody The list of executions id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
+    * @return {Promise<BulkResponse>}
     */
     pauseExecutionsByIdsWithHttpInfo(tenant, requestBody) {
       let postBody = requestBody;
@@ -1381,7 +1380,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Array.<String>} requestBody The list of executions id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
+    * @return {Promise<BulkResponse>}
     */
     pauseExecutionsByIds(tenant, requestBody) {
       return this.pauseExecutionsByIdsWithHttpInfo(tenant, requestBody)
@@ -1404,9 +1403,9 @@ export default class ExecutionsApi {
     * Pause executions filter by query parameters
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     pauseExecutionsByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
@@ -1441,10 +1440,10 @@ export default class ExecutionsApi {
     /**
     * Pause executions filter by query parameters
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     pauseExecutionsByQuery(tenant, opts) {
       return this.pauseExecutionsByQueryWithHttpInfo(tenant, opts)
@@ -1472,7 +1471,7 @@ export default class ExecutionsApi {
     * @param {Number} [revision] The flow revision to use for new execution
     * @param {String} [breakpoints] Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Execution} and HTTP response
+    * @return {Promise<Execution>}
     */
     replayExecutionWithHttpInfo(executionId, tenant, opts) {
       opts = opts || {};
@@ -1515,12 +1514,12 @@ export default class ExecutionsApi {
     * Create a new execution from an old one and start it from a specified task run id
     * @param {String} executionId the original execution id to clone
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {String} opts.taskRunId The taskrun id
-    * @param {Number} opts.revision The flow revision to use for new execution
-    * @param {String} opts.breakpoints Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+    * @param {Object} [opts] Optional parameters
+    * @param {String} [opts.taskRunId] The taskrun id
+    * @param {Number} [opts.revision] The flow revision to use for new execution
+    * @param {String} [opts.breakpoints] Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Execution}
+    * @return {Promise<Execution>}
     */
     replayExecution(executionId, tenant, opts) {
       return this.replayExecutionWithHttpInfo(executionId, tenant, opts)
@@ -1549,7 +1548,7 @@ export default class ExecutionsApi {
     * @param {String} [breakpoints] Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
     * @param {Object} [formData] Extra multipart fields/files (key → value). Values may be strings, File/Blob (browser) or Buffer/stream (Node).
     
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Execution} and HTTP response
+    * @return {Promise<Execution>}
     */
     replayExecutionWithinputsWithHttpInfo(executionId, tenant, opts, formData) {
       opts = opts || {};
@@ -1600,13 +1599,13 @@ export default class ExecutionsApi {
     * Create a new execution from an old one and start it from a specified task run id
     * @param {String} executionId the original execution id to clone
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {String} opts.taskRunId The taskrun id
-    * @param {Number} opts.revision The flow revision to use for new execution
-    * @param {String} opts.breakpoints Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
-    * @param {Object} formData Extra multipart fields/files (key → value). Values may be strings, File/Blob (browser) or Buffer/stream (Node).
+    * @param {Object} [opts] Optional parameters
+    * @param {String} [opts.taskRunId] The taskrun id
+    * @param {Number} [opts.revision] The flow revision to use for new execution
+    * @param {String} [opts.breakpoints] Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+    * @param {Object} [formData] Extra multipart fields/files (key → value). Values may be strings, File/Blob (browser) or Buffer/stream (Node).
     
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Execution}
+    * @return {Promise<Execution>}
     */
     replayExecutionWithinputs(executionId, tenant, opts, formData) {
       return this.replayExecutionWithinputsWithHttpInfo(executionId, tenant, opts, formData)
@@ -1632,7 +1631,7 @@ export default class ExecutionsApi {
     * @param {Object} opts Optional parameters
     * @param {Boolean} [latestRevision = false)] If latest revision should be used
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
+    * @return {Promise<BulkResponse>}
     */
     replayExecutionsByIdsWithHttpInfo(tenant, requestBody, opts) {
       opts = opts || {};
@@ -1672,10 +1671,10 @@ export default class ExecutionsApi {
     * Create new executions from old ones. Keep the flow revision
     * @param {String} tenant 
     * @param {Array.<String>} requestBody The list of executions id
-    * @param {Object} opts Optional parameters
-    * @param {Boolean} opts.latestRevision If latest revision should be used (default to false)
+    * @param {Object} [opts] Optional parameters
+    * @param {Boolean} [opts.latestRevision (default to false)] If latest revision should be used
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
+    * @return {Promise<BulkResponse>}
     */
     replayExecutionsByIds(tenant, requestBody, opts) {
       return this.replayExecutionsByIdsWithHttpInfo(tenant, requestBody, opts)
@@ -1698,10 +1697,10 @@ export default class ExecutionsApi {
     * Create new executions from old ones filter by query parameters. Keep the flow revision
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
     * @param {Boolean} [latestRevision = false)] If latest revision should be used
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     replayExecutionsByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
@@ -1737,11 +1736,11 @@ export default class ExecutionsApi {
     /**
     * Create new executions from old ones filter by query parameters. Keep the flow revision
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
-    * @param {Boolean} opts.latestRevision If latest revision should be used (default to false)
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
+    * @param {Boolean} [opts.latestRevision (default to false)] If latest revision should be used
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     replayExecutionsByQuery(tenant, opts) {
       return this.replayExecutionsByQueryWithHttpInfo(tenant, opts)
@@ -1767,7 +1766,7 @@ export default class ExecutionsApi {
     * @param {Object} opts Optional parameters
     * @param {Number} [revision] The flow revision to use for new execution
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Execution} and HTTP response
+    * @return {Promise<Execution>}
     */
     restartExecutionWithHttpInfo(executionId, tenant, opts) {
       opts = opts || {};
@@ -1808,10 +1807,10 @@ export default class ExecutionsApi {
     * Restart a new execution from an old one
     * @param {String} executionId The execution id
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Number} opts.revision The flow revision to use for new execution
+    * @param {Object} [opts] Optional parameters
+    * @param {Number} [opts.revision] The flow revision to use for new execution
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Execution}
+    * @return {Promise<Execution>}
     */
     restartExecution(executionId, tenant, opts) {
       return this.restartExecutionWithHttpInfo(executionId, tenant, opts)
@@ -1835,7 +1834,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Array.<String>} requestBody The list of executions id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
+    * @return {Promise<BulkResponse>}
     */
     restartExecutionsByIdsWithHttpInfo(tenant, requestBody) {
       let postBody = requestBody;
@@ -1874,7 +1873,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Array.<String>} requestBody The list of executions id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
+    * @return {Promise<BulkResponse>}
     */
     restartExecutionsByIds(tenant, requestBody) {
       return this.restartExecutionsByIdsWithHttpInfo(tenant, requestBody)
@@ -1897,9 +1896,9 @@ export default class ExecutionsApi {
     * Restart executions filter by query parameters
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     restartExecutionsByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
@@ -1934,10 +1933,10 @@ export default class ExecutionsApi {
     /**
     * Restart executions filter by query parameters
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     restartExecutionsByQuery(tenant, opts) {
       return this.restartExecutionsByQueryWithHttpInfo(tenant, opts)
@@ -1962,7 +1961,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Object} [formData] Extra multipart fields/files (key → value). Values may be strings, File/Blob (browser) or Buffer/stream (Node).
     
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     resumeExecutionWithHttpInfo(executionId, tenant, formData) {
       let postBody = null;
@@ -2009,9 +2008,9 @@ export default class ExecutionsApi {
     * Resume a paused execution.
     * @param {String} executionId The execution id
     * @param {String} tenant 
-    * @param {Object} formData Extra multipart fields/files (key → value). Values may be strings, File/Blob (browser) or Buffer/stream (Node).
+    * @param {Object} [formData] Extra multipart fields/files (key → value). Values may be strings, File/Blob (browser) or Buffer/stream (Node).
     
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     resumeExecution(executionId, tenant, formData) {
       return this.resumeExecutionWithHttpInfo(executionId, tenant, formData)
@@ -2035,7 +2034,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Array.<String>} requestBody The list of executions id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
+    * @return {Promise<BulkResponse>}
     */
     resumeExecutionsByIdsWithHttpInfo(tenant, requestBody) {
       let postBody = requestBody;
@@ -2074,7 +2073,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Array.<String>} requestBody The list of executions id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
+    * @return {Promise<BulkResponse>}
     */
     resumeExecutionsByIds(tenant, requestBody) {
       return this.resumeExecutionsByIdsWithHttpInfo(tenant, requestBody)
@@ -2097,9 +2096,9 @@ export default class ExecutionsApi {
     * Resume executions filter by query parameters
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     resumeExecutionsByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
@@ -2134,10 +2133,10 @@ export default class ExecutionsApi {
     /**
     * Resume executions filter by query parameters
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     resumeExecutionsByQuery(tenant, opts) {
       return this.resumeExecutionsByQueryWithHttpInfo(tenant, opts)
@@ -2160,7 +2159,7 @@ export default class ExecutionsApi {
     * Search for flow concurrency limits
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsConcurrencyLimit} and HTTP response
+    * @return {Promise<PagedResultsConcurrencyLimit>}
     */
     searchConcurrencyLimitsWithHttpInfo(tenant) {
       let postBody = null;
@@ -2194,7 +2193,7 @@ export default class ExecutionsApi {
     * Search for flow concurrency limits
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsConcurrencyLimit}
+    * @return {Promise<PagedResultsConcurrencyLimit>}
     */
     searchConcurrencyLimits(tenant) {
       return this.searchConcurrencyLimitsWithHttpInfo(tenant)
@@ -2220,9 +2219,9 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
     * @param {Array.<String>} [sort] The sort of current page
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsExecution} and HTTP response
+    * @return {Promise<PagedResultsExecution>}
     */
     searchExecutionsWithHttpInfo(page, size, tenant, opts) {
       opts = opts || {};
@@ -2270,11 +2269,11 @@ export default class ExecutionsApi {
     * @param {Number} page The current page
     * @param {Number} size The current page size
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<String>} opts.sort The sort of current page
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<String>} [opts.sort] The sort of current page
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsExecution}
+    * @return {Promise<PagedResultsExecution>}
     */
     searchExecutions(page, size, tenant, opts) {
       return this.searchExecutionsWithHttpInfo(page, size, tenant, opts)
@@ -2301,7 +2300,7 @@ export default class ExecutionsApi {
     * @param {Number} size The current page size
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsExecution} and HTTP response
+    * @return {Promise<PagedResultsExecution>}
     */
     searchExecutionsByFlowIdWithHttpInfo(namespace, flowId, page, size, tenant) {
       let postBody = null;
@@ -2359,7 +2358,7 @@ export default class ExecutionsApi {
     * @param {Number} size The current page size
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsExecution}
+    * @return {Promise<PagedResultsExecution>}
     */
     searchExecutionsByFlowId(namespace, flowId, page, size, tenant) {
       return this.searchExecutionsByFlowIdWithHttpInfo(namespace, flowId, page, size, tenant)
@@ -2384,7 +2383,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Array.<module:model/Label>} label The labels to add to the execution
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     setLabelsOnTerminatedExecutionWithHttpInfo(executionId, tenant, label) {
       let postBody = label;
@@ -2429,7 +2428,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Array.<module:model/Label>} label The labels to add to the execution
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     setLabelsOnTerminatedExecution(executionId, tenant, label) {
       return this.setLabelsOnTerminatedExecutionWithHttpInfo(executionId, tenant, label)
@@ -2453,7 +2452,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {module:model/ExecutionControllerSetLabelsByIdsRequest} executionControllerSetLabelsByIdsRequest The request containing a list of labels and a list of executions
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
+    * @return {Promise<BulkResponse>}
     */
     setLabelsOnTerminatedExecutionsByIdsWithHttpInfo(tenant, executionControllerSetLabelsByIdsRequest) {
       let postBody = executionControllerSetLabelsByIdsRequest;
@@ -2492,7 +2491,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {module:model/ExecutionControllerSetLabelsByIdsRequest} executionControllerSetLabelsByIdsRequest The request containing a list of labels and a list of executions
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
+    * @return {Promise<BulkResponse>}
     */
     setLabelsOnTerminatedExecutionsByIds(tenant, executionControllerSetLabelsByIdsRequest) {
       return this.setLabelsOnTerminatedExecutionsByIdsWithHttpInfo(tenant, executionControllerSetLabelsByIdsRequest)
@@ -2516,9 +2515,9 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Array.<module:model/Label>} label The labels to add to the execution
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     setLabelsOnTerminatedExecutionsByQueryWithHttpInfo(tenant, label, opts) {
       opts = opts || {};
@@ -2558,10 +2557,10 @@ export default class ExecutionsApi {
     * Set label on executions filter by query parameters
     * @param {String} tenant 
     * @param {Array.<module:model/Label>} label The labels to add to the execution
-    * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     setLabelsOnTerminatedExecutionsByQuery(tenant, label, opts) {
       return this.setLabelsOnTerminatedExecutionsByQueryWithHttpInfo(tenant, label, opts)
@@ -2587,7 +2586,7 @@ export default class ExecutionsApi {
     * @param {String} key The webhook trigger uid
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ExecutionControllerWebhookResponse} and HTTP response
+    * @return {Promise<ExecutionControllerWebhookResponse>}
     */
     triggerExecutionByGetWebhookWithHttpInfo(namespace, id, key, tenant) {
       let postBody = null;
@@ -2639,7 +2638,7 @@ export default class ExecutionsApi {
     * @param {String} key The webhook trigger uid
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ExecutionControllerWebhookResponse}
+    * @return {Promise<ExecutionControllerWebhookResponse>}
     */
     triggerExecutionByGetWebhook(namespace, id, key, tenant) {
       return this.triggerExecutionByGetWebhookWithHttpInfo(namespace, id, key, tenant)
@@ -2664,7 +2663,7 @@ export default class ExecutionsApi {
     * @param {module:model/StateType} state The new state of the execution
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Execution} and HTTP response
+    * @return {Promise<Execution>}
     */
     unqueueExecutionWithHttpInfo(executionId, state, tenant) {
       let postBody = null;
@@ -2710,7 +2709,7 @@ export default class ExecutionsApi {
     * @param {module:model/StateType} state The new state of the execution
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Execution}
+    * @return {Promise<Execution>}
     */
     unqueueExecution(executionId, state, tenant) {
       return this.unqueueExecutionWithHttpInfo(executionId, state, tenant)
@@ -2735,7 +2734,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Array.<String>} requestBody The list of executions id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
+    * @return {Promise<BulkResponse>}
     */
     unqueueExecutionsByIdsWithHttpInfo(state, tenant, requestBody) {
       let postBody = requestBody;
@@ -2780,7 +2779,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Array.<String>} requestBody The list of executions id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
+    * @return {Promise<BulkResponse>}
     */
     unqueueExecutionsByIds(state, tenant, requestBody) {
       return this.unqueueExecutionsByIdsWithHttpInfo(state, tenant, requestBody)
@@ -2803,10 +2802,10 @@ export default class ExecutionsApi {
     * Unqueue executions filter by query parameters
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
     * @param {module:model/StateType} [newState] The new state of the unqueued executions
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     unqueueExecutionsByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
@@ -2842,11 +2841,11 @@ export default class ExecutionsApi {
     /**
     * Unqueue executions filter by query parameters
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
-    * @param {module:model/StateType} opts.newState The new state of the unqueued executions
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
+    * @param {module:model/StateType} [opts.newState] The new state of the unqueued executions
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     unqueueExecutionsByQuery(tenant, opts) {
       return this.unqueueExecutionsByQueryWithHttpInfo(tenant, opts)
@@ -2872,7 +2871,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {module:model/ConcurrencyLimit} concurrencyLimit 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ConcurrencyLimit} and HTTP response
+    * @return {Promise<ConcurrencyLimit>}
     */
     updateConcurrencyLimitWithHttpInfo(flowId, namespace, tenant, concurrencyLimit) {
       let postBody = concurrencyLimit;
@@ -2923,7 +2922,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {module:model/ConcurrencyLimit} concurrencyLimit 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ConcurrencyLimit}
+    * @return {Promise<ConcurrencyLimit>}
     */
     updateConcurrencyLimit(flowId, namespace, tenant, concurrencyLimit) {
       return this.updateConcurrencyLimitWithHttpInfo(flowId, namespace, tenant, concurrencyLimit)
@@ -2948,7 +2947,7 @@ export default class ExecutionsApi {
     * @param {module:model/StateType} status The new state of the execution
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Execution} and HTTP response
+    * @return {Promise<Execution>}
     */
     updateExecutionStatusWithHttpInfo(executionId, status, tenant) {
       let postBody = null;
@@ -2994,7 +2993,7 @@ export default class ExecutionsApi {
     * @param {module:model/StateType} status The new state of the execution
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Execution}
+    * @return {Promise<Execution>}
     */
     updateExecutionStatus(executionId, status, tenant) {
       return this.updateExecutionStatusWithHttpInfo(executionId, status, tenant)
@@ -3019,7 +3018,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Array.<String>} requestBody The list of executions id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
+    * @return {Promise<BulkResponse>}
     */
     updateExecutionsStatusByIdsWithHttpInfo(newStatus, tenant, requestBody) {
       let postBody = requestBody;
@@ -3064,7 +3063,7 @@ export default class ExecutionsApi {
     * @param {String} tenant 
     * @param {Array.<String>} requestBody The list of executions id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
+    * @return {Promise<BulkResponse>}
     */
     updateExecutionsStatusByIds(newStatus, tenant, requestBody) {
       return this.updateExecutionsStatusByIdsWithHttpInfo(newStatus, tenant, requestBody)
@@ -3088,9 +3087,9 @@ export default class ExecutionsApi {
     * @param {module:model/StateType} newStatus The new state of the executions
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
+    * @return {Promise<BulkResponse>}
     */
     updateExecutionsStatusByQueryWithHttpInfo(newStatus, tenant, opts) {
       opts = opts || {};
@@ -3131,10 +3130,10 @@ export default class ExecutionsApi {
     * Change executions state by query parameters
     * @param {module:model/StateType} newStatus The new state of the executions
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
+    * @return {Promise<BulkResponse>}
     */
     updateExecutionsStatusByQuery(newStatus, tenant, opts) {
       return this.updateExecutionsStatusByQueryWithHttpInfo(newStatus, tenant, opts)

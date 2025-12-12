@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import InstanceControllerApiPluginArtifact from './InstanceControllerApiPluginArtifact';
 
 /**
+  * @typedef {Object} IPagedResultsInstanceControllerApiPluginArtifact
+  * @property {Array.<module:model/InstanceControllerApiPluginArtifact>} results
+  * @property {Number} total
+  */
+
+/**
  * The PagedResultsInstanceControllerApiPluginArtifact model module.
  * @module model/PagedResultsInstanceControllerApiPluginArtifact
-  */
+ * @type {IPagedResultsInstanceControllerApiPluginArtifact}
+ */
 class PagedResultsInstanceControllerApiPluginArtifact {
     /**
      * Constructs a new <code>PagedResultsInstanceControllerApiPluginArtifact</code>.

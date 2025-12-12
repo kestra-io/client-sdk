@@ -14,9 +14,18 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IMeControllerApiProfile
+  * @property {String} email
+  * @property {String} firstName
+  * @property {String} lastName
+  * @property {String} username
+  */
+
+/**
  * The MeControllerApiProfile model module.
  * @module model/MeControllerApiProfile
-  */
+ * @type {IMeControllerApiProfile}
+ */
 class MeControllerApiProfile {
     /**
      * Constructs a new <code>MeControllerApiProfile</code>.

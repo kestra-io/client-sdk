@@ -25,7 +25,6 @@ import PagedResultsIAMServiceAccountControllerApiServiceAccountDetail from '../m
 /**
 * ServiceAccount service.
 * @module api/ServiceAccountApi
-* @version 1.0.2
 */
 export default class ServiceAccountApi {
 
@@ -50,7 +49,7 @@ export default class ServiceAccountApi {
     * @param {String} id The user id
     * @param {module:model/CreateApiTokenRequest} createApiTokenRequest The create api-token request
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     createApiTokensForServiceAccountWithHttpInfo(id, createApiTokenRequest) {
       let postBody = createApiTokenRequest;
@@ -89,7 +88,7 @@ export default class ServiceAccountApi {
     * @param {String} id The user id
     * @param {module:model/CreateApiTokenRequest} createApiTokenRequest The create api-token request
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     createApiTokensForServiceAccount(id, createApiTokenRequest) {
       return this.createApiTokensForServiceAccountWithHttpInfo(id, createApiTokenRequest)
@@ -114,7 +113,7 @@ export default class ServiceAccountApi {
     * @param {String} tenant 
     * @param {module:model/CreateApiTokenRequest} createApiTokenRequest The create api-token request
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     createApiTokensForServiceAccountWithTenantWithHttpInfo(id, tenant, createApiTokenRequest) {
       let postBody = createApiTokenRequest;
@@ -159,7 +158,7 @@ export default class ServiceAccountApi {
     * @param {String} tenant 
     * @param {module:model/CreateApiTokenRequest} createApiTokenRequest The create api-token request
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     createApiTokensForServiceAccountWithTenant(id, tenant, createApiTokenRequest) {
       return this.createApiTokensForServiceAccountWithTenantWithHttpInfo(id, tenant, createApiTokenRequest)
@@ -183,7 +182,7 @@ export default class ServiceAccountApi {
     * Superadmin-only. CReate service account with access to multiple tenants.
     * @param {module:model/IAMServiceAccountControllerApiCreateServiceAccountRequest} iAMServiceAccountControllerApiCreateServiceAccountRequest The service account
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMServiceAccountControllerApiServiceAccountDetail} and HTTP response
+    * @return {Promise<IAMServiceAccountControllerApiServiceAccountDetail>}
     */
     createServiceAccountWithHttpInfo(iAMServiceAccountControllerApiCreateServiceAccountRequest) {
       let postBody = iAMServiceAccountControllerApiCreateServiceAccountRequest;
@@ -217,7 +216,7 @@ export default class ServiceAccountApi {
     * Superadmin-only. CReate service account with access to multiple tenants.
     * @param {module:model/IAMServiceAccountControllerApiCreateServiceAccountRequest} iAMServiceAccountControllerApiCreateServiceAccountRequest The service account
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMServiceAccountControllerApiServiceAccountDetail}
+    * @return {Promise<IAMServiceAccountControllerApiServiceAccountDetail>}
     */
     createServiceAccount(iAMServiceAccountControllerApiCreateServiceAccountRequest) {
       return this.createServiceAccountWithHttpInfo(iAMServiceAccountControllerApiCreateServiceAccountRequest)
@@ -241,7 +240,7 @@ export default class ServiceAccountApi {
     * @param {String} tenant 
     * @param {module:model/IAMServiceAccountControllerApiServiceAccountRequest} iAMServiceAccountControllerApiServiceAccountRequest The service account
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMServiceAccountControllerApiServiceAccountResponse} and HTTP response
+    * @return {Promise<IAMServiceAccountControllerApiServiceAccountResponse>}
     */
     createServiceAccountForTenantWithHttpInfo(tenant, iAMServiceAccountControllerApiServiceAccountRequest) {
       let postBody = iAMServiceAccountControllerApiServiceAccountRequest;
@@ -280,7 +279,7 @@ export default class ServiceAccountApi {
     * @param {String} tenant 
     * @param {module:model/IAMServiceAccountControllerApiServiceAccountRequest} iAMServiceAccountControllerApiServiceAccountRequest The service account
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMServiceAccountControllerApiServiceAccountResponse}
+    * @return {Promise<IAMServiceAccountControllerApiServiceAccountResponse>}
     */
     createServiceAccountForTenant(tenant, iAMServiceAccountControllerApiServiceAccountRequest) {
       return this.createServiceAccountForTenantWithHttpInfo(tenant, iAMServiceAccountControllerApiServiceAccountRequest)
@@ -304,7 +303,7 @@ export default class ServiceAccountApi {
     * @param {String} id The user id
     * @param {String} tokenId The token id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     deleteApiTokenForServiceAccountWithHttpInfo(id, tokenId) {
       let postBody = null;
@@ -344,7 +343,7 @@ export default class ServiceAccountApi {
     * @param {String} id The user id
     * @param {String} tokenId The token id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     deleteApiTokenForServiceAccount(id, tokenId) {
       return this.deleteApiTokenForServiceAccountWithHttpInfo(id, tokenId)
@@ -369,7 +368,7 @@ export default class ServiceAccountApi {
     * @param {String} tokenId The token id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     deleteApiTokenForServiceAccountWithTenantWithHttpInfo(id, tokenId, tenant) {
       let postBody = null;
@@ -415,7 +414,7 @@ export default class ServiceAccountApi {
     * @param {String} tokenId The token id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     deleteApiTokenForServiceAccountWithTenant(id, tokenId, tenant) {
       return this.deleteApiTokenForServiceAccountWithTenantWithHttpInfo(id, tokenId, tenant)
@@ -439,7 +438,7 @@ export default class ServiceAccountApi {
     * Superadmin-only. Delete a service account including all its access.
     * @param {String} id The service account id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+    * @return {Promise<  >}
     */
     deleteServiceAccountWithHttpInfo(id) {
       let postBody = null;
@@ -474,7 +473,7 @@ export default class ServiceAccountApi {
     * Superadmin-only. Delete a service account including all its access.
     * @param {String} id The service account id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+    * @return {Promise<  >}
     */
     deleteServiceAccount(id) {
       return this.deleteServiceAccountWithHttpInfo(id)
@@ -498,7 +497,7 @@ export default class ServiceAccountApi {
     * @param {String} id The service account id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+    * @return {Promise<  >}
     */
     deleteServiceAccountForTenantWithHttpInfo(id, tenant) {
       let postBody = null;
@@ -538,7 +537,7 @@ export default class ServiceAccountApi {
     * @param {String} id The service account id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+    * @return {Promise<  >}
     */
     deleteServiceAccountForTenant(id, tenant) {
       return this.deleteServiceAccountForTenantWithHttpInfo(id, tenant)
@@ -561,7 +560,7 @@ export default class ServiceAccountApi {
     * List API tokens for a specific service account
     * @param {String} id The user id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     listApiTokensForServiceAccountWithHttpInfo(id) {
       let postBody = null;
@@ -595,7 +594,7 @@ export default class ServiceAccountApi {
     * List API tokens for a specific service account
     * @param {String} id The user id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     listApiTokensForServiceAccount(id) {
       return this.listApiTokensForServiceAccountWithHttpInfo(id)
@@ -619,7 +618,7 @@ export default class ServiceAccountApi {
     * @param {String} id The user id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+    * @return {Promise< Object >}
     */
     listApiTokensForServiceAccountWithTenantWithHttpInfo(id, tenant) {
       let postBody = null;
@@ -659,7 +658,7 @@ export default class ServiceAccountApi {
     * @param {String} id The user id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+    * @return {Promise< Object >}
     */
     listApiTokensForServiceAccountWithTenant(id, tenant) {
       return this.listApiTokensForServiceAccountWithTenantWithHttpInfo(id, tenant)
@@ -686,7 +685,7 @@ export default class ServiceAccountApi {
     * @param {String} [q] A string filter
     * @param {Array.<String>} [sort] The sort of current page
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsIAMServiceAccountControllerApiServiceAccountDetail} and HTTP response
+    * @return {Promise<PagedResultsIAMServiceAccountControllerApiServiceAccountDetail>}
     */
     listServiceAccountsWithHttpInfo(page, size, opts) {
       opts = opts || {};
@@ -728,11 +727,11 @@ export default class ServiceAccountApi {
     * List service accounts. Superadmin-only. 
     * @param {Number} page The current page
     * @param {Number} size The current page size
-    * @param {Object} opts Optional parameters
-    * @param {String} opts.q A string filter
-    * @param {Array.<String>} opts.sort The sort of current page
+    * @param {Object} [opts] Optional parameters
+    * @param {String} [opts.q] A string filter
+    * @param {Array.<String>} [opts.sort] The sort of current page
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsIAMServiceAccountControllerApiServiceAccountDetail}
+    * @return {Promise<PagedResultsIAMServiceAccountControllerApiServiceAccountDetail>}
     */
     listServiceAccounts(page, size, opts) {
       return this.listServiceAccountsWithHttpInfo(page, size, opts)
@@ -757,7 +756,7 @@ export default class ServiceAccountApi {
     * @param {String} id The service account id
     * @param {module:model/IAMServiceAccountControllerApiPatchServiceAccountRequest} iAMServiceAccountControllerApiPatchServiceAccountRequest The service account details
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMServiceAccountControllerApiServiceAccountDetail} and HTTP response
+    * @return {Promise<IAMServiceAccountControllerApiServiceAccountDetail>}
     */
     patchServiceAccountDetailsWithHttpInfo(id, iAMServiceAccountControllerApiPatchServiceAccountRequest) {
       let postBody = iAMServiceAccountControllerApiPatchServiceAccountRequest;
@@ -797,7 +796,7 @@ export default class ServiceAccountApi {
     * @param {String} id The service account id
     * @param {module:model/IAMServiceAccountControllerApiPatchServiceAccountRequest} iAMServiceAccountControllerApiPatchServiceAccountRequest The service account details
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMServiceAccountControllerApiServiceAccountDetail}
+    * @return {Promise<IAMServiceAccountControllerApiServiceAccountDetail>}
     */
     patchServiceAccountDetails(id, iAMServiceAccountControllerApiPatchServiceAccountRequest) {
       return this.patchServiceAccountDetailsWithHttpInfo(id, iAMServiceAccountControllerApiPatchServiceAccountRequest)
@@ -822,7 +821,7 @@ export default class ServiceAccountApi {
     * @param {String} id The user id
     * @param {module:model/ApiPatchSuperAdminRequest} apiPatchSuperAdminRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+    * @return {Promise<  >}
     */
     patchServiceAccountSuperAdminWithHttpInfo(id, apiPatchSuperAdminRequest) {
       let postBody = apiPatchSuperAdminRequest;
@@ -862,7 +861,7 @@ export default class ServiceAccountApi {
     * @param {String} id The user id
     * @param {module:model/ApiPatchSuperAdminRequest} apiPatchSuperAdminRequest 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+    * @return {Promise<  >}
     */
     patchServiceAccountSuperAdmin(id, apiPatchSuperAdminRequest) {
       return this.patchServiceAccountSuperAdminWithHttpInfo(id, apiPatchSuperAdminRequest)
@@ -886,7 +885,7 @@ export default class ServiceAccountApi {
     * Superadmin-only. Get user account details.
     * @param {String} id The service account id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMServiceAccountControllerApiServiceAccountDetail} and HTTP response
+    * @return {Promise<IAMServiceAccountControllerApiServiceAccountDetail>}
     */
     serviceAccountWithHttpInfo(id) {
       let postBody = null;
@@ -921,7 +920,7 @@ export default class ServiceAccountApi {
     * Superadmin-only. Get user account details.
     * @param {String} id The service account id
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMServiceAccountControllerApiServiceAccountDetail}
+    * @return {Promise<IAMServiceAccountControllerApiServiceAccountDetail>}
     */
     serviceAccount(id) {
       return this.serviceAccountWithHttpInfo(id)
@@ -945,7 +944,7 @@ export default class ServiceAccountApi {
     * @param {String} id The user id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMServiceAccountControllerApiServiceAccountResponse} and HTTP response
+    * @return {Promise<IAMServiceAccountControllerApiServiceAccountResponse>}
     */
     serviceAccountForTenantWithHttpInfo(id, tenant) {
       let postBody = null;
@@ -985,7 +984,7 @@ export default class ServiceAccountApi {
     * @param {String} id The user id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMServiceAccountControllerApiServiceAccountResponse}
+    * @return {Promise<IAMServiceAccountControllerApiServiceAccountResponse>}
     */
     serviceAccountForTenant(id, tenant) {
       return this.serviceAccountForTenantWithHttpInfo(id, tenant)
@@ -1010,7 +1009,7 @@ export default class ServiceAccountApi {
     * @param {String} tenant 
     * @param {module:model/IAMServiceAccountControllerApiServiceAccountRequest} iAMServiceAccountControllerApiServiceAccountRequest The user
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMServiceAccountControllerApiServiceAccountResponse} and HTTP response
+    * @return {Promise<IAMServiceAccountControllerApiServiceAccountResponse>}
     */
     updateServiceAccountWithHttpInfo(id, tenant, iAMServiceAccountControllerApiServiceAccountRequest) {
       let postBody = iAMServiceAccountControllerApiServiceAccountRequest;
@@ -1055,7 +1054,7 @@ export default class ServiceAccountApi {
     * @param {String} tenant 
     * @param {module:model/IAMServiceAccountControllerApiServiceAccountRequest} iAMServiceAccountControllerApiServiceAccountRequest The user
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMServiceAccountControllerApiServiceAccountResponse}
+    * @return {Promise<IAMServiceAccountControllerApiServiceAccountResponse>}
     */
     updateServiceAccount(id, tenant, iAMServiceAccountControllerApiServiceAccountRequest) {
       return this.updateServiceAccountWithHttpInfo(id, tenant, iAMServiceAccountControllerApiServiceAccountRequest)

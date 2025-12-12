@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IMeControllerApiUpdatePasswordRequest
+  * @property {String} oldPassword
+  * @property {String} newPassword
+  */
+
+/**
  * The MeControllerApiUpdatePasswordRequest model module.
  * @module model/MeControllerApiUpdatePasswordRequest
-  */
+ * @type {IMeControllerApiUpdatePasswordRequest}
+ */
 class MeControllerApiUpdatePasswordRequest {
     /**
      * Constructs a new <code>MeControllerApiUpdatePasswordRequest</code>.

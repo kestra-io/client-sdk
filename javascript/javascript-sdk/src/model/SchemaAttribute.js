@@ -18,9 +18,30 @@ import SchemaAttributeType from './SchemaAttributeType';
 import SchemaAttributeUniqueness from './SchemaAttributeUniqueness';
 
 /**
+  * @typedef {Object} ISchemaAttribute
+  * @property {Array.<module:model/SchemaAttribute>} attributes
+  * @property {String} urn
+  * @property {String} name
+  * @property {module:model/SchemaAttributeType} type
+  * @property {Array.<module:model/SchemaAttribute>} subAttributes
+  * @property {Boolean} multiValued
+  * @property {String} description
+  * @property {Boolean} required
+  * @property {Array.<String>} canonicalValues
+  * @property {Boolean} caseExact
+  * @property {module:model/SchemaAttributeMutability} mutability
+  * @property {module:model/SchemaAttributeReturned} returned
+  * @property {module:model/SchemaAttributeUniqueness} uniqueness
+  * @property {Array.<String>} referenceTypes
+  * @property {Object} accessor
+  * @property {Boolean} scimResourceIdReference
+  */
+
+/**
  * The SchemaAttribute model module.
  * @module model/SchemaAttribute
-  */
+ * @type {ISchemaAttribute}
+ */
 class SchemaAttribute {
     /**
      * Constructs a new <code>SchemaAttribute</code>.

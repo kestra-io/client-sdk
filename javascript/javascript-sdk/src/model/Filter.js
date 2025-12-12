@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IFilter
+  * @property {String} filter
+  * @property {Object} expression
+  */
+
+/**
  * The Filter model module.
  * @module model/Filter
-  */
+ * @type {IFilter}
+ */
 class Filter {
     /**
      * Constructs a new <code>Filter</code>.

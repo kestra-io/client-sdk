@@ -14,9 +14,17 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IIAMTenantAccessControllerApiGroup
+  * @property {String} id
+  * @property {String} name
+  * @property {Boolean} external
+  */
+
+/**
  * The IAMTenantAccessControllerApiGroup model module.
  * @module model/IAMTenantAccessControllerApiGroup
-  */
+ * @type {IIAMTenantAccessControllerApiGroup}
+ */
 class IAMTenantAccessControllerApiGroup {
     /**
      * Constructs a new <code>IAMTenantAccessControllerApiGroup</code>.

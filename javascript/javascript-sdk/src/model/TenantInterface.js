@@ -14,9 +14,15 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} ITenantInterface
+  * @property {String} tenantId
+  */
+
+/**
  * The TenantInterface model module.
  * @module model/TenantInterface
-  */
+ * @type {ITenantInterface}
+ */
 class TenantInterface {
     /**
      * Constructs a new <code>TenantInterface</code>.

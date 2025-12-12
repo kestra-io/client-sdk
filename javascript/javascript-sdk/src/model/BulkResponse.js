@@ -14,9 +14,15 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IBulkResponse
+  * @property {Number} count
+  */
+
+/**
  * The BulkResponse model module.
  * @module model/BulkResponse
-  */
+ * @type {IBulkResponse}
+ */
 class BulkResponse {
     /**
      * Constructs a new <code>BulkResponse</code>.

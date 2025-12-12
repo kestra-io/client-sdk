@@ -15,9 +15,19 @@ import ApiClient from '../ApiClient';
 import StateType from './StateType';
 
 /**
+  * @typedef {Object} IExecutionControllerLastExecutionResponse
+  * @property {String} id
+  * @property {String} flowId
+  * @property {String} namespace
+  * @property {Date} startDate
+  * @property {module:model/StateType} status
+  */
+
+/**
  * The ExecutionControllerLastExecutionResponse model module.
  * @module model/ExecutionControllerLastExecutionResponse
-  */
+ * @type {IExecutionControllerLastExecutionResponse}
+ */
 class ExecutionControllerLastExecutionResponse {
     /**
      * Constructs a new <code>ExecutionControllerLastExecutionResponse</code>.

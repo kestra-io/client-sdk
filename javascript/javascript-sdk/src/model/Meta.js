@@ -14,9 +14,19 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IMeta
+  * @property {String} resourceType
+  * @property {Date} created
+  * @property {Date} lastModified
+  * @property {String} location
+  * @property {String} version
+  */
+
+/**
  * The Meta model module.
  * @module model/Meta
-  */
+ * @type {IMeta}
+ */
 class Meta {
     /**
      * Constructs a new <code>Meta</code>.

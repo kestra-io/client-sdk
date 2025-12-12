@@ -14,9 +14,20 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IPluginArtifact
+  * @property {String} groupId
+  * @property {String} artifactId
+  * @property {String} extension
+  * @property {String} classifier
+  * @property {String} version
+  * @property {String} uri
+  */
+
+/**
  * The PluginArtifact model module.
  * @module model/PluginArtifact
-  */
+ * @type {IPluginArtifact}
+ */
 class PluginArtifact {
     /**
      * Constructs a new <code>PluginArtifact</code>.

@@ -17,9 +17,21 @@ import Meta from './Meta';
 import ScimExtension from './ScimExtension';
 
 /**
+  * @typedef {Object} IScimResource
+  * @property {Array.<String>} schemas
+  * @property {String} baseUrn
+  * @property {Object.<String, module:model/ScimExtension>} extensions
+  * @property {module:model/Meta} meta
+  * @property {String} id
+  * @property {String} externalId
+  * @property {String} resourceType
+  */
+
+/**
  * The ScimResource model module.
  * @module model/ScimResource
-  */
+ * @type {IScimResource}
+ */
 class ScimResource {
     /**
      * Constructs a new <code>ScimResource</code>.

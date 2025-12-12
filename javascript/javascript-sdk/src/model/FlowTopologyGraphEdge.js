@@ -15,9 +15,17 @@ import ApiClient from '../ApiClient';
 import FlowRelation from './FlowRelation';
 
 /**
+  * @typedef {Object} IFlowTopologyGraphEdge
+  * @property {String} source
+  * @property {String} target
+  * @property {module:model/FlowRelation} relation
+  */
+
+/**
  * The FlowTopologyGraphEdge model module.
  * @module model/FlowTopologyGraphEdge
-  */
+ * @type {IFlowTopologyGraphEdge}
+ */
 class FlowTopologyGraphEdge {
     /**
      * Constructs a new <code>FlowTopologyGraphEdge</code>.

@@ -14,9 +14,15 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IMapObjectObject
+  * @property {Boolean} empty
+  */
+
+/**
  * The MapObjectObject model module.
  * @module model/MapObjectObject
-  */
+ * @type {IMapObjectObject}
+ */
 class MapObjectObject {
     /**
      * Constructs a new <code>MapObjectObject</code>.

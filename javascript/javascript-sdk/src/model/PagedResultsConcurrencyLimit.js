@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import ConcurrencyLimit from './ConcurrencyLimit';
 
 /**
+  * @typedef {Object} IPagedResultsConcurrencyLimit
+  * @property {Array.<module:model/ConcurrencyLimit>} results
+  * @property {Number} total
+  */
+
+/**
  * The PagedResultsConcurrencyLimit model module.
  * @module model/PagedResultsConcurrencyLimit
-  */
+ * @type {IPagedResultsConcurrencyLimit}
+ */
 class PagedResultsConcurrencyLimit {
     /**
      * Constructs a new <code>PagedResultsConcurrencyLimit</code>.

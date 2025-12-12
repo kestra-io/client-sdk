@@ -15,9 +15,18 @@ import ApiClient from '../ApiClient';
 import GroupIdentifierMembership from './GroupIdentifierMembership';
 
 /**
+  * @typedef {Object} IIAMGroupControllerApiGroupMembership
+  * @property {String} id
+  * @property {String} name
+  * @property {Boolean} external
+  * @property {module:model/GroupIdentifierMembership} membership
+  */
+
+/**
  * The IAMGroupControllerApiGroupMembership model module.
  * @module model/IAMGroupControllerApiGroupMembership
-  */
+ * @type {IIAMGroupControllerApiGroupMembership}
+ */
 class IAMGroupControllerApiGroupMembership {
     /**
      * Constructs a new <code>IAMGroupControllerApiGroupMembership</code>.

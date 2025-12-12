@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import TestSuiteRunResult from './TestSuiteRunResult';
 
 /**
+  * @typedef {Object} IPagedResultsTestSuiteRunResult
+  * @property {Array.<module:model/TestSuiteRunResult>} results
+  * @property {Number} total
+  */
+
+/**
  * The PagedResultsTestSuiteRunResult model module.
  * @module model/PagedResultsTestSuiteRunResult
-  */
+ * @type {IPagedResultsTestSuiteRunResult}
+ */
 class PagedResultsTestSuiteRunResult {
     /**
      * Constructs a new <code>PagedResultsTestSuiteRunResult</code>.

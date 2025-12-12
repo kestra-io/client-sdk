@@ -14,9 +14,22 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IAppsControllerApiAppSource
+  * @property {String} uid
+  * @property {String} name
+  * @property {String} namespace
+  * @property {Array.<String>} tags
+  * @property {Boolean} disabled
+  * @property {String} source
+  * @property {Date} created
+  * @property {Date} updated
+  */
+
+/**
  * The AppsControllerApiAppSource model module.
  * @module model/AppsControllerApiAppSource
-  */
+ * @type {IAppsControllerApiAppSource}
+ */
 class AppsControllerApiAppSource {
     /**
      * Constructs a new <code>AppsControllerApiAppSource</code>.

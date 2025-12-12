@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IBulkErrorResponse
+  * @property {String} message
+  * @property {Object} invalids
+  */
+
+/**
  * The BulkErrorResponse model module.
  * @module model/BulkErrorResponse
-  */
+ * @type {IBulkErrorResponse}
+ */
 class BulkErrorResponse {
     /**
      * Constructs a new <code>BulkErrorResponse</code>.

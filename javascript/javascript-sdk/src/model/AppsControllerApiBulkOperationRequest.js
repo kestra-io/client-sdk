@@ -14,9 +14,15 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IAppsControllerApiBulkOperationRequest
+  * @property {Array.<String>} uids
+  */
+
+/**
  * The AppsControllerApiBulkOperationRequest model module.
  * @module model/AppsControllerApiBulkOperationRequest
-  */
+ * @type {IAppsControllerApiBulkOperationRequest}
+ */
 class AppsControllerApiBulkOperationRequest {
     /**
      * Constructs a new <code>AppsControllerApiBulkOperationRequest</code>.

@@ -13,6 +13,17 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum ExecutionRepositoryInterfaceChildFilter
+ * @type {{
+ *   "CHILD": "CHILD","MAIN": "MAIN",
+ * }}
+ */
+export const ExecutionRepositoryInterfaceChildFilterStatic = { 
+    "CHILD": "CHILD",
+    "MAIN": "MAIN",
+}
+
+/**
 * Enum class ExecutionRepositoryInterfaceChildFilter.
 * @enum {}
 * @readonly

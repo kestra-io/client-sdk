@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IMiscControllerTenantConfigurationInfo
+  * @property {Boolean} storageByTenant
+  * @property {Boolean} secretByTenant
+  */
+
+/**
  * The MiscControllerTenantConfigurationInfo model module.
  * @module model/MiscControllerTenantConfigurationInfo
-  */
+ * @type {IMiscControllerTenantConfigurationInfo}
+ */
 class MiscControllerTenantConfigurationInfo {
     /**
      * Constructs a new <code>MiscControllerTenantConfigurationInfo</code>.

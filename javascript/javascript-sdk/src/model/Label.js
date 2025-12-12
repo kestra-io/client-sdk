@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} ILabel
+  * @property {String} key
+  * @property {String} value
+  */
+
+/**
  * The Label model module.
  * @module model/Label
-  */
+ * @type {ILabel}
+ */
 class Label {
     /**
      * Constructs a new <code>Label</code>.

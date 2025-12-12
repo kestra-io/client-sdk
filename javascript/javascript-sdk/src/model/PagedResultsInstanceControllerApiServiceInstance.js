@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import InstanceControllerApiServiceInstance from './InstanceControllerApiServiceInstance';
 
 /**
+  * @typedef {Object} IPagedResultsInstanceControllerApiServiceInstance
+  * @property {Array.<module:model/InstanceControllerApiServiceInstance>} results
+  * @property {Number} total
+  */
+
+/**
  * The PagedResultsInstanceControllerApiServiceInstance model module.
  * @module model/PagedResultsInstanceControllerApiServiceInstance
-  */
+ * @type {IPagedResultsInstanceControllerApiServiceInstance}
+ */
 class PagedResultsInstanceControllerApiServiceInstance {
     /**
      * Constructs a new <code>PagedResultsInstanceControllerApiServiceInstance</code>.

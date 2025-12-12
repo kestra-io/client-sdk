@@ -14,9 +14,17 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IMeControllerApiTenant
+  * @property {String} id
+  * @property {String} name
+  * @property {String} logo
+  */
+
+/**
  * The MeControllerApiTenant model module.
  * @module model/MeControllerApiTenant
-  */
+ * @type {IMeControllerApiTenant}
+ */
 class MeControllerApiTenant {
     /**
      * Constructs a new <code>MeControllerApiTenant</code>.

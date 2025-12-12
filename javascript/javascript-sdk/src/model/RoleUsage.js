@@ -14,9 +14,15 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IRoleUsage
+  * @property {Number} count
+  */
+
+/**
  * The RoleUsage model module.
  * @module model/RoleUsage
-  */
+ * @type {IRoleUsage}
+ */
 class RoleUsage {
     /**
      * Constructs a new <code>RoleUsage</code>.

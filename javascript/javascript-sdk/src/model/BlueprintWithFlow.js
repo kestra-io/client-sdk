@@ -15,9 +15,22 @@ import ApiClient from '../ApiClient';
 import Blueprint from './Blueprint';
 
 /**
+  * @typedef {Object} IBlueprintWithFlow
+  * @property {String} id
+  * @property {String} title
+  * @property {String} description
+  * @property {Array.<String>} tags
+  * @property {Array.<String>} includedTasks
+  * @property {Date} publishedAt
+  * @property {Boolean} deleted
+  * @property {String} flow
+  */
+
+/**
  * The BlueprintWithFlow model module.
  * @module model/BlueprintWithFlow
-  */
+ * @type {IBlueprintWithFlow}
+ */
 class BlueprintWithFlow {
     /**
      * Constructs a new <code>BlueprintWithFlow</code>.

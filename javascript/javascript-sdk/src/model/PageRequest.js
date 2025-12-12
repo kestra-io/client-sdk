@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IPageRequest
+  * @property {Number} startIndex
+  * @property {Number} count
+  */
+
+/**
  * The PageRequest model module.
  * @module model/PageRequest
-  */
+ * @type {IPageRequest}
+ */
 class PageRequest {
     /**
      * Constructs a new <code>PageRequest</code>.

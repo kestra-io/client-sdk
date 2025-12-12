@@ -15,9 +15,17 @@ import ApiClient from '../ApiClient';
 import ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue from './ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue';
 
 /**
+  * @typedef {Object} IExecutionControllerApiValidateExecutionInputsResponse
+  * @property {String} id
+  * @property {String} namespace
+  * @property {Array.<module:model/ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue>} inputs
+  */
+
+/**
  * The ExecutionControllerApiValidateExecutionInputsResponse model module.
  * @module model/ExecutionControllerApiValidateExecutionInputsResponse
-  */
+ * @type {IExecutionControllerApiValidateExecutionInputsResponse}
+ */
 class ExecutionControllerApiValidateExecutionInputsResponse {
     /**
      * Constructs a new <code>ExecutionControllerApiValidateExecutionInputsResponse</code>.

@@ -15,9 +15,19 @@ import ApiClient from '../ApiClient';
 import IAMInvitationControllerApiInvitationRole from './IAMInvitationControllerApiInvitationRole';
 
 /**
+  * @typedef {Object} IIAMInvitationControllerApiInvitationCreateRequest
+  * @property {Boolean} createUserIfNotExist
+  * @property {Boolean} superAdmin
+  * @property {Array.<module:model/IAMInvitationControllerApiInvitationRole>} roles
+  * @property {Array.<String>} groups
+  * @property {String} email
+  */
+
+/**
  * The IAMInvitationControllerApiInvitationCreateRequest model module.
  * @module model/IAMInvitationControllerApiInvitationCreateRequest
-  */
+ * @type {IIAMInvitationControllerApiInvitationCreateRequest}
+ */
 class IAMInvitationControllerApiInvitationCreateRequest {
     /**
      * Constructs a new <code>IAMInvitationControllerApiInvitationCreateRequest</code>.

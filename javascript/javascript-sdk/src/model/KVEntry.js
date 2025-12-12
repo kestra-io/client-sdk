@@ -14,9 +14,21 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IKVEntry
+  * @property {String} namespace
+  * @property {String} key
+  * @property {Number} version
+  * @property {String} description
+  * @property {Date} creationDate
+  * @property {Date} updateDate
+  * @property {Date} expirationDate
+  */
+
+/**
  * The KVEntry model module.
  * @module model/KVEntry
-  */
+ * @type {IKVEntry}
+ */
 class KVEntry {
     /**
      * Constructs a new <code>KVEntry</code>.

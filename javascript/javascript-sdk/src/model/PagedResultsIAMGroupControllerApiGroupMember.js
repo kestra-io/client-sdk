@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import IAMGroupControllerApiGroupMember from './IAMGroupControllerApiGroupMember';
 
 /**
+  * @typedef {Object} IPagedResultsIAMGroupControllerApiGroupMember
+  * @property {Array.<module:model/IAMGroupControllerApiGroupMember>} results
+  * @property {Number} total
+  */
+
+/**
  * The PagedResultsIAMGroupControllerApiGroupMember model module.
  * @module model/PagedResultsIAMGroupControllerApiGroupMember
-  */
+ * @type {IPagedResultsIAMGroupControllerApiGroupMember}
+ */
 class PagedResultsIAMGroupControllerApiGroupMember {
     /**
      * Constructs a new <code>PagedResultsIAMGroupControllerApiGroupMember</code>.

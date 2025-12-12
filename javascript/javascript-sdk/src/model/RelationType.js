@@ -13,6 +13,22 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum RelationType
+ * @type {{
+ *   "SEQUENTIAL": "SEQUENTIAL","CHOICE": "CHOICE","ERROR": "ERROR","FINALLY": "FINALLY","AFTER_EXECUTION": "AFTER_EXECUTION","PARALLEL": "PARALLEL","DYNAMIC": "DYNAMIC",
+ * }}
+ */
+export const RelationTypeStatic = { 
+    "SEQUENTIAL": "SEQUENTIAL",
+    "CHOICE": "CHOICE",
+    "ERROR": "ERROR",
+    "FINALLY": "FINALLY",
+    "AFTER_EXECUTION": "AFTER_EXECUTION",
+    "PARALLEL": "PARALLEL",
+    "DYNAMIC": "DYNAMIC",
+}
+
+/**
 * Enum class RelationType.
 * @enum {}
 * @readonly

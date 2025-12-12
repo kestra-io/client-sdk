@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import Dashboard from './Dashboard';
 
 /**
+  * @typedef {Object} IPagedResultsDashboard
+  * @property {Array.<module:model/Dashboard>} results
+  * @property {Number} total
+  */
+
+/**
  * The PagedResultsDashboard model module.
  * @module model/PagedResultsDashboard
-  */
+ * @type {IPagedResultsDashboard}
+ */
 class PagedResultsDashboard {
     /**
      * Constructs a new <code>PagedResultsDashboard</code>.

@@ -13,6 +13,18 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum WorkerGroupFallback
+ * @type {{
+ *   "FAIL": "FAIL","WAIT": "WAIT","CANCEL": "CANCEL",
+ * }}
+ */
+export const WorkerGroupFallbackStatic = { 
+    "FAIL": "FAIL",
+    "WAIT": "WAIT",
+    "CANCEL": "CANCEL",
+}
+
+/**
 * Enum class WorkerGroupFallback.
 * @enum {}
 * @readonly

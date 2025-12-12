@@ -15,9 +15,17 @@ import ApiClient from '../ApiClient';
 import AbstractGraphBranchType from './AbstractGraphBranchType';
 
 /**
+  * @typedef {Object} IAbstractGraph
+  * @property {String} uid
+  * @property {String} type
+  * @property {module:model/AbstractGraphBranchType} branchType
+  */
+
+/**
  * The AbstractGraph model module.
  * @module model/AbstractGraph
-  */
+ * @type {IAbstractGraph}
+ */
 class AbstractGraph {
     /**
      * Constructs a new <code>AbstractGraph</code>.

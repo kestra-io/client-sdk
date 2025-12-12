@@ -14,9 +14,15 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IScimExtension
+  * @property {String} urn
+  */
+
+/**
  * The ScimExtension model module.
  * @module model/ScimExtension
-  */
+ * @type {IScimExtension}
+ */
 class ScimExtension {
     /**
      * Constructs a new <code>ScimExtension</code>.

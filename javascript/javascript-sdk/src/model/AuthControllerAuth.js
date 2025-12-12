@@ -14,9 +14,18 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IAuthControllerAuth
+  * @property {Boolean} loginPassword
+  * @property {Boolean} mailsEnabled
+  * @property {Boolean} passwordless
+  * @property {Array.<String>} oauths
+  */
+
+/**
  * The AuthControllerAuth model module.
  * @module model/AuthControllerAuth
-  */
+ * @type {IAuthControllerAuth}
+ */
 class AuthControllerAuth {
     /**
      * Constructs a new <code>AuthControllerAuth</code>.

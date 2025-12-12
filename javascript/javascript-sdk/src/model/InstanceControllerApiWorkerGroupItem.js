@@ -14,9 +14,18 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IInstanceControllerApiWorkerGroupItem
+  * @property {String} id - The ID of worker group.
+  * @property {String} key - The key of the worker group.
+  * @property {String} description - The description of the worker group.
+  * @property {Number} activeWorkers - The number of active workers for the group.
+  */
+
+/**
  * The InstanceControllerApiWorkerGroupItem model module.
  * @module model/InstanceControllerApiWorkerGroupItem
-  */
+ * @type {IInstanceControllerApiWorkerGroupItem}
+ */
 class InstanceControllerApiWorkerGroupItem {
     /**
      * Constructs a new <code>InstanceControllerApiWorkerGroupItem</code>.

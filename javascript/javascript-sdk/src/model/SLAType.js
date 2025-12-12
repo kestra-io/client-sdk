@@ -13,6 +13,17 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum SLAType
+ * @type {{
+ *   "MAX_DURATION": "MAX_DURATION","EXECUTION_ASSERTION": "EXECUTION_ASSERTION",
+ * }}
+ */
+export const SLATypeStatic = { 
+    "MAX_DURATION": "MAX_DURATION",
+    "EXECUTION_ASSERTION": "EXECUTION_ASSERTION",
+}
+
+/**
 * Enum class SLAType.
 * @enum {}
 * @readonly

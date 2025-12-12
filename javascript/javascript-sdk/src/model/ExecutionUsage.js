@@ -15,9 +15,15 @@ import ApiClient from '../ApiClient';
 import DailyExecutionStatistics from './DailyExecutionStatistics';
 
 /**
+  * @typedef {Object} IExecutionUsage
+  * @property {Array.<module:model/DailyExecutionStatistics>} dailyExecutionsCount
+  */
+
+/**
  * The ExecutionUsage model module.
  * @module model/ExecutionUsage
-  */
+ * @type {IExecutionUsage}
+ */
 class ExecutionUsage {
     /**
      * Constructs a new <code>ExecutionUsage</code>.

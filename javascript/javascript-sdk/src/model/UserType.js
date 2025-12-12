@@ -13,6 +13,17 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum UserType
+ * @type {{
+ *   "STANDARD": "STANDARD","SERVICE_ACCOUNT": "SERVICE_ACCOUNT",
+ * }}
+ */
+export const UserTypeStatic = { 
+    "STANDARD": "STANDARD",
+    "SERVICE_ACCOUNT": "SERVICE_ACCOUNT",
+}
+
+/**
 * Enum class UserType.
 * @enum {}
 * @readonly

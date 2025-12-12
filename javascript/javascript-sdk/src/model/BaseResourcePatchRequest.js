@@ -14,9 +14,15 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IBaseResourcePatchRequest
+  * @property {Array.<String>} schemas
+  */
+
+/**
  * The BaseResourcePatchRequest model module.
  * @module model/BaseResourcePatchRequest
-  */
+ * @type {IBaseResourcePatchRequest}
+ */
 class BaseResourcePatchRequest {
     /**
      * Constructs a new <code>BaseResourcePatchRequest</code>.

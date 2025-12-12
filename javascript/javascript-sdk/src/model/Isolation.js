@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import ServiceType from './ServiceType';
 
 /**
+  * @typedef {Object} IIsolation
+  * @property {Array.<module:model/ServiceType>} deniedServices
+  * @property {Boolean} enabled
+  */
+
+/**
  * The Isolation model module.
  * @module model/Isolation
-  */
+ * @type {IIsolation}
+ */
 class Isolation {
     /**
      * Constructs a new <code>Isolation</code>.

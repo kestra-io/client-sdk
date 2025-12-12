@@ -13,6 +13,19 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum SchemaAttributeMutability
+ * @type {{
+ *   "IMMUTABLE": "IMMUTABLE","READ_ONLY": "READ_ONLY","READ_WRITE": "READ_WRITE","WRITE_ONLY": "WRITE_ONLY",
+ * }}
+ */
+export const SchemaAttributeMutabilityStatic = { 
+    "IMMUTABLE": "IMMUTABLE",
+    "READ_ONLY": "READ_ONLY",
+    "READ_WRITE": "READ_WRITE",
+    "WRITE_ONLY": "WRITE_ONLY",
+}
+
+/**
 * Enum class SchemaAttributeMutability.
 * @enum {}
 * @readonly

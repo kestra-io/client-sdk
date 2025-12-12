@@ -13,6 +13,17 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum FlowScope
+ * @type {{
+ *   "USER": "USER","SYSTEM": "SYSTEM",
+ * }}
+ */
+export const FlowScopeStatic = { 
+    "USER": "USER",
+    "SYSTEM": "SYSTEM",
+}
+
+/**
 * Enum class FlowScope.
 * @enum {}
 * @readonly

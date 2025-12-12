@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IAppsControllerApiBulkImportResponseError
+  * @property {String} source
+  * @property {String} message
+  */
+
+/**
  * The AppsControllerApiBulkImportResponseError model module.
  * @module model/AppsControllerApiBulkImportResponseError
-  */
+ * @type {IAppsControllerApiBulkImportResponseError}
+ */
 class AppsControllerApiBulkImportResponseError {
     /**
      * Constructs a new <code>AppsControllerApiBulkImportResponseError</code>.

@@ -23,9 +23,29 @@ import ServiceProviderConfigurationFilterConfiguration from './ServiceProviderCo
 import ServiceProviderConfigurationSupportedConfiguration from './ServiceProviderConfigurationSupportedConfiguration';
 
 /**
+  * @typedef {Object} IServiceProviderConfiguration
+  * @property {Array.<String>} schemas
+  * @property {String} baseUrn
+  * @property {Object.<String, module:model/ScimExtension>} extensions
+  * @property {module:model/Meta} meta
+  * @property {String} id
+  * @property {String} externalId
+  * @property {String} resourceType
+  * @property {String} documentationUrl
+  * @property {module:model/ServiceProviderConfigurationSupportedConfiguration} patch
+  * @property {module:model/ServiceProviderConfigurationBulkConfiguration} bulk
+  * @property {module:model/ServiceProviderConfigurationFilterConfiguration} filter
+  * @property {module:model/ServiceProviderConfigurationSupportedConfiguration} changePassword
+  * @property {module:model/ServiceProviderConfigurationSupportedConfiguration} sort
+  * @property {module:model/ServiceProviderConfigurationSupportedConfiguration} etag
+  * @property {Array.<module:model/ServiceProviderConfigurationAuthenticationSchema>} authenticationSchemes
+  */
+
+/**
  * The ServiceProviderConfiguration model module.
  * @module model/ServiceProviderConfiguration
-  */
+ * @type {IServiceProviderConfiguration}
+ */
 class ServiceProviderConfiguration {
     /**
      * Constructs a new <code>ServiceProviderConfiguration</code>.

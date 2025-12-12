@@ -14,9 +14,23 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IApiToken
+  * @property {String} id
+  * @property {String} name
+  * @property {String} description
+  * @property {String} prefix
+  * @property {Date} iat
+  * @property {Date} exp
+  * @property {Date} lastUsed
+  * @property {Boolean} extended
+  * @property {Boolean} expired
+  */
+
+/**
  * The ApiToken model module.
  * @module model/ApiToken
-  */
+ * @type {IApiToken}
+ */
 class ApiToken {
     /**
      * Constructs a new <code>ApiToken</code>.

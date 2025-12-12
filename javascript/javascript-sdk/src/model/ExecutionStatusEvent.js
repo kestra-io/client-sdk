@@ -15,9 +15,19 @@ import ApiClient from '../ApiClient';
 import State from './State';
 
 /**
+  * @typedef {Object} IExecutionStatusEvent
+  * @property {String} executionId
+  * @property {String} tenantId
+  * @property {String} namespace
+  * @property {String} flowId
+  * @property {module:model/State} state
+  */
+
+/**
  * The ExecutionStatusEvent model module.
  * @module model/ExecutionStatusEvent
-  */
+ * @type {IExecutionStatusEvent}
+ */
 class ExecutionStatusEvent {
     /**
      * Constructs a new <code>ExecutionStatusEvent</code>.

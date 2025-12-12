@@ -13,6 +13,18 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum PatchOperationType
+ * @type {{
+ *   "ADD": "ADD","REMOVE": "REMOVE","REPLACE": "REPLACE",
+ * }}
+ */
+export const PatchOperationTypeStatic = { 
+    "ADD": "ADD",
+    "REMOVE": "REMOVE",
+    "REPLACE": "REPLACE",
+}
+
+/**
 * Enum class PatchOperationType.
 * @enum {}
 * @readonly

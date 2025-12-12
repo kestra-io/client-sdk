@@ -14,9 +14,15 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IAppResponseUILayout
+  * @property {Array.<Object>} blocks
+  */
+
+/**
  * The AppResponseUILayout model module.
  * @module model/AppResponseUILayout
-  */
+ * @type {IAppResponseUILayout}
+ */
 class AppResponseUILayout {
     /**
      * Constructs a new <code>AppResponseUILayout</code>.

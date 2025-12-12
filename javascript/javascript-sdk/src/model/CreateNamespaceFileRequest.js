@@ -14,9 +14,15 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} ICreateNamespaceFileRequest
+  * @property {File} fileContent - The file to upload
+  */
+
+/**
  * The CreateNamespaceFileRequest model module.
  * @module model/CreateNamespaceFileRequest
-  */
+ * @type {ICreateNamespaceFileRequest}
+ */
 class CreateNamespaceFileRequest {
     /**
      * Constructs a new <code>CreateNamespaceFileRequest</code>.

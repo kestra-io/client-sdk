@@ -15,9 +15,19 @@ import ApiClient from '../ApiClient';
 import AppResponse from './AppResponse';
 
 /**
+  * @typedef {Object} IEventAppResponse
+  * @property {module:model/AppResponse} data
+  * @property {String} id
+  * @property {String} name
+  * @property {String} comment
+  * @property {String} retry
+  */
+
+/**
  * The EventAppResponse model module.
  * @module model/EventAppResponse
-  */
+ * @type {IEventAppResponse}
+ */
 class EventAppResponse {
     /**
      * Constructs a new <code>EventAppResponse</code>.

@@ -16,9 +16,16 @@ import FlowNode from './FlowNode';
 import FlowTopologyGraphEdge from './FlowTopologyGraphEdge';
 
 /**
+  * @typedef {Object} IFlowTopologyGraph
+  * @property {Array.<module:model/FlowNode>} nodes
+  * @property {Array.<module:model/FlowTopologyGraphEdge>} edges
+  */
+
+/**
  * The FlowTopologyGraph model module.
  * @module model/FlowTopologyGraph
-  */
+ * @type {IFlowTopologyGraph}
+ */
 class FlowTopologyGraph {
     /**
      * Constructs a new <code>FlowTopologyGraph</code>.

@@ -16,9 +16,21 @@ import IAMTenantAccessControllerApiGroup from './IAMTenantAccessControllerApiGro
 import IAMTenantAccessControllerApiRoleAssignment from './IAMTenantAccessControllerApiRoleAssignment';
 
 /**
+  * @typedef {Object} IIAMTenantAccessControllerApiTenantAccess
+  * @property {String} tenantId
+  * @property {String} userId
+  * @property {String} username
+  * @property {String} displayName
+  * @property {Array.<module:model/IAMTenantAccessControllerApiGroup>} groups
+  * @property {Array.<module:model/IAMTenantAccessControllerApiRoleAssignment>} roles
+  * @property {Boolean} superAdmin
+  */
+
+/**
  * The IAMTenantAccessControllerApiTenantAccess model module.
  * @module model/IAMTenantAccessControllerApiTenantAccess
-  */
+ * @type {IIAMTenantAccessControllerApiTenantAccess}
+ */
 class IAMTenantAccessControllerApiTenantAccess {
     /**
      * Constructs a new <code>IAMTenantAccessControllerApiTenantAccess</code>.

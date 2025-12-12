@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} ICache
+  * @property {Boolean} enabled
+  * @property {String} ttl
+  */
+
+/**
  * The Cache model module.
  * @module model/Cache
-  */
+ * @type {ICache}
+ */
 class Cache {
     /**
      * Constructs a new <code>Cache</code>.

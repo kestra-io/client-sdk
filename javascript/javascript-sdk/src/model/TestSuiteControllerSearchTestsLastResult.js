@@ -15,9 +15,15 @@ import ApiClient from '../ApiClient';
 import TestSuiteControllerTestSuiteApiId from './TestSuiteControllerTestSuiteApiId';
 
 /**
+  * @typedef {Object} ITestSuiteControllerSearchTestsLastResult
+  * @property {Array.<module:model/TestSuiteControllerTestSuiteApiId>} testSuiteIds
+  */
+
+/**
  * The TestSuiteControllerSearchTestsLastResult model module.
  * @module model/TestSuiteControllerSearchTestsLastResult
-  */
+ * @type {ITestSuiteControllerSearchTestsLastResult}
+ */
 class TestSuiteControllerSearchTestsLastResult {
     /**
      * Constructs a new <code>TestSuiteControllerSearchTestsLastResult</code>.

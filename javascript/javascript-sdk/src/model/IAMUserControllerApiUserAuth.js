@@ -14,9 +14,17 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IIAMUserControllerApiUserAuth
+  * @property {String} id
+  * @property {String} name
+  * @property {String} type
+  */
+
+/**
  * The IAMUserControllerApiUserAuth model module.
  * @module model/IAMUserControllerApiUserAuth
-  */
+ * @type {IIAMUserControllerApiUserAuth}
+ */
 class IAMUserControllerApiUserAuth {
     /**
      * Constructs a new <code>IAMUserControllerApiUserAuth</code>.

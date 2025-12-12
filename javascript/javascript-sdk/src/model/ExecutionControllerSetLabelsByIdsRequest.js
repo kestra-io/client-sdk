@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import Label from './Label';
 
 /**
+  * @typedef {Object} IExecutionControllerSetLabelsByIdsRequest
+  * @property {Array.<String>} executionsId
+  * @property {Array.<module:model/Label>} executionLabels
+  */
+
+/**
  * The ExecutionControllerSetLabelsByIdsRequest model module.
  * @module model/ExecutionControllerSetLabelsByIdsRequest
-  */
+ * @type {IExecutionControllerSetLabelsByIdsRequest}
+ */
 class ExecutionControllerSetLabelsByIdsRequest {
     /**
      * Constructs a new <code>ExecutionControllerSetLabelsByIdsRequest</code>.

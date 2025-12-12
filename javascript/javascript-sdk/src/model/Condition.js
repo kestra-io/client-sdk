@@ -14,9 +14,15 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} ICondition
+  * @property {String} type
+  */
+
+/**
  * The Condition model module.
  * @module model/Condition
-  */
+ * @type {ICondition}
+ */
 class Condition {
     /**
      * Constructs a new <code>Condition</code>.

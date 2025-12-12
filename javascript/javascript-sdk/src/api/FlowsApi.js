@@ -32,7 +32,6 @@ import ValidateConstraintViolation from '../model/ValidateConstraintViolation';
 /**
 * Flows service.
 * @module api/FlowsApi
-* @version 1.0.2
 */
 export default class FlowsApi {
 
@@ -62,7 +61,7 @@ export default class FlowsApi {
     * @param {String} [namespace] The namespace where to update flows
     * @param {String} [body] A list of flows source code splitted with \"---\"
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/FlowInterface>} and HTTP response
+    * @return {Promise<Array.<FlowInterface>>}
     */
     bulkUpdateFlowsWithHttpInfo(_delete, allowNamespaceChild, tenant, opts) {
       opts = opts || {};
@@ -110,11 +109,11 @@ export default class FlowsApi {
     * @param {Boolean} _delete If missing flow should be deleted
     * @param {Boolean} allowNamespaceChild If namespace child should are allowed to be updated
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {String} opts.namespace The namespace where to update flows
-    * @param {String} opts.body A list of flows source code splitted with \"---\"
+    * @param {Object} [opts] Optional parameters
+    * @param {String} [opts.namespace] The namespace where to update flows
+    * @param {String} [opts.body] A list of flows source code splitted with \"---\"
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/FlowInterface>}
+    * @return {Promise<Array.<FlowInterface>>}
     */
     bulkUpdateFlows(_delete, allowNamespaceChild, tenant, opts) {
       return this.bulkUpdateFlowsWithHttpInfo(_delete, allowNamespaceChild, tenant, opts)
@@ -138,7 +137,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {String} body The flow source code
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/FlowWithSource} and HTTP response
+    * @return {Promise<FlowWithSource>}
     */
     createFlowWithHttpInfo(tenant, body) {
       let postBody = body;
@@ -177,7 +176,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {String} body The flow source code
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/FlowWithSource}
+    * @return {Promise<FlowWithSource>}
     */
     createFlow(tenant, body) {
       return this.createFlowWithHttpInfo(tenant, body)
@@ -202,7 +201,7 @@ export default class FlowsApi {
     * @param {String} id The flow id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+    * @return {Promise<  >}
     */
     deleteFlowWithHttpInfo(namespace, id, tenant) {
       let postBody = null;
@@ -248,7 +247,7 @@ export default class FlowsApi {
     * @param {String} id The flow id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+    * @return {Promise<  >}
     */
     deleteFlow(namespace, id, tenant) {
       return this.deleteFlowWithHttpInfo(namespace, id, tenant)
@@ -272,7 +271,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {Array.<module:model/IdWithNamespace>} idWithNamespace A list of tuple flow ID and namespace as flow identifiers
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
+    * @return {Promise<BulkResponse>}
     */
     deleteFlowsByIdsWithHttpInfo(tenant, idWithNamespace) {
       let postBody = idWithNamespace;
@@ -311,7 +310,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {Array.<module:model/IdWithNamespace>} idWithNamespace A list of tuple flow ID and namespace as flow identifiers
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
+    * @return {Promise<BulkResponse>}
     */
     deleteFlowsByIds(tenant, idWithNamespace) {
       return this.deleteFlowsByIdsWithHttpInfo(tenant, idWithNamespace)
@@ -334,9 +333,9 @@ export default class FlowsApi {
     * Delete flows returned by the query parameters.
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
+    * @return {Promise<BulkResponse>}
     */
     deleteFlowsByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
@@ -371,10 +370,10 @@ export default class FlowsApi {
     /**
     * Delete flows returned by the query parameters.
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
+    * @return {Promise<BulkResponse>}
     */
     deleteFlowsByQuery(tenant, opts) {
       return this.deleteFlowsByQueryWithHttpInfo(tenant, opts)
@@ -398,7 +397,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {Array.<module:model/IdWithNamespace>} idWithNamespace A list of tuple flow ID and namespace as flow identifiers
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
+    * @return {Promise<BulkResponse>}
     */
     disableFlowsByIdsWithHttpInfo(tenant, idWithNamespace) {
       let postBody = idWithNamespace;
@@ -437,7 +436,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {Array.<module:model/IdWithNamespace>} idWithNamespace A list of tuple flow ID and namespace as flow identifiers
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
+    * @return {Promise<BulkResponse>}
     */
     disableFlowsByIds(tenant, idWithNamespace) {
       return this.disableFlowsByIdsWithHttpInfo(tenant, idWithNamespace)
@@ -460,9 +459,9 @@ export default class FlowsApi {
     * Disable flows returned by the query parameters.
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
+    * @return {Promise<BulkResponse>}
     */
     disableFlowsByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
@@ -497,10 +496,10 @@ export default class FlowsApi {
     /**
     * Disable flows returned by the query parameters.
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
+    * @return {Promise<BulkResponse>}
     */
     disableFlowsByQuery(tenant, opts) {
       return this.disableFlowsByQueryWithHttpInfo(tenant, opts)
@@ -524,7 +523,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {Array.<module:model/IdWithNamespace>} idWithNamespace A list of tuple flow ID and namespace as flow identifiers
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
+    * @return {Promise<BulkResponse>}
     */
     enableFlowsByIdsWithHttpInfo(tenant, idWithNamespace) {
       let postBody = idWithNamespace;
@@ -563,7 +562,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {Array.<module:model/IdWithNamespace>} idWithNamespace A list of tuple flow ID and namespace as flow identifiers
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
+    * @return {Promise<BulkResponse>}
     */
     enableFlowsByIds(tenant, idWithNamespace) {
       return this.enableFlowsByIdsWithHttpInfo(tenant, idWithNamespace)
@@ -586,9 +585,9 @@ export default class FlowsApi {
     * Enable flows returned by the query parameters.
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
+    * @return {Promise<BulkResponse>}
     */
     enableFlowsByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
@@ -623,10 +622,10 @@ export default class FlowsApi {
     /**
     * Enable flows returned by the query parameters.
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
+    * @return {Promise<BulkResponse>}
     */
     enableFlowsByQuery(tenant, opts) {
       return this.enableFlowsByQueryWithHttpInfo(tenant, opts)
@@ -650,7 +649,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {Array.<module:model/IdWithNamespace>} idWithNamespace A list of tuple flow ID and namespace as flow identifiers
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Blob} and HTTP response
+    * @return {Promise< Blob >}
     */
     exportFlowsByIdsWithHttpInfo(tenant, idWithNamespace) {
       let postBody = idWithNamespace;
@@ -689,7 +688,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {Array.<module:model/IdWithNamespace>} idWithNamespace A list of tuple flow ID and namespace as flow identifiers
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Blob}
+    * @return {Promise< Blob >}
     */
     exportFlowsByIds(tenant, idWithNamespace) {
       return this.exportFlowsByIdsWithHttpInfo(tenant, idWithNamespace)
@@ -712,9 +711,9 @@ export default class FlowsApi {
     * Export flows as a ZIP archive of yaml sources.
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Blob} and HTTP response
+    * @return {Promise< Blob >}
     */
     exportFlowsByQueryWithHttpInfo(tenant, opts) {
       opts = opts || {};
@@ -749,10 +748,10 @@ export default class FlowsApi {
     /**
     * Export flows as a ZIP archive of yaml sources.
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Blob}
+    * @return {Promise< Blob >}
     */
     exportFlowsByQuery(tenant, opts) {
       return this.exportFlowsByQueryWithHttpInfo(tenant, opts)
@@ -781,7 +780,7 @@ export default class FlowsApi {
     * @param {Object} opts Optional parameters
     * @param {Number} [revision] Get latest revision by default
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/FlowWithSource} and HTTP response
+    * @return {Promise<FlowWithSource>}
     */
     flowWithHttpInfo(namespace, id, source, allowDeleted, tenant, opts) {
       opts = opts || {};
@@ -840,10 +839,10 @@ export default class FlowsApi {
     * @param {Boolean} source Include the source code
     * @param {Boolean} allowDeleted Get flow even if deleted
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Number} opts.revision Get latest revision by default
+    * @param {Object} [opts] Optional parameters
+    * @param {Number} [opts.revision] Get latest revision by default
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/FlowWithSource}
+    * @return {Promise<FlowWithSource>}
     */
     flow(namespace, id, source, allowDeleted, tenant, opts) {
       return this.flowWithHttpInfo(namespace, id, source, allowDeleted, tenant, opts)
@@ -870,7 +869,7 @@ export default class FlowsApi {
     * @param {Boolean} expandAll If true, expand all dependencies recursively
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/FlowTopologyGraph} and HTTP response
+    * @return {Promise<FlowTopologyGraph>}
     */
     flowDependenciesWithHttpInfo(namespace, id, destinationOnly, expandAll, tenant) {
       let postBody = null;
@@ -928,7 +927,7 @@ export default class FlowsApi {
     * @param {Boolean} expandAll If true, expand all dependencies recursively
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/FlowTopologyGraph}
+    * @return {Promise<FlowTopologyGraph>}
     */
     flowDependencies(namespace, id, destinationOnly, expandAll, tenant) {
       return this.flowDependenciesWithHttpInfo(namespace, id, destinationOnly, expandAll, tenant)
@@ -953,7 +952,7 @@ export default class FlowsApi {
     * @param {Boolean} destinationOnly if true, list only destination dependencies, otherwise list also source dependencies
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/FlowTopologyGraph} and HTTP response
+    * @return {Promise<FlowTopologyGraph>}
     */
     flowDependenciesFromNamespaceWithHttpInfo(namespace, destinationOnly, tenant) {
       let postBody = null;
@@ -999,7 +998,7 @@ export default class FlowsApi {
     * @param {Boolean} destinationOnly if true, list only destination dependencies, otherwise list also source dependencies
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/FlowTopologyGraph}
+    * @return {Promise<FlowTopologyGraph>}
     */
     flowDependenciesFromNamespace(namespace, destinationOnly, tenant) {
       return this.flowDependenciesFromNamespaceWithHttpInfo(namespace, destinationOnly, tenant)
@@ -1027,7 +1026,7 @@ export default class FlowsApi {
     * @param {Number} [revision] The flow revision
     * @param {Array.<String>} [subflows] The subflow tasks to display
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/FlowGraph} and HTTP response
+    * @return {Promise<FlowGraph>}
     */
     generateFlowGraphWithHttpInfo(namespace, id, tenant, opts) {
       opts = opts || {};
@@ -1075,11 +1074,11 @@ export default class FlowsApi {
     * @param {String} namespace The flow namespace
     * @param {String} id The flow id
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Number} opts.revision The flow revision
-    * @param {Array.<String>} opts.subflows The subflow tasks to display
+    * @param {Object} [opts] Optional parameters
+    * @param {Number} [opts.revision] The flow revision
+    * @param {Array.<String>} [opts.subflows] The subflow tasks to display
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/FlowGraph}
+    * @return {Promise<FlowGraph>}
     */
     generateFlowGraph(namespace, id, tenant, opts) {
       return this.generateFlowGraphWithHttpInfo(namespace, id, tenant, opts)
@@ -1105,7 +1104,7 @@ export default class FlowsApi {
     * @param {Object} opts Optional parameters
     * @param {Array.<String>} [subflows] The subflow tasks to display
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/FlowGraph} and HTTP response
+    * @return {Promise<FlowGraph>}
     */
     generateFlowGraphFromSourceWithHttpInfo(tenant, body, opts) {
       opts = opts || {};
@@ -1145,10 +1144,10 @@ export default class FlowsApi {
     * Generate a graph for a flow source
     * @param {String} tenant 
     * @param {String} body The flow source code
-    * @param {Object} opts Optional parameters
-    * @param {Array.<String>} opts.subflows The subflow tasks to display
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<String>} [opts.subflows] The subflow tasks to display
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/FlowGraph}
+    * @return {Promise<FlowGraph>}
     */
     generateFlowGraphFromSource(tenant, body, opts) {
       return this.generateFlowGraphFromSourceWithHttpInfo(tenant, body, opts)
@@ -1174,7 +1173,7 @@ export default class FlowsApi {
     * @param {Object} opts Optional parameters
     * @param {File} [fileUpload] The file to import, can be a ZIP archive or a multi-objects YAML file
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<String>} and HTTP response
+    * @return {Promise< Array.<String> >}
     */
     importFlowsWithHttpInfo(failOnError, tenant, opts) {
       opts = opts || {};
@@ -1215,10 +1214,10 @@ export default class FlowsApi {
     *     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn't be imported is returned. 
     * @param {Boolean} failOnError If should fail on invalid flows
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {File} opts.fileUpload The file to import, can be a ZIP archive or a multi-objects YAML file
+    * @param {Object} [opts] Optional parameters
+    * @param {File} [opts.fileUpload] The file to import, can be a ZIP archive or a multi-objects YAML file
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<String>}
+    * @return {Promise< Array.<String> >}
     */
     importFlows(failOnError, tenant, opts) {
       return this.importFlowsWithHttpInfo(failOnError, tenant, opts)
@@ -1243,7 +1242,7 @@ export default class FlowsApi {
     * @param {Object} opts Optional parameters
     * @param {String} [q] A string filter
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<String>} and HTTP response
+    * @return {Promise< Array.<String> >}
     */
     listDistinctNamespacesWithHttpInfo(tenant, opts) {
       opts = opts || {};
@@ -1278,10 +1277,10 @@ export default class FlowsApi {
     /**
     * List all distinct namespaces
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {String} opts.q A string filter
+    * @param {Object} [opts] Optional parameters
+    * @param {String} [opts.q] A string filter
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<String>}
+    * @return {Promise< Array.<String> >}
     */
     listDistinctNamespaces(tenant, opts) {
       return this.listDistinctNamespacesWithHttpInfo(tenant, opts)
@@ -1306,7 +1305,7 @@ export default class FlowsApi {
     * @param {String} id The flow id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/FlowWithSource>} and HTTP response
+    * @return {Promise<Array.<FlowWithSource>>}
     */
     listFlowRevisionsWithHttpInfo(namespace, id, tenant) {
       let postBody = null;
@@ -1352,7 +1351,7 @@ export default class FlowsApi {
     * @param {String} id The flow id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/FlowWithSource>}
+    * @return {Promise<Array.<FlowWithSource>>}
     */
     listFlowRevisions(namespace, id, tenant) {
       return this.listFlowRevisionsWithHttpInfo(namespace, id, tenant)
@@ -1376,7 +1375,7 @@ export default class FlowsApi {
     * @param {String} namespace Namespace to filter flows
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Flow>} and HTTP response
+    * @return {Promise<Array.<Flow>>}
     */
     listFlowsByNamespaceWithHttpInfo(namespace, tenant) {
       let postBody = null;
@@ -1416,7 +1415,7 @@ export default class FlowsApi {
     * @param {String} namespace Namespace to filter flows
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Flow>}
+    * @return {Promise<Array.<Flow>>}
     */
     listFlowsByNamespace(namespace, tenant) {
       return this.listFlowsByNamespaceWithHttpInfo(namespace, tenant)
@@ -1439,7 +1438,7 @@ export default class FlowsApi {
     * Search for flow concurrency limits
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsConcurrencyLimit} and HTTP response
+    * @return {Promise<PagedResultsConcurrencyLimit>}
     */
     searchConcurrencyLimitsWithHttpInfo(tenant) {
       let postBody = null;
@@ -1473,7 +1472,7 @@ export default class FlowsApi {
     * Search for flow concurrency limits
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsConcurrencyLimit}
+    * @return {Promise<PagedResultsConcurrencyLimit>}
     */
     searchConcurrencyLimits(tenant) {
       return this.searchConcurrencyLimitsWithHttpInfo(tenant)
@@ -1499,9 +1498,9 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
     * @param {Array.<String>} [sort] The sort of current page
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsFlow} and HTTP response
+    * @return {Promise<PagedResultsFlow>}
     */
     searchFlowsWithHttpInfo(page, size, tenant, opts) {
       opts = opts || {};
@@ -1549,11 +1548,11 @@ export default class FlowsApi {
     * @param {Number} page The current page
     * @param {Number} size The current page size
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<String>} opts.sort The sort of current page
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<String>} [opts.sort] The sort of current page
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsFlow}
+    * @return {Promise<PagedResultsFlow>}
     */
     searchFlows(page, size, tenant, opts) {
       return this.searchFlowsWithHttpInfo(page, size, tenant, opts)
@@ -1582,7 +1581,7 @@ export default class FlowsApi {
     * @param {String} [q] A string filter
     * @param {String} [namespace] A namespace filter prefix
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsSearchResultFlow} and HTTP response
+    * @return {Promise<PagedResultsSearchResultFlow>}
     */
     searchFlowsBySourceCodeWithHttpInfo(page, size, tenant, opts) {
       opts = opts || {};
@@ -1631,12 +1630,12 @@ export default class FlowsApi {
     * @param {Number} page The current page
     * @param {Number} size The current page size
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<String>} opts.sort The sort of current page
-    * @param {String} opts.q A string filter
-    * @param {String} opts.namespace A namespace filter prefix
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<String>} [opts.sort] The sort of current page
+    * @param {String} [opts.q] A string filter
+    * @param {String} [opts.namespace] A namespace filter prefix
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsSearchResultFlow}
+    * @return {Promise<PagedResultsSearchResultFlow>}
     */
     searchFlowsBySourceCode(page, size, tenant, opts) {
       return this.searchFlowsBySourceCodeWithHttpInfo(page, size, tenant, opts)
@@ -1664,7 +1663,7 @@ export default class FlowsApi {
     * @param {Object} opts Optional parameters
     * @param {Number} [revision] The flow revision
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Task} and HTTP response
+    * @return {Promise<Task>}
     */
     taskFromFlowWithHttpInfo(namespace, id, taskId, tenant, opts) {
       opts = opts || {};
@@ -1717,10 +1716,10 @@ export default class FlowsApi {
     * @param {String} id The flow id
     * @param {String} taskId The task id
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Number} opts.revision The flow revision
+    * @param {Object} [opts] Optional parameters
+    * @param {Number} [opts.revision] The flow revision
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Task}
+    * @return {Promise<Task>}
     */
     taskFromFlow(namespace, id, taskId, tenant, opts) {
       return this.taskFromFlowWithHttpInfo(namespace, id, taskId, tenant, opts)
@@ -1746,7 +1745,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {module:model/ConcurrencyLimit} concurrencyLimit 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ConcurrencyLimit} and HTTP response
+    * @return {Promise<ConcurrencyLimit>}
     */
     updateConcurrencyLimitWithHttpInfo(flowId, namespace, tenant, concurrencyLimit) {
       let postBody = concurrencyLimit;
@@ -1797,7 +1796,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {module:model/ConcurrencyLimit} concurrencyLimit 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ConcurrencyLimit}
+    * @return {Promise<ConcurrencyLimit>}
     */
     updateConcurrencyLimit(flowId, namespace, tenant, concurrencyLimit) {
       return this.updateConcurrencyLimitWithHttpInfo(flowId, namespace, tenant, concurrencyLimit)
@@ -1823,7 +1822,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {String} body The flow source code
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/FlowWithSource} and HTTP response
+    * @return {Promise<FlowWithSource>}
     */
     updateFlowWithHttpInfo(namespace, id, tenant, body) {
       let postBody = body;
@@ -1874,7 +1873,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {String} body The flow source code
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/FlowWithSource}
+    * @return {Promise<FlowWithSource>}
     */
     updateFlow(namespace, id, tenant, body) {
       return this.updateFlowWithHttpInfo(namespace, id, tenant, body)
@@ -1901,7 +1900,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {String} body A list of flows source code
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/FlowInterface>} and HTTP response
+    * @return {Promise<Array.<FlowInterface>>}
     */
     updateFlowsInNamespaceWithHttpInfo(namespace, _delete, tenant, body) {
       let postBody = body;
@@ -1953,7 +1952,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {String} body A list of flows source code
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/FlowInterface>}
+    * @return {Promise<Array.<FlowInterface>>}
     */
     updateFlowsInNamespace(namespace, _delete, tenant, body) {
       return this.updateFlowsInNamespaceWithHttpInfo(namespace, _delete, tenant, body)
@@ -1980,7 +1979,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {module:model/Task} task The task
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Flow} and HTTP response
+    * @return {Promise<Flow>}
     */
     updateTaskWithHttpInfo(namespace, id, taskId, tenant, task) {
       let postBody = task;
@@ -2037,7 +2036,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {module:model/Task} task The task
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Flow}
+    * @return {Promise<Flow>}
     */
     updateTask(namespace, id, taskId, tenant, task) {
       return this.updateTaskWithHttpInfo(namespace, id, taskId, tenant, task)
@@ -2061,7 +2060,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {String} body A list of flows source code in a single string
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ValidateConstraintViolation>} and HTTP response
+    * @return {Promise<Array.<ValidateConstraintViolation>>}
     */
     validateFlowsWithHttpInfo(tenant, body) {
       let postBody = body;
@@ -2100,7 +2099,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {String} body A list of flows source code in a single string
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ValidateConstraintViolation>}
+    * @return {Promise<Array.<ValidateConstraintViolation>>}
     */
     validateFlows(tenant, body) {
       return this.validateFlowsWithHttpInfo(tenant, body)
@@ -2125,7 +2124,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {Object.<String, Object>} body A task definition that can be from tasks or triggers
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ValidateConstraintViolation} and HTTP response
+    * @return {Promise<ValidateConstraintViolation>}
     */
     validateTaskWithHttpInfo(section, tenant, body) {
       let postBody = body;
@@ -2170,7 +2169,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {Object.<String, Object>} body A task definition that can be from tasks or triggers
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ValidateConstraintViolation}
+    * @return {Promise<ValidateConstraintViolation>}
     */
     validateTask(section, tenant, body) {
       return this.validateTaskWithHttpInfo(section, tenant, body)
@@ -2194,7 +2193,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {Object.<String, Object>} body The trigger
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ValidateConstraintViolation} and HTTP response
+    * @return {Promise<ValidateConstraintViolation>}
     */
     validateTriggerWithHttpInfo(tenant, body) {
       let postBody = body;
@@ -2233,7 +2232,7 @@ export default class FlowsApi {
     * @param {String} tenant 
     * @param {Object.<String, Object>} body The trigger
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ValidateConstraintViolation}
+    * @return {Promise<ValidateConstraintViolation>}
     */
     validateTrigger(tenant, body) {
       return this.validateTriggerWithHttpInfo(tenant, body)

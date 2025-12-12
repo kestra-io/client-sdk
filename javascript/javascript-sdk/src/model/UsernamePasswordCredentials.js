@@ -14,9 +14,18 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IUsernamePasswordCredentials
+  * @property {String} username
+  * @property {String} password
+  * @property {String} identity
+  * @property {String} secret
+  */
+
+/**
  * The UsernamePasswordCredentials model module.
  * @module model/UsernamePasswordCredentials
-  */
+ * @type {IUsernamePasswordCredentials}
+ */
 class UsernamePasswordCredentials {
     /**
      * Constructs a new <code>UsernamePasswordCredentials</code>.

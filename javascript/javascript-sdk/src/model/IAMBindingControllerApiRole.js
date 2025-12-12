@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IIAMBindingControllerApiRole
+  * @property {String} id
+  * @property {String} name
+  */
+
+/**
  * The IAMBindingControllerApiRole model module.
  * @module model/IAMBindingControllerApiRole
-  */
+ * @type {IIAMBindingControllerApiRole}
+ */
 class IAMBindingControllerApiRole {
     /**
      * Constructs a new <code>IAMBindingControllerApiRole</code>.

@@ -13,6 +13,17 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum ServerInstanceType
+ * @type {{
+ *   "SERVER": "SERVER","STANDALONE": "STANDALONE",
+ * }}
+ */
+export const ServerInstanceTypeStatic = { 
+    "SERVER": "SERVER",
+    "STANDALONE": "STANDALONE",
+}
+
+/**
 * Enum class ServerInstanceType.
 * @enum {}
 * @readonly

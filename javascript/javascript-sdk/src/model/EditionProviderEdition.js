@@ -13,6 +13,17 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum EditionProviderEdition
+ * @type {{
+ *   "OSS": "OSS","EE": "EE",
+ * }}
+ */
+export const EditionProviderEditionStatic = { 
+    "OSS": "OSS",
+    "EE": "EE",
+}
+
+/**
 * Enum class EditionProviderEdition.
 * @enum {}
 * @readonly

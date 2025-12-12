@@ -13,6 +13,18 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum AbstractGraphBranchType
+ * @type {{
+ *   "ERROR": "ERROR","FINALLY": "FINALLY","AFTER_EXECUTION": "AFTER_EXECUTION",
+ * }}
+ */
+export const AbstractGraphBranchTypeStatic = { 
+    "ERROR": "ERROR",
+    "FINALLY": "FINALLY",
+    "AFTER_EXECUTION": "AFTER_EXECUTION",
+}
+
+/**
 * Enum class AbstractGraphBranchType.
 * @enum {}
 * @readonly

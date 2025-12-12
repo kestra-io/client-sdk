@@ -18,9 +18,22 @@ import Fixtures from './Fixtures';
 import TestState from './TestState';
 
 /**
+  * @typedef {Object} IUnitTestResult
+  * @property {String} testId
+  * @property {String} testType
+  * @property {String} executionId
+  * @property {String} url
+  * @property {module:model/TestState} state
+  * @property {Array.<module:model/AssertionResult>} assertionResults
+  * @property {Array.<module:model/AssertionRunError>} errors
+  * @property {module:model/Fixtures} fixtures
+  */
+
+/**
  * The UnitTestResult model module.
  * @module model/UnitTestResult
-  */
+ * @type {IUnitTestResult}
+ */
 class UnitTestResult {
     /**
      * Constructs a new <code>UnitTestResult</code>.

@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IDependsOn
+  * @property {Array.<String>} inputs
+  * @property {String} condition
+  */
+
+/**
  * The DependsOn model module.
  * @module model/DependsOn
-  */
+ * @type {IDependsOn}
+ */
 class DependsOn {
     /**
      * Constructs a new <code>DependsOn</code>.

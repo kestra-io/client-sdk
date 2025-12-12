@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import MetricAggregation from './MetricAggregation';
 
 /**
+  * @typedef {Object} IMetricAggregations
+  * @property {String} groupBy
+  * @property {Array.<module:model/MetricAggregation>} aggregations
+  */
+
+/**
  * The MetricAggregations model module.
  * @module model/MetricAggregations
-  */
+ * @type {IMetricAggregations}
+ */
 class MetricAggregations {
     /**
      * Constructs a new <code>MetricAggregations</code>.

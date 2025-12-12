@@ -15,9 +15,17 @@ import ApiClient from '../ApiClient';
 import SecurityIntegrationType from './SecurityIntegrationType';
 
 /**
+  * @typedef {Object} ICreateSecurityIntegrationRequest
+  * @property {String} name - The name of security integration.
+  * @property {String} description - The description of security integration.
+  * @property {module:model/SecurityIntegrationType} type
+  */
+
+/**
  * The CreateSecurityIntegrationRequest model module.
  * @module model/CreateSecurityIntegrationRequest
-  */
+ * @type {ICreateSecurityIntegrationRequest}
+ */
 class CreateSecurityIntegrationRequest {
     /**
      * Constructs a new <code>CreateSecurityIntegrationRequest</code>.

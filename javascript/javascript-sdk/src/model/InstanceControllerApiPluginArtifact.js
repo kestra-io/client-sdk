@@ -14,9 +14,19 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IInstanceControllerApiPluginArtifact
+  * @property {String} title
+  * @property {String} icon
+  * @property {String} groupId
+  * @property {String} artifactId
+  * @property {Array.<String>} versions
+  */
+
+/**
  * The InstanceControllerApiPluginArtifact model module.
  * @module model/InstanceControllerApiPluginArtifact
-  */
+ * @type {IInstanceControllerApiPluginArtifact}
+ */
 class InstanceControllerApiPluginArtifact {
     /**
      * Constructs a new <code>InstanceControllerApiPluginArtifact</code>.

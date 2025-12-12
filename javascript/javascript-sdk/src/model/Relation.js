@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import RelationType from './RelationType';
 
 /**
+  * @typedef {Object} IRelation
+  * @property {module:model/RelationType} relationType
+  * @property {String} value
+  */
+
+/**
  * The Relation model module.
  * @module model/Relation
-  */
+ * @type {IRelation}
+ */
 class Relation {
     /**
      * Constructs a new <code>Relation</code>.

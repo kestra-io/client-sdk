@@ -21,9 +21,27 @@ import ScimResource from './ScimResource';
 import UserGroup from './UserGroup';
 
 /**
+  * @typedef {Object} IScimUser
+  * @property {Array.<String>} schemas
+  * @property {String} baseUrn
+  * @property {Object.<String, module:model/ScimExtension>} extensions
+  * @property {module:model/Meta} meta
+  * @property {String} id
+  * @property {String} externalId
+  * @property {String} resourceType
+  * @property {module:model/Email} primaryEmailAddress
+  * @property {Boolean} active
+  * @property {Array.<module:model/Email>} emails
+  * @property {String} userName
+  * @property {module:model/Name} name
+  * @property {Array.<module:model/UserGroup>} groups
+  */
+
+/**
  * The ScimUser model module.
  * @module model/ScimUser
-  */
+ * @type {IScimUser}
+ */
 class ScimUser {
     /**
      * Constructs a new <code>ScimUser</code>.

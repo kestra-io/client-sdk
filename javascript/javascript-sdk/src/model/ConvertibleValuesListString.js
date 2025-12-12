@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import ConversionServiceProvider from './ConversionServiceProvider';
 
 /**
+  * @typedef {Object} IConvertibleValuesListString
+  * @property {Object} conversionService
+  * @property {Boolean} empty
+  */
+
+/**
  * The ConvertibleValuesListString model module.
  * @module model/ConvertibleValuesListString
-  */
+ * @type {IConvertibleValuesListString}
+ */
 class ConvertibleValuesListString {
     /**
      * Constructs a new <code>ConvertibleValuesListString</code>.

@@ -14,9 +14,15 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IKVControllerApiDeleteBulkResponse
+  * @property {Array.<String>} keys
+  */
+
+/**
  * The KVControllerApiDeleteBulkResponse model module.
  * @module model/KVControllerApiDeleteBulkResponse
-  */
+ * @type {IKVControllerApiDeleteBulkResponse}
+ */
 class KVControllerApiDeleteBulkResponse {
     /**
      * Constructs a new <code>KVControllerApiDeleteBulkResponse</code>.

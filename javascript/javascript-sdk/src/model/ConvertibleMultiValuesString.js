@@ -16,9 +16,16 @@ import ConversionServiceProvider from './ConversionServiceProvider';
 import ConvertibleValuesListString from './ConvertibleValuesListString';
 
 /**
+  * @typedef {Object} IConvertibleMultiValuesString
+  * @property {Object} conversionService
+  * @property {Boolean} empty
+  */
+
+/**
  * The ConvertibleMultiValuesString model module.
  * @module model/ConvertibleMultiValuesString
-  */
+ * @type {IConvertibleMultiValuesString}
+ */
 class ConvertibleMultiValuesString {
     /**
      * Constructs a new <code>ConvertibleMultiValuesString</code>.

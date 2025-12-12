@@ -14,9 +14,19 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IFlowUsage
+  * @property {Number} count
+  * @property {Number} namespacesCount
+  * @property {Object.<String, Number>} taskTypeCount
+  * @property {Object.<String, Number>} triggerTypeCount
+  * @property {Object.<String, Number>} taskRunnerTypeCount
+  */
+
+/**
  * The FlowUsage model module.
  * @module model/FlowUsage
-  */
+ * @type {IFlowUsage}
+ */
 class FlowUsage {
     /**
      * Constructs a new <code>FlowUsage</code>.

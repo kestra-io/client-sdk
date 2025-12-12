@@ -14,9 +14,15 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IServiceProviderConfigurationSupportedConfiguration
+  * @property {Boolean} supported
+  */
+
+/**
  * The ServiceProviderConfigurationSupportedConfiguration model module.
  * @module model/ServiceProviderConfigurationSupportedConfiguration
-  */
+ * @type {IServiceProviderConfigurationSupportedConfiguration}
+ */
 class ServiceProviderConfigurationSupportedConfiguration {
     /**
      * Constructs a new <code>ServiceProviderConfigurationSupportedConfiguration</code>.

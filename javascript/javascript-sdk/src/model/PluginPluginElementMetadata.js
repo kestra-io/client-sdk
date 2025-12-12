@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IPluginPluginElementMetadata
+  * @property {String} cls
+  * @property {Boolean} deprecated
+  */
+
+/**
  * The PluginPluginElementMetadata model module.
  * @module model/PluginPluginElementMetadata
-  */
+ * @type {IPluginPluginElementMetadata}
+ */
 class PluginPluginElementMetadata {
     /**
      * Constructs a new <code>PluginPluginElementMetadata</code>.

@@ -14,9 +14,18 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} ICreateApiTokenRequest
+  * @property {String} name
+  * @property {String} description
+  * @property {String} maxAge
+  * @property {Boolean} extended
+  */
+
+/**
  * The CreateApiTokenRequest model module.
  * @module model/CreateApiTokenRequest
-  */
+ * @type {ICreateApiTokenRequest}
+ */
 class CreateApiTokenRequest {
     /**
      * Constructs a new <code>CreateApiTokenRequest</code>.

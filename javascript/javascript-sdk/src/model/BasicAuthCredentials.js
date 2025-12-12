@@ -14,9 +14,17 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IBasicAuthCredentials
+  * @property {String} uid
+  * @property {String} username
+  * @property {String} password
+  */
+
+/**
  * The BasicAuthCredentials model module.
  * @module model/BasicAuthCredentials
-  */
+ * @type {IBasicAuthCredentials}
+ */
 class BasicAuthCredentials {
     /**
      * Constructs a new <code>BasicAuthCredentials</code>.

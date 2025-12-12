@@ -13,6 +13,16 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum SecurityIntegrationType
+ * @type {{
+ *   "SCIM": "SCIM",
+ * }}
+ */
+export const SecurityIntegrationTypeStatic = { 
+    "SCIM": "SCIM",
+}
+
+/**
 * Enum class SecurityIntegrationType.
 * @enum {}
 * @readonly

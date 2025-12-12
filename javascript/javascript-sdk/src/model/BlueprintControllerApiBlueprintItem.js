@@ -14,9 +14,20 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IBlueprintControllerApiBlueprintItem
+  * @property {String} id
+  * @property {String} title
+  * @property {String} description
+  * @property {Array.<String>} includedTasks
+  * @property {Array.<String>} tags
+  * @property {Date} publishedAt
+  */
+
+/**
  * The BlueprintControllerApiBlueprintItem model module.
  * @module model/BlueprintControllerApiBlueprintItem
-  */
+ * @type {IBlueprintControllerApiBlueprintItem}
+ */
 class BlueprintControllerApiBlueprintItem {
     /**
      * Constructs a new <code>BlueprintControllerApiBlueprintItem</code>.

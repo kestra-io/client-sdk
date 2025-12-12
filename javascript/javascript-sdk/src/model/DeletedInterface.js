@@ -14,9 +14,15 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IDeletedInterface
+  * @property {Boolean} deleted
+  */
+
+/**
  * The DeletedInterface model module.
  * @module model/DeletedInterface
-  */
+ * @type {IDeletedInterface}
+ */
 class DeletedInterface {
     /**
      * Constructs a new <code>DeletedInterface</code>.

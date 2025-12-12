@@ -13,6 +13,29 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum PluginSubGroupPluginCategory
+ * @type {{
+ *   "DATABASE": "DATABASE","MESSAGING": "MESSAGING","SCRIPT": "SCRIPT","TRANSFORMATION": "TRANSFORMATION","BATCH": "BATCH","ALERTING": "ALERTING","CLOUD": "CLOUD","STORAGE": "STORAGE","OTHER": "OTHER","TOOL": "TOOL","AI": "AI","CORE": "CORE","INGESTION": "INGESTION","BI": "BI",
+ * }}
+ */
+export const PluginSubGroupPluginCategoryStatic = { 
+    "DATABASE": "DATABASE",
+    "MESSAGING": "MESSAGING",
+    "SCRIPT": "SCRIPT",
+    "TRANSFORMATION": "TRANSFORMATION",
+    "BATCH": "BATCH",
+    "ALERTING": "ALERTING",
+    "CLOUD": "CLOUD",
+    "STORAGE": "STORAGE",
+    "OTHER": "OTHER",
+    "TOOL": "TOOL",
+    "AI": "AI",
+    "CORE": "CORE",
+    "INGESTION": "INGESTION",
+    "BI": "BI",
+}
+
+/**
 * Enum class PluginSubGroupPluginCategory.
 * @enum {}
 * @readonly

@@ -23,7 +23,6 @@ import QueryFilter from '../model/QueryFilter';
 /**
 * KV service.
 * @module api/KVApi
-* @version 1.0.2
 */
 export default class KVApi {
 
@@ -49,7 +48,7 @@ export default class KVApi {
     * @param {String} key The key
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Boolean} and HTTP response
+    * @return {Promise< Boolean >}
     */
     deleteKeyValueWithHttpInfo(namespace, key, tenant) {
       let postBody = null;
@@ -95,7 +94,7 @@ export default class KVApi {
     * @param {String} key The key
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Boolean}
+    * @return {Promise< Boolean >}
     */
     deleteKeyValue(namespace, key, tenant) {
       return this.deleteKeyValueWithHttpInfo(namespace, key, tenant)
@@ -120,7 +119,7 @@ export default class KVApi {
     * @param {String} tenant 
     * @param {module:model/KVControllerApiDeleteBulkRequest} kVControllerApiDeleteBulkRequest The keys
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/KVControllerApiDeleteBulkResponse} and HTTP response
+    * @return {Promise<KVControllerApiDeleteBulkResponse>}
     */
     deleteKeyValuesWithHttpInfo(namespace, tenant, kVControllerApiDeleteBulkRequest) {
       let postBody = kVControllerApiDeleteBulkRequest;
@@ -165,7 +164,7 @@ export default class KVApi {
     * @param {String} tenant 
     * @param {module:model/KVControllerApiDeleteBulkRequest} kVControllerApiDeleteBulkRequest The keys
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/KVControllerApiDeleteBulkResponse}
+    * @return {Promise<KVControllerApiDeleteBulkResponse>}
     */
     deleteKeyValues(namespace, tenant, kVControllerApiDeleteBulkRequest) {
       return this.deleteKeyValuesWithHttpInfo(namespace, tenant, kVControllerApiDeleteBulkRequest)
@@ -190,7 +189,7 @@ export default class KVApi {
     * @param {String} key The key
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/KVControllerTypedValue} and HTTP response
+    * @return {Promise<KVControllerTypedValue>}
     */
     keyValueWithHttpInfo(namespace, key, tenant) {
       let postBody = null;
@@ -236,7 +235,7 @@ export default class KVApi {
     * @param {String} key The key
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/KVControllerTypedValue}
+    * @return {Promise<KVControllerTypedValue>}
     */
     keyValue(namespace, key, tenant) {
       return this.keyValueWithHttpInfo(namespace, key, tenant)
@@ -262,9 +261,9 @@ export default class KVApi {
     * @param {String} tenant 
     * @param {Object} opts Optional parameters
     * @param {Array.<String>} [sort] The sort of current page
-    * @param {Array.<module:model/QueryFilter>} [filters] Filters
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsKVEntry} and HTTP response
+    * @return {Promise<PagedResultsKVEntry>}
     */
     listAllKeysWithHttpInfo(page, size, tenant, opts) {
       opts = opts || {};
@@ -312,11 +311,11 @@ export default class KVApi {
     * @param {Number} page The current page
     * @param {Number} size The current page size
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {Array.<String>} opts.sort The sort of current page
-    * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+    * @param {Object} [opts] Optional parameters
+    * @param {Array.<String>} [opts.sort] The sort of current page
+    * @param {Array.<import('../model/IQueryFilter').IQueryFilter>} [opts.filters] Filters
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsKVEntry}
+    * @return {Promise<PagedResultsKVEntry>}
     */
     listAllKeys(page, size, tenant, opts) {
       return this.listAllKeysWithHttpInfo(page, size, tenant, opts)
@@ -340,7 +339,7 @@ export default class KVApi {
     * @param {String} namespace The namespace id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/KVEntry>} and HTTP response
+    * @return {Promise<Array.<KVEntry>>}
     */
     listKeysWithHttpInfo(namespace, tenant) {
       let postBody = null;
@@ -380,7 +379,7 @@ export default class KVApi {
     * @param {String} namespace The namespace id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/KVEntry>}
+    * @return {Promise<Array.<KVEntry>>}
     */
     listKeys(namespace, tenant) {
       return this.listKeysWithHttpInfo(namespace, tenant)
@@ -404,7 +403,7 @@ export default class KVApi {
     * @param {String} namespace The namespace id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/KVEntry>} and HTTP response
+    * @return {Promise<Array.<KVEntry>>}
     */
     listKeysWithInheritenceWithHttpInfo(namespace, tenant) {
       let postBody = null;
@@ -444,7 +443,7 @@ export default class KVApi {
     * @param {String} namespace The namespace id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/KVEntry>}
+    * @return {Promise<Array.<KVEntry>>}
     */
     listKeysWithInheritence(namespace, tenant) {
       return this.listKeysWithInheritenceWithHttpInfo(namespace, tenant)
@@ -470,7 +469,7 @@ export default class KVApi {
     * @param {String} tenant 
     * @param {String} body The value of the key
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+    * @return {Promise<  >}
     */
     setKeyValueWithHttpInfo(namespace, key, tenant, body) {
       let postBody = body;
@@ -521,7 +520,7 @@ export default class KVApi {
     * @param {String} tenant 
     * @param {String} body The value of the key
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+    * @return {Promise<  >}
     */
     setKeyValue(namespace, key, tenant, body) {
       return this.setKeyValueWithHttpInfo(namespace, key, tenant, body)

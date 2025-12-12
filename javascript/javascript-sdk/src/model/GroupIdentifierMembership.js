@@ -13,6 +13,17 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum GroupIdentifierMembership
+ * @type {{
+ *   "OWNER": "OWNER","MEMBER": "MEMBER",
+ * }}
+ */
+export const GroupIdentifierMembershipStatic = { 
+    "OWNER": "OWNER",
+    "MEMBER": "MEMBER",
+}
+
+/**
 * Enum class GroupIdentifierMembership.
 * @enum {}
 * @readonly

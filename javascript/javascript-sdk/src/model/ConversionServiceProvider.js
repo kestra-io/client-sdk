@@ -14,9 +14,15 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IConversionServiceProvider
+  * @property {Object} conversionService
+  */
+
+/**
  * The ConversionServiceProvider model module.
  * @module model/ConversionServiceProvider
-  */
+ * @type {IConversionServiceProvider}
+ */
 class ConversionServiceProvider {
     /**
      * Constructs a new <code>ConversionServiceProvider</code>.

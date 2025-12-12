@@ -14,9 +14,17 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IFlowNode
+  * @property {String} uid
+  * @property {String} namespace
+  * @property {String} id
+  */
+
+/**
  * The FlowNode model module.
  * @module model/FlowNode
-  */
+ * @type {IFlowNode}
+ */
 class FlowNode {
     /**
      * Constructs a new <code>FlowNode</code>.

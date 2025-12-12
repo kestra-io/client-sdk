@@ -13,6 +13,23 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum SchemaAttributeType
+ * @type {{
+ *   "BINARY": "BINARY","BOOLEAN": "BOOLEAN","COMPLEX": "COMPLEX","DATE_TIME": "DATE_TIME","DECIMAL": "DECIMAL","INTEGER": "INTEGER","REFERENCE": "REFERENCE","STRING": "STRING",
+ * }}
+ */
+export const SchemaAttributeTypeStatic = { 
+    "BINARY": "BINARY",
+    "BOOLEAN": "BOOLEAN",
+    "COMPLEX": "COMPLEX",
+    "DATE_TIME": "DATE_TIME",
+    "DECIMAL": "DECIMAL",
+    "INTEGER": "INTEGER",
+    "REFERENCE": "REFERENCE",
+    "STRING": "STRING",
+}
+
+/**
 * Enum class SchemaAttributeType.
 * @enum {}
 * @readonly

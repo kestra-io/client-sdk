@@ -14,9 +14,18 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IUserUsage
+  * @property {Number} count
+  * @property {Number} apiKeyCount
+  * @property {Number} oidcCount
+  * @property {Number} basicAuthCount
+  */
+
+/**
  * The UserUsage model module.
  * @module model/UserUsage
-  */
+ * @type {IUserUsage}
+ */
 class UserUsage {
     /**
      * Constructs a new <code>UserUsage</code>.

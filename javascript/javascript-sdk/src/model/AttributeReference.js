@@ -14,9 +14,20 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IAttributeReference
+  * @property {String} fullAttributeName
+  * @property {String} fullyQualifiedAttributeName
+  * @property {String} attributeBase
+  * @property {String} urn
+  * @property {String} attributeName
+  * @property {String} subAttributeName
+  */
+
+/**
  * The AttributeReference model module.
  * @module model/AttributeReference
-  */
+ * @type {IAttributeReference}
+ */
 class AttributeReference {
     /**
      * Constructs a new <code>AttributeReference</code>.

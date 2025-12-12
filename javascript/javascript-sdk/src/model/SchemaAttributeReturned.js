@@ -13,6 +13,19 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum SchemaAttributeReturned
+ * @type {{
+ *   "ALWAYS": "ALWAYS","DEFAULT": "DEFAULT","NEVER": "NEVER","REQUEST": "REQUEST",
+ * }}
+ */
+export const SchemaAttributeReturnedStatic = { 
+    "ALWAYS": "ALWAYS",
+    "DEFAULT": "DEFAULT",
+    "NEVER": "NEVER",
+    "REQUEST": "REQUEST",
+}
+
+/**
 * Enum class SchemaAttributeReturned.
 * @enum {}
 * @readonly

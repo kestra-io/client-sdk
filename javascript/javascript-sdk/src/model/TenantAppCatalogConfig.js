@@ -14,9 +14,17 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} ITenantAppCatalogConfig
+  * @property {String} title
+  * @property {String} titleColor
+  * @property {String} primaryColor
+  */
+
+/**
  * The TenantAppCatalogConfig model module.
  * @module model/TenantAppCatalogConfig
-  */
+ * @type {ITenantAppCatalogConfig}
+ */
 class TenantAppCatalogConfig {
     /**
      * Constructs a new <code>TenantAppCatalogConfig</code>.

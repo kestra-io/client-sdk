@@ -14,9 +14,15 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IApiSecretMeta
+  * @property {String} key
+  */
+
+/**
  * The ApiSecretMeta model module.
  * @module model/ApiSecretMeta
-  */
+ * @type {IApiSecretMeta}
+ */
 class ApiSecretMeta {
     /**
      * Constructs a new <code>ApiSecretMeta</code>.

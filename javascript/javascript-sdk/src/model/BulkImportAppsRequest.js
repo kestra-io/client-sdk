@@ -14,9 +14,15 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IBulkImportAppsRequest
+  * @property {File} fileUpload - The file to import, can be a ZIP archive or a multi-objects YAML file
+  */
+
+/**
  * The BulkImportAppsRequest model module.
  * @module model/BulkImportAppsRequest
-  */
+ * @type {IBulkImportAppsRequest}
+ */
 class BulkImportAppsRequest {
     /**
      * Constructs a new <code>BulkImportAppsRequest</code>.

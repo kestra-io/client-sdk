@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import ApiRoleSummary from './ApiRoleSummary';
 
 /**
+  * @typedef {Object} IPagedResultsApiRoleSummary
+  * @property {Array.<module:model/ApiRoleSummary>} results
+  * @property {Number} total
+  */
+
+/**
  * The PagedResultsApiRoleSummary model module.
  * @module model/PagedResultsApiRoleSummary
-  */
+ * @type {IPagedResultsApiRoleSummary}
+ */
 class PagedResultsApiRoleSummary {
     /**
      * Constructs a new <code>PagedResultsApiRoleSummary</code>.

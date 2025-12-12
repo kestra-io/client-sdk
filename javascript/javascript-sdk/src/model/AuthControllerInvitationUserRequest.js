@@ -14,9 +14,17 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IAuthControllerInvitationUserRequest
+  * @property {String} firstName
+  * @property {String} lastName
+  * @property {String} password
+  */
+
+/**
  * The AuthControllerInvitationUserRequest model module.
  * @module model/AuthControllerInvitationUserRequest
-  */
+ * @type {IAuthControllerInvitationUserRequest}
+ */
 class AuthControllerInvitationUserRequest {
     /**
      * Constructs a new <code>AuthControllerInvitationUserRequest</code>.

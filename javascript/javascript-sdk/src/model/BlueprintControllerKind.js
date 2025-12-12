@@ -13,6 +13,18 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum BlueprintControllerKind
+ * @type {{
+ *   "APP": "APP","DASHBOARD": "DASHBOARD","FLOW": "FLOW",
+ * }}
+ */
+export const BlueprintControllerKindStatic = { 
+    "APP": "APP",
+    "DASHBOARD": "DASHBOARD",
+    "FLOW": "FLOW",
+}
+
+/**
 * Enum class BlueprintControllerKind.
 * @enum {}
 * @readonly

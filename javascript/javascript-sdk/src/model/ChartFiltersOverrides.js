@@ -15,9 +15,21 @@ import ApiClient from '../ApiClient';
 import QueryFilter from './QueryFilter';
 
 /**
+  * @typedef {Object} IChartFiltersOverrides
+  * @property {Date} startDate
+  * @property {Date} endDate
+  * @property {Number} pageSize
+  * @property {Number} pageNumber
+  * @property {String} namespace
+  * @property {Object.<String, String>} labels
+  * @property {Array.<module:model/QueryFilter>} filters
+  */
+
+/**
  * The ChartFiltersOverrides model module.
  * @module model/ChartFiltersOverrides
-  */
+ * @type {IChartFiltersOverrides}
+ */
 class ChartFiltersOverrides {
     /**
      * Constructs a new <code>ChartFiltersOverrides</code>.

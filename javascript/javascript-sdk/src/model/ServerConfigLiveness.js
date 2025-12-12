@@ -14,9 +14,19 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IServerConfigLiveness
+  * @property {Boolean} enabled
+  * @property {String} interval
+  * @property {String} timeout
+  * @property {String} initialDelay
+  * @property {String} heartbeatInterval
+  */
+
+/**
  * The ServerConfigLiveness model module.
  * @module model/ServerConfigLiveness
-  */
+ * @type {IServerConfigLiveness}
+ */
 class ServerConfigLiveness {
     /**
      * Constructs a new <code>ServerConfigLiveness</code>.

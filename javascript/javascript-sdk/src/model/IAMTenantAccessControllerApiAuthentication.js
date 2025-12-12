@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IIAMTenantAccessControllerApiAuthentication
+  * @property {String} name
+  * @property {String} type
+  */
+
+/**
  * The IAMTenantAccessControllerApiAuthentication model module.
  * @module model/IAMTenantAccessControllerApiAuthentication
-  */
+ * @type {IIAMTenantAccessControllerApiAuthentication}
+ */
 class IAMTenantAccessControllerApiAuthentication {
     /**
      * Constructs a new <code>IAMTenantAccessControllerApiAuthentication</code>.

@@ -14,9 +14,15 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IExecutionControllerApiValidateExecutionInputsResponseApiInputError
+  * @property {String} message
+  */
+
+/**
  * The ExecutionControllerApiValidateExecutionInputsResponseApiInputError model module.
  * @module model/ExecutionControllerApiValidateExecutionInputsResponseApiInputError
-  */
+ * @type {IExecutionControllerApiValidateExecutionInputsResponseApiInputError}
+ */
 class ExecutionControllerApiValidateExecutionInputsResponseApiInputError {
     /**
      * Constructs a new <code>ExecutionControllerApiValidateExecutionInputsResponseApiInputError</code>.

@@ -14,9 +14,15 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IInstanceControllerApiPluginListRequest
+  * @property {Array.<String>} plugins
+  */
+
+/**
  * The InstanceControllerApiPluginListRequest model module.
  * @module model/InstanceControllerApiPluginListRequest
-  */
+ * @type {IInstanceControllerApiPluginListRequest}
+ */
 class InstanceControllerApiPluginListRequest {
     /**
      * Constructs a new <code>InstanceControllerApiPluginListRequest</code>.

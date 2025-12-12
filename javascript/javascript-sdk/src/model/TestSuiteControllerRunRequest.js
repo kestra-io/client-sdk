@@ -14,9 +14,15 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} ITestSuiteControllerRunRequest
+  * @property {Array.<String>} testCases
+  */
+
+/**
  * The TestSuiteControllerRunRequest model module.
  * @module model/TestSuiteControllerRunRequest
-  */
+ * @type {ITestSuiteControllerRunRequest}
+ */
 class TestSuiteControllerRunRequest {
     /**
      * Constructs a new <code>TestSuiteControllerRunRequest</code>.

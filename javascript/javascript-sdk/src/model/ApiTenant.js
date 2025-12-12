@@ -18,9 +18,29 @@ import TenantAppCatalogConfig from './TenantAppCatalogConfig';
 import WorkerGroup from './WorkerGroup';
 
 /**
+  * @typedef {Object} IApiTenant
+  * @property {module:model/Isolation} storageIsolation
+  * @property {module:model/Isolation} secretIsolation
+  * @property {String} id
+  * @property {String} name
+  * @property {Boolean} deleted
+  * @property {module:model/WorkerGroup} workerGroup
+  * @property {String} storageType
+  * @property {Object.<String, Object>} storageConfiguration
+  * @property {String} secretType
+  * @property {Boolean} secretReadOnly
+  * @property {Object.<String, Object>} secretConfiguration
+  * @property {Boolean} requireExistingNamespace
+  * @property {Boolean} outputsInInternalStorage
+  * @property {module:model/TenantAppCatalogConfig} appCatalogConfig
+  * @property {String} logo
+  */
+
+/**
  * The ApiTenant model module.
  * @module model/ApiTenant
-  */
+ * @type {IApiTenant}
+ */
 class ApiTenant {
     /**
      * Constructs a new <code>ApiTenant</code>.

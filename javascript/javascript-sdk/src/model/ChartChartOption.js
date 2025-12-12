@@ -14,9 +14,17 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IChartChartOption
+  * @property {String} id
+  * @property {String} type
+  * @property {Object} chartOptions
+  */
+
+/**
  * The ChartChartOption model module.
  * @module model/ChartChartOption
-  */
+ * @type {IChartChartOption}
+ */
 class ChartChartOption {
     /**
      * Constructs a new <code>ChartChartOption</code>.

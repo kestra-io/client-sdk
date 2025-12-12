@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import LogEntry from './LogEntry';
 
 /**
+  * @typedef {Object} IPagedResultsLogEntry
+  * @property {Array.<module:model/LogEntry>} results
+  * @property {Number} total
+  */
+
+/**
  * The PagedResultsLogEntry model module.
  * @module model/PagedResultsLogEntry
-  */
+ * @type {IPagedResultsLogEntry}
+ */
 class PagedResultsLogEntry {
     /**
      * Constructs a new <code>PagedResultsLogEntry</code>.

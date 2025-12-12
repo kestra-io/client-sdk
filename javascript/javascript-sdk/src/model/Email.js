@@ -14,9 +14,17 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IEmail
+  * @property {String} type
+  * @property {String} value
+  * @property {Boolean} primary
+  */
+
+/**
  * The Email model module.
  * @module model/Email
-  */
+ * @type {IEmail}
+ */
 class Email {
     /**
      * Constructs a new <code>Email</code>.

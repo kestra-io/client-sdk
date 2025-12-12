@@ -13,6 +13,21 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum ServiceType
+ * @type {{
+ *   "EXECUTOR": "EXECUTOR","INDEXER": "INDEXER","SCHEDULER": "SCHEDULER","WEBSERVER": "WEBSERVER","WORKER": "WORKER","INVALID": "INVALID",
+ * }}
+ */
+export const ServiceTypeStatic = { 
+    "EXECUTOR": "EXECUTOR",
+    "INDEXER": "INDEXER",
+    "SCHEDULER": "SCHEDULER",
+    "WEBSERVER": "WEBSERVER",
+    "WORKER": "WORKER",
+    "INVALID": "INVALID",
+}
+
+/**
 * Enum class ServiceType.
 * @enum {}
 * @readonly

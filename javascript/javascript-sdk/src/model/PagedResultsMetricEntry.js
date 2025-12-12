@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import MetricEntry from './MetricEntry';
 
 /**
+  * @typedef {Object} IPagedResultsMetricEntry
+  * @property {Array.<module:model/MetricEntry>} results
+  * @property {Number} total
+  */
+
+/**
  * The PagedResultsMetricEntry model module.
  * @module model/PagedResultsMetricEntry
-  */
+ * @type {IPagedResultsMetricEntry}
+ */
 class PagedResultsMetricEntry {
     /**
      * Constructs a new <code>PagedResultsMetricEntry</code>.

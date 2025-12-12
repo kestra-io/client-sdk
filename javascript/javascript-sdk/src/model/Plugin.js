@@ -16,9 +16,40 @@ import PluginPluginElementMetadata from './PluginPluginElementMetadata';
 import PluginSubGroupPluginCategory from './PluginSubGroupPluginCategory';
 
 /**
+  * @typedef {Object} IPlugin
+  * @property {String} name
+  * @property {String} title
+  * @property {String} description
+  * @property {String} license
+  * @property {String} longDescription
+  * @property {String} group
+  * @property {String} version
+  * @property {Object.<String, String>} manifest
+  * @property {Array.<String>} guides
+  * @property {Array.<String>} aliases
+  * @property {Array.<module:model/PluginPluginElementMetadata>} tasks
+  * @property {Array.<module:model/PluginPluginElementMetadata>} triggers
+  * @property {Array.<module:model/PluginPluginElementMetadata>} conditions
+  * @property {Array.<module:model/PluginPluginElementMetadata>} controllers
+  * @property {Array.<module:model/PluginPluginElementMetadata>} storages
+  * @property {Array.<module:model/PluginPluginElementMetadata>} secrets
+  * @property {Array.<module:model/PluginPluginElementMetadata>} taskRunners
+  * @property {Array.<module:model/PluginPluginElementMetadata>} apps
+  * @property {Array.<module:model/PluginPluginElementMetadata>} appBlocks
+  * @property {Array.<module:model/PluginPluginElementMetadata>} charts
+  * @property {Array.<module:model/PluginPluginElementMetadata>} dataFilters
+  * @property {Array.<module:model/PluginPluginElementMetadata>} dataFiltersKPI
+  * @property {Array.<module:model/PluginPluginElementMetadata>} logExporters
+  * @property {Array.<module:model/PluginPluginElementMetadata>} additionalPlugins
+  * @property {Array.<module:model/PluginSubGroupPluginCategory>} categories
+  * @property {String} subGroup
+  */
+
+/**
  * The Plugin model module.
  * @module model/Plugin
-  */
+ * @type {IPlugin}
+ */
 class Plugin {
     /**
      * Constructs a new <code>Plugin</code>.

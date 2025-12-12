@@ -14,9 +14,15 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IBaseResourceScimResource
+  * @property {Array.<String>} schemas
+  */
+
+/**
  * The BaseResourceScimResource model module.
  * @module model/BaseResourceScimResource
-  */
+ * @type {IBaseResourceScimResource}
+ */
 class BaseResourceScimResource {
     /**
      * Constructs a new <code>BaseResourceScimResource</code>.

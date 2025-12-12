@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IMiscControllerPreview
+  * @property {Number} initial
+  * @property {Number} max
+  */
+
+/**
  * The MiscControllerPreview model module.
  * @module model/MiscControllerPreview
-  */
+ * @type {IMiscControllerPreview}
+ */
 class MiscControllerPreview {
     /**
      * Constructs a new <code>MiscControllerPreview</code>.

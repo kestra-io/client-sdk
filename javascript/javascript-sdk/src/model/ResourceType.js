@@ -20,9 +20,26 @@ import ScimResource from './ScimResource';
 import ScimResourceWithOptionalId from './ScimResourceWithOptionalId';
 
 /**
+  * @typedef {Object} IResourceType
+  * @property {Array.<String>} schemas
+  * @property {String} baseUrn
+  * @property {Object.<String, module:model/ScimExtension>} extensions
+  * @property {module:model/Meta} meta
+  * @property {String} id
+  * @property {String} externalId
+  * @property {String} resourceType
+  * @property {String} name
+  * @property {String} description
+  * @property {String} endpoint
+  * @property {String} schemaUrn
+  * @property {Array.<module:model/ResourceTypeSchemaExtensionConfiguration>} schemaExtensions
+  */
+
+/**
  * The ResourceType model module.
  * @module model/ResourceType
-  */
+ * @type {IResourceType}
+ */
 class ResourceType {
     /**
      * Constructs a new <code>ResourceType</code>.

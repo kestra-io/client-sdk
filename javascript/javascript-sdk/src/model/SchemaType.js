@@ -13,6 +13,23 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum SchemaType
+ * @type {{
+ *   "FLOW": "FLOW","TEMPLATE": "TEMPLATE","TASK": "TASK","TRIGGER": "TRIGGER","PLUGINDEFAULT": "PLUGINDEFAULT","APPS": "APPS","TESTSUITES": "TESTSUITES","DASHBOARD": "DASHBOARD",
+ * }}
+ */
+export const SchemaTypeStatic = { 
+    "FLOW": "FLOW",
+    "TEMPLATE": "TEMPLATE",
+    "TASK": "TASK",
+    "TRIGGER": "TRIGGER",
+    "PLUGINDEFAULT": "PLUGINDEFAULT",
+    "APPS": "APPS",
+    "TESTSUITES": "TESTSUITES",
+    "DASHBOARD": "DASHBOARD",
+}
+
+/**
 * Enum class SchemaType.
 * @enum {}
 * @readonly

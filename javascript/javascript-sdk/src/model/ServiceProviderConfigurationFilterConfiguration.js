@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import ServiceProviderConfigurationSupportedConfiguration from './ServiceProviderConfigurationSupportedConfiguration';
 
 /**
+  * @typedef {Object} IServiceProviderConfigurationFilterConfiguration
+  * @property {Boolean} supported
+  * @property {Number} maxResults
+  */
+
+/**
  * The ServiceProviderConfigurationFilterConfiguration model module.
  * @module model/ServiceProviderConfigurationFilterConfiguration
-  */
+ * @type {IServiceProviderConfigurationFilterConfiguration}
+ */
 class ServiceProviderConfigurationFilterConfiguration {
     /**
      * Constructs a new <code>ServiceProviderConfigurationFilterConfiguration</code>.

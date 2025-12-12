@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import ConcurrencyBehavior from './ConcurrencyBehavior';
 
 /**
+  * @typedef {Object} IConcurrency
+  * @property {Number} limit
+  * @property {module:model/ConcurrencyBehavior} behavior
+  */
+
+/**
  * The Concurrency model module.
  * @module model/Concurrency
-  */
+ * @type {IConcurrency}
+ */
 class Concurrency {
     /**
      * Constructs a new <code>Concurrency</code>.

@@ -17,9 +17,18 @@ import FlowGraphCluster from './FlowGraphCluster';
 import FlowGraphEdge from './FlowGraphEdge';
 
 /**
+  * @typedef {Object} IFlowGraph
+  * @property {Array.<module:model/AbstractGraph>} nodes
+  * @property {Array.<module:model/FlowGraphEdge>} edges
+  * @property {Array.<module:model/FlowGraphCluster>} clusters
+  * @property {Array.<String>} flowables
+  */
+
+/**
  * The FlowGraph model module.
  * @module model/FlowGraph
-  */
+ * @type {IFlowGraph}
+ */
 class FlowGraph {
     /**
      * Constructs a new <code>FlowGraph</code>.
