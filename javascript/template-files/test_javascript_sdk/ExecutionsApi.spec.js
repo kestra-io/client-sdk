@@ -2,8 +2,15 @@
 // ExecutionsApi.spec.js
 import { describe, it, expect } from 'vitest';
 import { kestraClient, MAIN_TENANT, randomId } from './CommonTestSetup';
+import { Execution } from '../src';
 
 // ---------- Flow YAML templates ----------
+/**
+ * generate failed flow
+ * @param {string} id
+ * @param {string} ns
+ * @returns
+ */
 const FAILED_FLOW = (id, ns) => `
 id: ${id}
 namespace: ${ns}
@@ -13,6 +20,12 @@ tasks:
     type: io.kestra.plugin.core.execution.Fail
 `;
 
+/**
+ * generate sleep flow with concurrency
+ * @param {string} id
+ * @param {string} ns
+ * @returns
+ */
 const SLEEP_CONCURRENCY_FLOW = (id, ns) => `
 id: ${id}
 namespace: ${ns}
@@ -27,6 +40,12 @@ tasks:
     duration: PT2S
 `;
 
+/**
+ * generate file flow
+ * @param {string} id
+ * @param {string} ns
+ * @returns
+ */
 const FILE_FLOW = (id, ns) => `
 id: ${id}
 namespace: ${ns}
@@ -38,6 +57,12 @@ tasks:
     extension: .txt
 `;
 
+/**
+ * generate log flow
+ * @param {string} id
+ * @param {string} ns
+ * @returns
+ */
 const LOG_FLOW = (id, ns) => `
 id: ${id}
 namespace: ${ns}
@@ -53,6 +78,12 @@ tasks:
     message: Hello World! 🚀
 `;
 
+/**
+ * generate pause flow
+ * @param {string} id
+ * @param {string} ns
+ * @returns
+ */
 const PAUSE_FLOW = (id, ns) => `
 id: ${id}
 namespace: ${ns}
@@ -63,6 +94,12 @@ tasks:
     delay: PT2S
 `;
 
+/**
+ * generate pause flow
+ * @param {string} id
+ * @param {string} ns
+ * @returns
+ */
 const WEBHOOK_FLOW = (id, ns) => `
 id: ${id}
 namespace: ${ns}
@@ -79,34 +116,68 @@ triggers:
 `;
 
 // ---------- helpers ----------
+/**
+ * sleep helper
+ * @param {number} ms
+ */
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+/**
+ *
+ * @param {string} flowYaml
+ * @returns
+ */
 async function createFlow(flowYaml) {
     const created = await kestraClient().flowsApi.createFlow(MAIN_TENANT, flowYaml);
     await sleep(200);
     return created;
 }
 
+/**
+ *
+ * @param {string} flowId
+ * @param {string} ns
+ * @param {(id: string, ns: string) => string} [tmpl=LOG_FLOW]
+ * @returns
+ */
 async function createSimpleFlow(flowId, ns, tmpl = LOG_FLOW) {
     return createFlow(tmpl(flowId, ns));
 }
 
+/**
+ * create and execute a flow
+ * @param {string} flowId
+ * @param {string} ns
+ * @returns
+ */
 async function createFlowWithExecution(flowId, ns) {
     await createSimpleFlow(flowId, ns);
     return kestraClient().executionsApi.createExecution(ns, flowId, false, MAIN_TENANT, null, null, null, null, null);
 }
 
+/**
+ * create and execute a flow from yaml
+ * @param {string} flowYaml
+ * @returns
+ */
 async function createFlowWithExecutionFromYaml(flowYaml) {
     const f = await createFlow(flowYaml);
     return kestraClient().executionsApi.createExecution(f.namespace, f.id, false, MAIN_TENANT, null, null, null, null, null);
 }
 
+/**
+ * await the end of an execution
+ * @param {string} executionId
+ * @param {string} desiredState
+ * @param {number} [timeoutMs=5000]
+ * @param {number} [pollMs=100]
+ * @returns
+ */
 async function awaitExecution(executionId, desiredState, timeoutMs = 5000, pollMs = 100) {
     const start = Date.now();
-    let last;
     // eslint-disable-next-line no-constant-condition
     while (true) {
-        last = await kestraClient().executionsApi.execution(executionId, MAIN_TENANT);
+        const last = await kestraClient().executionsApi.execution(executionId, MAIN_TENANT);
         if (last?.state?.current === desiredState) return last;
         if (Date.now() - start > timeoutMs) return last;
         await sleep(pollMs);
@@ -143,7 +214,7 @@ describe('ExecutionsApi', () => {
         const inputs = { key: 'value' };
 
         const resp = await kestraClient().executionsApi.createExecution(
-            ns, flowId, false, MAIN_TENANT, {"labels": labels, "kinds": 'NORMAL'}, inputs
+            ns, flowId, false, MAIN_TENANT, {"labels": labels, "kind": 'NORMAL'}, inputs
         );
 
         expect(resp.flowId).toBe(flowId);
