@@ -33,7 +33,7 @@ log_and_run docker compose -f docker-compose-ci.yml up -d --wait || {
 }
 
 echo "install requirements"
-log_and_run sh -c 'cd javascript-sdk && npm ci'
+log_and_run sh -c 'cd javascript-sdk && npm i'
 
 echo "install SDK locally so it can be imported and used in e2e tests"
 log_and_run sh -c 'cd javascript-sdk && npm run build'
