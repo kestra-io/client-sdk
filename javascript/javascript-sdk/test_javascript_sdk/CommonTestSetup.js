@@ -22,7 +22,7 @@ export function randomEmail() {
     return randomId() + '@example.com';
 }
 
-export const TEST_DATA_PATH = '../../../test-utils';
+export const TEST_DATA_PATH = '../../test-utils';
 
 export function get(filePath) {
     const absolute = path.isAbsolute(filePath)

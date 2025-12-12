@@ -15,12 +15,12 @@
     "fs": false
   },
   "exports": {
-    ".": "./dist/index.mjs",
+    ".": "./dist/KestraClient.mjs",
     "./package.json": "./package.json"
   },
-  "main": "dist/index.mjs",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.mts",
+  "main": "./dist/KestraClient.mjs",
+  "module": "./dist/KestraClient.mjs",
+  "types": "./dist/KestraClient.d.mts",
   "files": [
     "dist"
   ],
