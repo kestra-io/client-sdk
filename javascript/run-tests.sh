@@ -15,13 +15,17 @@ fi
 
 echo "/n------------------------------------------------"
 echo "Build local SDK and test it in an example project"
-echo "docker KESTRA_VERSION used: $KESTRA_VERSION\n"
+echo "docker KESTRA_VERSION used: $KESTRA_VERSION"
 
+echo ""
 
-echo "start Kestra container"
-log_and_run docker compose -f docker-compose-ci.yml down
 
 export KESTRA_VERSION=$KESTRA_VERSION
+echo "stop probable Kestra container"
+log_and_run docker compose -f docker-compose-ci.yml down
+
+echo ""
+echo "start new Kestra container"
 log_and_run docker compose -f docker-compose-ci.yml up -d --wait || {
    echo "db Docker Compose failed. Dumping logs:";
    log_and_run docker compose -f docker-compose-ci.yml logs;
@@ -29,13 +33,13 @@ log_and_run docker compose -f docker-compose-ci.yml up -d --wait || {
 }
 
 echo "install requirements"
-log_and_run sh -c 'cd javascript_sdk && npm ci'
+log_and_run sh -c 'cd javascript-sdk && npm ci'
 
 echo "install SDK locally so it can be imported and used in e2e tests"
-log_and_run sh -c 'cd javascript_sdk && npm run build'
+log_and_run sh -c 'cd javascript-sdk && npm run build'
 
-echo "run test_javascript_sdk tests"
-log_and_run sh -c 'cd javascript_sdk && npm run test -- _sdk'
+echo "run test_javascript-sdk tests"
+log_and_run sh -c 'cd javascript-sdk && npm run test -- _sdk'
 
 echo "stop Kestra container"
 log_and_run docker compose -f docker-compose-ci.yml down
