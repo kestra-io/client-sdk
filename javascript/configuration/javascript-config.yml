@@ -3,7 +3,7 @@ inputSpec: /local/kestra-ee.yml
 outputDir: /local/javascript/javascript-sdk
 
 globalProperties:
-  apiTests: true
+  apiTests: false
   modelTests: false
   apiDocs: true
   modelDocs: true
