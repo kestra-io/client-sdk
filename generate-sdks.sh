@@ -87,6 +87,7 @@ fi
 
 # Generate Javascript SDK
 if [[ ",$LANGUAGES," == *",javascript,"* ]]; then
+rm -rf ./javascript/javascript-sdk
 docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release generate \
     -c /local/javascript/configuration/javascript-config.yml \
     --skip-validate-spec \
