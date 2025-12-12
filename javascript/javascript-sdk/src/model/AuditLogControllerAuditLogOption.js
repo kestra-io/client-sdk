@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The AuditLogControllerAuditLogOption model module.
  * @module model/AuditLogControllerAuditLogOption
- * @version 1.0.2
- */
+  */
 class AuditLogControllerAuditLogOption {
     /**
      * Constructs a new <code>AuditLogControllerAuditLogOption</code>.

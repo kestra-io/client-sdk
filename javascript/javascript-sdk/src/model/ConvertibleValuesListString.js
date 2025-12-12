@@ -17,8 +17,7 @@ import ConversionServiceProvider from './ConversionServiceProvider';
 /**
  * The ConvertibleValuesListString model module.
  * @module model/ConvertibleValuesListString
- * @version 1.0.2
- */
+  */
 class ConvertibleValuesListString {
     /**
      * Constructs a new <code>ConvertibleValuesListString</code>.

@@ -18,8 +18,7 @@ import TaskRunAttempt from './TaskRunAttempt';
 /**
  * The TaskRun model module.
  * @module model/TaskRun
- * @version 1.0.2
- */
+  */
 class TaskRun {
     /**
      * Constructs a new <code>TaskRun</code>.

@@ -19,8 +19,7 @@ import MiscControllerPreview from './MiscControllerPreview';
 /**
  * The MiscControllerConfiguration model module.
  * @module model/MiscControllerConfiguration
- * @version 1.0.2
- */
+  */
 class MiscControllerConfiguration {
     /**
      * Constructs a new <code>MiscControllerConfiguration</code>.

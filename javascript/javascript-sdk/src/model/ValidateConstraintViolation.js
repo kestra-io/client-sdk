@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The ValidateConstraintViolation model module.
  * @module model/ValidateConstraintViolation
- * @version 1.0.2
- */
+  */
 class ValidateConstraintViolation {
     /**
      * Constructs a new <code>ValidateConstraintViolation</code>.

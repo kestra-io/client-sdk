@@ -17,8 +17,7 @@ import SearchResultFlow from './SearchResultFlow';
 /**
  * The PagedResultsSearchResultFlow model module.
  * @module model/PagedResultsSearchResultFlow
- * @version 1.0.2
- */
+  */
 class PagedResultsSearchResultFlow {
     /**
      * Constructs a new <code>PagedResultsSearchResultFlow</code>.

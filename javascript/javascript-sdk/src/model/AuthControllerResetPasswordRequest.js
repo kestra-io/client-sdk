@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The AuthControllerResetPasswordRequest model module.
  * @module model/AuthControllerResetPasswordRequest
- * @version 1.0.2
- */
+  */
 class AuthControllerResetPasswordRequest {
     /**
      * Constructs a new <code>AuthControllerResetPasswordRequest</code>.

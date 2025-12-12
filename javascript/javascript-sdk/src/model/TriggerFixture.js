@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The TriggerFixture model module.
  * @module model/TriggerFixture
- * @version 1.0.2
- */
+  */
 class TriggerFixture {
     /**
      * Constructs a new <code>TriggerFixture</code>.

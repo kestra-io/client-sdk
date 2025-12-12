@@ -20,8 +20,7 @@ import WorkerGroup from './WorkerGroup';
 /**
  * The AbstractFlow model module.
  * @module model/AbstractFlow
- * @version 1.0.2
- */
+  */
 class AbstractFlow {
     /**
      * Constructs a new <code>AbstractFlow</code>.

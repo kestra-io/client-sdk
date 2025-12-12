@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions model module.
  * @module model/IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions
- * @version 1.0.2
- */
+  */
 class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
     /**
      * Constructs a new <code>IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions</code>.

@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The PropertyDouble model module.
  * @module model/PropertyDouble
- * @version 1.0.2
- */
+  */
 class PropertyDouble {
     /**
      * Constructs a new <code>PropertyDouble</code>.

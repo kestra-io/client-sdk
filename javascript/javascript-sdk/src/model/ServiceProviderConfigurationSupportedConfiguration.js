@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The ServiceProviderConfigurationSupportedConfiguration model module.
  * @module model/ServiceProviderConfigurationSupportedConfiguration
- * @version 1.0.2
- */
+  */
 class ServiceProviderConfigurationSupportedConfiguration {
     /**
      * Constructs a new <code>ServiceProviderConfigurationSupportedConfiguration</code>.

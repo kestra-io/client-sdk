@@ -18,8 +18,7 @@ import QueryFilterOp from './QueryFilterOp';
 /**
  * The QueryFilter model module.
  * @module model/QueryFilter
- * @version 1.0.2
- */
+  */
 class QueryFilter {
     /**
      * Constructs a new <code>QueryFilter</code>.

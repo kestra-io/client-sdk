@@ -17,8 +17,7 @@ import Relation from './Relation';
 /**
  * The FlowGraphEdge model module.
  * @module model/FlowGraphEdge
- * @version 1.0.2
- */
+  */
 class FlowGraphEdge {
     /**
      * Constructs a new <code>FlowGraphEdge</code>.

@@ -17,8 +17,7 @@ import LogEntry from './LogEntry';
 /**
  * The EventLogEntry model module.
  * @module model/EventLogEntry
- * @version 1.0.2
- */
+  */
 class EventLogEntry {
     /**
      * Constructs a new <code>EventLogEntry</code>.

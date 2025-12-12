@@ -17,8 +17,7 @@ import ServiceServiceState from './ServiceServiceState';
 /**
  * The ServiceInstanceTimestampedEvent model module.
  * @module model/ServiceInstanceTimestampedEvent
- * @version 1.0.2
- */
+  */
 class ServiceInstanceTimestampedEvent {
     /**
      * Constructs a new <code>ServiceInstanceTimestampedEvent</code>.

@@ -18,8 +18,7 @@ import StateType from './StateType';
 /**
  * The TriggerContext model module.
  * @module model/TriggerContext
- * @version 1.0.2
- */
+  */
 class TriggerContext {
     /**
      * Constructs a new <code>TriggerContext</code>.

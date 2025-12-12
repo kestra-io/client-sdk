@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The DeletedInterface model module.
  * @module model/DeletedInterface
- * @version 1.0.2
- */
+  */
 class DeletedInterface {
     /**
      * Constructs a new <code>DeletedInterface</code>.

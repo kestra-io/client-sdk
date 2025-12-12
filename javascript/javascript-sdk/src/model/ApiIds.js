@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The ApiIds model module.
  * @module model/ApiIds
- * @version 1.0.2
- */
+  */
 class ApiIds {
     /**
      * Constructs a new <code>ApiIds</code>.

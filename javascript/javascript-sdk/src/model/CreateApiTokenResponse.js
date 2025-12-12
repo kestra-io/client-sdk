@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The CreateApiTokenResponse model module.
  * @module model/CreateApiTokenResponse
- * @version 1.0.2
- */
+  */
 class CreateApiTokenResponse {
     /**
      * Constructs a new <code>CreateApiTokenResponse</code>.

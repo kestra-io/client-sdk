@@ -19,8 +19,7 @@ import WorkerGroup from './WorkerGroup';
 /**
  * The Task model module.
  * @module model/Task
- * @version 1.0.2
- */
+  */
 class Task {
     /**
      * Constructs a new <code>Task</code>.

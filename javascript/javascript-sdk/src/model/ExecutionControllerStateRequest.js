@@ -17,8 +17,7 @@ import StateType from './StateType';
 /**
  * The ExecutionControllerStateRequest model module.
  * @module model/ExecutionControllerStateRequest
- * @version 1.0.2
- */
+  */
 class ExecutionControllerStateRequest {
     /**
      * Constructs a new <code>ExecutionControllerStateRequest</code>.

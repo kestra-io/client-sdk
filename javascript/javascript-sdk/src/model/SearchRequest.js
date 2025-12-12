@@ -22,8 +22,7 @@ import SortRequest from './SortRequest';
 /**
  * The SearchRequest model module.
  * @module model/SearchRequest
- * @version 1.0.2
- */
+  */
 class SearchRequest {
     /**
      * Constructs a new <code>SearchRequest</code>.

@@ -16,8 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The AbstractTriggerForExecution model module.
  * @module model/AbstractTriggerForExecution
- * @version 1.0.2
- */
+  */
 class AbstractTriggerForExecution {
     /**
      * Constructs a new <code>AbstractTriggerForExecution</code>.

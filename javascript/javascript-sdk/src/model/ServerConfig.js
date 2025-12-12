@@ -18,8 +18,7 @@ import WorkerTaskRestartStrategy from './WorkerTaskRestartStrategy';
 /**
  * The ServerConfig model module.
  * @module model/ServerConfig
- * @version 1.0.2
- */
+  */
 class ServerConfig {
     /**
      * Constructs a new <code>ServerConfig</code>.

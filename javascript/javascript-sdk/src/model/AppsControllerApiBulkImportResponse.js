@@ -17,8 +17,7 @@ import AppsControllerApiBulkImportResponseError from './AppsControllerApiBulkImp
 /**
  * The AppsControllerApiBulkImportResponse model module.
  * @module model/AppsControllerApiBulkImportResponse
- * @version 1.0.2
- */
+  */
 class AppsControllerApiBulkImportResponse {
     /**
      * Constructs a new <code>AppsControllerApiBulkImportResponse</code>.

@@ -17,8 +17,7 @@ import AppsControllerApiApp from './AppsControllerApiApp';
 /**
  * The PagedResultsAppsControllerApiApp model module.
  * @module model/PagedResultsAppsControllerApiApp
- * @version 1.0.2
- */
+  */
 class PagedResultsAppsControllerApiApp {
     /**
      * Constructs a new <code>PagedResultsAppsControllerApiApp</code>.

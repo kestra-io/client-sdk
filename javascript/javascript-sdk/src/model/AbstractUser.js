@@ -19,8 +19,7 @@ import UserType from './UserType';
 /**
  * The AbstractUser model module.
  * @module model/AbstractUser
- * @version 1.0.2
- */
+  */
 class AbstractUser {
     /**
      * Constructs a new <code>AbstractUser</code>.

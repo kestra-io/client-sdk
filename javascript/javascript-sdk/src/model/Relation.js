@@ -17,8 +17,7 @@ import RelationType from './RelationType';
 /**
  * The Relation model module.
  * @module model/Relation
- * @version 1.0.2
- */
+  */
 class Relation {
     /**
      * Constructs a new <code>Relation</code>.

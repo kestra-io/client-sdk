@@ -17,8 +17,7 @@ import UserType from './UserType';
 /**
  * The IAMBindingControllerApiBindingUser model module.
  * @module model/IAMBindingControllerApiBindingUser
- * @version 1.0.2
- */
+  */
 class IAMBindingControllerApiBindingUser {
     /**
      * Constructs a new <code>IAMBindingControllerApiBindingUser</code>.

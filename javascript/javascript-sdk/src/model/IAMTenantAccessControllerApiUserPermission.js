@@ -18,8 +18,7 @@ import Permission from './Permission';
 /**
  * The IAMTenantAccessControllerApiUserPermission model module.
  * @module model/IAMTenantAccessControllerApiUserPermission
- * @version 1.0.2
- */
+  */
 class IAMTenantAccessControllerApiUserPermission {
     /**
      * Constructs a new <code>IAMTenantAccessControllerApiUserPermission</code>.

@@ -17,8 +17,7 @@ import MapObjectObject from './MapObjectObject';
 /**
  * The SLALabels model module.
  * @module model/SLALabels
- * @version 1.0.2
- */
+  */
 class SLALabels {
     /**
      * Constructs a new <code>SLALabels</code>.
