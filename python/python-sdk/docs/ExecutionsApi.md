@@ -87,7 +87,7 @@ with KestraClient(configuration) as kestra_client:
         # Create a new execution for a flow
         api_response = kestra_client.ExecutionsApi.create_execution(namespace, id, wait, tenant, labels=labels, revision=revision, schedule_date=schedule_date, breakpoints=breakpoints, kind=kind)
         print("The response of ExecutionsApi->create_execution:\n")
-        pprint(api_response)
+        print(api_response)
     except Exception as e:
         print("Exception when calling ExecutionsApi->create_execution: %s\n" % e)
 ```
