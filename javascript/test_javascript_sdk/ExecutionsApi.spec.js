@@ -829,13 +829,13 @@ namespace: ${ns}
 tasks:
   - id: long-sleep
     type: io.kestra.plugin.core.flow.Sleep
-    duration: PT1S
+    duration: PT0.500S
   - id: message
     type: io.kestra.plugin.core.log.Log
     message: Hello World! 🚀
   - id: long-sleep-again
     type: io.kestra.plugin.core.flow.Sleep
-    duration: PT1S
+    duration: PT0.500S
   - id: final-message
     type: io.kestra.plugin.core.log.Log
     message: Good Bye! 👋
@@ -879,39 +879,69 @@ tasks:
             throw new Error('Execution not found' + JSON.stringify(e));
         }
 
-        /*
-         * This will listen for events with the field `event: notice`.
-         */
-        serverSentEventSource.addEventListener('notice', (executionEvent) => {
-            executionUpdate("notice", executionEvent);
-        })
-
-        /*
-         * This will listen for events with the field `event: update`.
-         */
-        serverSentEventSource.addEventListener('update', (executionEvent) => {
-            executionUpdate("update", executionEvent);
-        })
-
-        /*
-         * The event "message" is a special case, as it will capture events _without_ an
-         * event field, as well as events that have the specific type `event: message`.
-         * It will not trigger on any other event type.
-         */
-        serverSentEventSource.addEventListener('message', (executionEvent) => {
-            executionUpdate("message", executionEvent);
-        })
-
-        /**
-         * this will listen for events with the field `event: error`.
-         */
-        serverSentEventSource.addEventListener('error', (executionEvent) => {
-            throw new Error('Error while following execution: ' + executionEvent);
-        })
-
         await awaitExecution(ex.id, 'SUCCESS', 5000, 100);
         serverSentEventSource.close();
-        expect(progress).toBeGreaterThan(30);
+        expect(progress).toBeGreaterThan(12);
     });
-    it.skip('follow_dependencies_execution (SSE/WebSocket required)', async () => {});
+
+    const FLOW_THAT_DEPENDS_ON_ANOTHER = (ns, id, dependingNamespace, dependingId) => `
+id: ${id}
+namespace: ${ns}
+tasks:
+  - id: log
+    type: io.kestra.plugin.core.log.Log
+    message: "This flow depends on another execution: ${ dependingNamespace }/${ dependingId }"
+  - id: exec
+    type: io.kestra.plugin.core.flow.Subflow
+    namespace: ${dependingNamespace}
+    flowId: ${dependingId}
+`;
+
+
+    it('follow_dependencies_execution (SSE/WebSocket required)', async () => {
+        const ns = randomId();
+        const id = randomId();
+        const flow = await createFlow(LONG_FLOW(id, ns));
+        const masterId = randomId();
+        const masterNamespace = randomId();
+        const ex = await createFlowWithExecutionFromYaml(FLOW_THAT_DEPENDS_ON_ANOTHER(masterNamespace, masterId, flow.namespace, flow.id));
+        const serverSentEventSource = kestraClient().executionsApi.followDependenciesExecutions(ex.id, false, true, MAIN_TENANT);
+
+        let eventContent = ''
+        let progress = 0;
+        const executionUpdate = (type, executionEvent) => {
+            eventContent += '\n[' + type + '] --------------------\n';
+            const d = JSON.parse(executionEvent.data)
+            eventContent += JSON.stringify([executionEvent.type, d.flowId, d.state, ...Object.keys(d).sort()]) + '\n';
+            progress += 1
+        }
+        const closeSSE = () => {
+            serverSentEventSource.onerror = () => {}
+            serverSentEventSource.close();
+        }
+
+        serverSentEventSource.onmessage = (executionEvent) => {
+            const isEnd = executionEvent && executionEvent.lastEventId === "end";
+            // we are receiving a first "fake" event to force initializing the connection: ignoring it
+            if (executionEvent.lastEventId !== "start") {
+                executionUpdate("onmessage", executionEvent);
+            }
+            if (isEnd) {
+                closeSSE();
+            }
+        }
+
+        serverSentEventSource.onerror = (e) => {
+            throw new Error('Execution not found' + JSON.stringify(e));
+        }
+
+        serverSentEventSource.addEventListener('error', (executionEvent) => {
+            executionUpdate("error", executionEvent);
+        })
+
+        await awaitExecution(ex.id, 'SUCCESS', 10000, 100);
+        serverSentEventSource.close();
+        expect(progress).toBeGreaterThan(5);
+        expect(eventContent).toContain(flow.id);
+    });
 });
