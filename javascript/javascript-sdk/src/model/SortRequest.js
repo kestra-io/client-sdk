@@ -17,8 +17,8 @@ import SortOrder from './SortOrder';
 
 /**
   * @typedef {Object} ISortRequest
-  * @property {module:model/AttributeReference} sortBy
-  * @property {module:model/SortOrder} sortOrder
+  * @property {AttributeReference} sortBy
+  * @property {SortOrder} sortOrder
   */
 
 /**

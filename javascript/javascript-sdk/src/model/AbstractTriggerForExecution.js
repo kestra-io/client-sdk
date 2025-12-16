@@ -29,8 +29,8 @@ class AbstractTriggerForExecution {
     /**
      * Constructs a new <code>AbstractTriggerForExecution</code>.
      * @alias module:model/AbstractTriggerForExecution
-     * @param id {String} 
-     * @param type {String} 
+     * @param {String} id - 
+     * @param {String} type - 
      */
     constructor(id, type) { 
         

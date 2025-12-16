@@ -27,7 +27,7 @@ class IAMUserControllerApiPatchUserPasswordRequest {
     /**
      * Constructs a new <code>IAMUserControllerApiPatchUserPasswordRequest</code>.
      * @alias module:model/IAMUserControllerApiPatchUserPasswordRequest
-     * @param password {String} 
+     * @param {String} password - 
      */
     constructor(password) { 
         

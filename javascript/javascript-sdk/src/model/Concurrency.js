@@ -17,7 +17,7 @@ import ConcurrencyBehavior from './ConcurrencyBehavior';
 /**
   * @typedef {Object} IConcurrency
   * @property {Number} limit
-  * @property {module:model/ConcurrencyBehavior} behavior
+  * @property {ConcurrencyBehavior} behavior
   */
 
 /**
@@ -29,8 +29,8 @@ class Concurrency {
     /**
      * Constructs a new <code>Concurrency</code>.
      * @alias module:model/Concurrency
-     * @param limit {Number} 
-     * @param behavior {module:model/ConcurrencyBehavior} 
+     * @param {Number} limit - 
+     * @param {module:model/ConcurrencyBehavior} behavior - 
      */
     constructor(limit, behavior) { 
         

@@ -27,7 +27,7 @@ class ConversionServiceProvider {
     /**
      * Constructs a new <code>ConversionServiceProvider</code>.
      * @alias module:model/ConversionServiceProvider
-     * @param conversionService {Object} 
+     * @param {Object} conversionService - 
      */
     constructor(conversionService) { 
         

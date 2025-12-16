@@ -30,8 +30,8 @@ class ExecutionTrigger {
     /**
      * Constructs a new <code>ExecutionTrigger</code>.
      * @alias module:model/ExecutionTrigger
-     * @param id {String} 
-     * @param type {String} 
+     * @param {String} id - 
+     * @param {String} type - 
      */
     constructor(id, type) { 
         

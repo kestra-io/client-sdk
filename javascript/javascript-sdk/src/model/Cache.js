@@ -28,7 +28,7 @@ class Cache {
     /**
      * Constructs a new <code>Cache</code>.
      * @alias module:model/Cache
-     * @param enabled {Boolean} 
+     * @param {Boolean} enabled - 
      */
     constructor(enabled) { 
         

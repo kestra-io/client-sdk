@@ -17,8 +17,8 @@ import ResourceType1 from './ResourceType1';
 
 /**
   * @typedef {Object} IAuditLogControllerFindRequest
-  * @property {module:model/ResourceType1} resource
-  * @property {module:model/CrudEventType} type
+  * @property {ResourceType1} resource
+  * @property {CrudEventType} type
   * @property {Object.<String, Object>} detail
   */
 

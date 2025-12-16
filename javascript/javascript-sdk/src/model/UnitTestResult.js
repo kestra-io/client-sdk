@@ -23,10 +23,10 @@ import TestState from './TestState';
   * @property {String} testType
   * @property {String} executionId
   * @property {String} url
-  * @property {module:model/TestState} state
+  * @property {TestState} state
   * @property {Array.<module:model/AssertionResult>} assertionResults
   * @property {Array.<module:model/AssertionRunError>} errors
-  * @property {module:model/Fixtures} fixtures
+  * @property {Fixtures} fixtures
   */
 
 /**
@@ -38,11 +38,11 @@ class UnitTestResult {
     /**
      * Constructs a new <code>UnitTestResult</code>.
      * @alias module:model/UnitTestResult
-     * @param testId {String} 
-     * @param testType {String} 
-     * @param state {module:model/TestState} 
-     * @param assertionResults {Array.<module:model/AssertionResult>} 
-     * @param errors {Array.<module:model/AssertionRunError>} 
+     * @param {String} testId - 
+     * @param {String} testType - 
+     * @param {module:model/TestState} state - 
+     * @param {Array.<module:model/AssertionResult>} assertionResults - 
+     * @param {Array.<module:model/AssertionRunError>} errors - 
      */
     constructor(testId, testType, state, assertionResults, errors) { 
         

@@ -16,7 +16,7 @@ import Execution from './Execution';
 
 /**
   * @typedef {Object} IEventExecution
-  * @property {module:model/Execution} data
+  * @property {Execution} data
   * @property {String} id
   * @property {String} name
   * @property {String} comment

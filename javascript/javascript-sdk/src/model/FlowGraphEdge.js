@@ -18,7 +18,7 @@ import Relation from './Relation';
   * @typedef {Object} IFlowGraphEdge
   * @property {String} source
   * @property {String} target
-  * @property {module:model/Relation} relation
+  * @property {Relation} relation
   */
 
 /**

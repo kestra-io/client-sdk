@@ -25,11 +25,11 @@ import Level from './Level';
   * @property {Number} attemptNumber
   * @property {String} triggerId
   * @property {Date} timestamp
-  * @property {module:model/Level} level
+  * @property {Level} level
   * @property {String} thread
   * @property {String} message
   * @property {Boolean} deleted
-  * @property {module:model/ExecutionKind} executionKind
+  * @property {ExecutionKind} executionKind
   */
 
 /**
@@ -41,9 +41,9 @@ class LogEntry {
     /**
      * Constructs a new <code>LogEntry</code>.
      * @alias module:model/LogEntry
-     * @param namespace {String} 
-     * @param flowId {String} 
-     * @param deleted {Boolean} 
+     * @param {String} namespace - 
+     * @param {String} flowId - 
+     * @param {Boolean} deleted - 
      */
     constructor(namespace, flowId, deleted) { 
         

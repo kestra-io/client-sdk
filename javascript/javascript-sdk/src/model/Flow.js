@@ -34,7 +34,7 @@ import WorkerGroup from './WorkerGroup';
   * @property {Boolean} disabled
   * @property {Array.<module:model/Label>} labels - Labels as a list of Label (key/value pairs) or as a map of string to string.
   * @property {Object} variables
-  * @property {module:model/WorkerGroup} workerGroup
+  * @property {WorkerGroup} workerGroup
   * @property {Boolean} deleted
   * @property {Array.<module:model/Task>} finally
   * @property {Array.<module:model/Task>} tasks
@@ -42,7 +42,7 @@ import WorkerGroup from './WorkerGroup';
   * @property {Array.<module:model/Task>} afterExecution
   * @property {Array.<module:model/AbstractTrigger>} triggers
   * @property {Array.<module:model/PluginDefault>} pluginDefaults
-  * @property {module:model/Concurrency} concurrency
+  * @property {Concurrency} concurrency
   * @property {Object} retry
   * @property {Array.<module:model/SLA>} sla
   */
@@ -57,11 +57,11 @@ class Flow {
      * Constructs a new <code>Flow</code>.
      * @alias module:model/Flow
      * @implements module:model/AbstractFlow
-     * @param id {String} 
-     * @param namespace {String} 
-     * @param disabled {Boolean} 
-     * @param deleted {Boolean} 
-     * @param tasks {Array.<module:model/Task>} 
+     * @param {String} id - 
+     * @param {String} namespace - 
+     * @param {Boolean} disabled - 
+     * @param {Boolean} deleted - 
+     * @param {Array.<module:model/Task>} tasks - 
      */
     constructor(id, namespace, disabled, deleted, tasks) { 
         AbstractFlow.initialize(this, id, namespace, disabled, deleted);

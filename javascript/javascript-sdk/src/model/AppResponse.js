@@ -18,7 +18,7 @@ import AppResponseUILayout from './AppResponseUILayout';
   * @typedef {Object} IAppResponse
   * @property {String} dispatch
   * @property {String} stream
-  * @property {module:model/AppResponseUILayout} layout
+  * @property {AppResponseUILayout} layout
   */
 
 /**

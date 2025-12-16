@@ -19,7 +19,7 @@ import IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions from './IAMRoleC
   * @property {String} id
   * @property {String} name
   * @property {String} description
-  * @property {module:model/IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions} permissions
+  * @property {IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions} permissions
   * @property {Boolean} isDefault
   * @property {Boolean} isManaged
   */

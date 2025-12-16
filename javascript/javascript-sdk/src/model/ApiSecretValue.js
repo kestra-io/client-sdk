@@ -31,8 +31,8 @@ class ApiSecretValue {
     /**
      * Constructs a new <code>ApiSecretValue</code>.
      * @alias module:model/ApiSecretValue
-     * @param key {String} 
-     * @param value {String} 
+     * @param {String} key - 
+     * @param {String} value - 
      */
     constructor(key, value) { 
         

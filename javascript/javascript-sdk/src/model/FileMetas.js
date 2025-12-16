@@ -27,7 +27,7 @@ class FileMetas {
     /**
      * Constructs a new <code>FileMetas</code>.
      * @alias module:model/FileMetas
-     * @param size {Number} 
+     * @param {Number} size - 
      */
     constructor(size) { 
         

@@ -22,13 +22,13 @@ import WorkerGroup from './WorkerGroup';
   * @typedef {Object} INamespace
   * @property {String} id
   * @property {Boolean} deleted
-  * @property {module:model/Isolation} storageIsolation
-  * @property {module:model/Isolation} secretIsolation
+  * @property {Isolation} storageIsolation
+  * @property {Isolation} secretIsolation
   * @property {String} description
   * @property {Object.<String, Object>} variables
   * @property {Array.<module:model/PluginDefault>} pluginDefaults
   * @property {Array.<module:model/NamespaceAllowedNamespace>} allowedNamespaces
-  * @property {module:model/WorkerGroup} workerGroup
+  * @property {WorkerGroup} workerGroup
   * @property {String} storageType
   * @property {Object.<String, Object>} storageConfiguration
   * @property {String} secretType
@@ -47,8 +47,8 @@ class Namespace {
      * Constructs a new <code>Namespace</code>.
      * @alias module:model/Namespace
      * @implements module:model/NamespaceLight
-     * @param id {String} 
-     * @param deleted {Boolean} 
+     * @param {String} id - 
+     * @param {Boolean} deleted - 
      */
     constructor(id, deleted) { 
         NamespaceLight.initialize(this, id, deleted);

@@ -29,8 +29,8 @@ class PagedResultsExecution {
     /**
      * Constructs a new <code>PagedResultsExecution</code>.
      * @alias module:model/PagedResultsExecution
-     * @param results {Array.<module:model/Execution>} 
-     * @param total {Number} 
+     * @param {Array.<module:model/Execution>} results - 
+     * @param {Number} total - 
      */
     constructor(results, total) { 
         

@@ -17,8 +17,8 @@ import FlowUsage from './FlowUsage';
 
 /**
   * @typedef {Object} IMiscControllerApiUsage
-  * @property {module:model/FlowUsage} flows
-  * @property {module:model/ExecutionUsage} executions
+  * @property {FlowUsage} flows
+  * @property {ExecutionUsage} executions
   */
 
 /**

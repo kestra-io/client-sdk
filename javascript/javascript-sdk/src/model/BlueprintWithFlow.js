@@ -36,9 +36,9 @@ class BlueprintWithFlow {
      * Constructs a new <code>BlueprintWithFlow</code>.
      * @alias module:model/BlueprintWithFlow
      * @implements module:model/Blueprint
-     * @param title {String} 
-     * @param deleted {Boolean} 
-     * @param flow {String} 
+     * @param {String} title - 
+     * @param {Boolean} deleted - 
+     * @param {String} flow - 
      */
     constructor(title, deleted, flow) { 
         Blueprint.initialize(this, title, deleted);

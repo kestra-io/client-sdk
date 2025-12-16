@@ -17,7 +17,7 @@ import Permission from './Permission';
 
 /**
   * @typedef {Object} IIAMTenantAccessControllerApiUserPermission
-  * @property {module:model/Permission} permission
+  * @property {Permission} permission
   * @property {Array.<module:model/Action>} actions
   */
 

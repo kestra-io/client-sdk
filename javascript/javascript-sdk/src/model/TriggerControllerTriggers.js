@@ -17,8 +17,8 @@ import Trigger from './Trigger';
 
 /**
   * @typedef {Object} ITriggerControllerTriggers
-  * @property {module:model/AbstractTrigger} abstractTrigger
-  * @property {module:model/Trigger} triggerContext
+  * @property {AbstractTrigger} abstractTrigger
+  * @property {Trigger} triggerContext
   */
 
 /**

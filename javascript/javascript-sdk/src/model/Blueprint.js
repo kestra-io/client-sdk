@@ -33,8 +33,8 @@ class Blueprint {
     /**
      * Constructs a new <code>Blueprint</code>.
      * @alias module:model/Blueprint
-     * @param title {String} 
-     * @param deleted {Boolean} 
+     * @param {String} title - 
+     * @param {Boolean} deleted - 
      */
     constructor(title, deleted) { 
         

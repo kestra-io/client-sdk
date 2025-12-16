@@ -17,8 +17,8 @@ import ResourceType1 from './ResourceType1';
 
 /**
   * @typedef {Object} IAuditLogDetail
-  * @property {module:model/Permission} permission
-  * @property {module:model/ResourceType1} resourceType
+  * @property {Permission} permission
+  * @property {ResourceType1} resourceType
   * @property {String} type
   * @property {String} id
   */
@@ -32,7 +32,7 @@ class AuditLogDetail {
     /**
      * Constructs a new <code>AuditLogDetail</code>.
      * @alias module:model/AuditLogDetail
-     * @param type {String} 
+     * @param {String} type - 
      */
     constructor(type) { 
         

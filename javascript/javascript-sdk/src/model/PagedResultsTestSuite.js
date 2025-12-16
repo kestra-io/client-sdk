@@ -29,8 +29,8 @@ class PagedResultsTestSuite {
     /**
      * Constructs a new <code>PagedResultsTestSuite</code>.
      * @alias module:model/PagedResultsTestSuite
-     * @param results {Array.<module:model/TestSuite>} 
-     * @param total {Number} 
+     * @param {Array.<module:model/TestSuite>} results - 
+     * @param {Number} total - 
      */
     constructor(results, total) { 
         

@@ -19,7 +19,7 @@ import GroupIdentifierMembership from './GroupIdentifierMembership';
   * @property {String} id
   * @property {String} name
   * @property {Boolean} external
-  * @property {module:model/GroupIdentifierMembership} membership
+  * @property {GroupIdentifierMembership} membership
   */
 
 /**

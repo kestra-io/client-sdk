@@ -17,7 +17,7 @@ import InputObject from './InputObject';
 
 /**
   * @typedef {Object} IExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue
-  * @property {module:model/InputObject} input
+  * @property {InputObject} input
   * @property {Object} value
   * @property {Boolean} enabled
   * @property {Boolean} isDefault

@@ -34,7 +34,7 @@ class ValidateConstraintViolation {
     /**
      * Constructs a new <code>ValidateConstraintViolation</code>.
      * @alias module:model/ValidateConstraintViolation
-     * @param index {Number} 
+     * @param {Number} index - 
      */
     constructor(index) { 
         

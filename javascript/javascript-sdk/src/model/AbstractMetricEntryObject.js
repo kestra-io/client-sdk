@@ -32,7 +32,7 @@ class AbstractMetricEntryObject {
     /**
      * Constructs a new <code>AbstractMetricEntryObject</code>.
      * @alias module:model/AbstractMetricEntryObject
-     * @param name {String} 
+     * @param {String} name - 
      */
     constructor(name) { 
         

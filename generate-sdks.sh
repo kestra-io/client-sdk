@@ -103,6 +103,9 @@ sed_inplace "s/let authNames = \[\];/let authNames = \['basicAuth', 'bearerAuth'
 sed_inplace "s/    \* @return \{Promise< module:model\/([A-Za-z0-9_]+) >\}/    \* @return \{Promise<\1>\}/" ./javascript/javascript-sdk/src/api/*.js
 sed_inplace "s/    \* @return \{Promise< Array.<module:model\/([A-Za-z0-9_]+)> >\}/    \* @return \{Promise<Array.<\1>>\}/" ./javascript/javascript-sdk/src/api/*.js
 sed_inplace "s/    \* @param \{Array.<module:model\/QueryFilter>\}/    \* @param \{Array.<import('..\/model\/IQueryFilter').IQueryFilter>\}/" ./javascript/javascript-sdk/src/api/*.js
+sed_inplace "s/ \* @property \{module:model\/StateType\}/ \* @property \{keyof typeof import('.\/StateType').StateTypeStatic\}/" ./javascript/javascript-sdk/src/model/*.js
+sed_inplace "s/ \* @property \{module:model\/([A-Za-z0-9_]+)\}/ \* @property \{\1\}/" ./javascript/javascript-sdk/src/model/*.js
+
 rm ./javascript/javascript-sdk/git_push.sh
 rm ./javascript/javascript-sdk/mocha.opts
 rm ./javascript/javascript-sdk/.babelrc

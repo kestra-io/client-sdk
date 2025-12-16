@@ -25,7 +25,7 @@ import TriggerContext from './TriggerContext';
   * @property {String} triggerId
   * @property {Date} date
   * @property {Date} nextExecutionDate
-  * @property {module:model/Backfill} backfill
+  * @property {Backfill} backfill
   * @property {Array.<module:model/StateType>} stopAfter
   * @property {String} executionId
   * @property {Date} updatedDate
@@ -43,10 +43,10 @@ class Trigger {
      * Constructs a new <code>Trigger</code>.
      * @alias module:model/Trigger
      * @implements module:model/TriggerContext
-     * @param namespace {String} 
-     * @param flowId {String} 
-     * @param triggerId {String} 
-     * @param date {Date} 
+     * @param {String} namespace - 
+     * @param {String} flowId - 
+     * @param {String} triggerId - 
+     * @param {Date} date - 
      */
     constructor(namespace, flowId, triggerId, date) { 
         TriggerContext.initialize(this, namespace, flowId, triggerId, date);

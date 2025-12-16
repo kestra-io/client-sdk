@@ -20,8 +20,8 @@ import CrudEventType from './CrudEventType';
   * @typedef {Object} IAuditLog
   * @property {String} tenantId
   * @property {String} id
-  * @property {module:model/CrudEventType} type
-  * @property {module:model/AuditLogDetail} detail
+  * @property {CrudEventType} type
+  * @property {AuditLogDetail} detail
   * @property {Date} date
   * @property {String} userId
   * @property {String} ipAddress
@@ -41,11 +41,11 @@ class AuditLog {
      * Constructs a new <code>AuditLog</code>.
      * @alias module:model/AuditLog
      * @implements module:model/BaseAuditLog
-     * @param id {String} 
-     * @param type {module:model/CrudEventType} 
-     * @param detail {module:model/AuditLogDetail} 
-     * @param date {Date} 
-     * @param userId {String} 
+     * @param {String} id - 
+     * @param {module:model/CrudEventType} type - 
+     * @param {module:model/AuditLogDetail} detail - 
+     * @param {Date} date - 
+     * @param {String} userId - 
      */
     constructor(id, type, detail, date, userId) { 
         BaseAuditLog.initialize(this, id, type, detail, date, userId);

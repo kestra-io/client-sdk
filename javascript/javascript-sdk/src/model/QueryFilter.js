@@ -17,8 +17,8 @@ import QueryFilterOp from './QueryFilterOp';
 
 /**
   * @typedef {Object} IQueryFilter
-  * @property {module:model/QueryFilterField} field
-  * @property {module:model/QueryFilterOp} operation
+  * @property {QueryFilterField} field
+  * @property {QueryFilterOp} operation
   * @property {Object} value
   */
 

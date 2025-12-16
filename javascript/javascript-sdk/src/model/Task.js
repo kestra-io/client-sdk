@@ -25,13 +25,13 @@ import WorkerGroup from './WorkerGroup';
   * @property {Object} retry
   * @property {Object} timeout
   * @property {Boolean} disabled
-  * @property {module:model/WorkerGroup} workerGroup
-  * @property {module:model/Level} logLevel
+  * @property {WorkerGroup} workerGroup
+  * @property {Level} logLevel
   * @property {Boolean} allowFailure
   * @property {Boolean} logToFile
   * @property {String} runIf
   * @property {Boolean} allowWarning
-  * @property {module:model/Cache} taskCache
+  * @property {Cache} taskCache
   */
 
 /**
@@ -43,8 +43,8 @@ class Task {
     /**
      * Constructs a new <code>Task</code>.
      * @alias module:model/Task
-     * @param id {String} 
-     * @param type {String} 
+     * @param {String} id - 
+     * @param {String} type - 
      */
     constructor(id, type) { 
         

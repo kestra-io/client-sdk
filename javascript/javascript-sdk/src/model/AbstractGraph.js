@@ -18,7 +18,7 @@ import AbstractGraphBranchType from './AbstractGraphBranchType';
   * @typedef {Object} IAbstractGraph
   * @property {String} uid
   * @property {String} type
-  * @property {module:model/AbstractGraphBranchType} branchType
+  * @property {AbstractGraphBranchType} branchType
   */
 
 /**

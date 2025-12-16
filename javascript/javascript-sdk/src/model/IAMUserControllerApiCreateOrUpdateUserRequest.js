@@ -34,7 +34,7 @@ class IAMUserControllerApiCreateOrUpdateUserRequest {
     /**
      * Constructs a new <code>IAMUserControllerApiCreateOrUpdateUserRequest</code>.
      * @alias module:model/IAMUserControllerApiCreateOrUpdateUserRequest
-     * @param email {String} 
+     * @param {String} email - 
      */
     constructor(email) { 
         

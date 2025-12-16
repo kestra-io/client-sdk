@@ -16,7 +16,7 @@ import KVType from './KVType';
 
 /**
   * @typedef {Object} IKVControllerTypedValue
-  * @property {module:model/KVType} type
+  * @property {KVType} type
   * @property {Object} value
   */
 

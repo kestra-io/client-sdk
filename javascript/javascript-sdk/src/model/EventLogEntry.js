@@ -16,7 +16,7 @@ import LogEntry from './LogEntry';
 
 /**
   * @typedef {Object} IEventLogEntry
-  * @property {module:model/LogEntry} data
+  * @property {LogEntry} data
   * @property {String} id
   * @property {String} name
   * @property {String} comment

@@ -16,7 +16,7 @@ import AppResponse from './AppResponse';
 
 /**
   * @typedef {Object} IEventAppResponse
-  * @property {module:model/AppResponse} data
+  * @property {AppResponse} data
   * @property {String} id
   * @property {String} name
   * @property {String} comment

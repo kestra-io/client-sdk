@@ -18,7 +18,7 @@ import FlowRelation from './FlowRelation';
   * @typedef {Object} IFlowTopologyGraphEdge
   * @property {String} source
   * @property {String} target
-  * @property {module:model/FlowRelation} relation
+  * @property {FlowRelation} relation
   */
 
 /**

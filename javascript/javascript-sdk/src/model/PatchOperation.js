@@ -17,8 +17,8 @@ import PatchOperationType from './PatchOperationType';
 
 /**
   * @typedef {Object} IPatchOperation
-  * @property {module:model/PatchOperationType} operation
-  * @property {module:model/PatchOperationPath} path
+  * @property {PatchOperationType} operation
+  * @property {PatchOperationPath} path
   * @property {Object} value
   */
 

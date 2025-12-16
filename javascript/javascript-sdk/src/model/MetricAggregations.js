@@ -29,8 +29,8 @@ class MetricAggregations {
     /**
      * Constructs a new <code>MetricAggregations</code>.
      * @alias module:model/MetricAggregations
-     * @param groupBy {String} 
-     * @param aggregations {Array.<module:model/MetricAggregation>} 
+     * @param {String} groupBy - 
+     * @param {Array.<module:model/MetricAggregation>} aggregations - 
      */
     constructor(groupBy, aggregations) { 
         

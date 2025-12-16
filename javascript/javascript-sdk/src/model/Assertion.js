@@ -43,7 +43,7 @@ class Assertion {
     /**
      * Constructs a new <code>Assertion</code>.
      * @alias module:model/Assertion
-     * @param value {Object} 
+     * @param {Object} value - 
      */
     constructor(value) { 
         

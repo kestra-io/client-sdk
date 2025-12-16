@@ -17,7 +17,7 @@ import ServerInstanceType from './ServerInstanceType';
 /**
   * @typedef {Object} IInstanceControllerApiServerInstance
   * @property {String} id
-  * @property {module:model/ServerInstanceType} type
+  * @property {ServerInstanceType} type
   * @property {String} version
   * @property {String} hostname
   */

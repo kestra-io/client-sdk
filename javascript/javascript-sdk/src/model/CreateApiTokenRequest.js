@@ -30,7 +30,7 @@ class CreateApiTokenRequest {
     /**
      * Constructs a new <code>CreateApiTokenRequest</code>.
      * @alias module:model/CreateApiTokenRequest
-     * @param name {String} 
+     * @param {String} name - 
      */
     constructor(name) { 
         

@@ -24,7 +24,7 @@ import BlueprintControllerKind from './BlueprintControllerKind';
   * @property {Array.<String>} tags
   * @property {Date} publishedAt
   * @property {String} source
-  * @property {module:model/BlueprintControllerKind} kind
+  * @property {BlueprintControllerKind} kind
   */
 
 /**

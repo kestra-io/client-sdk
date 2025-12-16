@@ -16,7 +16,7 @@ import StateType from './StateType';
 
 /**
   * @typedef {Object} IStateHistory
-  * @property {module:model/StateType} state
+  * @property {keyof typeof import('./StateType').StateTypeStatic} state
   * @property {Date} date
   */
 
@@ -29,8 +29,8 @@ class StateHistory {
     /**
      * Constructs a new <code>StateHistory</code>.
      * @alias module:model/StateHistory
-     * @param state {module:model/StateType} 
-     * @param date {Date} 
+     * @param {module:model/StateType} state - 
+     * @param {Date} date - 
      */
     constructor(state, date) { 
         

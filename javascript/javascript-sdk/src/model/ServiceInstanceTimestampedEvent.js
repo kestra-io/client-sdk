@@ -19,7 +19,7 @@ import ServiceServiceState from './ServiceServiceState';
   * @property {Date} ts
   * @property {String} value
   * @property {String} type
-  * @property {module:model/ServiceServiceState} state
+  * @property {ServiceServiceState} state
   */
 
 /**

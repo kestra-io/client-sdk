@@ -30,7 +30,7 @@ class InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
      * Constructs a new <code>InstanceControllerApiCreateOrUpdateWorkerGroupRequest</code>.
      * ApiCreateWorkerGroupRequest.
      * @alias module:model/InstanceControllerApiCreateOrUpdateWorkerGroupRequest
-     * @param key {String} The key of the worker group.
+     * @param {String} key - The key of the worker group.
      */
     constructor(key) { 
         

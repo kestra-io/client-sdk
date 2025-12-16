@@ -28,7 +28,7 @@ class NamespaceAllowedTrigger {
     /**
      * Constructs a new <code>NamespaceAllowedTrigger</code>.
      * @alias module:model/NamespaceAllowedTrigger
-     * @param namespace {String} 
+     * @param {String} namespace - 
      */
     constructor(namespace) { 
         

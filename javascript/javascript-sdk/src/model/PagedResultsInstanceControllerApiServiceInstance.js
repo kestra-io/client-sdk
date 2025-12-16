@@ -29,8 +29,8 @@ class PagedResultsInstanceControllerApiServiceInstance {
     /**
      * Constructs a new <code>PagedResultsInstanceControllerApiServiceInstance</code>.
      * @alias module:model/PagedResultsInstanceControllerApiServiceInstance
-     * @param results {Array.<module:model/InstanceControllerApiServiceInstance>} 
-     * @param total {Number} 
+     * @param {Array.<module:model/InstanceControllerApiServiceInstance>} results - 
+     * @param {Number} total - 
      */
     constructor(results, total) { 
         

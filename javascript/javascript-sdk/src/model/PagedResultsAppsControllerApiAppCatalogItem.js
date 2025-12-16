@@ -29,8 +29,8 @@ class PagedResultsAppsControllerApiAppCatalogItem {
     /**
      * Constructs a new <code>PagedResultsAppsControllerApiAppCatalogItem</code>.
      * @alias module:model/PagedResultsAppsControllerApiAppCatalogItem
-     * @param results {Array.<module:model/AppsControllerApiAppCatalogItem>} 
-     * @param total {Number} 
+     * @param {Array.<module:model/AppsControllerApiAppCatalogItem>} results - 
+     * @param {Number} total - 
      */
     constructor(results, total) { 
         

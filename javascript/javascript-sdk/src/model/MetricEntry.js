@@ -27,7 +27,7 @@ import ExecutionKind from './ExecutionKind';
   * @property {Date} timestamp
   * @property {Object.<String, String>} tags
   * @property {Boolean} deleted
-  * @property {module:model/ExecutionKind} executionKind
+  * @property {ExecutionKind} executionKind
   */
 
 /**
@@ -39,13 +39,13 @@ class MetricEntry {
     /**
      * Constructs a new <code>MetricEntry</code>.
      * @alias module:model/MetricEntry
-     * @param namespace {String} 
-     * @param flowId {String} 
-     * @param type {String} 
-     * @param name {String} 
-     * @param value {Number} 
-     * @param timestamp {Date} 
-     * @param deleted {Boolean} 
+     * @param {String} namespace - 
+     * @param {String} flowId - 
+     * @param {String} type - 
+     * @param {String} name - 
+     * @param {Number} value - 
+     * @param {Date} timestamp - 
+     * @param {Boolean} deleted - 
      */
     constructor(namespace, flowId, type, name, value, timestamp, deleted) { 
         

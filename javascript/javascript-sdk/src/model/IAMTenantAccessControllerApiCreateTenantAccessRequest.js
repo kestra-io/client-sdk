@@ -27,7 +27,7 @@ class IAMTenantAccessControllerApiCreateTenantAccessRequest {
     /**
      * Constructs a new <code>IAMTenantAccessControllerApiCreateTenantAccessRequest</code>.
      * @alias module:model/IAMTenantAccessControllerApiCreateTenantAccessRequest
-     * @param email {String} 
+     * @param {String} email - 
      */
     constructor(email) { 
         

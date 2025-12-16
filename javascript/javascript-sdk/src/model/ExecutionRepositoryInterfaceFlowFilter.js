@@ -28,8 +28,8 @@ class ExecutionRepositoryInterfaceFlowFilter {
     /**
      * Constructs a new <code>ExecutionRepositoryInterfaceFlowFilter</code>.
      * @alias module:model/ExecutionRepositoryInterfaceFlowFilter
-     * @param namespace {String} 
-     * @param id {String} 
+     * @param {String} namespace - 
+     * @param {String} id - 
      */
     constructor(namespace, id) { 
         

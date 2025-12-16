@@ -31,11 +31,11 @@ class DailyExecutionStatisticsDuration {
     /**
      * Constructs a new <code>DailyExecutionStatisticsDuration</code>.
      * @alias module:model/DailyExecutionStatisticsDuration
-     * @param min {String} 
-     * @param avg {String} 
-     * @param max {String} 
-     * @param sum {String} 
-     * @param count {Number} 
+     * @param {String} min - 
+     * @param {String} avg - 
+     * @param {String} max - 
+     * @param {String} sum - 
+     * @param {Number} count - 
      */
     constructor(min, avg, max, sum, count) { 
         

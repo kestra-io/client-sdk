@@ -19,7 +19,7 @@ import UserGroupType from './UserGroupType';
   * @property {String} value
   * @property {String} ref
   * @property {String} display
-  * @property {module:model/UserGroupType} type
+  * @property {UserGroupType} type
   */
 
 /**

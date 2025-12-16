@@ -34,7 +34,7 @@ class HttpParameters {
      * @implements module:model/ConvertibleMultiValuesString
      * @implements module:model/ConvertibleValuesListString
      * @implements module:model/ConversionServiceProvider
-     * @param conversionService {Object} 
+     * @param {Object} conversionService - 
      */
     constructor(conversionService) { 
         ConvertibleMultiValuesString.initialize(this, conversionService);ConvertibleValuesListString.initialize(this, conversionService);ConversionServiceProvider.initialize(this, conversionService);

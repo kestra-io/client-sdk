@@ -31,7 +31,7 @@ import WorkerGroup from './WorkerGroup';
   * @property {Boolean} disabled
   * @property {Array.<module:model/Label>} labels - Labels as a list of Label (key/value pairs) or as a map of string to string.
   * @property {Object} variables
-  * @property {module:model/WorkerGroup} workerGroup
+  * @property {WorkerGroup} workerGroup
   * @property {Boolean} deleted
   * @property {Array.<module:model/TaskForExecution>} tasks
   * @property {Array.<module:model/TaskForExecution>} errors
@@ -50,11 +50,11 @@ class FlowForExecution {
      * Constructs a new <code>FlowForExecution</code>.
      * @alias module:model/FlowForExecution
      * @implements module:model/AbstractFlow
-     * @param id {String} 
-     * @param namespace {String} 
-     * @param disabled {Boolean} 
-     * @param deleted {Boolean} 
-     * @param tasks {Array.<module:model/TaskForExecution>} 
+     * @param {String} id - 
+     * @param {String} namespace - 
+     * @param {Boolean} disabled - 
+     * @param {Boolean} deleted - 
+     * @param {Array.<module:model/TaskForExecution>} tasks - 
      */
     constructor(id, namespace, disabled, deleted, tasks) { 
         AbstractFlow.initialize(this, id, namespace, disabled, deleted);

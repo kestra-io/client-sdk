@@ -17,7 +17,7 @@ import PluginSchema from './PluginSchema';
 /**
   * @typedef {Object} IDocumentationWithSchema
   * @property {String} markdown
-  * @property {module:model/PluginSchema} schema
+  * @property {PluginSchema} schema
   */
 
 /**

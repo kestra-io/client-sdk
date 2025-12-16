@@ -22,16 +22,16 @@ import SchemaAttributeUniqueness from './SchemaAttributeUniqueness';
   * @property {Array.<module:model/SchemaAttribute>} attributes
   * @property {String} urn
   * @property {String} name
-  * @property {module:model/SchemaAttributeType} type
+  * @property {SchemaAttributeType} type
   * @property {Array.<module:model/SchemaAttribute>} subAttributes
   * @property {Boolean} multiValued
   * @property {String} description
   * @property {Boolean} required
   * @property {Array.<String>} canonicalValues
   * @property {Boolean} caseExact
-  * @property {module:model/SchemaAttributeMutability} mutability
-  * @property {module:model/SchemaAttributeReturned} returned
-  * @property {module:model/SchemaAttributeUniqueness} uniqueness
+  * @property {SchemaAttributeMutability} mutability
+  * @property {SchemaAttributeReturned} returned
+  * @property {SchemaAttributeUniqueness} uniqueness
   * @property {Array.<String>} referenceTypes
   * @property {Object} accessor
   * @property {Boolean} scimResourceIdReference

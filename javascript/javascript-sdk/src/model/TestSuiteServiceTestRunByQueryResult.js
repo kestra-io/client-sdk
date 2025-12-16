@@ -17,7 +17,7 @@ import TestSuiteServiceRunByQueryRequest from './TestSuiteServiceRunByQueryReque
 
 /**
   * @typedef {Object} ITestSuiteServiceTestRunByQueryResult
-  * @property {module:model/TestSuiteServiceRunByQueryRequest} requestMade
+  * @property {TestSuiteServiceRunByQueryRequest} requestMade
   * @property {String} tenantId
   * @property {Number} numberOfTestSuitesToBeRun
   * @property {Number} numberOfTestCasesToBeRun

@@ -29,8 +29,8 @@ class TriggerControllerSetDisabledRequest {
     /**
      * Constructs a new <code>TriggerControllerSetDisabledRequest</code>.
      * @alias module:model/TriggerControllerSetDisabledRequest
-     * @param triggers {Array.<module:model/Trigger>} 
-     * @param disabled {Boolean} 
+     * @param {Array.<module:model/Trigger>} triggers - 
+     * @param {Boolean} disabled - 
      */
     constructor(triggers, disabled) { 
         

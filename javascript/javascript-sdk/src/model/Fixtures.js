@@ -20,7 +20,7 @@ import TriggerFixture from './TriggerFixture';
   * @property {Object.<String, Object>} inputs
   * @property {Object.<String, String>} files
   * @property {Array.<module:model/TaskFixture>} tasks
-  * @property {module:model/TriggerFixture} trigger
+  * @property {TriggerFixture} trigger
   */
 
 /**

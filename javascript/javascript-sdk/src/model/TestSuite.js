@@ -35,10 +35,10 @@ class TestSuite {
     /**
      * Constructs a new <code>TestSuite</code>.
      * @alias module:model/TestSuite
-     * @param id {String} 
-     * @param namespace {String} 
-     * @param flowId {String} 
-     * @param testCases {Array.<module:model/UnitTest>} 
+     * @param {String} id - 
+     * @param {String} namespace - 
+     * @param {String} flowId - 
+     * @param {Array.<module:model/UnitTest>} testCases - 
      */
     constructor(id, namespace, flowId, testCases) { 
         

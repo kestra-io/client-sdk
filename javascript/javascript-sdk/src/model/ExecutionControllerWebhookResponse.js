@@ -23,10 +23,10 @@ import State from './State';
   * @property {String} namespace
   * @property {String} flowId
   * @property {Number} flowRevision
-  * @property {module:model/ExecutionTrigger} trigger
+  * @property {ExecutionTrigger} trigger
   * @property {Object.<String, Object>} outputs
   * @property {Array.<module:model/Label>} labels
-  * @property {module:model/State} state
+  * @property {State} state
   * @property {String} url
   */
 

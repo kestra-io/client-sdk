@@ -28,8 +28,8 @@ class PagedResultsMapStringObject {
     /**
      * Constructs a new <code>PagedResultsMapStringObject</code>.
      * @alias module:model/PagedResultsMapStringObject
-     * @param results {Array.<Object.<String, Object>>} 
-     * @param total {Number} 
+     * @param {Array.<Object.<String, Object>>} results - 
+     * @param {Number} total - 
      */
     constructor(results, total) { 
         

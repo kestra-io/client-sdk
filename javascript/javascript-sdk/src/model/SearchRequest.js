@@ -22,13 +22,13 @@ import SortRequest from './SortRequest';
 /**
   * @typedef {Object} ISearchRequest
   * @property {Array.<String>} schemas
-  * @property {module:model/PageRequest} pageRequest
-  * @property {module:model/SortRequest} sortRequest
+  * @property {PageRequest} pageRequest
+  * @property {SortRequest} sortRequest
   * @property {Array.<module:model/AttributeReference>} attributes
   * @property {Array.<module:model/AttributeReference>} excludedAttributes
-  * @property {module:model/Filter} filter
-  * @property {module:model/AttributeReference} sortBy
-  * @property {module:model/SortOrder} sortOrder
+  * @property {Filter} filter
+  * @property {AttributeReference} sortBy
+  * @property {SortOrder} sortOrder
   * @property {Number} startIndex
   * @property {Number} count
   */

@@ -29,7 +29,7 @@ class TestSuiteServiceRunByQueryRequest {
     /**
      * Constructs a new <code>TestSuiteServiceRunByQueryRequest</code>.
      * @alias module:model/TestSuiteServiceRunByQueryRequest
-     * @param includeChildNamespaces {Boolean} Should child namespaces be included or not
+     * @param {Boolean} includeChildNamespaces - Should child namespaces be included or not
      */
     constructor(includeChildNamespaces) { 
         

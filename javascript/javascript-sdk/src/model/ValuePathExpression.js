@@ -16,7 +16,7 @@ import AttributeReference from './AttributeReference';
 
 /**
   * @typedef {Object} IValuePathExpression
-  * @property {module:model/AttributeReference} attributePath
+  * @property {AttributeReference} attributePath
   * @property {Object} attributeExpression
   */
 

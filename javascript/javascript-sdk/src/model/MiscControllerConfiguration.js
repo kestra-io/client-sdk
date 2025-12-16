@@ -20,7 +20,7 @@ import MiscControllerPreview from './MiscControllerPreview';
   * @typedef {Object} IMiscControllerConfiguration
   * @property {String} uuid
   * @property {String} version
-  * @property {module:model/EditionProviderEdition} edition
+  * @property {EditionProviderEdition} edition
   * @property {String} commitId
   * @property {String} chartDefaultDuration
   * @property {Date} commitDate
@@ -28,9 +28,9 @@ import MiscControllerPreview from './MiscControllerPreview';
   * @property {Boolean} isAnonymousUsageEnabled
   * @property {Boolean} isUiAnonymousUsageEnabled
   * @property {Boolean} isTemplateEnabled
-  * @property {module:model/MiscControllerEnvironment} environment
+  * @property {MiscControllerEnvironment} environment
   * @property {String} url
-  * @property {module:model/MiscControllerPreview} preview
+  * @property {MiscControllerPreview} preview
   * @property {String} systemNamespace
   * @property {Array.<String>} hiddenLabelsPrefixes
   * @property {Boolean} isAiEnabled

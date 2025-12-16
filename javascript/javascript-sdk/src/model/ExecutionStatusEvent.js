@@ -20,7 +20,7 @@ import State from './State';
   * @property {String} tenantId
   * @property {String} namespace
   * @property {String} flowId
-  * @property {module:model/State} state
+  * @property {State} state
   */
 
 /**

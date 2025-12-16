@@ -29,8 +29,8 @@ class FlowGenerationPrompt {
     /**
      * Constructs a new <code>FlowGenerationPrompt</code>.
      * @alias module:model/FlowGenerationPrompt
-     * @param conversationId {String} 
-     * @param userPrompt {String} 
+     * @param {String} conversationId - 
+     * @param {String} userPrompt - 
      */
     constructor(conversationId, userPrompt) { 
         

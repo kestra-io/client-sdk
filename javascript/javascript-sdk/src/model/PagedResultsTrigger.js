@@ -29,8 +29,8 @@ class PagedResultsTrigger {
     /**
      * Constructs a new <code>PagedResultsTrigger</code>.
      * @alias module:model/PagedResultsTrigger
-     * @param results {Array.<module:model/Trigger>} 
-     * @param total {Number} 
+     * @param {Array.<module:model/Trigger>} results - 
+     * @param {Number} total - 
      */
     constructor(results, total) { 
         

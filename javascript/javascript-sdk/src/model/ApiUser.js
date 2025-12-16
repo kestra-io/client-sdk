@@ -20,7 +20,7 @@ import UserType from './UserType';
 
 /**
   * @typedef {Object} IApiUser
-  * @property {module:model/UserType} type
+  * @property {UserType} type
   * @property {Array.<module:model/GroupIdentifier>} groupList
   * @property {Array.<Object>} groups
   * @property {String} username
@@ -45,9 +45,9 @@ class ApiUser {
      * Constructs a new <code>ApiUser</code>.
      * @alias module:model/ApiUser
      * @implements module:model/AbstractUser
-     * @param type {module:model/UserType} 
-     * @param username {String} 
-     * @param email {String} 
+     * @param {module:model/UserType} type - 
+     * @param {String} username - 
+     * @param {String} email - 
      */
     constructor(type, username, email) { 
         AbstractUser.initialize(this, type, username, email);

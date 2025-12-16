@@ -33,7 +33,7 @@ class IAMServiceAccountControllerApiServiceAccountResponse {
      * Constructs a new <code>IAMServiceAccountControllerApiServiceAccountResponse</code>.
      * A User Service Account.
      * @alias module:model/IAMServiceAccountControllerApiServiceAccountResponse
-     * @param name {String} the name of this service account.
+     * @param {String} name - the name of this service account.
      */
     constructor(name) { 
         

@@ -28,7 +28,7 @@ class AssertionRunError {
     /**
      * Constructs a new <code>AssertionRunError</code>.
      * @alias module:model/AssertionRunError
-     * @param message {String} 
+     * @param {String} message - 
      */
     constructor(message) { 
         

@@ -16,7 +16,7 @@ import ExecutionStatusEvent from './ExecutionStatusEvent';
 
 /**
   * @typedef {Object} IEventExecutionStatusEvent
-  * @property {module:model/ExecutionStatusEvent} data
+  * @property {ExecutionStatusEvent} data
   * @property {String} id
   * @property {String} name
   * @property {String} comment

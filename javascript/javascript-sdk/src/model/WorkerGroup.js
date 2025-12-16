@@ -17,7 +17,7 @@ import WorkerGroupFallback from './WorkerGroupFallback';
 /**
   * @typedef {Object} IWorkerGroup
   * @property {String} key
-  * @property {module:model/WorkerGroupFallback} fallback
+  * @property {WorkerGroupFallback} fallback
   */
 
 /**

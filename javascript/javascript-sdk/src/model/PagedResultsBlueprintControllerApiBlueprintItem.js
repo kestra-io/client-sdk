@@ -29,8 +29,8 @@ class PagedResultsBlueprintControllerApiBlueprintItem {
     /**
      * Constructs a new <code>PagedResultsBlueprintControllerApiBlueprintItem</code>.
      * @alias module:model/PagedResultsBlueprintControllerApiBlueprintItem
-     * @param results {Array.<module:model/BlueprintControllerApiBlueprintItem>} 
-     * @param total {Number} 
+     * @param {Array.<module:model/BlueprintControllerApiBlueprintItem>} results - 
+     * @param {Number} total - 
      */
     constructor(results, total) { 
         

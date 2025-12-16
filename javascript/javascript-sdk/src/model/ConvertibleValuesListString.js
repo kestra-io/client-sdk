@@ -30,7 +30,7 @@ class ConvertibleValuesListString {
      * Constructs a new <code>ConvertibleValuesListString</code>.
      * @alias module:model/ConvertibleValuesListString
      * @implements module:model/ConversionServiceProvider
-     * @param conversionService {Object} 
+     * @param {Object} conversionService - 
      */
     constructor(conversionService) { 
         ConversionServiceProvider.initialize(this, conversionService);

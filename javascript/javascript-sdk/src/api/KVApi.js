@@ -13,6 +13,7 @@
 
 
 import ApiClient from "../ApiClient";
+import polyfilledEventSource from "@sanity/eventsource"
 import KVControllerApiDeleteBulkRequest from '../model/KVControllerApiDeleteBulkRequest';
 import KVControllerApiDeleteBulkResponse from '../model/KVControllerApiDeleteBulkResponse';
 import KVControllerTypedValue from '../model/KVControllerTypedValue';

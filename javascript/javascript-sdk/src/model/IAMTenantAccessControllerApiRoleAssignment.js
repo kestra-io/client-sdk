@@ -20,7 +20,7 @@ import RBACServiceRoleAssignmentRoleOrigin from './RBACServiceRoleAssignmentRole
   * @property {String} id
   * @property {String} name
   * @property {String} namespace
-  * @property {module:model/RBACServiceRoleAssignmentRoleOrigin} origin
+  * @property {RBACServiceRoleAssignmentRoleOrigin} origin
   * @property {String} sourceId
   * @property {Array.<module:model/IAMTenantAccessControllerApiUserPermission>} permissions
   */

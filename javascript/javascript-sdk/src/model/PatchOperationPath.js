@@ -16,7 +16,7 @@ import ValuePathExpression from './ValuePathExpression';
 
 /**
   * @typedef {Object} IPatchOperationPath
-  * @property {module:model/ValuePathExpression} valuePathExpression
+  * @property {ValuePathExpression} valuePathExpression
   */
 
 /**

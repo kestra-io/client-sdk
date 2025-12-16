@@ -29,8 +29,8 @@ class PagedResultsDashboard {
     /**
      * Constructs a new <code>PagedResultsDashboard</code>.
      * @alias module:model/PagedResultsDashboard
-     * @param results {Array.<module:model/Dashboard>} 
-     * @param total {Number} 
+     * @param {Array.<module:model/Dashboard>} results - 
+     * @param {Number} total - 
      */
     constructor(results, total) { 
         

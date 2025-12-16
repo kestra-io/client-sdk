@@ -28,7 +28,7 @@ class IAMInvitationControllerApiInvitationRole {
     /**
      * Constructs a new <code>IAMInvitationControllerApiInvitationRole</code>.
      * @alias module:model/IAMInvitationControllerApiInvitationRole
-     * @param id {String} 
+     * @param {String} id - 
      */
     constructor(id) { 
         

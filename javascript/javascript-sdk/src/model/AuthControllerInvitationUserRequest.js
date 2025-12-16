@@ -29,9 +29,9 @@ class AuthControllerInvitationUserRequest {
     /**
      * Constructs a new <code>AuthControllerInvitationUserRequest</code>.
      * @alias module:model/AuthControllerInvitationUserRequest
-     * @param firstName {String} 
-     * @param lastName {String} 
-     * @param password {String} 
+     * @param {String} firstName - 
+     * @param {String} lastName - 
+     * @param {String} password - 
      */
     constructor(firstName, lastName, password) { 
         

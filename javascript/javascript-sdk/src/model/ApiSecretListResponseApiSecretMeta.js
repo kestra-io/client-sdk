@@ -30,8 +30,8 @@ class ApiSecretListResponseApiSecretMeta {
     /**
      * Constructs a new <code>ApiSecretListResponseApiSecretMeta</code>.
      * @alias module:model/ApiSecretListResponseApiSecretMeta
-     * @param readOnly {Boolean} 
-     * @param results {Array.<module:model/ApiSecretMetaEE>} 
+     * @param {Boolean} readOnly - 
+     * @param {Array.<module:model/ApiSecretMetaEE>} results - 
      */
     constructor(readOnly, results) { 
         

@@ -21,7 +21,7 @@ import SchemaAttribute from './SchemaAttribute';
   * @property {String} id
   * @property {String} name
   * @property {String} description
-  * @property {module:model/Meta} meta
+  * @property {Meta} meta
   */
 
 /**
@@ -33,7 +33,7 @@ class Schema {
     /**
      * Constructs a new <code>Schema</code>.
      * @alias module:model/Schema
-     * @param id {String} 
+     * @param {String} id - 
      */
     constructor(id) { 
         

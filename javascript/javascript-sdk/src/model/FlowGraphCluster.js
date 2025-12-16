@@ -16,7 +16,7 @@ import AbstractGraph from './AbstractGraph';
 
 /**
   * @typedef {Object} IFlowGraphCluster
-  * @property {module:model/AbstractGraph} cluster
+  * @property {AbstractGraph} cluster
   * @property {Array.<String>} nodes
   * @property {Array.<String>} parents
   * @property {String} start

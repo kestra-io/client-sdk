@@ -29,8 +29,8 @@ class PagedResultsAppsControllerApiApp {
     /**
      * Constructs a new <code>PagedResultsAppsControllerApiApp</code>.
      * @alias module:model/PagedResultsAppsControllerApiApp
-     * @param results {Array.<module:model/AppsControllerApiApp>} 
-     * @param total {Number} 
+     * @param {Array.<module:model/AppsControllerApiApp>} results - 
+     * @param {Number} total - 
      */
     constructor(results, total) { 
         

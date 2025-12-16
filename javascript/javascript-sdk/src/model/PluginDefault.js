@@ -29,7 +29,7 @@ class PluginDefault {
     /**
      * Constructs a new <code>PluginDefault</code>.
      * @alias module:model/PluginDefault
-     * @param type {String} 
+     * @param {String} type - 
      */
     constructor(type) { 
         

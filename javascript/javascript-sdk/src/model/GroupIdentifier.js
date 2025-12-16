@@ -18,7 +18,7 @@ import GroupIdentifierMembership from './GroupIdentifierMembership';
   * @typedef {Object} IGroupIdentifier
   * @property {String} tenantId
   * @property {String} groupId
-  * @property {module:model/GroupIdentifierMembership} membership
+  * @property {GroupIdentifierMembership} membership
   * @property {Boolean} managedExternally
   */
 

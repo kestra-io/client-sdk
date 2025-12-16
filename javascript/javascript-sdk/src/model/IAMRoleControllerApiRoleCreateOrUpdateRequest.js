@@ -16,7 +16,7 @@ import IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions from './IAMRoleC
 
 /**
   * @typedef {Object} IIAMRoleControllerApiRoleCreateOrUpdateRequest
-  * @property {module:model/IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions} permissions
+  * @property {IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions} permissions
   * @property {String} name
   * @property {String} description
   * @property {Boolean} isDefault
@@ -31,8 +31,8 @@ class IAMRoleControllerApiRoleCreateOrUpdateRequest {
     /**
      * Constructs a new <code>IAMRoleControllerApiRoleCreateOrUpdateRequest</code>.
      * @alias module:model/IAMRoleControllerApiRoleCreateOrUpdateRequest
-     * @param permissions {module:model/IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions} 
-     * @param name {String} 
+     * @param {module:model/IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions} permissions - 
+     * @param {String} name - 
      */
     constructor(permissions, name) { 
         

@@ -30,9 +30,9 @@ class ConcurrencyLimit {
     /**
      * Constructs a new <code>ConcurrencyLimit</code>.
      * @alias module:model/ConcurrencyLimit
-     * @param tenantId {String} 
-     * @param namespace {String} 
-     * @param flowId {String} 
+     * @param {String} tenantId - 
+     * @param {String} namespace - 
+     * @param {String} flowId - 
      */
     constructor(tenantId, namespace, flowId) { 
         

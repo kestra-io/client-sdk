@@ -32,7 +32,7 @@ class ConvertibleMultiValuesString {
      * @alias module:model/ConvertibleMultiValuesString
      * @implements module:model/ConvertibleValuesListString
      * @implements module:model/ConversionServiceProvider
-     * @param conversionService {Object} 
+     * @param {Object} conversionService - 
      */
     constructor(conversionService) { 
         ConvertibleValuesListString.initialize(this, conversionService);ConversionServiceProvider.initialize(this, conversionService);

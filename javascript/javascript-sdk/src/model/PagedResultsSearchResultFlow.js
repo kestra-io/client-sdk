@@ -29,8 +29,8 @@ class PagedResultsSearchResultFlow {
     /**
      * Constructs a new <code>PagedResultsSearchResultFlow</code>.
      * @alias module:model/PagedResultsSearchResultFlow
-     * @param results {Array.<module:model/SearchResultFlow>} 
-     * @param total {Number} 
+     * @param {Array.<module:model/SearchResultFlow>} results - 
+     * @param {Number} total - 
      */
     constructor(results, total) { 
         

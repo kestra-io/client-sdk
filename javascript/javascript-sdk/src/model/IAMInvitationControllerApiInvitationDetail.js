@@ -23,7 +23,7 @@ import InvitationInvitationStatus from './InvitationInvitationStatus';
   * @property {Array.<module:model/ApiGroupSummary>} groups
   * @property {String} tenantId
   * @property {String} email
-  * @property {module:model/InvitationInvitationStatus} status
+  * @property {InvitationInvitationStatus} status
   * @property {Date} sentAt
   * @property {Date} expiredAt
   * @property {Date} acceptedAt

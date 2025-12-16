@@ -33,10 +33,10 @@ class AssertionResult {
     /**
      * Constructs a new <code>AssertionResult</code>.
      * @alias module:model/AssertionResult
-     * @param operator {String} 
-     * @param expected {Object} 
-     * @param actual {Object} 
-     * @param isSuccess {Boolean} 
+     * @param {String} operator - 
+     * @param {Object} expected - 
+     * @param {Object} actual - 
+     * @param {Boolean} isSuccess - 
      */
     constructor(operator, expected, actual, isSuccess) { 
         

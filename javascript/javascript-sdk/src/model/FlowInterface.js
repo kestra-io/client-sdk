@@ -35,8 +35,8 @@ import WorkerGroup from './WorkerGroup';
   * @property {Array.<module:model/InputObject>} inputs
   * @property {Array.<module:model/Output>} outputs
   * @property {Object.<String, Object>} variables
-  * @property {module:model/WorkerGroup} workerGroup
-  * @property {module:model/Concurrency} concurrency
+  * @property {WorkerGroup} workerGroup
+  * @property {Concurrency} concurrency
   * @property {Array.<module:model/SLA>} sla
   * @property {String} source
   */

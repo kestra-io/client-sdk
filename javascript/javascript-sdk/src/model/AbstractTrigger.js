@@ -26,9 +26,9 @@ import WorkerGroup from './WorkerGroup';
   * @property {String} description
   * @property {Array.<module:model/Condition>} conditions
   * @property {Boolean} disabled
-  * @property {module:model/WorkerGroup} workerGroup
-  * @property {module:model/Level} logLevel
-  * @property {module:model/TheLabelsToPassToTheExecutionCreated} labels
+  * @property {WorkerGroup} workerGroup
+  * @property {Level} logLevel
+  * @property {TheLabelsToPassToTheExecutionCreated} labels
   * @property {Array.<module:model/StateType>} stopAfter
   * @property {Boolean} logToFile
   * @property {Boolean} failOnTriggerError
@@ -43,8 +43,8 @@ class AbstractTrigger {
     /**
      * Constructs a new <code>AbstractTrigger</code>.
      * @alias module:model/AbstractTrigger
-     * @param id {String} 
-     * @param type {String} 
+     * @param {String} id - 
+     * @param {String} type - 
      */
     constructor(id, type) { 
         

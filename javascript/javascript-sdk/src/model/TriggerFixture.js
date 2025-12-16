@@ -29,8 +29,8 @@ class TriggerFixture {
     /**
      * Constructs a new <code>TriggerFixture</code>.
      * @alias module:model/TriggerFixture
-     * @param id {String} 
-     * @param type {String} 
+     * @param {String} id - 
+     * @param {String} type - 
      */
     constructor(id, type) { 
         

@@ -18,9 +18,9 @@ import Type from './Type';
 /**
   * @typedef {Object} IInputObject
   * @property {String} id
-  * @property {module:model/Type} type
+  * @property {Type} type
   * @property {String} description
-  * @property {module:model/DependsOn} dependsOn
+  * @property {DependsOn} dependsOn
   * @property {Boolean} required
   * @property {Object} defaults
   * @property {Object} prefill - Optional UI hint for pre-filling the input. Cannot be used together with a default value.
@@ -36,8 +36,8 @@ class InputObject {
     /**
      * Constructs a new <code>InputObject</code>.
      * @alias module:model/InputObject
-     * @param id {String} 
-     * @param type {module:model/Type} 
+     * @param {String} id - 
+     * @param {module:model/Type} type - 
      */
     constructor(id, type) { 
         

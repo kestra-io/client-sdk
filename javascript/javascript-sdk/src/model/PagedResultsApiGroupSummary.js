@@ -29,8 +29,8 @@ class PagedResultsApiGroupSummary {
     /**
      * Constructs a new <code>PagedResultsApiGroupSummary</code>.
      * @alias module:model/PagedResultsApiGroupSummary
-     * @param results {Array.<module:model/ApiGroupSummary>} 
-     * @param total {Number} 
+     * @param {Array.<module:model/ApiGroupSummary>} results - 
+     * @param {Number} total - 
      */
     constructor(results, total) { 
         

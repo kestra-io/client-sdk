@@ -27,7 +27,7 @@ class ApiSecretMeta {
     /**
      * Constructs a new <code>ApiSecretMeta</code>.
      * @alias module:model/ApiSecretMeta
-     * @param key {String} 
+     * @param {String} key - 
      */
     constructor(key) { 
         

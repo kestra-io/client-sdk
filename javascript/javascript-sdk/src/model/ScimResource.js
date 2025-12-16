@@ -21,7 +21,7 @@ import ScimExtension from './ScimExtension';
   * @property {Array.<String>} schemas
   * @property {String} baseUrn
   * @property {Object.<String, module:model/ScimExtension>} extensions
-  * @property {module:model/Meta} meta
+  * @property {Meta} meta
   * @property {String} id
   * @property {String} externalId
   * @property {String} resourceType
@@ -37,7 +37,7 @@ class ScimResource {
      * Constructs a new <code>ScimResource</code>.
      * @alias module:model/ScimResource
      * @implements module:model/BaseResourceScimResource
-     * @param meta {module:model/Meta} 
+     * @param {module:model/Meta} meta - 
      */
     constructor(meta) { 
         BaseResourceScimResource.initialize(this);

@@ -32,16 +32,16 @@ import TaskRun from './TaskRun';
   * @property {Object} inputs
   * @property {Object} outputs
   * @property {Object} variables
-  * @property {module:model/State} state
+  * @property {State} state
   * @property {String} parentId
   * @property {String} originalId
-  * @property {module:model/ExecutionTrigger} trigger
+  * @property {ExecutionTrigger} trigger
   * @property {Boolean} deleted
-  * @property {module:model/ExecutionMetadata} metadata
+  * @property {ExecutionMetadata} metadata
   * @property {Date} scheduleDate
   * @property {String} traceParent
   * @property {Array.<module:model/TaskFixture>} fixtures
-  * @property {module:model/ExecutionKind} kind
+  * @property {ExecutionKind} kind
   * @property {Array.<module:model/Breakpoint>} breakpoints
   */
 
@@ -54,12 +54,12 @@ class Execution {
     /**
      * Constructs a new <code>Execution</code>.
      * @alias module:model/Execution
-     * @param id {String} 
-     * @param namespace {String} 
-     * @param flowId {String} 
-     * @param flowRevision {Number} 
-     * @param state {module:model/State} 
-     * @param deleted {Boolean} 
+     * @param {String} id - 
+     * @param {String} namespace - 
+     * @param {String} flowId - 
+     * @param {Number} flowRevision - 
+     * @param {module:model/State} state - 
+     * @param {Boolean} deleted - 
      */
     constructor(id, namespace, flowId, flowRevision, state, deleted) { 
         

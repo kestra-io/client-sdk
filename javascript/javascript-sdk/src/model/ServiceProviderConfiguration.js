@@ -27,17 +27,17 @@ import ServiceProviderConfigurationSupportedConfiguration from './ServiceProvide
   * @property {Array.<String>} schemas
   * @property {String} baseUrn
   * @property {Object.<String, module:model/ScimExtension>} extensions
-  * @property {module:model/Meta} meta
+  * @property {Meta} meta
   * @property {String} id
   * @property {String} externalId
   * @property {String} resourceType
   * @property {String} documentationUrl
-  * @property {module:model/ServiceProviderConfigurationSupportedConfiguration} patch
-  * @property {module:model/ServiceProviderConfigurationBulkConfiguration} bulk
-  * @property {module:model/ServiceProviderConfigurationFilterConfiguration} filter
-  * @property {module:model/ServiceProviderConfigurationSupportedConfiguration} changePassword
-  * @property {module:model/ServiceProviderConfigurationSupportedConfiguration} sort
-  * @property {module:model/ServiceProviderConfigurationSupportedConfiguration} etag
+  * @property {ServiceProviderConfigurationSupportedConfiguration} patch
+  * @property {ServiceProviderConfigurationBulkConfiguration} bulk
+  * @property {ServiceProviderConfigurationFilterConfiguration} filter
+  * @property {ServiceProviderConfigurationSupportedConfiguration} changePassword
+  * @property {ServiceProviderConfigurationSupportedConfiguration} sort
+  * @property {ServiceProviderConfigurationSupportedConfiguration} etag
   * @property {Array.<module:model/ServiceProviderConfigurationAuthenticationSchema>} authenticationSchemes
   */
 
@@ -53,7 +53,7 @@ class ServiceProviderConfiguration {
      * @implements module:model/ScimResourceWithOptionalId
      * @implements module:model/ScimResource
      * @implements module:model/BaseResourceScimResource
-     * @param meta {module:model/Meta} 
+     * @param {module:model/Meta} meta - 
      */
     constructor(meta) { 
         ScimResourceWithOptionalId.initialize(this, meta);ScimResource.initialize(this, meta);BaseResourceScimResource.initialize(this);

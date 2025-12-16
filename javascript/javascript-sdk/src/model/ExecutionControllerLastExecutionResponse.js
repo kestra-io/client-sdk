@@ -20,7 +20,7 @@ import StateType from './StateType';
   * @property {String} flowId
   * @property {String} namespace
   * @property {Date} startDate
-  * @property {module:model/StateType} status
+  * @property {keyof typeof import('./StateType').StateTypeStatic} status
   */
 
 /**

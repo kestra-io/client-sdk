@@ -29,8 +29,8 @@ class PagedResultsFlow {
     /**
      * Constructs a new <code>PagedResultsFlow</code>.
      * @alias module:model/PagedResultsFlow
-     * @param results {Array.<module:model/Flow>} 
-     * @param total {Number} 
+     * @param {Array.<module:model/Flow>} results - 
+     * @param {Number} total - 
      */
     constructor(results, total) { 
         

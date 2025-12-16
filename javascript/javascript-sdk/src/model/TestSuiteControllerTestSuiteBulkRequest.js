@@ -28,7 +28,7 @@ class TestSuiteControllerTestSuiteBulkRequest {
     /**
      * Constructs a new <code>TestSuiteControllerTestSuiteBulkRequest</code>.
      * @alias module:model/TestSuiteControllerTestSuiteBulkRequest
-     * @param ids {Array.<module:model/TestSuiteControllerTestSuiteApiId>} 
+     * @param {Array.<module:model/TestSuiteControllerTestSuiteApiId>} ids - 
      */
     constructor(ids) { 
         

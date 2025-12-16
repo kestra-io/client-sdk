@@ -21,7 +21,7 @@ import UnitTestResult from './UnitTestResult';
   * @property {String} testSuiteId
   * @property {String} namespace
   * @property {String} flowId
-  * @property {module:model/TestState} state
+  * @property {TestState} state
   * @property {Date} startDate
   * @property {Date} endDate
   * @property {Array.<module:model/UnitTestResult>} results
@@ -36,13 +36,13 @@ class TestSuiteRunResult {
     /**
      * Constructs a new <code>TestSuiteRunResult</code>.
      * @alias module:model/TestSuiteRunResult
-     * @param id {String} 
-     * @param testSuiteId {String} 
-     * @param namespace {String} 
-     * @param flowId {String} 
-     * @param state {module:model/TestState} 
-     * @param startDate {Date} 
-     * @param endDate {Date} 
+     * @param {String} id - 
+     * @param {String} testSuiteId - 
+     * @param {String} namespace - 
+     * @param {String} flowId - 
+     * @param {module:model/TestState} state - 
+     * @param {Date} startDate - 
+     * @param {Date} endDate - 
      */
     constructor(id, testSuiteId, namespace, flowId, state, startDate, endDate) { 
         

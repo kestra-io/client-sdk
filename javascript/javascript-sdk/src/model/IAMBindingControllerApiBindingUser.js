@@ -19,7 +19,7 @@ import UserType from './UserType';
   * @property {String} id
   * @property {String} username
   * @property {String} displayName
-  * @property {module:model/UserType} type
+  * @property {UserType} type
   */
 
 /**

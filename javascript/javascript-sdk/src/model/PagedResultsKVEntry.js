@@ -29,8 +29,8 @@ class PagedResultsKVEntry {
     /**
      * Constructs a new <code>PagedResultsKVEntry</code>.
      * @alias module:model/PagedResultsKVEntry
-     * @param results {Array.<module:model/KVEntry>} 
-     * @param total {Number} 
+     * @param {Array.<module:model/KVEntry>} results - 
+     * @param {Number} total - 
      */
     constructor(results, total) { 
         

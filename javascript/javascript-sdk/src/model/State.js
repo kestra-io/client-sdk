@@ -20,7 +20,7 @@ import StateType from './StateType';
   * @property {String} duration
   * @property {Date} startDate
   * @property {Date} endDate
-  * @property {module:model/StateType} current
+  * @property {keyof typeof import('./StateType').StateTypeStatic} current
   * @property {Array.<module:model/StateHistory>} histories
   */
 
@@ -33,7 +33,7 @@ class State {
     /**
      * Constructs a new <code>State</code>.
      * @alias module:model/State
-     * @param current {module:model/StateType} 
+     * @param {module:model/StateType} current - 
      */
     constructor(current) { 
         

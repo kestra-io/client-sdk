@@ -18,7 +18,7 @@ import BannerType from './BannerType';
   * @typedef {Object} IBanner
   * @property {String} id
   * @property {String} message
-  * @property {module:model/BannerType} type
+  * @property {BannerType} type
   * @property {Date} startDate
   * @property {Date} endDate
   * @property {String} tenantId
@@ -34,7 +34,7 @@ class Banner {
     /**
      * Constructs a new <code>Banner</code>.
      * @alias module:model/Banner
-     * @param message {String} 
+     * @param {String} message - 
      */
     constructor(message) { 
         

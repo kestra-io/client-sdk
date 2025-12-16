@@ -29,8 +29,8 @@ class PagedResultsInstanceControllerApiPluginArtifact {
     /**
      * Constructs a new <code>PagedResultsInstanceControllerApiPluginArtifact</code>.
      * @alias module:model/PagedResultsInstanceControllerApiPluginArtifact
-     * @param results {Array.<module:model/InstanceControllerApiPluginArtifact>} 
-     * @param total {Number} 
+     * @param {Array.<module:model/InstanceControllerApiPluginArtifact>} results - 
+     * @param {Number} total - 
      */
     constructor(results, total) { 
         

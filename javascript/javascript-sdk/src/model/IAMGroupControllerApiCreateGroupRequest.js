@@ -29,7 +29,7 @@ class IAMGroupControllerApiCreateGroupRequest {
     /**
      * Constructs a new <code>IAMGroupControllerApiCreateGroupRequest</code>.
      * @alias module:model/IAMGroupControllerApiCreateGroupRequest
-     * @param name {String} 
+     * @param {String} name - 
      */
     constructor(name) { 
         

@@ -16,7 +16,7 @@ import HttpParameters from './HttpParameters';
 
 /**
   * @typedef {Object} IPreviewAppRequest
-  * @property {module:model/HttpParameters} parameters
+  * @property {HttpParameters} parameters
   */
 
 /**

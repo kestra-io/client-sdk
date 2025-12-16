@@ -18,7 +18,7 @@ import Tenant from './Tenant';
   * @typedef {Object} ISetupConfigurationSetupData
   * @property {String} username
   * @property {String} password
-  * @property {module:model/Tenant} tenant
+  * @property {Tenant} tenant
   */
 
 /**

@@ -29,8 +29,8 @@ class PagedResultsIAMBindingControllerApiBindingDetail {
     /**
      * Constructs a new <code>PagedResultsIAMBindingControllerApiBindingDetail</code>.
      * @alias module:model/PagedResultsIAMBindingControllerApiBindingDetail
-     * @param results {Array.<module:model/IAMBindingControllerApiBindingDetail>} 
-     * @param total {Number} 
+     * @param {Array.<module:model/IAMBindingControllerApiBindingDetail>} results - 
+     * @param {Number} total - 
      */
     constructor(results, total) { 
         

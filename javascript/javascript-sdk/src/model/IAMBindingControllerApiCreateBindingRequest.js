@@ -16,7 +16,7 @@ import BindingType from './BindingType';
 
 /**
   * @typedef {Object} IIAMBindingControllerApiCreateBindingRequest
-  * @property {module:model/BindingType} type
+  * @property {BindingType} type
   * @property {String} externalId
   * @property {String} roleId
   * @property {String} namespaceId
@@ -31,9 +31,9 @@ class IAMBindingControllerApiCreateBindingRequest {
     /**
      * Constructs a new <code>IAMBindingControllerApiCreateBindingRequest</code>.
      * @alias module:model/IAMBindingControllerApiCreateBindingRequest
-     * @param type {module:model/BindingType} 
-     * @param externalId {String} 
-     * @param roleId {String} 
+     * @param {module:model/BindingType} type - 
+     * @param {String} externalId - 
+     * @param {String} roleId - 
      */
     constructor(type, externalId, roleId) { 
         

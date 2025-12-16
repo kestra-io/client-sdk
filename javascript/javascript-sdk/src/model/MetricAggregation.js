@@ -29,8 +29,8 @@ class MetricAggregation {
     /**
      * Constructs a new <code>MetricAggregation</code>.
      * @alias module:model/MetricAggregation
-     * @param name {String} 
-     * @param date {Date} 
+     * @param {String} name - 
+     * @param {Date} date - 
      */
     constructor(name, date) { 
         

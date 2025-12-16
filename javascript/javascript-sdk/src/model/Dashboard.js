@@ -19,7 +19,7 @@ import TimeWindow from './TimeWindow';
   * @typedef {Object} IDashboard
   * @property {String} title
   * @property {String} description
-  * @property {module:model/TimeWindow} timeWindow
+  * @property {TimeWindow} timeWindow
   * @property {Array.<module:model/ChartChartOption>} charts
   * @property {String} sourceCode
   */
@@ -33,7 +33,7 @@ class Dashboard {
     /**
      * Constructs a new <code>Dashboard</code>.
      * @alias module:model/Dashboard
-     * @param title {String} 
+     * @param {String} title - 
      */
     constructor(title) { 
         

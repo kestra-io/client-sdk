@@ -16,7 +16,7 @@ import State from './State';
 
 /**
   * @typedef {Object} ITaskRunAttempt
-  * @property {module:model/State} state
+  * @property {State} state
   * @property {String} workerId
   * @property {String} logFile
   */
@@ -30,7 +30,7 @@ class TaskRunAttempt {
     /**
      * Constructs a new <code>TaskRunAttempt</code>.
      * @alias module:model/TaskRunAttempt
-     * @param state {module:model/State} 
+     * @param {module:model/State} state - 
      */
     constructor(state) { 
         

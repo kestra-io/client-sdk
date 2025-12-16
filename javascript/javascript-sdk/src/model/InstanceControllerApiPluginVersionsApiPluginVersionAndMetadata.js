@@ -17,7 +17,7 @@ import PluginArtifactMetadata from './PluginArtifactMetadata';
 /**
   * @typedef {Object} IInstanceControllerApiPluginVersionsApiPluginVersionAndMetadata
   * @property {String} version
-  * @property {module:model/PluginArtifactMetadata} metadata
+  * @property {PluginArtifactMetadata} metadata
   */
 
 /**

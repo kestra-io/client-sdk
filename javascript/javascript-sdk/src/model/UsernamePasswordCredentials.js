@@ -30,8 +30,8 @@ class UsernamePasswordCredentials {
     /**
      * Constructs a new <code>UsernamePasswordCredentials</code>.
      * @alias module:model/UsernamePasswordCredentials
-     * @param username {String} 
-     * @param password {String} 
+     * @param {String} username - 
+     * @param {String} password - 
      */
     constructor(username, password) { 
         

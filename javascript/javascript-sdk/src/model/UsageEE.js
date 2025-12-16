@@ -22,12 +22,12 @@ import UserUsage from './UserUsage';
 
 /**
   * @typedef {Object} IUsageEE
-  * @property {module:model/FlowUsage} flows
-  * @property {module:model/ExecutionUsage} executions
-  * @property {module:model/GroupUsage} groups
-  * @property {module:model/UserUsage} users
-  * @property {module:model/RoleUsage} roles
-  * @property {module:model/TenantUsage} tenants
+  * @property {FlowUsage} flows
+  * @property {ExecutionUsage} executions
+  * @property {GroupUsage} groups
+  * @property {UserUsage} users
+  * @property {RoleUsage} roles
+  * @property {TenantUsage} tenants
   */
 
 /**

@@ -27,7 +27,7 @@ class IAMUserControllerApiPatchRestrictedRequest {
     /**
      * Constructs a new <code>IAMUserControllerApiPatchRestrictedRequest</code>.
      * @alias module:model/IAMUserControllerApiPatchRestrictedRequest
-     * @param restricted {Boolean} 
+     * @param {Boolean} restricted - 
      */
     constructor(restricted) { 
         

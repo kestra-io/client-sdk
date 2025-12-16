@@ -18,8 +18,8 @@ import DailyExecutionStatisticsExecutionCounts from './DailyExecutionStatisticsE
 /**
   * @typedef {Object} IDailyExecutionStatistics
   * @property {Date} startDate
-  * @property {module:model/DailyExecutionStatisticsDuration} duration
-  * @property {module:model/DailyExecutionStatisticsExecutionCounts} executionCounts
+  * @property {DailyExecutionStatisticsDuration} duration
+  * @property {DailyExecutionStatisticsExecutionCounts} executionCounts
   * @property {String} groupBy
   */
 
@@ -32,8 +32,8 @@ class DailyExecutionStatistics {
     /**
      * Constructs a new <code>DailyExecutionStatistics</code>.
      * @alias module:model/DailyExecutionStatistics
-     * @param startDate {Date} 
-     * @param duration {module:model/DailyExecutionStatisticsDuration} 
+     * @param {Date} startDate - 
+     * @param {module:model/DailyExecutionStatisticsDuration} duration - 
      */
     constructor(startDate, duration) { 
         

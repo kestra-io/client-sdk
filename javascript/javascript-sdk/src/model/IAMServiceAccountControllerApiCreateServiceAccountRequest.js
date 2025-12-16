@@ -31,7 +31,7 @@ class IAMServiceAccountControllerApiCreateServiceAccountRequest {
      * Constructs a new <code>IAMServiceAccountControllerApiCreateServiceAccountRequest</code>.
      * Request payload for updating service account details
      * @alias module:model/IAMServiceAccountControllerApiCreateServiceAccountRequest
-     * @param name {String} 
+     * @param {String} name - 
      */
     constructor(name) { 
         

@@ -27,7 +27,7 @@ class NamespaceAllowedNamespace {
     /**
      * Constructs a new <code>NamespaceAllowedNamespace</code>.
      * @alias module:model/NamespaceAllowedNamespace
-     * @param namespace {String} 
+     * @param {String} namespace - 
      */
     constructor(namespace) { 
         

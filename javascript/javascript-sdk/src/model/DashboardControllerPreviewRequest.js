@@ -17,7 +17,7 @@ import ChartFiltersOverrides from './ChartFiltersOverrides';
 /**
   * @typedef {Object} IDashboardControllerPreviewRequest
   * @property {String} chart
-  * @property {module:model/ChartFiltersOverrides} globalFilter
+  * @property {ChartFiltersOverrides} globalFilter
   */
 
 /**
@@ -29,7 +29,7 @@ class DashboardControllerPreviewRequest {
     /**
      * Constructs a new <code>DashboardControllerPreviewRequest</code>.
      * @alias module:model/DashboardControllerPreviewRequest
-     * @param chart {String} 
+     * @param {String} chart - 
      */
     constructor(chart) { 
         

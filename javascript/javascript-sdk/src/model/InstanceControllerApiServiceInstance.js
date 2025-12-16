@@ -19,9 +19,9 @@ import ServiceType from './ServiceType';
 /**
   * @typedef {Object} IInstanceControllerApiServiceInstance
   * @property {String} id
-  * @property {module:model/ServiceType} type
-  * @property {module:model/ServiceServiceState} state
-  * @property {module:model/InstanceControllerApiServerInstance} server
+  * @property {ServiceType} type
+  * @property {ServiceServiceState} state
+  * @property {InstanceControllerApiServerInstance} server
   * @property {Date} createdAt
   * @property {Date} updatedAt
   */

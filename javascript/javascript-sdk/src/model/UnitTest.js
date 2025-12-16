@@ -21,7 +21,7 @@ import Fixtures from './Fixtures';
   * @property {String} type
   * @property {Boolean} disabled
   * @property {String} description
-  * @property {module:model/Fixtures} fixtures
+  * @property {Fixtures} fixtures
   * @property {Array.<module:model/Assertion>} assertions
   */
 
@@ -34,9 +34,9 @@ class UnitTest {
     /**
      * Constructs a new <code>UnitTest</code>.
      * @alias module:model/UnitTest
-     * @param id {String} 
-     * @param type {String} 
-     * @param assertions {Array.<module:model/Assertion>} 
+     * @param {String} id - 
+     * @param {String} type - 
+     * @param {Array.<module:model/Assertion>} assertions - 
      */
     constructor(id, type, assertions) { 
         

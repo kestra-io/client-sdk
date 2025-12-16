@@ -29,8 +29,8 @@ class PagedResultsBlueprint {
     /**
      * Constructs a new <code>PagedResultsBlueprint</code>.
      * @alias module:model/PagedResultsBlueprint
-     * @param results {Array.<module:model/Blueprint>} 
-     * @param total {Number} 
+     * @param {Array.<module:model/Blueprint>} results - 
+     * @param {Number} total - 
      */
     constructor(results, total) { 
         

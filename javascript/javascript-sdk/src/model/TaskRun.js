@@ -26,7 +26,7 @@ import TaskRunAttempt from './TaskRunAttempt';
   * @property {String} value
   * @property {Array.<module:model/TaskRunAttempt>} attempts
   * @property {Object} outputs
-  * @property {module:model/State} state
+  * @property {State} state
   * @property {Number} iteration
   * @property {Boolean} dynamic
   * @property {Boolean} forceExecution
@@ -41,12 +41,12 @@ class TaskRun {
     /**
      * Constructs a new <code>TaskRun</code>.
      * @alias module:model/TaskRun
-     * @param id {String} 
-     * @param executionId {String} 
-     * @param namespace {String} 
-     * @param flowId {String} 
-     * @param taskId {String} 
-     * @param state {module:model/State} 
+     * @param {String} id - 
+     * @param {String} executionId - 
+     * @param {String} namespace - 
+     * @param {String} flowId - 
+     * @param {String} taskId - 
+     * @param {module:model/State} state - 
      */
     constructor(id, executionId, namespace, flowId, taskId, state) { 
         

@@ -29,7 +29,7 @@ class IAMGroupControllerApiUpdateGroupRequest {
      * Constructs a new <code>IAMGroupControllerApiUpdateGroupRequest</code>.
      * Represents updatable properties for a Group.
      * @alias module:model/IAMGroupControllerApiUpdateGroupRequest
-     * @param name {String} of the group.
+     * @param {String} name - of the group.
      */
     constructor(name) { 
         

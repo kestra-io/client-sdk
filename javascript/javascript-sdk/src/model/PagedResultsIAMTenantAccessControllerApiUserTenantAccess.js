@@ -29,8 +29,8 @@ class PagedResultsIAMTenantAccessControllerApiUserTenantAccess {
     /**
      * Constructs a new <code>PagedResultsIAMTenantAccessControllerApiUserTenantAccess</code>.
      * @alias module:model/PagedResultsIAMTenantAccessControllerApiUserTenantAccess
-     * @param results {Array.<module:model/IAMTenantAccessControllerApiUserTenantAccess>} 
-     * @param total {Number} 
+     * @param {Array.<module:model/IAMTenantAccessControllerApiUserTenantAccess>} results - 
+     * @param {Number} total - 
      */
     constructor(results, total) { 
         

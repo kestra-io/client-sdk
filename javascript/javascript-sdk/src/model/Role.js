@@ -17,7 +17,7 @@ import IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions from './IAMRoleC
 /**
   * @typedef {Object} IRole
   * @property {Boolean} isManaged
-  * @property {module:model/IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions} permissions
+  * @property {IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions} permissions
   * @property {String} id
   * @property {String} name
   * @property {String} description
@@ -34,9 +34,9 @@ class Role {
     /**
      * Constructs a new <code>Role</code>.
      * @alias module:model/Role
-     * @param isManaged {Boolean} 
-     * @param name {String} 
-     * @param deleted {Boolean} 
+     * @param {Boolean} isManaged - 
+     * @param {String} name - 
+     * @param {Boolean} deleted - 
      */
     constructor(isManaged, name, deleted) { 
         

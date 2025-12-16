@@ -29,7 +29,7 @@ class FlowNode {
     /**
      * Constructs a new <code>FlowNode</code>.
      * @alias module:model/FlowNode
-     * @param uid {String} 
+     * @param {String} uid - 
      */
     constructor(uid) { 
         

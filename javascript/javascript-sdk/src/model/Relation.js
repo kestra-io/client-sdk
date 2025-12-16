@@ -16,7 +16,7 @@ import RelationType from './RelationType';
 
 /**
   * @typedef {Object} IRelation
-  * @property {module:model/RelationType} relationType
+  * @property {RelationType} relationType
   * @property {String} value
   */
 

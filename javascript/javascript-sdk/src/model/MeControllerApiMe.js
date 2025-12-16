@@ -21,7 +21,7 @@ import MeControllerApiTenant from './MeControllerApiTenant';
   * @property {String} id
   * @property {Boolean} superAdmin
   * @property {Boolean} restricted
-  * @property {module:model/MeControllerApiProfile} profile
+  * @property {MeControllerApiProfile} profile
   * @property {Array.<module:model/IAMTenantAccessControllerApiAuthentication>} auths
   * @property {Array.<module:model/MeControllerApiTenant>} tenants
   */

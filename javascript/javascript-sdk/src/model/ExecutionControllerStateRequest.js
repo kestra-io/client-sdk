@@ -17,7 +17,7 @@ import StateType from './StateType';
 /**
   * @typedef {Object} IExecutionControllerStateRequest
   * @property {String} taskRunId
-  * @property {module:model/StateType} state
+  * @property {keyof typeof import('./StateType').StateTypeStatic} state
   */
 
 /**

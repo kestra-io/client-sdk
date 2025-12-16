@@ -16,7 +16,7 @@ import Flow from './Flow';
 
 /**
   * @typedef {Object} ISearchResultFlow
-  * @property {module:model/Flow} model
+  * @property {Flow} model
   * @property {Array.<String>} fragments
   */
 

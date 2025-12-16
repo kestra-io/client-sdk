@@ -24,7 +24,7 @@ import StateType from './StateType';
   * @property {String} triggerId
   * @property {Date} date
   * @property {Date} nextExecutionDate
-  * @property {module:model/Backfill} backfill
+  * @property {Backfill} backfill
   * @property {Array.<module:model/StateType>} stopAfter
   */
 
@@ -37,10 +37,10 @@ class TriggerContext {
     /**
      * Constructs a new <code>TriggerContext</code>.
      * @alias module:model/TriggerContext
-     * @param namespace {String} 
-     * @param flowId {String} 
-     * @param triggerId {String} 
-     * @param date {Date} 
+     * @param {String} namespace - 
+     * @param {String} flowId - 
+     * @param {String} triggerId - 
+     * @param {Date} date - 
      */
     constructor(namespace, flowId, triggerId, date) { 
         

@@ -18,7 +18,7 @@ import StateType from './StateType';
   * @typedef {Object} ITaskFixture
   * @property {String} id
   * @property {String} value
-  * @property {module:model/StateType} state
+  * @property {keyof typeof import('./StateType').StateTypeStatic} state
   * @property {Object.<String, Object>} outputs
   * @property {String} description
   */
@@ -32,7 +32,7 @@ class TaskFixture {
     /**
      * Constructs a new <code>TaskFixture</code>.
      * @alias module:model/TaskFixture
-     * @param id {String} 
+     * @param {String} id - 
      */
     constructor(id) { 
         

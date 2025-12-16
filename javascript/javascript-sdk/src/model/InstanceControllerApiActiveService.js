@@ -16,7 +16,7 @@ import ServiceType from './ServiceType';
 
 /**
   * @typedef {Object} IInstanceControllerApiActiveService
-  * @property {module:model/ServiceType} type
+  * @property {ServiceType} type
   * @property {Number} total
   */
 

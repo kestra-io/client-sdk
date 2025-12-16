@@ -32,7 +32,7 @@ class IAMServiceAccountControllerApiServiceAccountRequest {
      * Constructs a new <code>IAMServiceAccountControllerApiServiceAccountRequest</code>.
      * A User Service Account.
      * @alias module:model/IAMServiceAccountControllerApiServiceAccountRequest
-     * @param name {String} 
+     * @param {String} name - 
      */
     constructor(name) { 
         

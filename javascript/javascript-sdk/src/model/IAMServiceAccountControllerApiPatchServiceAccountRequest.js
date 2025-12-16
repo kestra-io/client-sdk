@@ -29,7 +29,7 @@ class IAMServiceAccountControllerApiPatchServiceAccountRequest {
      * Constructs a new <code>IAMServiceAccountControllerApiPatchServiceAccountRequest</code>.
      * Request payload for updating service account details
      * @alias module:model/IAMServiceAccountControllerApiPatchServiceAccountRequest
-     * @param name {String} 
+     * @param {String} name - 
      */
     constructor(name) { 
         

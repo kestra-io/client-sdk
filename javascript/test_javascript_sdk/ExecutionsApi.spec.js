@@ -167,7 +167,7 @@ async function createFlowWithExecutionFromYaml(flowYaml) {
 /**
  * await the end of an execution
  * @param {string} executionId
- * @param {string} desiredState
+ * @param {keyof typeof import('@kestra-io/kestra-sdk/src/model/StateType').StateTypeStatic} desiredState
  * @param {number} [timeoutMs=5000]
  * @param {number} [pollMs=100]
  * @returns
@@ -183,6 +183,12 @@ async function awaitExecution(executionId, desiredState, timeoutMs = 5000, pollM
     }
 }
 
+/**
+ * create an execution and await it to reach the desired state
+ * @param {(id: string, ns: string) => string} flowTemplate
+ * @param {keyof typeof import('@kestra-io/kestra-sdk/src/model/StateType').StateTypeStatic} desiredState
+ * @returns
+ */
 async function createdExecution(flowTemplate, desiredState) {
     const ns = randomId();
     const id = randomId();
@@ -192,7 +198,6 @@ async function createdExecution(flowTemplate, desiredState) {
 
 // filters
 /**
- *
  * @param {Object} filter
  * @param {string} filter.field
  * @param {'EQUALS' | 'IN'} filter.operation
@@ -818,7 +823,24 @@ describe('ExecutionsApi', () => {
         expect(sO.state.current).toBe('SUCCESS');
     });
 
-    // --- follow APIs (enable when your JS client exposes streaming) ---
+    const LONG_FLOW = (ns, id) => `
+id: ${id}
+namespace: ${ns}
+tasks:
+  - id: long-sleep
+    type: io.kestra.plugin.core.flow.Sleep
+    duration: PT1S
+  - id: message
+    type: io.kestra.plugin.core.log.Log
+    message: Hello World! 🚀
+  - id: long-sleep-again
+    type: io.kestra.plugin.core.flow.Sleep
+    duration: PT1S
+  - id: final-message
+    type: io.kestra.plugin.core.log.Log
+    message: Good Bye! 👋
+`;
+
     it.skip('follow_execution (SSE/WebSocket required)', async () => {});
     it.skip('follow_dependencies_execution (SSE/WebSocket required)', async () => {});
 });

@@ -32,7 +32,7 @@ class IAMInvitationControllerApiInvitationCreateRequest {
     /**
      * Constructs a new <code>IAMInvitationControllerApiInvitationCreateRequest</code>.
      * @alias module:model/IAMInvitationControllerApiInvitationCreateRequest
-     * @param email {String} 
+     * @param {String} email - 
      */
     constructor(email) { 
         

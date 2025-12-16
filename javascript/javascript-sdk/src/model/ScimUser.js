@@ -25,15 +25,15 @@ import UserGroup from './UserGroup';
   * @property {Array.<String>} schemas
   * @property {String} baseUrn
   * @property {Object.<String, module:model/ScimExtension>} extensions
-  * @property {module:model/Meta} meta
+  * @property {Meta} meta
   * @property {String} id
   * @property {String} externalId
   * @property {String} resourceType
-  * @property {module:model/Email} primaryEmailAddress
+  * @property {Email} primaryEmailAddress
   * @property {Boolean} active
   * @property {Array.<module:model/Email>} emails
   * @property {String} userName
-  * @property {module:model/Name} name
+  * @property {Name} name
   * @property {Array.<module:model/UserGroup>} groups
   */
 
@@ -49,7 +49,7 @@ class ScimUser {
      * @alias module:model/ScimUser
      * @implements module:model/ScimResource
      * @implements module:model/BaseResourceScimResource
-     * @param meta {module:model/Meta} 
+     * @param {module:model/Meta} meta - 
      */
     constructor(meta) { 
         ScimResource.initialize(this, meta);BaseResourceScimResource.initialize(this);

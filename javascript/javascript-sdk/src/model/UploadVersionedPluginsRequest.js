@@ -28,7 +28,7 @@ class UploadVersionedPluginsRequest {
     /**
      * Constructs a new <code>UploadVersionedPluginsRequest</code>.
      * @alias module:model/UploadVersionedPluginsRequest
-     * @param file {File} 
+     * @param {File} file - 
      */
     constructor(file) { 
         

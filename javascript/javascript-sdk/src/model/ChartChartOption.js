@@ -29,8 +29,8 @@ class ChartChartOption {
     /**
      * Constructs a new <code>ChartChartOption</code>.
      * @alias module:model/ChartChartOption
-     * @param id {String} 
-     * @param type {String} 
+     * @param {String} id - 
+     * @param {String} type - 
      */
     constructor(id, type) { 
         

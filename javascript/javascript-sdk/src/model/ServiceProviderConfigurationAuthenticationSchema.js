@@ -16,7 +16,7 @@ import ServiceProviderConfigurationAuthenticationSchemaType from './ServiceProvi
 
 /**
   * @typedef {Object} IServiceProviderConfigurationAuthenticationSchema
-  * @property {module:model/ServiceProviderConfigurationAuthenticationSchemaType} type
+  * @property {ServiceProviderConfigurationAuthenticationSchemaType} type
   * @property {String} name
   * @property {String} description
   * @property {String} specUri

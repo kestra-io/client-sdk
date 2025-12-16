@@ -30,10 +30,10 @@ class UserUsage {
     /**
      * Constructs a new <code>UserUsage</code>.
      * @alias module:model/UserUsage
-     * @param count {Number} 
-     * @param apiKeyCount {Number} 
-     * @param oidcCount {Number} 
-     * @param basicAuthCount {Number} 
+     * @param {Number} count - 
+     * @param {Number} apiKeyCount - 
+     * @param {Number} oidcCount - 
+     * @param {Number} basicAuthCount - 
      */
     constructor(count, apiKeyCount, oidcCount, basicAuthCount) { 
         

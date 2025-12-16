@@ -18,7 +18,7 @@ import SecurityIntegrationType from './SecurityIntegrationType';
   * @typedef {Object} ICreateSecurityIntegrationRequest
   * @property {String} name - The name of security integration.
   * @property {String} description - The description of security integration.
-  * @property {module:model/SecurityIntegrationType} type
+  * @property {SecurityIntegrationType} type
   */
 
 /**
@@ -31,9 +31,9 @@ class CreateSecurityIntegrationRequest {
      * Constructs a new <code>CreateSecurityIntegrationRequest</code>.
      * Create SecurityIntegration Request
      * @alias module:model/CreateSecurityIntegrationRequest
-     * @param name {String} The name of security integration.
-     * @param description {String} The description of security integration.
-     * @param type {module:model/SecurityIntegrationType} 
+     * @param {String} name - The name of security integration.
+     * @param {String} description - The description of security integration.
+     * @param {module:model/SecurityIntegrationType} type - 
      */
     constructor(name, description, type) { 
         

@@ -29,8 +29,8 @@ class PagedResultsTriggerControllerTriggers {
     /**
      * Constructs a new <code>PagedResultsTriggerControllerTriggers</code>.
      * @alias module:model/PagedResultsTriggerControllerTriggers
-     * @param results {Array.<module:model/TriggerControllerTriggers>} 
-     * @param total {Number} 
+     * @param {Array.<module:model/TriggerControllerTriggers>} results - 
+     * @param {Number} total - 
      */
     constructor(results, total) { 
         

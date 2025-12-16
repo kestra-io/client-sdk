@@ -34,7 +34,7 @@ class Backfill {
     /**
      * Constructs a new <code>Backfill</code>.
      * @alias module:model/Backfill
-     * @param start {Date} 
+     * @param {Date} start - 
      */
     constructor(start) { 
         

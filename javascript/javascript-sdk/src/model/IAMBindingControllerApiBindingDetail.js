@@ -20,11 +20,11 @@ import IAMBindingControllerApiRole from './IAMBindingControllerApiRole';
 /**
   * @typedef {Object} IIAMBindingControllerApiBindingDetail
   * @property {String} id
-  * @property {module:model/BindingType} type
+  * @property {BindingType} type
   * @property {String} namespace
-  * @property {module:model/IAMBindingControllerApiRole} role
-  * @property {module:model/IAMBindingControllerApiBindingGroup} group
-  * @property {module:model/IAMBindingControllerApiBindingUser} user
+  * @property {IAMBindingControllerApiRole} role
+  * @property {IAMBindingControllerApiBindingGroup} group
+  * @property {IAMBindingControllerApiBindingUser} user
   */
 
 /**

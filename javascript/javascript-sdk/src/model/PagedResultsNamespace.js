@@ -29,8 +29,8 @@ class PagedResultsNamespace {
     /**
      * Constructs a new <code>PagedResultsNamespace</code>.
      * @alias module:model/PagedResultsNamespace
-     * @param results {Array.<module:model/Namespace>} 
-     * @param total {Number} 
+     * @param {Array.<module:model/Namespace>} results - 
+     * @param {Number} total - 
      */
     constructor(results, total) { 
         

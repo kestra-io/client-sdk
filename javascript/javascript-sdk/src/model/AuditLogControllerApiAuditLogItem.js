@@ -17,8 +17,8 @@ import AuditLog from './AuditLog';
 
 /**
   * @typedef {Object} IAuditLogControllerApiAuditLogItem
-  * @property {module:model/AuditLog} auditLog
-  * @property {module:model/ApiUser} user
+  * @property {AuditLog} auditLog
+  * @property {ApiUser} user
   */
 
 /**

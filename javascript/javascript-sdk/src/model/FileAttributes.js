@@ -19,7 +19,7 @@ import FileAttributesFileType from './FileAttributesFileType';
   * @property {String} fileName
   * @property {Number} lastModifiedTime
   * @property {Number} creationTime
-  * @property {module:model/FileAttributesFileType} type
+  * @property {FileAttributesFileType} type
   * @property {Number} size
   * @property {Object.<String, String>} metadata
   */

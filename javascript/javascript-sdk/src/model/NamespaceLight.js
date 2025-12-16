@@ -28,8 +28,8 @@ class NamespaceLight {
     /**
      * Constructs a new <code>NamespaceLight</code>.
      * @alias module:model/NamespaceLight
-     * @param id {String} 
-     * @param deleted {Boolean} 
+     * @param {String} id - 
+     * @param {Boolean} deleted - 
      */
     constructor(id, deleted) { 
         

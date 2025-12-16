@@ -24,12 +24,12 @@ import UserType from './UserType';
   * @property {Array.<module:model/Binding>} bindings
   * @property {Array.<String>} groupIds
   * @property {String} tenantId
-  * @property {module:model/InvitationInvitationStatus} status
+  * @property {InvitationInvitationStatus} status
   * @property {Date} sentAt
   * @property {Date} expiredAt
   * @property {Date} acceptedAt
   * @property {Boolean} deleted
-  * @property {module:model/UserType} userType
+  * @property {UserType} userType
   * @property {Boolean} superAdmin
   * @property {String} link
   */
@@ -43,8 +43,8 @@ class Invitation {
     /**
      * Constructs a new <code>Invitation</code>.
      * @alias module:model/Invitation
-     * @param email {String} 
-     * @param deleted {Boolean} 
+     * @param {String} email - 
+     * @param {Boolean} deleted - 
      */
     constructor(email, deleted) { 
         

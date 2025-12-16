@@ -19,8 +19,8 @@ import Type from './Type';
   * @typedef {Object} IOutput
   * @property {String} id
   * @property {String} description
-  * @property {module:model/OutputValue} value
-  * @property {module:model/Type} type
+  * @property {OutputValue} value
+  * @property {Type} type
   * @property {String} displayName
   * @property {Boolean} required
   */
@@ -34,9 +34,9 @@ class Output {
     /**
      * Constructs a new <code>Output</code>.
      * @alias module:model/Output
-     * @param id {String} 
-     * @param value {module:model/OutputValue} 
-     * @param type {module:model/Type} 
+     * @param {String} id - 
+     * @param {module:model/OutputValue} value - 
+     * @param {module:model/Type} type - 
      */
     constructor(id, value, type) { 
         

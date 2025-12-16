@@ -31,11 +31,11 @@ class ServerConfigLiveness {
     /**
      * Constructs a new <code>ServerConfigLiveness</code>.
      * @alias module:model/ServerConfigLiveness
-     * @param enabled {Boolean} 
-     * @param interval {String} 
-     * @param timeout {String} 
-     * @param initialDelay {String} 
-     * @param heartbeatInterval {String} 
+     * @param {Boolean} enabled - 
+     * @param {String} interval - 
+     * @param {String} timeout - 
+     * @param {String} initialDelay - 
+     * @param {String} heartbeatInterval - 
      */
     constructor(enabled, interval, timeout, initialDelay, heartbeatInterval) { 
         

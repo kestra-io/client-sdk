@@ -31,7 +31,7 @@ class Listener {
     /**
      * Constructs a new <code>Listener</code>.
      * @alias module:model/Listener
-     * @param tasks {Array.<module:model/Task>} 
+     * @param {Array.<module:model/Task>} tasks - 
      */
     constructor(tasks) { 
         

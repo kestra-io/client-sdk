@@ -27,7 +27,7 @@ class ApiPatchSuperAdminRequest {
     /**
      * Constructs a new <code>ApiPatchSuperAdminRequest</code>.
      * @alias module:model/ApiPatchSuperAdminRequest
-     * @param superAdmin {Boolean} 
+     * @param {Boolean} superAdmin - 
      */
     constructor(superAdmin) { 
         
