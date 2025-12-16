@@ -815,7 +815,33 @@ export default class ExecutionsApi {
 
 
 
+    /**
+     * Custom implementation for following execution via Server-Sent Events (SSE)
+     * @param {String} executionId
+     * @param {String} tenant
+     * @param {Object} [options] Optional parameters
+     * @param {Function} [options.EventSource] Custom EventSource constructor (for Node.js environment)
+     * @return {EventSource} EventSource object to listen to execution events
+     */
+    followExecution(executionId, tenant, options = {} ) {
+      // an EventSource implementation must be provided in Node.js environment
+      // in browser environment, the native EventSource cannot be used ieither since it cannot
+      // send the right http headers (like Authorization)
+      const EventSourceImpl = options.EventSource ?? polyfilledEventSource;
+      if (!EventSourceImpl) {
+        throw new Error("EventSource implementation must be provided in options.EventSource");
+      }
+        let url = this.apiClient.buildUrl('/api/v1/{tenant}/executions/{executionId}/follow', {
+            'executionId': executionId,
+            'tenant': tenant
+        });
 
+        const headers = this.apiClient.buildAuthHeaders(['basicAuth', 'bearerAuth']);
+
+        // create EventSource
+        const eventSource = new EventSourceImpl(url, { headers });
+        return eventSource;
+    }
 
 
 

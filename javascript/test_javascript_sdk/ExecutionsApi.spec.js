@@ -841,6 +841,77 @@ tasks:
     message: Good Bye! 👋
 `;
 
-    it.skip('follow_execution (SSE/WebSocket required)', async () => {});
+    // --- follow APIs (enable when your JS client exposes streaming) ---
+    it('follow_execution (SSE/WebSocket required)', async () => {
+        const ns = randomId();
+        const id = randomId();
+        const ex = await createFlowWithExecutionFromYaml(LONG_FLOW(id, ns));
+        const serverSentEventSource = kestraClient().executionsApi.followExecution(ex.id, MAIN_TENANT);
+
+        let eventContent = ''
+        let progress = 0;
+        const executionUpdate = (type, executionEvent) => {
+            eventContent += '\n[' + type + '] --------------------\n';
+            eventContent += JSON.stringify([executionEvent.type, ...Object.keys(JSON.parse(executionEvent.data)).sort()]) + '\n';
+            progress += 1
+        }
+        const closeSSE = () => {
+            serverSentEventSource.onerror = () => {}
+            serverSentEventSource.close();
+        }
+
+        serverSentEventSource.onmessage = (executionEvent) => {
+            const isEnd = executionEvent && executionEvent.lastEventId === "end";
+            // we are receiving a first "fake" event to force initializing the connection: ignoring it
+            if (executionEvent.lastEventId !== "start") {
+                executionUpdate("onmessage", executionEvent);
+            }
+            if (isEnd) {
+                closeSSE();
+            }
+        }
+
+        // sse.onerror doesn't return the details of the error
+        // but as our emitter can only throw an error on 404
+        // we can safely assume that the error is a 404
+        // if execution is not defined
+        serverSentEventSource.onerror = (e) => {
+            throw new Error('Execution not found' + JSON.stringify(e));
+        }
+
+        /*
+         * This will listen for events with the field `event: notice`.
+         */
+        serverSentEventSource.addEventListener('notice', (executionEvent) => {
+            executionUpdate("notice", executionEvent);
+        })
+
+        /*
+         * This will listen for events with the field `event: update`.
+         */
+        serverSentEventSource.addEventListener('update', (executionEvent) => {
+            executionUpdate("update", executionEvent);
+        })
+
+        /*
+         * The event "message" is a special case, as it will capture events _without_ an
+         * event field, as well as events that have the specific type `event: message`.
+         * It will not trigger on any other event type.
+         */
+        serverSentEventSource.addEventListener('message', (executionEvent) => {
+            executionUpdate("message", executionEvent);
+        })
+
+        /**
+         * this will listen for events with the field `event: error`.
+         */
+        serverSentEventSource.addEventListener('error', (executionEvent) => {
+            throw new Error('Error while following execution: ' + executionEvent);
+        })
+
+        await awaitExecution(ex.id, 'SUCCESS', 5000, 100);
+        serverSentEventSource.close();
+        expect(progress).toBeGreaterThan(30);
+    });
     it.skip('follow_dependencies_execution (SSE/WebSocket required)', async () => {});
 });
