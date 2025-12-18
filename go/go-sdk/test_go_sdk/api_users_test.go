@@ -5,19 +5,8 @@ import (
 	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"os"
 	"testing"
 )
-
-const defaultMainTenant = "main"
-
-// env helpers
-func envOr(key, def string) string {
-	if v := os.Getenv(key); v != "" {
-		return v
-	}
-	return def
-}
 
 // simple pointer helpers for request models
 func strPtr(s string) *string { return &s }
