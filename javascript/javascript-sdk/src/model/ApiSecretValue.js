@@ -15,15 +15,24 @@ import ApiClient from '../ApiClient';
 import ApiSecretTag from './ApiSecretTag';
 
 /**
+  * @typedef {Object} IApiSecretValue
+  * @property {Array.<module:model/ApiSecretTag>} tags
+  * @property {String} key
+  * @property {String} value
+  * @property {String} description
+  */
+
+/**
  * The ApiSecretValue model module.
  * @module model/ApiSecretValue
-  */
+ * @type {IApiSecretValue}
+ */
 class ApiSecretValue {
     /**
      * Constructs a new <code>ApiSecretValue</code>.
      * @alias module:model/ApiSecretValue
-     * @param key {String} 
-     * @param value {String} 
+     * @param {String} key - 
+     * @param {String} value - 
      */
     constructor(key, value) { 
         

@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IName
+  * @property {String} familyName
+  * @property {String} givenName
+  */
+
+/**
  * The Name model module.
  * @module model/Name
-  */
+ * @type {IName}
+ */
 class Name {
     /**
      * Constructs a new <code>Name</code>.

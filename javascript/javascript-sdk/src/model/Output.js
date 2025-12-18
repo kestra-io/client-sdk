@@ -16,16 +16,27 @@ import OutputValue from './OutputValue';
 import Type from './Type';
 
 /**
+  * @typedef {Object} IOutput
+  * @property {String} id
+  * @property {String} description
+  * @property {OutputValue} value
+  * @property {Type} type
+  * @property {String} displayName
+  * @property {Boolean} required
+  */
+
+/**
  * The Output model module.
  * @module model/Output
-  */
+ * @type {IOutput}
+ */
 class Output {
     /**
      * Constructs a new <code>Output</code>.
      * @alias module:model/Output
-     * @param id {String} 
-     * @param value {module:model/OutputValue} 
-     * @param type {module:model/Type} 
+     * @param {String} id - 
+     * @param {module:model/OutputValue} value - 
+     * @param {module:model/Type} type - 
      */
     constructor(id, value, type) { 
         

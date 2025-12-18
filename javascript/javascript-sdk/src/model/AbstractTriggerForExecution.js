@@ -14,15 +14,23 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IAbstractTriggerForExecution
+  * @property {String} id
+  * @property {String} type
+  * @property {String} version - Defines the version of the plugin to use.  The version must follow the Semantic Versioning (SemVer) specification:   - A single-digit MAJOR version (e.g., &#x60;1&#x60;).   - A MAJOR.MINOR version (e.g., &#x60;1.1&#x60;).   - A MAJOR.MINOR.PATCH version, optionally with any qualifier     (e.g., &#x60;1.1.2&#x60;, &#x60;1.1.0-SNAPSHOT&#x60;). 
+  */
+
+/**
  * The AbstractTriggerForExecution model module.
  * @module model/AbstractTriggerForExecution
-  */
+ * @type {IAbstractTriggerForExecution}
+ */
 class AbstractTriggerForExecution {
     /**
      * Constructs a new <code>AbstractTriggerForExecution</code>.
      * @alias module:model/AbstractTriggerForExecution
-     * @param id {String} 
-     * @param type {String} 
+     * @param {String} id - 
+     * @param {String} type - 
      */
     constructor(id, type) { 
         

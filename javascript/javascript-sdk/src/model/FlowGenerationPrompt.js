@@ -14,15 +14,23 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IFlowGenerationPrompt
+  * @property {String} conversationId
+  * @property {String} userPrompt
+  * @property {String} flowYaml
+  */
+
+/**
  * The FlowGenerationPrompt model module.
  * @module model/FlowGenerationPrompt
-  */
+ * @type {IFlowGenerationPrompt}
+ */
 class FlowGenerationPrompt {
     /**
      * Constructs a new <code>FlowGenerationPrompt</code>.
      * @alias module:model/FlowGenerationPrompt
-     * @param conversationId {String} 
-     * @param userPrompt {String} 
+     * @param {String} conversationId - 
+     * @param {String} userPrompt - 
      */
     constructor(conversationId, userPrompt) { 
         

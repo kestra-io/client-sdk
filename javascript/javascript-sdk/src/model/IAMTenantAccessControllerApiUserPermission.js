@@ -16,9 +16,16 @@ import Action from './Action';
 import Permission from './Permission';
 
 /**
+  * @typedef {Object} IIAMTenantAccessControllerApiUserPermission
+  * @property {Permission} permission
+  * @property {Array.<module:model/Action>} actions
+  */
+
+/**
  * The IAMTenantAccessControllerApiUserPermission model module.
  * @module model/IAMTenantAccessControllerApiUserPermission
-  */
+ * @type {IIAMTenantAccessControllerApiUserPermission}
+ */
 class IAMTenantAccessControllerApiUserPermission {
     /**
      * Constructs a new <code>IAMTenantAccessControllerApiUserPermission</code>.

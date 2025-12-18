@@ -19,17 +19,35 @@ import GroupIdentifier from './GroupIdentifier';
 import UserType from './UserType';
 
 /**
+  * @typedef {Object} IApiUser
+  * @property {UserType} type
+  * @property {Array.<module:model/GroupIdentifier>} groupList
+  * @property {Array.<Object>} groups
+  * @property {String} username
+  * @property {String} email
+  * @property {Boolean} superAdmin
+  * @property {String} id
+  * @property {String} name
+  * @property {String} description
+  * @property {String} firstName
+  * @property {String} lastName
+  * @property {Array.<module:model/AbstractUserTenantIdentityProvider>} providers
+  * @property {Array.<module:model/ApiAuth>} auths
+  */
+
+/**
  * The ApiUser model module.
  * @module model/ApiUser
-  */
+ * @type {IApiUser}
+ */
 class ApiUser {
     /**
      * Constructs a new <code>ApiUser</code>.
      * @alias module:model/ApiUser
      * @implements module:model/AbstractUser
-     * @param type {module:model/UserType} 
-     * @param username {String} 
-     * @param email {String} 
+     * @param {module:model/UserType} type - 
+     * @param {String} username - 
+     * @param {String} email - 
      */
     constructor(type, username, email) { 
         AbstractUser.initialize(this, type, username, email);

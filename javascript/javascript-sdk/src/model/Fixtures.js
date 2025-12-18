@@ -16,9 +16,18 @@ import TaskFixture from './TaskFixture';
 import TriggerFixture from './TriggerFixture';
 
 /**
+  * @typedef {Object} IFixtures
+  * @property {Object.<String, Object>} inputs
+  * @property {Object.<String, String>} files
+  * @property {Array.<module:model/TaskFixture>} tasks
+  * @property {TriggerFixture} trigger
+  */
+
+/**
  * The Fixtures model module.
  * @module model/Fixtures
-  */
+ * @type {IFixtures}
+ */
 class Fixtures {
     /**
      * Constructs a new <code>Fixtures</code>.

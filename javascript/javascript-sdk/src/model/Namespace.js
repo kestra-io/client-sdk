@@ -19,16 +19,36 @@ import PluginDefault from './PluginDefault';
 import WorkerGroup from './WorkerGroup';
 
 /**
+  * @typedef {Object} INamespace
+  * @property {String} id
+  * @property {Boolean} deleted
+  * @property {Isolation} storageIsolation
+  * @property {Isolation} secretIsolation
+  * @property {String} description
+  * @property {Object.<String, Object>} variables
+  * @property {Array.<module:model/PluginDefault>} pluginDefaults
+  * @property {Array.<module:model/NamespaceAllowedNamespace>} allowedNamespaces
+  * @property {WorkerGroup} workerGroup
+  * @property {String} storageType
+  * @property {Object.<String, Object>} storageConfiguration
+  * @property {String} secretType
+  * @property {Boolean} secretReadOnly
+  * @property {Object.<String, Object>} secretConfiguration
+  * @property {Boolean} outputsInInternalStorage
+  */
+
+/**
  * The Namespace model module.
  * @module model/Namespace
-  */
+ * @type {INamespace}
+ */
 class Namespace {
     /**
      * Constructs a new <code>Namespace</code>.
      * @alias module:model/Namespace
      * @implements module:model/NamespaceLight
-     * @param id {String} 
-     * @param deleted {Boolean} 
+     * @param {String} id - 
+     * @param {Boolean} deleted - 
      */
     constructor(id, deleted) { 
         NamespaceLight.initialize(this, id, deleted);

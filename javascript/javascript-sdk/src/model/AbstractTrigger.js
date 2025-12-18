@@ -19,15 +19,32 @@ import TheLabelsToPassToTheExecutionCreated from './TheLabelsToPassToTheExecutio
 import WorkerGroup from './WorkerGroup';
 
 /**
+  * @typedef {Object} IAbstractTrigger
+  * @property {String} id
+  * @property {String} type
+  * @property {String} version - Defines the version of the plugin to use.  The version must follow the Semantic Versioning (SemVer) specification:   - A single-digit MAJOR version (e.g., &#x60;1&#x60;).   - A MAJOR.MINOR version (e.g., &#x60;1.1&#x60;).   - A MAJOR.MINOR.PATCH version, optionally with any qualifier     (e.g., &#x60;1.1.2&#x60;, &#x60;1.1.0-SNAPSHOT&#x60;). 
+  * @property {String} description
+  * @property {Array.<module:model/Condition>} conditions
+  * @property {Boolean} disabled
+  * @property {WorkerGroup} workerGroup
+  * @property {Level} logLevel
+  * @property {TheLabelsToPassToTheExecutionCreated} labels
+  * @property {Array.<module:model/StateType>} stopAfter
+  * @property {Boolean} logToFile
+  * @property {Boolean} failOnTriggerError
+  */
+
+/**
  * The AbstractTrigger model module.
  * @module model/AbstractTrigger
-  */
+ * @type {IAbstractTrigger}
+ */
 class AbstractTrigger {
     /**
      * Constructs a new <code>AbstractTrigger</code>.
      * @alias module:model/AbstractTrigger
-     * @param id {String} 
-     * @param type {String} 
+     * @param {String} id - 
+     * @param {String} type - 
      */
     constructor(id, type) { 
         

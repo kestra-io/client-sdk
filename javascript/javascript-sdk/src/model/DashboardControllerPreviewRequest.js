@@ -15,14 +15,21 @@ import ApiClient from '../ApiClient';
 import ChartFiltersOverrides from './ChartFiltersOverrides';
 
 /**
+  * @typedef {Object} IDashboardControllerPreviewRequest
+  * @property {String} chart
+  * @property {ChartFiltersOverrides} globalFilter
+  */
+
+/**
  * The DashboardControllerPreviewRequest model module.
  * @module model/DashboardControllerPreviewRequest
-  */
+ * @type {IDashboardControllerPreviewRequest}
+ */
 class DashboardControllerPreviewRequest {
     /**
      * Constructs a new <code>DashboardControllerPreviewRequest</code>.
      * @alias module:model/DashboardControllerPreviewRequest
-     * @param chart {String} 
+     * @param {String} chart - 
      */
     constructor(chart) { 
         

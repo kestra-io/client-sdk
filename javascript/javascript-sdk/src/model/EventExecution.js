@@ -15,9 +15,19 @@ import ApiClient from '../ApiClient';
 import Execution from './Execution';
 
 /**
+  * @typedef {Object} IEventExecution
+  * @property {Execution} data
+  * @property {String} id
+  * @property {String} name
+  * @property {String} comment
+  * @property {String} retry
+  */
+
+/**
  * The EventExecution model module.
  * @module model/EventExecution
-  */
+ * @type {IEventExecution}
+ */
 class EventExecution {
     /**
      * Constructs a new <code>EventExecution</code>.

@@ -13,6 +13,17 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum RBACServiceRoleAssignmentRoleOrigin
+ * @type {{
+ *   "BINDING": "BINDING","GROUP": "GROUP",
+ * }}
+ */
+export const RBACServiceRoleAssignmentRoleOriginStatic = { 
+    "BINDING": "BINDING",
+    "GROUP": "GROUP",
+}
+
+/**
 * Enum class RBACServiceRoleAssignmentRoleOrigin.
 * @enum {}
 * @readonly

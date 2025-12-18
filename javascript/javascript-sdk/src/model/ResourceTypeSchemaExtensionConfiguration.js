@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IResourceTypeSchemaExtensionConfiguration
+  * @property {String} schemaUrn
+  * @property {Boolean} required
+  */
+
+/**
  * The ResourceTypeSchemaExtensionConfiguration model module.
  * @module model/ResourceTypeSchemaExtensionConfiguration
-  */
+ * @type {IResourceTypeSchemaExtensionConfiguration}
+ */
 class ResourceTypeSchemaExtensionConfiguration {
     /**
      * Constructs a new <code>ResourceTypeSchemaExtensionConfiguration</code>.

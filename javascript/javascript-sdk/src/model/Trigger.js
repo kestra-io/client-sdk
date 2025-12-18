@@ -17,18 +17,36 @@ import StateType from './StateType';
 import TriggerContext from './TriggerContext';
 
 /**
+  * @typedef {Object} ITrigger
+  * @property {Boolean} disabled
+  * @property {String} tenantId
+  * @property {String} namespace
+  * @property {String} flowId
+  * @property {String} triggerId
+  * @property {Date} date
+  * @property {Date} nextExecutionDate
+  * @property {Backfill} backfill
+  * @property {Array.<module:model/StateType>} stopAfter
+  * @property {String} executionId
+  * @property {Date} updatedDate
+  * @property {Date} evaluateRunningDate
+  * @property {String} workerId
+  */
+
+/**
  * The Trigger model module.
  * @module model/Trigger
-  */
+ * @type {ITrigger}
+ */
 class Trigger {
     /**
      * Constructs a new <code>Trigger</code>.
      * @alias module:model/Trigger
      * @implements module:model/TriggerContext
-     * @param namespace {String} 
-     * @param flowId {String} 
-     * @param triggerId {String} 
-     * @param date {Date} 
+     * @param {String} namespace - 
+     * @param {String} flowId - 
+     * @param {String} triggerId - 
+     * @param {Date} date - 
      */
     constructor(namespace, flowId, triggerId, date) { 
         TriggerContext.initialize(this, namespace, flowId, triggerId, date);

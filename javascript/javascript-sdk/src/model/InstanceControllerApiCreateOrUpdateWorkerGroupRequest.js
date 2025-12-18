@@ -14,15 +14,23 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IInstanceControllerApiCreateOrUpdateWorkerGroupRequest
+  * @property {String} key - The key of the worker group.
+  * @property {String} description - The description of the worker group.
+  * @property {Array.<String>} allowedTenants
+  */
+
+/**
  * The InstanceControllerApiCreateOrUpdateWorkerGroupRequest model module.
  * @module model/InstanceControllerApiCreateOrUpdateWorkerGroupRequest
-  */
+ * @type {IInstanceControllerApiCreateOrUpdateWorkerGroupRequest}
+ */
 class InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
     /**
      * Constructs a new <code>InstanceControllerApiCreateOrUpdateWorkerGroupRequest</code>.
      * ApiCreateWorkerGroupRequest.
      * @alias module:model/InstanceControllerApiCreateOrUpdateWorkerGroupRequest
-     * @param key {String} The key of the worker group.
+     * @param {String} key - The key of the worker group.
      */
     constructor(key) { 
         

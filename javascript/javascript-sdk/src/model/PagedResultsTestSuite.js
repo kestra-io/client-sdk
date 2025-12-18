@@ -15,15 +15,22 @@ import ApiClient from '../ApiClient';
 import TestSuite from './TestSuite';
 
 /**
+  * @typedef {Object} IPagedResultsTestSuite
+  * @property {Array.<module:model/TestSuite>} results
+  * @property {Number} total
+  */
+
+/**
  * The PagedResultsTestSuite model module.
  * @module model/PagedResultsTestSuite
-  */
+ * @type {IPagedResultsTestSuite}
+ */
 class PagedResultsTestSuite {
     /**
      * Constructs a new <code>PagedResultsTestSuite</code>.
      * @alias module:model/PagedResultsTestSuite
-     * @param results {Array.<module:model/TestSuite>} 
-     * @param total {Number} 
+     * @param {Array.<module:model/TestSuite>} results - 
+     * @param {Number} total - 
      */
     constructor(results, total) { 
         

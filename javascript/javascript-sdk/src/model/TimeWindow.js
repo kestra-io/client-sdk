@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} ITimeWindow
+  * @property {String} default
+  * @property {String} max
+  */
+
+/**
  * The TimeWindow model module.
  * @module model/TimeWindow
-  */
+ * @type {ITimeWindow}
+ */
 class TimeWindow {
     /**
      * Constructs a new <code>TimeWindow</code>.

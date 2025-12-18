@@ -15,15 +15,22 @@ import ApiClient from '../ApiClient';
 import Execution from './Execution';
 
 /**
+  * @typedef {Object} IPagedResultsExecution
+  * @property {Array.<module:model/Execution>} results
+  * @property {Number} total
+  */
+
+/**
  * The PagedResultsExecution model module.
  * @module model/PagedResultsExecution
-  */
+ * @type {IPagedResultsExecution}
+ */
 class PagedResultsExecution {
     /**
      * Constructs a new <code>PagedResultsExecution</code>.
      * @alias module:model/PagedResultsExecution
-     * @param results {Array.<module:model/Execution>} 
-     * @param total {Number} 
+     * @param {Array.<module:model/Execution>} results - 
+     * @param {Number} total - 
      */
     constructor(results, total) { 
         

@@ -14,15 +14,23 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} ITriggerFixture
+  * @property {String} id
+  * @property {String} type
+  * @property {Object.<String, Object>} variables
+  */
+
+/**
  * The TriggerFixture model module.
  * @module model/TriggerFixture
-  */
+ * @type {ITriggerFixture}
+ */
 class TriggerFixture {
     /**
      * Constructs a new <code>TriggerFixture</code>.
      * @alias module:model/TriggerFixture
-     * @param id {String} 
-     * @param type {String} 
+     * @param {String} id - 
+     * @param {String} type - 
      */
     constructor(id, type) { 
         

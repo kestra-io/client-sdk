@@ -24,19 +24,44 @@ import Task from './Task';
 import WorkerGroup from './WorkerGroup';
 
 /**
+  * @typedef {Object} IFlow
+  * @property {String} id
+  * @property {String} namespace
+  * @property {Number} revision
+  * @property {String} description
+  * @property {Array.<module:model/InputObject>} inputs
+  * @property {Array.<module:model/Output>} outputs - Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages.
+  * @property {Boolean} disabled
+  * @property {Array.<module:model/Label>} labels - Labels as a list of Label (key/value pairs) or as a map of string to string.
+  * @property {Object} variables
+  * @property {WorkerGroup} workerGroup
+  * @property {Boolean} deleted
+  * @property {Array.<module:model/Task>} finally
+  * @property {Array.<module:model/Task>} tasks
+  * @property {Array.<module:model/Task>} errors
+  * @property {Array.<module:model/Task>} afterExecution
+  * @property {Array.<module:model/AbstractTrigger>} triggers
+  * @property {Array.<module:model/PluginDefault>} pluginDefaults
+  * @property {Concurrency} concurrency
+  * @property {Object} retry
+  * @property {Array.<module:model/SLA>} sla
+  */
+
+/**
  * The Flow model module.
  * @module model/Flow
-  */
+ * @type {IFlow}
+ */
 class Flow {
     /**
      * Constructs a new <code>Flow</code>.
      * @alias module:model/Flow
      * @implements module:model/AbstractFlow
-     * @param id {String} 
-     * @param namespace {String} 
-     * @param disabled {Boolean} 
-     * @param deleted {Boolean} 
-     * @param tasks {Array.<module:model/Task>} 
+     * @param {String} id - 
+     * @param {String} namespace - 
+     * @param {Boolean} disabled - 
+     * @param {Boolean} deleted - 
+     * @param {Array.<module:model/Task>} tasks - 
      */
     constructor(id, namespace, disabled, deleted, tasks) { 
         AbstractFlow.initialize(this, id, namespace, disabled, deleted);

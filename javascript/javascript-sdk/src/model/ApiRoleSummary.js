@@ -14,9 +14,18 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IApiRoleSummary
+  * @property {String} id
+  * @property {String} name
+  * @property {Boolean} isDefault
+  * @property {Boolean} isManaged
+  */
+
+/**
  * The ApiRoleSummary model module.
  * @module model/ApiRoleSummary
-  */
+ * @type {IApiRoleSummary}
+ */
 class ApiRoleSummary {
     /**
      * Constructs a new <code>ApiRoleSummary</code>.

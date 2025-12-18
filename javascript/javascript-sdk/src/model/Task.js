@@ -17,15 +17,34 @@ import Level from './Level';
 import WorkerGroup from './WorkerGroup';
 
 /**
+  * @typedef {Object} ITask
+  * @property {String} id
+  * @property {String} type
+  * @property {String} version - Defines the version of the plugin to use.  The version must follow the Semantic Versioning (SemVer) specification:   - A single-digit MAJOR version (e.g., &#x60;1&#x60;).   - A MAJOR.MINOR version (e.g., &#x60;1.1&#x60;).   - A MAJOR.MINOR.PATCH version, optionally with any qualifier     (e.g., &#x60;1.1.2&#x60;, &#x60;1.1.0-SNAPSHOT&#x60;). 
+  * @property {String} description
+  * @property {Object} retry
+  * @property {Object} timeout
+  * @property {Boolean} disabled
+  * @property {WorkerGroup} workerGroup
+  * @property {Level} logLevel
+  * @property {Boolean} allowFailure
+  * @property {Boolean} logToFile
+  * @property {String} runIf
+  * @property {Boolean} allowWarning
+  * @property {Cache} taskCache
+  */
+
+/**
  * The Task model module.
  * @module model/Task
-  */
+ * @type {ITask}
+ */
 class Task {
     /**
      * Constructs a new <code>Task</code>.
      * @alias module:model/Task
-     * @param id {String} 
-     * @param type {String} 
+     * @param {String} id - 
+     * @param {String} type - 
      */
     constructor(id, type) { 
         

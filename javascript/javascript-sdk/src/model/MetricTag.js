@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IMetricTag
+  * @property {String} key
+  * @property {String} value
+  */
+
+/**
  * The MetricTag model module.
  * @module model/MetricTag
-  */
+ * @type {IMetricTag}
+ */
 class MetricTag {
     /**
      * Constructs a new <code>MetricTag</code>.

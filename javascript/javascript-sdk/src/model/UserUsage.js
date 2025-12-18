@@ -14,17 +14,26 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IUserUsage
+  * @property {Number} count
+  * @property {Number} apiKeyCount
+  * @property {Number} oidcCount
+  * @property {Number} basicAuthCount
+  */
+
+/**
  * The UserUsage model module.
  * @module model/UserUsage
-  */
+ * @type {IUserUsage}
+ */
 class UserUsage {
     /**
      * Constructs a new <code>UserUsage</code>.
      * @alias module:model/UserUsage
-     * @param count {Number} 
-     * @param apiKeyCount {Number} 
-     * @param oidcCount {Number} 
-     * @param basicAuthCount {Number} 
+     * @param {Number} count - 
+     * @param {Number} apiKeyCount - 
+     * @param {Number} oidcCount - 
+     * @param {Number} basicAuthCount - 
      */
     constructor(count, apiKeyCount, oidcCount, basicAuthCount) { 
         

@@ -17,9 +17,24 @@ import Label from './Label';
 import State from './State';
 
 /**
+  * @typedef {Object} IExecutionControllerWebhookResponse
+  * @property {String} tenantId
+  * @property {String} id
+  * @property {String} namespace
+  * @property {String} flowId
+  * @property {Number} flowRevision
+  * @property {ExecutionTrigger} trigger
+  * @property {Object.<String, Object>} outputs
+  * @property {Array.<module:model/Label>} labels
+  * @property {State} state
+  * @property {String} url
+  */
+
+/**
  * The ExecutionControllerWebhookResponse model module.
  * @module model/ExecutionControllerWebhookResponse
-  */
+ * @type {IExecutionControllerWebhookResponse}
+ */
 class ExecutionControllerWebhookResponse {
     /**
      * Constructs a new <code>ExecutionControllerWebhookResponse</code>.

@@ -16,19 +16,37 @@ import State from './State';
 import TaskRunAttempt from './TaskRunAttempt';
 
 /**
+  * @typedef {Object} ITaskRun
+  * @property {String} id
+  * @property {String} executionId
+  * @property {String} namespace
+  * @property {String} flowId
+  * @property {String} taskId
+  * @property {String} parentTaskRunId
+  * @property {String} value
+  * @property {Array.<module:model/TaskRunAttempt>} attempts
+  * @property {Object} outputs
+  * @property {State} state
+  * @property {Number} iteration
+  * @property {Boolean} dynamic
+  * @property {Boolean} forceExecution
+  */
+
+/**
  * The TaskRun model module.
  * @module model/TaskRun
-  */
+ * @type {ITaskRun}
+ */
 class TaskRun {
     /**
      * Constructs a new <code>TaskRun</code>.
      * @alias module:model/TaskRun
-     * @param id {String} 
-     * @param executionId {String} 
-     * @param namespace {String} 
-     * @param flowId {String} 
-     * @param taskId {String} 
-     * @param state {module:model/State} 
+     * @param {String} id - 
+     * @param {String} executionId - 
+     * @param {String} namespace - 
+     * @param {String} flowId - 
+     * @param {String} taskId - 
+     * @param {module:model/State} state - 
      */
     constructor(id, executionId, namespace, flowId, taskId, state) { 
         

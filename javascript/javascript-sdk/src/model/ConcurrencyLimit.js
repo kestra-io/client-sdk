@@ -14,16 +14,25 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IConcurrencyLimit
+  * @property {String} tenantId
+  * @property {String} namespace
+  * @property {String} flowId
+  * @property {Number} running
+  */
+
+/**
  * The ConcurrencyLimit model module.
  * @module model/ConcurrencyLimit
-  */
+ * @type {IConcurrencyLimit}
+ */
 class ConcurrencyLimit {
     /**
      * Constructs a new <code>ConcurrencyLimit</code>.
      * @alias module:model/ConcurrencyLimit
-     * @param tenantId {String} 
-     * @param namespace {String} 
-     * @param flowId {String} 
+     * @param {String} tenantId - 
+     * @param {String} namespace - 
+     * @param {String} flowId - 
      */
     constructor(tenantId, namespace, flowId) { 
         

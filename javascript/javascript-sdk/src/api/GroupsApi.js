@@ -27,7 +27,6 @@ import PagedResultsIAMGroupControllerApiGroupMember from '../model/PagedResultsI
 /**
 * Groups service.
 * @module api/GroupsApi
-* @version 1.0.2
 */
 export default class GroupsApi {
 
@@ -54,7 +53,7 @@ export default class GroupsApi {
     * @param {String} userId The ID of the user to add to the group
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMGroupControllerApiGroupMember} and HTTP response
+    * @return {Promise<IAMGroupControllerApiGroupMember>}
     */
     addUserToGroupWithHttpInfo(id, userId, tenant) {
       let postBody = null;
@@ -101,7 +100,7 @@ export default class GroupsApi {
     * @param {String} userId The ID of the user to add to the group
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMGroupControllerApiGroupMember}
+    * @return {Promise<IAMGroupControllerApiGroupMember>}
     */
     addUserToGroup(id, userId, tenant) {
       return this.addUserToGroupWithHttpInfo(id, userId, tenant)
@@ -125,7 +124,7 @@ export default class GroupsApi {
     * @param {String} tenant 
     * @param {module:model/ApiAutocomplete} apiAutocomplete Autocomplete request
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiGroupSummary>} and HTTP response
+    * @return {Promise<Array.<ApiGroupSummary>>}
     */
     autocompleteGroupsWithHttpInfo(tenant, apiAutocomplete) {
       let postBody = apiAutocomplete;
@@ -164,7 +163,7 @@ export default class GroupsApi {
     * @param {String} tenant 
     * @param {module:model/ApiAutocomplete} apiAutocomplete Autocomplete request
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiGroupSummary>}
+    * @return {Promise<Array.<ApiGroupSummary>>}
     */
     autocompleteGroups(tenant, apiAutocomplete) {
       return this.autocompleteGroupsWithHttpInfo(tenant, apiAutocomplete)
@@ -188,7 +187,7 @@ export default class GroupsApi {
     * @param {String} tenant 
     * @param {module:model/IAMGroupControllerApiCreateGroupRequest} iAMGroupControllerApiCreateGroupRequest The group
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMGroupControllerApiGroupDetail} and HTTP response
+    * @return {Promise<IAMGroupControllerApiGroupDetail>}
     */
     createGroupWithHttpInfo(tenant, iAMGroupControllerApiCreateGroupRequest) {
       let postBody = iAMGroupControllerApiCreateGroupRequest;
@@ -227,7 +226,7 @@ export default class GroupsApi {
     * @param {String} tenant 
     * @param {module:model/IAMGroupControllerApiCreateGroupRequest} iAMGroupControllerApiCreateGroupRequest The group
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMGroupControllerApiGroupDetail}
+    * @return {Promise<IAMGroupControllerApiGroupDetail>}
     */
     createGroup(tenant, iAMGroupControllerApiCreateGroupRequest) {
       return this.createGroupWithHttpInfo(tenant, iAMGroupControllerApiCreateGroupRequest)
@@ -251,7 +250,7 @@ export default class GroupsApi {
     * @param {String} id The group id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+    * @return {Promise<  >}
     */
     deleteGroupWithHttpInfo(id, tenant) {
       let postBody = null;
@@ -291,7 +290,7 @@ export default class GroupsApi {
     * @param {String} id The group id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+    * @return {Promise<  >}
     */
     deleteGroup(id, tenant) {
       return this.deleteGroupWithHttpInfo(id, tenant)
@@ -317,7 +316,7 @@ export default class GroupsApi {
     * @param {String} userId The ID of the user to remove from the group
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMGroupControllerApiGroupMember} and HTTP response
+    * @return {Promise<IAMGroupControllerApiGroupMember>}
     */
     deleteUserFromGroupWithHttpInfo(id, userId, tenant) {
       let postBody = null;
@@ -364,7 +363,7 @@ export default class GroupsApi {
     * @param {String} userId The ID of the user to remove from the group
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMGroupControllerApiGroupMember}
+    * @return {Promise<IAMGroupControllerApiGroupMember>}
     */
     deleteUserFromGroup(id, userId, tenant) {
       return this.deleteUserFromGroupWithHttpInfo(id, userId, tenant)
@@ -389,7 +388,7 @@ export default class GroupsApi {
     * @param {String} id The group id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMGroupControllerApiGroupDetail} and HTTP response
+    * @return {Promise<IAMGroupControllerApiGroupDetail>}
     */
     groupWithHttpInfo(id, tenant) {
       let postBody = null;
@@ -430,7 +429,7 @@ export default class GroupsApi {
     * @param {String} id The group id
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMGroupControllerApiGroupDetail}
+    * @return {Promise<IAMGroupControllerApiGroupDetail>}
     */
     group(id, tenant) {
       return this.groupWithHttpInfo(id, tenant)
@@ -454,7 +453,7 @@ export default class GroupsApi {
     * @param {String} tenant 
     * @param {module:model/ApiIds} apiIds The ids that must be present on results
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiGroupSummary>} and HTTP response
+    * @return {Promise<Array.<ApiGroupSummary>>}
     */
     listGroupIdsWithHttpInfo(tenant, apiIds) {
       let postBody = apiIds;
@@ -493,7 +492,7 @@ export default class GroupsApi {
     * @param {String} tenant 
     * @param {module:model/ApiIds} apiIds The ids that must be present on results
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiGroupSummary>}
+    * @return {Promise<Array.<ApiGroupSummary>>}
     */
     listGroupIds(tenant, apiIds) {
       return this.listGroupIdsWithHttpInfo(tenant, apiIds)
@@ -522,7 +521,7 @@ export default class GroupsApi {
     * @param {String} [q] A string filter
     * @param {Array.<String>} [sort] The sort of current page
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsIAMGroupControllerApiGroupMember} and HTTP response
+    * @return {Promise<PagedResultsIAMGroupControllerApiGroupMember>}
     */
     searchGroupMembersWithHttpInfo(id, page, size, tenant, opts) {
       opts = opts || {};
@@ -576,11 +575,11 @@ export default class GroupsApi {
     * @param {Number} page The current page
     * @param {Number} size The current page size
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {String} opts.q A string filter
-    * @param {Array.<String>} opts.sort The sort of current page
+    * @param {Object} [opts] Optional parameters
+    * @param {String} [opts.q] A string filter
+    * @param {Array.<String>} [opts.sort] The sort of current page
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsIAMGroupControllerApiGroupMember}
+    * @return {Promise<PagedResultsIAMGroupControllerApiGroupMember>}
     */
     searchGroupMembers(id, page, size, tenant, opts) {
       return this.searchGroupMembersWithHttpInfo(id, page, size, tenant, opts)
@@ -608,7 +607,7 @@ export default class GroupsApi {
     * @param {String} [q] A string filter
     * @param {Array.<String>} [sort] The sort of current page
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsApiGroupSummary} and HTTP response
+    * @return {Promise<PagedResultsApiGroupSummary>}
     */
     searchGroupsWithHttpInfo(page, size, tenant, opts) {
       opts = opts || {};
@@ -656,11 +655,11 @@ export default class GroupsApi {
     * @param {Number} page The current page
     * @param {Number} size The current page size
     * @param {String} tenant 
-    * @param {Object} opts Optional parameters
-    * @param {String} opts.q A string filter
-    * @param {Array.<String>} opts.sort The sort of current page
+    * @param {Object} [opts] Optional parameters
+    * @param {String} [opts.q] A string filter
+    * @param {Array.<String>} [opts.sort] The sort of current page
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsApiGroupSummary}
+    * @return {Promise<PagedResultsApiGroupSummary>}
     */
     searchGroups(page, size, tenant, opts) {
       return this.searchGroupsWithHttpInfo(page, size, tenant, opts)
@@ -687,7 +686,7 @@ export default class GroupsApi {
     * @param {module:model/GroupIdentifierMembership} membership The new membership type to assign to the user.
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMGroupControllerApiGroupMember} and HTTP response
+    * @return {Promise<IAMGroupControllerApiGroupMember>}
     */
     setUserMembershipForGroupWithHttpInfo(id, userId, membership, tenant) {
       let postBody = null;
@@ -740,7 +739,7 @@ export default class GroupsApi {
     * @param {module:model/GroupIdentifierMembership} membership The new membership type to assign to the user.
     * @param {String} tenant 
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMGroupControllerApiGroupMember}
+    * @return {Promise<IAMGroupControllerApiGroupMember>}
     */
     setUserMembershipForGroup(id, userId, membership, tenant) {
       return this.setUserMembershipForGroupWithHttpInfo(id, userId, membership, tenant)
@@ -765,7 +764,7 @@ export default class GroupsApi {
     * @param {String} tenant 
     * @param {module:model/IAMGroupControllerApiUpdateGroupRequest} iAMGroupControllerApiUpdateGroupRequest The group
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMGroupControllerApiGroupDetail} and HTTP response
+    * @return {Promise<IAMGroupControllerApiGroupDetail>}
     */
     updateGroupWithHttpInfo(id, tenant, iAMGroupControllerApiUpdateGroupRequest) {
       let postBody = iAMGroupControllerApiUpdateGroupRequest;
@@ -810,7 +809,7 @@ export default class GroupsApi {
     * @param {String} tenant 
     * @param {module:model/IAMGroupControllerApiUpdateGroupRequest} iAMGroupControllerApiUpdateGroupRequest The group
 
-    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMGroupControllerApiGroupDetail}
+    * @return {Promise<IAMGroupControllerApiGroupDetail>}
     */
     updateGroup(id, tenant, iAMGroupControllerApiUpdateGroupRequest) {
       return this.updateGroupWithHttpInfo(id, tenant, iAMGroupControllerApiUpdateGroupRequest)

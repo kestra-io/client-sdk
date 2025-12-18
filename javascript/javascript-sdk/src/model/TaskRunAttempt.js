@@ -15,14 +15,22 @@ import ApiClient from '../ApiClient';
 import State from './State';
 
 /**
+  * @typedef {Object} ITaskRunAttempt
+  * @property {State} state
+  * @property {String} workerId
+  * @property {String} logFile
+  */
+
+/**
  * The TaskRunAttempt model module.
  * @module model/TaskRunAttempt
-  */
+ * @type {ITaskRunAttempt}
+ */
 class TaskRunAttempt {
     /**
      * Constructs a new <code>TaskRunAttempt</code>.
      * @alias module:model/TaskRunAttempt
-     * @param state {module:model/State} 
+     * @param {module:model/State} state - 
      */
     constructor(state) { 
         

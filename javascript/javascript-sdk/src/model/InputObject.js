@@ -16,15 +16,28 @@ import DependsOn from './DependsOn';
 import Type from './Type';
 
 /**
+  * @typedef {Object} IInputObject
+  * @property {String} id
+  * @property {Type} type
+  * @property {String} description
+  * @property {DependsOn} dependsOn
+  * @property {Boolean} required
+  * @property {Object} defaults
+  * @property {Object} prefill - Optional UI hint for pre-filling the input. Cannot be used together with a default value.
+  * @property {String} displayName
+  */
+
+/**
  * The InputObject model module.
  * @module model/InputObject
-  */
+ * @type {IInputObject}
+ */
 class InputObject {
     /**
      * Constructs a new <code>InputObject</code>.
      * @alias module:model/InputObject
-     * @param id {String} 
-     * @param type {module:model/Type} 
+     * @param {String} id - 
+     * @param {module:model/Type} type - 
      */
     constructor(id, type) { 
         

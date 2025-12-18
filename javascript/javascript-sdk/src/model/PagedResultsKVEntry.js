@@ -15,15 +15,22 @@ import ApiClient from '../ApiClient';
 import KVEntry from './KVEntry';
 
 /**
+  * @typedef {Object} IPagedResultsKVEntry
+  * @property {Array.<module:model/KVEntry>} results
+  * @property {Number} total
+  */
+
+/**
  * The PagedResultsKVEntry model module.
  * @module model/PagedResultsKVEntry
-  */
+ * @type {IPagedResultsKVEntry}
+ */
 class PagedResultsKVEntry {
     /**
      * Constructs a new <code>PagedResultsKVEntry</code>.
      * @alias module:model/PagedResultsKVEntry
-     * @param results {Array.<module:model/KVEntry>} 
-     * @param total {Number} 
+     * @param {Array.<module:model/KVEntry>} results - 
+     * @param {Number} total - 
      */
     constructor(results, total) { 
         

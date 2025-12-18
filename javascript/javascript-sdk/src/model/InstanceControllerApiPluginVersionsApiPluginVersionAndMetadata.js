@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import PluginArtifactMetadata from './PluginArtifactMetadata';
 
 /**
+  * @typedef {Object} IInstanceControllerApiPluginVersionsApiPluginVersionAndMetadata
+  * @property {String} version
+  * @property {PluginArtifactMetadata} metadata
+  */
+
+/**
  * The InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata model module.
  * @module model/InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata
-  */
+ * @type {IInstanceControllerApiPluginVersionsApiPluginVersionAndMetadata}
+ */
 class InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata {
     /**
      * Constructs a new <code>InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata</code>.

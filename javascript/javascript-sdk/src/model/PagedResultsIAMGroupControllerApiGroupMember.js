@@ -15,15 +15,22 @@ import ApiClient from '../ApiClient';
 import IAMGroupControllerApiGroupMember from './IAMGroupControllerApiGroupMember';
 
 /**
+  * @typedef {Object} IPagedResultsIAMGroupControllerApiGroupMember
+  * @property {Array.<module:model/IAMGroupControllerApiGroupMember>} results
+  * @property {Number} total
+  */
+
+/**
  * The PagedResultsIAMGroupControllerApiGroupMember model module.
  * @module model/PagedResultsIAMGroupControllerApiGroupMember
-  */
+ * @type {IPagedResultsIAMGroupControllerApiGroupMember}
+ */
 class PagedResultsIAMGroupControllerApiGroupMember {
     /**
      * Constructs a new <code>PagedResultsIAMGroupControllerApiGroupMember</code>.
      * @alias module:model/PagedResultsIAMGroupControllerApiGroupMember
-     * @param results {Array.<module:model/IAMGroupControllerApiGroupMember>} 
-     * @param total {Number} 
+     * @param {Array.<module:model/IAMGroupControllerApiGroupMember>} results - 
+     * @param {Number} total - 
      */
     constructor(results, total) { 
         

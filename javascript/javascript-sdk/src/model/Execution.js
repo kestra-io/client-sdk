@@ -22,19 +22,44 @@ import TaskFixture from './TaskFixture';
 import TaskRun from './TaskRun';
 
 /**
+  * @typedef {Object} IExecution
+  * @property {Array.<module:model/Label>} labels
+  * @property {String} id
+  * @property {String} namespace
+  * @property {String} flowId
+  * @property {Number} flowRevision
+  * @property {Array.<module:model/TaskRun>} taskRunList
+  * @property {Object} inputs
+  * @property {Object} outputs
+  * @property {Object} variables
+  * @property {State} state
+  * @property {String} parentId
+  * @property {String} originalId
+  * @property {ExecutionTrigger} trigger
+  * @property {Boolean} deleted
+  * @property {ExecutionMetadata} metadata
+  * @property {Date} scheduleDate
+  * @property {String} traceParent
+  * @property {Array.<module:model/TaskFixture>} fixtures
+  * @property {ExecutionKind} kind
+  * @property {Array.<module:model/Breakpoint>} breakpoints
+  */
+
+/**
  * The Execution model module.
  * @module model/Execution
-  */
+ * @type {IExecution}
+ */
 class Execution {
     /**
      * Constructs a new <code>Execution</code>.
      * @alias module:model/Execution
-     * @param id {String} 
-     * @param namespace {String} 
-     * @param flowId {String} 
-     * @param flowRevision {Number} 
-     * @param state {module:model/State} 
-     * @param deleted {Boolean} 
+     * @param {String} id - 
+     * @param {String} namespace - 
+     * @param {String} flowId - 
+     * @param {Number} flowRevision - 
+     * @param {module:model/State} state - 
+     * @param {Boolean} deleted - 
      */
     constructor(id, namespace, flowId, flowRevision, state, deleted) { 
         

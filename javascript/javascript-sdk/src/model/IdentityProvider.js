@@ -14,9 +14,18 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IIdentityProvider
+  * @property {Object.<String, Object>} attributes
+  * @property {String} externalId
+  * @property {String} securityIntegrationId
+  * @property {String} securityIntegrationName
+  */
+
+/**
  * The IdentityProvider model module.
  * @module model/IdentityProvider
-  */
+ * @type {IIdentityProvider}
+ */
 class IdentityProvider {
     /**
      * Constructs a new <code>IdentityProvider</code>.

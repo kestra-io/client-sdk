@@ -18,17 +18,33 @@ import Output from './Output';
 import WorkerGroup from './WorkerGroup';
 
 /**
+  * @typedef {Object} IAbstractFlow
+  * @property {String} id
+  * @property {String} namespace
+  * @property {Number} revision
+  * @property {String} description
+  * @property {Array.<module:model/InputObject>} inputs
+  * @property {Array.<module:model/Output>} outputs
+  * @property {Boolean} disabled
+  * @property {Array.<module:model/Label>} labels - Labels as a list of Label (key/value pairs) or as a map of string to string.
+  * @property {Object} variables
+  * @property {WorkerGroup} workerGroup
+  * @property {Boolean} deleted
+  */
+
+/**
  * The AbstractFlow model module.
  * @module model/AbstractFlow
-  */
+ * @type {IAbstractFlow}
+ */
 class AbstractFlow {
     /**
      * Constructs a new <code>AbstractFlow</code>.
      * @alias module:model/AbstractFlow
-     * @param id {String} 
-     * @param namespace {String} 
-     * @param disabled {Boolean} 
-     * @param deleted {Boolean} 
+     * @param {String} id - 
+     * @param {String} namespace - 
+     * @param {Boolean} disabled - 
+     * @param {Boolean} deleted - 
      */
     constructor(id, namespace, disabled, deleted) { 
         

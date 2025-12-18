@@ -18,17 +18,37 @@ import TenantAppCatalogConfig from './TenantAppCatalogConfig';
 import WorkerGroup from './WorkerGroup';
 
 /**
+  * @typedef {Object} IApiTenant
+  * @property {Isolation} storageIsolation
+  * @property {Isolation} secretIsolation
+  * @property {String} id
+  * @property {String} name
+  * @property {Boolean} deleted
+  * @property {WorkerGroup} workerGroup
+  * @property {String} storageType
+  * @property {Object.<String, Object>} storageConfiguration
+  * @property {String} secretType
+  * @property {Boolean} secretReadOnly
+  * @property {Object.<String, Object>} secretConfiguration
+  * @property {Boolean} requireExistingNamespace
+  * @property {Boolean} outputsInInternalStorage
+  * @property {TenantAppCatalogConfig} appCatalogConfig
+  * @property {String} logo
+  */
+
+/**
  * The ApiTenant model module.
  * @module model/ApiTenant
-  */
+ * @type {IApiTenant}
+ */
 class ApiTenant {
     /**
      * Constructs a new <code>ApiTenant</code>.
      * @alias module:model/ApiTenant
      * @implements module:model/Tenant
-     * @param id {String} 
-     * @param name {String} 
-     * @param deleted {Boolean} 
+     * @param {String} id - 
+     * @param {String} name - 
+     * @param {Boolean} deleted - 
      */
     constructor(id, name, deleted) { 
         Tenant.initialize(this, id, name, deleted);

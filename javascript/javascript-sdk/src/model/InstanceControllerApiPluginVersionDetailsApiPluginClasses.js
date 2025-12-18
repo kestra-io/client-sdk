@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import InstanceControllerApiPluginVersionDetailsApiPluginClass from './InstanceControllerApiPluginVersionDetailsApiPluginClass';
 
 /**
+  * @typedef {Object} IInstanceControllerApiPluginVersionDetailsApiPluginClasses
+  * @property {String} type
+  * @property {Array.<module:model/InstanceControllerApiPluginVersionDetailsApiPluginClass>} classes
+  */
+
+/**
  * The InstanceControllerApiPluginVersionDetailsApiPluginClasses model module.
  * @module model/InstanceControllerApiPluginVersionDetailsApiPluginClasses
-  */
+ * @type {IInstanceControllerApiPluginVersionDetailsApiPluginClasses}
+ */
 class InstanceControllerApiPluginVersionDetailsApiPluginClasses {
     /**
      * Constructs a new <code>InstanceControllerApiPluginVersionDetailsApiPluginClasses</code>.

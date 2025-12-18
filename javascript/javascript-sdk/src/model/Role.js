@@ -15,16 +15,28 @@ import ApiClient from '../ApiClient';
 import IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions from './IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions';
 
 /**
+  * @typedef {Object} IRole
+  * @property {Boolean} isManaged
+  * @property {IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions} permissions
+  * @property {String} id
+  * @property {String} name
+  * @property {String} description
+  * @property {Boolean} isDefault
+  * @property {Boolean} deleted
+  */
+
+/**
  * The Role model module.
  * @module model/Role
-  */
+ * @type {IRole}
+ */
 class Role {
     /**
      * Constructs a new <code>Role</code>.
      * @alias module:model/Role
-     * @param isManaged {Boolean} 
-     * @param name {String} 
-     * @param deleted {Boolean} 
+     * @param {Boolean} isManaged - 
+     * @param {String} name - 
+     * @param {Boolean} deleted - 
      */
     constructor(isManaged, name, deleted) { 
         

@@ -14,9 +14,20 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IAppsControllerApiAppCatalogItem
+  * @property {String} uid
+  * @property {String} name
+  * @property {String} description
+  * @property {String} type
+  * @property {Array.<String>} tags
+  * @property {String} thumbnail
+  */
+
+/**
  * The AppsControllerApiAppCatalogItem model module.
  * @module model/AppsControllerApiAppCatalogItem
-  */
+ * @type {IAppsControllerApiAppCatalogItem}
+ */
 class AppsControllerApiAppCatalogItem {
     /**
      * Constructs a new <code>AppsControllerApiAppCatalogItem</code>.

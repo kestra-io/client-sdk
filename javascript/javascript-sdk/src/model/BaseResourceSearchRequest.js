@@ -14,9 +14,15 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IBaseResourceSearchRequest
+  * @property {Array.<String>} schemas
+  */
+
+/**
  * The BaseResourceSearchRequest model module.
  * @module model/BaseResourceSearchRequest
-  */
+ * @type {IBaseResourceSearchRequest}
+ */
 class BaseResourceSearchRequest {
     /**
      * Constructs a new <code>BaseResourceSearchRequest</code>.

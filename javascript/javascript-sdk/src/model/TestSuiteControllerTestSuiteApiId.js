@@ -14,15 +14,22 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} ITestSuiteControllerTestSuiteApiId
+  * @property {String} namespace
+  * @property {String} id
+  */
+
+/**
  * The TestSuiteControllerTestSuiteApiId model module.
  * @module model/TestSuiteControllerTestSuiteApiId
-  */
+ * @type {ITestSuiteControllerTestSuiteApiId}
+ */
 class TestSuiteControllerTestSuiteApiId {
     /**
      * Constructs a new <code>TestSuiteControllerTestSuiteApiId</code>.
      * @alias module:model/TestSuiteControllerTestSuiteApiId
-     * @param namespace {String} 
-     * @param id {String} 
+     * @param {String} namespace - 
+     * @param {String} id - 
      */
     constructor(namespace, id) { 
         

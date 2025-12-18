@@ -16,9 +16,16 @@ import ExecutionUsage from './ExecutionUsage';
 import FlowUsage from './FlowUsage';
 
 /**
+  * @typedef {Object} IMiscControllerApiUsage
+  * @property {FlowUsage} flows
+  * @property {ExecutionUsage} executions
+  */
+
+/**
  * The MiscControllerApiUsage model module.
  * @module model/MiscControllerApiUsage
-  */
+ * @type {IMiscControllerApiUsage}
+ */
 class MiscControllerApiUsage {
     /**
      * Constructs a new <code>MiscControllerApiUsage</code>.

@@ -13,6 +13,17 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum BindingType
+ * @type {{
+ *   "USER": "USER","GROUP": "GROUP",
+ * }}
+ */
+export const BindingTypeStatic = { 
+    "USER": "USER",
+    "GROUP": "GROUP",
+}
+
+/**
 * Enum class BindingType.
 * @enum {}
 * @readonly

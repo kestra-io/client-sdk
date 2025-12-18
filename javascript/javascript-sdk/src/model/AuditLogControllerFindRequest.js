@@ -16,9 +16,17 @@ import CrudEventType from './CrudEventType';
 import ResourceType1 from './ResourceType1';
 
 /**
+  * @typedef {Object} IAuditLogControllerFindRequest
+  * @property {ResourceType1} resource
+  * @property {CrudEventType} type
+  * @property {Object.<String, Object>} detail
+  */
+
+/**
  * The AuditLogControllerFindRequest model module.
  * @module model/AuditLogControllerFindRequest
-  */
+ * @type {IAuditLogControllerFindRequest}
+ */
 class AuditLogControllerFindRequest {
     /**
      * Constructs a new <code>AuditLogControllerFindRequest</code>.

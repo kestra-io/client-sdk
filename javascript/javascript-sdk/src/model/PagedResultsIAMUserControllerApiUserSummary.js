@@ -15,15 +15,22 @@ import ApiClient from '../ApiClient';
 import IAMUserControllerApiUserSummary from './IAMUserControllerApiUserSummary';
 
 /**
+  * @typedef {Object} IPagedResultsIAMUserControllerApiUserSummary
+  * @property {Array.<module:model/IAMUserControllerApiUserSummary>} results
+  * @property {Number} total
+  */
+
+/**
  * The PagedResultsIAMUserControllerApiUserSummary model module.
  * @module model/PagedResultsIAMUserControllerApiUserSummary
-  */
+ * @type {IPagedResultsIAMUserControllerApiUserSummary}
+ */
 class PagedResultsIAMUserControllerApiUserSummary {
     /**
      * Constructs a new <code>PagedResultsIAMUserControllerApiUserSummary</code>.
      * @alias module:model/PagedResultsIAMUserControllerApiUserSummary
-     * @param results {Array.<module:model/IAMUserControllerApiUserSummary>} 
-     * @param total {Number} 
+     * @param {Array.<module:model/IAMUserControllerApiUserSummary>} results - 
+     * @param {Number} total - 
      */
     constructor(results, total) { 
         

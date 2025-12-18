@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import PluginSchema from './PluginSchema';
 
 /**
+  * @typedef {Object} IDocumentationWithSchema
+  * @property {String} markdown
+  * @property {PluginSchema} schema
+  */
+
+/**
  * The DocumentationWithSchema model module.
  * @module model/DocumentationWithSchema
-  */
+ * @type {IDocumentationWithSchema}
+ */
 class DocumentationWithSchema {
     /**
      * Constructs a new <code>DocumentationWithSchema</code>.

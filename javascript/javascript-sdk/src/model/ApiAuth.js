@@ -14,9 +14,17 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IApiAuth
+  * @property {String} uid
+  * @property {String} type
+  * @property {String} name
+  */
+
+/**
  * The ApiAuth model module.
  * @module model/ApiAuth
-  */
+ * @type {IApiAuth}
+ */
 class ApiAuth {
     /**
      * Constructs a new <code>ApiAuth</code>.

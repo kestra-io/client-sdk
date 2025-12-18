@@ -17,16 +17,33 @@ import GroupIdentifier from './GroupIdentifier';
 import UserType from './UserType';
 
 /**
+  * @typedef {Object} IAbstractUser
+  * @property {UserType} type
+  * @property {Array.<module:model/GroupIdentifier>} groupList
+  * @property {Array.<Object>} groups
+  * @property {String} username
+  * @property {String} email
+  * @property {Boolean} superAdmin
+  * @property {String} id
+  * @property {String} name
+  * @property {String} description
+  * @property {String} firstName
+  * @property {String} lastName
+  * @property {Array.<module:model/AbstractUserTenantIdentityProvider>} providers
+  */
+
+/**
  * The AbstractUser model module.
  * @module model/AbstractUser
-  */
+ * @type {IAbstractUser}
+ */
 class AbstractUser {
     /**
      * Constructs a new <code>AbstractUser</code>.
      * @alias module:model/AbstractUser
-     * @param type {module:model/UserType} 
-     * @param username {String} 
-     * @param email {String} 
+     * @param {module:model/UserType} type - 
+     * @param {String} username - 
+     * @param {String} email - 
      */
     constructor(type, username, email) { 
         

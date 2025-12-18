@@ -15,9 +15,17 @@ import ApiClient from '../ApiClient';
 import Tenant from './Tenant';
 
 /**
+  * @typedef {Object} ISetupConfigurationSetupData
+  * @property {String} username
+  * @property {String} password
+  * @property {Tenant} tenant
+  */
+
+/**
  * The SetupConfigurationSetupData model module.
  * @module model/SetupConfigurationSetupData
-  */
+ * @type {ISetupConfigurationSetupData}
+ */
 class SetupConfigurationSetupData {
     /**
      * Constructs a new <code>SetupConfigurationSetupData</code>.

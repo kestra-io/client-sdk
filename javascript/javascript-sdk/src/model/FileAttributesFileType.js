@@ -13,6 +13,17 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum FileAttributesFileType
+ * @type {{
+ *   "File": "File","Directory": "Directory",
+ * }}
+ */
+export const FileAttributesFileTypeStatic = { 
+    "File": "File",
+    "Directory": "Directory",
+}
+
+/**
 * Enum class FileAttributesFileType.
 * @enum {}
 * @readonly

@@ -16,14 +16,24 @@ import StateHistory from './StateHistory';
 import StateType from './StateType';
 
 /**
+  * @typedef {Object} IState
+  * @property {String} duration
+  * @property {Date} startDate
+  * @property {Date} endDate
+  * @property {keyof typeof import('./StateType').StateTypeStatic} current
+  * @property {Array.<module:model/StateHistory>} histories
+  */
+
+/**
  * The State model module.
  * @module model/State
-  */
+ * @type {IState}
+ */
 class State {
     /**
      * Constructs a new <code>State</code>.
      * @alias module:model/State
-     * @param current {module:model/StateType} 
+     * @param {module:model/StateType} current - 
      */
     constructor(current) { 
         

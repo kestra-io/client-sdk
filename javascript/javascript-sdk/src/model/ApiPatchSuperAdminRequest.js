@@ -14,14 +14,20 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IApiPatchSuperAdminRequest
+  * @property {Boolean} superAdmin
+  */
+
+/**
  * The ApiPatchSuperAdminRequest model module.
  * @module model/ApiPatchSuperAdminRequest
-  */
+ * @type {IApiPatchSuperAdminRequest}
+ */
 class ApiPatchSuperAdminRequest {
     /**
      * Constructs a new <code>ApiPatchSuperAdminRequest</code>.
      * @alias module:model/ApiPatchSuperAdminRequest
-     * @param superAdmin {Boolean} 
+     * @param {Boolean} superAdmin - 
      */
     constructor(superAdmin) { 
         

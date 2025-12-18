@@ -16,14 +16,24 @@ import Meta from './Meta';
 import SchemaAttribute from './SchemaAttribute';
 
 /**
+  * @typedef {Object} ISchema
+  * @property {Array.<module:model/SchemaAttribute>} attributes
+  * @property {String} id
+  * @property {String} name
+  * @property {String} description
+  * @property {Meta} meta
+  */
+
+/**
  * The Schema model module.
  * @module model/Schema
-  */
+ * @type {ISchema}
+ */
 class Schema {
     /**
      * Constructs a new <code>Schema</code>.
      * @alias module:model/Schema
-     * @param id {String} 
+     * @param {String} id - 
      */
     constructor(id) { 
         

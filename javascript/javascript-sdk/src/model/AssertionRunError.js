@@ -14,14 +14,21 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IAssertionRunError
+  * @property {String} message
+  * @property {String} details
+  */
+
+/**
  * The AssertionRunError model module.
  * @module model/AssertionRunError
-  */
+ * @type {IAssertionRunError}
+ */
 class AssertionRunError {
     /**
      * Constructs a new <code>AssertionRunError</code>.
      * @alias module:model/AssertionRunError
-     * @param message {String} 
+     * @param {String} message - 
      */
     constructor(message) { 
         

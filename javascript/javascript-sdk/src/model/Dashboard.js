@@ -16,14 +16,24 @@ import ChartChartOption from './ChartChartOption';
 import TimeWindow from './TimeWindow';
 
 /**
+  * @typedef {Object} IDashboard
+  * @property {String} title
+  * @property {String} description
+  * @property {TimeWindow} timeWindow
+  * @property {Array.<module:model/ChartChartOption>} charts
+  * @property {String} sourceCode
+  */
+
+/**
  * The Dashboard model module.
  * @module model/Dashboard
-  */
+ * @type {IDashboard}
+ */
 class Dashboard {
     /**
      * Constructs a new <code>Dashboard</code>.
      * @alias module:model/Dashboard
-     * @param title {String} 
+     * @param {String} title - 
      */
     constructor(title) { 
         

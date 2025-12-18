@@ -15,17 +15,28 @@ import ApiClient from '../ApiClient';
 import BindingType from './BindingType';
 
 /**
+  * @typedef {Object} IBinding
+  * @property {String} id
+  * @property {BindingType} type
+  * @property {String} externalId
+  * @property {String} roleId
+  * @property {String} namespaceId
+  * @property {Boolean} deleted
+  */
+
+/**
  * The Binding model module.
  * @module model/Binding
-  */
+ * @type {IBinding}
+ */
 class Binding {
     /**
      * Constructs a new <code>Binding</code>.
      * @alias module:model/Binding
-     * @param type {module:model/BindingType} 
-     * @param externalId {String} 
-     * @param roleId {String} 
-     * @param deleted {Boolean} 
+     * @param {module:model/BindingType} type - 
+     * @param {String} externalId - 
+     * @param {String} roleId - 
+     * @param {Boolean} deleted - 
      */
     constructor(type, externalId, roleId, deleted) { 
         

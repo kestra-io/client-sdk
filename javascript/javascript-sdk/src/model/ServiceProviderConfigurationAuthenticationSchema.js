@@ -15,9 +15,19 @@ import ApiClient from '../ApiClient';
 import ServiceProviderConfigurationAuthenticationSchemaType from './ServiceProviderConfigurationAuthenticationSchemaType';
 
 /**
+  * @typedef {Object} IServiceProviderConfigurationAuthenticationSchema
+  * @property {ServiceProviderConfigurationAuthenticationSchemaType} type
+  * @property {String} name
+  * @property {String} description
+  * @property {String} specUri
+  * @property {String} documentationUri
+  */
+
+/**
  * The ServiceProviderConfigurationAuthenticationSchema model module.
  * @module model/ServiceProviderConfigurationAuthenticationSchema
-  */
+ * @type {IServiceProviderConfigurationAuthenticationSchema}
+ */
 class ServiceProviderConfigurationAuthenticationSchema {
     /**
      * Constructs a new <code>ServiceProviderConfigurationAuthenticationSchema</code>.

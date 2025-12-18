@@ -15,9 +15,18 @@ import ApiClient from '../ApiClient';
 import ServerInstanceType from './ServerInstanceType';
 
 /**
+  * @typedef {Object} IInstanceControllerApiServerInstance
+  * @property {String} id
+  * @property {ServerInstanceType} type
+  * @property {String} version
+  * @property {String} hostname
+  */
+
+/**
  * The InstanceControllerApiServerInstance model module.
  * @module model/InstanceControllerApiServerInstance
-  */
+ * @type {IInstanceControllerApiServerInstance}
+ */
 class InstanceControllerApiServerInstance {
     /**
      * Constructs a new <code>InstanceControllerApiServerInstance</code>.

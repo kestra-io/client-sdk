@@ -16,9 +16,16 @@ import ApiUser from './ApiUser';
 import AuditLog from './AuditLog';
 
 /**
+  * @typedef {Object} IAuditLogControllerApiAuditLogItem
+  * @property {AuditLog} auditLog
+  * @property {ApiUser} user
+  */
+
+/**
  * The AuditLogControllerApiAuditLogItem model module.
  * @module model/AuditLogControllerApiAuditLogItem
-  */
+ * @type {IAuditLogControllerApiAuditLogItem}
+ */
 class AuditLogControllerApiAuditLogItem {
     /**
      * Constructs a new <code>AuditLogControllerApiAuditLogItem</code>.

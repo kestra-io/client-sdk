@@ -14,17 +14,29 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IAssertionResult
+  * @property {String} operator
+  * @property {Object} expected
+  * @property {Object} actual
+  * @property {Boolean} isSuccess
+  * @property {String} taskId
+  * @property {String} description
+  * @property {String} errorMessage
+  */
+
+/**
  * The AssertionResult model module.
  * @module model/AssertionResult
-  */
+ * @type {IAssertionResult}
+ */
 class AssertionResult {
     /**
      * Constructs a new <code>AssertionResult</code>.
      * @alias module:model/AssertionResult
-     * @param operator {String} 
-     * @param expected {Object} 
-     * @param actual {Object} 
-     * @param isSuccess {Boolean} 
+     * @param {String} operator - 
+     * @param {Object} expected - 
+     * @param {Object} actual - 
+     * @param {Boolean} isSuccess - 
      */
     constructor(operator, expected, actual, isSuccess) { 
         

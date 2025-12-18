@@ -20,9 +20,25 @@ import ServiceServiceState from './ServiceServiceState';
 import ServiceType from './ServiceType';
 
 /**
+  * @typedef {Object} IServiceInstance
+  * @property {ServerInstance} server
+  * @property {Array.<module:model/Metric>} metrics
+  * @property {ServiceServiceState} state
+  * @property {String} id
+  * @property {ServiceType} type
+  * @property {Date} createdAt
+  * @property {Date} updatedAt
+  * @property {Array.<module:model/ServiceInstanceTimestampedEvent>} events
+  * @property {ServerConfig} config
+  * @property {Object.<String, Object>} props
+  * @property {Number} seqId
+  */
+
+/**
  * The ServiceInstance model module.
  * @module model/ServiceInstance
-  */
+ * @type {IServiceInstance}
+ */
 class ServiceInstance {
     /**
      * Constructs a new <code>ServiceInstance</code>.

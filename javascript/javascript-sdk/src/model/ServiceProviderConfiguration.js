@@ -23,9 +23,29 @@ import ServiceProviderConfigurationFilterConfiguration from './ServiceProviderCo
 import ServiceProviderConfigurationSupportedConfiguration from './ServiceProviderConfigurationSupportedConfiguration';
 
 /**
+  * @typedef {Object} IServiceProviderConfiguration
+  * @property {Array.<String>} schemas
+  * @property {String} baseUrn
+  * @property {Object.<String, module:model/ScimExtension>} extensions
+  * @property {Meta} meta
+  * @property {String} id
+  * @property {String} externalId
+  * @property {String} resourceType
+  * @property {String} documentationUrl
+  * @property {ServiceProviderConfigurationSupportedConfiguration} patch
+  * @property {ServiceProviderConfigurationBulkConfiguration} bulk
+  * @property {ServiceProviderConfigurationFilterConfiguration} filter
+  * @property {ServiceProviderConfigurationSupportedConfiguration} changePassword
+  * @property {ServiceProviderConfigurationSupportedConfiguration} sort
+  * @property {ServiceProviderConfigurationSupportedConfiguration} etag
+  * @property {Array.<module:model/ServiceProviderConfigurationAuthenticationSchema>} authenticationSchemes
+  */
+
+/**
  * The ServiceProviderConfiguration model module.
  * @module model/ServiceProviderConfiguration
-  */
+ * @type {IServiceProviderConfiguration}
+ */
 class ServiceProviderConfiguration {
     /**
      * Constructs a new <code>ServiceProviderConfiguration</code>.
@@ -33,7 +53,7 @@ class ServiceProviderConfiguration {
      * @implements module:model/ScimResourceWithOptionalId
      * @implements module:model/ScimResource
      * @implements module:model/BaseResourceScimResource
-     * @param meta {module:model/Meta} 
+     * @param {module:model/Meta} meta - 
      */
     constructor(meta) { 
         ScimResourceWithOptionalId.initialize(this, meta);ScimResource.initialize(this, meta);BaseResourceScimResource.initialize(this);

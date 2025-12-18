@@ -16,18 +16,32 @@ import AuditLogDetail from './AuditLogDetail';
 import CrudEventType from './CrudEventType';
 
 /**
+  * @typedef {Object} IBaseAuditLog
+  * @property {String} tenantId
+  * @property {String} id
+  * @property {CrudEventType} type
+  * @property {AuditLogDetail} detail
+  * @property {Date} date
+  * @property {String} userId
+  * @property {String} ipAddress
+  * @property {String} impersonatedBy
+  * @property {Boolean} deleted
+  */
+
+/**
  * The BaseAuditLog model module.
  * @module model/BaseAuditLog
-  */
+ * @type {IBaseAuditLog}
+ */
 class BaseAuditLog {
     /**
      * Constructs a new <code>BaseAuditLog</code>.
      * @alias module:model/BaseAuditLog
-     * @param id {String} 
-     * @param type {module:model/CrudEventType} 
-     * @param detail {module:model/AuditLogDetail} 
-     * @param date {Date} 
-     * @param userId {String} 
+     * @param {String} id - 
+     * @param {module:model/CrudEventType} type - 
+     * @param {module:model/AuditLogDetail} detail - 
+     * @param {Date} date - 
+     * @param {String} userId - 
      */
     constructor(id, type, detail, date, userId) { 
         

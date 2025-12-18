@@ -15,9 +15,15 @@ import ApiClient from '../ApiClient';
 import HttpParameters from './HttpParameters';
 
 /**
+  * @typedef {Object} IPreviewAppRequest
+  * @property {HttpParameters} parameters
+  */
+
+/**
  * The PreviewAppRequest model module.
  * @module model/PreviewAppRequest
-  */
+ * @type {IPreviewAppRequest}
+ */
 class PreviewAppRequest {
     /**
      * Constructs a new <code>PreviewAppRequest</code>.

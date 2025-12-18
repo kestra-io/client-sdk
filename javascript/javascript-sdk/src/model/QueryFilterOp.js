@@ -13,6 +13,28 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum QueryFilterOp
+ * @type {{
+ *   "EQUALS": "EQUALS","NOT_EQUALS": "NOT_EQUALS","GREATER_THAN": "GREATER_THAN","LESS_THAN": "LESS_THAN","GREATER_THAN_OR_EQUAL_TO": "GREATER_THAN_OR_EQUAL_TO","LESS_THAN_OR_EQUAL_TO": "LESS_THAN_OR_EQUAL_TO","IN": "IN","NOT_IN": "NOT_IN","STARTS_WITH": "STARTS_WITH","ENDS_WITH": "ENDS_WITH","CONTAINS": "CONTAINS","REGEX": "REGEX","PREFIX": "PREFIX",
+ * }}
+ */
+export const QueryFilterOpStatic = { 
+    "EQUALS": "EQUALS",
+    "NOT_EQUALS": "NOT_EQUALS",
+    "GREATER_THAN": "GREATER_THAN",
+    "LESS_THAN": "LESS_THAN",
+    "GREATER_THAN_OR_EQUAL_TO": "GREATER_THAN_OR_EQUAL_TO",
+    "LESS_THAN_OR_EQUAL_TO": "LESS_THAN_OR_EQUAL_TO",
+    "IN": "IN",
+    "NOT_IN": "NOT_IN",
+    "STARTS_WITH": "STARTS_WITH",
+    "ENDS_WITH": "ENDS_WITH",
+    "CONTAINS": "CONTAINS",
+    "REGEX": "REGEX",
+    "PREFIX": "PREFIX",
+}
+
+/**
 * Enum class QueryFilterOp.
 * @enum {}
 * @readonly

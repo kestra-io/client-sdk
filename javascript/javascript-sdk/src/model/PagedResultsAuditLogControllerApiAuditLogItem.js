@@ -15,15 +15,22 @@ import ApiClient from '../ApiClient';
 import AuditLogControllerApiAuditLogItem from './AuditLogControllerApiAuditLogItem';
 
 /**
+  * @typedef {Object} IPagedResultsAuditLogControllerApiAuditLogItem
+  * @property {Array.<module:model/AuditLogControllerApiAuditLogItem>} results
+  * @property {Number} total
+  */
+
+/**
  * The PagedResultsAuditLogControllerApiAuditLogItem model module.
  * @module model/PagedResultsAuditLogControllerApiAuditLogItem
-  */
+ * @type {IPagedResultsAuditLogControllerApiAuditLogItem}
+ */
 class PagedResultsAuditLogControllerApiAuditLogItem {
     /**
      * Constructs a new <code>PagedResultsAuditLogControllerApiAuditLogItem</code>.
      * @alias module:model/PagedResultsAuditLogControllerApiAuditLogItem
-     * @param results {Array.<module:model/AuditLogControllerApiAuditLogItem>} 
-     * @param total {Number} 
+     * @param {Array.<module:model/AuditLogControllerApiAuditLogItem>} results - 
+     * @param {Number} total - 
      */
     constructor(results, total) { 
         

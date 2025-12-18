@@ -14,15 +14,24 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IExecutionTrigger
+  * @property {String} id
+  * @property {String} type
+  * @property {Object.<String, Object>} variables
+  * @property {String} logFile
+  */
+
+/**
  * The ExecutionTrigger model module.
  * @module model/ExecutionTrigger
-  */
+ * @type {IExecutionTrigger}
+ */
 class ExecutionTrigger {
     /**
      * Constructs a new <code>ExecutionTrigger</code>.
      * @alias module:model/ExecutionTrigger
-     * @param id {String} 
-     * @param type {String} 
+     * @param {String} id - 
+     * @param {String} type - 
      */
     constructor(id, type) { 
         

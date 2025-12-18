@@ -13,6 +13,17 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum FlowControllerTaskValidationType
+ * @type {{
+ *   "TASKS": "TASKS","TRIGGERS": "TRIGGERS",
+ * }}
+ */
+export const FlowControllerTaskValidationTypeStatic = { 
+    "TASKS": "TASKS",
+    "TRIGGERS": "TRIGGERS",
+}
+
+/**
 * Enum class FlowControllerTaskValidationType.
 * @enum {}
 * @readonly

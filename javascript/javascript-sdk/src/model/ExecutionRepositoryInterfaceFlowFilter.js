@@ -14,15 +14,22 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IExecutionRepositoryInterfaceFlowFilter
+  * @property {String} namespace
+  * @property {String} id
+  */
+
+/**
  * The ExecutionRepositoryInterfaceFlowFilter model module.
  * @module model/ExecutionRepositoryInterfaceFlowFilter
-  */
+ * @type {IExecutionRepositoryInterfaceFlowFilter}
+ */
 class ExecutionRepositoryInterfaceFlowFilter {
     /**
      * Constructs a new <code>ExecutionRepositoryInterfaceFlowFilter</code>.
      * @alias module:model/ExecutionRepositoryInterfaceFlowFilter
-     * @param namespace {String} 
-     * @param id {String} 
+     * @param {String} namespace - 
+     * @param {String} id - 
      */
     constructor(namespace, id) { 
         

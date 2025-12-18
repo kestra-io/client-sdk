@@ -17,16 +17,25 @@ import SLALabels from './SLALabels';
 import SLAType from './SLAType';
 
 /**
+  * @typedef {Object} ISLA
+  * @property {String} id
+  * @property {SLAType} type
+  * @property {SLABehavior} behavior
+  * @property {SLALabels} labels
+  */
+
+/**
  * The SLA model module.
  * @module model/SLA
-  */
+ * @type {ISLA}
+ */
 class SLA {
     /**
      * Constructs a new <code>SLA</code>.
      * @alias module:model/SLA
-     * @param id {String} 
-     * @param type {module:model/SLAType} 
-     * @param behavior {module:model/SLABehavior} 
+     * @param {String} id - 
+     * @param {module:model/SLAType} type - 
+     * @param {module:model/SLABehavior} behavior - 
      */
     constructor(id, type, behavior) { 
         

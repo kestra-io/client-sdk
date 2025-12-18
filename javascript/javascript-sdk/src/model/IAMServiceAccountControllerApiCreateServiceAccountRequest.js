@@ -14,15 +14,24 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IIAMServiceAccountControllerApiCreateServiceAccountRequest
+  * @property {String} name
+  * @property {String} description
+  * @property {Boolean} superAdmin
+  * @property {Array.<String>} tenants
+  */
+
+/**
  * The IAMServiceAccountControllerApiCreateServiceAccountRequest model module.
  * @module model/IAMServiceAccountControllerApiCreateServiceAccountRequest
-  */
+ * @type {IIAMServiceAccountControllerApiCreateServiceAccountRequest}
+ */
 class IAMServiceAccountControllerApiCreateServiceAccountRequest {
     /**
      * Constructs a new <code>IAMServiceAccountControllerApiCreateServiceAccountRequest</code>.
      * Request payload for updating service account details
      * @alias module:model/IAMServiceAccountControllerApiCreateServiceAccountRequest
-     * @param name {String} 
+     * @param {String} name - 
      */
     constructor(name) { 
         

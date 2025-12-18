@@ -13,6 +13,17 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum UserGroupType
+ * @type {{
+ *   "DIRECT": "DIRECT","INDIRECT": "INDIRECT",
+ * }}
+ */
+export const UserGroupTypeStatic = { 
+    "DIRECT": "DIRECT",
+    "INDIRECT": "INDIRECT",
+}
+
+/**
 * Enum class UserGroupType.
 * @enum {}
 * @readonly

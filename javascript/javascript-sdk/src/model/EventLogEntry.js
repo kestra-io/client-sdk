@@ -15,9 +15,19 @@ import ApiClient from '../ApiClient';
 import LogEntry from './LogEntry';
 
 /**
+  * @typedef {Object} IEventLogEntry
+  * @property {LogEntry} data
+  * @property {String} id
+  * @property {String} name
+  * @property {String} comment
+  * @property {String} retry
+  */
+
+/**
  * The EventLogEntry model module.
  * @module model/EventLogEntry
-  */
+ * @type {IEventLogEntry}
+ */
 class EventLogEntry {
     /**
      * Constructs a new <code>EventLogEntry</code>.

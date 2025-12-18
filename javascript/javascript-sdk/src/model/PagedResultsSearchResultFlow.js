@@ -15,15 +15,22 @@ import ApiClient from '../ApiClient';
 import SearchResultFlow from './SearchResultFlow';
 
 /**
+  * @typedef {Object} IPagedResultsSearchResultFlow
+  * @property {Array.<module:model/SearchResultFlow>} results
+  * @property {Number} total
+  */
+
+/**
  * The PagedResultsSearchResultFlow model module.
  * @module model/PagedResultsSearchResultFlow
-  */
+ * @type {IPagedResultsSearchResultFlow}
+ */
 class PagedResultsSearchResultFlow {
     /**
      * Constructs a new <code>PagedResultsSearchResultFlow</code>.
      * @alias module:model/PagedResultsSearchResultFlow
-     * @param results {Array.<module:model/SearchResultFlow>} 
-     * @param total {Number} 
+     * @param {Array.<module:model/SearchResultFlow>} results - 
+     * @param {Number} total - 
      */
     constructor(results, total) { 
         

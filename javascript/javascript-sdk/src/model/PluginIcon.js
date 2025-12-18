@@ -14,9 +14,17 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IPluginIcon
+  * @property {String} name
+  * @property {String} icon
+  * @property {Boolean} flowable
+  */
+
+/**
  * The PluginIcon model module.
  * @module model/PluginIcon
-  */
+ * @type {IPluginIcon}
+ */
 class PluginIcon {
     /**
      * Constructs a new <code>PluginIcon</code>.

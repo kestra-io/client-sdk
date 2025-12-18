@@ -14,15 +14,22 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IApiSecretTag
+  * @property {String} key
+  * @property {String} value
+  */
+
+/**
  * The ApiSecretTag model module.
  * @module model/ApiSecretTag
-  */
+ * @type {IApiSecretTag}
+ */
 class ApiSecretTag {
     /**
      * Constructs a new <code>ApiSecretTag</code>.
      * @alias module:model/ApiSecretTag
-     * @param key {String} 
-     * @param value {String} 
+     * @param {String} key - 
+     * @param {String} value - 
      */
     constructor(key, value) { 
         

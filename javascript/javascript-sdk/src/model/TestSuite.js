@@ -15,17 +15,30 @@ import ApiClient from '../ApiClient';
 import UnitTest from './UnitTest';
 
 /**
+  * @typedef {Object} ITestSuite
+  * @property {String} id
+  * @property {String} description
+  * @property {String} namespace
+  * @property {String} flowId
+  * @property {String} source
+  * @property {Array.<module:model/UnitTest>} testCases
+  * @property {Boolean} deleted
+  * @property {Boolean} disabled
+  */
+
+/**
  * The TestSuite model module.
  * @module model/TestSuite
-  */
+ * @type {ITestSuite}
+ */
 class TestSuite {
     /**
      * Constructs a new <code>TestSuite</code>.
      * @alias module:model/TestSuite
-     * @param id {String} 
-     * @param namespace {String} 
-     * @param flowId {String} 
-     * @param testCases {Array.<module:model/UnitTest>} 
+     * @param {String} id - 
+     * @param {String} namespace - 
+     * @param {String} flowId - 
+     * @param {Array.<module:model/UnitTest>} testCases - 
      */
     constructor(id, namespace, flowId, testCases) { 
         

@@ -15,9 +15,17 @@ import ApiClient from '../ApiClient';
 import AppResponseUILayout from './AppResponseUILayout';
 
 /**
+  * @typedef {Object} IAppResponse
+  * @property {String} dispatch
+  * @property {String} stream
+  * @property {AppResponseUILayout} layout
+  */
+
+/**
  * The AppResponse model module.
  * @module model/AppResponse
-  */
+ * @type {IAppResponse}
+ */
 class AppResponse {
     /**
      * Constructs a new <code>AppResponse</code>.

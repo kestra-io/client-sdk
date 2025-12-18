@@ -14,18 +14,28 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IDailyExecutionStatisticsDuration
+  * @property {String} min
+  * @property {String} avg
+  * @property {String} max
+  * @property {String} sum
+  * @property {Number} count
+  */
+
+/**
  * The DailyExecutionStatisticsDuration model module.
  * @module model/DailyExecutionStatisticsDuration
-  */
+ * @type {IDailyExecutionStatisticsDuration}
+ */
 class DailyExecutionStatisticsDuration {
     /**
      * Constructs a new <code>DailyExecutionStatisticsDuration</code>.
      * @alias module:model/DailyExecutionStatisticsDuration
-     * @param min {String} 
-     * @param avg {String} 
-     * @param max {String} 
-     * @param sum {String} 
-     * @param count {Number} 
+     * @param {String} min - 
+     * @param {String} avg - 
+     * @param {String} max - 
+     * @param {String} sum - 
+     * @param {Number} count - 
      */
     constructor(min, avg, max, sum, count) { 
         

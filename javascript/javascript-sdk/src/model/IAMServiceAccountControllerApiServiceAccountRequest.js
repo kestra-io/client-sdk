@@ -15,15 +15,24 @@ import ApiClient from '../ApiClient';
 import IAMServiceAccountControllerApiGroup from './IAMServiceAccountControllerApiGroup';
 
 /**
+  * @typedef {Object} IIAMServiceAccountControllerApiServiceAccountRequest
+  * @property {Array.<module:model/IAMServiceAccountControllerApiGroup>} groups
+  * @property {String} name
+  * @property {String} description
+  * @property {Boolean} superAdmin
+  */
+
+/**
  * The IAMServiceAccountControllerApiServiceAccountRequest model module.
  * @module model/IAMServiceAccountControllerApiServiceAccountRequest
-  */
+ * @type {IIAMServiceAccountControllerApiServiceAccountRequest}
+ */
 class IAMServiceAccountControllerApiServiceAccountRequest {
     /**
      * Constructs a new <code>IAMServiceAccountControllerApiServiceAccountRequest</code>.
      * A User Service Account.
      * @alias module:model/IAMServiceAccountControllerApiServiceAccountRequest
-     * @param name {String} 
+     * @param {String} name - 
      */
     constructor(name) { 
         

@@ -16,14 +16,22 @@ import ServerConfigLiveness from './ServerConfigLiveness';
 import WorkerTaskRestartStrategy from './WorkerTaskRestartStrategy';
 
 /**
+  * @typedef {Object} IServerConfig
+  * @property {WorkerTaskRestartStrategy} workerTaskRestartStrategy
+  * @property {String} terminationGracePeriod
+  * @property {ServerConfigLiveness} liveness
+  */
+
+/**
  * The ServerConfig model module.
  * @module model/ServerConfig
-  */
+ * @type {IServerConfig}
+ */
 class ServerConfig {
     /**
      * Constructs a new <code>ServerConfig</code>.
      * @alias module:model/ServerConfig
-     * @param terminationGracePeriod {String} 
+     * @param {String} terminationGracePeriod - 
      */
     constructor(terminationGracePeriod) { 
         

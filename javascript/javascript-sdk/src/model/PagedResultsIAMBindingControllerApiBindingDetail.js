@@ -15,15 +15,22 @@ import ApiClient from '../ApiClient';
 import IAMBindingControllerApiBindingDetail from './IAMBindingControllerApiBindingDetail';
 
 /**
+  * @typedef {Object} IPagedResultsIAMBindingControllerApiBindingDetail
+  * @property {Array.<module:model/IAMBindingControllerApiBindingDetail>} results
+  * @property {Number} total
+  */
+
+/**
  * The PagedResultsIAMBindingControllerApiBindingDetail model module.
  * @module model/PagedResultsIAMBindingControllerApiBindingDetail
-  */
+ * @type {IPagedResultsIAMBindingControllerApiBindingDetail}
+ */
 class PagedResultsIAMBindingControllerApiBindingDetail {
     /**
      * Constructs a new <code>PagedResultsIAMBindingControllerApiBindingDetail</code>.
      * @alias module:model/PagedResultsIAMBindingControllerApiBindingDetail
-     * @param results {Array.<module:model/IAMBindingControllerApiBindingDetail>} 
-     * @param total {Number} 
+     * @param {Array.<module:model/IAMBindingControllerApiBindingDetail>} results - 
+     * @param {Number} total - 
      */
     constructor(results, total) { 
         

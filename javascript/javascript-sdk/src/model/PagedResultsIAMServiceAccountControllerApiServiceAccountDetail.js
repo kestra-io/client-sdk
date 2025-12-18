@@ -15,15 +15,22 @@ import ApiClient from '../ApiClient';
 import IAMServiceAccountControllerApiServiceAccountDetail from './IAMServiceAccountControllerApiServiceAccountDetail';
 
 /**
+  * @typedef {Object} IPagedResultsIAMServiceAccountControllerApiServiceAccountDetail
+  * @property {Array.<module:model/IAMServiceAccountControllerApiServiceAccountDetail>} results
+  * @property {Number} total
+  */
+
+/**
  * The PagedResultsIAMServiceAccountControllerApiServiceAccountDetail model module.
  * @module model/PagedResultsIAMServiceAccountControllerApiServiceAccountDetail
-  */
+ * @type {IPagedResultsIAMServiceAccountControllerApiServiceAccountDetail}
+ */
 class PagedResultsIAMServiceAccountControllerApiServiceAccountDetail {
     /**
      * Constructs a new <code>PagedResultsIAMServiceAccountControllerApiServiceAccountDetail</code>.
      * @alias module:model/PagedResultsIAMServiceAccountControllerApiServiceAccountDetail
-     * @param results {Array.<module:model/IAMServiceAccountControllerApiServiceAccountDetail>} 
-     * @param total {Number} 
+     * @param {Array.<module:model/IAMServiceAccountControllerApiServiceAccountDetail>} results - 
+     * @param {Number} total - 
      */
     constructor(results, total) { 
         

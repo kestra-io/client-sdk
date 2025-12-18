@@ -16,9 +16,19 @@ import TestSuiteRunResult from './TestSuiteRunResult';
 import TestSuiteServiceRunByQueryRequest from './TestSuiteServiceRunByQueryRequest';
 
 /**
+  * @typedef {Object} ITestSuiteServiceTestRunByQueryResult
+  * @property {TestSuiteServiceRunByQueryRequest} requestMade
+  * @property {String} tenantId
+  * @property {Number} numberOfTestSuitesToBeRun
+  * @property {Number} numberOfTestCasesToBeRun
+  * @property {Array.<module:model/TestSuiteRunResult>} results
+  */
+
+/**
  * The TestSuiteServiceTestRunByQueryResult model module.
  * @module model/TestSuiteServiceTestRunByQueryResult
-  */
+ * @type {ITestSuiteServiceTestRunByQueryResult}
+ */
 class TestSuiteServiceTestRunByQueryResult {
     /**
      * Constructs a new <code>TestSuiteServiceTestRunByQueryResult</code>.

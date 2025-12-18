@@ -15,15 +15,22 @@ import ApiClient from '../ApiClient';
 import IAMInvitationControllerApiInvitationDetail from './IAMInvitationControllerApiInvitationDetail';
 
 /**
+  * @typedef {Object} IPagedResultsIAMInvitationControllerApiInvitationDetail
+  * @property {Array.<module:model/IAMInvitationControllerApiInvitationDetail>} results
+  * @property {Number} total
+  */
+
+/**
  * The PagedResultsIAMInvitationControllerApiInvitationDetail model module.
  * @module model/PagedResultsIAMInvitationControllerApiInvitationDetail
-  */
+ * @type {IPagedResultsIAMInvitationControllerApiInvitationDetail}
+ */
 class PagedResultsIAMInvitationControllerApiInvitationDetail {
     /**
      * Constructs a new <code>PagedResultsIAMInvitationControllerApiInvitationDetail</code>.
      * @alias module:model/PagedResultsIAMInvitationControllerApiInvitationDetail
-     * @param results {Array.<module:model/IAMInvitationControllerApiInvitationDetail>} 
-     * @param total {Number} 
+     * @param {Array.<module:model/IAMInvitationControllerApiInvitationDetail>} results - 
+     * @param {Number} total - 
      */
     constructor(results, total) { 
         

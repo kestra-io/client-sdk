@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IInputType
+  * @property {String} type
+  * @property {String} cls
+  */
+
+/**
  * The InputType model module.
  * @module model/InputType
-  */
+ * @type {IInputType}
+ */
 class InputType {
     /**
      * Constructs a new <code>InputType</code>.

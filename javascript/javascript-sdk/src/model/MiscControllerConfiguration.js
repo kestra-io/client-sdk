@@ -17,9 +17,32 @@ import MiscControllerEnvironment from './MiscControllerEnvironment';
 import MiscControllerPreview from './MiscControllerPreview';
 
 /**
+  * @typedef {Object} IMiscControllerConfiguration
+  * @property {String} uuid
+  * @property {String} version
+  * @property {EditionProviderEdition} edition
+  * @property {String} commitId
+  * @property {String} chartDefaultDuration
+  * @property {Date} commitDate
+  * @property {Boolean} isCustomDashboardsEnabled
+  * @property {Boolean} isAnonymousUsageEnabled
+  * @property {Boolean} isUiAnonymousUsageEnabled
+  * @property {Boolean} isTemplateEnabled
+  * @property {MiscControllerEnvironment} environment
+  * @property {String} url
+  * @property {MiscControllerPreview} preview
+  * @property {String} systemNamespace
+  * @property {Array.<String>} hiddenLabelsPrefixes
+  * @property {Boolean} isAiEnabled
+  * @property {Boolean} isBasicAuthInitialized
+  * @property {Number} pluginsHash
+  */
+
+/**
  * The MiscControllerConfiguration model module.
  * @module model/MiscControllerConfiguration
-  */
+ * @type {IMiscControllerConfiguration}
+ */
 class MiscControllerConfiguration {
     /**
      * Constructs a new <code>MiscControllerConfiguration</code>.

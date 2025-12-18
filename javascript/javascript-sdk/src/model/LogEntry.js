@@ -16,16 +16,34 @@ import ExecutionKind from './ExecutionKind';
 import Level from './Level';
 
 /**
+  * @typedef {Object} ILogEntry
+  * @property {String} namespace
+  * @property {String} flowId
+  * @property {String} taskId
+  * @property {String} executionId
+  * @property {String} taskRunId
+  * @property {Number} attemptNumber
+  * @property {String} triggerId
+  * @property {Date} timestamp
+  * @property {Level} level
+  * @property {String} thread
+  * @property {String} message
+  * @property {Boolean} deleted
+  * @property {ExecutionKind} executionKind
+  */
+
+/**
  * The LogEntry model module.
  * @module model/LogEntry
-  */
+ * @type {ILogEntry}
+ */
 class LogEntry {
     /**
      * Constructs a new <code>LogEntry</code>.
      * @alias module:model/LogEntry
-     * @param namespace {String} 
-     * @param flowId {String} 
-     * @param deleted {Boolean} 
+     * @param {String} namespace - 
+     * @param {String} flowId - 
+     * @param {Boolean} deleted - 
      */
     constructor(namespace, flowId, deleted) { 
         

@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import ServiceType from './ServiceType';
 
 /**
+  * @typedef {Object} IInstanceControllerApiActiveService
+  * @property {ServiceType} type
+  * @property {Number} total
+  */
+
+/**
  * The InstanceControllerApiActiveService model module.
  * @module model/InstanceControllerApiActiveService
-  */
+ * @type {IInstanceControllerApiActiveService}
+ */
 class InstanceControllerApiActiveService {
     /**
      * Constructs a new <code>InstanceControllerApiActiveService</code>.

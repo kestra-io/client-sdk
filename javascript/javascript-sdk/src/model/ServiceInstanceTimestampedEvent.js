@@ -15,9 +15,18 @@ import ApiClient from '../ApiClient';
 import ServiceServiceState from './ServiceServiceState';
 
 /**
+  * @typedef {Object} IServiceInstanceTimestampedEvent
+  * @property {Date} ts
+  * @property {String} value
+  * @property {String} type
+  * @property {ServiceServiceState} state
+  */
+
+/**
  * The ServiceInstanceTimestampedEvent model module.
  * @module model/ServiceInstanceTimestampedEvent
-  */
+ * @type {IServiceInstanceTimestampedEvent}
+ */
 class ServiceInstanceTimestampedEvent {
     /**
      * Constructs a new <code>ServiceInstanceTimestampedEvent</code>.

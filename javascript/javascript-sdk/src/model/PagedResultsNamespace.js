@@ -15,15 +15,22 @@ import ApiClient from '../ApiClient';
 import Namespace from './Namespace';
 
 /**
+  * @typedef {Object} IPagedResultsNamespace
+  * @property {Array.<module:model/Namespace>} results
+  * @property {Number} total
+  */
+
+/**
  * The PagedResultsNamespace model module.
  * @module model/PagedResultsNamespace
-  */
+ * @type {IPagedResultsNamespace}
+ */
 class PagedResultsNamespace {
     /**
      * Constructs a new <code>PagedResultsNamespace</code>.
      * @alias module:model/PagedResultsNamespace
-     * @param results {Array.<module:model/Namespace>} 
-     * @param total {Number} 
+     * @param {Array.<module:model/Namespace>} results - 
+     * @param {Number} total - 
      */
     constructor(results, total) { 
         

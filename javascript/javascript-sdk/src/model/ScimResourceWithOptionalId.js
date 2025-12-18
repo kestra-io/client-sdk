@@ -18,16 +18,28 @@ import ScimExtension from './ScimExtension';
 import ScimResource from './ScimResource';
 
 /**
+  * @typedef {Object} IScimResourceWithOptionalId
+  * @property {Array.<String>} schemas
+  * @property {String} baseUrn
+  * @property {Object.<String, module:model/ScimExtension>} extensions
+  * @property {Meta} meta
+  * @property {String} id
+  * @property {String} externalId
+  * @property {String} resourceType
+  */
+
+/**
  * The ScimResourceWithOptionalId model module.
  * @module model/ScimResourceWithOptionalId
-  */
+ * @type {IScimResourceWithOptionalId}
+ */
 class ScimResourceWithOptionalId {
     /**
      * Constructs a new <code>ScimResourceWithOptionalId</code>.
      * @alias module:model/ScimResourceWithOptionalId
      * @implements module:model/ScimResource
      * @implements module:model/BaseResourceScimResource
-     * @param meta {module:model/Meta} 
+     * @param {module:model/Meta} meta - 
      */
     constructor(meta) { 
         ScimResource.initialize(this, meta);BaseResourceScimResource.initialize(this);

@@ -16,9 +16,16 @@ import AttributeReference from './AttributeReference';
 import SortOrder from './SortOrder';
 
 /**
+  * @typedef {Object} ISortRequest
+  * @property {AttributeReference} sortBy
+  * @property {SortOrder} sortOrder
+  */
+
+/**
  * The SortRequest model module.
  * @module model/SortRequest
-  */
+ * @type {ISortRequest}
+ */
 class SortRequest {
     /**
      * Constructs a new <code>SortRequest</code>.

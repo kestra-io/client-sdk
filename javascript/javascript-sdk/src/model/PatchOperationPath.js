@@ -15,9 +15,15 @@ import ApiClient from '../ApiClient';
 import ValuePathExpression from './ValuePathExpression';
 
 /**
+  * @typedef {Object} IPatchOperationPath
+  * @property {ValuePathExpression} valuePathExpression
+  */
+
+/**
  * The PatchOperationPath model module.
  * @module model/PatchOperationPath
-  */
+ * @type {IPatchOperationPath}
+ */
 class PatchOperationPath {
     /**
      * Constructs a new <code>PatchOperationPath</code>.

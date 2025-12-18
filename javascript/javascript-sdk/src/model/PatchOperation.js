@@ -16,9 +16,17 @@ import PatchOperationPath from './PatchOperationPath';
 import PatchOperationType from './PatchOperationType';
 
 /**
+  * @typedef {Object} IPatchOperation
+  * @property {PatchOperationType} operation
+  * @property {PatchOperationPath} path
+  * @property {Object} value
+  */
+
+/**
  * The PatchOperation model module.
  * @module model/PatchOperation
-  */
+ * @type {IPatchOperation}
+ */
 class PatchOperation {
     /**
      * Constructs a new <code>PatchOperation</code>.

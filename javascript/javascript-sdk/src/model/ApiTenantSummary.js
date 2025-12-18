@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IApiTenantSummary
+  * @property {String} id
+  * @property {String} name
+  */
+
+/**
  * The ApiTenantSummary model module.
  * @module model/ApiTenantSummary
-  */
+ * @type {IApiTenantSummary}
+ */
 class ApiTenantSummary {
     /**
      * Constructs a new <code>ApiTenantSummary</code>.

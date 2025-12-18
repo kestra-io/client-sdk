@@ -1,8 +1,14 @@
 
+{{#emitJSDoc}}/**
+  * @typedef {Object} I{{classname}}{{#vars}}
+  * @property {{=< >=}}{<&vendorExtensions.x-jsdoc-type>}<={{ }}=> {{baseName}}{{#description}} - {{.}}{{/description}}{{/vars}}
+  */{{/emitJSDoc}}
+
 {{#models}}{{#model}}{{#emitJSDoc}}/**
  * The {{classname}} model module.
  * @module {{#invokerPackage}}{{.}}/{{/invokerPackage}}{{#modelPackage}}{{.}}/{{/modelPackage}}{{classname}}
-  */{{/emitJSDoc}}
+ * @type {I{{classname}}}
+ */{{/emitJSDoc}}
 class {{classname}} {{#parent}}{{^parentModel}}{{#vendorExtensions.x-is-array}}extends Array {{/vendorExtensions.x-is-array}}{{/parentModel}}{{/parent}}{
     {{#emitJSDoc}}/**
      * Constructs a new <code>{{classname}}</code>.{{#description}}
@@ -10,7 +16,7 @@ class {{classname}} {{#parent}}{{^parentModel}}{{#vendorExtensions.x-is-array}}e
      * @alias module:{{#invokerPackage}}{{.}}/{{/invokerPackage}}{{#modelPackage}}{{.}}/{{/modelPackage}}{{classname}}{{#useInheritance}}{{#parent}}
      * @extends {{#parentModel}}module:{{#invokerPackage}}{{.}}/{{/invokerPackage}}{{#modelPackage}}{{.}}/{{/modelPackage}}{{classname}}{{/parentModel}}{{^parentModel}}{{#vendorExtensions.x-is-array}}Array{{/vendorExtensions.x-is-array}}{{#vendorExtensions.x-is-map}}Object{{/vendorExtensions.x-is-map}}{{/parentModel}}{{/parent}}{{#interfaces}}
      * @implements module:{{#invokerPackage}}{{.}}/{{/invokerPackage}}{{#modelPackage}}{{.}}/{{/modelPackage}}{{.}}{{/interfaces}}{{/useInheritance}}{{#vendorExtensions.x-all-required}}
-     * @param {{name}} {{=< >=}}{<&vendorExtensions.x-jsdoc-type>}<={{ }}=> {{{description}}}{{/vendorExtensions.x-all-required}}
+     * @param {{=< >=}}{<&vendorExtensions.x-jsdoc-type>}<={{ }}=> {{name}} - {{{description}}}{{/vendorExtensions.x-all-required}}
      */{{/emitJSDoc}}
     constructor({{#vendorExtensions.x-all-required}}{{name}}{{^-last}}, {{/-last}}{{/vendorExtensions.x-all-required}}) { {{#parent}}{{^parentModel}}{{#vendorExtensions.x-is-array}}
         super();

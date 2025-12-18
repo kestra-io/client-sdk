@@ -14,15 +14,27 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IBlueprint
+  * @property {String} id
+  * @property {String} title
+  * @property {String} description
+  * @property {Array.<String>} tags
+  * @property {Array.<String>} includedTasks
+  * @property {Date} publishedAt
+  * @property {Boolean} deleted
+  */
+
+/**
  * The Blueprint model module.
  * @module model/Blueprint
-  */
+ * @type {IBlueprint}
+ */
 class Blueprint {
     /**
      * Constructs a new <code>Blueprint</code>.
      * @alias module:model/Blueprint
-     * @param title {String} 
-     * @param deleted {Boolean} 
+     * @param {String} title - 
+     * @param {Boolean} deleted - 
      */
     constructor(title, deleted) { 
         

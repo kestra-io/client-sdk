@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IPluginControllerApiPluginVersions
+  * @property {String} type
+  * @property {Array.<String>} versions
+  */
+
+/**
  * The PluginControllerApiPluginVersions model module.
  * @module model/PluginControllerApiPluginVersions
-  */
+ * @type {IPluginControllerApiPluginVersions}
+ */
 class PluginControllerApiPluginVersions {
     /**
      * Constructs a new <code>PluginControllerApiPluginVersions</code>.

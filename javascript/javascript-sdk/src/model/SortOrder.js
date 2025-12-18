@@ -13,6 +13,17 @@
 
 import ApiClient from '../ApiClient';
 /**
+ * Enum SortOrder
+ * @type {{
+ *   "ASCENDING": "ASCENDING","DESCENDING": "DESCENDING",
+ * }}
+ */
+export const SortOrderStatic = { 
+    "ASCENDING": "ASCENDING",
+    "DESCENDING": "DESCENDING",
+}
+
+/**
 * Enum class SortOrder.
 * @enum {}
 * @readonly

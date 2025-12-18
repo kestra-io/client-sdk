@@ -15,9 +15,19 @@ import ApiClient from '../ApiClient';
 import AbstractGraph from './AbstractGraph';
 
 /**
+  * @typedef {Object} IFlowGraphCluster
+  * @property {AbstractGraph} cluster
+  * @property {Array.<String>} nodes
+  * @property {Array.<String>} parents
+  * @property {String} start
+  * @property {String} end
+  */
+
+/**
  * The FlowGraphCluster model module.
  * @module model/FlowGraphCluster
-  */
+ * @type {IFlowGraphCluster}
+ */
 class FlowGraphCluster {
     /**
      * Constructs a new <code>FlowGraphCluster</code>.

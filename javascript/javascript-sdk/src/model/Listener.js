@@ -16,14 +16,22 @@ import Condition from './Condition';
 import Task from './Task';
 
 /**
+  * @typedef {Object} IListener
+  * @property {String} description
+  * @property {Array.<module:model/Condition>} conditions
+  * @property {Array.<module:model/Task>} tasks
+  */
+
+/**
  * The Listener model module.
  * @module model/Listener
-  */
+ * @type {IListener}
+ */
 class Listener {
     /**
      * Constructs a new <code>Listener</code>.
      * @alias module:model/Listener
-     * @param tasks {Array.<module:model/Task>} 
+     * @param {Array.<module:model/Task>} tasks - 
      */
     constructor(tasks) { 
         

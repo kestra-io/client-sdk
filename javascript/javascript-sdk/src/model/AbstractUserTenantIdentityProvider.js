@@ -15,9 +15,19 @@ import ApiClient from '../ApiClient';
 import IdentityProvider from './IdentityProvider';
 
 /**
+  * @typedef {Object} IAbstractUserTenantIdentityProvider
+  * @property {Object.<String, Object>} attributes
+  * @property {String} externalId
+  * @property {String} securityIntegrationId
+  * @property {String} securityIntegrationName
+  * @property {String} tenantId
+  */
+
+/**
  * The AbstractUserTenantIdentityProvider model module.
  * @module model/AbstractUserTenantIdentityProvider
-  */
+ * @type {IAbstractUserTenantIdentityProvider}
+ */
 class AbstractUserTenantIdentityProvider {
     /**
      * Constructs a new <code>AbstractUserTenantIdentityProvider</code>.

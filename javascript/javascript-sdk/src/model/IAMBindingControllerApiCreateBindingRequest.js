@@ -15,16 +15,25 @@ import ApiClient from '../ApiClient';
 import BindingType from './BindingType';
 
 /**
+  * @typedef {Object} IIAMBindingControllerApiCreateBindingRequest
+  * @property {BindingType} type
+  * @property {String} externalId
+  * @property {String} roleId
+  * @property {String} namespaceId
+  */
+
+/**
  * The IAMBindingControllerApiCreateBindingRequest model module.
  * @module model/IAMBindingControllerApiCreateBindingRequest
-  */
+ * @type {IIAMBindingControllerApiCreateBindingRequest}
+ */
 class IAMBindingControllerApiCreateBindingRequest {
     /**
      * Constructs a new <code>IAMBindingControllerApiCreateBindingRequest</code>.
      * @alias module:model/IAMBindingControllerApiCreateBindingRequest
-     * @param type {module:model/BindingType} 
-     * @param externalId {String} 
-     * @param roleId {String} 
+     * @param {module:model/BindingType} type - 
+     * @param {String} externalId - 
+     * @param {String} roleId - 
      */
     constructor(type, externalId, roleId) { 
         

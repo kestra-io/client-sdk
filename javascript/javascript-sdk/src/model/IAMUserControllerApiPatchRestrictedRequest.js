@@ -14,14 +14,20 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IIAMUserControllerApiPatchRestrictedRequest
+  * @property {Boolean} restricted
+  */
+
+/**
  * The IAMUserControllerApiPatchRestrictedRequest model module.
  * @module model/IAMUserControllerApiPatchRestrictedRequest
-  */
+ * @type {IIAMUserControllerApiPatchRestrictedRequest}
+ */
 class IAMUserControllerApiPatchRestrictedRequest {
     /**
      * Constructs a new <code>IAMUserControllerApiPatchRestrictedRequest</code>.
      * @alias module:model/IAMUserControllerApiPatchRestrictedRequest
-     * @param restricted {Boolean} 
+     * @param {Boolean} restricted - 
      */
     constructor(restricted) { 
         

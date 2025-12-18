@@ -14,14 +14,21 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IBreakpoint
+  * @property {String} id
+  * @property {String} value
+  */
+
+/**
  * The Breakpoint model module.
  * @module model/Breakpoint
-  */
+ * @type {IBreakpoint}
+ */
 class Breakpoint {
     /**
      * Constructs a new <code>Breakpoint</code>.
      * @alias module:model/Breakpoint
-     * @param id {String} 
+     * @param {String} id - 
      */
     constructor(id) { 
         

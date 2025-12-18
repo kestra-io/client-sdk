@@ -14,15 +14,22 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IIAMGroupControllerApiUpdateGroupRequest
+  * @property {String} name - of the group.
+  * @property {String} description - of the group.
+  */
+
+/**
  * The IAMGroupControllerApiUpdateGroupRequest model module.
  * @module model/IAMGroupControllerApiUpdateGroupRequest
-  */
+ * @type {IIAMGroupControllerApiUpdateGroupRequest}
+ */
 class IAMGroupControllerApiUpdateGroupRequest {
     /**
      * Constructs a new <code>IAMGroupControllerApiUpdateGroupRequest</code>.
      * Represents updatable properties for a Group.
      * @alias module:model/IAMGroupControllerApiUpdateGroupRequest
-     * @param name {String} of the group.
+     * @param {String} name - of the group.
      */
     constructor(name) { 
         

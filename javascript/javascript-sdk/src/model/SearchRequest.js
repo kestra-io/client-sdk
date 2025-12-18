@@ -20,9 +20,24 @@ import SortOrder from './SortOrder';
 import SortRequest from './SortRequest';
 
 /**
+  * @typedef {Object} ISearchRequest
+  * @property {Array.<String>} schemas
+  * @property {PageRequest} pageRequest
+  * @property {SortRequest} sortRequest
+  * @property {Array.<module:model/AttributeReference>} attributes
+  * @property {Array.<module:model/AttributeReference>} excludedAttributes
+  * @property {Filter} filter
+  * @property {AttributeReference} sortBy
+  * @property {SortOrder} sortOrder
+  * @property {Number} startIndex
+  * @property {Number} count
+  */
+
+/**
  * The SearchRequest model module.
  * @module model/SearchRequest
-  */
+ * @type {ISearchRequest}
+ */
 class SearchRequest {
     /**
      * Constructs a new <code>SearchRequest</code>.

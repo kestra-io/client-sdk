@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import Flow from './Flow';
 
 /**
+  * @typedef {Object} ISearchResultFlow
+  * @property {Flow} model
+  * @property {Array.<String>} fragments
+  */
+
+/**
  * The SearchResultFlow model module.
  * @module model/SearchResultFlow
-  */
+ * @type {ISearchResultFlow}
+ */
 class SearchResultFlow {
     /**
      * Constructs a new <code>SearchResultFlow</code>.

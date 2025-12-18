@@ -14,9 +14,16 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IMiscControllerEnvironment
+  * @property {String} name
+  * @property {String} color
+  */
+
+/**
  * The MiscControllerEnvironment model module.
  * @module model/MiscControllerEnvironment
-  */
+ * @type {IMiscControllerEnvironment}
+ */
 class MiscControllerEnvironment {
     /**
      * Constructs a new <code>MiscControllerEnvironment</code>.

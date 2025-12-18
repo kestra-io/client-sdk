@@ -15,17 +15,30 @@ import ApiClient from '../ApiClient';
 import Blueprint from './Blueprint';
 
 /**
+  * @typedef {Object} IBlueprintWithFlow
+  * @property {String} id
+  * @property {String} title
+  * @property {String} description
+  * @property {Array.<String>} tags
+  * @property {Array.<String>} includedTasks
+  * @property {Date} publishedAt
+  * @property {Boolean} deleted
+  * @property {String} flow
+  */
+
+/**
  * The BlueprintWithFlow model module.
  * @module model/BlueprintWithFlow
-  */
+ * @type {IBlueprintWithFlow}
+ */
 class BlueprintWithFlow {
     /**
      * Constructs a new <code>BlueprintWithFlow</code>.
      * @alias module:model/BlueprintWithFlow
      * @implements module:model/Blueprint
-     * @param title {String} 
-     * @param deleted {Boolean} 
-     * @param flow {String} 
+     * @param {String} title - 
+     * @param {Boolean} deleted - 
+     * @param {String} flow - 
      */
     constructor(title, deleted, flow) { 
         Blueprint.initialize(this, title, deleted);

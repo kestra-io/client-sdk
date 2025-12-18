@@ -16,9 +16,20 @@ import ApiTenantSummary from './ApiTenantSummary';
 import IAMUserControllerApiUserAuth from './IAMUserControllerApiUserAuth';
 
 /**
+  * @typedef {Object} IIAMUserControllerApiUserSummary
+  * @property {String} id
+  * @property {String} username
+  * @property {String} displayName
+  * @property {Array.<module:model/ApiTenantSummary>} tenants
+  * @property {Array.<module:model/IAMUserControllerApiUserAuth>} auths
+  * @property {Boolean} superAdmin
+  */
+
+/**
  * The IAMUserControllerApiUserSummary model module.
  * @module model/IAMUserControllerApiUserSummary
-  */
+ * @type {IIAMUserControllerApiUserSummary}
+ */
 class IAMUserControllerApiUserSummary {
     /**
      * Constructs a new <code>IAMUserControllerApiUserSummary</code>.

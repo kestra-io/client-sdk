@@ -15,15 +15,24 @@ import ApiClient from '../ApiClient';
 import IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions from './IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions';
 
 /**
+  * @typedef {Object} IIAMRoleControllerApiRoleCreateOrUpdateRequest
+  * @property {IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions} permissions
+  * @property {String} name
+  * @property {String} description
+  * @property {Boolean} isDefault
+  */
+
+/**
  * The IAMRoleControllerApiRoleCreateOrUpdateRequest model module.
  * @module model/IAMRoleControllerApiRoleCreateOrUpdateRequest
-  */
+ * @type {IIAMRoleControllerApiRoleCreateOrUpdateRequest}
+ */
 class IAMRoleControllerApiRoleCreateOrUpdateRequest {
     /**
      * Constructs a new <code>IAMRoleControllerApiRoleCreateOrUpdateRequest</code>.
      * @alias module:model/IAMRoleControllerApiRoleCreateOrUpdateRequest
-     * @param permissions {module:model/IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions} 
-     * @param name {String} 
+     * @param {module:model/IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions} permissions - 
+     * @param {String} name - 
      */
     constructor(permissions, name) { 
         

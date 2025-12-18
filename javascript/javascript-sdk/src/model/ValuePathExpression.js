@@ -15,9 +15,16 @@ import ApiClient from '../ApiClient';
 import AttributeReference from './AttributeReference';
 
 /**
+  * @typedef {Object} IValuePathExpression
+  * @property {AttributeReference} attributePath
+  * @property {Object} attributeExpression
+  */
+
+/**
  * The ValuePathExpression model module.
  * @module model/ValuePathExpression
-  */
+ * @type {IValuePathExpression}
+ */
 class ValuePathExpression {
     /**
      * Constructs a new <code>ValuePathExpression</code>.

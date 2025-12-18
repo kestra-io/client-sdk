@@ -14,14 +14,21 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} INamespaceAllowedTrigger
+  * @property {String} namespace
+  * @property {String} flowId
+  */
+
+/**
  * The NamespaceAllowedTrigger model module.
  * @module model/NamespaceAllowedTrigger
-  */
+ * @type {INamespaceAllowedTrigger}
+ */
 class NamespaceAllowedTrigger {
     /**
      * Constructs a new <code>NamespaceAllowedTrigger</code>.
      * @alias module:model/NamespaceAllowedTrigger
-     * @param namespace {String} 
+     * @param {String} namespace - 
      */
     constructor(namespace) { 
         

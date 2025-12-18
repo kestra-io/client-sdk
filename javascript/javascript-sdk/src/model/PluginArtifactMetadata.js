@@ -14,9 +14,19 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IPluginArtifactMetadata
+  * @property {String} uri
+  * @property {String} name
+  * @property {Number} size
+  * @property {Number} lastModifiedTime
+  * @property {Number} creationTime
+  */
+
+/**
  * The PluginArtifactMetadata model module.
  * @module model/PluginArtifactMetadata
-  */
+ * @type {IPluginArtifactMetadata}
+ */
 class PluginArtifactMetadata {
     /**
      * Constructs a new <code>PluginArtifactMetadata</code>.

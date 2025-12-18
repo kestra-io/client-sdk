@@ -14,14 +14,21 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IUploadVersionedPluginsRequest
+  * @property {File} file
+  * @property {Boolean} forceInstallOnExistingVersions
+  */
+
+/**
  * The UploadVersionedPluginsRequest model module.
  * @module model/UploadVersionedPluginsRequest
-  */
+ * @type {IUploadVersionedPluginsRequest}
+ */
 class UploadVersionedPluginsRequest {
     /**
      * Constructs a new <code>UploadVersionedPluginsRequest</code>.
      * @alias module:model/UploadVersionedPluginsRequest
-     * @param file {File} 
+     * @param {File} file - 
      */
     constructor(file) { 
         

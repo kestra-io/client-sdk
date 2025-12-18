@@ -16,17 +16,26 @@ import ApiSecretMeta from './ApiSecretMeta';
 import ApiSecretTag from './ApiSecretTag';
 
 /**
+  * @typedef {Object} IApiSecretMetaEE
+  * @property {String} key
+  * @property {String} namespace
+  * @property {String} description
+  * @property {Array.<module:model/ApiSecretTag>} tags
+  */
+
+/**
  * The ApiSecretMetaEE model module.
  * @module model/ApiSecretMetaEE
-  */
+ * @type {IApiSecretMetaEE}
+ */
 class ApiSecretMetaEE {
     /**
      * Constructs a new <code>ApiSecretMetaEE</code>.
      * @alias module:model/ApiSecretMetaEE
      * @implements module:model/ApiSecretMeta
-     * @param key {String} 
-     * @param description {String} 
-     * @param tags {Array.<module:model/ApiSecretTag>} 
+     * @param {String} key - 
+     * @param {String} description - 
+     * @param {Array.<module:model/ApiSecretTag>} tags - 
      */
     constructor(key, description, tags) { 
         ApiSecretMeta.initialize(this, key);

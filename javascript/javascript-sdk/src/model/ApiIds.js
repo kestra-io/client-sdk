@@ -14,9 +14,15 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IApiIds
+  * @property {Array.<String>} ids
+  */
+
+/**
  * The ApiIds model module.
  * @module model/ApiIds
-  */
+ * @type {IApiIds}
+ */
 class ApiIds {
     /**
      * Constructs a new <code>ApiIds</code>.

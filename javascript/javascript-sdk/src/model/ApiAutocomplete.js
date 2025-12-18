@@ -14,9 +14,17 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IApiAutocomplete
+  * @property {String} q
+  * @property {Array.<String>} ids
+  * @property {Boolean} existingOnly
+  */
+
+/**
  * The ApiAutocomplete model module.
  * @module model/ApiAutocomplete
-  */
+ * @type {IApiAutocomplete}
+ */
 class ApiAutocomplete {
     /**
      * Constructs a new <code>ApiAutocomplete</code>.

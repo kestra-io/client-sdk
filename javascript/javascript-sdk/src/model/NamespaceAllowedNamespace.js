@@ -14,14 +14,20 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} INamespaceAllowedNamespace
+  * @property {String} namespace
+  */
+
+/**
  * The NamespaceAllowedNamespace model module.
  * @module model/NamespaceAllowedNamespace
-  */
+ * @type {INamespaceAllowedNamespace}
+ */
 class NamespaceAllowedNamespace {
     /**
      * Constructs a new <code>NamespaceAllowedNamespace</code>.
      * @alias module:model/NamespaceAllowedNamespace
-     * @param namespace {String} 
+     * @param {String} namespace - 
      */
     constructor(namespace) { 
         

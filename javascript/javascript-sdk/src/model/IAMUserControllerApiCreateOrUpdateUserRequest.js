@@ -14,14 +14,27 @@
 import ApiClient from '../ApiClient';
 
 /**
+  * @typedef {Object} IIAMUserControllerApiCreateOrUpdateUserRequest
+  * @property {Array.<String>} tenants
+  * @property {Array.<String>} groups
+  * @property {String} firstName
+  * @property {String} lastName
+  * @property {String} email
+  * @property {String} password
+  * @property {Boolean} superAdmin
+  * @property {Boolean} restricted
+  */
+
+/**
  * The IAMUserControllerApiCreateOrUpdateUserRequest model module.
  * @module model/IAMUserControllerApiCreateOrUpdateUserRequest
-  */
+ * @type {IIAMUserControllerApiCreateOrUpdateUserRequest}
+ */
 class IAMUserControllerApiCreateOrUpdateUserRequest {
     /**
      * Constructs a new <code>IAMUserControllerApiCreateOrUpdateUserRequest</code>.
      * @alias module:model/IAMUserControllerApiCreateOrUpdateUserRequest
-     * @param email {String} 
+     * @param {String} email - 
      */
     constructor(email) { 
         

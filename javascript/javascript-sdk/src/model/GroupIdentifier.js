@@ -15,9 +15,18 @@ import ApiClient from '../ApiClient';
 import GroupIdentifierMembership from './GroupIdentifierMembership';
 
 /**
+  * @typedef {Object} IGroupIdentifier
+  * @property {String} tenantId
+  * @property {String} groupId
+  * @property {GroupIdentifierMembership} membership
+  * @property {Boolean} managedExternally
+  */
+
+/**
  * The GroupIdentifier model module.
  * @module model/GroupIdentifier
-  */
+ * @type {IGroupIdentifier}
+ */
 class GroupIdentifier {
     /**
      * Constructs a new <code>GroupIdentifier</code>.
