@@ -88,6 +88,13 @@ jobs:
           echo $APPLICATION_SECRETS | base64 -d > ../test-utils/docker-setup/application-secrets.yml
           ./run-tests.sh
 
+      # Trusted publishing need npm 11.+
+      - name: Upgrade npm
+        if: startsWith(github.ref, 'refs/tags/v') && endsWith(github.ref, '-javascript')
+        run: |
+          npm install -g npm@latest
+          npm version
+
       - name: Get OIDC Token
         if: startsWith(github.ref, 'refs/tags/v') && endsWith(github.ref, '-javascript')
         env:
