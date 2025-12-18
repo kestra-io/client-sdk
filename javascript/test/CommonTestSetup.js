@@ -1,4 +1,4 @@
-import KestraClient from "@kestra-io/kestra-sdk";
+import {client} from "@kestra-io/kestra-sdk";
 import * as path from "node:path";
 import {readFileSync} from "node:fs";
 
@@ -8,7 +8,13 @@ export const password = "Root!1234"
 export const MAIN_TENANT = "main";
 
 export function kestraClient() {
-    return new KestraClient(host, null, username, password);
+    return new client.setConfig({
+        host: host,
+        auth: {
+            username: username,
+            password: password,
+        }
+    });
 }
 export function randomId() {
     return Math.random().toString(36).substring(2, 10);
