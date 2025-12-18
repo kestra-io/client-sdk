@@ -1,4 +1,4 @@
-import KestraClient from "@kestra-io/kestra-sdk";
+import * as sdk from "@kestra-io/kestra-sdk";
 
 const host = "http://localhost:9903"
 const username = "root@root.com"
@@ -6,6 +6,11 @@ const password = "Root!1234"
 const tenantId = "main";
 
 export async function searchAndCreateFlowsExample() {
+    sdk.setConfig({
+        host: host,
+        username: username,
+        password: password,
+    });
     const kestraClient = new KestraClient(host, null, username, password);
 
     const searchRes = await kestraClient.flowsApi.searchFlows(1, 10, tenantId, null);

@@ -88,29 +88,7 @@ fi
 # Generate Javascript SDK
 if [[ ",$LANGUAGES," == *",javascript,"* ]]; then
 rm -rf ./javascript/javascript-sdk
-docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release generate \
-    -c /local/javascript/configuration/javascript-config.yml \
-    --skip-validate-spec \
-    --additional-properties=projectVersion=$VERSION \
-    --template-dir=/local/javascript/template
-
-sed_inplace "s/let returnType = \{'String': \['String'\]\};/let returnType = Object;/" ./javascript/javascript-sdk/src/api/NamespacesApi.js
-sed_inplace "s/let returnType = File;/let returnType = 'Blob';/" ./javascript/javascript-sdk/src/api/ExecutionsApi.js
-sed_inplace "s/obj\['value'\][[:space:]]*=[[:space:]]*OutputValue\.constructFromObject\(([^)]*)\);/obj['value'] = ApiClient.convertToType(\1, 'Object');/" ./javascript/javascript-sdk/src/model/Output.js
-sed_inplace "s/obj\['([A-Za-z0-9_]+)'\] = Object\.constructFromObject\(data\['([A-Za-z0-9_]+)'\]\);/obj['\1'] = ApiClient.convertToType(data['\1'], 'Object');/g" ./javascript/javascript-sdk/src/model/Assertion.js
-sed_inplace "s/obj\['([A-Za-z0-9_]+)'\] = '([A-Za-z]+)'\.constructFromObject\(data\['([A-Za-z0-9_]+)'\]\);/obj['\1'] = ApiClient.convertToType(data['\1'], '\2');/g" ./javascript/javascript-sdk/src/model/Assertion.js
-sed_inplace "s/let authNames = \[\];/let authNames = \['basicAuth', 'bearerAuth'\];/" ./javascript/javascript-sdk/src/api/TestSuitesApi.js
-sed_inplace "s/    \* @return \{Promise< module:model\/([A-Za-z0-9_]+) >\}/    \* @return \{Promise<\1>\}/" ./javascript/javascript-sdk/src/api/*.js
-sed_inplace "s/    \* @return \{Promise< Array.<module:model\/([A-Za-z0-9_]+)> >\}/    \* @return \{Promise<Array.<\1>>\}/" ./javascript/javascript-sdk/src/api/*.js
-sed_inplace "s/    \* @param \{Array.<module:model\/QueryFilter>\}/    \* @param \{Array.<import('..\/model\/IQueryFilter').IQueryFilter>\}/" ./javascript/javascript-sdk/src/api/*.js
-sed_inplace "s/ \* @property \{module:model\/StateType\}/ \* @property \{keyof typeof import('.\/StateType').StateTypeStatic\}/" ./javascript/javascript-sdk/src/model/*.js
-sed_inplace "s/ \* @property \{module:model\/([A-Za-z0-9_]+)\}/ \* @property \{\1\}/" ./javascript/javascript-sdk/src/model/*.js
-
-rm ./javascript/javascript-sdk/git_push.sh
-rm ./javascript/javascript-sdk/mocha.opts
-rm ./javascript/javascript-sdk/.babelrc
-rm ./javascript/javascript-sdk/.travis.yml
-cp -R ./javascript/template-files/* ./javascript/javascript-sdk/
+npx @hey-api/openapi-ts --file ./javascript/openapi-ts.config.mjs
 fi
 
 # Generate GoLang SDK

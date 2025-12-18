@@ -5,7 +5,7 @@
   "license": "Unlicense",
   "type": "module",
   "scripts": {
-    "build": "tsdown && tsc -p tsconfig.json --declaration --emitDeclarationOnly --declarationMap",
+    "build": "tsdown",
     "dev": "tsdown --watch",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build"
@@ -14,12 +14,12 @@
     "fs": false
   },
   "exports": {
-    ".": "./dist/KestraClient.mjs",
+    ".": "./dist/index.mjs",
     "./package.json": "./package.json"
   },
-  "main": "./dist/KestraClient.mjs",
-  "module": "./dist/KestraClient.mjs",
-  "types": "./dist/KestraClient.d.ts",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "files": [
     "dist"
   ],
