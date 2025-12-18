@@ -829,18 +829,119 @@ namespace: ${ns}
 tasks:
   - id: long-sleep
     type: io.kestra.plugin.core.flow.Sleep
-    duration: PT1S
+    duration: PT0.500S
   - id: message
     type: io.kestra.plugin.core.log.Log
     message: Hello World! 🚀
   - id: long-sleep-again
     type: io.kestra.plugin.core.flow.Sleep
-    duration: PT1S
+    duration: PT0.500S
   - id: final-message
     type: io.kestra.plugin.core.log.Log
     message: Good Bye! 👋
 `;
 
-    it.skip('follow_execution (SSE/WebSocket required)', async () => {});
-    it.skip('follow_dependencies_execution (SSE/WebSocket required)', async () => {});
+    // --- follow APIs (enable when your JS client exposes streaming) ---
+    it('follow_execution (SSE/WebSocket required)', async () => {
+        const ns = randomId();
+        const id = randomId();
+        const ex = await createFlowWithExecutionFromYaml(LONG_FLOW(id, ns));
+        const serverSentEventSource = kestraClient().executionsApi.followExecution(ex.id, MAIN_TENANT);
+
+        let eventContent = ''
+        let progress = 0;
+        const executionUpdate = (type, executionEvent) => {
+            eventContent += '\n[' + type + '] --------------------\n';
+            eventContent += JSON.stringify([executionEvent.type, ...Object.keys(JSON.parse(executionEvent.data)).sort()]) + '\n';
+            progress += 1
+        }
+        const closeSSE = () => {
+            serverSentEventSource.onerror = () => {}
+            serverSentEventSource.close();
+        }
+
+        serverSentEventSource.onmessage = (executionEvent) => {
+            const isEnd = executionEvent && executionEvent.lastEventId === "end";
+            // we are receiving a first "fake" event to force initializing the connection: ignoring it
+            if (executionEvent.lastEventId !== "start") {
+                executionUpdate("onmessage", executionEvent);
+            }
+            if (isEnd) {
+                closeSSE();
+            }
+        }
+
+        // sse.onerror doesn't return the details of the error
+        // but as our emitter can only throw an error on 404
+        // we can safely assume that the error is a 404
+        // if execution is not defined
+        serverSentEventSource.onerror = (e) => {
+            throw new Error('Execution not found' + JSON.stringify(e));
+        }
+
+        await awaitExecution(ex.id, 'SUCCESS', 5000, 100);
+        serverSentEventSource.close();
+        expect(progress).toBeGreaterThan(12);
+    });
+
+    const FLOW_THAT_DEPENDS_ON_ANOTHER = (ns, id, dependingNamespace, dependingId) => `
+id: ${id}
+namespace: ${ns}
+tasks:
+  - id: log
+    type: io.kestra.plugin.core.log.Log
+    message: "This flow depends on another execution: ${ dependingNamespace }/${ dependingId }"
+  - id: exec
+    type: io.kestra.plugin.core.flow.Subflow
+    namespace: ${dependingNamespace}
+    flowId: ${dependingId}
+`;
+
+
+    it('follow_dependencies_execution (SSE/WebSocket required)', async () => {
+        const ns = randomId();
+        const id = randomId();
+        const flow = await createFlow(LONG_FLOW(id, ns));
+        const masterId = randomId();
+        const masterNamespace = randomId();
+        const ex = await createFlowWithExecutionFromYaml(FLOW_THAT_DEPENDS_ON_ANOTHER(masterNamespace, masterId, flow.namespace, flow.id));
+        const serverSentEventSource = kestraClient().executionsApi.followDependenciesExecutions(ex.id, false, true, MAIN_TENANT);
+
+        let eventContent = ''
+        let progress = 0;
+        const executionUpdate = (type, executionEvent) => {
+            eventContent += '\n[' + type + '] --------------------\n';
+            const d = JSON.parse(executionEvent.data)
+            eventContent += JSON.stringify([executionEvent.type, d.flowId, d.state, ...Object.keys(d).sort()]) + '\n';
+            progress += 1
+        }
+        const closeSSE = () => {
+            serverSentEventSource.onerror = () => {}
+            serverSentEventSource.close();
+        }
+
+        serverSentEventSource.onmessage = (executionEvent) => {
+            const isEnd = executionEvent && executionEvent.lastEventId === "end";
+            // we are receiving a first "fake" event to force initializing the connection: ignoring it
+            if (executionEvent.lastEventId !== "start") {
+                executionUpdate("onmessage", executionEvent);
+            }
+            if (isEnd) {
+                closeSSE();
+            }
+        }
+
+        serverSentEventSource.onerror = (e) => {
+            throw new Error('Execution not found' + JSON.stringify(e));
+        }
+
+        serverSentEventSource.addEventListener('error', (executionEvent) => {
+            executionUpdate("error", executionEvent);
+        })
+
+        await awaitExecution(ex.id, 'SUCCESS', 10000, 100);
+        serverSentEventSource.close();
+        expect(progress).toBeGreaterThan(5);
+        expect(eventContent).toContain(flow.id);
+    });
 });

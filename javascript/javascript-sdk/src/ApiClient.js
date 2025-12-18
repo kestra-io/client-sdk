@@ -325,6 +325,52 @@ class ApiClient {
         }
     }
 
+    buildAuthHeaders(authNames, headerParams = {}) {
+        let headers = this.normalizeParams(headerParams);
+
+        authNames.forEach((authName) => {
+            var auth = this.authentications[authName];
+            switch (auth.type) {
+                case 'basic':
+                    if (auth.username || auth.password) {
+                        let basicHeader = 'Basic ' + btoa((auth.username || '') + ':' + (auth.password || ''));
+                        headers['Authorization'] = basicHeader;
+                    }
+
+                    break;
+                case 'bearer':
+                    if (auth.accessToken) {
+                        var localVarBearerToken = typeof auth.accessToken === 'function'
+                          ? auth.accessToken()
+                          : auth.accessToken
+                        headers['Authorization'] = 'Bearer ' + localVarBearerToken;
+                    }
+
+                    break;
+                case 'apiKey':
+                    if (auth.apiKey) {
+                        if (auth.apiKeyPrefix) {
+                            headers[auth.name] = auth.apiKeyPrefix + ' ' + auth.apiKey;
+                        } else {
+                            headers[auth.name] = auth.apiKey;
+                        }
+                    }
+
+                    break;
+                case 'oauth2':
+                    if (auth.accessToken) {
+                        headers['Authorization'] = 'Bearer ' + auth.accessToken;
+                    }
+
+                    break;
+                default:
+                    throw new Error('Unknown authentication type: ' + auth.type);
+            }
+        });
+
+        return headers;
+    }
+
     /**
     * Applies authentication headers to the request.
     * @param {Object} request The request object created by a <code>superagent()</code> call.
