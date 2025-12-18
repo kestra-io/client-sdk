@@ -105,7 +105,6 @@ jobs:
           RIGHT_REF=${GITHUB_REF#refs/tags/v}
           VERSION=${RIGHT_REF%-javascript}
           echo "Updating package.json to version $VERSION"
-          cd ./javascript-sdk
           # set version in package.json without creating a git tag since it already exists
           npm version $VERSION --no-git-tag-version
           cat package.json
