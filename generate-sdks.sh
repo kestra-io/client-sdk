@@ -87,7 +87,7 @@ fi
 
 # Generate Javascript SDK
 if [[ ",$LANGUAGES," == *",javascript,"* ]]; then
-rm -rf ./javascript/javascript-sdk
+rm -rf ./javascript/javascript-sdk/src
 npx @hey-api/openapi-ts --file ./javascript/openapi-ts.config.mjs
 fi
 

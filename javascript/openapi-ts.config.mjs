@@ -11,6 +11,7 @@ export default {
     {
         name: "@hey-api/client-fetch",
         asClass: true,
+        exportFromIndex: true,
     },
     {
         name: "@hey-api/sdk",
