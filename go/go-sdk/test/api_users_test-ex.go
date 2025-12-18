@@ -11,9 +11,9 @@ package kestra_api_client
 
 import (
 	"context"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
 	"testing"
 
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -57,22 +57,7 @@ func Test_kestra_api_client_UsersAPIService(t *testing.T) {
 
 		var id string
 
-		resp, httpRes, err := apiClient.UsersAPI.CreateApiTokensForUser1(context.Background(), id).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test UsersAPIService CreateApiTokensForUserWithTenant", func(t *testing.T) {
-
-		t.Skip("skip test") // remove to run test
-
-		var id string
-		var tenant string
-
-		resp, httpRes, err := apiClient.UsersAPI.CreateApiTokensForUserWithTenant(context.Background(), id, tenant).Execute()
+		resp, httpRes, err := apiClient.UsersAPI.CreateApiTokensForUser(context.Background(), id).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -84,7 +69,7 @@ func Test_kestra_api_client_UsersAPIService(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
 
-		httpRes, err := apiClient.UsersAPI.CreateUser(context.Background()).Execute()
+		user, httpRes, err := apiClient.UsersAPI.CreateUser(context.Background()).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
