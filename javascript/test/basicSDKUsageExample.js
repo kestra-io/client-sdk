@@ -1,19 +1,24 @@
-import * as sdk from "@kestra-io/kestra-sdk";
+// @ts-check
+import {client, Flows} from "@kestra-io/kestra-sdk";
 
-const host = "http://localhost:9903"
+const baseUrl = "http://localhost:9903"
 const username = "root@root.com"
 const password = "Root!1234"
 const tenantId = "main";
 
 export async function searchAndCreateFlowsExample() {
-    sdk.setConfig({
-        host: host,
-        username: username,
-        password: password,
+    client.setConfig({
+        baseUrl,
+        headers: {
+            "Authorization": "Basic " + Buffer.from(username + ":" + password).toString("base64"),
+        }
     });
-    const kestraClient = new KestraClient(host, null, username, password);
 
-    const searchRes = await kestraClient.flowsApi.searchFlows(1, 10, tenantId, null);
+    const searchRes = await Flows.searchFlows({
+        page: 1,
+        size: 10,
+        tenant: tenantId,
+    })
     console.log(searchRes);
 
     const flowId = "flow-" + Math.floor(Math.random() * 1000)
@@ -30,8 +35,11 @@ tasks:
 
     console.log("Creating flow with id: " + flowId + " in namespace: " + namespace);
 
-    console.log("flows api: ", kestraClient.flowsApi);
-    const createRes = await kestraClient.flowsApi.createFlow(tenantId, flow);
+    console.log("flows api: ", Flows);
+    const createRes = await Flows.createFlow({
+        tenant: tenantId,
+        body: flow,
+    });
     console.log(createRes);
 
 }

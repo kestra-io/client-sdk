@@ -1,20 +1,101 @@
-import {client} from "@kestra-io/kestra-sdk";
+// @ts-check
+import { client } from "@kestra-io/kestra-sdk";
+import {
+    Ai,
+    Apps,
+    AuditLogs,
+    Auths,
+    Banners,
+    Bindings,
+    Blueprints,
+    BlueprintTags,
+    Cluster,
+    Dashboards,
+    Executions,
+    Files,
+    Flows,
+    Groups,
+    Invitations,
+    Kv,
+    Login,
+    Logs,
+    Maintenance,
+    Metrics,
+    Misc,
+    Namespaces,
+    Plugins,
+    Roles,
+    ScimConfiguration,
+    ScimGroups,
+    ScimUsers,
+    Secrets,
+    SecurityIntegrations,
+    ServiceAccount,
+    Services,
+    TenantAccess,
+    Tenants,
+    TestSuites,
+    Triggers,
+    Users,
+    WorkerGroups,
+} from "@kestra-io/kestra-sdk";
 import * as path from "node:path";
-import {readFileSync} from "node:fs";
+import { readFileSync } from "node:fs";
 
-export const host = "http://localhost:9903"
-export const username = "root@root.com"
-export const password = "Root!1234"
+export const baseUrl = "http://localhost:9903";
+export const username = "root@root.com";
+export const password = "Root!1234";
 export const MAIN_TENANT = "main";
 
 export function kestraClient() {
-    return new client.setConfig({
-        host: host,
-        auth: {
-            username: username,
-            password: password,
-        }
+    client.setConfig({
+        baseUrl,
+        headers: {
+            Authorization:
+                "Basic " +
+                Buffer.from(username + ":" + password).toString("base64"),
+        },
     });
+
+    return {
+        Ai,
+        Apps,
+        AuditLogs,
+        Auths,
+        Banners,
+        Bindings,
+        Blueprints,
+        BlueprintTags,
+        Cluster,
+        Dashboards,
+        Executions,
+        Files,
+        Flows,
+        Groups,
+        Invitations,
+        Kv,
+        Login,
+        Logs,
+        Maintenance,
+        Metrics,
+        Misc,
+        Namespaces,
+        Plugins,
+        Roles,
+        ScimConfiguration,
+        ScimGroups,
+        ScimUsers,
+        Secrets,
+        SecurityIntegrations,
+        ServiceAccount,
+        Services,
+        TenantAccess,
+        Tenants,
+        TestSuites,
+        Triggers,
+        Users,
+        WorkerGroups,
+    };
 }
 export function randomId() {
     return Math.random().toString(36).substring(2, 10);
@@ -25,23 +106,25 @@ export function randomIdWith(str) {
 }
 
 export function randomEmail() {
-    return randomId() + '@example.com';
+    return randomId() + "@example.com";
 }
 
-export const TEST_DATA_PATH = '../../test-utils';
+export const TEST_DATA_PATH = "../../test-utils";
 
 export function get(filePath) {
     const absolute = path.isAbsolute(filePath)
         ? filePath
         : path.resolve(process.cwd(), filePath);
-    return readFileSync(absolute, 'utf8');
+    return readFileSync(absolute, "utf8");
 }
 
 export function getCompleteFlow() {
-    const raw = get(path.join(TEST_DATA_PATH, 'flows', 'flow_complete.yml'));
+    const raw = get(path.join(TEST_DATA_PATH, "flows", "flow_complete.yml"));
     return raw
-    .split('flow_complete').join(randomId())
-    .split('tests').join(randomId());
+        .split("flow_complete")
+        .join(randomId())
+        .split("tests")
+        .join(randomId());
 }
 
 export function getSimpleFlow() {
@@ -51,11 +134,13 @@ export function getSimpleFlow() {
 export function getSimpleFlowAndId() {
     const flowId = randomId();
     const namespace = randomId();
-    const raw = get(path.join(TEST_DATA_PATH, 'flows', 'simple_flow.yml'));
+    const raw = get(path.join(TEST_DATA_PATH, "flows", "simple_flow.yml"));
 
     const flowBody = raw
-    .split('simple_flow_id_to_replace_by_random_id').join(flowId)
-    .split('simple_flow_namespace_to_replace_by_random_id').join(namespace);
+        .split("simple_flow_id_to_replace_by_random_id")
+        .join(flowId)
+        .split("simple_flow_namespace_to_replace_by_random_id")
+        .join(namespace);
 
     return { flowBody, flowNamespace: namespace, flowId };
 }
