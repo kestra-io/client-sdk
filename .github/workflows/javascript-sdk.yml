@@ -106,7 +106,7 @@ jobs:
           VERSION=${RIGHT_REF%-javascript}
           echo "Updating package.json to version $VERSION"
           # set version in package.json without creating a git tag since it already exists
-          npm version $VERSION --no-git-tag-version
+          npm version $VERSION --no-git-tag-version --allow-same-version
           cat package.json
 
       - name: Publish to npm
