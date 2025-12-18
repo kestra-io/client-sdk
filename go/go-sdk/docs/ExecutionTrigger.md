@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | 
 **Type** | **string** |  | 
-**Variables** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**Variables** | Pointer to **map[string]interface{}** |  | [optional] 
 **LogFile** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -70,20 +70,20 @@ SetType sets Type field to given value.
 
 ### GetVariables
 
-`func (o *ExecutionTrigger) GetVariables() map[string]map[string]interface{}`
+`func (o *ExecutionTrigger) GetVariables() map[string]interface{}`
 
 GetVariables returns the Variables field if non-nil, zero value otherwise.
 
 ### GetVariablesOk
 
-`func (o *ExecutionTrigger) GetVariablesOk() (*map[string]map[string]interface{}, bool)`
+`func (o *ExecutionTrigger) GetVariablesOk() (*map[string]interface{}, bool)`
 
 GetVariablesOk returns a tuple with the Variables field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVariables
 
-`func (o *ExecutionTrigger) SetVariables(v map[string]map[string]interface{})`
+`func (o *ExecutionTrigger) SetVariables(v map[string]interface{})`
 
 SetVariables sets Variables field to given value.
 
@@ -119,6 +119,6 @@ SetLogFile sets LogFile field to given value.
 HasLogFile returns a boolean if a field has been set.
 
 
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints) [[Back to README]](../../../python-sdk/README.md)
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

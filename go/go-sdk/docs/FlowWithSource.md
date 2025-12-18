@@ -16,16 +16,15 @@ Name | Type | Description | Notes
 **WorkerGroup** | Pointer to [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
 **Deleted** | **bool** |  | 
 **Finally** | Pointer to [**[]Task**](Task.md) |  | [optional] 
-**TaskDefaults** | Pointer to [**[]PluginDefault**](PluginDefault.md) |  | [optional] 
 **Tasks** | [**[]Task**](Task.md) |  | 
 **Errors** | Pointer to [**[]Task**](Task.md) |  | [optional] 
-**Listeners** | Pointer to [**[]Listener**](Listener.md) |  | [optional] 
 **AfterExecution** | Pointer to [**[]Task**](Task.md) |  | [optional] 
 **Triggers** | Pointer to [**[]AbstractTrigger**](AbstractTrigger.md) |  | [optional] 
 **PluginDefaults** | Pointer to [**[]PluginDefault**](PluginDefault.md) |  | [optional] 
 **Concurrency** | Pointer to [**Concurrency**](Concurrency.md) |  | [optional] 
 **Retry** | Pointer to **map[string]interface{}** |  | [optional] 
 **Sla** | Pointer to [**[]SLA**](SLA.md) |  | [optional] 
+**Source** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -326,31 +325,6 @@ SetFinally sets Finally field to given value.
 
 HasFinally returns a boolean if a field has been set.
 
-### GetTaskDefaults
-
-`func (o *FlowWithSource) GetTaskDefaults() []PluginDefault`
-
-GetTaskDefaults returns the TaskDefaults field if non-nil, zero value otherwise.
-
-### GetTaskDefaultsOk
-
-`func (o *FlowWithSource) GetTaskDefaultsOk() (*[]PluginDefault, bool)`
-
-GetTaskDefaultsOk returns a tuple with the TaskDefaults field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTaskDefaults
-
-`func (o *FlowWithSource) SetTaskDefaults(v []PluginDefault)`
-
-SetTaskDefaults sets TaskDefaults field to given value.
-
-### HasTaskDefaults
-
-`func (o *FlowWithSource) HasTaskDefaults() bool`
-
-HasTaskDefaults returns a boolean if a field has been set.
-
 ### GetTasks
 
 `func (o *FlowWithSource) GetTasks() []Task`
@@ -395,31 +369,6 @@ SetErrors sets Errors field to given value.
 `func (o *FlowWithSource) HasErrors() bool`
 
 HasErrors returns a boolean if a field has been set.
-
-### GetListeners
-
-`func (o *FlowWithSource) GetListeners() []Listener`
-
-GetListeners returns the Listeners field if non-nil, zero value otherwise.
-
-### GetListenersOk
-
-`func (o *FlowWithSource) GetListenersOk() (*[]Listener, bool)`
-
-GetListenersOk returns a tuple with the Listeners field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetListeners
-
-`func (o *FlowWithSource) SetListeners(v []Listener)`
-
-SetListeners sets Listeners field to given value.
-
-### HasListeners
-
-`func (o *FlowWithSource) HasListeners() bool`
-
-HasListeners returns a boolean if a field has been set.
 
 ### GetAfterExecution
 
@@ -571,7 +520,32 @@ SetSla sets Sla field to given value.
 
 HasSla returns a boolean if a field has been set.
 
+### GetSource
 
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints) [[Back to README]](../../../python-sdk/README.md)
+`func (o *FlowWithSource) GetSource() string`
+
+GetSource returns the Source field if non-nil, zero value otherwise.
+
+### GetSourceOk
+
+`func (o *FlowWithSource) GetSourceOk() (*string, bool)`
+
+GetSourceOk returns a tuple with the Source field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSource
+
+`func (o *FlowWithSource) SetSource(v string)`
+
+SetSource sets Source field to given value.
+
+### HasSource
+
+`func (o *FlowWithSource) HasSource() bool`
+
+HasSource returns a boolean if a field has been set.
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

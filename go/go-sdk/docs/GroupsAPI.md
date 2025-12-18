@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**CreateGroup**](GroupsAPI.md#CreateGroup) | **Post** /api/v1/{tenant}/groups | Create a group
 [**DeleteGroup**](GroupsAPI.md#DeleteGroup) | **Delete** /api/v1/{tenant}/groups/{id} | Delete a group
 [**DeleteUserFromGroup**](GroupsAPI.md#DeleteUserFromGroup) | **Delete** /api/v1/{tenant}/groups/{id}/members/{userId} | Remove a user from a group
-[**GetGroup**](GroupsAPI.md#GetGroup) | **Get** /api/v1/{tenant}/groups/{id} | Retrieve a group
+[**Group**](GroupsAPI.md#Group) | **Get** /api/v1/{tenant}/groups/{id} | Retrieve a group
 [**ListGroupIds**](GroupsAPI.md#ListGroupIds) | **Post** /api/v1/{tenant}/groups/ids | List groups by ids
 [**SearchGroupMembers**](GroupsAPI.md#SearchGroupMembers) | **Get** /api/v1/{tenant}/groups/{id}/members | Search for users in a group
 [**SearchGroups**](GroupsAPI.md#SearchGroups) | **Get** /api/v1/{tenant}/groups/search | Search for groups
@@ -82,16 +82,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## AutocompleteGroups
@@ -152,16 +152,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## CreateGroup
@@ -222,16 +222,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## DeleteGroup
@@ -291,16 +291,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## DeleteUserFromGroup
@@ -367,21 +367,21 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
-## GetGroup
+## Group
 
-> IAMGroupControllerApiGroupDetail GetGroup(ctx, id, tenant).Execute()
+> IAMGroupControllerApiGroupDetail Group(ctx, id, tenant).Execute()
 
 Retrieve a group
 
@@ -405,13 +405,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupsAPI.GetGroup(context.Background(), id, tenant).Execute()
+	resp, r, err := apiClient.GroupsAPI.Group(context.Background(), id, tenant).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GroupsAPI.GetGroup``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `GroupsAPI.Group``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetGroup`: IAMGroupControllerApiGroupDetail
-	fmt.Fprintf(os.Stdout, "Response from `GroupsAPI.GetGroup`: %v\n", resp)
+	// response from `Group`: IAMGroupControllerApiGroupDetail
+	fmt.Fprintf(os.Stdout, "Response from `GroupsAPI.Group`: %v\n", resp)
 }
 ```
 
@@ -426,7 +426,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetGroupRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGroupRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -440,16 +440,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## ListGroupIds
@@ -510,16 +510,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## SearchGroupMembers
@@ -589,16 +589,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## SearchGroups
@@ -665,16 +665,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## SetUserMembershipForGroup
@@ -743,16 +743,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## UpdateGroup
@@ -816,14 +816,14 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

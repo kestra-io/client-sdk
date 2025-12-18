@@ -4,7 +4,6 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**BulkImportApps**](FlowsAPI.md#BulkImportApps) | **Post** /api/v1/{tenant}/apps/import |     Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
 [**BulkUpdateFlows**](FlowsAPI.md#BulkUpdateFlows) | **Post** /api/v1/{tenant}/flows/bulk | Update from multiples yaml sources
 [**CreateFlow**](FlowsAPI.md#CreateFlow) | **Post** /api/v1/{tenant}/flows | Create a flow from yaml source
 [**DeleteFlow**](FlowsAPI.md#DeleteFlow) | **Delete** /api/v1/{tenant}/flows/{namespace}/{id} | Delete a flow
@@ -16,95 +15,27 @@ Method | HTTP request | Description
 [**EnableFlowsByQuery**](FlowsAPI.md#EnableFlowsByQuery) | **Post** /api/v1/{tenant}/flows/enable/by-query | Enable flows returned by the query parameters.
 [**ExportFlowsByIds**](FlowsAPI.md#ExportFlowsByIds) | **Post** /api/v1/{tenant}/flows/export/by-ids | Export flows as a ZIP archive of yaml sources.
 [**ExportFlowsByQuery**](FlowsAPI.md#ExportFlowsByQuery) | **Get** /api/v1/{tenant}/flows/export/by-query | Export flows as a ZIP archive of yaml sources.
+[**Flow**](FlowsAPI.md#Flow) | **Get** /api/v1/{tenant}/flows/{namespace}/{id} | Get a flow
+[**FlowDependencies**](FlowsAPI.md#FlowDependencies) | **Get** /api/v1/{tenant}/flows/{namespace}/{id}/dependencies | Get flow dependencies
+[**FlowDependenciesFromNamespace**](FlowsAPI.md#FlowDependenciesFromNamespace) | **Get** /api/v1/{tenant}/namespaces/{namespace}/dependencies | Retrieve flow dependencies
 [**GenerateFlowGraph**](FlowsAPI.md#GenerateFlowGraph) | **Get** /api/v1/{tenant}/flows/{namespace}/{id}/graph | Generate a graph for a flow
 [**GenerateFlowGraphFromSource**](FlowsAPI.md#GenerateFlowGraphFromSource) | **Post** /api/v1/{tenant}/flows/graph | Generate a graph for a flow source
-[**GetFlow**](FlowsAPI.md#GetFlow) | **Get** /api/v1/{tenant}/flows/{namespace}/{id} | Get a flow
-[**GetFlowDependencies**](FlowsAPI.md#GetFlowDependencies) | **Get** /api/v1/{tenant}/flows/{namespace}/{id}/dependencies | Get flow dependencies
-[**GetFlowDependenciesFromNamespace**](FlowsAPI.md#GetFlowDependenciesFromNamespace) | **Get** /api/v1/{tenant}/namespaces/{namespace}/dependencies | Retrieve flow dependencies
-[**GetTaskFromFlow**](FlowsAPI.md#GetTaskFromFlow) | **Get** /api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId} | Get a flow task
 [**ImportFlows**](FlowsAPI.md#ImportFlows) | **Post** /api/v1/{tenant}/flows/import |     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
 [**ListDistinctNamespaces**](FlowsAPI.md#ListDistinctNamespaces) | **Get** /api/v1/{tenant}/flows/distinct-namespaces | List all distinct namespaces
 [**ListFlowRevisions**](FlowsAPI.md#ListFlowRevisions) | **Get** /api/v1/{tenant}/flows/{namespace}/{id}/revisions | Get revisions for a flow
 [**ListFlowsByNamespace**](FlowsAPI.md#ListFlowsByNamespace) | **Get** /api/v1/{tenant}/flows/{namespace} | Retrieve all flows from a given namespace
+[**SearchConcurrencyLimits**](FlowsAPI.md#SearchConcurrencyLimits) | **Get** /api/v1/{tenant}/concurrency-limit/search | Search for flow concurrency limits
 [**SearchFlows**](FlowsAPI.md#SearchFlows) | **Get** /api/v1/{tenant}/flows/search | Search for flows
 [**SearchFlowsBySourceCode**](FlowsAPI.md#SearchFlowsBySourceCode) | **Get** /api/v1/{tenant}/flows/source | Search for flows source code
+[**TaskFromFlow**](FlowsAPI.md#TaskFromFlow) | **Get** /api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId} | Get a flow task
+[**UpdateConcurrencyLimit**](FlowsAPI.md#UpdateConcurrencyLimit) | **Put** /api/v1/{tenant}/concurrency-limit/{namespace}/{flowId} | Update a flow concurrency limit
 [**UpdateFlow**](FlowsAPI.md#UpdateFlow) | **Put** /api/v1/{tenant}/flows/{namespace}/{id} | Update a flow
-[**UpdateFlowsInNamespaceFromJson**](FlowsAPI.md#UpdateFlowsInNamespaceFromJson) | **Post** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from json object
+[**UpdateFlowsInNamespace**](FlowsAPI.md#UpdateFlowsInNamespace) | **Post** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from yaml source
 [**UpdateTask**](FlowsAPI.md#UpdateTask) | **Patch** /api/v1/{tenant}/flows/{namespace}/{id}/{taskId} | Update a single task on a flow
 [**ValidateFlows**](FlowsAPI.md#ValidateFlows) | **Post** /api/v1/{tenant}/flows/validate | Validate a list of flows
 [**ValidateTask**](FlowsAPI.md#ValidateTask) | **Post** /api/v1/{tenant}/flows/validate/task | Validate a task
 [**ValidateTrigger**](FlowsAPI.md#ValidateTrigger) | **Post** /api/v1/{tenant}/flows/validate/trigger | Validate trigger
 
-
-
-## BulkImportApps
-
-> AppsControllerApiBulkImportResponse BulkImportApps(ctx, tenant).FileUpload(fileUpload).Execute()
-
-    Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn't be imported is returned. 
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	tenant := "tenant_example" // string | 
-	fileUpload := os.NewFile(1234, "some_file") // *os.File | The file to import, can be a ZIP archive or a multi-objects YAML file (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlowsAPI.BulkImportApps(context.Background(), tenant).FileUpload(fileUpload).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlowsAPI.BulkImportApps``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `BulkImportApps`: AppsControllerApiBulkImportResponse
-	fmt.Fprintf(os.Stdout, "Response from `FlowsAPI.BulkImportApps`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**tenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiBulkImportAppsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **fileUpload** | ***os.File** | The file to import, can be a ZIP archive or a multi-objects YAML file | 
-
-### Return type
-
-[**AppsControllerApiBulkImportResponse**](AppsControllerApiBulkImportResponse.md)
-
-### Authorization
-
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: multipart/form-data
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
 
 
 ## BulkUpdateFlows
@@ -173,16 +104,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/x-yaml
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## CreateFlow
@@ -243,16 +174,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/x-yaml
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## DeleteFlow
@@ -315,16 +246,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## DeleteFlowsByIds
@@ -385,21 +316,21 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## DeleteFlowsByQuery
 
-> BulkResponse DeleteFlowsByQuery(ctx, tenant).DeleteExecutionsByQueryRequest(deleteExecutionsByQueryRequest).Q(q).Scope(scope).Namespace(namespace).Labels(labels).Execute()
+> BulkResponse DeleteFlowsByQuery(ctx, tenant).Filters(filters).Execute()
 
 Delete flows returned by the query parameters.
 
@@ -417,15 +348,11 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	deleteExecutionsByQueryRequest := *openapiclient.NewDeleteExecutionsByQueryRequest() // DeleteExecutionsByQueryRequest | 
-	q := "q_example" // string | A string filter (optional)
-	scope := []openapiclient.FlowScope{openapiclient.FlowScope("USER")} // []FlowScope | The scope of the flows to include (optional)
-	namespace := "namespace_example" // string | A namespace filter prefix (optional)
-	labels := []string{"Inner_example"} // []string | A labels filter as a list of 'key:value' (optional)
+	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlowsAPI.DeleteFlowsByQuery(context.Background(), tenant).DeleteExecutionsByQueryRequest(deleteExecutionsByQueryRequest).Q(q).Scope(scope).Namespace(namespace).Labels(labels).Execute()
+	resp, r, err := apiClient.FlowsAPI.DeleteFlowsByQuery(context.Background(), tenant).Filters(filters).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FlowsAPI.DeleteFlowsByQuery``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -451,11 +378,7 @@ Other parameters are passed through a pointer to a apiDeleteFlowsByQueryRequest 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md) |  | 
- **q** | **string** | A string filter | 
- **scope** | [**[]FlowScope**](FlowScope.md) | The scope of the flows to include | 
- **namespace** | **string** | A namespace filter prefix | 
- **labels** | **[]string** | A labels filter as a list of &#39;key:value&#39; | 
+ **filters** | [**[]QueryFilter**](QueryFilter.md) | Filters | 
 
 ### Return type
 
@@ -463,16 +386,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## DisableFlowsByIds
@@ -533,21 +456,21 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## DisableFlowsByQuery
 
-> BulkResponse DisableFlowsByQuery(ctx, tenant).DeleteExecutionsByQueryRequest(deleteExecutionsByQueryRequest).Q(q).Scope(scope).Namespace(namespace).Labels(labels).Execute()
+> BulkResponse DisableFlowsByQuery(ctx, tenant).Filters(filters).Execute()
 
 Disable flows returned by the query parameters.
 
@@ -565,15 +488,11 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	deleteExecutionsByQueryRequest := *openapiclient.NewDeleteExecutionsByQueryRequest() // DeleteExecutionsByQueryRequest | 
-	q := "q_example" // string | A string filter (optional)
-	scope := []openapiclient.FlowScope{openapiclient.FlowScope("USER")} // []FlowScope | The scope of the flows to include (optional)
-	namespace := "namespace_example" // string | A namespace filter prefix (optional)
-	labels := []string{"Inner_example"} // []string | A labels filter as a list of 'key:value' (optional)
+	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlowsAPI.DisableFlowsByQuery(context.Background(), tenant).DeleteExecutionsByQueryRequest(deleteExecutionsByQueryRequest).Q(q).Scope(scope).Namespace(namespace).Labels(labels).Execute()
+	resp, r, err := apiClient.FlowsAPI.DisableFlowsByQuery(context.Background(), tenant).Filters(filters).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FlowsAPI.DisableFlowsByQuery``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -599,11 +518,7 @@ Other parameters are passed through a pointer to a apiDisableFlowsByQueryRequest
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md) |  | 
- **q** | **string** | A string filter | 
- **scope** | [**[]FlowScope**](FlowScope.md) | The scope of the flows to include | 
- **namespace** | **string** | A namespace filter prefix | 
- **labels** | **[]string** | A labels filter as a list of &#39;key:value&#39; | 
+ **filters** | [**[]QueryFilter**](QueryFilter.md) | Filters | 
 
 ### Return type
 
@@ -611,16 +526,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## EnableFlowsByIds
@@ -681,21 +596,21 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## EnableFlowsByQuery
 
-> BulkResponse EnableFlowsByQuery(ctx, tenant).DeleteExecutionsByQueryRequest(deleteExecutionsByQueryRequest).Q(q).Scope(scope).Namespace(namespace).Labels(labels).Execute()
+> BulkResponse EnableFlowsByQuery(ctx, tenant).Filters(filters).Execute()
 
 Enable flows returned by the query parameters.
 
@@ -713,15 +628,11 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	deleteExecutionsByQueryRequest := *openapiclient.NewDeleteExecutionsByQueryRequest() // DeleteExecutionsByQueryRequest | 
-	q := "q_example" // string | A string filter (optional)
-	scope := []openapiclient.FlowScope{openapiclient.FlowScope("USER")} // []FlowScope | The scope of the flows to include (optional)
-	namespace := "namespace_example" // string | A namespace filter prefix (optional)
-	labels := []string{"Inner_example"} // []string | A labels filter as a list of 'key:value' (optional)
+	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlowsAPI.EnableFlowsByQuery(context.Background(), tenant).DeleteExecutionsByQueryRequest(deleteExecutionsByQueryRequest).Q(q).Scope(scope).Namespace(namespace).Labels(labels).Execute()
+	resp, r, err := apiClient.FlowsAPI.EnableFlowsByQuery(context.Background(), tenant).Filters(filters).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FlowsAPI.EnableFlowsByQuery``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -747,11 +658,7 @@ Other parameters are passed through a pointer to a apiEnableFlowsByQueryRequest 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md) |  | 
- **q** | **string** | A string filter | 
- **scope** | [**[]FlowScope**](FlowScope.md) | The scope of the flows to include | 
- **namespace** | **string** | A namespace filter prefix | 
- **labels** | **[]string** | A labels filter as a list of &#39;key:value&#39; | 
+ **filters** | [**[]QueryFilter**](QueryFilter.md) | Filters | 
 
 ### Return type
 
@@ -759,16 +666,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## ExportFlowsByIds
@@ -829,21 +736,21 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: application/octet-stream
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## ExportFlowsByQuery
 
-> string ExportFlowsByQuery(ctx, tenant).Filters(filters).Q(q).Scope(scope).Namespace(namespace).Labels(labels).Execute()
+> string ExportFlowsByQuery(ctx, tenant).Filters(filters).Execute()
 
 Export flows as a ZIP archive of yaml sources.
 
@@ -862,14 +769,10 @@ import (
 func main() {
 	tenant := "tenant_example" // string | 
 	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters (optional)
-	q := "q_example" // string | A string filter (optional)
-	scope := []openapiclient.FlowScope{openapiclient.FlowScope("USER")} // []FlowScope | The scope of the flows to include (optional)
-	namespace := "namespace_example" // string | A namespace filter prefix (optional)
-	labels := []string{"Inner_example"} // []string | A labels filter as a list of 'key:value' (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlowsAPI.ExportFlowsByQuery(context.Background(), tenant).Filters(filters).Q(q).Scope(scope).Namespace(namespace).Labels(labels).Execute()
+	resp, r, err := apiClient.FlowsAPI.ExportFlowsByQuery(context.Background(), tenant).Filters(filters).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FlowsAPI.ExportFlowsByQuery``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -896,10 +799,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **filters** | [**[]QueryFilter**](QueryFilter.md) | Filters | 
- **q** | **string** | A string filter | 
- **scope** | [**[]FlowScope**](FlowScope.md) | The scope of the flows to include | 
- **namespace** | **string** | A namespace filter prefix | 
- **labels** | **[]string** | A labels filter as a list of &#39;key:value&#39; | 
 
 ### Return type
 
@@ -907,16 +806,247 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: application/octet-stream
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## Flow
+
+> FlowWithSource Flow(ctx, namespace, id, tenant).Source(source).AllowDeleted(allowDeleted).Revision(revision).Execute()
+
+Get a flow
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	namespace := "namespace_example" // string | The flow namespace
+	id := "id_example" // string | The flow id
+	source := true // bool | Include the source code (default to false)
+	allowDeleted := true // bool | Get flow even if deleted (default to false)
+	tenant := "tenant_example" // string | 
+	revision := int32(56) // int32 | Get latest revision by default (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FlowsAPI.Flow(context.Background(), namespace, id, tenant).Source(source).AllowDeleted(allowDeleted).Revision(revision).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FlowsAPI.Flow``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Flow`: FlowWithSource
+	fmt.Fprintf(os.Stdout, "Response from `FlowsAPI.Flow`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**namespace** | **string** | The flow namespace | 
+**id** | **string** | The flow id | 
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiFlowRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **source** | **bool** | Include the source code | [default to false]
+ **allowDeleted** | **bool** | Get flow even if deleted | [default to false]
+
+ **revision** | **int32** | Get latest revision by default | 
+
+### Return type
+
+[**FlowWithSource**](FlowWithSource.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## FlowDependencies
+
+> FlowTopologyGraph FlowDependencies(ctx, namespace, id, tenant).DestinationOnly(destinationOnly).ExpandAll(expandAll).Execute()
+
+Get flow dependencies
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	namespace := "namespace_example" // string | The flow namespace
+	id := "id_example" // string | The flow id
+	destinationOnly := true // bool | If true, list only destination dependencies, otherwise list also source dependencies (default to false)
+	expandAll := true // bool | If true, expand all dependencies recursively (default to false)
+	tenant := "tenant_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FlowsAPI.FlowDependencies(context.Background(), namespace, id, tenant).DestinationOnly(destinationOnly).ExpandAll(expandAll).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FlowsAPI.FlowDependencies``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `FlowDependencies`: FlowTopologyGraph
+	fmt.Fprintf(os.Stdout, "Response from `FlowsAPI.FlowDependencies`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**namespace** | **string** | The flow namespace | 
+**id** | **string** | The flow id | 
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiFlowDependenciesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **destinationOnly** | **bool** | If true, list only destination dependencies, otherwise list also source dependencies | [default to false]
+ **expandAll** | **bool** | If true, expand all dependencies recursively | [default to false]
+
+
+### Return type
+
+[**FlowTopologyGraph**](FlowTopologyGraph.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## FlowDependenciesFromNamespace
+
+> FlowTopologyGraph FlowDependenciesFromNamespace(ctx, namespace, tenant).DestinationOnly(destinationOnly).Execute()
+
+Retrieve flow dependencies
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	namespace := "namespace_example" // string | The flow namespace
+	destinationOnly := true // bool | if true, list only destination dependencies, otherwise list also source dependencies (default to false)
+	tenant := "tenant_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FlowsAPI.FlowDependenciesFromNamespace(context.Background(), namespace, tenant).DestinationOnly(destinationOnly).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FlowsAPI.FlowDependenciesFromNamespace``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `FlowDependenciesFromNamespace`: FlowTopologyGraph
+	fmt.Fprintf(os.Stdout, "Response from `FlowsAPI.FlowDependenciesFromNamespace`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**namespace** | **string** | The flow namespace | 
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiFlowDependenciesFromNamespaceRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **destinationOnly** | **bool** | if true, list only destination dependencies, otherwise list also source dependencies | [default to false]
+
+
+### Return type
+
+[**FlowTopologyGraph**](FlowTopologyGraph.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## GenerateFlowGraph
@@ -985,16 +1115,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## GenerateFlowGraphFromSource
@@ -1057,331 +1187,21 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/x-yaml
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
-
-
-## GetFlow
-
-> map[string]interface{} GetFlow(ctx, namespace, id, tenant).Source(source).AllowDeleted(allowDeleted).Revision(revision).Execute()
-
-Get a flow
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	namespace := "namespace_example" // string | The flow namespace
-	id := "id_example" // string | The flow id
-	source := true // bool | Include the source code (default to false)
-	allowDeleted := true // bool | Get flow even if deleted (default to false)
-	tenant := "tenant_example" // string | 
-	revision := int32(56) // int32 | Get latest revision by default (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlowsAPI.GetFlow(context.Background(), namespace, id, tenant).Source(source).AllowDeleted(allowDeleted).Revision(revision).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlowsAPI.GetFlow``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetFlow`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `FlowsAPI.GetFlow`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**namespace** | **string** | The flow namespace | 
-**id** | **string** | The flow id | 
-**tenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetFlowRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
- **source** | **bool** | Include the source code | [default to false]
- **allowDeleted** | **bool** | Get flow even if deleted | [default to false]
-
- **revision** | **int32** | Get latest revision by default | 
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
-
-
-## GetFlowDependencies
-
-> FlowTopologyGraph GetFlowDependencies(ctx, namespace, id, tenant).DestinationOnly(destinationOnly).ExpandAll(expandAll).Execute()
-
-Get flow dependencies
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	namespace := "namespace_example" // string | The flow namespace
-	id := "id_example" // string | The flow id
-	destinationOnly := true // bool | If true, list only destination dependencies, otherwise list also source dependencies (default to false)
-	expandAll := true // bool | If true, expand all dependencies recursively (default to false)
-	tenant := "tenant_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlowsAPI.GetFlowDependencies(context.Background(), namespace, id, tenant).DestinationOnly(destinationOnly).ExpandAll(expandAll).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlowsAPI.GetFlowDependencies``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetFlowDependencies`: FlowTopologyGraph
-	fmt.Fprintf(os.Stdout, "Response from `FlowsAPI.GetFlowDependencies`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**namespace** | **string** | The flow namespace | 
-**id** | **string** | The flow id | 
-**tenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetFlowDependenciesRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
- **destinationOnly** | **bool** | If true, list only destination dependencies, otherwise list also source dependencies | [default to false]
- **expandAll** | **bool** | If true, expand all dependencies recursively | [default to false]
-
-
-### Return type
-
-[**FlowTopologyGraph**](FlowTopologyGraph.md)
-
-### Authorization
-
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
-
-
-## GetFlowDependenciesFromNamespace
-
-> FlowTopologyGraph GetFlowDependenciesFromNamespace(ctx, namespace, tenant).DestinationOnly(destinationOnly).Execute()
-
-Retrieve flow dependencies
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	namespace := "namespace_example" // string | The flow namespace
-	destinationOnly := true // bool | if true, list only destination dependencies, otherwise list also source dependencies (default to false)
-	tenant := "tenant_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlowsAPI.GetFlowDependenciesFromNamespace(context.Background(), namespace, tenant).DestinationOnly(destinationOnly).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlowsAPI.GetFlowDependenciesFromNamespace``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetFlowDependenciesFromNamespace`: FlowTopologyGraph
-	fmt.Fprintf(os.Stdout, "Response from `FlowsAPI.GetFlowDependenciesFromNamespace`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**namespace** | **string** | The flow namespace | 
-**tenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetFlowDependenciesFromNamespaceRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **destinationOnly** | **bool** | if true, list only destination dependencies, otherwise list also source dependencies | [default to false]
-
-
-### Return type
-
-[**FlowTopologyGraph**](FlowTopologyGraph.md)
-
-### Authorization
-
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
-
-
-## GetTaskFromFlow
-
-> Task GetTaskFromFlow(ctx, namespace, id, taskId, tenant).Revision(revision).Execute()
-
-Get a flow task
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	namespace := "namespace_example" // string | The flow namespace
-	id := "id_example" // string | The flow id
-	taskId := "taskId_example" // string | The task id
-	tenant := "tenant_example" // string | 
-	revision := int32(56) // int32 | The flow revision (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlowsAPI.GetTaskFromFlow(context.Background(), namespace, id, taskId, tenant).Revision(revision).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlowsAPI.GetTaskFromFlow``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetTaskFromFlow`: Task
-	fmt.Fprintf(os.Stdout, "Response from `FlowsAPI.GetTaskFromFlow`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**namespace** | **string** | The flow namespace | 
-**id** | **string** | The flow id | 
-**taskId** | **string** | The task id | 
-**tenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetTaskFromFlowRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-
- **revision** | **int32** | The flow revision | 
-
-### Return type
-
-[**Task**](Task.md)
-
-### Authorization
-
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## ImportFlows
 
-> []string ImportFlows(ctx, tenant).FileUpload(fileUpload).Execute()
+> []string ImportFlows(ctx, tenant).FailOnError(failOnError).FileUpload(fileUpload).Execute()
 
     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn't be imported is returned. 
 
@@ -1398,12 +1218,13 @@ import (
 )
 
 func main() {
+	failOnError := true // bool | If should fail on invalid flows (default to false)
 	tenant := "tenant_example" // string | 
 	fileUpload := os.NewFile(1234, "some_file") // *os.File | The file to import, can be a ZIP archive or a multi-objects YAML file (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlowsAPI.ImportFlows(context.Background(), tenant).FileUpload(fileUpload).Execute()
+	resp, r, err := apiClient.FlowsAPI.ImportFlows(context.Background(), tenant).FailOnError(failOnError).FileUpload(fileUpload).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FlowsAPI.ImportFlows``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1428,6 +1249,7 @@ Other parameters are passed through a pointer to a apiImportFlowsRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **failOnError** | **bool** | If should fail on invalid flows | [default to false]
 
  **fileUpload** | ***os.File** | The file to import, can be a ZIP archive or a multi-objects YAML file | 
 
@@ -1437,16 +1259,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: multipart/form-data
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## ListDistinctNamespaces
@@ -1507,16 +1329,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## ListFlowRevisions
@@ -1581,16 +1403,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## ListFlowsByNamespace
@@ -1652,21 +1474,89 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## SearchConcurrencyLimits
+
+> PagedResultsConcurrencyLimit SearchConcurrencyLimits(ctx, tenant).Execute()
+
+Search for flow concurrency limits
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	tenant := "tenant_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FlowsAPI.SearchConcurrencyLimits(context.Background(), tenant).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FlowsAPI.SearchConcurrencyLimits``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SearchConcurrencyLimits`: PagedResultsConcurrencyLimit
+	fmt.Fprintf(os.Stdout, "Response from `FlowsAPI.SearchConcurrencyLimits`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiSearchConcurrencyLimitsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**PagedResultsConcurrencyLimit**](PagedResultsConcurrencyLimit.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## SearchFlows
 
-> PagedResultsFlow SearchFlows(ctx, tenant).Page(page).Size(size).Sort(sort).Filters(filters).Q(q).Scope(scope).Namespace(namespace).Labels(labels).Execute()
+> PagedResultsFlow SearchFlows(ctx, tenant).Page(page).Size(size).Sort(sort).Filters(filters).Execute()
 
 Search for flows
 
@@ -1688,14 +1578,10 @@ func main() {
 	tenant := "tenant_example" // string | 
 	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
 	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters (optional)
-	q := "q_example" // string | A string filter (optional)
-	scope := []openapiclient.FlowScope{openapiclient.FlowScope("USER")} // []FlowScope | The scope of the flows to include (optional)
-	namespace := "namespace_example" // string | A namespace filter prefix (optional)
-	labels := []string{"Inner_example"} // []string | A labels filter as a list of 'key:value' (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlowsAPI.SearchFlows(context.Background(), tenant).Page(page).Size(size).Sort(sort).Filters(filters).Q(q).Scope(scope).Namespace(namespace).Labels(labels).Execute()
+	resp, r, err := apiClient.FlowsAPI.SearchFlows(context.Background(), tenant).Page(page).Size(size).Sort(sort).Filters(filters).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FlowsAPI.SearchFlows``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1725,10 +1611,6 @@ Name | Type | Description  | Notes
 
  **sort** | **[]string** | The sort of current page | 
  **filters** | [**[]QueryFilter**](QueryFilter.md) | Filters | 
- **q** | **string** | A string filter | 
- **scope** | [**[]FlowScope**](FlowScope.md) | The scope of the flows to include | 
- **namespace** | **string** | A namespace filter prefix | 
- **labels** | **[]string** | A labels filter as a list of &#39;key:value&#39; | 
 
 ### Return type
 
@@ -1736,16 +1618,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## SearchFlowsBySourceCode
@@ -1814,21 +1696,176 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## TaskFromFlow
+
+> Task TaskFromFlow(ctx, namespace, id, taskId, tenant).Revision(revision).Execute()
+
+Get a flow task
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	namespace := "namespace_example" // string | The flow namespace
+	id := "id_example" // string | The flow id
+	taskId := "taskId_example" // string | The task id
+	tenant := "tenant_example" // string | 
+	revision := int32(56) // int32 | The flow revision (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FlowsAPI.TaskFromFlow(context.Background(), namespace, id, taskId, tenant).Revision(revision).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FlowsAPI.TaskFromFlow``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `TaskFromFlow`: Task
+	fmt.Fprintf(os.Stdout, "Response from `FlowsAPI.TaskFromFlow`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**namespace** | **string** | The flow namespace | 
+**id** | **string** | The flow id | 
+**taskId** | **string** | The task id | 
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiTaskFromFlowRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
+ **revision** | **int32** | The flow revision | 
+
+### Return type
+
+[**Task**](Task.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateConcurrencyLimit
+
+> ConcurrencyLimit UpdateConcurrencyLimit(ctx, flowId, namespace, tenant).ConcurrencyLimit(concurrencyLimit).Execute()
+
+Update a flow concurrency limit
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	flowId := "flowId_example" // string | 
+	namespace := "namespace_example" // string | 
+	tenant := "tenant_example" // string | 
+	concurrencyLimit := *openapiclient.NewConcurrencyLimit("TenantId_example", "Namespace_example", "FlowId_example") // ConcurrencyLimit | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FlowsAPI.UpdateConcurrencyLimit(context.Background(), flowId, namespace, tenant).ConcurrencyLimit(concurrencyLimit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FlowsAPI.UpdateConcurrencyLimit``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateConcurrencyLimit`: ConcurrencyLimit
+	fmt.Fprintf(os.Stdout, "Response from `FlowsAPI.UpdateConcurrencyLimit`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**flowId** | **string** |  | 
+**namespace** | **string** |  | 
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateConcurrencyLimitRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+ **concurrencyLimit** | [**ConcurrencyLimit**](ConcurrencyLimit.md) |  | 
+
+### Return type
+
+[**ConcurrencyLimit**](ConcurrencyLimit.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## UpdateFlow
 
-> UpdateFlow200Response UpdateFlow(ctx, id, namespace, tenant).Body(body).Execute()
+> FlowWithSource UpdateFlow(ctx, namespace, id, tenant).Body(body).Execute()
 
 Update a flow
 
@@ -1845,19 +1882,19 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | The flow id
 	namespace := "namespace_example" // string | The flow namespace
+	id := "id_example" // string | The flow id
 	tenant := "tenant_example" // string | 
 	body := "body_example" // string | The flow source code
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlowsAPI.UpdateFlow(context.Background(), id, namespace, tenant).Body(body).Execute()
+	resp, r, err := apiClient.FlowsAPI.UpdateFlow(context.Background(), namespace, id, tenant).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FlowsAPI.UpdateFlow``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateFlow`: UpdateFlow200Response
+	// response from `UpdateFlow`: FlowWithSource
 	fmt.Fprintf(os.Stdout, "Response from `FlowsAPI.UpdateFlow`: %v\n", resp)
 }
 ```
@@ -1868,8 +1905,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The flow id | 
 **namespace** | **string** | The flow namespace | 
+**id** | **string** | The flow id | 
 **tenant** | **string** |  | 
 
 ### Other Parameters
@@ -1886,27 +1923,27 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UpdateFlow200Response**](UpdateFlow200Response.md)
+[**FlowWithSource**](FlowWithSource.md)
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/x-yaml
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
-## UpdateFlowsInNamespaceFromJson
+## UpdateFlowsInNamespace
 
-> UpdateFlowsInNamespaceFromJson200Response UpdateFlowsInNamespaceFromJson(ctx, namespace, tenant).Delete(delete).Flow(flow).Execute()
+> []FlowInterface UpdateFlowsInNamespace(ctx, namespace, tenant).Delete(delete).Body(body).Execute()
 
-Update a complete namespace from json object
+Update a complete namespace from yaml source
 
 
 
@@ -1923,20 +1960,20 @@ import (
 )
 
 func main() {
-	delete := true // bool | If missing flow should be deleted (default to true)
 	namespace := "namespace_example" // string | The flow namespace
+	delete := true // bool | If missing flow should be deleted (default to true)
 	tenant := "tenant_example" // string | 
-	flow := []openapiclient.Flow{*openapiclient.NewFlow("Id_example", "Namespace_example", false, false, []openapiclient.Task{*openapiclient.NewTask("Id_example", "Type_example")})} // []Flow | A list of flows
+	body := "body_example" // string | A list of flows source code
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlowsAPI.UpdateFlowsInNamespaceFromJson(context.Background(), namespace, tenant).Delete(delete).Flow(flow).Execute()
+	resp, r, err := apiClient.FlowsAPI.UpdateFlowsInNamespace(context.Background(), namespace, tenant).Delete(delete).Body(body).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FlowsAPI.UpdateFlowsInNamespaceFromJson``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FlowsAPI.UpdateFlowsInNamespace``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateFlowsInNamespaceFromJson`: UpdateFlowsInNamespaceFromJson200Response
-	fmt.Fprintf(os.Stdout, "Response from `FlowsAPI.UpdateFlowsInNamespaceFromJson`: %v\n", resp)
+	// response from `UpdateFlowsInNamespace`: []FlowInterface
+	fmt.Fprintf(os.Stdout, "Response from `FlowsAPI.UpdateFlowsInNamespace`: %v\n", resp)
 }
 ```
 
@@ -1951,32 +1988,32 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUpdateFlowsInNamespaceFromJsonRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiUpdateFlowsInNamespaceRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
  **delete** | **bool** | If missing flow should be deleted | [default to true]
 
-
- **flow** | [**[]Flow**](Flow.md) | A list of flows | 
+ **body** | **string** | A list of flows source code | 
 
 ### Return type
 
-[**UpdateFlowsInNamespaceFromJson200Response**](UpdateFlowsInNamespaceFromJson200Response.md)
+[**[]FlowInterface**](FlowInterface.md)
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
-- **Content-Type**: application/json, application/x-yaml
+- **Content-Type**: application/x-yaml
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## UpdateTask
@@ -2046,16 +2083,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## ValidateFlows
@@ -2116,16 +2153,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/x-yaml
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## ValidateTask
@@ -2149,7 +2186,7 @@ import (
 func main() {
 	section := openapiclient.FlowController.TaskValidationType("TASKS") // FlowControllerTaskValidationType | The type of task
 	tenant := "tenant_example" // string | 
-	body := "body_example" // string | A task definition that can be from tasks or triggers
+	body := map[string]interface{}{ ... } // map[string]interface{} | A task definition that can be from tasks or triggers
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -2180,7 +2217,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **section** | [**FlowControllerTaskValidationType**](FlowControllerTaskValidationType.md) | The type of task | 
 
- **body** | **string** | A task definition that can be from tasks or triggers | 
+ **body** | **map[string]interface{}** | A task definition that can be from tasks or triggers | 
 
 ### Return type
 
@@ -2188,16 +2225,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/x-yaml, application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## ValidateTrigger
@@ -2258,14 +2295,14 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

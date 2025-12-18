@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** |  | [optional] 
 **Id** | **string** |  | 
 **Type** | [**Type**](Type.md) |  | 
 **Description** | Pointer to **string** |  | [optional] 
 **DependsOn** | Pointer to [**DependsOn**](DependsOn.md) |  | [optional] 
 **Required** | Pointer to **bool** |  | [optional] 
 **Defaults** | Pointer to [**string**](PropertyObject.md) |  | [optional] 
+**Prefill** | Pointer to [**string**](PropertyObject.md) | Optional UI hint for pre-filling the input. Cannot be used together with a default value. | [optional] 
 **DisplayName** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -31,31 +31,6 @@ will change when the set of required properties is changed
 NewInputObjectWithDefaults instantiates a new InputObject object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetName
-
-`func (o *InputObject) GetName() string`
-
-GetName returns the Name field if non-nil, zero value otherwise.
-
-### GetNameOk
-
-`func (o *InputObject) GetNameOk() (*string, bool)`
-
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetName
-
-`func (o *InputObject) SetName(v string)`
-
-SetName sets Name field to given value.
-
-### HasName
-
-`func (o *InputObject) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetId
 
@@ -197,6 +172,31 @@ SetDefaults sets Defaults field to given value.
 
 HasDefaults returns a boolean if a field has been set.
 
+### GetPrefill
+
+`func (o *InputObject) GetPrefill() string`
+
+GetPrefill returns the Prefill field if non-nil, zero value otherwise.
+
+### GetPrefillOk
+
+`func (o *InputObject) GetPrefillOk() (*string, bool)`
+
+GetPrefillOk returns a tuple with the Prefill field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPrefill
+
+`func (o *InputObject) SetPrefill(v string)`
+
+SetPrefill sets Prefill field to given value.
+
+### HasPrefill
+
+`func (o *InputObject) HasPrefill() bool`
+
+HasPrefill returns a boolean if a field has been set.
+
 ### GetDisplayName
 
 `func (o *InputObject) GetDisplayName() string`
@@ -223,6 +223,6 @@ SetDisplayName sets DisplayName field to given value.
 HasDisplayName returns a boolean if a field has been set.
 
 
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints) [[Back to README]](../../../python-sdk/README.md)
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

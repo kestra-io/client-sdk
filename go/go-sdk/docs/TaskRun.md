@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | Pointer to **string** |  | [optional] 
 **Id** | **string** |  | 
 **ExecutionId** | **string** |  | 
 **Namespace** | **string** |  | 
@@ -13,7 +12,7 @@ Name | Type | Description | Notes
 **ParentTaskRunId** | Pointer to **string** |  | [optional] 
 **Value** | Pointer to **string** |  | [optional] 
 **Attempts** | Pointer to [**[]TaskRunAttempt**](TaskRunAttempt.md) |  | [optional] 
-**Outputs** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**Outputs** | Pointer to **map[string]interface{}** |  | [optional] 
 **State** | [**State**](State.md) |  | 
 **Iteration** | Pointer to **int32** |  | [optional] 
 **Dynamic** | Pointer to **bool** |  | [optional] 
@@ -37,31 +36,6 @@ will change when the set of required properties is changed
 NewTaskRunWithDefaults instantiates a new TaskRun object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetItems
-
-`func (o *TaskRun) GetItems() string`
-
-GetItems returns the Items field if non-nil, zero value otherwise.
-
-### GetItemsOk
-
-`func (o *TaskRun) GetItemsOk() (*string, bool)`
-
-GetItemsOk returns a tuple with the Items field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetItems
-
-`func (o *TaskRun) SetItems(v string)`
-
-SetItems sets Items field to given value.
-
-### HasItems
-
-`func (o *TaskRun) HasItems() bool`
-
-HasItems returns a boolean if a field has been set.
 
 ### GetId
 
@@ -240,20 +214,20 @@ HasAttempts returns a boolean if a field has been set.
 
 ### GetOutputs
 
-`func (o *TaskRun) GetOutputs() map[string]map[string]interface{}`
+`func (o *TaskRun) GetOutputs() map[string]interface{}`
 
 GetOutputs returns the Outputs field if non-nil, zero value otherwise.
 
 ### GetOutputsOk
 
-`func (o *TaskRun) GetOutputsOk() (*map[string]map[string]interface{}, bool)`
+`func (o *TaskRun) GetOutputsOk() (*map[string]interface{}, bool)`
 
 GetOutputsOk returns a tuple with the Outputs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOutputs
 
-`func (o *TaskRun) SetOutputs(v map[string]map[string]interface{})`
+`func (o *TaskRun) SetOutputs(v map[string]interface{})`
 
 SetOutputs sets Outputs field to given value.
 
@@ -369,6 +343,6 @@ SetForceExecution sets ForceExecution field to given value.
 HasForceExecution returns a boolean if a field has been set.
 
 
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints) [[Back to README]](../../../python-sdk/README.md)
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

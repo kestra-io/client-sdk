@@ -7,8 +7,8 @@ Method | HTTP request | Description
 [**AutocompleteRoles**](RolesAPI.md#AutocompleteRoles) | **Post** /api/v1/{tenant}/roles/autocomplete | List roles for autocomplete
 [**CreateRole**](RolesAPI.md#CreateRole) | **Post** /api/v1/{tenant}/roles | Create a role
 [**DeleteRole**](RolesAPI.md#DeleteRole) | **Delete** /api/v1/{tenant}/roles/{id} | Delete a role
-[**GetRole**](RolesAPI.md#GetRole) | **Get** /api/v1/{tenant}/roles/{id} | Retrieve a role
 [**ListRolesFromGivenIds**](RolesAPI.md#ListRolesFromGivenIds) | **Post** /api/v1/{tenant}/roles/ids | List roles by ids
+[**Role**](RolesAPI.md#Role) | **Get** /api/v1/{tenant}/roles/{id} | Retrieve a role
 [**SearchRoles**](RolesAPI.md#SearchRoles) | **Get** /api/v1/{tenant}/roles/search | Search for roles
 [**UpdateRole**](RolesAPI.md#UpdateRole) | **Put** /api/v1/{tenant}/roles/{id} | Update a role
 
@@ -72,16 +72,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## CreateRole
@@ -142,16 +142,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## DeleteRole
@@ -211,87 +211,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
-
-
-## GetRole
-
-> IAMRoleControllerApiRoleDetail GetRole(ctx, id, tenant).Execute()
-
-Retrieve a role
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | The role id
-	tenant := "tenant_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RolesAPI.GetRole(context.Background(), id, tenant).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RolesAPI.GetRole``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetRole`: IAMRoleControllerApiRoleDetail
-	fmt.Fprintf(os.Stdout, "Response from `RolesAPI.GetRole`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The role id | 
-**tenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetRoleRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-### Return type
-
-[**IAMRoleControllerApiRoleDetail**](IAMRoleControllerApiRoleDetail.md)
-
-### Authorization
-
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## ListRolesFromGivenIds
@@ -352,16 +281,87 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## Role
+
+> IAMRoleControllerApiRoleDetail Role(ctx, id, tenant).Execute()
+
+Retrieve a role
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | The role id
+	tenant := "tenant_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.RolesAPI.Role(context.Background(), id, tenant).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RolesAPI.Role``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Role`: IAMRoleControllerApiRoleDetail
+	fmt.Fprintf(os.Stdout, "Response from `RolesAPI.Role`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | The role id | 
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiRoleRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**IAMRoleControllerApiRoleDetail**](IAMRoleControllerApiRoleDetail.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## SearchRoles
@@ -428,16 +428,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## UpdateRole
@@ -501,14 +501,14 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

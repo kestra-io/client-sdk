@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | Pointer to [**KVType**](KVType.md) |  | [optional] 
-**Value** | Pointer to [**KVControllerTypedValueValue**](KVControllerTypedValueValue.md) |  | [optional] 
+**Value** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasType returns a boolean if a field has been set.
 
 ### GetValue
 
-`func (o *KVControllerTypedValue) GetValue() KVControllerTypedValueValue`
+`func (o *KVControllerTypedValue) GetValue() map[string]interface{}`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *KVControllerTypedValue) GetValueOk() (*KVControllerTypedValueValue, bool)`
+`func (o *KVControllerTypedValue) GetValueOk() (*map[string]interface{}, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *KVControllerTypedValue) SetValue(v KVControllerTypedValueValue)`
+`func (o *KVControllerTypedValue) SetValue(v map[string]interface{})`
 
 SetValue sets Value field to given value.
 
@@ -77,6 +77,6 @@ SetValue sets Value field to given value.
 HasValue returns a boolean if a field has been set.
 
 
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints) [[Back to README]](../../../python-sdk/README.md)
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

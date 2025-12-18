@@ -4,10 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**MinLogLevel** | Pointer to [**Level**](Level.md) |  | [optional] 
 **Id** | **string** |  | 
 **Type** | **string** |  | 
-**Version** | Pointer to **string** |  | [optional] 
+**Version** | Pointer to **string** | Defines the version of the plugin to use.  The version must follow the Semantic Versioning (SemVer) specification:   - A single-digit MAJOR version (e.g., &#x60;1&#x60;).   - A MAJOR.MINOR version (e.g., &#x60;1.1&#x60;).   - A MAJOR.MINOR.PATCH version, optionally with any qualifier     (e.g., &#x60;1.1.2&#x60;, &#x60;1.1.0-SNAPSHOT&#x60;).  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Conditions** | Pointer to [**[]Condition**](Condition.md) |  | [optional] 
 **Disabled** | Pointer to **bool** |  | [optional] [default to false]
@@ -36,31 +35,6 @@ will change when the set of required properties is changed
 NewAbstractTriggerWithDefaults instantiates a new AbstractTrigger object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetMinLogLevel
-
-`func (o *AbstractTrigger) GetMinLogLevel() Level`
-
-GetMinLogLevel returns the MinLogLevel field if non-nil, zero value otherwise.
-
-### GetMinLogLevelOk
-
-`func (o *AbstractTrigger) GetMinLogLevelOk() (*Level, bool)`
-
-GetMinLogLevelOk returns a tuple with the MinLogLevel field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMinLogLevel
-
-`func (o *AbstractTrigger) SetMinLogLevel(v Level)`
-
-SetMinLogLevel sets MinLogLevel field to given value.
-
-### HasMinLogLevel
-
-`func (o *AbstractTrigger) HasMinLogLevel() bool`
-
-HasMinLogLevel returns a boolean if a field has been set.
 
 ### GetId
 
@@ -353,6 +327,6 @@ SetFailOnTriggerError sets FailOnTriggerError field to given value.
 HasFailOnTriggerError returns a boolean if a field has been set.
 
 
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints) [[Back to README]](../../../python-sdk/README.md)
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
