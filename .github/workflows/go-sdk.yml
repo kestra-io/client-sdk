@@ -3,8 +3,6 @@ name: GO SDK tests
 on:
   workflow_call:
     secrets:
-      SLACK_WEBHOOK_URL:
-        required: true
       GOOGLE_SERVICE_ACCOUNT:
         required: true
       GCP_SERVICE_ACCOUNT:
@@ -23,7 +21,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
     defaults:
       run:
