@@ -177,21 +177,24 @@ func TestUsersAPI_All(t *testing.T) {
 
 		_, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx, user.GetId()).Execute()
 	})
+
+	t.Run("getUserTest", func(t *testing.T) {
+		ctx := GetAuthContext()
+
+		base := "test_get_user_" + randomId()
+		created, _, err := KestraTestApiClient().UsersAPI.CreateUser(ctx).IAMUserControllerApiCreateOrUpdateUserRequest(
+			openapiclient.IAMUserControllerApiCreateOrUpdateUserRequest{Email: *strPtr(base + "@kestra.io")},
+		).Execute()
+		require.NoError(t, err)
+
+		fetched, _, err := KestraTestApiClient().UsersAPI.GetUser(ctx, created.GetId()).Execute()
+		require.NoError(t, err)
+		require.Equal(t, created.GetId(), fetched.GetId())
+
+		_, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx, created.GetId()).Execute()
+	})
+
 	/*
-	   t.Run("getUserTest", func(t *testing.T) {
-	       base := "test_get_user_" + randomId()
-	       created, _, err := KestraTestApiClient().UsersAPI.CreateUser(ctx).
-	           Body(openapiclient.IAMUserControllerApiCreateOrUpdateUserRequest{Email: strPtr(base + "@kestra.io")}).
-	           Execute()
-	       require.NoError(t, err)
-
-	       fetched, _, err := KestraTestApiClient().UsersAPI.GetUser(ctx).Id(created.GetId()).Execute()
-	       require.NoError(t, err)
-	       require.Equal(t, created.GetId(), fetched.GetId())
-
-	       _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(created.GetId()).Execute()
-	   })
-
 	   t.Run("listApiTokensTest", func(t *testing.T) {
 	       base := "test_list_api_tokens_for_user_" + randomId()
 	       user, _, err := KestraTestApiClient().UsersAPI.CreateUser(ctx).
