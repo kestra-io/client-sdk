@@ -52,43 +52,45 @@ func TestUsersAPI_All(t *testing.T) {
 			return false
 		}(), "Autocomplete should include the created user's email")
 	})
+
+	t.Run("createApiTokensForUserTest", func(t *testing.T) {
+		ctx := GetAuthContext()
+
+		base := "testcreateapitokenforuser" + randomId()
+
+		// create user
+		userReq := openapiclient.IAMUserControllerApiCreateOrUpdateUserRequest{
+			Email: base + "@kestra.io",
+		}
+		user, _, err := KestraTestApiClient().UsersAPI.CreateUser(ctx).IAMUserControllerApiCreateOrUpdateUserRequest(userReq).Execute()
+		require.NoError(t, err)
+		require.NotNil(t, user)
+
+		// create API token for user
+		tokenReq := openapiclient.CreateApiTokenRequest{
+			Name:        *strPtr(base),
+			Description: strPtr("token for " + base),
+		}
+		token, _, err := KestraTestApiClient().UsersAPI.CreateApiTokensForUser(ctx, user.GetId()).CreateApiTokenRequest(tokenReq).Execute()
+		require.NoError(t, err)
+		require.NotNil(t, token)
+	})
+
+	t.Run("createUserTest", func(t *testing.T) {
+		ctx := GetAuthContext()
+
+		base := "testcreateuser" + randomId()
+		req := openapiclient.IAMUserControllerApiCreateOrUpdateUserRequest{
+			Email:     *strPtr(base + "@kestra.io"),
+			FirstName: strPtr(base),
+			Password:  strPtr("Password!234"),
+		}
+		created, _, err := KestraTestApiClient().UsersAPI.CreateUser(ctx).IAMUserControllerApiCreateOrUpdateUserRequest(req).Execute()
+		require.NoError(t, err)
+		require.NotNil(t, created)
+		assert.Equal(t, req.Email, created.GetEmail())
+	})
 	/*
-	   t.Run("createApiTokensForUserTest", func(t *testing.T) {
-	       base := "test_create_api_token_for_user_" + randomId()
-	       user, _, err := apiClient.UsersAPI.CreateUser(ctx).
-	           Body(openapiclient.IAMUserControllerApiCreateOrUpdateUserRequest{Email: strPtr(base + "@kestra.io")}).
-	           Execute()
-	       require.NoError(t, err)
-	       require.NotNil(t, user)
-
-	       tokenReq := openapiclient.CreateApiTokenRequest{
-	           Name:        strPtr(base),
-	           Description: strPtr("token for " + base),
-	       }
-	       token, _, err := apiClient.UsersAPI.CreateApiTokensForUser(ctx).UserId(user.GetId()).Body(tokenReq).Execute()
-	       require.NoError(t, err)
-	       require.NotNil(t, token)
-
-	       // cleanup
-	       _, _, _ = apiClient.UsersAPI.DeleteUser(ctx).Id(user.GetId()).Execute()
-	   })
-
-	   t.Run("createUserTest", func(t *testing.T) {
-	       base := "test_create_user_" + randomId()
-	       req := openapiclient.IAMUserControllerApiCreateOrUpdateUserRequest{
-	           Email:     strPtr(base + "@kestra.io"),
-	           FirstName: strPtr(base),
-	           Password:  strPtr("Password!234"),
-	       }
-	       created, _, err := apiClient.UsersAPI.CreateUser(ctx).Body(req).Execute()
-	       require.NoError(t, err)
-	       require.NotNil(t, created)
-	       assert.Equal(t, *req.Email, created.GetEmail())
-
-	       // cleanup
-	       _, _, _ = apiClient.UsersAPI.DeleteUser(ctx).Id(created.GetId()).Execute()
-	   })
-
 	   t.Run("deleteApiTokenTest", func(t *testing.T) {
 	       base := "test_delete_api_token_for_user_" + randomId()
 	       user, _, err := apiClient.UsersAPI.CreateUser(ctx).
