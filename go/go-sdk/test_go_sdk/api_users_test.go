@@ -153,30 +153,31 @@ func TestUsersAPI_All(t *testing.T) {
 		require.Error(t, err)
 		_ = httpResp
 	})
+	t.Run("deleteUserAuthMethodTest", func(t *testing.T) {
+		ctx := GetAuthContext()
+
+		base := "test_delete_user_auth_method_" + randomId()
+		user, _, err := KestraTestApiClient().UsersAPI.CreateUser(ctx).IAMUserControllerApiCreateOrUpdateUserRequest(
+			openapiclient.IAMUserControllerApiCreateOrUpdateUserRequest{
+				Email:    *strPtr(base + "@kestra.io"),
+				Password: strPtr("Password!234"),
+			},
+		).Execute()
+		require.NoError(t, err)
+
+		var authId string
+		if auths := user.GetAuths(); auths != nil && len(auths) > 0 {
+			authId = auths[0].GetId()
+		}
+		require.NotEmpty(t, authId)
+
+		patched, _, err := KestraTestApiClient().UsersAPI.DeleteUserAuthMethod(ctx, user.GetId(), authId).Execute()
+		require.NoError(t, err)
+		require.Equal(t, user.GetId(), patched.GetId())
+
+		_, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx, user.GetId()).Execute()
+	})
 	/*
-	   t.Run("deleteUserAuthMethodTest", func(t *testing.T) {
-	       base := "test_delete_user_auth_method_" + randomId()
-	       user, _, err := KestraTestApiClient().UsersAPI.CreateUser(ctx).
-	           Body(openapiclient.IAMUserControllerApiCreateOrUpdateUserRequest{
-	               Email:    strPtr(base + "@kestra.io"),
-	               Password: strPtr("Password!234"),
-	           }).
-	           Execute()
-	       require.NoError(t, err)
-
-	       var authId string
-	       if auths := user.GetAuths(); auths != nil && len(auths) > 0 {
-	           authId = auths[0].GetId()
-	       }
-	       require.NotEmpty(t, authId)
-
-	       patched, _, err := KestraTestApiClient().UsersAPI.DeleteUserAuthMethod(ctx).UserId(user.GetId()).AuthId(authId).Execute()
-	       require.NoError(t, err)
-	       require.Equal(t, user.GetId(), patched.GetId())
-
-	       _, _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(user.GetId()).Execute()
-	   })
-
 	   t.Run("getUserTest", func(t *testing.T) {
 	       base := "test_get_user_" + randomId()
 	       created, _, err := KestraTestApiClient().UsersAPI.CreateUser(ctx).
@@ -188,7 +189,7 @@ func TestUsersAPI_All(t *testing.T) {
 	       require.NoError(t, err)
 	       require.Equal(t, created.GetId(), fetched.GetId())
 
-	       _, _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(created.GetId()).Execute()
+	       _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(created.GetId()).Execute()
 	   })
 
 	   t.Run("listApiTokensTest", func(t *testing.T) {
@@ -206,7 +207,7 @@ func TestUsersAPI_All(t *testing.T) {
 	       require.NoError(t, err)
 	       require.NotNil(t, tokens)
 
-	       _, _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(user.GetId()).Execute()
+	       _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(user.GetId()).Execute()
 	   })
 
 	   t.Run("listUsersTest", func(t *testing.T) {
@@ -229,7 +230,7 @@ func TestUsersAPI_All(t *testing.T) {
 	       }
 	       assert.True(t, found, "Search should include the created user")
 
-	       _, _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(created.GetId()).Execute()
+	       _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(created.GetId()).Execute()
 	   })
 
 	   t.Run("patchUserTest", func(t *testing.T) {
@@ -247,7 +248,7 @@ func TestUsersAPI_All(t *testing.T) {
 	       require.NoError(t, err)
 	       assert.Equal(t, "New", *updated.FirstName)
 
-	       _, _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(created.GetId()).Execute()
+	       _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(created.GetId()).Execute()
 	   })
 
 	   t.Run("patchUserDemoTest", func(t *testing.T) {
@@ -261,7 +262,7 @@ func TestUsersAPI_All(t *testing.T) {
 	       _, _, err = KestraTestApiClient().UsersAPI.PatchUserDemo(ctx).UserId(created.GetId()).Body(req).Execute()
 	       require.NoError(t, err)
 
-	       _, _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(created.GetId()).Execute()
+	       _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(created.GetId()).Execute()
 	   })
 
 	   t.Run("patchUserPasswordTest", func(t *testing.T) {
@@ -279,7 +280,7 @@ func TestUsersAPI_All(t *testing.T) {
 	       require.NoError(t, err)
 	       require.NotNil(t, resp)
 
-	       _, _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(created.GetId()).Execute()
+	       _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(created.GetId()).Execute()
 	   })
 
 	   t.Run("patchUserSuperAdminTest", func(t *testing.T) {
@@ -297,7 +298,7 @@ func TestUsersAPI_All(t *testing.T) {
 	       require.NoError(t, err)
 	       assert.True(t, fetched.GetSuperAdmin() != nil && *fetched.GetSuperAdmin())
 
-	       _, _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(created.GetId()).Execute()
+	       _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(created.GetId()).Execute()
 	   })
 
 	   t.Run("updateCurrentUserPasswordTest", func(t *testing.T) {
@@ -362,7 +363,7 @@ func TestUsersAPI_All(t *testing.T) {
 	       require.NoError(t, err)
 	       assert.Equal(t, "After", *updated.FirstName)
 
-	       _, _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(created.GetId()).Execute()
+	       _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(created.GetId()).Execute()
 	   })
 
 	   t.Run("updateUserGroupsTest", func(t *testing.T) {
@@ -393,8 +394,8 @@ func TestUsersAPI_All(t *testing.T) {
 	       require.NoError(t, err)
 
 	       // cleanup
-	       _, _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(user.GetId()).Execute()
-	       _, _, _ = KestraTestApiClient().GroupsAPI.DeleteGroup(ctx, MAIN_TENANT).Id(group.GetId()).Execute()
+	       _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(user.GetId()).Execute()
+	       _, _ = KestraTestApiClient().GroupsAPI.DeleteGroup(ctx, MAIN_TENANT).Id(group.GetId()).Execute()
 	   })*/
 }
 
