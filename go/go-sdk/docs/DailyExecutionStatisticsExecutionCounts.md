@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CREATED** | Pointer to **int64** |  | [optional] 
+**SUBMITTED** | Pointer to **int64** |  | [optional] 
 **RUNNING** | Pointer to **int64** |  | [optional] 
 **PAUSED** | Pointer to **int64** |  | [optional] 
 **RESTARTED** | Pointer to **int64** |  | [optional] 
@@ -19,6 +20,7 @@ Name | Type | Description | Notes
 **RETRIED** | Pointer to **int64** |  | [optional] 
 **SKIPPED** | Pointer to **int64** |  | [optional] 
 **BREAKPOINT** | Pointer to **int64** |  | [optional] 
+**RESUBMITTED** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -63,6 +65,31 @@ SetCREATED sets CREATED field to given value.
 `func (o *DailyExecutionStatisticsExecutionCounts) HasCREATED() bool`
 
 HasCREATED returns a boolean if a field has been set.
+
+### GetSUBMITTED
+
+`func (o *DailyExecutionStatisticsExecutionCounts) GetSUBMITTED() int64`
+
+GetSUBMITTED returns the SUBMITTED field if non-nil, zero value otherwise.
+
+### GetSUBMITTEDOk
+
+`func (o *DailyExecutionStatisticsExecutionCounts) GetSUBMITTEDOk() (*int64, bool)`
+
+GetSUBMITTEDOk returns a tuple with the SUBMITTED field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSUBMITTED
+
+`func (o *DailyExecutionStatisticsExecutionCounts) SetSUBMITTED(v int64)`
+
+SetSUBMITTED sets SUBMITTED field to given value.
+
+### HasSUBMITTED
+
+`func (o *DailyExecutionStatisticsExecutionCounts) HasSUBMITTED() bool`
+
+HasSUBMITTED returns a boolean if a field has been set.
 
 ### GetRUNNING
 
@@ -414,7 +441,32 @@ SetBREAKPOINT sets BREAKPOINT field to given value.
 
 HasBREAKPOINT returns a boolean if a field has been set.
 
+### GetRESUBMITTED
 
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints) [[Back to README]](../../../python-sdk/README.md)
+`func (o *DailyExecutionStatisticsExecutionCounts) GetRESUBMITTED() int64`
+
+GetRESUBMITTED returns the RESUBMITTED field if non-nil, zero value otherwise.
+
+### GetRESUBMITTEDOk
+
+`func (o *DailyExecutionStatisticsExecutionCounts) GetRESUBMITTEDOk() (*int64, bool)`
+
+GetRESUBMITTEDOk returns a tuple with the RESUBMITTED field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRESUBMITTED
+
+`func (o *DailyExecutionStatisticsExecutionCounts) SetRESUBMITTED(v int64)`
+
+SetRESUBMITTED sets RESUBMITTED field to given value.
+
+### HasRESUBMITTED
+
+`func (o *DailyExecutionStatisticsExecutionCounts) HasRESUBMITTED() bool`
+
+HasRESUBMITTED returns a boolean if a field has been set.
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

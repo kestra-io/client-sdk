@@ -3,7 +3,7 @@ inputSpec: /local/kestra-ee.yml
 outputDir: /local/go/go-sdk
 
 globalProperties:
-  apiTests: true
+  apiTests: false
   modelTests: false
   apiDocs: true
   modelDocs: true
@@ -13,6 +13,7 @@ globalProperties:
 additionalProperties:
   packageName: kestra_api_client
   projectName: kestra_api
+  withGoMod: false
   enumClassPrefix: true
   disallowAdditionalPropertiesIfNotPresent: false
 

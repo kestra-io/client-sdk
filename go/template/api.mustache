@@ -5,6 +5,7 @@ package {{packageName}}
 import (
 	"bytes"
 	"context"
+    "fmt"
 	"io"
 	"net/http"
 	"net/url"
@@ -61,6 +62,9 @@ type {{#structPrefix}}{{&classname}}{{/structPrefix}}{{^structPrefix}}Api{{/stru
 {{#allParams}}
 	{{paramName}} {{^isPathParam}}{{^isFile}}*{{/isFile}}{{/isPathParam}}{{{dataType}}}
 {{/allParams}}
+{{#vendorExtensions.x-sdk-customization.x-multipart}}
+    formData *map[string]any
+{{/vendorExtensions.x-sdk-customization.x-multipart}}
 }
 
 {{#allParams}}
@@ -78,6 +82,14 @@ func (r {{#structPrefix}}{{&classname}}{{/structPrefix}}{{^structPrefix}}Api{{/s
 
 {{/isPathParam}}
 {{/allParams}}
+{{#vendorExtensions.x-sdk-customization.x-multipart}}
+// the request multipart/form-data content
+func (r {{#structPrefix}}{{&classname}}{{/structPrefix}}{{^structPrefix}}Api{{/structPrefix}}{{operationId}}Request) FormData(formData map[string]any) {{#structPrefix}}{{&classname}}{{/structPrefix}}{{^structPrefix}}Api{{/structPrefix}}{{operationId}}Request {
+    r.formData = &formData
+    return r
+}
+{{/vendorExtensions.x-sdk-customization.x-multipart}}
+
 func (r {{#structPrefix}}{{&classname}}{{/structPrefix}}{{^structPrefix}}Api{{/structPrefix}}{{operationId}}Request) Execute() ({{#returnType}}{{^isArray}}{{^returnTypeIsPrimitive}}{{^isResponseFile}}*{{/isResponseFile}}{{/returnTypeIsPrimitive}}{{/isArray}}{{{.}}}, {{/returnType}}*http.Response, error) {
 	return r.ApiService.{{nickname}}Execute(r)
 }
@@ -226,6 +238,38 @@ func (a *{{{classname}}}Service) {{nickname}}Execute(r {{#structPrefix}}{{&class
 	{{/defaultValue}}}
 	{{/required}}
 	{{/queryParams}}
+    {{#vendorExtensions.x-sdk-customization.x-multipart}}
+
+    if r.formData != nil {
+        for key, val := range *r.formData {
+            switch v := val.(type) {
+            case string:
+                localVarFormParams.Add(key, v)
+            case *string:
+                if v != nil {
+                    localVarFormParams.Add(key, *v)
+                }
+            case []string:
+                for _, s := range v {
+                    localVarFormParams.Add(key, s)
+                }
+            case []interface{}:
+                for _, item := range v {
+                    localVarFormParams.Add(key, fmt.Sprint(item))
+                }
+            case time.Time:
+                localVarFormParams.Add(key, v.Format(time.RFC3339))
+            case *time.Time:
+                if v != nil {
+                    localVarFormParams.Add(key, v.Format(time.RFC3339))
+                }
+            default:
+                localVarFormParams.Add(key, fmt.Sprint(v))
+            }
+        }
+    }
+
+    {{/vendorExtensions.x-sdk-customization.x-multipart}}
 	// to determine the Content-Type header
 {{=<% %>=}}
 	localVarHTTPContentTypes := []string{<%#consumes%>"<%&mediaType%>"<%^-last%>, <%/-last%><%/consumes%>}

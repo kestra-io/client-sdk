@@ -10,9 +10,9 @@ Name | Type | Description | Notes
 **FlowId** | **string** |  | 
 **FlowRevision** | **int32** |  | 
 **TaskRunList** | Pointer to [**[]TaskRun**](TaskRun.md) |  | [optional] 
-**Inputs** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
-**Outputs** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
-**Variables** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**Inputs** | Pointer to **map[string]interface{}** |  | [optional] 
+**Outputs** | Pointer to **map[string]interface{}** |  | [optional] 
+**Variables** | Pointer to **map[string]interface{}** |  | [optional] 
 **State** | [**State**](State.md) |  | 
 **ParentId** | Pointer to **string** |  | [optional] 
 **OriginalId** | Pointer to **string** |  | [optional] 
@@ -177,20 +177,20 @@ HasTaskRunList returns a boolean if a field has been set.
 
 ### GetInputs
 
-`func (o *ExecutionControllerExecutionResponse) GetInputs() map[string]map[string]interface{}`
+`func (o *ExecutionControllerExecutionResponse) GetInputs() map[string]interface{}`
 
 GetInputs returns the Inputs field if non-nil, zero value otherwise.
 
 ### GetInputsOk
 
-`func (o *ExecutionControllerExecutionResponse) GetInputsOk() (*map[string]map[string]interface{}, bool)`
+`func (o *ExecutionControllerExecutionResponse) GetInputsOk() (*map[string]interface{}, bool)`
 
 GetInputsOk returns a tuple with the Inputs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInputs
 
-`func (o *ExecutionControllerExecutionResponse) SetInputs(v map[string]map[string]interface{})`
+`func (o *ExecutionControllerExecutionResponse) SetInputs(v map[string]interface{})`
 
 SetInputs sets Inputs field to given value.
 
@@ -202,20 +202,20 @@ HasInputs returns a boolean if a field has been set.
 
 ### GetOutputs
 
-`func (o *ExecutionControllerExecutionResponse) GetOutputs() map[string]map[string]interface{}`
+`func (o *ExecutionControllerExecutionResponse) GetOutputs() map[string]interface{}`
 
 GetOutputs returns the Outputs field if non-nil, zero value otherwise.
 
 ### GetOutputsOk
 
-`func (o *ExecutionControllerExecutionResponse) GetOutputsOk() (*map[string]map[string]interface{}, bool)`
+`func (o *ExecutionControllerExecutionResponse) GetOutputsOk() (*map[string]interface{}, bool)`
 
 GetOutputsOk returns a tuple with the Outputs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOutputs
 
-`func (o *ExecutionControllerExecutionResponse) SetOutputs(v map[string]map[string]interface{})`
+`func (o *ExecutionControllerExecutionResponse) SetOutputs(v map[string]interface{})`
 
 SetOutputs sets Outputs field to given value.
 
@@ -227,20 +227,20 @@ HasOutputs returns a boolean if a field has been set.
 
 ### GetVariables
 
-`func (o *ExecutionControllerExecutionResponse) GetVariables() map[string]map[string]interface{}`
+`func (o *ExecutionControllerExecutionResponse) GetVariables() map[string]interface{}`
 
 GetVariables returns the Variables field if non-nil, zero value otherwise.
 
 ### GetVariablesOk
 
-`func (o *ExecutionControllerExecutionResponse) GetVariablesOk() (*map[string]map[string]interface{}, bool)`
+`func (o *ExecutionControllerExecutionResponse) GetVariablesOk() (*map[string]interface{}, bool)`
 
 GetVariablesOk returns a tuple with the Variables field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVariables
 
-`func (o *ExecutionControllerExecutionResponse) SetVariables(v map[string]map[string]interface{})`
+`func (o *ExecutionControllerExecutionResponse) SetVariables(v map[string]interface{})`
 
 SetVariables sets Variables field to given value.
 
@@ -581,6 +581,6 @@ SetUrl sets Url field to given value.
 HasUrl returns a boolean if a field has been set.
 
 
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints) [[Back to README]](../../../python-sdk/README.md)
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

@@ -2,11 +2,26 @@ name: GO SDK tests
 
 on:
   workflow_call:
-
+    secrets:
+      GOOGLE_SERVICE_ACCOUNT:
+        required: true
+      GCP_SERVICE_ACCOUNT:
+        required: true
+      APPLICATION_SECRETS:
+        required: false
+  workflow_dispatch:
+    inputs:
+      skip-test:
+        description: 'Skip test'
+        required: false
+        type: string
+        default: "false"
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
     defaults:
       run:
         working-directory: ./go/go-sdk
@@ -19,3 +34,19 @@ jobs:
       - name: build
         id: build
         run: go build .
+
+      - name: GCP - Auth with github service account
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: configure docker access to GCP registry for EE image
+        run: gcloud auth configure-docker europe-west1-docker.pkg.dev
+
+      - name: Build local SDK and test it in an example project
+        if: ${{ github.event.inputs.skip-test == 'false' || github.event.inputs.skip-test == '' }}
+        env:
+          APPLICATION_SECRETS: ${{ secrets.APPLICATION_SECRETS }}
+        run: |
+          echo $APPLICATION_SECRETS | base64 -d > ../../test-utils/docker-setup/application-secrets.yml
+          ./run-tests.sh

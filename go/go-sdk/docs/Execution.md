@@ -10,9 +10,9 @@ Name | Type | Description | Notes
 **FlowId** | **string** |  | 
 **FlowRevision** | **int32** |  | 
 **TaskRunList** | Pointer to [**[]TaskRun**](TaskRun.md) |  | [optional] 
-**Inputs** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
-**Outputs** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
-**Variables** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**Inputs** | Pointer to **map[string]interface{}** |  | [optional] 
+**Outputs** | Pointer to **map[string]interface{}** |  | [optional] 
+**Variables** | Pointer to **map[string]interface{}** |  | [optional] 
 **State** | [**State**](State.md) |  | 
 **ParentId** | Pointer to **string** |  | [optional] 
 **OriginalId** | Pointer to **string** |  | [optional] 
@@ -176,20 +176,20 @@ HasTaskRunList returns a boolean if a field has been set.
 
 ### GetInputs
 
-`func (o *Execution) GetInputs() map[string]map[string]interface{}`
+`func (o *Execution) GetInputs() map[string]interface{}`
 
 GetInputs returns the Inputs field if non-nil, zero value otherwise.
 
 ### GetInputsOk
 
-`func (o *Execution) GetInputsOk() (*map[string]map[string]interface{}, bool)`
+`func (o *Execution) GetInputsOk() (*map[string]interface{}, bool)`
 
 GetInputsOk returns a tuple with the Inputs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInputs
 
-`func (o *Execution) SetInputs(v map[string]map[string]interface{})`
+`func (o *Execution) SetInputs(v map[string]interface{})`
 
 SetInputs sets Inputs field to given value.
 
@@ -201,20 +201,20 @@ HasInputs returns a boolean if a field has been set.
 
 ### GetOutputs
 
-`func (o *Execution) GetOutputs() map[string]map[string]interface{}`
+`func (o *Execution) GetOutputs() map[string]interface{}`
 
 GetOutputs returns the Outputs field if non-nil, zero value otherwise.
 
 ### GetOutputsOk
 
-`func (o *Execution) GetOutputsOk() (*map[string]map[string]interface{}, bool)`
+`func (o *Execution) GetOutputsOk() (*map[string]interface{}, bool)`
 
 GetOutputsOk returns a tuple with the Outputs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOutputs
 
-`func (o *Execution) SetOutputs(v map[string]map[string]interface{})`
+`func (o *Execution) SetOutputs(v map[string]interface{})`
 
 SetOutputs sets Outputs field to given value.
 
@@ -226,20 +226,20 @@ HasOutputs returns a boolean if a field has been set.
 
 ### GetVariables
 
-`func (o *Execution) GetVariables() map[string]map[string]interface{}`
+`func (o *Execution) GetVariables() map[string]interface{}`
 
 GetVariables returns the Variables field if non-nil, zero value otherwise.
 
 ### GetVariablesOk
 
-`func (o *Execution) GetVariablesOk() (*map[string]map[string]interface{}, bool)`
+`func (o *Execution) GetVariablesOk() (*map[string]interface{}, bool)`
 
 GetVariablesOk returns a tuple with the Variables field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVariables
 
-`func (o *Execution) SetVariables(v map[string]map[string]interface{})`
+`func (o *Execution) SetVariables(v map[string]interface{})`
 
 SetVariables sets Variables field to given value.
 
@@ -555,6 +555,6 @@ HasBreakpoints returns a boolean if a field has been set.
 
 UnsetBreakpoints ensures that no value is present for Breakpoints, not even an explicit nil
 
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints) [[Back to README]](../../../python-sdk/README.md)
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

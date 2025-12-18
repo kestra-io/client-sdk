@@ -9,9 +9,13 @@
 
 * `NAMESPACE` (value: `"NAMESPACE"`)
 
+* `KIND` (value: `"KIND"`)
+
 * `LABELS` (value: `"LABELS"`)
 
 * `FLOW_ID` (value: `"FLOW_ID"`)
+
+* `UPDATED` (value: `"UPDATED"`)
 
 * `START_DATE` (value: `"START_DATE"`)
 
@@ -36,6 +40,6 @@
 * `MIN_LEVEL` (value: `"MIN_LEVEL"`)
 
 
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints) [[Back to README]](../../../python-sdk/README.md)
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

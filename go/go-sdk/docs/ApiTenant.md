@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **SecretConfiguration** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
 **RequireExistingNamespace** | Pointer to **bool** |  | [optional] 
 **OutputsInInternalStorage** | Pointer to **bool** |  | [optional] 
+**AppCatalogConfig** | Pointer to [**TenantAppCatalogConfig**](TenantAppCatalogConfig.md) |  | [optional] 
 **Logo** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -348,6 +349,31 @@ SetOutputsInInternalStorage sets OutputsInInternalStorage field to given value.
 
 HasOutputsInInternalStorage returns a boolean if a field has been set.
 
+### GetAppCatalogConfig
+
+`func (o *ApiTenant) GetAppCatalogConfig() TenantAppCatalogConfig`
+
+GetAppCatalogConfig returns the AppCatalogConfig field if non-nil, zero value otherwise.
+
+### GetAppCatalogConfigOk
+
+`func (o *ApiTenant) GetAppCatalogConfigOk() (*TenantAppCatalogConfig, bool)`
+
+GetAppCatalogConfigOk returns a tuple with the AppCatalogConfig field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAppCatalogConfig
+
+`func (o *ApiTenant) SetAppCatalogConfig(v TenantAppCatalogConfig)`
+
+SetAppCatalogConfig sets AppCatalogConfig field to given value.
+
+### HasAppCatalogConfig
+
+`func (o *ApiTenant) HasAppCatalogConfig() bool`
+
+HasAppCatalogConfig returns a boolean if a field has been set.
+
 ### GetLogo
 
 `func (o *ApiTenant) GetLogo() string`
@@ -374,6 +400,6 @@ SetLogo sets Logo field to given value.
 HasLogo returns a boolean if a field has been set.
 
 
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints) [[Back to README]](../../../python-sdk/README.md)
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

@@ -1,9 +1,9 @@
 #!/bin/bash
-set -e
+set -euo pipefail
 
 VERSION=$1
 LANGUAGES=$2
-TEMPLATE_FLAG=$3
+TEMPLATE_FLAG="${3:false}"
 
 HOST_UID=$(id -u)
 HOST_GID=$(id -g)
@@ -137,8 +137,7 @@ docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/ope
     --skip-validate-spec \
     --additional-properties=packageVersion=$VERSION \
     --template-dir=/local/go/template
-# these generated structs collide between api_cluster.go and api_maintenance.go, needs to be improved TODO
-sed -i .bak -e 's/ApiEnterMaintenanceRequest/ApiClusterEnterMaintenanceRequest/g' ./go/go-sdk/api_cluster.go && rm ./go/go-sdk/api_cluster.go.bak
-sed -i .bak -e 's/ApiExitMaintenanceRequest/ApiClusterExitMaintenanceRequest/g' ./go/go-sdk/api_cluster.go && rm ./go/go-sdk/api_cluster.go.bak
-gofmt -w ./go-sdk
+
+# this will do go fmt and either auto add missing imports or remove unused ones
+go run golang.org/x/tools/cmd/goimports@latest -w ./go
 fi
