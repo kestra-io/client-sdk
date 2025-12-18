@@ -95,7 +95,9 @@ jobs:
         run: |
           TOKEN_JSON=$(curl -s -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=$AUDIENCE")
           ID_TOKEN=$(echo "$TOKEN_JSON" | jq -r .value)
+          echo "$TOKEN_JSON"
           echo "NODE_AUTH_TOKEN=$ID_TOKEN" >> "$GITHUB_ENV"
+          echo "$ID_TOKEN" | awk -F. '{print $2}' | base64 -d 2>/dev/null | jq -r
 
       - name: Transfer the version from the tag to the package.json
         working-directory: ./javascript/javascript-sdk
@@ -112,4 +114,4 @@ jobs:
       - name: Publish to npm
         working-directory: ./javascript/javascript-sdk
         if: startsWith(github.ref, 'refs/tags/v') && endsWith(github.ref, '-javascript')
-        run: npm publish --access public
+        run: npm publish --access public --force
