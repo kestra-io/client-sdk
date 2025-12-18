@@ -13,7 +13,6 @@
 
 
 import ApiClient from "../ApiClient";
-import polyfilledEventSource from "@sanity/eventsource"
 import PagedResultsTrigger from '../model/PagedResultsTrigger';
 import PagedResultsTriggerControllerTriggers from '../model/PagedResultsTriggerControllerTriggers';
 import QueryFilter from '../model/QueryFilter';

@@ -13,7 +13,6 @@
 
 
 import ApiClient from "../ApiClient";
-import polyfilledEventSource from "@sanity/eventsource"
 import ApiAutocomplete from '../model/ApiAutocomplete';
 import ApiIds from '../model/ApiIds';
 import ApiRoleSummary from '../model/ApiRoleSummary';

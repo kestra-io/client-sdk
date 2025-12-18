@@ -13,7 +13,6 @@
 
 
 import ApiClient from "../ApiClient";
-import polyfilledEventSource from "@sanity/eventsource"
 import BulkResponse from '../model/BulkResponse';
 import PagedResultsTestSuite from '../model/PagedResultsTestSuite';
 import PagedResultsTestSuiteRunResult from '../model/PagedResultsTestSuiteRunResult';

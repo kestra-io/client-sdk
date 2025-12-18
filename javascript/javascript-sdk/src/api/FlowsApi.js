@@ -13,7 +13,6 @@
 
 
 import ApiClient from "../ApiClient";
-import polyfilledEventSource from "@sanity/eventsource"
 import BulkResponse from '../model/BulkResponse';
 import ConcurrencyLimit from '../model/ConcurrencyLimit';
 import Flow from '../model/Flow';

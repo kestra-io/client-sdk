@@ -13,7 +13,6 @@
 
 
 import ApiClient from "../ApiClient";
-import polyfilledEventSource from "@sanity/eventsource"
 import ApiPatchSuperAdminRequest from '../model/ApiPatchSuperAdminRequest';
 import CreateApiTokenRequest from '../model/CreateApiTokenRequest';
 import IAMServiceAccountControllerApiCreateServiceAccountRequest from '../model/IAMServiceAccountControllerApiCreateServiceAccountRequest';
