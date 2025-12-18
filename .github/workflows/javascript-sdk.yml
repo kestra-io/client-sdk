@@ -34,12 +34,30 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-
-
       - uses: actions/setup-node@v6
         with:
           node-version: '22.12'
           registry-url: 'https://registry.npmjs.org'
+
+      - name: extract current version from package.json
+        id: extract_version
+        run: |
+          VERSION=$(node -p "require('./javascript-sdk/package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Generate SDK
+        working-directory: ./
+        run: ./generate-sdk.sh javascript ${{ steps.extract_version.outputs.version }}
+
+      - name: fail workflow if there is any difference after SDK generation
+        run: |
+          if [[ -n $(git status --porcelain) ]]; then
+            echo "There are uncommitted changes after SDK generation. Please commit the changes."
+            git --no-pager diff
+            exit 1
+          else
+            echo "No changes detected after SDK generation."
+          fi
 
       - name: Install dependencies
         run: npm install
