@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Flows** | Pointer to [**FlowUsage**](FlowUsage.md) |  | [optional] 
+**Executions** | Pointer to [**ExecutionUsage**](ExecutionUsage.md) |  | [optional] 
 **Groups** | Pointer to [**GroupUsage**](GroupUsage.md) |  | [optional] 
 **Users** | Pointer to [**UserUsage**](UserUsage.md) |  | [optional] 
 **Roles** | Pointer to [**RoleUsage**](RoleUsage.md) |  | [optional] 
 **Tenants** | Pointer to [**TenantUsage**](TenantUsage.md) |  | [optional] 
-**Flows** | Pointer to [**FlowUsage**](FlowUsage.md) |  | [optional] 
-**Executions** | Pointer to [**ExecutionUsage**](ExecutionUsage.md) |  | [optional] 
 
 ## Methods
 
@@ -29,6 +29,56 @@ will change when the set of required properties is changed
 NewUsageEEWithDefaults instantiates a new UsageEE object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetFlows
+
+`func (o *UsageEE) GetFlows() FlowUsage`
+
+GetFlows returns the Flows field if non-nil, zero value otherwise.
+
+### GetFlowsOk
+
+`func (o *UsageEE) GetFlowsOk() (*FlowUsage, bool)`
+
+GetFlowsOk returns a tuple with the Flows field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFlows
+
+`func (o *UsageEE) SetFlows(v FlowUsage)`
+
+SetFlows sets Flows field to given value.
+
+### HasFlows
+
+`func (o *UsageEE) HasFlows() bool`
+
+HasFlows returns a boolean if a field has been set.
+
+### GetExecutions
+
+`func (o *UsageEE) GetExecutions() ExecutionUsage`
+
+GetExecutions returns the Executions field if non-nil, zero value otherwise.
+
+### GetExecutionsOk
+
+`func (o *UsageEE) GetExecutionsOk() (*ExecutionUsage, bool)`
+
+GetExecutionsOk returns a tuple with the Executions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExecutions
+
+`func (o *UsageEE) SetExecutions(v ExecutionUsage)`
+
+SetExecutions sets Executions field to given value.
+
+### HasExecutions
+
+`func (o *UsageEE) HasExecutions() bool`
+
+HasExecutions returns a boolean if a field has been set.
 
 ### GetGroups
 
@@ -130,57 +180,7 @@ SetTenants sets Tenants field to given value.
 
 HasTenants returns a boolean if a field has been set.
 
-### GetFlows
 
-`func (o *UsageEE) GetFlows() FlowUsage`
-
-GetFlows returns the Flows field if non-nil, zero value otherwise.
-
-### GetFlowsOk
-
-`func (o *UsageEE) GetFlowsOk() (*FlowUsage, bool)`
-
-GetFlowsOk returns a tuple with the Flows field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetFlows
-
-`func (o *UsageEE) SetFlows(v FlowUsage)`
-
-SetFlows sets Flows field to given value.
-
-### HasFlows
-
-`func (o *UsageEE) HasFlows() bool`
-
-HasFlows returns a boolean if a field has been set.
-
-### GetExecutions
-
-`func (o *UsageEE) GetExecutions() ExecutionUsage`
-
-GetExecutions returns the Executions field if non-nil, zero value otherwise.
-
-### GetExecutionsOk
-
-`func (o *UsageEE) GetExecutionsOk() (*ExecutionUsage, bool)`
-
-GetExecutionsOk returns a tuple with the Executions field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetExecutions
-
-`func (o *UsageEE) SetExecutions(v ExecutionUsage)`
-
-SetExecutions sets Executions field to given value.
-
-### HasExecutions
-
-`func (o *UsageEE) HasExecutions() bool`
-
-HasExecutions returns a boolean if a field has been set.
-
-
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints) [[Back to README]](../../../python-sdk/README.md)
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

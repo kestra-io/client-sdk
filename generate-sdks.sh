@@ -1,9 +1,9 @@
 #!/bin/bash
-set -e
+set -euo pipefail
 
 VERSION=$1
 LANGUAGES=$2
-TEMPLATE_FLAG=$3
+TEMPLATE_FLAG="${3:false}"
 
 HOST_UID=$(id -u)
 HOST_GID=$(id -g)
@@ -24,6 +24,10 @@ if [ -z "$LANGUAGES" ]; then
   echo "No languages specified. Please provide a comma-separated list of languages. Possible languages are: 'java', 'python', 'go' and 'javascript'"
   exit 1
 fi
+if [[ "$LANGUAGES" == *,* ]]; then
+  echo "Multiple languages specified. Please provide exactly one language (no commas)."
+  exit 1
+fi
 
 BASE_PKG=io.kestra.sdk
 
@@ -42,6 +46,15 @@ fi
 KESTRA_OPENAPI_SDK_CUSTOMIZER_CONF=$(readlink -f ./configurations/kestra-openapi-sdk-customizer.json)
 KESTRA_OPENAPI=$(readlink -f ./kestra-ee.yml)
 sh -c "cd ./generation-helpers/kestra-openapi-sdk-customizer && npm i && npm run build && npm start $KESTRA_OPENAPI_SDK_CUSTOMIZER_CONF $KESTRA_OPENAPI"
+
+SDK_PATH="./${LANGUAGES}/${LANGUAGES}-sdk"
+OPEN_API_GENERATED_FILES_LIST_FILE="$SDK_PATH/.openapi-generator/FILES"
+echo "cleanup previous generated files in $OPEN_API_GENERATED_FILES_LIST_FILE"
+ls "${OPEN_API_GENERATED_FILES_LIST_FILE}"
+while IFS= read -r file; do
+  echo "removing file: $SDK_PATH/$file"
+  rm "$SDK_PATH/$file"
+done < "$OPEN_API_GENERATED_FILES_LIST_FILE"
 
 # Generate Java SDK
 if [[ ",$LANGUAGES," == *",java,"* ]]; then
@@ -120,8 +133,7 @@ docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/ope
     --skip-validate-spec \
     --additional-properties=packageVersion=$VERSION \
     --template-dir=/local/go/template
-# these generated structs collide between api_cluster.go and api_maintenance.go, needs to be improved TODO
-sed -i .bak -e 's/ApiEnterMaintenanceRequest/ApiClusterEnterMaintenanceRequest/g' ./go/go-sdk/api_cluster.go && rm ./go/go-sdk/api_cluster.go.bak
-sed -i .bak -e 's/ApiExitMaintenanceRequest/ApiClusterExitMaintenanceRequest/g' ./go/go-sdk/api_cluster.go && rm ./go/go-sdk/api_cluster.go.bak
-gofmt -w ./go-sdk
+
+# this will do go fmt and either auto add missing imports or remove unused ones
+go run golang.org/x/tools/cmd/goimports@latest -w ./go
 fi

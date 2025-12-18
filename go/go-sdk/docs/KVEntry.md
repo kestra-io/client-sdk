@@ -4,7 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Namespace** | Pointer to **string** |  | [optional] 
 **Key** | Pointer to **string** |  | [optional] 
+**Version** | Pointer to **int32** |  | [optional] 
 **Description** | Pointer to **NullableString** |  | [optional] 
 **CreationDate** | Pointer to **time.Time** |  | [optional] 
 **UpdateDate** | Pointer to **time.Time** |  | [optional] 
@@ -28,6 +30,31 @@ will change when the set of required properties is changed
 NewKVEntryWithDefaults instantiates a new KVEntry object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetNamespace
+
+`func (o *KVEntry) GetNamespace() string`
+
+GetNamespace returns the Namespace field if non-nil, zero value otherwise.
+
+### GetNamespaceOk
+
+`func (o *KVEntry) GetNamespaceOk() (*string, bool)`
+
+GetNamespaceOk returns a tuple with the Namespace field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNamespace
+
+`func (o *KVEntry) SetNamespace(v string)`
+
+SetNamespace sets Namespace field to given value.
+
+### HasNamespace
+
+`func (o *KVEntry) HasNamespace() bool`
+
+HasNamespace returns a boolean if a field has been set.
 
 ### GetKey
 
@@ -53,6 +80,31 @@ SetKey sets Key field to given value.
 `func (o *KVEntry) HasKey() bool`
 
 HasKey returns a boolean if a field has been set.
+
+### GetVersion
+
+`func (o *KVEntry) GetVersion() int32`
+
+GetVersion returns the Version field if non-nil, zero value otherwise.
+
+### GetVersionOk
+
+`func (o *KVEntry) GetVersionOk() (*int32, bool)`
+
+GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVersion
+
+`func (o *KVEntry) SetVersion(v int32)`
+
+SetVersion sets Version field to given value.
+
+### HasVersion
+
+`func (o *KVEntry) HasVersion() bool`
+
+HasVersion returns a boolean if a field has been set.
 
 ### GetDescription
 
@@ -175,6 +227,6 @@ HasExpirationDate returns a boolean if a field has been set.
 
 UnsetExpirationDate ensures that no value is present for ExpirationDate, not even an explicit nil
 
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints) [[Back to README]](../../../python-sdk/README.md)
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

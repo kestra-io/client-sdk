@@ -4,15 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Key** | **string** |  | 
+**Namespace** | Pointer to **string** |  | [optional] 
 **Description** | **string** |  | 
 **Tags** | [**[]ApiSecretTag**](ApiSecretTag.md) |  | 
-**Key** | **string** |  | 
 
 ## Methods
 
 ### NewApiSecretMetaEE
 
-`func NewApiSecretMetaEE(description string, tags []ApiSecretTag, key string, ) *ApiSecretMetaEE`
+`func NewApiSecretMetaEE(key string, description string, tags []ApiSecretTag, ) *ApiSecretMetaEE`
 
 NewApiSecretMetaEE instantiates a new ApiSecretMetaEE object
 This constructor will assign default values to properties that have it defined,
@@ -26,6 +27,51 @@ will change when the set of required properties is changed
 NewApiSecretMetaEEWithDefaults instantiates a new ApiSecretMetaEE object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetKey
+
+`func (o *ApiSecretMetaEE) GetKey() string`
+
+GetKey returns the Key field if non-nil, zero value otherwise.
+
+### GetKeyOk
+
+`func (o *ApiSecretMetaEE) GetKeyOk() (*string, bool)`
+
+GetKeyOk returns a tuple with the Key field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetKey
+
+`func (o *ApiSecretMetaEE) SetKey(v string)`
+
+SetKey sets Key field to given value.
+
+
+### GetNamespace
+
+`func (o *ApiSecretMetaEE) GetNamespace() string`
+
+GetNamespace returns the Namespace field if non-nil, zero value otherwise.
+
+### GetNamespaceOk
+
+`func (o *ApiSecretMetaEE) GetNamespaceOk() (*string, bool)`
+
+GetNamespaceOk returns a tuple with the Namespace field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNamespace
+
+`func (o *ApiSecretMetaEE) SetNamespace(v string)`
+
+SetNamespace sets Namespace field to given value.
+
+### HasNamespace
+
+`func (o *ApiSecretMetaEE) HasNamespace() bool`
+
+HasNamespace returns a boolean if a field has been set.
 
 ### GetDescription
 
@@ -67,27 +113,7 @@ and a boolean to check if the value has been set.
 SetTags sets Tags field to given value.
 
 
-### GetKey
 
-`func (o *ApiSecretMetaEE) GetKey() string`
-
-GetKey returns the Key field if non-nil, zero value otherwise.
-
-### GetKeyOk
-
-`func (o *ApiSecretMetaEE) GetKeyOk() (*string, bool)`
-
-GetKeyOk returns a tuple with the Key field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetKey
-
-`func (o *ApiSecretMetaEE) SetKey(v string)`
-
-SetKey sets Key field to given value.
-
-
-
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints) [[Back to README]](../../../python-sdk/README.md)
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
