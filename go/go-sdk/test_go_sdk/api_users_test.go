@@ -194,65 +194,75 @@ func TestUsersAPI_All(t *testing.T) {
 		_, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx, created.GetId()).Execute()
 	})
 
+	t.Run("listApiTokensTest", func(t *testing.T) {
+		ctx := GetAuthContext()
+
+		base := "testlistapitokensforuser" + randomId()
+		user, _, err := KestraTestApiClient().UsersAPI.CreateUser(ctx).
+			IAMUserControllerApiCreateOrUpdateUserRequest(openapiclient.IAMUserControllerApiCreateOrUpdateUserRequest{Email: *strPtr(base + "@kestra.io")}).
+			Execute()
+		require.NoError(t, err)
+
+		tokenReq := openapiclient.CreateApiTokenRequest{
+			Name:        *strPtr(base),
+			Description: strPtr("token for " + base),
+		}
+		_, _, err = KestraTestApiClient().UsersAPI.CreateApiTokensForUser(ctx, user.GetId()).CreateApiTokenRequest(tokenReq).Execute()
+		require.NoError(t, err)
+
+		tokens, _, err := KestraTestApiClient().UsersAPI.ListApiTokensForUser(ctx, user.GetId()).Execute()
+		require.NoError(t, err)
+		require.NotNil(t, tokens)
+
+		_, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx, user.GetId()).Execute()
+	})
+
+	t.Run("listUsersTest", func(t *testing.T) {
+		ctx := GetAuthContext()
+
+		base := "test_list_users_" + randomId()
+		created, _, err := KestraTestApiClient().UsersAPI.CreateUser(ctx).
+			IAMUserControllerApiCreateOrUpdateUserRequest(openapiclient.IAMUserControllerApiCreateOrUpdateUserRequest{Email: *strPtr(base + "@kestra.io")}).
+			Execute()
+		require.NoError(t, err)
+
+		page, _, err := KestraTestApiClient().UsersAPI.ListUsers(ctx).Page(1).Size(50).Q(base).Execute()
+		require.NoError(t, err)
+		require.NotNil(t, page)
+		require.NotNil(t, page.GetResults())
+		found := false
+		for _, s := range page.GetResults() {
+			if s.GetId() == created.GetId() {
+				found = true
+				break
+			}
+		}
+		assert.True(t, found, "Search should include the created user")
+
+		_, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx, created.GetId()).Execute()
+	})
+
+	t.Run("patchUserTest", func(t *testing.T) {
+		ctx := GetAuthContext()
+
+		base := "test_patch_user_" + randomId()
+		created, _, err := KestraTestApiClient().UsersAPI.CreateUser(ctx).
+			IAMUserControllerApiCreateOrUpdateUserRequest(openapiclient.IAMUserControllerApiCreateOrUpdateUserRequest{
+				Email:     *strPtr(base + "@kestra.io"),
+				FirstName: strPtr("Old"),
+			}).
+			Execute()
+		require.NoError(t, err)
+
+		patch := openapiclient.MeControllerApiUserDetailsRequest{FirstName: strPtr("New")}
+		updated, _, err := KestraTestApiClient().UsersAPI.PatchUser(ctx, created.GetId()).MeControllerApiUserDetailsRequest(patch).Execute()
+		require.NoError(t, err)
+		assert.Equal(t, "New", *updated.FirstName)
+
+		_, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx, created.GetId()).Execute()
+	})
+
 	/*
-	   t.Run("listApiTokensTest", func(t *testing.T) {
-	       base := "test_list_api_tokens_for_user_" + randomId()
-	       user, _, err := KestraTestApiClient().UsersAPI.CreateUser(ctx).
-	           Body(openapiclient.IAMUserControllerApiCreateOrUpdateUserRequest{Email: strPtr(base + "@kestra.io")}).
-	           Execute()
-	       require.NoError(t, err)
-
-	       tokenReq := openapiclient.CreateApiTokenRequest{Name: strPtr(base)}
-	       _, _, err = KestraTestApiClient().UsersAPI.CreateApiTokensForUser(ctx).UserId(user.GetId()).Body(tokenReq).Execute()
-	       require.NoError(t, err)
-
-	       tokens, _, err := KestraTestApiClient().UsersAPI.ListApiTokensForUser(ctx).UserId(user.GetId()).Execute()
-	       require.NoError(t, err)
-	       require.NotNil(t, tokens)
-
-	       _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(user.GetId()).Execute()
-	   })
-
-	   t.Run("listUsersTest", func(t *testing.T) {
-	       base := "test_list_users_" + randomId()
-	       created, _, err := KestraTestApiClient().UsersAPI.CreateUser(ctx).
-	           Body(openapiclient.IAMUserControllerApiCreateOrUpdateUserRequest{Email: strPtr(base + "@kestra.io")}).
-	           Execute()
-	       require.NoError(t, err)
-
-	       page, _, err := KestraTestApiClient().UsersAPI.ListUsers(ctx).Page(1).Size(50).Q(base).Execute()
-	       require.NoError(t, err)
-	       require.NotNil(t, page)
-	       require.NotNil(t, page.GetResults())
-	       found := false
-	       for _, s := range page.GetResults() {
-	           if s.GetId() == created.GetId() {
-	               found = true
-	               break
-	           }
-	       }
-	       assert.True(t, found, "Search should include the created user")
-
-	       _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(created.GetId()).Execute()
-	   })
-
-	   t.Run("patchUserTest", func(t *testing.T) {
-	       base := "test_patch_user_" + randomId()
-	       created, _, err := KestraTestApiClient().UsersAPI.CreateUser(ctx).
-	           Body(openapiclient.IAMUserControllerApiCreateOrUpdateUserRequest{
-	               Email:     strPtr(base + "@kestra.io"),
-	               FirstName: strPtr("Old"),
-	           }).
-	           Execute()
-	       require.NoError(t, err)
-
-	       patch := openapiclient.MeControllerApiUserDetailsRequest{FirstName: strPtr("New")}
-	       updated, _, err := KestraTestApiClient().UsersAPI.PatchUser(ctx).UserId(created.GetId()).Body(patch).Execute()
-	       require.NoError(t, err)
-	       assert.Equal(t, "New", *updated.FirstName)
-
-	       _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(created.GetId()).Execute()
-	   })
 
 	   t.Run("patchUserDemoTest", func(t *testing.T) {
 	       base := "test_patch_user_demo_" + randomId()
