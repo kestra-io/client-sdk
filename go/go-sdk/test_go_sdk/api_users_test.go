@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -10,7 +9,6 @@ import (
 
 // simple pointer helpers for request models
 func strPtr(s string) *string { return &s }
-func boolPtr(b bool) *bool    { return &b }
 
 func TestUsersAPI_All(t *testing.T) {
 
@@ -410,10 +408,4 @@ func TestUsersAPI_All(t *testing.T) {
 	       _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(user.GetId()).Execute()
 	       _, _ = KestraTestApiClient().GroupsAPI.DeleteGroup(ctx, MAIN_TENANT).Id(group.GetId()).Execute()
 	   })*/
-}
-
-// basicAuthHeader returns a base64 basic auth header value for simple re-auth tests.
-// Replace with real encoding as needed.
-func basicAuthHeader(user, pass string) string {
-	return fmt.Sprintf("%s:%s", user, pass) // adapt to base64 encode if your SDK expects "Basic <base64>"
 }
