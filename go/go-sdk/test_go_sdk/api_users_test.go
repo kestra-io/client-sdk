@@ -260,58 +260,63 @@ func TestUsersAPI_All(t *testing.T) {
 		_, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx, created.GetId()).Execute()
 	})
 
+	t.Run("patchUserDemoTest", func(t *testing.T) {
+		ctx := GetAuthContext()
+
+		base := "testpatchuserdemo" + randomId()
+		created, _, err := KestraTestApiClient().UsersAPI.CreateUser(ctx).
+			IAMUserControllerApiCreateOrUpdateUserRequest(openapiclient.IAMUserControllerApiCreateOrUpdateUserRequest{Email: *strPtr(base + "@kestra.io")}).
+			Execute()
+		require.NoError(t, err)
+
+		req := openapiclient.IAMUserControllerApiPatchRestrictedRequest{Restricted: true}
+		_, err = KestraTestApiClient().UsersAPI.PatchUserDemo(ctx, created.GetId()).IAMUserControllerApiPatchRestrictedRequest(req).Execute()
+		require.NoError(t, err)
+
+		_, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx, created.GetId()).Execute()
+	})
+
+	t.Run("patchUserPasswordTest", func(t *testing.T) {
+		ctx := GetAuthContext()
+
+		base := "testpatchuserpassword" + randomId()
+		created, _, err := KestraTestApiClient().UsersAPI.CreateUser(ctx).
+			IAMUserControllerApiCreateOrUpdateUserRequest(openapiclient.IAMUserControllerApiCreateOrUpdateUserRequest{
+				Email:    *strPtr(base + "@kestra.io"),
+				Password: strPtr("OldPass!1"),
+			}).
+			Execute()
+		require.NoError(t, err)
+
+		req := openapiclient.IAMUserControllerApiPatchUserPasswordRequest{Password: *strPtr("NewPass!1")}
+		resp, _, err := KestraTestApiClient().UsersAPI.PatchUserPassword(ctx, created.GetId()).IAMUserControllerApiPatchUserPasswordRequest(req).Execute()
+		require.NoError(t, err)
+		require.NotNil(t, resp)
+
+		_, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx, created.GetId()).Execute()
+	})
+
+	t.Run("patchUserSuperAdminTest", func(t *testing.T) {
+		ctx := GetAuthContext()
+
+		base := "testpatchusersuperadmin" + randomId()
+		created, _, err := KestraTestApiClient().UsersAPI.CreateUser(ctx).
+			IAMUserControllerApiCreateOrUpdateUserRequest(openapiclient.IAMUserControllerApiCreateOrUpdateUserRequest{Email: *strPtr(base + "@kestra.io")}).
+			Execute()
+		require.NoError(t, err)
+
+		patch := openapiclient.ApiPatchSuperAdminRequest{SuperAdmin: true}
+		_, err = KestraTestApiClient().UsersAPI.PatchUserSuperAdmin(ctx, created.GetId()).ApiPatchSuperAdminRequest(patch).Execute()
+		require.NoError(t, err)
+
+		fetched, _, err := KestraTestApiClient().UsersAPI.GetUser(ctx, created.GetId()).Execute()
+		require.NoError(t, err)
+		assert.True(t, fetched.GetSuperAdmin())
+
+		_, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx, created.GetId()).Execute()
+	})
+
 	/*
-
-	   t.Run("patchUserDemoTest", func(t *testing.T) {
-	       base := "test_patch_user_demo_" + randomId()
-	       created, _, err := KestraTestApiClient().UsersAPI.CreateUser(ctx).
-	           Body(openapiclient.IAMUserControllerApiCreateOrUpdateUserRequest{Email: strPtr(base + "@kestra.io")}).
-	           Execute()
-	       require.NoError(t, err)
-
-	       req := openapiclient.IAMUserControllerApiPatchRestrictedRequest{Restricted: boolPtr(true)}
-	       _, _, err = KestraTestApiClient().UsersAPI.PatchUserDemo(ctx).UserId(created.GetId()).Body(req).Execute()
-	       require.NoError(t, err)
-
-	       _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(created.GetId()).Execute()
-	   })
-
-	   t.Run("patchUserPasswordTest", func(t *testing.T) {
-	       base := "test_patch_user_password_" + randomId()
-	       created, _, err := KestraTestApiClient().UsersAPI.CreateUser(ctx).
-	           Body(openapiclient.IAMUserControllerApiCreateOrUpdateUserRequest{
-	               Email:    strPtr(base + "@kestra.io"),
-	               Password: strPtr("OldPass!1"),
-	           }).
-	           Execute()
-	       require.NoError(t, err)
-
-	       req := openapiclient.IAMUserControllerApiPatchUserPasswordRequest{Password: strPtr("NewPass!1")}
-	       resp, _, err := KestraTestApiClient().UsersAPI.PatchUserPassword(ctx).UserId(created.GetId()).Body(req).Execute()
-	       require.NoError(t, err)
-	       require.NotNil(t, resp)
-
-	       _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(created.GetId()).Execute()
-	   })
-
-	   t.Run("patchUserSuperAdminTest", func(t *testing.T) {
-	       base := "test_patch_user_super_admin_" + randomId()
-	       created, _, err := KestraTestApiClient().UsersAPI.CreateUser(ctx).
-	           Body(openapiclient.IAMUserControllerApiCreateOrUpdateUserRequest{Email: strPtr(base + "@kestra.io")}).
-	           Execute()
-	       require.NoError(t, err)
-
-	       patch := openapiclient.ApiPatchSuperAdminRequest{SuperAdmin: boolPtr(true)}
-	       _, _, err = KestraTestApiClient().UsersAPI.PatchUserSuperAdmin(ctx).UserId(created.GetId()).Body(patch).Execute()
-	       require.NoError(t, err)
-
-	       fetched, _, err := KestraTestApiClient().UsersAPI.GetUser(ctx).Id(created.GetId()).Execute()
-	       require.NoError(t, err)
-	       assert.True(t, fetched.GetSuperAdmin() != nil && *fetched.GetSuperAdmin())
-
-	       _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(created.GetId()).Execute()
-	   })
-
 	   t.Run("updateCurrentUserPasswordTest", func(t *testing.T) {
 	       base := "test_update_current_user_password_" + randomId()
 	       email := base + "@kestra.io"
@@ -355,57 +360,61 @@ func TestUsersAPI_All(t *testing.T) {
 
 	       _, _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(created.GetId()).Execute()
 	   })
+	*/
 
-	   t.Run("updateUserTest", func(t *testing.T) {
-	       base := "test_update_user_" + randomId()
-	       created, _, err := KestraTestApiClient().UsersAPI.CreateUser(ctx).
-	           Body(openapiclient.IAMUserControllerApiCreateOrUpdateUserRequest{
-	               Email:     strPtr(base + "@kestra.io"),
-	               FirstName: strPtr("Before"),
-	           }).
-	           Execute()
-	       require.NoError(t, err)
+	t.Run("updateUserTest", func(t *testing.T) {
+		ctx := GetAuthContext()
 
-	       updateReq := openapiclient.IAMUserControllerApiCreateOrUpdateUserRequest{
-	           Email:     created.Email,
-	           FirstName: strPtr("After"),
-	       }
-	       updated, _, err := KestraTestApiClient().UsersAPI.UpdateUser(ctx).UserId(created.GetId()).Body(updateReq).Execute()
-	       require.NoError(t, err)
-	       assert.Equal(t, "After", *updated.FirstName)
+		base := "testupdateuser" + randomId()
+		created, _, err := KestraTestApiClient().UsersAPI.CreateUser(ctx).
+			IAMUserControllerApiCreateOrUpdateUserRequest(openapiclient.IAMUserControllerApiCreateOrUpdateUserRequest{
+				Email:     *strPtr(base + "@kestra.io"),
+				FirstName: strPtr("Before"),
+			}).
+			Execute()
+		require.NoError(t, err)
 
-	       _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(created.GetId()).Execute()
-	   })
+		updateReq := openapiclient.IAMUserControllerApiCreateOrUpdateUserRequest{
+			Email:     *created.Email,
+			FirstName: strPtr("After"),
+		}
+		updated, _, err := KestraTestApiClient().UsersAPI.UpdateUser(ctx, created.GetId()).IAMUserControllerApiCreateOrUpdateUserRequest(updateReq).Execute()
+		require.NoError(t, err)
+		assert.Equal(t, "After", *updated.FirstName)
 
-	   t.Run("updateUserGroupsTest", func(t *testing.T) {
-	       // create group
-	       group, _, err := KestraTestApiClient().GroupsAPI.CreateGroup(ctx).
-	           Tenant(MAIN_TENANT).
-	           Body(openapiclient.IAMGroupControllerApiCreateGroupRequest{
-	               Name:        strPtr("test_create_group_" + randomId()),
-	               Description: strPtr("An example group"),
-	           }).
-	           Execute()
-	       require.NoError(t, err)
+		_, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx, created.GetId()).Execute()
+	})
 
-	       // create user with tenant access
-	       base := "test_update_user_groups_" + randomId()
-	       user, _, err := KestraTestApiClient().UsersAPI.CreateUser(ctx).
-	           Body(openapiclient.IAMUserControllerApiCreateOrUpdateUserRequest{
-	               Email:   strPtr(base + "@kestra.io"),
-	               Tenants: &[]string{MAIN_TENANT},
-	           }).
-	           Execute()
-	       require.NoError(t, err)
+	t.Run("updateUserGroupsTest", func(t *testing.T) {
+		ctx := GetAuthContext()
 
-	       req := openapiclient.IAMUserGroupControllerApiUpdateUserGroupsRequest{
-	           GroupIds: &[]string{group.GetId()},
-	       }
-	       _, _, err = KestraTestApiClient().UsersAPI.UpdateUserGroups(ctx).UserId(user.GetId(), MAIN_TENANT).Body(req).Execute()
-	       require.NoError(t, err)
+		// create group
+		group, _, err := KestraTestApiClient().GroupsAPI.CreateGroup(ctx, MAIN_TENANT).
+			IAMGroupControllerApiCreateGroupRequest(openapiclient.IAMGroupControllerApiCreateGroupRequest{
+				Name:        "testcreategroup" + randomId(),
+				Description: strPtr("An example group"),
+			}).
+			Execute()
+		require.NoError(t, err)
 
-	       // cleanup
-	       _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(user.GetId()).Execute()
-	       _, _ = KestraTestApiClient().GroupsAPI.DeleteGroup(ctx, MAIN_TENANT).Id(group.GetId()).Execute()
-	   })*/
+		// create user with tenant access
+		base := "testupdateusergroups" + randomId()
+		user, _, err := KestraTestApiClient().UsersAPI.CreateUser(ctx).
+			IAMUserControllerApiCreateOrUpdateUserRequest(openapiclient.IAMUserControllerApiCreateOrUpdateUserRequest{
+				Email:   *strPtr(base + "@kestra.io"),
+				Tenants: []string{MAIN_TENANT},
+			}).
+			Execute()
+		require.NoError(t, err)
+
+		req := openapiclient.IAMUserGroupControllerApiUpdateUserGroupsRequest{
+			GroupIds: []string{group.GetId()},
+		}
+		_, err = KestraTestApiClient().UsersAPI.UpdateUserGroups(ctx, user.GetId(), MAIN_TENANT).IAMUserGroupControllerApiUpdateUserGroupsRequest(req).Execute()
+		require.NoError(t, err)
+
+		// cleanup
+		_, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx, user.GetId()).Execute()
+		_, _ = KestraTestApiClient().GroupsAPI.DeleteGroup(ctx, MAIN_TENANT, group.GetId()).Execute()
+	})
 }
