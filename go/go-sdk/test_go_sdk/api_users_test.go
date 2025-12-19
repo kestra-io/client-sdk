@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -316,51 +317,60 @@ func TestUsersAPI_All(t *testing.T) {
 		_, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx, created.GetId()).Execute()
 	})
 
-	/*
-	   t.Run("updateCurrentUserPasswordTest", func(t *testing.T) {
-	       base := "test_update_current_user_password_" + randomId()
-	       email := base + "@kestra.io"
-	       initial := "InitialPass!1"
-	       changed := "ChangedPass!1"
+	t.Run("updateCurrentUserPasswordTest", func(t *testing.T) {
+		base := "testupdatecurrentuserpassword" + randomId()
+		email := base + "@kestra.io"
+		initial := "InitialPass!1"
+		changed := "ChangedPass!1"
 
-	       created, _, err := KestraTestApiClient().UsersAPI.CreateUser(ctx).
-	           Body(openapiclient.IAMUserControllerApiCreateOrUpdateUserRequest{
-	               Email:    strPtr(email),
-	               Tenants:  &[]string{MAIN_TENANT},
-	               Password: strPtr(initial),
-	           }).
-	           Execute()
-	       require.NoError(t, err)
+		created, _, err := KestraTestApiClient().UsersAPI.CreateUser(GetAuthContext()).
+			IAMUserControllerApiCreateOrUpdateUserRequest(openapiclient.IAMUserControllerApiCreateOrUpdateUserRequest{
+				Email:    *strPtr(email),
+				Tenants:  []string{MAIN_TENANT},
+				Password: strPtr(initial),
+			}).
+			Execute()
+		require.NoError(t, err)
 
-	       // build a user-specific client with basic auth - adapt to how your SDK expects auth
-	       userCfg := openapiclient.NewConfiguration()
-	       userCfg.DefaultHeader = map[string]string{"Authorization": "Basic " + basicAuthHeader(email, initial)}
-	       if host := os.Getenv("KESRTA_HOST"); host != "" {
-	           userCfg.BasePath = host
-	       }
-	       userClient := openapiclient.NewAPIClient(userCfg)
+		// build a user-specific client with basic auth using context
+		userCfg := openapiclient.NewConfiguration()
+		userCfg.Servers = []openapiclient.ServerConfiguration{
+			{
+				URL: HOST,
+			},
+		}
+		userClient := openapiclient.NewAPIClient(userCfg)
 
-	       change := openapiclient.MeControllerApiUpdatePasswordRequest{
-	           OldPassword: strPtr(initial),
-	           NewPassword: strPtr(changed),
-	       }
-	       _, _, err = userClient.UsersAPI.UpdateCurrentUserPassword(ctx).Body(change).Execute()
-	       require.NoError(t, err)
+		// Create context with basic auth for initial password
+		userCtx := context.Background()
+		userCtx = context.WithValue(userCtx, openapiclient.ContextBasicAuth, openapiclient.BasicAuth{
+			UserName: email,
+			Password: initial,
+		})
 
-	       // re-authenticate with changed password and revert
-	       userCfg2 := openapiclient.NewConfiguration()
-	       userCfg2.DefaultHeader = map[string]string{"Authorization": "Basic " + basicAuthHeader(email, changed)}
-	       userClient2 := openapiclient.NewAPIClient(userCfg2)
-	       revert := openapiclient.MeControllerApiUpdatePasswordRequest{
-	           OldPassword: strPtr(changed),
-	           NewPassword: strPtr(initial),
-	       }
-	       _, _, err = userClient2.UsersAPI.UpdateCurrentUserPassword(ctx).Body(revert).Execute()
-	       require.NoError(t, err)
+		change := openapiclient.MeControllerApiUpdatePasswordRequest{
+			OldPassword: strPtr(initial),
+			NewPassword: strPtr(changed),
+		}
+		_, _, err = userClient.UsersAPI.UpdateCurrentUserPassword(userCtx).MeControllerApiUpdatePasswordRequest(change).Execute()
+		require.NoError(t, err)
 
-	       _, _, _ = KestraTestApiClient().UsersAPI.DeleteUser(ctx).Id(created.GetId()).Execute()
-	   })
-	*/
+		// re-authenticate with changed password and revert
+		userCtx2 := context.Background()
+		userCtx2 = context.WithValue(userCtx2, openapiclient.ContextBasicAuth, openapiclient.BasicAuth{
+			UserName: email,
+			Password: changed,
+		})
+
+		revert := openapiclient.MeControllerApiUpdatePasswordRequest{
+			OldPassword: strPtr(changed),
+			NewPassword: strPtr(initial),
+		}
+		_, _, err = userClient.UsersAPI.UpdateCurrentUserPassword(userCtx2).MeControllerApiUpdatePasswordRequest(revert).Execute()
+		require.NoError(t, err)
+
+		_, _ = KestraTestApiClient().UsersAPI.DeleteUser(GetAuthContext(), created.GetId()).Execute()
+	})
 
 	t.Run("updateUserTest", func(t *testing.T) {
 		ctx := GetAuthContext()
