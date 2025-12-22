@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** |  | [optional] 
 **Type** | Pointer to **string** |  | [optional] 
 **Tags** | Pointer to **[]string** |  | [optional] 
+**Thumbnail** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -154,7 +155,32 @@ SetTags sets Tags field to given value.
 
 HasTags returns a boolean if a field has been set.
 
+### GetThumbnail
 
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints) [[Back to README]](../../../python-sdk/README.md)
+`func (o *AppsControllerApiAppCatalogItem) GetThumbnail() string`
+
+GetThumbnail returns the Thumbnail field if non-nil, zero value otherwise.
+
+### GetThumbnailOk
+
+`func (o *AppsControllerApiAppCatalogItem) GetThumbnailOk() (*string, bool)`
+
+GetThumbnailOk returns a tuple with the Thumbnail field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetThumbnail
+
+`func (o *AppsControllerApiAppCatalogItem) SetThumbnail(v string)`
+
+SetThumbnail sets Thumbnail field to given value.
+
+### HasThumbnail
+
+`func (o *AppsControllerApiAppCatalogItem) HasThumbnail() bool`
+
+HasThumbnail returns a boolean if a field has been set.
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

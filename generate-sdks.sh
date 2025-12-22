@@ -35,7 +35,7 @@ BASE_PKG=io.kestra.sdk
 
 if [ -n "$TEMPLATE_FLAG" ]; then
   echo "Generating templates"
-  docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release author template -g "$LANGUAGES" -o /local/$LANGUAGES/templates
+  docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release author template -g "$LANGUAGES" -o /local/$LANGUAGES/template
   exit 0
 fi
 
@@ -120,8 +120,5 @@ docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/ope
     --skip-validate-spec \
     --additional-properties=packageVersion=$VERSION \
     --template-dir=/local/go/template
-# these generated structs collide between api_cluster.go and api_maintenance.go, needs to be improved TODO
-sed -i .bak -e 's/ApiEnterMaintenanceRequest/ApiClusterEnterMaintenanceRequest/g' ./go/go-sdk/api_cluster.go && rm ./go/go-sdk/api_cluster.go.bak
-sed -i .bak -e 's/ApiExitMaintenanceRequest/ApiClusterExitMaintenanceRequest/g' ./go/go-sdk/api_cluster.go && rm ./go/go-sdk/api_cluster.go.bak
-gofmt -w ./go-sdk
+gofmt -w ./go
 fi

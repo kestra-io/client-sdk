@@ -148,7 +148,7 @@ func TestUsersAPI_All(t *testing.T) {
 		_, err = KestraTestApiClient().UsersAPI.DeleteUser(ctx, user.GetId()).Execute()
 		require.NoError(t, err)
 
-		_, httpResp, err := KestraTestApiClient().UsersAPI.GetUser(ctx, user.GetId()).Execute()
+		_, httpResp, err := KestraTestApiClient().UsersAPI.User(ctx, user.GetId()).Execute()
 		require.Error(t, err)
 		_ = httpResp
 	})
@@ -186,7 +186,7 @@ func TestUsersAPI_All(t *testing.T) {
 		).Execute()
 		require.NoError(t, err)
 
-		fetched, _, err := KestraTestApiClient().UsersAPI.GetUser(ctx, created.GetId()).Execute()
+		fetched, _, err := KestraTestApiClient().UsersAPI.User(ctx, created.GetId()).Execute()
 		require.NoError(t, err)
 		require.Equal(t, created.GetId(), fetched.GetId())
 
@@ -310,7 +310,7 @@ func TestUsersAPI_All(t *testing.T) {
 		_, err = KestraTestApiClient().UsersAPI.PatchUserSuperAdmin(ctx, created.GetId()).ApiPatchSuperAdminRequest(patch).Execute()
 		require.NoError(t, err)
 
-		fetched, _, err := KestraTestApiClient().UsersAPI.GetUser(ctx, created.GetId()).Execute()
+		fetched, _, err := KestraTestApiClient().UsersAPI.User(ctx, created.GetId()).Execute()
 		require.NoError(t, err)
 		assert.True(t, fetched.GetSuperAdmin())
 

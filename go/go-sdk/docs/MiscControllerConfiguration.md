@@ -8,9 +8,9 @@ Name | Type | Description | Notes
 **Version** | Pointer to **string** |  | [optional] 
 **Edition** | Pointer to [**EditionProviderEdition**](EditionProviderEdition.md) |  | [optional] 
 **CommitId** | Pointer to **string** |  | [optional] 
+**ChartDefaultDuration** | Pointer to **string** |  | [optional] 
 **CommitDate** | Pointer to **time.Time** |  | [optional] 
 **IsCustomDashboardsEnabled** | Pointer to **bool** |  | [optional] 
-**IsTaskRunEnabled** | Pointer to **bool** |  | [optional] 
 **IsAnonymousUsageEnabled** | Pointer to **bool** |  | [optional] 
 **IsUiAnonymousUsageEnabled** | Pointer to **bool** |  | [optional] 
 **IsTemplateEnabled** | Pointer to **bool** |  | [optional] 
@@ -19,10 +19,10 @@ Name | Type | Description | Notes
 **Preview** | Pointer to [**MiscControllerPreview**](MiscControllerPreview.md) |  | [optional] 
 **SystemNamespace** | Pointer to **string** |  | [optional] 
 **HiddenLabelsPrefixes** | Pointer to **[]string** |  | [optional] 
-**ResourceToFilters** | Pointer to [**[]QueryFilterResourceField**](QueryFilterResourceField.md) |  | [optional] 
 **IsAiEnabled** | Pointer to **bool** |  | [optional] 
 **IsBasicAuthInitialized** | Pointer to **bool** |  | [optional] 
 **PluginsHash** | Pointer to **int64** |  | [optional] 
+**IsConcurrencyViewEnabled** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
@@ -143,6 +143,31 @@ SetCommitId sets CommitId field to given value.
 
 HasCommitId returns a boolean if a field has been set.
 
+### GetChartDefaultDuration
+
+`func (o *MiscControllerConfiguration) GetChartDefaultDuration() string`
+
+GetChartDefaultDuration returns the ChartDefaultDuration field if non-nil, zero value otherwise.
+
+### GetChartDefaultDurationOk
+
+`func (o *MiscControllerConfiguration) GetChartDefaultDurationOk() (*string, bool)`
+
+GetChartDefaultDurationOk returns a tuple with the ChartDefaultDuration field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetChartDefaultDuration
+
+`func (o *MiscControllerConfiguration) SetChartDefaultDuration(v string)`
+
+SetChartDefaultDuration sets ChartDefaultDuration field to given value.
+
+### HasChartDefaultDuration
+
+`func (o *MiscControllerConfiguration) HasChartDefaultDuration() bool`
+
+HasChartDefaultDuration returns a boolean if a field has been set.
+
 ### GetCommitDate
 
 `func (o *MiscControllerConfiguration) GetCommitDate() time.Time`
@@ -192,31 +217,6 @@ SetIsCustomDashboardsEnabled sets IsCustomDashboardsEnabled field to given value
 `func (o *MiscControllerConfiguration) HasIsCustomDashboardsEnabled() bool`
 
 HasIsCustomDashboardsEnabled returns a boolean if a field has been set.
-
-### GetIsTaskRunEnabled
-
-`func (o *MiscControllerConfiguration) GetIsTaskRunEnabled() bool`
-
-GetIsTaskRunEnabled returns the IsTaskRunEnabled field if non-nil, zero value otherwise.
-
-### GetIsTaskRunEnabledOk
-
-`func (o *MiscControllerConfiguration) GetIsTaskRunEnabledOk() (*bool, bool)`
-
-GetIsTaskRunEnabledOk returns a tuple with the IsTaskRunEnabled field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetIsTaskRunEnabled
-
-`func (o *MiscControllerConfiguration) SetIsTaskRunEnabled(v bool)`
-
-SetIsTaskRunEnabled sets IsTaskRunEnabled field to given value.
-
-### HasIsTaskRunEnabled
-
-`func (o *MiscControllerConfiguration) HasIsTaskRunEnabled() bool`
-
-HasIsTaskRunEnabled returns a boolean if a field has been set.
 
 ### GetIsAnonymousUsageEnabled
 
@@ -418,31 +418,6 @@ SetHiddenLabelsPrefixes sets HiddenLabelsPrefixes field to given value.
 
 HasHiddenLabelsPrefixes returns a boolean if a field has been set.
 
-### GetResourceToFilters
-
-`func (o *MiscControllerConfiguration) GetResourceToFilters() []QueryFilterResourceField`
-
-GetResourceToFilters returns the ResourceToFilters field if non-nil, zero value otherwise.
-
-### GetResourceToFiltersOk
-
-`func (o *MiscControllerConfiguration) GetResourceToFiltersOk() (*[]QueryFilterResourceField, bool)`
-
-GetResourceToFiltersOk returns a tuple with the ResourceToFilters field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetResourceToFilters
-
-`func (o *MiscControllerConfiguration) SetResourceToFilters(v []QueryFilterResourceField)`
-
-SetResourceToFilters sets ResourceToFilters field to given value.
-
-### HasResourceToFilters
-
-`func (o *MiscControllerConfiguration) HasResourceToFilters() bool`
-
-HasResourceToFilters returns a boolean if a field has been set.
-
 ### GetIsAiEnabled
 
 `func (o *MiscControllerConfiguration) GetIsAiEnabled() bool`
@@ -518,7 +493,32 @@ SetPluginsHash sets PluginsHash field to given value.
 
 HasPluginsHash returns a boolean if a field has been set.
 
+### GetIsConcurrencyViewEnabled
 
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints) [[Back to README]](../../../python-sdk/README.md)
+`func (o *MiscControllerConfiguration) GetIsConcurrencyViewEnabled() bool`
+
+GetIsConcurrencyViewEnabled returns the IsConcurrencyViewEnabled field if non-nil, zero value otherwise.
+
+### GetIsConcurrencyViewEnabledOk
+
+`func (o *MiscControllerConfiguration) GetIsConcurrencyViewEnabledOk() (*bool, bool)`
+
+GetIsConcurrencyViewEnabledOk returns a tuple with the IsConcurrencyViewEnabled field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsConcurrencyViewEnabled
+
+`func (o *MiscControllerConfiguration) SetIsConcurrencyViewEnabled(v bool)`
+
+SetIsConcurrencyViewEnabled sets IsConcurrencyViewEnabled field to given value.
+
+### HasIsConcurrencyViewEnabled
+
+`func (o *MiscControllerConfiguration) HasIsConcurrencyViewEnabled() bool`
+
+HasIsConcurrencyViewEnabled returns a boolean if a field has been set.
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
