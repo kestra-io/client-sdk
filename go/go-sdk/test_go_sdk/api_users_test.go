@@ -2,10 +2,11 @@ package main
 
 import (
 	"context"
+	"testing"
+
 	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
 )
 
 // simple pointer helpers for request models

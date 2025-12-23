@@ -5,12 +5,10 @@ package {{packageName}}
 import (
 	"bytes"
 	"context"
+    "fmt"
 	"io"
 	"net/http"
 	"net/url"
-{{#vendorExtensions.x-sdk-customization.x-multipart}}
-    "fmt"
-{{/vendorExtensions.x-sdk-customization.x-multipart}}
 {{#imports}}	"{{import}}"
 {{/imports}}
 )

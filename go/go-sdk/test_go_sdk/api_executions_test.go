@@ -3,9 +3,10 @@ package main
 import (
 	"context"
 	"fmt"
+	"testing"
+
 	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
 	"github.com/stretchr/testify/require"
-	"testing"
 )
 
 func FAILED_FLOW(id string, ns string) string {

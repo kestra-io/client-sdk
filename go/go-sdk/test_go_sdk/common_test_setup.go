@@ -4,10 +4,11 @@ import (
 	"context"
 	"crypto/rand"
 	"encoding/hex"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
 	"os"
 	"path/filepath"
 	"strings"
+
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
 )
 
 const (
