@@ -28,7 +28,7 @@ docs/ApiGroupSummary.md
 docs/ApiIds.md
 docs/ApiPatchSuperAdminRequest.md
 docs/ApiRoleSummary.md
-docs/ApiSecretListResponse.md
+docs/ApiSecretListResponseApiSecretMeta.md
 docs/ApiSecretMeta.md
 docs/ApiSecretMetaEE.md
 docs/ApiSecretTag.md
@@ -67,6 +67,7 @@ docs/BaseAuditLog.md
 docs/BaseResourcePatchRequest.md
 docs/BaseResourceScimResource.md
 docs/BaseResourceSearchRequest.md
+docs/BasicAuthCredentials.md
 docs/Binding.md
 docs/BindingType.md
 docs/Blueprint.md
@@ -77,18 +78,21 @@ docs/BlueprintControllerKind.md
 docs/BlueprintWithFlow.md
 docs/Breakpoint.md
 docs/BulkErrorResponse.md
+docs/BulkImportAppsRequest.md
 docs/BulkResponse.md
 docs/Cache.md
 docs/ChartChartOption.md
 docs/ChartFiltersOverrides.md
 docs/Concurrency.md
 docs/ConcurrencyBehavior.md
+docs/ConcurrencyLimit.md
 docs/Condition.md
 docs/ConversionServiceProvider.md
 docs/ConvertibleMultiValuesString.md
 docs/ConvertibleValuesListString.md
 docs/CreateApiTokenRequest.md
 docs/CreateApiTokenResponse.md
+docs/CreateNamespaceFileRequest.md
 docs/CreateSecurityIntegrationRequest.md
 docs/CrudEventType.md
 docs/DailyExecutionStatistics.md
@@ -96,7 +100,6 @@ docs/DailyExecutionStatisticsDuration.md
 docs/DailyExecutionStatisticsExecutionCounts.md
 docs/Dashboard.md
 docs/DashboardControllerPreviewRequest.md
-docs/DeleteExecutionsByQueryRequest.md
 docs/DeletedInterface.md
 docs/DependsOn.md
 docs/DocumentationWithSchema.md
@@ -219,7 +222,6 @@ docs/KVAPI.md
 docs/KVControllerApiDeleteBulkRequest.md
 docs/KVControllerApiDeleteBulkResponse.md
 docs/KVControllerTypedValue.md
-docs/KVControllerTypedValueValue.md
 docs/KVEntry.md
 docs/KVType.md
 docs/Label.md
@@ -240,7 +242,6 @@ docs/MetricAggregations.md
 docs/MetricEntry.md
 docs/MetricTag.md
 docs/MiscControllerApiUsage.md
-docs/MiscControllerBasicAuthCredentials.md
 docs/MiscControllerConfiguration.md
 docs/MiscControllerEEConfiguration.md
 docs/MiscControllerEnvironment.md
@@ -264,6 +265,7 @@ docs/PagedResultsAppsControllerApiAppCatalogItem.md
 docs/PagedResultsAuditLogControllerApiAuditLogItem.md
 docs/PagedResultsBlueprint.md
 docs/PagedResultsBlueprintControllerApiBlueprintItem.md
+docs/PagedResultsConcurrencyLimit.md
 docs/PagedResultsDashboard.md
 docs/PagedResultsExecution.md
 docs/PagedResultsFlow.md
@@ -275,12 +277,12 @@ docs/PagedResultsIAMTenantAccessControllerApiUserTenantAccess.md
 docs/PagedResultsIAMUserControllerApiUserSummary.md
 docs/PagedResultsInstanceControllerApiPluginArtifact.md
 docs/PagedResultsInstanceControllerApiServiceInstance.md
+docs/PagedResultsKVEntry.md
 docs/PagedResultsLogEntry.md
 docs/PagedResultsMapStringObject.md
 docs/PagedResultsMetricEntry.md
 docs/PagedResultsNamespace.md
 docs/PagedResultsSearchResultFlow.md
-docs/PagedResultsTaskRun.md
 docs/PagedResultsTenant.md
 docs/PagedResultsTestSuite.md
 docs/PagedResultsTestSuiteRunResult.md
@@ -309,10 +311,7 @@ docs/PropertyObject.md
 docs/PropertyString.md
 docs/QueryFilter.md
 docs/QueryFilterField.md
-docs/QueryFilterFieldOp.md
 docs/QueryFilterOp.md
-docs/QueryFilterOperation.md
-docs/QueryFilterResourceField.md
 docs/RBACServiceRoleAssignmentRoleOrigin.md
 docs/Relation.md
 docs/RelationType.md
@@ -357,6 +356,7 @@ docs/ServiceProviderConfigurationFilterConfiguration.md
 docs/ServiceProviderConfigurationSupportedConfiguration.md
 docs/ServiceServiceState.md
 docs/ServiceType.md
+docs/SetAppsCatalogLogoRequest.md
 docs/SetupConfiguration.md
 docs/SetupConfigurationSetupData.md
 docs/SortOrder.md
@@ -370,6 +370,9 @@ docs/TaskForExecution.md
 docs/TaskRun.md
 docs/TaskRunAttempt.md
 docs/Tenant.md
+docs/TenantAppCatalogConfig.md
+docs/TenantControllerAppsCatalogConfigRequest.md
+docs/TenantControllerAppsCatalogConfigResponse.md
 docs/TenantInterface.md
 docs/TenantUsage.md
 docs/TestState.md
@@ -393,8 +396,7 @@ docs/TriggersAPI.md
 docs/Type.md
 docs/UnitTest.md
 docs/UnitTestResult.md
-docs/UpdateFlow200Response.md
-docs/UpdateFlowsInNamespaceFromJson200Response.md
+docs/UploadVersionedPluginsRequest.md
 docs/UsageEE.md
 docs/UserGroup.md
 docs/UserGroupType.md
@@ -408,8 +410,6 @@ docs/WorkerGroup.md
 docs/WorkerGroupFallback.md
 docs/WorkerTaskRestartStrategy.md
 git_push.sh
-go.mod
-go.sum
 model_abstract_flow.go
 model_abstract_graph.go
 model_abstract_graph_branch_type.go
@@ -425,7 +425,7 @@ model_api_group_summary.go
 model_api_ids.go
 model_api_patch_super_admin_request.go
 model_api_role_summary.go
-model_api_secret_list_response.go
+model_api_secret_list_response_api_secret_meta_.go
 model_api_secret_meta.go
 model_api_secret_meta_ee.go
 model_api_secret_tag.go
@@ -464,6 +464,7 @@ model_base_audit_log.go
 model_base_resource_patch_request_.go
 model_base_resource_scim_resource_.go
 model_base_resource_search_request_.go
+model_basic_auth_credentials.go
 model_binding.go
 model_binding_type.go
 model_blueprint.go
@@ -474,18 +475,21 @@ model_blueprint_controller_kind.go
 model_blueprint_with_flow.go
 model_breakpoint.go
 model_bulk_error_response.go
+model_bulk_import_apps_request.go
 model_bulk_response.go
 model_cache.go
 model_chart_chart_option_.go
 model_chart_filters_overrides.go
 model_concurrency.go
 model_concurrency_behavior.go
+model_concurrency_limit.go
 model_condition.go
 model_conversion_service_provider.go
 model_convertible_multi_values_string_.go
 model_convertible_values_list_string__.go
 model_create_api_token_request.go
 model_create_api_token_response.go
+model_create_namespace_file_request.go
 model_create_security_integration_request.go
 model_crud_event_type.go
 model_daily_execution_statistics.go
@@ -493,7 +497,6 @@ model_daily_execution_statistics_duration.go
 model_daily_execution_statistics_execution_counts.go
 model_dashboard.go
 model_dashboard_controller_preview_request.go
-model_delete_executions_by_query_request.go
 model_deleted_interface.go
 model_depends_on.go
 model_documentation_with_schema.go
@@ -612,7 +615,6 @@ model_isolation.go
 model_kv_controller_api_delete_bulk_request.go
 model_kv_controller_api_delete_bulk_response.go
 model_kv_controller_typed_value.go
-model_kv_controller_typed_value_value.go
 model_kv_entry.go
 model_kv_type.go
 model_label.go
@@ -633,7 +635,6 @@ model_metric_aggregations.go
 model_metric_entry.go
 model_metric_tag.go
 model_misc_controller_api_usage.go
-model_misc_controller_basic_auth_credentials.go
 model_misc_controller_configuration.go
 model_misc_controller_ee_configuration.go
 model_misc_controller_environment.go
@@ -656,6 +657,7 @@ model_paged_results_apps_controller_api_app_catalog_item_.go
 model_paged_results_audit_log_controller_api_audit_log_item_.go
 model_paged_results_blueprint_.go
 model_paged_results_blueprint_controller_api_blueprint_item_.go
+model_paged_results_concurrency_limit_.go
 model_paged_results_dashboard_.go
 model_paged_results_execution_.go
 model_paged_results_flow_.go
@@ -667,12 +669,12 @@ model_paged_results_iam_tenant_access_controller_api_user_tenant_access_.go
 model_paged_results_iam_user_controller_api_user_summary_.go
 model_paged_results_instance_controller_api_plugin_artifact_.go
 model_paged_results_instance_controller_api_service_instance_.go
+model_paged_results_kv_entry_.go
 model_paged_results_log_entry_.go
 model_paged_results_map_string_object__.go
 model_paged_results_metric_entry_.go
 model_paged_results_namespace_.go
 model_paged_results_search_result_flow__.go
-model_paged_results_task_run_.go
 model_paged_results_tenant_.go
 model_paged_results_test_suite_.go
 model_paged_results_test_suite_run_result_.go
@@ -701,10 +703,7 @@ model_property_object_.go
 model_property_string_.go
 model_query_filter.go
 model_query_filter_field.go
-model_query_filter_field_op.go
 model_query_filter_op.go
-model_query_filter_operation.go
-model_query_filter_resource_field.go
 model_rbac_service_role_assignment_role_origin.go
 model_relation.go
 model_relation_type.go
@@ -743,6 +742,7 @@ model_service_provider_configuration_filter_configuration.go
 model_service_provider_configuration_supported_configuration.go
 model_service_service_state.go
 model_service_type.go
+model_set_apps_catalog_logo_request.go
 model_setup_configuration.go
 model_setup_configuration_setup_data.go
 model_sla.go
@@ -760,6 +760,9 @@ model_task_for_execution.go
 model_task_run.go
 model_task_run_attempt.go
 model_tenant.go
+model_tenant_app_catalog_config.go
+model_tenant_controller_apps_catalog_config_request.go
+model_tenant_controller_apps_catalog_config_response.go
 model_tenant_interface.go
 model_tenant_usage.go
 model_test_state.go
@@ -782,8 +785,7 @@ model_trigger_fixture.go
 model_type.go
 model_unit_test_.go
 model_unit_test_result.go
-model_update_flow_200_response.go
-model_update_flows_in_namespace_from_json_200_response.go
+model_upload_versioned_plugins_request.go
 model_usage_ee.go
 model_user_group.go
 model_user_group_type.go

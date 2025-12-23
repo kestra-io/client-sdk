@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Metrics** | Pointer to [**[]AbstractMetricEntryObject**](AbstractMetricEntryObject.md) |  | [optional] 
 **State** | [**State**](State.md) |  | 
 **WorkerId** | Pointer to **NullableString** |  | [optional] 
 **LogFile** | Pointer to **NullableString** |  | [optional] 
@@ -27,31 +26,6 @@ will change when the set of required properties is changed
 NewTaskRunAttemptWithDefaults instantiates a new TaskRunAttempt object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetMetrics
-
-`func (o *TaskRunAttempt) GetMetrics() []AbstractMetricEntryObject`
-
-GetMetrics returns the Metrics field if non-nil, zero value otherwise.
-
-### GetMetricsOk
-
-`func (o *TaskRunAttempt) GetMetricsOk() (*[]AbstractMetricEntryObject, bool)`
-
-GetMetricsOk returns a tuple with the Metrics field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMetrics
-
-`func (o *TaskRunAttempt) SetMetrics(v []AbstractMetricEntryObject)`
-
-SetMetrics sets Metrics field to given value.
-
-### HasMetrics
-
-`func (o *TaskRunAttempt) HasMetrics() bool`
-
-HasMetrics returns a boolean if a field has been set.
 
 ### GetState
 
@@ -144,6 +118,6 @@ HasLogFile returns a boolean if a field has been set.
 
 UnsetLogFile ensures that no value is present for LogFile, not even an explicit nil
 
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints) [[Back to README]](../../../python-sdk/README.md)
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
