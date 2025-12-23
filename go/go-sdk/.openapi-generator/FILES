@@ -410,8 +410,6 @@ docs/WorkerGroup.md
 docs/WorkerGroupFallback.md
 docs/WorkerTaskRestartStrategy.md
 git_push.sh
-go.mod
-go.sum
 model_abstract_flow.go
 model_abstract_graph.go
 model_abstract_graph_branch_type.go
@@ -800,13 +798,4 @@ model_worker_group.go
 model_worker_group_fallback.go
 model_worker_task_restart_strategy.go
 response.go
-test/api_executions_test.go
-test/api_flows_test.go
-test/api_groups_test.go
-test/api_kv_test.go
-test/api_namespaces_test.go
-test/api_roles_test.go
-test/api_service_account_test.go
-test/api_triggers_test.go
-test/api_users_test.go
 utils.go

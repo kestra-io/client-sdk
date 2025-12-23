@@ -21,6 +21,8 @@ func KestraTestApiClient() *openapiclient.APIClient {
 
 	url := HOST
 
+	configuration.Debug = true
+
 	configuration.Servers = []openapiclient.ServerConfiguration{
 		{
 			URL: url,

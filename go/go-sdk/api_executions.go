@@ -13,6 +13,7 @@ package kestra_api_client
 import (
 	"bytes"
 	"context"
+	"fmt"
 	"io"
 	"net/http"
 	"net/url"
@@ -37,6 +38,7 @@ type ApiCreateExecutionRequest struct {
 	scheduleDate *time.Time
 	breakpoints  *string
 	kind         *ExecutionKind
+	formData     *map[string]any
 }
 
 // If the server will wait the end of the execution
@@ -72,6 +74,12 @@ func (r ApiCreateExecutionRequest) Breakpoints(breakpoints string) ApiCreateExec
 // Specific execution kind
 func (r ApiCreateExecutionRequest) Kind(kind ExecutionKind) ApiCreateExecutionRequest {
 	r.kind = &kind
+	return r
+}
+
+// the request multipart/form-data content
+func (r ApiCreateExecutionRequest) FormData(formData map[string]any) ApiCreateExecutionRequest {
+	r.formData = &formData
 	return r
 }
 
@@ -150,6 +158,36 @@ func (a *ExecutionsAPIService) CreateExecutionExecute(r ApiCreateExecutionReques
 	if r.kind != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "kind", r.kind, "form", "")
 	}
+
+	if r.formData != nil {
+		for key, val := range *r.formData {
+			switch v := val.(type) {
+			case string:
+				localVarFormParams.Add(key, v)
+			case *string:
+				if v != nil {
+					localVarFormParams.Add(key, *v)
+				}
+			case []string:
+				for _, s := range v {
+					localVarFormParams.Add(key, s)
+				}
+			case []interface{}:
+				for _, item := range v {
+					localVarFormParams.Add(key, fmt.Sprint(item))
+				}
+			case time.Time:
+				localVarFormParams.Add(key, v.Format(time.RFC3339))
+			case *time.Time:
+				if v != nil {
+					localVarFormParams.Add(key, v.Format(time.RFC3339))
+				}
+			default:
+				localVarFormParams.Add(key, fmt.Sprint(v))
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"multipart/form-data"}
 
@@ -2641,6 +2679,7 @@ type ApiReplayExecutionWithinputsRequest struct {
 	taskRunId   *string
 	revision    *int32
 	breakpoints *string
+	formData    *map[string]any
 }
 
 // The taskrun id
@@ -2658,6 +2697,12 @@ func (r ApiReplayExecutionWithinputsRequest) Revision(revision int32) ApiReplayE
 // Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma.
 func (r ApiReplayExecutionWithinputsRequest) Breakpoints(breakpoints string) ApiReplayExecutionWithinputsRequest {
 	r.breakpoints = &breakpoints
+	return r
+}
+
+// the request multipart/form-data content
+func (r ApiReplayExecutionWithinputsRequest) FormData(formData map[string]any) ApiReplayExecutionWithinputsRequest {
+	r.formData = &formData
 	return r
 }
 
@@ -2715,6 +2760,36 @@ func (a *ExecutionsAPIService) ReplayExecutionWithinputsExecute(r ApiReplayExecu
 	if r.breakpoints != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "breakpoints", r.breakpoints, "form", "")
 	}
+
+	if r.formData != nil {
+		for key, val := range *r.formData {
+			switch v := val.(type) {
+			case string:
+				localVarFormParams.Add(key, v)
+			case *string:
+				if v != nil {
+					localVarFormParams.Add(key, *v)
+				}
+			case []string:
+				for _, s := range v {
+					localVarFormParams.Add(key, s)
+				}
+			case []interface{}:
+				for _, item := range v {
+					localVarFormParams.Add(key, fmt.Sprint(item))
+				}
+			case time.Time:
+				localVarFormParams.Add(key, v.Format(time.RFC3339))
+			case *time.Time:
+				if v != nil {
+					localVarFormParams.Add(key, v.Format(time.RFC3339))
+				}
+			default:
+				localVarFormParams.Add(key, fmt.Sprint(v))
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"multipart/form-data"}
 
@@ -3388,6 +3463,13 @@ type ApiResumeExecutionRequest struct {
 	ApiService  *ExecutionsAPIService
 	executionId string
 	tenant      string
+	formData    *map[string]any
+}
+
+// the request multipart/form-data content
+func (r ApiResumeExecutionRequest) FormData(formData map[string]any) ApiResumeExecutionRequest {
+	r.formData = &formData
+	return r
 }
 
 func (r ApiResumeExecutionRequest) Execute() (map[string]interface{}, *http.Response, error) {
@@ -3434,6 +3516,35 @@ func (a *ExecutionsAPIService) ResumeExecutionExecute(r ApiResumeExecutionReques
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+
+	if r.formData != nil {
+		for key, val := range *r.formData {
+			switch v := val.(type) {
+			case string:
+				localVarFormParams.Add(key, v)
+			case *string:
+				if v != nil {
+					localVarFormParams.Add(key, *v)
+				}
+			case []string:
+				for _, s := range v {
+					localVarFormParams.Add(key, s)
+				}
+			case []interface{}:
+				for _, item := range v {
+					localVarFormParams.Add(key, fmt.Sprint(item))
+				}
+			case time.Time:
+				localVarFormParams.Add(key, v.Format(time.RFC3339))
+			case *time.Time:
+				if v != nil {
+					localVarFormParams.Add(key, v.Format(time.RFC3339))
+				}
+			default:
+				localVarFormParams.Add(key, fmt.Sprint(v))
+			}
+		}
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"multipart/form-data"}

@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
 	"github.com/stretchr/testify/require"
 	"testing"
 )
@@ -111,13 +112,24 @@ func TestExecutionsAPI_All(t *testing.T) {
 		ctx := GetAuthContext()
 		createSimpleFlow(ctx, flowId, namespace)
 
-		user, _, err := KestraTestApiClient().ExecutionsAPI.
+		labels := []string{"label1:created"}
+		inputs := map[string]any{
+			"key": "value1",
+		}
+
+		res, _, err := KestraTestApiClient().ExecutionsAPI.
 			CreateExecution(ctx, namespace, flowId, MAIN_TENANT).
-			Labels([]string{"label1:created"}).
+			Wait(false).
+			Labels(labels).
+			FormData(inputs).
 			Execute()
 
 		require.NoError(t, err)
-		require.NotNil(t, user)
-
+		require.NotNil(t, res)
+		require.Equal(t, flowId, res.FlowId)
+		require.Equal(t, openapiclient.Label{Key: "label1", Value: "created", AdditionalProperties: map[string]interface{}{}}, res.Labels[0])
+		require.Equal(t, map[string]any{
+			"key": "value1",
+		}, res.Inputs)
 	})
 }
