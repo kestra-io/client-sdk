@@ -32,6 +32,7 @@ docs/ApiTokenList.md
 docs/ApiUser.md
 docs/AppResponse.md
 docs/AppResponseUILayout.md
+docs/AppsApi.md
 docs/AppsControllerApiApp.md
 docs/AppsControllerApiAppCatalogItem.md
 docs/AppsControllerApiAppSource.md
@@ -66,8 +67,13 @@ docs/Blueprint.md
 docs/BlueprintControllerApiBlueprintItem.md
 docs/BlueprintControllerApiBlueprintItemWithSource.md
 docs/BlueprintControllerApiBlueprintTagItem.md
+docs/BlueprintControllerApiFlowBlueprint.md
+docs/BlueprintControllerFlowBlueprintCreateOrUpdate.md
 docs/BlueprintControllerKind.md
-docs/BlueprintWithFlow.md
+docs/BlueprintControllerUseBlueprintTemplateRequest.md
+docs/BlueprintControllerUseBlueprintTemplateResponse.md
+docs/BlueprintTemplate.md
+docs/BlueprintWithFlowEntity.md
 docs/Breakpoint.md
 docs/BulkErrorResponse.md
 docs/BulkImportAppsRequest.md
@@ -75,6 +81,9 @@ docs/BulkResponse.md
 docs/Cache.md
 docs/ChartChartOption.md
 docs/ChartFiltersOverrides.md
+docs/Check.md
+docs/CheckBehavior.md
+docs/CheckStyle.md
 docs/Concurrency.md
 docs/ConcurrencyBehavior.md
 docs/ConcurrencyLimit.md
@@ -92,6 +101,8 @@ docs/DailyExecutionStatisticsDuration.md
 docs/DailyExecutionStatisticsExecutionCounts.md
 docs/Dashboard.md
 docs/DashboardControllerPreviewRequest.md
+docs/DashboardsApi.md
+docs/DeleteTriggersByQueryRequest.md
 docs/DeletedInterface.md
 docs/DependsOn.md
 docs/DocumentationWithSchema.md
@@ -104,6 +115,7 @@ docs/EventLogEntry.md
 docs/ExecutableTaskSubflowId.md
 docs/Execution.md
 docs/ExecutionControllerApiValidateExecutionInputsResponse.md
+docs/ExecutionControllerApiValidateExecutionInputsResponseApiCheckFailure.md
 docs/ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue.md
 docs/ExecutionControllerApiValidateExecutionInputsResponseApiInputError.md
 docs/ExecutionControllerEvalResult.md
@@ -123,6 +135,7 @@ docs/ExecutionsApi.md
 docs/FileAttributes.md
 docs/FileAttributesFileType.md
 docs/FileMetas.md
+docs/FilesApi.md
 docs/Filter.md
 docs/Fixtures.md
 docs/Flow.md
@@ -245,6 +258,7 @@ docs/Name.md
 docs/Namespace.md
 docs/NamespaceAllowedNamespace.md
 docs/NamespaceAllowedTrigger.md
+docs/NamespaceFileRevision.md
 docs/NamespaceLight.md
 docs/NamespacesApi.md
 docs/Output.md
@@ -411,7 +425,10 @@ gradlew.bat
 pom.xml
 settings.gradle
 src/main/AndroidManifest.xml
+src/main/java/io/kestra/sdk/api/AppsApi.java
+src/main/java/io/kestra/sdk/api/DashboardsApi.java
 src/main/java/io/kestra/sdk/api/ExecutionsApi.java
+src/main/java/io/kestra/sdk/api/FilesApi.java
 src/main/java/io/kestra/sdk/api/FlowsApi.java
 src/main/java/io/kestra/sdk/api/GroupsApi.java
 src/main/java/io/kestra/sdk/api/KvApi.java
@@ -498,8 +515,13 @@ src/main/java/io/kestra/sdk/model/Blueprint.java
 src/main/java/io/kestra/sdk/model/BlueprintControllerApiBlueprintItem.java
 src/main/java/io/kestra/sdk/model/BlueprintControllerApiBlueprintItemWithSource.java
 src/main/java/io/kestra/sdk/model/BlueprintControllerApiBlueprintTagItem.java
+src/main/java/io/kestra/sdk/model/BlueprintControllerApiFlowBlueprint.java
+src/main/java/io/kestra/sdk/model/BlueprintControllerFlowBlueprintCreateOrUpdate.java
 src/main/java/io/kestra/sdk/model/BlueprintControllerKind.java
-src/main/java/io/kestra/sdk/model/BlueprintWithFlow.java
+src/main/java/io/kestra/sdk/model/BlueprintControllerUseBlueprintTemplateRequest.java
+src/main/java/io/kestra/sdk/model/BlueprintControllerUseBlueprintTemplateResponse.java
+src/main/java/io/kestra/sdk/model/BlueprintTemplate.java
+src/main/java/io/kestra/sdk/model/BlueprintWithFlowEntity.java
 src/main/java/io/kestra/sdk/model/Breakpoint.java
 src/main/java/io/kestra/sdk/model/BulkErrorResponse.java
 src/main/java/io/kestra/sdk/model/BulkImportAppsRequest.java
@@ -507,6 +529,9 @@ src/main/java/io/kestra/sdk/model/BulkResponse.java
 src/main/java/io/kestra/sdk/model/Cache.java
 src/main/java/io/kestra/sdk/model/ChartChartOption.java
 src/main/java/io/kestra/sdk/model/ChartFiltersOverrides.java
+src/main/java/io/kestra/sdk/model/Check.java
+src/main/java/io/kestra/sdk/model/CheckBehavior.java
+src/main/java/io/kestra/sdk/model/CheckStyle.java
 src/main/java/io/kestra/sdk/model/Concurrency.java
 src/main/java/io/kestra/sdk/model/ConcurrencyBehavior.java
 src/main/java/io/kestra/sdk/model/ConcurrencyLimit.java
@@ -524,6 +549,7 @@ src/main/java/io/kestra/sdk/model/DailyExecutionStatisticsDuration.java
 src/main/java/io/kestra/sdk/model/DailyExecutionStatisticsExecutionCounts.java
 src/main/java/io/kestra/sdk/model/Dashboard.java
 src/main/java/io/kestra/sdk/model/DashboardControllerPreviewRequest.java
+src/main/java/io/kestra/sdk/model/DeleteTriggersByQueryRequest.java
 src/main/java/io/kestra/sdk/model/DeletedInterface.java
 src/main/java/io/kestra/sdk/model/DependsOn.java
 src/main/java/io/kestra/sdk/model/DocumentationWithSchema.java
@@ -536,6 +562,7 @@ src/main/java/io/kestra/sdk/model/EventLogEntry.java
 src/main/java/io/kestra/sdk/model/ExecutableTaskSubflowId.java
 src/main/java/io/kestra/sdk/model/Execution.java
 src/main/java/io/kestra/sdk/model/ExecutionControllerApiValidateExecutionInputsResponse.java
+src/main/java/io/kestra/sdk/model/ExecutionControllerApiValidateExecutionInputsResponseApiCheckFailure.java
 src/main/java/io/kestra/sdk/model/ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue.java
 src/main/java/io/kestra/sdk/model/ExecutionControllerApiValidateExecutionInputsResponseApiInputError.java
 src/main/java/io/kestra/sdk/model/ExecutionControllerEvalResult.java
@@ -673,6 +700,7 @@ src/main/java/io/kestra/sdk/model/Name.java
 src/main/java/io/kestra/sdk/model/Namespace.java
 src/main/java/io/kestra/sdk/model/NamespaceAllowedNamespace.java
 src/main/java/io/kestra/sdk/model/NamespaceAllowedTrigger.java
+src/main/java/io/kestra/sdk/model/NamespaceFileRevision.java
 src/main/java/io/kestra/sdk/model/NamespaceLight.java
 src/main/java/io/kestra/sdk/model/Output.java
 src/main/java/io/kestra/sdk/model/OutputValue.java
@@ -824,3 +852,9 @@ src/main/java/io/kestra/sdk/model/ValuePathExpression.java
 src/main/java/io/kestra/sdk/model/WorkerGroup.java
 src/main/java/io/kestra/sdk/model/WorkerGroupFallback.java
 src/main/java/io/kestra/sdk/model/WorkerTaskRestartStrategy.java
+src/test/java/io/kestra/sdk/api/AppsApiTest.java
+src/test/java/io/kestra/sdk/api/GroupsApiTest.java
+src/test/java/io/kestra/sdk/api/RolesApiTest.java
+src/test/java/io/kestra/sdk/api/ServiceAccountApiTest.java
+src/test/java/io/kestra/sdk/api/TestSuitesApiTest.java
+src/test/java/io/kestra/sdk/api/UsersApiTest.java

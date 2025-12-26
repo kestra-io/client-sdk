@@ -21,7 +21,6 @@
 |**KVSTORE** | **List&lt;String&gt;** |  |  [optional] |
 |**IMPERSONATE** | **List&lt;String&gt;** |  |  [optional] |
 |**SETTING** | **List&lt;String&gt;** |  |  [optional] |
-|**INFRASTRUCTURE** | **List&lt;String&gt;** |  |  [optional] |
 |**APP** | **List&lt;String&gt;** |  |  [optional] |
 |**APPEXECUTION** | **List&lt;String&gt;** |  |  [optional] |
 |**TEST** | **List&lt;String&gt;** |  |  [optional] |

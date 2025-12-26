@@ -78,6 +78,12 @@ public class KestraClient {
 
     public TestSuitesApi testSuites() { return new TestSuitesApi(this.apiClient); }
 
+    public FilesApi files() { return new FilesApi(this.apiClient); }
+
+    public DashboardsApi dashboards() { return new DashboardsApi(this.apiClient); }
+
+    public AppsApi apps() { return new AppsApi(this.apiClient); }
+
     // END -- Individual API
 
     /**

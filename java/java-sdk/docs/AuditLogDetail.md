@@ -8,7 +8,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**permission** | **Permission** |  |  [optional] |
-|**resourceType** | **ResourceType1** |  |  [optional] |
+|**resourceType** | **ResourceType** |  |  [optional] |
 |**type** | **String** |  |  |
 |**id** | **String** |  |  [optional] |
 

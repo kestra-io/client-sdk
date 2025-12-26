@@ -4,7 +4,7 @@ info:
   description: |-
     All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>
     Endpoints designated as Superadmin-only are not tenant-scoped.
-  version: 1.1.4
+  version: 1.2.0-SNAPSHOT
 tags:
   - name: Flows
     description: Flows api
@@ -92,7 +92,7 @@ paths:
             type: array
             nullable: true
             items:
-              $ref: "#/components/schemas/ResourceType_1"
+              $ref: "#/components/schemas/ResourceType"
         - name: startDate
           in: query
           description: The start datetime
@@ -222,7 +222,7 @@ paths:
             type: array
             nullable: true
             items:
-              $ref: "#/components/schemas/ResourceType_1"
+              $ref: "#/components/schemas/ResourceType"
         - name: startDate
           in: query
           description: The start datetime
@@ -1053,6 +1053,19 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/MiscController.LicenseInfo"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/license/refresh:
+    get:
+      tags:
+        - Misc
+      summary: Force the refresh of the license online
+      description: Only for Super Admins.
+      operationId: refreshLicense
+      responses:
+        "200":
+          description: refreshLicense 200 response
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -2978,90 +2991,6 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
-  /api/v1/{tenant}/apps/view/{id}/dispatch/{dispatch}:
-    post:
-      tags:
-        - Apps
-      summary: Dispatch for a given app.
-      operationId: dispatchApp
-      parameters:
-        - name: id
-          in: path
-          description: The ID of the app.
-          required: true
-          schema:
-            type: string
-        - name: dispatch
-          in: path
-          description: The ID to dispatch
-          required: true
-          schema:
-            type: string
-        - name: tenant
-          in: path
-          required: true
-          schema:
-            type: string
-      requestBody:
-        description: The data of the app
-        content:
-          multipart/form-data:
-            schema:
-              type: array
-              properties:
-                parameters:
-                  $ref: "#/components/schemas/HttpParameters"
-              items:
-                type: string
-                format: binary
-            encoding: {}
-      responses:
-        "200":
-          description: dispatchApp 200 response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/AppResponse"
-      security:
-        - bearerAuth: []
-        - basicAuth: []
-  /api/v1/{tenant}/apps/view/{id}/file/download:
-    get:
-      tags:
-        - Apps
-      summary: Download file from an app execution
-      operationId: downloadFileFromAppExecution
-      parameters:
-        - name: id
-          in: path
-          description: The ID of the app.
-          required: true
-          schema:
-            type: string
-        - name: path
-          in: query
-          description: The internal storage uri
-          required: true
-          explode: false
-          schema:
-            type: string
-            format: uri
-        - name: tenant
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: downloadFileFromAppExecution 200 response
-          content:
-            application/json:
-              schema:
-                type: string
-                format: binary
-      security:
-        - bearerAuth: []
-        - basicAuth: []
   /api/v1/{tenant}/apps/view/{id}/file/meta:
     get:
       tags:
@@ -3480,7 +3409,7 @@ paths:
             type: array
             nullable: true
             items:
-              $ref: "#/components/schemas/ResourceType_1"
+              $ref: "#/components/schemas/ResourceType"
         - name: startDate
           in: query
           description: The start datetime
@@ -3674,7 +3603,7 @@ paths:
             type: array
             nullable: true
             items:
-              $ref: "#/components/schemas/ResourceType_1"
+              $ref: "#/components/schemas/ResourceType"
         - name: startDate
           in: query
           description: The start datetime
@@ -4266,6 +4195,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BlueprintController.ApiBlueprintItemWithSource"
+      deprecated: true
   /api/v1/{tenant}/blueprints/custom/tags:
     get:
       tags:
@@ -4320,7 +4250,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BlueprintController.ApiBlueprintItemWithSource"
+                $ref: "#/components/schemas/BlueprintController.ApiFlowBlueprint"
     put:
       tags:
         - Blueprints
@@ -4352,7 +4282,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BlueprintWithFlow"
+                $ref: "#/components/schemas/BlueprintWithFlowEntity"
+      deprecated: true
     delete:
       tags:
         - Blueprints
@@ -4374,6 +4305,7 @@ paths:
       responses:
         "200":
           description: deleteInternalBlueprints 200 response
+      deprecated: true
   /api/v1/{tenant}/blueprints/custom/{id}/source:
     get:
       tags:
@@ -4400,10 +4332,168 @@ paths:
             application/yaml:
               schema:
                 type: string
+  /api/v1/{tenant}/blueprints/flow/{id}:
+    get:
+      tags:
+        - Blueprints
+      summary: Retrieve an flow blueprint
+      description: Retrieves details of a specific flow blueprint. Requires BLUEPRINT permission.
+      operationId: flowBlueprint
+      parameters:
+        - name: id
+          in: path
+          description: The blueprint id
+          required: true
+          schema:
+            type: string
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: getFlowBlueprint 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BlueprintController.ApiFlowBlueprint"
+  /api/v1/{tenant}/blueprints/flows:
+    post:
+      tags:
+        - Blueprints
+      summary: Create a Flow Blueprint
+      operationId: createFlowBlueprint
+      parameters:
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BlueprintController.FlowBlueprintCreateOrUpdate"
+        required: true
+      responses:
+        "200":
+          description: createFlowBlueprint 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BlueprintController.ApiFlowBlueprint"
+  /api/v1/{tenant}/blueprints/flows/{id}:
+    get:
+      tags:
+        - Blueprints
+      summary: Retrieve an flow blueprint
+      description: Retrieves details of a specific flow blueprint. Requires BLUEPRINT permission.
+      operationId: flowBlueprintById
+      parameters:
+        - name: id
+          in: path
+          description: The blueprint id
+          required: true
+          schema:
+            type: string
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: getFlowBlueprintById 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BlueprintController.ApiFlowBlueprint"
+    put:
+      tags:
+        - Blueprints
+      summary: Update a Flow Blueprint
+      operationId: updateFlowBlueprint
+      parameters:
+        - name: id
+          in: path
+          description: The flow blueprint id to update
+          required: true
+          schema:
+            type: string
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BlueprintController.FlowBlueprintCreateOrUpdate"
+        required: true
+      responses:
+        "200":
+          description: updateFlowBlueprint 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BlueprintController.ApiFlowBlueprint"
+    delete:
+      tags:
+        - Blueprints
+      summary: Delete an Flow Blueprint
+      description: Deletes an Flow Blueprint for the current tenant. Requires BLUEPRINT permission.
+      operationId: deleteFlowBlueprints
+      parameters:
+        - name: id
+          in: path
+          description: The flow blueprint id to delete
+          required: true
+          schema:
+            type: string
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: deleteFlowBlueprints 200 response
+  /api/v1/{tenant}/blueprints/flows/{id}/use-template:
+    post:
+      tags:
+        - Blueprints
+      summary: Use a Flow Blueprint template to generate a Flow source
+      operationId: useBlueprintTemplate
+      parameters:
+        - name: id
+          in: path
+          description: The flow blueprint id to use
+          required: true
+          schema:
+            type: string
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BlueprintController.UseBlueprintTemplateRequest"
+        required: true
+      responses:
+        "200":
+          description: useBlueprintTemplate 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BlueprintController.UseBlueprintTemplateResponse"
   /api/v1/{tenant}/concurrency-limit/search:
     get:
       tags:
-        - Executions
         - Flows
       summary: Search for flow concurrency limits
       operationId: searchConcurrencyLimits
@@ -4423,7 +4513,6 @@ paths:
   /api/v1/{tenant}/concurrency-limit/{namespace}/{flowId}:
     put:
       tags:
-        - Executions
         - Flows
       summary: Update a flow concurrency limit
       operationId: updateConcurrencyLimit
@@ -5092,6 +5181,39 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BulkErrorResponse"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/{tenant}/executions/export/by-query/csv:
+    get:
+      tags:
+        - Executions
+      summary: Export all executions as a streamed CSV file
+      operationId: exportExecutions
+      parameters:
+        - name: filters
+          in: query
+          description: A list of filters
+          required: true
+          explode: false
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/QueryFilter"
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: exportExecutions 200 response
+          content:
+            text/csv:
+              schema:
+                type: array
+                items:
+                  type: object
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -7007,6 +7129,39 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+  /api/v1/{tenant}/flows/export/by-query/csv:
+    get:
+      tags:
+        - Flows
+      summary: Export all flows as a streamed CSV file
+      operationId: exportFlows
+      parameters:
+        - name: filters
+          in: query
+          description: A list of filters
+          required: true
+          explode: false
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/QueryFilter"
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: exportFlows 200 response
+          content:
+            text/csv:
+              schema:
+                type: array
+                items:
+                  type: object
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/flows/graph:
     post:
       tags:
@@ -8561,7 +8716,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/ResourceType"
+                  $ref: "#/components/schemas/ResourceType_1"
   /api/v1/{tenant}/integrations/{integration}/scim/v2/ResourceTypes/{name}:
     get:
       tags:
@@ -8590,7 +8745,7 @@ paths:
           content:
             application/scim+json:
               schema:
-                $ref: "#/components/schemas/ResourceType"
+                $ref: "#/components/schemas/ResourceType_1"
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Schemas:
     get:
       tags:
@@ -10207,6 +10362,14 @@ paths:
           explode: false
           schema:
             type: string
+        - name: revision
+          in: query
+          description: The revision, if not provided, the latest revision will be returned
+          explode: false
+          schema:
+            type: integer
+            format: int32
+            nullable: true
         - name: tenant
           in: path
           required: true
@@ -10430,6 +10593,43 @@ paths:
               schema:
                 type: string
                 format: byte
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/{tenant}/namespaces/{namespace}/files/revisions:
+    get:
+      tags:
+        - Files
+      summary: Get namespace file revisions
+      operationId: fileRevisions
+      parameters:
+        - name: namespace
+          in: path
+          description: The namespace id
+          required: true
+          schema:
+            type: string
+        - name: path
+          in: query
+          description: The internal storage uri
+          explode: false
+          schema:
+            type: string
+            nullable: true
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: getFileRevisions 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/NamespaceFileRevision"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -12607,6 +12807,103 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+  /api/v1/{tenant}/triggers/delete/by-query:
+    delete:
+      tags:
+        - Triggers
+      summary: Delete triggers by query parameters
+      operationId: deleteTriggersByQuery
+      parameters:
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filters:
+                  type: array
+                  description: Filters
+                  items:
+                    $ref: "#/components/schemas/QueryFilter"
+        required: true
+      responses:
+        "200":
+          description: deleteTriggersByQuery 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/{tenant}/triggers/delete/by-triggers:
+    delete:
+      tags:
+        - Triggers
+      summary: Delete given triggers
+      operationId: deleteTriggersByIds
+      parameters:
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/Trigger"
+        required: true
+      responses:
+        "200":
+          description: deleteTriggersByIds 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/{tenant}/triggers/export/by-query/csv:
+    get:
+      tags:
+        - Triggers
+      summary: Export all triggers as a streamed CSV file
+      operationId: exportTriggers
+      parameters:
+        - name: filters
+          in: query
+          description: A list of filters
+          required: true
+          explode: false
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/QueryFilter"
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: exportTriggers 200 response
+          content:
+            text/csv:
+              schema:
+                type: array
+                items:
+                  type: object
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/triggers/search:
     get:
       tags:
@@ -12864,6 +13161,46 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PagedResults_Trigger_"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId}:
+    delete:
+      tags:
+        - Triggers
+      summary: Delete a trigger
+      operationId: deleteTrigger
+      parameters:
+        - name: namespace
+          in: path
+          description: The namespace
+          required: true
+          schema:
+            type: string
+        - name: flowId
+          in: path
+          description: The flow id
+          required: true
+          schema:
+            type: string
+        - name: triggerId
+          in: path
+          description: The trigger id
+          required: true
+          schema:
+            type: string
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: deleteTrigger 200 response
+          content:
+            application/json:
+              schema:
+                type: object
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13187,6 +13524,9 @@ components:
         logToFile:
           type: boolean
         failOnTriggerError:
+          type: boolean
+        allowConcurrent:
+          title: Specifies whether a trigger is allowed to start a new execution even if a previous run is still in progress.
           type: boolean
     AbstractTriggerForExecution:
       required:
@@ -13698,7 +14038,7 @@ components:
       type: object
       properties:
         resource:
-          $ref: "#/components/schemas/ResourceType_1"
+          $ref: "#/components/schemas/ResourceType"
         type:
           nullable: true
           allOf:
@@ -13715,7 +14055,7 @@ components:
         permission:
           $ref: "#/components/schemas/Permission"
         resourceType:
-          $ref: "#/components/schemas/ResourceType_1"
+          $ref: "#/components/schemas/ResourceType"
         type:
           type: string
         id:
@@ -13931,6 +14271,8 @@ components:
           format: date-time
         deleted:
           type: boolean
+        template:
+          $ref: "#/components/schemas/BlueprintTemplate"
     BlueprintController.ApiBlueprintItem:
       type: object
       properties:
@@ -13971,13 +14313,79 @@ components:
         publishedAt:
           type: string
           format: date-time
+    BlueprintController.ApiFlowBlueprint:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        includedTasks:
+          type: array
+          items:
+            type: string
+        tags:
+          type: array
+          items:
+            type: string
+        source:
+          type: string
+        publishedAt:
+          type: string
+          format: date-time
+        template:
+          $ref: "#/components/schemas/BlueprintTemplate"
+    BlueprintController.FlowBlueprintCreateOrUpdate:
+      required:
+        - source
+        - title
+      type: object
+      properties:
+        title:
+          minLength: 1
+          type: string
+        source:
+          minLength: 1
+          type: string
+        description:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
     BlueprintController.Kind:
       type: string
       enum:
         - APP
         - DASHBOARD
         - FLOW
-    BlueprintWithFlow:
+    BlueprintController.UseBlueprintTemplateRequest:
+      type: object
+      properties:
+        templateArgumentsInputs:
+          type: object
+          additionalProperties:
+            type: object
+    BlueprintController.UseBlueprintTemplateResponse:
+      type: object
+      properties:
+        generatedFlowSource:
+          type: string
+    BlueprintTemplate:
+      required:
+        - source
+      type: object
+      properties:
+        source:
+          minLength: 1
+          type: string
+        templateArguments:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Input_Object_"
+    BlueprintWithFlowEntity:
       required:
         - deleted
         - flow
@@ -14064,6 +14472,35 @@ components:
           type: string
         chartOptions:
           type: object
+    Check:
+      required:
+        - condition
+        - message
+      type: object
+      properties:
+        condition:
+          minLength: 1
+          type: string
+        message:
+          minLength: 1
+          type: string
+        style:
+          $ref: "#/components/schemas/Check.Style"
+        behavior:
+          $ref: "#/components/schemas/Check.Behavior"
+    Check.Behavior:
+      type: string
+      enum:
+        - BLOCK_EXECUTION
+        - FAIL_EXECUTION
+        - CREATE_EXECUTION
+    Check.Style:
+      type: string
+      enum:
+        - ERROR
+        - SUCCESS
+        - WARNING
+        - INFO
     Concurrency:
       required:
         - behavior
@@ -14480,6 +14917,19 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ExecutionController.ApiValidateExecutionInputsResponse.ApiInputAndValue"
+        checks:
+          type: array
+          items:
+            $ref: "#/components/schemas/ExecutionController.ApiValidateExecutionInputsResponse.ApiCheckFailure"
+    ExecutionController.ApiValidateExecutionInputsResponse.ApiCheckFailure:
+      type: object
+      properties:
+        message:
+          type: string
+        style:
+          $ref: "#/components/schemas/Check.Style"
+        behavior:
+          $ref: "#/components/schemas/Check.Behavior"
     ExecutionController.ApiValidateExecutionInputsResponse.ApiInputAndValue:
       type: object
       properties:
@@ -14800,6 +15250,14 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/SLA"
+            checks:
+              title: Conditions evaluated before the flow is executed.
+              type: array
+              description: >-
+                A list of conditions that are evaluated before the flow is executed.  If no checks are defined, the flow
+                executes normally.
+              items:
+                $ref: "#/components/schemas/Check"
     FlowController.TaskValidationType:
       type: string
       enum:
@@ -15114,6 +15572,8 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/SLA"
+            source:
+              type: string
     GroupIdentifier:
       type: object
       properties:
@@ -15361,8 +15821,6 @@ components:
               type: array
             SETTING:
               type: array
-            INFRASTRUCTURE:
-              type: array
             APP:
               type: array
             APPEXECUTION:
@@ -15426,8 +15884,6 @@ components:
             IMPERSONATE:
               type: array
             SETTING:
-              type: array
-            INFRASTRUCTURE:
               type: array
             APP:
               type: array
@@ -16159,7 +16615,11 @@ components:
       properties:
         key:
           minLength: 1
+          pattern: ^[\p{Ll}][\p{L}0-9._-]*$
           type: string
+          x-pattern-message: >-
+            Invalid label key. A valid key contains only lowercase letters numbers hyphens (-) underscores (_) or
+            periods (.) and must begin with a lowercase letter.
         value:
           minLength: 1
           type: string
@@ -16460,6 +16920,8 @@ components:
         pluginsHash:
           type: integer
           format: int64
+        isConcurrencyViewEnabled:
+          type: boolean
     MiscController.EEConfiguration:
       type: object
       allOf:
@@ -16500,6 +16962,12 @@ components:
               type: boolean
             airgapped:
               type: boolean
+            featureGating:
+              type: boolean
+            features:
+              type: array
+              items:
+                type: string
     MiscController.Environment:
       type: object
       properties:
@@ -16524,6 +16992,11 @@ components:
           type: boolean
         workerGroups:
           type: boolean
+        online:
+          type: boolean
+        gracePeriod:
+          type: string
+          format: date-time
     MiscController.PluginIdAndVersion:
       type: object
       properties:
@@ -16624,6 +17097,12 @@ components:
         flowId:
           type: string
       deprecated: true
+    NamespaceFileRevision:
+      type: object
+      properties:
+        revision:
+          type: integer
+          format: int32
     NamespaceLight:
       required:
         - deleted
@@ -17106,7 +17585,6 @@ components:
         - KVSTORE
         - IMPERSONATE
         - SETTING
-        - INFRASTRUCTURE
         - APP
         - APPEXECUTION
         - TEST
@@ -17214,6 +17692,10 @@ components:
           type: string
         deprecated:
           type: boolean
+        title:
+          type: string
+        description:
+          type: string
     PluginArtifact:
       type: object
       properties:
@@ -17397,11 +17879,15 @@ components:
         - TIME_RANGE
         - TRIGGER_EXECUTION_ID
         - TRIGGER_ID
+        - TRIGGER_STATE
         - EXECUTION_ID
         - CHILD_FILTER
         - WORKER_ID
         - EXISTING_ONLY
         - MIN_LEVEL
+        - PATH
+        - PARENT_PATH
+        - VERSION
       x-type: String
     QueryFilter.Op:
       type: string
@@ -17442,39 +17928,6 @@ components:
         - PARALLEL
         - DYNAMIC
     ResourceType:
-      type: object
-      allOf:
-        - $ref: "#/components/schemas/ScimResourceWithOptionalId"
-        - $ref: "#/components/schemas/ScimResource"
-        - $ref: "#/components/schemas/BaseResource_ScimResource_"
-        - type: object
-          properties:
-            id:
-              type: string
-            name:
-              minLength: 1
-              type: string
-            description:
-              type: string
-            endpoint:
-              minLength: 1
-              type: string
-            schemaUrn:
-              minLength: 1
-              type: string
-            schemaExtensions:
-              type: array
-              items:
-                $ref: "#/components/schemas/ResourceType.SchemaExtensionConfiguration"
-    ResourceType.SchemaExtensionConfiguration:
-      type: object
-      properties:
-        schemaUrn:
-          minLength: 1
-          type: string
-        required:
-          type: boolean
-    ResourceType_1:
       type: string
       enum:
         - AUDITLOG
@@ -17505,6 +17958,39 @@ components:
         - WORKER_GROUP
         - INSTANCE
         - UNKNOWN
+    ResourceType.SchemaExtensionConfiguration:
+      type: object
+      properties:
+        schemaUrn:
+          minLength: 1
+          type: string
+        required:
+          type: boolean
+    ResourceType_1:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/ScimResourceWithOptionalId"
+        - $ref: "#/components/schemas/ScimResource"
+        - $ref: "#/components/schemas/BaseResource_ScimResource_"
+        - type: object
+          properties:
+            id:
+              type: string
+            name:
+              minLength: 1
+              type: string
+            description:
+              type: string
+            endpoint:
+              minLength: 1
+              type: string
+            schemaUrn:
+              minLength: 1
+              type: string
+            schemaExtensions:
+              type: array
+              items:
+                $ref: "#/components/schemas/ResourceType.SchemaExtensionConfiguration"
     RightSidebarConfiguration:
       type: object
       properties:
@@ -17558,8 +18044,6 @@ components:
             IMPERSONATE:
               type: array
             SETTING:
-              type: array
-            INFRASTRUCTURE:
               type: array
             APP:
               type: array
@@ -18089,7 +18573,10 @@ components:
       properties:
         duration:
           type: string
+          nullable: true
           readOnly: true
+        durationOrComputeIt:
+          type: string
         startDate:
           type: string
           format: date-time

@@ -13,6 +13,8 @@
 |**maxServers** | **Integer** |  |  [optional] |
 |**standalone** | **Boolean** |  |  [optional] |
 |**workerGroups** | **Boolean** |  |  [optional] |
+|**online** | **Boolean** |  |  [optional] |
+|**gracePeriod** | **OffsetDateTime** |  |  [optional] |
 
 
 

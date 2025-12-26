@@ -13,6 +13,17 @@
     "listFlowExecutionsByNamespace",
     "listExecutableDistinctNamespaces",
     "evalTaskRunExpression",
-    "updateTaskRunState"
+    "updateTaskRunState",
+    "previewAppTest",
+    "openAppTest",
+    "streamEventsFromApp",
+    "dispatchApp",
+    "downloadFileFromAppExecution",
+    "fileMetaFromAppExecution",
+    "filePreviewFromAppExecution",
+    "logsFromAppExecution",
+    "previewApp",
+    "openApp",
+    "logsFromAppExecutionlogsFromAppExecution"
   ]
 }

@@ -2,7 +2,7 @@
 
 Kestra EE
 
-- API version: 1.1.4
+- API version: 1.2.0-SNAPSHOT
 
 - Generator version: 7.16.0
 
@@ -43,7 +43,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>io.kestra</groupId>
   <artifactId>kestra-api-client</artifactId>
-  <version>1.0.4</version>
+  <version>1.0.5</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -53,7 +53,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "io.kestra:kestra-api-client:1.0.4"
+compile "io.kestra:kestra-api-client:1.0.5"
 ```
 
 ### Others
@@ -66,7 +66,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/kestra-api-client-1.0.4.jar`
+- `target/kestra-api-client-1.0.5.jar`
 - `target/lib/*.jar`
 
 ## Getting Started
@@ -78,9 +78,9 @@ Please follow the [installation](#installation) instruction and execute the foll
 import io.kestra.sdk.internal.*;
 import io.kestra.sdk.internal.auth.*;
 import io.kestra.sdk.model.*;
-import io.kestra.sdk.api.ExecutionsApi;
+import io.kestra.sdk.api.AppsApi;
 
-public class ExecutionsApiExample {
+public class AppsApiExample {
 
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -95,21 +95,14 @@ public class ExecutionsApiExample {
         HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
         bearerAuth.setBearerToken("BEARER TOKEN");
 
-        ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
-        String namespace = "namespace_example"; // String | The flow namespace
-        String id = "id_example"; // String | The flow id
-        Boolean wait = false; // Boolean | If the server will wait the end of the execution
+        AppsApi apiInstance = new AppsApi(defaultClient);
+        String uid = "uid_example"; // String | The ID of the app
         String tenant = "tenant_example"; // String | 
-        List<String> labels = Arrays.asList(); // List<String> | The labels as a list of 'key:value'
-        Integer revision = 56; // Integer | The flow revision or latest if null
-        OffsetDateTime scheduleDate = OffsetDateTime.now(); // OffsetDateTime | Schedule the flow on a specific date
-        String breakpoints = "breakpoints_example"; // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
-        ExecutionKind kind = ExecutionKind.fromValue("NORMAL"); // ExecutionKind | Specific execution kind
         try {
-            ExecutionControllerExecutionResponse result = apiInstance.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind);
+            AppsControllerApiAppSource result = apiInstance.app(uid, tenant);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ExecutionsApi#createExecution");
+            System.err.println("Exception when calling AppsApi#app");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -126,6 +119,37 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*AppsApi* | [**app**](docs/AppsApi.md#app) | **GET** /api/v1/{tenant}/apps/{uid} | Retrieve an app
+*AppsApi* | [**bulkDeleteApps**](docs/AppsApi.md#bulkDeleteApps) | **DELETE** /api/v1/{tenant}/apps | Delete existing apps
+*AppsApi* | [**bulkDisableApps**](docs/AppsApi.md#bulkDisableApps) | **POST** /api/v1/{tenant}/apps/disable | Disable existing apps
+*AppsApi* | [**bulkEnableApps**](docs/AppsApi.md#bulkEnableApps) | **POST** /api/v1/{tenant}/apps/enable | Enable existing apps
+*AppsApi* | [**bulkExportApps**](docs/AppsApi.md#bulkExportApps) | **POST** /api/v1/{tenant}/apps/export | Export apps as a ZIP archive of YAML sources.
+*AppsApi* | [**bulkImportApps**](docs/AppsApi.md#bulkImportApps) | **POST** /api/v1/{tenant}/apps/import |     Import apps as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more apps, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
+*AppsApi* | [**createApp**](docs/AppsApi.md#createApp) | **POST** /api/v1/{tenant}/apps | Create a new app
+*AppsApi* | [**deleteApp**](docs/AppsApi.md#deleteApp) | **DELETE** /api/v1/{tenant}/apps/{uid} | Delete an existing app
+*AppsApi* | [**disableApp**](docs/AppsApi.md#disableApp) | **POST** /api/v1/{tenant}/apps/{uid}/disable | Disable the app.
+*AppsApi* | [**enableApp**](docs/AppsApi.md#enableApp) | **POST** /api/v1/{tenant}/apps/{uid}/enable | Enable the app.
+*AppsApi* | [**fileMetaFromAppExecution**](docs/AppsApi.md#fileMetaFromAppExecution) | **GET** /api/v1/{tenant}/apps/view/{id}/file/meta | Get file meta information from an app execution
+*AppsApi* | [**filePreviewFromAppExecution**](docs/AppsApi.md#filePreviewFromAppExecution) | **GET** /api/v1/{tenant}/apps/view/{id}/file/preview | Get file preview from an app execution
+*AppsApi* | [**listTags**](docs/AppsApi.md#listTags) | **GET** /api/v1/{tenant}/apps/tags | Get all the app tags
+*AppsApi* | [**logsFromAppExecution**](docs/AppsApi.md#logsFromAppExecution) | **GET** /api/v1/{tenant}/apps/view/{uid}/logs/download | Download logs for an app execution
+*AppsApi* | [**openApp**](docs/AppsApi.md#openApp) | **GET** /api/v1/{tenant}/apps/view/{uid} | Open an app
+*AppsApi* | [**previewApp**](docs/AppsApi.md#previewApp) | **POST** /api/v1/{tenant}/apps/preview | Open the app for the given source
+*AppsApi* | [**searchApps**](docs/AppsApi.md#searchApps) | **GET** /api/v1/{tenant}/apps/search | Search for apps
+*AppsApi* | [**searchAppsFromCatalog**](docs/AppsApi.md#searchAppsFromCatalog) | **GET** /api/v1/{tenant}/apps/catalog | Search for apps from catalog
+*AppsApi* | [**streamEventsFromApp**](docs/AppsApi.md#streamEventsFromApp) | **GET** /api/v1/{tenant}/apps/view/{id}/streams/{stream} | Get an event stream from a given app.
+*AppsApi* | [**updateApp**](docs/AppsApi.md#updateApp) | **PUT** /api/v1/{tenant}/apps/{uid} | Update an existing app
+*DashboardsApi* | [**createDashboard**](docs/DashboardsApi.md#createDashboard) | **POST** /api/v1/{tenant}/dashboards | Create a dashboard from yaml source
+*DashboardsApi* | [**dashboard**](docs/DashboardsApi.md#dashboard) | **GET** /api/v1/{tenant}/dashboards/{id} | Get a dashboard
+*DashboardsApi* | [**dashboardChartData**](docs/DashboardsApi.md#dashboardChartData) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId} | Generate a dashboard chart data
+*DashboardsApi* | [**deleteDashboard**](docs/DashboardsApi.md#deleteDashboard) | **DELETE** /api/v1/{tenant}/dashboards/{id} | Delete a dashboard
+*DashboardsApi* | [**exportChartToCsv**](docs/DashboardsApi.md#exportChartToCsv) | **POST** /api/v1/{tenant}/dashboards/charts/export/to-csv | Export a table chart data to CSV
+*DashboardsApi* | [**exportDashboardChartDataToCSV**](docs/DashboardsApi.md#exportDashboardChartDataToCSV) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId}/export/to-csv | Export a dashboard chart data to CSV
+*DashboardsApi* | [**previewChart**](docs/DashboardsApi.md#previewChart) | **POST** /api/v1/{tenant}/dashboards/charts/preview | Preview a chart data
+*DashboardsApi* | [**searchDashboards**](docs/DashboardsApi.md#searchDashboards) | **GET** /api/v1/{tenant}/dashboards | Search for dashboards
+*DashboardsApi* | [**updateDashboard**](docs/DashboardsApi.md#updateDashboard) | **PUT** /api/v1/{tenant}/dashboards/{id} | Update a dashboard
+*DashboardsApi* | [**validateChart**](docs/DashboardsApi.md#validateChart) | **POST** /api/v1/{tenant}/dashboards/validate/chart | Validate a chart from yaml source
+*DashboardsApi* | [**validateDashboard**](docs/DashboardsApi.md#validateDashboard) | **POST** /api/v1/{tenant}/dashboards/validate | Validate dashboard from yaml source
 *ExecutionsApi* | [**createExecution**](docs/ExecutionsApi.md#createExecution) | **POST** /api/v1/{tenant}/executions/{namespace}/{id} | Create a new execution for a flow
 *ExecutionsApi* | [**deleteExecution**](docs/ExecutionsApi.md#deleteExecution) | **DELETE** /api/v1/{tenant}/executions/{executionId} | Delete an execution
 *ExecutionsApi* | [**deleteExecutionsByIds**](docs/ExecutionsApi.md#deleteExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/by-ids | Delete a list of executions
@@ -133,6 +157,7 @@ Class | Method | HTTP request | Description
 *ExecutionsApi* | [**downloadFileFromExecution**](docs/ExecutionsApi.md#downloadFileFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution
 *ExecutionsApi* | [**execution**](docs/ExecutionsApi.md#execution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution
 *ExecutionsApi* | [**executionFlowGraph**](docs/ExecutionsApi.md#executionFlowGraph) | **GET** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution
+*ExecutionsApi* | [**exportExecutions**](docs/ExecutionsApi.md#exportExecutions) | **GET** /api/v1/{tenant}/executions/export/by-query/csv | Export all executions as a streamed CSV file
 *ExecutionsApi* | [**fileMetadatasFromExecution**](docs/ExecutionsApi.md#fileMetadatasFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution
 *ExecutionsApi* | [**flowFromExecution**](docs/ExecutionsApi.md#flowFromExecution) | **GET** /api/v1/{tenant}/executions/flows/{namespace}/{flowId} | Get flow information&#39;s for an execution
 *ExecutionsApi* | [**flowFromExecutionById**](docs/ExecutionsApi.md#flowFromExecutionById) | **GET** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution
@@ -158,7 +183,6 @@ Class | Method | HTTP request | Description
 *ExecutionsApi* | [**resumeExecution**](docs/ExecutionsApi.md#resumeExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/resume | Resume a paused execution.
 *ExecutionsApi* | [**resumeExecutionsByIds**](docs/ExecutionsApi.md#resumeExecutionsByIds) | **POST** /api/v1/{tenant}/executions/resume/by-ids | Resume a list of paused executions
 *ExecutionsApi* | [**resumeExecutionsByQuery**](docs/ExecutionsApi.md#resumeExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/resume/by-query | Resume executions filter by query parameters
-*ExecutionsApi* | [**searchConcurrencyLimits**](docs/ExecutionsApi.md#searchConcurrencyLimits) | **GET** /api/v1/{tenant}/concurrency-limit/search | Search for flow concurrency limits
 *ExecutionsApi* | [**searchExecutions**](docs/ExecutionsApi.md#searchExecutions) | **GET** /api/v1/{tenant}/executions/search | Search for executions
 *ExecutionsApi* | [**searchExecutionsByFlowId**](docs/ExecutionsApi.md#searchExecutionsByFlowId) | **GET** /api/v1/{tenant}/executions | Search for executions for a flow
 *ExecutionsApi* | [**setLabelsOnTerminatedExecution**](docs/ExecutionsApi.md#setLabelsOnTerminatedExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/labels | Add or update labels of a terminated execution
@@ -168,10 +192,19 @@ Class | Method | HTTP request | Description
 *ExecutionsApi* | [**unqueueExecution**](docs/ExecutionsApi.md#unqueueExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/unqueue | Unqueue an execution
 *ExecutionsApi* | [**unqueueExecutionsByIds**](docs/ExecutionsApi.md#unqueueExecutionsByIds) | **POST** /api/v1/{tenant}/executions/unqueue/by-ids | Unqueue a list of executions
 *ExecutionsApi* | [**unqueueExecutionsByQuery**](docs/ExecutionsApi.md#unqueueExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/unqueue/by-query | Unqueue executions filter by query parameters
-*ExecutionsApi* | [**updateConcurrencyLimit**](docs/ExecutionsApi.md#updateConcurrencyLimit) | **PUT** /api/v1/{tenant}/concurrency-limit/{namespace}/{flowId} | Update a flow concurrency limit
 *ExecutionsApi* | [**updateExecutionStatus**](docs/ExecutionsApi.md#updateExecutionStatus) | **POST** /api/v1/{tenant}/executions/{executionId}/change-status | Change the state of an execution
 *ExecutionsApi* | [**updateExecutionsStatusByIds**](docs/ExecutionsApi.md#updateExecutionsStatusByIds) | **POST** /api/v1/{tenant}/executions/change-status/by-ids | Change executions state by id
 *ExecutionsApi* | [**updateExecutionsStatusByQuery**](docs/ExecutionsApi.md#updateExecutionsStatusByQuery) | **POST** /api/v1/{tenant}/executions/change-status/by-query | Change executions state by query parameters
+*FilesApi* | [**createNamespaceDirectory**](docs/FilesApi.md#createNamespaceDirectory) | **POST** /api/v1/{tenant}/namespaces/{namespace}/files/directory | Create a directory
+*FilesApi* | [**createNamespaceFile**](docs/FilesApi.md#createNamespaceFile) | **POST** /api/v1/{tenant}/namespaces/{namespace}/files | Create a file
+*FilesApi* | [**deleteFileDirectory**](docs/FilesApi.md#deleteFileDirectory) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/files | Delete a file or directory
+*FilesApi* | [**exportNamespaceFiles**](docs/FilesApi.md#exportNamespaceFiles) | **GET** /api/v1/{tenant}/namespaces/{namespace}/files/export | Export namespace files as a ZIP
+*FilesApi* | [**fileContent**](docs/FilesApi.md#fileContent) | **GET** /api/v1/{tenant}/namespaces/{namespace}/files | Get namespace file content
+*FilesApi* | [**fileMetadatas**](docs/FilesApi.md#fileMetadatas) | **GET** /api/v1/{tenant}/namespaces/{namespace}/files/stats | Get namespace file stats such as size, creation &amp; modification dates and type
+*FilesApi* | [**fileRevisions**](docs/FilesApi.md#fileRevisions) | **GET** /api/v1/{tenant}/namespaces/{namespace}/files/revisions | Get namespace file revisions
+*FilesApi* | [**listNamespaceDirectoryFiles**](docs/FilesApi.md#listNamespaceDirectoryFiles) | **GET** /api/v1/{tenant}/namespaces/{namespace}/files/directory | List directory content
+*FilesApi* | [**moveFileDirectory**](docs/FilesApi.md#moveFileDirectory) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/files | Move a file or directory
+*FilesApi* | [**searchNamespaceFiles**](docs/FilesApi.md#searchNamespaceFiles) | **GET** /api/v1/{tenant}/namespaces/{namespace}/files/search | Find files which path contain the given string in their URI
 *FlowsApi* | [**bulkUpdateFlows**](docs/FlowsApi.md#bulkUpdateFlows) | **POST** /api/v1/{tenant}/flows/bulk | Update from multiples yaml sources
 *FlowsApi* | [**createFlow**](docs/FlowsApi.md#createFlow) | **POST** /api/v1/{tenant}/flows | Create a flow from yaml source
 *FlowsApi* | [**deleteFlow**](docs/FlowsApi.md#deleteFlow) | **DELETE** /api/v1/{tenant}/flows/{namespace}/{id} | Delete a flow
@@ -181,6 +214,7 @@ Class | Method | HTTP request | Description
 *FlowsApi* | [**disableFlowsByQuery**](docs/FlowsApi.md#disableFlowsByQuery) | **POST** /api/v1/{tenant}/flows/disable/by-query | Disable flows returned by the query parameters.
 *FlowsApi* | [**enableFlowsByIds**](docs/FlowsApi.md#enableFlowsByIds) | **POST** /api/v1/{tenant}/flows/enable/by-ids | Enable flows by their IDs.
 *FlowsApi* | [**enableFlowsByQuery**](docs/FlowsApi.md#enableFlowsByQuery) | **POST** /api/v1/{tenant}/flows/enable/by-query | Enable flows returned by the query parameters.
+*FlowsApi* | [**exportFlows**](docs/FlowsApi.md#exportFlows) | **GET** /api/v1/{tenant}/flows/export/by-query/csv | Export all flows as a streamed CSV file
 *FlowsApi* | [**exportFlowsByIds**](docs/FlowsApi.md#exportFlowsByIds) | **POST** /api/v1/{tenant}/flows/export/by-ids | Export flows as a ZIP archive of yaml sources.
 *FlowsApi* | [**exportFlowsByQuery**](docs/FlowsApi.md#exportFlowsByQuery) | **GET** /api/v1/{tenant}/flows/export/by-query | Export flows as a ZIP archive of yaml sources.
 *FlowsApi* | [**flow**](docs/FlowsApi.md#flow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id} | Get a flow
@@ -274,8 +308,12 @@ Class | Method | HTTP request | Description
 *TriggersApi* | [**deleteBackfill**](docs/TriggersApi.md#deleteBackfill) | **POST** /api/v1/{tenant}/triggers/backfill/delete | Delete a backfill
 *TriggersApi* | [**deleteBackfillByIds**](docs/TriggersApi.md#deleteBackfillByIds) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-triggers | Delete backfill for given triggers
 *TriggersApi* | [**deleteBackfillByQuery**](docs/TriggersApi.md#deleteBackfillByQuery) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-query | Delete backfill for given triggers
+*TriggersApi* | [**deleteTrigger**](docs/TriggersApi.md#deleteTrigger) | **DELETE** /api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId} | Delete a trigger
+*TriggersApi* | [**deleteTriggersByIds**](docs/TriggersApi.md#deleteTriggersByIds) | **DELETE** /api/v1/{tenant}/triggers/delete/by-triggers | Delete given triggers
+*TriggersApi* | [**deleteTriggersByQuery**](docs/TriggersApi.md#deleteTriggersByQuery) | **DELETE** /api/v1/{tenant}/triggers/delete/by-query | Delete triggers by query parameters
 *TriggersApi* | [**disabledTriggersByIds**](docs/TriggersApi.md#disabledTriggersByIds) | **POST** /api/v1/{tenant}/triggers/set-disabled/by-triggers | Disable/enable given triggers
 *TriggersApi* | [**disabledTriggersByQuery**](docs/TriggersApi.md#disabledTriggersByQuery) | **POST** /api/v1/{tenant}/triggers/set-disabled/by-query | Disable/enable triggers by query parameters
+*TriggersApi* | [**exportTriggers**](docs/TriggersApi.md#exportTriggers) | **GET** /api/v1/{tenant}/triggers/export/by-query/csv | Export all triggers as a streamed CSV file
 *TriggersApi* | [**pauseBackfill**](docs/TriggersApi.md#pauseBackfill) | **PUT** /api/v1/{tenant}/triggers/backfill/pause | Pause a backfill
 *TriggersApi* | [**pauseBackfillByIds**](docs/TriggersApi.md#pauseBackfillByIds) | **POST** /api/v1/{tenant}/triggers/backfill/pause/by-triggers | Pause backfill for given triggers
 *TriggersApi* | [**pauseBackfillByQuery**](docs/TriggersApi.md#pauseBackfillByQuery) | **POST** /api/v1/{tenant}/triggers/backfill/pause/by-query | Pause backfill for given triggers
@@ -372,8 +410,13 @@ Class | Method | HTTP request | Description
  - [BlueprintControllerApiBlueprintItem](docs/BlueprintControllerApiBlueprintItem.md)
  - [BlueprintControllerApiBlueprintItemWithSource](docs/BlueprintControllerApiBlueprintItemWithSource.md)
  - [BlueprintControllerApiBlueprintTagItem](docs/BlueprintControllerApiBlueprintTagItem.md)
+ - [BlueprintControllerApiFlowBlueprint](docs/BlueprintControllerApiFlowBlueprint.md)
+ - [BlueprintControllerFlowBlueprintCreateOrUpdate](docs/BlueprintControllerFlowBlueprintCreateOrUpdate.md)
  - [BlueprintControllerKind](docs/BlueprintControllerKind.md)
- - [BlueprintWithFlow](docs/BlueprintWithFlow.md)
+ - [BlueprintControllerUseBlueprintTemplateRequest](docs/BlueprintControllerUseBlueprintTemplateRequest.md)
+ - [BlueprintControllerUseBlueprintTemplateResponse](docs/BlueprintControllerUseBlueprintTemplateResponse.md)
+ - [BlueprintTemplate](docs/BlueprintTemplate.md)
+ - [BlueprintWithFlowEntity](docs/BlueprintWithFlowEntity.md)
  - [Breakpoint](docs/Breakpoint.md)
  - [BulkErrorResponse](docs/BulkErrorResponse.md)
  - [BulkImportAppsRequest](docs/BulkImportAppsRequest.md)
@@ -381,6 +424,9 @@ Class | Method | HTTP request | Description
  - [Cache](docs/Cache.md)
  - [ChartChartOption](docs/ChartChartOption.md)
  - [ChartFiltersOverrides](docs/ChartFiltersOverrides.md)
+ - [Check](docs/Check.md)
+ - [CheckBehavior](docs/CheckBehavior.md)
+ - [CheckStyle](docs/CheckStyle.md)
  - [Concurrency](docs/Concurrency.md)
  - [ConcurrencyBehavior](docs/ConcurrencyBehavior.md)
  - [ConcurrencyLimit](docs/ConcurrencyLimit.md)
@@ -398,6 +444,7 @@ Class | Method | HTTP request | Description
  - [DailyExecutionStatisticsExecutionCounts](docs/DailyExecutionStatisticsExecutionCounts.md)
  - [Dashboard](docs/Dashboard.md)
  - [DashboardControllerPreviewRequest](docs/DashboardControllerPreviewRequest.md)
+ - [DeleteTriggersByQueryRequest](docs/DeleteTriggersByQueryRequest.md)
  - [DeletedInterface](docs/DeletedInterface.md)
  - [DependsOn](docs/DependsOn.md)
  - [DocumentationWithSchema](docs/DocumentationWithSchema.md)
@@ -410,6 +457,7 @@ Class | Method | HTTP request | Description
  - [ExecutableTaskSubflowId](docs/ExecutableTaskSubflowId.md)
  - [Execution](docs/Execution.md)
  - [ExecutionControllerApiValidateExecutionInputsResponse](docs/ExecutionControllerApiValidateExecutionInputsResponse.md)
+ - [ExecutionControllerApiValidateExecutionInputsResponseApiCheckFailure](docs/ExecutionControllerApiValidateExecutionInputsResponseApiCheckFailure.md)
  - [ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue](docs/ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue.md)
  - [ExecutionControllerApiValidateExecutionInputsResponseApiInputError](docs/ExecutionControllerApiValidateExecutionInputsResponseApiInputError.md)
  - [ExecutionControllerEvalResult](docs/ExecutionControllerEvalResult.md)
@@ -547,6 +595,7 @@ Class | Method | HTTP request | Description
  - [Namespace](docs/Namespace.md)
  - [NamespaceAllowedNamespace](docs/NamespaceAllowedNamespace.md)
  - [NamespaceAllowedTrigger](docs/NamespaceAllowedTrigger.md)
+ - [NamespaceFileRevision](docs/NamespaceFileRevision.md)
  - [NamespaceLight](docs/NamespaceLight.md)
  - [Output](docs/Output.md)
  - [OutputValue](docs/OutputValue.md)

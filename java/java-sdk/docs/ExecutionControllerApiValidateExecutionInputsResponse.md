@@ -10,6 +10,7 @@
 |**id** | **String** |  |  [optional] |
 |**namespace** | **String** |  |  [optional] |
 |**inputs** | [**List&lt;ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue&gt;**](ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue.md) |  |  [optional] |
+|**checks** | [**List&lt;ExecutionControllerApiValidateExecutionInputsResponseApiCheckFailure&gt;**](ExecutionControllerApiValidateExecutionInputsResponseApiCheckFailure.md) |  |  [optional] |
 
 
 

@@ -31,6 +31,8 @@
 
 * `TRIGGER_ID` (value: `"TRIGGER_ID"`)
 
+* `TRIGGER_STATE` (value: `"TRIGGER_STATE"`)
+
 * `EXECUTION_ID` (value: `"EXECUTION_ID"`)
 
 * `CHILD_FILTER` (value: `"CHILD_FILTER"`)
@@ -40,6 +42,12 @@
 * `EXISTING_ONLY` (value: `"EXISTING_ONLY"`)
 
 * `MIN_LEVEL` (value: `"MIN_LEVEL"`)
+
+* `PATH` (value: `"PATH"`)
+
+* `PARENT_PATH` (value: `"PARENT_PATH"`)
+
+* `VERSION` (value: `"VERSION"`)
 
 * `UNKNOWN_DEFAULT_OPEN_API` (value: `"unknown_default_open_api"`)
 

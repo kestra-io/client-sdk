@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**resource** | **ResourceType1** |  |  [optional] |
+|**resource** | **ResourceType** |  |  [optional] |
 |**type** | **CrudEventType** |  |  [optional] |
 |**detail** | **Map&lt;String, Object&gt;** |  |  [optional] |
 

@@ -14,6 +14,7 @@
 |**includedTasks** | **List&lt;String&gt;** |  |  [optional] |
 |**publishedAt** | **OffsetDateTime** |  |  [optional] |
 |**deleted** | **Boolean** |  |  |
+|**template** | [**BlueprintTemplate**](BlueprintTemplate.md) |  |  [optional] |
 
 
 

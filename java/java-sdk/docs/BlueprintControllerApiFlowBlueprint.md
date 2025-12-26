@@ -1,6 +1,6 @@
 
 
-# BlueprintWithFlow
+# BlueprintControllerApiFlowBlueprint
 
 
 ## Properties
@@ -8,13 +8,13 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**id** | **String** |  |  [optional] |
-|**title** | **String** |  |  |
+|**title** | **String** |  |  [optional] |
 |**description** | **String** |  |  [optional] |
-|**tags** | **List&lt;String&gt;** |  |  [optional] |
 |**includedTasks** | **List&lt;String&gt;** |  |  [optional] |
+|**tags** | **List&lt;String&gt;** |  |  [optional] |
+|**source** | **String** |  |  [optional] |
 |**publishedAt** | **OffsetDateTime** |  |  [optional] |
-|**deleted** | **Boolean** |  |  |
-|**flow** | **String** |  |  |
+|**template** | [**BlueprintTemplate**](BlueprintTemplate.md) |  |  [optional] |
 
 
 

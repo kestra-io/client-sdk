@@ -25,6 +25,7 @@
 |**isAiEnabled** | **Boolean** |  |  [optional] |
 |**isBasicAuthInitialized** | **Boolean** |  |  [optional] |
 |**pluginsHash** | **Long** |  |  [optional] |
+|**isConcurrencyViewEnabled** | **Boolean** |  |  [optional] |
 
 
 

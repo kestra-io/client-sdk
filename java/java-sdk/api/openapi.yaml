@@ -4,7 +4,7 @@ info:
     All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>
     Endpoints designated as Superadmin-only are not tenant-scoped.
   title: Kestra EE
-  version: 1.1.4
+  version: 1.2.0-SNAPSHOT
 servers:
 - url: /
 tags:
@@ -102,7 +102,7 @@ paths:
         required: false
         schema:
           items:
-            $ref: "#/components/schemas/ResourceType_1"
+            $ref: "#/components/schemas/ResourceType"
           nullable: true
           type: array
         style: form
@@ -261,7 +261,7 @@ paths:
         required: false
         schema:
           items:
-            $ref: "#/components/schemas/ResourceType_1"
+            $ref: "#/components/schemas/ResourceType"
           nullable: true
           type: array
         style: form
@@ -1252,6 +1252,22 @@ paths:
       - bearerAuth: []
       - basicAuth: []
       summary: Retrieve license information
+      tags:
+      - Misc
+      x-internal: true
+      x-accepts:
+      - application/json
+  /api/v1/license/refresh:
+    get:
+      description: Only for Super Admins.
+      operationId: refreshLicense
+      responses:
+        "200":
+          description: refreshLicense 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Force the refresh of the license online
       tags:
       - Misc
       x-internal: true
@@ -3144,7 +3160,7 @@ paths:
       summary: Delete existing apps
       tags:
       - Apps
-      x-internal: true
+      x-internal: false
       x-content-type: application/json
       x-accepts:
       - application/json
@@ -3178,7 +3194,7 @@ paths:
       summary: Create a new app
       tags:
       - Apps
-      x-internal: true
+      x-internal: false
       x-content-type: application/x-yaml
       x-accepts:
       - application/json
@@ -3246,7 +3262,7 @@ paths:
       summary: Search for apps from catalog
       tags:
       - Apps
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
   /api/v1/{tenant}/apps/disable:
@@ -3280,7 +3296,7 @@ paths:
       summary: Disable existing apps
       tags:
       - Apps
-      x-internal: true
+      x-internal: false
       x-content-type: application/json
       x-accepts:
       - application/json
@@ -3315,7 +3331,7 @@ paths:
       summary: Enable existing apps
       tags:
       - Apps
-      x-internal: true
+      x-internal: false
       x-content-type: application/json
       x-accepts:
       - application/json
@@ -3351,7 +3367,7 @@ paths:
       summary: Export apps as a ZIP archive of YAML sources.
       tags:
       - Apps
-      x-internal: true
+      x-internal: false
       x-content-type: application/json
       x-accepts:
       - application/octet-stream
@@ -3393,7 +3409,7 @@ paths:
             When sending a ZIP archive, a list of files that couldn't be imported is returned.
       tags:
       - Apps
-      x-internal: true
+      x-internal: false
       x-content-type: multipart/form-data
       x-accepts:
       - application/json
@@ -3428,7 +3444,7 @@ paths:
       summary: Open the app for the given source
       tags:
       - Apps
-      x-internal: true
+      x-internal: false
       x-content-type: application/x-yaml
       x-accepts:
       - application/json
@@ -3525,7 +3541,7 @@ paths:
       summary: Search for apps
       tags:
       - Apps
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
   /api/v1/{tenant}/apps/tags:
@@ -3552,109 +3568,7 @@ paths:
       summary: Get all the app tags
       tags:
       - Apps
-      x-internal: true
-      x-accepts:
-      - application/json
-  /api/v1/{tenant}/apps/view/{id}/dispatch/{dispatch}:
-    post:
-      operationId: dispatchApp
-      parameters:
-      - description: The ID of the app.
-        explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The ID to dispatch
-        explode: false
-        in: path
-        name: dispatch
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: tenant
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          multipart/form-data:
-            encoding: {}
-            schema:
-              items:
-                format: binary
-                type: string
-              properties:
-                parameters:
-                  $ref: "#/components/schemas/HttpParameters"
-              type: array
-        description: The data of the app
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/AppResponse"
-          description: dispatchApp 200 response
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      summary: Dispatch for a given app.
-      tags:
-      - Apps
-      x-internal: true
-      x-content-type: multipart/form-data
-      x-accepts:
-      - application/json
-  /api/v1/{tenant}/apps/view/{id}/file/download:
-    get:
-      operationId: downloadFileFromAppExecution
-      parameters:
-      - description: The ID of the app.
-        explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The internal storage uri
-        explode: false
-        in: query
-        name: path
-        required: true
-        schema:
-          format: uri
-          type: string
-        style: form
-      - explode: false
-        in: path
-        name: tenant
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                format: binary
-                type: string
-          description: downloadFileFromAppExecution 200 response
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      summary: Download file from an app execution
-      tags:
-      - Apps
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
   /api/v1/{tenant}/apps/view/{id}/file/meta:
@@ -3698,7 +3612,7 @@ paths:
       summary: Get file meta information from an app execution
       tags:
       - Apps
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
   /api/v1/{tenant}/apps/view/{id}/file/preview:
@@ -3762,7 +3676,7 @@ paths:
       summary: Get file preview from an app execution
       tags:
       - Apps
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
   /api/v1/{tenant}/apps/view/{id}/streams/{stream}:
@@ -3812,7 +3726,7 @@ paths:
       summary: Get an event stream from a given app.
       tags:
       - Apps
-      x-internal: true
+      x-internal: false
       x-accepts:
       - text/event-stream
   /api/v1/{tenant}/apps/view/{uid}:
@@ -3854,7 +3768,7 @@ paths:
       summary: Open an app
       tags:
       - Apps
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
   /api/v1/{tenant}/apps/view/{uid}/logs/download:
@@ -3919,7 +3833,7 @@ paths:
       summary: Download logs for an app execution
       tags:
       - Apps
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/octet-stream
   /api/v1/{tenant}/apps/{uid}:
@@ -3954,7 +3868,7 @@ paths:
       summary: Delete an existing app
       tags:
       - Apps
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
     get:
@@ -3988,7 +3902,7 @@ paths:
       summary: Retrieve an app
       tags:
       - Apps
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
     put:
@@ -4029,7 +3943,7 @@ paths:
       summary: Update an existing app
       tags:
       - Apps
-      x-internal: true
+      x-internal: false
       x-content-type: application/x-yaml
       x-accepts:
       - application/json
@@ -4065,7 +3979,7 @@ paths:
       summary: Disable the app.
       tags:
       - Apps
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
   /api/v1/{tenant}/apps/{uid}/enable:
@@ -4100,7 +4014,7 @@ paths:
       summary: Enable the app.
       tags:
       - Apps
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
   /api/v1/{tenant}/auditlogs/export:
@@ -4168,7 +4082,7 @@ paths:
         required: false
         schema:
           items:
-            $ref: "#/components/schemas/ResourceType_1"
+            $ref: "#/components/schemas/ResourceType"
           nullable: true
           type: array
         style: form
@@ -4406,7 +4320,7 @@ paths:
         required: false
         schema:
           items:
-            $ref: "#/components/schemas/ResourceType_1"
+            $ref: "#/components/schemas/ResourceType"
           nullable: true
           type: array
         style: form
@@ -5117,6 +5031,7 @@ paths:
       x-accepts:
       - application/json
     post:
+      deprecated: true
       description: Creates a new internal (custom) blueprint for the current tenant.
         Requires BLUEPRINT permission.
       operationId: createInternalBlueprints
@@ -5188,6 +5103,7 @@ paths:
       - application/json
   /api/v1/{tenant}/blueprints/custom/{id}:
     delete:
+      deprecated: true
       description: Deletes an internal (custom) blueprint for the current tenant.
         Requires BLUEPRINT permission.
       operationId: deleteInternalBlueprints
@@ -5241,7 +5157,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BlueprintController.ApiBlueprintItemWithSource"
+                $ref: "#/components/schemas/BlueprintController.ApiFlowBlueprint"
           description: internalBlueprint 200 response
       summary: Retrieve an internal blueprint
       tags:
@@ -5250,6 +5166,7 @@ paths:
       x-accepts:
       - application/json
     put:
+      deprecated: true
       description: Updates an existing internal (custom) blueprint for the current
         tenant. Requires BLUEPRINT permission.
       operationId: updateInternalBlueprints
@@ -5281,7 +5198,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BlueprintWithFlow"
+                $ref: "#/components/schemas/BlueprintWithFlowEntity"
           description: updateInternalBlueprints 200 response
       summary: Update an internal blueprint
       tags:
@@ -5324,6 +5241,211 @@ paths:
       x-internal: true
       x-accepts:
       - application/yaml
+  /api/v1/{tenant}/blueprints/flow/{id}:
+    get:
+      description: Retrieves details of a specific flow blueprint. Requires BLUEPRINT
+        permission.
+      operationId: flowBlueprint
+      parameters:
+      - description: The blueprint id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BlueprintController.ApiFlowBlueprint"
+          description: getFlowBlueprint 200 response
+      summary: Retrieve an flow blueprint
+      tags:
+      - Blueprints
+      x-internal: true
+      x-accepts:
+      - application/json
+  /api/v1/{tenant}/blueprints/flows:
+    post:
+      operationId: createFlowBlueprint
+      parameters:
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BlueprintController.FlowBlueprintCreateOrUpdate"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BlueprintController.ApiFlowBlueprint"
+          description: createFlowBlueprint 200 response
+      summary: Create a Flow Blueprint
+      tags:
+      - Blueprints
+      x-internal: true
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /api/v1/{tenant}/blueprints/flows/{id}:
+    delete:
+      description: Deletes an Flow Blueprint for the current tenant. Requires BLUEPRINT
+        permission.
+      operationId: deleteFlowBlueprints
+      parameters:
+      - description: The flow blueprint id to delete
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: deleteFlowBlueprints 200 response
+      summary: Delete an Flow Blueprint
+      tags:
+      - Blueprints
+      x-internal: true
+      x-accepts:
+      - application/json
+    get:
+      description: Retrieves details of a specific flow blueprint. Requires BLUEPRINT
+        permission.
+      operationId: flowBlueprintById
+      parameters:
+      - description: The blueprint id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BlueprintController.ApiFlowBlueprint"
+          description: getFlowBlueprintById 200 response
+      summary: Retrieve an flow blueprint
+      tags:
+      - Blueprints
+      x-internal: true
+      x-accepts:
+      - application/json
+    put:
+      operationId: updateFlowBlueprint
+      parameters:
+      - description: The flow blueprint id to update
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BlueprintController.FlowBlueprintCreateOrUpdate"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BlueprintController.ApiFlowBlueprint"
+          description: updateFlowBlueprint 200 response
+      summary: Update a Flow Blueprint
+      tags:
+      - Blueprints
+      x-internal: true
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /api/v1/{tenant}/blueprints/flows/{id}/use-template:
+    post:
+      operationId: useBlueprintTemplate
+      parameters:
+      - description: The flow blueprint id to use
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BlueprintController.UseBlueprintTemplateRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BlueprintController.UseBlueprintTemplateResponse"
+          description: useBlueprintTemplate 200 response
+      summary: Use a Flow Blueprint template to generate a Flow source
+      tags:
+      - Blueprints
+      x-internal: true
+      x-content-type: application/json
+      x-accepts:
+      - application/json
   /api/v1/{tenant}/concurrency-limit/search:
     get:
       operationId: searchConcurrencyLimits
@@ -5344,7 +5466,6 @@ paths:
           description: searchConcurrencyLimits 200 response
       summary: Search for flow concurrency limits
       tags:
-      - Executions
       - Flows
       x-internal: false
       x-accepts:
@@ -5389,7 +5510,6 @@ paths:
           description: updateConcurrencyLimit 200 response
       summary: Update a flow concurrency limit
       tags:
-      - Executions
       - Flows
       x-internal: false
       x-content-type: application/json
@@ -5458,7 +5578,7 @@ paths:
       summary: Search for dashboards
       tags:
       - Dashboards
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
     post:
@@ -5488,7 +5608,7 @@ paths:
       summary: Create a dashboard from yaml source
       tags:
       - Dashboards
-      x-internal: true
+      x-internal: false
       x-content-type: application/x-yaml
       x-accepts:
       - application/json
@@ -5520,7 +5640,7 @@ paths:
       summary: Export a table chart data to CSV
       tags:
       - Dashboards
-      x-internal: true
+      x-internal: false
       x-content-type: application/json
       x-accepts:
       - application/octet-stream
@@ -5551,7 +5671,7 @@ paths:
       summary: Preview a chart data
       tags:
       - Dashboards
-      x-internal: true
+      x-internal: false
       x-content-type: application/json
       x-accepts:
       - application/json
@@ -5583,7 +5703,7 @@ paths:
       summary: Validate dashboard from yaml source
       tags:
       - Dashboards
-      x-internal: true
+      x-internal: false
       x-content-type: application/x-yaml
       x-accepts:
       - application/json
@@ -5615,7 +5735,7 @@ paths:
       summary: Validate a chart from yaml source
       tags:
       - Dashboards
-      x-internal: true
+      x-internal: false
       x-content-type: application/x-yaml
       x-accepts:
       - application/json
@@ -5644,7 +5764,7 @@ paths:
       summary: Delete a dashboard
       tags:
       - Dashboards
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
     get:
@@ -5675,7 +5795,7 @@ paths:
       summary: Get a dashboard
       tags:
       - Dashboards
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
     put:
@@ -5713,7 +5833,7 @@ paths:
       summary: Update a dashboard
       tags:
       - Dashboards
-      x-internal: true
+      x-internal: false
       x-content-type: application/x-yaml
       x-accepts:
       - application/json
@@ -5762,7 +5882,7 @@ paths:
       summary: Generate a dashboard chart data
       tags:
       - Dashboards
-      x-internal: true
+      x-internal: false
       x-content-type: application/json
       x-accepts:
       - application/json
@@ -5812,7 +5932,7 @@ paths:
       summary: Export a dashboard chart data to CSV
       tags:
       - Dashboards
-      x-internal: true
+      x-internal: false
       x-content-type: application/json
       x-accepts:
       - application/octet-stream
@@ -6173,6 +6293,45 @@ paths:
       x-internal: false
       x-accepts:
       - application/json
+  /api/v1/{tenant}/executions/export/by-query/csv:
+    get:
+      operationId: exportExecutions
+      parameters:
+      - description: A list of filters
+        explode: false
+        in: query
+        name: filters
+        required: true
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          type: array
+        style: form
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            text/csv:
+              schema:
+                items:
+                  type: object
+                type: array
+          description: exportExecutions 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Export all executions as a streamed CSV file
+      tags:
+      - Executions
+      x-internal: false
+      x-accepts:
+      - text/csv
   /api/v1/{tenant}/executions/flows/{namespace}/{flowId}:
     get:
       operationId: flowFromExecution
@@ -8496,6 +8655,45 @@ paths:
       x-internal: false
       x-accepts:
       - application/octet-stream
+  /api/v1/{tenant}/flows/export/by-query/csv:
+    get:
+      operationId: exportFlows
+      parameters:
+      - description: A list of filters
+        explode: false
+        in: query
+        name: filters
+        required: true
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          type: array
+        style: form
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            text/csv:
+              schema:
+                items:
+                  type: object
+                type: array
+          description: exportFlows 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Export all flows as a streamed CSV file
+      tags:
+      - Flows
+      x-internal: false
+      x-accepts:
+      - text/csv
   /api/v1/{tenant}/flows/graph:
     post:
       operationId: generateFlowGraphFromSource
@@ -10395,7 +10593,7 @@ paths:
             application/scim+json:
               schema:
                 items:
-                  $ref: "#/components/schemas/ResourceType"
+                  $ref: "#/components/schemas/ResourceType_1"
                 type: array
           description: OK response
       tags:
@@ -10434,7 +10632,7 @@ paths:
           content:
             application/scim+json:
               schema:
-                $ref: "#/components/schemas/ResourceType"
+                $ref: "#/components/schemas/ResourceType_1"
           description: OK response
       tags:
       - SCIM-Configuration
@@ -12468,7 +12666,7 @@ paths:
       summary: Delete a file or directory
       tags:
       - Files
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
     get:
@@ -12489,6 +12687,16 @@ paths:
         required: true
         schema:
           type: string
+        style: form
+      - description: "The revision, if not provided, the latest revision will be returned"
+        explode: false
+        in: query
+        name: revision
+        required: false
+        schema:
+          format: int32
+          nullable: true
+          type: integer
         style: form
       - explode: false
         in: path
@@ -12511,7 +12719,7 @@ paths:
       summary: Get namespace file content
       tags:
       - Files
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/octet-stream
     post:
@@ -12560,7 +12768,7 @@ paths:
       summary: Create a file
       tags:
       - Files
-      x-internal: true
+      x-internal: false
       x-content-type: multipart/form-data
       x-accepts:
       - application/json
@@ -12609,7 +12817,7 @@ paths:
       summary: Move a file or directory
       tags:
       - Files
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
   /api/v1/{tenant}/namespaces/{namespace}/files/directory:
@@ -12655,7 +12863,7 @@ paths:
       summary: List directory content
       tags:
       - Files
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
     post:
@@ -12694,7 +12902,7 @@ paths:
       summary: Create a directory
       tags:
       - Files
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
   /api/v1/{tenant}/namespaces/{namespace}/files/export:
@@ -12730,9 +12938,55 @@ paths:
       summary: Export namespace files as a ZIP
       tags:
       - Files
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/octet-stream
+  /api/v1/{tenant}/namespaces/{namespace}/files/revisions:
+    get:
+      operationId: fileRevisions
+      parameters:
+      - description: The namespace id
+        explode: false
+        in: path
+        name: namespace
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The internal storage uri
+        explode: false
+        in: query
+        name: path
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/NamespaceFileRevision"
+                type: array
+          description: getFileRevisions 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Get namespace file revisions
+      tags:
+      - Files
+      x-internal: false
+      x-accepts:
+      - application/json
   /api/v1/{tenant}/namespaces/{namespace}/files/search:
     get:
       operationId: searchNamespaceFiles
@@ -12775,7 +13029,7 @@ paths:
       summary: Find files which path contain the given string in their URI
       tags:
       - Files
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
   /api/v1/{tenant}/namespaces/{namespace}/files/stats:
@@ -12820,7 +13074,7 @@ paths:
         \ and type"
       tags:
       - Files
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
   /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets:
@@ -15414,6 +15668,115 @@ paths:
       x-content-type: application/json
       x-accepts:
       - application/json
+  /api/v1/{tenant}/triggers/delete/by-query:
+    delete:
+      operationId: deleteTriggersByQuery
+      parameters:
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/deleteTriggersByQuery_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+          description: deleteTriggersByQuery 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Delete triggers by query parameters
+      tags:
+      - Triggers
+      x-internal: false
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /api/v1/{tenant}/triggers/delete/by-triggers:
+    delete:
+      operationId: deleteTriggersByIds
+      parameters:
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: "#/components/schemas/Trigger"
+              type: array
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+          description: deleteTriggersByIds 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Delete given triggers
+      tags:
+      - Triggers
+      x-internal: false
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /api/v1/{tenant}/triggers/export/by-query/csv:
+    get:
+      operationId: exportTriggers
+      parameters:
+      - description: A list of filters
+        explode: false
+        in: query
+        name: filters
+        required: true
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          type: array
+        style: form
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            text/csv:
+              schema:
+                items:
+                  type: object
+                type: array
+          description: exportTriggers 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Export all triggers as a streamed CSV file
+      tags:
+      - Triggers
+      x-internal: false
+      x-accepts:
+      - text/csv
   /api/v1/{tenant}/triggers/search:
     get:
       operationId: searchTriggers
@@ -15722,6 +16085,57 @@ paths:
       - bearerAuth: []
       - basicAuth: []
       summary: Get all triggers for a flow
+      tags:
+      - Triggers
+      x-internal: false
+      x-accepts:
+      - application/json
+  /api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId}:
+    delete:
+      operationId: deleteTrigger
+      parameters:
+      - description: The namespace
+        explode: false
+        in: path
+        name: namespace
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The flow id
+        explode: false
+        in: path
+        name: flowId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The trigger id
+        explode: false
+        in: path
+        name: triggerId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+          description: deleteTrigger 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Delete a trigger
       tags:
       - Triggers
       x-internal: false
@@ -16042,26 +16456,27 @@ components:
       type: object
     AbstractTrigger:
       example:
-        logLevel: null
+        allowConcurrent: true
         stopAfter:
         - CREATED
         - CREATED
         description: description
-        disabled: false
-        id: id
-        workerGroup:
-          fallback: FAIL
-          key: key
         type: type
-        conditions:
-        - type: type
-        - type: type
         logToFile: true
         version: version
         labels:
         - The_labels_to_pass_to_the_execution_created_
         - The_labels_to_pass_to_the_execution_created_
         failOnTriggerError: true
+        logLevel: null
+        disabled: false
+        id: id
+        workerGroup:
+          fallback: FAIL
+          key: key
+        conditions:
+        - type: type
+        - type: type
       properties:
         id:
           minLength: 1
@@ -16109,6 +16524,10 @@ components:
         logToFile:
           type: boolean
         failOnTriggerError:
+          type: boolean
+        allowConcurrent:
+          title: Specifies whether a trigger is allowed to start a new execution even
+            if a previous run is still in progress.
           type: boolean
       required:
       - id
@@ -16475,6 +16894,13 @@ components:
         type: object
       type: object
     AppResponse:
+      example:
+        layout:
+          blocks:
+          - null
+          - null
+        dispatch: dispatch
+        stream: stream
       properties:
         dispatch:
           type: string
@@ -16486,6 +16912,10 @@ components:
     AppResponse.UIBlock:
       type: object
     AppResponse.UILayout:
+      example:
+        blocks:
+        - null
+        - null
       properties:
         blocks:
           items:
@@ -16493,6 +16923,19 @@ components:
           type: array
       type: object
     AppsController.ApiApp:
+      example:
+        uid: uid
+        created: 2000-01-23T04:56:07.000+00:00
+        name: name
+        namespace: namespace
+        id: id
+        type: type
+        flowId: flowId
+        updated: 2000-01-23T04:56:07.000+00:00
+        enabled: true
+        tags:
+        - tags
+        - tags
       properties:
         uid:
           type: string
@@ -16520,6 +16963,15 @@ components:
           type: string
       type: object
     AppsController.ApiAppCatalogItem:
+      example:
+        uid: uid
+        thumbnail: thumbnail
+        name: name
+        description: description
+        type: type
+        tags:
+        - tags
+        - tags
       properties:
         uid:
           type: string
@@ -16537,6 +16989,17 @@ components:
           type: string
       type: object
     AppsController.ApiAppSource:
+      example:
+        uid: uid
+        created: 2000-01-23T04:56:07.000+00:00
+        name: name
+        namespace: namespace
+        disabled: true
+        source: source
+        updated: 2000-01-23T04:56:07.000+00:00
+        tags:
+        - tags
+        - tags
       properties:
         uid:
           type: string
@@ -16560,6 +17023,10 @@ components:
           type: string
       type: object
     AppsController.ApiAppTags:
+      example:
+        tags:
+        - tags
+        - tags
       properties:
         tags:
           items:
@@ -16567,6 +17034,15 @@ components:
           type: array
       type: object
     AppsController.ApiBulkImportResponse:
+      example:
+        success:
+        - success
+        - success
+        errors:
+        - source: source
+          message: message
+        - source: source
+          message: message
       properties:
         success:
           items:
@@ -16578,6 +17054,9 @@ components:
           type: array
       type: object
     AppsController.ApiBulkImportResponse.Error:
+      example:
+        source: source
+        message: message
       properties:
         source:
           type: string
@@ -16784,7 +17263,7 @@ components:
     AuditLogController.FindRequest:
       properties:
         resource:
-          $ref: "#/components/schemas/ResourceType_1"
+          $ref: "#/components/schemas/ResourceType"
         type:
           allOf:
           - $ref: "#/components/schemas/CrudEventType"
@@ -16799,7 +17278,7 @@ components:
         permission:
           $ref: "#/components/schemas/Permission"
         resourceType:
-          $ref: "#/components/schemas/ResourceType_1"
+          $ref: "#/components/schemas/ResourceType"
         type:
           type: string
         id:
@@ -17014,6 +17493,8 @@ components:
           type: string
         deleted:
           type: boolean
+        template:
+          $ref: "#/components/schemas/BlueprintTemplate"
       required:
       - deleted
       - title
@@ -17058,13 +17539,79 @@ components:
           format: date-time
           type: string
       type: object
+    BlueprintController.ApiFlowBlueprint:
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        includedTasks:
+          items:
+            type: string
+          type: array
+        tags:
+          items:
+            type: string
+          type: array
+        source:
+          type: string
+        publishedAt:
+          format: date-time
+          type: string
+        template:
+          $ref: "#/components/schemas/BlueprintTemplate"
+      type: object
+    BlueprintController.FlowBlueprintCreateOrUpdate:
+      properties:
+        title:
+          minLength: 1
+          type: string
+        source:
+          minLength: 1
+          type: string
+        description:
+          type: string
+        tags:
+          items:
+            type: string
+          type: array
+      required:
+      - source
+      - title
+      type: object
     BlueprintController.Kind:
       enum:
       - APP
       - DASHBOARD
       - FLOW
       type: string
-    BlueprintWithFlow:
+    BlueprintController.UseBlueprintTemplateRequest:
+      properties:
+        templateArgumentsInputs:
+          additionalProperties:
+            type: object
+          type: object
+      type: object
+    BlueprintController.UseBlueprintTemplateResponse:
+      properties:
+        generatedFlowSource:
+          type: string
+      type: object
+    BlueprintTemplate:
+      properties:
+        source:
+          minLength: 1
+          type: string
+        templateArguments:
+          additionalProperties:
+            $ref: "#/components/schemas/Input_Object_"
+          type: object
+      required:
+      - source
+      type: object
+    BlueprintWithFlowEntity:
       allOf:
       - $ref: "#/components/schemas/Blueprint"
       - properties:
@@ -17122,6 +17669,21 @@ components:
       - enabled
       type: object
     ChartFiltersOverrides:
+      example:
+        pageNumber: 6
+        endDate: 2000-01-23T04:56:07.000+00:00
+        namespace: namespace
+        pageSize: 0
+        filters:
+        - field: QUERY
+          operation: EQUALS
+          value: "{}"
+        - field: QUERY
+          operation: EQUALS
+          value: "{}"
+        startDate: 2000-01-23T04:56:07.000+00:00
+        labels:
+          key: labels
       properties:
         startDate:
           format: date-time
@@ -17147,6 +17709,10 @@ components:
           type: array
       type: object
     Chart_ChartOption_:
+      example:
+        chartOptions: "{}"
+        id: id
+        type: type
       properties:
         id:
           minLength: 1
@@ -17162,6 +17728,40 @@ components:
       - id
       - type
       type: object
+    Check:
+      example:
+        condition: condition
+        style: ERROR
+        message: message
+        behavior: BLOCK_EXECUTION
+      properties:
+        condition:
+          minLength: 1
+          type: string
+        message:
+          minLength: 1
+          type: string
+        style:
+          $ref: "#/components/schemas/Check.Style"
+        behavior:
+          $ref: "#/components/schemas/Check.Behavior"
+      required:
+      - condition
+      - message
+      type: object
+    Check.Behavior:
+      enum:
+      - BLOCK_EXECUTION
+      - FAIL_EXECUTION
+      - CREATE_EXECUTION
+      type: string
+    Check.Style:
+      enum:
+      - ERROR
+      - SUCCESS
+      - WARNING
+      - INFO
+      type: string
     Concurrency:
       example:
         limit: 1
@@ -17339,6 +17939,20 @@ components:
       - sum
       type: object
     Dashboard:
+      example:
+        sourceCode: sourceCode
+        timeWindow:
+          default: default
+          max: max
+        charts:
+        - chartOptions: "{}"
+          id: id
+          type: type
+        - chartOptions: "{}"
+          id: id
+          type: type
+        description: description
+        title: title
       properties:
         title:
           minLength: 1
@@ -17501,6 +18115,7 @@ components:
             duration: duration
             current: CREATED
             endDate: 2000-01-23T04:56:07.000+00:00
+            durationOrComputeIt: durationOrComputeIt
             histories:
             - date: 2000-01-23T04:56:07.000+00:00
               state: null
@@ -17517,6 +18132,7 @@ components:
               duration: duration
               current: CREATED
               endDate: 2000-01-23T04:56:07.000+00:00
+              durationOrComputeIt: durationOrComputeIt
               histories:
               - date: 2000-01-23T04:56:07.000+00:00
                 state: null
@@ -17529,6 +18145,7 @@ components:
               duration: duration
               current: CREATED
               endDate: 2000-01-23T04:56:07.000+00:00
+              durationOrComputeIt: durationOrComputeIt
               histories:
               - date: 2000-01-23T04:56:07.000+00:00
                 state: null
@@ -17547,6 +18164,7 @@ components:
             duration: duration
             current: CREATED
             endDate: 2000-01-23T04:56:07.000+00:00
+            durationOrComputeIt: durationOrComputeIt
             histories:
             - date: 2000-01-23T04:56:07.000+00:00
               state: null
@@ -17563,6 +18181,7 @@ components:
               duration: duration
               current: CREATED
               endDate: 2000-01-23T04:56:07.000+00:00
+              durationOrComputeIt: durationOrComputeIt
               histories:
               - date: 2000-01-23T04:56:07.000+00:00
                 state: null
@@ -17575,6 +18194,7 @@ components:
               duration: duration
               current: CREATED
               endDate: 2000-01-23T04:56:07.000+00:00
+              durationOrComputeIt: durationOrComputeIt
               histories:
               - date: 2000-01-23T04:56:07.000+00:00
                 state: null
@@ -17614,6 +18234,7 @@ components:
           duration: duration
           current: CREATED
           endDate: 2000-01-23T04:56:07.000+00:00
+          durationOrComputeIt: durationOrComputeIt
           histories:
           - date: 2000-01-23T04:56:07.000+00:00
             state: null
@@ -17701,6 +18322,19 @@ components:
           items:
             $ref: "#/components/schemas/ExecutionController.ApiValidateExecutionInputsResponse.ApiInputAndValue"
           type: array
+        checks:
+          items:
+            $ref: "#/components/schemas/ExecutionController.ApiValidateExecutionInputsResponse.ApiCheckFailure"
+          type: array
+      type: object
+    ExecutionController.ApiValidateExecutionInputsResponse.ApiCheckFailure:
+      properties:
+        message:
+          type: string
+        style:
+          $ref: "#/components/schemas/Check.Style"
+        behavior:
+          $ref: "#/components/schemas/Check.Behavior"
       type: object
     ExecutionController.ApiValidateExecutionInputsResponse.ApiInputAndValue:
       properties:
@@ -17768,6 +18402,7 @@ components:
             duration: duration
             current: CREATED
             endDate: 2000-01-23T04:56:07.000+00:00
+            durationOrComputeIt: durationOrComputeIt
             histories:
             - date: 2000-01-23T04:56:07.000+00:00
               state: null
@@ -17784,6 +18419,7 @@ components:
               duration: duration
               current: CREATED
               endDate: 2000-01-23T04:56:07.000+00:00
+              durationOrComputeIt: durationOrComputeIt
               histories:
               - date: 2000-01-23T04:56:07.000+00:00
                 state: null
@@ -17796,6 +18432,7 @@ components:
               duration: duration
               current: CREATED
               endDate: 2000-01-23T04:56:07.000+00:00
+              durationOrComputeIt: durationOrComputeIt
               histories:
               - date: 2000-01-23T04:56:07.000+00:00
                 state: null
@@ -17814,6 +18451,7 @@ components:
             duration: duration
             current: CREATED
             endDate: 2000-01-23T04:56:07.000+00:00
+            durationOrComputeIt: durationOrComputeIt
             histories:
             - date: 2000-01-23T04:56:07.000+00:00
               state: null
@@ -17830,6 +18468,7 @@ components:
               duration: duration
               current: CREATED
               endDate: 2000-01-23T04:56:07.000+00:00
+              durationOrComputeIt: durationOrComputeIt
               histories:
               - date: 2000-01-23T04:56:07.000+00:00
                 state: null
@@ -17842,6 +18481,7 @@ components:
               duration: duration
               current: CREATED
               endDate: 2000-01-23T04:56:07.000+00:00
+              durationOrComputeIt: durationOrComputeIt
               histories:
               - date: 2000-01-23T04:56:07.000+00:00
                 state: null
@@ -17882,6 +18522,7 @@ components:
           duration: duration
           current: CREATED
           endDate: 2000-01-23T04:56:07.000+00:00
+          durationOrComputeIt: durationOrComputeIt
           histories:
           - date: 2000-01-23T04:56:07.000+00:00
             state: null
@@ -17954,6 +18595,7 @@ components:
           duration: duration
           current: CREATED
           endDate: 2000-01-23T04:56:07.000+00:00
+          durationOrComputeIt: durationOrComputeIt
           histories:
           - date: 2000-01-23T04:56:07.000+00:00
             state: null
@@ -18071,6 +18713,14 @@ components:
           type: array
       type: object
     FileAttributes:
+      example:
+        fileName: fileName
+        metadata:
+          key: metadata
+        lastModifiedTime: 0
+        creationTime: 6
+        size: 1
+        type: File
       properties:
         fileName:
           type: string
@@ -18240,6 +18890,13 @@ components:
             items:
               $ref: "#/components/schemas/SLA"
             type: array
+          checks:
+            description: "A list of conditions that are evaluated before the flow\
+              \ is executed.  If no checks are defined, the flow executes normally."
+            items:
+              $ref: "#/components/schemas/Check"
+            title: Conditions evaluated before the flow is executed.
+            type: array
         type: object
       example:
         outputs:
@@ -18370,46 +19027,48 @@ components:
             key: key
           retry: "{}"
         triggers:
-        - logLevel: null
+        - allowConcurrent: true
           stopAfter:
           - CREATED
           - CREATED
           description: description
-          disabled: false
-          id: id
-          workerGroup:
-            fallback: FAIL
-            key: key
           type: type
-          conditions:
-          - type: type
-          - type: type
           logToFile: true
           version: version
           labels:
           - The_labels_to_pass_to_the_execution_created_
           - The_labels_to_pass_to_the_execution_created_
           failOnTriggerError: true
-        - logLevel: null
-          stopAfter:
-          - CREATED
-          - CREATED
-          description: description
+          logLevel: null
           disabled: false
           id: id
           workerGroup:
             fallback: FAIL
             key: key
-          type: type
           conditions:
           - type: type
           - type: type
+        - allowConcurrent: true
+          stopAfter:
+          - CREATED
+          - CREATED
+          description: description
+          type: type
           logToFile: true
           version: version
           labels:
           - The_labels_to_pass_to_the_execution_created_
           - The_labels_to_pass_to_the_execution_created_
           failOnTriggerError: true
+          logLevel: null
+          disabled: false
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          conditions:
+          - type: type
+          - type: type
         pluginDefaults:
         - forced: true
           values: "{}"
@@ -18427,6 +19086,15 @@ components:
           limit: 1
           behavior: QUEUE
         deleted: true
+        checks:
+        - condition: condition
+          style: ERROR
+          message: message
+          behavior: BLOCK_EXECUTION
+        - condition: condition
+          style: ERROR
+          message: message
+          behavior: BLOCK_EXECUTION
         namespace: namespace
         disabled: true
         id: id
@@ -19253,6 +19921,8 @@ components:
             items:
               $ref: "#/components/schemas/SLA"
             type: array
+          source:
+            type: string
         type: object
       example:
         outputs:
@@ -19382,47 +20052,50 @@ components:
             fallback: FAIL
             key: key
           retry: "{}"
+        source: source
         triggers:
-        - logLevel: null
+        - allowConcurrent: true
           stopAfter:
           - CREATED
           - CREATED
           description: description
-          disabled: false
-          id: id
-          workerGroup:
-            fallback: FAIL
-            key: key
           type: type
-          conditions:
-          - type: type
-          - type: type
           logToFile: true
           version: version
           labels:
           - The_labels_to_pass_to_the_execution_created_
           - The_labels_to_pass_to_the_execution_created_
           failOnTriggerError: true
-        - logLevel: null
-          stopAfter:
-          - CREATED
-          - CREATED
-          description: description
+          logLevel: null
           disabled: false
           id: id
           workerGroup:
             fallback: FAIL
             key: key
-          type: type
           conditions:
           - type: type
           - type: type
+        - allowConcurrent: true
+          stopAfter:
+          - CREATED
+          - CREATED
+          description: description
+          type: type
           logToFile: true
           version: version
           labels:
           - The_labels_to_pass_to_the_execution_created_
           - The_labels_to_pass_to_the_execution_created_
           failOnTriggerError: true
+          logLevel: null
+          disabled: false
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          conditions:
+          - type: type
+          - type: type
         pluginDefaults:
         - forced: true
           values: "{}"
@@ -19440,6 +20113,15 @@ components:
           limit: 1
           behavior: QUEUE
         deleted: true
+        checks:
+        - condition: condition
+          style: ERROR
+          message: message
+          behavior: BLOCK_EXECUTION
+        - condition: condition
+          style: ERROR
+          message: message
+          behavior: BLOCK_EXECUTION
         namespace: namespace
         disabled: true
         id: id
@@ -19842,9 +20524,6 @@ components:
           SETTING:
           - SETTING
           - SETTING
-          INFRASTRUCTURE:
-          - INFRASTRUCTURE
-          - INFRASTRUCTURE
           KVSTORE:
           - KVSTORE
           - KVSTORE
@@ -20711,7 +21390,11 @@ components:
       properties:
         key:
           minLength: 1
+          pattern: "^[\\p{Ll}][\\p{L}0-9._-]*$"
           type: string
+          x-pattern-message: Invalid label key. A valid key contains only lowercase
+            letters numbers hyphens (-) underscores (_) or periods (.) and must begin
+            with a lowercase letter.
         value:
           minLength: 1
           type: string
@@ -21012,6 +21695,8 @@ components:
         pluginsHash:
           format: int64
           type: integer
+        isConcurrencyViewEnabled:
+          type: boolean
       type: object
     MiscController.EEConfiguration:
       allOf:
@@ -21051,6 +21736,12 @@ components:
             type: boolean
           airgapped:
             type: boolean
+          featureGating:
+            type: boolean
+          features:
+            items:
+              type: string
+            type: array
         type: object
       type: object
     MiscController.Environment:
@@ -21076,6 +21767,11 @@ components:
           type: boolean
         workerGroups:
           type: boolean
+        online:
+          type: boolean
+        gracePeriod:
+          format: date-time
+          type: string
       type: object
     MiscController.PluginIdAndVersion:
       properties:
@@ -21215,6 +21911,14 @@ components:
       required:
       - namespace
       type: object
+    NamespaceFileRevision:
+      example:
+        revision: 0
+      properties:
+        revision:
+          format: int32
+          type: integer
+      type: object
     NamespaceLight:
       properties:
         id:
@@ -21308,6 +22012,25 @@ components:
       - total
       type: object
     PagedResults_AppsController.ApiAppCatalogItem_:
+      example:
+        total: 0
+        results:
+        - uid: uid
+          thumbnail: thumbnail
+          name: name
+          description: description
+          type: type
+          tags:
+          - tags
+          - tags
+        - uid: uid
+          thumbnail: thumbnail
+          name: name
+          description: description
+          type: type
+          tags:
+          - tags
+          - tags
       properties:
         results:
           items:
@@ -21321,6 +22044,33 @@ components:
       - total
       type: object
     PagedResults_AppsController.ApiApp_:
+      example:
+        total: 0
+        results:
+        - uid: uid
+          created: 2000-01-23T04:56:07.000+00:00
+          name: name
+          namespace: namespace
+          id: id
+          type: type
+          flowId: flowId
+          updated: 2000-01-23T04:56:07.000+00:00
+          enabled: true
+          tags:
+          - tags
+          - tags
+        - uid: uid
+          created: 2000-01-23T04:56:07.000+00:00
+          name: name
+          namespace: namespace
+          id: id
+          type: type
+          flowId: flowId
+          updated: 2000-01-23T04:56:07.000+00:00
+          enabled: true
+          tags:
+          - tags
+          - tags
       properties:
         results:
           items:
@@ -21397,6 +22147,35 @@ components:
       - total
       type: object
     PagedResults_Dashboard_:
+      example:
+        total: 0
+        results:
+        - sourceCode: sourceCode
+          timeWindow:
+            default: default
+            max: max
+          charts:
+          - chartOptions: "{}"
+            id: id
+            type: type
+          - chartOptions: "{}"
+            id: id
+            type: type
+          description: description
+          title: title
+        - sourceCode: sourceCode
+          timeWindow:
+            default: default
+            max: max
+          charts:
+          - chartOptions: "{}"
+            id: id
+            type: type
+          - chartOptions: "{}"
+            id: id
+            type: type
+          description: description
+          title: title
       properties:
         results:
           items:
@@ -21439,6 +22218,7 @@ components:
               duration: duration
               current: CREATED
               endDate: 2000-01-23T04:56:07.000+00:00
+              durationOrComputeIt: durationOrComputeIt
               histories:
               - date: 2000-01-23T04:56:07.000+00:00
                 state: null
@@ -21455,6 +22235,7 @@ components:
                 duration: duration
                 current: CREATED
                 endDate: 2000-01-23T04:56:07.000+00:00
+                durationOrComputeIt: durationOrComputeIt
                 histories:
                 - date: 2000-01-23T04:56:07.000+00:00
                   state: null
@@ -21467,6 +22248,7 @@ components:
                 duration: duration
                 current: CREATED
                 endDate: 2000-01-23T04:56:07.000+00:00
+                durationOrComputeIt: durationOrComputeIt
                 histories:
                 - date: 2000-01-23T04:56:07.000+00:00
                   state: null
@@ -21485,6 +22267,7 @@ components:
               duration: duration
               current: CREATED
               endDate: 2000-01-23T04:56:07.000+00:00
+              durationOrComputeIt: durationOrComputeIt
               histories:
               - date: 2000-01-23T04:56:07.000+00:00
                 state: null
@@ -21501,6 +22284,7 @@ components:
                 duration: duration
                 current: CREATED
                 endDate: 2000-01-23T04:56:07.000+00:00
+                durationOrComputeIt: durationOrComputeIt
                 histories:
                 - date: 2000-01-23T04:56:07.000+00:00
                   state: null
@@ -21513,6 +22297,7 @@ components:
                 duration: duration
                 current: CREATED
                 endDate: 2000-01-23T04:56:07.000+00:00
+                durationOrComputeIt: durationOrComputeIt
                 histories:
                 - date: 2000-01-23T04:56:07.000+00:00
                   state: null
@@ -21552,6 +22337,7 @@ components:
             duration: duration
             current: CREATED
             endDate: 2000-01-23T04:56:07.000+00:00
+            durationOrComputeIt: durationOrComputeIt
             histories:
             - date: 2000-01-23T04:56:07.000+00:00
               state: null
@@ -21591,6 +22377,7 @@ components:
               duration: duration
               current: CREATED
               endDate: 2000-01-23T04:56:07.000+00:00
+              durationOrComputeIt: durationOrComputeIt
               histories:
               - date: 2000-01-23T04:56:07.000+00:00
                 state: null
@@ -21607,6 +22394,7 @@ components:
                 duration: duration
                 current: CREATED
                 endDate: 2000-01-23T04:56:07.000+00:00
+                durationOrComputeIt: durationOrComputeIt
                 histories:
                 - date: 2000-01-23T04:56:07.000+00:00
                   state: null
@@ -21619,6 +22407,7 @@ components:
                 duration: duration
                 current: CREATED
                 endDate: 2000-01-23T04:56:07.000+00:00
+                durationOrComputeIt: durationOrComputeIt
                 histories:
                 - date: 2000-01-23T04:56:07.000+00:00
                   state: null
@@ -21637,6 +22426,7 @@ components:
               duration: duration
               current: CREATED
               endDate: 2000-01-23T04:56:07.000+00:00
+              durationOrComputeIt: durationOrComputeIt
               histories:
               - date: 2000-01-23T04:56:07.000+00:00
                 state: null
@@ -21653,6 +22443,7 @@ components:
                 duration: duration
                 current: CREATED
                 endDate: 2000-01-23T04:56:07.000+00:00
+                durationOrComputeIt: durationOrComputeIt
                 histories:
                 - date: 2000-01-23T04:56:07.000+00:00
                   state: null
@@ -21665,6 +22456,7 @@ components:
                 duration: duration
                 current: CREATED
                 endDate: 2000-01-23T04:56:07.000+00:00
+                durationOrComputeIt: durationOrComputeIt
                 histories:
                 - date: 2000-01-23T04:56:07.000+00:00
                   state: null
@@ -21704,6 +22496,7 @@ components:
             duration: duration
             current: CREATED
             endDate: 2000-01-23T04:56:07.000+00:00
+            durationOrComputeIt: durationOrComputeIt
             histories:
             - date: 2000-01-23T04:56:07.000+00:00
               state: null
@@ -21861,46 +22654,48 @@ components:
               key: key
             retry: "{}"
           triggers:
-          - logLevel: null
+          - allowConcurrent: true
             stopAfter:
             - CREATED
             - CREATED
             description: description
-            disabled: false
-            id: id
-            workerGroup:
-              fallback: FAIL
-              key: key
             type: type
-            conditions:
-            - type: type
-            - type: type
             logToFile: true
             version: version
             labels:
             - The_labels_to_pass_to_the_execution_created_
             - The_labels_to_pass_to_the_execution_created_
             failOnTriggerError: true
-          - logLevel: null
-            stopAfter:
-            - CREATED
-            - CREATED
-            description: description
+            logLevel: null
             disabled: false
             id: id
             workerGroup:
               fallback: FAIL
               key: key
-            type: type
             conditions:
             - type: type
             - type: type
+          - allowConcurrent: true
+            stopAfter:
+            - CREATED
+            - CREATED
+            description: description
+            type: type
             logToFile: true
             version: version
             labels:
             - The_labels_to_pass_to_the_execution_created_
             - The_labels_to_pass_to_the_execution_created_
             failOnTriggerError: true
+            logLevel: null
+            disabled: false
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            conditions:
+            - type: type
+            - type: type
           pluginDefaults:
           - forced: true
             values: "{}"
@@ -21918,6 +22713,15 @@ components:
             limit: 1
             behavior: QUEUE
           deleted: true
+          checks:
+          - condition: condition
+            style: ERROR
+            message: message
+            behavior: BLOCK_EXECUTION
+          - condition: condition
+            style: ERROR
+            message: message
+            behavior: BLOCK_EXECUTION
           namespace: namespace
           disabled: true
           id: id
@@ -22135,46 +22939,48 @@ components:
               key: key
             retry: "{}"
           triggers:
-          - logLevel: null
+          - allowConcurrent: true
             stopAfter:
             - CREATED
             - CREATED
             description: description
-            disabled: false
-            id: id
-            workerGroup:
-              fallback: FAIL
-              key: key
             type: type
-            conditions:
-            - type: type
-            - type: type
             logToFile: true
             version: version
             labels:
             - The_labels_to_pass_to_the_execution_created_
             - The_labels_to_pass_to_the_execution_created_
             failOnTriggerError: true
-          - logLevel: null
-            stopAfter:
-            - CREATED
-            - CREATED
-            description: description
+            logLevel: null
             disabled: false
             id: id
             workerGroup:
               fallback: FAIL
               key: key
-            type: type
             conditions:
             - type: type
             - type: type
+          - allowConcurrent: true
+            stopAfter:
+            - CREATED
+            - CREATED
+            description: description
+            type: type
             logToFile: true
             version: version
             labels:
             - The_labels_to_pass_to_the_execution_created_
             - The_labels_to_pass_to_the_execution_created_
             failOnTriggerError: true
+            logLevel: null
+            disabled: false
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            conditions:
+            - type: type
+            - type: type
           pluginDefaults:
           - forced: true
             values: "{}"
@@ -22192,6 +22998,15 @@ components:
             limit: 1
             behavior: QUEUE
           deleted: true
+          checks:
+          - condition: condition
+            style: ERROR
+            message: message
+            behavior: BLOCK_EXECUTION
+          - condition: condition
+            style: ERROR
+            message: message
+            behavior: BLOCK_EXECUTION
           namespace: namespace
           disabled: true
           id: id
@@ -22524,6 +23339,11 @@ components:
       - total
       type: object
     PagedResults_Map_String.Object__:
+      example:
+        total: 0
+        results:
+        - key: "{}"
+        - key: "{}"
       properties:
         results:
           items:
@@ -22772,46 +23592,48 @@ components:
                 key: key
               retry: "{}"
             triggers:
-            - logLevel: null
+            - allowConcurrent: true
               stopAfter:
               - CREATED
               - CREATED
               description: description
-              disabled: false
-              id: id
-              workerGroup:
-                fallback: FAIL
-                key: key
               type: type
-              conditions:
-              - type: type
-              - type: type
               logToFile: true
               version: version
               labels:
               - The_labels_to_pass_to_the_execution_created_
               - The_labels_to_pass_to_the_execution_created_
               failOnTriggerError: true
-            - logLevel: null
-              stopAfter:
-              - CREATED
-              - CREATED
-              description: description
+              logLevel: null
               disabled: false
               id: id
               workerGroup:
                 fallback: FAIL
                 key: key
-              type: type
               conditions:
               - type: type
               - type: type
+            - allowConcurrent: true
+              stopAfter:
+              - CREATED
+              - CREATED
+              description: description
+              type: type
               logToFile: true
               version: version
               labels:
               - The_labels_to_pass_to_the_execution_created_
               - The_labels_to_pass_to_the_execution_created_
               failOnTriggerError: true
+              logLevel: null
+              disabled: false
+              id: id
+              workerGroup:
+                fallback: FAIL
+                key: key
+              conditions:
+              - type: type
+              - type: type
             pluginDefaults:
             - forced: true
               values: "{}"
@@ -22829,6 +23651,15 @@ components:
               limit: 1
               behavior: QUEUE
             deleted: true
+            checks:
+            - condition: condition
+              style: ERROR
+              message: message
+              behavior: BLOCK_EXECUTION
+            - condition: condition
+              style: ERROR
+              message: message
+              behavior: BLOCK_EXECUTION
             namespace: namespace
             disabled: true
             id: id
@@ -23050,46 +23881,48 @@ components:
                 key: key
               retry: "{}"
             triggers:
-            - logLevel: null
+            - allowConcurrent: true
               stopAfter:
               - CREATED
               - CREATED
               description: description
-              disabled: false
-              id: id
-              workerGroup:
-                fallback: FAIL
-                key: key
               type: type
-              conditions:
-              - type: type
-              - type: type
               logToFile: true
               version: version
               labels:
               - The_labels_to_pass_to_the_execution_created_
               - The_labels_to_pass_to_the_execution_created_
               failOnTriggerError: true
-            - logLevel: null
-              stopAfter:
-              - CREATED
-              - CREATED
-              description: description
+              logLevel: null
               disabled: false
               id: id
               workerGroup:
                 fallback: FAIL
                 key: key
-              type: type
               conditions:
               - type: type
               - type: type
+            - allowConcurrent: true
+              stopAfter:
+              - CREATED
+              - CREATED
+              description: description
+              type: type
               logToFile: true
               version: version
               labels:
               - The_labels_to_pass_to_the_execution_created_
               - The_labels_to_pass_to_the_execution_created_
               failOnTriggerError: true
+              logLevel: null
+              disabled: false
+              id: id
+              workerGroup:
+                fallback: FAIL
+                key: key
+              conditions:
+              - type: type
+              - type: type
             pluginDefaults:
             - forced: true
               values: "{}"
@@ -23107,6 +23940,15 @@ components:
               limit: 1
               behavior: QUEUE
             deleted: true
+            checks:
+            - condition: condition
+              style: ERROR
+              message: message
+              behavior: BLOCK_EXECUTION
+            - condition: condition
+              style: ERROR
+              message: message
+              behavior: BLOCK_EXECUTION
             namespace: namespace
             disabled: true
             id: id
@@ -24069,26 +24911,27 @@ components:
             disabled: false
             flowId: flowId
           abstractTrigger:
-            logLevel: null
+            allowConcurrent: true
             stopAfter:
             - CREATED
             - CREATED
             description: description
-            disabled: false
-            id: id
-            workerGroup:
-              fallback: FAIL
-              key: key
             type: type
-            conditions:
-            - type: type
-            - type: type
             logToFile: true
             version: version
             labels:
             - The_labels_to_pass_to_the_execution_created_
             - The_labels_to_pass_to_the_execution_created_
             failOnTriggerError: true
+            logLevel: null
+            disabled: false
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            conditions:
+            - type: type
+            - type: type
         - triggerContext:
             date: 2000-01-23T04:56:07.000+00:00
             workerId: workerId
@@ -24106,26 +24949,27 @@ components:
             disabled: false
             flowId: flowId
           abstractTrigger:
-            logLevel: null
+            allowConcurrent: true
             stopAfter:
             - CREATED
             - CREATED
             description: description
-            disabled: false
-            id: id
-            workerGroup:
-              fallback: FAIL
-              key: key
             type: type
-            conditions:
-            - type: type
-            - type: type
             logToFile: true
             version: version
             labels:
             - The_labels_to_pass_to_the_execution_created_
             - The_labels_to_pass_to_the_execution_created_
             failOnTriggerError: true
+            logLevel: null
+            disabled: false
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            conditions:
+            - type: type
+            - type: type
       properties:
         results:
           items:
@@ -24230,7 +25074,6 @@ components:
       - KVSTORE
       - IMPERSONATE
       - SETTING
-      - INFRASTRUCTURE
       - APP
       - APPEXECUTION
       - TEST
@@ -24338,6 +25181,10 @@ components:
           type: string
         deprecated:
           type: boolean
+        title:
+          type: string
+        description:
+          type: string
       type: object
     PluginArtifact:
       properties:
@@ -24528,6 +25375,10 @@ components:
       type: object
       x-one-of-name: PropertyString
     QueryFilter:
+      example:
+        field: QUERY
+        operation: EQUALS
+        value: "{}"
       properties:
         field:
           $ref: "#/components/schemas/QueryFilter.Field"
@@ -24551,11 +25402,15 @@ components:
       - TIME_RANGE
       - TRIGGER_EXECUTION_ID
       - TRIGGER_ID
+      - TRIGGER_STATE
       - EXECUTION_ID
       - CHILD_FILTER
       - WORKER_ID
       - EXISTING_ONLY
       - MIN_LEVEL
+      - PATH
+      - PARENT_PATH
+      - VERSION
       type: string
       x-type: String
     QueryFilter.Op:
@@ -24600,39 +25455,6 @@ components:
       - DYNAMIC
       type: string
     ResourceType:
-      allOf:
-      - $ref: "#/components/schemas/ScimResourceWithOptionalId"
-      - $ref: "#/components/schemas/ScimResource"
-      - $ref: "#/components/schemas/BaseResource_ScimResource_"
-      - properties:
-          id:
-            type: string
-          name:
-            minLength: 1
-            type: string
-          description:
-            type: string
-          endpoint:
-            minLength: 1
-            type: string
-          schemaUrn:
-            minLength: 1
-            type: string
-          schemaExtensions:
-            items:
-              $ref: "#/components/schemas/ResourceType.SchemaExtensionConfiguration"
-            type: array
-        type: object
-      type: object
-    ResourceType.SchemaExtensionConfiguration:
-      properties:
-        schemaUrn:
-          minLength: 1
-          type: string
-        required:
-          type: boolean
-      type: object
-    ResourceType_1:
       enum:
       - AUDITLOG
       - APP
@@ -24663,6 +25485,39 @@ components:
       - INSTANCE
       - UNKNOWN
       type: string
+    ResourceType.SchemaExtensionConfiguration:
+      properties:
+        schemaUrn:
+          minLength: 1
+          type: string
+        required:
+          type: boolean
+      type: object
+    ResourceType_1:
+      allOf:
+      - $ref: "#/components/schemas/ScimResourceWithOptionalId"
+      - $ref: "#/components/schemas/ScimResource"
+      - $ref: "#/components/schemas/BaseResource_ScimResource_"
+      - properties:
+          id:
+            type: string
+          name:
+            minLength: 1
+            type: string
+          description:
+            type: string
+          endpoint:
+            minLength: 1
+            type: string
+          schemaUrn:
+            minLength: 1
+            type: string
+          schemaExtensions:
+            items:
+              $ref: "#/components/schemas/ResourceType.SchemaExtensionConfiguration"
+            type: array
+        type: object
+      type: object
     RightSidebarConfiguration:
       properties:
         customLinks:
@@ -24739,9 +25594,6 @@ components:
           SETTING:
           - SETTING
           - SETTING
-          INFRASTRUCTURE:
-          - INFRASTRUCTURE
-          - INFRASTRUCTURE
           KVSTORE:
           - KVSTORE
           - KVSTORE
@@ -25151,46 +26003,48 @@ components:
               key: key
             retry: "{}"
           triggers:
-          - logLevel: null
+          - allowConcurrent: true
             stopAfter:
             - CREATED
             - CREATED
             description: description
-            disabled: false
-            id: id
-            workerGroup:
-              fallback: FAIL
-              key: key
             type: type
-            conditions:
-            - type: type
-            - type: type
             logToFile: true
             version: version
             labels:
             - The_labels_to_pass_to_the_execution_created_
             - The_labels_to_pass_to_the_execution_created_
             failOnTriggerError: true
-          - logLevel: null
-            stopAfter:
-            - CREATED
-            - CREATED
-            description: description
+            logLevel: null
             disabled: false
             id: id
             workerGroup:
               fallback: FAIL
               key: key
-            type: type
             conditions:
             - type: type
             - type: type
+          - allowConcurrent: true
+            stopAfter:
+            - CREATED
+            - CREATED
+            description: description
+            type: type
             logToFile: true
             version: version
             labels:
             - The_labels_to_pass_to_the_execution_created_
             - The_labels_to_pass_to_the_execution_created_
             failOnTriggerError: true
+            logLevel: null
+            disabled: false
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            conditions:
+            - type: type
+            - type: type
           pluginDefaults:
           - forced: true
             values: "{}"
@@ -25208,6 +26062,15 @@ components:
             limit: 1
             behavior: QUEUE
           deleted: true
+          checks:
+          - condition: condition
+            style: ERROR
+            message: message
+            behavior: BLOCK_EXECUTION
+          - condition: condition
+            style: ERROR
+            message: message
+            behavior: BLOCK_EXECUTION
           namespace: namespace
           disabled: true
           id: id
@@ -25560,6 +26423,7 @@ components:
         duration: duration
         current: CREATED
         endDate: 2000-01-23T04:56:07.000+00:00
+        durationOrComputeIt: durationOrComputeIt
         histories:
         - date: 2000-01-23T04:56:07.000+00:00
           state: null
@@ -25568,7 +26432,10 @@ components:
         startDate: 2000-01-23T04:56:07.000+00:00
       properties:
         duration:
+          nullable: true
           readOnly: true
+          type: string
+        durationOrComputeIt:
           type: string
         startDate:
           format: date-time
@@ -25797,6 +26664,7 @@ components:
           duration: duration
           current: CREATED
           endDate: 2000-01-23T04:56:07.000+00:00
+          durationOrComputeIt: durationOrComputeIt
           histories:
           - date: 2000-01-23T04:56:07.000+00:00
             state: null
@@ -25813,6 +26681,7 @@ components:
             duration: duration
             current: CREATED
             endDate: 2000-01-23T04:56:07.000+00:00
+            durationOrComputeIt: durationOrComputeIt
             histories:
             - date: 2000-01-23T04:56:07.000+00:00
               state: null
@@ -25825,6 +26694,7 @@ components:
             duration: duration
             current: CREATED
             endDate: 2000-01-23T04:56:07.000+00:00
+            durationOrComputeIt: durationOrComputeIt
             histories:
             - date: 2000-01-23T04:56:07.000+00:00
               state: null
@@ -25878,6 +26748,7 @@ components:
           duration: duration
           current: CREATED
           endDate: 2000-01-23T04:56:07.000+00:00
+          durationOrComputeIt: durationOrComputeIt
           histories:
           - date: 2000-01-23T04:56:07.000+00:00
             state: null
@@ -26987,6 +27858,9 @@ components:
           type: array
       type: object
     TimeWindow:
+      example:
+        default: default
+        max: max
       properties:
         default:
           type: string
@@ -27097,26 +27971,27 @@ components:
           disabled: false
           flowId: flowId
         abstractTrigger:
-          logLevel: null
+          allowConcurrent: true
           stopAfter:
           - CREATED
           - CREATED
           description: description
-          disabled: false
-          id: id
-          workerGroup:
-            fallback: FAIL
-            key: key
           type: type
-          conditions:
-          - type: type
-          - type: type
           logToFile: true
           version: version
           labels:
           - The_labels_to_pass_to_the_execution_created_
           - The_labels_to_pass_to_the_execution_created_
           failOnTriggerError: true
+          logLevel: null
+          disabled: false
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          conditions:
+          - type: type
+          - type: type
       properties:
         abstractTrigger:
           $ref: "#/components/schemas/AbstractTrigger"
@@ -27589,6 +28464,14 @@ components:
           format: binary
           type: string
       type: object
+    deleteTriggersByQuery_request:
+      properties:
+        filters:
+          description: Filters
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          type: array
+      type: object
     The_labels_to_pass_to_the_execution_created_:
       oneOf:
       - items:
@@ -27713,9 +28596,6 @@ components:
         SETTING:
         - SETTING
         - SETTING
-        INFRASTRUCTURE:
-        - INFRASTRUCTURE
-        - INFRASTRUCTURE
         KVSTORE:
         - KVSTORE
         - KVSTORE
@@ -27795,11 +28675,6 @@ components:
             type: string
           type: array
         SETTING:
-          items:
-            description: TODO default missing array inner type to string
-            type: string
-          type: array
-        INFRASTRUCTURE:
           items:
             description: TODO default missing array inner type to string
             type: string
