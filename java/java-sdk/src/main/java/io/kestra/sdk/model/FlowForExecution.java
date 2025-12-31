@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.AbstractTriggerForExecution;
 import io.kestra.sdk.model.InputObject;
-import io.kestra.sdk.model.Label;
+import io.kestra.sdk.model.MapObjectObject;
 import io.kestra.sdk.model.Output;
 import io.kestra.sdk.model.TaskForExecution;
 import io.kestra.sdk.model.WorkerGroup;
@@ -76,7 +76,7 @@ public class FlowForExecution {
   @jakarta.annotation.Nonnull  private Boolean disabled;
 
   public static final String JSON_PROPERTY_LABELS = "labels";
-  @jakarta.annotation.Nullable  private List<Label> labels = new ArrayList<>();
+  @jakarta.annotation.Nullable  private MapObjectObject labels;
 
   public static final String JSON_PROPERTY_VARIABLES = "variables";
   @jakarta.annotation.Nullable  private Object variables;
@@ -290,35 +290,27 @@ public class FlowForExecution {
     this.disabled = disabled;
   }
 
-  public FlowForExecution labels(@jakarta.annotation.Nullable List<Label> labels) {
+  public FlowForExecution labels(@jakarta.annotation.Nullable MapObjectObject labels) {
     
     this.labels = labels;
     return this;
   }
 
-  public FlowForExecution addLabelsItem(Label labelsItem) {
-    if (this.labels == null) {
-      this.labels = new ArrayList<>();
-    }
-    this.labels.add(labelsItem);
-    return this;
-  }
-
   /**
-   * Labels as a list of Label (key/value pairs) or as a map of string to string.
+   * Get labels
    * @return labels
    */
   @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<Label> getLabels() {
+  public MapObjectObject getLabels() {
     return labels;
   }
 
 
   @JsonProperty(JSON_PROPERTY_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLabels(@jakarta.annotation.Nullable List<Label> labels) {
+  public void setLabels(@jakarta.annotation.Nullable MapObjectObject labels) {
     this.labels = labels;
   }
 

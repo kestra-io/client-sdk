@@ -43,7 +43,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>io.kestra</groupId>
   <artifactId>kestra-api-client</artifactId>
-  <version>1.0.5</version>
+  <version>1.0.6</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -53,7 +53,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "io.kestra:kestra-api-client:1.0.5"
+compile "io.kestra:kestra-api-client:1.0.6"
 ```
 
 ### Others
@@ -66,7 +66,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/kestra-api-client-1.0.5.jar`
+- `target/kestra-api-client-1.0.6.jar`
 - `target/lib/*.jar`
 
 ## Getting Started
@@ -189,6 +189,7 @@ Class | Method | HTTP request | Description
 *ExecutionsApi* | [**updateExecutionStatus**](docs/ExecutionsApi.md#updateExecutionStatus) | **POST** /api/v1/{tenant}/executions/{executionId}/change-status | Change the state of an execution
 *ExecutionsApi* | [**updateExecutionsStatusByIds**](docs/ExecutionsApi.md#updateExecutionsStatusByIds) | **POST** /api/v1/{tenant}/executions/change-status/by-ids | Change executions state by id
 *ExecutionsApi* | [**updateExecutionsStatusByQuery**](docs/ExecutionsApi.md#updateExecutionsStatusByQuery) | **POST** /api/v1/{tenant}/executions/change-status/by-query | Change executions state by query parameters
+*ExecutionsApi* | [**updateTaskRunState**](docs/ExecutionsApi.md#updateTaskRunState) | **POST** /api/v1/{tenant}/executions/{executionId}/state | Change state for a taskrun in an execution
 *FilesApi* | [**createNamespaceDirectory**](docs/FilesApi.md#createNamespaceDirectory) | **POST** /api/v1/{tenant}/namespaces/{namespace}/files/directory | Create a directory
 *FilesApi* | [**createNamespaceFile**](docs/FilesApi.md#createNamespaceFile) | **POST** /api/v1/{tenant}/namespaces/{namespace}/files | Create a file
 *FilesApi* | [**deleteFileDirectory**](docs/FilesApi.md#deleteFileDirectory) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/files | Delete a file or directory
@@ -380,6 +381,16 @@ Class | Method | HTTP request | Description
  - [Assertion](docs/Assertion.md)
  - [AssertionResult](docs/AssertionResult.md)
  - [AssertionRunError](docs/AssertionRunError.md)
+ - [Asset](docs/Asset.md)
+ - [AssetIdentifier](docs/AssetIdentifier.md)
+ - [AssetTopologyGraph](docs/AssetTopologyGraph.md)
+ - [AssetTopologyGraphEdge](docs/AssetTopologyGraphEdge.md)
+ - [AssetTopologyGraphNode](docs/AssetTopologyGraphNode.md)
+ - [AssetTopologyGraphNodeNodeType](docs/AssetTopologyGraphNodeNodeType.md)
+ - [AssetsControllerApiAsset](docs/AssetsControllerApiAsset.md)
+ - [AssetsControllerApiAssetUsage](docs/AssetsControllerApiAssetUsage.md)
+ - [AssetsDeclaration](docs/AssetsDeclaration.md)
+ - [AssetsInOut](docs/AssetsInOut.md)
  - [AttributeReference](docs/AttributeReference.md)
  - [AuditLog](docs/AuditLog.md)
  - [AuditLogControllerApiAuditLogItem](docs/AuditLogControllerApiAuditLogItem.md)
@@ -598,6 +609,8 @@ Class | Method | HTTP request | Description
  - [PagedResultsApiRoleSummary](docs/PagedResultsApiRoleSummary.md)
  - [PagedResultsAppsControllerApiApp](docs/PagedResultsAppsControllerApiApp.md)
  - [PagedResultsAppsControllerApiAppCatalogItem](docs/PagedResultsAppsControllerApiAppCatalogItem.md)
+ - [PagedResultsAssetsControllerApiAsset](docs/PagedResultsAssetsControllerApiAsset.md)
+ - [PagedResultsAssetsControllerApiAssetUsage](docs/PagedResultsAssetsControllerApiAssetUsage.md)
  - [PagedResultsAuditLogControllerApiAuditLogItem](docs/PagedResultsAuditLogControllerApiAuditLogItem.md)
  - [PagedResultsBlueprint](docs/PagedResultsBlueprint.md)
  - [PagedResultsBlueprintControllerApiBlueprintItem](docs/PagedResultsBlueprintControllerApiBlueprintItem.md)
@@ -638,6 +651,7 @@ Class | Method | HTTP request | Description
  - [PluginPluginElementMetadata](docs/PluginPluginElementMetadata.md)
  - [PluginSchema](docs/PluginSchema.md)
  - [PluginSubGroupPluginCategory](docs/PluginSubGroupPluginCategory.md)
+ - [PropertyAssetsDeclaration](docs/PropertyAssetsDeclaration.md)
  - [PropertyBoolean](docs/PropertyBoolean.md)
  - [PropertyDouble](docs/PropertyDouble.md)
  - [PropertyDuration](docs/PropertyDuration.md)
@@ -649,6 +663,7 @@ Class | Method | HTTP request | Description
  - [QueryFilterOp](docs/QueryFilterOp.md)
  - [RBACServiceRoleAssignmentRoleOrigin](docs/RBACServiceRoleAssignmentRoleOrigin.md)
  - [Relation](docs/Relation.md)
+ - [Relation1](docs/Relation1.md)
  - [RelationType](docs/RelationType.md)
  - [ResourceType](docs/ResourceType.md)
  - [ResourceType1](docs/ResourceType1.md)

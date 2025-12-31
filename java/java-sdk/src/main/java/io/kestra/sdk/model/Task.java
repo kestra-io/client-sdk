@@ -21,8 +21,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.Cache;
 import io.kestra.sdk.model.Level;
+import io.kestra.sdk.model.PropertyAssetsDeclaration;
 import io.kestra.sdk.model.PropertyDuration;
 import io.kestra.sdk.model.WorkerGroup;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -43,7 +48,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Task.JSON_PROPERTY_LOG_TO_FILE,
   Task.JSON_PROPERTY_RUN_IF,
   Task.JSON_PROPERTY_ALLOW_WARNING,
-  Task.JSON_PROPERTY_TASK_CACHE
+  Task.JSON_PROPERTY_TASK_CACHE,
+  Task.JSON_PROPERTY_ASSETS
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Task {
@@ -88,6 +94,9 @@ public class Task {
 
   public static final String JSON_PROPERTY_TASK_CACHE = "taskCache";
   @jakarta.annotation.Nullable  private Cache taskCache;
+
+  public static final String JSON_PROPERTY_ASSETS = "assets";
+  @jakarta.annotation.Nullable  private JsonNullable<PropertyAssetsDeclaration> assets = JsonNullable.<PropertyAssetsDeclaration>undefined();
 
   public Task() {
   }
@@ -428,6 +437,37 @@ public class Task {
     this.taskCache = taskCache;
   }
 
+  public Task assets(@jakarta.annotation.Nullable PropertyAssetsDeclaration assets) {
+    this.assets = JsonNullable.<PropertyAssetsDeclaration>of(assets);
+    
+    return this;
+  }
+
+  /**
+   * Get assets
+   * @return assets
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public PropertyAssetsDeclaration getAssets() {
+        return assets.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_ASSETS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<PropertyAssetsDeclaration> getAssets_JsonNullable() {
+    return assets;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_ASSETS)
+  public void setAssets_JsonNullable(JsonNullable<PropertyAssetsDeclaration> assets) {
+    this.assets = assets;
+  }
+
+  public void setAssets(@jakarta.annotation.Nullable PropertyAssetsDeclaration assets) {
+    this.assets = JsonNullable.<PropertyAssetsDeclaration>of(assets);
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -450,12 +490,24 @@ public class Task {
         Objects.equals(this.logToFile, task.logToFile) &&
         Objects.equals(this.runIf, task.runIf) &&
         Objects.equals(this.allowWarning, task.allowWarning) &&
-        Objects.equals(this.taskCache, task.taskCache);
+        Objects.equals(this.taskCache, task.taskCache) &&
+        equalsNullable(this.assets, task.assets);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, type, version, description, retry, timeout, disabled, workerGroup, logLevel, allowFailure, logToFile, runIf, allowWarning, taskCache);
+    return Objects.hash(id, type, version, description, retry, timeout, disabled, workerGroup, logLevel, allowFailure, logToFile, runIf, allowWarning, taskCache, hashCodeNullable(assets));
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override
@@ -476,6 +528,7 @@ public class Task {
     sb.append("    runIf: ").append(toIndentedString(runIf)).append("\n");
     sb.append("    allowWarning: ").append(toIndentedString(allowWarning)).append("\n");
     sb.append("    taskCache: ").append(toIndentedString(taskCache)).append("\n");
+    sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
     sb.append("}");
     return sb.toString();
   }

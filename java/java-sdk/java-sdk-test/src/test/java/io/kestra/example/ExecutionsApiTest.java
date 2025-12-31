@@ -1103,4 +1103,30 @@ public class ExecutionsApiTest {
         assertThat(completed).isTrue();
         assertThat(followedFlowId.get()).isEqualTo(dependentFlowId);
     }
+
+    @Test
+    public void updateTaskRunState() throws Exception {
+        String namespace = randomId();
+        String id = randomId();
+        createSimpleFlow(id, namespace);
+
+        Boolean wait = true;
+        List<String> labels = List.of("label1:created");
+        Integer revision = null;
+        OffsetDateTime scheduleDate = null;
+        String breakpoints = null;
+        ExecutionKind kind = ExecutionKind.NORMAL;
+        HashMap<String, Object> inputs = new HashMap<>();
+        inputs.put("key", "value");
+
+        ExecutionControllerExecutionResponse response = kestraClient().executions().createExecution(namespace, id, wait, MAIN_TENANT, labels, revision, scheduleDate, breakpoints, kind, Map.of(), inputs);
+
+        ExecutionControllerStateRequest executionControllerStateRequest = new ExecutionControllerStateRequest()
+                .state(StateType.FAILED)
+                .taskRunId(response.getTaskRunList().getFirst().getId());
+
+        var updated = kestraClient().executions().updateTaskRunState(response.getId(), MAIN_TENANT, executionControllerStateRequest);
+
+        assertThat(updated.getTaskRunList().getFirst().getState().getCurrent()).isEqualTo(StateType.FAILED);
+    }
 }

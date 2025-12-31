@@ -3104,6 +3104,241 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+  /api/v1/{tenant}/assets:
+    post:
+      tags:
+        - Assets
+      summary: Create a new asset
+      operationId: createAsset
+      parameters:
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The asset
+        content:
+          application/x-yaml:
+            schema:
+              $ref: "#/components/schemas/Asset"
+      responses:
+        "200":
+          description: createAsset 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AssetsController.ApiAsset"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/{tenant}/assets/search:
+    get:
+      tags:
+        - Assets
+      summary: Search for assets
+      operationId: searchAssets
+      parameters:
+        - name: page
+          in: query
+          description: The current page
+          required: true
+          explode: false
+          schema:
+            minimum: 1
+            type: integer
+            format: int32
+            default: 1
+        - name: size
+          in: query
+          description: The current page size
+          required: true
+          explode: false
+          schema:
+            minimum: 1
+            type: integer
+            format: int32
+            default: 10
+        - name: sort
+          in: query
+          description: The sort of current page
+          explode: false
+          schema:
+            type: array
+            nullable: true
+            items:
+              type: string
+        - name: filters
+          in: query
+          description: Filters
+          required: true
+          explode: false
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/QueryFilter"
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: searchAssets 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_AssetsController.ApiAsset_"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/{tenant}/assets/usages/search:
+    get:
+      tags:
+        - Assets
+      summary: Search for asset usages
+      operationId: searchAssetUsages
+      parameters:
+        - name: page
+          in: query
+          description: The current page
+          required: true
+          explode: false
+          schema:
+            minimum: 1
+            type: integer
+            format: int32
+            default: 1
+        - name: size
+          in: query
+          description: The current page size
+          required: true
+          explode: false
+          schema:
+            minimum: 1
+            type: integer
+            format: int32
+            default: 10
+        - name: sort
+          in: query
+          description: The sort of current page
+          explode: false
+          schema:
+            type: array
+            nullable: true
+            items:
+              type: string
+        - name: filters
+          in: query
+          description: Filters
+          required: true
+          explode: false
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/QueryFilter"
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: searchAssetUsages 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_AssetsController.ApiAssetUsage_"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/{tenant}/assets/{id}:
+    get:
+      tags:
+        - Assets
+      summary: Retrieve an asset
+      operationId: asset
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the asset
+          required: true
+          schema:
+            type: string
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: getAsset 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AssetsController.ApiAsset"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+    delete:
+      tags:
+        - Assets
+      summary: Delete an asset
+      operationId: deleteAsset
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the asset
+          required: true
+          schema:
+            type: string
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: deleteAsset 200 response
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/{tenant}/assets/{id}/dependencies:
+    get:
+      tags:
+        - Assets
+      summary: Get an asset dependencies
+      operationId: assetDependencies
+      parameters:
+        - name: id
+          in: path
+          description: The asset id
+          required: true
+          schema:
+            type: string
+        - name: destinationOnly
+          in: query
+          description: If true, list only destination dependencies, otherwise list also source dependencies
+          required: true
+          explode: false
+          schema:
+            type: boolean
+            default: false
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: getAssetDependencies 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AssetTopologyGraph"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/auditlogs/export:
     get:
       tags:
@@ -6385,6 +6620,41 @@ paths:
         - basicAuth: []
       x-sdk-customization:
         x-multipart: "true"
+  /api/v1/{tenant}/executions/{executionId}/state:
+    post:
+      tags:
+        - Executions
+      summary: Change state for a taskrun in an execution
+      operationId: updateTaskRunState
+      parameters:
+        - name: executionId
+          in: path
+          description: The execution id
+          required: true
+          schema:
+            type: string
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: the taskRun id and state to apply
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExecutionController.StateRequest"
+        required: true
+      responses:
+        "200":
+          description: updateTaskRunState 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Execution"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/executions/{executionId}/unqueue:
     post:
       tags:
@@ -13173,9 +13443,6 @@ components:
           type: boolean
         labels:
           type: array
-          description: Labels as a list of Label (key/value pairs) or as a map of string to string.
-          oneOf:
-            - $ref: "#/components/schemas/Map_Object.Object_"
           items:
             $ref: "#/components/schemas/Label"
         variables:
@@ -13280,6 +13547,8 @@ components:
         allowConcurrent:
           title: Specifies whether a trigger is allowed to start a new execution even if a previous run is still in progress.
           type: boolean
+        assets:
+          $ref: "#/components/schemas/Property_AssetsDeclaration_"
     AbstractTriggerForExecution:
       required:
         - id
@@ -13731,6 +14000,139 @@ components:
           type: string
         details:
           type: string
+    Asset:
+      required:
+        - id
+        - type
+      type: object
+      properties:
+        namespace:
+          maxLength: 150
+          minLength: 1
+          pattern: ^[a-z0-9][a-z0-9._-]*
+          type: string
+        id:
+          maxLength: 150
+          minLength: 1
+          pattern: ^[a-zA-Z0-9][a-zA-Z0-9._-]*
+          type: string
+        type:
+          minLength: 1
+          type: string
+        displayName:
+          type: string
+        description:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: object
+    AssetIdentifier:
+      type: object
+      properties:
+        id:
+          type: string
+    AssetTopologyGraph:
+      type: object
+      properties:
+        nodes:
+          type: array
+          items:
+            $ref: "#/components/schemas/AssetTopologyGraph.Node"
+        edges:
+          type: array
+          items:
+            $ref: "#/components/schemas/AssetTopologyGraph.Edge"
+    AssetTopologyGraph.Edge:
+      type: object
+      properties:
+        source:
+          type: string
+        target:
+          type: string
+        relation:
+          $ref: "#/components/schemas/Relation_1"
+    AssetTopologyGraph.Node:
+      required:
+        - uid
+      type: object
+      properties:
+        uid:
+          type: string
+        namespace:
+          type: string
+        id:
+          type: string
+        type:
+          $ref: "#/components/schemas/AssetTopologyGraph.Node.NodeType"
+    AssetTopologyGraph.Node.NodeType:
+      type: string
+      enum:
+        - ASSET
+        - FLOW
+    AssetsController.ApiAsset:
+      type: object
+      properties:
+        namespace:
+          type: string
+        id:
+          type: string
+        type:
+          type: string
+        displayName:
+          type: string
+        description:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: object
+        created:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+    AssetsController.ApiAssetUsage:
+      type: object
+      properties:
+        assetId:
+          type: string
+        namespace:
+          type: string
+        flowId:
+          type: string
+        flowRevision:
+          type: integer
+          format: int32
+        executionId:
+          type: string
+        taskId:
+          type: string
+        taskRunId:
+          type: string
+        created:
+          type: string
+          format: date-time
+    AssetsDeclaration:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/AssetsInOut"
+        - type: object
+          properties:
+            enableAuto:
+              type: boolean
+    AssetsInOut:
+      type: object
+      properties:
+        inputs:
+          type: array
+          items:
+            $ref: "#/components/schemas/AssetIdentifier"
+        outputs:
+          type: array
+          items:
+            $ref: "#/components/schemas/Asset"
     AttributeReference:
       type: object
       properties:
@@ -14948,9 +15350,6 @@ components:
               type: boolean
             labels:
               type: array
-              description: Labels as a list of Label (key/value pairs) or as a map of string to string.
-              oneOf:
-                - $ref: "#/components/schemas/Map_Object.Object_"
               items:
                 $ref: "#/components/schemas/Label"
             workerGroup:
@@ -15010,11 +15409,6 @@ components:
                 executes normally.
               items:
                 $ref: "#/components/schemas/Check"
-      properties:
-        labels:
-          type: array
-          items:
-            $ref: "#/components/schemas/Label"
     FlowController.TaskValidationType:
       type: string
       enum:
@@ -15059,12 +15453,9 @@ components:
             disabled:
               type: boolean
             labels:
-              type: array
               description: Labels as a list of Label (key/value pairs) or as a map of string to string.
               oneOf:
                 - $ref: "#/components/schemas/Map_Object.Object_"
-              items:
-                $ref: "#/components/schemas/Label"
             variables:
               type: object
               additionalProperties: false
@@ -15303,9 +15694,6 @@ components:
               type: boolean
             labels:
               type: array
-              description: Labels as a list of Label (key/value pairs) or as a map of string to string.
-              oneOf:
-                - $ref: "#/components/schemas/Map_Object.Object_"
               items:
                 $ref: "#/components/schemas/Label"
             workerGroup:
@@ -15580,6 +15968,8 @@ components:
               type: array
             APP:
               type: array
+            ASSET:
+              type: array
             APPEXECUTION:
               type: array
             TEST:
@@ -15643,6 +16033,8 @@ components:
             SETTING:
               type: array
             APP:
+              type: array
+            ASSET:
               type: array
             APPEXECUTION:
               type: array
@@ -16955,6 +17347,32 @@ components:
         total:
           type: integer
           format: int64
+    PagedResults_AssetsController.ApiAssetUsage_:
+      required:
+        - results
+        - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/AssetsController.ApiAssetUsage"
+        total:
+          type: integer
+          format: int64
+    PagedResults_AssetsController.ApiAsset_:
+      required:
+        - results
+        - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/AssetsController.ApiAsset"
+        total:
+          type: integer
+          format: int64
     PagedResults_AuditLogController.ApiAuditLogItem_:
       required:
         - results
@@ -17343,6 +17761,7 @@ components:
         - IMPERSONATE
         - SETTING
         - APP
+        - ASSET
         - APPEXECUTION
         - TEST
         - DASHBOARD
@@ -17548,6 +17967,16 @@ components:
         - CORE
         - INGESTION
         - BI
+    Property_AssetsDeclaration_:
+      type: object
+      properties:
+        expression:
+          type: string
+        value:
+          $ref: "#/components/schemas/AssetsDeclaration"
+      oneOf:
+        - type: object
+        - type: string
     Property_Boolean_:
       type: object
       properties:
@@ -17628,7 +18057,13 @@ components:
         - NAMESPACE
         - KIND
         - LABELS
+        - METADATA
         - FLOW_ID
+        - FLOW_REVISION
+        - ID
+        - ASSET_ID
+        - TYPE
+        - CREATED
         - UPDATED
         - START_DATE
         - END_DATE
@@ -17638,6 +18073,8 @@ components:
         - TRIGGER_ID
         - TRIGGER_STATE
         - EXECUTION_ID
+        - TASK_ID
+        - TASK_RUN_ID
         - CHILD_FILTER
         - WORKER_ID
         - EXISTING_ONLY
@@ -17684,11 +18121,17 @@ components:
         - AFTER_EXECUTION
         - PARALLEL
         - DYNAMIC
+    Relation_1:
+      type: string
+      enum:
+        - UPSERT
+        - USED_BY
     ResourceType:
       type: string
       enum:
         - AUDITLOG
         - APP
+        - ASSET
         - APP_EXECUTION
         - BLUEPRINT
         - BINDING
@@ -17803,6 +18246,8 @@ components:
             SETTING:
               type: array
             APP:
+              type: array
+            ASSET:
               type: array
             APPEXECUTION:
               type: array
@@ -18430,6 +18875,10 @@ components:
           type: boolean
         taskCache:
           $ref: "#/components/schemas/Cache"
+        assets:
+          nullable: true
+          allOf:
+            - $ref: "#/components/schemas/Property_AssetsDeclaration_"
     TaskFixture:
       required:
         - id
@@ -18445,6 +18894,10 @@ components:
           type: object
           additionalProperties:
             type: object
+        assets:
+          type: array
+          items:
+            $ref: "#/components/schemas/Asset"
         description:
           $ref: "#/components/schemas/Property_String_"
     TaskForExecution:
@@ -18514,6 +18967,10 @@ components:
         outputs:
           type: object
           nullable: true
+        assets:
+          nullable: true
+          allOf:
+            - $ref: "#/components/schemas/AssetsInOut"
         state:
           $ref: "#/components/schemas/State"
         iteration:

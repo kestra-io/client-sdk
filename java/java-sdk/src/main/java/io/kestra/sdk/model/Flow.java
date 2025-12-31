@@ -40,7 +40,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * Flow
  */
 @JsonPropertyOrder({
-  Flow.JSON_PROPERTY_LABELS,
   Flow.JSON_PROPERTY_ID,
   Flow.JSON_PROPERTY_NAMESPACE,
   Flow.JSON_PROPERTY_REVISION,
@@ -48,6 +47,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Flow.JSON_PROPERTY_INPUTS,
   Flow.JSON_PROPERTY_OUTPUTS,
   Flow.JSON_PROPERTY_DISABLED,
+  Flow.JSON_PROPERTY_LABELS,
   Flow.JSON_PROPERTY_VARIABLES,
   Flow.JSON_PROPERTY_WORKER_GROUP,
   Flow.JSON_PROPERTY_DELETED,
@@ -64,9 +64,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Flow {
-  public static final String JSON_PROPERTY_LABELS = "labels";
-  @jakarta.annotation.Nullable  private List<Label> labels = new ArrayList<>();
-
   public static final String JSON_PROPERTY_ID = "id";
   @jakarta.annotation.Nonnull  private String id;
 
@@ -87,6 +84,9 @@ public class Flow {
 
   public static final String JSON_PROPERTY_DISABLED = "disabled";
   @jakarta.annotation.Nonnull  private Boolean disabled;
+
+  public static final String JSON_PROPERTY_LABELS = "labels";
+  @jakarta.annotation.Nullable  private List<Label> labels = new ArrayList<>();
 
   public static final String JSON_PROPERTY_VARIABLES = "variables";
   @jakarta.annotation.Nullable  private Object variables;
@@ -128,38 +128,6 @@ public class Flow {
   @jakarta.annotation.Nullable  private List<Check> checks = new ArrayList<>();
 
   public Flow() {
-  }
-
-  public Flow labels(@jakarta.annotation.Nullable List<Label> labels) {
-    
-    this.labels = labels;
-    return this;
-  }
-
-  public Flow addLabelsItem(Label labelsItem) {
-    if (this.labels == null) {
-      this.labels = new ArrayList<>();
-    }
-    this.labels.add(labelsItem);
-    return this;
-  }
-
-  /**
-   * Get labels
-   * @return labels
-   */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LABELS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<Label> getLabels() {
-    return labels;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_LABELS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLabels(@jakarta.annotation.Nullable List<Label> labels) {
-    this.labels = labels;
   }
 
   public Flow id(@jakarta.annotation.Nonnull String id) {
@@ -345,6 +313,38 @@ public class Flow {
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDisabled(@jakarta.annotation.Nonnull Boolean disabled) {
     this.disabled = disabled;
+  }
+
+  public Flow labels(@jakarta.annotation.Nullable List<Label> labels) {
+    
+    this.labels = labels;
+    return this;
+  }
+
+  public Flow addLabelsItem(Label labelsItem) {
+    if (this.labels == null) {
+      this.labels = new ArrayList<>();
+    }
+    this.labels.add(labelsItem);
+    return this;
+  }
+
+  /**
+   * Get labels
+   * @return labels
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LABELS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<Label> getLabels() {
+    return labels;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LABELS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLabels(@jakarta.annotation.Nullable List<Label> labels) {
+    this.labels = labels;
   }
 
   public Flow variables(@jakarta.annotation.Nullable Object variables) {
@@ -732,14 +732,14 @@ public class Flow {
       return false;
     }
     Flow flow = (Flow) o;
-    return Objects.equals(this.labels, flow.labels) &&
-        Objects.equals(this.id, flow.id) &&
+    return Objects.equals(this.id, flow.id) &&
         Objects.equals(this.namespace, flow.namespace) &&
         Objects.equals(this.revision, flow.revision) &&
         Objects.equals(this.description, flow.description) &&
         Objects.equals(this.inputs, flow.inputs) &&
         Objects.equals(this.outputs, flow.outputs) &&
         Objects.equals(this.disabled, flow.disabled) &&
+        Objects.equals(this.labels, flow.labels) &&
         Objects.equals(this.variables, flow.variables) &&
         Objects.equals(this.workerGroup, flow.workerGroup) &&
         Objects.equals(this.deleted, flow.deleted) &&
@@ -757,14 +757,13 @@ public class Flow {
 
   @Override
   public int hashCode() {
-    return Objects.hash(labels, id, namespace, revision, description, inputs, outputs, disabled, variables, workerGroup, deleted, _finally, tasks, errors, afterExecution, triggers, pluginDefaults, concurrency, retry, sla, checks);
+    return Objects.hash(id, namespace, revision, description, inputs, outputs, disabled, labels, variables, workerGroup, deleted, _finally, tasks, errors, afterExecution, triggers, pluginDefaults, concurrency, retry, sla, checks);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Flow {\n");
-    sb.append("    labels: ").append(toIndentedString(labels)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
     sb.append("    revision: ").append(toIndentedString(revision)).append("\n");
@@ -772,6 +771,7 @@ public class Flow {
     sb.append("    inputs: ").append(toIndentedString(inputs)).append("\n");
     sb.append("    outputs: ").append(toIndentedString(outputs)).append("\n");
     sb.append("    disabled: ").append(toIndentedString(disabled)).append("\n");
+    sb.append("    labels: ").append(toIndentedString(labels)).append("\n");
     sb.append("    variables: ").append(toIndentedString(variables)).append("\n");
     sb.append("    workerGroup: ").append(toIndentedString(workerGroup)).append("\n");
     sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");

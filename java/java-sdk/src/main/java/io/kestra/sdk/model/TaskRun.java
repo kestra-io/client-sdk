@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.AssetsInOut;
 import io.kestra.sdk.model.State;
 import io.kestra.sdk.model.TaskRunAttempt;
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TaskRun.JSON_PROPERTY_VALUE,
   TaskRun.JSON_PROPERTY_ATTEMPTS,
   TaskRun.JSON_PROPERTY_OUTPUTS,
+  TaskRun.JSON_PROPERTY_ASSETS,
   TaskRun.JSON_PROPERTY_STATE,
   TaskRun.JSON_PROPERTY_ITERATION,
   TaskRun.JSON_PROPERTY_DYNAMIC,
@@ -77,6 +79,9 @@ public class TaskRun {
 
   public static final String JSON_PROPERTY_OUTPUTS = "outputs";
   @jakarta.annotation.Nullable  private JsonNullable<Object> outputs = JsonNullable.<Object>undefined();
+
+  public static final String JSON_PROPERTY_ASSETS = "assets";
+  @jakarta.annotation.Nullable  private JsonNullable<AssetsInOut> assets = JsonNullable.<AssetsInOut>undefined();
 
   public static final String JSON_PROPERTY_STATE = "state";
   @jakarta.annotation.Nonnull  private State state;
@@ -324,6 +329,37 @@ public class TaskRun {
     this.outputs = JsonNullable.<Object>of(outputs);
   }
 
+  public TaskRun assets(@jakarta.annotation.Nullable AssetsInOut assets) {
+    this.assets = JsonNullable.<AssetsInOut>of(assets);
+    
+    return this;
+  }
+
+  /**
+   * Get assets
+   * @return assets
+   */
+  @jakarta.annotation.Nullable  @JsonIgnore
+
+  public AssetsInOut getAssets() {
+        return assets.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_ASSETS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<AssetsInOut> getAssets_JsonNullable() {
+    return assets;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_ASSETS)
+  public void setAssets_JsonNullable(JsonNullable<AssetsInOut> assets) {
+    this.assets = assets;
+  }
+
+  public void setAssets(@jakarta.annotation.Nullable AssetsInOut assets) {
+    this.assets = JsonNullable.<AssetsInOut>of(assets);
+  }
+
   public TaskRun state(@jakarta.annotation.Nonnull State state) {
     
     this.state = state;
@@ -438,6 +474,7 @@ public class TaskRun {
         Objects.equals(this.value, taskRun.value) &&
         Objects.equals(this.attempts, taskRun.attempts) &&
         equalsNullable(this.outputs, taskRun.outputs) &&
+        equalsNullable(this.assets, taskRun.assets) &&
         Objects.equals(this.state, taskRun.state) &&
         Objects.equals(this.iteration, taskRun.iteration) &&
         Objects.equals(this.dynamic, taskRun.dynamic) &&
@@ -450,7 +487,7 @@ public class TaskRun {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, executionId, namespace, flowId, taskId, parentTaskRunId, value, attempts, hashCodeNullable(outputs), state, iteration, dynamic, forceExecution);
+    return Objects.hash(id, executionId, namespace, flowId, taskId, parentTaskRunId, value, attempts, hashCodeNullable(outputs), hashCodeNullable(assets), state, iteration, dynamic, forceExecution);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -473,6 +510,7 @@ public class TaskRun {
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    attempts: ").append(toIndentedString(attempts)).append("\n");
     sb.append("    outputs: ").append(toIndentedString(outputs)).append("\n");
+    sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    iteration: ").append(toIndentedString(iteration)).append("\n");
     sb.append("    dynamic: ").append(toIndentedString(dynamic)).append("\n");

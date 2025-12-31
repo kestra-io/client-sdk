@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.Condition;
 import io.kestra.sdk.model.Level;
+import io.kestra.sdk.model.PropertyAssetsDeclaration;
 import io.kestra.sdk.model.StateType;
 import io.kestra.sdk.model.TheLabelsToPassToTheExecutionCreated;
 import io.kestra.sdk.model.WorkerGroup;
@@ -46,7 +47,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AbstractTrigger.JSON_PROPERTY_STOP_AFTER,
   AbstractTrigger.JSON_PROPERTY_LOG_TO_FILE,
   AbstractTrigger.JSON_PROPERTY_FAIL_ON_TRIGGER_ERROR,
-  AbstractTrigger.JSON_PROPERTY_ALLOW_CONCURRENT
+  AbstractTrigger.JSON_PROPERTY_ALLOW_CONCURRENT,
+  AbstractTrigger.JSON_PROPERTY_ASSETS
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AbstractTrigger {
@@ -88,6 +90,9 @@ public class AbstractTrigger {
 
   public static final String JSON_PROPERTY_ALLOW_CONCURRENT = "allowConcurrent";
   @jakarta.annotation.Nullable  private Boolean allowConcurrent;
+
+  public static final String JSON_PROPERTY_ASSETS = "assets";
+  @jakarta.annotation.Nullable  private PropertyAssetsDeclaration assets;
 
   public AbstractTrigger() {
   }
@@ -420,6 +425,30 @@ public class AbstractTrigger {
     this.allowConcurrent = allowConcurrent;
   }
 
+  public AbstractTrigger assets(@jakarta.annotation.Nullable PropertyAssetsDeclaration assets) {
+    
+    this.assets = assets;
+    return this;
+  }
+
+  /**
+   * Get assets
+   * @return assets
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ASSETS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public PropertyAssetsDeclaration getAssets() {
+    return assets;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ASSETS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAssets(@jakarta.annotation.Nullable PropertyAssetsDeclaration assets) {
+    this.assets = assets;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -441,12 +470,13 @@ public class AbstractTrigger {
         Objects.equals(this.stopAfter, abstractTrigger.stopAfter) &&
         Objects.equals(this.logToFile, abstractTrigger.logToFile) &&
         Objects.equals(this.failOnTriggerError, abstractTrigger.failOnTriggerError) &&
-        Objects.equals(this.allowConcurrent, abstractTrigger.allowConcurrent);
+        Objects.equals(this.allowConcurrent, abstractTrigger.allowConcurrent) &&
+        Objects.equals(this.assets, abstractTrigger.assets);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, type, version, description, conditions, disabled, workerGroup, logLevel, labels, stopAfter, logToFile, failOnTriggerError, allowConcurrent);
+    return Objects.hash(id, type, version, description, conditions, disabled, workerGroup, logLevel, labels, stopAfter, logToFile, failOnTriggerError, allowConcurrent, assets);
   }
 
   @Override
@@ -466,6 +496,7 @@ public class AbstractTrigger {
     sb.append("    logToFile: ").append(toIndentedString(logToFile)).append("\n");
     sb.append("    failOnTriggerError: ").append(toIndentedString(failOnTriggerError)).append("\n");
     sb.append("    allowConcurrent: ").append(toIndentedString(allowConcurrent)).append("\n");
+    sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
     sb.append("}");
     return sb.toString();
   }

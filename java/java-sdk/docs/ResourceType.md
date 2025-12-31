@@ -9,6 +9,8 @@
 
 * `APP` (value: `"APP"`)
 
+* `ASSET` (value: `"ASSET"`)
+
 * `APP_EXECUTION` (value: `"APP_EXECUTION"`)
 
 * `BLUEPRINT` (value: `"BLUEPRINT"`)

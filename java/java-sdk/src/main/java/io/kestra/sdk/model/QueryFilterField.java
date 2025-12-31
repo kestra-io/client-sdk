@@ -35,7 +35,19 @@ public enum QueryFilterField {
   
   LABELS("LABELS"),
   
+  METADATA("METADATA"),
+  
   FLOW_ID("FLOW_ID"),
+  
+  FLOW_REVISION("FLOW_REVISION"),
+  
+  ID("ID"),
+  
+  ASSET_ID("ASSET_ID"),
+  
+  TYPE("TYPE"),
+  
+  CREATED("CREATED"),
   
   UPDATED("UPDATED"),
   
@@ -54,6 +66,10 @@ public enum QueryFilterField {
   TRIGGER_STATE("TRIGGER_STATE"),
   
   EXECUTION_ID("EXECUTION_ID"),
+  
+  TASK_ID("TASK_ID"),
+  
+  TASK_RUN_ID("TASK_RUN_ID"),
   
   CHILD_FILTER("CHILD_FILTER"),
   

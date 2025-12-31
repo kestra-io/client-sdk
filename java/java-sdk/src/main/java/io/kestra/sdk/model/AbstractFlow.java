@@ -283,7 +283,7 @@ public class AbstractFlow {
   }
 
   /**
-   * Labels as a list of Label (key/value pairs) or as a map of string to string.
+   * Get labels
    * @return labels
    */
   @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LABELS)

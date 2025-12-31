@@ -3717,6 +3717,290 @@ paths:
       x-internal: false
       x-accepts:
       - application/json
+  /api/v1/{tenant}/assets:
+    post:
+      operationId: createAsset
+      parameters:
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/x-yaml:
+            schema:
+              $ref: "#/components/schemas/Asset"
+        description: The asset
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AssetsController.ApiAsset"
+          description: createAsset 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Create a new asset
+      tags:
+      - Assets
+      x-internal: true
+      x-content-type: application/x-yaml
+      x-accepts:
+      - application/json
+  /api/v1/{tenant}/assets/search:
+    get:
+      operationId: searchAssets
+      parameters:
+      - description: The current page
+        explode: false
+        in: query
+        name: page
+        required: true
+        schema:
+          default: 1
+          format: int32
+          minimum: 1
+          type: integer
+        style: form
+      - description: The current page size
+        explode: false
+        in: query
+        name: size
+        required: true
+        schema:
+          default: 10
+          format: int32
+          minimum: 1
+          type: integer
+        style: form
+      - description: The sort of current page
+        explode: false
+        in: query
+        name: sort
+        required: false
+        schema:
+          items:
+            type: string
+          nullable: true
+          type: array
+        style: form
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: true
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          type: array
+        style: form
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_AssetsController.ApiAsset_"
+          description: searchAssets 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Search for assets
+      tags:
+      - Assets
+      x-internal: true
+      x-accepts:
+      - application/json
+  /api/v1/{tenant}/assets/usages/search:
+    get:
+      operationId: searchAssetUsages
+      parameters:
+      - description: The current page
+        explode: false
+        in: query
+        name: page
+        required: true
+        schema:
+          default: 1
+          format: int32
+          minimum: 1
+          type: integer
+        style: form
+      - description: The current page size
+        explode: false
+        in: query
+        name: size
+        required: true
+        schema:
+          default: 10
+          format: int32
+          minimum: 1
+          type: integer
+        style: form
+      - description: The sort of current page
+        explode: false
+        in: query
+        name: sort
+        required: false
+        schema:
+          items:
+            type: string
+          nullable: true
+          type: array
+        style: form
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: true
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          type: array
+        style: form
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_AssetsController.ApiAssetUsage_"
+          description: searchAssetUsages 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Search for asset usages
+      tags:
+      - Assets
+      x-internal: true
+      x-accepts:
+      - application/json
+  /api/v1/{tenant}/assets/{id}:
+    delete:
+      operationId: deleteAsset
+      parameters:
+      - description: The ID of the asset
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: deleteAsset 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Delete an asset
+      tags:
+      - Assets
+      x-internal: true
+      x-accepts:
+      - application/json
+    get:
+      operationId: asset
+      parameters:
+      - description: The ID of the asset
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AssetsController.ApiAsset"
+          description: getAsset 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Retrieve an asset
+      tags:
+      - Assets
+      x-internal: true
+      x-accepts:
+      - application/json
+  /api/v1/{tenant}/assets/{id}/dependencies:
+    get:
+      operationId: assetDependencies
+      parameters:
+      - description: The asset id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "If true, list only destination dependencies, otherwise list\
+          \ also source dependencies"
+        explode: false
+        in: query
+        name: destinationOnly
+        required: true
+        schema:
+          default: false
+          type: boolean
+        style: form
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AssetTopologyGraph"
+          description: getAssetDependencies 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Get an asset dependencies
+      tags:
+      - Assets
+      x-internal: true
+      x-accepts:
+      - application/json
   /api/v1/{tenant}/auditlogs/export:
     get:
       operationId: exportAuditLogs
@@ -7751,6 +8035,49 @@ paths:
         x-multipart: "true"
       x-internal: false
       x-content-type: multipart/form-data
+      x-accepts:
+      - application/json
+  /api/v1/{tenant}/executions/{executionId}/state:
+    post:
+      operationId: updateTaskRunState
+      parameters:
+      - description: The execution id
+        explode: false
+        in: path
+        name: executionId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExecutionController.StateRequest"
+        description: the taskRun id and state to apply
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Execution"
+          description: updateTaskRunState 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Change state for a taskrun in an execution
+      tags:
+      - Executions
+      x-internal: false
+      x-content-type: application/json
       x-accepts:
       - application/json
   /api/v1/{tenant}/executions/{executionId}/unqueue:
@@ -16095,8 +16422,6 @@ components:
         disabled:
           type: boolean
         labels:
-          description: Labels as a list of Label (key/value pairs) or as a map of
-            string to string.
           items:
             $ref: "#/components/schemas/Label"
           type: array
@@ -16168,7 +16493,29 @@ components:
         - The_labels_to_pass_to_the_execution_created_
         - The_labels_to_pass_to_the_execution_created_
         failOnTriggerError: true
-        logLevel: ERROR
+        assets:
+          expression: expression
+          value:
+            outputs:
+            - metadata:
+                key: "{}"
+              displayName: displayName
+              namespace: namespace
+              description: description
+              id: id
+              type: type
+            - metadata:
+                key: "{}"
+              displayName: displayName
+              namespace: namespace
+              description: description
+              id: id
+              type: type
+            inputs:
+            - id: id
+            - id: id
+            enableAuto: true
+        logLevel: null
         disabled: false
         id: id
         workerGroup:
@@ -16229,6 +16576,8 @@ components:
           title: Specifies whether a trigger is allowed to start a new execution even
             if a previous run is still in progress.
           type: boolean
+        assets:
+          $ref: "#/components/schemas/Property_AssetsDeclaration_"
       required:
       - id
       - type
@@ -16894,6 +17243,169 @@ components:
       required:
       - message
       type: object
+    Asset:
+      example:
+        metadata:
+          key: "{}"
+        displayName: displayName
+        namespace: namespace
+        description: description
+        id: id
+        type: type
+      properties:
+        namespace:
+          maxLength: 150
+          minLength: 1
+          pattern: "^[a-z0-9][a-z0-9._-]*"
+          type: string
+        id:
+          maxLength: 150
+          minLength: 1
+          pattern: "^[a-zA-Z0-9][a-zA-Z0-9._-]*"
+          type: string
+        type:
+          minLength: 1
+          type: string
+        displayName:
+          type: string
+        description:
+          type: string
+        metadata:
+          additionalProperties:
+            type: object
+          type: object
+      required:
+      - id
+      - type
+      type: object
+    AssetIdentifier:
+      example:
+        id: id
+      properties:
+        id:
+          type: string
+      type: object
+    AssetTopologyGraph:
+      properties:
+        nodes:
+          items:
+            $ref: "#/components/schemas/AssetTopologyGraph.Node"
+          type: array
+        edges:
+          items:
+            $ref: "#/components/schemas/AssetTopologyGraph.Edge"
+          type: array
+      type: object
+    AssetTopologyGraph.Edge:
+      properties:
+        source:
+          type: string
+        target:
+          type: string
+        relation:
+          $ref: "#/components/schemas/Relation_1"
+      type: object
+    AssetTopologyGraph.Node:
+      properties:
+        uid:
+          type: string
+        namespace:
+          type: string
+        id:
+          type: string
+        type:
+          $ref: "#/components/schemas/AssetTopologyGraph.Node.NodeType"
+      required:
+      - uid
+      type: object
+    AssetTopologyGraph.Node.NodeType:
+      enum:
+      - ASSET
+      - FLOW
+      type: string
+    AssetsController.ApiAsset:
+      properties:
+        namespace:
+          type: string
+        id:
+          type: string
+        type:
+          type: string
+        displayName:
+          type: string
+        description:
+          type: string
+        metadata:
+          additionalProperties:
+            type: object
+          type: object
+        created:
+          format: date-time
+          type: string
+        updated:
+          format: date-time
+          type: string
+      type: object
+    AssetsController.ApiAssetUsage:
+      properties:
+        assetId:
+          type: string
+        namespace:
+          type: string
+        flowId:
+          type: string
+        flowRevision:
+          format: int32
+          type: integer
+        executionId:
+          type: string
+        taskId:
+          type: string
+        taskRunId:
+          type: string
+        created:
+          format: date-time
+          type: string
+      type: object
+    AssetsDeclaration:
+      allOf:
+      - $ref: "#/components/schemas/AssetsInOut"
+      - properties:
+          enableAuto:
+            type: boolean
+        type: object
+      example:
+        outputs:
+        - metadata:
+            key: "{}"
+          displayName: displayName
+          namespace: namespace
+          description: description
+          id: id
+          type: type
+        - metadata:
+            key: "{}"
+          displayName: displayName
+          namespace: namespace
+          description: description
+          id: id
+          type: type
+        inputs:
+        - id: id
+        - id: id
+        enableAuto: true
+      type: object
+    AssetsInOut:
+      properties:
+        inputs:
+          items:
+            $ref: "#/components/schemas/AssetIdentifier"
+          type: array
+        outputs:
+          items:
+            $ref: "#/components/schemas/Asset"
+          type: array
+      type: object
     AttributeReference:
       properties:
         fullAttributeName:
@@ -17418,6 +17930,11 @@ components:
       - type
       type: object
     Check:
+      example:
+        condition: condition
+        style: ERROR
+        message: message
+        behavior: BLOCK_EXECUTION
       properties:
         condition:
           minLength: 1
@@ -17791,6 +18308,7 @@ components:
           parentTaskRunId: parentTaskRunId
           executionId: executionId
           forceExecution: true
+          assets: ""
           namespace: namespace
           iteration: 6
           dynamic: true
@@ -17840,6 +18358,7 @@ components:
           parentTaskRunId: parentTaskRunId
           executionId: executionId
           forceExecution: true
+          assets: ""
           namespace: namespace
           iteration: 6
           dynamic: true
@@ -17894,6 +18413,21 @@ components:
         fixtures:
         - outputs:
             key: "{}"
+          assets:
+          - metadata:
+              key: "{}"
+            displayName: displayName
+            namespace: namespace
+            description: description
+            id: id
+            type: type
+          - metadata:
+              key: "{}"
+            displayName: displayName
+            namespace: namespace
+            description: description
+            id: id
+            type: type
           description:
             expression: expression
             value: value
@@ -17902,6 +18436,21 @@ components:
           value: value
         - outputs:
             key: "{}"
+          assets:
+          - metadata:
+              key: "{}"
+            displayName: displayName
+            namespace: namespace
+            description: description
+            id: id
+            type: type
+          - metadata:
+              key: "{}"
+            displayName: displayName
+            namespace: namespace
+            description: description
+            id: id
+            type: type
           description:
             expression: expression
             value: value
@@ -18078,6 +18627,7 @@ components:
           parentTaskRunId: parentTaskRunId
           executionId: executionId
           forceExecution: true
+          assets: ""
           namespace: namespace
           iteration: 6
           dynamic: true
@@ -18127,6 +18677,7 @@ components:
           parentTaskRunId: parentTaskRunId
           executionId: executionId
           forceExecution: true
+          assets: ""
           namespace: namespace
           iteration: 6
           dynamic: true
@@ -18182,6 +18733,21 @@ components:
         fixtures:
         - outputs:
             key: "{}"
+          assets:
+          - metadata:
+              key: "{}"
+            displayName: displayName
+            namespace: namespace
+            description: description
+            id: id
+            type: type
+          - metadata:
+              key: "{}"
+            displayName: displayName
+            namespace: namespace
+            description: description
+            id: id
+            type: type
           description:
             expression: expression
             value: value
@@ -18190,6 +18756,21 @@ components:
           value: value
         - outputs:
             key: "{}"
+          assets:
+          - metadata:
+              key: "{}"
+            displayName: displayName
+            namespace: namespace
+            description: description
+            id: id
+            type: type
+          - metadata:
+              key: "{}"
+            displayName: displayName
+            namespace: namespace
+            description: description
+            id: id
+            type: type
           description:
             expression: expression
             value: value
@@ -18465,6 +19046,21 @@ components:
         tasks:
         - outputs:
             key: "{}"
+          assets:
+          - metadata:
+              key: "{}"
+            displayName: displayName
+            namespace: namespace
+            description: description
+            id: id
+            type: type
+          - metadata:
+              key: "{}"
+            displayName: displayName
+            namespace: namespace
+            description: description
+            id: id
+            type: type
           description:
             expression: expression
             value: value
@@ -18473,6 +19069,21 @@ components:
           value: value
         - outputs:
             key: "{}"
+          assets:
+          - metadata:
+              key: "{}"
+            displayName: displayName
+            namespace: namespace
+            description: description
+            id: id
+            type: type
+          - metadata:
+              key: "{}"
+            displayName: displayName
+            namespace: namespace
+            description: description
+            id: id
+            type: type
           description:
             expression: expression
             value: value
@@ -18521,8 +19132,6 @@ components:
           disabled:
             type: boolean
           labels:
-            description: Labels as a list of Label (key/value pairs) or as a map of
-              string to string.
             items:
               $ref: "#/components/schemas/Label"
             type: array
@@ -18583,16 +19192,343 @@ components:
             type: array
         type: object
       example:
+        outputs:
+        - displayName: displayName
+          description: description
+          id: id
+          type: STRING
+          value: "{}"
+          required: true
+        - displayName: displayName
+          description: description
+          id: id
+          type: STRING
+          value: "{}"
+          required: true
+        variables: null
+        inputs:
+        - dependsOn: ""
+          defaults: ""
+          displayName: displayName
+          prefill: ""
+          description: description
+          id: id
+          type: ""
+          required: true
+        - dependsOn: ""
+          defaults: ""
+          displayName: displayName
+          prefill: ""
+          description: description
+          id: id
+          type: ""
+          required: true
+        finally:
+        - taskCache:
+            ttl: ttl
+            enabled: true
+          description: description
+          type: type
+          logToFile: true
+          version: version
+          timeout:
+            expression: expression
+            value: value
+          allowWarning: true
+          allowFailure: true
+          assets: ""
+          logLevel: ERROR
+          runIf: runIf
+          disabled: true
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          retry: "{}"
+        - taskCache:
+            ttl: ttl
+            enabled: true
+          description: description
+          type: type
+          logToFile: true
+          version: version
+          timeout:
+            expression: expression
+            value: value
+          allowWarning: true
+          allowFailure: true
+          assets: ""
+          logLevel: ERROR
+          runIf: runIf
+          disabled: true
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          retry: "{}"
+        description: description
+        sla:
+        - id: id
+          type: MAX_DURATION
+          behavior: FAIL
+          labels:
+          - SLA_labels
+          - SLA_labels
+        - id: id
+          type: MAX_DURATION
+          behavior: FAIL
+          labels:
+          - SLA_labels
+          - SLA_labels
+        afterExecution:
+        - taskCache:
+            ttl: ttl
+            enabled: true
+          description: description
+          type: type
+          logToFile: true
+          version: version
+          timeout:
+            expression: expression
+            value: value
+          allowWarning: true
+          allowFailure: true
+          assets: ""
+          logLevel: ERROR
+          runIf: runIf
+          disabled: true
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          retry: "{}"
+        - taskCache:
+            ttl: ttl
+            enabled: true
+          description: description
+          type: type
+          logToFile: true
+          version: version
+          timeout:
+            expression: expression
+            value: value
+          allowWarning: true
+          allowFailure: true
+          assets: ""
+          logLevel: ERROR
+          runIf: runIf
+          disabled: true
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          retry: "{}"
+        triggers:
+        - allowConcurrent: true
+          stopAfter:
+          - CREATED
+          - CREATED
+          description: description
+          type: type
+          logToFile: true
+          version: version
+          labels:
+          - The_labels_to_pass_to_the_execution_created_
+          - The_labels_to_pass_to_the_execution_created_
+          failOnTriggerError: true
+          assets:
+            expression: expression
+            value:
+              outputs:
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              inputs:
+              - id: id
+              - id: id
+              enableAuto: true
+          logLevel: null
+          disabled: false
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          conditions:
+          - type: type
+          - type: type
+        - allowConcurrent: true
+          stopAfter:
+          - CREATED
+          - CREATED
+          description: description
+          type: type
+          logToFile: true
+          version: version
+          labels:
+          - The_labels_to_pass_to_the_execution_created_
+          - The_labels_to_pass_to_the_execution_created_
+          failOnTriggerError: true
+          assets:
+            expression: expression
+            value:
+              outputs:
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              inputs:
+              - id: id
+              - id: id
+              enableAuto: true
+          logLevel: null
+          disabled: false
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          conditions:
+          - type: type
+          - type: type
+        pluginDefaults:
+        - forced: true
+          values: "{}"
+          type: type
+        - forced: true
+          values: "{}"
+          type: type
+        revision: 1
         labels:
         - value: value
           key: key
         - value: value
           key: key
-      properties:
-        labels:
-          items:
-            $ref: "#/components/schemas/Label"
-          type: array
+        concurrency:
+          limit: 1
+          behavior: QUEUE
+        deleted: true
+        checks:
+        - condition: condition
+          style: ERROR
+          message: message
+          behavior: BLOCK_EXECUTION
+        - condition: condition
+          style: ERROR
+          message: message
+          behavior: BLOCK_EXECUTION
+        namespace: namespace
+        disabled: true
+        id: id
+        workerGroup:
+          fallback: FAIL
+          key: key
+        tasks:
+        - taskCache:
+            ttl: ttl
+            enabled: true
+          description: description
+          type: type
+          logToFile: true
+          version: version
+          timeout:
+            expression: expression
+            value: value
+          allowWarning: true
+          allowFailure: true
+          assets: ""
+          logLevel: ERROR
+          runIf: runIf
+          disabled: true
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          retry: "{}"
+        - taskCache:
+            ttl: ttl
+            enabled: true
+          description: description
+          type: type
+          logToFile: true
+          version: version
+          timeout:
+            expression: expression
+            value: value
+          allowWarning: true
+          allowFailure: true
+          assets: ""
+          logLevel: ERROR
+          runIf: runIf
+          disabled: true
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          retry: "{}"
+        errors:
+        - taskCache:
+            ttl: ttl
+            enabled: true
+          description: description
+          type: type
+          logToFile: true
+          version: version
+          timeout:
+            expression: expression
+            value: value
+          allowWarning: true
+          allowFailure: true
+          assets: ""
+          logLevel: ERROR
+          runIf: runIf
+          disabled: true
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          retry: "{}"
+        - taskCache:
+            ttl: ttl
+            enabled: true
+          description: description
+          type: type
+          logToFile: true
+          version: version
+          timeout:
+            expression: expression
+            value: value
+          allowWarning: true
+          allowFailure: true
+          assets: ""
+          logLevel: ERROR
+          runIf: runIf
+          disabled: true
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          retry: "{}"
+        retry: null
       required:
       - deleted
       - disabled
@@ -18636,11 +19572,7 @@ components:
           disabled:
             type: boolean
           labels:
-            description: Labels as a list of Label (key/value pairs) or as a map of
-              string to string.
-            items:
-              $ref: "#/components/schemas/Label"
-            type: array
+            $ref: "#/components/schemas/Map_Object.Object_"
           variables:
             $ref: "#/components/schemas/Flow_allOf_variables"
           workerGroup:
@@ -18821,10 +19753,7 @@ components:
           version: version
         revision: 1
         labels:
-        - value: value
-          key: key
-        - value: value
-          key: key
+          empty: true
         deleted: true
         namespace: namespace
         disabled: true
@@ -19305,8 +20234,6 @@ components:
           disabled:
             type: boolean
           labels:
-            description: Labels as a list of Label (key/value pairs) or as a map of
-              string to string.
             items:
               $ref: "#/components/schemas/Label"
             type: array
@@ -19365,6 +20292,49 @@ components:
           id: id
           type: ""
           required: true
+        finally:
+        - taskCache:
+            ttl: ttl
+            enabled: true
+          description: description
+          type: type
+          logToFile: true
+          version: version
+          timeout:
+            expression: expression
+            value: value
+          allowWarning: true
+          allowFailure: true
+          assets: ""
+          logLevel: ERROR
+          runIf: runIf
+          disabled: true
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          retry: "{}"
+        - taskCache:
+            ttl: ttl
+            enabled: true
+          description: description
+          type: type
+          logToFile: true
+          version: version
+          timeout:
+            expression: expression
+            value: value
+          allowWarning: true
+          allowFailure: true
+          assets: ""
+          logLevel: ERROR
+          runIf: runIf
+          disabled: true
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          retry: "{}"
         description: description
         sla:
         - id: id
@@ -19379,23 +20349,256 @@ components:
           labels:
           - SLA_labels
           - SLA_labels
+        afterExecution:
+        - taskCache:
+            ttl: ttl
+            enabled: true
+          description: description
+          type: type
+          logToFile: true
+          version: version
+          timeout:
+            expression: expression
+            value: value
+          allowWarning: true
+          allowFailure: true
+          assets: ""
+          logLevel: ERROR
+          runIf: runIf
+          disabled: true
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          retry: "{}"
+        - taskCache:
+            ttl: ttl
+            enabled: true
+          description: description
+          type: type
+          logToFile: true
+          version: version
+          timeout:
+            expression: expression
+            value: value
+          allowWarning: true
+          allowFailure: true
+          assets: ""
+          logLevel: ERROR
+          runIf: runIf
+          disabled: true
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          retry: "{}"
         source: source
+        triggers:
+        - allowConcurrent: true
+          stopAfter:
+          - CREATED
+          - CREATED
+          description: description
+          type: type
+          logToFile: true
+          version: version
+          labels:
+          - The_labels_to_pass_to_the_execution_created_
+          - The_labels_to_pass_to_the_execution_created_
+          failOnTriggerError: true
+          assets:
+            expression: expression
+            value:
+              outputs:
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              inputs:
+              - id: id
+              - id: id
+              enableAuto: true
+          logLevel: null
+          disabled: false
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          conditions:
+          - type: type
+          - type: type
+        - allowConcurrent: true
+          stopAfter:
+          - CREATED
+          - CREATED
+          description: description
+          type: type
+          logToFile: true
+          version: version
+          labels:
+          - The_labels_to_pass_to_the_execution_created_
+          - The_labels_to_pass_to_the_execution_created_
+          failOnTriggerError: true
+          assets:
+            expression: expression
+            value:
+              outputs:
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              inputs:
+              - id: id
+              - id: id
+              enableAuto: true
+          logLevel: null
+          disabled: false
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          conditions:
+          - type: type
+          - type: type
+        pluginDefaults:
+        - forced: true
+          values: "{}"
+          type: type
+        - forced: true
+          values: "{}"
+          type: type
+        revision: 1
         labels:
         - value: value
           key: key
         - value: value
           key: key
-        revision: 1
         concurrency:
           limit: 1
           behavior: QUEUE
         deleted: true
+        checks:
+        - condition: condition
+          style: ERROR
+          message: message
+          behavior: BLOCK_EXECUTION
+        - condition: condition
+          style: ERROR
+          message: message
+          behavior: BLOCK_EXECUTION
         namespace: namespace
         disabled: true
         id: id
         workerGroup:
           fallback: FAIL
           key: key
+        tasks:
+        - taskCache:
+            ttl: ttl
+            enabled: true
+          description: description
+          type: type
+          logToFile: true
+          version: version
+          timeout:
+            expression: expression
+            value: value
+          allowWarning: true
+          allowFailure: true
+          assets: ""
+          logLevel: ERROR
+          runIf: runIf
+          disabled: true
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          retry: "{}"
+        - taskCache:
+            ttl: ttl
+            enabled: true
+          description: description
+          type: type
+          logToFile: true
+          version: version
+          timeout:
+            expression: expression
+            value: value
+          allowWarning: true
+          allowFailure: true
+          assets: ""
+          logLevel: ERROR
+          runIf: runIf
+          disabled: true
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          retry: "{}"
+        errors:
+        - taskCache:
+            ttl: ttl
+            enabled: true
+          description: description
+          type: type
+          logToFile: true
+          version: version
+          timeout:
+            expression: expression
+            value: value
+          allowWarning: true
+          allowFailure: true
+          assets: ""
+          logLevel: ERROR
+          runIf: runIf
+          disabled: true
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          retry: "{}"
+        - taskCache:
+            ttl: ttl
+            enabled: true
+          description: description
+          type: type
+          logToFile: true
+          version: version
+          timeout:
+            expression: expression
+            value: value
+          allowWarning: true
+          allowFailure: true
+          assets: ""
+          logLevel: ERROR
+          runIf: runIf
+          disabled: true
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          retry: "{}"
+        retry: null
       required:
       - deleted
       - disabled
@@ -19673,6 +20876,9 @@ components:
           EXECUTION:
           - EXECUTION
           - EXECUTION
+          ASSET:
+          - ASSET
+          - ASSET
           USER:
           - USER
           - USER
@@ -20661,6 +21867,8 @@ components:
       - namespace
       type: object
     Map_Object.Object_:
+      example:
+        empty: true
       properties:
         empty:
           type: boolean
@@ -21268,6 +22476,32 @@ components:
       - results
       - total
       type: object
+    PagedResults_AssetsController.ApiAssetUsage_:
+      properties:
+        results:
+          items:
+            $ref: "#/components/schemas/AssetsController.ApiAssetUsage"
+          type: array
+        total:
+          format: int64
+          type: integer
+      required:
+      - results
+      - total
+      type: object
+    PagedResults_AssetsController.ApiAsset_:
+      properties:
+        results:
+          items:
+            $ref: "#/components/schemas/AssetsController.ApiAsset"
+          type: array
+        total:
+          format: int64
+          type: integer
+      required:
+      - results
+      - total
+      type: object
     PagedResults_AuditLogController.ApiAuditLogItem_:
       properties:
         results:
@@ -21395,6 +22629,7 @@ components:
             parentTaskRunId: parentTaskRunId
             executionId: executionId
             forceExecution: true
+            assets: ""
             namespace: namespace
             iteration: 6
             dynamic: true
@@ -21444,6 +22679,7 @@ components:
             parentTaskRunId: parentTaskRunId
             executionId: executionId
             forceExecution: true
+            assets: ""
             namespace: namespace
             iteration: 6
             dynamic: true
@@ -21498,6 +22734,21 @@ components:
           fixtures:
           - outputs:
               key: "{}"
+            assets:
+            - metadata:
+                key: "{}"
+              displayName: displayName
+              namespace: namespace
+              description: description
+              id: id
+              type: type
+            - metadata:
+                key: "{}"
+              displayName: displayName
+              namespace: namespace
+              description: description
+              id: id
+              type: type
             description:
               expression: expression
               value: value
@@ -21506,6 +22757,21 @@ components:
             value: value
           - outputs:
               key: "{}"
+            assets:
+            - metadata:
+                key: "{}"
+              displayName: displayName
+              namespace: namespace
+              description: description
+              id: id
+              type: type
+            - metadata:
+                key: "{}"
+              displayName: displayName
+              namespace: namespace
+              description: description
+              id: id
+              type: type
             description:
               expression: expression
               value: value
@@ -21554,6 +22820,7 @@ components:
             parentTaskRunId: parentTaskRunId
             executionId: executionId
             forceExecution: true
+            assets: ""
             namespace: namespace
             iteration: 6
             dynamic: true
@@ -21603,6 +22870,7 @@ components:
             parentTaskRunId: parentTaskRunId
             executionId: executionId
             forceExecution: true
+            assets: ""
             namespace: namespace
             iteration: 6
             dynamic: true
@@ -21657,6 +22925,21 @@ components:
           fixtures:
           - outputs:
               key: "{}"
+            assets:
+            - metadata:
+                key: "{}"
+              displayName: displayName
+              namespace: namespace
+              description: description
+              id: id
+              type: type
+            - metadata:
+                key: "{}"
+              displayName: displayName
+              namespace: namespace
+              description: description
+              id: id
+              type: type
             description:
               expression: expression
               value: value
@@ -21665,6 +22948,21 @@ components:
             value: value
           - outputs:
               key: "{}"
+            assets:
+            - metadata:
+                key: "{}"
+              displayName: displayName
+              namespace: namespace
+              description: description
+              id: id
+              type: type
+            - metadata:
+                key: "{}"
+              displayName: displayName
+              namespace: namespace
+              description: description
+              id: id
+              type: type
             description:
               expression: expression
               value: value
@@ -21709,18 +23007,682 @@ components:
       type: object
     PagedResults_Flow_:
       example:
-        total: 0
+        total: 1
         results:
-        - labels:
+        - outputs:
+          - displayName: displayName
+            description: description
+            id: id
+            type: STRING
+            value: "{}"
+            required: true
+          - displayName: displayName
+            description: description
+            id: id
+            type: STRING
+            value: "{}"
+            required: true
+          variables: null
+          inputs:
+          - dependsOn: ""
+            defaults: ""
+            displayName: displayName
+            prefill: ""
+            description: description
+            id: id
+            type: ""
+            required: true
+          - dependsOn: ""
+            defaults: ""
+            displayName: displayName
+            prefill: ""
+            description: description
+            id: id
+            type: ""
+            required: true
+          finally:
+          - taskCache:
+              ttl: ttl
+              enabled: true
+            description: description
+            type: type
+            logToFile: true
+            version: version
+            timeout:
+              expression: expression
+              value: value
+            allowWarning: true
+            allowFailure: true
+            assets: ""
+            logLevel: ERROR
+            runIf: runIf
+            disabled: true
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            retry: "{}"
+          - taskCache:
+              ttl: ttl
+              enabled: true
+            description: description
+            type: type
+            logToFile: true
+            version: version
+            timeout:
+              expression: expression
+              value: value
+            allowWarning: true
+            allowFailure: true
+            assets: ""
+            logLevel: ERROR
+            runIf: runIf
+            disabled: true
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            retry: "{}"
+          description: description
+          sla:
+          - id: id
+            type: MAX_DURATION
+            behavior: FAIL
+            labels:
+            - SLA_labels
+            - SLA_labels
+          - id: id
+            type: MAX_DURATION
+            behavior: FAIL
+            labels:
+            - SLA_labels
+            - SLA_labels
+          afterExecution:
+          - taskCache:
+              ttl: ttl
+              enabled: true
+            description: description
+            type: type
+            logToFile: true
+            version: version
+            timeout:
+              expression: expression
+              value: value
+            allowWarning: true
+            allowFailure: true
+            assets: ""
+            logLevel: ERROR
+            runIf: runIf
+            disabled: true
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            retry: "{}"
+          - taskCache:
+              ttl: ttl
+              enabled: true
+            description: description
+            type: type
+            logToFile: true
+            version: version
+            timeout:
+              expression: expression
+              value: value
+            allowWarning: true
+            allowFailure: true
+            assets: ""
+            logLevel: ERROR
+            runIf: runIf
+            disabled: true
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            retry: "{}"
+          triggers:
+          - allowConcurrent: true
+            stopAfter:
+            - CREATED
+            - CREATED
+            description: description
+            type: type
+            logToFile: true
+            version: version
+            labels:
+            - The_labels_to_pass_to_the_execution_created_
+            - The_labels_to_pass_to_the_execution_created_
+            failOnTriggerError: true
+            assets:
+              expression: expression
+              value:
+                outputs:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                inputs:
+                - id: id
+                - id: id
+                enableAuto: true
+            logLevel: null
+            disabled: false
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            conditions:
+            - type: type
+            - type: type
+          - allowConcurrent: true
+            stopAfter:
+            - CREATED
+            - CREATED
+            description: description
+            type: type
+            logToFile: true
+            version: version
+            labels:
+            - The_labels_to_pass_to_the_execution_created_
+            - The_labels_to_pass_to_the_execution_created_
+            failOnTriggerError: true
+            assets:
+              expression: expression
+              value:
+                outputs:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                inputs:
+                - id: id
+                - id: id
+                enableAuto: true
+            logLevel: null
+            disabled: false
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            conditions:
+            - type: type
+            - type: type
+          pluginDefaults:
+          - forced: true
+            values: "{}"
+            type: type
+          - forced: true
+            values: "{}"
+            type: type
+          revision: 1
+          labels:
           - value: value
             key: key
           - value: value
             key: key
-        - labels:
+          concurrency:
+            limit: 1
+            behavior: QUEUE
+          deleted: true
+          checks:
+          - condition: condition
+            style: ERROR
+            message: message
+            behavior: BLOCK_EXECUTION
+          - condition: condition
+            style: ERROR
+            message: message
+            behavior: BLOCK_EXECUTION
+          namespace: namespace
+          disabled: true
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          tasks:
+          - taskCache:
+              ttl: ttl
+              enabled: true
+            description: description
+            type: type
+            logToFile: true
+            version: version
+            timeout:
+              expression: expression
+              value: value
+            allowWarning: true
+            allowFailure: true
+            assets: ""
+            logLevel: ERROR
+            runIf: runIf
+            disabled: true
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            retry: "{}"
+          - taskCache:
+              ttl: ttl
+              enabled: true
+            description: description
+            type: type
+            logToFile: true
+            version: version
+            timeout:
+              expression: expression
+              value: value
+            allowWarning: true
+            allowFailure: true
+            assets: ""
+            logLevel: ERROR
+            runIf: runIf
+            disabled: true
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            retry: "{}"
+          errors:
+          - taskCache:
+              ttl: ttl
+              enabled: true
+            description: description
+            type: type
+            logToFile: true
+            version: version
+            timeout:
+              expression: expression
+              value: value
+            allowWarning: true
+            allowFailure: true
+            assets: ""
+            logLevel: ERROR
+            runIf: runIf
+            disabled: true
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            retry: "{}"
+          - taskCache:
+              ttl: ttl
+              enabled: true
+            description: description
+            type: type
+            logToFile: true
+            version: version
+            timeout:
+              expression: expression
+              value: value
+            allowWarning: true
+            allowFailure: true
+            assets: ""
+            logLevel: ERROR
+            runIf: runIf
+            disabled: true
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            retry: "{}"
+          retry: null
+        - outputs:
+          - displayName: displayName
+            description: description
+            id: id
+            type: STRING
+            value: "{}"
+            required: true
+          - displayName: displayName
+            description: description
+            id: id
+            type: STRING
+            value: "{}"
+            required: true
+          variables: null
+          inputs:
+          - dependsOn: ""
+            defaults: ""
+            displayName: displayName
+            prefill: ""
+            description: description
+            id: id
+            type: ""
+            required: true
+          - dependsOn: ""
+            defaults: ""
+            displayName: displayName
+            prefill: ""
+            description: description
+            id: id
+            type: ""
+            required: true
+          finally:
+          - taskCache:
+              ttl: ttl
+              enabled: true
+            description: description
+            type: type
+            logToFile: true
+            version: version
+            timeout:
+              expression: expression
+              value: value
+            allowWarning: true
+            allowFailure: true
+            assets: ""
+            logLevel: ERROR
+            runIf: runIf
+            disabled: true
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            retry: "{}"
+          - taskCache:
+              ttl: ttl
+              enabled: true
+            description: description
+            type: type
+            logToFile: true
+            version: version
+            timeout:
+              expression: expression
+              value: value
+            allowWarning: true
+            allowFailure: true
+            assets: ""
+            logLevel: ERROR
+            runIf: runIf
+            disabled: true
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            retry: "{}"
+          description: description
+          sla:
+          - id: id
+            type: MAX_DURATION
+            behavior: FAIL
+            labels:
+            - SLA_labels
+            - SLA_labels
+          - id: id
+            type: MAX_DURATION
+            behavior: FAIL
+            labels:
+            - SLA_labels
+            - SLA_labels
+          afterExecution:
+          - taskCache:
+              ttl: ttl
+              enabled: true
+            description: description
+            type: type
+            logToFile: true
+            version: version
+            timeout:
+              expression: expression
+              value: value
+            allowWarning: true
+            allowFailure: true
+            assets: ""
+            logLevel: ERROR
+            runIf: runIf
+            disabled: true
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            retry: "{}"
+          - taskCache:
+              ttl: ttl
+              enabled: true
+            description: description
+            type: type
+            logToFile: true
+            version: version
+            timeout:
+              expression: expression
+              value: value
+            allowWarning: true
+            allowFailure: true
+            assets: ""
+            logLevel: ERROR
+            runIf: runIf
+            disabled: true
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            retry: "{}"
+          triggers:
+          - allowConcurrent: true
+            stopAfter:
+            - CREATED
+            - CREATED
+            description: description
+            type: type
+            logToFile: true
+            version: version
+            labels:
+            - The_labels_to_pass_to_the_execution_created_
+            - The_labels_to_pass_to_the_execution_created_
+            failOnTriggerError: true
+            assets:
+              expression: expression
+              value:
+                outputs:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                inputs:
+                - id: id
+                - id: id
+                enableAuto: true
+            logLevel: null
+            disabled: false
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            conditions:
+            - type: type
+            - type: type
+          - allowConcurrent: true
+            stopAfter:
+            - CREATED
+            - CREATED
+            description: description
+            type: type
+            logToFile: true
+            version: version
+            labels:
+            - The_labels_to_pass_to_the_execution_created_
+            - The_labels_to_pass_to_the_execution_created_
+            failOnTriggerError: true
+            assets:
+              expression: expression
+              value:
+                outputs:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                inputs:
+                - id: id
+                - id: id
+                enableAuto: true
+            logLevel: null
+            disabled: false
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            conditions:
+            - type: type
+            - type: type
+          pluginDefaults:
+          - forced: true
+            values: "{}"
+            type: type
+          - forced: true
+            values: "{}"
+            type: type
+          revision: 1
+          labels:
           - value: value
             key: key
           - value: value
             key: key
+          concurrency:
+            limit: 1
+            behavior: QUEUE
+          deleted: true
+          checks:
+          - condition: condition
+            style: ERROR
+            message: message
+            behavior: BLOCK_EXECUTION
+          - condition: condition
+            style: ERROR
+            message: message
+            behavior: BLOCK_EXECUTION
+          namespace: namespace
+          disabled: true
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          tasks:
+          - taskCache:
+              ttl: ttl
+              enabled: true
+            description: description
+            type: type
+            logToFile: true
+            version: version
+            timeout:
+              expression: expression
+              value: value
+            allowWarning: true
+            allowFailure: true
+            assets: ""
+            logLevel: ERROR
+            runIf: runIf
+            disabled: true
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            retry: "{}"
+          - taskCache:
+              ttl: ttl
+              enabled: true
+            description: description
+            type: type
+            logToFile: true
+            version: version
+            timeout:
+              expression: expression
+              value: value
+            allowWarning: true
+            allowFailure: true
+            assets: ""
+            logLevel: ERROR
+            runIf: runIf
+            disabled: true
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            retry: "{}"
+          errors:
+          - taskCache:
+              ttl: ttl
+              enabled: true
+            description: description
+            type: type
+            logToFile: true
+            version: version
+            timeout:
+              expression: expression
+              value: value
+            allowWarning: true
+            allowFailure: true
+            assets: ""
+            logLevel: ERROR
+            runIf: runIf
+            disabled: true
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            retry: "{}"
+          - taskCache:
+              ttl: ttl
+              enabled: true
+            description: description
+            type: type
+            logToFile: true
+            version: version
+            timeout:
+              expression: expression
+              value: value
+            allowWarning: true
+            allowFailure: true
+            assets: ""
+            logLevel: ERROR
+            runIf: runIf
+            disabled: true
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            retry: "{}"
+          retry: null
       properties:
         results:
           items:
@@ -22089,20 +24051,684 @@ components:
         total: 0
         results:
         - model:
+            outputs:
+            - displayName: displayName
+              description: description
+              id: id
+              type: STRING
+              value: "{}"
+              required: true
+            - displayName: displayName
+              description: description
+              id: id
+              type: STRING
+              value: "{}"
+              required: true
+            variables: null
+            inputs:
+            - dependsOn: ""
+              defaults: ""
+              displayName: displayName
+              prefill: ""
+              description: description
+              id: id
+              type: ""
+              required: true
+            - dependsOn: ""
+              defaults: ""
+              displayName: displayName
+              prefill: ""
+              description: description
+              id: id
+              type: ""
+              required: true
+            finally:
+            - taskCache:
+                ttl: ttl
+                enabled: true
+              description: description
+              type: type
+              logToFile: true
+              version: version
+              timeout:
+                expression: expression
+                value: value
+              allowWarning: true
+              allowFailure: true
+              assets: ""
+              logLevel: ERROR
+              runIf: runIf
+              disabled: true
+              id: id
+              workerGroup:
+                fallback: FAIL
+                key: key
+              retry: "{}"
+            - taskCache:
+                ttl: ttl
+                enabled: true
+              description: description
+              type: type
+              logToFile: true
+              version: version
+              timeout:
+                expression: expression
+                value: value
+              allowWarning: true
+              allowFailure: true
+              assets: ""
+              logLevel: ERROR
+              runIf: runIf
+              disabled: true
+              id: id
+              workerGroup:
+                fallback: FAIL
+                key: key
+              retry: "{}"
+            description: description
+            sla:
+            - id: id
+              type: MAX_DURATION
+              behavior: FAIL
+              labels:
+              - SLA_labels
+              - SLA_labels
+            - id: id
+              type: MAX_DURATION
+              behavior: FAIL
+              labels:
+              - SLA_labels
+              - SLA_labels
+            afterExecution:
+            - taskCache:
+                ttl: ttl
+                enabled: true
+              description: description
+              type: type
+              logToFile: true
+              version: version
+              timeout:
+                expression: expression
+                value: value
+              allowWarning: true
+              allowFailure: true
+              assets: ""
+              logLevel: ERROR
+              runIf: runIf
+              disabled: true
+              id: id
+              workerGroup:
+                fallback: FAIL
+                key: key
+              retry: "{}"
+            - taskCache:
+                ttl: ttl
+                enabled: true
+              description: description
+              type: type
+              logToFile: true
+              version: version
+              timeout:
+                expression: expression
+                value: value
+              allowWarning: true
+              allowFailure: true
+              assets: ""
+              logLevel: ERROR
+              runIf: runIf
+              disabled: true
+              id: id
+              workerGroup:
+                fallback: FAIL
+                key: key
+              retry: "{}"
+            triggers:
+            - allowConcurrent: true
+              stopAfter:
+              - CREATED
+              - CREATED
+              description: description
+              type: type
+              logToFile: true
+              version: version
+              labels:
+              - The_labels_to_pass_to_the_execution_created_
+              - The_labels_to_pass_to_the_execution_created_
+              failOnTriggerError: true
+              assets:
+                expression: expression
+                value:
+                  outputs:
+                  - metadata:
+                      key: "{}"
+                    displayName: displayName
+                    namespace: namespace
+                    description: description
+                    id: id
+                    type: type
+                  - metadata:
+                      key: "{}"
+                    displayName: displayName
+                    namespace: namespace
+                    description: description
+                    id: id
+                    type: type
+                  inputs:
+                  - id: id
+                  - id: id
+                  enableAuto: true
+              logLevel: null
+              disabled: false
+              id: id
+              workerGroup:
+                fallback: FAIL
+                key: key
+              conditions:
+              - type: type
+              - type: type
+            - allowConcurrent: true
+              stopAfter:
+              - CREATED
+              - CREATED
+              description: description
+              type: type
+              logToFile: true
+              version: version
+              labels:
+              - The_labels_to_pass_to_the_execution_created_
+              - The_labels_to_pass_to_the_execution_created_
+              failOnTriggerError: true
+              assets:
+                expression: expression
+                value:
+                  outputs:
+                  - metadata:
+                      key: "{}"
+                    displayName: displayName
+                    namespace: namespace
+                    description: description
+                    id: id
+                    type: type
+                  - metadata:
+                      key: "{}"
+                    displayName: displayName
+                    namespace: namespace
+                    description: description
+                    id: id
+                    type: type
+                  inputs:
+                  - id: id
+                  - id: id
+                  enableAuto: true
+              logLevel: null
+              disabled: false
+              id: id
+              workerGroup:
+                fallback: FAIL
+                key: key
+              conditions:
+              - type: type
+              - type: type
+            pluginDefaults:
+            - forced: true
+              values: "{}"
+              type: type
+            - forced: true
+              values: "{}"
+              type: type
+            revision: 1
             labels:
             - value: value
               key: key
             - value: value
               key: key
+            concurrency:
+              limit: 1
+              behavior: QUEUE
+            deleted: true
+            checks:
+            - condition: condition
+              style: ERROR
+              message: message
+              behavior: BLOCK_EXECUTION
+            - condition: condition
+              style: ERROR
+              message: message
+              behavior: BLOCK_EXECUTION
+            namespace: namespace
+            disabled: true
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            tasks:
+            - taskCache:
+                ttl: ttl
+                enabled: true
+              description: description
+              type: type
+              logToFile: true
+              version: version
+              timeout:
+                expression: expression
+                value: value
+              allowWarning: true
+              allowFailure: true
+              assets: ""
+              logLevel: ERROR
+              runIf: runIf
+              disabled: true
+              id: id
+              workerGroup:
+                fallback: FAIL
+                key: key
+              retry: "{}"
+            - taskCache:
+                ttl: ttl
+                enabled: true
+              description: description
+              type: type
+              logToFile: true
+              version: version
+              timeout:
+                expression: expression
+                value: value
+              allowWarning: true
+              allowFailure: true
+              assets: ""
+              logLevel: ERROR
+              runIf: runIf
+              disabled: true
+              id: id
+              workerGroup:
+                fallback: FAIL
+                key: key
+              retry: "{}"
+            errors:
+            - taskCache:
+                ttl: ttl
+                enabled: true
+              description: description
+              type: type
+              logToFile: true
+              version: version
+              timeout:
+                expression: expression
+                value: value
+              allowWarning: true
+              allowFailure: true
+              assets: ""
+              logLevel: ERROR
+              runIf: runIf
+              disabled: true
+              id: id
+              workerGroup:
+                fallback: FAIL
+                key: key
+              retry: "{}"
+            - taskCache:
+                ttl: ttl
+                enabled: true
+              description: description
+              type: type
+              logToFile: true
+              version: version
+              timeout:
+                expression: expression
+                value: value
+              allowWarning: true
+              allowFailure: true
+              assets: ""
+              logLevel: ERROR
+              runIf: runIf
+              disabled: true
+              id: id
+              workerGroup:
+                fallback: FAIL
+                key: key
+              retry: "{}"
+            retry: null
           fragments:
           - fragments
           - fragments
         - model:
+            outputs:
+            - displayName: displayName
+              description: description
+              id: id
+              type: STRING
+              value: "{}"
+              required: true
+            - displayName: displayName
+              description: description
+              id: id
+              type: STRING
+              value: "{}"
+              required: true
+            variables: null
+            inputs:
+            - dependsOn: ""
+              defaults: ""
+              displayName: displayName
+              prefill: ""
+              description: description
+              id: id
+              type: ""
+              required: true
+            - dependsOn: ""
+              defaults: ""
+              displayName: displayName
+              prefill: ""
+              description: description
+              id: id
+              type: ""
+              required: true
+            finally:
+            - taskCache:
+                ttl: ttl
+                enabled: true
+              description: description
+              type: type
+              logToFile: true
+              version: version
+              timeout:
+                expression: expression
+                value: value
+              allowWarning: true
+              allowFailure: true
+              assets: ""
+              logLevel: ERROR
+              runIf: runIf
+              disabled: true
+              id: id
+              workerGroup:
+                fallback: FAIL
+                key: key
+              retry: "{}"
+            - taskCache:
+                ttl: ttl
+                enabled: true
+              description: description
+              type: type
+              logToFile: true
+              version: version
+              timeout:
+                expression: expression
+                value: value
+              allowWarning: true
+              allowFailure: true
+              assets: ""
+              logLevel: ERROR
+              runIf: runIf
+              disabled: true
+              id: id
+              workerGroup:
+                fallback: FAIL
+                key: key
+              retry: "{}"
+            description: description
+            sla:
+            - id: id
+              type: MAX_DURATION
+              behavior: FAIL
+              labels:
+              - SLA_labels
+              - SLA_labels
+            - id: id
+              type: MAX_DURATION
+              behavior: FAIL
+              labels:
+              - SLA_labels
+              - SLA_labels
+            afterExecution:
+            - taskCache:
+                ttl: ttl
+                enabled: true
+              description: description
+              type: type
+              logToFile: true
+              version: version
+              timeout:
+                expression: expression
+                value: value
+              allowWarning: true
+              allowFailure: true
+              assets: ""
+              logLevel: ERROR
+              runIf: runIf
+              disabled: true
+              id: id
+              workerGroup:
+                fallback: FAIL
+                key: key
+              retry: "{}"
+            - taskCache:
+                ttl: ttl
+                enabled: true
+              description: description
+              type: type
+              logToFile: true
+              version: version
+              timeout:
+                expression: expression
+                value: value
+              allowWarning: true
+              allowFailure: true
+              assets: ""
+              logLevel: ERROR
+              runIf: runIf
+              disabled: true
+              id: id
+              workerGroup:
+                fallback: FAIL
+                key: key
+              retry: "{}"
+            triggers:
+            - allowConcurrent: true
+              stopAfter:
+              - CREATED
+              - CREATED
+              description: description
+              type: type
+              logToFile: true
+              version: version
+              labels:
+              - The_labels_to_pass_to_the_execution_created_
+              - The_labels_to_pass_to_the_execution_created_
+              failOnTriggerError: true
+              assets:
+                expression: expression
+                value:
+                  outputs:
+                  - metadata:
+                      key: "{}"
+                    displayName: displayName
+                    namespace: namespace
+                    description: description
+                    id: id
+                    type: type
+                  - metadata:
+                      key: "{}"
+                    displayName: displayName
+                    namespace: namespace
+                    description: description
+                    id: id
+                    type: type
+                  inputs:
+                  - id: id
+                  - id: id
+                  enableAuto: true
+              logLevel: null
+              disabled: false
+              id: id
+              workerGroup:
+                fallback: FAIL
+                key: key
+              conditions:
+              - type: type
+              - type: type
+            - allowConcurrent: true
+              stopAfter:
+              - CREATED
+              - CREATED
+              description: description
+              type: type
+              logToFile: true
+              version: version
+              labels:
+              - The_labels_to_pass_to_the_execution_created_
+              - The_labels_to_pass_to_the_execution_created_
+              failOnTriggerError: true
+              assets:
+                expression: expression
+                value:
+                  outputs:
+                  - metadata:
+                      key: "{}"
+                    displayName: displayName
+                    namespace: namespace
+                    description: description
+                    id: id
+                    type: type
+                  - metadata:
+                      key: "{}"
+                    displayName: displayName
+                    namespace: namespace
+                    description: description
+                    id: id
+                    type: type
+                  inputs:
+                  - id: id
+                  - id: id
+                  enableAuto: true
+              logLevel: null
+              disabled: false
+              id: id
+              workerGroup:
+                fallback: FAIL
+                key: key
+              conditions:
+              - type: type
+              - type: type
+            pluginDefaults:
+            - forced: true
+              values: "{}"
+              type: type
+            - forced: true
+              values: "{}"
+              type: type
+            revision: 1
             labels:
             - value: value
               key: key
             - value: value
               key: key
+            concurrency:
+              limit: 1
+              behavior: QUEUE
+            deleted: true
+            checks:
+            - condition: condition
+              style: ERROR
+              message: message
+              behavior: BLOCK_EXECUTION
+            - condition: condition
+              style: ERROR
+              message: message
+              behavior: BLOCK_EXECUTION
+            namespace: namespace
+            disabled: true
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            tasks:
+            - taskCache:
+                ttl: ttl
+                enabled: true
+              description: description
+              type: type
+              logToFile: true
+              version: version
+              timeout:
+                expression: expression
+                value: value
+              allowWarning: true
+              allowFailure: true
+              assets: ""
+              logLevel: ERROR
+              runIf: runIf
+              disabled: true
+              id: id
+              workerGroup:
+                fallback: FAIL
+                key: key
+              retry: "{}"
+            - taskCache:
+                ttl: ttl
+                enabled: true
+              description: description
+              type: type
+              logToFile: true
+              version: version
+              timeout:
+                expression: expression
+                value: value
+              allowWarning: true
+              allowFailure: true
+              assets: ""
+              logLevel: ERROR
+              runIf: runIf
+              disabled: true
+              id: id
+              workerGroup:
+                fallback: FAIL
+                key: key
+              retry: "{}"
+            errors:
+            - taskCache:
+                ttl: ttl
+                enabled: true
+              description: description
+              type: type
+              logToFile: true
+              version: version
+              timeout:
+                expression: expression
+                value: value
+              allowWarning: true
+              allowFailure: true
+              assets: ""
+              logLevel: ERROR
+              runIf: runIf
+              disabled: true
+              id: id
+              workerGroup:
+                fallback: FAIL
+                key: key
+              retry: "{}"
+            - taskCache:
+                ttl: ttl
+                enabled: true
+              description: description
+              type: type
+              logToFile: true
+              version: version
+              timeout:
+                expression: expression
+                value: value
+              allowWarning: true
+              allowFailure: true
+              assets: ""
+              logLevel: ERROR
+              runIf: runIf
+              disabled: true
+              id: id
+              workerGroup:
+                fallback: FAIL
+                key: key
+              retry: "{}"
+            retry: null
           fragments:
           - fragments
           - fragments
@@ -22180,6 +24806,21 @@ components:
               tasks:
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -22188,6 +24829,21 @@ components:
                 value: value
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -22232,6 +24888,21 @@ components:
               tasks:
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -22240,6 +24911,21 @@ components:
                 value: value
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -22292,6 +24978,21 @@ components:
               tasks:
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -22300,6 +25001,21 @@ components:
                 value: value
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -22344,6 +25060,21 @@ components:
               tasks:
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -22352,6 +25083,21 @@ components:
                 value: value
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -22501,6 +25247,21 @@ components:
               tasks:
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -22509,6 +25270,21 @@ components:
                 value: value
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -22639,6 +25415,21 @@ components:
               tasks:
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -22647,6 +25438,21 @@ components:
                 value: value
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -22785,6 +25591,21 @@ components:
               tasks:
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -22793,6 +25614,21 @@ components:
                 value: value
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -22923,6 +25759,21 @@ components:
               tasks:
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -22931,6 +25782,21 @@ components:
                 value: value
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -22988,7 +25854,29 @@ components:
             - The_labels_to_pass_to_the_execution_created_
             - The_labels_to_pass_to_the_execution_created_
             failOnTriggerError: true
-            logLevel: ERROR
+            assets:
+              expression: expression
+              value:
+                outputs:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                inputs:
+                - id: id
+                - id: id
+                enableAuto: true
+            logLevel: null
             disabled: false
             id: id
             workerGroup:
@@ -23026,7 +25914,29 @@ components:
             - The_labels_to_pass_to_the_execution_created_
             - The_labels_to_pass_to_the_execution_created_
             failOnTriggerError: true
-            logLevel: ERROR
+            assets:
+              expression: expression
+              value:
+                outputs:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                inputs:
+                - id: id
+                - id: id
+                enableAuto: true
+            logLevel: null
             disabled: false
             id: id
             workerGroup:
@@ -23140,6 +26050,7 @@ components:
       - IMPERSONATE
       - SETTING
       - APP
+      - ASSET
       - APPEXECUTION
       - TEST
       - DASHBOARD
@@ -23350,6 +26261,39 @@ components:
       - INGESTION
       - BI
       type: string
+    Property_AssetsDeclaration_:
+      example:
+        expression: expression
+        value:
+          outputs:
+          - metadata:
+              key: "{}"
+            displayName: displayName
+            namespace: namespace
+            description: description
+            id: id
+            type: type
+          - metadata:
+              key: "{}"
+            displayName: displayName
+            namespace: namespace
+            description: description
+            id: id
+            type: type
+          inputs:
+          - id: id
+          - id: id
+          enableAuto: true
+      oneOf:
+      - type: object
+      - type: string
+      properties:
+        expression:
+          type: string
+        value:
+          $ref: "#/components/schemas/AssetsDeclaration"
+      type: object
+      x-one-of-name: PropertyAssetsDeclaration
     Property_Boolean_:
       example:
         expression: expression
@@ -23459,7 +26403,13 @@ components:
       - NAMESPACE
       - KIND
       - LABELS
+      - METADATA
       - FLOW_ID
+      - FLOW_REVISION
+      - ID
+      - ASSET_ID
+      - TYPE
+      - CREATED
       - UPDATED
       - START_DATE
       - END_DATE
@@ -23469,6 +26419,8 @@ components:
       - TRIGGER_ID
       - TRIGGER_STATE
       - EXECUTION_ID
+      - TASK_ID
+      - TASK_RUN_ID
       - CHILD_FILTER
       - WORKER_ID
       - EXISTING_ONLY
@@ -23519,10 +26471,16 @@ components:
       - PARALLEL
       - DYNAMIC
       type: string
+    Relation_1:
+      enum:
+      - UPSERT
+      - USED_BY
+      type: string
     ResourceType:
       enum:
       - AUDITLOG
       - APP
+      - ASSET
       - APP_EXECUTION
       - BLUEPRINT
       - BINDING
@@ -23623,6 +26581,9 @@ components:
           EXECUTION:
           - EXECUTION
           - EXECUTION
+          ASSET:
+          - ASSET
+          - ASSET
           USER:
           - USER
           - USER
@@ -23940,11 +26901,343 @@ components:
     SearchResult_Flow_:
       example:
         model:
+          outputs:
+          - displayName: displayName
+            description: description
+            id: id
+            type: STRING
+            value: "{}"
+            required: true
+          - displayName: displayName
+            description: description
+            id: id
+            type: STRING
+            value: "{}"
+            required: true
+          variables: null
+          inputs:
+          - dependsOn: ""
+            defaults: ""
+            displayName: displayName
+            prefill: ""
+            description: description
+            id: id
+            type: ""
+            required: true
+          - dependsOn: ""
+            defaults: ""
+            displayName: displayName
+            prefill: ""
+            description: description
+            id: id
+            type: ""
+            required: true
+          finally:
+          - taskCache:
+              ttl: ttl
+              enabled: true
+            description: description
+            type: type
+            logToFile: true
+            version: version
+            timeout:
+              expression: expression
+              value: value
+            allowWarning: true
+            allowFailure: true
+            assets: ""
+            logLevel: ERROR
+            runIf: runIf
+            disabled: true
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            retry: "{}"
+          - taskCache:
+              ttl: ttl
+              enabled: true
+            description: description
+            type: type
+            logToFile: true
+            version: version
+            timeout:
+              expression: expression
+              value: value
+            allowWarning: true
+            allowFailure: true
+            assets: ""
+            logLevel: ERROR
+            runIf: runIf
+            disabled: true
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            retry: "{}"
+          description: description
+          sla:
+          - id: id
+            type: MAX_DURATION
+            behavior: FAIL
+            labels:
+            - SLA_labels
+            - SLA_labels
+          - id: id
+            type: MAX_DURATION
+            behavior: FAIL
+            labels:
+            - SLA_labels
+            - SLA_labels
+          afterExecution:
+          - taskCache:
+              ttl: ttl
+              enabled: true
+            description: description
+            type: type
+            logToFile: true
+            version: version
+            timeout:
+              expression: expression
+              value: value
+            allowWarning: true
+            allowFailure: true
+            assets: ""
+            logLevel: ERROR
+            runIf: runIf
+            disabled: true
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            retry: "{}"
+          - taskCache:
+              ttl: ttl
+              enabled: true
+            description: description
+            type: type
+            logToFile: true
+            version: version
+            timeout:
+              expression: expression
+              value: value
+            allowWarning: true
+            allowFailure: true
+            assets: ""
+            logLevel: ERROR
+            runIf: runIf
+            disabled: true
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            retry: "{}"
+          triggers:
+          - allowConcurrent: true
+            stopAfter:
+            - CREATED
+            - CREATED
+            description: description
+            type: type
+            logToFile: true
+            version: version
+            labels:
+            - The_labels_to_pass_to_the_execution_created_
+            - The_labels_to_pass_to_the_execution_created_
+            failOnTriggerError: true
+            assets:
+              expression: expression
+              value:
+                outputs:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                inputs:
+                - id: id
+                - id: id
+                enableAuto: true
+            logLevel: null
+            disabled: false
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            conditions:
+            - type: type
+            - type: type
+          - allowConcurrent: true
+            stopAfter:
+            - CREATED
+            - CREATED
+            description: description
+            type: type
+            logToFile: true
+            version: version
+            labels:
+            - The_labels_to_pass_to_the_execution_created_
+            - The_labels_to_pass_to_the_execution_created_
+            failOnTriggerError: true
+            assets:
+              expression: expression
+              value:
+                outputs:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                inputs:
+                - id: id
+                - id: id
+                enableAuto: true
+            logLevel: null
+            disabled: false
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            conditions:
+            - type: type
+            - type: type
+          pluginDefaults:
+          - forced: true
+            values: "{}"
+            type: type
+          - forced: true
+            values: "{}"
+            type: type
+          revision: 1
           labels:
           - value: value
             key: key
           - value: value
             key: key
+          concurrency:
+            limit: 1
+            behavior: QUEUE
+          deleted: true
+          checks:
+          - condition: condition
+            style: ERROR
+            message: message
+            behavior: BLOCK_EXECUTION
+          - condition: condition
+            style: ERROR
+            message: message
+            behavior: BLOCK_EXECUTION
+          namespace: namespace
+          disabled: true
+          id: id
+          workerGroup:
+            fallback: FAIL
+            key: key
+          tasks:
+          - taskCache:
+              ttl: ttl
+              enabled: true
+            description: description
+            type: type
+            logToFile: true
+            version: version
+            timeout:
+              expression: expression
+              value: value
+            allowWarning: true
+            allowFailure: true
+            assets: ""
+            logLevel: ERROR
+            runIf: runIf
+            disabled: true
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            retry: "{}"
+          - taskCache:
+              ttl: ttl
+              enabled: true
+            description: description
+            type: type
+            logToFile: true
+            version: version
+            timeout:
+              expression: expression
+              value: value
+            allowWarning: true
+            allowFailure: true
+            assets: ""
+            logLevel: ERROR
+            runIf: runIf
+            disabled: true
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            retry: "{}"
+          errors:
+          - taskCache:
+              ttl: ttl
+              enabled: true
+            description: description
+            type: type
+            logToFile: true
+            version: version
+            timeout:
+              expression: expression
+              value: value
+            allowWarning: true
+            allowFailure: true
+            assets: ""
+            logLevel: ERROR
+            runIf: runIf
+            disabled: true
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            retry: "{}"
+          - taskCache:
+              ttl: ttl
+              enabled: true
+            description: description
+            type: type
+            logToFile: true
+            version: version
+            timeout:
+              expression: expression
+              value: value
+            allowWarning: true
+            allowFailure: true
+            assets: ""
+            logLevel: ERROR
+            runIf: runIf
+            disabled: true
+            id: id
+            workerGroup:
+              fallback: FAIL
+              key: key
+            retry: "{}"
+          retry: null
         fragments:
         - fragments
         - fragments
@@ -24288,6 +27581,7 @@ components:
           value: value
         allowWarning: true
         allowFailure: true
+        assets: ""
         logLevel: ERROR
         runIf: runIf
         disabled: true
@@ -24341,6 +27635,10 @@ components:
           type: boolean
         taskCache:
           $ref: "#/components/schemas/Cache"
+        assets:
+          allOf:
+          - $ref: "#/components/schemas/Property_AssetsDeclaration_"
+          nullable: true
       required:
       - id
       - type
@@ -24349,6 +27647,21 @@ components:
       example:
         outputs:
           key: "{}"
+        assets:
+        - metadata:
+            key: "{}"
+          displayName: displayName
+          namespace: namespace
+          description: description
+          id: id
+          type: type
+        - metadata:
+            key: "{}"
+          displayName: displayName
+          namespace: namespace
+          description: description
+          id: id
+          type: type
         description:
           expression: expression
           value: value
@@ -24366,6 +27679,10 @@ components:
           additionalProperties:
             type: object
           type: object
+        assets:
+          items:
+            $ref: "#/components/schemas/Asset"
+          type: array
         description:
           $ref: "#/components/schemas/Property_String_"
       required:
@@ -24441,6 +27758,7 @@ components:
         parentTaskRunId: parentTaskRunId
         executionId: executionId
         forceExecution: true
+        assets: ""
         namespace: namespace
         iteration: 6
         dynamic: true
@@ -24508,6 +27826,10 @@ components:
         outputs:
           nullable: true
           type: object
+        assets:
+          allOf:
+          - $ref: "#/components/schemas/AssetsInOut"
+          nullable: true
         state:
           $ref: "#/components/schemas/State"
         iteration:
@@ -24768,6 +28090,21 @@ components:
             tasks:
             - outputs:
                 key: "{}"
+              assets:
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
               description:
                 expression: expression
                 value: value
@@ -24776,6 +28113,21 @@ components:
               value: value
             - outputs:
                 key: "{}"
+              assets:
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
               description:
                 expression: expression
                 value: value
@@ -24906,6 +28258,21 @@ components:
             tasks:
             - outputs:
                 key: "{}"
+              assets:
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
               description:
                 expression: expression
                 value: value
@@ -24914,6 +28281,21 @@ components:
               value: value
             - outputs:
                 key: "{}"
+              assets:
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
               description:
                 expression: expression
                 value: value
@@ -25044,6 +28426,21 @@ components:
               tasks:
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -25052,6 +28449,21 @@ components:
                 value: value
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -25096,6 +28508,21 @@ components:
               tasks:
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -25104,6 +28531,21 @@ components:
                 value: value
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -25156,6 +28598,21 @@ components:
               tasks:
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -25164,6 +28621,21 @@ components:
                 value: value
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -25208,6 +28680,21 @@ components:
               tasks:
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -25216,6 +28703,21 @@ components:
                 value: value
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -25276,6 +28778,21 @@ components:
             tasks:
             - outputs:
                 key: "{}"
+              assets:
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
               description:
                 expression: expression
                 value: value
@@ -25284,6 +28801,21 @@ components:
               value: value
             - outputs:
                 key: "{}"
+              assets:
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
               description:
                 expression: expression
                 value: value
@@ -25328,6 +28860,21 @@ components:
             tasks:
             - outputs:
                 key: "{}"
+              assets:
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
               description:
                 expression: expression
                 value: value
@@ -25336,6 +28883,21 @@ components:
               value: value
             - outputs:
                 key: "{}"
+              assets:
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
               description:
                 expression: expression
                 value: value
@@ -25447,6 +29009,21 @@ components:
               tasks:
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -25455,6 +29032,21 @@ components:
                 value: value
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -25499,6 +29091,21 @@ components:
               tasks:
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -25507,6 +29114,21 @@ components:
                 value: value
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -25559,6 +29181,21 @@ components:
               tasks:
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -25567,6 +29204,21 @@ components:
                 value: value
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -25611,6 +29263,21 @@ components:
               tasks:
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -25619,6 +29286,21 @@ components:
                 value: value
               - outputs:
                   key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
                 description:
                   expression: expression
                   value: value
@@ -25768,7 +29450,29 @@ components:
           - The_labels_to_pass_to_the_execution_created_
           - The_labels_to_pass_to_the_execution_created_
           failOnTriggerError: true
-          logLevel: ERROR
+          assets:
+            expression: expression
+            value:
+              outputs:
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              inputs:
+              - id: id
+              - id: id
+              enableAuto: true
+          logLevel: null
           disabled: false
           id: id
           workerGroup:
@@ -25950,6 +29654,21 @@ components:
           tasks:
           - outputs:
               key: "{}"
+            assets:
+            - metadata:
+                key: "{}"
+              displayName: displayName
+              namespace: namespace
+              description: description
+              id: id
+              type: type
+            - metadata:
+                key: "{}"
+              displayName: displayName
+              namespace: namespace
+              description: description
+              id: id
+              type: type
             description:
               expression: expression
               value: value
@@ -25958,6 +29677,21 @@ components:
             value: value
           - outputs:
               key: "{}"
+            assets:
+            - metadata:
+                key: "{}"
+              displayName: displayName
+              namespace: namespace
+              description: description
+              id: id
+              type: type
+            - metadata:
+                key: "{}"
+              displayName: displayName
+              namespace: namespace
+              description: description
+              id: id
+              type: type
             description:
               expression: expression
               value: value
@@ -26024,6 +29758,21 @@ components:
           tasks:
           - outputs:
               key: "{}"
+            assets:
+            - metadata:
+                key: "{}"
+              displayName: displayName
+              namespace: namespace
+              description: description
+              id: id
+              type: type
+            - metadata:
+                key: "{}"
+              displayName: displayName
+              namespace: namespace
+              description: description
+              id: id
+              type: type
             description:
               expression: expression
               value: value
@@ -26032,6 +29781,21 @@ components:
             value: value
           - outputs:
               key: "{}"
+            assets:
+            - metadata:
+                key: "{}"
+              displayName: displayName
+              namespace: namespace
+              description: description
+              id: id
+              type: type
+            - metadata:
+                key: "{}"
+              displayName: displayName
+              namespace: namespace
+              description: description
+              id: id
+              type: type
             description:
               expression: expression
               value: value
@@ -26340,6 +30104,9 @@ components:
         EXECUTION:
         - EXECUTION
         - EXECUTION
+        ASSET:
+        - ASSET
+        - ASSET
         USER:
         - USER
         - USER
@@ -26460,6 +30227,11 @@ components:
             type: string
           type: array
         APP:
+          items:
+            description: TODO default missing array inner type to string
+            type: string
+          type: array
+        ASSET:
           items:
             description: TODO default missing array inner type to string
             type: string

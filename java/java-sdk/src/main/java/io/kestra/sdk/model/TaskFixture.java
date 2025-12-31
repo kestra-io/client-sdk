@@ -19,9 +19,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.Asset;
 import io.kestra.sdk.model.PropertyString;
 import io.kestra.sdk.model.StateType;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -34,6 +38,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TaskFixture.JSON_PROPERTY_VALUE,
   TaskFixture.JSON_PROPERTY_STATE,
   TaskFixture.JSON_PROPERTY_OUTPUTS,
+  TaskFixture.JSON_PROPERTY_ASSETS,
   TaskFixture.JSON_PROPERTY_DESCRIPTION
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
@@ -49,6 +54,9 @@ public class TaskFixture {
 
   public static final String JSON_PROPERTY_OUTPUTS = "outputs";
   @jakarta.annotation.Nullable  private Map<String, Object> outputs = new HashMap<>();
+
+  public static final String JSON_PROPERTY_ASSETS = "assets";
+  @jakarta.annotation.Nullable  private List<Asset> assets = new ArrayList<>();
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
   @jakarta.annotation.Nullable  private String description;
@@ -160,6 +168,38 @@ public class TaskFixture {
     this.outputs = outputs;
   }
 
+  public TaskFixture assets(@jakarta.annotation.Nullable List<Asset> assets) {
+    
+    this.assets = assets;
+    return this;
+  }
+
+  public TaskFixture addAssetsItem(Asset assetsItem) {
+    if (this.assets == null) {
+      this.assets = new ArrayList<>();
+    }
+    this.assets.add(assetsItem);
+    return this;
+  }
+
+  /**
+   * Get assets
+   * @return assets
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_ASSETS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<Asset> getAssets() {
+    return assets;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ASSETS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAssets(@jakarta.annotation.Nullable List<Asset> assets) {
+    this.assets = assets;
+  }
+
   public TaskFixture description(@jakarta.annotation.Nullable String description) {
     
     this.description = description;
@@ -197,12 +237,13 @@ public class TaskFixture {
         Objects.equals(this.value, taskFixture.value) &&
         Objects.equals(this.state, taskFixture.state) &&
         Objects.equals(this.outputs, taskFixture.outputs) &&
+        Objects.equals(this.assets, taskFixture.assets) &&
         Objects.equals(this.description, taskFixture.description);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, value, state, outputs, description);
+    return Objects.hash(id, value, state, outputs, assets, description);
   }
 
   @Override
@@ -213,6 +254,7 @@ public class TaskFixture {
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    outputs: ").append(toIndentedString(outputs)).append("\n");
+    sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("}");
     return sb.toString();

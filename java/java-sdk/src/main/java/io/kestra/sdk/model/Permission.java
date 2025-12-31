@@ -55,6 +55,8 @@ public enum Permission {
   
   APP("APP"),
   
+  ASSET("ASSET"),
+  
   APPEXECUTION("APPEXECUTION"),
   
   TEST("TEST"),

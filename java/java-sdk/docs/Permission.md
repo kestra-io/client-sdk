@@ -35,6 +35,8 @@
 
 * `APP` (value: `"APP"`)
 
+* `ASSET` (value: `"ASSET"`)
+
 * `APPEXECUTION` (value: `"APPEXECUTION"`)
 
 * `TEST` (value: `"TEST"`)

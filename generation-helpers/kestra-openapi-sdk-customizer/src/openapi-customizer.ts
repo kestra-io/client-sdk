@@ -213,23 +213,37 @@ export function normalizeGetOperationIds(spec: any): number {
     return renamed;
 }
 
-export function replaceFlowLabelsSpec(spec: any): void {
-    if (!spec || typeof spec !== "object") return;
-    const schemas = spec.components && spec.components.schemas;
-    if (!schemas || typeof schemas !== "object") return;
+export function replaceFlowLabelsSpec(spec: any) {
+    if (!spec?.components?.schemas) return;
 
-    const flow = schemas["Flow"];
-    if (!flow || typeof flow !== "object") return;
+    const targets = ["Flow", "AbstractFlow", "FlowWithSource"];
 
-    if (!flow.properties || typeof flow.properties !== "object") {
-        flow.properties = {};
-    }
-
-    const existing = flow.properties["labels"];
-    const labelsPatch = {
-        type: "array",
-        items: { $ref: "#/components/schemas/Label" },
+    const updateLabels = (parent: any) => {
+        if (parent?.properties?.labels) {
+            parent.properties.labels = {
+                type: "array",
+                items: {
+                    $ref: "#/components/schemas/Label"
+                }
+            };
+            console.debug(`Replaced labels in schema with array of Label references`);
+        }
     };
 
-    flow.properties["labels"] = Object.assign({}, existing, labelsPatch);
+    for (const name of targets) {
+        const schema = spec.components.schemas[name];
+        if (!schema) continue;
+
+        // Update direct properties
+        updateLabels(schema);
+
+        // Update properties within composition blocks
+        for (const alt of ["allOf", "anyOf", "oneOf"]) {
+            if (Array.isArray(schema[alt])) {
+                schema[alt].forEach(updateLabels);
+            }
+        }
+    }
 }
+
+

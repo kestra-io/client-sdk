@@ -44,6 +44,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_I_M_P_E_R_S_O_N_A_T_E,
   IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_S_E_T_T_I_N_G,
   IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_A_P_P,
+  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_A_S_S_E_T,
   IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_A_P_P_E_X_E_C_U_T_I_O_N,
   IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_T_E_S_T,
   IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_D_A_S_H_B_O_A_R_D,
@@ -100,6 +101,9 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
 
   public static final String JSON_PROPERTY_A_P_P = "APP";
   @jakarta.annotation.Nullable  private List<String> APP = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_A_S_S_E_T = "ASSET";
+  @jakarta.annotation.Nullable  private List<String> ASSET = new ArrayList<>();
 
   public static final String JSON_PROPERTY_A_P_P_E_X_E_C_U_T_I_O_N = "APPEXECUTION";
   @jakarta.annotation.Nullable  private List<String> APPEXECUTION = new ArrayList<>();
@@ -608,6 +612,38 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
     this.APP = APP;
   }
 
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions ASSET(@jakarta.annotation.Nullable List<String> ASSET) {
+    
+    this.ASSET = ASSET;
+    return this;
+  }
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addASSETItem(String ASSETItem) {
+    if (this.ASSET == null) {
+      this.ASSET = new ArrayList<>();
+    }
+    this.ASSET.add(ASSETItem);
+    return this;
+  }
+
+  /**
+   * Get ASSET
+   * @return ASSET
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_A_S_S_E_T)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getASSET() {
+    return ASSET;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_A_S_S_E_T)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setASSET(@jakarta.annotation.Nullable List<String> ASSET) {
+    this.ASSET = ASSET;
+  }
+
   public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions APPEXECUTION(@jakarta.annotation.Nullable List<String> APPEXECUTION) {
     
     this.APPEXECUTION = APPEXECUTION;
@@ -888,6 +924,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
         Objects.equals(this.IMPERSONATE, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.IMPERSONATE) &&
         Objects.equals(this.SETTING, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.SETTING) &&
         Objects.equals(this.APP, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.APP) &&
+        Objects.equals(this.ASSET, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.ASSET) &&
         Objects.equals(this.APPEXECUTION, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.APPEXECUTION) &&
         Objects.equals(this.TEST, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.TEST) &&
         Objects.equals(this.DASHBOARD, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.DASHBOARD) &&
@@ -900,7 +937,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
 
   @Override
   public int hashCode() {
-    return Objects.hash(FLOW, BLUEPRINT, TEMPLATE, NAMESPACE, EXECUTION, USER, GROUP, ROLE, BINDING, AUDITLOG, SECRET, KVSTORE, IMPERSONATE, SETTING, APP, APPEXECUTION, TEST, DASHBOARD, TENANT_ACCESS, SERVICE_ACCOUNT, INVITATION, GROUP_MEMBERSHIP, UNKNOWN);
+    return Objects.hash(FLOW, BLUEPRINT, TEMPLATE, NAMESPACE, EXECUTION, USER, GROUP, ROLE, BINDING, AUDITLOG, SECRET, KVSTORE, IMPERSONATE, SETTING, APP, ASSET, APPEXECUTION, TEST, DASHBOARD, TENANT_ACCESS, SERVICE_ACCOUNT, INVITATION, GROUP_MEMBERSHIP, UNKNOWN);
   }
 
   @Override
@@ -922,6 +959,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
     sb.append("    IMPERSONATE: ").append(toIndentedString(IMPERSONATE)).append("\n");
     sb.append("    SETTING: ").append(toIndentedString(SETTING)).append("\n");
     sb.append("    APP: ").append(toIndentedString(APP)).append("\n");
+    sb.append("    ASSET: ").append(toIndentedString(ASSET)).append("\n");
     sb.append("    APPEXECUTION: ").append(toIndentedString(APPEXECUTION)).append("\n");
     sb.append("    TEST: ").append(toIndentedString(TEST)).append("\n");
     sb.append("    DASHBOARD: ").append(toIndentedString(DASHBOARD)).append("\n");

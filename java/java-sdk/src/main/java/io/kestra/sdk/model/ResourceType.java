@@ -29,6 +29,8 @@ public enum ResourceType {
   
   APP("APP"),
   
+  ASSET("ASSET"),
+  
   APP_EXECUTION("APP_EXECUTION"),
   
   BLUEPRINT("BLUEPRINT"),
