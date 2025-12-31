@@ -1,64 +1,40 @@
 # ResourceType1
 
 
-## Enum
+## Properties
 
-* `AUDITLOG` (value: `'AUDITLOG'`)
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**schemas** | **List[str]** |  | [optional] 
+**base_urn** | **str** |  | [optional] 
+**extensions** | [**Dict[str, ScimExtension]**](ScimExtension.md) |  | [optional] 
+**meta** | [**Meta**](Meta.md) |  | 
+**id** | **str** |  | [optional] 
+**external_id** | **str** |  | [optional] 
+**resource_type** | **str** |  | [optional] 
+**name** | **str** |  | [optional] 
+**description** | **str** |  | [optional] 
+**endpoint** | **str** |  | [optional] 
+**schema_urn** | **str** |  | [optional] 
+**schema_extensions** | [**List[ResourceTypeSchemaExtensionConfiguration]**](ResourceTypeSchemaExtensionConfiguration.md) |  | [optional] 
 
-* `APP` (value: `'APP'`)
+## Example
 
-* `APP_EXECUTION` (value: `'APP_EXECUTION'`)
+```python
+from kestrapy.models.resource_type1 import ResourceType1
 
-* `BLUEPRINT` (value: `'BLUEPRINT'`)
+# TODO update the JSON string below
+json = "{}"
+# create an instance of ResourceType1 from a JSON string
+resource_type1_instance = ResourceType1.from_json(json)
+# print the JSON string representation of the object
+print(ResourceType1.to_json())
 
-* `BINDING` (value: `'BINDING'`)
-
-* `DASHBOARD` (value: `'DASHBOARD'`)
-
-* `EXECUTION` (value: `'EXECUTION'`)
-
-* `FLOW` (value: `'FLOW'`)
-
-* `KV_STORE` (value: `'KV_STORE'`)
-
-* `GROUP` (value: `'GROUP'`)
-
-* `INVITATION` (value: `'INVITATION'`)
-
-* `NAMESPACE` (value: `'NAMESPACE'`)
-
-* `NAMESPACE_FILE` (value: `'NAMESPACE_FILE'`)
-
-* `ROLE` (value: `'ROLE'`)
-
-* `SECURITY_INTEGRATION` (value: `'SECURITY_INTEGRATION'`)
-
-* `SECRET` (value: `'SECRET'`)
-
-* `SETTING` (value: `'SETTING'`)
-
-* `TEMPLATE` (value: `'TEMPLATE'`)
-
-* `TRIGGER` (value: `'TRIGGER'`)
-
-* `TENANT` (value: `'TENANT'`)
-
-* `TENANT_ACCESS` (value: `'TENANT_ACCESS'`)
-
-* `TESTSUITE` (value: `'TESTSUITE'`)
-
-* `TESTSUITE_RUN` (value: `'TESTSUITE_RUN'`)
-
-* `VERSIONED_PLUGIN` (value: `'VERSIONED_PLUGIN'`)
-
-* `USER` (value: `'USER'`)
-
-* `WORKER_GROUP` (value: `'WORKER_GROUP'`)
-
-* `INSTANCE` (value: `'INSTANCE'`)
-
-* `UNKNOWN` (value: `'UNKNOWN'`)
-
+# convert the object into a dict
+resource_type1_dict = resource_type1_instance.to_dict()
+# create an instance of ResourceType1 from a dict
+resource_type1_from_dict = ResourceType1.from_dict(resource_type1_dict)
+```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

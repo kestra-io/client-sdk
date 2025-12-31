@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **inputs** | [**List[InputObject]**](InputObject.md) |  | [optional] 
 **outputs** | [**List[Output]**](Output.md) |  | [optional] 
 **disabled** | **bool** |  | 
-**labels** | [**List[Label]**](Label.md) | Labels as a list of Label (key/value pairs) or as a map of string to string. | [optional] 
+**labels** | [**MapObjectObject**](MapObjectObject.md) |  | [optional] 
 **variables** | **object** |  | [optional] 
 **worker_group** | [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
 **deleted** | **bool** |  | 

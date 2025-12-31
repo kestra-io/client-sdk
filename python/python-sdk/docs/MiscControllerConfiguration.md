@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 **is_ai_enabled** | **bool** |  | [optional] 
 **is_basic_auth_initialized** | **bool** |  | [optional] 
 **plugins_hash** | **int** |  | [optional] 
+**is_concurrency_view_enabled** | **bool** |  | [optional] 
 
 ## Example
 

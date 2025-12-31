@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **permission** | [**Permission**](Permission.md) |  | [optional] 
-**resource_type** | [**ResourceType1**](ResourceType1.md) |  | [optional] 
+**resource_type** | [**ResourceType**](ResourceType.md) |  | [optional] 
 **type** | **str** |  | 
 **id** | **str** |  | [optional] 
 

@@ -7,8 +7,12 @@ Method | HTTP request | Description
 [**delete_backfill**](TriggersApi.md#delete_backfill) | **POST** /api/v1/{tenant}/triggers/backfill/delete | Delete a backfill
 [**delete_backfill_by_ids**](TriggersApi.md#delete_backfill_by_ids) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-triggers | Delete backfill for given triggers
 [**delete_backfill_by_query**](TriggersApi.md#delete_backfill_by_query) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-query | Delete backfill for given triggers
+[**delete_trigger**](TriggersApi.md#delete_trigger) | **DELETE** /api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId} | Delete a trigger
+[**delete_triggers_by_ids**](TriggersApi.md#delete_triggers_by_ids) | **DELETE** /api/v1/{tenant}/triggers/delete/by-triggers | Delete given triggers
+[**delete_triggers_by_query**](TriggersApi.md#delete_triggers_by_query) | **DELETE** /api/v1/{tenant}/triggers/delete/by-query | Delete triggers by query parameters
 [**disabled_triggers_by_ids**](TriggersApi.md#disabled_triggers_by_ids) | **POST** /api/v1/{tenant}/triggers/set-disabled/by-triggers | Disable/enable given triggers
 [**disabled_triggers_by_query**](TriggersApi.md#disabled_triggers_by_query) | **POST** /api/v1/{tenant}/triggers/set-disabled/by-query | Disable/enable triggers by query parameters
+[**export_triggers**](TriggersApi.md#export_triggers) | **GET** /api/v1/{tenant}/triggers/export/by-query/csv | Export all triggers as a streamed CSV file
 [**pause_backfill**](TriggersApi.md#pause_backfill) | **PUT** /api/v1/{tenant}/triggers/backfill/pause | Pause a backfill
 [**pause_backfill_by_ids**](TriggersApi.md#pause_backfill_by_ids) | **POST** /api/v1/{tenant}/triggers/backfill/pause/by-triggers | Pause backfill for given triggers
 [**pause_backfill_by_query**](TriggersApi.md#pause_backfill_by_query) | **POST** /api/v1/{tenant}/triggers/backfill/pause/by-query | Pause backfill for given triggers
@@ -216,6 +220,202 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **delete_trigger**
+> object delete_trigger(namespace, flow_id, trigger_id, tenant)
+
+Delete a trigger
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    namespace = 'namespace_example' # str | The namespace
+    flow_id = 'flow_id_example' # str | The flow id
+    trigger_id = 'trigger_id_example' # str | The trigger id
+    tenant = 'tenant_example' # str | 
+
+    try:
+        # Delete a trigger
+        api_response = kestra_client.TriggersApi.delete_trigger(namespace, flow_id, trigger_id, tenant)
+        print("The response of TriggersApi->delete_trigger:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling TriggersApi->delete_trigger: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **namespace** | **str**| The namespace | 
+ **flow_id** | **str**| The flow id | 
+ **trigger_id** | **str**| The trigger id | 
+ **tenant** | **str**|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | deleteTrigger 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **delete_triggers_by_ids**
+> object delete_triggers_by_ids(tenant, trigger)
+
+Delete given triggers
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    tenant = 'tenant_example' # str | 
+    trigger = [kestrapy.Trigger()] # List[Trigger] | 
+
+    try:
+        # Delete given triggers
+        api_response = kestra_client.TriggersApi.delete_triggers_by_ids(tenant, trigger)
+        print("The response of TriggersApi->delete_triggers_by_ids:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling TriggersApi->delete_triggers_by_ids: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant** | **str**|  | 
+ **trigger** | [**List[Trigger]**](Trigger.md)|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | deleteTriggersByIds 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **delete_triggers_by_query**
+> object delete_triggers_by_query(tenant, delete_triggers_by_query_request)
+
+Delete triggers by query parameters
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    tenant = 'tenant_example' # str | 
+    delete_triggers_by_query_request = kestrapy.DeleteTriggersByQueryRequest() # DeleteTriggersByQueryRequest | 
+
+    try:
+        # Delete triggers by query parameters
+        api_response = kestra_client.TriggersApi.delete_triggers_by_query(tenant, delete_triggers_by_query_request)
+        print("The response of TriggersApi->delete_triggers_by_query:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling TriggersApi->delete_triggers_by_query: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant** | **str**|  | 
+ **delete_triggers_by_query_request** | [**DeleteTriggersByQueryRequest**](DeleteTriggersByQueryRequest.md)|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | deleteTriggersByQuery 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **disabled_triggers_by_ids**
 > object disabled_triggers_by_ids(tenant, trigger_controller_set_disabled_request)
 
@@ -343,6 +543,70 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | disabledTriggersByQuery 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **export_triggers**
+> List[object] export_triggers(filters, tenant)
+
+Export all triggers as a streamed CSV file
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    filters = [kestrapy.QueryFilter()] # List[QueryFilter] | A list of filters
+    tenant = 'tenant_example' # str | 
+
+    try:
+        # Export all triggers as a streamed CSV file
+        api_response = kestra_client.TriggersApi.export_triggers(filters, tenant)
+        print("The response of TriggersApi->export_triggers:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling TriggersApi->export_triggers: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **filters** | [**List[QueryFilter]**](QueryFilter.md)| A list of filters | 
+ **tenant** | **str**|  | 
+
+### Return type
+
+**List[object]**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/csv
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | exportTriggers 200 response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

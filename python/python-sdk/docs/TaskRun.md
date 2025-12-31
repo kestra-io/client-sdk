@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **value** | **str** |  | [optional] 
 **attempts** | [**List[TaskRunAttempt]**](TaskRunAttempt.md) |  | [optional] 
 **outputs** | **object** |  | [optional] 
+**assets** | [**AssetsInOut**](AssetsInOut.md) |  | [optional] 
 **state** | [**State**](State.md) |  | 
 **iteration** | **int** |  | [optional] 
 **dynamic** | **bool** |  | [optional] 

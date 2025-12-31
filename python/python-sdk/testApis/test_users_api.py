@@ -30,7 +30,7 @@ class TestUsersApi(unittest.TestCase):
 
     def setUp(self) -> None:
         configuration = Configuration()
-        configuration.host = "http://localhost:8080"
+        configuration.host = "http://localhost:9902"
         configuration.username = "root@root.com"
         configuration.password = "Root!1234"
 
@@ -255,7 +255,7 @@ class TestUsersApi(unittest.TestCase):
         name_base = "test_list_users_no_query"
         for i in range(60):
             user_req = IAMUserControllerApiCreateOrUpdateUserRequest(
-                email=f"{name_base + "_" + str(i)}@kestra.io"
+                email = f"{name_base}_{i}@kestra.io"
             )
             self.kestra_client.users.create_user(iam_user_controller_api_create_or_update_user_request=user_req)
 

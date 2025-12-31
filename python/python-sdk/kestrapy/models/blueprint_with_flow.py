@@ -14,7 +14,7 @@
 
 from __future__ import annotations
 import pprint
-import re  # noqa: F401
+import regex as re
 import json
 
 from datetime import datetime

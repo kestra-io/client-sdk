@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **cls** | **str** |  | [optional] 
 **deprecated** | **bool** |  | [optional] 
+**title** | **str** |  | [optional] 
+**description** | **str** |  | [optional] 
 
 ## Example
 

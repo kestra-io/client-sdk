@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**disable_flows_by_query**](FlowsApi.md#disable_flows_by_query) | **POST** /api/v1/{tenant}/flows/disable/by-query | Disable flows returned by the query parameters.
 [**enable_flows_by_ids**](FlowsApi.md#enable_flows_by_ids) | **POST** /api/v1/{tenant}/flows/enable/by-ids | Enable flows by their IDs.
 [**enable_flows_by_query**](FlowsApi.md#enable_flows_by_query) | **POST** /api/v1/{tenant}/flows/enable/by-query | Enable flows returned by the query parameters.
+[**export_flows**](FlowsApi.md#export_flows) | **GET** /api/v1/{tenant}/flows/export/by-query/csv | Export all flows as a streamed CSV file
 [**export_flows_by_ids**](FlowsApi.md#export_flows_by_ids) | **POST** /api/v1/{tenant}/flows/export/by-ids | Export flows as a ZIP archive of yaml sources.
 [**export_flows_by_query**](FlowsApi.md#export_flows_by_query) | **GET** /api/v1/{tenant}/flows/export/by-query | Export flows as a ZIP archive of yaml sources.
 [**flow**](FlowsApi.md#flow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id} | Get a flow
@@ -620,6 +621,70 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | enableFlowsByQuery 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **export_flows**
+> List[object] export_flows(filters, tenant)
+
+Export all flows as a streamed CSV file
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    filters = [kestrapy.QueryFilter()] # List[QueryFilter] | A list of filters
+    tenant = 'tenant_example' # str | 
+
+    try:
+        # Export all flows as a streamed CSV file
+        api_response = kestra_client.FlowsApi.export_flows(filters, tenant)
+        print("The response of FlowsApi->export_flows:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling FlowsApi->export_flows: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **filters** | [**List[QueryFilter]**](QueryFilter.md)| A list of filters | 
+ **tenant** | **str**|  | 
+
+### Return type
+
+**List[object]**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/csv
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | exportFlows 200 response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
