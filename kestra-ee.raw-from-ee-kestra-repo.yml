@@ -142,7 +142,7 @@ paths:
     get:
       tags:
         - Audit Logs
-      summary: "Search for audit logs across all tenants, required to be SuperAdmin"
+      summary: Search for audit logs across all tenants, required to be SuperAdmin
       operationId: searchAuditLogsForAllTenants
       parameters:
         - name: q
@@ -271,9 +271,10 @@ paths:
       tags:
         - Audit Logs
       summary: Retrieve the diff between audit logs from global resource like users
-      description: Retrieves the diff between the current version and a selected previous
-        version of a given resource based on audit logs.
-      operationId: getGlobalResourceDiffFromAuditLog
+      description: >-
+        Retrieves the diff between the current version and a selected previous version of a given resource based on
+        audit logs.
+      operationId: globalResourceDiffFromAuditLog
       parameters:
         - name: id
           in: path
@@ -316,8 +317,7 @@ paths:
       tags:
         - Banners
       summary: Create an announcement banner
-      description: Superadmin-only. Creates a global announcement banner visible to
-        all tenants.
+      description: Superadmin-only. Creates a global announcement banner visible to all tenants.
       operationId: createBanner
       requestBody:
         description: The announcement banner to create
@@ -411,7 +411,7 @@ paths:
         - Misc
       summary: Retrieve the instance configuration.
       description: Global endpoint available to all users.
-      operationId: getBasicAuthConfigErrors
+      operationId: basicAuthConfigErrors
       responses:
         "200":
           description: getBasicAuthConfigErrors 200 response
@@ -430,7 +430,7 @@ paths:
         - Misc
       summary: Retrieve the instance configuration.
       description: Global endpoint available to all users.
-      operationId: getConfiguration
+      operationId: configuration
       responses:
         "200":
           description: getConfiguration 200 response
@@ -446,8 +446,9 @@ paths:
       tags:
         - Auths
       summary: Sends an email to reset a password.
-      description: "Sends an email to reset a password. Note that whatever the username\
-        \ is found or not, the response will always be 200 to avoid leaking information."
+      description: >-
+        Sends an email to reset a password. Note that whatever the username is found or not, the response will always be
+        200 to avoid leaking information.
       operationId: forgottenPassword
       parameters:
         - name: username
@@ -506,7 +507,7 @@ paths:
         - Services
       summary: List all active services
       description: Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
-      operationId: getActiveServices
+      operationId: activeServices
       responses:
         "200":
           description: getActiveServices 200 response
@@ -521,7 +522,7 @@ paths:
     get:
       tags:
         - Services
-      summary: "Search for a service (e.g. Worker, Executor, etc)"
+      summary: Search for a service (e.g. Worker, Executor, etc)
       description: Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
       operationId: searchServices
       parameters:
@@ -586,7 +587,7 @@ paths:
         - Services
       summary: Retrieve details of a specific service
       description: Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
-      operationId: getService
+      operationId: service
       parameters:
         - name: id
           in: path
@@ -608,8 +609,7 @@ paths:
       tags:
         - Plugins
       summary: List installed plugin artifacts
-      description: Superadmin-only. Lists all currently installed plugin artifacts.
-        Requires INFRASTRUCTURE permission.
+      description: Superadmin-only. Lists all currently installed plugin artifacts. Requires INFRASTRUCTURE permission.
       operationId: listVersionedPlugin
       parameters:
         - name: page
@@ -661,8 +661,7 @@ paths:
       tags:
         - Plugins
       summary: List available plugin artifacts
-      description: Superadmin-only. Lists all plugin artifacts available for installation.
-        Requires INFRASTRUCTURE permission.
+      description: Superadmin-only. Lists all plugin artifacts available for installation. Requires INFRASTRUCTURE permission.
       operationId: listAvailableVersionedPlugins
       responses:
         "200":
@@ -679,8 +678,7 @@ paths:
       tags:
         - Plugins
       summary: List available plugin artifacts for Kestra Secret Manager
-      description: Superadmin-only. Lists all secret managers available for installation.
-        Requires INFRASTRUCTURE permission.
+      description: Superadmin-only. Lists all secret managers available for installation. Requires INFRASTRUCTURE permission.
       operationId: listAvailableVersionedPluginsForSecretManager
       responses:
         "200":
@@ -697,8 +695,7 @@ paths:
       tags:
         - Plugins
       summary: List available plugin artifacts for Kestra Internal Storage
-      description: Superadmin-only. Lists all internal storages available for installation.
-        Requires INFRASTRUCTURE permission.
+      description: Superadmin-only. Lists all internal storages available for installation. Requires INFRASTRUCTURE permission.
       operationId: listAvailableVersionedPluginsForStorage
       responses:
         "200":
@@ -715,8 +712,7 @@ paths:
       tags:
         - Plugins
       summary: Install specified plugin artifacts
-      description: Superadmin-only. Installs one or more plugin artifacts. Requires
-        INFRASTRUCTURE permission.
+      description: Superadmin-only. Installs one or more plugin artifacts. Requires INFRASTRUCTURE permission.
       operationId: installVersionedPlugins
       requestBody:
         description: List of plugins
@@ -740,8 +736,9 @@ paths:
       tags:
         - Plugins
       summary: Resolve versions for specified plugin artifacts
-      description: Superadmin-only. Resolves compatible versions for a list of plugin
-        artifacts. Requires INFRASTRUCTURE permission.
+      description: >-
+        Superadmin-only. Resolves compatible versions for a list of plugin artifacts. Requires INFRASTRUCTURE
+        permission.
       operationId: resolveVersionedPlugins
       requestBody:
         description: List of plugins
@@ -765,8 +762,7 @@ paths:
       tags:
         - Plugins
       summary: Uninstall plugin artifacts
-      description: Superadmin-only. Uninstalls one or more plugin artifacts. Requires
-        INFRASTRUCTURE permission.
+      description: Superadmin-only. Uninstalls one or more plugin artifacts. Requires INFRASTRUCTURE permission.
       operationId: uninstallVersionedPlugins
       requestBody:
         description: List of plugins
@@ -790,8 +786,7 @@ paths:
       tags:
         - Plugins
       summary: Upload a plugin artifact JAR file
-      description: Superadmin-only. Uploads a plugin JAR file for installation. Requires
-        INFRASTRUCTURE permission.
+      description: Superadmin-only. Uploads a plugin JAR file for installation. Requires INFRASTRUCTURE permission.
       operationId: uploadVersionedPlugins
       requestBody:
         content:
@@ -827,9 +822,10 @@ paths:
       tags:
         - Plugins
       summary: Retrieve details of a plugin artifact
-      description: Superadmin-only. Retrieves metadata and available versions for
-        a given plugin artifact. Requires INFRASTRUCTURE permission.
-      operationId: getVersionedPluginDetails
+      description: >-
+        Superadmin-only. Retrieves metadata and available versions for a given plugin artifact. Requires INFRASTRUCTURE
+        permission.
+      operationId: versionedPluginDetails
       parameters:
         - name: groupId
           in: path
@@ -856,9 +852,10 @@ paths:
       tags:
         - Plugins
       summary: Retrieve details of a specific plugin artifact version
-      description: Superadmin-only. Retrieves metadata for a specific version of a
-        plugin artifact. Requires INFRASTRUCTURE permission.
-      operationId: getVersionedPluginDetailsFromVersion
+      description: >-
+        Superadmin-only. Retrieves metadata for a specific version of a plugin artifact. Requires INFRASTRUCTURE
+        permission.
+      operationId: versionedPluginDetailsFromVersion
       parameters:
         - name: groupId
           in: path
@@ -931,7 +928,7 @@ paths:
         - WorkerGroups
       summary: Retrieve details of a specific worker group
       description: Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
-      operationId: getWorkerGroupById
+      operationId: workerGroupById
       parameters:
         - name: id
           in: path
@@ -1047,7 +1044,7 @@ paths:
       tags:
         - Misc
       summary: Retrieve license information
-      description: "Global endpoint, available to any authenticated user."
+      description: Global endpoint, available to any authenticated user.
       operationId: licenseInfo
       responses:
         "200":
@@ -1094,7 +1091,7 @@ paths:
         - Auths
       summary: Get details about the authenticated user
       description: Requires the ME permission.
-      operationId: getCurrentUser
+      operationId: currentUser
       responses:
         "200":
           description: getCurrentUser 200 response
@@ -1109,8 +1106,7 @@ paths:
       tags:
         - Auths
       summary: Update authenticated user details
-      description: Updates the authenticated user's profile information and returns
-        the updated user.
+      description: Updates the authenticated user's profile information and returns the updated user.
       operationId: patchCurrentUser
       requestBody:
         description: The user details
@@ -1195,8 +1191,7 @@ paths:
       tags:
         - Invitations
       summary: List invitations for the authenticated user
-      description: Returns all invitations for the authenticated user's email across
-        all tenants.
+      description: Returns all invitations for the authenticated user's email across all tenants.
       operationId: findAllInvitationsForCurrentUser
       responses:
         "200":
@@ -1256,7 +1251,7 @@ paths:
       tags:
         - Plugins
       summary: Get plugins group by subgroups
-      operationId: getPluginBySubgroups
+      operationId: pluginBySubgroups
       responses:
         "200":
           description: getPluginBySubgroups 200 response
@@ -1274,7 +1269,7 @@ paths:
       tags:
         - Plugins
       summary: Get plugins icons
-      operationId: getPluginIcons
+      operationId: pluginIcons
       responses:
         "200":
           description: getPluginIcons 200 response
@@ -1292,7 +1287,7 @@ paths:
       tags:
         - Plugins
       summary: Get plugins icons
-      operationId: getPluginGroupIcons
+      operationId: pluginGroupIcons
       responses:
         "200":
           description: getPluginGroupIcons 200 response
@@ -1310,7 +1305,7 @@ paths:
       tags:
         - Plugins
       summary: Get all types for an inputs
-      operationId: getAllInputTypes
+      operationId: allInputTypes
       responses:
         "200":
           description: getAllInputTypes 200 response
@@ -1328,8 +1323,8 @@ paths:
       tags:
         - Plugins
       summary: Get the JSON schema for an input type
-      description: "The schema will be a [JSON Schema Draft 7](http://json-schema.org/draft-07/schema)"
-      operationId: getSchemaFromInputType
+      description: The schema will be a [JSON Schema Draft 7](http://json-schema.org/draft-07/schema)
+      operationId: schemaFromInputType
       parameters:
         - name: type
           in: path
@@ -1352,8 +1347,8 @@ paths:
       tags:
         - Plugins
       summary: Get the properties part of the JSON schema for a type
-      description: "The schema will be a [JSON Schema Draft 7](http://json-schema.org/draft-07/schema)"
-      operationId: getPropertiesFromType
+      description: The schema will be a [JSON Schema Draft 7](http://json-schema.org/draft-07/schema)
+      operationId: propertiesFromType
       parameters:
         - name: type
           in: path
@@ -1378,8 +1373,8 @@ paths:
       tags:
         - Plugins
       summary: Get the JSON schema for a type
-      description: "The schema will be a [JSON Schema Draft 7](http://json-schema.org/draft-07/schema)"
-      operationId: getSchemasFromType
+      description: The schema will be a [JSON Schema Draft 7](http://json-schema.org/draft-07/schema)
+      operationId: schemasFromType
       parameters:
         - name: type
           in: path
@@ -1412,7 +1407,7 @@ paths:
       tags:
         - Plugins
       summary: Get plugin documentation
-      operationId: getPluginDocumentation
+      operationId: pluginDocumentation
       parameters:
         - name: cls
           in: path
@@ -1443,7 +1438,7 @@ paths:
       tags:
         - Plugins
       summary: Get all versions for a plugin
-      operationId: getPluginVersions
+      operationId: pluginVersions
       parameters:
         - name: cls
           in: path
@@ -1466,7 +1461,7 @@ paths:
       tags:
         - Plugins
       summary: Get plugin documentation
-      operationId: getPluginDocumentationFromVersion
+      operationId: pluginDocumentationFromVersion
       parameters:
         - name: cls
           in: path
@@ -1522,8 +1517,7 @@ paths:
       tags:
         - Auths
       summary: Change a password for given token.
-      description: "Change a password for given token. If password does not match\
-        \ password policy, use can still retry."
+      description: Change a password for given token. If password does not match password policy, use can still retry.
       operationId: resetPassword
       requestBody:
         description: The password
@@ -1543,7 +1537,7 @@ paths:
     get:
       tags:
         - ServiceAccount
-      summary: 'List service accounts. Superadmin-only. '
+      summary: "List service accounts. Superadmin-only. "
       operationId: listServiceAccounts
       parameters:
         - name: q
@@ -1596,8 +1590,7 @@ paths:
       tags:
         - ServiceAccount
       summary: Create a service account
-      description: Superadmin-only. CReate service account with access to multiple
-        tenants.
+      description: Superadmin-only. CReate service account with access to multiple tenants.
       operationId: createServiceAccount
       requestBody:
         description: The service account
@@ -1622,7 +1615,7 @@ paths:
         - ServiceAccount
       summary: Get a service account
       description: Superadmin-only. Get user account details.
-      operationId: getServiceAccount
+      operationId: serviceAccount
       parameters:
         - name: id
           in: path
@@ -1631,14 +1624,14 @@ paths:
           schema:
             type: string
       responses:
-        "404":
-          description: User not found
         "200":
           description: getServiceAccount 200 response
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/IAMServiceAccountController.ApiServiceAccountDetail"
+        "404":
+          description: User not found
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -1960,8 +1953,7 @@ paths:
       tags:
         - Tenants
       summary: Delete a tenant and all its resources
-      description: "Superadmin-only. Deletes all resources linked to the tenant, including\
-        \ flows, namespaces, apps, etc."
+      description: Superadmin-only. Deletes all resources linked to the tenant, including flows, namespaces, apps, etc.
       operationId: delete
       parameters:
         - name: id
@@ -1979,7 +1971,7 @@ paths:
         - Tenants
       summary: Get the apps catalog config for the specified tenant.
       description: Superadmin-only.
-      operationId: getAppsCatalogConfig
+      operationId: appsCatalogConfig
       parameters:
         - name: id
           in: path
@@ -2163,8 +2155,7 @@ paths:
       tags:
         - Users
       summary: Create a new user account
-      description: Superadmin-only. Create a new user account with an optional password
-        based authentication method.
+      description: Superadmin-only. Create a new user account with an optional password based authentication method.
       operationId: createUser
       requestBody:
         content:
@@ -2180,7 +2171,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/IAMUserController.ApiUser"
         "404":
-          description: "Tenant, or group not found"
+          description: Tenant, or group not found
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -2190,7 +2181,7 @@ paths:
         - Users
       summary: Get a user
       description: Superadmin-only. Get user account details.
-      operationId: getUser
+      operationId: user
       parameters:
         - name: id
           in: path
@@ -2199,14 +2190,14 @@ paths:
           schema:
             type: string
       responses:
-        "404":
-          description: User not found
         "200":
           description: getUser 200 response
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/IAMUserController.ApiUser"
+        "404":
+          description: User not found
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -2214,8 +2205,7 @@ paths:
       tags:
         - Users
       summary: Update a user account
-      description: Superadmin-only. Update an existing user account with an optional
-        password based authentication method.
+      description: Superadmin-only. Update an existing user account with an optional password based authentication method.
       operationId: updateUser
       parameters:
         - name: id
@@ -2231,14 +2221,14 @@ paths:
               $ref: "#/components/schemas/IAMUserController.ApiCreateOrUpdateUserRequest"
         required: true
       responses:
-        "404":
-          description: "Tenant, or group not found"
         "200":
           description: updateUser 200 response
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/IAMUserController.ApiUser"
+        "404":
+          description: Tenant, or group not found
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -2308,14 +2298,14 @@ paths:
           schema:
             type: string
       responses:
-        "404":
-          description: User not found
         "200":
           description: listApiTokensForUser 200 response
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiTokenList"
+        "404":
+          description: User not found
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -2375,7 +2365,7 @@ paths:
         "204":
           description: API token successfully deleted
         "404":
-          description: "User, or API Token not found"
+          description: User, or API Token not found
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -2426,14 +2416,14 @@ paths:
           schema:
             type: string
       responses:
-        "404":
-          description: User not found
         "200":
           description: impersonate 200 response
           content:
             application/json:
               schema:
                 type: object
+        "404":
+          description: User not found
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -2551,10 +2541,10 @@ paths:
       tags:
         - Misc
       summary: Retrieve list of actions
-      description: "Actions are used to restrict possible operations for each permission.\
-        \ Each action must be one of the following: CREATE, READ, UPDATE, DELETE.\
-        \ Using permissions and actions together, you can control access to resources\
-        \ e.g. only allow a user to read a flow, but not update or delete it."
+      description: >-
+        Actions are used to restrict possible operations for each permission. Each action must be one of the following:
+        CREATE, READ, UPDATE, DELETE. Using permissions and actions together, you can control access to resources e.g.
+        only allow a user to read a flow, but not update or delete it.
       operationId: listActions
       parameters:
         - name: tenant
@@ -2579,9 +2569,9 @@ paths:
       tags:
         - Misc
       summary: Retrieve list of permissions
-      description: "Permissions are used to control access to resources within the\
-        \ Kestra platform. Example of permissions are: FLOW, EXECUTION, NAMESPACE,\
-        \ APP, TEST, etc."
+      description: >-
+        Permissions are used to control access to resources within the Kestra platform. Example of permissions are:
+        FLOW, EXECUTION, NAMESPACE, APP, TEST, etc.
       operationId: listPermissions
       parameters:
         - name: tenant
@@ -2851,8 +2841,7 @@ paths:
               properties:
                 fileUpload:
                   type: string
-                  description: "The file to import, can be a ZIP archive or a multi-objects\
-                    \ YAML file"
+                  description: The file to import, can be a ZIP archive or a multi-objects YAML file
                   format: binary
             encoding:
               fileUpload:
@@ -3002,96 +2991,12 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
-  /api/v1/{tenant}/apps/view/{id}/dispatch/{dispatch}:
-    post:
-      tags:
-        - Apps
-      summary: Dispatch for a given app.
-      operationId: dispatchApp
-      parameters:
-        - name: id
-          in: path
-          description: The ID of the app.
-          required: true
-          schema:
-            type: string
-        - name: dispatch
-          in: path
-          description: The ID to dispatch
-          required: true
-          schema:
-            type: string
-        - name: tenant
-          in: path
-          required: true
-          schema:
-            type: string
-      requestBody:
-        description: The data of the app
-        content:
-          multipart/form-data:
-            schema:
-              type: array
-              properties:
-                parameters:
-                  $ref: "#/components/schemas/HttpParameters"
-              items:
-                type: string
-                format: binary
-            encoding: {}
-      responses:
-        "200":
-          description: dispatchApp 200 response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/AppResponse"
-      security:
-        - bearerAuth: []
-        - basicAuth: []
-  /api/v1/{tenant}/apps/view/{id}/file/download:
-    get:
-      tags:
-        - Apps
-      summary: Download file from an app execution
-      operationId: downloadFileFromAppExecution
-      parameters:
-        - name: id
-          in: path
-          description: The ID of the app.
-          required: true
-          schema:
-            type: string
-        - name: path
-          in: query
-          description: The internal storage uri
-          required: true
-          explode: false
-          schema:
-            type: string
-            format: uri
-        - name: tenant
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: downloadFileFromAppExecution 200 response
-          content:
-            application/json:
-              schema:
-                type: string
-                format: binary
-      security:
-        - bearerAuth: []
-        - basicAuth: []
   /api/v1/{tenant}/apps/view/{id}/file/meta:
     get:
       tags:
         - Apps
       summary: Get file meta information from an app execution
-      operationId: getFileMetaFromAppExecution
+      operationId: fileMetaFromAppExecution
       parameters:
         - name: id
           in: path
@@ -3127,7 +3032,7 @@ paths:
       tags:
         - Apps
       summary: Get file preview from an app execution
-      operationId: getFilePreviewFromAppExecution
+      operationId: filePreviewFromAppExecution
       parameters:
         - name: id
           in: path
@@ -3180,7 +3085,7 @@ paths:
       tags:
         - Apps
       summary: Get an event stream from a given app.
-      operationId: getStreamEventsFromApp
+      operationId: streamEventsFromApp
       parameters:
         - name: id
           in: path
@@ -3254,7 +3159,7 @@ paths:
       tags:
         - Apps
       summary: Download logs for an app execution
-      operationId: getLogsFromAppExecution
+      operationId: logsFromAppExecution
       parameters:
         - name: uid
           in: path
@@ -3307,7 +3212,7 @@ paths:
       tags:
         - Apps
       summary: Retrieve an app
-      operationId: getApp
+      operationId: app
       parameters:
         - name: uid
           in: path
@@ -3752,9 +3657,10 @@ paths:
       tags:
         - Audit Logs
       summary: Retrieve the diff between audit logs
-      description: Retrieves the diff between the current version and a selected previous
-        version of a given resource based on audit logs.
-      operationId: getResourceDiffFromAuditLog
+      description: >-
+        Retrieves the diff between the current version and a selected previous version of a given resource based on
+        audit logs.
+      operationId: resourceDiffFromAuditLog
       parameters:
         - name: id
           in: path
@@ -3954,7 +3860,7 @@ paths:
       tags:
         - Bindings
       summary: Retrieve a binding
-      operationId: getBinding
+      operationId: binding
       parameters:
         - name: id
           in: path
@@ -4005,8 +3911,7 @@ paths:
       tags:
         - Blueprints
       summary: List all blueprints
-      description: Lists all community blueprints of the specified kind. Community
-        blueprints are shared and versioned.
+      description: Lists all community blueprints of the specified kind. Community blueprints are shared and versioned.
       operationId: searchBlueprints
       parameters:
         - name: q
@@ -4075,8 +3980,7 @@ paths:
       tags:
         - Blueprint Tags
       summary: List blueprint tags matching the filter
-      description: "Lists tags for community blueprints of the specified kind, optionally\
-        \ filtered by query."
+      description: Lists tags for community blueprints of the specified kind, optionally filtered by query.
       operationId: listBlueprintTags
       parameters:
         - name: kind
@@ -4112,7 +4016,7 @@ paths:
         - Blueprints
       summary: Retrieve a blueprint
       description: Retrieves details of a specific community blueprint.
-      operationId: getBlueprint
+      operationId: blueprint
       parameters:
         - name: id
           in: path
@@ -4143,9 +4047,8 @@ paths:
       tags:
         - Blueprints
       summary: Retrieve a blueprint graph
-      description: Retrieves the topology graph representation of a specific community
-        blueprint.
-      operationId: getBlueprintGraph
+      description: Retrieves the topology graph representation of a specific community blueprint.
+      operationId: blueprintGraph
       parameters:
         - name: id
           in: path
@@ -4179,7 +4082,7 @@ paths:
         - Blueprints
       summary: Retrieve a blueprint source code
       description: Retrieves the YAML source code for a specific community blueprint.
-      operationId: getBlueprintSource
+      operationId: blueprintSource
       parameters:
         - name: id
           in: path
@@ -4210,8 +4113,7 @@ paths:
       tags:
         - Blueprints
       summary: List all internal blueprints
-      description: Lists all internal (custom) blueprints for the current tenant.
-        Requires BLUEPRINT permission.
+      description: Lists all internal (custom) blueprints for the current tenant. Requires BLUEPRINT permission.
       operationId: searchInternalBlueprints
       parameters:
         - name: q
@@ -4271,8 +4173,7 @@ paths:
       tags:
         - Blueprints
       summary: Create a new internal blueprint
-      description: Creates a new internal (custom) blueprint for the current tenant.
-        Requires BLUEPRINT permission.
+      description: Creates a new internal (custom) blueprint for the current tenant. Requires BLUEPRINT permission.
       operationId: createInternalBlueprints
       parameters:
         - name: tenant
@@ -4300,8 +4201,7 @@ paths:
       tags:
         - Blueprint Tags
       summary: List all internal blueprint tags
-      description: Lists all tags used by internal (custom) blueprints for the current
-        tenant.
+      description: Lists all tags used by internal (custom) blueprints for the current tenant.
       operationId: internalBlueprintTags
       parameters:
         - name: q
@@ -4330,8 +4230,7 @@ paths:
       tags:
         - Blueprints
       summary: Retrieve an internal blueprint
-      description: Retrieves details of a specific internal (custom) blueprint. Requires
-        BLUEPRINT permission.
+      description: Retrieves details of a specific internal (custom) blueprint. Requires BLUEPRINT permission.
       operationId: internalBlueprint
       parameters:
         - name: id
@@ -4356,8 +4255,7 @@ paths:
       tags:
         - Blueprints
       summary: Update an internal blueprint
-      description: Updates an existing internal (custom) blueprint for the current
-        tenant. Requires BLUEPRINT permission.
+      description: Updates an existing internal (custom) blueprint for the current tenant. Requires BLUEPRINT permission.
       operationId: updateInternalBlueprints
       parameters:
         - name: id
@@ -4390,8 +4288,7 @@ paths:
       tags:
         - Blueprints
       summary: Delete an internal blueprint
-      description: Deletes an internal (custom) blueprint for the current tenant.
-        Requires BLUEPRINT permission.
+      description: Deletes an internal (custom) blueprint for the current tenant. Requires BLUEPRINT permission.
       operationId: deleteInternalBlueprints
       parameters:
         - name: id
@@ -4414,8 +4311,7 @@ paths:
       tags:
         - Blueprints
       summary: Retrieve an internal blueprint source code
-      description: Retrieves the YAML source code for a specific internal (custom)
-        blueprint. Requires BLUEPRINT permission.
+      description: Retrieves the YAML source code for a specific internal (custom) blueprint. Requires BLUEPRINT permission.
       operationId: internalBlueprintFlow
       parameters:
         - name: id
@@ -4441,9 +4337,8 @@ paths:
       tags:
         - Blueprints
       summary: Retrieve an flow blueprint
-      description: Retrieves details of a specific flow blueprint. Requires BLUEPRINT
-        permission.
-      operationId: getFlowBlueprint
+      description: Retrieves details of a specific flow blueprint. Requires BLUEPRINT permission.
+      operationId: flowBlueprint
       parameters:
         - name: id
           in: path
@@ -4493,9 +4388,8 @@ paths:
       tags:
         - Blueprints
       summary: Retrieve an flow blueprint
-      description: Retrieves details of a specific flow blueprint. Requires BLUEPRINT
-        permission.
-      operationId: getFlowBlueprintById
+      description: Retrieves details of a specific flow blueprint. Requires BLUEPRINT permission.
+      operationId: flowBlueprintById
       parameters:
         - name: id
           in: path
@@ -4549,8 +4443,7 @@ paths:
       tags:
         - Blueprints
       summary: Delete an Flow Blueprint
-      description: Deletes an Flow Blueprint for the current tenant. Requires BLUEPRINT
-        permission.
+      description: Deletes an Flow Blueprint for the current tenant. Requires BLUEPRINT permission.
       operationId: deleteFlowBlueprints
       parameters:
         - name: id
@@ -4840,7 +4733,7 @@ paths:
       tags:
         - Dashboards
       summary: Get a dashboard
-      operationId: getDashboard
+      operationId: dashboard
       parameters:
         - name: id
           in: path
@@ -4916,7 +4809,7 @@ paths:
       tags:
         - Dashboards
       summary: Generate a dashboard chart data
-      operationId: getDashboardChartData
+      operationId: dashboardChartData
       parameters:
         - name: id
           in: path
@@ -4936,8 +4829,7 @@ paths:
           schema:
             type: string
       requestBody:
-        description: "The filters to apply, some can override chart definition like\
-          \ labels & namespace"
+        description: The filters to apply, some can override chart definition like labels & namespace
         content:
           application/json:
             schema:
@@ -4975,8 +4867,7 @@ paths:
           schema:
             type: string
       requestBody:
-        description: "The filters to apply, some can override chart definition like\
-          \ labels & namespace"
+        description: The filters to apply, some can override chart definition like labels & namespace
         content:
           application/json:
             schema:
@@ -4995,12 +4886,11 @@ paths:
       tags:
         - Tenants
       summary: Get tenant dependencies
-      operationId: getFlowDependenciesFromTenant
+      operationId: flowDependenciesFromTenant
       parameters:
         - name: destinationOnly
           in: query
-          description: "if true, list only destination dependencies, otherwise list\
-          \ also source dependencies"
+          description: if true, list only destination dependencies, otherwise list also source dependencies
           required: true
           explode: false
           schema:
@@ -5159,105 +5049,6 @@ paths:
             nullable: true
             items:
               $ref: "#/components/schemas/QueryFilter"
-        - name: q
-          in: query
-          description: A string filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: scope
-          in: query
-          description: The scope of the executions to include
-          deprecated: true
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              $ref: "#/components/schemas/FlowScope"
-        - name: namespace
-          in: query
-          description: A namespace filter prefix
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: flowId
-          in: query
-          description: A flow id filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: startDate
-          in: query
-          description: The start datetime
-          deprecated: true
-          schema:
-            type: string
-            format: date-time
-            nullable: true
-        - name: endDate
-          in: query
-          description: The end datetime
-          deprecated: true
-          schema:
-            type: string
-            format: date-time
-            nullable: true
-        - name: timeRange
-          in: query
-          description: A time range filter relative to the current time
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-          examples:
-            Filter last 5 minutes:
-              value: PT5M
-            Filter last 24 hours:
-              value: P1D
-        - name: state
-          in: query
-          description: A state filter
-          deprecated: true
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              $ref: "#/components/schemas/State.Type"
-        - name: labels
-          in: query
-          description: A labels filter as a list of 'key:value'
-          deprecated: true
-          schema:
-            type: array
-            nullable: true
-            items:
-              type: string
-        - name: triggerExecutionId
-          in: query
-          description: The trigger execution id
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: childFilter
-          in: query
-          description: A execution child filter
-          deprecated: true
-          explode: false
-          schema:
-            nullable: true
-            allOf:
-              - $ref: "#/components/schemas/ExecutionRepositoryInterface.ChildFilter"
         - name: includeNonTerminated
           in: query
           description: Whether to delete non-terminated executions
@@ -5365,105 +5156,6 @@ paths:
             nullable: true
             items:
               $ref: "#/components/schemas/QueryFilter"
-        - name: q
-          in: query
-          description: A string filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: scope
-          in: query
-          description: The scope of the executions to include
-          deprecated: true
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              $ref: "#/components/schemas/FlowScope"
-        - name: namespace
-          in: query
-          description: A namespace filter prefix
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: flowId
-          in: query
-          description: A flow id filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: startDate
-          in: query
-          description: The start datetime
-          deprecated: true
-          schema:
-            type: string
-            format: date-time
-            nullable: true
-        - name: endDate
-          in: query
-          description: The end datetime
-          deprecated: true
-          schema:
-            type: string
-            format: date-time
-            nullable: true
-        - name: timeRange
-          in: query
-          description: A time range filter relative to the current time
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-          examples:
-            Filter last 5 minutes:
-              value: PT5M
-            Filter last 24 hours:
-              value: P1D
-        - name: state
-          in: query
-          description: A state filter
-          deprecated: true
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              $ref: "#/components/schemas/State.Type"
-        - name: labels
-          in: query
-          description: A labels filter as a list of 'key:value'
-          deprecated: true
-          schema:
-            type: array
-            nullable: true
-            items:
-              type: string
-        - name: triggerExecutionId
-          in: query
-          description: The trigger execution id
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: childFilter
-          in: query
-          description: A execution child filter
-          deprecated: true
-          explode: false
-          schema:
-            nullable: true
-            allOf:
-              - $ref: "#/components/schemas/ExecutionRepositoryInterface.ChildFilter"
         - name: newStatus
           in: query
           description: The new state of the executions
@@ -5530,7 +5222,7 @@ paths:
       tags:
         - Executions
       summary: Get flow information's for an execution
-      operationId: getFlowFromExecution
+      operationId: flowFromExecution
       parameters:
         - name: namespace
           in: path
@@ -5620,105 +5312,6 @@ paths:
             nullable: true
             items:
               $ref: "#/components/schemas/QueryFilter"
-        - name: q
-          in: query
-          description: A string filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: scope
-          in: query
-          description: The scope of the executions to include
-          deprecated: true
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              $ref: "#/components/schemas/FlowScope"
-        - name: namespace
-          in: query
-          description: A namespace filter prefix
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: flowId
-          in: query
-          description: A flow id filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: startDate
-          in: query
-          description: The start datetime
-          deprecated: true
-          schema:
-            type: string
-            format: date-time
-            nullable: true
-        - name: endDate
-          in: query
-          description: The end datetime
-          deprecated: true
-          schema:
-            type: string
-            format: date-time
-            nullable: true
-        - name: timeRange
-          in: query
-          description: A time range filter relative to the current time
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-          examples:
-            Filter last 5 minutes:
-              value: PT5M
-            Filter last 24 hours:
-              value: P1D
-        - name: state
-          in: query
-          description: A state filter
-          deprecated: true
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              $ref: "#/components/schemas/State.Type"
-        - name: labels
-          in: query
-          description: A labels filter as a list of 'key:value'
-          deprecated: true
-          schema:
-            type: array
-            nullable: true
-            items:
-              type: string
-        - name: triggerExecutionId
-          in: query
-          description: The trigger execution id
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: childFilter
-          in: query
-          description: A execution child filter
-          deprecated: true
-          explode: false
-          schema:
-            nullable: true
-            allOf:
-              - $ref: "#/components/schemas/ExecutionRepositoryInterface.ChildFilter"
         - name: tenant
           in: path
           required: true
@@ -5787,105 +5380,6 @@ paths:
             nullable: true
             items:
               $ref: "#/components/schemas/QueryFilter"
-        - name: q
-          in: query
-          description: A string filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: scope
-          in: query
-          description: The scope of the executions to include
-          deprecated: true
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              $ref: "#/components/schemas/FlowScope"
-        - name: namespace
-          in: query
-          description: A namespace filter prefix
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: flowId
-          in: query
-          description: A flow id filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: startDate
-          in: query
-          description: The start datetime
-          deprecated: true
-          schema:
-            type: string
-            format: date-time
-            nullable: true
-        - name: endDate
-          in: query
-          description: The end datetime
-          deprecated: true
-          schema:
-            type: string
-            format: date-time
-            nullable: true
-        - name: timeRange
-          in: query
-          description: A time range filter relative to the current time
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-          examples:
-            Filter last 5 minutes:
-              value: PT5M
-            Filter last 24 hours:
-              value: P1D
-        - name: state
-          in: query
-          description: A state filter
-          deprecated: true
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              $ref: "#/components/schemas/State.Type"
-        - name: labels
-          in: query
-          description: A labels filter as a list of 'key:value'
-          deprecated: true
-          schema:
-            type: array
-            nullable: true
-            items:
-              type: string
-        - name: triggerExecutionId
-          in: query
-          description: The trigger execution id
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: childFilter
-          in: query
-          description: A execution child filter
-          deprecated: true
-          explode: false
-          schema:
-            nullable: true
-            allOf:
-              - $ref: "#/components/schemas/ExecutionRepositoryInterface.ChildFilter"
         - name: tenant
           in: path
           required: true
@@ -5952,105 +5446,6 @@ paths:
             nullable: true
             items:
               $ref: "#/components/schemas/QueryFilter"
-        - name: q
-          in: query
-          description: A string filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: scope
-          in: query
-          description: The scope of the executions to include
-          deprecated: true
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              $ref: "#/components/schemas/FlowScope"
-        - name: namespace
-          in: query
-          description: A namespace filter prefix
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: flowId
-          in: query
-          description: A flow id filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: startDate
-          in: query
-          description: The start datetime
-          deprecated: true
-          schema:
-            type: string
-            format: date-time
-            nullable: true
-        - name: endDate
-          in: query
-          description: The end datetime
-          deprecated: true
-          schema:
-            type: string
-            format: date-time
-            nullable: true
-        - name: timeRange
-          in: query
-          description: A time range filter relative to the current time
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-          examples:
-            Filter last 5 minutes:
-              value: PT5M
-            Filter last 24 hours:
-              value: P1D
-        - name: state
-          in: query
-          description: A state filter
-          deprecated: true
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              $ref: "#/components/schemas/State.Type"
-        - name: labels
-          in: query
-          description: A labels filter as a list of 'key:value'
-          deprecated: true
-          schema:
-            type: array
-            nullable: true
-            items:
-              type: string
-        - name: triggerExecutionId
-          in: query
-          description: The trigger execution id
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: childFilter
-          in: query
-          description: A execution child filter
-          deprecated: true
-          explode: false
-          schema:
-            nullable: true
-            allOf:
-              - $ref: "#/components/schemas/ExecutionRepositoryInterface.ChildFilter"
         - name: tenant
           in: path
           required: true
@@ -6080,7 +5475,7 @@ paths:
       tags:
         - Executions
       summary: Get the latest execution for given flows
-      operationId: getLatestExecutions
+      operationId: latestExecutions
       parameters:
         - name: tenant
           in: path
@@ -6104,62 +5499,6 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/ExecutionController.LastExecutionResponse"
-      security:
-        - bearerAuth: []
-        - basicAuth: []
-  /api/v1/{tenant}/executions/namespaces:
-    get:
-      tags:
-        - Executions
-      summary: Get all namespaces that have executable flows
-      operationId: listExecutableDistinctNamespaces
-      parameters:
-        - name: tenant
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: listExecutableDistinctNamespaces 200 response
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: string
-      security:
-        - bearerAuth: []
-        - basicAuth: []
-  /api/v1/{tenant}/executions/namespaces/{namespace}/flows:
-    get:
-      tags:
-        - Executions
-      summary: Get all flow ids for a namespace. Data returned are FlowForExecution
-        containing minimal information about a Flow for when you are allowed to executing
-        but not reading.
-      operationId: listFlowExecutionsByNamespace
-      parameters:
-        - name: namespace
-          in: path
-          description: The namespace
-          required: true
-          schema:
-            type: string
-        - name: tenant
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: listFlowExecutionsByNamespace 200 response
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/FlowForExecution"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -6216,105 +5555,6 @@ paths:
             nullable: true
             items:
               $ref: "#/components/schemas/QueryFilter"
-        - name: q
-          in: query
-          description: A string filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: scope
-          in: query
-          description: The scope of the executions to include
-          deprecated: true
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              $ref: "#/components/schemas/FlowScope"
-        - name: namespace
-          in: query
-          description: A namespace filter prefix
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: flowId
-          in: query
-          description: A flow id filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: startDate
-          in: query
-          description: The start datetime
-          deprecated: true
-          schema:
-            type: string
-            format: date-time
-            nullable: true
-        - name: endDate
-          in: query
-          description: The end datetime
-          deprecated: true
-          schema:
-            type: string
-            format: date-time
-            nullable: true
-        - name: timeRange
-          in: query
-          description: A time range filter relative to the current time
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-          examples:
-            Filter last 5 minutes:
-              value: PT5M
-            Filter last 24 hours:
-              value: P1D
-        - name: state
-          in: query
-          description: A state filter
-          deprecated: true
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              $ref: "#/components/schemas/State.Type"
-        - name: labels
-          in: query
-          description: A labels filter as a list of 'key:value'
-          deprecated: true
-          schema:
-            type: array
-            nullable: true
-            items:
-              type: string
-        - name: triggerExecutionId
-          in: query
-          description: The trigger execution id
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: childFilter
-          in: query
-          description: A execution child filter
-          deprecated: true
-          explode: false
-          schema:
-            nullable: true
-            allOf:
-              - $ref: "#/components/schemas/ExecutionRepositoryInterface.ChildFilter"
         - name: tenant
           in: path
           required: true
@@ -6379,8 +5619,7 @@ paths:
     post:
       tags:
         - Executions
-      summary: Create new executions from old ones filter by query parameters. Keep
-        the flow revision
+      summary: Create new executions from old ones filter by query parameters. Keep the flow revision
       operationId: replayExecutionsByQuery
       parameters:
         - name: filters
@@ -6392,105 +5631,6 @@ paths:
             nullable: true
             items:
               $ref: "#/components/schemas/QueryFilter"
-        - name: q
-          in: query
-          description: A string filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: scope
-          in: query
-          description: The scope of the executions to include
-          deprecated: true
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              $ref: "#/components/schemas/FlowScope"
-        - name: namespace
-          in: query
-          description: A namespace filter prefix
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: flowId
-          in: query
-          description: A flow id filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: startDate
-          in: query
-          description: The start datetime
-          deprecated: true
-          schema:
-            type: string
-            format: date-time
-            nullable: true
-        - name: endDate
-          in: query
-          description: The end datetime
-          deprecated: true
-          schema:
-            type: string
-            format: date-time
-            nullable: true
-        - name: timeRange
-          in: query
-          description: A time range filter relative to the current time
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-          examples:
-            Filter last 5 minutes:
-              value: PT5M
-            Filter last 24 hours:
-              value: P1D
-        - name: state
-          in: query
-          description: A state filter
-          deprecated: true
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              $ref: "#/components/schemas/State.Type"
-        - name: labels
-          in: query
-          description: A labels filter as a list of 'key:value'
-          deprecated: true
-          schema:
-            type: array
-            nullable: true
-            items:
-              type: string
-        - name: triggerExecutionId
-          in: query
-          description: The trigger execution id
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: childFilter
-          in: query
-          description: A execution child filter
-          deprecated: true
-          explode: false
-          schema:
-            nullable: true
-            allOf:
-              - $ref: "#/components/schemas/ExecutionRepositoryInterface.ChildFilter"
         - name: latestRevision
           in: query
           description: If latest revision should be used
@@ -6567,105 +5707,6 @@ paths:
             nullable: true
             items:
               $ref: "#/components/schemas/QueryFilter"
-        - name: q
-          in: query
-          description: A string filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: scope
-          in: query
-          description: The scope of the executions to include
-          deprecated: true
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              $ref: "#/components/schemas/FlowScope"
-        - name: namespace
-          in: query
-          description: A namespace filter prefix
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: flowId
-          in: query
-          description: A flow id filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: startDate
-          in: query
-          description: The start datetime
-          deprecated: true
-          schema:
-            type: string
-            format: date-time
-            nullable: true
-        - name: endDate
-          in: query
-          description: The end datetime
-          deprecated: true
-          schema:
-            type: string
-            format: date-time
-            nullable: true
-        - name: timeRange
-          in: query
-          description: A time range filter relative to the current time
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-          examples:
-            Filter last 5 minutes:
-              value: PT5M
-            Filter last 24 hours:
-              value: P1D
-        - name: state
-          in: query
-          description: A state filter
-          deprecated: true
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              $ref: "#/components/schemas/State.Type"
-        - name: labels
-          in: query
-          description: A labels filter as a list of 'key:value'
-          deprecated: true
-          schema:
-            type: array
-            nullable: true
-            items:
-              type: string
-        - name: triggerExecutionId
-          in: query
-          description: The trigger execution id
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: childFilter
-          in: query
-          description: A execution child filter
-          deprecated: true
-          explode: false
-          schema:
-            nullable: true
-            allOf:
-              - $ref: "#/components/schemas/ExecutionRepositoryInterface.ChildFilter"
         - name: tenant
           in: path
           required: true
@@ -6734,105 +5775,6 @@ paths:
             nullable: true
             items:
               $ref: "#/components/schemas/QueryFilter"
-        - name: q
-          in: query
-          description: A string filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: scope
-          in: query
-          description: The scope of the executions to include
-          deprecated: true
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              $ref: "#/components/schemas/FlowScope"
-        - name: namespace
-          in: query
-          description: A namespace filter prefix
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: flowId
-          in: query
-          description: A flow id filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: startDate
-          in: query
-          description: The start datetime
-          deprecated: true
-          schema:
-            type: string
-            format: date-time
-            nullable: true
-        - name: endDate
-          in: query
-          description: The end datetime
-          deprecated: true
-          schema:
-            type: string
-            format: date-time
-            nullable: true
-        - name: timeRange
-          in: query
-          description: A time range filter relative to the current time
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-          examples:
-            Filter last 5 minutes:
-              value: PT5M
-            Filter last 24 hours:
-              value: P1D
-        - name: state
-          in: query
-          description: A state filter
-          deprecated: true
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              $ref: "#/components/schemas/State.Type"
-        - name: labels
-          in: query
-          description: A labels filter as a list of 'key:value'
-          deprecated: true
-          schema:
-            type: array
-            nullable: true
-            items:
-              type: string
-        - name: triggerExecutionId
-          in: query
-          description: The trigger execution id
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: childFilter
-          in: query
-          description: A execution child filter
-          deprecated: true
-          explode: false
-          schema:
-            nullable: true
-            allOf:
-              - $ref: "#/components/schemas/ExecutionRepositoryInterface.ChildFilter"
         - name: tenant
           in: path
           required: true
@@ -6893,105 +5835,6 @@ paths:
             nullable: true
             items:
               $ref: "#/components/schemas/QueryFilter"
-        - name: q
-          in: query
-          description: A string filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: scope
-          in: query
-          description: The scope of the executions to include
-          deprecated: true
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              $ref: "#/components/schemas/FlowScope"
-        - name: namespace
-          in: query
-          description: A namespace filter prefix
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: flowId
-          in: query
-          description: A flow id filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: startDate
-          in: query
-          description: The start datetime
-          deprecated: true
-          schema:
-            type: string
-            format: date-time
-            nullable: true
-        - name: endDate
-          in: query
-          description: The end datetime
-          deprecated: true
-          schema:
-            type: string
-            format: date-time
-            nullable: true
-        - name: timeRange
-          in: query
-          description: A time range filter relative to the current time
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-          examples:
-            Filter last 5 minutes:
-              value: PT5M
-            Filter last 24 hours:
-              value: P1D
-        - name: state
-          in: query
-          description: A state filter
-          deprecated: true
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              $ref: "#/components/schemas/State.Type"
-        - name: labels
-          in: query
-          description: A labels filter as a list of 'key:value'
-          deprecated: true
-          schema:
-            type: array
-            nullable: true
-            items:
-              type: string
-        - name: triggerExecutionId
-          in: query
-          description: The trigger execution id
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: childFilter
-          in: query
-          description: A execution child filter
-          deprecated: true
-          explode: false
-          schema:
-            nullable: true
-            allOf:
-              - $ref: "#/components/schemas/ExecutionRepositoryInterface.ChildFilter"
         - name: tenant
           in: path
           required: true
@@ -7004,77 +5847,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PagedResults_Execution_"
-      security:
-        - bearerAuth: []
-        - basicAuth: []
-  /api/v1/{tenant}/executions/trigger/{namespace}/{id}:
-    post:
-      tags:
-        - Executions
-      summary: Trigger a new execution for a flow
-      operationId: triggerExecution
-      parameters:
-        - name: namespace
-          in: path
-          description: The flow namespace
-          required: true
-          schema:
-            type: string
-        - name: id
-          in: path
-          description: The flow id
-          required: true
-          schema:
-            type: string
-        - name: labels
-          in: query
-          description: The labels as a list of 'key:value'
-          schema:
-            type: array
-            nullable: true
-            items:
-              type: string
-        - name: wait
-          in: query
-          description: If the server will wait the end of the execution
-          required: true
-          explode: false
-          schema:
-            type: boolean
-            default: false
-        - name: revision
-          in: query
-          description: The flow revision or latest if null
-          explode: false
-          schema:
-            type: integer
-            format: int32
-            nullable: true
-        - name: tenant
-          in: path
-          required: true
-          schema:
-            type: string
-      requestBody:
-        description: The inputs
-        content:
-          multipart/form-data:
-            schema:
-              type: array
-              items:
-                type: string
-                format: binary
-      responses:
-        "409":
-          description: if the flow is disabled
-        "200":
-          description: triggerExecution 200 response
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ExecutionController.ExecutionResponse"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -7138,105 +5910,6 @@ paths:
             nullable: true
             items:
               $ref: "#/components/schemas/QueryFilter"
-        - name: q
-          in: query
-          description: A string filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: scope
-          in: query
-          description: The scope of the executions to include
-          deprecated: true
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              $ref: "#/components/schemas/FlowScope"
-        - name: namespace
-          in: query
-          description: A namespace filter prefix
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: flowId
-          in: query
-          description: A flow id filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: startDate
-          in: query
-          description: The start datetime
-          deprecated: true
-          schema:
-            type: string
-            format: date-time
-            nullable: true
-        - name: endDate
-          in: query
-          description: The end datetime
-          deprecated: true
-          schema:
-            type: string
-            format: date-time
-            nullable: true
-        - name: timeRange
-          in: query
-          description: A time range filter relative to the current time
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-          examples:
-            Filter last 5 minutes:
-              value: PT5M
-            Filter last 24 hours:
-              value: P1D
-        - name: state
-          in: query
-          description: A state filter
-          deprecated: true
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              $ref: "#/components/schemas/State.Type"
-        - name: labels
-          in: query
-          description: A labels filter as a list of 'key:value'
-          deprecated: true
-          schema:
-            type: array
-            nullable: true
-            items:
-              type: string
-        - name: triggerExecutionId
-          in: query
-          description: The trigger execution id
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: childFilter
-          in: query
-          description: A execution child filter
-          deprecated: true
-          explode: false
-          schema:
-            nullable: true
-            allOf:
-              - $ref: "#/components/schemas/ExecutionRepositoryInterface.ChildFilter"
         - name: newState
           in: query
           description: The new state of the unqueued executions
@@ -7300,90 +5973,12 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
-    put:
-      tags:
-        - Executions
-      summary: Trigger a new execution by PUT webhook trigger
-      operationId: triggerExecutionByPutWebhook
-      parameters:
-        - name: namespace
-          in: path
-          description: The flow namespace
-          required: true
-          schema:
-            type: string
-        - name: id
-          in: path
-          description: The flow id
-          required: true
-          schema:
-            type: string
-        - name: key
-          in: path
-          description: The webhook trigger uid
-          required: true
-          schema:
-            type: string
-        - name: tenant
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: On success
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ExecutionController.WebhookResponse"
-      security:
-        - bearerAuth: []
-        - basicAuth: []
-    post:
-      tags:
-        - Executions
-      summary: Trigger a new execution by POST webhook trigger
-      operationId: triggerExecutionByPostWebhook
-      parameters:
-        - name: namespace
-          in: path
-          description: The flow namespace
-          required: true
-          schema:
-            type: string
-        - name: id
-          in: path
-          description: The flow id
-          required: true
-          schema:
-            type: string
-        - name: key
-          in: path
-          description: The webhook trigger uid
-          required: true
-          schema:
-            type: string
-        - name: tenant
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: On success
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ExecutionController.WebhookResponse"
-      security:
-        - bearerAuth: []
-        - basicAuth: []
   /api/v1/{tenant}/executions/{executionId}:
     get:
       tags:
         - Executions
       summary: Get an execution
-      operationId: getExecution
+      operationId: execution
       parameters:
         - name: executionId
           in: path
@@ -7448,10 +6043,10 @@ paths:
           schema:
             type: string
       responses:
-        "204":
-          description: On success
         "200":
           description: deleteExecution 200 response
+        "204":
+          description: On success
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -7487,47 +6082,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Execution"
-      security:
-        - bearerAuth: []
-        - basicAuth: []
-  /api/v1/{tenant}/executions/{executionId}/eval/{taskRunId}:
-    post:
-      tags:
-        - Executions
-      summary: Evaluate a variable expression for this taskrun
-      operationId: evalTaskRunExpression
-      parameters:
-        - name: executionId
-          in: path
-          description: The execution id
-          required: true
-          schema:
-            type: string
-        - name: taskRunId
-          in: path
-          description: The taskrun id
-          required: true
-          schema:
-            type: string
-        - name: tenant
-          in: path
-          required: true
-          schema:
-            type: string
-      requestBody:
-        description: The Pebble expression that should be evaluated
-        content:
-          text/plain:
-            schema:
-              type: string
-        required: true
-      responses:
-        "200":
-          description: evalTaskRunExpression 200 response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ExecutionController.EvalResult"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -7573,7 +6127,7 @@ paths:
       tags:
         - Executions
       summary: Get file meta information for an execution
-      operationId: getFileMetadatasFromExecution
+      operationId: fileMetadatasFromExecution
       parameters:
         - name: executionId
           in: path
@@ -7604,65 +6158,12 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
-  /api/v1/{tenant}/executions/{executionId}/file/preview:
-    get:
-      tags:
-        - Executions
-      summary: Get file preview for an execution
-      operationId: previewFileFromExecution
-      parameters:
-        - name: executionId
-          in: path
-          description: The execution id
-          required: true
-          schema:
-            type: string
-        - name: path
-          in: query
-          description: The internal storage uri
-          required: true
-          explode: false
-          schema:
-            type: string
-            format: uri
-        - name: maxRows
-          in: query
-          description: The max row returns
-          required: true
-          explode: false
-          schema:
-            type: integer
-            format: int32
-        - name: encoding
-          in: query
-          description: The file encoding as Java charset name. Defaults to UTF-8
-          required: true
-          explode: false
-          schema:
-            type: string
-            default: UTF-8
-          example: ISO-8859-1
-        - name: tenant
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: previewFileFromExecution 200 response
-          content:
-            application/json:
-              schema:
-                type: object
-      security:
-        - bearerAuth: []
-        - basicAuth: []
   /api/v1/{tenant}/executions/{executionId}/flow:
     get:
       tags:
         - Executions
       summary: Get flow information's for an execution
-      operationId: getFlowFromExecutionById
+      operationId: flowFromExecutionById
       parameters:
         - name: executionId
           in: path
@@ -7731,8 +6232,7 @@ paths:
             type: string
         - name: destinationOnly
           in: query
-          description: "If true, list only destination dependencies, otherwise list\
-          \ also source dependencies"
+          description: If true, list only destination dependencies, otherwise list also source dependencies
           required: true
           explode: false
           schema:
@@ -7740,7 +6240,7 @@ paths:
             default: false
         - name: expandAll
           in: query
-          description: "If true, expand all dependencies recursively"
+          description: If true, expand all dependencies recursively
           required: true
           explode: false
           schema:
@@ -7797,7 +6297,7 @@ paths:
       tags:
         - Executions
       summary: Generate a graph for an execution
-      operationId: getExecutionFlowGraph
+      operationId: executionFlowGraph
       parameters:
         - name: executionId
           in: path
@@ -7844,8 +6344,7 @@ paths:
             type: string
         - name: isOnKillCascade
           in: query
-          description: Specifies whether killing the execution also kill all subflow
-            executions.
+          description: Specifies whether killing the execution also kill all subflow executions.
           required: true
           explode: false
           schema:
@@ -7857,18 +6356,18 @@ paths:
           schema:
             type: string
       responses:
-        "202":
-          description: Execution kill was requested successfully
-        "409":
-          description: if the executions is already finished
-        "404":
-          description: if the executions is not found
         "200":
           description: killExecution 200 response
           content:
             text/json:
               schema:
                 type: object
+        "202":
+          description: Execution kill was requested successfully
+        "404":
+          description: if the executions is not found
+        "409":
+          description: if the executions is already finished
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -7900,16 +6399,16 @@ paths:
                 $ref: "#/components/schemas/Label"
         required: true
       responses:
-        "404":
-          description: If the execution cannot be found
-        "400":
-          description: If the execution is not terminated
         "200":
           description: setLabelsOnTerminatedExecution 200 response
           content:
             application/json:
               schema:
                 type: object
+        "400":
+          description: If the execution is not terminated
+        "404":
+          description: If the execution cannot be found
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -7932,12 +6431,12 @@ paths:
           schema:
             type: string
       responses:
+        "200":
+          description: pauseExecution 200 response
         "204":
           description: On success
         "409":
           description: if the executions is not running
-        "200":
-          description: pauseExecution 200 response
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -7945,8 +6444,7 @@ paths:
     post:
       tags:
         - Executions
-      summary: Create a new execution from an old one and start it from a specified
-        task run id
+      summary: Create a new execution from an old one and start it from a specified task run id
       operationId: replayExecution
       parameters:
         - name: executionId
@@ -7972,8 +6470,7 @@ paths:
             nullable: true
         - name: breakpoints
           in: query
-          description: "Set a list of breakpoints at specific tasks 'id.value', separated\
-          \ by a coma."
+          description: Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
           explode: false
           schema:
             type: string
@@ -7997,8 +6494,7 @@ paths:
     post:
       tags:
         - Executions
-      summary: Create a new execution from an old one and start it from a specified
-        task run id
+      summary: Create a new execution from an old one and start it from a specified task run id
       operationId: replayExecutionWithinputs
       parameters:
         - name: executionId
@@ -8024,8 +6520,7 @@ paths:
             nullable: true
         - name: breakpoints
           in: query
-          description: "Set a list of breakpoints at specific tasks 'id.value', separated\
-          \ by a coma."
+          description: Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
           explode: false
           schema:
             type: string
@@ -8123,137 +6618,21 @@ paths:
                 format: binary
         required: true
       responses:
-        "204":
-          description: On success
-        "409":
-          description: if the executions is not paused
         "200":
           description: resumeExecution 200 response
           content:
             application/json:
               schema:
                 type: object
+        "204":
+          description: On success
+        "409":
+          description: if the executions is not paused
       security:
         - bearerAuth: []
         - basicAuth: []
       x-sdk-customization:
         x-multipart: "true"
-  /api/v1/{tenant}/executions/{executionId}/resume-from-breakpoint:
-    post:
-      tags:
-        - Executions
-      summary: Resume an execution from a breakpoint (in the 'BREAKPOINT' state).
-      operationId: resumeExecutionFromBreakpoint
-      parameters:
-        - name: executionId
-          in: path
-          description: The execution id
-          required: true
-          schema:
-            type: string
-        - name: breakpoints
-          in: query
-          description: "\"Set a list of breakpoints at specific tasks 'id.value', separated\
-          \ by a coma."
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: tenant
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "204":
-          description: On success
-        "409":
-          description: If the executions is not in the 'BREAKPOINT' state or has no
-            breakpoint
-        "200":
-          description: resumeExecutionFromBreakpoint 200 response
-      security:
-        - bearerAuth: []
-        - basicAuth: []
-  /api/v1/{tenant}/executions/{executionId}/resume/validate:
-    post:
-      tags:
-        - Executions
-      summary: Validate inputs to resume a paused execution.
-      operationId: validateResumeExecutionInputs
-      parameters:
-        - name: executionId
-          in: path
-          description: The execution id
-          required: true
-          schema:
-            type: string
-        - name: tenant
-          in: path
-          required: true
-          schema:
-            type: string
-      requestBody:
-        description: The inputs
-        content:
-          multipart/form-data:
-            schema:
-              type: array
-              items:
-                type: string
-                format: binary
-        required: true
-      responses:
-        "204":
-          description: On success
-        "409":
-          description: if the executions is not paused
-        "200":
-          description: validateResumeExecutionInputs 200 response
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ExecutionController.ApiValidateExecutionInputsResponse"
-      security:
-        - bearerAuth: []
-        - basicAuth: []
-  /api/v1/{tenant}/executions/{executionId}/state:
-    post:
-      tags:
-        - Executions
-      summary: Change state for a taskrun in an execution
-      operationId: updateTaskRunState
-      parameters:
-        - name: executionId
-          in: path
-          description: The execution id
-          required: true
-          schema:
-            type: string
-        - name: tenant
-          in: path
-          required: true
-          schema:
-            type: string
-      requestBody:
-        description: the taskRun id and state to apply
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ExecutionController.StateRequest"
-        required: true
-      responses:
-        "200":
-          description: updateTaskRunState 200 response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Execution"
-      security:
-        - bearerAuth: []
-        - basicAuth: []
   /api/v1/{tenant}/executions/{executionId}/unqueue:
     post:
       tags:
@@ -8342,8 +6721,7 @@ paths:
             nullable: true
         - name: breakpoints
           in: query
-          description: "Set a list of breakpoints at specific tasks 'id.value', separated\
-          \ by a coma."
+          description: Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
           explode: false
           schema:
             type: string
@@ -8371,83 +6749,19 @@ paths:
                 type: string
                 format: binary
       responses:
-        "409":
-          description: if the flow is disabled
         "200":
           description: On execution created
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ExecutionController.ExecutionResponse"
+        "409":
+          description: if the flow is disabled
       security:
         - bearerAuth: []
         - basicAuth: []
       x-sdk-customization:
         x-multipart: "true"
-  /api/v1/{tenant}/executions/{namespace}/{id}/validate:
-    post:
-      tags:
-        - Executions
-      summary: Validate the creation of a new execution for a flow
-      operationId: validateNewExecutionInputs
-      parameters:
-        - name: namespace
-          in: path
-          description: The flow namespace
-          required: true
-          schema:
-            type: string
-        - name: id
-          in: path
-          description: The flow id
-          required: true
-          schema:
-            type: string
-        - name: labels
-          in: query
-          description: The labels as a list of 'key:value'
-          required: true
-          schema:
-            type: array
-            items:
-              type: string
-        - name: revision
-          in: query
-          description: The flow revision or latest if null
-          explode: false
-          schema:
-            type: integer
-            format: int32
-            nullable: true
-        - name: tenant
-          in: path
-          required: true
-          schema:
-            type: string
-      requestBody:
-        description: The inputs
-        content:
-          multipart/form-data:
-            schema:
-              type: array
-              items:
-                type: string
-                format: binary
-        required: true
-      responses:
-        "409":
-          description: if the flow is disabled
-        "200":
-          description: validateNewExecutionInputs 200 response
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ExecutionController.ApiValidateExecutionInputsResponse"
-      security:
-        - bearerAuth: []
-        - basicAuth: []
   /api/v1/{tenant}/flows:
     post:
       tags:
@@ -8581,41 +6895,6 @@ paths:
             nullable: true
             items:
               $ref: "#/components/schemas/QueryFilter"
-        - name: q
-          in: query
-          description: A string filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: scope
-          in: query
-          description: The scope of the flows to include
-          deprecated: true
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              $ref: "#/components/schemas/FlowScope"
-        - name: namespace
-          in: query
-          description: A namespace filter prefix
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: labels
-          in: query
-          description: A labels filter as a list of 'key:value'
-          deprecated: true
-          schema:
-            type: array
-            nullable: true
-            items:
-              type: string
         - name: tenant
           in: path
           required: true
@@ -8678,41 +6957,6 @@ paths:
             nullable: true
             items:
               $ref: "#/components/schemas/QueryFilter"
-        - name: q
-          in: query
-          description: A string filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: scope
-          in: query
-          description: The scope of the flows to include
-          deprecated: true
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              $ref: "#/components/schemas/FlowScope"
-        - name: namespace
-          in: query
-          description: A namespace filter prefix
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: labels
-          in: query
-          description: A labels filter as a list of 'key:value'
-          deprecated: true
-          schema:
-            type: array
-            nullable: true
-            items:
-              type: string
         - name: tenant
           in: path
           required: true
@@ -8806,41 +7050,6 @@ paths:
             nullable: true
             items:
               $ref: "#/components/schemas/QueryFilter"
-        - name: q
-          in: query
-          description: A string filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: scope
-          in: query
-          description: The scope of the flows to include
-          deprecated: true
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              $ref: "#/components/schemas/FlowScope"
-        - name: namespace
-          in: query
-          description: A namespace filter prefix
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: labels
-          in: query
-          description: A labels filter as a list of 'key:value'
-          deprecated: true
-          schema:
-            type: array
-            nullable: true
-            items:
-              type: string
         - name: tenant
           in: path
           required: true
@@ -8904,41 +7113,6 @@ paths:
             nullable: true
             items:
               $ref: "#/components/schemas/QueryFilter"
-        - name: q
-          in: query
-          description: A string filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: scope
-          in: query
-          description: The scope of the flows to include
-          deprecated: true
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              $ref: "#/components/schemas/FlowScope"
-        - name: namespace
-          in: query
-          description: A namespace filter prefix
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: labels
-          in: query
-          description: A labels filter as a list of 'key:value'
-          deprecated: true
-          schema:
-            type: array
-            nullable: true
-            items:
-              type: string
         - name: tenant
           in: path
           required: true
@@ -9057,8 +7231,7 @@ paths:
               properties:
                 fileUpload:
                   type: string
-                  description: "The file to import, can be a ZIP archive or a multi-objects\
-                    \ YAML file"
+                  description: The file to import, can be a ZIP archive or a multi-objects YAML file
                   format: binary
             encoding:
               fileUpload:
@@ -9122,41 +7295,6 @@ paths:
             nullable: true
             items:
               $ref: "#/components/schemas/QueryFilter"
-        - name: q
-          in: query
-          description: A string filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: scope
-          in: query
-          description: The scope of the flows to include
-          deprecated: true
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              $ref: "#/components/schemas/FlowScope"
-        - name: namespace
-          in: query
-          description: A namespace filter prefix
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: labels
-          in: query
-          description: A labels filter as a list of 'key:value'
-          deprecated: true
-          schema:
-            type: array
-            nullable: true
-            items:
-              type: string
         - name: tenant
           in: path
           required: true
@@ -9419,7 +7557,7 @@ paths:
       tags:
         - Flows
       summary: Get a flow
-      operationId: getFlow
+      operationId: flow
       parameters:
         - name: namespace
           in: path
@@ -9536,10 +7674,10 @@ paths:
           schema:
             type: string
       responses:
-        "204":
-          description: On success
         "200":
           description: deleteFlow 200 response
+        "204":
+          description: On success
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -9548,7 +7686,7 @@ paths:
       tags:
         - Flows
       summary: Get flow dependencies
-      operationId: getFlowDependencies
+      operationId: flowDependencies
       parameters:
         - name: namespace
           in: path
@@ -9564,8 +7702,7 @@ paths:
             type: string
         - name: destinationOnly
           in: query
-          description: "If true, list only destination dependencies, otherwise list\
-          \ also source dependencies"
+          description: If true, list only destination dependencies, otherwise list also source dependencies
           required: true
           explode: false
           schema:
@@ -9573,7 +7710,7 @@ paths:
             default: false
         - name: expandAll
           in: query
-          description: "If true, expand all dependencies recursively"
+          description: If true, expand all dependencies recursively
           required: true
           explode: false
           schema:
@@ -9686,7 +7823,7 @@ paths:
       tags:
         - Flows
       summary: Get a flow task
-      operationId: getTaskFromFlow
+      operationId: taskFromFlow
       parameters:
         - name: namespace
           in: path
@@ -9931,9 +8068,8 @@ paths:
       tags:
         - Groups
       summary: Retrieve a group
-      description: Retrieves details of a specific group by its ID within the current
-        tenant.
-      operationId: getGroup
+      description: Retrieves details of a specific group by its ID within the current tenant.
+      operationId: group
       parameters:
         - name: id
           in: path
@@ -10088,8 +8224,7 @@ paths:
       tags:
         - Groups
       summary: Update a user's membership type in a group
-      description: Allows a group owner or an authorized user to change the role of
-        a user within a group to OWNER or MEMBER.
+      description: Allows a group owner or an authorized user to change the role of a user within a group to OWNER or MEMBER.
       operationId: setUserMembershipForGroup
       parameters:
         - name: id
@@ -10135,8 +8270,9 @@ paths:
       tags:
         - Groups
       summary: Add a user to a group
-      description: "Adds the specified user to the given group. If the user does not\
-        \ already have access to the tenant, tenant access will be created automatically."
+      description: >-
+        Adds the specified user to the given group. If the user does not already have access to the tenant, tenant
+        access will be created automatically.
       operationId: addUserToGroup
       parameters:
         - name: id
@@ -10174,9 +8310,9 @@ paths:
       tags:
         - Groups
       summary: Remove a user from a group
-      description: "Removes the specified user from the given group. If the user has\
-        \ no other group bindings within the tenant, their access to the tenant will\
-        \ also be revoked."
+      description: >-
+        Removes the specified user from the given group. If the user has no other group bindings within the tenant,
+        their access to the tenant will also be revoked.
       operationId: deleteUserFromGroup
       parameters:
         - name: id
@@ -10273,6 +8409,12 @@ paths:
           schema:
             type: string
       responses:
+        "200":
+          description: OK response
+          content:
+            application/scim+json:
+              schema:
+                $ref: "#/components/schemas/ScimResource"
         "400":
           description: Bad Request
         "404":
@@ -10281,12 +8423,6 @@ paths:
           description: Internal Server Error
         "501":
           description: Not Implemented
-        "200":
-          description: OK response
-          content:
-            application/scim+json:
-              schema:
-                $ref: "#/components/schemas/ScimResource"
     post:
       tags:
         - SCIM-Groups
@@ -10360,24 +8496,24 @@ paths:
               $ref: "#/components/schemas/SearchRequest"
         required: true
       responses:
-        "400":
-          description: Bad Request
-        "500":
-          description: Internal Server Error
-        "501":
-          description: Not Implemented
         "200":
           description: OK response
           content:
             application/scim+json:
               schema:
                 $ref: "#/components/schemas/ScimResource"
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+        "501":
+          description: Not Implemented
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/{id}:
     get:
       tags:
         - SCIM-Groups
       description: Find by id
-      operationId: getSCIMResourceByIdGroups
+      operationId: sCIMResourceByIdGroups
       parameters:
         - name: id
           in: path
@@ -10407,6 +8543,12 @@ paths:
           schema:
             type: string
       responses:
+        "200":
+          description: OK response
+          content:
+            application/scim+json:
+              schema:
+                $ref: "#/components/schemas/ScimResource"
         "400":
           description: Bad Request
         "404":
@@ -10415,12 +8557,6 @@ paths:
           description: Internal Server Error
         "501":
           description: Not Implemented
-        "200":
-          description: OK response
-          content:
-            application/scim+json:
-              schema:
-                $ref: "#/components/schemas/ScimResource"
     put:
       tags:
         - SCIM-Groups
@@ -10461,18 +8597,18 @@ paths:
               $ref: "#/components/schemas/ScimResource"
         required: true
       responses:
-        "400":
-          description: Bad Request
-        "500":
-          description: Internal Server Error
-        "501":
-          description: Not Implemented
         "200":
           description: OK response
           content:
             application/scim+json:
               schema:
                 $ref: "#/components/schemas/ScimResource"
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+        "501":
+          description: Not Implemented
     delete:
       tags:
         - SCIM-Groups
@@ -10560,7 +8696,7 @@ paths:
       tags:
         - SCIM-Configuration
       description: Get All Resource Types
-      operationId: getAllResourceTypes
+      operationId: allResourceTypes
       parameters:
         - name: integration
           in: path
@@ -10586,7 +8722,7 @@ paths:
       tags:
         - SCIM-Configuration
       description: Get Resource Type by URN
-      operationId: getResourceType
+      operationId: resourceType
       parameters:
         - name: name
           in: path
@@ -10615,7 +8751,7 @@ paths:
       tags:
         - SCIM-Configuration
       description: Get All Schemas
-      operationId: getAllSchemas
+      operationId: allSchemas
       parameters:
         - name: integration
           in: path
@@ -10641,7 +8777,7 @@ paths:
       tags:
         - SCIM-Configuration
       description: Get Schemas by URN
-      operationId: getSchema
+      operationId: schema
       parameters:
         - name: uri
           in: path
@@ -10670,7 +8806,7 @@ paths:
       tags:
         - SCIM-Configuration
       description: Get Service Provider Configuration
-      operationId: getServiceProviderConfiguration
+      operationId: serviceProviderConfiguration
       parameters:
         - name: integration
           in: path
@@ -10752,6 +8888,12 @@ paths:
           schema:
             type: string
       responses:
+        "200":
+          description: OK response
+          content:
+            application/scim+json:
+              schema:
+                $ref: "#/components/schemas/ScimResource"
         "400":
           description: Bad Request
         "404":
@@ -10760,12 +8902,6 @@ paths:
           description: Internal Server Error
         "501":
           description: Not Implemented
-        "200":
-          description: OK response
-          content:
-            application/scim+json:
-              schema:
-                $ref: "#/components/schemas/ScimResource"
     post:
       tags:
         - SCIM-Users
@@ -10839,24 +8975,24 @@ paths:
               $ref: "#/components/schemas/SearchRequest"
         required: true
       responses:
-        "400":
-          description: Bad Request
-        "500":
-          description: Internal Server Error
-        "501":
-          description: Not Implemented
         "200":
           description: OK response
           content:
             application/scim+json:
               schema:
                 $ref: "#/components/schemas/ScimResource"
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+        "501":
+          description: Not Implemented
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/{id}:
     get:
       tags:
         - SCIM-Users
       description: Find by id
-      operationId: getSCIMResourceByIdUsers
+      operationId: sCIMResourceByIdUsers
       parameters:
         - name: id
           in: path
@@ -10886,6 +9022,12 @@ paths:
           schema:
             type: string
       responses:
+        "200":
+          description: OK response
+          content:
+            application/scim+json:
+              schema:
+                $ref: "#/components/schemas/ScimResource"
         "400":
           description: Bad Request
         "404":
@@ -10894,12 +9036,6 @@ paths:
           description: Internal Server Error
         "501":
           description: Not Implemented
-        "200":
-          description: OK response
-          content:
-            application/scim+json:
-              schema:
-                $ref: "#/components/schemas/ScimResource"
     put:
       tags:
         - SCIM-Users
@@ -10940,18 +9076,18 @@ paths:
               $ref: "#/components/schemas/ScimResource"
         required: true
       responses:
-        "400":
-          description: Bad Request
-        "500":
-          description: Internal Server Error
-        "501":
-          description: Not Implemented
         "200":
           description: OK response
           content:
             application/scim+json:
               schema:
                 $ref: "#/components/schemas/ScimResource"
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+        "501":
+          description: Not Implemented
     delete:
       tags:
         - SCIM-Users
@@ -11039,8 +9175,7 @@ paths:
       tags:
         - Invitations
       summary: Create an invitation
-      description: Creates a new invitation and sends an email if the mail server
-        is enabled.
+      description: Creates a new invitation and sends an email if the mail server is enabled.
       operationId: createInvitation
       parameters:
         - name: tenant
@@ -11049,8 +9184,7 @@ paths:
           schema:
             type: string
       requestBody:
-        description: "Create a new invitation, send an email if the server-mail is\
-          \ enabled"
+        description: Create a new invitation, send an email if the server-mail is enabled
         content:
           application/json:
             schema:
@@ -11064,8 +9198,7 @@ paths:
         "403":
           description: Insufficient privileges to invite a Superadmin user
         "409":
-          description: "Invitation already exists for the given email, or user already\
-            \ had access to the tenant"
+          description: Invitation already exists for the given email, or user already had access to the tenant
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -11074,8 +9207,7 @@ paths:
       tags:
         - Invitations
       summary: Retrieve all invitations for a given email
-      description: Returns all invitations created for a given email address in the
-        current tenant.
+      description: Returns all invitations created for a given email address in the current tenant.
       operationId: listInvitationsByEmail
       parameters:
         - name: email
@@ -11106,7 +9238,7 @@ paths:
       tags:
         - Invitations
       summary: Search for invitations
-      description: "Search and filter invitations by email, status, and pagination."
+      description: Search and filter invitations by email, status, and pagination.
       operationId: searchInvitations
       parameters:
         - name: email
@@ -11171,8 +9303,8 @@ paths:
       tags:
         - Invitations
       summary: Retrieve an invitation
-      description: "Retrieves the invitation by its ID, including the invitation link."
-      operationId: getInvitation
+      description: Retrieves the invitation by its ID, including the invitation link.
+      operationId: invitation
       parameters:
         - name: id
           in: path
@@ -11186,14 +9318,14 @@ paths:
           schema:
             type: string
       responses:
-        "404":
-          description: Invitation not found
         "200":
           description: getInvitation 200 response
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/IAMInvitationController.ApiInvitationDetail"
+        "404":
+          description: Invitation not found
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -11326,63 +9458,6 @@ paths:
             nullable: true
             items:
               $ref: "#/components/schemas/QueryFilter"
-        - name: q
-          in: query
-          description: A string filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: namespace
-          in: query
-          description: A namespace filter prefix
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: flowId
-          in: query
-          description: A flow id filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: triggerId
-          in: query
-          description: A trigger id filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: minLevel
-          in: query
-          description: The min log level filter
-          deprecated: true
-          explode: false
-          schema:
-            nullable: true
-            allOf:
-              - $ref: "#/components/schemas/Level"
-        - name: startDate
-          in: query
-          description: The start datetime
-          deprecated: true
-          schema:
-            type: string
-            format: date-time
-            nullable: true
-        - name: endDate
-          in: query
-          description: The end datetime
-          deprecated: true
-          schema:
-            type: string
-            format: date-time
-            nullable: true
         - name: tenant
           in: path
           required: true
@@ -11402,7 +9477,7 @@ paths:
     get:
       tags:
         - Logs
-      summary: "Get logs for a specific execution, taskrun or task"
+      summary: Get logs for a specific execution, taskrun or task
       operationId: listLogsFromExecution
       parameters:
         - name: executionId
@@ -11461,7 +9536,7 @@ paths:
     delete:
       tags:
         - Logs
-      summary: "Delete logs for a specific execution, taskrun or task"
+      summary: Delete logs for a specific execution, taskrun or task
       operationId: deleteLogsFromExecution
       parameters:
         - name: executionId
@@ -11515,7 +9590,7 @@ paths:
     get:
       tags:
         - Logs
-      summary: "Download logs for a specific execution, taskrun or task"
+      summary: Download logs for a specific execution, taskrun or task
       operationId: downloadLogsFromExecution
       parameters:
         - name: executionId
@@ -11610,7 +9685,7 @@ paths:
     delete:
       tags:
         - Logs
-      summary: "Delete logs for a specific execution, taskrun or task"
+      summary: Delete logs for a specific execution, taskrun or task
       operationId: deleteLogsFromFlow
       parameters:
         - name: namespace
@@ -11670,14 +9745,14 @@ paths:
             type: string
         - name: startDate
           in: query
-          description: "The start datetime, default to now - 30 days"
+          description: The start datetime, default to now - 30 days
           schema:
             type: string
             format: date-time
             nullable: true
         - name: endDate
           in: query
-          description: "The end datetime, default to now"
+          description: The end datetime, default to now
           schema:
             type: string
             format: date-time
@@ -11738,14 +9813,14 @@ paths:
             type: string
         - name: startDate
           in: query
-          description: "The start datetime, default to now - 30 days"
+          description: The start datetime, default to now - 30 days
           schema:
             type: string
             format: date-time
             nullable: true
         - name: endDate
           in: query
-          description: "The end datetime, default to now"
+          description: The end datetime, default to now
           schema:
             type: string
             format: date-time
@@ -11855,8 +9930,7 @@ paths:
     get:
       tags:
         - Metrics
-      summary: "Get tasks id that have metrics for a specific flow, include deleted\
-        \ or renamed tasks"
+      summary: Get tasks id that have metrics for a specific flow, include deleted or renamed tasks
       operationId: listTasksWithMetrics
       parameters:
         - name: namespace
@@ -11993,8 +10067,9 @@ paths:
       tags:
         - Namespaces
       summary: List namespaces for autocomplete
-      description: "Returns a list of namespaces for use in autocomplete fields, optionally\
-        \ allowing to filter by query and ids. Used especially for binding creation."
+      description: >-
+        Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids.
+        Used especially for binding creation.
       operationId: autocompleteNamespaces
       parameters:
         - name: tenant
@@ -12091,7 +10166,7 @@ paths:
       tags:
         - Namespaces
       summary: Get a namespace
-      operationId: getNamespace
+      operationId: namespace
       parameters:
         - name: id
           in: path
@@ -12236,7 +10311,7 @@ paths:
       tags:
         - Flows
       summary: Retrieve flow dependencies
-      operationId: getFlowDependenciesFromNamespace
+      operationId: flowDependenciesFromNamespace
       parameters:
         - name: namespace
           in: path
@@ -12246,8 +10321,7 @@ paths:
             type: string
         - name: destinationOnly
           in: query
-          description: "if true, list only destination dependencies, otherwise list\
-          \ also source dependencies"
+          description: if true, list only destination dependencies, otherwise list also source dependencies
           required: true
           explode: false
           schema:
@@ -12273,7 +10347,7 @@ paths:
       tags:
         - Files
       summary: Get namespace file content
-      operationId: getFileContent
+      operationId: fileContent
       parameters:
         - name: namespace
           in: path
@@ -12290,7 +10364,7 @@ paths:
             type: string
         - name: revision
           in: query
-          description: "The revision, if not provided, the latest revision will be returned"
+          description: The revision, if not provided, the latest revision will be returned
           explode: false
           schema:
             type: integer
@@ -12527,7 +10601,7 @@ paths:
       tags:
         - Files
       summary: Get namespace file revisions
-      operationId: getFileRevisions
+      operationId: fileRevisions
       parameters:
         - name: namespace
           in: path
@@ -12600,9 +10674,8 @@ paths:
     get:
       tags:
         - Files
-      summary: "Get namespace file stats such as size, creation & modification dates\
-        \ and type"
-      operationId: getFileMetadatas
+      summary: Get namespace file stats such as size, creation & modification dates and type
+      operationId: fileMetadatas
       parameters:
         - name: namespace
           in: path
@@ -12637,7 +10710,7 @@ paths:
       tags:
         - Namespaces
       summary: List inherited secrets
-      operationId: getInheritedSecrets
+      operationId: inheritedSecrets
       parameters:
         - name: namespace
           in: path
@@ -12764,7 +10837,7 @@ paths:
       tags:
         - KV
       summary: Get value for a key
-      operationId: getKeyValue
+      operationId: keyValue
       parameters:
         - name: namespace
           in: path
@@ -13186,7 +11259,7 @@ paths:
       tags:
         - Roles
       summary: Retrieve a role
-      operationId: getRole
+      operationId: role
       parameters:
         - name: id
           in: path
@@ -13200,14 +11273,14 @@ paths:
           schema:
             type: string
       responses:
-        "404":
-          description: Role not found
         "200":
           description: getRole 200 response
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/IAMRoleController.ApiRoleDetail"
+        "404":
+          description: Role not found
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13241,10 +11314,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/IAMRoleController.ApiRoleDetail"
-        "404":
-          description: Role not found
         "403":
           description: Insufficient privileges to update the role
+        "404":
+          description: Role not found
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13384,7 +11457,7 @@ paths:
         - SecurityIntegrations
       summary: Retrieve a security integration
       description: Superadmin-only.
-      operationId: getSecurityIntegration
+      operationId: securityIntegration
       parameters:
         - name: id
           in: path
@@ -13529,7 +11602,7 @@ paths:
       tags:
         - ServiceAccount
       summary: Retrieve a service account
-      operationId: getServiceAccountForTenant
+      operationId: serviceAccountForTenant
       parameters:
         - name: id
           in: path
@@ -13543,14 +11616,14 @@ paths:
           schema:
             type: string
       responses:
-        "404":
-          description: Service account not found
         "200":
           description: getServiceAccountForTenant 200 response
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/IAMServiceAccountController.ApiServiceAccountResponse"
+        "404":
+          description: Service account not found
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13579,14 +11652,14 @@ paths:
               $ref: "#/components/schemas/IAMServiceAccountController.ApiServiceAccountRequest"
         required: true
       responses:
-        "404":
-          description: "Service account, or group not found"
         "200":
           description: updateServiceAccount 200 response
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/IAMServiceAccountController.ApiServiceAccountResponse"
+        "404":
+          description: Service account, or group not found
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13608,10 +11681,10 @@ paths:
           schema:
             type: string
       responses:
-        "404":
-          description: Service account
         "200":
           description: deleteServiceAccountForTenant 200 response
+        "404":
+          description: Service account
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13869,7 +11942,7 @@ paths:
         - Tenant Access
       summary: Retrieve tenant access for a user
       description: Fetches the tenant access configuration for a given user
-      operationId: getTenantAccess
+      operationId: tenantAccess
       parameters:
         - name: userId
           in: path
@@ -13890,7 +11963,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/IAMTenantAccessController.ApiTenantAccess"
         "404":
-          description: "User, or tenant access not found"
+          description: User, or tenant access not found
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13942,7 +12015,7 @@ paths:
         "204":
           description: Access successfully deleted
         "404":
-          description: "User, or tenant access not found"
+          description: User, or tenant access not found
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13951,8 +12024,7 @@ paths:
       tags:
         - TestSuites
       summary: Create a test from YAML source
-      description: Creates a new test from a YAML definition. Requires TEST permission
-        with the CREATE action.
+      description: Creates a new test from a YAML definition. Requires TEST permission with the CREATE action.
       operationId: createTestSuite
       parameters:
         - name: tenant
@@ -13979,8 +12051,7 @@ paths:
       tags:
         - TestSuites
       summary: Delete multiple tests by id
-      description: Deletes a test by namespace and ID. Requires TEST permission with
-        the DELETE action.
+      description: Deletes a test by namespace and ID. Requires TEST permission with the DELETE action.
       operationId: deleteTestSuitesByIds
       parameters:
         - name: tenant
@@ -14006,8 +12077,7 @@ paths:
       tags:
         - TestSuites
       summary: Disable multiple tests by id
-      description: Disable a test by namespace and ID. Requires TEST permission with
-        the UPDATE action.
+      description: Disable a test by namespace and ID. Requires TEST permission with the UPDATE action.
       operationId: disableTestSuitesByIds
       parameters:
         - name: tenant
@@ -14033,8 +12103,7 @@ paths:
       tags:
         - TestSuites
       summary: Enable multiple tests by id
-      description: Enable a test by namespace and ID. Requires TEST permission with
-        the UPDATE action.
+      description: Enable a test by namespace and ID. Requires TEST permission with the UPDATE action.
       operationId: enableTestSuitesByIds
       parameters:
         - name: tenant
@@ -14060,8 +12129,7 @@ paths:
       tags:
         - TestSuites
       summary: Search for tests results
-      description: "with optional filtering by namespace, test suite ID and flow ID.\
-        \ Requires TEST permission with the READ action."
+      description: with optional filtering by namespace, test suite ID and flow ID. Requires TEST permission with the READ action.
       operationId: searchTestSuitesResults
       parameters:
         - name: page
@@ -14132,7 +12200,7 @@ paths:
         - TestSuites
       summary: Get tests last result
       description: Get multiple tests last result for a query.
-      operationId: getTestsLastResult
+      operationId: testsLastResult
       parameters:
         - name: tenant
           in: path
@@ -14158,7 +12226,7 @@ paths:
         - TestSuites
       summary: Get a test result
       description: Get a test result once it was run.
-      operationId: getTestResult
+      operationId: testResult
       parameters:
         - name: id
           in: path
@@ -14183,8 +12251,7 @@ paths:
       tags:
         - TestSuites
       summary: Run multiple TestSuites by query
-      description: Executes all TestSuites impacted by the specified filter. Requires
-        TEST permission with the CREATE action.
+      description: Executes all TestSuites impacted by the specified filter. Requires TEST permission with the CREATE action.
       operationId: runTestSuitesByQuery
       parameters:
         - name: tenant
@@ -14210,8 +12277,9 @@ paths:
       tags:
         - TestSuites
       summary: Search for tests
-      description: Searches for tests with optional filtering by namespace and flow
-        ID. Requires TEST permission with the READ action.
+      description: >-
+        Searches for tests with optional filtering by namespace and flow ID. Requires TEST permission with the READ
+        action.
       operationId: searchTestSuites
       parameters:
         - name: page
@@ -14282,8 +12350,9 @@ paths:
       tags:
         - TestSuites
       summary: Validate a test
-      description: Validates a test YAML definition without persisting it. Returns
-        constraint violations if any. Requires TEST permission with the READ action.
+      description: >-
+        Validates a test YAML definition without persisting it. Returns constraint violations if any. Requires TEST
+        permission with the READ action.
       operationId: validateTestSuite
       parameters:
         - name: tenant
@@ -14310,9 +12379,8 @@ paths:
       tags:
         - TestSuites
       summary: Retrieve a test
-      description: Retrieves a test by namespace and ID. Requires TEST permission
-        with the READ action.
-      operationId: getTestSuite
+      description: Retrieves a test by namespace and ID. Requires TEST permission with the READ action.
+      operationId: testSuite
       parameters:
         - name: namespace
           in: path
@@ -14342,8 +12410,7 @@ paths:
       tags:
         - TestSuites
       summary: Update a test from YAML source
-      description: Updates an existing test with a new YAML definition. Requires TEST
-        permission with the UPDATE action.
+      description: Updates an existing test with a new YAML definition. Requires TEST permission with the UPDATE action.
       operationId: updateTestSuite
       parameters:
         - name: namespace
@@ -14381,8 +12448,7 @@ paths:
       tags:
         - TestSuites
       summary: Delete a test
-      description: Deletes a test by namespace and ID. Requires TEST permission with
-        the DELETE action.
+      description: Deletes a test by namespace and ID. Requires TEST permission with the DELETE action.
       operationId: deleteTestSuite
       parameters:
         - name: namespace
@@ -14414,8 +12480,7 @@ paths:
       tags:
         - TestSuites
       summary: Run a full test
-      description: Executes all test cases in the specified test. Requires TEST permission
-        with the CREATE action.
+      description: Executes all test cases in the specified test. Requires TEST permission with the CREATE action.
       operationId: runTestSuite
       parameters:
         - name: namespace
@@ -14519,22 +12584,6 @@ paths:
             nullable: true
             items:
               $ref: "#/components/schemas/QueryFilter"
-        - name: q
-          in: query
-          description: A string filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: namespace
-          in: query
-          description: A namespace filter prefix
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
         - name: tenant
           in: path
           required: true
@@ -14624,22 +12673,6 @@ paths:
             nullable: true
             items:
               $ref: "#/components/schemas/QueryFilter"
-        - name: q
-          in: query
-          description: A string filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: namespace
-          in: query
-          description: A namespace filter prefix
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
         - name: tenant
           in: path
           required: true
@@ -14729,22 +12762,6 @@ paths:
             nullable: true
             items:
               $ref: "#/components/schemas/QueryFilter"
-        - name: q
-          in: query
-          description: A string filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: namespace
-          in: query
-          description: A namespace filter prefix
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
         - name: tenant
           in: path
           required: true
@@ -14932,38 +12949,6 @@ paths:
             nullable: true
             items:
               $ref: "#/components/schemas/QueryFilter"
-        - name: q
-          in: query
-          description: A string filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: namespace
-          in: query
-          description: A namespace filter prefix
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: workerId
-          in: query
-          description: The identifier of the worker currently evaluating the trigger
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: flowId
-          in: query
-          description: The flow identifier
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
         - name: tenant
           in: path
           required: true
@@ -14995,22 +12980,6 @@ paths:
             nullable: true
             items:
               $ref: "#/components/schemas/QueryFilter"
-        - name: q
-          in: query
-          description: A string filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: namespace
-          in: query
-          description: A namespace filter prefix
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
         - name: disabled
           in: query
           description: The disabled state
@@ -15078,22 +13047,6 @@ paths:
             nullable: true
             items:
               $ref: "#/components/schemas/QueryFilter"
-        - name: q
-          in: query
-          description: A string filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: namespace
-          in: query
-          description: A namespace filter prefix
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
         - name: tenant
           in: path
           required: true
@@ -15358,7 +13311,7 @@ paths:
       tags:
         - Misc
       summary: Retrieve instance usage information
-      operationId: getUsages
+      operationId: usages
       parameters:
         - name: tenant
           in: path
@@ -15402,10 +13355,10 @@ paths:
       responses:
         "204":
           description: User's groups successfully updated
-        "404":
-          description: User or one of the groups not found
         "400":
           description: Invalid request payload
+        "404":
+          description: User or one of the groups not found
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -15443,12 +13396,12 @@ components:
         id:
           maxLength: 100
           minLength: 1
-          pattern: "^[a-zA-Z0-9][a-zA-Z0-9._-]*"
+          pattern: ^[a-zA-Z0-9][a-zA-Z0-9._-]*
           type: string
         namespace:
           maxLength: 150
           minLength: 1
-          pattern: "^[a-z0-9][a-z0-9._-]*"
+          pattern: ^[a-z0-9][a-z0-9._-]*
           type: string
         revision:
           minimum: 1
@@ -15468,8 +13421,7 @@ components:
           type: boolean
         labels:
           type: array
-          description: Labels as a list of Label (key/value pairs) or as a map of
-            string to string.
+          description: Labels as a list of Label (key/value pairs) or as a map of string to string.
           oneOf:
             - $ref: "#/components/schemas/Map_Object.Object_"
           items:
@@ -15524,19 +13476,15 @@ components:
         - type
       type: object
       properties:
-        minLogLevel:
-          deprecated: true
-          allOf:
-            - $ref: "#/components/schemas/Level"
         id:
           title: A unique ID for the whole flow.
           minLength: 1
-          pattern: "^[a-zA-Z0-9][a-zA-Z0-9_-]*"
+          pattern: ^[a-zA-Z0-9][a-zA-Z0-9_-]*
           type: string
         type:
           title: The class name for this current trigger.
           minLength: 1
-          pattern: "^[A-Za-z_$][A-Za-z0-9_$]*(\\.[A-Za-z_$][A-Za-z0-9_$]*)*$"
+          pattern: ^[A-Za-z_$][A-Za-z0-9_$]*(\.[A-Za-z_$][A-Za-z0-9_$]*)*$
           type: string
         version:
           title: Plugin Version
@@ -15569,8 +13517,7 @@ components:
             - type: array
             - $ref: "#/components/schemas/Map_Object.Object_"
         stopAfter:
-          title: List of execution states after which a trigger should be stopped
-            (a.k.a. disabled).
+          title: List of execution states after which a trigger should be stopped (a.k.a. disabled).
           type: array
           items:
             $ref: "#/components/schemas/State.Type"
@@ -15579,8 +13526,7 @@ components:
         failOnTriggerError:
           type: boolean
         allowConcurrent:
-          title: Specifies whether a trigger is allowed to start a new execution even
-            if a previous run is still in progress.
+          title: Specifies whether a trigger is allowed to start a new execution even if a previous run is still in progress.
           type: boolean
     AbstractTriggerForExecution:
       required:
@@ -15591,12 +13537,12 @@ components:
         id:
           title: A unique ID for the whole flow.
           minLength: 1
-          pattern: "^[a-zA-Z0-9][a-zA-Z0-9_-]*"
+          pattern: ^[a-zA-Z0-9][a-zA-Z0-9_-]*
           type: string
         type:
           title: The class name for this current trigger.
           minLength: 1
-          pattern: "^[A-Za-z_$][A-Za-z0-9_$]*(\\.[A-Za-z_$][A-Za-z0-9_$]*)*$"
+          pattern: ^[A-Za-z_$][A-Za-z0-9_$]*(\.[A-Za-z_$][A-Za-z0-9_$]*)*$
           type: string
         version:
           title: Plugin Version
@@ -15629,7 +13575,7 @@ components:
         username:
           type: string
         email:
-          pattern: "^$|^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$"
+          pattern: ^$|^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$
           type: string
         superAdmin:
           type: boolean
@@ -16518,11 +14464,11 @@ components:
       properties:
         id:
           minLength: 1
-          pattern: "^[a-zA-Z0-9][a-zA-Z0-9_-]*"
+          pattern: ^[a-zA-Z0-9][a-zA-Z0-9_-]*
           type: string
         type:
           minLength: 1
-          pattern: "^[A-Za-z_$][A-Za-z0-9_$]*(\\.[A-Za-z_$][A-Za-z0-9_$]*)*$"
+          pattern: ^[A-Za-z_$][A-Za-z0-9_$]*(\.[A-Za-z_$][A-Za-z0-9_$]*)*$
           type: string
         chartOptions:
           type: object
@@ -16595,7 +14541,7 @@ components:
       type: object
       properties:
         type:
-          pattern: "^[A-Za-z_$][A-Za-z0-9_$]*(\\.[A-Za-z_$][A-Za-z0-9_$]*)*$"
+          pattern: ^[A-Za-z_$][A-Za-z0-9_$]*(\.[A-Za-z_$][A-Za-z0-9_$]*)*$
           type: string
     ConversionService:
       type: object
@@ -16631,7 +14577,7 @@ components:
       type: object
       properties:
         name:
-          pattern: "^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$"
+          pattern: ^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$
           type: string
         description:
           type: string
@@ -16656,7 +14602,7 @@ components:
       type: object
       properties:
         name:
-          pattern: "^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$"
+          pattern: ^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$
           type: string
           description: The name of security integration.
         description:
@@ -17229,12 +15175,12 @@ components:
             id:
               maxLength: 100
               minLength: 1
-              pattern: "^[a-zA-Z0-9][a-zA-Z0-9._-]*"
+              pattern: ^[a-zA-Z0-9][a-zA-Z0-9._-]*
               type: string
             namespace:
               maxLength: 150
               minLength: 1
-              pattern: "^[a-z0-9][a-z0-9._-]*"
+              pattern: ^[a-z0-9][a-z0-9._-]*
               type: string
             revision:
               minimum: 1
@@ -17250,8 +15196,7 @@ components:
               type: boolean
             labels:
               type: array
-              description: Labels as a list of Label (key/value pairs) or as a map of
-                string to string.
+              description: Labels as a list of Label (key/value pairs) or as a map of string to string.
               oneOf:
                 - $ref: "#/components/schemas/Map_Object.Object_"
               items:
@@ -17264,11 +15209,6 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/Task"
-            taskDefaults:
-              type: array
-              deprecated: true
-              items:
-                $ref: "#/components/schemas/PluginDefault"
             variables:
               type: object
               additionalProperties: false
@@ -17282,11 +15222,6 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/Task"
-            listeners:
-              type: array
-              deprecated: true
-              items:
-                $ref: "#/components/schemas/Listener"
             afterExecution:
               type: array
               items:
@@ -17304,9 +15239,9 @@ components:
             outputs:
               title: Output values available and exposes to other flows.
               type: array
-              description: Output values make information about the execution of your
-                Flow available and expose for other Kestra flows to use. Output values
-                are similar to return values in programming languages.
+              description: >-
+                Output values make information about the execution of your Flow available and expose for other Kestra
+                flows to use. Output values are similar to return values in programming languages.
               items:
                 $ref: "#/components/schemas/Output"
             retry:
@@ -17318,8 +15253,9 @@ components:
             checks:
               title: Conditions evaluated before the flow is executed.
               type: array
-              description: "A list of conditions that are evaluated before the flow\
-              \ is executed.  If no checks are defined, the flow executes normally."
+              description: >-
+                A list of conditions that are evaluated before the flow is executed.  If no checks are defined, the flow
+                executes normally.
               items:
                 $ref: "#/components/schemas/Check"
     FlowController.TaskValidationType:
@@ -17342,12 +15278,12 @@ components:
             id:
               maxLength: 100
               minLength: 1
-              pattern: "^[a-zA-Z0-9][a-zA-Z0-9._-]*"
+              pattern: ^[a-zA-Z0-9][a-zA-Z0-9._-]*
               type: string
             namespace:
               maxLength: 150
               minLength: 1
-              pattern: "^[a-z0-9][a-z0-9._-]*"
+              pattern: ^[a-z0-9][a-z0-9._-]*
               type: string
             revision:
               minimum: 1
@@ -17367,8 +15303,7 @@ components:
               type: boolean
             labels:
               type: array
-              description: Labels as a list of Label (key/value pairs) or as a map of
-                string to string.
+              description: Labels as a list of Label (key/value pairs) or as a map of string to string.
               oneOf:
                 - $ref: "#/components/schemas/Map_Object.Object_"
               items:
@@ -17590,12 +15525,12 @@ components:
             id:
               maxLength: 100
               minLength: 1
-              pattern: "^[a-zA-Z0-9][a-zA-Z0-9._-]*"
+              pattern: ^[a-zA-Z0-9][a-zA-Z0-9._-]*
               type: string
             namespace:
               maxLength: 150
               minLength: 1
-              pattern: "^[a-z0-9][a-z0-9._-]*"
+              pattern: ^[a-z0-9][a-z0-9._-]*
               type: string
             revision:
               minimum: 1
@@ -17611,8 +15546,7 @@ components:
               type: boolean
             labels:
               type: array
-              description: Labels as a list of Label (key/value pairs) or as a map of
-                string to string.
+              description: Labels as a list of Label (key/value pairs) or as a map of string to string.
               oneOf:
                 - $ref: "#/components/schemas/Map_Object.Object_"
               items:
@@ -17629,9 +15563,9 @@ components:
             outputs:
               title: Output values available and exposes to other flows.
               type: array
-              description: Output values make information about the execution of your
-                Flow available and expose for other Kestra flows to use. Output values
-                are similar to return values in programming languages.
+              description: >-
+                Output values make information about the execution of your Flow available and expose for other Kestra
+                flows to use. Output values are similar to return values in programming languages.
               items:
                 $ref: "#/components/schemas/Output"
             sla:
@@ -17979,7 +15913,7 @@ components:
       type: object
       properties:
         name:
-          pattern: "^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$"
+          pattern: ^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$
           type: string
         description:
           type: string
@@ -18001,7 +15935,7 @@ components:
       type: object
       properties:
         name:
-          pattern: "^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$"
+          pattern: ^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$
           type: string
         description:
           type: string
@@ -18015,7 +15949,7 @@ components:
           type: string
           description: the identifier of this service account.
         name:
-          pattern: "^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$"
+          pattern: ^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$
           type: string
           description: the name of this service account.
         description:
@@ -18038,7 +15972,7 @@ components:
           items:
             $ref: "#/components/schemas/IAMServiceAccountController.ApiGroup"
         name:
-          pattern: "^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$"
+          pattern: ^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$
           type: string
         description:
           type: string
@@ -18054,7 +15988,7 @@ components:
           type: string
           description: the identifier of this service account.
         name:
-          pattern: "^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$"
+          pattern: ^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$
           type: string
           description: the name of this service account.
         description:
@@ -18310,13 +16244,10 @@ components:
         - type
       type: object
       properties:
-        name:
-          type: string
-          deprecated: true
         id:
           title: The ID of the input.
           minLength: 1
-          pattern: "^[a-zA-Z0-9][.a-zA-Z0-9_-]*"
+          pattern: ^[a-zA-Z0-9][.a-zA-Z0-9_-]*
           type: string
         type:
           title: The type of the input.
@@ -18337,8 +16268,7 @@ components:
             - $ref: "#/components/schemas/Property_Object_"
         prefill:
           title: The suggested value for the input.
-          description: Optional UI hint for pre-filling the input. Cannot be used
-            together with a default value.
+          description: Optional UI hint for pre-filling the input. Cannot be used together with a default value.
           allOf:
             - $ref: "#/components/schemas/Property_Object_"
         displayName:
@@ -18575,7 +16505,7 @@ components:
         isExpired:
           type: boolean
         email:
-          pattern: "^$|^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$"
+          pattern: ^$|^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$
           type: string
         id:
           type: string
@@ -18685,16 +16615,17 @@ components:
       properties:
         key:
           minLength: 1
-          pattern: "^[\\p{Ll}][\\p{L}0-9._-]*$"
+          pattern: ^[\p{Ll}][\p{L}0-9._-]*$
           type: string
-          x-pattern-message: Invalid label key. A valid key contains only lowercase
-            letters numbers hyphens (-) underscores (_) or periods (.) and must begin
-            with a lowercase letter.
+          x-pattern-message: >-
+            Invalid label key. A valid key contains only lowercase letters numbers hyphens (-) underscores (_) or
+            periods (.) and must begin with a lowercase letter.
         value:
           minLength: 1
           type: string
-      description: A key/value pair that can be attached to a Flow or Execution. Labels
-        are often used to organize and categorize objects.
+      description: >-
+        A key/value pair that can be attached to a Flow or Execution. Labels are often used to organize and categorize
+        objects.
     LeftSidebarConfiguration:
       type: object
       properties:
@@ -19104,15 +17035,10 @@ components:
       type: object
       properties:
         id:
-          pattern: "^[a-z0-9][a-z0-9._-]*"
+          pattern: ^[a-z0-9][a-z0-9._-]*
           type: string
         deleted:
           type: boolean
-        allowedTriggers:
-          type: array
-          deprecated: true
-          items:
-            $ref: "#/components/schemas/Namespace.AllowedTrigger"
         storageIsolation:
           $ref: "#/components/schemas/Isolation"
         secretIsolation:
@@ -19149,8 +17075,9 @@ components:
             type: object
         outputsInInternalStorage:
           type: boolean
-      description: A namespace is a logical grouping of flows and tasks. It is used
-        to organize and manage flows and tasks within Kestra.
+      description: >-
+        A namespace is a logical grouping of flows and tasks. It is used to organize and manage flows and tasks within
+        Kestra.
       allOf:
         - $ref: "#/components/schemas/NamespaceLight"
     Namespace.AllowedNamespace:
@@ -19183,7 +17110,7 @@ components:
       type: object
       properties:
         id:
-          pattern: "^[a-z0-9][a-z0-9._-]*"
+          pattern: ^[a-z0-9][a-z0-9._-]*
           type: string
         deleted:
           type: boolean
@@ -19196,7 +17123,7 @@ components:
       properties:
         id:
           minLength: 1
-          pattern: "^[a-zA-Z0-9][.a-zA-Z0-9_-]*"
+          pattern: ^[a-zA-Z0-9][.a-zA-Z0-9_-]*
           type: string
         description:
           type: string
@@ -20212,7 +18139,7 @@ components:
         urn:
           type: string
         name:
-          pattern: "\\p{Alpha}(-|_|\\p{Alnum})*"
+          pattern: \p{Alpha}(-|_|\p{Alnum})*
           type: string
         type:
           $ref: "#/components/schemas/Schema.Attribute.Type"
@@ -20705,13 +18632,13 @@ components:
         id:
           maxLength: 256
           minLength: 1
-          pattern: "^[a-zA-Z0-9][a-zA-Z0-9_-]*"
+          pattern: ^[a-zA-Z0-9][a-zA-Z0-9_-]*
           type: string
           x-size-message: Task id must be at most 256 characters
         type:
           title: The class name of this task.
           minLength: 1
-          pattern: "^[A-Za-z_$][A-Za-z0-9_$]*(\\.[A-Za-z_$][A-Za-z0-9_$]*)*$"
+          pattern: ^[A-Za-z_$][A-Za-z0-9_$]*(\.[A-Za-z_$][A-Za-z0-9_$]*)*$
           type: string
         version:
           title: Plugin Version
@@ -20771,12 +18698,12 @@ components:
       properties:
         id:
           minLength: 1
-          pattern: "^[a-zA-Z0-9][a-zA-Z0-9_-]*"
+          pattern: ^[a-zA-Z0-9][a-zA-Z0-9_-]*
           type: string
         type:
           title: The class name of this task.
           minLength: 1
-          pattern: "^[A-Za-z_$][A-Za-z0-9_$]*(\\.[A-Za-z_$][A-Za-z0-9_$]*)*$"
+          pattern: ^[A-Za-z_$][A-Za-z0-9_$]*(\.[A-Za-z_$][A-Za-z0-9_$]*)*$
           type: string
         version:
           title: Plugin Version
@@ -20809,9 +18736,6 @@ components:
         - taskId
       type: object
       properties:
-        items:
-          type: string
-          deprecated: true
         id:
           type: string
         executionId:
@@ -20847,11 +18771,6 @@ components:
         - state
       type: object
       properties:
-        metrics:
-          type: array
-          deprecated: true
-          items:
-            $ref: "#/components/schemas/AbstractMetricEntry_Object_"
         state:
           $ref: "#/components/schemas/State"
         workerId:
@@ -20873,7 +18792,7 @@ components:
         secretIsolation:
           $ref: "#/components/schemas/Isolation"
         id:
-          pattern: "^[a-z0-9][a-z0-9_-]*"
+          pattern: ^[a-z0-9][a-z0-9_-]*
           type: string
         name:
           type: string
@@ -20958,19 +18877,19 @@ components:
       properties:
         id:
           minLength: 1
-          pattern: "^[a-zA-Z0-9][a-zA-Z0-9_-]*"
+          pattern: ^[a-zA-Z0-9][a-zA-Z0-9_-]*
           type: string
         description:
           type: string
         namespace:
           maxLength: 150
           minLength: 1
-          pattern: "^[a-z0-9][a-z0-9._-]*"
+          pattern: ^[a-z0-9][a-z0-9._-]*
           type: string
         flowId:
           maxLength: 100
           minLength: 1
-          pattern: "^[a-zA-Z0-9][a-zA-Z0-9._-]*"
+          pattern: ^[a-zA-Z0-9][a-zA-Z0-9._-]*
           type: string
         source:
           type: string
@@ -21128,7 +19047,7 @@ components:
           type: boolean
           default: false
         tenantId:
-          pattern: "^[a-z0-9][a-z0-9_-]"
+          pattern: ^[a-z0-9][a-z0-9_-]
           type: string
         namespace:
           type: string

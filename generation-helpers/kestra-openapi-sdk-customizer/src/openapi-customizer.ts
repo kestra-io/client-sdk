@@ -181,6 +181,9 @@ export function sanitizeOpenAPI(spec: any, opts: { removeDeprecatedOperations?: 
     // 4) Remove get from method name, temporary while its done on core side
     normalizeGetOperationIds(spec)
 
+    // 5) Replace Flow.labels property schema
+    replaceFlowLabelsSpec(spec)
+
     return counters;
 }
 
@@ -208,4 +211,25 @@ export function normalizeGetOperationIds(spec: any): number {
     }
 
     return renamed;
+}
+
+export function replaceFlowLabelsSpec(spec: any): void {
+    if (!spec || typeof spec !== "object") return;
+    const schemas = spec.components && spec.components.schemas;
+    if (!schemas || typeof schemas !== "object") return;
+
+    const flow = schemas["Flow"];
+    if (!flow || typeof flow !== "object") return;
+
+    if (!flow.properties || typeof flow.properties !== "object") {
+        flow.properties = {};
+    }
+
+    const existing = flow.properties["labels"];
+    const labelsPatch = {
+        type: "array",
+        items: { $ref: "#/components/schemas/Label" },
+    };
+
+    flow.properties["labels"] = Object.assign({}, existing, labelsPatch);
 }

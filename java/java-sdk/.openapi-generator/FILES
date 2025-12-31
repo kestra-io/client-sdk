@@ -308,7 +308,6 @@ docs/PluginIcon.md
 docs/PluginPluginElementMetadata.md
 docs/PluginSchema.md
 docs/PluginSubGroupPluginCategory.md
-docs/PreviewAppRequest.md
 docs/PropertyBoolean.md
 docs/PropertyDouble.md
 docs/PropertyDuration.md
@@ -749,7 +748,6 @@ src/main/java/io/kestra/sdk/model/PluginIcon.java
 src/main/java/io/kestra/sdk/model/PluginPluginElementMetadata.java
 src/main/java/io/kestra/sdk/model/PluginSchema.java
 src/main/java/io/kestra/sdk/model/PluginSubGroupPluginCategory.java
-src/main/java/io/kestra/sdk/model/PreviewAppRequest.java
 src/main/java/io/kestra/sdk/model/PropertyBoolean.java
 src/main/java/io/kestra/sdk/model/PropertyDouble.java
 src/main/java/io/kestra/sdk/model/PropertyDuration.java
@@ -853,8 +851,15 @@ src/main/java/io/kestra/sdk/model/WorkerGroup.java
 src/main/java/io/kestra/sdk/model/WorkerGroupFallback.java
 src/main/java/io/kestra/sdk/model/WorkerTaskRestartStrategy.java
 src/test/java/io/kestra/sdk/api/AppsApiTest.java
+src/test/java/io/kestra/sdk/api/DashboardsApiTest.java
+src/test/java/io/kestra/sdk/api/ExecutionsApiTest.java
+src/test/java/io/kestra/sdk/api/FilesApiTest.java
+src/test/java/io/kestra/sdk/api/FlowsApiTest.java
 src/test/java/io/kestra/sdk/api/GroupsApiTest.java
+src/test/java/io/kestra/sdk/api/KvApiTest.java
+src/test/java/io/kestra/sdk/api/NamespacesApiTest.java
 src/test/java/io/kestra/sdk/api/RolesApiTest.java
 src/test/java/io/kestra/sdk/api/ServiceAccountApiTest.java
 src/test/java/io/kestra/sdk/api/TestSuitesApiTest.java
+src/test/java/io/kestra/sdk/api/TriggersApiTest.java
 src/test/java/io/kestra/sdk/api/UsersApiTest.java

@@ -40,6 +40,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * FlowWithSource
  */
 @JsonPropertyOrder({
+  FlowWithSource.JSON_PROPERTY_LABELS,
   FlowWithSource.JSON_PROPERTY_ID,
   FlowWithSource.JSON_PROPERTY_NAMESPACE,
   FlowWithSource.JSON_PROPERTY_REVISION,
@@ -47,7 +48,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowWithSource.JSON_PROPERTY_INPUTS,
   FlowWithSource.JSON_PROPERTY_OUTPUTS,
   FlowWithSource.JSON_PROPERTY_DISABLED,
-  FlowWithSource.JSON_PROPERTY_LABELS,
   FlowWithSource.JSON_PROPERTY_VARIABLES,
   FlowWithSource.JSON_PROPERTY_WORKER_GROUP,
   FlowWithSource.JSON_PROPERTY_DELETED,
@@ -65,6 +65,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class FlowWithSource {
+  public static final String JSON_PROPERTY_LABELS = "labels";
+  @jakarta.annotation.Nullable  private List<Label> labels = new ArrayList<>();
+
   public static final String JSON_PROPERTY_ID = "id";
   @jakarta.annotation.Nonnull  private String id;
 
@@ -85,9 +88,6 @@ public class FlowWithSource {
 
   public static final String JSON_PROPERTY_DISABLED = "disabled";
   @jakarta.annotation.Nonnull  private Boolean disabled;
-
-  public static final String JSON_PROPERTY_LABELS = "labels";
-  @jakarta.annotation.Nullable  private List<Label> labels = new ArrayList<>();
 
   public static final String JSON_PROPERTY_VARIABLES = "variables";
   @jakarta.annotation.Nullable  private Object variables;
@@ -132,6 +132,38 @@ public class FlowWithSource {
   @jakarta.annotation.Nullable  private String source;
 
   public FlowWithSource() {
+  }
+
+  public FlowWithSource labels(@jakarta.annotation.Nullable List<Label> labels) {
+    
+    this.labels = labels;
+    return this;
+  }
+
+  public FlowWithSource addLabelsItem(Label labelsItem) {
+    if (this.labels == null) {
+      this.labels = new ArrayList<>();
+    }
+    this.labels.add(labelsItem);
+    return this;
+  }
+
+  /**
+   * Labels as a list of Label (key/value pairs) or as a map of string to string.
+   * @return labels
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LABELS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<Label> getLabels() {
+    return labels;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LABELS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLabels(@jakarta.annotation.Nullable List<Label> labels) {
+    this.labels = labels;
   }
 
   public FlowWithSource id(@jakarta.annotation.Nonnull String id) {
@@ -317,38 +349,6 @@ public class FlowWithSource {
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDisabled(@jakarta.annotation.Nonnull Boolean disabled) {
     this.disabled = disabled;
-  }
-
-  public FlowWithSource labels(@jakarta.annotation.Nullable List<Label> labels) {
-    
-    this.labels = labels;
-    return this;
-  }
-
-  public FlowWithSource addLabelsItem(Label labelsItem) {
-    if (this.labels == null) {
-      this.labels = new ArrayList<>();
-    }
-    this.labels.add(labelsItem);
-    return this;
-  }
-
-  /**
-   * Labels as a list of Label (key/value pairs) or as a map of string to string.
-   * @return labels
-   */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_LABELS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<Label> getLabels() {
-    return labels;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_LABELS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLabels(@jakarta.annotation.Nullable List<Label> labels) {
-    this.labels = labels;
   }
 
   public FlowWithSource variables(@jakarta.annotation.Nullable Object variables) {
@@ -760,14 +760,14 @@ public class FlowWithSource {
       return false;
     }
     FlowWithSource flowWithSource = (FlowWithSource) o;
-    return Objects.equals(this.id, flowWithSource.id) &&
+    return Objects.equals(this.labels, flowWithSource.labels) &&
+        Objects.equals(this.id, flowWithSource.id) &&
         Objects.equals(this.namespace, flowWithSource.namespace) &&
         Objects.equals(this.revision, flowWithSource.revision) &&
         Objects.equals(this.description, flowWithSource.description) &&
         Objects.equals(this.inputs, flowWithSource.inputs) &&
         Objects.equals(this.outputs, flowWithSource.outputs) &&
         Objects.equals(this.disabled, flowWithSource.disabled) &&
-        Objects.equals(this.labels, flowWithSource.labels) &&
         Objects.equals(this.variables, flowWithSource.variables) &&
         Objects.equals(this.workerGroup, flowWithSource.workerGroup) &&
         Objects.equals(this.deleted, flowWithSource.deleted) &&
@@ -786,13 +786,14 @@ public class FlowWithSource {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, namespace, revision, description, inputs, outputs, disabled, labels, variables, workerGroup, deleted, _finally, tasks, errors, afterExecution, triggers, pluginDefaults, concurrency, retry, sla, checks, source);
+    return Objects.hash(labels, id, namespace, revision, description, inputs, outputs, disabled, variables, workerGroup, deleted, _finally, tasks, errors, afterExecution, triggers, pluginDefaults, concurrency, retry, sla, checks, source);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class FlowWithSource {\n");
+    sb.append("    labels: ").append(toIndentedString(labels)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
     sb.append("    revision: ").append(toIndentedString(revision)).append("\n");
@@ -800,7 +801,6 @@ public class FlowWithSource {
     sb.append("    inputs: ").append(toIndentedString(inputs)).append("\n");
     sb.append("    outputs: ").append(toIndentedString(outputs)).append("\n");
     sb.append("    disabled: ").append(toIndentedString(disabled)).append("\n");
-    sb.append("    labels: ").append(toIndentedString(labels)).append("\n");
     sb.append("    variables: ").append(toIndentedString(variables)).append("\n");
     sb.append("    workerGroup: ").append(toIndentedString(workerGroup)).append("\n");
     sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");

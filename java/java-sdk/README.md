@@ -129,15 +129,9 @@ Class | Method | HTTP request | Description
 *AppsApi* | [**deleteApp**](docs/AppsApi.md#deleteApp) | **DELETE** /api/v1/{tenant}/apps/{uid} | Delete an existing app
 *AppsApi* | [**disableApp**](docs/AppsApi.md#disableApp) | **POST** /api/v1/{tenant}/apps/{uid}/disable | Disable the app.
 *AppsApi* | [**enableApp**](docs/AppsApi.md#enableApp) | **POST** /api/v1/{tenant}/apps/{uid}/enable | Enable the app.
-*AppsApi* | [**fileMetaFromAppExecution**](docs/AppsApi.md#fileMetaFromAppExecution) | **GET** /api/v1/{tenant}/apps/view/{id}/file/meta | Get file meta information from an app execution
-*AppsApi* | [**filePreviewFromAppExecution**](docs/AppsApi.md#filePreviewFromAppExecution) | **GET** /api/v1/{tenant}/apps/view/{id}/file/preview | Get file preview from an app execution
 *AppsApi* | [**listTags**](docs/AppsApi.md#listTags) | **GET** /api/v1/{tenant}/apps/tags | Get all the app tags
-*AppsApi* | [**logsFromAppExecution**](docs/AppsApi.md#logsFromAppExecution) | **GET** /api/v1/{tenant}/apps/view/{uid}/logs/download | Download logs for an app execution
-*AppsApi* | [**openApp**](docs/AppsApi.md#openApp) | **GET** /api/v1/{tenant}/apps/view/{uid} | Open an app
-*AppsApi* | [**previewApp**](docs/AppsApi.md#previewApp) | **POST** /api/v1/{tenant}/apps/preview | Open the app for the given source
 *AppsApi* | [**searchApps**](docs/AppsApi.md#searchApps) | **GET** /api/v1/{tenant}/apps/search | Search for apps
 *AppsApi* | [**searchAppsFromCatalog**](docs/AppsApi.md#searchAppsFromCatalog) | **GET** /api/v1/{tenant}/apps/catalog | Search for apps from catalog
-*AppsApi* | [**streamEventsFromApp**](docs/AppsApi.md#streamEventsFromApp) | **GET** /api/v1/{tenant}/apps/view/{id}/streams/{stream} | Get an event stream from a given app.
 *AppsApi* | [**updateApp**](docs/AppsApi.md#updateApp) | **PUT** /api/v1/{tenant}/apps/{uid} | Update an existing app
 *DashboardsApi* | [**createDashboard**](docs/DashboardsApi.md#createDashboard) | **POST** /api/v1/{tenant}/dashboards | Create a dashboard from yaml source
 *DashboardsApi* | [**dashboard**](docs/DashboardsApi.md#dashboard) | **GET** /api/v1/{tenant}/dashboards/{id} | Get a dashboard
@@ -644,7 +638,6 @@ Class | Method | HTTP request | Description
  - [PluginPluginElementMetadata](docs/PluginPluginElementMetadata.md)
  - [PluginSchema](docs/PluginSchema.md)
  - [PluginSubGroupPluginCategory](docs/PluginSubGroupPluginCategory.md)
- - [PreviewAppRequest](docs/PreviewAppRequest.md)
  - [PropertyBoolean](docs/PropertyBoolean.md)
  - [PropertyDouble](docs/PropertyDouble.md)
  - [PropertyDuration](docs/PropertyDuration.md)
