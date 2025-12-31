@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**resource** | [**ResourceType1**](ResourceType1.md) |  | [optional] 
+**resource** | [**ResourceType**](ResourceType.md) |  | [optional] 
 **type** | [**CrudEventType**](CrudEventType.md) |  | [optional] 
 **detail** | **Dict[str, object]** |  | [optional] 
 

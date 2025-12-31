@@ -30,7 +30,7 @@ class TestUsersApi(unittest.TestCase):
 
     def setUp(self) -> None:
         configuration = Configuration()
-        configuration.host = "http://localhost:8080"
+        configuration.host = "http://localhost:9902"
         configuration.username = "root@root.com"
         configuration.password = "Root!1234"
 

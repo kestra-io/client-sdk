@@ -40,6 +40,16 @@ docs/AppsControllerApiBulkOperationRequest.md
 docs/Assertion.md
 docs/AssertionResult.md
 docs/AssertionRunError.md
+docs/Asset.md
+docs/AssetIdentifier.md
+docs/AssetTopologyGraph.md
+docs/AssetTopologyGraphEdge.md
+docs/AssetTopologyGraphNode.md
+docs/AssetTopologyGraphNodeNodeType.md
+docs/AssetsControllerApiAsset.md
+docs/AssetsControllerApiAssetUsage.md
+docs/AssetsDeclaration.md
+docs/AssetsInOut.md
 docs/AttributeReference.md
 docs/AuditLog.md
 docs/AuditLogControllerApiAuditLogItem.md
@@ -64,8 +74,13 @@ docs/Blueprint.md
 docs/BlueprintControllerApiBlueprintItem.md
 docs/BlueprintControllerApiBlueprintItemWithSource.md
 docs/BlueprintControllerApiBlueprintTagItem.md
+docs/BlueprintControllerApiFlowBlueprint.md
+docs/BlueprintControllerFlowBlueprintCreateOrUpdate.md
 docs/BlueprintControllerKind.md
-docs/BlueprintWithFlow.md
+docs/BlueprintControllerUseBlueprintTemplateRequest.md
+docs/BlueprintControllerUseBlueprintTemplateResponse.md
+docs/BlueprintTemplate.md
+docs/BlueprintWithFlowEntity.md
 docs/Breakpoint.md
 docs/BulkErrorResponse.md
 docs/BulkImportAppsRequest.md
@@ -73,6 +88,9 @@ docs/BulkResponse.md
 docs/Cache.md
 docs/ChartChartOption.md
 docs/ChartFiltersOverrides.md
+docs/Check.md
+docs/CheckBehavior.md
+docs/CheckStyle.md
 docs/Concurrency.md
 docs/ConcurrencyBehavior.md
 docs/ConcurrencyLimit.md
@@ -90,6 +108,7 @@ docs/DailyExecutionStatisticsDuration.md
 docs/DailyExecutionStatisticsExecutionCounts.md
 docs/Dashboard.md
 docs/DashboardControllerPreviewRequest.md
+docs/DeleteTriggersByQueryRequest.md
 docs/DeletedInterface.md
 docs/DependsOn.md
 docs/DocumentationWithSchema.md
@@ -102,6 +121,7 @@ docs/EventLogEntry.md
 docs/ExecutableTaskSubflowId.md
 docs/Execution.md
 docs/ExecutionControllerApiValidateExecutionInputsResponse.md
+docs/ExecutionControllerApiValidateExecutionInputsResponseApiCheckFailure.md
 docs/ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue.md
 docs/ExecutionControllerApiValidateExecutionInputsResponseApiInputError.md
 docs/ExecutionControllerEvalResult.md
@@ -244,6 +264,7 @@ docs/Name.md
 docs/Namespace.md
 docs/NamespaceAllowedNamespace.md
 docs/NamespaceAllowedTrigger.md
+docs/NamespaceFileRevision.md
 docs/NamespaceLight.md
 docs/NamespacesApi.md
 docs/Output.md
@@ -253,6 +274,8 @@ docs/PagedResultsApiGroupSummary.md
 docs/PagedResultsApiRoleSummary.md
 docs/PagedResultsAppsControllerApiApp.md
 docs/PagedResultsAppsControllerApiAppCatalogItem.md
+docs/PagedResultsAssetsControllerApiAsset.md
+docs/PagedResultsAssetsControllerApiAssetUsage.md
 docs/PagedResultsAuditLogControllerApiAuditLogItem.md
 docs/PagedResultsBlueprint.md
 docs/PagedResultsBlueprintControllerApiBlueprintItem.md
@@ -293,7 +316,7 @@ docs/PluginIcon.md
 docs/PluginPluginElementMetadata.md
 docs/PluginSchema.md
 docs/PluginSubGroupPluginCategory.md
-docs/PreviewAppRequest.md
+docs/PropertyAssetsDeclaration.md
 docs/PropertyBoolean.md
 docs/PropertyDouble.md
 docs/PropertyDuration.md
@@ -305,6 +328,7 @@ docs/QueryFilterField.md
 docs/QueryFilterOp.md
 docs/RBACServiceRoleAssignmentRoleOrigin.md
 docs/Relation.md
+docs/Relation1.md
 docs/RelationType.md
 docs/ResourceType.md
 docs/ResourceType1.md
@@ -453,6 +477,16 @@ kestrapy/models/apps_controller_api_bulk_operation_request.py
 kestrapy/models/assertion.py
 kestrapy/models/assertion_result.py
 kestrapy/models/assertion_run_error.py
+kestrapy/models/asset.py
+kestrapy/models/asset_identifier.py
+kestrapy/models/asset_topology_graph.py
+kestrapy/models/asset_topology_graph_edge.py
+kestrapy/models/asset_topology_graph_node.py
+kestrapy/models/asset_topology_graph_node_node_type.py
+kestrapy/models/assets_controller_api_asset.py
+kestrapy/models/assets_controller_api_asset_usage.py
+kestrapy/models/assets_declaration.py
+kestrapy/models/assets_in_out.py
 kestrapy/models/attribute_reference.py
 kestrapy/models/audit_log.py
 kestrapy/models/audit_log_controller_api_audit_log_item.py
@@ -477,8 +511,13 @@ kestrapy/models/blueprint.py
 kestrapy/models/blueprint_controller_api_blueprint_item.py
 kestrapy/models/blueprint_controller_api_blueprint_item_with_source.py
 kestrapy/models/blueprint_controller_api_blueprint_tag_item.py
+kestrapy/models/blueprint_controller_api_flow_blueprint.py
+kestrapy/models/blueprint_controller_flow_blueprint_create_or_update.py
 kestrapy/models/blueprint_controller_kind.py
-kestrapy/models/blueprint_with_flow.py
+kestrapy/models/blueprint_controller_use_blueprint_template_request.py
+kestrapy/models/blueprint_controller_use_blueprint_template_response.py
+kestrapy/models/blueprint_template.py
+kestrapy/models/blueprint_with_flow_entity.py
 kestrapy/models/breakpoint.py
 kestrapy/models/bulk_error_response.py
 kestrapy/models/bulk_import_apps_request.py
@@ -486,6 +525,9 @@ kestrapy/models/bulk_response.py
 kestrapy/models/cache.py
 kestrapy/models/chart_chart_option.py
 kestrapy/models/chart_filters_overrides.py
+kestrapy/models/check.py
+kestrapy/models/check_behavior.py
+kestrapy/models/check_style.py
 kestrapy/models/concurrency.py
 kestrapy/models/concurrency_behavior.py
 kestrapy/models/concurrency_limit.py
@@ -503,6 +545,7 @@ kestrapy/models/daily_execution_statistics_duration.py
 kestrapy/models/daily_execution_statistics_execution_counts.py
 kestrapy/models/dashboard.py
 kestrapy/models/dashboard_controller_preview_request.py
+kestrapy/models/delete_triggers_by_query_request.py
 kestrapy/models/deleted_interface.py
 kestrapy/models/depends_on.py
 kestrapy/models/documentation_with_schema.py
@@ -515,6 +558,7 @@ kestrapy/models/event_log_entry.py
 kestrapy/models/executable_task_subflow_id.py
 kestrapy/models/execution.py
 kestrapy/models/execution_controller_api_validate_execution_inputs_response.py
+kestrapy/models/execution_controller_api_validate_execution_inputs_response_api_check_failure.py
 kestrapy/models/execution_controller_api_validate_execution_inputs_response_api_input_and_value.py
 kestrapy/models/execution_controller_api_validate_execution_inputs_response_api_input_error.py
 kestrapy/models/execution_controller_eval_result.py
@@ -653,6 +697,7 @@ kestrapy/models/name.py
 kestrapy/models/namespace.py
 kestrapy/models/namespace_allowed_namespace.py
 kestrapy/models/namespace_allowed_trigger.py
+kestrapy/models/namespace_file_revision.py
 kestrapy/models/namespace_light.py
 kestrapy/models/output.py
 kestrapy/models/output_value.py
@@ -661,6 +706,8 @@ kestrapy/models/paged_results_api_group_summary.py
 kestrapy/models/paged_results_api_role_summary.py
 kestrapy/models/paged_results_apps_controller_api_app.py
 kestrapy/models/paged_results_apps_controller_api_app_catalog_item.py
+kestrapy/models/paged_results_assets_controller_api_asset.py
+kestrapy/models/paged_results_assets_controller_api_asset_usage.py
 kestrapy/models/paged_results_audit_log_controller_api_audit_log_item.py
 kestrapy/models/paged_results_blueprint.py
 kestrapy/models/paged_results_blueprint_controller_api_blueprint_item.py
@@ -701,7 +748,7 @@ kestrapy/models/plugin_icon.py
 kestrapy/models/plugin_plugin_element_metadata.py
 kestrapy/models/plugin_schema.py
 kestrapy/models/plugin_sub_group_plugin_category.py
-kestrapy/models/preview_app_request.py
+kestrapy/models/property_assets_declaration.py
 kestrapy/models/property_boolean.py
 kestrapy/models/property_double.py
 kestrapy/models/property_duration.py
@@ -713,6 +760,7 @@ kestrapy/models/query_filter_field.py
 kestrapy/models/query_filter_op.py
 kestrapy/models/rbac_service_role_assignment_role_origin.py
 kestrapy/models/relation.py
+kestrapy/models/relation1.py
 kestrapy/models/relation_type.py
 kestrapy/models/resource_type.py
 kestrapy/models/resource_type1.py

@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **id** | **str** |  | [optional] 
 **namespace** | **str** |  | [optional] 
 **inputs** | [**List[ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue]**](ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue.md) |  | [optional] 
+**checks** | [**List[ExecutionControllerApiValidateExecutionInputsResponseApiCheckFailure]**](ExecutionControllerApiValidateExecutionInputsResponseApiCheckFailure.md) |  | [optional] 
 
 ## Example
 

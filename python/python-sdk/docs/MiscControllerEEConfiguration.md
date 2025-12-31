@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 **is_ai_enabled** | **bool** |  | [optional] 
 **is_basic_auth_initialized** | **bool** |  | [optional] 
 **plugins_hash** | **int** |  | [optional] 
+**is_concurrency_view_enabled** | **bool** |  | [optional] 
 **tenants** | [**MiscControllerTenantConfigurationInfo**](MiscControllerTenantConfigurationInfo.md) |  | [optional] 
 **secrets_enabled** | **bool** |  | [optional] 
 **supported_storages** | [**List[MiscControllerPluginIdAndVersion]**](MiscControllerPluginIdAndVersion.md) |  | [optional] 
@@ -38,6 +39,8 @@ Name | Type | Description | Notes
 **password_regexp** | **str** |  | [optional] 
 **passwordless_enabled** | **bool** |  | [optional] 
 **airgapped** | **bool** |  | [optional] 
+**feature_gating** | **bool** |  | [optional] 
+**features** | **List[str]** |  | [optional] 
 
 ## Example
 

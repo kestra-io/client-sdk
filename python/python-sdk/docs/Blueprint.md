@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **included_tasks** | **List[str]** |  | [optional] 
 **published_at** | **datetime** |  | [optional] 
 **deleted** | **bool** |  | 
+**template** | [**BlueprintTemplate**](BlueprintTemplate.md) |  | [optional] 
 
 ## Example
 

@@ -67,7 +67,7 @@ tasks:
     def test_create_complete_flow(self) -> None:
         """Test case for create_complete_flow
 
-        Create a complete flow from json object
+        Create a complete flow from yaml source
         """
         body = """id: flow_complete
 namespace: tests

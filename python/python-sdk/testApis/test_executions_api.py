@@ -15,7 +15,7 @@
 
 import unittest
 
-from kestrapy import Configuration, KestraClient, State
+from kestrapy import Configuration, KestraClient, State, ExecutionControllerStateRequest
 from typing import Optional
 from kestrapy import QueryFilter, QueryFilterField, QueryFilterOp, ExecutionControllerSetLabelsByIdsRequest, Label, StateType
 import time
@@ -1407,6 +1407,46 @@ tasks:
         time.sleep(0.5)
 
         assert getattr(getattr(self.kestra_client.executions.execution(execution_id=exec2_id, tenant=self.tenant), "state", None), "current", None) == "CANCELLED"
+
+    def test_update_task_run_state(self) -> None:
+        namespace = f"test.update_task_state_{int(time.time() * 1000)}"
+        flow_id = f"flow-{int(time.time() * 1000)}"
+
+        body = f"""
+    id: {flow_id}
+    namespace: {namespace}
+    tasks:
+      - id: hello
+        type: io.kestra.plugin.core.log.Log
+        message: Hello World!
+    """
+        self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
+
+        resp = self.kestra_client.executions.create_execution(namespace=namespace, id=flow_id, wait=True, tenant=self.tenant)
+        exec_id = getattr(resp, "id", None)
+        assert exec_id is not None
+
+        task_run_id = None
+        if hasattr(resp, "task_run_list") and getattr(resp, "task_run_list"):
+            task_run_id = getattr(getattr(resp, "task_run_list")[0], "id", None)
+
+        assert task_run_id is not None
+
+        state_request = ExecutionControllerStateRequest(
+            taskRunId=task_run_id,
+            state=StateType.FAILED
+        )
+
+        updated = self.kestra_client.executions.update_task_run_state(
+            execution_id=exec_id,
+            tenant=self.tenant,
+            execution_controller_state_request=state_request
+        )
+        first_task_run = None
+        if hasattr(updated, "task_run_list") and getattr(updated, "task_run_list"):
+            first_task_run = getattr(updated, "task_run_list")[0]
+
+        assert getattr(getattr(first_task_run, "state", None), "current", None) == "FAILED"
 
 
 if __name__ == '__main__':

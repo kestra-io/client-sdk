@@ -11,6 +11,8 @@ Name | Type | Description | Notes
 **max_servers** | **int** |  | [optional] 
 **standalone** | **bool** |  | [optional] 
 **worker_groups** | **bool** |  | [optional] 
+**online** | **bool** |  | [optional] 
+**grace_period** | **datetime** |  | [optional] 
 
 ## Example
 

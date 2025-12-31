@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **value** | **str** |  | [optional] 
 **state** | [**StateType**](StateType.md) |  | [optional] 
 **outputs** | **Dict[str, object]** |  | [optional] 
+**assets** | [**List[Asset]**](Asset.md) |  | [optional] 
 **description** | [**PropertyString**](PropertyString.md) |  | [optional] 
 
 ## Example

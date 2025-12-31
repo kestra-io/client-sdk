@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**download_file_from_execution**](ExecutionsApi.md#download_file_from_execution) | **GET** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution
 [**execution**](ExecutionsApi.md#execution) | **GET** /api/v1/{tenant}/executions/{executionId} | Get an execution
 [**execution_flow_graph**](ExecutionsApi.md#execution_flow_graph) | **GET** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution
+[**export_executions**](ExecutionsApi.md#export_executions) | **GET** /api/v1/{tenant}/executions/export/by-query/csv | Export all executions as a streamed CSV file
 [**file_metadatas_from_execution**](ExecutionsApi.md#file_metadatas_from_execution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution
 [**flow_from_execution**](ExecutionsApi.md#flow_from_execution) | **GET** /api/v1/{tenant}/executions/flows/{namespace}/{flowId} | Get flow information&#39;s for an execution
 [**flow_from_execution_by_id**](ExecutionsApi.md#flow_from_execution_by_id) | **GET** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution
@@ -36,7 +37,6 @@ Method | HTTP request | Description
 [**resume_execution**](ExecutionsApi.md#resume_execution) | **POST** /api/v1/{tenant}/executions/{executionId}/resume | Resume a paused execution.
 [**resume_executions_by_ids**](ExecutionsApi.md#resume_executions_by_ids) | **POST** /api/v1/{tenant}/executions/resume/by-ids | Resume a list of paused executions
 [**resume_executions_by_query**](ExecutionsApi.md#resume_executions_by_query) | **POST** /api/v1/{tenant}/executions/resume/by-query | Resume executions filter by query parameters
-[**search_concurrency_limits**](ExecutionsApi.md#search_concurrency_limits) | **GET** /api/v1/{tenant}/concurrency-limit/search | Search for flow concurrency limits
 [**search_executions**](ExecutionsApi.md#search_executions) | **GET** /api/v1/{tenant}/executions/search | Search for executions
 [**search_executions_by_flow_id**](ExecutionsApi.md#search_executions_by_flow_id) | **GET** /api/v1/{tenant}/executions | Search for executions for a flow
 [**set_labels_on_terminated_execution**](ExecutionsApi.md#set_labels_on_terminated_execution) | **POST** /api/v1/{tenant}/executions/{executionId}/labels | Add or update labels of a terminated execution
@@ -46,10 +46,10 @@ Method | HTTP request | Description
 [**unqueue_execution**](ExecutionsApi.md#unqueue_execution) | **POST** /api/v1/{tenant}/executions/{executionId}/unqueue | Unqueue an execution
 [**unqueue_executions_by_ids**](ExecutionsApi.md#unqueue_executions_by_ids) | **POST** /api/v1/{tenant}/executions/unqueue/by-ids | Unqueue a list of executions
 [**unqueue_executions_by_query**](ExecutionsApi.md#unqueue_executions_by_query) | **POST** /api/v1/{tenant}/executions/unqueue/by-query | Unqueue executions filter by query parameters
-[**update_concurrency_limit**](ExecutionsApi.md#update_concurrency_limit) | **PUT** /api/v1/{tenant}/concurrency-limit/{namespace}/{flowId} | Update a flow concurrency limit
 [**update_execution_status**](ExecutionsApi.md#update_execution_status) | **POST** /api/v1/{tenant}/executions/{executionId}/change-status | Change the state of an execution
 [**update_executions_status_by_ids**](ExecutionsApi.md#update_executions_status_by_ids) | **POST** /api/v1/{tenant}/executions/change-status/by-ids | Change executions state by id
 [**update_executions_status_by_query**](ExecutionsApi.md#update_executions_status_by_query) | **POST** /api/v1/{tenant}/executions/change-status/by-query | Change executions state by query parameters
+[**update_task_run_state**](ExecutionsApi.md#update_task_run_state) | **POST** /api/v1/{tenant}/executions/{executionId}/state | Change state for a taskrun in an execution
 
 
 # **create_execution**
@@ -538,6 +538,70 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | getExecutionFlowGraph 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **export_executions**
+> List[object] export_executions(filters, tenant)
+
+Export all executions as a streamed CSV file
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    filters = [kestrapy.QueryFilter()] # List[QueryFilter] | A list of filters
+    tenant = 'tenant_example' # str | 
+
+    try:
+        # Export all executions as a streamed CSV file
+        api_response = kestra_client.ExecutionsApi.export_executions(filters, tenant)
+        print("The response of ExecutionsApi->export_executions:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ExecutionsApi->export_executions: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **filters** | [**List[QueryFilter]**](QueryFilter.md)| A list of filters | 
+ **tenant** | **str**|  | 
+
+### Return type
+
+**List[object]**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/csv
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | exportExecutions 200 response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2182,66 +2246,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **search_concurrency_limits**
-> PagedResultsConcurrencyLimit search_concurrency_limits(tenant)
-
-Search for flow concurrency limits
-
-### Example
-
-
-```python
-from kestrapy import KestraClient, Configuration
-
-configuration = Configuration()
-
-configuration.host = "http://localhost:8080"
-configuration.username = "root@root.com"
-configuration.password = "Root!1234"
-
-# Enter a context with an instance of the API client
-with KestraClient(configuration) as kestra_client:
-    tenant = 'tenant_example' # str | 
-
-    try:
-        # Search for flow concurrency limits
-        api_response = kestra_client.ExecutionsApi.search_concurrency_limits(tenant)
-        print("The response of ExecutionsApi->search_concurrency_limits:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling ExecutionsApi->search_concurrency_limits: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **tenant** | **str**|  | 
-
-### Return type
-
-[**PagedResultsConcurrencyLimit**](PagedResultsConcurrencyLimit.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | searchConcurrencyLimits 200 response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **search_executions**
 > PagedResultsExecution search_executions(page, size, tenant, sort=sort, filters=filters)
 
@@ -2848,72 +2852,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update_concurrency_limit**
-> ConcurrencyLimit update_concurrency_limit(flow_id, namespace, tenant, concurrency_limit)
-
-Update a flow concurrency limit
-
-### Example
-
-
-```python
-from kestrapy import KestraClient, Configuration
-
-configuration = Configuration()
-
-configuration.host = "http://localhost:8080"
-configuration.username = "root@root.com"
-configuration.password = "Root!1234"
-
-# Enter a context with an instance of the API client
-with KestraClient(configuration) as kestra_client:
-    flow_id = 'flow_id_example' # str | 
-    namespace = 'namespace_example' # str | 
-    tenant = 'tenant_example' # str | 
-    concurrency_limit = kestrapy.ConcurrencyLimit() # ConcurrencyLimit | 
-
-    try:
-        # Update a flow concurrency limit
-        api_response = kestra_client.ExecutionsApi.update_concurrency_limit(flow_id, namespace, tenant, concurrency_limit)
-        print("The response of ExecutionsApi->update_concurrency_limit:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling ExecutionsApi->update_concurrency_limit: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **flow_id** | **str**|  | 
- **namespace** | **str**|  | 
- **tenant** | **str**|  | 
- **concurrency_limit** | [**ConcurrencyLimit**](ConcurrencyLimit.md)|  | 
-
-### Return type
-
-[**ConcurrencyLimit**](ConcurrencyLimit.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | updateConcurrencyLimit 200 response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **update_execution_status**
 > Execution update_execution_status(execution_id, status, tenant)
 
@@ -3111,6 +3049,72 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | On success |  -  |
 **422** | Changed state with errors |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **update_task_run_state**
+> Execution update_task_run_state(execution_id, tenant, execution_controller_state_request)
+
+Change state for a taskrun in an execution
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    execution_id = 'execution_id_example' # str | The execution id
+    tenant = 'tenant_example' # str | 
+    execution_controller_state_request = kestrapy.ExecutionControllerStateRequest() # ExecutionControllerStateRequest | the taskRun id and state to apply
+
+    try:
+        # Change state for a taskrun in an execution
+        api_response = kestra_client.ExecutionsApi.update_task_run_state(execution_id, tenant, execution_controller_state_request)
+        print("The response of ExecutionsApi->update_task_run_state:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ExecutionsApi->update_task_run_state: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **execution_id** | **str**| The execution id | 
+ **tenant** | **str**|  | 
+ **execution_controller_state_request** | [**ExecutionControllerStateRequest**](ExecutionControllerStateRequest.md)| the taskRun id and state to apply | 
+
+### Return type
+
+[**Execution**](Execution.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | updateTaskRunState 200 response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

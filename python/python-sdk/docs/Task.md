@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **run_if** | **str** |  | [optional] 
 **allow_warning** | **bool** |  | [optional] 
 **task_cache** | [**Cache**](Cache.md) |  | [optional] 
+**assets** | [**PropertyAssetsDeclaration**](PropertyAssetsDeclaration.md) |  | [optional] 
 
 ## Example
 
