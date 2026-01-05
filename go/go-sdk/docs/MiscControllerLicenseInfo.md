@@ -10,6 +10,8 @@ Name | Type | Description | Notes
 **MaxServers** | Pointer to **int32** |  | [optional] 
 **Standalone** | Pointer to **bool** |  | [optional] 
 **WorkerGroups** | Pointer to **bool** |  | [optional] 
+**Online** | Pointer to **bool** |  | [optional] 
+**GracePeriod** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
 
@@ -179,6 +181,56 @@ SetWorkerGroups sets WorkerGroups field to given value.
 `func (o *MiscControllerLicenseInfo) HasWorkerGroups() bool`
 
 HasWorkerGroups returns a boolean if a field has been set.
+
+### GetOnline
+
+`func (o *MiscControllerLicenseInfo) GetOnline() bool`
+
+GetOnline returns the Online field if non-nil, zero value otherwise.
+
+### GetOnlineOk
+
+`func (o *MiscControllerLicenseInfo) GetOnlineOk() (*bool, bool)`
+
+GetOnlineOk returns a tuple with the Online field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOnline
+
+`func (o *MiscControllerLicenseInfo) SetOnline(v bool)`
+
+SetOnline sets Online field to given value.
+
+### HasOnline
+
+`func (o *MiscControllerLicenseInfo) HasOnline() bool`
+
+HasOnline returns a boolean if a field has been set.
+
+### GetGracePeriod
+
+`func (o *MiscControllerLicenseInfo) GetGracePeriod() time.Time`
+
+GetGracePeriod returns the GracePeriod field if non-nil, zero value otherwise.
+
+### GetGracePeriodOk
+
+`func (o *MiscControllerLicenseInfo) GetGracePeriodOk() (*time.Time, bool)`
+
+GetGracePeriodOk returns a tuple with the GracePeriod field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGracePeriod
+
+`func (o *MiscControllerLicenseInfo) SetGracePeriod(v time.Time)`
+
+SetGracePeriod sets GracePeriod field to given value.
+
+### HasGracePeriod
+
+`func (o *MiscControllerLicenseInfo) HasGracePeriod() bool`
+
+HasGracePeriod returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

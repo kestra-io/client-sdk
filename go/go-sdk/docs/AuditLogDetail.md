@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Permission** | Pointer to [**Permission**](Permission.md) |  | [optional] 
-**ResourceType** | Pointer to [**ResourceType1**](ResourceType1.md) |  | [optional] 
+**ResourceType** | Pointer to [**ResourceType**](ResourceType.md) |  | [optional] 
 **Type** | **string** |  | 
 **Id** | Pointer to **string** |  | [optional] 
 
@@ -55,20 +55,20 @@ HasPermission returns a boolean if a field has been set.
 
 ### GetResourceType
 
-`func (o *AuditLogDetail) GetResourceType() ResourceType1`
+`func (o *AuditLogDetail) GetResourceType() ResourceType`
 
 GetResourceType returns the ResourceType field if non-nil, zero value otherwise.
 
 ### GetResourceTypeOk
 
-`func (o *AuditLogDetail) GetResourceTypeOk() (*ResourceType1, bool)`
+`func (o *AuditLogDetail) GetResourceTypeOk() (*ResourceType, bool)`
 
 GetResourceTypeOk returns a tuple with the ResourceType field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResourceType
 
-`func (o *AuditLogDetail) SetResourceType(v ResourceType1)`
+`func (o *AuditLogDetail) SetResourceType(v ResourceType)`
 
 SetResourceType sets ResourceType field to given value.
 

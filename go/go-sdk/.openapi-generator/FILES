@@ -50,6 +50,16 @@ docs/AppsControllerApiBulkOperationRequest.md
 docs/Assertion.md
 docs/AssertionResult.md
 docs/AssertionRunError.md
+docs/Asset.md
+docs/AssetIdentifier.md
+docs/AssetTopologyGraph.md
+docs/AssetTopologyGraphEdge.md
+docs/AssetTopologyGraphNode.md
+docs/AssetTopologyGraphNodeNodeType.md
+docs/AssetsControllerApiAsset.md
+docs/AssetsControllerApiAssetUsage.md
+docs/AssetsDeclaration.md
+docs/AssetsInOut.md
 docs/AttributeReference.md
 docs/AuditLog.md
 docs/AuditLogControllerApiAuditLogItem.md
@@ -74,8 +84,13 @@ docs/Blueprint.md
 docs/BlueprintControllerApiBlueprintItem.md
 docs/BlueprintControllerApiBlueprintItemWithSource.md
 docs/BlueprintControllerApiBlueprintTagItem.md
+docs/BlueprintControllerApiFlowBlueprint.md
+docs/BlueprintControllerFlowBlueprintCreateOrUpdate.md
 docs/BlueprintControllerKind.md
-docs/BlueprintWithFlow.md
+docs/BlueprintControllerUseBlueprintTemplateRequest.md
+docs/BlueprintControllerUseBlueprintTemplateResponse.md
+docs/BlueprintTemplate.md
+docs/BlueprintWithFlowEntity.md
 docs/Breakpoint.md
 docs/BulkErrorResponse.md
 docs/BulkImportAppsRequest.md
@@ -83,6 +98,9 @@ docs/BulkResponse.md
 docs/Cache.md
 docs/ChartChartOption.md
 docs/ChartFiltersOverrides.md
+docs/Check.md
+docs/CheckBehavior.md
+docs/CheckStyle.md
 docs/Concurrency.md
 docs/ConcurrencyBehavior.md
 docs/ConcurrencyLimit.md
@@ -100,6 +118,7 @@ docs/DailyExecutionStatisticsDuration.md
 docs/DailyExecutionStatisticsExecutionCounts.md
 docs/Dashboard.md
 docs/DashboardControllerPreviewRequest.md
+docs/DeleteTriggersByQueryRequest.md
 docs/DeletedInterface.md
 docs/DependsOn.md
 docs/DocumentationWithSchema.md
@@ -112,6 +131,7 @@ docs/EventLogEntry.md
 docs/ExecutableTaskSubflowId.md
 docs/Execution.md
 docs/ExecutionControllerApiValidateExecutionInputsResponse.md
+docs/ExecutionControllerApiValidateExecutionInputsResponseApiCheckFailure.md
 docs/ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue.md
 docs/ExecutionControllerApiValidateExecutionInputsResponseApiInputError.md
 docs/ExecutionControllerEvalResult.md
@@ -253,6 +273,7 @@ docs/Name.md
 docs/Namespace.md
 docs/NamespaceAllowedNamespace.md
 docs/NamespaceAllowedTrigger.md
+docs/NamespaceFileRevision.md
 docs/NamespaceLight.md
 docs/NamespacesAPI.md
 docs/Output.md
@@ -262,6 +283,8 @@ docs/PagedResultsApiGroupSummary.md
 docs/PagedResultsApiRoleSummary.md
 docs/PagedResultsAppsControllerApiApp.md
 docs/PagedResultsAppsControllerApiAppCatalogItem.md
+docs/PagedResultsAssetsControllerApiAsset.md
+docs/PagedResultsAssetsControllerApiAssetUsage.md
 docs/PagedResultsAuditLogControllerApiAuditLogItem.md
 docs/PagedResultsBlueprint.md
 docs/PagedResultsBlueprintControllerApiBlueprintItem.md
@@ -302,7 +325,7 @@ docs/PluginIcon.md
 docs/PluginPluginElementMetadata.md
 docs/PluginSchema.md
 docs/PluginSubGroupPluginCategory.md
-docs/PreviewAppRequest.md
+docs/PropertyAssetsDeclaration.md
 docs/PropertyBoolean.md
 docs/PropertyDouble.md
 docs/PropertyDuration.md
@@ -314,6 +337,7 @@ docs/QueryFilterField.md
 docs/QueryFilterOp.md
 docs/RBACServiceRoleAssignmentRoleOrigin.md
 docs/Relation.md
+docs/Relation1.md
 docs/RelationType.md
 docs/ResourceType.md
 docs/ResourceType1.md
@@ -447,6 +471,16 @@ model_apps_controller_api_bulk_operation_request.go
 model_assertion.go
 model_assertion_result.go
 model_assertion_run_error.go
+model_asset.go
+model_asset_identifier.go
+model_asset_topology_graph.go
+model_asset_topology_graph_edge.go
+model_asset_topology_graph_node.go
+model_asset_topology_graph_node_node_type.go
+model_assets_controller_api_asset.go
+model_assets_controller_api_asset_usage.go
+model_assets_declaration.go
+model_assets_in_out.go
 model_attribute_reference.go
 model_audit_log.go
 model_audit_log_controller_api_audit_log_item.go
@@ -471,8 +505,13 @@ model_blueprint.go
 model_blueprint_controller_api_blueprint_item.go
 model_blueprint_controller_api_blueprint_item_with_source.go
 model_blueprint_controller_api_blueprint_tag_item.go
+model_blueprint_controller_api_flow_blueprint.go
+model_blueprint_controller_flow_blueprint_create_or_update.go
 model_blueprint_controller_kind.go
-model_blueprint_with_flow.go
+model_blueprint_controller_use_blueprint_template_request.go
+model_blueprint_controller_use_blueprint_template_response.go
+model_blueprint_template.go
+model_blueprint_with_flow_entity.go
 model_breakpoint.go
 model_bulk_error_response.go
 model_bulk_import_apps_request.go
@@ -480,6 +519,9 @@ model_bulk_response.go
 model_cache.go
 model_chart_chart_option_.go
 model_chart_filters_overrides.go
+model_check.go
+model_check_behavior.go
+model_check_style.go
 model_concurrency.go
 model_concurrency_behavior.go
 model_concurrency_limit.go
@@ -497,6 +539,7 @@ model_daily_execution_statistics_duration.go
 model_daily_execution_statistics_execution_counts.go
 model_dashboard.go
 model_dashboard_controller_preview_request.go
+model_delete_triggers_by_query_request.go
 model_deleted_interface.go
 model_depends_on.go
 model_documentation_with_schema.go
@@ -509,6 +552,7 @@ model_event_log_entry_.go
 model_executable_task_subflow_id.go
 model_execution.go
 model_execution_controller_api_validate_execution_inputs_response.go
+model_execution_controller_api_validate_execution_inputs_response_api_check_failure.go
 model_execution_controller_api_validate_execution_inputs_response_api_input_and_value.go
 model_execution_controller_api_validate_execution_inputs_response_api_input_error.go
 model_execution_controller_eval_result.go
@@ -646,6 +690,7 @@ model_name.go
 model_namespace.go
 model_namespace_allowed_namespace.go
 model_namespace_allowed_trigger.go
+model_namespace_file_revision.go
 model_namespace_light.go
 model_output.go
 model_output_value.go
@@ -654,6 +699,8 @@ model_paged_results_api_group_summary_.go
 model_paged_results_api_role_summary_.go
 model_paged_results_apps_controller_api_app_.go
 model_paged_results_apps_controller_api_app_catalog_item_.go
+model_paged_results_assets_controller_api_asset_.go
+model_paged_results_assets_controller_api_asset_usage_.go
 model_paged_results_audit_log_controller_api_audit_log_item_.go
 model_paged_results_blueprint_.go
 model_paged_results_blueprint_controller_api_blueprint_item_.go
@@ -694,7 +741,7 @@ model_plugin_icon.go
 model_plugin_plugin_element_metadata.go
 model_plugin_schema.go
 model_plugin_sub_group_plugin_category.go
-model_preview_app_request.go
+model_property_assets_declaration_.go
 model_property_boolean_.go
 model_property_double_.go
 model_property_duration_.go
@@ -706,6 +753,7 @@ model_query_filter_field.go
 model_query_filter_op.go
 model_rbac_service_role_assignment_role_origin.go
 model_relation.go
+model_relation_1.go
 model_relation_type.go
 model_resource_type.go
 model_resource_type_1.go

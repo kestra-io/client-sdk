@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**DownloadFileFromExecution**](ExecutionsAPI.md#DownloadFileFromExecution) | **Get** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution
 [**Execution**](ExecutionsAPI.md#Execution) | **Get** /api/v1/{tenant}/executions/{executionId} | Get an execution
 [**ExecutionFlowGraph**](ExecutionsAPI.md#ExecutionFlowGraph) | **Get** /api/v1/{tenant}/executions/{executionId}/graph | Generate a graph for an execution
+[**ExportExecutions**](ExecutionsAPI.md#ExportExecutions) | **Get** /api/v1/{tenant}/executions/export/by-query/csv | Export all executions as a streamed CSV file
 [**FileMetadatasFromExecution**](ExecutionsAPI.md#FileMetadatasFromExecution) | **Get** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution
 [**FlowFromExecution**](ExecutionsAPI.md#FlowFromExecution) | **Get** /api/v1/{tenant}/executions/flows/{namespace}/{flowId} | Get flow information&#39;s for an execution
 [**FlowFromExecutionById**](ExecutionsAPI.md#FlowFromExecutionById) | **Get** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution
@@ -48,6 +49,7 @@ Method | HTTP request | Description
 [**UpdateExecutionStatus**](ExecutionsAPI.md#UpdateExecutionStatus) | **Post** /api/v1/{tenant}/executions/{executionId}/change-status | Change the state of an execution
 [**UpdateExecutionsStatusByIds**](ExecutionsAPI.md#UpdateExecutionsStatusByIds) | **Post** /api/v1/{tenant}/executions/change-status/by-ids | Change executions state by id
 [**UpdateExecutionsStatusByQuery**](ExecutionsAPI.md#UpdateExecutionsStatusByQuery) | **Post** /api/v1/{tenant}/executions/change-status/by-query | Change executions state by query parameters
+[**UpdateTaskRunState**](ExecutionsAPI.md#UpdateTaskRunState) | **Post** /api/v1/{tenant}/executions/{executionId}/state | Change state for a taskrun in an execution
 
 
 
@@ -580,6 +582,76 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ExportExecutions
+
+> []map[string]interface{} ExportExecutions(ctx, tenant).Filters(filters).Execute()
+
+Export all executions as a streamed CSV file
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | A list of filters
+	tenant := "tenant_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ExecutionsAPI.ExportExecutions(context.Background(), tenant).Filters(filters).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.ExportExecutions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ExportExecutions`: []map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `ExecutionsAPI.ExportExecutions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiExportExecutionsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **filters** | [**[]QueryFilter**](QueryFilter.md) | A list of filters | 
+
+
+### Return type
+
+**[]map[string]interface{}**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3248,6 +3320,79 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateTaskRunState
+
+> Execution UpdateTaskRunState(ctx, executionId, tenant).ExecutionControllerStateRequest(executionControllerStateRequest).Execute()
+
+Change state for a taskrun in an execution
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	executionId := "executionId_example" // string | The execution id
+	tenant := "tenant_example" // string | 
+	executionControllerStateRequest := *openapiclient.NewExecutionControllerStateRequest() // ExecutionControllerStateRequest | the taskRun id and state to apply
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ExecutionsAPI.UpdateTaskRunState(context.Background(), executionId, tenant).ExecutionControllerStateRequest(executionControllerStateRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.UpdateTaskRunState``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateTaskRunState`: Execution
+	fmt.Fprintf(os.Stdout, "Response from `ExecutionsAPI.UpdateTaskRunState`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**executionId** | **string** | The execution id | 
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateTaskRunStateRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **executionControllerStateRequest** | [**ExecutionControllerStateRequest**](ExecutionControllerStateRequest.md) | the taskRun id and state to apply | 
+
+### Return type
+
+[**Execution**](Execution.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
