@@ -31,9 +31,9 @@
 
 * `SETTING` (value: `"SETTING"`)
 
-* `INFRASTRUCTURE` (value: `"INFRASTRUCTURE"`)
-
 * `APP` (value: `"APP"`)
+
+* `ASSET` (value: `"ASSET"`)
 
 * `APPEXECUTION` (value: `"APPEXECUTION"`)
 

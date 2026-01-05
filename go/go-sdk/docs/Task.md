@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **RunIf** | Pointer to **string** |  | [optional] 
 **AllowWarning** | Pointer to **bool** |  | [optional] 
 **TaskCache** | Pointer to [**Cache**](Cache.md) |  | [optional] 
+**Assets** | Pointer to [**NullablePropertyAssetsDeclaration**](PropertyAssetsDeclaration.md) |  | [optional] 
 
 ## Methods
 
@@ -378,6 +379,41 @@ SetTaskCache sets TaskCache field to given value.
 
 HasTaskCache returns a boolean if a field has been set.
 
+### GetAssets
+
+`func (o *Task) GetAssets() PropertyAssetsDeclaration`
+
+GetAssets returns the Assets field if non-nil, zero value otherwise.
+
+### GetAssetsOk
+
+`func (o *Task) GetAssetsOk() (*PropertyAssetsDeclaration, bool)`
+
+GetAssetsOk returns a tuple with the Assets field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAssets
+
+`func (o *Task) SetAssets(v PropertyAssetsDeclaration)`
+
+SetAssets sets Assets field to given value.
+
+### HasAssets
+
+`func (o *Task) HasAssets() bool`
+
+HasAssets returns a boolean if a field has been set.
+
+### SetAssetsNil
+
+`func (o *Task) SetAssetsNil(b bool)`
+
+ SetAssetsNil sets the value for Assets to be an explicit nil
+
+### UnsetAssets
+`func (o *Task) UnsetAssets()`
+
+UnsetAssets ensures that no value is present for Assets, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

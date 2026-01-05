@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** |  | [optional] 
 **Namespace** | Pointer to **string** |  | [optional] 
 **Inputs** | Pointer to [**[]ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue**](ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue.md) |  | [optional] 
+**Checks** | Pointer to [**[]ExecutionControllerApiValidateExecutionInputsResponseApiCheckFailure**](ExecutionControllerApiValidateExecutionInputsResponseApiCheckFailure.md) |  | [optional] 
 
 ## Methods
 
@@ -101,6 +102,31 @@ SetInputs sets Inputs field to given value.
 `func (o *ExecutionControllerApiValidateExecutionInputsResponse) HasInputs() bool`
 
 HasInputs returns a boolean if a field has been set.
+
+### GetChecks
+
+`func (o *ExecutionControllerApiValidateExecutionInputsResponse) GetChecks() []ExecutionControllerApiValidateExecutionInputsResponseApiCheckFailure`
+
+GetChecks returns the Checks field if non-nil, zero value otherwise.
+
+### GetChecksOk
+
+`func (o *ExecutionControllerApiValidateExecutionInputsResponse) GetChecksOk() (*[]ExecutionControllerApiValidateExecutionInputsResponseApiCheckFailure, bool)`
+
+GetChecksOk returns a tuple with the Checks field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetChecks
+
+`func (o *ExecutionControllerApiValidateExecutionInputsResponse) SetChecks(v []ExecutionControllerApiValidateExecutionInputsResponseApiCheckFailure)`
+
+SetChecks sets Checks field to given value.
+
+### HasChecks
+
+`func (o *ExecutionControllerApiValidateExecutionInputsResponse) HasChecks() bool`
+
+HasChecks returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

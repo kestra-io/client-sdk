@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**DisableFlowsByQuery**](FlowsAPI.md#DisableFlowsByQuery) | **Post** /api/v1/{tenant}/flows/disable/by-query | Disable flows returned by the query parameters.
 [**EnableFlowsByIds**](FlowsAPI.md#EnableFlowsByIds) | **Post** /api/v1/{tenant}/flows/enable/by-ids | Enable flows by their IDs.
 [**EnableFlowsByQuery**](FlowsAPI.md#EnableFlowsByQuery) | **Post** /api/v1/{tenant}/flows/enable/by-query | Enable flows returned by the query parameters.
+[**ExportFlows**](FlowsAPI.md#ExportFlows) | **Get** /api/v1/{tenant}/flows/export/by-query/csv | Export all flows as a streamed CSV file
 [**ExportFlowsByIds**](FlowsAPI.md#ExportFlowsByIds) | **Post** /api/v1/{tenant}/flows/export/by-ids | Export flows as a ZIP archive of yaml sources.
 [**ExportFlowsByQuery**](FlowsAPI.md#ExportFlowsByQuery) | **Get** /api/v1/{tenant}/flows/export/by-query | Export flows as a ZIP archive of yaml sources.
 [**Flow**](FlowsAPI.md#Flow) | **Get** /api/v1/{tenant}/flows/{namespace}/{id} | Get a flow
@@ -672,6 +673,76 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ExportFlows
+
+> []map[string]interface{} ExportFlows(ctx, tenant).Filters(filters).Execute()
+
+Export all flows as a streamed CSV file
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | A list of filters
+	tenant := "tenant_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FlowsAPI.ExportFlows(context.Background(), tenant).Filters(filters).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FlowsAPI.ExportFlows``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ExportFlows`: []map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `FlowsAPI.ExportFlows`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiExportFlowsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **filters** | [**[]QueryFilter**](QueryFilter.md) | A list of filters | 
+
+
+### Return type
+
+**[]map[string]interface{}**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

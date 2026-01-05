@@ -18,8 +18,8 @@ Name | Type | Description | Notes
 **KVSTORE** | Pointer to **[]string** |  | [optional] 
 **IMPERSONATE** | Pointer to **[]string** |  | [optional] 
 **SETTING** | Pointer to **[]string** |  | [optional] 
-**INFRASTRUCTURE** | Pointer to **[]string** |  | [optional] 
 **APP** | Pointer to **[]string** |  | [optional] 
+**ASSET** | Pointer to **[]string** |  | [optional] 
 **APPEXECUTION** | Pointer to **[]string** |  | [optional] 
 **TEST** | Pointer to **[]string** |  | [optional] 
 **DASHBOARD** | Pointer to **[]string** |  | [optional] 
@@ -398,31 +398,6 @@ SetSETTING sets SETTING field to given value.
 
 HasSETTING returns a boolean if a field has been set.
 
-### GetINFRASTRUCTURE
-
-`func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) GetINFRASTRUCTURE() []string`
-
-GetINFRASTRUCTURE returns the INFRASTRUCTURE field if non-nil, zero value otherwise.
-
-### GetINFRASTRUCTUREOk
-
-`func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) GetINFRASTRUCTUREOk() (*[]string, bool)`
-
-GetINFRASTRUCTUREOk returns a tuple with the INFRASTRUCTURE field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetINFRASTRUCTURE
-
-`func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) SetINFRASTRUCTURE(v []string)`
-
-SetINFRASTRUCTURE sets INFRASTRUCTURE field to given value.
-
-### HasINFRASTRUCTURE
-
-`func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) HasINFRASTRUCTURE() bool`
-
-HasINFRASTRUCTURE returns a boolean if a field has been set.
-
 ### GetAPP
 
 `func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) GetAPP() []string`
@@ -447,6 +422,31 @@ SetAPP sets APP field to given value.
 `func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) HasAPP() bool`
 
 HasAPP returns a boolean if a field has been set.
+
+### GetASSET
+
+`func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) GetASSET() []string`
+
+GetASSET returns the ASSET field if non-nil, zero value otherwise.
+
+### GetASSETOk
+
+`func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) GetASSETOk() (*[]string, bool)`
+
+GetASSETOk returns a tuple with the ASSET field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetASSET
+
+`func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) SetASSET(v []string)`
+
+SetASSET sets ASSET field to given value.
+
+### HasASSET
+
+`func (o *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) HasASSET() bool`
+
+HasASSET returns a boolean if a field has been set.
 
 ### GetAPPEXECUTION
 

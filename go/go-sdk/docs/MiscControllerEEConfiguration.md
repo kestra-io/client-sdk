@@ -38,6 +38,8 @@ Name | Type | Description | Notes
 **PasswordRegexp** | Pointer to **string** |  | [optional] 
 **PasswordlessEnabled** | Pointer to **bool** |  | [optional] 
 **Airgapped** | Pointer to **bool** |  | [optional] 
+**FeatureGating** | Pointer to **bool** |  | [optional] 
+**Features** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
@@ -907,6 +909,56 @@ SetAirgapped sets Airgapped field to given value.
 `func (o *MiscControllerEEConfiguration) HasAirgapped() bool`
 
 HasAirgapped returns a boolean if a field has been set.
+
+### GetFeatureGating
+
+`func (o *MiscControllerEEConfiguration) GetFeatureGating() bool`
+
+GetFeatureGating returns the FeatureGating field if non-nil, zero value otherwise.
+
+### GetFeatureGatingOk
+
+`func (o *MiscControllerEEConfiguration) GetFeatureGatingOk() (*bool, bool)`
+
+GetFeatureGatingOk returns a tuple with the FeatureGating field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFeatureGating
+
+`func (o *MiscControllerEEConfiguration) SetFeatureGating(v bool)`
+
+SetFeatureGating sets FeatureGating field to given value.
+
+### HasFeatureGating
+
+`func (o *MiscControllerEEConfiguration) HasFeatureGating() bool`
+
+HasFeatureGating returns a boolean if a field has been set.
+
+### GetFeatures
+
+`func (o *MiscControllerEEConfiguration) GetFeatures() []string`
+
+GetFeatures returns the Features field if non-nil, zero value otherwise.
+
+### GetFeaturesOk
+
+`func (o *MiscControllerEEConfiguration) GetFeaturesOk() (*[]string, bool)`
+
+GetFeaturesOk returns a tuple with the Features field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFeatures
+
+`func (o *MiscControllerEEConfiguration) SetFeatures(v []string)`
+
+SetFeatures sets Features field to given value.
+
+### HasFeatures
+
+`func (o *MiscControllerEEConfiguration) HasFeatures() bool`
+
+HasFeatures returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

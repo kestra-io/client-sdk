@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Inputs** | Pointer to [**[]InputObject**](InputObject.md) |  | [optional] 
 **Outputs** | Pointer to [**[]Output**](Output.md) | Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages. | [optional] 
 **Disabled** | **bool** |  | 
-**Labels** | Pointer to [**[]Label**](Label.md) | Labels as a list of Label (key/value pairs) or as a map of string to string. | [optional] 
+**Labels** | Pointer to [**[]Label**](Label.md) |  | [optional] 
 **Variables** | Pointer to **map[string]interface{}** |  | [optional] 
 **WorkerGroup** | Pointer to [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
 **Deleted** | **bool** |  | 
@@ -24,6 +24,7 @@ Name | Type | Description | Notes
 **Concurrency** | Pointer to [**Concurrency**](Concurrency.md) |  | [optional] 
 **Retry** | Pointer to **map[string]interface{}** |  | [optional] 
 **Sla** | Pointer to [**[]SLA**](SLA.md) |  | [optional] 
+**Checks** | Pointer to [**[]Check**](Check.md) | A list of conditions that are evaluated before the flow is executed.  If no checks are defined, the flow executes normally. | [optional] 
 **Source** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -519,6 +520,31 @@ SetSla sets Sla field to given value.
 `func (o *FlowWithSource) HasSla() bool`
 
 HasSla returns a boolean if a field has been set.
+
+### GetChecks
+
+`func (o *FlowWithSource) GetChecks() []Check`
+
+GetChecks returns the Checks field if non-nil, zero value otherwise.
+
+### GetChecksOk
+
+`func (o *FlowWithSource) GetChecksOk() (*[]Check, bool)`
+
+GetChecksOk returns a tuple with the Checks field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetChecks
+
+`func (o *FlowWithSource) SetChecks(v []Check)`
+
+SetChecks sets Checks field to given value.
+
+### HasChecks
+
+`func (o *FlowWithSource) HasChecks() bool`
+
+HasChecks returns a boolean if a field has been set.
 
 ### GetSource
 

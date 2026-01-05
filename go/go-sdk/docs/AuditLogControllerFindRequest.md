@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Resource** | Pointer to [**ResourceType1**](ResourceType1.md) |  | [optional] 
+**Resource** | Pointer to [**ResourceType**](ResourceType.md) |  | [optional] 
 **Type** | Pointer to [**NullableCrudEventType**](CrudEventType.md) |  | [optional] 
 **Detail** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetResource
 
-`func (o *AuditLogControllerFindRequest) GetResource() ResourceType1`
+`func (o *AuditLogControllerFindRequest) GetResource() ResourceType`
 
 GetResource returns the Resource field if non-nil, zero value otherwise.
 
 ### GetResourceOk
 
-`func (o *AuditLogControllerFindRequest) GetResourceOk() (*ResourceType1, bool)`
+`func (o *AuditLogControllerFindRequest) GetResourceOk() (*ResourceType, bool)`
 
 GetResourceOk returns a tuple with the Resource field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResource
 
-`func (o *AuditLogControllerFindRequest) SetResource(v ResourceType1)`
+`func (o *AuditLogControllerFindRequest) SetResource(v ResourceType)`
 
 SetResource sets Resource field to given value.
 

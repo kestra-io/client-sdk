@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **IncludedTasks** | Pointer to **[]string** |  | [optional] 
 **PublishedAt** | Pointer to **time.Time** |  | [optional] 
 **Deleted** | **bool** |  | 
+**Template** | Pointer to [**BlueprintTemplate**](BlueprintTemplate.md) |  | [optional] 
 
 ## Methods
 
@@ -195,6 +196,31 @@ and a boolean to check if the value has been set.
 
 SetDeleted sets Deleted field to given value.
 
+
+### GetTemplate
+
+`func (o *Blueprint) GetTemplate() BlueprintTemplate`
+
+GetTemplate returns the Template field if non-nil, zero value otherwise.
+
+### GetTemplateOk
+
+`func (o *Blueprint) GetTemplateOk() (*BlueprintTemplate, bool)`
+
+GetTemplateOk returns a tuple with the Template field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTemplate
+
+`func (o *Blueprint) SetTemplate(v BlueprintTemplate)`
+
+SetTemplate sets Template field to given value.
+
+### HasTemplate
+
+`func (o *Blueprint) HasTemplate() bool`
+
+HasTemplate returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
