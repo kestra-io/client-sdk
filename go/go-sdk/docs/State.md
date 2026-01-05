@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Duration** | Pointer to **string** |  | [optional] [readonly] 
+**Duration** | Pointer to **NullableString** |  | [optional] [readonly] 
+**DurationOrComputeIt** | Pointer to **string** |  | [optional] 
 **StartDate** | Pointer to **time.Time** |  | [optional] [readonly] 
 **EndDate** | Pointer to **NullableTime** |  | [optional] [readonly] 
 **Current** | [**StateType**](StateType.md) |  | 
@@ -53,6 +54,41 @@ SetDuration sets Duration field to given value.
 `func (o *State) HasDuration() bool`
 
 HasDuration returns a boolean if a field has been set.
+
+### SetDurationNil
+
+`func (o *State) SetDurationNil(b bool)`
+
+ SetDurationNil sets the value for Duration to be an explicit nil
+
+### UnsetDuration
+`func (o *State) UnsetDuration()`
+
+UnsetDuration ensures that no value is present for Duration, not even an explicit nil
+### GetDurationOrComputeIt
+
+`func (o *State) GetDurationOrComputeIt() string`
+
+GetDurationOrComputeIt returns the DurationOrComputeIt field if non-nil, zero value otherwise.
+
+### GetDurationOrComputeItOk
+
+`func (o *State) GetDurationOrComputeItOk() (*string, bool)`
+
+GetDurationOrComputeItOk returns a tuple with the DurationOrComputeIt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDurationOrComputeIt
+
+`func (o *State) SetDurationOrComputeIt(v string)`
+
+SetDurationOrComputeIt sets DurationOrComputeIt field to given value.
+
+### HasDurationOrComputeIt
+
+`func (o *State) HasDurationOrComputeIt() bool`
+
+HasDurationOrComputeIt returns a boolean if a field has been set.
 
 ### GetStartDate
 

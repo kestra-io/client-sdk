@@ -7,8 +7,12 @@ Method | HTTP request | Description
 [**DeleteBackfill**](TriggersAPI.md#DeleteBackfill) | **Post** /api/v1/{tenant}/triggers/backfill/delete | Delete a backfill
 [**DeleteBackfillByIds**](TriggersAPI.md#DeleteBackfillByIds) | **Post** /api/v1/{tenant}/triggers/backfill/delete/by-triggers | Delete backfill for given triggers
 [**DeleteBackfillByQuery**](TriggersAPI.md#DeleteBackfillByQuery) | **Post** /api/v1/{tenant}/triggers/backfill/delete/by-query | Delete backfill for given triggers
+[**DeleteTrigger**](TriggersAPI.md#DeleteTrigger) | **Delete** /api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId} | Delete a trigger
+[**DeleteTriggersByIds**](TriggersAPI.md#DeleteTriggersByIds) | **Delete** /api/v1/{tenant}/triggers/delete/by-triggers | Delete given triggers
+[**DeleteTriggersByQuery**](TriggersAPI.md#DeleteTriggersByQuery) | **Delete** /api/v1/{tenant}/triggers/delete/by-query | Delete triggers by query parameters
 [**DisabledTriggersByIds**](TriggersAPI.md#DisabledTriggersByIds) | **Post** /api/v1/{tenant}/triggers/set-disabled/by-triggers | Disable/enable given triggers
 [**DisabledTriggersByQuery**](TriggersAPI.md#DisabledTriggersByQuery) | **Post** /api/v1/{tenant}/triggers/set-disabled/by-query | Disable/enable triggers by query parameters
+[**ExportTriggers**](TriggersAPI.md#ExportTriggers) | **Get** /api/v1/{tenant}/triggers/export/by-query/csv | Export all triggers as a streamed CSV file
 [**PauseBackfill**](TriggersAPI.md#PauseBackfill) | **Put** /api/v1/{tenant}/triggers/backfill/pause | Pause a backfill
 [**PauseBackfillByIds**](TriggersAPI.md#PauseBackfillByIds) | **Post** /api/v1/{tenant}/triggers/backfill/pause/by-triggers | Pause backfill for given triggers
 [**PauseBackfillByQuery**](TriggersAPI.md#PauseBackfillByQuery) | **Post** /api/v1/{tenant}/triggers/backfill/pause/by-query | Pause backfill for given triggers
@@ -237,6 +241,224 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## DeleteTrigger
+
+> map[string]interface{} DeleteTrigger(ctx, namespace, flowId, triggerId, tenant).Execute()
+
+Delete a trigger
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	namespace := "namespace_example" // string | The namespace
+	flowId := "flowId_example" // string | The flow id
+	triggerId := "triggerId_example" // string | The trigger id
+	tenant := "tenant_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TriggersAPI.DeleteTrigger(context.Background(), namespace, flowId, triggerId, tenant).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TriggersAPI.DeleteTrigger``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeleteTrigger`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `TriggersAPI.DeleteTrigger`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**namespace** | **string** | The namespace | 
+**flowId** | **string** | The flow id | 
+**triggerId** | **string** | The trigger id | 
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteTriggerRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
+
+### Return type
+
+**map[string]interface{}**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteTriggersByIds
+
+> map[string]interface{} DeleteTriggersByIds(ctx, tenant).Trigger(trigger).Execute()
+
+Delete given triggers
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+    "time"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	tenant := "tenant_example" // string | 
+	trigger := []openapiclient.Trigger{*openapiclient.NewTrigger("Namespace_example", "FlowId_example", "TriggerId_example", time.Now())} // []Trigger | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TriggersAPI.DeleteTriggersByIds(context.Background(), tenant).Trigger(trigger).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TriggersAPI.DeleteTriggersByIds``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeleteTriggersByIds`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `TriggersAPI.DeleteTriggersByIds`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteTriggersByIdsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **trigger** | [**[]Trigger**](Trigger.md) |  | 
+
+### Return type
+
+**map[string]interface{}**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteTriggersByQuery
+
+> map[string]interface{} DeleteTriggersByQuery(ctx, tenant).DeleteTriggersByQueryRequest(deleteTriggersByQueryRequest).Execute()
+
+Delete triggers by query parameters
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	tenant := "tenant_example" // string | 
+	deleteTriggersByQueryRequest := *openapiclient.NewDeleteTriggersByQueryRequest() // DeleteTriggersByQueryRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TriggersAPI.DeleteTriggersByQuery(context.Background(), tenant).DeleteTriggersByQueryRequest(deleteTriggersByQueryRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TriggersAPI.DeleteTriggersByQuery``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeleteTriggersByQuery`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `TriggersAPI.DeleteTriggersByQuery`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteTriggersByQueryRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **deleteTriggersByQueryRequest** | [**DeleteTriggersByQueryRequest**](DeleteTriggersByQueryRequest.md) |  | 
+
+### Return type
+
+**map[string]interface{}**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## DisabledTriggersByIds
 
 > map[string]interface{} DisabledTriggersByIds(ctx, tenant).TriggerControllerSetDisabledRequest(triggerControllerSetDisabledRequest).Execute()
@@ -374,6 +596,76 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ExportTriggers
+
+> []map[string]interface{} ExportTriggers(ctx, tenant).Filters(filters).Execute()
+
+Export all triggers as a streamed CSV file
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | A list of filters
+	tenant := "tenant_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TriggersAPI.ExportTriggers(context.Background(), tenant).Filters(filters).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TriggersAPI.ExportTriggers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ExportTriggers`: []map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `TriggersAPI.ExportTriggers`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiExportTriggersRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **filters** | [**[]QueryFilter**](QueryFilter.md) | A list of filters | 
+
+
+### Return type
+
+**[]map[string]interface{}**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/csv
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

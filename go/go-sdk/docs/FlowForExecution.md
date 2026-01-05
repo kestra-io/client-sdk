@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Inputs** | Pointer to [**[]InputObject**](InputObject.md) |  | [optional] 
 **Outputs** | Pointer to [**[]Output**](Output.md) |  | [optional] 
 **Disabled** | **bool** |  | 
-**Labels** | Pointer to [**[]Label**](Label.md) | Labels as a list of Label (key/value pairs) or as a map of string to string. | [optional] 
+**Labels** | Pointer to [**MapObjectObject**](MapObjectObject.md) |  | [optional] 
 **Variables** | Pointer to **map[string]interface{}** |  | [optional] 
 **WorkerGroup** | Pointer to [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
 **Deleted** | **bool** |  | 
@@ -202,20 +202,20 @@ SetDisabled sets Disabled field to given value.
 
 ### GetLabels
 
-`func (o *FlowForExecution) GetLabels() []Label`
+`func (o *FlowForExecution) GetLabels() MapObjectObject`
 
 GetLabels returns the Labels field if non-nil, zero value otherwise.
 
 ### GetLabelsOk
 
-`func (o *FlowForExecution) GetLabelsOk() (*[]Label, bool)`
+`func (o *FlowForExecution) GetLabelsOk() (*MapObjectObject, bool)`
 
 GetLabelsOk returns a tuple with the Labels field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLabels
 
-`func (o *FlowForExecution) SetLabels(v []Label)`
+`func (o *FlowForExecution) SetLabels(v MapObjectObject)`
 
 SetLabels sets Labels field to given value.
 

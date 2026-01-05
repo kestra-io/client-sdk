@@ -16,6 +16,8 @@ Name | Type | Description | Notes
 **StopAfter** | Pointer to [**[]StateType**](StateType.md) |  | [optional] 
 **LogToFile** | Pointer to **bool** |  | [optional] 
 **FailOnTriggerError** | Pointer to **bool** |  | [optional] 
+**AllowConcurrent** | Pointer to **bool** |  | [optional] 
+**Assets** | Pointer to [**PropertyAssetsDeclaration**](PropertyAssetsDeclaration.md) |  | [optional] 
 
 ## Methods
 
@@ -325,6 +327,56 @@ SetFailOnTriggerError sets FailOnTriggerError field to given value.
 `func (o *AbstractTrigger) HasFailOnTriggerError() bool`
 
 HasFailOnTriggerError returns a boolean if a field has been set.
+
+### GetAllowConcurrent
+
+`func (o *AbstractTrigger) GetAllowConcurrent() bool`
+
+GetAllowConcurrent returns the AllowConcurrent field if non-nil, zero value otherwise.
+
+### GetAllowConcurrentOk
+
+`func (o *AbstractTrigger) GetAllowConcurrentOk() (*bool, bool)`
+
+GetAllowConcurrentOk returns a tuple with the AllowConcurrent field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAllowConcurrent
+
+`func (o *AbstractTrigger) SetAllowConcurrent(v bool)`
+
+SetAllowConcurrent sets AllowConcurrent field to given value.
+
+### HasAllowConcurrent
+
+`func (o *AbstractTrigger) HasAllowConcurrent() bool`
+
+HasAllowConcurrent returns a boolean if a field has been set.
+
+### GetAssets
+
+`func (o *AbstractTrigger) GetAssets() PropertyAssetsDeclaration`
+
+GetAssets returns the Assets field if non-nil, zero value otherwise.
+
+### GetAssetsOk
+
+`func (o *AbstractTrigger) GetAssetsOk() (*PropertyAssetsDeclaration, bool)`
+
+GetAssetsOk returns a tuple with the Assets field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAssets
+
+`func (o *AbstractTrigger) SetAssets(v PropertyAssetsDeclaration)`
+
+SetAssets sets Assets field to given value.
+
+### HasAssets
+
+`func (o *AbstractTrigger) HasAssets() bool`
+
+HasAssets returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

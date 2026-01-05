@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Value** | Pointer to **string** |  | [optional] 
 **State** | Pointer to [**StateType**](StateType.md) |  | [optional] 
 **Outputs** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**Assets** | Pointer to [**[]Asset**](Asset.md) |  | [optional] 
 **Description** | Pointer to [**string**](PropertyString.md) |  | [optional] 
 
 ## Methods
@@ -123,6 +124,31 @@ SetOutputs sets Outputs field to given value.
 `func (o *TaskFixture) HasOutputs() bool`
 
 HasOutputs returns a boolean if a field has been set.
+
+### GetAssets
+
+`func (o *TaskFixture) GetAssets() []Asset`
+
+GetAssets returns the Assets field if non-nil, zero value otherwise.
+
+### GetAssetsOk
+
+`func (o *TaskFixture) GetAssetsOk() (*[]Asset, bool)`
+
+GetAssetsOk returns a tuple with the Assets field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAssets
+
+`func (o *TaskFixture) SetAssets(v []Asset)`
+
+SetAssets sets Assets field to given value.
+
+### HasAssets
+
+`func (o *TaskFixture) HasAssets() bool`
+
+HasAssets returns a boolean if a field has been set.
 
 ### GetDescription
 

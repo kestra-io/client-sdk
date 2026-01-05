@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **Value** | Pointer to **string** |  | [optional] 
 **Attempts** | Pointer to [**[]TaskRunAttempt**](TaskRunAttempt.md) |  | [optional] 
 **Outputs** | Pointer to **map[string]interface{}** |  | [optional] 
+**Assets** | Pointer to [**NullableAssetsInOut**](AssetsInOut.md) |  | [optional] 
 **State** | [**State**](State.md) |  | 
 **Iteration** | Pointer to **int32** |  | [optional] 
 **Dynamic** | Pointer to **bool** |  | [optional] 
@@ -247,6 +248,41 @@ HasOutputs returns a boolean if a field has been set.
 `func (o *TaskRun) UnsetOutputs()`
 
 UnsetOutputs ensures that no value is present for Outputs, not even an explicit nil
+### GetAssets
+
+`func (o *TaskRun) GetAssets() AssetsInOut`
+
+GetAssets returns the Assets field if non-nil, zero value otherwise.
+
+### GetAssetsOk
+
+`func (o *TaskRun) GetAssetsOk() (*AssetsInOut, bool)`
+
+GetAssetsOk returns a tuple with the Assets field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAssets
+
+`func (o *TaskRun) SetAssets(v AssetsInOut)`
+
+SetAssets sets Assets field to given value.
+
+### HasAssets
+
+`func (o *TaskRun) HasAssets() bool`
+
+HasAssets returns a boolean if a field has been set.
+
+### SetAssetsNil
+
+`func (o *TaskRun) SetAssetsNil(b bool)`
+
+ SetAssetsNil sets the value for Assets to be an explicit nil
+
+### UnsetAssets
+`func (o *TaskRun) UnsetAssets()`
+
+UnsetAssets ensures that no value is present for Assets, not even an explicit nil
 ### GetState
 
 `func (o *TaskRun) GetState() State`
