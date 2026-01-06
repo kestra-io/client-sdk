@@ -226,6 +226,9 @@ triggers:
         )
         assert resp.state.current is StateType.SUCCESS
 
+        trigger_exec_id = getattr(resp, "id", None)
+        assert trigger_exec_id is not None
+
         qf = QueryFilter(
             field=QueryFilterField.FLOW_ID,
             operation=QueryFilterOp.EQUALS,
@@ -237,9 +240,13 @@ triggers:
         assert len(resp.results) == 1
         triggered = resp.results[0]
         assert isinstance(triggered.trigger, ExecutionTrigger)
+
         variables = triggered.trigger.variables
-        assert isinstance(variables, ExecutionTrigger)
-        assert any(not isinstance(v, dict) for v in variables)
+        assert isinstance(variables, dict)
+        assert variables.get("executionId") == trigger_exec_id
+        assert variables.get("state") == "SUCCESS"
+        assert variables.get("namespace") == namespace
+        assert variables.get("flowId") == trigger_flow_id
 
     def test_delete_execution(self) -> None:
         """Test case for delete_execution
