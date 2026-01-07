@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** |  | [optional] 
 **Type** | Pointer to **string** |  | [optional] 
 **Namespace** | Pointer to **string** |  | [optional] 
+**FlowId** | Pointer to **string** |  | [optional] 
 **Tags** | Pointer to **[]string** |  | [optional] 
 **Enabled** | Pointer to **bool** |  | [optional] 
 **Created** | Pointer to **time.Time** |  | [optional] 
@@ -158,6 +159,31 @@ SetNamespace sets Namespace field to given value.
 
 HasNamespace returns a boolean if a field has been set.
 
+### GetFlowId
+
+`func (o *AppsControllerApiApp) GetFlowId() string`
+
+GetFlowId returns the FlowId field if non-nil, zero value otherwise.
+
+### GetFlowIdOk
+
+`func (o *AppsControllerApiApp) GetFlowIdOk() (*string, bool)`
+
+GetFlowIdOk returns a tuple with the FlowId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFlowId
+
+`func (o *AppsControllerApiApp) SetFlowId(v string)`
+
+SetFlowId sets FlowId field to given value.
+
+### HasFlowId
+
+`func (o *AppsControllerApiApp) HasFlowId() bool`
+
+HasFlowId returns a boolean if a field has been set.
+
 ### GetTags
 
 `func (o *AppsControllerApiApp) GetTags() []string`
@@ -259,6 +285,6 @@ SetUpdated sets Updated field to given value.
 HasUpdated returns a boolean if a field has been set.
 
 
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints) [[Back to README]](../../../python-sdk/README.md)
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

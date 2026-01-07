@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Inputs** | Pointer to [**[]InputObject**](InputObject.md) |  | [optional] 
 **Outputs** | Pointer to [**[]Output**](Output.md) |  | [optional] 
 **Disabled** | **bool** |  | 
-**Labels** | Pointer to [**[]Label**](Label.md) | Labels as a list of Label (key/value pairs) or as a map of string to string. | [optional] 
+**Labels** | Pointer to [**[]Label**](Label.md) |  | [optional] 
 **Variables** | Pointer to **map[string]interface{}** |  | [optional] 
 **WorkerGroup** | Pointer to [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
 **Deleted** | **bool** |  | 
@@ -291,6 +291,6 @@ SetDeleted sets Deleted field to given value.
 
 
 
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints) [[Back to README]](../../../python-sdk/README.md)
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

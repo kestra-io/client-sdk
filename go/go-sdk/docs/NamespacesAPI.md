@@ -8,11 +8,11 @@ Method | HTTP request | Description
 [**CreateNamespace**](NamespacesAPI.md#CreateNamespace) | **Post** /api/v1/{tenant}/namespaces | Create a namespace
 [**DeleteNamespace**](NamespacesAPI.md#DeleteNamespace) | **Delete** /api/v1/{tenant}/namespaces/{id} | Delete a namespace
 [**DeleteSecret**](NamespacesAPI.md#DeleteSecret) | **Delete** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Delete a secret for a namespace
-[**GetInheritedSecrets**](NamespacesAPI.md#GetInheritedSecrets) | **Get** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets
-[**GetNamespace**](NamespacesAPI.md#GetNamespace) | **Get** /api/v1/{tenant}/namespaces/{id} | Get a namespace
 [**InheritedPluginDefaults**](NamespacesAPI.md#InheritedPluginDefaults) | **Get** /api/v1/{tenant}/namespaces/{id}/inherited-plugindefaults | List inherited plugin defaults
+[**InheritedSecrets**](NamespacesAPI.md#InheritedSecrets) | **Get** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets
 [**InheritedVariables**](NamespacesAPI.md#InheritedVariables) | **Get** /api/v1/{tenant}/namespaces/{id}/inherited-variables | List inherited variables
 [**ListNamespaceSecrets**](NamespacesAPI.md#ListNamespaceSecrets) | **Get** /api/v1/{tenant}/namespaces/{namespace}/secrets | Get secrets for a namespace
+[**Namespace**](NamespacesAPI.md#Namespace) | **Get** /api/v1/{tenant}/namespaces/{id} | Get a namespace
 [**PatchSecret**](NamespacesAPI.md#PatchSecret) | **Patch** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Patch a secret metadata for a namespace
 [**PutSecrets**](NamespacesAPI.md#PutSecrets) | **Put** /api/v1/{tenant}/namespaces/{namespace}/secrets | Update secrets for a namespace
 [**SearchNamespaces**](NamespacesAPI.md#SearchNamespaces) | **Get** /api/v1/{tenant}/namespaces/search | Search for namespaces
@@ -80,16 +80,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## CreateNamespace
@@ -150,16 +150,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## DeleteNamespace
@@ -219,16 +219,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## DeleteSecret
@@ -291,158 +291,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
-
-
-## GetInheritedSecrets
-
-> map[string][]string GetInheritedSecrets(ctx, namespace, tenant).Execute()
-
-List inherited secrets
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	namespace := "namespace_example" // string | The namespace id
-	tenant := "tenant_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.NamespacesAPI.GetInheritedSecrets(context.Background(), namespace, tenant).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `NamespacesAPI.GetInheritedSecrets``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetInheritedSecrets`: map[string][]string
-	fmt.Fprintf(os.Stdout, "Response from `NamespacesAPI.GetInheritedSecrets`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**namespace** | **string** | The namespace id | 
-**tenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetInheritedSecretsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-### Return type
-
-[**map[string][]string**](array.md)
-
-### Authorization
-
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
-
-
-## GetNamespace
-
-> Namespace GetNamespace(ctx, id, tenant).Execute()
-
-Get a namespace
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | The namespace id
-	tenant := "tenant_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.NamespacesAPI.GetNamespace(context.Background(), id, tenant).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `NamespacesAPI.GetNamespace``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetNamespace`: Namespace
-	fmt.Fprintf(os.Stdout, "Response from `NamespacesAPI.GetNamespace`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The namespace id | 
-**tenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetNamespaceRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-### Return type
-
-[**Namespace**](Namespace.md)
-
-### Authorization
-
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## InheritedPluginDefaults
@@ -504,16 +362,87 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## InheritedSecrets
+
+> map[string][]string InheritedSecrets(ctx, namespace, tenant).Execute()
+
+List inherited secrets
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	namespace := "namespace_example" // string | The namespace id
+	tenant := "tenant_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NamespacesAPI.InheritedSecrets(context.Background(), namespace, tenant).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NamespacesAPI.InheritedSecrets``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `InheritedSecrets`: map[string][]string
+	fmt.Fprintf(os.Stdout, "Response from `NamespacesAPI.InheritedSecrets`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**namespace** | **string** | The namespace id | 
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiInheritedSecretsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**map[string][]string**](array.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## InheritedVariables
@@ -575,21 +504,21 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## ListNamespaceSecrets
 
-> ApiSecretListResponse ListNamespaceSecrets(ctx, namespace, tenant).Page(page).Size(size).Filters(filters).Sort(sort).Execute()
+> ApiSecretListResponseApiSecretMeta ListNamespaceSecrets(ctx, namespace, tenant).Page(page).Size(size).Filters(filters).Sort(sort).Execute()
 
 Get secrets for a namespace
 
@@ -620,7 +549,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `NamespacesAPI.ListNamespaceSecrets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListNamespaceSecrets`: ApiSecretListResponse
+	// response from `ListNamespaceSecrets`: ApiSecretListResponseApiSecretMeta
 	fmt.Fprintf(os.Stdout, "Response from `NamespacesAPI.ListNamespaceSecrets`: %v\n", resp)
 }
 ```
@@ -650,25 +579,96 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiSecretListResponse**](ApiSecretListResponse.md)
+[**ApiSecretListResponseApiSecretMeta**](ApiSecretListResponseApiSecretMeta.md)
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## Namespace
+
+> Namespace Namespace(ctx, id, tenant).Execute()
+
+Get a namespace
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | The namespace id
+	tenant := "tenant_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NamespacesAPI.Namespace(context.Background(), id, tenant).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NamespacesAPI.Namespace``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Namespace`: Namespace
+	fmt.Fprintf(os.Stdout, "Response from `NamespacesAPI.Namespace`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | The namespace id | 
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiNamespaceRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**Namespace**](Namespace.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## PatchSecret
 
-> []ApiSecretMeta PatchSecret(ctx, namespace, key, tenant).ApiSecretMetaEE(apiSecretMetaEE).Execute()
+> []ApiSecretMetaEE PatchSecret(ctx, namespace, key, tenant).ApiSecretMetaEE(apiSecretMetaEE).Execute()
 
 Patch a secret metadata for a namespace
 
@@ -688,7 +688,7 @@ func main() {
 	namespace := "namespace_example" // string | The namespace id
 	key := "key_example" // string | The secret key
 	tenant := "tenant_example" // string | 
-	apiSecretMetaEE := *openapiclient.NewApiSecretMetaEE("Description_example", []openapiclient.ApiSecretTag{*openapiclient.NewApiSecretTag("Key_example", "Value_example")}, "Key_example") // ApiSecretMetaEE | 
+	apiSecretMetaEE := *openapiclient.NewApiSecretMetaEE("Key_example", "Description_example", []openapiclient.ApiSecretTag{*openapiclient.NewApiSecretTag("Key_example", "Value_example")}) // ApiSecretMetaEE | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -697,7 +697,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `NamespacesAPI.PatchSecret``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PatchSecret`: []ApiSecretMeta
+	// response from `PatchSecret`: []ApiSecretMetaEE
 	fmt.Fprintf(os.Stdout, "Response from `NamespacesAPI.PatchSecret`: %v\n", resp)
 }
 ```
@@ -726,25 +726,25 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]ApiSecretMeta**](ApiSecretMeta.md)
+[**[]ApiSecretMetaEE**](ApiSecretMetaEE.md)
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## PutSecrets
 
-> []ApiSecretMeta PutSecrets(ctx, namespace, tenant).ApiSecretValue(apiSecretValue).Execute()
+> []ApiSecretMetaEE PutSecrets(ctx, namespace, tenant).ApiSecretValue(apiSecretValue).Execute()
 
 Update secrets for a namespace
 
@@ -772,7 +772,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `NamespacesAPI.PutSecrets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutSecrets`: []ApiSecretMeta
+	// response from `PutSecrets`: []ApiSecretMetaEE
 	fmt.Fprintf(os.Stdout, "Response from `NamespacesAPI.PutSecrets`: %v\n", resp)
 }
 ```
@@ -799,20 +799,20 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]ApiSecretMeta**](ApiSecretMeta.md)
+[**[]ApiSecretMetaEE**](ApiSecretMetaEE.md)
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## SearchNamespaces
@@ -881,16 +881,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## UpdateNamespace
@@ -954,14 +954,14 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

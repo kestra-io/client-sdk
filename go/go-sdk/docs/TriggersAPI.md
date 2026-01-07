@@ -7,8 +7,12 @@ Method | HTTP request | Description
 [**DeleteBackfill**](TriggersAPI.md#DeleteBackfill) | **Post** /api/v1/{tenant}/triggers/backfill/delete | Delete a backfill
 [**DeleteBackfillByIds**](TriggersAPI.md#DeleteBackfillByIds) | **Post** /api/v1/{tenant}/triggers/backfill/delete/by-triggers | Delete backfill for given triggers
 [**DeleteBackfillByQuery**](TriggersAPI.md#DeleteBackfillByQuery) | **Post** /api/v1/{tenant}/triggers/backfill/delete/by-query | Delete backfill for given triggers
+[**DeleteTrigger**](TriggersAPI.md#DeleteTrigger) | **Delete** /api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId} | Delete a trigger
+[**DeleteTriggersByIds**](TriggersAPI.md#DeleteTriggersByIds) | **Delete** /api/v1/{tenant}/triggers/delete/by-triggers | Delete given triggers
+[**DeleteTriggersByQuery**](TriggersAPI.md#DeleteTriggersByQuery) | **Delete** /api/v1/{tenant}/triggers/delete/by-query | Delete triggers by query parameters
 [**DisabledTriggersByIds**](TriggersAPI.md#DisabledTriggersByIds) | **Post** /api/v1/{tenant}/triggers/set-disabled/by-triggers | Disable/enable given triggers
 [**DisabledTriggersByQuery**](TriggersAPI.md#DisabledTriggersByQuery) | **Post** /api/v1/{tenant}/triggers/set-disabled/by-query | Disable/enable triggers by query parameters
+[**ExportTriggers**](TriggersAPI.md#ExportTriggers) | **Get** /api/v1/{tenant}/triggers/export/by-query/csv | Export all triggers as a streamed CSV file
 [**PauseBackfill**](TriggersAPI.md#PauseBackfill) | **Put** /api/v1/{tenant}/triggers/backfill/pause | Pause a backfill
 [**PauseBackfillByIds**](TriggersAPI.md#PauseBackfillByIds) | **Post** /api/v1/{tenant}/triggers/backfill/pause/by-triggers | Pause backfill for given triggers
 [**PauseBackfillByQuery**](TriggersAPI.md#PauseBackfillByQuery) | **Post** /api/v1/{tenant}/triggers/backfill/pause/by-query | Pause backfill for given triggers
@@ -84,16 +88,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## DeleteBackfillByIds
@@ -155,21 +159,21 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## DeleteBackfillByQuery
 
-> map[string]interface{} DeleteBackfillByQuery(ctx, tenant).DeleteExecutionsByQueryRequest(deleteExecutionsByQueryRequest).Q(q).Namespace(namespace).Execute()
+> map[string]interface{} DeleteBackfillByQuery(ctx, tenant).Filters(filters).Execute()
 
 Delete backfill for given triggers
 
@@ -187,13 +191,11 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	deleteExecutionsByQueryRequest := *openapiclient.NewDeleteExecutionsByQueryRequest() // DeleteExecutionsByQueryRequest | 
-	q := "q_example" // string | A string filter (optional)
-	namespace := "namespace_example" // string | A namespace filter prefix (optional)
+	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TriggersAPI.DeleteBackfillByQuery(context.Background(), tenant).DeleteExecutionsByQueryRequest(deleteExecutionsByQueryRequest).Q(q).Namespace(namespace).Execute()
+	resp, r, err := apiClient.TriggersAPI.DeleteBackfillByQuery(context.Background(), tenant).Filters(filters).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TriggersAPI.DeleteBackfillByQuery``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -219,9 +221,7 @@ Other parameters are passed through a pointer to a apiDeleteBackfillByQueryReque
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md) |  | 
- **q** | **string** | A string filter | 
- **namespace** | **string** | A namespace filter prefix | 
+ **filters** | [**[]QueryFilter**](QueryFilter.md) | Filters | 
 
 ### Return type
 
@@ -229,16 +229,234 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteTrigger
+
+> map[string]interface{} DeleteTrigger(ctx, namespace, flowId, triggerId, tenant).Execute()
+
+Delete a trigger
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	namespace := "namespace_example" // string | The namespace
+	flowId := "flowId_example" // string | The flow id
+	triggerId := "triggerId_example" // string | The trigger id
+	tenant := "tenant_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TriggersAPI.DeleteTrigger(context.Background(), namespace, flowId, triggerId, tenant).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TriggersAPI.DeleteTrigger``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeleteTrigger`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `TriggersAPI.DeleteTrigger`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**namespace** | **string** | The namespace | 
+**flowId** | **string** | The flow id | 
+**triggerId** | **string** | The trigger id | 
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteTriggerRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
+
+### Return type
+
+**map[string]interface{}**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteTriggersByIds
+
+> map[string]interface{} DeleteTriggersByIds(ctx, tenant).Trigger(trigger).Execute()
+
+Delete given triggers
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+    "time"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	tenant := "tenant_example" // string | 
+	trigger := []openapiclient.Trigger{*openapiclient.NewTrigger("Namespace_example", "FlowId_example", "TriggerId_example", time.Now())} // []Trigger | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TriggersAPI.DeleteTriggersByIds(context.Background(), tenant).Trigger(trigger).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TriggersAPI.DeleteTriggersByIds``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeleteTriggersByIds`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `TriggersAPI.DeleteTriggersByIds`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteTriggersByIdsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **trigger** | [**[]Trigger**](Trigger.md) |  | 
+
+### Return type
+
+**map[string]interface{}**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteTriggersByQuery
+
+> map[string]interface{} DeleteTriggersByQuery(ctx, tenant).DeleteTriggersByQueryRequest(deleteTriggersByQueryRequest).Execute()
+
+Delete triggers by query parameters
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	tenant := "tenant_example" // string | 
+	deleteTriggersByQueryRequest := *openapiclient.NewDeleteTriggersByQueryRequest() // DeleteTriggersByQueryRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TriggersAPI.DeleteTriggersByQuery(context.Background(), tenant).DeleteTriggersByQueryRequest(deleteTriggersByQueryRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TriggersAPI.DeleteTriggersByQuery``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeleteTriggersByQuery`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `TriggersAPI.DeleteTriggersByQuery`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteTriggersByQueryRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **deleteTriggersByQueryRequest** | [**DeleteTriggersByQueryRequest**](DeleteTriggersByQueryRequest.md) |  | 
+
+### Return type
+
+**map[string]interface{}**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## DisabledTriggersByIds
@@ -300,21 +518,21 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## DisabledTriggersByQuery
 
-> map[string]interface{} DisabledTriggersByQuery(ctx, tenant).Disabled(disabled).DeleteExecutionsByQueryRequest(deleteExecutionsByQueryRequest).Q(q).Namespace(namespace).Execute()
+> map[string]interface{} DisabledTriggersByQuery(ctx, tenant).Disabled(disabled).Filters(filters).Execute()
 
 Disable/enable triggers by query parameters
 
@@ -333,13 +551,11 @@ import (
 func main() {
 	disabled := true // bool | The disabled state (default to true)
 	tenant := "tenant_example" // string | 
-	deleteExecutionsByQueryRequest := *openapiclient.NewDeleteExecutionsByQueryRequest() // DeleteExecutionsByQueryRequest | 
-	q := "q_example" // string | A string filter (optional)
-	namespace := "namespace_example" // string | A namespace filter prefix (optional)
+	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TriggersAPI.DisabledTriggersByQuery(context.Background(), tenant).Disabled(disabled).DeleteExecutionsByQueryRequest(deleteExecutionsByQueryRequest).Q(q).Namespace(namespace).Execute()
+	resp, r, err := apiClient.TriggersAPI.DisabledTriggersByQuery(context.Background(), tenant).Disabled(disabled).Filters(filters).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TriggersAPI.DisabledTriggersByQuery``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -366,9 +582,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **disabled** | **bool** | The disabled state | [default to true]
 
- **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md) |  | 
- **q** | **string** | A string filter | 
- **namespace** | **string** | A namespace filter prefix | 
+ **filters** | [**[]QueryFilter**](QueryFilter.md) | Filters | 
 
 ### Return type
 
@@ -376,16 +590,86 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ExportTriggers
+
+> []map[string]interface{} ExportTriggers(ctx, tenant).Filters(filters).Execute()
+
+Export all triggers as a streamed CSV file
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | A list of filters
+	tenant := "tenant_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TriggersAPI.ExportTriggers(context.Background(), tenant).Filters(filters).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TriggersAPI.ExportTriggers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ExportTriggers`: []map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `TriggersAPI.ExportTriggers`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiExportTriggersRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **filters** | [**[]QueryFilter**](QueryFilter.md) | A list of filters | 
+
+
+### Return type
+
+**[]map[string]interface{}**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/csv
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## PauseBackfill
@@ -447,16 +731,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## PauseBackfillByIds
@@ -518,21 +802,21 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## PauseBackfillByQuery
 
-> map[string]interface{} PauseBackfillByQuery(ctx, tenant).DeleteExecutionsByQueryRequest(deleteExecutionsByQueryRequest).Q(q).Namespace(namespace).Execute()
+> map[string]interface{} PauseBackfillByQuery(ctx, tenant).Filters(filters).Execute()
 
 Pause backfill for given triggers
 
@@ -550,13 +834,11 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	deleteExecutionsByQueryRequest := *openapiclient.NewDeleteExecutionsByQueryRequest() // DeleteExecutionsByQueryRequest | 
-	q := "q_example" // string | A string filter (optional)
-	namespace := "namespace_example" // string | A namespace filter prefix (optional)
+	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TriggersAPI.PauseBackfillByQuery(context.Background(), tenant).DeleteExecutionsByQueryRequest(deleteExecutionsByQueryRequest).Q(q).Namespace(namespace).Execute()
+	resp, r, err := apiClient.TriggersAPI.PauseBackfillByQuery(context.Background(), tenant).Filters(filters).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TriggersAPI.PauseBackfillByQuery``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -582,9 +864,7 @@ Other parameters are passed through a pointer to a apiPauseBackfillByQueryReques
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md) |  | 
- **q** | **string** | A string filter | 
- **namespace** | **string** | A namespace filter prefix | 
+ **filters** | [**[]QueryFilter**](QueryFilter.md) | Filters | 
 
 ### Return type
 
@@ -592,16 +872,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## RestartTrigger
@@ -669,21 +949,21 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## SearchTriggers
 
-> PagedResultsTriggerControllerTriggers SearchTriggers(ctx, tenant).Page(page).Size(size).Sort(sort).Filters(filters).Q(q).Namespace(namespace).WorkerId(workerId).FlowId(flowId).Execute()
+> PagedResultsTriggerControllerTriggers SearchTriggers(ctx, tenant).Page(page).Size(size).Sort(sort).Filters(filters).Execute()
 
 Search for triggers
 
@@ -705,14 +985,10 @@ func main() {
 	tenant := "tenant_example" // string | 
 	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
 	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters (optional)
-	q := "q_example" // string | A string filter (optional)
-	namespace := "namespace_example" // string | A namespace filter prefix (optional)
-	workerId := "workerId_example" // string | The identifier of the worker currently evaluating the trigger (optional)
-	flowId := "flowId_example" // string | The flow identifier (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TriggersAPI.SearchTriggers(context.Background(), tenant).Page(page).Size(size).Sort(sort).Filters(filters).Q(q).Namespace(namespace).WorkerId(workerId).FlowId(flowId).Execute()
+	resp, r, err := apiClient.TriggersAPI.SearchTriggers(context.Background(), tenant).Page(page).Size(size).Sort(sort).Filters(filters).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TriggersAPI.SearchTriggers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -742,10 +1018,6 @@ Name | Type | Description  | Notes
 
  **sort** | **[]string** | The sort of current page | 
  **filters** | [**[]QueryFilter**](QueryFilter.md) | Filters | 
- **q** | **string** | A string filter | 
- **namespace** | **string** | A namespace filter prefix | 
- **workerId** | **string** | The identifier of the worker currently evaluating the trigger | 
- **flowId** | **string** | The flow identifier | 
 
 ### Return type
 
@@ -753,16 +1025,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## SearchTriggersForFlow
@@ -835,16 +1107,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## UnlockTrigger
@@ -912,16 +1184,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## UnlockTriggersByIds
@@ -983,21 +1255,21 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## UnlockTriggersByQuery
 
-> map[string]interface{} UnlockTriggersByQuery(ctx, tenant).DeleteExecutionsByQueryRequest(deleteExecutionsByQueryRequest).Q(q).Namespace(namespace).Execute()
+> map[string]interface{} UnlockTriggersByQuery(ctx, tenant).Filters(filters).Execute()
 
 Unlock triggers by query parameters
 
@@ -1015,13 +1287,11 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	deleteExecutionsByQueryRequest := *openapiclient.NewDeleteExecutionsByQueryRequest() // DeleteExecutionsByQueryRequest | 
-	q := "q_example" // string | A string filter (optional)
-	namespace := "namespace_example" // string | A namespace filter prefix (optional)
+	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TriggersAPI.UnlockTriggersByQuery(context.Background(), tenant).DeleteExecutionsByQueryRequest(deleteExecutionsByQueryRequest).Q(q).Namespace(namespace).Execute()
+	resp, r, err := apiClient.TriggersAPI.UnlockTriggersByQuery(context.Background(), tenant).Filters(filters).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TriggersAPI.UnlockTriggersByQuery``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1047,9 +1317,7 @@ Other parameters are passed through a pointer to a apiUnlockTriggersByQueryReque
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md) |  | 
- **q** | **string** | A string filter | 
- **namespace** | **string** | A namespace filter prefix | 
+ **filters** | [**[]QueryFilter**](QueryFilter.md) | Filters | 
 
 ### Return type
 
@@ -1057,16 +1325,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## UnpauseBackfill
@@ -1128,16 +1396,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## UnpauseBackfillByIds
@@ -1199,21 +1467,21 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## UnpauseBackfillByQuery
 
-> map[string]interface{} UnpauseBackfillByQuery(ctx, tenant).DeleteExecutionsByQueryRequest(deleteExecutionsByQueryRequest).Q(q).Namespace(namespace).Execute()
+> map[string]interface{} UnpauseBackfillByQuery(ctx, tenant).Filters(filters).Execute()
 
 Unpause backfill for given triggers
 
@@ -1231,13 +1499,11 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	deleteExecutionsByQueryRequest := *openapiclient.NewDeleteExecutionsByQueryRequest() // DeleteExecutionsByQueryRequest | 
-	q := "q_example" // string | A string filter (optional)
-	namespace := "namespace_example" // string | A namespace filter prefix (optional)
+	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TriggersAPI.UnpauseBackfillByQuery(context.Background(), tenant).DeleteExecutionsByQueryRequest(deleteExecutionsByQueryRequest).Q(q).Namespace(namespace).Execute()
+	resp, r, err := apiClient.TriggersAPI.UnpauseBackfillByQuery(context.Background(), tenant).Filters(filters).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TriggersAPI.UnpauseBackfillByQuery``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1263,9 +1529,7 @@ Other parameters are passed through a pointer to a apiUnpauseBackfillByQueryRequ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **deleteExecutionsByQueryRequest** | [**DeleteExecutionsByQueryRequest**](DeleteExecutionsByQueryRequest.md) |  | 
- **q** | **string** | A string filter | 
- **namespace** | **string** | A namespace filter prefix | 
+ **filters** | [**[]QueryFilter**](QueryFilter.md) | Filters | 
 
 ### Return type
 
@@ -1273,16 +1537,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## UpdateTrigger
@@ -1344,14 +1608,14 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basicAuth](../../../python-sdk/README.md#basicAuth), [bearerAuth](../../../python-sdk/README.md#bearerAuth)
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models)
-[[Back to README]](../../../python-sdk/README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

@@ -8,9 +8,9 @@ Name | Type | Description | Notes
 **Version** | Pointer to **string** |  | [optional] 
 **Edition** | Pointer to [**EditionProviderEdition**](EditionProviderEdition.md) |  | [optional] 
 **CommitId** | Pointer to **string** |  | [optional] 
+**ChartDefaultDuration** | Pointer to **string** |  | [optional] 
 **CommitDate** | Pointer to **time.Time** |  | [optional] 
 **IsCustomDashboardsEnabled** | Pointer to **bool** |  | [optional] 
-**IsTaskRunEnabled** | Pointer to **bool** |  | [optional] 
 **IsAnonymousUsageEnabled** | Pointer to **bool** |  | [optional] 
 **IsUiAnonymousUsageEnabled** | Pointer to **bool** |  | [optional] 
 **IsTemplateEnabled** | Pointer to **bool** |  | [optional] 
@@ -19,10 +19,10 @@ Name | Type | Description | Notes
 **Preview** | Pointer to [**MiscControllerPreview**](MiscControllerPreview.md) |  | [optional] 
 **SystemNamespace** | Pointer to **string** |  | [optional] 
 **HiddenLabelsPrefixes** | Pointer to **[]string** |  | [optional] 
-**ResourceToFilters** | Pointer to [**[]QueryFilterResourceField**](QueryFilterResourceField.md) |  | [optional] 
 **IsAiEnabled** | Pointer to **bool** |  | [optional] 
 **IsBasicAuthInitialized** | Pointer to **bool** |  | [optional] 
 **PluginsHash** | Pointer to **int64** |  | [optional] 
+**IsConcurrencyViewEnabled** | Pointer to **bool** |  | [optional] 
 **Tenants** | Pointer to [**MiscControllerTenantConfigurationInfo**](MiscControllerTenantConfigurationInfo.md) |  | [optional] 
 **SecretsEnabled** | Pointer to **bool** |  | [optional] 
 **SupportedStorages** | Pointer to [**[]MiscControllerPluginIdAndVersion**](MiscControllerPluginIdAndVersion.md) |  | [optional] 
@@ -37,6 +37,9 @@ Name | Type | Description | Notes
 **InMaintenance** | Pointer to **bool** |  | [optional] 
 **PasswordRegexp** | Pointer to **string** |  | [optional] 
 **PasswordlessEnabled** | Pointer to **bool** |  | [optional] 
+**Airgapped** | Pointer to **bool** |  | [optional] 
+**FeatureGating** | Pointer to **bool** |  | [optional] 
+**Features** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
@@ -157,6 +160,31 @@ SetCommitId sets CommitId field to given value.
 
 HasCommitId returns a boolean if a field has been set.
 
+### GetChartDefaultDuration
+
+`func (o *MiscControllerEEConfiguration) GetChartDefaultDuration() string`
+
+GetChartDefaultDuration returns the ChartDefaultDuration field if non-nil, zero value otherwise.
+
+### GetChartDefaultDurationOk
+
+`func (o *MiscControllerEEConfiguration) GetChartDefaultDurationOk() (*string, bool)`
+
+GetChartDefaultDurationOk returns a tuple with the ChartDefaultDuration field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetChartDefaultDuration
+
+`func (o *MiscControllerEEConfiguration) SetChartDefaultDuration(v string)`
+
+SetChartDefaultDuration sets ChartDefaultDuration field to given value.
+
+### HasChartDefaultDuration
+
+`func (o *MiscControllerEEConfiguration) HasChartDefaultDuration() bool`
+
+HasChartDefaultDuration returns a boolean if a field has been set.
+
 ### GetCommitDate
 
 `func (o *MiscControllerEEConfiguration) GetCommitDate() time.Time`
@@ -206,31 +234,6 @@ SetIsCustomDashboardsEnabled sets IsCustomDashboardsEnabled field to given value
 `func (o *MiscControllerEEConfiguration) HasIsCustomDashboardsEnabled() bool`
 
 HasIsCustomDashboardsEnabled returns a boolean if a field has been set.
-
-### GetIsTaskRunEnabled
-
-`func (o *MiscControllerEEConfiguration) GetIsTaskRunEnabled() bool`
-
-GetIsTaskRunEnabled returns the IsTaskRunEnabled field if non-nil, zero value otherwise.
-
-### GetIsTaskRunEnabledOk
-
-`func (o *MiscControllerEEConfiguration) GetIsTaskRunEnabledOk() (*bool, bool)`
-
-GetIsTaskRunEnabledOk returns a tuple with the IsTaskRunEnabled field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetIsTaskRunEnabled
-
-`func (o *MiscControllerEEConfiguration) SetIsTaskRunEnabled(v bool)`
-
-SetIsTaskRunEnabled sets IsTaskRunEnabled field to given value.
-
-### HasIsTaskRunEnabled
-
-`func (o *MiscControllerEEConfiguration) HasIsTaskRunEnabled() bool`
-
-HasIsTaskRunEnabled returns a boolean if a field has been set.
 
 ### GetIsAnonymousUsageEnabled
 
@@ -432,31 +435,6 @@ SetHiddenLabelsPrefixes sets HiddenLabelsPrefixes field to given value.
 
 HasHiddenLabelsPrefixes returns a boolean if a field has been set.
 
-### GetResourceToFilters
-
-`func (o *MiscControllerEEConfiguration) GetResourceToFilters() []QueryFilterResourceField`
-
-GetResourceToFilters returns the ResourceToFilters field if non-nil, zero value otherwise.
-
-### GetResourceToFiltersOk
-
-`func (o *MiscControllerEEConfiguration) GetResourceToFiltersOk() (*[]QueryFilterResourceField, bool)`
-
-GetResourceToFiltersOk returns a tuple with the ResourceToFilters field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetResourceToFilters
-
-`func (o *MiscControllerEEConfiguration) SetResourceToFilters(v []QueryFilterResourceField)`
-
-SetResourceToFilters sets ResourceToFilters field to given value.
-
-### HasResourceToFilters
-
-`func (o *MiscControllerEEConfiguration) HasResourceToFilters() bool`
-
-HasResourceToFilters returns a boolean if a field has been set.
-
 ### GetIsAiEnabled
 
 `func (o *MiscControllerEEConfiguration) GetIsAiEnabled() bool`
@@ -531,6 +509,31 @@ SetPluginsHash sets PluginsHash field to given value.
 `func (o *MiscControllerEEConfiguration) HasPluginsHash() bool`
 
 HasPluginsHash returns a boolean if a field has been set.
+
+### GetIsConcurrencyViewEnabled
+
+`func (o *MiscControllerEEConfiguration) GetIsConcurrencyViewEnabled() bool`
+
+GetIsConcurrencyViewEnabled returns the IsConcurrencyViewEnabled field if non-nil, zero value otherwise.
+
+### GetIsConcurrencyViewEnabledOk
+
+`func (o *MiscControllerEEConfiguration) GetIsConcurrencyViewEnabledOk() (*bool, bool)`
+
+GetIsConcurrencyViewEnabledOk returns a tuple with the IsConcurrencyViewEnabled field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsConcurrencyViewEnabled
+
+`func (o *MiscControllerEEConfiguration) SetIsConcurrencyViewEnabled(v bool)`
+
+SetIsConcurrencyViewEnabled sets IsConcurrencyViewEnabled field to given value.
+
+### HasIsConcurrencyViewEnabled
+
+`func (o *MiscControllerEEConfiguration) HasIsConcurrencyViewEnabled() bool`
+
+HasIsConcurrencyViewEnabled returns a boolean if a field has been set.
 
 ### GetTenants
 
@@ -882,7 +885,82 @@ SetPasswordlessEnabled sets PasswordlessEnabled field to given value.
 
 HasPasswordlessEnabled returns a boolean if a field has been set.
 
+### GetAirgapped
 
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints) [[Back to README]](../../../python-sdk/README.md)
+`func (o *MiscControllerEEConfiguration) GetAirgapped() bool`
+
+GetAirgapped returns the Airgapped field if non-nil, zero value otherwise.
+
+### GetAirgappedOk
+
+`func (o *MiscControllerEEConfiguration) GetAirgappedOk() (*bool, bool)`
+
+GetAirgappedOk returns a tuple with the Airgapped field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAirgapped
+
+`func (o *MiscControllerEEConfiguration) SetAirgapped(v bool)`
+
+SetAirgapped sets Airgapped field to given value.
+
+### HasAirgapped
+
+`func (o *MiscControllerEEConfiguration) HasAirgapped() bool`
+
+HasAirgapped returns a boolean if a field has been set.
+
+### GetFeatureGating
+
+`func (o *MiscControllerEEConfiguration) GetFeatureGating() bool`
+
+GetFeatureGating returns the FeatureGating field if non-nil, zero value otherwise.
+
+### GetFeatureGatingOk
+
+`func (o *MiscControllerEEConfiguration) GetFeatureGatingOk() (*bool, bool)`
+
+GetFeatureGatingOk returns a tuple with the FeatureGating field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFeatureGating
+
+`func (o *MiscControllerEEConfiguration) SetFeatureGating(v bool)`
+
+SetFeatureGating sets FeatureGating field to given value.
+
+### HasFeatureGating
+
+`func (o *MiscControllerEEConfiguration) HasFeatureGating() bool`
+
+HasFeatureGating returns a boolean if a field has been set.
+
+### GetFeatures
+
+`func (o *MiscControllerEEConfiguration) GetFeatures() []string`
+
+GetFeatures returns the Features field if non-nil, zero value otherwise.
+
+### GetFeaturesOk
+
+`func (o *MiscControllerEEConfiguration) GetFeaturesOk() (*[]string, bool)`
+
+GetFeaturesOk returns a tuple with the Features field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFeatures
+
+`func (o *MiscControllerEEConfiguration) SetFeatures(v []string)`
+
+SetFeatures sets Features field to given value.
+
+### HasFeatures
+
+`func (o *MiscControllerEEConfiguration) HasFeatures() bool`
+
+HasFeatures returns a boolean if a field has been set.
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

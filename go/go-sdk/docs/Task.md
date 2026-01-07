@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | 
 **Type** | **string** |  | 
-**Version** | Pointer to **string** |  | [optional] 
+**Version** | Pointer to **string** | Defines the version of the plugin to use.  The version must follow the Semantic Versioning (SemVer) specification:   - A single-digit MAJOR version (e.g., &#x60;1&#x60;).   - A MAJOR.MINOR version (e.g., &#x60;1.1&#x60;).   - A MAJOR.MINOR.PATCH version, optionally with any qualifier     (e.g., &#x60;1.1.2&#x60;, &#x60;1.1.0-SNAPSHOT&#x60;).  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Retry** | Pointer to **map[string]interface{}** |  | [optional] 
 **Timeout** | Pointer to [**string**](PropertyDuration.md) |  | [optional] 
@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **RunIf** | Pointer to **string** |  | [optional] 
 **AllowWarning** | Pointer to **bool** |  | [optional] 
 **TaskCache** | Pointer to [**Cache**](Cache.md) |  | [optional] 
+**Assets** | Pointer to [**NullablePropertyAssetsDeclaration**](PropertyAssetsDeclaration.md) |  | [optional] 
 
 ## Methods
 
@@ -378,7 +379,42 @@ SetTaskCache sets TaskCache field to given value.
 
 HasTaskCache returns a boolean if a field has been set.
 
+### GetAssets
 
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints) [[Back to README]](../../../python-sdk/README.md)
+`func (o *Task) GetAssets() PropertyAssetsDeclaration`
+
+GetAssets returns the Assets field if non-nil, zero value otherwise.
+
+### GetAssetsOk
+
+`func (o *Task) GetAssetsOk() (*PropertyAssetsDeclaration, bool)`
+
+GetAssetsOk returns a tuple with the Assets field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAssets
+
+`func (o *Task) SetAssets(v PropertyAssetsDeclaration)`
+
+SetAssets sets Assets field to given value.
+
+### HasAssets
+
+`func (o *Task) HasAssets() bool`
+
+HasAssets returns a boolean if a field has been set.
+
+### SetAssetsNil
+
+`func (o *Task) SetAssetsNil(b bool)`
+
+ SetAssetsNil sets the value for Assets to be an explicit nil
+
+### UnsetAssets
+`func (o *Task) UnsetAssets()`
+
+UnsetAssets ensures that no value is present for Assets, not even an explicit nil
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

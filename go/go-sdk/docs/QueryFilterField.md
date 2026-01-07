@@ -9,9 +9,25 @@
 
 * `NAMESPACE` (value: `"NAMESPACE"`)
 
+* `KIND` (value: `"KIND"`)
+
 * `LABELS` (value: `"LABELS"`)
 
+* `METADATA` (value: `"METADATA"`)
+
 * `FLOW_ID` (value: `"FLOW_ID"`)
+
+* `FLOW_REVISION` (value: `"FLOW_REVISION"`)
+
+* `ID` (value: `"ID"`)
+
+* `ASSET_ID` (value: `"ASSET_ID"`)
+
+* `TYPE` (value: `"TYPE"`)
+
+* `CREATED` (value: `"CREATED"`)
+
+* `UPDATED` (value: `"UPDATED"`)
 
 * `START_DATE` (value: `"START_DATE"`)
 
@@ -25,7 +41,13 @@
 
 * `TRIGGER_ID` (value: `"TRIGGER_ID"`)
 
+* `TRIGGER_STATE` (value: `"TRIGGER_STATE"`)
+
 * `EXECUTION_ID` (value: `"EXECUTION_ID"`)
+
+* `TASK_ID` (value: `"TASK_ID"`)
+
+* `TASK_RUN_ID` (value: `"TASK_RUN_ID"`)
 
 * `CHILD_FILTER` (value: `"CHILD_FILTER"`)
 
@@ -35,7 +57,13 @@
 
 * `MIN_LEVEL` (value: `"MIN_LEVEL"`)
 
+* `PATH` (value: `"PATH"`)
 
-[[Back to Model list]](../../../python-sdk/README.md#documentation-for-models) [[Back to API list]](../../../python-sdk/README.md#documentation-for-api-endpoints) [[Back to README]](../../../python-sdk/README.md)
+* `PARENT_PATH` (value: `"PARENT_PATH"`)
+
+* `VERSION` (value: `"VERSION"`)
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
