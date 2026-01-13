@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Asset.JSON_PROPERTY_DESCRIPTION,
   Asset.JSON_PROPERTY_METADATA
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Asset {
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
   @jakarta.annotation.Nullable  private String namespace;

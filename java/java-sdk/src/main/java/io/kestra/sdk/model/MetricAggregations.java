@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MetricAggregations.JSON_PROPERTY_GROUP_BY,
   MetricAggregations.JSON_PROPERTY_AGGREGATIONS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class MetricAggregations {
   public static final String JSON_PROPERTY_GROUP_BY = "groupBy";
   @jakarta.annotation.Nonnull  private String groupBy;

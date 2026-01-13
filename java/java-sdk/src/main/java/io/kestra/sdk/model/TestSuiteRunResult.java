@@ -41,7 +41,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TestSuiteRunResult.JSON_PROPERTY_END_DATE,
   TestSuiteRunResult.JSON_PROPERTY_RESULTS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TestSuiteRunResult {
   public static final String JSON_PROPERTY_ID = "id";
   @jakarta.annotation.Nonnull  private String id;

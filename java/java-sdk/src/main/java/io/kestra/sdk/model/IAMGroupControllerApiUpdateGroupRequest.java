@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMGroupControllerApiUpdateGroupRequest.JSON_PROPERTY_DESCRIPTION
 })
 @JsonTypeName("IAMGroupController.ApiUpdateGroupRequest")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class IAMGroupControllerApiUpdateGroupRequest {
   public static final String JSON_PROPERTY_NAME = "name";
   @jakarta.annotation.Nonnull  private String name;

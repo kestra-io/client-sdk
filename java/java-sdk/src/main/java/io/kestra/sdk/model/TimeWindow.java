@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TimeWindow.JSON_PROPERTY_DEFAULT,
   TimeWindow.JSON_PROPERTY_MAX
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TimeWindow {
   public static final String JSON_PROPERTY_DEFAULT = "default";
   @jakarta.annotation.Nullable  private String _default;

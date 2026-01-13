@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IdWithNamespace.JSON_PROPERTY_NAMESPACE,
   IdWithNamespace.JSON_PROPERTY_ID
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class IdWithNamespace {
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
   @jakarta.annotation.Nullable  private String namespace;

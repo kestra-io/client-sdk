@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   StateHistory.JSON_PROPERTY_DATE
 })
 @JsonTypeName("State.History")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class StateHistory {
   public static final String JSON_PROPERTY_STATE = "state";
   @jakarta.annotation.Nonnull  private StateType state;

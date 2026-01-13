@@ -39,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AuditLogControllerFindRequest.JSON_PROPERTY_DETAIL
 })
 @JsonTypeName("AuditLogController.FindRequest")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AuditLogControllerFindRequest {
   public static final String JSON_PROPERTY_RESOURCE = "resource";
   @jakarta.annotation.Nullable  private ResourceType resource;

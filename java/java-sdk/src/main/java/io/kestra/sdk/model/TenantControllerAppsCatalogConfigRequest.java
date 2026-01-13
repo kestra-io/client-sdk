@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TenantControllerAppsCatalogConfigRequest.JSON_PROPERTY_PRIMARY_COLOR
 })
 @JsonTypeName("TenantController.AppsCatalogConfigRequest")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TenantControllerAppsCatalogConfigRequest {
   public static final String JSON_PROPERTY_TITLE = "title";
   @jakarta.annotation.Nullable  private String title;

@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMTenantAccessControllerApiAuthentication.JSON_PROPERTY_TYPE
 })
 @JsonTypeName("IAMTenantAccessController.ApiAuthentication")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class IAMTenantAccessControllerApiAuthentication {
   public static final String JSON_PROPERTY_NAME = "name";
   @jakarta.annotation.Nullable  private String name;

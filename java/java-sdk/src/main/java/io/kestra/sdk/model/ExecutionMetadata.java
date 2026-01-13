@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ExecutionMetadata.JSON_PROPERTY_ATTEMPT_NUMBER,
   ExecutionMetadata.JSON_PROPERTY_ORIGINAL_CREATED_DATE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ExecutionMetadata {
   public static final String JSON_PROPERTY_ATTEMPT_NUMBER = "attemptNumber";
   @jakarta.annotation.Nullable  private Integer attemptNumber;

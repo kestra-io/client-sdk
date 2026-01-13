@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   RightSidebarConfiguration.JSON_PROPERTY_CUSTOM_LINKS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class RightSidebarConfiguration {
   public static final String JSON_PROPERTY_CUSTOM_LINKS = "customLinks";
   @jakarta.annotation.Nullable  private Map<String, RightSidebarConfigurationCustomLink> customLinks = new HashMap<>();

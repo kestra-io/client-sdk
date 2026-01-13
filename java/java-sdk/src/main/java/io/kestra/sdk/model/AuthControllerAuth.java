@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AuthControllerAuth.JSON_PROPERTY_OAUTHS
 })
 @JsonTypeName("AuthController.Auth")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AuthControllerAuth {
   public static final String JSON_PROPERTY_LOGIN_PASSWORD = "loginPassword";
   @jakarta.annotation.Nullable  private Boolean loginPassword;

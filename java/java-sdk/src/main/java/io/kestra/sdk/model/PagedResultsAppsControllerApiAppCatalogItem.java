@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PagedResultsAppsControllerApiAppCatalogItem.JSON_PROPERTY_TOTAL
 })
 @JsonTypeName("PagedResults_AppsController.ApiAppCatalogItem_")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PagedResultsAppsControllerApiAppCatalogItem {
   public static final String JSON_PROPERTY_RESULTS = "results";
   @jakarta.annotation.Nonnull  private List<AppsControllerApiAppCatalogItem> results = new ArrayList<>();

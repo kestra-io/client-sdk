@@ -46,7 +46,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TriggerContext.JSON_PROPERTY_BACKFILL,
   TriggerContext.JSON_PROPERTY_STOP_AFTER
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TriggerContext {
   public static final String JSON_PROPERTY_DISABLED = "disabled";
   @jakarta.annotation.Nullable  private Boolean disabled = false;

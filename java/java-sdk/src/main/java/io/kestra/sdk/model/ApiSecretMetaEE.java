@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ApiSecretMetaEE.JSON_PROPERTY_DESCRIPTION,
   ApiSecretMetaEE.JSON_PROPERTY_TAGS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ApiSecretMetaEE {
   public static final String JSON_PROPERTY_KEY = "key";
   @jakarta.annotation.Nonnull  private String key;

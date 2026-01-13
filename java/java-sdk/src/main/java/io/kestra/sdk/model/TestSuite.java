@@ -39,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TestSuite.JSON_PROPERTY_DELETED,
   TestSuite.JSON_PROPERTY_DISABLED
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TestSuite {
   public static final String JSON_PROPERTY_ID = "id";
   @jakarta.annotation.Nonnull  private String id;

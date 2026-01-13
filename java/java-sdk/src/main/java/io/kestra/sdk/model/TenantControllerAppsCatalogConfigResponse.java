@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TenantControllerAppsCatalogConfigResponse.JSON_PROPERTY_LOGO
 })
 @JsonTypeName("TenantController.AppsCatalogConfigResponse")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TenantControllerAppsCatalogConfigResponse {
   public static final String JSON_PROPERTY_TITLE = "title";
   @jakarta.annotation.Nullable  private String title;

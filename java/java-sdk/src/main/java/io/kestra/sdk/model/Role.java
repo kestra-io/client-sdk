@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Role.JSON_PROPERTY_IS_DEFAULT,
   Role.JSON_PROPERTY_DELETED
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Role {
   public static final String JSON_PROPERTY_IS_MANAGED = "isManaged";
   @jakarta.annotation.Nonnull  private Boolean isManaged;

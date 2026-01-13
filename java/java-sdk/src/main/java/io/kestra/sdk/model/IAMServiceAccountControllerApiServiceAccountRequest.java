@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMServiceAccountControllerApiServiceAccountRequest.JSON_PROPERTY_SUPER_ADMIN
 })
 @JsonTypeName("IAMServiceAccountController.ApiServiceAccountRequest")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class IAMServiceAccountControllerApiServiceAccountRequest {
   public static final String JSON_PROPERTY_GROUPS = "groups";
   @jakarta.annotation.Nullable  private List<IAMServiceAccountControllerApiGroup> groups = new ArrayList<>();

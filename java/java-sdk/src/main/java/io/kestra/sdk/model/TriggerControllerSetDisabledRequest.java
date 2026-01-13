@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TriggerControllerSetDisabledRequest.JSON_PROPERTY_DISABLED
 })
 @JsonTypeName("TriggerController.SetDisabledRequest")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TriggerControllerSetDisabledRequest {
   public static final String JSON_PROPERTY_TRIGGERS = "triggers";
   @jakarta.annotation.Nonnull  private List<Trigger> triggers = new ArrayList<>();

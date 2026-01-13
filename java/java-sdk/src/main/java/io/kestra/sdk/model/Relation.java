@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Relation.JSON_PROPERTY_RELATION_TYPE,
   Relation.JSON_PROPERTY_VALUE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Relation {
   public static final String JSON_PROPERTY_RELATION_TYPE = "relationType";
   @jakarta.annotation.Nullable  private RelationType relationType;

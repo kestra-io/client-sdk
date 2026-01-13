@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ServiceProviderConfigurationSupportedConfiguration.JSON_PROPERTY_SUPPORTED
 })
 @JsonTypeName("ServiceProviderConfiguration.SupportedConfiguration")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ServiceProviderConfigurationSupportedConfiguration {
   public static final String JSON_PROPERTY_SUPPORTED = "supported";
   @jakarta.annotation.Nullable  private Boolean supported;

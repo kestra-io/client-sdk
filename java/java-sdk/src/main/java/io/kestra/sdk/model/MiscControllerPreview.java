@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MiscControllerPreview.JSON_PROPERTY_MAX
 })
 @JsonTypeName("MiscController.Preview")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class MiscControllerPreview {
   public static final String JSON_PROPERTY_INITIAL = "initial";
   @jakarta.annotation.Nullable  private Integer initial;

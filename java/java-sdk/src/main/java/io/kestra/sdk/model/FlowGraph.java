@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowGraph.JSON_PROPERTY_CLUSTERS,
   FlowGraph.JSON_PROPERTY_FLOWABLES
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class FlowGraph {
   public static final String JSON_PROPERTY_NODES = "nodes";
   @jakarta.annotation.Nullable  private List<AbstractGraph> nodes = new ArrayList<>();

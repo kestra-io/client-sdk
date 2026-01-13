@@ -28,7 +28,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   DeletedInterface.JSON_PROPERTY_DELETED
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class DeletedInterface {
   public static final String JSON_PROPERTY_DELETED = "deleted";
   @jakarta.annotation.Nullable  private Boolean deleted;

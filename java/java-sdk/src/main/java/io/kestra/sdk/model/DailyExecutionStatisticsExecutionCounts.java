@@ -45,7 +45,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   DailyExecutionStatisticsExecutionCounts.JSON_PROPERTY_R_E_S_U_B_M_I_T_T_E_D
 })
 @JsonTypeName("DailyExecutionStatistics_executionCounts")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class DailyExecutionStatisticsExecutionCounts {
   public static final String JSON_PROPERTY_C_R_E_A_T_E_D = "CREATED";
   @jakarta.annotation.Nullable  private Long CREATED;

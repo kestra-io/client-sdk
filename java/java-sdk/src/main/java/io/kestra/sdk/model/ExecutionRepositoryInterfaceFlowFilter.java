@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ExecutionRepositoryInterfaceFlowFilter.JSON_PROPERTY_ID
 })
 @JsonTypeName("ExecutionRepositoryInterface.FlowFilter")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ExecutionRepositoryInterfaceFlowFilter {
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
   @jakarta.annotation.Nonnull  private String namespace;

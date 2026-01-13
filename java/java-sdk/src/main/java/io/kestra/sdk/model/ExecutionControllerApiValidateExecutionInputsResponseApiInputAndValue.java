@@ -38,7 +38,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue.JSON_PROPERTY_ERRORS
 })
 @JsonTypeName("ExecutionController.ApiValidateExecutionInputsResponse.ApiInputAndValue")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue {
   public static final String JSON_PROPERTY_INPUT = "input";
   @jakarta.annotation.Nullable  private InputObject input;

@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InstanceControllerApiServerInstance.JSON_PROPERTY_HOSTNAME
 })
 @JsonTypeName("InstanceController.ApiServerInstance")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class InstanceControllerApiServerInstance {
   public static final String JSON_PROPERTY_ID = "id";
   @jakarta.annotation.Nullable  private String id;

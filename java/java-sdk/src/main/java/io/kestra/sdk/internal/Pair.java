@@ -12,7 +12,7 @@
 
 package io.kestra.sdk.internal;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")public class Pair {
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")public class Pair {
     private String name = "";
     private String value = "";
 

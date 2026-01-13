@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   BaseResourceScimResource.JSON_PROPERTY_SCHEMAS
 })
 @JsonTypeName("BaseResource_ScimResource_")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class BaseResourceScimResource {
   public static final String JSON_PROPERTY_SCHEMAS = "schemas";
   @jakarta.annotation.Nullable  private List<String> schemas = new ArrayList<>();

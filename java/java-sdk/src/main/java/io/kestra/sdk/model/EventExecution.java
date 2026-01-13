@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   EventExecution.JSON_PROPERTY_RETRY
 })
 @JsonTypeName("Event_Execution_")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class EventExecution {
   public static final String JSON_PROPERTY_DATA = "data";
   @jakarta.annotation.Nullable  private Execution data;

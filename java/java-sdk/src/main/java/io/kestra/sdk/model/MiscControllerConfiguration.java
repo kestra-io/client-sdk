@@ -54,7 +54,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MiscControllerConfiguration.JSON_PROPERTY_IS_CONCURRENCY_VIEW_ENABLED
 })
 @JsonTypeName("MiscController.Configuration")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class MiscControllerConfiguration {
   public static final String JSON_PROPERTY_UUID = "uuid";
   @jakarta.annotation.Nullable  private String uuid;

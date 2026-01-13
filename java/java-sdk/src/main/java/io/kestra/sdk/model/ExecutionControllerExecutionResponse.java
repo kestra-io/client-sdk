@@ -66,7 +66,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ExecutionControllerExecutionResponse.JSON_PROPERTY_URL
 })
 @JsonTypeName("ExecutionController.ExecutionResponse")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ExecutionControllerExecutionResponse {
   public static final String JSON_PROPERTY_LABELS = "labels";
   @jakarta.annotation.Nullable  private List<Label> labels = new ArrayList<>();

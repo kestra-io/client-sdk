@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PluginArtifactMetadata.JSON_PROPERTY_LAST_MODIFIED_TIME,
   PluginArtifactMetadata.JSON_PROPERTY_CREATION_TIME
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PluginArtifactMetadata {
   public static final String JSON_PROPERTY_URI = "uri";
   @jakarta.annotation.Nullable  private URI uri;

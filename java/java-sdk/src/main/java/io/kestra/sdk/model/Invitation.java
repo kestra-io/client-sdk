@@ -48,7 +48,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Invitation.JSON_PROPERTY_SUPER_ADMIN,
   Invitation.JSON_PROPERTY_LINK
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Invitation {
   public static final String JSON_PROPERTY_IS_EXPIRED = "isExpired";
   @jakarta.annotation.Nullable  private Boolean isExpired;

@@ -42,7 +42,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AppsControllerApiApp.JSON_PROPERTY_UPDATED
 })
 @JsonTypeName("AppsController.ApiApp")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AppsControllerApiApp {
   public static final String JSON_PROPERTY_UID = "uid";
   @jakarta.annotation.Nullable  private String uid;
