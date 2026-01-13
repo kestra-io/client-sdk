@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AssetTopologyGraphNode.JSON_PROPERTY_TYPE
 })
 @JsonTypeName("AssetTopologyGraph.Node")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class AssetTopologyGraphNode {
   public static final String JSON_PROPERTY_UID = "uid";
   @jakarta.annotation.Nonnull  private String uid;

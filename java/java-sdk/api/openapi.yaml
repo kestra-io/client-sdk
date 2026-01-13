@@ -16748,6 +16748,7 @@ components:
         results:
         - namespace: namespace
           description: description
+          key: key
           tags:
           - value: value
             key: key
@@ -16755,6 +16756,7 @@ components:
             key: key
         - namespace: namespace
           description: description
+          key: key
           tags:
           - value: value
             key: key
@@ -16784,26 +16786,29 @@ components:
     ApiSecretMetaEE:
       allOf:
       - $ref: "#/components/schemas/ApiSecretMeta"
+      - properties:
+          namespace:
+            type: string
+          description:
+            type: string
+          tags:
+            items:
+              $ref: "#/components/schemas/ApiSecretTag"
+            type: array
+        required:
+        - description
+        - tags
+        type: object
+        example: null
       example:
         namespace: namespace
         description: description
+        key: key
         tags:
         - value: value
           key: key
         - value: value
           key: key
-      properties:
-        namespace:
-          type: string
-        description:
-          type: string
-        tags:
-          items:
-            $ref: "#/components/schemas/ApiSecretTag"
-          type: array
-      required:
-      - description
-      - tags
       type: object
     ApiSecretTag:
       example:
@@ -22200,8 +22205,55 @@ components:
     Namespace:
       allOf:
       - $ref: "#/components/schemas/NamespaceLight"
-      description: A namespace is a logical grouping of flows and tasks. It is used
-        to organize and manage flows and tasks within Kestra.
+      - description: A namespace is a logical grouping of flows and tasks. It is used
+          to organize and manage flows and tasks within Kestra.
+        properties:
+          id:
+            pattern: "^[a-z0-9][a-z0-9._-]*"
+            type: string
+          deleted:
+            type: boolean
+          storageIsolation:
+            $ref: "#/components/schemas/Isolation"
+          secretIsolation:
+            $ref: "#/components/schemas/Isolation"
+          description:
+            type: string
+          variables:
+            additionalProperties:
+              type: object
+            type: object
+          pluginDefaults:
+            items:
+              $ref: "#/components/schemas/PluginDefault"
+            type: array
+          allowedNamespaces:
+            items:
+              $ref: "#/components/schemas/Namespace.AllowedNamespace"
+            type: array
+          workerGroup:
+            $ref: "#/components/schemas/WorkerGroup"
+          storageType:
+            type: string
+          storageConfiguration:
+            additionalProperties:
+              type: object
+            type: object
+          secretType:
+            type: string
+          secretReadOnly:
+            type: boolean
+          secretConfiguration:
+            additionalProperties:
+              type: object
+            type: object
+          outputsInInternalStorage:
+            type: boolean
+        required:
+        - deleted
+        - id
+        type: object
+        example: null
       example:
         variables:
           key: "{}"
@@ -22239,51 +22291,6 @@ components:
           fallback: FAIL
           key: key
         outputsInInternalStorage: true
-      properties:
-        id:
-          pattern: "^[a-z0-9][a-z0-9._-]*"
-          type: string
-        deleted:
-          type: boolean
-        storageIsolation:
-          $ref: "#/components/schemas/Isolation"
-        secretIsolation:
-          $ref: "#/components/schemas/Isolation"
-        description:
-          type: string
-        variables:
-          additionalProperties:
-            type: object
-          type: object
-        pluginDefaults:
-          items:
-            $ref: "#/components/schemas/PluginDefault"
-          type: array
-        allowedNamespaces:
-          items:
-            $ref: "#/components/schemas/Namespace.AllowedNamespace"
-          type: array
-        workerGroup:
-          $ref: "#/components/schemas/WorkerGroup"
-        storageType:
-          type: string
-        storageConfiguration:
-          additionalProperties:
-            type: object
-          type: object
-        secretType:
-          type: string
-        secretReadOnly:
-          type: boolean
-        secretConfiguration:
-          additionalProperties:
-            type: object
-          type: object
-        outputsInInternalStorage:
-          type: boolean
-      required:
-      - deleted
-      - id
       type: object
     Namespace.AllowedNamespace:
       example:
@@ -29834,16 +29841,19 @@ components:
     UsageEE:
       allOf:
       - $ref: "#/components/schemas/MiscController.ApiUsage"
-      properties:
-        groups:
-          $ref: "#/components/schemas/GroupUsage"
-        users:
-          $ref: "#/components/schemas/UserUsage"
-        roles:
-          $ref: "#/components/schemas/RoleUsage"
-        tenants:
-          $ref: "#/components/schemas/TenantUsage"
+      - properties:
+          groups:
+            $ref: "#/components/schemas/GroupUsage"
+          users:
+            $ref: "#/components/schemas/UserUsage"
+          roles:
+            $ref: "#/components/schemas/RoleUsage"
+          tenants:
+            $ref: "#/components/schemas/TenantUsage"
+        type: object
+        example: null
       type: object
+      example: null
     UserGroup:
       properties:
         value:

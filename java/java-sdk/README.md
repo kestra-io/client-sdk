@@ -4,7 +4,7 @@ Kestra EE
 
 - API version: 1.2.0-SNAPSHOT
 
-- Generator version: 7.16.0
+- Generator version: 7.18.0
 
 All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>
 Endpoints designated as Superadmin-only are not tenant-scoped.
@@ -43,7 +43,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>io.kestra</groupId>
   <artifactId>kestra-api-client</artifactId>
-  <version>1.0.6</version>
+  <version>1.0.7</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -53,7 +53,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "io.kestra:kestra-api-client:1.0.6"
+compile "io.kestra:kestra-api-client:1.0.7"
 ```
 
 ### Others
@@ -66,7 +66,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/kestra-api-client-1.0.6.jar`
+- `target/kestra-api-client-1.0.7.jar`
 - `target/lib/*.jar`
 
 ## Getting Started

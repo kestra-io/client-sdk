@@ -45,7 +45,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   SearchRequest.JSON_PROPERTY_START_INDEX,
   SearchRequest.JSON_PROPERTY_COUNT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class SearchRequest {
   public static final String JSON_PROPERTY_SCHEMAS = "schemas";
   @jakarta.annotation.Nullable  private List<String> schemas = new ArrayList<>();

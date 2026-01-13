@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InstanceControllerApiActiveServiceList.JSON_PROPERTY_SERVICES
 })
 @JsonTypeName("InstanceController.ApiActiveServiceList")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class InstanceControllerApiActiveServiceList {
   public static final String JSON_PROPERTY_TOTAL = "total";
   @jakarta.annotation.Nullable  private Integer total;

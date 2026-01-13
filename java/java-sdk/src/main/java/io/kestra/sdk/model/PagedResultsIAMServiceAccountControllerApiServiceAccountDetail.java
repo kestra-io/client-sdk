@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PagedResultsIAMServiceAccountControllerApiServiceAccountDetail.JSON_PROPERTY_TOTAL
 })
 @JsonTypeName("PagedResults_IAMServiceAccountController.ApiServiceAccountDetail_")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class PagedResultsIAMServiceAccountControllerApiServiceAccountDetail {
   public static final String JSON_PROPERTY_RESULTS = "results";
   @jakarta.annotation.Nonnull  private List<IAMServiceAccountControllerApiServiceAccountDetail> results = new ArrayList<>();

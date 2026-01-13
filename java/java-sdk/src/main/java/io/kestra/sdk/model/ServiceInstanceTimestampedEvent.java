@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ServiceInstanceTimestampedEvent.JSON_PROPERTY_STATE
 })
 @JsonTypeName("ServiceInstance.TimestampedEvent")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class ServiceInstanceTimestampedEvent {
   public static final String JSON_PROPERTY_TS = "ts";
   @jakarta.annotation.Nullable  private OffsetDateTime ts;

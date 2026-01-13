@@ -51,7 +51,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   SchemaAttribute.JSON_PROPERTY_SCIM_RESOURCE_ID_REFERENCE
 })
 @JsonTypeName("Schema.Attribute")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class SchemaAttribute {
   public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
   @jakarta.annotation.Nullable  private List<SchemaAttribute> attributes = new ArrayList<>();

@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PagedResultsInstanceControllerApiServiceInstance.JSON_PROPERTY_TOTAL
 })
 @JsonTypeName("PagedResults_InstanceController.ApiServiceInstance_")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class PagedResultsInstanceControllerApiServiceInstance {
   public static final String JSON_PROPERTY_RESULTS = "results";
   @jakarta.annotation.Nonnull  private List<InstanceControllerApiServiceInstance> results = new ArrayList<>();

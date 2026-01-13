@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   UsernamePasswordCredentials.JSON_PROPERTY_IDENTITY,
   UsernamePasswordCredentials.JSON_PROPERTY_SECRET
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class UsernamePasswordCredentials {
   public static final String JSON_PROPERTY_USERNAME = "username";
   @jakarta.annotation.Nonnull  private String username;

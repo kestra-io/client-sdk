@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   RightSidebarConfigurationCustomLink.JSON_PROPERTY_URL
 })
 @JsonTypeName("RightSidebarConfiguration.CustomLink")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class RightSidebarConfigurationCustomLink {
   public static final String JSON_PROPERTY_TITLE = "title";
   @jakarta.annotation.Nullable  private String title;

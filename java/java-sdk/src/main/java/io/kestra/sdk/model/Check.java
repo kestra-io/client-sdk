@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Check.JSON_PROPERTY_STYLE,
   Check.JSON_PROPERTY_BEHAVIOR
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class Check {
   public static final String JSON_PROPERTY_CONDITION = "condition";
   @jakarta.annotation.Nonnull  private String condition;

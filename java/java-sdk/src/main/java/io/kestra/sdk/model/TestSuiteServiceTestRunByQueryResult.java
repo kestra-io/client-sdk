@@ -38,7 +38,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TestSuiteServiceTestRunByQueryResult.JSON_PROPERTY_RESULTS
 })
 @JsonTypeName("TestSuiteService.TestRunByQueryResult")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class TestSuiteServiceTestRunByQueryResult {
   public static final String JSON_PROPERTY_REQUEST_MADE = "requestMade";
   @jakarta.annotation.Nullable  private TestSuiteServiceRunByQueryRequest requestMade;

@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ApiTokenList.JSON_PROPERTY_TOTAL,
   ApiTokenList.JSON_PROPERTY_RESULTS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class ApiTokenList {
   public static final String JSON_PROPERTY_TOTAL = "total";
   @jakarta.annotation.Nullable  private Integer total;

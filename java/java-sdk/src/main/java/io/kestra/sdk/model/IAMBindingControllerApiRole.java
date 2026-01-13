@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMBindingControllerApiRole.JSON_PROPERTY_NAME
 })
 @JsonTypeName("IAMBindingController.ApiRole")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class IAMBindingControllerApiRole {
   public static final String JSON_PROPERTY_ID = "id";
   @jakarta.annotation.Nullable  private String id;

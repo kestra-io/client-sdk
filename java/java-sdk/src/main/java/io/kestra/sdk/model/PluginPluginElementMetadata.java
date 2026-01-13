@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PluginPluginElementMetadata.JSON_PROPERTY_DESCRIPTION
 })
 @JsonTypeName("Plugin.PluginElementMetadata")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class PluginPluginElementMetadata {
   public static final String JSON_PROPERTY_CLS = "cls";
   @jakarta.annotation.Nullable  private String cls;

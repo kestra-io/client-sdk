@@ -45,7 +45,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AbstractUser.JSON_PROPERTY_LAST_NAME,
   AbstractUser.JSON_PROPERTY_PROVIDERS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class AbstractUser {
   public static final String JSON_PROPERTY_TYPE = "type";
   @jakarta.annotation.Nonnull  private UserType type;

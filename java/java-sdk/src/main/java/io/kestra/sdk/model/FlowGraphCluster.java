@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowGraphCluster.JSON_PROPERTY_END
 })
 @JsonTypeName("FlowGraph.Cluster")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class FlowGraphCluster {
   public static final String JSON_PROPERTY_CLUSTER = "cluster";
   @jakarta.annotation.Nullable  private AbstractGraph cluster;

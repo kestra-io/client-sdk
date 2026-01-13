@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AppResponseUILayout.JSON_PROPERTY_BLOCKS
 })
 @JsonTypeName("AppResponse.UILayout")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class AppResponseUILayout {
   public static final String JSON_PROPERTY_BLOCKS = "blocks";
   @jakarta.annotation.Nullable  private List<Object> blocks = new ArrayList<>();

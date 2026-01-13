@@ -49,7 +49,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Assertion.JSON_PROPERTY_IS_NULL,
   Assertion.JSON_PROPERTY_IS_NOT_NULL
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class Assertion {
   public static final String JSON_PROPERTY_VALUE = "value";
   @jakarta.annotation.Nonnull  private String value;

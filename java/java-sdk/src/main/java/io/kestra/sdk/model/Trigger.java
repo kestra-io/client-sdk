@@ -50,7 +50,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Trigger.JSON_PROPERTY_EVALUATE_RUNNING_DATE,
   Trigger.JSON_PROPERTY_WORKER_ID
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class Trigger {
   public static final String JSON_PROPERTY_DISABLED = "disabled";
   @jakarta.annotation.Nullable  private Boolean disabled = false;

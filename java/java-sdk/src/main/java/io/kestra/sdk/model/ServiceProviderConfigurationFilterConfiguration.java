@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ServiceProviderConfigurationFilterConfiguration.JSON_PROPERTY_MAX_RESULTS
 })
 @JsonTypeName("ServiceProviderConfiguration.FilterConfiguration")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class ServiceProviderConfigurationFilterConfiguration {
   public static final String JSON_PROPERTY_SUPPORTED = "supported";
   @jakarta.annotation.Nullable  private Boolean supported;

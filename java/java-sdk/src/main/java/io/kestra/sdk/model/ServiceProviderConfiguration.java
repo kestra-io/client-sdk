@@ -53,7 +53,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ServiceProviderConfiguration.JSON_PROPERTY_ETAG,
   ServiceProviderConfiguration.JSON_PROPERTY_AUTHENTICATION_SCHEMES
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class ServiceProviderConfiguration {
   public static final String JSON_PROPERTY_SCHEMAS = "schemas";
   @jakarta.annotation.Nullable  private List<String> schemas = new ArrayList<>();

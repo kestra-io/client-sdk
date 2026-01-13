@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TestSuiteServiceRunByQueryRequest.JSON_PROPERTY_INCLUDE_CHILD_NAMESPACES
 })
 @JsonTypeName("TestSuiteService.RunByQueryRequest")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class TestSuiteServiceRunByQueryRequest {
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
   @jakarta.annotation.Nullable  private JsonNullable<String> namespace = JsonNullable.<String>undefined();

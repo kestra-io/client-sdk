@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   BlueprintControllerUseBlueprintTemplateRequest.JSON_PROPERTY_TEMPLATE_ARGUMENTS_INPUTS
 })
 @JsonTypeName("BlueprintController.UseBlueprintTemplateRequest")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class BlueprintControllerUseBlueprintTemplateRequest {
   public static final String JSON_PROPERTY_TEMPLATE_ARGUMENTS_INPUTS = "templateArgumentsInputs";
   @jakarta.annotation.Nullable  private Map<String, Object> templateArgumentsInputs = new HashMap<>();

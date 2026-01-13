@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ServerConfig.JSON_PROPERTY_TERMINATION_GRACE_PERIOD,
   ServerConfig.JSON_PROPERTY_LIVENESS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class ServerConfig {
   public static final String JSON_PROPERTY_WORKER_TASK_RESTART_STRATEGY = "workerTaskRestartStrategy";
   @jakarta.annotation.Nullable  private JsonNullable<WorkerTaskRestartStrategy> workerTaskRestartStrategy = JsonNullable.<WorkerTaskRestartStrategy>undefined();

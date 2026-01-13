@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Label.JSON_PROPERTY_KEY,
   Label.JSON_PROPERTY_VALUE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class Label {
   public static final String JSON_PROPERTY_KEY = "key";
   @jakarta.annotation.Nonnull  private String key;

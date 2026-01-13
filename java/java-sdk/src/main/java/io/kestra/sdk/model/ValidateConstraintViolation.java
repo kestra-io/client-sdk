@@ -38,7 +38,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ValidateConstraintViolation.JSON_PROPERTY_WARNINGS,
   ValidateConstraintViolation.JSON_PROPERTY_INFOS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class ValidateConstraintViolation {
   public static final String JSON_PROPERTY_FLOW = "flow";
   @jakarta.annotation.Nullable  private String flow;

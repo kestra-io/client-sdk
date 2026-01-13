@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AppResponse.JSON_PROPERTY_STREAM,
   AppResponse.JSON_PROPERTY_LAYOUT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class AppResponse {
   public static final String JSON_PROPERTY_DISPATCH = "dispatch";
   @jakarta.annotation.Nullable  private String dispatch;

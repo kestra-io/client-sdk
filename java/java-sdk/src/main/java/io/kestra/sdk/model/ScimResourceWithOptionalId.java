@@ -41,7 +41,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ScimResourceWithOptionalId.JSON_PROPERTY_EXTERNAL_ID,
   ScimResourceWithOptionalId.JSON_PROPERTY_RESOURCE_TYPE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class ScimResourceWithOptionalId {
   public static final String JSON_PROPERTY_SCHEMAS = "schemas";
   @jakarta.annotation.Nullable  private List<String> schemas = new ArrayList<>();

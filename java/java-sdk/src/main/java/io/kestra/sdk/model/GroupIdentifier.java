@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   GroupIdentifier.JSON_PROPERTY_MEMBERSHIP,
   GroupIdentifier.JSON_PROPERTY_MANAGED_EXTERNALLY
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class GroupIdentifier {
   public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
   @jakarta.annotation.Nullable  private JsonNullable<String> tenantId = JsonNullable.<String>undefined();

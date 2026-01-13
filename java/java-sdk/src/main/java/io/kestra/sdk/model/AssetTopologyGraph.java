@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AssetTopologyGraph.JSON_PROPERTY_NODES,
   AssetTopologyGraph.JSON_PROPERTY_EDGES
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class AssetTopologyGraph {
   public static final String JSON_PROPERTY_NODES = "nodes";
   @jakarta.annotation.Nullable  private List<AssetTopologyGraphNode> nodes = new ArrayList<>();

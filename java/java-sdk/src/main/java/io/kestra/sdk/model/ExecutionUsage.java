@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   ExecutionUsage.JSON_PROPERTY_DAILY_EXECUTIONS_COUNT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class ExecutionUsage {
   public static final String JSON_PROPERTY_DAILY_EXECUTIONS_COUNT = "dailyExecutionsCount";
   @jakarta.annotation.Nullable  private List<DailyExecutionStatistics> dailyExecutionsCount = new ArrayList<>();

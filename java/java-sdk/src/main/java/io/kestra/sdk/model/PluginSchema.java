@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PluginSchema.JSON_PROPERTY_OUTPUTS,
   PluginSchema.JSON_PROPERTY_DEFINITIONS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class PluginSchema {
   public static final String JSON_PROPERTY_PROPERTIES = "properties";
   @jakarta.annotation.Nullable  private Map<String, Object> properties = new HashMap<>();

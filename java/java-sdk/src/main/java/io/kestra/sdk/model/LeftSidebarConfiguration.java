@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   LeftSidebarConfiguration.JSON_PROPERTY_DISABLED_MENUS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class LeftSidebarConfiguration {
   public static final String JSON_PROPERTY_DISABLED_MENUS = "disabledMenus";
   @jakarta.annotation.Nullable  private List<String> disabledMenus = new ArrayList<>();

@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMUserGroupControllerApiUpdateUserGroupsRequest.JSON_PROPERTY_GROUP_IDS
 })
 @JsonTypeName("IAMUserGroupController.ApiUpdateUserGroupsRequest")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class IAMUserGroupControllerApiUpdateUserGroupsRequest {
   public static final String JSON_PROPERTY_GROUP_IDS = "groupIds";
   @jakarta.annotation.Nullable  private List<String> groupIds = new ArrayList<>();

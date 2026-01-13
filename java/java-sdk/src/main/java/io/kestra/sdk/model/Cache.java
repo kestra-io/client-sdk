@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Cache.JSON_PROPERTY_ENABLED,
   Cache.JSON_PROPERTY_TTL
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class Cache {
   public static final String JSON_PROPERTY_ENABLED = "enabled";
   @jakarta.annotation.Nonnull  private Boolean enabled;

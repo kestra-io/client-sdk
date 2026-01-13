@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AuditLogControllerApiAuditLogItem.JSON_PROPERTY_USER
 })
 @JsonTypeName("AuditLogController.ApiAuditLogItem")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class AuditLogControllerApiAuditLogItem {
   public static final String JSON_PROPERTY_AUDIT_LOG = "auditLog";
   @jakarta.annotation.Nullable  private AuditLog auditLog;

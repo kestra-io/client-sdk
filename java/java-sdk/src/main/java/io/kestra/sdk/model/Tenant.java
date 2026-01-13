@@ -46,7 +46,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Tenant.JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE,
   Tenant.JSON_PROPERTY_APP_CATALOG_CONFIG
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class Tenant {
   public static final String JSON_PROPERTY_STORAGE_ISOLATION = "storageIsolation";
   @jakarta.annotation.Nullable  private Isolation storageIsolation;

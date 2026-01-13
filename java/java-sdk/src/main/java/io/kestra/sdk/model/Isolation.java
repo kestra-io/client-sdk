@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Isolation.JSON_PROPERTY_DENIED_SERVICES,
   Isolation.JSON_PROPERTY_ENABLED
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class Isolation {
   public static final String JSON_PROPERTY_DENIED_SERVICES = "deniedServices";
   @jakarta.annotation.Nullable  private List<ServiceType> deniedServices = new ArrayList<>();

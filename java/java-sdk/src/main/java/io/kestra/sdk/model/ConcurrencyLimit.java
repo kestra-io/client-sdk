@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ConcurrencyLimit.JSON_PROPERTY_FLOW_ID,
   ConcurrencyLimit.JSON_PROPERTY_RUNNING
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class ConcurrencyLimit {
   public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
   @jakarta.annotation.Nonnull  private String tenantId;

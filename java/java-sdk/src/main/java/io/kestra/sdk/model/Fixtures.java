@@ -38,7 +38,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Fixtures.JSON_PROPERTY_TASKS,
   Fixtures.JSON_PROPERTY_TRIGGER
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class Fixtures {
   public static final String JSON_PROPERTY_INPUTS = "inputs";
   @jakarta.annotation.Nullable  private Map<String, Object> inputs = new HashMap<>();

@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PluginDefault.JSON_PROPERTY_FORCED,
   PluginDefault.JSON_PROPERTY_VALUES
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class PluginDefault {
   public static final String JSON_PROPERTY_TYPE = "type";
   @jakarta.annotation.Nonnull  private String type;

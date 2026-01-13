@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PagedResultsIAMInvitationControllerApiInvitationDetail.JSON_PROPERTY_TOTAL
 })
 @JsonTypeName("PagedResults_IAMInvitationController.ApiInvitationDetail_")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class PagedResultsIAMInvitationControllerApiInvitationDetail {
   public static final String JSON_PROPERTY_RESULTS = "results";
   @jakarta.annotation.Nonnull  private List<IAMInvitationControllerApiInvitationDetail> results = new ArrayList<>();

@@ -40,7 +40,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MeControllerApiMe.JSON_PROPERTY_TENANTS
 })
 @JsonTypeName("MeController.ApiMe")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class MeControllerApiMe {
   public static final String JSON_PROPERTY_ID = "id";
   @jakarta.annotation.Nullable  private String id;

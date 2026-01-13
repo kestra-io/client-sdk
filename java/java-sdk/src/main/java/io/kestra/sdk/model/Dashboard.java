@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Dashboard.JSON_PROPERTY_CHARTS,
   Dashboard.JSON_PROPERTY_SOURCE_CODE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class Dashboard {
   public static final String JSON_PROPERTY_TITLE = "title";
   @jakarta.annotation.Nonnull  private String title;

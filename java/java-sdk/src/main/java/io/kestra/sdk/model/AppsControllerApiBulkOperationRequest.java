@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AppsControllerApiBulkOperationRequest.JSON_PROPERTY_UIDS
 })
 @JsonTypeName("AppsController.ApiBulkOperationRequest")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.18.0")
 public class AppsControllerApiBulkOperationRequest {
   public static final String JSON_PROPERTY_UIDS = "uids";
   @jakarta.annotation.Nullable  private List<String> uids = new ArrayList<>();
