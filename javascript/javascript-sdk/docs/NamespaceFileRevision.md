@@ -1,9 +1,9 @@
-# KestraIoKestraSdk.PreviewAppRequest
+# KestraIoKestraSdk.NamespaceFileRevision
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**parameters** | [**HttpParameters**](HttpParameters.md) |  | [optional] 
+**revision** | **Number** |  | [optional] 
 
 

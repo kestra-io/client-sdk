@@ -10,5 +10,7 @@ Name | Type | Description | Notes
 **maxServers** | **Number** |  | [optional] 
 **standalone** | **Boolean** |  | [optional] 
 **workerGroups** | **Boolean** |  | [optional] 
+**online** | **Boolean** |  | [optional] 
+**gracePeriod** | **Date** |  | [optional] 
 
 

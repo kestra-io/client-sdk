@@ -1,16 +1,16 @@
-# KestraIoKestraSdk.BlueprintWithFlow
+# KestraIoKestraSdk.BlueprintControllerApiFlowBlueprint
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | [optional] 
-**title** | **String** |  | 
+**title** | **String** |  | [optional] 
 **description** | **String** |  | [optional] 
-**tags** | **[String]** |  | [optional] 
 **includedTasks** | **[String]** |  | [optional] 
+**tags** | **[String]** |  | [optional] 
+**source** | **String** |  | [optional] 
 **publishedAt** | **Date** |  | [optional] 
-**deleted** | **Boolean** |  | 
-**flow** | **String** |  | 
+**template** | [**BlueprintTemplate**](BlueprintTemplate.md) |  | [optional] 
 
 

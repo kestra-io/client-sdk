@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **inputs** | [**[InputObject]**](InputObject.md) |  | [optional] 
 **outputs** | [**[Output]**](Output.md) | Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages. | [optional] 
 **disabled** | **Boolean** |  | 
-**labels** | [**[Label]**](Label.md) | Labels as a list of Label (key/value pairs) or as a map of string to string. | [optional] 
+**labels** | [**[Label]**](Label.md) |  | [optional] 
 **variables** | **Object** |  | [optional] 
 **workerGroup** | [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
 **deleted** | **Boolean** |  | 
@@ -24,5 +24,7 @@ Name | Type | Description | Notes
 **concurrency** | [**Concurrency**](Concurrency.md) |  | [optional] 
 **retry** | **Object** |  | [optional] 
 **sla** | [**[SLA]**](SLA.md) |  | [optional] 
+**checks** | [**[Check]**](Check.md) | A list of conditions that are evaluated before the flow is executed.  If no checks are defined, the flow executes normally. | [optional] 
+**source** | **String** |  | [optional] 
 
 

@@ -11,5 +11,6 @@ Name | Type | Description | Notes
 **includedTasks** | **[String]** |  | [optional] 
 **publishedAt** | **Date** |  | [optional] 
 **deleted** | **Boolean** |  | 
+**template** | [**BlueprintTemplate**](BlueprintTemplate.md) |  | [optional] 
 
 

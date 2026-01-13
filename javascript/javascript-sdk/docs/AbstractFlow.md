@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **inputs** | [**[InputObject]**](InputObject.md) |  | [optional] 
 **outputs** | [**[Output]**](Output.md) |  | [optional] 
 **disabled** | **Boolean** |  | 
-**labels** | [**[Label]**](Label.md) | Labels as a list of Label (key/value pairs) or as a map of string to string. | [optional] 
+**labels** | [**[Label]**](Label.md) |  | [optional] 
 **variables** | **Object** |  | [optional] 
 **workerGroup** | [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
 **deleted** | **Boolean** |  | 

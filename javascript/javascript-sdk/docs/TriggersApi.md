@@ -7,8 +7,12 @@ Method | HTTP request | Description
 [**deleteBackfill**](TriggersApi.md#deleteBackfill) | **POST** /api/v1/{tenant}/triggers/backfill/delete | Delete a backfill
 [**deleteBackfillByIds**](TriggersApi.md#deleteBackfillByIds) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-triggers | Delete backfill for given triggers
 [**deleteBackfillByQuery**](TriggersApi.md#deleteBackfillByQuery) | **POST** /api/v1/{tenant}/triggers/backfill/delete/by-query | Delete backfill for given triggers
+[**deleteTrigger**](TriggersApi.md#deleteTrigger) | **DELETE** /api/v1/{tenant}/triggers/{namespace}/{flowId}/{triggerId} | Delete a trigger
+[**deleteTriggersByIds**](TriggersApi.md#deleteTriggersByIds) | **DELETE** /api/v1/{tenant}/triggers/delete/by-triggers | Delete given triggers
+[**deleteTriggersByQuery**](TriggersApi.md#deleteTriggersByQuery) | **DELETE** /api/v1/{tenant}/triggers/delete/by-query | Delete triggers by query parameters
 [**disabledTriggersByIds**](TriggersApi.md#disabledTriggersByIds) | **POST** /api/v1/{tenant}/triggers/set-disabled/by-triggers | Disable/enable given triggers
 [**disabledTriggersByQuery**](TriggersApi.md#disabledTriggersByQuery) | **POST** /api/v1/{tenant}/triggers/set-disabled/by-query | Disable/enable triggers by query parameters
+[**exportTriggers**](TriggersApi.md#exportTriggers) | **GET** /api/v1/{tenant}/triggers/export/by-query/csv | Export all triggers as a streamed CSV file
 [**pauseBackfill**](TriggersApi.md#pauseBackfill) | **PUT** /api/v1/{tenant}/triggers/backfill/pause | Pause a backfill
 [**pauseBackfillByIds**](TriggersApi.md#pauseBackfillByIds) | **POST** /api/v1/{tenant}/triggers/backfill/pause/by-triggers | Pause backfill for given triggers
 [**pauseBackfillByQuery**](TriggersApi.md#pauseBackfillByQuery) | **POST** /api/v1/{tenant}/triggers/backfill/pause/by-query | Pause backfill for given triggers
@@ -183,6 +187,166 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
+## deleteTrigger
+
+> Object deleteTrigger(namespace, flowId, triggerId, tenant)
+
+Delete a trigger
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraIoKestraSdk.TriggersApi();
+let namespace = "namespace_example"; // String | The namespace
+let flowId = "flowId_example"; // String | The flow id
+let triggerId = "triggerId_example"; // String | The trigger id
+let tenant = "tenant_example"; // String | 
+apiInstance.deleteTrigger(namespace, flowId, triggerId, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **namespace** | **String**| The namespace | 
+ **flowId** | **String**| The flow id | 
+ **triggerId** | **String**| The trigger id | 
+ **tenant** | **String**|  | 
+
+### Return type
+
+**Object**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## deleteTriggersByIds
+
+> Object deleteTriggersByIds(tenant, trigger)
+
+Delete given triggers
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraIoKestraSdk.TriggersApi();
+let tenant = "tenant_example"; // String | 
+let trigger = [new KestraIoKestraSdk.Trigger()]; // [Trigger] | 
+apiInstance.deleteTriggersByIds(tenant, trigger).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant** | **String**|  | 
+ **trigger** | [**[Trigger]**](Trigger.md)|  | 
+
+### Return type
+
+**Object**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## deleteTriggersByQuery
+
+> Object deleteTriggersByQuery(tenant, deleteTriggersByQueryRequest)
+
+Delete triggers by query parameters
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraIoKestraSdk.TriggersApi();
+let tenant = "tenant_example"; // String | 
+let deleteTriggersByQueryRequest = new KestraIoKestraSdk.DeleteTriggersByQueryRequest(); // DeleteTriggersByQueryRequest | 
+apiInstance.deleteTriggersByQuery(tenant, deleteTriggersByQueryRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant** | **String**|  | 
+ **deleteTriggersByQueryRequest** | [**DeleteTriggersByQueryRequest**](DeleteTriggersByQueryRequest.md)|  | 
+
+### Return type
+
+**Object**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
 ## disabledTriggersByIds
 
 > Object disabledTriggersByIds(tenant, triggerControllerSetDisabledRequest)
@@ -289,6 +453,58 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+
+## exportTriggers
+
+> [Object] exportTriggers(filters, tenant)
+
+Export all triggers as a streamed CSV file
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraIoKestraSdk.TriggersApi();
+let filters = [new KestraIoKestraSdk.QueryFilter()]; // [QueryFilter] | A list of filters
+let tenant = "tenant_example"; // String | 
+apiInstance.exportTriggers(filters, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **filters** | [**[QueryFilter]**](QueryFilter.md)| A list of filters | 
+ **tenant** | **String**|  | 
+
+### Return type
+
+**[Object]**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/csv
 
 
 ## pauseBackfill
