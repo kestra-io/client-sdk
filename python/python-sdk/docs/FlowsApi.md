@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**delete_flow**](FlowsApi.md#delete_flow) | **DELETE** /api/v1/{tenant}/flows/{namespace}/{id} | Delete a flow
 [**delete_flows_by_ids**](FlowsApi.md#delete_flows_by_ids) | **DELETE** /api/v1/{tenant}/flows/delete/by-ids | Delete flows by their IDs.
 [**delete_flows_by_query**](FlowsApi.md#delete_flows_by_query) | **DELETE** /api/v1/{tenant}/flows/delete/by-query | Delete flows returned by the query parameters.
+[**delete_revisions**](FlowsApi.md#delete_revisions) | **DELETE** /api/v1/{tenant}/flows/{namespace}/{id}/revisions | Delete revisions for a flow
 [**disable_flows_by_ids**](FlowsApi.md#disable_flows_by_ids) | **POST** /api/v1/{tenant}/flows/disable/by-ids | Disable flows by their IDs.
 [**disable_flows_by_query**](FlowsApi.md#disable_flows_by_query) | **POST** /api/v1/{tenant}/flows/disable/by-query | Disable flows returned by the query parameters.
 [**enable_flows_by_ids**](FlowsApi.md#enable_flows_by_ids) | **POST** /api/v1/{tenant}/flows/enable/by-ids | Enable flows by their IDs.
@@ -365,6 +366,72 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | deleteFlowsByQuery 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **delete_revisions**
+> delete_revisions(namespace, id, revisions, tenant)
+
+Delete revisions for a flow
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+from kestrapy import KestraClient, Configuration
+
+configuration = Configuration()
+
+configuration.host = "http://localhost:8080"
+configuration.username = "root@root.com"
+configuration.password = "Root!1234"
+
+# Enter a context with an instance of the API client
+with KestraClient(configuration) as kestra_client:
+    namespace = 'namespace_example' # str | The flow namespace
+    id = 'id_example' # str | The flow id
+    revisions = [56] # List[int] | 
+    tenant = 'tenant_example' # str | 
+
+    try:
+        # Delete revisions for a flow
+        kestra_client.FlowsApi.delete_revisions(namespace, id, revisions, tenant)
+    except Exception as e:
+        print("Exception when calling FlowsApi->delete_revisions: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **namespace** | **str**| The flow namespace | 
+ **id** | **str**| The flow id | 
+ **revisions** | [**List[int]**](int.md)|  | 
+ **tenant** | **str**|  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | deleteRevisions 200 response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1291,7 +1358,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_flow_revisions**
-> List[FlowWithSource] list_flow_revisions(namespace, id, tenant)
+> List[FlowWithSource] list_flow_revisions(namespace, id, allow_delete, tenant)
 
 Get revisions for a flow
 
@@ -1313,11 +1380,12 @@ configuration.password = "Root!1234"
 with KestraClient(configuration) as kestra_client:
     namespace = 'namespace_example' # str | The flow namespace
     id = 'id_example' # str | The flow id
+    allow_delete = False # bool |  (default to False)
     tenant = 'tenant_example' # str | 
 
     try:
         # Get revisions for a flow
-        api_response = kestra_client.FlowsApi.list_flow_revisions(namespace, id, tenant)
+        api_response = kestra_client.FlowsApi.list_flow_revisions(namespace, id, allow_delete, tenant)
         print("The response of FlowsApi->list_flow_revisions:\n")
         pprint(api_response)
     except Exception as e:
@@ -1333,6 +1401,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **namespace** | **str**| The flow namespace | 
  **id** | **str**| The flow id | 
+ **allow_delete** | **bool**|  | [default to False]
  **tenant** | **str**|  | 
 
 ### Return type

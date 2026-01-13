@@ -362,7 +362,7 @@ public class FlowsApiTest {
         String namespace = flow.getNamespace();
         String id = flow.getId();
 
-        List<FlowWithSource> response = kestraClient().flows().listFlowRevisions(namespace, id, MAIN_TENANT);
+        List<FlowWithSource> response = kestraClient().flows().listFlowRevisions(namespace, id, Boolean.FALSE, MAIN_TENANT);
     }
     /**
      * Retrieve all flows from a given namespace

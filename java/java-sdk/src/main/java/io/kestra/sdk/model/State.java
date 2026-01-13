@@ -37,7 +37,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  */
 @JsonPropertyOrder({
   State.JSON_PROPERTY_DURATION,
-  State.JSON_PROPERTY_DURATION_OR_COMPUTE_IT,
   State.JSON_PROPERTY_START_DATE,
   State.JSON_PROPERTY_END_DATE,
   State.JSON_PROPERTY_CURRENT,
@@ -47,9 +46,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 public class State {
   public static final String JSON_PROPERTY_DURATION = "duration";
   @jakarta.annotation.Nullable  private JsonNullable<String> duration = JsonNullable.<String>undefined();
-
-  public static final String JSON_PROPERTY_DURATION_OR_COMPUTE_IT = "durationOrComputeIt";
-  @jakarta.annotation.Nullable  private String durationOrComputeIt;
 
   public static final String JSON_PROPERTY_START_DATE = "startDate";
   @jakarta.annotation.Nullable  private OffsetDateTime startDate;
@@ -105,30 +101,6 @@ public class State {
     this.duration = duration;
   }
 
-
-  public State durationOrComputeIt(@jakarta.annotation.Nullable String durationOrComputeIt) {
-    
-    this.durationOrComputeIt = durationOrComputeIt;
-    return this;
-  }
-
-  /**
-   * Get durationOrComputeIt
-   * @return durationOrComputeIt
-   */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_DURATION_OR_COMPUTE_IT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getDurationOrComputeIt() {
-    return durationOrComputeIt;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DURATION_OR_COMPUTE_IT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDurationOrComputeIt(@jakarta.annotation.Nullable String durationOrComputeIt) {
-    this.durationOrComputeIt = durationOrComputeIt;
-  }
 
   /**
    * Get startDate
@@ -235,7 +207,6 @@ public class State {
     }
     State state = (State) o;
     return equalsNullable(this.duration, state.duration) &&
-        Objects.equals(this.durationOrComputeIt, state.durationOrComputeIt) &&
         Objects.equals(this.startDate, state.startDate) &&
         equalsNullable(this.endDate, state.endDate) &&
         Objects.equals(this.current, state.current) &&
@@ -248,7 +219,7 @@ public class State {
 
   @Override
   public int hashCode() {
-    return Objects.hash(hashCodeNullable(duration), durationOrComputeIt, startDate, hashCodeNullable(endDate), current, histories);
+    return Objects.hash(hashCodeNullable(duration), startDate, hashCodeNullable(endDate), current, histories);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -263,7 +234,6 @@ public class State {
     StringBuilder sb = new StringBuilder();
     sb.append("class State {\n");
     sb.append("    duration: ").append(toIndentedString(duration)).append("\n");
-    sb.append("    durationOrComputeIt: ").append(toIndentedString(durationOrComputeIt)).append("\n");
     sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
     sb.append("    endDate: ").append(toIndentedString(endDate)).append("\n");
     sb.append("    current: ").append(toIndentedString(current)).append("\n");

@@ -4,7 +4,7 @@ info:
   description: |-
     All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>
     Endpoints designated as Superadmin-only are not tenant-scoped.
-  version: 1.2.0-SNAPSHOT
+  version: 1.2.0
 tags:
   - name: Flows
     description: Flows api
@@ -3132,6 +3132,68 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+  /api/v1/{tenant}/assets/by-ids:
+    delete:
+      tags:
+        - Assets
+      summary: Delete assets by asset ids
+      operationId: deleteAssetsByIds
+      parameters:
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The asset ids
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        "200":
+          description: deleteAssetsByIds 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/{tenant}/assets/by-query:
+    delete:
+      tags:
+        - Assets
+      summary: Delete assets by query
+      operationId: deleteAssetsByQuery
+      parameters:
+        - name: filters
+          in: query
+          description: Filters
+          required: true
+          explode: false
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/QueryFilter"
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: deleteAssetsByQuery 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/assets/search:
     get:
       tags:
@@ -3319,6 +3381,14 @@ paths:
         - name: destinationOnly
           in: query
           description: If true, list only destination dependencies, otherwise list also source dependencies
+          required: true
+          explode: false
+          schema:
+            type: boolean
+            default: false
+        - name: expandAll
+          in: query
+          description: If true, expand all dependencies recursively
           required: true
           explode: false
           schema:
@@ -7823,6 +7893,13 @@ paths:
           required: true
           schema:
             type: string
+        - name: allowDelete
+          in: query
+          required: true
+          explode: false
+          schema:
+            type: boolean
+            default: false
         - name: tenant
           in: path
           required: true
@@ -7837,6 +7914,45 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/FlowWithSource"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+    delete:
+      tags:
+        - Flows
+      summary: Delete revisions for a flow
+      operationId: deleteRevisions
+      parameters:
+        - name: namespace
+          in: path
+          description: The flow namespace
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: The flow id
+          required: true
+          schema:
+            type: string
+        - name: revisions
+          in: query
+          required: true
+          explode: false
+          schema:
+            minItems: 1
+            type: array
+            items:
+              type: integer
+              format: int32
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: deleteRevisions 200 response
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -14032,6 +14148,8 @@ components:
       properties:
         id:
           type: string
+        type:
+          type: string
     AssetTopologyGraph:
       type: object
       properties:
@@ -18777,8 +18895,6 @@ components:
           type: string
           nullable: true
           readOnly: true
-        durationOrComputeIt:
-          type: string
         startDate:
           type: string
           format: date-time

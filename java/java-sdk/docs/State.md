@@ -8,7 +8,6 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**duration** | **String** |  |  [optional] [readonly] |
-|**durationOrComputeIt** | **String** |  |  [optional] |
 |**startDate** | **OffsetDateTime** |  |  [optional] [readonly] |
 |**endDate** | **OffsetDateTime** |  |  [optional] [readonly] |
 |**current** | **StateType** |  |  |

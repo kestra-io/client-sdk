@@ -29,13 +29,12 @@ class State(BaseModel):
     State
     """ # noqa: E501
     duration: Optional[StrictStr] = None
-    duration_or_compute_it: Optional[StrictStr] = Field(default=None, alias="durationOrComputeIt")
     start_date: Optional[datetime] = Field(default=None, alias="startDate")
     end_date: Optional[datetime] = Field(default=None, alias="endDate")
     current: StateType
     histories: Optional[List[StateHistory]] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["duration", "durationOrComputeIt", "startDate", "endDate", "current", "histories"]
+    __properties: ClassVar[List[str]] = ["duration", "startDate", "endDate", "current", "histories"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -119,7 +118,6 @@ class State(BaseModel):
 
         _obj = cls.model_validate({
             "duration": obj.get("duration"),
-            "durationOrComputeIt": obj.get("durationOrComputeIt"),
             "startDate": obj.get("startDate"),
             "endDate": obj.get("endDate"),
             "current": obj.get("current"),

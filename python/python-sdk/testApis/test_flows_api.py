@@ -459,7 +459,7 @@ tasks:
 """
         self.kestra_client.flows.update_flow(id=created_id, namespace="test.flows", tenant=self.tenant, body=body_updated)
 
-        revisions = self.kestra_client.flows.list_flow_revisions(namespace="test.flows", id=created_id, tenant=self.tenant)
+        revisions = self.kestra_client.flows.list_flow_revisions(namespace="test.flows", id=created_id, tenant=self.tenant, allow_delete=False)
         assert revisions is not None
         assert len(revisions) >= 1
 

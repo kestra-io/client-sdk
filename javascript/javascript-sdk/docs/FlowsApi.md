@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**deleteFlow**](FlowsApi.md#deleteFlow) | **DELETE** /api/v1/{tenant}/flows/{namespace}/{id} | Delete a flow
 [**deleteFlowsByIds**](FlowsApi.md#deleteFlowsByIds) | **DELETE** /api/v1/{tenant}/flows/delete/by-ids | Delete flows by their IDs.
 [**deleteFlowsByQuery**](FlowsApi.md#deleteFlowsByQuery) | **DELETE** /api/v1/{tenant}/flows/delete/by-query | Delete flows returned by the query parameters.
+[**deleteRevisions**](FlowsApi.md#deleteRevisions) | **DELETE** /api/v1/{tenant}/flows/{namespace}/{id}/revisions | Delete revisions for a flow
 [**disableFlowsByIds**](FlowsApi.md#disableFlowsByIds) | **POST** /api/v1/{tenant}/flows/disable/by-ids | Disable flows by their IDs.
 [**disableFlowsByQuery**](FlowsApi.md#disableFlowsByQuery) | **POST** /api/v1/{tenant}/flows/disable/by-query | Disable flows returned by the query parameters.
 [**enableFlowsByIds**](FlowsApi.md#enableFlowsByIds) | **POST** /api/v1/{tenant}/flows/enable/by-ids | Enable flows by their IDs.
@@ -311,6 +312,62 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+
+## deleteRevisions
+
+> deleteRevisions(namespace, id, revisions, tenant)
+
+Delete revisions for a flow
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraIoKestraSdk.FlowsApi();
+let namespace = "namespace_example"; // String | The flow namespace
+let id = "id_example"; // String | The flow id
+let revisions = [null]; // [Number] | 
+let tenant = "tenant_example"; // String | 
+apiInstance.deleteRevisions(namespace, id, revisions, tenant).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **namespace** | **String**| The flow namespace | 
+ **id** | **String**| The flow id | 
+ **revisions** | [**[Number]**](Number.md)|  | 
+ **tenant** | **String**|  | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 
 ## disableFlowsByIds
@@ -1085,7 +1142,7 @@ Name | Type | Description  | Notes
 
 ## listFlowRevisions
 
-> [FlowWithSource] listFlowRevisions(namespace, id, tenant)
+> [FlowWithSource] listFlowRevisions(namespace, id, allowDelete, tenant)
 
 Get revisions for a flow
 
@@ -1105,8 +1162,9 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.FlowsApi();
 let namespace = "namespace_example"; // String | The flow namespace
 let id = "id_example"; // String | The flow id
+let allowDelete = false; // Boolean | 
 let tenant = "tenant_example"; // String | 
-apiInstance.listFlowRevisions(namespace, id, tenant).then((data) => {
+apiInstance.listFlowRevisions(namespace, id, allowDelete, tenant).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -1121,6 +1179,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **namespace** | **String**| The flow namespace | 
  **id** | **String**| The flow id | 
+ **allowDelete** | **Boolean**|  | [default to false]
  **tenant** | **String**|  | 
 
 ### Return type

@@ -17,7 +17,6 @@ import StateType from './StateType';
 /**
   * @typedef {Object} IState
   * @property {String} duration
-  * @property {String} durationOrComputeIt
   * @property {Date} startDate
   * @property {Date} endDate
   * @property {keyof typeof import('./StateType').StateTypeStatic} current
@@ -63,9 +62,6 @@ class State {
             if (data.hasOwnProperty('duration')) {
                 obj['duration'] = ApiClient.convertToType(data['duration'], 'String');
             }
-            if (data.hasOwnProperty('durationOrComputeIt')) {
-                obj['durationOrComputeIt'] = ApiClient.convertToType(data['durationOrComputeIt'], 'String');
-            }
             if (data.hasOwnProperty('startDate')) {
                 obj['startDate'] = ApiClient.convertToType(data['startDate'], 'Date');
             }
@@ -98,10 +94,6 @@ class State {
         if (data['duration'] && !(typeof data['duration'] === 'string' || data['duration'] instanceof String)) {
             throw new Error("Expected the field `duration` to be a primitive type in the JSON string but got " + data['duration']);
         }
-        // ensure the json data is a string
-        if (data['durationOrComputeIt'] && !(typeof data['durationOrComputeIt'] === 'string' || data['durationOrComputeIt'] instanceof String)) {
-            throw new Error("Expected the field `durationOrComputeIt` to be a primitive type in the JSON string but got " + data['durationOrComputeIt']);
-        }
         if (data['histories']) { // data not null
             // ensure the json data is an array
             if (!Array.isArray(data['histories'])) {
@@ -125,11 +117,6 @@ State.RequiredProperties = ["current"];
  * @member {String} duration
  */
 State.prototype['duration'] = undefined;
-
-/**
- * @member {String} durationOrComputeIt
- */
-State.prototype['durationOrComputeIt'] = undefined;
 
 /**
  * @member {Date} startDate

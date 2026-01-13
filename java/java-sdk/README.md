@@ -2,9 +2,9 @@
 
 Kestra EE
 
-- API version: 1.2.0-SNAPSHOT
+- API version: 1.2.0
 
-- Generator version: 7.18.0
+- Generator version: 7.16.0
 
 All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>
 Endpoints designated as Superadmin-only are not tenant-scoped.
@@ -205,6 +205,7 @@ Class | Method | HTTP request | Description
 *FlowsApi* | [**deleteFlow**](docs/FlowsApi.md#deleteFlow) | **DELETE** /api/v1/{tenant}/flows/{namespace}/{id} | Delete a flow
 *FlowsApi* | [**deleteFlowsByIds**](docs/FlowsApi.md#deleteFlowsByIds) | **DELETE** /api/v1/{tenant}/flows/delete/by-ids | Delete flows by their IDs.
 *FlowsApi* | [**deleteFlowsByQuery**](docs/FlowsApi.md#deleteFlowsByQuery) | **DELETE** /api/v1/{tenant}/flows/delete/by-query | Delete flows returned by the query parameters.
+*FlowsApi* | [**deleteRevisions**](docs/FlowsApi.md#deleteRevisions) | **DELETE** /api/v1/{tenant}/flows/{namespace}/{id}/revisions | Delete revisions for a flow
 *FlowsApi* | [**disableFlowsByIds**](docs/FlowsApi.md#disableFlowsByIds) | **POST** /api/v1/{tenant}/flows/disable/by-ids | Disable flows by their IDs.
 *FlowsApi* | [**disableFlowsByQuery**](docs/FlowsApi.md#disableFlowsByQuery) | **POST** /api/v1/{tenant}/flows/disable/by-query | Disable flows returned by the query parameters.
 *FlowsApi* | [**enableFlowsByIds**](docs/FlowsApi.md#enableFlowsByIds) | **POST** /api/v1/{tenant}/flows/enable/by-ids | Enable flows by their IDs.

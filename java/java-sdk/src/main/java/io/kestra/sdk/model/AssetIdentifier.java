@@ -26,12 +26,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * AssetIdentifier
  */
 @JsonPropertyOrder({
-  AssetIdentifier.JSON_PROPERTY_ID
+  AssetIdentifier.JSON_PROPERTY_ID,
+  AssetIdentifier.JSON_PROPERTY_TYPE
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AssetIdentifier {
   public static final String JSON_PROPERTY_ID = "id";
   @jakarta.annotation.Nullable  private String id;
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @jakarta.annotation.Nullable  private String type;
 
   public AssetIdentifier() {
   }
@@ -60,6 +64,30 @@ public class AssetIdentifier {
     this.id = id;
   }
 
+  public AssetIdentifier type(@jakarta.annotation.Nullable String type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(@jakarta.annotation.Nullable String type) {
+    this.type = type;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -69,12 +97,13 @@ public class AssetIdentifier {
       return false;
     }
     AssetIdentifier assetIdentifier = (AssetIdentifier) o;
-    return Objects.equals(this.id, assetIdentifier.id);
+    return Objects.equals(this.id, assetIdentifier.id) &&
+        Objects.equals(this.type, assetIdentifier.type);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id);
+    return Objects.hash(id, type);
   }
 
   @Override
@@ -82,6 +111,7 @@ public class AssetIdentifier {
     StringBuilder sb = new StringBuilder();
     sb.append("class AssetIdentifier {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();
   }

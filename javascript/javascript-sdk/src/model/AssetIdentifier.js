@@ -15,6 +15,7 @@ import ApiClient from '../ApiClient';
 /**
   * @typedef {Object} IAssetIdentifier
   * @property {String} id
+  * @property {String} type
   */
 
 /**
@@ -54,6 +55,9 @@ class AssetIdentifier {
             if (data.hasOwnProperty('id')) {
                 obj['id'] = ApiClient.convertToType(data['id'], 'String');
             }
+            if (data.hasOwnProperty('type')) {
+                obj['type'] = ApiClient.convertToType(data['type'], 'String');
+            }
         }
         return obj;
     }
@@ -68,6 +72,10 @@ class AssetIdentifier {
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
         }
+        // ensure the json data is a string
+        if (data['type'] && !(typeof data['type'] === 'string' || data['type'] instanceof String)) {
+            throw new Error("Expected the field `type` to be a primitive type in the JSON string but got " + data['type']);
+        }
 
         return true;
     }
@@ -81,6 +89,11 @@ class AssetIdentifier {
  * @member {String} id
  */
 AssetIdentifier.prototype['id'] = undefined;
+
+/**
+ * @member {String} type
+ */
+AssetIdentifier.prototype['type'] = undefined;
 
 
 

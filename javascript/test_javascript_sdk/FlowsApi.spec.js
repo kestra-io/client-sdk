@@ -233,7 +233,7 @@ describe('FlowsApi', () => {
     it('list_flow_revisions', async () => {
         const flow = await createSimpleFlow();
         const { namespace, id } = flow;
-        const resp = await kestraClient().flowsApi.listFlowRevisions(namespace, id, MAIN_TENANT);
+        const resp = await kestraClient().flowsApi.listFlowRevisions(namespace, id, false, MAIN_TENANT);
         expect(Array.isArray(resp)).toBe(true);
     });
 

@@ -393,6 +393,84 @@ export default class FlowsApi {
             
 
     /**
+    * Delete revisions for a flow
+    * @param {String} namespace The flow namespace
+    * @param {String} id The flow id
+    * @param {Array.<Number>} revisions 
+    * @param {String} tenant 
+
+    * @return {Promise<  >}
+    */
+    deleteRevisionsWithHttpInfo(namespace, id, revisions, tenant) {
+      let postBody = null;
+      // verify the required parameter 'namespace' is set
+      if (namespace === undefined || namespace === null) {
+        throw new Error("Missing the required parameter 'namespace' when calling deleteRevisions");
+      }
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling deleteRevisions");
+      }
+      // verify the required parameter 'revisions' is set
+      if (revisions === undefined || revisions === null) {
+        throw new Error("Missing the required parameter 'revisions' when calling deleteRevisions");
+      }
+      // verify the required parameter 'tenant' is set
+      if (tenant === undefined || tenant === null) {
+        throw new Error("Missing the required parameter 'tenant' when calling deleteRevisions");
+      }
+
+      let pathParams = {
+        'namespace': namespace,
+        'id': id,
+        'tenant': tenant
+      };
+      let queryParams = {
+        'revisions': this.apiClient.buildCollectionParam(revisions, 'csv')
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = [];
+      let accepts = [];
+      let returnType = null;
+      return this.apiClient.callApi(
+        '/api/v1/{tenant}/flows/{namespace}/{id}/revisions', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+    * Delete revisions for a flow
+    * @param {String} namespace The flow namespace
+    * @param {String} id The flow id
+    * @param {Array.<Number>} revisions 
+    * @param {String} tenant 
+
+    * @return {Promise<  >}
+    */
+    deleteRevisions(namespace, id, revisions, tenant) {
+      return this.deleteRevisionsWithHttpInfo(namespace, id, revisions, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+
+
+
+
+
+
+
+            
+
+    /**
     * Disable flows by their IDs.
     * @param {String} tenant 
     * @param {Array.<module:model/IdWithNamespace>} idWithNamespace A list of tuple flow ID and namespace as flow identifiers
@@ -1367,11 +1445,12 @@ export default class FlowsApi {
     * Get revisions for a flow
     * @param {String} namespace The flow namespace
     * @param {String} id The flow id
+    * @param {Boolean} allowDelete 
     * @param {String} tenant 
 
     * @return {Promise<Array.<FlowWithSource>>}
     */
-    listFlowRevisionsWithHttpInfo(namespace, id, tenant) {
+    listFlowRevisionsWithHttpInfo(namespace, id, allowDelete, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -1380,6 +1459,10 @@ export default class FlowsApi {
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
         throw new Error("Missing the required parameter 'id' when calling listFlowRevisions");
+      }
+      // verify the required parameter 'allowDelete' is set
+      if (allowDelete === undefined || allowDelete === null) {
+        throw new Error("Missing the required parameter 'allowDelete' when calling listFlowRevisions");
       }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -1392,6 +1475,7 @@ export default class FlowsApi {
         'tenant': tenant
       };
       let queryParams = {
+        'allowDelete': allowDelete
       };
       let headerParams = {
       };
@@ -1413,12 +1497,13 @@ export default class FlowsApi {
     * Get revisions for a flow
     * @param {String} namespace The flow namespace
     * @param {String} id The flow id
+    * @param {Boolean} allowDelete 
     * @param {String} tenant 
 
     * @return {Promise<Array.<FlowWithSource>>}
     */
-    listFlowRevisions(namespace, id, tenant) {
-      return this.listFlowRevisionsWithHttpInfo(namespace, id, tenant)
+    listFlowRevisions(namespace, id, allowDelete, tenant) {
+      return this.listFlowRevisionsWithHttpInfo(namespace, id, allowDelete, tenant)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

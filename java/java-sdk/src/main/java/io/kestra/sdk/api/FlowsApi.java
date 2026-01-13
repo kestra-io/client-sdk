@@ -504,6 +504,105 @@ import java.util.StringJoiner;
 
 
   /**
+   * Delete revisions for a flow
+   * 
+   * @param namespace The flow namespace (required)
+   * @param id The flow id (required)
+   * @param revisions  (required)
+   * @param tenant  (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void deleteRevisions(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull List<Integer> revisions, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    this.deleteRevisions(namespace, id, revisions, tenant, Collections.emptyMap());
+  }
+
+  /**
+   * Delete revisions for a flow
+   * 
+   * @param namespace The flow namespace (required)
+   * @param id The flow id (required)
+   * @param revisions  (required)
+   * @param tenant  (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @throws ApiException if fails to make API call
+   */
+  public void deleteRevisions(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull List<Integer> revisions, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'namespace' is set
+    if (namespace == null) {
+      throw new ApiException(400, "Missing the required parameter 'namespace' when calling deleteRevisions");
+    }
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling deleteRevisions");
+    }
+    
+    // verify the required parameter 'revisions' is set
+    if (revisions == null) {
+      throw new ApiException(400, "Missing the required parameter 'revisions' when calling deleteRevisions");
+    }
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling deleteRevisions");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/flows/{namespace}/{id}/revisions"
+      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "revisions", revisions));
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    apiClient.invokeAPI(
+        localVarPath,
+        "DELETE",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        null
+    );
+  }
+
+
+
+
+
+
+  /**
    * Disable flows by their IDs.
    * 
    * @param tenant  (required)
@@ -1768,12 +1867,13 @@ import java.util.StringJoiner;
    * 
    * @param namespace The flow namespace (required)
    * @param id The flow id (required)
+   * @param allowDelete  (required)
    * @param tenant  (required)
    * @return List&lt;FlowWithSource&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<FlowWithSource> listFlowRevisions(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant) throws ApiException {
-    return this.listFlowRevisions(namespace, id, tenant, Collections.emptyMap());
+  public List<FlowWithSource> listFlowRevisions(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull Boolean allowDelete, @jakarta.annotation.Nonnull String tenant) throws ApiException {
+    return this.listFlowRevisions(namespace, id, allowDelete, tenant, Collections.emptyMap());
   }
 
   /**
@@ -1781,12 +1881,13 @@ import java.util.StringJoiner;
    * 
    * @param namespace The flow namespace (required)
    * @param id The flow id (required)
+   * @param allowDelete  (required)
    * @param tenant  (required)
    * @param additionalHeaders additionalHeaders for this call
    * @return List&lt;FlowWithSource&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<FlowWithSource> listFlowRevisions(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public List<FlowWithSource> listFlowRevisions(@jakarta.annotation.Nonnull String namespace, @jakarta.annotation.Nonnull String id, @jakarta.annotation.Nonnull Boolean allowDelete, @jakarta.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -1797,6 +1898,11 @@ import java.util.StringJoiner;
     // verify the required parameter 'id' is set
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling listFlowRevisions");
+    }
+    
+    // verify the required parameter 'allowDelete' is set
+    if (allowDelete == null) {
+      throw new ApiException(400, "Missing the required parameter 'allowDelete' when calling listFlowRevisions");
     }
     
     // verify the required parameter 'tenant' is set
@@ -1817,6 +1923,7 @@ import java.util.StringJoiner;
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams =  new HashMap<String, Object>();
+    localVarQueryParams.addAll(apiClient.parameterToPair("allowDelete", allowDelete));
     
     localVarHeaderParams.putAll(additionalHeaders);
 

@@ -4,7 +4,7 @@ info:
     All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>
     Endpoints designated as Superadmin-only are not tenant-scoped.
   title: Kestra EE
-  version: 1.2.0-SNAPSHOT
+  version: 1.2.0
 servers:
 - url: /
 tags:
@@ -3751,6 +3751,80 @@ paths:
       x-content-type: application/x-yaml
       x-accepts:
       - application/json
+  /api/v1/{tenant}/assets/by-ids:
+    delete:
+      operationId: deleteAssetsByIds
+      parameters:
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                type: string
+              type: array
+        description: The asset ids
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+          description: deleteAssetsByIds 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Delete assets by asset ids
+      tags:
+      - Assets
+      x-internal: true
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /api/v1/{tenant}/assets/by-query:
+    delete:
+      operationId: deleteAssetsByQuery
+      parameters:
+      - description: Filters
+        explode: false
+        in: query
+        name: filters
+        required: true
+        schema:
+          items:
+            $ref: "#/components/schemas/QueryFilter"
+          type: array
+        style: form
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+          description: deleteAssetsByQuery 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Delete assets by query
+      tags:
+      - Assets
+      x-internal: true
+      x-accepts:
+      - application/json
   /api/v1/{tenant}/assets/search:
     get:
       operationId: searchAssets
@@ -3973,6 +4047,15 @@ paths:
         explode: false
         in: query
         name: destinationOnly
+        required: true
+        schema:
+          default: false
+          type: boolean
+        style: form
+      - description: "If true, expand all dependencies recursively"
+        explode: false
+        in: query
+        name: expandAll
         required: true
         schema:
           default: false
@@ -9469,6 +9552,55 @@ paths:
       x-accepts:
       - application/json
   /api/v1/{tenant}/flows/{namespace}/{id}/revisions:
+    delete:
+      operationId: deleteRevisions
+      parameters:
+      - description: The flow namespace
+        explode: false
+        in: path
+        name: namespace
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The flow id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: query
+        name: revisions
+        required: true
+        schema:
+          items:
+            format: int32
+            type: integer
+          minItems: 1
+          type: array
+        style: form
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: deleteRevisions 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Delete revisions for a flow
+      tags:
+      - Flows
+      x-internal: false
+      x-accepts:
+      - application/json
     get:
       operationId: listFlowRevisions
       parameters:
@@ -9488,6 +9620,14 @@ paths:
         schema:
           type: string
         style: simple
+      - explode: false
+        in: query
+        name: allowDelete
+        required: true
+        schema:
+          default: false
+          type: boolean
+        style: form
       - explode: false
         in: path
         name: tenant
@@ -16513,7 +16653,9 @@ components:
               type: type
             inputs:
             - id: id
+              type: type
             - id: id
+              type: type
             enableAuto: true
         logLevel: null
         disabled: false
@@ -16748,7 +16890,6 @@ components:
         results:
         - namespace: namespace
           description: description
-          key: key
           tags:
           - value: value
             key: key
@@ -16756,7 +16897,6 @@ components:
             key: key
         - namespace: namespace
           description: description
-          key: key
           tags:
           - value: value
             key: key
@@ -16786,29 +16926,26 @@ components:
     ApiSecretMetaEE:
       allOf:
       - $ref: "#/components/schemas/ApiSecretMeta"
-      - properties:
-          namespace:
-            type: string
-          description:
-            type: string
-          tags:
-            items:
-              $ref: "#/components/schemas/ApiSecretTag"
-            type: array
-        required:
-        - description
-        - tags
-        type: object
-        example: null
       example:
         namespace: namespace
         description: description
-        key: key
         tags:
         - value: value
           key: key
         - value: value
           key: key
+      properties:
+        namespace:
+          type: string
+        description:
+          type: string
+        tags:
+          items:
+            $ref: "#/components/schemas/ApiSecretTag"
+          type: array
+      required:
+      - description
+      - tags
       type: object
     ApiSecretTag:
       example:
@@ -17286,8 +17423,11 @@ components:
     AssetIdentifier:
       example:
         id: id
+        type: type
       properties:
         id:
+          type: string
+        type:
           type: string
       type: object
     AssetTopologyGraph:
@@ -17397,7 +17537,9 @@ components:
           type: type
         inputs:
         - id: id
+          type: type
         - id: id
+          type: type
         enableAuto: true
       type: object
     AssetsInOut:
@@ -18322,7 +18464,6 @@ components:
             duration: duration
             current: CREATED
             endDate: 2000-01-23T04:56:07.000+00:00
-            durationOrComputeIt: durationOrComputeIt
             histories:
             - date: 2000-01-23T04:56:07.000+00:00
               state: null
@@ -18339,7 +18480,6 @@ components:
               duration: duration
               current: CREATED
               endDate: 2000-01-23T04:56:07.000+00:00
-              durationOrComputeIt: durationOrComputeIt
               histories:
               - date: 2000-01-23T04:56:07.000+00:00
                 state: null
@@ -18352,7 +18492,6 @@ components:
               duration: duration
               current: CREATED
               endDate: 2000-01-23T04:56:07.000+00:00
-              durationOrComputeIt: durationOrComputeIt
               histories:
               - date: 2000-01-23T04:56:07.000+00:00
                 state: null
@@ -18372,7 +18511,6 @@ components:
             duration: duration
             current: CREATED
             endDate: 2000-01-23T04:56:07.000+00:00
-            durationOrComputeIt: durationOrComputeIt
             histories:
             - date: 2000-01-23T04:56:07.000+00:00
               state: null
@@ -18389,7 +18527,6 @@ components:
               duration: duration
               current: CREATED
               endDate: 2000-01-23T04:56:07.000+00:00
-              durationOrComputeIt: durationOrComputeIt
               histories:
               - date: 2000-01-23T04:56:07.000+00:00
                 state: null
@@ -18402,7 +18539,6 @@ components:
               duration: duration
               current: CREATED
               endDate: 2000-01-23T04:56:07.000+00:00
-              durationOrComputeIt: durationOrComputeIt
               histories:
               - date: 2000-01-23T04:56:07.000+00:00
                 state: null
@@ -18472,7 +18608,6 @@ components:
           duration: duration
           current: CREATED
           endDate: 2000-01-23T04:56:07.000+00:00
-          durationOrComputeIt: durationOrComputeIt
           histories:
           - date: 2000-01-23T04:56:07.000+00:00
             state: null
@@ -18641,7 +18776,6 @@ components:
             duration: duration
             current: CREATED
             endDate: 2000-01-23T04:56:07.000+00:00
-            durationOrComputeIt: durationOrComputeIt
             histories:
             - date: 2000-01-23T04:56:07.000+00:00
               state: null
@@ -18658,7 +18792,6 @@ components:
               duration: duration
               current: CREATED
               endDate: 2000-01-23T04:56:07.000+00:00
-              durationOrComputeIt: durationOrComputeIt
               histories:
               - date: 2000-01-23T04:56:07.000+00:00
                 state: null
@@ -18671,7 +18804,6 @@ components:
               duration: duration
               current: CREATED
               endDate: 2000-01-23T04:56:07.000+00:00
-              durationOrComputeIt: durationOrComputeIt
               histories:
               - date: 2000-01-23T04:56:07.000+00:00
                 state: null
@@ -18691,7 +18823,6 @@ components:
             duration: duration
             current: CREATED
             endDate: 2000-01-23T04:56:07.000+00:00
-            durationOrComputeIt: durationOrComputeIt
             histories:
             - date: 2000-01-23T04:56:07.000+00:00
               state: null
@@ -18708,7 +18839,6 @@ components:
               duration: duration
               current: CREATED
               endDate: 2000-01-23T04:56:07.000+00:00
-              durationOrComputeIt: durationOrComputeIt
               histories:
               - date: 2000-01-23T04:56:07.000+00:00
                 state: null
@@ -18721,7 +18851,6 @@ components:
               duration: duration
               current: CREATED
               endDate: 2000-01-23T04:56:07.000+00:00
-              durationOrComputeIt: durationOrComputeIt
               histories:
               - date: 2000-01-23T04:56:07.000+00:00
                 state: null
@@ -18792,7 +18921,6 @@ components:
           duration: duration
           current: CREATED
           endDate: 2000-01-23T04:56:07.000+00:00
-          durationOrComputeIt: durationOrComputeIt
           histories:
           - date: 2000-01-23T04:56:07.000+00:00
             state: null
@@ -18865,7 +18993,6 @@ components:
           duration: duration
           current: CREATED
           endDate: 2000-01-23T04:56:07.000+00:00
-          durationOrComputeIt: durationOrComputeIt
           histories:
           - date: 2000-01-23T04:56:07.000+00:00
             state: null
@@ -19361,7 +19488,9 @@ components:
                 type: type
               inputs:
               - id: id
+                type: type
               - id: id
+                type: type
               enableAuto: true
           logLevel: null
           disabled: false
@@ -19404,7 +19533,9 @@ components:
                 type: type
               inputs:
               - id: id
+                type: type
               - id: id
+                type: type
               enableAuto: true
           logLevel: null
           disabled: false
@@ -20431,7 +20562,9 @@ components:
                 type: type
               inputs:
               - id: id
+                type: type
               - id: id
+                type: type
               enableAuto: true
           logLevel: null
           disabled: false
@@ -20474,7 +20607,9 @@ components:
                 type: type
               inputs:
               - id: id
+                type: type
               - id: id
+                type: type
               enableAuto: true
           logLevel: null
           disabled: false
@@ -22205,55 +22340,8 @@ components:
     Namespace:
       allOf:
       - $ref: "#/components/schemas/NamespaceLight"
-      - description: A namespace is a logical grouping of flows and tasks. It is used
-          to organize and manage flows and tasks within Kestra.
-        properties:
-          id:
-            pattern: "^[a-z0-9][a-z0-9._-]*"
-            type: string
-          deleted:
-            type: boolean
-          storageIsolation:
-            $ref: "#/components/schemas/Isolation"
-          secretIsolation:
-            $ref: "#/components/schemas/Isolation"
-          description:
-            type: string
-          variables:
-            additionalProperties:
-              type: object
-            type: object
-          pluginDefaults:
-            items:
-              $ref: "#/components/schemas/PluginDefault"
-            type: array
-          allowedNamespaces:
-            items:
-              $ref: "#/components/schemas/Namespace.AllowedNamespace"
-            type: array
-          workerGroup:
-            $ref: "#/components/schemas/WorkerGroup"
-          storageType:
-            type: string
-          storageConfiguration:
-            additionalProperties:
-              type: object
-            type: object
-          secretType:
-            type: string
-          secretReadOnly:
-            type: boolean
-          secretConfiguration:
-            additionalProperties:
-              type: object
-            type: object
-          outputsInInternalStorage:
-            type: boolean
-        required:
-        - deleted
-        - id
-        type: object
-        example: null
+      description: A namespace is a logical grouping of flows and tasks. It is used
+        to organize and manage flows and tasks within Kestra.
       example:
         variables:
           key: "{}"
@@ -22291,6 +22379,51 @@ components:
           fallback: FAIL
           key: key
         outputsInInternalStorage: true
+      properties:
+        id:
+          pattern: "^[a-z0-9][a-z0-9._-]*"
+          type: string
+        deleted:
+          type: boolean
+        storageIsolation:
+          $ref: "#/components/schemas/Isolation"
+        secretIsolation:
+          $ref: "#/components/schemas/Isolation"
+        description:
+          type: string
+        variables:
+          additionalProperties:
+            type: object
+          type: object
+        pluginDefaults:
+          items:
+            $ref: "#/components/schemas/PluginDefault"
+          type: array
+        allowedNamespaces:
+          items:
+            $ref: "#/components/schemas/Namespace.AllowedNamespace"
+          type: array
+        workerGroup:
+          $ref: "#/components/schemas/WorkerGroup"
+        storageType:
+          type: string
+        storageConfiguration:
+          additionalProperties:
+            type: object
+          type: object
+        secretType:
+          type: string
+        secretReadOnly:
+          type: boolean
+        secretConfiguration:
+          additionalProperties:
+            type: object
+          type: object
+        outputsInInternalStorage:
+          type: boolean
+      required:
+      - deleted
+      - id
       type: object
     Namespace.AllowedNamespace:
       example:
@@ -22645,7 +22778,6 @@ components:
               duration: duration
               current: CREATED
               endDate: 2000-01-23T04:56:07.000+00:00
-              durationOrComputeIt: durationOrComputeIt
               histories:
               - date: 2000-01-23T04:56:07.000+00:00
                 state: null
@@ -22662,7 +22794,6 @@ components:
                 duration: duration
                 current: CREATED
                 endDate: 2000-01-23T04:56:07.000+00:00
-                durationOrComputeIt: durationOrComputeIt
                 histories:
                 - date: 2000-01-23T04:56:07.000+00:00
                   state: null
@@ -22675,7 +22806,6 @@ components:
                 duration: duration
                 current: CREATED
                 endDate: 2000-01-23T04:56:07.000+00:00
-                durationOrComputeIt: durationOrComputeIt
                 histories:
                 - date: 2000-01-23T04:56:07.000+00:00
                   state: null
@@ -22695,7 +22825,6 @@ components:
               duration: duration
               current: CREATED
               endDate: 2000-01-23T04:56:07.000+00:00
-              durationOrComputeIt: durationOrComputeIt
               histories:
               - date: 2000-01-23T04:56:07.000+00:00
                 state: null
@@ -22712,7 +22841,6 @@ components:
                 duration: duration
                 current: CREATED
                 endDate: 2000-01-23T04:56:07.000+00:00
-                durationOrComputeIt: durationOrComputeIt
                 histories:
                 - date: 2000-01-23T04:56:07.000+00:00
                   state: null
@@ -22725,7 +22853,6 @@ components:
                 duration: duration
                 current: CREATED
                 endDate: 2000-01-23T04:56:07.000+00:00
-                durationOrComputeIt: durationOrComputeIt
                 histories:
                 - date: 2000-01-23T04:56:07.000+00:00
                   state: null
@@ -22795,7 +22922,6 @@ components:
             duration: duration
             current: CREATED
             endDate: 2000-01-23T04:56:07.000+00:00
-            durationOrComputeIt: durationOrComputeIt
             histories:
             - date: 2000-01-23T04:56:07.000+00:00
               state: null
@@ -22836,7 +22962,6 @@ components:
               duration: duration
               current: CREATED
               endDate: 2000-01-23T04:56:07.000+00:00
-              durationOrComputeIt: durationOrComputeIt
               histories:
               - date: 2000-01-23T04:56:07.000+00:00
                 state: null
@@ -22853,7 +22978,6 @@ components:
                 duration: duration
                 current: CREATED
                 endDate: 2000-01-23T04:56:07.000+00:00
-                durationOrComputeIt: durationOrComputeIt
                 histories:
                 - date: 2000-01-23T04:56:07.000+00:00
                   state: null
@@ -22866,7 +22990,6 @@ components:
                 duration: duration
                 current: CREATED
                 endDate: 2000-01-23T04:56:07.000+00:00
-                durationOrComputeIt: durationOrComputeIt
                 histories:
                 - date: 2000-01-23T04:56:07.000+00:00
                   state: null
@@ -22886,7 +23009,6 @@ components:
               duration: duration
               current: CREATED
               endDate: 2000-01-23T04:56:07.000+00:00
-              durationOrComputeIt: durationOrComputeIt
               histories:
               - date: 2000-01-23T04:56:07.000+00:00
                 state: null
@@ -22903,7 +23025,6 @@ components:
                 duration: duration
                 current: CREATED
                 endDate: 2000-01-23T04:56:07.000+00:00
-                durationOrComputeIt: durationOrComputeIt
                 histories:
                 - date: 2000-01-23T04:56:07.000+00:00
                   state: null
@@ -22916,7 +23037,6 @@ components:
                 duration: duration
                 current: CREATED
                 endDate: 2000-01-23T04:56:07.000+00:00
-                durationOrComputeIt: durationOrComputeIt
                 histories:
                 - date: 2000-01-23T04:56:07.000+00:00
                   state: null
@@ -22986,7 +23106,6 @@ components:
             duration: duration
             current: CREATED
             endDate: 2000-01-23T04:56:07.000+00:00
-            durationOrComputeIt: durationOrComputeIt
             histories:
             - date: 2000-01-23T04:56:07.000+00:00
               state: null
@@ -23180,7 +23299,9 @@ components:
                   type: type
                 inputs:
                 - id: id
+                  type: type
                 - id: id
+                  type: type
                 enableAuto: true
             logLevel: null
             disabled: false
@@ -23223,7 +23344,9 @@ components:
                   type: type
                 inputs:
                 - id: id
+                  type: type
                 - id: id
+                  type: type
                 enableAuto: true
             logLevel: null
             disabled: false
@@ -23517,7 +23640,9 @@ components:
                   type: type
                 inputs:
                 - id: id
+                  type: type
                 - id: id
+                  type: type
                 enableAuto: true
             logLevel: null
             disabled: false
@@ -23560,7 +23685,9 @@ components:
                   type: type
                 inputs:
                 - id: id
+                  type: type
                 - id: id
+                  type: type
                 enableAuto: true
             logLevel: null
             disabled: false
@@ -24222,7 +24349,9 @@ components:
                     type: type
                   inputs:
                   - id: id
+                    type: type
                   - id: id
+                    type: type
                   enableAuto: true
               logLevel: null
               disabled: false
@@ -24265,7 +24394,9 @@ components:
                     type: type
                   inputs:
                   - id: id
+                    type: type
                   - id: id
+                    type: type
                   enableAuto: true
               logLevel: null
               disabled: false
@@ -24563,7 +24694,9 @@ components:
                     type: type
                   inputs:
                   - id: id
+                    type: type
                   - id: id
+                    type: type
                   enableAuto: true
               logLevel: null
               disabled: false
@@ -24606,7 +24739,9 @@ components:
                     type: type
                   inputs:
                   - id: id
+                    type: type
                   - id: id
+                    type: type
                   enableAuto: true
               logLevel: null
               disabled: false
@@ -25881,7 +26016,9 @@ components:
                   type: type
                 inputs:
                 - id: id
+                  type: type
                 - id: id
+                  type: type
                 enableAuto: true
             logLevel: null
             disabled: false
@@ -25941,7 +26078,9 @@ components:
                   type: type
                 inputs:
                 - id: id
+                  type: type
                 - id: id
+                  type: type
                 enableAuto: true
             logLevel: null
             disabled: false
@@ -26289,7 +26428,9 @@ components:
             type: type
           inputs:
           - id: id
+            type: type
           - id: id
+            type: type
           enableAuto: true
       oneOf:
       - type: object
@@ -27072,7 +27213,9 @@ components:
                   type: type
                 inputs:
                 - id: id
+                  type: type
                 - id: id
+                  type: type
                 enableAuto: true
             logLevel: null
             disabled: false
@@ -27115,7 +27258,9 @@ components:
                   type: type
                 inputs:
                 - id: id
+                  type: type
                 - id: id
+                  type: type
                 enableAuto: true
             logLevel: null
             disabled: false
@@ -27508,7 +27653,6 @@ components:
         duration: duration
         current: CREATED
         endDate: 2000-01-23T04:56:07.000+00:00
-        durationOrComputeIt: durationOrComputeIt
         histories:
         - date: 2000-01-23T04:56:07.000+00:00
           state: null
@@ -27519,8 +27663,6 @@ components:
         duration:
           nullable: true
           readOnly: true
-          type: string
-        durationOrComputeIt:
           type: string
         startDate:
           format: date-time
@@ -27774,7 +27916,6 @@ components:
           duration: duration
           current: CREATED
           endDate: 2000-01-23T04:56:07.000+00:00
-          durationOrComputeIt: durationOrComputeIt
           histories:
           - date: 2000-01-23T04:56:07.000+00:00
             state: null
@@ -27791,7 +27932,6 @@ components:
             duration: duration
             current: CREATED
             endDate: 2000-01-23T04:56:07.000+00:00
-            durationOrComputeIt: durationOrComputeIt
             histories:
             - date: 2000-01-23T04:56:07.000+00:00
               state: null
@@ -27804,7 +27944,6 @@ components:
             duration: duration
             current: CREATED
             endDate: 2000-01-23T04:56:07.000+00:00
-            durationOrComputeIt: durationOrComputeIt
             histories:
             - date: 2000-01-23T04:56:07.000+00:00
               state: null
@@ -27862,7 +28001,6 @@ components:
           duration: duration
           current: CREATED
           endDate: 2000-01-23T04:56:07.000+00:00
-          durationOrComputeIt: durationOrComputeIt
           histories:
           - date: 2000-01-23T04:56:07.000+00:00
             state: null
@@ -29477,7 +29615,9 @@ components:
                 type: type
               inputs:
               - id: id
+                type: type
               - id: id
+                type: type
               enableAuto: true
           logLevel: null
           disabled: false
@@ -29841,19 +29981,16 @@ components:
     UsageEE:
       allOf:
       - $ref: "#/components/schemas/MiscController.ApiUsage"
-      - properties:
-          groups:
-            $ref: "#/components/schemas/GroupUsage"
-          users:
-            $ref: "#/components/schemas/UserUsage"
-          roles:
-            $ref: "#/components/schemas/RoleUsage"
-          tenants:
-            $ref: "#/components/schemas/TenantUsage"
-        type: object
-        example: null
+      properties:
+        groups:
+          $ref: "#/components/schemas/GroupUsage"
+        users:
+          $ref: "#/components/schemas/UserUsage"
+        roles:
+          $ref: "#/components/schemas/RoleUsage"
+        tenants:
+          $ref: "#/components/schemas/TenantUsage"
       type: object
-      example: null
     UserGroup:
       properties:
         value:

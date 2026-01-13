@@ -942,6 +942,184 @@ class FlowsApi:
 
 
     @validate_call
+    def delete_revisions(
+        self,
+        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        id: Annotated[StrictStr, Field(description="The flow id")],
+        revisions: Annotated[List[StrictInt], Field(min_length=1)],
+        tenant: StrictStr,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> None:
+        """Delete revisions for a flow
+
+
+        :param namespace: The flow namespace (required)
+        :type namespace: str
+                :param id: The flow id (required)
+        :type id: str
+                :param revisions: (required)
+        :type revisions: List[int]
+                :param tenant: (required)
+        :type tenant: str
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._delete_revisions_serialize(
+            namespace=namespace,
+            id=id,
+            revisions=revisions,
+            tenant=tenant,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def delete_revisions_with_http_info(
+        self,
+        namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        id: Annotated[StrictStr, Field(description="The flow id")],
+        revisions: Annotated[List[StrictInt], Field(min_length=1)],
+        tenant: StrictStr,
+        _request_timeout: Union[
+        None,
+        Annotated[StrictFloat, Field(gt=0)],
+        Tuple[
+        Annotated[StrictFloat, Field(gt=0)],
+        Annotated[StrictFloat, Field(gt=0)]
+        ]
+        ] = None
+    ) -> ApiResponse[None]:
+        """Delete revisions for a flow
+
+
+        :param namespace: The flow namespace (required)
+        :type namespace: str
+                :param id: The flow id (required)
+        :type id: str
+                :param revisions: (required)
+        :type revisions: List[int]
+                :param tenant: (required)
+        :type tenant: str
+        ,
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        """ # noqa: E501
+
+        _param = self._delete_revisions_serialize(
+            namespace=namespace,
+            id=id,
+            revisions=revisions,
+            tenant=tenant,
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    def _delete_revisions_serialize(
+        self,
+        namespace,
+        id,
+        revisions,
+        tenant,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+            'revisions': 'csv',
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if namespace is not None:
+            _path_params['namespace'] = namespace
+        if id is not None:
+            _path_params['id'] = id
+        if tenant is not None:
+            _path_params['tenant'] = tenant
+        # process the query parameters
+        if revisions is not None:
+            
+            _query_params.append(('revisions', revisions))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='DELETE',
+            resource_path='/api/v1/{tenant}/flows/{namespace}/{id}/revisions',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats
+        )
+
+
+
+
+
+    @validate_call
     def disable_flows_by_ids(
         self,
         tenant: StrictStr,
@@ -3423,6 +3601,7 @@ class FlowsApi:
         self,
         namespace: Annotated[StrictStr, Field(description="The flow namespace")],
         id: Annotated[StrictStr, Field(description="The flow id")],
+        allow_delete: StrictBool,
         tenant: StrictStr,
         _request_timeout: Union[
         None,
@@ -3440,6 +3619,8 @@ class FlowsApi:
         :type namespace: str
                 :param id: The flow id (required)
         :type id: str
+                :param allow_delete: (required)
+        :type allow_delete: bool
                 :param tenant: (required)
         :type tenant: str
         ,
@@ -3453,6 +3634,7 @@ class FlowsApi:
         _param = self._list_flow_revisions_serialize(
             namespace=namespace,
             id=id,
+            allow_delete=allow_delete,
             tenant=tenant,
         )
 
@@ -3475,6 +3657,7 @@ class FlowsApi:
         self,
         namespace: Annotated[StrictStr, Field(description="The flow namespace")],
         id: Annotated[StrictStr, Field(description="The flow id")],
+        allow_delete: StrictBool,
         tenant: StrictStr,
         _request_timeout: Union[
         None,
@@ -3492,6 +3675,8 @@ class FlowsApi:
         :type namespace: str
                 :param id: The flow id (required)
         :type id: str
+                :param allow_delete: (required)
+        :type allow_delete: bool
                 :param tenant: (required)
         :type tenant: str
         ,
@@ -3505,6 +3690,7 @@ class FlowsApi:
         _param = self._list_flow_revisions_serialize(
             namespace=namespace,
             id=id,
+            allow_delete=allow_delete,
             tenant=tenant,
         )
 
@@ -3526,6 +3712,7 @@ class FlowsApi:
         self,
         namespace,
         id,
+        allow_delete,
         tenant,
     ) -> RequestSerialized:
 
@@ -3551,6 +3738,10 @@ class FlowsApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
+        if allow_delete is not None:
+            
+            _query_params.append(('allowDelete', allow_delete))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter

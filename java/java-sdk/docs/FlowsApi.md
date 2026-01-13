@@ -9,6 +9,7 @@ All URIs are relative to *http://localhost*
 | [**deleteFlow**](FlowsApi.md#deleteFlow) | **DELETE** /api/v1/{tenant}/flows/{namespace}/{id} | Delete a flow |
 | [**deleteFlowsByIds**](FlowsApi.md#deleteFlowsByIds) | **DELETE** /api/v1/{tenant}/flows/delete/by-ids | Delete flows by their IDs. |
 | [**deleteFlowsByQuery**](FlowsApi.md#deleteFlowsByQuery) | **DELETE** /api/v1/{tenant}/flows/delete/by-query | Delete flows returned by the query parameters. |
+| [**deleteRevisions**](FlowsApi.md#deleteRevisions) | **DELETE** /api/v1/{tenant}/flows/{namespace}/{id}/revisions | Delete revisions for a flow |
 | [**disableFlowsByIds**](FlowsApi.md#disableFlowsByIds) | **POST** /api/v1/{tenant}/flows/disable/by-ids | Disable flows by their IDs. |
 | [**disableFlowsByQuery**](FlowsApi.md#disableFlowsByQuery) | **POST** /api/v1/{tenant}/flows/disable/by-query | Disable flows returned by the query parameters. |
 | [**enableFlowsByIds**](FlowsApi.md#enableFlowsByIds) | **POST** /api/v1/{tenant}/flows/enable/by-ids | Enable flows by their IDs. |
@@ -397,6 +398,79 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | deleteFlowsByQuery 200 response |  -  |
+
+
+## deleteRevisions
+
+> deleteRevisions(namespace, id, revisions, tenant)
+
+Delete revisions for a flow
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.FlowsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        public static String MAIN_TENANT = "main";
+
+        KestraClient kestraClient = KestraClient.builder()
+        .basicAuth("root@root.com", "Root!1234")
+        .url("http://localhost:8080")
+        .build();
+
+        String namespace = "namespace_example"; // String | The flow namespace
+        String id = "id_example"; // String | The flow id
+        List<Integer> revisions = Arrays.asList(); // List<Integer> | 
+        String tenant = "tenant_example"; // String | 
+        try {
+            kestraClient.FlowsApi().deleteRevisions(namespace, id, revisions, tenant);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling FlowsApi#deleteRevisions");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **namespace** | **String**| The flow namespace | |
+| **id** | **String**| The flow id | |
+| **revisions** | [**List&lt;Integer&gt;**](Integer.md)|  | |
+| **tenant** | **String**|  | |
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | deleteRevisions 200 response |  -  |
 
 
 ## disableFlowsByIds
@@ -1407,7 +1481,7 @@ public class Example {
 
 ## listFlowRevisions
 
-> List&lt;FlowWithSource&gt; listFlowRevisions(namespace, id, tenant)
+> List&lt;FlowWithSource&gt; listFlowRevisions(namespace, id, allowDelete, tenant)
 
 Get revisions for a flow
 
@@ -1433,9 +1507,10 @@ public class Example {
 
         String namespace = "namespace_example"; // String | The flow namespace
         String id = "id_example"; // String | The flow id
+        Boolean allowDelete = false; // Boolean | 
         String tenant = "tenant_example"; // String | 
         try {
-            List<FlowWithSource> result = kestraClient.FlowsApi().listFlowRevisions(namespace, id, tenant);
+            List<FlowWithSource> result = kestraClient.FlowsApi().listFlowRevisions(namespace, id, allowDelete, tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FlowsApi#listFlowRevisions");
@@ -1455,6 +1530,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **namespace** | **String**| The flow namespace | |
 | **id** | **String**| The flow id | |
+| **allowDelete** | **Boolean**|  | [default to false] |
 | **tenant** | **String**|  | |
 
 ### Return type

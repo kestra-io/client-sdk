@@ -6,7 +6,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **duration** | **str** |  | [optional] [readonly] 
-**duration_or_compute_it** | **str** |  | [optional] 
 **start_date** | **datetime** |  | [optional] [readonly] 
 **end_date** | **datetime** |  | [optional] [readonly] 
 **current** | [**StateType**](StateType.md) |  | 
