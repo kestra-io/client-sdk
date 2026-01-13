@@ -57,7 +57,7 @@ echo "cleanup previous generated files in $OPEN_API_GENERATED_FILES_LIST_FILE"
 ls "${OPEN_API_GENERATED_FILES_LIST_FILE}"
 while IFS= read -r file; do
   echo "removing file: $SDK_PATH/$file"
-  rm "$SDK_PATH/$file"
+  rm "$SDK_PATH/$file" || true
 done < "$OPEN_API_GENERATED_FILES_LIST_FILE"
 
 # Generate Java SDK
