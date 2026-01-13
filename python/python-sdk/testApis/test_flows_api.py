@@ -291,9 +291,7 @@ triggers:
         id_b = self.create_flow(flow_id=f"{base}_b", namespace=namespace)
 
         qf = QueryFilter(field=QueryFilterField.NAMESPACE, operation=QueryFilterOp.CONTAINS, value={"value": namespace})
-        req = DeleteExecutionsByQueryRequest(filters=[qf])
 
-        # enable_flows_by_query expects a DeleteExecutionsByQueryRequest in this SDK
         resp = self.kestra_client.flows.enable_flows_by_query(tenant=self.tenant, filters=[qf])
         assert resp is not None
 
