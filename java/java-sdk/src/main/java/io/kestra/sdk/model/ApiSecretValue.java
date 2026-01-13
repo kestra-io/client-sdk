@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ApiSecretValue.JSON_PROPERTY_VALUE,
   ApiSecretValue.JSON_PROPERTY_DESCRIPTION
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ApiSecretValue {
   public static final String JSON_PROPERTY_TAGS = "tags";
   @jakarta.annotation.Nullable  private List<ApiSecretTag> tags = new ArrayList<>();

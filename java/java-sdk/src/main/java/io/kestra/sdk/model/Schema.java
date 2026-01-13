@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Schema.JSON_PROPERTY_DESCRIPTION,
   Schema.JSON_PROPERTY_META
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Schema {
   public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
   @jakarta.annotation.Nullable  private List<SchemaAttribute> attributes = new ArrayList<>();

@@ -63,7 +63,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowWithSource.JSON_PROPERTY_CHECKS,
   FlowWithSource.JSON_PROPERTY_SOURCE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class FlowWithSource {
   public static final String JSON_PROPERTY_ID = "id";
   @jakarta.annotation.Nonnull  private String id;

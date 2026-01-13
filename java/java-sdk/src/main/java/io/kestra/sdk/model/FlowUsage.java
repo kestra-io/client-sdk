@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowUsage.JSON_PROPERTY_TRIGGER_TYPE_COUNT,
   FlowUsage.JSON_PROPERTY_TASK_RUNNER_TYPE_COUNT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class FlowUsage {
   public static final String JSON_PROPERTY_COUNT = "count";
   @jakarta.annotation.Nullable  private Integer count;

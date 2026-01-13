@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Meta.JSON_PROPERTY_LOCATION,
   Meta.JSON_PROPERTY_VERSION
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Meta {
   public static final String JSON_PROPERTY_RESOURCE_TYPE = "resourceType";
   @jakarta.annotation.Nullable  private String resourceType;

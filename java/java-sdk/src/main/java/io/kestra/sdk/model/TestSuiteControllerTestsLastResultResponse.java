@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TestSuiteControllerTestsLastResultResponse.JSON_PROPERTY_RESULTS
 })
 @JsonTypeName("TestSuiteController.TestsLastResultResponse")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TestSuiteControllerTestsLastResultResponse {
   public static final String JSON_PROPERTY_RESULTS = "results";
   @jakarta.annotation.Nullable  private List<TestSuiteRunResult> results = new ArrayList<>();

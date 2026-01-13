@@ -30,13 +30,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * ApiSecretMetaEE
  */
 @JsonPropertyOrder({
+  ApiSecretMetaEE.JSON_PROPERTY_KEY,
   ApiSecretMetaEE.JSON_PROPERTY_NAMESPACE,
   ApiSecretMetaEE.JSON_PROPERTY_DESCRIPTION,
-  ApiSecretMetaEE.JSON_PROPERTY_TAGS,
-  ApiSecretMetaEE.JSON_PROPERTY_KEY
+  ApiSecretMetaEE.JSON_PROPERTY_TAGS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ApiSecretMetaEE {
+  public static final String JSON_PROPERTY_KEY = "key";
+  @jakarta.annotation.Nonnull  private String key;
+
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
   @jakarta.annotation.Nullable  private String namespace;
 
@@ -46,10 +49,31 @@ public class ApiSecretMetaEE {
   public static final String JSON_PROPERTY_TAGS = "tags";
   @jakarta.annotation.Nonnull  private List<ApiSecretTag> tags = new ArrayList<>();
 
-  public static final String JSON_PROPERTY_KEY = "key";
-  @jakarta.annotation.Nonnull  private String key;
-
   public ApiSecretMetaEE() {
+  }
+
+  public ApiSecretMetaEE key(@jakarta.annotation.Nonnull String key) {
+    
+    this.key = key;
+    return this;
+  }
+
+  /**
+   * Get key
+   * @return key
+   */
+  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_KEY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getKey() {
+    return key;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_KEY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setKey(@jakarta.annotation.Nonnull String key) {
+    this.key = key;
   }
 
   public ApiSecretMetaEE namespace(@jakarta.annotation.Nullable String namespace) {
@@ -132,30 +156,6 @@ public class ApiSecretMetaEE {
     this.tags = tags;
   }
 
-  public ApiSecretMetaEE key(@jakarta.annotation.Nonnull String key) {
-    
-    this.key = key;
-    return this;
-  }
-
-  /**
-   * Get key
-   * @return key
-   */
-  @jakarta.annotation.Nonnull  @JsonProperty(JSON_PROPERTY_KEY)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getKey() {
-    return key;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_KEY)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setKey(@jakarta.annotation.Nonnull String key) {
-    this.key = key;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -165,25 +165,25 @@ public class ApiSecretMetaEE {
       return false;
     }
     ApiSecretMetaEE apiSecretMetaEE = (ApiSecretMetaEE) o;
-    return Objects.equals(this.namespace, apiSecretMetaEE.namespace) &&
+    return Objects.equals(this.key, apiSecretMetaEE.key) &&
+        Objects.equals(this.namespace, apiSecretMetaEE.namespace) &&
         Objects.equals(this.description, apiSecretMetaEE.description) &&
-        Objects.equals(this.tags, apiSecretMetaEE.tags) &&
-        Objects.equals(this.key, apiSecretMetaEE.key);
+        Objects.equals(this.tags, apiSecretMetaEE.tags);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(namespace, description, tags, key);
+    return Objects.hash(key, namespace, description, tags);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ApiSecretMetaEE {\n");
+    sb.append("    key: ").append(toIndentedString(key)).append("\n");
     sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
-    sb.append("    key: ").append(toIndentedString(key)).append("\n");
     sb.append("}");
     return sb.toString();
   }

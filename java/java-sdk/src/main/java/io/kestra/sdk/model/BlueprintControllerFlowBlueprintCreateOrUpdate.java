@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   BlueprintControllerFlowBlueprintCreateOrUpdate.JSON_PROPERTY_TAGS
 })
 @JsonTypeName("BlueprintController.FlowBlueprintCreateOrUpdate")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class BlueprintControllerFlowBlueprintCreateOrUpdate {
   public static final String JSON_PROPERTY_TITLE = "title";
   @jakarta.annotation.Nonnull  private String title;

@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ResourceTypeSchemaExtensionConfiguration.JSON_PROPERTY_REQUIRED
 })
 @JsonTypeName("ResourceType.SchemaExtensionConfiguration")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ResourceTypeSchemaExtensionConfiguration {
   public static final String JSON_PROPERTY_SCHEMA_URN = "schemaUrn";
   @jakarta.annotation.Nullable  private String schemaUrn;

@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AssetsDeclaration.JSON_PROPERTY_OUTPUTS,
   AssetsDeclaration.JSON_PROPERTY_ENABLE_AUTO
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AssetsDeclaration {
   public static final String JSON_PROPERTY_INPUTS = "inputs";
   @jakarta.annotation.Nullable  private List<AssetIdentifier> inputs = new ArrayList<>();

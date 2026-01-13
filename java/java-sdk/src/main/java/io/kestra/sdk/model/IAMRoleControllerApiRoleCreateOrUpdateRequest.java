@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMRoleControllerApiRoleCreateOrUpdateRequest.JSON_PROPERTY_IS_DEFAULT
 })
 @JsonTypeName("IAMRoleController.ApiRoleCreateOrUpdateRequest")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class IAMRoleControllerApiRoleCreateOrUpdateRequest {
   public static final String JSON_PROPERTY_PERMISSIONS = "permissions";
   @jakarta.annotation.Nonnull  private IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions permissions;

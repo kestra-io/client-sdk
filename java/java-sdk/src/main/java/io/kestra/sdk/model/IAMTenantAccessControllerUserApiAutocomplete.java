@@ -39,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMTenantAccessControllerUserApiAutocomplete.JSON_PROPERTY_USERNAME
 })
 @JsonTypeName("IAMTenantAccessController.UserApiAutocomplete")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class IAMTenantAccessControllerUserApiAutocomplete {
   public static final String JSON_PROPERTY_Q = "q";
   @jakarta.annotation.Nullable  private JsonNullable<String> q = JsonNullable.<String>undefined();

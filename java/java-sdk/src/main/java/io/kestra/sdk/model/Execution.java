@@ -63,7 +63,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Execution.JSON_PROPERTY_KIND,
   Execution.JSON_PROPERTY_BREAKPOINTS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Execution {
   public static final String JSON_PROPERTY_LABELS = "labels";
   @jakarta.annotation.Nullable  private List<Label> labels = new ArrayList<>();

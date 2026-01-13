@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AuthControllerResetPasswordRequest.JSON_PROPERTY_PASSWORD
 })
 @JsonTypeName("AuthController.ResetPasswordRequest")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AuthControllerResetPasswordRequest {
   public static final String JSON_PROPERTY_TOKEN = "token";
   @jakarta.annotation.Nullable  private String token;

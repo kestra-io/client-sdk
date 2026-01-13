@@ -13,7 +13,19 @@
 
 * `LABELS` (value: `"LABELS"`)
 
+* `METADATA` (value: `"METADATA"`)
+
 * `FLOW_ID` (value: `"FLOW_ID"`)
+
+* `FLOW_REVISION` (value: `"FLOW_REVISION"`)
+
+* `ID` (value: `"ID"`)
+
+* `ASSET_ID` (value: `"ASSET_ID"`)
+
+* `TYPE` (value: `"TYPE"`)
+
+* `CREATED` (value: `"CREATED"`)
 
 * `UPDATED` (value: `"UPDATED"`)
 
@@ -29,7 +41,13 @@
 
 * `TRIGGER_ID` (value: `"TRIGGER_ID"`)
 
+* `TRIGGER_STATE` (value: `"TRIGGER_STATE"`)
+
 * `EXECUTION_ID` (value: `"EXECUTION_ID"`)
+
+* `TASK_ID` (value: `"TASK_ID"`)
+
+* `TASK_RUN_ID` (value: `"TASK_RUN_ID"`)
 
 * `CHILD_FILTER` (value: `"CHILD_FILTER"`)
 
@@ -38,5 +56,11 @@
 * `EXISTING_ONLY` (value: `"EXISTING_ONLY"`)
 
 * `MIN_LEVEL` (value: `"MIN_LEVEL"`)
+
+* `PATH` (value: `"PATH"`)
+
+* `PARENT_PATH` (value: `"PARENT_PATH"`)
+
+* `VERSION` (value: `"VERSION"`)
 
 

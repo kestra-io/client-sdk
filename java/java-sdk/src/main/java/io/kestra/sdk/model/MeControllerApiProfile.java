@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MeControllerApiProfile.JSON_PROPERTY_USERNAME
 })
 @JsonTypeName("MeController.ApiProfile")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class MeControllerApiProfile {
   public static final String JSON_PROPERTY_EMAIL = "email";
   @jakarta.annotation.Nullable  private String email;

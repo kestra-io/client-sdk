@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InstanceControllerApiCreateOrUpdateWorkerGroupRequest.JSON_PROPERTY_ALLOWED_TENANTS
 })
 @JsonTypeName("InstanceController.ApiCreateOrUpdateWorkerGroupRequest")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
   public static final String JSON_PROPERTY_KEY = "key";
   @jakarta.annotation.Nonnull  private String key;

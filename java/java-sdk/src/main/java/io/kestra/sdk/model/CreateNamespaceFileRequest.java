@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CreateNamespaceFileRequest.JSON_PROPERTY_FILE_CONTENT
 })
 @JsonTypeName("createNamespaceFile_request")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateNamespaceFileRequest {
   public static final String JSON_PROPERTY_FILE_CONTENT = "fileContent";
   @jakarta.annotation.Nullable  private File fileContent;

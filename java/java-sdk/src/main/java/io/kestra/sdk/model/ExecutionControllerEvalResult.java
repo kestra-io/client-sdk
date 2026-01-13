@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ExecutionControllerEvalResult.JSON_PROPERTY_STACK_TRACE
 })
 @JsonTypeName("ExecutionController.EvalResult")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ExecutionControllerEvalResult {
   public static final String JSON_PROPERTY_RESULT = "result";
   @jakarta.annotation.Nullable  private String result;

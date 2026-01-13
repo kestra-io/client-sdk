@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MapObjectObject.JSON_PROPERTY_EMPTY
 })
 @JsonTypeName("Map_Object.Object_")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class MapObjectObject implements SLALabels, TheLabelsToPassToTheExecutionCreated {
   public static final String JSON_PROPERTY_EMPTY = "empty";
   @jakarta.annotation.Nullable  private Boolean empty;

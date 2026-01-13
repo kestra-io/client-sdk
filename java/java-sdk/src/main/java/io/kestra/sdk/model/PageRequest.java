@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PageRequest.JSON_PROPERTY_START_INDEX,
   PageRequest.JSON_PROPERTY_COUNT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PageRequest {
   public static final String JSON_PROPERTY_START_INDEX = "startIndex";
   @jakarta.annotation.Nullable  private Integer startIndex;

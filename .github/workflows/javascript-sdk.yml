@@ -51,7 +51,7 @@ jobs:
 
       - name: Generate SDK
         working-directory: .
-        run: ./generate-sdks.sh javascript ${{ steps.extract_version.outputs.version }}
+        run: ./generate-sdks.sh ${{ steps.extract_version.outputs.version }} javascript
 
       - name: fail workflow if there is any difference after SDK generation
         run: |

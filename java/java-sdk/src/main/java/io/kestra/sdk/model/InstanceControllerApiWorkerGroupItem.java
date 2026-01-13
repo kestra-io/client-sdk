@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InstanceControllerApiWorkerGroupItem.JSON_PROPERTY_ACTIVE_WORKERS
 })
 @JsonTypeName("InstanceController.ApiWorkerGroupItem")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class InstanceControllerApiWorkerGroupItem {
   public static final String JSON_PROPERTY_ID = "id";
   @jakarta.annotation.Nullable  private String id;

@@ -43,7 +43,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   UnitTestResult.JSON_PROPERTY_ERRORS,
   UnitTestResult.JSON_PROPERTY_FIXTURES
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class UnitTestResult {
   public static final String JSON_PROPERTY_TEST_ID = "testId";
   @jakarta.annotation.Nonnull  private String testId;

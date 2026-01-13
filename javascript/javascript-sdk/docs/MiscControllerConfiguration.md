@@ -22,5 +22,6 @@ Name | Type | Description | Notes
 **isAiEnabled** | **Boolean** |  | [optional] 
 **isBasicAuthInitialized** | **Boolean** |  | [optional] 
 **pluginsHash** | **Number** |  | [optional] 
+**isConcurrencyViewEnabled** | **Boolean** |  | [optional] 
 
 

@@ -83,7 +83,7 @@ import io.kestra.sdk.internal.auth.Authentication;
 import io.kestra.sdk.internal.auth.HttpBasicAuth;
 import io.kestra.sdk.internal.auth.HttpBearerAuth;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ApiClient extends JavaTimeFormatter {
   protected Map<String, String> defaultHeaderMap = new HashMap<String, String>();
   protected Map<String, String> defaultCookieMap = new HashMap<String, String>();

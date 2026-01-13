@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **value** | **String** |  | [optional] 
 **attempts** | [**[TaskRunAttempt]**](TaskRunAttempt.md) |  | [optional] 
 **outputs** | **Object** |  | [optional] 
+**assets** | [**AssetsInOut**](AssetsInOut.md) |  | [optional] 
 **state** | [**State**](State.md) |  | 
 **iteration** | **Number** |  | [optional] 
 **dynamic** | **Boolean** |  | [optional] 

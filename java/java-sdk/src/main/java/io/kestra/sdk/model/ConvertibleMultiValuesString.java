@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ConvertibleMultiValuesString.JSON_PROPERTY_EMPTY
 })
 @JsonTypeName("ConvertibleMultiValues_String_")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ConvertibleMultiValuesString {
   public static final String JSON_PROPERTY_CONVERSION_SERVICE = "conversionService";
   @jakarta.annotation.Nonnull  private Object conversionService;

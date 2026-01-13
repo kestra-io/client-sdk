@@ -51,7 +51,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Task.JSON_PROPERTY_TASK_CACHE,
   Task.JSON_PROPERTY_ASSETS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Task {
   public static final String JSON_PROPERTY_ID = "id";
   @jakarta.annotation.Nonnull  private String id;

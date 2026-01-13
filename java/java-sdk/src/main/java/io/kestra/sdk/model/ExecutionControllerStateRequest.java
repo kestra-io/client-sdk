@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ExecutionControllerStateRequest.JSON_PROPERTY_STATE
 })
 @JsonTypeName("ExecutionController.StateRequest")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ExecutionControllerStateRequest {
   public static final String JSON_PROPERTY_TASK_RUN_ID = "taskRunId";
   @jakarta.annotation.Nullable  private String taskRunId;

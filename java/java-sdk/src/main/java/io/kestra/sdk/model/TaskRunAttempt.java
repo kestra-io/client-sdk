@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TaskRunAttempt.JSON_PROPERTY_WORKER_ID,
   TaskRunAttempt.JSON_PROPERTY_LOG_FILE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TaskRunAttempt {
   public static final String JSON_PROPERTY_STATE = "state";
   @jakarta.annotation.Nonnull  private State state;

@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   ApiIds.JSON_PROPERTY_IDS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ApiIds {
   public static final String JSON_PROPERTY_IDS = "ids";
   @jakarta.annotation.Nullable  private List<String> ids = new ArrayList<>();

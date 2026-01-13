@@ -21,7 +21,12 @@ sed_inplace() {
 
 # check if LANGUAGES is empty
 if [ -z "$LANGUAGES" ]; then
-  echo "No languages specified. Please provide a comma-separated list of languages. Possible languages are: 'java', 'python', 'go' and 'javascript'"
+  echo "No language specified. Please provide a language. Possible languages are: 'java', 'python', 'go' and 'javascript'"
+  exit 1
+fi
+
+if [[ "$LANGUAGES" == *,* ]]; then
+  echo "Multiple languages specified. Please provide exactly one language (no commas)."
   exit 1
 fi
 
@@ -42,6 +47,18 @@ fi
 KESTRA_OPENAPI_SDK_CUSTOMIZER_CONF=$(readlink -f ./configurations/kestra-openapi-sdk-customizer.json)
 KESTRA_OPENAPI=$(readlink -f ./kestra-ee.yml)
 sh -c "cd ./generation-helpers/kestra-openapi-sdk-customizer && npm i && npm run build && npm start $KESTRA_OPENAPI_SDK_CUSTOMIZER_CONF $KESTRA_OPENAPI"
+
+
+SDK_PATH="./${LANGUAGES}/${LANGUAGES}-sdk"
+OPEN_API_GENERATED_FILES_LIST_FILE="$SDK_PATH/.openapi-generator/FILES"
+
+# cleanup previous generated files
+echo "cleanup previous generated files in $OPEN_API_GENERATED_FILES_LIST_FILE"
+ls "${OPEN_API_GENERATED_FILES_LIST_FILE}"
+while IFS= read -r file; do
+  echo "removing file: $SDK_PATH/$file"
+  rm "$SDK_PATH/$file" || true
+done < "$OPEN_API_GENERATED_FILES_LIST_FILE"
 
 # Generate Java SDK
 if [[ ",$LANGUAGES," == *",java,"* ]]; then

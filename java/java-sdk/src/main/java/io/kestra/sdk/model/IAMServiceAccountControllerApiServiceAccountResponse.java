@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMServiceAccountControllerApiServiceAccountResponse.JSON_PROPERTY_SUPER_ADMIN
 })
 @JsonTypeName("IAMServiceAccountController.ApiServiceAccountResponse")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class IAMServiceAccountControllerApiServiceAccountResponse {
   public static final String JSON_PROPERTY_ID = "id";
   @jakarta.annotation.Nullable  private String id;

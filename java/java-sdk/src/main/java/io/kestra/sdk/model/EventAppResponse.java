@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   EventAppResponse.JSON_PROPERTY_RETRY
 })
 @JsonTypeName("Event_AppResponse_")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class EventAppResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   @jakarta.annotation.Nullable  private AppResponse data;

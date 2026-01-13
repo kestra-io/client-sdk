@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ServiceProviderConfigurationBulkConfiguration.JSON_PROPERTY_MAX_PAYLOAD_SIZE
 })
 @JsonTypeName("ServiceProviderConfiguration.BulkConfiguration")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ServiceProviderConfigurationBulkConfiguration {
   public static final String JSON_PROPERTY_SUPPORTED = "supported";
   @jakarta.annotation.Nullable  private Boolean supported;

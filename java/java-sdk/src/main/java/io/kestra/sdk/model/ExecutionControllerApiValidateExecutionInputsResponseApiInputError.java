@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ExecutionControllerApiValidateExecutionInputsResponseApiInputError.JSON_PROPERTY_MESSAGE
 })
 @JsonTypeName("ExecutionController.ApiValidateExecutionInputsResponse.ApiInputError")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ExecutionControllerApiValidateExecutionInputsResponseApiInputError {
   public static final String JSON_PROPERTY_MESSAGE = "message";
   @jakarta.annotation.Nullable  private String message;

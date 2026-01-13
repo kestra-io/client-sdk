@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ApiSecretListResponseApiSecretMeta.JSON_PROPERTY_TOTAL
 })
 @JsonTypeName("ApiSecretListResponse_ApiSecretMeta_")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ApiSecretListResponseApiSecretMeta {
   public static final String JSON_PROPERTY_READ_ONLY = "readOnly";
   @jakarta.annotation.Nonnull  private Boolean readOnly;

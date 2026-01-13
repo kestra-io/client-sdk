@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   DependsOn.JSON_PROPERTY_INPUTS,
   DependsOn.JSON_PROPERTY_CONDITION
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class DependsOn {
   public static final String JSON_PROPERTY_INPUTS = "inputs";
   @jakarta.annotation.Nullable  private JsonNullable<List<String>> inputs = JsonNullable.<List<String>>undefined();

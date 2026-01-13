@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ValuePathExpression.JSON_PROPERTY_ATTRIBUTE_PATH,
   ValuePathExpression.JSON_PROPERTY_ATTRIBUTE_EXPRESSION
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ValuePathExpression {
   public static final String JSON_PROPERTY_ATTRIBUTE_PATH = "attributePath";
   @jakarta.annotation.Nullable  private AttributeReference attributePath;

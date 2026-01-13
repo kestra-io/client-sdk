@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   SearchResultFlow.JSON_PROPERTY_FRAGMENTS
 })
 @JsonTypeName("SearchResult_Flow_")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SearchResultFlow {
   public static final String JSON_PROPERTY_MODEL = "model";
   @jakarta.annotation.Nullable  private Flow model;

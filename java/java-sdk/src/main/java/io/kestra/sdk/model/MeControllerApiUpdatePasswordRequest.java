@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MeControllerApiUpdatePasswordRequest.JSON_PROPERTY_NEW_PASSWORD
 })
 @JsonTypeName("MeController.ApiUpdatePasswordRequest")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class MeControllerApiUpdatePasswordRequest {
   public static final String JSON_PROPERTY_OLD_PASSWORD = "oldPassword";
   @jakarta.annotation.Nullable  private String oldPassword;

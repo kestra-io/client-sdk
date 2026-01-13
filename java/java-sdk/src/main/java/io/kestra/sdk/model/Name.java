@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Name.JSON_PROPERTY_FAMILY_NAME,
   Name.JSON_PROPERTY_GIVEN_NAME
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Name {
   public static final String JSON_PROPERTY_FAMILY_NAME = "familyName";
   @jakarta.annotation.Nullable  private String familyName;

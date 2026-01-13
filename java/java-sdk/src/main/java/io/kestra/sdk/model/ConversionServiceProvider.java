@@ -28,7 +28,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   ConversionServiceProvider.JSON_PROPERTY_CONVERSION_SERVICE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ConversionServiceProvider {
   public static final String JSON_PROPERTY_CONVERSION_SERVICE = "conversionService";
   @jakarta.annotation.Nonnull  private Object conversionService;

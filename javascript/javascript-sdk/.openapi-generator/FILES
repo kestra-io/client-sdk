@@ -40,6 +40,16 @@ docs/AppsControllerApiBulkOperationRequest.md
 docs/Assertion.md
 docs/AssertionResult.md
 docs/AssertionRunError.md
+docs/Asset.md
+docs/AssetIdentifier.md
+docs/AssetTopologyGraph.md
+docs/AssetTopologyGraphEdge.md
+docs/AssetTopologyGraphNode.md
+docs/AssetTopologyGraphNodeNodeType.md
+docs/AssetsControllerApiAsset.md
+docs/AssetsControllerApiAssetUsage.md
+docs/AssetsDeclaration.md
+docs/AssetsInOut.md
 docs/AttributeReference.md
 docs/AuditLog.md
 docs/AuditLogControllerApiAuditLogItem.md
@@ -64,8 +74,13 @@ docs/Blueprint.md
 docs/BlueprintControllerApiBlueprintItem.md
 docs/BlueprintControllerApiBlueprintItemWithSource.md
 docs/BlueprintControllerApiBlueprintTagItem.md
+docs/BlueprintControllerApiFlowBlueprint.md
+docs/BlueprintControllerFlowBlueprintCreateOrUpdate.md
 docs/BlueprintControllerKind.md
-docs/BlueprintWithFlow.md
+docs/BlueprintControllerUseBlueprintTemplateRequest.md
+docs/BlueprintControllerUseBlueprintTemplateResponse.md
+docs/BlueprintTemplate.md
+docs/BlueprintWithFlowEntity.md
 docs/Breakpoint.md
 docs/BulkErrorResponse.md
 docs/BulkImportAppsRequest.md
@@ -73,6 +88,9 @@ docs/BulkResponse.md
 docs/Cache.md
 docs/ChartChartOption.md
 docs/ChartFiltersOverrides.md
+docs/Check.md
+docs/CheckBehavior.md
+docs/CheckStyle.md
 docs/Concurrency.md
 docs/ConcurrencyBehavior.md
 docs/ConcurrencyLimit.md
@@ -90,6 +108,7 @@ docs/DailyExecutionStatisticsDuration.md
 docs/DailyExecutionStatisticsExecutionCounts.md
 docs/Dashboard.md
 docs/DashboardControllerPreviewRequest.md
+docs/DeleteTriggersByQueryRequest.md
 docs/DeletedInterface.md
 docs/DependsOn.md
 docs/DocumentationWithSchema.md
@@ -102,6 +121,7 @@ docs/EventLogEntry.md
 docs/ExecutableTaskSubflowId.md
 docs/Execution.md
 docs/ExecutionControllerApiValidateExecutionInputsResponse.md
+docs/ExecutionControllerApiValidateExecutionInputsResponseApiCheckFailure.md
 docs/ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue.md
 docs/ExecutionControllerApiValidateExecutionInputsResponseApiInputError.md
 docs/ExecutionControllerEvalResult.md
@@ -243,6 +263,7 @@ docs/Name.md
 docs/Namespace.md
 docs/NamespaceAllowedNamespace.md
 docs/NamespaceAllowedTrigger.md
+docs/NamespaceFileRevision.md
 docs/NamespaceLight.md
 docs/NamespacesApi.md
 docs/Output.md
@@ -252,6 +273,8 @@ docs/PagedResultsApiGroupSummary.md
 docs/PagedResultsApiRoleSummary.md
 docs/PagedResultsAppsControllerApiApp.md
 docs/PagedResultsAppsControllerApiAppCatalogItem.md
+docs/PagedResultsAssetsControllerApiAsset.md
+docs/PagedResultsAssetsControllerApiAssetUsage.md
 docs/PagedResultsAuditLogControllerApiAuditLogItem.md
 docs/PagedResultsBlueprint.md
 docs/PagedResultsBlueprintControllerApiBlueprintItem.md
@@ -292,7 +315,7 @@ docs/PluginIcon.md
 docs/PluginPluginElementMetadata.md
 docs/PluginSchema.md
 docs/PluginSubGroupPluginCategory.md
-docs/PreviewAppRequest.md
+docs/PropertyAssetsDeclaration.md
 docs/PropertyBoolean.md
 docs/PropertyDouble.md
 docs/PropertyDuration.md
@@ -304,6 +327,7 @@ docs/QueryFilterField.md
 docs/QueryFilterOp.md
 docs/RBACServiceRoleAssignmentRoleOrigin.md
 docs/Relation.md
+docs/Relation1.md
 docs/RelationType.md
 docs/ResourceType.md
 docs/ResourceType1.md
@@ -452,6 +476,16 @@ src/model/AppsControllerApiBulkOperationRequest.js
 src/model/Assertion.js
 src/model/AssertionResult.js
 src/model/AssertionRunError.js
+src/model/Asset.js
+src/model/AssetIdentifier.js
+src/model/AssetTopologyGraph.js
+src/model/AssetTopologyGraphEdge.js
+src/model/AssetTopologyGraphNode.js
+src/model/AssetTopologyGraphNodeNodeType.js
+src/model/AssetsControllerApiAsset.js
+src/model/AssetsControllerApiAssetUsage.js
+src/model/AssetsDeclaration.js
+src/model/AssetsInOut.js
 src/model/AttributeReference.js
 src/model/AuditLog.js
 src/model/AuditLogControllerApiAuditLogItem.js
@@ -476,8 +510,13 @@ src/model/Blueprint.js
 src/model/BlueprintControllerApiBlueprintItem.js
 src/model/BlueprintControllerApiBlueprintItemWithSource.js
 src/model/BlueprintControllerApiBlueprintTagItem.js
+src/model/BlueprintControllerApiFlowBlueprint.js
+src/model/BlueprintControllerFlowBlueprintCreateOrUpdate.js
 src/model/BlueprintControllerKind.js
-src/model/BlueprintWithFlow.js
+src/model/BlueprintControllerUseBlueprintTemplateRequest.js
+src/model/BlueprintControllerUseBlueprintTemplateResponse.js
+src/model/BlueprintTemplate.js
+src/model/BlueprintWithFlowEntity.js
 src/model/Breakpoint.js
 src/model/BulkErrorResponse.js
 src/model/BulkImportAppsRequest.js
@@ -485,6 +524,9 @@ src/model/BulkResponse.js
 src/model/Cache.js
 src/model/ChartChartOption.js
 src/model/ChartFiltersOverrides.js
+src/model/Check.js
+src/model/CheckBehavior.js
+src/model/CheckStyle.js
 src/model/Concurrency.js
 src/model/ConcurrencyBehavior.js
 src/model/ConcurrencyLimit.js
@@ -502,6 +544,7 @@ src/model/DailyExecutionStatisticsDuration.js
 src/model/DailyExecutionStatisticsExecutionCounts.js
 src/model/Dashboard.js
 src/model/DashboardControllerPreviewRequest.js
+src/model/DeleteTriggersByQueryRequest.js
 src/model/DeletedInterface.js
 src/model/DependsOn.js
 src/model/DocumentationWithSchema.js
@@ -514,6 +557,7 @@ src/model/EventLogEntry.js
 src/model/ExecutableTaskSubflowId.js
 src/model/Execution.js
 src/model/ExecutionControllerApiValidateExecutionInputsResponse.js
+src/model/ExecutionControllerApiValidateExecutionInputsResponseApiCheckFailure.js
 src/model/ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue.js
 src/model/ExecutionControllerApiValidateExecutionInputsResponseApiInputError.js
 src/model/ExecutionControllerEvalResult.js
@@ -651,6 +695,7 @@ src/model/Name.js
 src/model/Namespace.js
 src/model/NamespaceAllowedNamespace.js
 src/model/NamespaceAllowedTrigger.js
+src/model/NamespaceFileRevision.js
 src/model/NamespaceLight.js
 src/model/Output.js
 src/model/OutputValue.js
@@ -659,6 +704,8 @@ src/model/PagedResultsApiGroupSummary.js
 src/model/PagedResultsApiRoleSummary.js
 src/model/PagedResultsAppsControllerApiApp.js
 src/model/PagedResultsAppsControllerApiAppCatalogItem.js
+src/model/PagedResultsAssetsControllerApiAsset.js
+src/model/PagedResultsAssetsControllerApiAssetUsage.js
 src/model/PagedResultsAuditLogControllerApiAuditLogItem.js
 src/model/PagedResultsBlueprint.js
 src/model/PagedResultsBlueprintControllerApiBlueprintItem.js
@@ -699,7 +746,7 @@ src/model/PluginIcon.js
 src/model/PluginPluginElementMetadata.js
 src/model/PluginSchema.js
 src/model/PluginSubGroupPluginCategory.js
-src/model/PreviewAppRequest.js
+src/model/PropertyAssetsDeclaration.js
 src/model/PropertyBoolean.js
 src/model/PropertyDouble.js
 src/model/PropertyDuration.js
@@ -711,6 +758,7 @@ src/model/QueryFilterField.js
 src/model/QueryFilterOp.js
 src/model/RBACServiceRoleAssignmentRoleOrigin.js
 src/model/Relation.js
+src/model/Relation1.js
 src/model/RelationType.js
 src/model/ResourceType.js
 src/model/ResourceType1.js

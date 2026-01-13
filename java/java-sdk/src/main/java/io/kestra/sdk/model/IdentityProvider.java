@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IdentityProvider.JSON_PROPERTY_SECURITY_INTEGRATION_ID,
   IdentityProvider.JSON_PROPERTY_SECURITY_INTEGRATION_NAME
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class IdentityProvider {
   public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
   @jakarta.annotation.Nullable  private Map<String, Object> attributes = new HashMap<>();

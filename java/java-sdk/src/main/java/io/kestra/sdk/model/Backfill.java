@@ -41,7 +41,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Backfill.JSON_PROPERTY_LABELS,
   Backfill.JSON_PROPERTY_PREVIOUS_NEXT_EXECUTION_DATE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Backfill {
   public static final String JSON_PROPERTY_START = "start";
   @jakarta.annotation.Nonnull  private OffsetDateTime start;

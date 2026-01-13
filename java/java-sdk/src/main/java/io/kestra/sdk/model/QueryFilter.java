@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   QueryFilter.JSON_PROPERTY_OPERATION,
   QueryFilter.JSON_PROPERTY_VALUE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class QueryFilter {
   public static final String JSON_PROPERTY_FIELD = "field";
   @jakarta.annotation.Nullable  private QueryFilterField field;

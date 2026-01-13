@@ -50,7 +50,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")public class UsersApi extends BaseApi {
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")public class UsersApi extends BaseApi {
 
   public UsersApi() {
     super(Configuration.getDefaultApiClient());

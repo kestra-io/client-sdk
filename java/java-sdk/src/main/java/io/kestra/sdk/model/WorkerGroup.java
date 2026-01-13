@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   WorkerGroup.JSON_PROPERTY_KEY,
   WorkerGroup.JSON_PROPERTY_FALLBACK
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class WorkerGroup {
   public static final String JSON_PROPERTY_KEY = "key";
   @jakarta.annotation.Nullable  private String key;

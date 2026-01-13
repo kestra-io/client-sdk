@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ApiAuth.JSON_PROPERTY_TYPE,
   ApiAuth.JSON_PROPERTY_NAME
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ApiAuth {
   public static final String JSON_PROPERTY_UID = "uid";
   @jakarta.annotation.Nullable  private String uid;

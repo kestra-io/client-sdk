@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InputType.JSON_PROPERTY_TYPE,
   InputType.JSON_PROPERTY_CLS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class InputType {
   public static final String JSON_PROPERTY_TYPE = "type";
   @jakarta.annotation.Nullable  private String type;

@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MiscControllerApiUsage.JSON_PROPERTY_EXECUTIONS
 })
 @JsonTypeName("MiscController.ApiUsage")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class MiscControllerApiUsage {
   public static final String JSON_PROPERTY_FLOWS = "flows";
   @jakarta.annotation.Nullable  private FlowUsage flows;

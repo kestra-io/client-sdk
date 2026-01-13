@@ -39,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AbstractUserTenantIdentityProvider.JSON_PROPERTY_TENANT_ID
 })
 @JsonTypeName("AbstractUser.TenantIdentityProvider")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AbstractUserTenantIdentityProvider {
   public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
   @jakarta.annotation.Nullable  private Map<String, Object> attributes = new HashMap<>();

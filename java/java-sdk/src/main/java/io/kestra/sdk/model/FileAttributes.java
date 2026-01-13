@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FileAttributes.JSON_PROPERTY_SIZE,
   FileAttributes.JSON_PROPERTY_METADATA
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class FileAttributes {
   public static final String JSON_PROPERTY_FILE_NAME = "fileName";
   @jakarta.annotation.Nullable  private String fileName;

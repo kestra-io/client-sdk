@@ -28,7 +28,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   ApiPatchSuperAdminRequest.JSON_PROPERTY_SUPER_ADMIN
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ApiPatchSuperAdminRequest {
   public static final String JSON_PROPERTY_SUPER_ADMIN = "superAdmin";
   @jakarta.annotation.Nonnull  private Boolean superAdmin;

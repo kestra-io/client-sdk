@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **value** | **String** |  | [optional] 
 **state** | [**StateType**](StateType.md) |  | [optional] 
 **outputs** | **{String: Object}** |  | [optional] 
+**assets** | [**[Asset]**](Asset.md) |  | [optional] 
 **description** | **String** |  | [optional] 
 
 

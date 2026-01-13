@@ -16,7 +16,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import java.util.Collections;
 import java.util.Map;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")public abstract class BaseApi {
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")public abstract class BaseApi {
 
   protected ApiClient apiClient;
 

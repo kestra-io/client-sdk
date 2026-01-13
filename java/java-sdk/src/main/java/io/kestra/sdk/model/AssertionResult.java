@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AssertionResult.JSON_PROPERTY_DESCRIPTION,
   AssertionResult.JSON_PROPERTY_ERROR_MESSAGE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AssertionResult {
   public static final String JSON_PROPERTY_OPERATOR = "operator";
   @jakarta.annotation.Nonnull  private String operator;

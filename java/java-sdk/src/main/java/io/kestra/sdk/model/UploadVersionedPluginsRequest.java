@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   UploadVersionedPluginsRequest.JSON_PROPERTY_FORCE_INSTALL_ON_EXISTING_VERSIONS
 })
 @JsonTypeName("uploadVersionedPlugins_request")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class UploadVersionedPluginsRequest {
   public static final String JSON_PROPERTY_FILE = "file";
   @jakarta.annotation.Nonnull  private File _file;

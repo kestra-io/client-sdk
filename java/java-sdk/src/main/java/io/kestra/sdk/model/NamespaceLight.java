@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   NamespaceLight.JSON_PROPERTY_ID,
   NamespaceLight.JSON_PROPERTY_DELETED
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class NamespaceLight {
   public static final String JSON_PROPERTY_ID = "id";
   @jakarta.annotation.Nonnull  private String id;

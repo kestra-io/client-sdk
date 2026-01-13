@@ -47,7 +47,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ApiUser.JSON_PROPERTY_PROVIDERS,
   ApiUser.JSON_PROPERTY_AUTHS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ApiUser {
   public static final String JSON_PROPERTY_TYPE = "type";
   @jakarta.annotation.Nonnull  private UserType type;

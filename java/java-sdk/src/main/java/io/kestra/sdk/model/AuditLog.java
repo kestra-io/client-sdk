@@ -44,7 +44,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AuditLog.JSON_PROPERTY_APPLIED_PATCH,
   AuditLog.JSON_PROPERTY_REVERT_PATCH
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AuditLog {
   public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
   @jakarta.annotation.Nullable  private String tenantId;

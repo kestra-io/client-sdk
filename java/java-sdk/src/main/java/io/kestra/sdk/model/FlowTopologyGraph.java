@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowTopologyGraph.JSON_PROPERTY_NODES,
   FlowTopologyGraph.JSON_PROPERTY_EDGES
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class FlowTopologyGraph {
   public static final String JSON_PROPERTY_NODES = "nodes";
   @jakarta.annotation.Nullable  private List<FlowNode> nodes = new ArrayList<>();

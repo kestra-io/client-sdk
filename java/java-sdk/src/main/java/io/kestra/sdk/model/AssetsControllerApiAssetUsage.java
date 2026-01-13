@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AssetsControllerApiAssetUsage.JSON_PROPERTY_CREATED
 })
 @JsonTypeName("AssetsController.ApiAssetUsage")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AssetsControllerApiAssetUsage {
   public static final String JSON_PROPERTY_ASSET_ID = "assetId";
   @jakarta.annotation.Nullable  private String assetId;

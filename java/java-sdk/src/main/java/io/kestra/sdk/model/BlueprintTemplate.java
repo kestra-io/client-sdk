@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   BlueprintTemplate.JSON_PROPERTY_SOURCE,
   BlueprintTemplate.JSON_PROPERTY_TEMPLATE_ARGUMENTS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class BlueprintTemplate {
   public static final String JSON_PROPERTY_SOURCE = "source";
   @jakarta.annotation.Nonnull  private String source;

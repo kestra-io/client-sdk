@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowNode.JSON_PROPERTY_NAMESPACE,
   FlowNode.JSON_PROPERTY_ID
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class FlowNode {
   public static final String JSON_PROPERTY_UID = "uid";
   @jakarta.annotation.Nonnull  private String uid;

@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   BulkErrorResponse.JSON_PROPERTY_MESSAGE,
   BulkErrorResponse.JSON_PROPERTY_INVALIDS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class BulkErrorResponse {
   public static final String JSON_PROPERTY_MESSAGE = "message";
   @jakarta.annotation.Nullable  private String message;

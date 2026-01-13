@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InstanceControllerApiPluginListRequest.JSON_PROPERTY_PLUGINS
 })
 @JsonTypeName("InstanceController.ApiPluginListRequest")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class InstanceControllerApiPluginListRequest {
   public static final String JSON_PROPERTY_PLUGINS = "plugins";
   @jakarta.annotation.Nullable  private List<String> plugins = new ArrayList<>();

@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AppsControllerApiAppTags.JSON_PROPERTY_TAGS
 })
 @JsonTypeName("AppsController.ApiAppTags")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AppsControllerApiAppTags {
   public static final String JSON_PROPERTY_TAGS = "tags";
   @jakarta.annotation.Nullable  private List<String> tags = new ArrayList<>();

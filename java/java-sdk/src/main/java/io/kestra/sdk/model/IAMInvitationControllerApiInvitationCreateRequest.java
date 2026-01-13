@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMInvitationControllerApiInvitationCreateRequest.JSON_PROPERTY_EMAIL
 })
 @JsonTypeName("IAMInvitationController.ApiInvitationCreateRequest")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class IAMInvitationControllerApiInvitationCreateRequest {
   public static final String JSON_PROPERTY_CREATE_USER_IF_NOT_EXIST = "createUserIfNotExist";
   @jakarta.annotation.Nullable  private Boolean createUserIfNotExist;

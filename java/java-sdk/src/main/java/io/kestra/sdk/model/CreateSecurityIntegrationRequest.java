@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CreateSecurityIntegrationRequest.JSON_PROPERTY_DESCRIPTION,
   CreateSecurityIntegrationRequest.JSON_PROPERTY_TYPE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateSecurityIntegrationRequest {
   public static final String JSON_PROPERTY_NAME = "name";
   @jakarta.annotation.Nonnull  private String name;

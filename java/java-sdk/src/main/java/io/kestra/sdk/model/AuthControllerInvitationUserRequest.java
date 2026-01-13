@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AuthControllerInvitationUserRequest.JSON_PROPERTY_PASSWORD
 })
 @JsonTypeName("AuthController.InvitationUserRequest")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AuthControllerInvitationUserRequest {
   public static final String JSON_PROPERTY_FIRST_NAME = "firstName";
   @jakarta.annotation.Nonnull  private String firstName;

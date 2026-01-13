@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ExecutionControllerSetLabelsByIdsRequest.JSON_PROPERTY_EXECUTION_LABELS
 })
 @JsonTypeName("ExecutionController.SetLabelsByIdsRequest")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ExecutionControllerSetLabelsByIdsRequest {
   public static final String JSON_PROPERTY_EXECUTIONS_ID = "executionsId";
   @jakarta.annotation.Nullable  private List<String> executionsId = new ArrayList<>();

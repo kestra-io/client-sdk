@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InstanceControllerApiPluginVersionDetailsApiPluginClasses.JSON_PROPERTY_CLASSES
 })
 @JsonTypeName("InstanceController.ApiPluginVersionDetails.ApiPluginClasses")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class InstanceControllerApiPluginVersionDetailsApiPluginClasses {
   public static final String JSON_PROPERTY_TYPE = "type";
   @jakarta.annotation.Nullable  private String type;

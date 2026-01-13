@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   SetupConfiguration.JSON_PROPERTY_PASSWORD_REGEXP,
   SetupConfiguration.JSON_PROPERTY_HAVE_AUTH_NOT_BASIC
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SetupConfiguration {
   public static final String JSON_PROPERTY_DONE = "done";
   @jakarta.annotation.Nullable  private Boolean done;

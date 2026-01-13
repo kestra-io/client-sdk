@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   PatchOperationPath.JSON_PROPERTY_VALUE_PATH_EXPRESSION
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PatchOperationPath {
   public static final String JSON_PROPERTY_VALUE_PATH_EXPRESSION = "valuePathExpression";
   @jakarta.annotation.Nullable  private ValuePathExpression valuePathExpression;

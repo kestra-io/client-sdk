@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TestSuiteControllerTestSuiteApiId.JSON_PROPERTY_ID
 })
 @JsonTypeName("TestSuiteController.TestSuiteApiId")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TestSuiteControllerTestSuiteApiId {
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
   @jakarta.annotation.Nonnull  private String namespace;

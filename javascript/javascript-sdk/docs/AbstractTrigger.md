@@ -16,5 +16,7 @@ Name | Type | Description | Notes
 **stopAfter** | [**[StateType]**](StateType.md) |  | [optional] 
 **logToFile** | **Boolean** |  | [optional] 
 **failOnTriggerError** | **Boolean** |  | [optional] 
+**allowConcurrent** | **Boolean** |  | [optional] 
+**assets** | [**PropertyAssetsDeclaration**](PropertyAssetsDeclaration.md) |  | [optional] 
 
 

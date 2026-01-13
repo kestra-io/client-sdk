@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   DeleteTriggersByQueryRequest.JSON_PROPERTY_FILTERS
 })
 @JsonTypeName("deleteTriggersByQuery_request")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class DeleteTriggersByQueryRequest {
   public static final String JSON_PROPERTY_FILTERS = "filters";
   @jakarta.annotation.Nullable  private List<QueryFilter> filters = new ArrayList<>();

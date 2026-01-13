@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AssertionRunError.JSON_PROPERTY_MESSAGE,
   AssertionRunError.JSON_PROPERTY_DETAILS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AssertionRunError {
   public static final String JSON_PROPERTY_MESSAGE = "message";
   @jakarta.annotation.Nonnull  private String message;
