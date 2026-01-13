@@ -23,7 +23,6 @@ from kestrapy import (
     QueryFilterField,
     QueryFilterOp,
 )
-from kestrapy.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
 
 class TestFlowsApi(unittest.TestCase):
     """FlowsApi unit test stubs"""
@@ -263,7 +262,6 @@ triggers:
         id_b = self.create_flow(flow_id=f"{base}_b", namespace=namespace)
 
         qf = QueryFilter(field=QueryFilterField.NAMESPACE, operation=QueryFilterOp.CONTAINS, value={"value": namespace})
-        req = DeleteExecutionsByQueryRequest(filters=[qf])
 
         resp = self.kestra_client.flows.disable_flows_by_query(tenant=self.tenant, filters=[qf])
         assert resp is not None
@@ -414,7 +412,7 @@ tasks:
     type: io.kestra.plugin.core.flow.Subflow
     namespace: {namespace}
     flowId: {flow_id}
-    
+
 """
         self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
 
@@ -433,7 +431,7 @@ tasks:
     def test_import_flows(self) -> None:
         """Test case for import_flows
 
-            Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn't be imported is returned. 
+            Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn't be imported is returned.
         """
         pass
 
