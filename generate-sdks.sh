@@ -138,6 +138,8 @@ docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/ope
     --additional-properties=packageVersion=$VERSION \
     --template-dir=/local/go/template
 
+cp -R ./go/template-files/* ./go/go-sdk/
+
 # this will do go fmt and either auto add missing imports or remove unused ones
 go run golang.org/x/tools/cmd/goimports@latest -w ./go
 fi
