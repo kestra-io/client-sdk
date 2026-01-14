@@ -273,7 +273,7 @@ func parameterAddToHeaderOrQuery(headerOrQueryParams interface{}, keyPrefix stri
 		if keyPrefix == "filters" && isFilters {
             kvpairs, err := ParseQueryFilters(filters)
             if err != nil {
-                panic(fmt.Sprint("could not parse query filters, err: %s", err))
+                panic(fmt.Sprintf("could not parse query filters, err: %s", err))
             }
 
             switch valuesMap := headerOrQueryParams.(type) {
