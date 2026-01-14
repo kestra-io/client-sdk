@@ -105,6 +105,16 @@ func createFlow(ctx context.Context, id string, ns string, flowTemplate func(id 
 func createSimpleFlow(ctx context.Context, id string, ns string) {
 	createFlow(ctx, id, ns, LOG_FLOW)
 }
+func createSimpleExecution(ctx context.Context, flowId string, ns string) *openapiclient.ExecutionControllerExecutionResponse {
+	res, _, err := KestraTestApiClient().ExecutionsAPI.
+		CreateExecution(ctx, ns, flowId, MAIN_TENANT).
+		Wait(true).
+		Execute()
+	if err != nil {
+		panic(fmt.Sprintf("error while creating execution, ns: '%s', flowid: '%s', error: %s", ns, flowId, err))
+	}
+	return res
+}
 func TestExecutionsAPI_All(t *testing.T) {
 
 	t.Run("createExecutionTest", func(t *testing.T) {
@@ -132,5 +142,46 @@ func TestExecutionsAPI_All(t *testing.T) {
 		require.Equal(t, map[string]any{
 			"key": "value1",
 		}, res.Inputs)
+	})
+
+	t.Run("deleteExecutionTest", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
+		ctx := GetAuthContext()
+		createSimpleFlow(ctx, flowId, namespace)
+		exec := createSimpleExecution(ctx, flowId, namespace)
+
+		firstGet, _, firstGetErr := KestraTestApiClient().ExecutionsAPI.Execution(ctx, exec.Id, MAIN_TENANT).Execute()
+		require.NoError(t, firstGetErr)
+		require.Equal(t, flowId, firstGet.FlowId, "expect GET to return an execution")
+
+		_, deleteReqErr := KestraTestApiClient().ExecutionsAPI.DeleteExecution(ctx, exec.Id, MAIN_TENANT).Execute()
+		require.NoError(t, deleteReqErr)
+
+		_, secondGetHttpRes, _ := KestraTestApiClient().ExecutionsAPI.Execution(ctx, exec.Id, MAIN_TENANT).Execute()
+		require.Equal(t, 404, secondGetHttpRes.StatusCode)
+	})
+
+	t.Run("deleteExecutionsByIdTest", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
+		ctx := GetAuthContext()
+		createSimpleFlow(ctx, flowId, namespace)
+		exec1 := createSimpleExecution(ctx, flowId, namespace)
+		exec2 := createSimpleExecution(ctx, flowId, namespace)
+		exec3 := createSimpleExecution(ctx, flowId, namespace)
+
+		res, _, err := KestraTestApiClient().ExecutionsAPI.DeleteExecutionsByIds(ctx, MAIN_TENANT).
+			RequestBody([]string{exec1.Id, exec3.Id}).Execute()
+		require.NoError(t, err)
+		require.EqualValues(t, 2, res.GetCount(), "only 2 exec should have been deleted")
+
+		_, httpRes1, _ := KestraTestApiClient().ExecutionsAPI.Execution(ctx, exec1.Id, MAIN_TENANT).Execute()
+		require.Equal(t, 404, httpRes1.StatusCode)
+		_, httpRes3, _ := KestraTestApiClient().ExecutionsAPI.Execution(ctx, exec3.Id, MAIN_TENANT).Execute()
+		require.Equal(t, 404, httpRes3.StatusCode)
+
+		_, _, errget2 := KestraTestApiClient().ExecutionsAPI.Execution(ctx, exec2.Id, MAIN_TENANT).Execute()
+		require.NoError(t, errget2)
 	})
 }
