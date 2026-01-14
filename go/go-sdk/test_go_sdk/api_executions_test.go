@@ -184,4 +184,35 @@ func TestExecutionsAPI_All(t *testing.T) {
 		_, _, errget2 := KestraTestApiClient().ExecutionsAPI.Execution(ctx, exec2.Id, MAIN_TENANT).Execute()
 		require.NoError(t, errget2)
 	})
+
+	t.Run("deleteExecutionsByQueryTest", func(t *testing.T) {
+		namespace := randomId()
+		namespaceToDelete := randomId()
+		flowId := randomId()
+		ctx := GetAuthContext()
+		createSimpleFlow(ctx, flowId, namespace)
+		createSimpleFlow(ctx, flowId, namespaceToDelete)
+		exec1 := createSimpleExecution(ctx, flowId, namespaceToDelete)
+		exec2 := createSimpleExecution(ctx, flowId, namespace)
+		exec3 := createSimpleExecution(ctx, flowId, namespaceToDelete)
+
+		field := openapiclient.QUERYFILTERFIELD_NAMESPACE
+		op := openapiclient.QUERYFILTEROP_EQUALS
+		nsFilter := openapiclient.QueryFilter{
+			Field:     &field,
+			Operation: &op,
+			Value:     namespaceToDelete,
+		}
+		res, _, err := KestraTestApiClient().ExecutionsAPI.DeleteExecutionsByQuery(ctx, MAIN_TENANT).Filters([]openapiclient.QueryFilter{nsFilter}).Execute()
+		require.NoError(t, err)
+		require.EqualValues(t, 2, res["count"], "only 2 exec should have been deleted")
+
+		_, httpRes1, _ := KestraTestApiClient().ExecutionsAPI.Execution(ctx, exec1.Id, MAIN_TENANT).Execute()
+		require.Equal(t, 404, httpRes1.StatusCode)
+		_, httpRes3, _ := KestraTestApiClient().ExecutionsAPI.Execution(ctx, exec3.Id, MAIN_TENANT).Execute()
+		require.Equal(t, 404, httpRes3.StatusCode)
+
+		_, _, errget2 := KestraTestApiClient().ExecutionsAPI.Execution(ctx, exec2.Id, MAIN_TENANT).Execute()
+		require.NoError(t, errget2)
+	})
 }
