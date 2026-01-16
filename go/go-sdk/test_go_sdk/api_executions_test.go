@@ -74,6 +74,55 @@ outputs:
     value: "{{ outputs.return.value }}"
 `, id, ns)
 }
+func LONG_RUNNING_FLOW(id string, ns string) string {
+	return fmt.Sprintf(`
+id: %s
+namespace: %s
+
+tasks:
+  - id: sleep
+    type: io.kestra.plugin.core.flow.Sleep
+    duration: PT10S
+`, id, ns)
+}
+func SIMPLE_BUT_LONG_FLOW(id string, ns string) string {
+	return fmt.Sprintf(`
+id: %s
+namespace: %s
+
+inputs:
+  - id: key
+    type: STRING
+    defaults: 'default_value'
+
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.log.Log
+    message: "Hello World! {{ inputs.key }}🚀"
+  - id: sleep
+    type: io.kestra.plugin.core.flow.Sleep
+    duration: "PT0.5S"
+  - id: hello2
+    type: io.kestra.plugin.core.log.Log
+    message: "Hello 2"
+  - id: sleep2
+    type: io.kestra.plugin.core.flow.Sleep
+    duration: "PT0.5S"
+  - id: hello3
+    type: io.kestra.plugin.core.log.Log
+    message: "Hello 3"
+  - id: sleep3
+    type: io.kestra.plugin.core.flow.Sleep
+    duration: "PT0.5S"
+  - id: return
+    type: io.kestra.plugin.core.debug.Return
+    format: "{{ inputs.key }}"
+outputs:
+  - id: flow_output
+    type: STRING
+    value: "{{ outputs.return.value }}"
+`, id, ns)
+}
 
 func PAUSE_FLOW(id string, ns string) string {
 	return fmt.Sprintf(`
@@ -114,24 +163,20 @@ func createFlow(ctx context.Context, id string, ns string, flowTemplate func(id 
 func createSimpleFlow(ctx context.Context, id string, ns string) {
 	createFlow(ctx, id, ns, LOG_FLOW)
 }
-func createExecution(ctx context.Context, flowId string, ns string) *openapiclient.ExecutionControllerExecutionResponse {
+func createExecution(t *testing.T, ctx context.Context, flowId string, ns string) *openapiclient.ExecutionControllerExecutionResponse {
 	res, _, err := KestraTestApiClient().ExecutionsAPI.
 		CreateExecution(ctx, ns, flowId, MAIN_TENANT).
 		Wait(true).
 		Execute()
-	if err != nil {
-		panic(fmt.Sprintf("error while creating execution, ns: '%s', flowid: '%s', error: %s", ns, flowId, err))
-	}
+	require.NoError(t, err, fmt.Sprintf("error while creating execution, ns: '%s', flowid: '%s', error: %s", ns, flowId, err))
 	return res
 }
-func createExecutionAsync(ctx context.Context, flowId string, ns string) *openapiclient.ExecutionControllerExecutionResponse {
+func createExecutionAsync(t *testing.T, ctx context.Context, flowId string, ns string) *openapiclient.ExecutionControllerExecutionResponse {
 	res, _, err := KestraTestApiClient().ExecutionsAPI.
 		CreateExecution(ctx, ns, flowId, MAIN_TENANT).
 		Wait(false).
 		Execute()
-	if err != nil {
-		panic(fmt.Sprintf("error while creating execution, ns: '%s', flowid: '%s', error: %s", ns, flowId, err))
-	}
+	require.NoError(t, err, fmt.Sprintf("error while creating execution, ns: '%s', flowid: '%s', error: %s", ns, flowId, err))
 	return res
 }
 func TestExecutionsAPI_All(t *testing.T) {
@@ -201,7 +246,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 		flowId := randomId()
 		ctx := GetAuthContext()
 		createSimpleFlow(ctx, flowId, namespace)
-		exec := createExecution(ctx, flowId, namespace)
+		exec := createExecution(t, ctx, flowId, namespace)
 
 		firstGet, _, firstGetErr := KestraTestApiClient().ExecutionsAPI.Execution(ctx, exec.Id, MAIN_TENANT).Execute()
 		require.NoError(t, firstGetErr)
@@ -219,9 +264,9 @@ func TestExecutionsAPI_All(t *testing.T) {
 		flowId := randomId()
 		ctx := GetAuthContext()
 		createSimpleFlow(ctx, flowId, namespace)
-		exec1 := createExecution(ctx, flowId, namespace)
-		exec2 := createExecution(ctx, flowId, namespace)
-		exec3 := createExecution(ctx, flowId, namespace)
+		exec1 := createExecution(t, ctx, flowId, namespace)
+		exec2 := createExecution(t, ctx, flowId, namespace)
+		exec3 := createExecution(t, ctx, flowId, namespace)
 
 		res, _, err := KestraTestApiClient().ExecutionsAPI.DeleteExecutionsByIds(ctx, MAIN_TENANT).
 			RequestBody([]string{exec1.Id, exec3.Id}).Execute()
@@ -244,9 +289,9 @@ func TestExecutionsAPI_All(t *testing.T) {
 		ctx := GetAuthContext()
 		createSimpleFlow(ctx, flowId, namespace)
 		createSimpleFlow(ctx, flowId, namespaceToDelete)
-		exec1 := createExecution(ctx, flowId, namespaceToDelete)
-		exec2 := createExecution(ctx, flowId, namespace)
-		exec3 := createExecution(ctx, flowId, namespaceToDelete)
+		exec1 := createExecution(t, ctx, flowId, namespaceToDelete)
+		exec2 := createExecution(t, ctx, flowId, namespace)
+		exec3 := createExecution(t, ctx, flowId, namespaceToDelete)
 
 		nsFilter := openapiclient.QueryFilter{
 			Field:     ptr(openapiclient.QUERYFILTERFIELD_NAMESPACE),
@@ -271,7 +316,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 		flowId := randomId()
 		ctx := GetAuthContext()
 		createFlow(ctx, flowId, namespace, FILE_FLOW)
-		exec := createExecution(ctx, flowId, namespace)
+		exec := createExecution(t, ctx, flowId, namespace)
 
 		require.NotNil(t, exec.TaskRunList[0])
 		filePath := fmt.Sprintf("%s", exec.TaskRunList[0].Outputs["uri"])
@@ -292,9 +337,9 @@ func TestExecutionsAPI_All(t *testing.T) {
 		ctx := GetAuthContext()
 		createFlow(ctx, flowId, namespace, SLEEP_CONCURRENCY_FLOW)
 
-		exec := createExecutionAsync(ctx, flowId, namespace)
+		exec := createExecutionAsync(t, ctx, flowId, namespace)
 		require.Eventually(t, executionInState(ctx, exec.Id, openapiclient.STATETYPE_RUNNING), 1*time.Second, 100*time.Millisecond)
-		execQueued := createExecutionAsync(ctx, flowId, namespace)
+		execQueued := createExecutionAsync(t, ctx, flowId, namespace)
 		require.Eventually(t, executionInState(ctx, execQueued.Id, openapiclient.STATETYPE_QUEUED), 1*time.Second, 100*time.Millisecond)
 
 		res, _, err := KestraTestApiClient().ExecutionsAPI.ForceRunByIds(ctx, MAIN_TENANT).RequestBody([]string{execQueued.Id}).Execute()
@@ -310,9 +355,9 @@ func TestExecutionsAPI_All(t *testing.T) {
 		ctx := GetAuthContext()
 		createFlow(ctx, flowId, namespace, SLEEP_CONCURRENCY_FLOW)
 
-		exec := createExecutionAsync(ctx, flowId, namespace)
+		exec := createExecutionAsync(t, ctx, flowId, namespace)
 		require.Eventually(t, executionInState(ctx, exec.Id, openapiclient.STATETYPE_RUNNING), 1*time.Second, 100*time.Millisecond)
-		execQueued := createExecutionAsync(ctx, flowId, namespace)
+		execQueued := createExecutionAsync(t, ctx, flowId, namespace)
 		require.Eventually(t, executionInState(ctx, execQueued.Id, openapiclient.STATETYPE_QUEUED), 1*time.Second, 100*time.Millisecond)
 
 		_, _, err := KestraTestApiClient().ExecutionsAPI.ForceRunExecution(ctx, execQueued.Id, MAIN_TENANT).Execute()
@@ -327,9 +372,9 @@ func TestExecutionsAPI_All(t *testing.T) {
 		ctx := GetAuthContext()
 		createFlow(ctx, flowId, namespace, SLEEP_CONCURRENCY_FLOW)
 
-		exec := createExecutionAsync(ctx, flowId, namespace)
+		exec := createExecutionAsync(t, ctx, flowId, namespace)
 		require.Eventually(t, executionInState(ctx, exec.Id, openapiclient.STATETYPE_RUNNING), 1*time.Second, 100*time.Millisecond)
-		execQueued := createExecutionAsync(ctx, flowId, namespace)
+		execQueued := createExecutionAsync(t, ctx, flowId, namespace)
 		require.Eventually(t, executionInState(ctx, execQueued.Id, openapiclient.STATETYPE_QUEUED), 1*time.Second, 100*time.Millisecond)
 
 		flowFilter := openapiclient.QueryFilter{
@@ -349,7 +394,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 		ctx := GetAuthContext()
 		createSimpleFlow(ctx, flowId, namespace)
 
-		exec := createExecution(ctx, flowId, namespace)
+		exec := createExecution(t, ctx, flowId, namespace)
 
 		fetchedExec, _, err := KestraTestApiClient().ExecutionsAPI.Execution(ctx, exec.Id, MAIN_TENANT).Execute()
 		require.NoError(t, err)
@@ -362,7 +407,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 		ctx := GetAuthContext()
 		createSimpleFlow(ctx, flowId, namespace)
 
-		exec := createExecution(ctx, flowId, namespace)
+		exec := createExecution(t, ctx, flowId, namespace)
 
 		flowGraph, _, err := KestraTestApiClient().ExecutionsAPI.ExecutionFlowGraph(ctx, exec.Id, MAIN_TENANT).Execute()
 		require.NoError(t, err)
@@ -375,7 +420,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 		ctx := GetAuthContext()
 		createFlow(ctx, flowId, namespace, FILE_FLOW)
 
-		exec := createExecution(ctx, flowId, namespace)
+		exec := createExecution(t, ctx, flowId, namespace)
 		filePath := fmt.Sprintf("%s", exec.TaskRunList[0].Outputs["uri"])
 		require.NotNil(t, filePath)
 
@@ -390,7 +435,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 		ctx := GetAuthContext()
 		createSimpleFlow(ctx, flowId, namespace)
 
-		exec := createExecution(ctx, flowId, namespace)
+		exec := createExecution(t, ctx, flowId, namespace)
 
 		res, _, err := KestraTestApiClient().ExecutionsAPI.FlowFromExecutionById(ctx, exec.Id, MAIN_TENANT).Execute()
 		require.NoError(t, err)
@@ -406,8 +451,8 @@ func TestExecutionsAPI_All(t *testing.T) {
 		createSimpleFlow(ctx, flowId, namespace)
 		createSimpleFlow(ctx, otherFlowId, namespace)
 
-		exec := createExecution(ctx, flowId, namespace)
-		otherExec := createExecution(ctx, otherFlowId, namespace)
+		exec := createExecution(t, ctx, flowId, namespace)
+		otherExec := createExecution(t, ctx, otherFlowId, namespace)
 
 		input := []openapiclient.ExecutionRepositoryInterfaceFlowFilter{
 			{
@@ -438,7 +483,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 		ctx := GetAuthContext()
 		createFlow(ctx, flowId, namespace, SLEEP_CONCURRENCY_FLOW)
 
-		exec := createExecutionAsync(ctx, flowId, namespace)
+		exec := createExecutionAsync(t, ctx, flowId, namespace)
 
 		_, _, err := KestraTestApiClient().ExecutionsAPI.KillExecution(ctx, exec.Id, MAIN_TENANT).IsOnKillCascade(true).Execute()
 		require.NoError(t, err)
@@ -452,9 +497,9 @@ func TestExecutionsAPI_All(t *testing.T) {
 		ctx := GetAuthContext()
 		createFlow(ctx, flowId, namespace, SLEEP_CONCURRENCY_FLOW)
 
-		createExecutionAsync(ctx, flowId, namespace)
-		exec2 := createExecutionAsync(ctx, flowId, namespace)
-		exec3 := createExecutionAsync(ctx, flowId, namespace)
+		createExecutionAsync(t, ctx, flowId, namespace)
+		exec2 := createExecutionAsync(t, ctx, flowId, namespace)
+		exec3 := createExecutionAsync(t, ctx, flowId, namespace)
 
 		res, _, err := KestraTestApiClient().ExecutionsAPI.KillExecutionsByIds(ctx, MAIN_TENANT).RequestBody([]string{exec2.Id, exec3.Id}).Execute()
 		require.NoError(t, err)
@@ -472,9 +517,9 @@ func TestExecutionsAPI_All(t *testing.T) {
 		createFlow(ctx, flowId, namespace, SLEEP_CONCURRENCY_FLOW)
 		createFlow(ctx, flowId, namespaceToDelete, SLEEP_CONCURRENCY_FLOW)
 
-		createExecutionAsync(ctx, flowId, namespace)
-		exec2 := createExecutionAsync(ctx, flowId, namespaceToDelete)
-		exec3 := createExecutionAsync(ctx, flowId, namespaceToDelete)
+		createExecutionAsync(t, ctx, flowId, namespace)
+		exec2 := createExecutionAsync(t, ctx, flowId, namespaceToDelete)
+		exec3 := createExecutionAsync(t, ctx, flowId, namespaceToDelete)
 
 		nsFilter := openapiclient.QueryFilter{
 			Field:     ptr(openapiclient.QUERYFILTERFIELD_NAMESPACE),
@@ -551,7 +596,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 		ctx := GetAuthContext()
 		createSimpleFlow(ctx, flowId, namespace)
 
-		exec := createExecution(ctx, flowId, namespace)
+		exec := createExecution(t, ctx, flowId, namespace)
 
 		res, _, err := KestraTestApiClient().ExecutionsAPI.ReplayExecution(ctx, exec.Id, MAIN_TENANT).Execute()
 		require.NoError(t, err)
@@ -565,7 +610,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 		createSimpleFlow(ctx, flowId, namespace)
 
 		// first created it and wait for run
-		exec := createExecution(ctx, flowId, namespace)
+		exec := createExecution(t, ctx, flowId, namespace)
 		require.Equal(t, map[string]any{
 			"flow_output": "default_value",
 		}, exec.Outputs)
@@ -591,7 +636,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 		ctx := GetAuthContext()
 		createSimpleFlow(ctx, flowId, namespace)
 
-		exec := createExecution(ctx, flowId, namespace)
+		exec := createExecution(t, ctx, flowId, namespace)
 
 		res, _, err := KestraTestApiClient().ExecutionsAPI.ReplayExecutionsByIds(ctx, MAIN_TENANT).RequestBody([]string{exec.Id}).Execute()
 		require.NoError(t, err)
@@ -603,7 +648,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 		ctx := GetAuthContext()
 		createSimpleFlow(ctx, flowId, namespace)
 
-		createExecution(ctx, flowId, namespace)
+		createExecution(t, ctx, flowId, namespace)
 		filter := openapiclient.QueryFilter{
 			Field:     ptr(openapiclient.QUERYFILTERFIELD_NAMESPACE),
 			Operation: ptr(openapiclient.QUERYFILTEROP_EQUALS),
@@ -619,7 +664,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 		ctx := GetAuthContext()
 		createFlow(ctx, flowId, namespace, FAILED_FLOW)
 
-		exec := createExecution(ctx, flowId, namespace)
+		exec := createExecution(t, ctx, flowId, namespace)
 
 		res, _, err := KestraTestApiClient().ExecutionsAPI.RestartExecution(ctx, exec.Id, MAIN_TENANT).Execute()
 		require.NoError(t, err)
@@ -631,7 +676,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 		ctx := GetAuthContext()
 		createFlow(ctx, flowId, namespace, FAILED_FLOW)
 
-		exec := createExecution(ctx, flowId, namespace)
+		exec := createExecution(t, ctx, flowId, namespace)
 
 		res, _, err := KestraTestApiClient().ExecutionsAPI.RestartExecutionsByIds(ctx, MAIN_TENANT).RequestBody([]string{exec.Id}).Execute()
 		require.NoError(t, err)
@@ -643,7 +688,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 		ctx := GetAuthContext()
 		createFlow(ctx, flowId, namespace, FAILED_FLOW)
 
-		createExecution(ctx, flowId, namespace)
+		createExecution(t, ctx, flowId, namespace)
 		filter := openapiclient.QueryFilter{
 			Field:     ptr(openapiclient.QUERYFILTERFIELD_NAMESPACE),
 			Operation: ptr(openapiclient.QUERYFILTEROP_EQUALS),
@@ -703,11 +748,11 @@ func TestExecutionsAPI_All(t *testing.T) {
 		createSimpleFlow(ctx, flowId, namespace)
 		createSimpleFlow(ctx, flowId, otherNamespace)
 
-		exec1 := createExecution(ctx, flowId, namespace)
-		exec2 := createExecution(ctx, flowId, namespace)
-		exec3 := createExecution(ctx, flowId, otherNamespace)
-		exec4 := createExecution(ctx, flowId, otherNamespace)
-		exec5 := createExecution(ctx, flowId, otherNamespace)
+		exec1 := createExecution(t, ctx, flowId, namespace)
+		exec2 := createExecution(t, ctx, flowId, namespace)
+		exec3 := createExecution(t, ctx, flowId, otherNamespace)
+		exec4 := createExecution(t, ctx, flowId, otherNamespace)
+		exec5 := createExecution(t, ctx, flowId, otherNamespace)
 
 		flowFilter := openapiclient.QueryFilter{
 			Field:     ptr(openapiclient.QUERYFILTERFIELD_FLOW_ID),
@@ -842,9 +887,9 @@ func TestExecutionsAPI_All(t *testing.T) {
 		ctx := GetAuthContext()
 		createFlow(ctx, flowId, namespace, SLEEP_CONCURRENCY_FLOW)
 
-		exec := createExecutionAsync(ctx, flowId, namespace)
+		exec := createExecutionAsync(t, ctx, flowId, namespace)
 		require.Eventually(t, executionInState(ctx, exec.Id, openapiclient.STATETYPE_RUNNING), 1*time.Second, 100*time.Millisecond)
-		execQueued := createExecutionAsync(ctx, flowId, namespace)
+		execQueued := createExecutionAsync(t, ctx, flowId, namespace)
 		require.Eventually(t, executionInState(ctx, execQueued.Id, openapiclient.STATETYPE_QUEUED), 1*time.Second, 100*time.Millisecond)
 
 		res, _, err := KestraTestApiClient().ExecutionsAPI.UnqueueExecution(ctx, execQueued.Id, MAIN_TENANT).State(openapiclient.STATETYPE_CANCELLED).Execute()
@@ -858,9 +903,9 @@ func TestExecutionsAPI_All(t *testing.T) {
 		ctx := GetAuthContext()
 		createFlow(ctx, flowId, namespace, SLEEP_CONCURRENCY_FLOW)
 
-		exec := createExecutionAsync(ctx, flowId, namespace)
+		exec := createExecutionAsync(t, ctx, flowId, namespace)
 		require.Eventually(t, executionInState(ctx, exec.Id, openapiclient.STATETYPE_RUNNING), 1*time.Second, 100*time.Millisecond)
-		execQueued := createExecutionAsync(ctx, flowId, namespace)
+		execQueued := createExecutionAsync(t, ctx, flowId, namespace)
 		require.Eventually(t, executionInState(ctx, execQueued.Id, openapiclient.STATETYPE_QUEUED), 1*time.Second, 100*time.Millisecond)
 
 		_, _, err := KestraTestApiClient().ExecutionsAPI.UnqueueExecutionsByIds(ctx, MAIN_TENANT).RequestBody([]string{execQueued.Id}).State(openapiclient.STATETYPE_CANCELLED).Execute()
@@ -878,9 +923,9 @@ func TestExecutionsAPI_All(t *testing.T) {
 		ctx := GetAuthContext()
 		createFlow(ctx, flowId, namespace, SLEEP_CONCURRENCY_FLOW)
 
-		exec := createExecutionAsync(ctx, flowId, namespace)
+		exec := createExecutionAsync(t, ctx, flowId, namespace)
 		require.Eventually(t, executionInState(ctx, exec.Id, openapiclient.STATETYPE_RUNNING), 1*time.Second, 100*time.Millisecond)
-		execQueued := createExecutionAsync(ctx, flowId, namespace)
+		execQueued := createExecutionAsync(t, ctx, flowId, namespace)
 		require.Eventually(t, executionInState(ctx, execQueued.Id, openapiclient.STATETYPE_QUEUED), 1*time.Second, 100*time.Millisecond)
 
 		nsFilter := openapiclient.QueryFilter{
@@ -979,6 +1024,103 @@ func TestExecutionsAPI_All(t *testing.T) {
 		require.NoError(t, err)
 		require.EqualValues(t, openapiclient.STATETYPE_FAILED, res.TaskRunList[0].State.Current)
 	})
+
+	t.Run("followExecution_shouldWorkForASuccessExecution", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
+		ctx := GetAuthContext()
+		createFlow(ctx, flowId, namespace, SIMPLE_BUT_LONG_FLOW)
+
+		exec := createExecutionAsync(t, ctx, flowId, namespace)
+
+		// this endpoint is returning SSE
+		// executions is a channel that receive execution events and then get closed when execution is completed
+		// to test it we just run an execution as would a real user do, accumulate with an infinite loop and run assertions when 'close' signal was received
+		executions, err := KestraTestApiClient().ExecutionsAPI.FollowExecution(ctx, exec.Id, MAIN_TENANT).Execute()
+		require.NoError(t, err)
+		require.NotNil(t, executions)
+
+		var receivedExecutions []*openapiclient.Execution
+	loop:
+		for {
+			select {
+			case exec, ok := <-executions:
+				if !ok {
+					// received channel close
+					break loop
+				} else {
+					receivedExecutions = append(receivedExecutions, exec)
+					fmt.Printf("received execution event with state: %s", exec.State.Current)
+					if len(exec.TaskRunList) > 0 {
+						lastTaskRun := exec.TaskRunList[len(exec.TaskRunList)-1]
+						fmt.Printf("\tlastTaskRun id: %s, state: %s", lastTaskRun.TaskId, lastTaskRun.State.Current)
+					}
+					fmt.Println()
+				}
+			case <-ctx.Done():
+				// caller canceled
+				break loop
+			}
+		}
+		require.NotEmpty(t, receivedExecutions, "expected to receive at least one execution event")
+		last := receivedExecutions[len(receivedExecutions)-1]
+		require.NotNil(t, last)
+		require.Equal(t, openapiclient.STATETYPE_SUCCESS, last.State.Current, "last SSE execution state should be SUCCESS")
+		lastTaskRun := last.TaskRunList[len(last.TaskRunList)-1]
+		require.Equal(t, "return", lastTaskRun.TaskId, "last SSE execution taskRun should be 'return'")
+	})
+
+	t.Run("followExecution_shouldAllowGettingCancelledByUser", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
+		ctx := GetAuthContext()
+		ctx, cancel := context.WithCancel(ctx)
+		defer cancel()
+
+		createFlow(ctx, flowId, namespace, LONG_RUNNING_FLOW)
+		exec := createExecutionAsync(t, ctx, flowId, namespace)
+
+		executions, err := KestraTestApiClient().ExecutionsAPI.FollowExecution(ctx, exec.Id, MAIN_TENANT).Execute()
+		require.NoError(t, err)
+		require.NotNil(t, executions)
+
+		// when a user explicitly cancel
+		cancel()
+
+		// then
+		require.Eventually(t, func() bool {
+			return checkChannelIsClosed(executions)
+		}, 5*time.Second, 100*time.Millisecond,
+			"channel should be closed soon after cancelling")
+	})
+
+	t.Run("followExecution_shouldAllowGettingTimedoutByUser", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
+		ctx := GetAuthContext()
+		ctx, cancel := context.WithTimeout(ctx, 200*time.Millisecond)
+		defer cancel()
+
+		createFlow(ctx, flowId, namespace, LONG_RUNNING_FLOW)
+		exec := createExecutionAsync(t, ctx, flowId, namespace)
+
+		executions, err := KestraTestApiClient().ExecutionsAPI.FollowExecution(ctx, exec.Id, MAIN_TENANT).Execute()
+		require.NoError(t, err)
+		require.NotNil(t, executions)
+
+		// when timeout is set and reached
+
+		// then
+		require.Eventually(t, func() bool {
+			return checkChannelIsClosed(executions)
+		}, 5*time.Second, 100*time.Millisecond,
+			"channel should be closed soon after timeout")
+	})
+}
+
+func checkChannelIsClosed[T any](channel <-chan T) bool {
+	_, ok := <-channel
+	return !ok
 }
 
 func assertResultsContainExecutions(
@@ -1012,7 +1154,7 @@ func executionInState(ctx context.Context, execId string, expectedType openapicl
 	}
 }
 func createExecutionUntil(t *testing.T, ctx context.Context, flowId string, ns string, expectedType openapiclient.StateType) *openapiclient.Execution {
-	res := createExecutionAsync(ctx, flowId, ns)
+	res := createExecutionAsync(t, ctx, flowId, ns)
 	execId := res.Id
 	require.Eventually(t, executionInState(ctx, execId, expectedType), 5*time.Second, 100*time.Millisecond)
 	ress, _, err := KestraTestApiClient().ExecutionsAPI.Execution(ctx, execId, MAIN_TENANT).Execute()
