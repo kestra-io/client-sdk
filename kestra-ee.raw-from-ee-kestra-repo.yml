@@ -9783,45 +9783,6 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
-  /api/v1/{tenant}/logs/{executionId}/follow:
-    get:
-      tags:
-        - Logs
-      summary: Follow logs for a specific execution
-      operationId: followLogsFromExecution
-      parameters:
-        - name: executionId
-          in: path
-          description: The execution id
-          required: true
-          schema:
-            type: string
-        - name: minLevel
-          in: query
-          description: The min log level filter
-          explode: false
-          schema:
-            nullable: true
-            allOf:
-              - $ref: "#/components/schemas/Level"
-        - name: tenant
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: followLogsFromExecution 200 response
-          content:
-            text/event-stream:
-              schema:
-                $ref: "#/components/schemas/Event_LogEntry_"
-      security:
-        - bearerAuth: []
-        - basicAuth: []
-      x-sdk-customization:
-        x-replace-follow-logs: "true"
-        x-skipped: "true"
   /api/v1/{tenant}/logs/{namespace}/{flowId}:
     delete:
       tags:

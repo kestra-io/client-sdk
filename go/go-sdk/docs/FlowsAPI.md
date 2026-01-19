@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**DeleteFlow**](FlowsAPI.md#DeleteFlow) | **Delete** /api/v1/{tenant}/flows/{namespace}/{id} | Delete a flow
 [**DeleteFlowsByIds**](FlowsAPI.md#DeleteFlowsByIds) | **Delete** /api/v1/{tenant}/flows/delete/by-ids | Delete flows by their IDs.
 [**DeleteFlowsByQuery**](FlowsAPI.md#DeleteFlowsByQuery) | **Delete** /api/v1/{tenant}/flows/delete/by-query | Delete flows returned by the query parameters.
+[**DeleteRevisions**](FlowsAPI.md#DeleteRevisions) | **Delete** /api/v1/{tenant}/flows/{namespace}/{id}/revisions | Delete revisions for a flow
 [**DisableFlowsByIds**](FlowsAPI.md#DisableFlowsByIds) | **Post** /api/v1/{tenant}/flows/disable/by-ids | Disable flows by their IDs.
 [**DisableFlowsByQuery**](FlowsAPI.md#DisableFlowsByQuery) | **Post** /api/v1/{tenant}/flows/disable/by-query | Disable flows returned by the query parameters.
 [**EnableFlowsByIds**](FlowsAPI.md#EnableFlowsByIds) | **Post** /api/v1/{tenant}/flows/enable/by-ids | Enable flows by their IDs.
@@ -393,6 +394,80 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteRevisions
+
+> DeleteRevisions(ctx, namespace, id, tenant).Revisions(revisions).Execute()
+
+Delete revisions for a flow
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	namespace := "namespace_example" // string | The flow namespace
+	id := "id_example" // string | The flow id
+	revisions := []int32{int32(123)} // []int32 | 
+	tenant := "tenant_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.FlowsAPI.DeleteRevisions(context.Background(), namespace, id, tenant).Revisions(revisions).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FlowsAPI.DeleteRevisions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**namespace** | **string** | The flow namespace | 
+**id** | **string** | The flow id | 
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteRevisionsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **revisions** | **[]int32** |  | 
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1414,7 +1489,7 @@ Name | Type | Description  | Notes
 
 ## ListFlowRevisions
 
-> []FlowWithSource ListFlowRevisions(ctx, namespace, id, tenant).Execute()
+> []FlowWithSource ListFlowRevisions(ctx, namespace, id, tenant).AllowDelete(allowDelete).Execute()
 
 Get revisions for a flow
 
@@ -1433,11 +1508,12 @@ import (
 func main() {
 	namespace := "namespace_example" // string | The flow namespace
 	id := "id_example" // string | The flow id
+	allowDelete := true // bool |  (default to false)
 	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlowsAPI.ListFlowRevisions(context.Background(), namespace, id, tenant).Execute()
+	resp, r, err := apiClient.FlowsAPI.ListFlowRevisions(context.Background(), namespace, id, tenant).AllowDelete(allowDelete).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FlowsAPI.ListFlowRevisions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1466,6 +1542,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **allowDelete** | **bool** |  | [default to false]
 
 
 ### Return type
