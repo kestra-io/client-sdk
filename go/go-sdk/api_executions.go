@@ -1513,6 +1513,162 @@ func (a *ExecutionsAPIService) FlowFromExecutionByIdExecute(r ApiFlowFromExecuti
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiFollowDependenciesExecutionRequest struct {
+	ctx             context.Context
+	ApiService      *ExecutionsAPIService
+	tenant          string
+	executionId     string
+	destinationOnly *bool
+	expandAll       *bool
+}
+
+/*
+FollowExecution Asynchronously follow a Running execution dependencies, all dependent Execution data will be streamed
+When the queried Execution is completed, the channel will be closed.
+This function rely on SSE.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background(). You can use it too to cancel the SSE connection
+	@param executionId The execution id
+	@param tenant
+	@return ApiFollowExecutionRequest
+*/
+func (a *ExecutionsAPIService) FollowDependenciesExecution(ctx context.Context, executionId string, tenant string) ApiFollowDependenciesExecutionRequest {
+	return ApiFollowDependenciesExecutionRequest{
+		ApiService:  a,
+		ctx:         ctx,
+		tenant:      tenant,
+		executionId: executionId,
+	}
+}
+
+// If true, list only destination dependencies, otherwise list also source dependencies
+func (r ApiFollowDependenciesExecutionRequest) DestinationOnly(destinationOnly bool) ApiFollowDependenciesExecutionRequest {
+	r.destinationOnly = &destinationOnly
+	return r
+}
+
+// If true, expand all dependencies recursively
+func (r ApiFollowDependenciesExecutionRequest) ExpandAll(expandAll bool) ApiFollowDependenciesExecutionRequest {
+	r.expandAll = &expandAll
+	return r
+}
+
+func (r ApiFollowDependenciesExecutionRequest) Execute() (<-chan *ExecutionStatusEvent, error) {
+	return r.ApiService.FollowDependenciesExecutionExecute(r)
+}
+
+/*
+Follows an Execution events and send them to the output channel.
+*/
+func (a *ExecutionsAPIService) FollowDependenciesExecutionExecute(r ApiFollowDependenciesExecutionRequest) (<-chan *ExecutionStatusEvent, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+	executionEvents := make(chan *ExecutionStatusEvent)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.FollowDependenciesExecution")
+	if err != nil {
+		return executionEvents, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/follow-dependencies"
+	localVarPath = strings.Replace(localVarPath, "{"+"executionId"+"}", url.PathEscape(parameterValueToString(r.executionId, "executionId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.destinationOnly != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "destinationOnly", *r.destinationOnly, "form", "")
+	}
+	if r.expandAll != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "expandAll", *r.expandAll, "form", "")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"text/event-stream"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	ctx, cancel := context.WithCancel(r.ctx)
+	req, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return executionEvents, err
+	}
+
+	conn := sse.NewConnection(req)
+
+	stopSend := atomic.Bool{}
+
+	conn.SubscribeToAll(func(event sse.Event) {
+		if stopSend.Load() {
+			return
+		}
+		switch event.LastEventID {
+		case "start":
+			// ignore first event
+		case "progress", "end":
+			exec, err := a.decodeExecutionStatusEvent(event.Data)
+			if err != nil {
+				fmt.Fprintln(os.Stderr, err)
+				stopSend.Store(true)
+				cancel()
+			} else {
+				executionEvents <- exec
+			}
+		case "end-all":
+			_, err := a.decodeExecutionStatusEvent(event.Data)
+			if err != nil {
+				fmt.Fprintln(os.Stderr, err)
+			}
+			stopSend.Store(true)
+			cancel()
+		default: // no event name
+			fmt.Printf("unhandled SSE event, id: %s, type: %s, data: %s\n", event.LastEventID, event.Type, event.Data)
+		}
+	})
+
+	// SSE goroutine
+	go func() {
+		defer cancel()
+		defer close(executionEvents)
+
+		if err := conn.Connect(); err != nil {
+			fmt.Fprintln(os.Stderr, err)
+		}
+	}()
+
+	return executionEvents, nil
+}
+
+func (a *ExecutionsAPIService) decodeExecutionStatusEvent(body string) (*ExecutionStatusEvent, error) {
+	executionStatusEvent := ExecutionStatusEvent{}
+	err := a.client.decode(&executionStatusEvent, []byte(body), "application/json")
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  []byte(body),
+			error: err.Error(),
+		}
+		return &executionStatusEvent, newErr
+	}
+	return &executionStatusEvent, nil
+}
+
 type ApiFollowExecutionRequest struct {
 	ctx         context.Context
 	ApiService  *ExecutionsAPIService

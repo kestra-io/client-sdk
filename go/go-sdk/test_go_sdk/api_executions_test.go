@@ -74,6 +74,25 @@ outputs:
     value: "{{ outputs.return.value }}"
 `, id, ns)
 }
+func DEPENDENT_FLOW_OF_LOG_FLOW(id string, ns string, triggeringFlowId string) string {
+	return fmt.Sprintf(`
+id: %s
+namespace: %s
+
+triggers:
+  - id: upstream_dependancy
+    type: io.kestra.plugin.core.trigger.Flow
+    preconditions:
+        id: flow_trigger
+        flows:
+          - flowId: %s
+            namespace: %s
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.log.Log
+    message: Dependent flow triggered
+`, id, ns, triggeringFlowId, ns)
+}
 func LONG_RUNNING_FLOW(id string, ns string) string {
 	return fmt.Sprintf(`
 id: %s
@@ -158,6 +177,13 @@ func createFlow(ctx context.Context, id string, ns string, flowTemplate func(id 
 	_, _, err := KestraTestApiClient().FlowsAPI.CreateFlow(ctx, MAIN_TENANT).Body(flowYaml).Execute()
 	if err != nil {
 		panic(fmt.Sprintf("error while inserting test flow with id: '%s', error: %s", id, err))
+	}
+}
+func createDependentFlow(ctx context.Context, id string, ns string, triggeringFlowId string, flowTemplate func(id string, ns string, triggeringFlowId string) string) {
+	flowYaml := flowTemplate(id, ns, triggeringFlowId)
+	_, _, err := KestraTestApiClient().FlowsAPI.CreateFlow(ctx, MAIN_TENANT).Body(flowYaml).Execute()
+	if err != nil {
+		panic(fmt.Sprintf("error while inserting dependent test flow with id: '%s', error: %s", id, err))
 	}
 }
 func createSimpleFlow(ctx context.Context, id string, ns string) {
@@ -1116,6 +1142,73 @@ func TestExecutionsAPI_All(t *testing.T) {
 		}, 5*time.Second, 100*time.Millisecond,
 			"channel should be closed soon after timeout")
 	})
+
+	t.Run("followDependenciesExecution", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
+		dependentFlowId := randomId()
+		ctx := GetAuthContext()
+		createDependentFlow(ctx, dependentFlowId, namespace, flowId, DEPENDENT_FLOW_OF_LOG_FLOW)
+		time.Sleep(200 * time.Millisecond) // wait for flow topology
+		createFlow(ctx, flowId, namespace, LOG_FLOW)
+
+		awaitUntilFlowDependenciesContainsSpecificFlowId(t, ctx, namespace, flowId, dependentFlowId)
+
+		exec := createExecution(t, ctx, flowId, namespace)
+
+		// this endpoint is returning SSE
+		executions, err := KestraTestApiClient().ExecutionsAPI.FollowDependenciesExecution(ctx, exec.Id, MAIN_TENANT).
+			ExpandAll(false).
+			DestinationOnly(false).
+			Execute()
+		require.NoError(t, err)
+		require.NotNil(t, executions)
+
+		var foundDependentExecution []*openapiclient.ExecutionStatusEvent
+	loop:
+		for {
+			select {
+			case executionStatusEvent, ok := <-executions:
+				if !ok {
+					// received channel close
+					break loop
+				} else {
+					if *executionStatusEvent.FlowId == dependentFlowId {
+						// if there was an event of the dependent flow we are interested in, add it
+						foundDependentExecution = append(foundDependentExecution, executionStatusEvent)
+					}
+				}
+			case <-ctx.Done():
+				// caller canceled
+				break loop
+			}
+		}
+		states := make([]openapiclient.StateType, 0, len(foundDependentExecution))
+		for _, e := range foundDependentExecution {
+			if e != nil && e.State != nil {
+				states = append(states, e.State.Current)
+			}
+		}
+		require.Contains(t, states, openapiclient.STATETYPE_CREATED, "at least one CREATED event should be returned for this dependent flow")
+	})
+}
+
+func awaitUntilFlowDependenciesContainsSpecificFlowId(t *testing.T, ctx context.Context, namespace string, flowId string, dependentFlowId string) {
+	require.Eventually(t, flowDependenciesContainsSpecificFlowId(t, ctx, namespace, flowId, dependentFlowId), 5*time.Second, 100*time.Millisecond)
+}
+func flowDependenciesContainsSpecificFlowId(t *testing.T, ctx context.Context, namespace string, flowId string, dependencyToFind string) func() bool {
+	return func() bool {
+		dependencies, _, err := KestraTestApiClient().FlowsAPI.FlowDependencies(ctx, namespace, flowId, MAIN_TENANT).DestinationOnly(false).ExpandAll(false).Execute()
+		require.NoError(t, err)
+		for _, node := range dependencies.Nodes {
+			if node.Id != nil {
+				if *node.Id == dependencyToFind {
+					return true
+				}
+			}
+		}
+		return false
+	}
 }
 
 func checkChannelIsClosed[T any](channel <-chan T) bool {
