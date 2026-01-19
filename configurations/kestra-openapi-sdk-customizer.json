@@ -23,6 +23,7 @@
     "logsFromAppExecution",
     "previewApp",
     "openApp",
-    "logsFromAppExecutionlogsFromAppExecution"
+    "logsFromAppExecutionlogsFromAppExecution",
+    "followLogsFromExecution"
   ]
 }

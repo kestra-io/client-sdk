@@ -9819,6 +9819,9 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+      x-sdk-customization:
+        x-replace-follow-logs: "true"
+        x-skipped: "true"
   /api/v1/{tenant}/logs/{namespace}/{flowId}:
     delete:
       tags:

@@ -244,6 +244,7 @@ docs/LeftSidebarConfiguration.md
 docs/Level.md
 docs/Listener.md
 docs/LogEntry.md
+docs/LogsApi.md
 docs/MapObjectObject.md
 docs/MeControllerApiMe.md
 docs/MeControllerApiProfile.md
@@ -445,6 +446,7 @@ src/main/java/io/kestra/sdk/api/FilesApi.java
 src/main/java/io/kestra/sdk/api/FlowsApi.java
 src/main/java/io/kestra/sdk/api/GroupsApi.java
 src/main/java/io/kestra/sdk/api/KvApi.java
+src/main/java/io/kestra/sdk/api/LogsApi.java
 src/main/java/io/kestra/sdk/api/NamespacesApi.java
 src/main/java/io/kestra/sdk/api/RolesApi.java
 src/main/java/io/kestra/sdk/api/ServiceAccountApi.java

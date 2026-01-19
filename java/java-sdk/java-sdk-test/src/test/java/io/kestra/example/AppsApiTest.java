@@ -6,10 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
-import java.util.List;
 
 import static io.kestra.example.CommonTestSetup.*;
 import static org.assertj.core.api.Assertions.*;

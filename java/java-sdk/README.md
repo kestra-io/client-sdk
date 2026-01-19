@@ -43,7 +43,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>io.kestra</groupId>
   <artifactId>kestra-api-client</artifactId>
-  <version>1.0.7</version>
+  <version>1.0.8</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -53,7 +53,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "io.kestra:kestra-api-client:1.0.7"
+compile "io.kestra:kestra-api-client:1.0.8"
 ```
 
 ### Others
@@ -66,7 +66,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/kestra-api-client-1.0.7.jar`
+- `target/kestra-api-client-1.0.8.jar`
 - `target/lib/*.jar`
 
 ## Getting Started
@@ -251,6 +251,11 @@ Class | Method | HTTP request | Description
 *KvApi* | [**listKeys**](docs/KvApi.md#listKeys) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv | List all keys for a namespace
 *KvApi* | [**listKeysWithInheritence**](docs/KvApi.md#listKeysWithInheritence) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/inheritance | List all keys for inherited namespaces
 *KvApi* | [**setKeyValue**](docs/KvApi.md#setKeyValue) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Puts a key-value pair in store
+*LogsApi* | [**deleteLogsFromExecution**](docs/LogsApi.md#deleteLogsFromExecution) | **DELETE** /api/v1/{tenant}/logs/{executionId} | Delete logs for a specific execution, taskrun or task
+*LogsApi* | [**deleteLogsFromFlow**](docs/LogsApi.md#deleteLogsFromFlow) | **DELETE** /api/v1/{tenant}/logs/{namespace}/{flowId} | Delete logs for a specific execution, taskrun or task
+*LogsApi* | [**downloadLogsFromExecution**](docs/LogsApi.md#downloadLogsFromExecution) | **GET** /api/v1/{tenant}/logs/{executionId}/download | Download logs for a specific execution, taskrun or task
+*LogsApi* | [**listLogsFromExecution**](docs/LogsApi.md#listLogsFromExecution) | **GET** /api/v1/{tenant}/logs/{executionId} | Get logs for a specific execution, taskrun or task
+*LogsApi* | [**searchLogs**](docs/LogsApi.md#searchLogs) | **GET** /api/v1/{tenant}/logs/search | Search for logs
 *NamespacesApi* | [**autocompleteNamespaces**](docs/NamespacesApi.md#autocompleteNamespaces) | **POST** /api/v1/{tenant}/namespaces/autocomplete | List namespaces for autocomplete
 *NamespacesApi* | [**createNamespace**](docs/NamespacesApi.md#createNamespace) | **POST** /api/v1/{tenant}/namespaces | Create a namespace
 *NamespacesApi* | [**deleteNamespace**](docs/NamespacesApi.md#deleteNamespace) | **DELETE** /api/v1/{tenant}/namespaces/{id} | Delete a namespace

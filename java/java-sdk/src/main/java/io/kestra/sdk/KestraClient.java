@@ -84,6 +84,8 @@ public class KestraClient {
 
     public AppsApi apps() { return new AppsApi(this.apiClient); }
 
+    public LogsApi logs() { return new LogsApi(this.apiClient); }
+
     // END -- Individual API
 
     /**

@@ -11710,7 +11710,7 @@ paths:
       summary: Search for logs
       tags:
       - Logs
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
   /api/v1/{tenant}/logs/{executionId}:
@@ -11779,7 +11779,7 @@ paths:
       summary: "Delete logs for a specific execution, taskrun or task"
       tags:
       - Logs
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
     get:
@@ -11853,7 +11853,7 @@ paths:
       summary: "Get logs for a specific execution, taskrun or task"
       tags:
       - Logs
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
   /api/v1/{tenant}/logs/{executionId}/download:
@@ -11927,54 +11927,9 @@ paths:
       summary: "Download logs for a specific execution, taskrun or task"
       tags:
       - Logs
-      x-internal: true
+      x-internal: false
       x-accepts:
       - text/plain
-  /api/v1/{tenant}/logs/{executionId}/follow:
-    get:
-      operationId: followLogsFromExecution
-      parameters:
-      - description: The execution id
-        explode: false
-        in: path
-        name: executionId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The min log level filter
-        explode: false
-        in: query
-        name: minLevel
-        required: false
-        schema:
-          allOf:
-          - $ref: "#/components/schemas/Level"
-          nullable: true
-        style: form
-      - explode: false
-        in: path
-        name: tenant
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            text/event-stream:
-              schema:
-                $ref: "#/components/schemas/Event_LogEntry_"
-          description: followLogsFromExecution 200 response
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      summary: Follow logs for a specific execution
-      tags:
-      - Logs
-      x-internal: true
-      x-accepts:
-      - text/event-stream
   /api/v1/{tenant}/logs/{namespace}/{flowId}:
     delete:
       operationId: deleteLogsFromFlow
@@ -12019,7 +11974,7 @@ paths:
       summary: "Delete logs for a specific execution, taskrun or task"
       tags:
       - Logs
-      x-internal: true
+      x-internal: false
       x-accepts:
       - application/json
   /api/v1/{tenant}/metrics/aggregates/{namespace}/{flowId}/{metric}:
@@ -21965,6 +21920,20 @@ components:
       - tasks
       type: object
     LogEntry:
+      example:
+        attemptNumber: 0
+        level: ERROR
+        triggerId: triggerId
+        thread: thread
+        message: message
+        taskRunId: taskRunId
+        executionId: executionId
+        deleted: true
+        namespace: namespace
+        flowId: flowId
+        executionKind: ""
+        taskId: taskId
+        timestamp: 2000-01-23T04:56:07.000+00:00
       properties:
         namespace:
           type: string
@@ -24047,6 +24016,35 @@ components:
       - total
       type: object
     PagedResults_LogEntry_:
+      example:
+        total: 6
+        results:
+        - attemptNumber: 0
+          level: ERROR
+          triggerId: triggerId
+          thread: thread
+          message: message
+          taskRunId: taskRunId
+          executionId: executionId
+          deleted: true
+          namespace: namespace
+          flowId: flowId
+          executionKind: ""
+          taskId: taskId
+          timestamp: 2000-01-23T04:56:07.000+00:00
+        - attemptNumber: 0
+          level: ERROR
+          triggerId: triggerId
+          thread: thread
+          message: message
+          taskRunId: taskRunId
+          executionId: executionId
+          deleted: true
+          namespace: namespace
+          flowId: flowId
+          executionKind: ""
+          taskId: taskId
+          timestamp: 2000-01-23T04:56:07.000+00:00
       properties:
         results:
           items:
