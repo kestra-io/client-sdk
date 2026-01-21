@@ -33,6 +33,13 @@ func (r ApiDeleteBackfillRequest) Trigger(trigger Trigger) ApiDeleteBackfillRequ
 	return r
 }
 
+func (r ApiDeleteBackfillRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiDeleteBackfillRequest) GetTrigger() *Trigger {
+	return r.trigger
+}
+
 func (r ApiDeleteBackfillRequest) Execute() (*Trigger, *http.Response, error) {
 	return r.ApiService.DeleteBackfillExecute(r)
 }
@@ -144,6 +151,13 @@ type ApiDeleteBackfillByIdsRequest struct {
 func (r ApiDeleteBackfillByIdsRequest) Trigger(trigger []Trigger) ApiDeleteBackfillByIdsRequest {
 	r.trigger = &trigger
 	return r
+}
+
+func (r ApiDeleteBackfillByIdsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiDeleteBackfillByIdsRequest) GetTrigger() *[]Trigger {
+	return r.trigger
 }
 
 func (r ApiDeleteBackfillByIdsRequest) Execute() (map[string]interface{}, *http.Response, error) {
@@ -260,6 +274,13 @@ func (r ApiDeleteBackfillByQueryRequest) Filters(filters []QueryFilter) ApiDelet
 	return r
 }
 
+func (r ApiDeleteBackfillByQueryRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiDeleteBackfillByQueryRequest) GetFilters() *[]QueryFilter {
+	return r.filters
+}
+
 func (r ApiDeleteBackfillByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.DeleteBackfillByQueryExecute(r)
 }
@@ -366,6 +387,19 @@ type ApiDeleteTriggerRequest struct {
 	flowId     string
 	triggerId  string
 	tenant     string
+}
+
+func (r ApiDeleteTriggerRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiDeleteTriggerRequest) GetFlowId() string {
+	return r.flowId
+}
+func (r ApiDeleteTriggerRequest) GetTriggerId() string {
+	return r.triggerId
+}
+func (r ApiDeleteTriggerRequest) GetTenant() string {
+	return r.tenant
 }
 
 func (r ApiDeleteTriggerRequest) Execute() (map[string]interface{}, *http.Response, error) {
@@ -485,6 +519,13 @@ func (r ApiDeleteTriggersByIdsRequest) Trigger(trigger []Trigger) ApiDeleteTrigg
 	return r
 }
 
+func (r ApiDeleteTriggersByIdsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiDeleteTriggersByIdsRequest) GetTrigger() *[]Trigger {
+	return r.trigger
+}
+
 func (r ApiDeleteTriggersByIdsRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.DeleteTriggersByIdsExecute(r)
 }
@@ -598,6 +639,13 @@ func (r ApiDeleteTriggersByQueryRequest) DeleteTriggersByQueryRequest(deleteTrig
 	return r
 }
 
+func (r ApiDeleteTriggersByQueryRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiDeleteTriggersByQueryRequest) GetDeleteTriggersByQueryRequest() *DeleteTriggersByQueryRequest {
+	return r.deleteTriggersByQueryRequest
+}
+
 func (r ApiDeleteTriggersByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.DeleteTriggersByQueryExecute(r)
 }
@@ -709,6 +757,13 @@ type ApiDisabledTriggersByIdsRequest struct {
 func (r ApiDisabledTriggersByIdsRequest) TriggerControllerSetDisabledRequest(triggerControllerSetDisabledRequest TriggerControllerSetDisabledRequest) ApiDisabledTriggersByIdsRequest {
 	r.triggerControllerSetDisabledRequest = &triggerControllerSetDisabledRequest
 	return r
+}
+
+func (r ApiDisabledTriggersByIdsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiDisabledTriggersByIdsRequest) GetTriggerControllerSetDisabledRequest() *TriggerControllerSetDisabledRequest {
+	return r.triggerControllerSetDisabledRequest
 }
 
 func (r ApiDisabledTriggersByIdsRequest) Execute() (map[string]interface{}, *http.Response, error) {
@@ -832,6 +887,16 @@ func (r ApiDisabledTriggersByQueryRequest) Filters(filters []QueryFilter) ApiDis
 	return r
 }
 
+func (r ApiDisabledTriggersByQueryRequest) GetDisabled() *bool {
+	return r.disabled
+}
+func (r ApiDisabledTriggersByQueryRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiDisabledTriggersByQueryRequest) GetFilters() *[]QueryFilter {
+	return r.filters
+}
+
 func (r ApiDisabledTriggersByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.DisabledTriggersByQueryExecute(r)
 }
@@ -848,6 +913,7 @@ func (a *TriggersAPIService) DisabledTriggersByQuery(ctx context.Context, tenant
 		ApiService: a,
 		ctx:        ctx,
 		tenant:     tenant,
+		disabled:   Ptr(bool(true)),
 	}
 }
 
@@ -946,6 +1012,13 @@ type ApiExportTriggersRequest struct {
 func (r ApiExportTriggersRequest) Filters(filters []QueryFilter) ApiExportTriggersRequest {
 	r.filters = &filters
 	return r
+}
+
+func (r ApiExportTriggersRequest) GetFilters() *[]QueryFilter {
+	return r.filters
+}
+func (r ApiExportTriggersRequest) GetTenant() string {
+	return r.tenant
 }
 
 func (r ApiExportTriggersRequest) Execute() ([]map[string]interface{}, *http.Response, error) {
@@ -1060,6 +1133,13 @@ func (r ApiPauseBackfillRequest) Trigger(trigger Trigger) ApiPauseBackfillReques
 	return r
 }
 
+func (r ApiPauseBackfillRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiPauseBackfillRequest) GetTrigger() *Trigger {
+	return r.trigger
+}
+
 func (r ApiPauseBackfillRequest) Execute() (*Trigger, *http.Response, error) {
 	return r.ApiService.PauseBackfillExecute(r)
 }
@@ -1171,6 +1251,13 @@ type ApiPauseBackfillByIdsRequest struct {
 func (r ApiPauseBackfillByIdsRequest) Trigger(trigger []Trigger) ApiPauseBackfillByIdsRequest {
 	r.trigger = &trigger
 	return r
+}
+
+func (r ApiPauseBackfillByIdsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiPauseBackfillByIdsRequest) GetTrigger() *[]Trigger {
+	return r.trigger
 }
 
 func (r ApiPauseBackfillByIdsRequest) Execute() (map[string]interface{}, *http.Response, error) {
@@ -1287,6 +1374,13 @@ func (r ApiPauseBackfillByQueryRequest) Filters(filters []QueryFilter) ApiPauseB
 	return r
 }
 
+func (r ApiPauseBackfillByQueryRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiPauseBackfillByQueryRequest) GetFilters() *[]QueryFilter {
+	return r.filters
+}
+
 func (r ApiPauseBackfillByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.PauseBackfillByQueryExecute(r)
 }
@@ -1393,6 +1487,19 @@ type ApiRestartTriggerRequest struct {
 	flowId     string
 	triggerId  string
 	tenant     string
+}
+
+func (r ApiRestartTriggerRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiRestartTriggerRequest) GetFlowId() string {
+	return r.flowId
+}
+func (r ApiRestartTriggerRequest) GetTriggerId() string {
+	return r.triggerId
+}
+func (r ApiRestartTriggerRequest) GetTenant() string {
+	return r.tenant
 }
 
 func (r ApiRestartTriggerRequest) Execute() (map[string]interface{}, *http.Response, error) {
@@ -1534,6 +1641,22 @@ func (r ApiSearchTriggersRequest) Filters(filters []QueryFilter) ApiSearchTrigge
 	return r
 }
 
+func (r ApiSearchTriggersRequest) GetPage() *int32 {
+	return r.page
+}
+func (r ApiSearchTriggersRequest) GetSize() *int32 {
+	return r.size
+}
+func (r ApiSearchTriggersRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiSearchTriggersRequest) GetSort() *[]string {
+	return r.sort
+}
+func (r ApiSearchTriggersRequest) GetFilters() *[]QueryFilter {
+	return r.filters
+}
+
 func (r ApiSearchTriggersRequest) Execute() (*PagedResultsTriggerControllerTriggers, *http.Response, error) {
 	return r.ApiService.SearchTriggersExecute(r)
 }
@@ -1550,6 +1673,8 @@ func (a *TriggersAPIService) SearchTriggers(ctx context.Context, tenant string) 
 		ApiService: a,
 		ctx:        ctx,
 		tenant:     tenant,
+		page:       Ptr(int32(1)),
+		size:       Ptr(int32(10)),
 	}
 }
 
@@ -1686,6 +1811,28 @@ func (r ApiSearchTriggersForFlowRequest) Q(q string) ApiSearchTriggersForFlowReq
 	return r
 }
 
+func (r ApiSearchTriggersForFlowRequest) GetPage() *int32 {
+	return r.page
+}
+func (r ApiSearchTriggersForFlowRequest) GetSize() *int32 {
+	return r.size
+}
+func (r ApiSearchTriggersForFlowRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiSearchTriggersForFlowRequest) GetFlowId() string {
+	return r.flowId
+}
+func (r ApiSearchTriggersForFlowRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiSearchTriggersForFlowRequest) GetSort() *[]string {
+	return r.sort
+}
+func (r ApiSearchTriggersForFlowRequest) GetQ() *string {
+	return r.q
+}
+
 func (r ApiSearchTriggersForFlowRequest) Execute() (*PagedResultsTrigger, *http.Response, error) {
 	return r.ApiService.SearchTriggersForFlowExecute(r)
 }
@@ -1706,6 +1853,8 @@ func (a *TriggersAPIService) SearchTriggersForFlow(ctx context.Context, namespac
 		namespace:  namespace,
 		flowId:     flowId,
 		tenant:     tenant,
+		page:       Ptr(int32(1)),
+		size:       Ptr(int32(10)),
 	}
 }
 
@@ -1815,6 +1964,19 @@ type ApiUnlockTriggerRequest struct {
 	flowId     string
 	triggerId  string
 	tenant     string
+}
+
+func (r ApiUnlockTriggerRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiUnlockTriggerRequest) GetFlowId() string {
+	return r.flowId
+}
+func (r ApiUnlockTriggerRequest) GetTriggerId() string {
+	return r.triggerId
+}
+func (r ApiUnlockTriggerRequest) GetTenant() string {
+	return r.tenant
 }
 
 func (r ApiUnlockTriggerRequest) Execute() (*Trigger, *http.Response, error) {
@@ -1934,6 +2096,13 @@ func (r ApiUnlockTriggersByIdsRequest) Trigger(trigger []Trigger) ApiUnlockTrigg
 	return r
 }
 
+func (r ApiUnlockTriggersByIdsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiUnlockTriggersByIdsRequest) GetTrigger() *[]Trigger {
+	return r.trigger
+}
+
 func (r ApiUnlockTriggersByIdsRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.UnlockTriggersByIdsExecute(r)
 }
@@ -2048,6 +2217,13 @@ func (r ApiUnlockTriggersByQueryRequest) Filters(filters []QueryFilter) ApiUnloc
 	return r
 }
 
+func (r ApiUnlockTriggersByQueryRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiUnlockTriggersByQueryRequest) GetFilters() *[]QueryFilter {
+	return r.filters
+}
+
 func (r ApiUnlockTriggersByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.UnlockTriggersByQueryExecute(r)
 }
@@ -2157,6 +2333,13 @@ type ApiUnpauseBackfillRequest struct {
 func (r ApiUnpauseBackfillRequest) Trigger(trigger Trigger) ApiUnpauseBackfillRequest {
 	r.trigger = &trigger
 	return r
+}
+
+func (r ApiUnpauseBackfillRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiUnpauseBackfillRequest) GetTrigger() *Trigger {
+	return r.trigger
 }
 
 func (r ApiUnpauseBackfillRequest) Execute() (*Trigger, *http.Response, error) {
@@ -2270,6 +2453,13 @@ type ApiUnpauseBackfillByIdsRequest struct {
 func (r ApiUnpauseBackfillByIdsRequest) Trigger(trigger []Trigger) ApiUnpauseBackfillByIdsRequest {
 	r.trigger = &trigger
 	return r
+}
+
+func (r ApiUnpauseBackfillByIdsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiUnpauseBackfillByIdsRequest) GetTrigger() *[]Trigger {
+	return r.trigger
 }
 
 func (r ApiUnpauseBackfillByIdsRequest) Execute() (map[string]interface{}, *http.Response, error) {
@@ -2386,6 +2576,13 @@ func (r ApiUnpauseBackfillByQueryRequest) Filters(filters []QueryFilter) ApiUnpa
 	return r
 }
 
+func (r ApiUnpauseBackfillByQueryRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiUnpauseBackfillByQueryRequest) GetFilters() *[]QueryFilter {
+	return r.filters
+}
+
 func (r ApiUnpauseBackfillByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.UnpauseBackfillByQueryExecute(r)
 }
@@ -2495,6 +2692,13 @@ type ApiUpdateTriggerRequest struct {
 func (r ApiUpdateTriggerRequest) Trigger(trigger Trigger) ApiUpdateTriggerRequest {
 	r.trigger = &trigger
 	return r
+}
+
+func (r ApiUpdateTriggerRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiUpdateTriggerRequest) GetTrigger() *Trigger {
+	return r.trigger
 }
 
 func (r ApiUpdateTriggerRequest) Execute() (*Trigger, *http.Response, error) {

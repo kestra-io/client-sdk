@@ -29,6 +29,16 @@ type ApiDeleteKeyValueRequest struct {
 	tenant     string
 }
 
+func (r ApiDeleteKeyValueRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiDeleteKeyValueRequest) GetKey() string {
+	return r.key
+}
+func (r ApiDeleteKeyValueRequest) GetTenant() string {
+	return r.tenant
+}
+
 func (r ApiDeleteKeyValueRequest) Execute() (bool, *http.Response, error) {
 	return r.ApiService.DeleteKeyValueExecute(r)
 }
@@ -145,6 +155,16 @@ func (r ApiDeleteKeyValuesRequest) KVControllerApiDeleteBulkRequest(kVController
 	return r
 }
 
+func (r ApiDeleteKeyValuesRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiDeleteKeyValuesRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiDeleteKeyValuesRequest) GetKVControllerApiDeleteBulkRequest() *KVControllerApiDeleteBulkRequest {
+	return r.kVControllerApiDeleteBulkRequest
+}
+
 func (r ApiDeleteKeyValuesRequest) Execute() (*KVControllerApiDeleteBulkResponse, *http.Response, error) {
 	return r.ApiService.DeleteKeyValuesExecute(r)
 }
@@ -255,6 +275,16 @@ type ApiKeyValueRequest struct {
 	namespace  string
 	key        string
 	tenant     string
+}
+
+func (r ApiKeyValueRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiKeyValueRequest) GetKey() string {
+	return r.key
+}
+func (r ApiKeyValueRequest) GetTenant() string {
+	return r.tenant
 }
 
 func (r ApiKeyValueRequest) Execute() (*KVControllerTypedValue, *http.Response, error) {
@@ -393,6 +423,22 @@ func (r ApiListAllKeysRequest) Filters(filters []QueryFilter) ApiListAllKeysRequ
 	return r
 }
 
+func (r ApiListAllKeysRequest) GetPage() *int32 {
+	return r.page
+}
+func (r ApiListAllKeysRequest) GetSize() *int32 {
+	return r.size
+}
+func (r ApiListAllKeysRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiListAllKeysRequest) GetSort() *[]string {
+	return r.sort
+}
+func (r ApiListAllKeysRequest) GetFilters() *[]QueryFilter {
+	return r.filters
+}
+
 func (r ApiListAllKeysRequest) Execute() (*PagedResultsKVEntry, *http.Response, error) {
 	return r.ApiService.ListAllKeysExecute(r)
 }
@@ -409,6 +455,8 @@ func (a *KVAPIService) ListAllKeys(ctx context.Context, tenant string) ApiListAl
 		ApiService: a,
 		ctx:        ctx,
 		tenant:     tenant,
+		page:       Ptr(int32(1)),
+		size:       Ptr(int32(10)),
 	}
 }
 
@@ -508,6 +556,13 @@ type ApiListKeysRequest struct {
 	ApiService *KVAPIService
 	namespace  string
 	tenant     string
+}
+
+func (r ApiListKeysRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiListKeysRequest) GetTenant() string {
+	return r.tenant
 }
 
 func (r ApiListKeysRequest) Execute() ([]KVEntry, *http.Response, error) {
@@ -618,6 +673,13 @@ type ApiListKeysWithInheritenceRequest struct {
 	ApiService *KVAPIService
 	namespace  string
 	tenant     string
+}
+
+func (r ApiListKeysWithInheritenceRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiListKeysWithInheritenceRequest) GetTenant() string {
+	return r.tenant
 }
 
 func (r ApiListKeysWithInheritenceRequest) Execute() ([]KVEntry, *http.Response, error) {
@@ -732,6 +794,19 @@ type ApiSetKeyValueRequest struct {
 func (r ApiSetKeyValueRequest) Body(body string) ApiSetKeyValueRequest {
 	r.body = &body
 	return r
+}
+
+func (r ApiSetKeyValueRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiSetKeyValueRequest) GetKey() string {
+	return r.key
+}
+func (r ApiSetKeyValueRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiSetKeyValueRequest) GetBody() *string {
+	return r.body
 }
 
 func (r ApiSetKeyValueRequest) Execute() (*http.Response, error) {

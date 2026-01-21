@@ -33,6 +33,13 @@ func (r ApiAutocompleteNamespacesRequest) ApiAutocomplete(apiAutocomplete ApiAut
 	return r
 }
 
+func (r ApiAutocompleteNamespacesRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiAutocompleteNamespacesRequest) GetApiAutocomplete() *ApiAutocomplete {
+	return r.apiAutocomplete
+}
+
 func (r ApiAutocompleteNamespacesRequest) Execute() ([]string, *http.Response, error) {
 	return r.ApiService.AutocompleteNamespacesExecute(r)
 }
@@ -149,6 +156,13 @@ func (r ApiCreateNamespaceRequest) Namespace(namespace Namespace) ApiCreateNames
 	return r
 }
 
+func (r ApiCreateNamespaceRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiCreateNamespaceRequest) GetNamespace() *Namespace {
+	return r.namespace
+}
+
 func (r ApiCreateNamespaceRequest) Execute() (*Namespace, *http.Response, error) {
 	return r.ApiService.CreateNamespaceExecute(r)
 }
@@ -257,6 +271,13 @@ type ApiDeleteNamespaceRequest struct {
 	tenant     string
 }
 
+func (r ApiDeleteNamespaceRequest) GetId() string {
+	return r.id
+}
+func (r ApiDeleteNamespaceRequest) GetTenant() string {
+	return r.tenant
+}
+
 func (r ApiDeleteNamespaceRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteNamespaceExecute(r)
 }
@@ -350,6 +371,16 @@ type ApiDeleteSecretRequest struct {
 	namespace  string
 	key        string
 	tenant     string
+}
+
+func (r ApiDeleteSecretRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiDeleteSecretRequest) GetKey() string {
+	return r.key
+}
+func (r ApiDeleteSecretRequest) GetTenant() string {
+	return r.tenant
 }
 
 func (r ApiDeleteSecretRequest) Execute() (*http.Response, error) {
@@ -447,6 +478,13 @@ type ApiInheritedPluginDefaultsRequest struct {
 	ApiService *NamespacesAPIService
 	id         string
 	tenant     string
+}
+
+func (r ApiInheritedPluginDefaultsRequest) GetId() string {
+	return r.id
+}
+func (r ApiInheritedPluginDefaultsRequest) GetTenant() string {
+	return r.tenant
 }
 
 func (r ApiInheritedPluginDefaultsRequest) Execute() ([]PluginDefault, *http.Response, error) {
@@ -555,6 +593,13 @@ type ApiInheritedSecretsRequest struct {
 	tenant     string
 }
 
+func (r ApiInheritedSecretsRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiInheritedSecretsRequest) GetTenant() string {
+	return r.tenant
+}
+
 func (r ApiInheritedSecretsRequest) Execute() (*map[string][]string, *http.Response, error) {
 	return r.ApiService.InheritedSecretsExecute(r)
 }
@@ -659,6 +704,13 @@ type ApiInheritedVariablesRequest struct {
 	ApiService *NamespacesAPIService
 	id         string
 	tenant     string
+}
+
+func (r ApiInheritedVariablesRequest) GetId() string {
+	return r.id
+}
+func (r ApiInheritedVariablesRequest) GetTenant() string {
+	return r.tenant
 }
 
 func (r ApiInheritedVariablesRequest) Execute() (map[string]map[string]interface{}, *http.Response, error) {
@@ -795,6 +847,25 @@ func (r ApiListNamespaceSecretsRequest) Sort(sort []string) ApiListNamespaceSecr
 	return r
 }
 
+func (r ApiListNamespaceSecretsRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiListNamespaceSecretsRequest) GetPage() *int32 {
+	return r.page
+}
+func (r ApiListNamespaceSecretsRequest) GetSize() *int32 {
+	return r.size
+}
+func (r ApiListNamespaceSecretsRequest) GetFilters() *[]QueryFilter {
+	return r.filters
+}
+func (r ApiListNamespaceSecretsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiListNamespaceSecretsRequest) GetSort() *[]string {
+	return r.sort
+}
+
 func (r ApiListNamespaceSecretsRequest) Execute() (*ApiSecretListResponseApiSecretMeta, *http.Response, error) {
 	return r.ApiService.ListNamespaceSecretsExecute(r)
 }
@@ -815,6 +886,8 @@ func (a *NamespacesAPIService) ListNamespaceSecrets(ctx context.Context, namespa
 		ctx:        ctx,
 		namespace:  namespace,
 		tenant:     tenant,
+		page:       Ptr(int32(1)),
+		size:       Ptr(int32(10)),
 	}
 }
 
@@ -918,6 +991,13 @@ type ApiNamespaceRequest struct {
 	ApiService *NamespacesAPIService
 	id         string
 	tenant     string
+}
+
+func (r ApiNamespaceRequest) GetId() string {
+	return r.id
+}
+func (r ApiNamespaceRequest) GetTenant() string {
+	return r.tenant
 }
 
 func (r ApiNamespaceRequest) Execute() (*Namespace, *http.Response, error) {
@@ -1031,6 +1111,19 @@ type ApiPatchSecretRequest struct {
 func (r ApiPatchSecretRequest) ApiSecretMetaEE(apiSecretMetaEE ApiSecretMetaEE) ApiPatchSecretRequest {
 	r.apiSecretMetaEE = &apiSecretMetaEE
 	return r
+}
+
+func (r ApiPatchSecretRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiPatchSecretRequest) GetKey() string {
+	return r.key
+}
+func (r ApiPatchSecretRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiPatchSecretRequest) GetApiSecretMetaEE() *ApiSecretMetaEE {
+	return r.apiSecretMetaEE
 }
 
 func (r ApiPatchSecretRequest) Execute() ([]ApiSecretMetaEE, *http.Response, error) {
@@ -1151,6 +1244,16 @@ type ApiPutSecretsRequest struct {
 func (r ApiPutSecretsRequest) ApiSecretValue(apiSecretValue ApiSecretValue) ApiPutSecretsRequest {
 	r.apiSecretValue = &apiSecretValue
 	return r
+}
+
+func (r ApiPutSecretsRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiPutSecretsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiPutSecretsRequest) GetApiSecretValue() *ApiSecretValue {
+	return r.apiSecretValue
 }
 
 func (r ApiPutSecretsRequest) Execute() ([]ApiSecretMetaEE, *http.Response, error) {
@@ -1298,6 +1401,25 @@ func (r ApiSearchNamespacesRequest) Sort(sort []string) ApiSearchNamespacesReque
 	return r
 }
 
+func (r ApiSearchNamespacesRequest) GetPage() *int32 {
+	return r.page
+}
+func (r ApiSearchNamespacesRequest) GetSize() *int32 {
+	return r.size
+}
+func (r ApiSearchNamespacesRequest) GetExisting() *bool {
+	return r.existing
+}
+func (r ApiSearchNamespacesRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiSearchNamespacesRequest) GetQ() *string {
+	return r.q
+}
+func (r ApiSearchNamespacesRequest) GetSort() *[]string {
+	return r.sort
+}
+
 func (r ApiSearchNamespacesRequest) Execute() (*PagedResultsNamespace, *http.Response, error) {
 	return r.ApiService.SearchNamespacesExecute(r)
 }
@@ -1314,6 +1436,9 @@ func (a *NamespacesAPIService) SearchNamespaces(ctx context.Context, tenant stri
 		ApiService: a,
 		ctx:        ctx,
 		tenant:     tenant,
+		page:       Ptr(int32(1)),
+		size:       Ptr(int32(10)),
+		existing:   Ptr(bool(false)),
 	}
 }
 
@@ -1430,6 +1555,16 @@ type ApiUpdateNamespaceRequest struct {
 func (r ApiUpdateNamespaceRequest) Namespace(namespace Namespace) ApiUpdateNamespaceRequest {
 	r.namespace = &namespace
 	return r
+}
+
+func (r ApiUpdateNamespaceRequest) GetId() string {
+	return r.id
+}
+func (r ApiUpdateNamespaceRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiUpdateNamespaceRequest) GetNamespace() *Namespace {
+	return r.namespace
 }
 
 func (r ApiUpdateNamespaceRequest) Execute() (*Namespace, *http.Response, error) {

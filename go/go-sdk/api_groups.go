@@ -29,6 +29,16 @@ type ApiAddUserToGroupRequest struct {
 	tenant     string
 }
 
+func (r ApiAddUserToGroupRequest) GetId() string {
+	return r.id
+}
+func (r ApiAddUserToGroupRequest) GetUserId() string {
+	return r.userId
+}
+func (r ApiAddUserToGroupRequest) GetTenant() string {
+	return r.tenant
+}
+
 func (r ApiAddUserToGroupRequest) Execute() (*IAMGroupControllerApiGroupMember, *http.Response, error) {
 	return r.ApiService.AddUserToGroupExecute(r)
 }
@@ -146,6 +156,13 @@ func (r ApiAutocompleteGroupsRequest) ApiAutocomplete(apiAutocomplete ApiAutocom
 	return r
 }
 
+func (r ApiAutocompleteGroupsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiAutocompleteGroupsRequest) GetApiAutocomplete() *ApiAutocomplete {
+	return r.apiAutocomplete
+}
+
 func (r ApiAutocompleteGroupsRequest) Execute() ([]ApiGroupSummary, *http.Response, error) {
 	return r.ApiService.AutocompleteGroupsExecute(r)
 }
@@ -260,6 +277,13 @@ func (r ApiCreateGroupRequest) IAMGroupControllerApiCreateGroupRequest(iAMGroupC
 	return r
 }
 
+func (r ApiCreateGroupRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiCreateGroupRequest) GetIAMGroupControllerApiCreateGroupRequest() *IAMGroupControllerApiCreateGroupRequest {
+	return r.iAMGroupControllerApiCreateGroupRequest
+}
+
 func (r ApiCreateGroupRequest) Execute() (*IAMGroupControllerApiGroupDetail, *http.Response, error) {
 	return r.ApiService.CreateGroupExecute(r)
 }
@@ -368,6 +392,13 @@ type ApiDeleteGroupRequest struct {
 	tenant     string
 }
 
+func (r ApiDeleteGroupRequest) GetId() string {
+	return r.id
+}
+func (r ApiDeleteGroupRequest) GetTenant() string {
+	return r.tenant
+}
+
 func (r ApiDeleteGroupRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteGroupExecute(r)
 }
@@ -461,6 +492,16 @@ type ApiDeleteUserFromGroupRequest struct {
 	id         string
 	userId     string
 	tenant     string
+}
+
+func (r ApiDeleteUserFromGroupRequest) GetId() string {
+	return r.id
+}
+func (r ApiDeleteUserFromGroupRequest) GetUserId() string {
+	return r.userId
+}
+func (r ApiDeleteUserFromGroupRequest) GetTenant() string {
+	return r.tenant
 }
 
 func (r ApiDeleteUserFromGroupRequest) Execute() (*IAMGroupControllerApiGroupMember, *http.Response, error) {
@@ -572,6 +613,13 @@ type ApiGroupRequest struct {
 	ApiService *GroupsAPIService
 	id         string
 	tenant     string
+}
+
+func (r ApiGroupRequest) GetId() string {
+	return r.id
+}
+func (r ApiGroupRequest) GetTenant() string {
+	return r.tenant
 }
 
 func (r ApiGroupRequest) Execute() (*IAMGroupControllerApiGroupDetail, *http.Response, error) {
@@ -686,6 +734,13 @@ type ApiListGroupIdsRequest struct {
 func (r ApiListGroupIdsRequest) ApiIds(apiIds ApiIds) ApiListGroupIdsRequest {
 	r.apiIds = &apiIds
 	return r
+}
+
+func (r ApiListGroupIdsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiListGroupIdsRequest) GetApiIds() *ApiIds {
+	return r.apiIds
 }
 
 func (r ApiListGroupIdsRequest) Execute() ([]ApiGroupSummary, *http.Response, error) {
@@ -824,6 +879,25 @@ func (r ApiSearchGroupMembersRequest) Sort(sort []string) ApiSearchGroupMembersR
 	return r
 }
 
+func (r ApiSearchGroupMembersRequest) GetId() string {
+	return r.id
+}
+func (r ApiSearchGroupMembersRequest) GetPage() *int32 {
+	return r.page
+}
+func (r ApiSearchGroupMembersRequest) GetSize() *int32 {
+	return r.size
+}
+func (r ApiSearchGroupMembersRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiSearchGroupMembersRequest) GetQ() *string {
+	return r.q
+}
+func (r ApiSearchGroupMembersRequest) GetSort() *[]string {
+	return r.sort
+}
+
 func (r ApiSearchGroupMembersRequest) Execute() (*PagedResultsIAMGroupControllerApiGroupMember, *http.Response, error) {
 	return r.ApiService.SearchGroupMembersExecute(r)
 }
@@ -842,6 +916,8 @@ func (a *GroupsAPIService) SearchGroupMembers(ctx context.Context, id string, te
 		ctx:        ctx,
 		id:         id,
 		tenant:     tenant,
+		page:       Ptr(int32(1)),
+		size:       Ptr(int32(10)),
 	}
 }
 
@@ -971,6 +1047,22 @@ func (r ApiSearchGroupsRequest) Sort(sort []string) ApiSearchGroupsRequest {
 	return r
 }
 
+func (r ApiSearchGroupsRequest) GetPage() *int32 {
+	return r.page
+}
+func (r ApiSearchGroupsRequest) GetSize() *int32 {
+	return r.size
+}
+func (r ApiSearchGroupsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiSearchGroupsRequest) GetQ() *string {
+	return r.q
+}
+func (r ApiSearchGroupsRequest) GetSort() *[]string {
+	return r.sort
+}
+
 func (r ApiSearchGroupsRequest) Execute() (*PagedResultsApiGroupSummary, *http.Response, error) {
 	return r.ApiService.SearchGroupsExecute(r)
 }
@@ -987,6 +1079,8 @@ func (a *GroupsAPIService) SearchGroups(ctx context.Context, tenant string) ApiS
 		ApiService: a,
 		ctx:        ctx,
 		tenant:     tenant,
+		page:       Ptr(int32(1)),
+		size:       Ptr(int32(10)),
 	}
 }
 
@@ -1094,6 +1188,19 @@ type ApiSetUserMembershipForGroupRequest struct {
 func (r ApiSetUserMembershipForGroupRequest) Membership(membership GroupIdentifierMembership) ApiSetUserMembershipForGroupRequest {
 	r.membership = &membership
 	return r
+}
+
+func (r ApiSetUserMembershipForGroupRequest) GetId() string {
+	return r.id
+}
+func (r ApiSetUserMembershipForGroupRequest) GetUserId() string {
+	return r.userId
+}
+func (r ApiSetUserMembershipForGroupRequest) GetMembership() *GroupIdentifierMembership {
+	return r.membership
+}
+func (r ApiSetUserMembershipForGroupRequest) GetTenant() string {
+	return r.tenant
 }
 
 func (r ApiSetUserMembershipForGroupRequest) Execute() (*IAMGroupControllerApiGroupMember, *http.Response, error) {
@@ -1216,6 +1323,16 @@ type ApiUpdateGroupRequest struct {
 func (r ApiUpdateGroupRequest) IAMGroupControllerApiUpdateGroupRequest(iAMGroupControllerApiUpdateGroupRequest IAMGroupControllerApiUpdateGroupRequest) ApiUpdateGroupRequest {
 	r.iAMGroupControllerApiUpdateGroupRequest = &iAMGroupControllerApiUpdateGroupRequest
 	return r
+}
+
+func (r ApiUpdateGroupRequest) GetId() string {
+	return r.id
+}
+func (r ApiUpdateGroupRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiUpdateGroupRequest) GetIAMGroupControllerApiUpdateGroupRequest() *IAMGroupControllerApiUpdateGroupRequest {
+	return r.iAMGroupControllerApiUpdateGroupRequest
 }
 
 func (r ApiUpdateGroupRequest) Execute() (*IAMGroupControllerApiGroupDetail, *http.Response, error) {

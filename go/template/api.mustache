@@ -82,6 +82,13 @@ func (r {{#structPrefix}}{{&classname}}{{/structPrefix}}{{^structPrefix}}Api{{/s
 
 {{/isPathParam}}
 {{/allParams}}
+
+{{#allParams}}
+func (r {{#structPrefix}}{{&classname}}{{/structPrefix}}{{^structPrefix}}Api{{/structPrefix}}{{operationId}}Request) Get{{vendorExtensions.x-export-param-name}}() {{^isPathParam}}{{^isFile}}*{{/isFile}}{{/isPathParam}}{{dataType}} {
+    return r.{{paramName}}
+}
+{{/allParams}}
+
 {{#vendorExtensions.x-sdk-customization.x-multipart}}
 // the request multipart/form-data content
 func (r {{#structPrefix}}{{&classname}}{{/structPrefix}}{{^structPrefix}}Api{{/structPrefix}}{{operationId}}Request) FormData(formData map[string]any) {{#structPrefix}}{{&classname}}{{/structPrefix}}{{^structPrefix}}Api{{/structPrefix}}{{operationId}}Request {
@@ -116,7 +123,14 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#pathParams
 		{{#pathParams}}
 		{{paramName}}: {{paramName}},
 		{{/pathParams}}
-	}
+        {{#allParams}}
+        {{^isPathParam}}
+        {{#defaultValue}}
+        {{paramName}}: Ptr({{dataType}}({{{.}}})),
+        {{/defaultValue}}
+        {{/isPathParam}}
+        {{/allParams}}
+    }
 }
 
 // Execute executes the request{{#returnType}}
@@ -232,10 +246,7 @@ func (a *{{{classname}}}Service) {{nickname}}Execute(r {{#structPrefix}}{{&class
 	{{^isCollectionFormatMulti}}
 		parameterAddToHeaderOrQuery(localVarQueryParams, "{{{baseName}}}", r.{{paramName}}, "{{style}}", "{{collectionFormat}}")
 	{{/isCollectionFormatMulti}}
-	{{#defaultValue}}} else {
-		var defaultValue {{{dataType}}} = {{{.}}}
-		r.{{paramName}} = &defaultValue
-	{{/defaultValue}}}
+	}
 	{{/required}}
 	{{/queryParams}}
     {{#vendorExtensions.x-sdk-customization.x-multipart}}

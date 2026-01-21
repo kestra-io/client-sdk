@@ -34,6 +34,13 @@ func (r ApiAutocompleteUsersRequest) IAMTenantAccessControllerUserApiAutocomplet
 	return r
 }
 
+func (r ApiAutocompleteUsersRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiAutocompleteUsersRequest) GetIAMTenantAccessControllerUserApiAutocomplete() *IAMTenantAccessControllerUserApiAutocomplete {
+	return r.iAMTenantAccessControllerUserApiAutocomplete
+}
+
 func (r ApiAutocompleteUsersRequest) Execute() ([]IAMTenantAccessControllerApiUserTenantAccess, *http.Response, error) {
 	return r.ApiService.AutocompleteUsersExecute(r)
 }
@@ -146,6 +153,13 @@ type ApiCreateApiTokensForUserRequest struct {
 func (r ApiCreateApiTokensForUserRequest) CreateApiTokenRequest(createApiTokenRequest CreateApiTokenRequest) ApiCreateApiTokensForUserRequest {
 	r.createApiTokenRequest = &createApiTokenRequest
 	return r
+}
+
+func (r ApiCreateApiTokensForUserRequest) GetId() string {
+	return r.id
+}
+func (r ApiCreateApiTokensForUserRequest) GetCreateApiTokenRequest() *CreateApiTokenRequest {
+	return r.createApiTokenRequest
 }
 
 func (r ApiCreateApiTokensForUserRequest) Execute() (*CreateApiTokenResponse, *http.Response, error) {
@@ -262,6 +276,10 @@ func (r ApiCreateUserRequest) IAMUserControllerApiCreateOrUpdateUserRequest(iAMU
 	return r
 }
 
+func (r ApiCreateUserRequest) GetIAMUserControllerApiCreateOrUpdateUserRequest() *IAMUserControllerApiCreateOrUpdateUserRequest {
+	return r.iAMUserControllerApiCreateOrUpdateUserRequest
+}
+
 func (r ApiCreateUserRequest) Execute() (*IAMUserControllerApiUser, *http.Response, error) {
 	return r.ApiService.CreateUserExecute(r)
 }
@@ -369,6 +387,13 @@ type ApiDeleteApiTokenForUserRequest struct {
 	tokenId    string
 }
 
+func (r ApiDeleteApiTokenForUserRequest) GetId() string {
+	return r.id
+}
+func (r ApiDeleteApiTokenForUserRequest) GetTokenId() string {
+	return r.tokenId
+}
+
 func (r ApiDeleteApiTokenForUserRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteApiTokenForUserExecute(r)
 }
@@ -464,6 +489,10 @@ type ApiDeleteRefreshTokenRequest struct {
 	id         string
 }
 
+func (r ApiDeleteRefreshTokenRequest) GetId() string {
+	return r.id
+}
+
 func (r ApiDeleteRefreshTokenRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteRefreshTokenExecute(r)
 }
@@ -552,6 +581,10 @@ type ApiDeleteUserRequest struct {
 	ctx        context.Context
 	ApiService *UsersAPIService
 	id         string
+}
+
+func (r ApiDeleteUserRequest) GetId() string {
+	return r.id
 }
 
 func (r ApiDeleteUserRequest) Execute() (*http.Response, error) {
@@ -645,6 +678,13 @@ type ApiDeleteUserAuthMethodRequest struct {
 	ApiService *UsersAPIService
 	id         string
 	auth       string
+}
+
+func (r ApiDeleteUserAuthMethodRequest) GetId() string {
+	return r.id
+}
+func (r ApiDeleteUserAuthMethodRequest) GetAuth() string {
+	return r.auth
 }
 
 func (r ApiDeleteUserAuthMethodRequest) Execute() (*IAMUserControllerApiUser, *http.Response, error) {
@@ -754,6 +794,10 @@ type ApiImpersonateRequest struct {
 	id         string
 }
 
+func (r ApiImpersonateRequest) GetId() string {
+	return r.id
+}
+
 func (r ApiImpersonateRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.ImpersonateExecute(r)
 }
@@ -856,6 +900,10 @@ type ApiListApiTokensForUserRequest struct {
 	ctx        context.Context
 	ApiService *UsersAPIService
 	id         string
+}
+
+func (r ApiListApiTokensForUserRequest) GetId() string {
+	return r.id
 }
 
 func (r ApiListApiTokensForUserRequest) Execute() (*ApiTokenList, *http.Response, error) {
@@ -989,6 +1037,19 @@ func (r ApiListUsersRequest) Sort(sort []string) ApiListUsersRequest {
 	return r
 }
 
+func (r ApiListUsersRequest) GetPage() *int32 {
+	return r.page
+}
+func (r ApiListUsersRequest) GetSize() *int32 {
+	return r.size
+}
+func (r ApiListUsersRequest) GetQ() *string {
+	return r.q
+}
+func (r ApiListUsersRequest) GetSort() *[]string {
+	return r.sort
+}
+
 func (r ApiListUsersRequest) Execute() (*PagedResultsIAMUserControllerApiUserSummary, *http.Response, error) {
 	return r.ApiService.ListUsersExecute(r)
 }
@@ -1003,6 +1064,8 @@ func (a *UsersAPIService) ListUsers(ctx context.Context) ApiListUsersRequest {
 	return ApiListUsersRequest{
 		ApiService: a,
 		ctx:        ctx,
+		page:       Ptr(int32(1)),
+		size:       Ptr(int32(10)),
 	}
 }
 
@@ -1107,6 +1170,13 @@ type ApiPatchUserRequest struct {
 func (r ApiPatchUserRequest) MeControllerApiUserDetailsRequest(meControllerApiUserDetailsRequest MeControllerApiUserDetailsRequest) ApiPatchUserRequest {
 	r.meControllerApiUserDetailsRequest = &meControllerApiUserDetailsRequest
 	return r
+}
+
+func (r ApiPatchUserRequest) GetId() string {
+	return r.id
+}
+func (r ApiPatchUserRequest) GetMeControllerApiUserDetailsRequest() *MeControllerApiUserDetailsRequest {
+	return r.meControllerApiUserDetailsRequest
 }
 
 func (r ApiPatchUserRequest) Execute() (*IAMUserControllerApiUser, *http.Response, error) {
@@ -1224,6 +1294,13 @@ func (r ApiPatchUserDemoRequest) IAMUserControllerApiPatchRestrictedRequest(iAMU
 	return r
 }
 
+func (r ApiPatchUserDemoRequest) GetId() string {
+	return r.id
+}
+func (r ApiPatchUserDemoRequest) GetIAMUserControllerApiPatchRestrictedRequest() *IAMUserControllerApiPatchRestrictedRequest {
+	return r.iAMUserControllerApiPatchRestrictedRequest
+}
+
 func (r ApiPatchUserDemoRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PatchUserDemoExecute(r)
 }
@@ -1325,6 +1402,13 @@ type ApiPatchUserPasswordRequest struct {
 func (r ApiPatchUserPasswordRequest) IAMUserControllerApiPatchUserPasswordRequest(iAMUserControllerApiPatchUserPasswordRequest IAMUserControllerApiPatchUserPasswordRequest) ApiPatchUserPasswordRequest {
 	r.iAMUserControllerApiPatchUserPasswordRequest = &iAMUserControllerApiPatchUserPasswordRequest
 	return r
+}
+
+func (r ApiPatchUserPasswordRequest) GetId() string {
+	return r.id
+}
+func (r ApiPatchUserPasswordRequest) GetIAMUserControllerApiPatchUserPasswordRequest() *IAMUserControllerApiPatchUserPasswordRequest {
+	return r.iAMUserControllerApiPatchUserPasswordRequest
 }
 
 func (r ApiPatchUserPasswordRequest) Execute() (*IAMUserControllerApiUser, *http.Response, error) {
@@ -1442,6 +1526,13 @@ func (r ApiPatchUserSuperAdminRequest) ApiPatchSuperAdminRequest(apiPatchSuperAd
 	return r
 }
 
+func (r ApiPatchUserSuperAdminRequest) GetId() string {
+	return r.id
+}
+func (r ApiPatchUserSuperAdminRequest) GetApiPatchSuperAdminRequest() *ApiPatchSuperAdminRequest {
+	return r.apiPatchSuperAdminRequest
+}
+
 func (r ApiPatchUserSuperAdminRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PatchUserSuperAdminExecute(r)
 }
@@ -1542,6 +1633,10 @@ type ApiUpdateCurrentUserPasswordRequest struct {
 func (r ApiUpdateCurrentUserPasswordRequest) MeControllerApiUpdatePasswordRequest(meControllerApiUpdatePasswordRequest MeControllerApiUpdatePasswordRequest) ApiUpdateCurrentUserPasswordRequest {
 	r.meControllerApiUpdatePasswordRequest = &meControllerApiUpdatePasswordRequest
 	return r
+}
+
+func (r ApiUpdateCurrentUserPasswordRequest) GetMeControllerApiUpdatePasswordRequest() *MeControllerApiUpdatePasswordRequest {
+	return r.meControllerApiUpdatePasswordRequest
 }
 
 func (r ApiUpdateCurrentUserPasswordRequest) Execute() (map[string]interface{}, *http.Response, error) {
@@ -1654,6 +1749,13 @@ type ApiUpdateUserRequest struct {
 func (r ApiUpdateUserRequest) IAMUserControllerApiCreateOrUpdateUserRequest(iAMUserControllerApiCreateOrUpdateUserRequest IAMUserControllerApiCreateOrUpdateUserRequest) ApiUpdateUserRequest {
 	r.iAMUserControllerApiCreateOrUpdateUserRequest = &iAMUserControllerApiCreateOrUpdateUserRequest
 	return r
+}
+
+func (r ApiUpdateUserRequest) GetId() string {
+	return r.id
+}
+func (r ApiUpdateUserRequest) GetIAMUserControllerApiCreateOrUpdateUserRequest() *IAMUserControllerApiCreateOrUpdateUserRequest {
+	return r.iAMUserControllerApiCreateOrUpdateUserRequest
 }
 
 func (r ApiUpdateUserRequest) Execute() (*IAMUserControllerApiUser, *http.Response, error) {
@@ -1772,6 +1874,16 @@ func (r ApiUpdateUserGroupsRequest) IAMUserGroupControllerApiUpdateUserGroupsReq
 	return r
 }
 
+func (r ApiUpdateUserGroupsRequest) GetId() string {
+	return r.id
+}
+func (r ApiUpdateUserGroupsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiUpdateUserGroupsRequest) GetIAMUserGroupControllerApiUpdateUserGroupsRequest() *IAMUserGroupControllerApiUpdateUserGroupsRequest {
+	return r.iAMUserGroupControllerApiUpdateUserGroupsRequest
+}
+
 func (r ApiUpdateUserGroupsRequest) Execute() (*http.Response, error) {
 	return r.ApiService.UpdateUserGroupsExecute(r)
 }
@@ -1868,6 +1980,10 @@ type ApiUserRequest struct {
 	ctx        context.Context
 	ApiService *UsersAPIService
 	id         string
+}
+
+func (r ApiUserRequest) GetId() string {
+	return r.id
 }
 
 func (r ApiUserRequest) Execute() (*IAMUserControllerApiUser, *http.Response, error) {
