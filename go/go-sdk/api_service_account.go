@@ -34,6 +34,13 @@ func (r ApiCreateApiTokensForServiceAccountRequest) CreateApiTokenRequest(create
 	return r
 }
 
+func (r ApiCreateApiTokensForServiceAccountRequest) GetId() string {
+	return r.id
+}
+func (r ApiCreateApiTokensForServiceAccountRequest) GetCreateApiTokenRequest() *CreateApiTokenRequest {
+	return r.createApiTokenRequest
+}
+
 func (r ApiCreateApiTokensForServiceAccountRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.CreateApiTokensForServiceAccountExecute(r)
 }
@@ -147,6 +154,16 @@ type ApiCreateApiTokensForServiceAccountWithTenantRequest struct {
 func (r ApiCreateApiTokensForServiceAccountWithTenantRequest) CreateApiTokenRequest(createApiTokenRequest CreateApiTokenRequest) ApiCreateApiTokensForServiceAccountWithTenantRequest {
 	r.createApiTokenRequest = &createApiTokenRequest
 	return r
+}
+
+func (r ApiCreateApiTokensForServiceAccountWithTenantRequest) GetId() string {
+	return r.id
+}
+func (r ApiCreateApiTokensForServiceAccountWithTenantRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiCreateApiTokensForServiceAccountWithTenantRequest) GetCreateApiTokenRequest() *CreateApiTokenRequest {
+	return r.createApiTokenRequest
 }
 
 func (r ApiCreateApiTokensForServiceAccountWithTenantRequest) Execute() (map[string]interface{}, *http.Response, error) {
@@ -265,6 +282,10 @@ func (r ApiCreateServiceAccountRequest) IAMServiceAccountControllerApiCreateServ
 	return r
 }
 
+func (r ApiCreateServiceAccountRequest) GetIAMServiceAccountControllerApiCreateServiceAccountRequest() *IAMServiceAccountControllerApiCreateServiceAccountRequest {
+	return r.iAMServiceAccountControllerApiCreateServiceAccountRequest
+}
+
 func (r ApiCreateServiceAccountRequest) Execute() (*IAMServiceAccountControllerApiServiceAccountDetail, *http.Response, error) {
 	return r.ApiService.CreateServiceAccountExecute(r)
 }
@@ -378,6 +399,13 @@ func (r ApiCreateServiceAccountForTenantRequest) IAMServiceAccountControllerApiS
 	return r
 }
 
+func (r ApiCreateServiceAccountForTenantRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiCreateServiceAccountForTenantRequest) GetIAMServiceAccountControllerApiServiceAccountRequest() *IAMServiceAccountControllerApiServiceAccountRequest {
+	return r.iAMServiceAccountControllerApiServiceAccountRequest
+}
+
 func (r ApiCreateServiceAccountForTenantRequest) Execute() (*IAMServiceAccountControllerApiServiceAccountResponse, *http.Response, error) {
 	return r.ApiService.CreateServiceAccountForTenantExecute(r)
 }
@@ -486,6 +514,13 @@ type ApiDeleteApiTokenForServiceAccountRequest struct {
 	tokenId    string
 }
 
+func (r ApiDeleteApiTokenForServiceAccountRequest) GetId() string {
+	return r.id
+}
+func (r ApiDeleteApiTokenForServiceAccountRequest) GetTokenId() string {
+	return r.tokenId
+}
+
 func (r ApiDeleteApiTokenForServiceAccountRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.DeleteApiTokenForServiceAccountExecute(r)
 }
@@ -591,6 +626,16 @@ type ApiDeleteApiTokenForServiceAccountWithTenantRequest struct {
 	id         string
 	tokenId    string
 	tenant     string
+}
+
+func (r ApiDeleteApiTokenForServiceAccountWithTenantRequest) GetId() string {
+	return r.id
+}
+func (r ApiDeleteApiTokenForServiceAccountWithTenantRequest) GetTokenId() string {
+	return r.tokenId
+}
+func (r ApiDeleteApiTokenForServiceAccountWithTenantRequest) GetTenant() string {
+	return r.tenant
 }
 
 func (r ApiDeleteApiTokenForServiceAccountWithTenantRequest) Execute() (map[string]interface{}, *http.Response, error) {
@@ -701,6 +746,10 @@ type ApiDeleteServiceAccountRequest struct {
 	id         string
 }
 
+func (r ApiDeleteServiceAccountRequest) GetId() string {
+	return r.id
+}
+
 func (r ApiDeleteServiceAccountRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteServiceAccountExecute(r)
 }
@@ -794,6 +843,13 @@ type ApiDeleteServiceAccountForTenantRequest struct {
 	tenant     string
 }
 
+func (r ApiDeleteServiceAccountForTenantRequest) GetId() string {
+	return r.id
+}
+func (r ApiDeleteServiceAccountForTenantRequest) GetTenant() string {
+	return r.tenant
+}
+
 func (r ApiDeleteServiceAccountForTenantRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteServiceAccountForTenantExecute(r)
 }
@@ -885,6 +941,10 @@ type ApiListApiTokensForServiceAccountRequest struct {
 	ctx        context.Context
 	ApiService *ServiceAccountAPIService
 	id         string
+}
+
+func (r ApiListApiTokensForServiceAccountRequest) GetId() string {
+	return r.id
 }
 
 func (r ApiListApiTokensForServiceAccountRequest) Execute() (map[string]interface{}, *http.Response, error) {
@@ -988,6 +1048,13 @@ type ApiListApiTokensForServiceAccountWithTenantRequest struct {
 	ApiService *ServiceAccountAPIService
 	id         string
 	tenant     string
+}
+
+func (r ApiListApiTokensForServiceAccountWithTenantRequest) GetId() string {
+	return r.id
+}
+func (r ApiListApiTokensForServiceAccountWithTenantRequest) GetTenant() string {
+	return r.tenant
 }
 
 func (r ApiListApiTokensForServiceAccountWithTenantRequest) Execute() (map[string]interface{}, *http.Response, error) {
@@ -1122,6 +1189,19 @@ func (r ApiListServiceAccountsRequest) Sort(sort []string) ApiListServiceAccount
 	return r
 }
 
+func (r ApiListServiceAccountsRequest) GetPage() *int32 {
+	return r.page
+}
+func (r ApiListServiceAccountsRequest) GetSize() *int32 {
+	return r.size
+}
+func (r ApiListServiceAccountsRequest) GetQ() *string {
+	return r.q
+}
+func (r ApiListServiceAccountsRequest) GetSort() *[]string {
+	return r.sort
+}
+
 func (r ApiListServiceAccountsRequest) Execute() (*PagedResultsIAMServiceAccountControllerApiServiceAccountDetail, *http.Response, error) {
 	return r.ApiService.ListServiceAccountsExecute(r)
 }
@@ -1136,6 +1216,8 @@ func (a *ServiceAccountAPIService) ListServiceAccounts(ctx context.Context) ApiL
 	return ApiListServiceAccountsRequest{
 		ApiService: a,
 		ctx:        ctx,
+		page:       Ptr(int32(1)),
+		size:       Ptr(int32(10)),
 	}
 }
 
@@ -1240,6 +1322,13 @@ type ApiPatchServiceAccountDetailsRequest struct {
 func (r ApiPatchServiceAccountDetailsRequest) IAMServiceAccountControllerApiPatchServiceAccountRequest(iAMServiceAccountControllerApiPatchServiceAccountRequest IAMServiceAccountControllerApiPatchServiceAccountRequest) ApiPatchServiceAccountDetailsRequest {
 	r.iAMServiceAccountControllerApiPatchServiceAccountRequest = &iAMServiceAccountControllerApiPatchServiceAccountRequest
 	return r
+}
+
+func (r ApiPatchServiceAccountDetailsRequest) GetId() string {
+	return r.id
+}
+func (r ApiPatchServiceAccountDetailsRequest) GetIAMServiceAccountControllerApiPatchServiceAccountRequest() *IAMServiceAccountControllerApiPatchServiceAccountRequest {
+	return r.iAMServiceAccountControllerApiPatchServiceAccountRequest
 }
 
 func (r ApiPatchServiceAccountDetailsRequest) Execute() (*IAMServiceAccountControllerApiServiceAccountDetail, *http.Response, error) {
@@ -1357,6 +1446,13 @@ func (r ApiPatchServiceAccountSuperAdminRequest) ApiPatchSuperAdminRequest(apiPa
 	return r
 }
 
+func (r ApiPatchServiceAccountSuperAdminRequest) GetId() string {
+	return r.id
+}
+func (r ApiPatchServiceAccountSuperAdminRequest) GetApiPatchSuperAdminRequest() *ApiPatchSuperAdminRequest {
+	return r.apiPatchSuperAdminRequest
+}
+
 func (r ApiPatchServiceAccountSuperAdminRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PatchServiceAccountSuperAdminExecute(r)
 }
@@ -1452,6 +1548,10 @@ type ApiServiceAccountRequest struct {
 	ctx        context.Context
 	ApiService *ServiceAccountAPIService
 	id         string
+}
+
+func (r ApiServiceAccountRequest) GetId() string {
+	return r.id
 }
 
 func (r ApiServiceAccountRequest) Execute() (*IAMServiceAccountControllerApiServiceAccountDetail, *http.Response, error) {
@@ -1557,6 +1657,13 @@ type ApiServiceAccountForTenantRequest struct {
 	ApiService *ServiceAccountAPIService
 	id         string
 	tenant     string
+}
+
+func (r ApiServiceAccountForTenantRequest) GetId() string {
+	return r.id
+}
+func (r ApiServiceAccountForTenantRequest) GetTenant() string {
+	return r.tenant
 }
 
 func (r ApiServiceAccountForTenantRequest) Execute() (*IAMServiceAccountControllerApiServiceAccountResponse, *http.Response, error) {
@@ -1670,6 +1777,16 @@ type ApiUpdateServiceAccountRequest struct {
 func (r ApiUpdateServiceAccountRequest) IAMServiceAccountControllerApiServiceAccountRequest(iAMServiceAccountControllerApiServiceAccountRequest IAMServiceAccountControllerApiServiceAccountRequest) ApiUpdateServiceAccountRequest {
 	r.iAMServiceAccountControllerApiServiceAccountRequest = &iAMServiceAccountControllerApiServiceAccountRequest
 	return r
+}
+
+func (r ApiUpdateServiceAccountRequest) GetId() string {
+	return r.id
+}
+func (r ApiUpdateServiceAccountRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiUpdateServiceAccountRequest) GetIAMServiceAccountControllerApiServiceAccountRequest() *IAMServiceAccountControllerApiServiceAccountRequest {
+	return r.iAMServiceAccountControllerApiServiceAccountRequest
 }
 
 func (r ApiUpdateServiceAccountRequest) Execute() (*IAMServiceAccountControllerApiServiceAccountResponse, *http.Response, error) {

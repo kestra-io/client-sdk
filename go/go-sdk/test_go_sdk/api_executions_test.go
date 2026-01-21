@@ -207,6 +207,26 @@ func createExecutionAsync(t *testing.T, ctx context.Context, flowId string, ns s
 }
 func TestExecutionsAPI_All(t *testing.T) {
 
+	t.Run("createExecution_request_shouldHaveWaitFalseByDefault", func(t *testing.T) {
+		namespace := randomId()
+		flowId := randomId()
+		ctx := GetAuthContext()
+		createSimpleFlow(ctx, flowId, namespace)
+
+		request := KestraTestApiClient().ExecutionsAPI.
+			CreateExecution(ctx, namespace, flowId, MAIN_TENANT)
+
+		require.Equal(t, flowId, request.GetId())
+		require.Equal(t, MAIN_TENANT, request.GetTenant())
+		require.Equal(t, namespace, request.GetNamespace())
+		require.Equal(t, false, *request.GetWait())
+		require.Nil(t, request.GetBreakpoints())
+		require.Nil(t, request.GetKind())
+		require.Nil(t, request.GetRevision())
+		require.Nil(t, request.GetScheduleDate())
+		require.Nil(t, request.GetLabels())
+	})
+
 	t.Run("createExecutionTest", func(t *testing.T) {
 		namespace := randomId()
 		flowId := randomId()

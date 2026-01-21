@@ -34,6 +34,13 @@ func (r ApiAutocompleteRolesRequest) ApiAutocomplete(apiAutocomplete ApiAutocomp
 	return r
 }
 
+func (r ApiAutocompleteRolesRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiAutocompleteRolesRequest) GetApiAutocomplete() *ApiAutocomplete {
+	return r.apiAutocomplete
+}
+
 func (r ApiAutocompleteRolesRequest) Execute() ([]ApiRoleSummary, *http.Response, error) {
 	return r.ApiService.AutocompleteRolesExecute(r)
 }
@@ -147,6 +154,13 @@ func (r ApiCreateRoleRequest) IAMRoleControllerApiRoleCreateOrUpdateRequest(iAMR
 	return r
 }
 
+func (r ApiCreateRoleRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiCreateRoleRequest) GetIAMRoleControllerApiRoleCreateOrUpdateRequest() *IAMRoleControllerApiRoleCreateOrUpdateRequest {
+	return r.iAMRoleControllerApiRoleCreateOrUpdateRequest
+}
+
 func (r ApiCreateRoleRequest) Execute() (*IAMRoleControllerApiRoleDetail, *http.Response, error) {
 	return r.ApiService.CreateRoleExecute(r)
 }
@@ -255,6 +269,13 @@ type ApiDeleteRoleRequest struct {
 	tenant     string
 }
 
+func (r ApiDeleteRoleRequest) GetId() string {
+	return r.id
+}
+func (r ApiDeleteRoleRequest) GetTenant() string {
+	return r.tenant
+}
+
 func (r ApiDeleteRoleRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteRoleExecute(r)
 }
@@ -353,6 +374,13 @@ type ApiListRolesFromGivenIdsRequest struct {
 func (r ApiListRolesFromGivenIdsRequest) ApiIds(apiIds ApiIds) ApiListRolesFromGivenIdsRequest {
 	r.apiIds = &apiIds
 	return r
+}
+
+func (r ApiListRolesFromGivenIdsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiListRolesFromGivenIdsRequest) GetApiIds() *ApiIds {
+	return r.apiIds
 }
 
 func (r ApiListRolesFromGivenIdsRequest) Execute() ([]Role, *http.Response, error) {
@@ -461,6 +489,13 @@ type ApiRoleRequest struct {
 	ApiService *RolesAPIService
 	id         string
 	tenant     string
+}
+
+func (r ApiRoleRequest) GetId() string {
+	return r.id
+}
+func (r ApiRoleRequest) GetTenant() string {
+	return r.tenant
 }
 
 func (r ApiRoleRequest) Execute() (*IAMRoleControllerApiRoleDetail, *http.Response, error) {
@@ -596,6 +631,22 @@ func (r ApiSearchRolesRequest) Sort(sort []string) ApiSearchRolesRequest {
 	return r
 }
 
+func (r ApiSearchRolesRequest) GetPage() *int32 {
+	return r.page
+}
+func (r ApiSearchRolesRequest) GetSize() *int32 {
+	return r.size
+}
+func (r ApiSearchRolesRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiSearchRolesRequest) GetQ() *string {
+	return r.q
+}
+func (r ApiSearchRolesRequest) GetSort() *[]string {
+	return r.sort
+}
+
 func (r ApiSearchRolesRequest) Execute() (*PagedResultsApiRoleSummary, *http.Response, error) {
 	return r.ApiService.SearchRolesExecute(r)
 }
@@ -612,6 +663,8 @@ func (a *RolesAPIService) SearchRoles(ctx context.Context, tenant string) ApiSea
 		ApiService: a,
 		ctx:        ctx,
 		tenant:     tenant,
+		page:       Ptr(int32(1)),
+		size:       Ptr(int32(10)),
 	}
 }
 
@@ -717,6 +770,16 @@ type ApiUpdateRoleRequest struct {
 func (r ApiUpdateRoleRequest) IAMRoleControllerApiRoleCreateOrUpdateRequest(iAMRoleControllerApiRoleCreateOrUpdateRequest IAMRoleControllerApiRoleCreateOrUpdateRequest) ApiUpdateRoleRequest {
 	r.iAMRoleControllerApiRoleCreateOrUpdateRequest = &iAMRoleControllerApiRoleCreateOrUpdateRequest
 	return r
+}
+
+func (r ApiUpdateRoleRequest) GetId() string {
+	return r.id
+}
+func (r ApiUpdateRoleRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiUpdateRoleRequest) GetIAMRoleControllerApiRoleCreateOrUpdateRequest() *IAMRoleControllerApiRoleCreateOrUpdateRequest {
+	return r.iAMRoleControllerApiRoleCreateOrUpdateRequest
 }
 
 func (r ApiUpdateRoleRequest) Execute() (*IAMRoleControllerApiRoleDetail, *http.Response, error) {

@@ -79,6 +79,34 @@ func (r ApiCreateExecutionRequest) Kind(kind ExecutionKind) ApiCreateExecutionRe
 	return r
 }
 
+func (r ApiCreateExecutionRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiCreateExecutionRequest) GetId() string {
+	return r.id
+}
+func (r ApiCreateExecutionRequest) GetWait() *bool {
+	return r.wait
+}
+func (r ApiCreateExecutionRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiCreateExecutionRequest) GetLabels() *[]string {
+	return r.labels
+}
+func (r ApiCreateExecutionRequest) GetRevision() *int32 {
+	return r.revision
+}
+func (r ApiCreateExecutionRequest) GetScheduleDate() *time.Time {
+	return r.scheduleDate
+}
+func (r ApiCreateExecutionRequest) GetBreakpoints() *string {
+	return r.breakpoints
+}
+func (r ApiCreateExecutionRequest) GetKind() *ExecutionKind {
+	return r.kind
+}
+
 // the request multipart/form-data content
 func (r ApiCreateExecutionRequest) FormData(formData map[string]any) ApiCreateExecutionRequest {
 	r.formData = &formData
@@ -105,6 +133,7 @@ func (a *ExecutionsAPIService) CreateExecution(ctx context.Context, namespace st
 		namespace:  namespace,
 		id:         id,
 		tenant:     tenant,
+		wait:       Ptr(bool(false)),
 	}
 }
 
@@ -272,6 +301,22 @@ func (r ApiDeleteExecutionRequest) DeleteStorage(deleteStorage bool) ApiDeleteEx
 	return r
 }
 
+func (r ApiDeleteExecutionRequest) GetExecutionId() string {
+	return r.executionId
+}
+func (r ApiDeleteExecutionRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiDeleteExecutionRequest) GetDeleteLogs() *bool {
+	return r.deleteLogs
+}
+func (r ApiDeleteExecutionRequest) GetDeleteMetrics() *bool {
+	return r.deleteMetrics
+}
+func (r ApiDeleteExecutionRequest) GetDeleteStorage() *bool {
+	return r.deleteStorage
+}
+
 func (r ApiDeleteExecutionRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteExecutionExecute(r)
 }
@@ -286,10 +331,13 @@ DeleteExecution Delete an execution
 */
 func (a *ExecutionsAPIService) DeleteExecution(ctx context.Context, executionId string, tenant string) ApiDeleteExecutionRequest {
 	return ApiDeleteExecutionRequest{
-		ApiService:  a,
-		ctx:         ctx,
-		executionId: executionId,
-		tenant:      tenant,
+		ApiService:    a,
+		ctx:           ctx,
+		executionId:   executionId,
+		tenant:        tenant,
+		deleteLogs:    Ptr(bool(true)),
+		deleteMetrics: Ptr(bool(true)),
+		deleteStorage: Ptr(bool(true)),
 	}
 }
 
@@ -316,21 +364,12 @@ func (a *ExecutionsAPIService) DeleteExecutionExecute(r ApiDeleteExecutionReques
 
 	if r.deleteLogs != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "deleteLogs", r.deleteLogs, "form", "")
-	} else {
-		var defaultValue bool = true
-		r.deleteLogs = &defaultValue
 	}
 	if r.deleteMetrics != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "deleteMetrics", r.deleteMetrics, "form", "")
-	} else {
-		var defaultValue bool = true
-		r.deleteMetrics = &defaultValue
 	}
 	if r.deleteStorage != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "deleteStorage", r.deleteStorage, "form", "")
-	} else {
-		var defaultValue bool = true
-		r.deleteStorage = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -418,6 +457,25 @@ func (r ApiDeleteExecutionsByIdsRequest) DeleteStorage(deleteStorage bool) ApiDe
 	return r
 }
 
+func (r ApiDeleteExecutionsByIdsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiDeleteExecutionsByIdsRequest) GetRequestBody() *[]string {
+	return r.requestBody
+}
+func (r ApiDeleteExecutionsByIdsRequest) GetIncludeNonTerminated() *bool {
+	return r.includeNonTerminated
+}
+func (r ApiDeleteExecutionsByIdsRequest) GetDeleteLogs() *bool {
+	return r.deleteLogs
+}
+func (r ApiDeleteExecutionsByIdsRequest) GetDeleteMetrics() *bool {
+	return r.deleteMetrics
+}
+func (r ApiDeleteExecutionsByIdsRequest) GetDeleteStorage() *bool {
+	return r.deleteStorage
+}
+
 func (r ApiDeleteExecutionsByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
 	return r.ApiService.DeleteExecutionsByIdsExecute(r)
 }
@@ -431,9 +489,13 @@ DeleteExecutionsByIds Delete a list of executions
 */
 func (a *ExecutionsAPIService) DeleteExecutionsByIds(ctx context.Context, tenant string) ApiDeleteExecutionsByIdsRequest {
 	return ApiDeleteExecutionsByIdsRequest{
-		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
+		ApiService:           a,
+		ctx:                  ctx,
+		tenant:               tenant,
+		includeNonTerminated: Ptr(bool(false)),
+		deleteLogs:           Ptr(bool(true)),
+		deleteMetrics:        Ptr(bool(true)),
+		deleteStorage:        Ptr(bool(true)),
 	}
 }
 
@@ -465,27 +527,15 @@ func (a *ExecutionsAPIService) DeleteExecutionsByIdsExecute(r ApiDeleteExecution
 
 	if r.includeNonTerminated != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "includeNonTerminated", r.includeNonTerminated, "form", "")
-	} else {
-		var defaultValue bool = false
-		r.includeNonTerminated = &defaultValue
 	}
 	if r.deleteLogs != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "deleteLogs", r.deleteLogs, "form", "")
-	} else {
-		var defaultValue bool = true
-		r.deleteLogs = &defaultValue
 	}
 	if r.deleteMetrics != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "deleteMetrics", r.deleteMetrics, "form", "")
-	} else {
-		var defaultValue bool = true
-		r.deleteMetrics = &defaultValue
 	}
 	if r.deleteStorage != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "deleteStorage", r.deleteStorage, "form", "")
-	} else {
-		var defaultValue bool = true
-		r.deleteStorage = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -594,6 +644,25 @@ func (r ApiDeleteExecutionsByQueryRequest) DeleteStorage(deleteStorage bool) Api
 	return r
 }
 
+func (r ApiDeleteExecutionsByQueryRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiDeleteExecutionsByQueryRequest) GetFilters() *[]QueryFilter {
+	return r.filters
+}
+func (r ApiDeleteExecutionsByQueryRequest) GetIncludeNonTerminated() *bool {
+	return r.includeNonTerminated
+}
+func (r ApiDeleteExecutionsByQueryRequest) GetDeleteLogs() *bool {
+	return r.deleteLogs
+}
+func (r ApiDeleteExecutionsByQueryRequest) GetDeleteMetrics() *bool {
+	return r.deleteMetrics
+}
+func (r ApiDeleteExecutionsByQueryRequest) GetDeleteStorage() *bool {
+	return r.deleteStorage
+}
+
 func (r ApiDeleteExecutionsByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.DeleteExecutionsByQueryExecute(r)
 }
@@ -607,9 +676,13 @@ DeleteExecutionsByQuery Delete executions filter by query parameters
 */
 func (a *ExecutionsAPIService) DeleteExecutionsByQuery(ctx context.Context, tenant string) ApiDeleteExecutionsByQueryRequest {
 	return ApiDeleteExecutionsByQueryRequest{
-		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
+		ApiService:           a,
+		ctx:                  ctx,
+		tenant:               tenant,
+		includeNonTerminated: Ptr(bool(false)),
+		deleteLogs:           Ptr(bool(true)),
+		deleteMetrics:        Ptr(bool(true)),
+		deleteStorage:        Ptr(bool(true)),
 	}
 }
 
@@ -641,27 +714,15 @@ func (a *ExecutionsAPIService) DeleteExecutionsByQueryExecute(r ApiDeleteExecuti
 	}
 	if r.includeNonTerminated != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "includeNonTerminated", r.includeNonTerminated, "form", "")
-	} else {
-		var defaultValue bool = false
-		r.includeNonTerminated = &defaultValue
 	}
 	if r.deleteLogs != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "deleteLogs", r.deleteLogs, "form", "")
-	} else {
-		var defaultValue bool = true
-		r.deleteLogs = &defaultValue
 	}
 	if r.deleteMetrics != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "deleteMetrics", r.deleteMetrics, "form", "")
-	} else {
-		var defaultValue bool = true
-		r.deleteMetrics = &defaultValue
 	}
 	if r.deleteStorage != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "deleteStorage", r.deleteStorage, "form", "")
-	} else {
-		var defaultValue bool = true
-		r.deleteStorage = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -729,6 +790,16 @@ type ApiDownloadFileFromExecutionRequest struct {
 func (r ApiDownloadFileFromExecutionRequest) Path(path string) ApiDownloadFileFromExecutionRequest {
 	r.path = &path
 	return r
+}
+
+func (r ApiDownloadFileFromExecutionRequest) GetExecutionId() string {
+	return r.executionId
+}
+func (r ApiDownloadFileFromExecutionRequest) GetPath() *string {
+	return r.path
+}
+func (r ApiDownloadFileFromExecutionRequest) GetTenant() string {
+	return r.tenant
 }
 
 func (r ApiDownloadFileFromExecutionRequest) Execute() (*os.File, *http.Response, error) {
@@ -839,6 +910,13 @@ type ApiExecutionRequest struct {
 	ApiService  *ExecutionsAPIService
 	executionId string
 	tenant      string
+}
+
+func (r ApiExecutionRequest) GetExecutionId() string {
+	return r.executionId
+}
+func (r ApiExecutionRequest) GetTenant() string {
+	return r.tenant
 }
 
 func (r ApiExecutionRequest) Execute() (*Execution, *http.Response, error) {
@@ -952,6 +1030,16 @@ type ApiExecutionFlowGraphRequest struct {
 func (r ApiExecutionFlowGraphRequest) Subflows(subflows []string) ApiExecutionFlowGraphRequest {
 	r.subflows = &subflows
 	return r
+}
+
+func (r ApiExecutionFlowGraphRequest) GetExecutionId() string {
+	return r.executionId
+}
+func (r ApiExecutionFlowGraphRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiExecutionFlowGraphRequest) GetSubflows() *[]string {
+	return r.subflows
 }
 
 func (r ApiExecutionFlowGraphRequest) Execute() (*FlowGraph, *http.Response, error) {
@@ -1069,6 +1157,13 @@ func (r ApiExportExecutionsRequest) Filters(filters []QueryFilter) ApiExportExec
 	return r
 }
 
+func (r ApiExportExecutionsRequest) GetFilters() *[]QueryFilter {
+	return r.filters
+}
+func (r ApiExportExecutionsRequest) GetTenant() string {
+	return r.tenant
+}
+
 func (r ApiExportExecutionsRequest) Execute() ([]map[string]interface{}, *http.Response, error) {
 	return r.ApiService.ExportExecutionsExecute(r)
 }
@@ -1181,6 +1276,16 @@ type ApiFileMetadatasFromExecutionRequest struct {
 func (r ApiFileMetadatasFromExecutionRequest) Path(path string) ApiFileMetadatasFromExecutionRequest {
 	r.path = &path
 	return r
+}
+
+func (r ApiFileMetadatasFromExecutionRequest) GetExecutionId() string {
+	return r.executionId
+}
+func (r ApiFileMetadatasFromExecutionRequest) GetPath() *string {
+	return r.path
+}
+func (r ApiFileMetadatasFromExecutionRequest) GetTenant() string {
+	return r.tenant
 }
 
 func (r ApiFileMetadatasFromExecutionRequest) Execute() (*FileMetas, *http.Response, error) {
@@ -1301,6 +1406,19 @@ func (r ApiFlowFromExecutionRequest) Revision(revision int32) ApiFlowFromExecuti
 	return r
 }
 
+func (r ApiFlowFromExecutionRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiFlowFromExecutionRequest) GetFlowId() string {
+	return r.flowId
+}
+func (r ApiFlowFromExecutionRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiFlowFromExecutionRequest) GetRevision() *int32 {
+	return r.revision
+}
+
 func (r ApiFlowFromExecutionRequest) Execute() (*FlowForExecution, *http.Response, error) {
 	return r.ApiService.FlowFromExecutionExecute(r)
 }
@@ -1411,6 +1529,13 @@ type ApiFlowFromExecutionByIdRequest struct {
 	ApiService  *ExecutionsAPIService
 	executionId string
 	tenant      string
+}
+
+func (r ApiFlowFromExecutionByIdRequest) GetExecutionId() string {
+	return r.executionId
+}
+func (r ApiFlowFromExecutionByIdRequest) GetTenant() string {
+	return r.tenant
 }
 
 func (r ApiFlowFromExecutionByIdRequest) Execute() (*FlowForExecution, *http.Response, error) {
@@ -1818,6 +1943,13 @@ func (r ApiForceRunByIdsRequest) RequestBody(requestBody []string) ApiForceRunBy
 	return r
 }
 
+func (r ApiForceRunByIdsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiForceRunByIdsRequest) GetRequestBody() *[]string {
+	return r.requestBody
+}
+
 func (r ApiForceRunByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
 	return r.ApiService.ForceRunByIdsExecute(r)
 }
@@ -1936,6 +2068,13 @@ type ApiForceRunExecutionRequest struct {
 	tenant      string
 }
 
+func (r ApiForceRunExecutionRequest) GetExecutionId() string {
+	return r.executionId
+}
+func (r ApiForceRunExecutionRequest) GetTenant() string {
+	return r.tenant
+}
+
 func (r ApiForceRunExecutionRequest) Execute() (*Execution, *http.Response, error) {
 	return r.ApiService.ForceRunExecutionExecute(r)
 }
@@ -2046,6 +2185,13 @@ type ApiForceRunExecutionsByQueryRequest struct {
 func (r ApiForceRunExecutionsByQueryRequest) Filters(filters []QueryFilter) ApiForceRunExecutionsByQueryRequest {
 	r.filters = &filters
 	return r
+}
+
+func (r ApiForceRunExecutionsByQueryRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiForceRunExecutionsByQueryRequest) GetFilters() *[]QueryFilter {
+	return r.filters
 }
 
 func (r ApiForceRunExecutionsByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
@@ -2161,6 +2307,16 @@ func (r ApiKillExecutionRequest) IsOnKillCascade(isOnKillCascade bool) ApiKillEx
 	return r
 }
 
+func (r ApiKillExecutionRequest) GetExecutionId() string {
+	return r.executionId
+}
+func (r ApiKillExecutionRequest) GetIsOnKillCascade() *bool {
+	return r.isOnKillCascade
+}
+func (r ApiKillExecutionRequest) GetTenant() string {
+	return r.tenant
+}
+
 func (r ApiKillExecutionRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.KillExecutionExecute(r)
 }
@@ -2175,10 +2331,11 @@ KillExecution Kill an execution
 */
 func (a *ExecutionsAPIService) KillExecution(ctx context.Context, executionId string, tenant string) ApiKillExecutionRequest {
 	return ApiKillExecutionRequest{
-		ApiService:  a,
-		ctx:         ctx,
-		executionId: executionId,
-		tenant:      tenant,
+		ApiService:      a,
+		ctx:             ctx,
+		executionId:     executionId,
+		tenant:          tenant,
+		isOnKillCascade: Ptr(bool(true)),
 	}
 }
 
@@ -2275,6 +2432,13 @@ type ApiKillExecutionsByIdsRequest struct {
 func (r ApiKillExecutionsByIdsRequest) RequestBody(requestBody []string) ApiKillExecutionsByIdsRequest {
 	r.requestBody = &requestBody
 	return r
+}
+
+func (r ApiKillExecutionsByIdsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiKillExecutionsByIdsRequest) GetRequestBody() *[]string {
+	return r.requestBody
 }
 
 func (r ApiKillExecutionsByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
@@ -2401,6 +2565,13 @@ func (r ApiKillExecutionsByQueryRequest) Filters(filters []QueryFilter) ApiKillE
 	return r
 }
 
+func (r ApiKillExecutionsByQueryRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiKillExecutionsByQueryRequest) GetFilters() *[]QueryFilter {
+	return r.filters
+}
+
 func (r ApiKillExecutionsByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.KillExecutionsByQueryExecute(r)
 }
@@ -2512,6 +2683,13 @@ func (r ApiLatestExecutionsRequest) ExecutionRepositoryInterfaceFlowFilter(execu
 	return r
 }
 
+func (r ApiLatestExecutionsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiLatestExecutionsRequest) GetExecutionRepositoryInterfaceFlowFilter() *[]ExecutionRepositoryInterfaceFlowFilter {
+	return r.executionRepositoryInterfaceFlowFilter
+}
+
 func (r ApiLatestExecutionsRequest) Execute() ([]ExecutionControllerLastExecutionResponse, *http.Response, error) {
 	return r.ApiService.LatestExecutionsExecute(r)
 }
@@ -2620,6 +2798,13 @@ type ApiPauseExecutionRequest struct {
 	tenant      string
 }
 
+func (r ApiPauseExecutionRequest) GetExecutionId() string {
+	return r.executionId
+}
+func (r ApiPauseExecutionRequest) GetTenant() string {
+	return r.tenant
+}
+
 func (r ApiPauseExecutionRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PauseExecutionExecute(r)
 }
@@ -2718,6 +2903,13 @@ type ApiPauseExecutionsByIdsRequest struct {
 func (r ApiPauseExecutionsByIdsRequest) RequestBody(requestBody []string) ApiPauseExecutionsByIdsRequest {
 	r.requestBody = &requestBody
 	return r
+}
+
+func (r ApiPauseExecutionsByIdsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiPauseExecutionsByIdsRequest) GetRequestBody() *[]string {
+	return r.requestBody
 }
 
 func (r ApiPauseExecutionsByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
@@ -2842,6 +3034,13 @@ type ApiPauseExecutionsByQueryRequest struct {
 func (r ApiPauseExecutionsByQueryRequest) Filters(filters []QueryFilter) ApiPauseExecutionsByQueryRequest {
 	r.filters = &filters
 	return r
+}
+
+func (r ApiPauseExecutionsByQueryRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiPauseExecutionsByQueryRequest) GetFilters() *[]QueryFilter {
+	return r.filters
 }
 
 func (r ApiPauseExecutionsByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
@@ -2969,6 +3168,22 @@ func (r ApiReplayExecutionRequest) Revision(revision int32) ApiReplayExecutionRe
 func (r ApiReplayExecutionRequest) Breakpoints(breakpoints string) ApiReplayExecutionRequest {
 	r.breakpoints = &breakpoints
 	return r
+}
+
+func (r ApiReplayExecutionRequest) GetExecutionId() string {
+	return r.executionId
+}
+func (r ApiReplayExecutionRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiReplayExecutionRequest) GetTaskRunId() *string {
+	return r.taskRunId
+}
+func (r ApiReplayExecutionRequest) GetRevision() *int32 {
+	return r.revision
+}
+func (r ApiReplayExecutionRequest) GetBreakpoints() *string {
+	return r.breakpoints
 }
 
 func (r ApiReplayExecutionRequest) Execute() (*Execution, *http.Response, error) {
@@ -3106,6 +3321,22 @@ func (r ApiReplayExecutionWithinputsRequest) Revision(revision int32) ApiReplayE
 func (r ApiReplayExecutionWithinputsRequest) Breakpoints(breakpoints string) ApiReplayExecutionWithinputsRequest {
 	r.breakpoints = &breakpoints
 	return r
+}
+
+func (r ApiReplayExecutionWithinputsRequest) GetExecutionId() string {
+	return r.executionId
+}
+func (r ApiReplayExecutionWithinputsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiReplayExecutionWithinputsRequest) GetTaskRunId() *string {
+	return r.taskRunId
+}
+func (r ApiReplayExecutionWithinputsRequest) GetRevision() *int32 {
+	return r.revision
+}
+func (r ApiReplayExecutionWithinputsRequest) GetBreakpoints() *string {
+	return r.breakpoints
 }
 
 // the request multipart/form-data content
@@ -3272,6 +3503,16 @@ func (r ApiReplayExecutionsByIdsRequest) LatestRevision(latestRevision bool) Api
 	return r
 }
 
+func (r ApiReplayExecutionsByIdsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiReplayExecutionsByIdsRequest) GetRequestBody() *[]string {
+	return r.requestBody
+}
+func (r ApiReplayExecutionsByIdsRequest) GetLatestRevision() *bool {
+	return r.latestRevision
+}
+
 func (r ApiReplayExecutionsByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
 	return r.ApiService.ReplayExecutionsByIdsExecute(r)
 }
@@ -3285,9 +3526,10 @@ ReplayExecutionsByIds Create new executions from old ones. Keep the flow revisio
 */
 func (a *ExecutionsAPIService) ReplayExecutionsByIds(ctx context.Context, tenant string) ApiReplayExecutionsByIdsRequest {
 	return ApiReplayExecutionsByIdsRequest{
-		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
+		ApiService:     a,
+		ctx:            ctx,
+		tenant:         tenant,
+		latestRevision: Ptr(bool(false)),
 	}
 }
 
@@ -3319,9 +3561,6 @@ func (a *ExecutionsAPIService) ReplayExecutionsByIdsExecute(r ApiReplayExecution
 
 	if r.latestRevision != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "latestRevision", r.latestRevision, "form", "")
-	} else {
-		var defaultValue bool = false
-		r.latestRevision = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -3409,6 +3648,16 @@ func (r ApiReplayExecutionsByQueryRequest) LatestRevision(latestRevision bool) A
 	return r
 }
 
+func (r ApiReplayExecutionsByQueryRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiReplayExecutionsByQueryRequest) GetFilters() *[]QueryFilter {
+	return r.filters
+}
+func (r ApiReplayExecutionsByQueryRequest) GetLatestRevision() *bool {
+	return r.latestRevision
+}
+
 func (r ApiReplayExecutionsByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.ReplayExecutionsByQueryExecute(r)
 }
@@ -3422,9 +3671,10 @@ ReplayExecutionsByQuery Create new executions from old ones filter by query para
 */
 func (a *ExecutionsAPIService) ReplayExecutionsByQuery(ctx context.Context, tenant string) ApiReplayExecutionsByQueryRequest {
 	return ApiReplayExecutionsByQueryRequest{
-		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
+		ApiService:     a,
+		ctx:            ctx,
+		tenant:         tenant,
+		latestRevision: Ptr(bool(false)),
 	}
 }
 
@@ -3456,9 +3706,6 @@ func (a *ExecutionsAPIService) ReplayExecutionsByQueryExecute(r ApiReplayExecuti
 	}
 	if r.latestRevision != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "latestRevision", r.latestRevision, "form", "")
-	} else {
-		var defaultValue bool = false
-		r.latestRevision = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3526,6 +3773,16 @@ type ApiRestartExecutionRequest struct {
 func (r ApiRestartExecutionRequest) Revision(revision int32) ApiRestartExecutionRequest {
 	r.revision = &revision
 	return r
+}
+
+func (r ApiRestartExecutionRequest) GetExecutionId() string {
+	return r.executionId
+}
+func (r ApiRestartExecutionRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiRestartExecutionRequest) GetRevision() *int32 {
+	return r.revision
 }
 
 func (r ApiRestartExecutionRequest) Execute() (*Execution, *http.Response, error) {
@@ -3641,6 +3898,13 @@ type ApiRestartExecutionsByIdsRequest struct {
 func (r ApiRestartExecutionsByIdsRequest) RequestBody(requestBody []string) ApiRestartExecutionsByIdsRequest {
 	r.requestBody = &requestBody
 	return r
+}
+
+func (r ApiRestartExecutionsByIdsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiRestartExecutionsByIdsRequest) GetRequestBody() *[]string {
+	return r.requestBody
 }
 
 func (r ApiRestartExecutionsByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
@@ -3767,6 +4031,13 @@ func (r ApiRestartExecutionsByQueryRequest) Filters(filters []QueryFilter) ApiRe
 	return r
 }
 
+func (r ApiRestartExecutionsByQueryRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiRestartExecutionsByQueryRequest) GetFilters() *[]QueryFilter {
+	return r.filters
+}
+
 func (r ApiRestartExecutionsByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.RestartExecutionsByQueryExecute(r)
 }
@@ -3872,6 +4143,13 @@ type ApiResumeExecutionRequest struct {
 	executionId string
 	tenant      string
 	formData    *map[string]any
+}
+
+func (r ApiResumeExecutionRequest) GetExecutionId() string {
+	return r.executionId
+}
+func (r ApiResumeExecutionRequest) GetTenant() string {
+	return r.tenant
 }
 
 // the request multipart/form-data content
@@ -4021,6 +4299,13 @@ func (r ApiResumeExecutionsByIdsRequest) RequestBody(requestBody []string) ApiRe
 	return r
 }
 
+func (r ApiResumeExecutionsByIdsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiResumeExecutionsByIdsRequest) GetRequestBody() *[]string {
+	return r.requestBody
+}
+
 func (r ApiResumeExecutionsByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
 	return r.ApiService.ResumeExecutionsByIdsExecute(r)
 }
@@ -4143,6 +4428,13 @@ type ApiResumeExecutionsByQueryRequest struct {
 func (r ApiResumeExecutionsByQueryRequest) Filters(filters []QueryFilter) ApiResumeExecutionsByQueryRequest {
 	r.filters = &filters
 	return r
+}
+
+func (r ApiResumeExecutionsByQueryRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiResumeExecutionsByQueryRequest) GetFilters() *[]QueryFilter {
+	return r.filters
 }
 
 func (r ApiResumeExecutionsByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
@@ -4278,6 +4570,22 @@ func (r ApiSearchExecutionsRequest) Filters(filters []QueryFilter) ApiSearchExec
 	return r
 }
 
+func (r ApiSearchExecutionsRequest) GetPage() *int32 {
+	return r.page
+}
+func (r ApiSearchExecutionsRequest) GetSize() *int32 {
+	return r.size
+}
+func (r ApiSearchExecutionsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiSearchExecutionsRequest) GetSort() *[]string {
+	return r.sort
+}
+func (r ApiSearchExecutionsRequest) GetFilters() *[]QueryFilter {
+	return r.filters
+}
+
 func (r ApiSearchExecutionsRequest) Execute() (*PagedResultsExecution, *http.Response, error) {
 	return r.ApiService.SearchExecutionsExecute(r)
 }
@@ -4294,6 +4602,8 @@ func (a *ExecutionsAPIService) SearchExecutions(ctx context.Context, tenant stri
 		ApiService: a,
 		ctx:        ctx,
 		tenant:     tenant,
+		page:       Ptr(int32(1)),
+		size:       Ptr(int32(10)),
 	}
 }
 
@@ -4428,6 +4738,22 @@ func (r ApiSearchExecutionsByFlowIdRequest) Size(size int32) ApiSearchExecutions
 	return r
 }
 
+func (r ApiSearchExecutionsByFlowIdRequest) GetNamespace() *string {
+	return r.namespace
+}
+func (r ApiSearchExecutionsByFlowIdRequest) GetFlowId() *string {
+	return r.flowId
+}
+func (r ApiSearchExecutionsByFlowIdRequest) GetPage() *int32 {
+	return r.page
+}
+func (r ApiSearchExecutionsByFlowIdRequest) GetSize() *int32 {
+	return r.size
+}
+func (r ApiSearchExecutionsByFlowIdRequest) GetTenant() string {
+	return r.tenant
+}
+
 func (r ApiSearchExecutionsByFlowIdRequest) Execute() (*PagedResultsExecution, *http.Response, error) {
 	return r.ApiService.SearchExecutionsByFlowIdExecute(r)
 }
@@ -4444,6 +4770,8 @@ func (a *ExecutionsAPIService) SearchExecutionsByFlowId(ctx context.Context, ten
 		ApiService: a,
 		ctx:        ctx,
 		tenant:     tenant,
+		page:       Ptr(int32(1)),
+		size:       Ptr(int32(10)),
 	}
 }
 
@@ -4558,6 +4886,16 @@ type ApiSetLabelsOnTerminatedExecutionRequest struct {
 func (r ApiSetLabelsOnTerminatedExecutionRequest) Label(label []Label) ApiSetLabelsOnTerminatedExecutionRequest {
 	r.label = &label
 	return r
+}
+
+func (r ApiSetLabelsOnTerminatedExecutionRequest) GetExecutionId() string {
+	return r.executionId
+}
+func (r ApiSetLabelsOnTerminatedExecutionRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiSetLabelsOnTerminatedExecutionRequest) GetLabel() *[]Label {
+	return r.label
 }
 
 func (r ApiSetLabelsOnTerminatedExecutionRequest) Execute() (map[string]interface{}, *http.Response, error) {
@@ -4675,6 +5013,13 @@ type ApiSetLabelsOnTerminatedExecutionsByIdsRequest struct {
 func (r ApiSetLabelsOnTerminatedExecutionsByIdsRequest) ExecutionControllerSetLabelsByIdsRequest(executionControllerSetLabelsByIdsRequest ExecutionControllerSetLabelsByIdsRequest) ApiSetLabelsOnTerminatedExecutionsByIdsRequest {
 	r.executionControllerSetLabelsByIdsRequest = &executionControllerSetLabelsByIdsRequest
 	return r
+}
+
+func (r ApiSetLabelsOnTerminatedExecutionsByIdsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiSetLabelsOnTerminatedExecutionsByIdsRequest) GetExecutionControllerSetLabelsByIdsRequest() *ExecutionControllerSetLabelsByIdsRequest {
+	return r.executionControllerSetLabelsByIdsRequest
 }
 
 func (r ApiSetLabelsOnTerminatedExecutionsByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
@@ -4808,6 +5153,16 @@ func (r ApiSetLabelsOnTerminatedExecutionsByQueryRequest) Filters(filters []Quer
 	return r
 }
 
+func (r ApiSetLabelsOnTerminatedExecutionsByQueryRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiSetLabelsOnTerminatedExecutionsByQueryRequest) GetLabel() *[]Label {
+	return r.label
+}
+func (r ApiSetLabelsOnTerminatedExecutionsByQueryRequest) GetFilters() *[]QueryFilter {
+	return r.filters
+}
+
 func (r ApiSetLabelsOnTerminatedExecutionsByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.SetLabelsOnTerminatedExecutionsByQueryExecute(r)
 }
@@ -4919,6 +5274,19 @@ type ApiTriggerExecutionByGetWebhookRequest struct {
 	id         string
 	key        string
 	tenant     string
+}
+
+func (r ApiTriggerExecutionByGetWebhookRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiTriggerExecutionByGetWebhookRequest) GetId() string {
+	return r.id
+}
+func (r ApiTriggerExecutionByGetWebhookRequest) GetKey() string {
+	return r.key
+}
+func (r ApiTriggerExecutionByGetWebhookRequest) GetTenant() string {
+	return r.tenant
 }
 
 func (r ApiTriggerExecutionByGetWebhookRequest) Execute() (*ExecutionControllerWebhookResponse, *http.Response, error) {
@@ -5038,6 +5406,16 @@ type ApiUnqueueExecutionRequest struct {
 func (r ApiUnqueueExecutionRequest) State(state StateType) ApiUnqueueExecutionRequest {
 	r.state = &state
 	return r
+}
+
+func (r ApiUnqueueExecutionRequest) GetExecutionId() string {
+	return r.executionId
+}
+func (r ApiUnqueueExecutionRequest) GetState() *StateType {
+	return r.state
+}
+func (r ApiUnqueueExecutionRequest) GetTenant() string {
+	return r.tenant
 }
 
 func (r ApiUnqueueExecutionRequest) Execute() (*Execution, *http.Response, error) {
@@ -5161,6 +5539,16 @@ func (r ApiUnqueueExecutionsByIdsRequest) State(state StateType) ApiUnqueueExecu
 func (r ApiUnqueueExecutionsByIdsRequest) RequestBody(requestBody []string) ApiUnqueueExecutionsByIdsRequest {
 	r.requestBody = &requestBody
 	return r
+}
+
+func (r ApiUnqueueExecutionsByIdsRequest) GetState() *StateType {
+	return r.state
+}
+func (r ApiUnqueueExecutionsByIdsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiUnqueueExecutionsByIdsRequest) GetRequestBody() *[]string {
+	return r.requestBody
 }
 
 func (r ApiUnqueueExecutionsByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
@@ -5298,6 +5686,16 @@ func (r ApiUnqueueExecutionsByQueryRequest) NewState(newState StateType) ApiUnqu
 	return r
 }
 
+func (r ApiUnqueueExecutionsByQueryRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiUnqueueExecutionsByQueryRequest) GetFilters() *[]QueryFilter {
+	return r.filters
+}
+func (r ApiUnqueueExecutionsByQueryRequest) GetNewState() *StateType {
+	return r.newState
+}
+
 func (r ApiUnqueueExecutionsByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.UnqueueExecutionsByQueryExecute(r)
 }
@@ -5412,6 +5810,16 @@ type ApiUpdateExecutionStatusRequest struct {
 func (r ApiUpdateExecutionStatusRequest) Status(status StateType) ApiUpdateExecutionStatusRequest {
 	r.status = &status
 	return r
+}
+
+func (r ApiUpdateExecutionStatusRequest) GetExecutionId() string {
+	return r.executionId
+}
+func (r ApiUpdateExecutionStatusRequest) GetStatus() *StateType {
+	return r.status
+}
+func (r ApiUpdateExecutionStatusRequest) GetTenant() string {
+	return r.tenant
 }
 
 func (r ApiUpdateExecutionStatusRequest) Execute() (*Execution, *http.Response, error) {
@@ -5535,6 +5943,16 @@ func (r ApiUpdateExecutionsStatusByIdsRequest) NewStatus(newStatus StateType) Ap
 func (r ApiUpdateExecutionsStatusByIdsRequest) RequestBody(requestBody []string) ApiUpdateExecutionsStatusByIdsRequest {
 	r.requestBody = &requestBody
 	return r
+}
+
+func (r ApiUpdateExecutionsStatusByIdsRequest) GetNewStatus() *StateType {
+	return r.newStatus
+}
+func (r ApiUpdateExecutionsStatusByIdsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiUpdateExecutionsStatusByIdsRequest) GetRequestBody() *[]string {
+	return r.requestBody
 }
 
 func (r ApiUpdateExecutionsStatusByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
@@ -5672,6 +6090,16 @@ func (r ApiUpdateExecutionsStatusByQueryRequest) Filters(filters []QueryFilter) 
 	return r
 }
 
+func (r ApiUpdateExecutionsStatusByQueryRequest) GetNewStatus() *StateType {
+	return r.newStatus
+}
+func (r ApiUpdateExecutionsStatusByQueryRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiUpdateExecutionsStatusByQueryRequest) GetFilters() *[]QueryFilter {
+	return r.filters
+}
+
 func (r ApiUpdateExecutionsStatusByQueryRequest) Execute() (*BulkResponse, *http.Response, error) {
 	return r.ApiService.UpdateExecutionsStatusByQueryExecute(r)
 }
@@ -5797,6 +6225,16 @@ type ApiUpdateTaskRunStateRequest struct {
 func (r ApiUpdateTaskRunStateRequest) ExecutionControllerStateRequest(executionControllerStateRequest ExecutionControllerStateRequest) ApiUpdateTaskRunStateRequest {
 	r.executionControllerStateRequest = &executionControllerStateRequest
 	return r
+}
+
+func (r ApiUpdateTaskRunStateRequest) GetExecutionId() string {
+	return r.executionId
+}
+func (r ApiUpdateTaskRunStateRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiUpdateTaskRunStateRequest) GetExecutionControllerStateRequest() *ExecutionControllerStateRequest {
+	return r.executionControllerStateRequest
 }
 
 func (r ApiUpdateTaskRunStateRequest) Execute() (*Execution, *http.Response, error) {

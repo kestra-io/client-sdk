@@ -56,6 +56,22 @@ func (r ApiBulkUpdateFlowsRequest) Body(body string) ApiBulkUpdateFlowsRequest {
 	return r
 }
 
+func (r ApiBulkUpdateFlowsRequest) GetDelete() *bool {
+	return r.delete
+}
+func (r ApiBulkUpdateFlowsRequest) GetAllowNamespaceChild() *bool {
+	return r.allowNamespaceChild
+}
+func (r ApiBulkUpdateFlowsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiBulkUpdateFlowsRequest) GetNamespace() *string {
+	return r.namespace
+}
+func (r ApiBulkUpdateFlowsRequest) GetBody() *string {
+	return r.body
+}
+
 func (r ApiBulkUpdateFlowsRequest) Execute() ([]FlowInterface, *http.Response, error) {
 	return r.ApiService.BulkUpdateFlowsExecute(r)
 }
@@ -72,9 +88,11 @@ Flow that already created but not in `flows` will be deleted if the query delete
 */
 func (a *FlowsAPIService) BulkUpdateFlows(ctx context.Context, tenant string) ApiBulkUpdateFlowsRequest {
 	return ApiBulkUpdateFlowsRequest{
-		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
+		ApiService:          a,
+		ctx:                 ctx,
+		tenant:              tenant,
+		delete:              Ptr(bool(true)),
+		allowNamespaceChild: Ptr(bool(false)),
 	}
 }
 
@@ -179,6 +197,13 @@ type ApiCreateFlowRequest struct {
 func (r ApiCreateFlowRequest) Body(body string) ApiCreateFlowRequest {
 	r.body = &body
 	return r
+}
+
+func (r ApiCreateFlowRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiCreateFlowRequest) GetBody() *string {
+	return r.body
 }
 
 func (r ApiCreateFlowRequest) Execute() (*FlowWithSource, *http.Response, error) {
@@ -290,6 +315,16 @@ type ApiDeleteFlowRequest struct {
 	tenant     string
 }
 
+func (r ApiDeleteFlowRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiDeleteFlowRequest) GetId() string {
+	return r.id
+}
+func (r ApiDeleteFlowRequest) GetTenant() string {
+	return r.tenant
+}
+
 func (r ApiDeleteFlowRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteFlowExecute(r)
 }
@@ -391,6 +426,13 @@ type ApiDeleteFlowsByIdsRequest struct {
 func (r ApiDeleteFlowsByIdsRequest) IdWithNamespace(idWithNamespace []IdWithNamespace) ApiDeleteFlowsByIdsRequest {
 	r.idWithNamespace = &idWithNamespace
 	return r
+}
+
+func (r ApiDeleteFlowsByIdsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiDeleteFlowsByIdsRequest) GetIdWithNamespace() *[]IdWithNamespace {
+	return r.idWithNamespace
 }
 
 func (r ApiDeleteFlowsByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
@@ -507,6 +549,13 @@ func (r ApiDeleteFlowsByQueryRequest) Filters(filters []QueryFilter) ApiDeleteFl
 	return r
 }
 
+func (r ApiDeleteFlowsByQueryRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiDeleteFlowsByQueryRequest) GetFilters() *[]QueryFilter {
+	return r.filters
+}
+
 func (r ApiDeleteFlowsByQueryRequest) Execute() (*BulkResponse, *http.Response, error) {
 	return r.ApiService.DeleteFlowsByQueryExecute(r)
 }
@@ -620,6 +669,19 @@ func (r ApiDeleteRevisionsRequest) Revisions(revisions []int32) ApiDeleteRevisio
 	return r
 }
 
+func (r ApiDeleteRevisionsRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiDeleteRevisionsRequest) GetId() string {
+	return r.id
+}
+func (r ApiDeleteRevisionsRequest) GetRevisions() *[]int32 {
+	return r.revisions
+}
+func (r ApiDeleteRevisionsRequest) GetTenant() string {
+	return r.tenant
+}
+
 func (r ApiDeleteRevisionsRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteRevisionsExecute(r)
 }
@@ -728,6 +790,13 @@ type ApiDisableFlowsByIdsRequest struct {
 func (r ApiDisableFlowsByIdsRequest) IdWithNamespace(idWithNamespace []IdWithNamespace) ApiDisableFlowsByIdsRequest {
 	r.idWithNamespace = &idWithNamespace
 	return r
+}
+
+func (r ApiDisableFlowsByIdsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiDisableFlowsByIdsRequest) GetIdWithNamespace() *[]IdWithNamespace {
+	return r.idWithNamespace
 }
 
 func (r ApiDisableFlowsByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
@@ -844,6 +913,13 @@ func (r ApiDisableFlowsByQueryRequest) Filters(filters []QueryFilter) ApiDisable
 	return r
 }
 
+func (r ApiDisableFlowsByQueryRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiDisableFlowsByQueryRequest) GetFilters() *[]QueryFilter {
+	return r.filters
+}
+
 func (r ApiDisableFlowsByQueryRequest) Execute() (*BulkResponse, *http.Response, error) {
 	return r.ApiService.DisableFlowsByQueryExecute(r)
 }
@@ -954,6 +1030,13 @@ type ApiEnableFlowsByIdsRequest struct {
 func (r ApiEnableFlowsByIdsRequest) IdWithNamespace(idWithNamespace []IdWithNamespace) ApiEnableFlowsByIdsRequest {
 	r.idWithNamespace = &idWithNamespace
 	return r
+}
+
+func (r ApiEnableFlowsByIdsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiEnableFlowsByIdsRequest) GetIdWithNamespace() *[]IdWithNamespace {
+	return r.idWithNamespace
 }
 
 func (r ApiEnableFlowsByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
@@ -1070,6 +1153,13 @@ func (r ApiEnableFlowsByQueryRequest) Filters(filters []QueryFilter) ApiEnableFl
 	return r
 }
 
+func (r ApiEnableFlowsByQueryRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiEnableFlowsByQueryRequest) GetFilters() *[]QueryFilter {
+	return r.filters
+}
+
 func (r ApiEnableFlowsByQueryRequest) Execute() (*BulkResponse, *http.Response, error) {
 	return r.ApiService.EnableFlowsByQueryExecute(r)
 }
@@ -1180,6 +1270,13 @@ type ApiExportFlowsRequest struct {
 func (r ApiExportFlowsRequest) Filters(filters []QueryFilter) ApiExportFlowsRequest {
 	r.filters = &filters
 	return r
+}
+
+func (r ApiExportFlowsRequest) GetFilters() *[]QueryFilter {
+	return r.filters
+}
+func (r ApiExportFlowsRequest) GetTenant() string {
+	return r.tenant
 }
 
 func (r ApiExportFlowsRequest) Execute() ([]map[string]interface{}, *http.Response, error) {
@@ -1295,6 +1392,13 @@ func (r ApiExportFlowsByIdsRequest) IdWithNamespace(idWithNamespace []IdWithName
 	return r
 }
 
+func (r ApiExportFlowsByIdsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiExportFlowsByIdsRequest) GetIdWithNamespace() *[]IdWithNamespace {
+	return r.idWithNamespace
+}
+
 func (r ApiExportFlowsByIdsRequest) Execute() (string, *http.Response, error) {
 	return r.ApiService.ExportFlowsByIdsExecute(r)
 }
@@ -1407,6 +1511,13 @@ type ApiExportFlowsByQueryRequest struct {
 func (r ApiExportFlowsByQueryRequest) Filters(filters []QueryFilter) ApiExportFlowsByQueryRequest {
 	r.filters = &filters
 	return r
+}
+
+func (r ApiExportFlowsByQueryRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiExportFlowsByQueryRequest) GetFilters() *[]QueryFilter {
+	return r.filters
 }
 
 func (r ApiExportFlowsByQueryRequest) Execute() (string, *http.Response, error) {
@@ -1537,6 +1648,25 @@ func (r ApiFlowRequest) Revision(revision int32) ApiFlowRequest {
 	return r
 }
 
+func (r ApiFlowRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiFlowRequest) GetId() string {
+	return r.id
+}
+func (r ApiFlowRequest) GetSource() *bool {
+	return r.source
+}
+func (r ApiFlowRequest) GetAllowDeleted() *bool {
+	return r.allowDeleted
+}
+func (r ApiFlowRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiFlowRequest) GetRevision() *int32 {
+	return r.revision
+}
+
 func (r ApiFlowRequest) Execute() (*FlowWithSource, *http.Response, error) {
 	return r.ApiService.FlowExecute(r)
 }
@@ -1552,11 +1682,13 @@ Flow Get a flow
 */
 func (a *FlowsAPIService) Flow(ctx context.Context, namespace string, id string, tenant string) ApiFlowRequest {
 	return ApiFlowRequest{
-		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		id:         id,
-		tenant:     tenant,
+		ApiService:   a,
+		ctx:          ctx,
+		namespace:    namespace,
+		id:           id,
+		tenant:       tenant,
+		source:       Ptr(bool(false)),
+		allowDeleted: Ptr(bool(false)),
 	}
 }
 
@@ -1672,6 +1804,22 @@ func (r ApiFlowDependenciesRequest) ExpandAll(expandAll bool) ApiFlowDependencie
 	return r
 }
 
+func (r ApiFlowDependenciesRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiFlowDependenciesRequest) GetId() string {
+	return r.id
+}
+func (r ApiFlowDependenciesRequest) GetDestinationOnly() *bool {
+	return r.destinationOnly
+}
+func (r ApiFlowDependenciesRequest) GetExpandAll() *bool {
+	return r.expandAll
+}
+func (r ApiFlowDependenciesRequest) GetTenant() string {
+	return r.tenant
+}
+
 func (r ApiFlowDependenciesRequest) Execute() (*FlowTopologyGraph, *http.Response, error) {
 	return r.ApiService.FlowDependenciesExecute(r)
 }
@@ -1687,11 +1835,13 @@ FlowDependencies Get flow dependencies
 */
 func (a *FlowsAPIService) FlowDependencies(ctx context.Context, namespace string, id string, tenant string) ApiFlowDependenciesRequest {
 	return ApiFlowDependenciesRequest{
-		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		id:         id,
-		tenant:     tenant,
+		ApiService:      a,
+		ctx:             ctx,
+		namespace:       namespace,
+		id:              id,
+		tenant:          tenant,
+		destinationOnly: Ptr(bool(false)),
+		expandAll:       Ptr(bool(false)),
 	}
 }
 
@@ -1796,6 +1946,16 @@ func (r ApiFlowDependenciesFromNamespaceRequest) DestinationOnly(destinationOnly
 	return r
 }
 
+func (r ApiFlowDependenciesFromNamespaceRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiFlowDependenciesFromNamespaceRequest) GetDestinationOnly() *bool {
+	return r.destinationOnly
+}
+func (r ApiFlowDependenciesFromNamespaceRequest) GetTenant() string {
+	return r.tenant
+}
+
 func (r ApiFlowDependenciesFromNamespaceRequest) Execute() (*FlowTopologyGraph, *http.Response, error) {
 	return r.ApiService.FlowDependenciesFromNamespaceExecute(r)
 }
@@ -1810,10 +1970,11 @@ FlowDependenciesFromNamespace Retrieve flow dependencies
 */
 func (a *FlowsAPIService) FlowDependenciesFromNamespace(ctx context.Context, namespace string, tenant string) ApiFlowDependenciesFromNamespaceRequest {
 	return ApiFlowDependenciesFromNamespaceRequest{
-		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		tenant:     tenant,
+		ApiService:      a,
+		ctx:             ctx,
+		namespace:       namespace,
+		tenant:          tenant,
+		destinationOnly: Ptr(bool(false)),
 	}
 }
 
@@ -1919,6 +2080,22 @@ func (r ApiGenerateFlowGraphRequest) Revision(revision int32) ApiGenerateFlowGra
 func (r ApiGenerateFlowGraphRequest) Subflows(subflows []string) ApiGenerateFlowGraphRequest {
 	r.subflows = &subflows
 	return r
+}
+
+func (r ApiGenerateFlowGraphRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiGenerateFlowGraphRequest) GetId() string {
+	return r.id
+}
+func (r ApiGenerateFlowGraphRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiGenerateFlowGraphRequest) GetRevision() *int32 {
+	return r.revision
+}
+func (r ApiGenerateFlowGraphRequest) GetSubflows() *[]string {
+	return r.subflows
 }
 
 func (r ApiGenerateFlowGraphRequest) Execute() (*FlowGraph, *http.Response, error) {
@@ -2049,6 +2226,16 @@ func (r ApiGenerateFlowGraphFromSourceRequest) Subflows(subflows []string) ApiGe
 	return r
 }
 
+func (r ApiGenerateFlowGraphFromSourceRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiGenerateFlowGraphFromSourceRequest) GetBody() *string {
+	return r.body
+}
+func (r ApiGenerateFlowGraphFromSourceRequest) GetSubflows() *[]string {
+	return r.subflows
+}
+
 func (r ApiGenerateFlowGraphFromSourceRequest) Execute() (*FlowGraph, *http.Response, error) {
 	return r.ApiService.GenerateFlowGraphFromSourceExecute(r)
 }
@@ -2173,6 +2360,16 @@ func (r ApiImportFlowsRequest) FileUpload(fileUpload *os.File) ApiImportFlowsReq
 	return r
 }
 
+func (r ApiImportFlowsRequest) GetFailOnError() *bool {
+	return r.failOnError
+}
+func (r ApiImportFlowsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiImportFlowsRequest) GetFileUpload() *os.File {
+	return r.fileUpload
+}
+
 func (r ApiImportFlowsRequest) Execute() ([]string, *http.Response, error) {
 	return r.ApiService.ImportFlowsExecute(r)
 }
@@ -2186,9 +2383,10 @@ ImportFlows     Import flows as a ZIP archive of yaml sources or a multi-objects
 */
 func (a *FlowsAPIService) ImportFlows(ctx context.Context, tenant string) ApiImportFlowsRequest {
 	return ApiImportFlowsRequest{
-		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
+		ApiService:  a,
+		ctx:         ctx,
+		tenant:      tenant,
+		failOnError: Ptr(bool(false)),
 	}
 }
 
@@ -2299,6 +2497,13 @@ type ApiListDistinctNamespacesRequest struct {
 func (r ApiListDistinctNamespacesRequest) Q(q string) ApiListDistinctNamespacesRequest {
 	r.q = &q
 	return r
+}
+
+func (r ApiListDistinctNamespacesRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiListDistinctNamespacesRequest) GetQ() *string {
+	return r.q
 }
 
 func (r ApiListDistinctNamespacesRequest) Execute() ([]string, *http.Response, error) {
@@ -2414,6 +2619,19 @@ func (r ApiListFlowRevisionsRequest) AllowDelete(allowDelete bool) ApiListFlowRe
 	return r
 }
 
+func (r ApiListFlowRevisionsRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiListFlowRevisionsRequest) GetId() string {
+	return r.id
+}
+func (r ApiListFlowRevisionsRequest) GetAllowDelete() *bool {
+	return r.allowDelete
+}
+func (r ApiListFlowRevisionsRequest) GetTenant() string {
+	return r.tenant
+}
+
 func (r ApiListFlowRevisionsRequest) Execute() ([]FlowWithSource, *http.Response, error) {
 	return r.ApiService.ListFlowRevisionsExecute(r)
 }
@@ -2429,11 +2647,12 @@ ListFlowRevisions Get revisions for a flow
 */
 func (a *FlowsAPIService) ListFlowRevisions(ctx context.Context, namespace string, id string, tenant string) ApiListFlowRevisionsRequest {
 	return ApiListFlowRevisionsRequest{
-		ApiService: a,
-		ctx:        ctx,
-		namespace:  namespace,
-		id:         id,
-		tenant:     tenant,
+		ApiService:  a,
+		ctx:         ctx,
+		namespace:   namespace,
+		id:          id,
+		tenant:      tenant,
+		allowDelete: Ptr(bool(false)),
 	}
 }
 
@@ -2525,6 +2744,13 @@ type ApiListFlowsByNamespaceRequest struct {
 	ApiService *FlowsAPIService
 	namespace  string
 	tenant     string
+}
+
+func (r ApiListFlowsByNamespaceRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiListFlowsByNamespaceRequest) GetTenant() string {
+	return r.tenant
 }
 
 func (r ApiListFlowsByNamespaceRequest) Execute() ([]Flow, *http.Response, error) {
@@ -2630,6 +2856,10 @@ type ApiSearchConcurrencyLimitsRequest struct {
 	ctx        context.Context
 	ApiService *FlowsAPIService
 	tenant     string
+}
+
+func (r ApiSearchConcurrencyLimitsRequest) GetTenant() string {
+	return r.tenant
 }
 
 func (r ApiSearchConcurrencyLimitsRequest) Execute() (*PagedResultsConcurrencyLimit, *http.Response, error) {
@@ -2762,6 +2992,22 @@ func (r ApiSearchFlowsRequest) Filters(filters []QueryFilter) ApiSearchFlowsRequ
 	return r
 }
 
+func (r ApiSearchFlowsRequest) GetPage() *int32 {
+	return r.page
+}
+func (r ApiSearchFlowsRequest) GetSize() *int32 {
+	return r.size
+}
+func (r ApiSearchFlowsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiSearchFlowsRequest) GetSort() *[]string {
+	return r.sort
+}
+func (r ApiSearchFlowsRequest) GetFilters() *[]QueryFilter {
+	return r.filters
+}
+
 func (r ApiSearchFlowsRequest) Execute() (*PagedResultsFlow, *http.Response, error) {
 	return r.ApiService.SearchFlowsExecute(r)
 }
@@ -2778,6 +3024,8 @@ func (a *FlowsAPIService) SearchFlows(ctx context.Context, tenant string) ApiSea
 		ApiService: a,
 		ctx:        ctx,
 		tenant:     tenant,
+		page:       Ptr(int32(1)),
+		size:       Ptr(int32(10)),
 	}
 }
 
@@ -2919,6 +3167,25 @@ func (r ApiSearchFlowsBySourceCodeRequest) Namespace(namespace string) ApiSearch
 	return r
 }
 
+func (r ApiSearchFlowsBySourceCodeRequest) GetPage() *int32 {
+	return r.page
+}
+func (r ApiSearchFlowsBySourceCodeRequest) GetSize() *int32 {
+	return r.size
+}
+func (r ApiSearchFlowsBySourceCodeRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiSearchFlowsBySourceCodeRequest) GetSort() *[]string {
+	return r.sort
+}
+func (r ApiSearchFlowsBySourceCodeRequest) GetQ() *string {
+	return r.q
+}
+func (r ApiSearchFlowsBySourceCodeRequest) GetNamespace() *string {
+	return r.namespace
+}
+
 func (r ApiSearchFlowsBySourceCodeRequest) Execute() (*PagedResultsSearchResultFlow, *http.Response, error) {
 	return r.ApiService.SearchFlowsBySourceCodeExecute(r)
 }
@@ -2935,6 +3202,8 @@ func (a *FlowsAPIService) SearchFlowsBySourceCode(ctx context.Context, tenant st
 		ApiService: a,
 		ctx:        ctx,
 		tenant:     tenant,
+		page:       Ptr(int32(1)),
+		size:       Ptr(int32(10)),
 	}
 }
 
@@ -3052,6 +3321,22 @@ type ApiTaskFromFlowRequest struct {
 func (r ApiTaskFromFlowRequest) Revision(revision int32) ApiTaskFromFlowRequest {
 	r.revision = &revision
 	return r
+}
+
+func (r ApiTaskFromFlowRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiTaskFromFlowRequest) GetId() string {
+	return r.id
+}
+func (r ApiTaskFromFlowRequest) GetTaskId() string {
+	return r.taskId
+}
+func (r ApiTaskFromFlowRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiTaskFromFlowRequest) GetRevision() *int32 {
+	return r.revision
 }
 
 func (r ApiTaskFromFlowRequest) Execute() (*Task, *http.Response, error) {
@@ -3176,6 +3461,19 @@ func (r ApiUpdateConcurrencyLimitRequest) ConcurrencyLimit(concurrencyLimit Conc
 	return r
 }
 
+func (r ApiUpdateConcurrencyLimitRequest) GetFlowId() string {
+	return r.flowId
+}
+func (r ApiUpdateConcurrencyLimitRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiUpdateConcurrencyLimitRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiUpdateConcurrencyLimitRequest) GetConcurrencyLimit() *ConcurrencyLimit {
+	return r.concurrencyLimit
+}
+
 func (r ApiUpdateConcurrencyLimitRequest) Execute() (*ConcurrencyLimit, *http.Response, error) {
 	return r.ApiService.UpdateConcurrencyLimitExecute(r)
 }
@@ -3296,6 +3594,19 @@ type ApiUpdateFlowRequest struct {
 func (r ApiUpdateFlowRequest) Body(body string) ApiUpdateFlowRequest {
 	r.body = &body
 	return r
+}
+
+func (r ApiUpdateFlowRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiUpdateFlowRequest) GetId() string {
+	return r.id
+}
+func (r ApiUpdateFlowRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiUpdateFlowRequest) GetBody() *string {
+	return r.body
 }
 
 func (r ApiUpdateFlowRequest) Execute() (*FlowWithSource, *http.Response, error) {
@@ -3426,6 +3737,19 @@ func (r ApiUpdateFlowsInNamespaceRequest) Body(body string) ApiUpdateFlowsInName
 	return r
 }
 
+func (r ApiUpdateFlowsInNamespaceRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiUpdateFlowsInNamespaceRequest) GetDelete() *bool {
+	return r.delete
+}
+func (r ApiUpdateFlowsInNamespaceRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiUpdateFlowsInNamespaceRequest) GetBody() *string {
+	return r.body
+}
+
 func (r ApiUpdateFlowsInNamespaceRequest) Execute() ([]FlowInterface, *http.Response, error) {
 	return r.ApiService.UpdateFlowsInNamespaceExecute(r)
 }
@@ -3447,6 +3771,7 @@ func (a *FlowsAPIService) UpdateFlowsInNamespace(ctx context.Context, namespace 
 		ctx:        ctx,
 		namespace:  namespace,
 		tenant:     tenant,
+		delete:     Ptr(bool(true)),
 	}
 }
 
@@ -3551,6 +3876,22 @@ type ApiUpdateTaskRequest struct {
 func (r ApiUpdateTaskRequest) Task(task Task) ApiUpdateTaskRequest {
 	r.task = &task
 	return r
+}
+
+func (r ApiUpdateTaskRequest) GetNamespace() string {
+	return r.namespace
+}
+func (r ApiUpdateTaskRequest) GetId() string {
+	return r.id
+}
+func (r ApiUpdateTaskRequest) GetTaskId() string {
+	return r.taskId
+}
+func (r ApiUpdateTaskRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiUpdateTaskRequest) GetTask() *Task {
+	return r.task
 }
 
 func (r ApiUpdateTaskRequest) Execute() (*Flow, *http.Response, error) {
@@ -3680,6 +4021,13 @@ func (r ApiValidateFlowsRequest) Body(body string) ApiValidateFlowsRequest {
 	return r
 }
 
+func (r ApiValidateFlowsRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiValidateFlowsRequest) GetBody() *string {
+	return r.body
+}
+
 func (r ApiValidateFlowsRequest) Execute() ([]ValidateConstraintViolation, *http.Response, error) {
 	return r.ApiService.ValidateFlowsExecute(r)
 }
@@ -3801,6 +4149,16 @@ func (r ApiValidateTaskRequest) Body(body map[string]interface{}) ApiValidateTas
 	return r
 }
 
+func (r ApiValidateTaskRequest) GetSection() *FlowControllerTaskValidationType {
+	return r.section
+}
+func (r ApiValidateTaskRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiValidateTaskRequest) GetBody() *map[string]interface{} {
+	return r.body
+}
+
 func (r ApiValidateTaskRequest) Execute() (*ValidateConstraintViolation, *http.Response, error) {
 	return r.ApiService.ValidateTaskExecute(r)
 }
@@ -3917,6 +4275,13 @@ type ApiValidateTriggerRequest struct {
 func (r ApiValidateTriggerRequest) Body(body map[string]interface{}) ApiValidateTriggerRequest {
 	r.body = &body
 	return r
+}
+
+func (r ApiValidateTriggerRequest) GetTenant() string {
+	return r.tenant
+}
+func (r ApiValidateTriggerRequest) GetBody() *map[string]interface{} {
+	return r.body
 }
 
 func (r ApiValidateTriggerRequest) Execute() (*ValidateConstraintViolation, *http.Response, error) {
