@@ -55,6 +55,7 @@ func LOG_FLOW(id string, ns string) string {
 	return fmt.Sprintf(`
 id: %s
 namespace: %s
+description: simple_flow_description
 
 inputs:
   - id: key
