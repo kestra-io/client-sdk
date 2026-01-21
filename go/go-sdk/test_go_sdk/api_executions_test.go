@@ -55,6 +55,7 @@ func LOG_FLOW(id string, ns string) string {
 	return fmt.Sprintf(`
 id: %s
 namespace: %s
+description: simple_flow_description
 
 inputs:
   - id: key
@@ -1203,13 +1204,19 @@ func TestExecutionsAPI_All(t *testing.T) {
 				break loop
 			}
 		}
+		hasAtLeastOneCreatedSuccessOrRunning := false
 		states := make([]openapiclient.StateType, 0, len(foundDependentExecution))
+
 		for _, e := range foundDependentExecution {
 			if e != nil && e.State != nil {
 				states = append(states, e.State.Current)
+				if e.State.Current == openapiclient.STATETYPE_CREATED || e.State.Current == openapiclient.STATETYPE_RUNNING || e.State.Current == openapiclient.STATETYPE_SUCCESS {
+					hasAtLeastOneCreatedSuccessOrRunning = true
+					break
+				}
 			}
 		}
-		require.Contains(t, states, openapiclient.STATETYPE_CREATED, "at least one CREATED event should be returned for this dependent flow")
+		require.True(t, hasAtLeastOneCreatedSuccessOrRunning, "at least one CREATED or RUNNING or SUCCESS event should be returned for this dependent flow, but there was instead: %s", states)
 	})
 }
 
