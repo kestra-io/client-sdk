@@ -61,6 +61,8 @@ type APIClient struct {
 
 	ServiceAccountAPI *ServiceAccountAPIService
 
+	TestSuitesAPI *TestSuitesAPIService
+
 	TriggersAPI *TriggersAPIService
 
 	UsersAPI *UsersAPIService
@@ -89,6 +91,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.NamespacesAPI = (*NamespacesAPIService)(&c.common)
 	c.RolesAPI = (*RolesAPIService)(&c.common)
 	c.ServiceAccountAPI = (*ServiceAccountAPIService)(&c.common)
+	c.TestSuitesAPI = (*TestSuitesAPIService)(&c.common)
 	c.TriggersAPI = (*TriggersAPIService)(&c.common)
 	c.UsersAPI = (*UsersAPIService)(&c.common)
 

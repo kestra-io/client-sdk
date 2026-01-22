@@ -9,6 +9,7 @@ api_kv.go
 api_namespaces.go
 api_roles.go
 api_service_account.go
+api_test_suites.go
 api_triggers.go
 api_users.go
 client.go
@@ -409,6 +410,7 @@ docs/TestSuiteControllerTestsLastResultResponse.md
 docs/TestSuiteRunResult.md
 docs/TestSuiteServiceRunByQueryRequest.md
 docs/TestSuiteServiceTestRunByQueryResult.md
+docs/TestSuitesAPI.md
 docs/TheLabelsToPassToTheExecutionCreated.md
 docs/TimeWindow.md
 docs/Trigger.md
