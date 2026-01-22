@@ -1,4 +1,4 @@
-module github.com/kestra-io/client-sdk/go-sdk
+module github.com/kestra-io/client-sdk/go/go-sdk
 
 go 1.23
 
