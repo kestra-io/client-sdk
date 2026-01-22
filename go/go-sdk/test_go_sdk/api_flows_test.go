@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+	openapiclient "github.com/kestra-io/client-sdk/go/go-sdk"
 	"github.com/stretchr/testify/require"
 )
 
