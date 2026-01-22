@@ -212,6 +212,20 @@ Class | Method | HTTP request | Description
 *ServiceAccountAPI* | [**ServiceAccount**](docs/ServiceAccountAPI.md#serviceaccount) | **Get** /api/v1/service-accounts/{id} | Get a service account
 *ServiceAccountAPI* | [**ServiceAccountForTenant**](docs/ServiceAccountAPI.md#serviceaccountfortenant) | **Get** /api/v1/{tenant}/service-accounts/{id} | Retrieve a service account
 *ServiceAccountAPI* | [**UpdateServiceAccount**](docs/ServiceAccountAPI.md#updateserviceaccount) | **Put** /api/v1/{tenant}/service-accounts/{id} | Update a user service account
+*TestSuitesAPI* | [**CreateTestSuite**](docs/TestSuitesAPI.md#createtestsuite) | **Post** /api/v1/{tenant}/tests | Create a test from YAML source
+*TestSuitesAPI* | [**DeleteTestSuite**](docs/TestSuitesAPI.md#deletetestsuite) | **Delete** /api/v1/{tenant}/tests/{namespace}/{id} | Delete a test
+*TestSuitesAPI* | [**DeleteTestSuitesByIds**](docs/TestSuitesAPI.md#deletetestsuitesbyids) | **Delete** /api/v1/{tenant}/tests/by-ids | Delete multiple tests by id
+*TestSuitesAPI* | [**DisableTestSuitesByIds**](docs/TestSuitesAPI.md#disabletestsuitesbyids) | **Post** /api/v1/{tenant}/tests/disable/by-ids | Disable multiple tests by id
+*TestSuitesAPI* | [**EnableTestSuitesByIds**](docs/TestSuitesAPI.md#enabletestsuitesbyids) | **Post** /api/v1/{tenant}/tests/enable/by-ids | Enable multiple tests by id
+*TestSuitesAPI* | [**RunTestSuite**](docs/TestSuitesAPI.md#runtestsuite) | **Post** /api/v1/{tenant}/tests/{namespace}/{id}/run | Run a full test
+*TestSuitesAPI* | [**RunTestSuitesByQuery**](docs/TestSuitesAPI.md#runtestsuitesbyquery) | **Post** /api/v1/{tenant}/tests/run | Run multiple TestSuites by query
+*TestSuitesAPI* | [**SearchTestSuites**](docs/TestSuitesAPI.md#searchtestsuites) | **Get** /api/v1/{tenant}/tests/search | Search for tests
+*TestSuitesAPI* | [**SearchTestSuitesResults**](docs/TestSuitesAPI.md#searchtestsuitesresults) | **Get** /api/v1/{tenant}/tests/results/search | Search for tests results
+*TestSuitesAPI* | [**TestResult**](docs/TestSuitesAPI.md#testresult) | **Get** /api/v1/{tenant}/tests/results/{id} | Get a test result
+*TestSuitesAPI* | [**TestSuite**](docs/TestSuitesAPI.md#testsuite) | **Get** /api/v1/{tenant}/tests/{namespace}/{id} | Retrieve a test
+*TestSuitesAPI* | [**TestsLastResult**](docs/TestSuitesAPI.md#testslastresult) | **Post** /api/v1/{tenant}/tests/results/search/last | Get tests last result
+*TestSuitesAPI* | [**UpdateTestSuite**](docs/TestSuitesAPI.md#updatetestsuite) | **Put** /api/v1/{tenant}/tests/{namespace}/{id} | Update a test from YAML source
+*TestSuitesAPI* | [**ValidateTestSuite**](docs/TestSuitesAPI.md#validatetestsuite) | **Post** /api/v1/{tenant}/tests/validate | Validate a test
 *TriggersAPI* | [**DeleteBackfill**](docs/TriggersAPI.md#deletebackfill) | **Post** /api/v1/{tenant}/triggers/backfill/delete | Delete a backfill
 *TriggersAPI* | [**DeleteBackfillByIds**](docs/TriggersAPI.md#deletebackfillbyids) | **Post** /api/v1/{tenant}/triggers/backfill/delete/by-triggers | Delete backfill for given triggers
 *TriggersAPI* | [**DeleteBackfillByQuery**](docs/TriggersAPI.md#deletebackfillbyquery) | **Post** /api/v1/{tenant}/triggers/backfill/delete/by-query | Delete backfill for given triggers

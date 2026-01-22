@@ -14043,7 +14043,7 @@ paths:
       summary: Create a test from YAML source
       tags:
       - TestSuites
-      x-internal: true
+      x-internal: false
   /api/v1/{tenant}/tests/by-ids:
     delete:
       description: Deletes a test by namespace and ID. Requires TEST permission with
@@ -14073,7 +14073,7 @@ paths:
       summary: Delete multiple tests by id
       tags:
       - TestSuites
-      x-internal: true
+      x-internal: false
   /api/v1/{tenant}/tests/disable/by-ids:
     post:
       description: Disable a test by namespace and ID. Requires TEST permission with
@@ -14103,7 +14103,7 @@ paths:
       summary: Disable multiple tests by id
       tags:
       - TestSuites
-      x-internal: true
+      x-internal: false
   /api/v1/{tenant}/tests/enable/by-ids:
     post:
       description: Enable a test by namespace and ID. Requires TEST permission with
@@ -14133,7 +14133,7 @@ paths:
       summary: Enable multiple tests by id
       tags:
       - TestSuites
-      x-internal: true
+      x-internal: false
   /api/v1/{tenant}/tests/results/search:
     get:
       description: "with optional filtering by namespace, test suite ID and flow ID.\
@@ -14217,7 +14217,7 @@ paths:
       summary: Search for tests results
       tags:
       - TestSuites
-      x-internal: true
+      x-internal: false
   /api/v1/{tenant}/tests/results/search/last:
     post:
       description: Get multiple tests last result for a query.
@@ -14246,7 +14246,7 @@ paths:
       summary: Get tests last result
       tags:
       - TestSuites
-      x-internal: true
+      x-internal: false
   /api/v1/{tenant}/tests/results/{id}:
     get:
       description: Get a test result once it was run.
@@ -14277,7 +14277,7 @@ paths:
       summary: Get a test result
       tags:
       - TestSuites
-      x-internal: true
+      x-internal: false
   /api/v1/{tenant}/tests/run:
     post:
       description: Executes all TestSuites impacted by the specified filter. Requires
@@ -14307,7 +14307,7 @@ paths:
       summary: Run multiple TestSuites by query
       tags:
       - TestSuites
-      x-internal: true
+      x-internal: false
   /api/v1/{tenant}/tests/search:
     get:
       description: Searches for tests with optional filtering by namespace and flow
@@ -14391,7 +14391,7 @@ paths:
       summary: Search for tests
       tags:
       - TestSuites
-      x-internal: true
+      x-internal: false
   /api/v1/{tenant}/tests/validate:
     post:
       description: Validates a test YAML definition without persisting it. Returns
@@ -14422,7 +14422,7 @@ paths:
       summary: Validate a test
       tags:
       - TestSuites
-      x-internal: true
+      x-internal: false
   /api/v1/{tenant}/tests/{namespace}/{id}:
     delete:
       description: Deletes a test by namespace and ID. Requires TEST permission with
@@ -14462,7 +14462,7 @@ paths:
       summary: Delete a test
       tags:
       - TestSuites
-      x-internal: true
+      x-internal: false
     get:
       description: Retrieves a test by namespace and ID. Requires TEST permission
         with the READ action.
@@ -14501,7 +14501,7 @@ paths:
       summary: Retrieve a test
       tags:
       - TestSuites
-      x-internal: true
+      x-internal: false
     put:
       description: Updates an existing test with a new YAML definition. Requires TEST
         permission with the UPDATE action.
@@ -14547,7 +14547,7 @@ paths:
       summary: Update a test from YAML source
       tags:
       - TestSuites
-      x-internal: true
+      x-internal: false
   /api/v1/{tenant}/tests/{namespace}/{id}/run:
     post:
       description: Executes all test cases in the specified test. Requires TEST permission
@@ -14592,7 +14592,7 @@ paths:
       summary: Run a full test
       tags:
       - TestSuites
-      x-internal: true
+      x-internal: false
   /api/v1/{tenant}/triggers:
     put:
       operationId: updateTrigger
@@ -16258,6 +16258,60 @@ components:
           type: array
       type: object
     Assertion:
+      example:
+        isNotNull:
+          expression: expression
+          value: true
+        in:
+          expression: expression
+          value:
+          - value
+          - value
+        errorMessage:
+          expression: expression
+          value: value
+        equalTo:
+          expression: expression
+          value: "{}"
+        greaterThanOrEqualTo:
+          expression: expression
+          value: 0.8008281904610115
+        description:
+          expression: expression
+          value: value
+        contains:
+          expression: expression
+          value: value
+        lessThan:
+          expression: expression
+          value: 0.8008281904610115
+        isNull:
+          expression: expression
+          value: true
+        endsWith:
+          expression: expression
+          value: value
+        notIn:
+          expression: expression
+          value:
+          - value
+          - value
+        value:
+          expression: expression
+          value: "{}"
+        taskId: taskId
+        lessThanOrEqualTo:
+          expression: expression
+          value: 0.8008281904610115
+        startsWith:
+          expression: expression
+          value: value
+        notEqualTo:
+          expression: expression
+          value: "{}"
+        greaterThan:
+          expression: expression
+          value: 0.8008281904610115
       properties:
         value:
           $ref: "#/components/schemas/Property_Object_"
@@ -16297,6 +16351,14 @@ components:
       - value
       type: object
     AssertionResult:
+      example:
+        actual: "{}"
+        expected: "{}"
+        errorMessage: errorMessage
+        description: description
+        operator: operator
+        taskId: taskId
+        isSuccess: true
       properties:
         operator:
           type: string
@@ -16319,6 +16381,9 @@ components:
       - operator
       type: object
     AssertionRunError:
+      example:
+        details: details
+        message: message
       properties:
         message:
           type: string
@@ -18066,6 +18131,63 @@ components:
     FilterExpression:
       type: object
     Fixtures:
+      example:
+        inputs:
+          key: ""
+        files:
+          key: files
+        trigger:
+          variables:
+            key: "{}"
+          id: id
+          type: type
+        tasks:
+        - outputs:
+            key: "{}"
+          assets:
+          - metadata:
+              key: "{}"
+            displayName: displayName
+            namespace: namespace
+            description: description
+            id: id
+            type: type
+          - metadata:
+              key: "{}"
+            displayName: displayName
+            namespace: namespace
+            description: description
+            id: id
+            type: type
+          description:
+            expression: expression
+            value: value
+          id: id
+          state: null
+          value: value
+        - outputs:
+            key: "{}"
+          assets:
+          - metadata:
+              key: "{}"
+            displayName: displayName
+            namespace: namespace
+            description: description
+            id: id
+            type: type
+          - metadata:
+              key: "{}"
+            displayName: displayName
+            namespace: namespace
+            description: description
+            id: id
+            type: type
+          description:
+            expression: expression
+            value: value
+          id: id
+          state: null
+          value: value
       properties:
         inputs:
           additionalProperties: true
@@ -23664,6 +23786,353 @@ components:
       - total
       type: object
     PagedResults_TestSuiteRunResult_:
+      example:
+        total: 0
+        results:
+        - endDate: 2000-01-23T04:56:07.000+00:00
+          namespace: namespace
+          id: id
+          testSuiteId: testSuiteId
+          state: ERROR
+          flowId: flowId
+          results:
+          - executionId: executionId
+            assertionResults:
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            testType: testType
+            testId: testId
+            state: null
+            url: https://openapi-generator.tech
+            errors:
+            - details: details
+              message: message
+            - details: details
+              message: message
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          - executionId: executionId
+            assertionResults:
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            testType: testType
+            testId: testId
+            state: null
+            url: https://openapi-generator.tech
+            errors:
+            - details: details
+              message: message
+            - details: details
+              message: message
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          startDate: 2000-01-23T04:56:07.000+00:00
+        - endDate: 2000-01-23T04:56:07.000+00:00
+          namespace: namespace
+          id: id
+          testSuiteId: testSuiteId
+          state: ERROR
+          flowId: flowId
+          results:
+          - executionId: executionId
+            assertionResults:
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            testType: testType
+            testId: testId
+            state: null
+            url: https://openapi-generator.tech
+            errors:
+            - details: details
+              message: message
+            - details: details
+              message: message
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          - executionId: executionId
+            assertionResults:
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            testType: testType
+            testId: testId
+            state: null
+            url: https://openapi-generator.tech
+            errors:
+            - details: details
+              message: message
+            - details: details
+              message: message
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          startDate: 2000-01-23T04:56:07.000+00:00
       properties:
         results:
           items:
@@ -23677,6 +24146,697 @@ components:
       - total
       type: object
     PagedResults_TestSuite_:
+      example:
+        total: 0
+        results:
+        - deleted: true
+          testCases:
+          - description: description
+            disabled: true
+            id: id
+            assertions:
+            - isNotNull:
+                expression: expression
+                value: true
+              in:
+                expression: expression
+                value:
+                - value
+                - value
+              errorMessage:
+                expression: expression
+                value: value
+              equalTo:
+                expression: expression
+                value: "{}"
+              greaterThanOrEqualTo:
+                expression: expression
+                value: 0.8008281904610115
+              description:
+                expression: expression
+                value: value
+              contains:
+                expression: expression
+                value: value
+              lessThan:
+                expression: expression
+                value: 0.8008281904610115
+              isNull:
+                expression: expression
+                value: true
+              endsWith:
+                expression: expression
+                value: value
+              notIn:
+                expression: expression
+                value:
+                - value
+                - value
+              value:
+                expression: expression
+                value: "{}"
+              taskId: taskId
+              lessThanOrEqualTo:
+                expression: expression
+                value: 0.8008281904610115
+              startsWith:
+                expression: expression
+                value: value
+              notEqualTo:
+                expression: expression
+                value: "{}"
+              greaterThan:
+                expression: expression
+                value: 0.8008281904610115
+            - isNotNull:
+                expression: expression
+                value: true
+              in:
+                expression: expression
+                value:
+                - value
+                - value
+              errorMessage:
+                expression: expression
+                value: value
+              equalTo:
+                expression: expression
+                value: "{}"
+              greaterThanOrEqualTo:
+                expression: expression
+                value: 0.8008281904610115
+              description:
+                expression: expression
+                value: value
+              contains:
+                expression: expression
+                value: value
+              lessThan:
+                expression: expression
+                value: 0.8008281904610115
+              isNull:
+                expression: expression
+                value: true
+              endsWith:
+                expression: expression
+                value: value
+              notIn:
+                expression: expression
+                value:
+                - value
+                - value
+              value:
+                expression: expression
+                value: "{}"
+              taskId: taskId
+              lessThanOrEqualTo:
+                expression: expression
+                value: 0.8008281904610115
+              startsWith:
+                expression: expression
+                value: value
+              notEqualTo:
+                expression: expression
+                value: "{}"
+              greaterThan:
+                expression: expression
+                value: 0.8008281904610115
+            type: type
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          - description: description
+            disabled: true
+            id: id
+            assertions:
+            - isNotNull:
+                expression: expression
+                value: true
+              in:
+                expression: expression
+                value:
+                - value
+                - value
+              errorMessage:
+                expression: expression
+                value: value
+              equalTo:
+                expression: expression
+                value: "{}"
+              greaterThanOrEqualTo:
+                expression: expression
+                value: 0.8008281904610115
+              description:
+                expression: expression
+                value: value
+              contains:
+                expression: expression
+                value: value
+              lessThan:
+                expression: expression
+                value: 0.8008281904610115
+              isNull:
+                expression: expression
+                value: true
+              endsWith:
+                expression: expression
+                value: value
+              notIn:
+                expression: expression
+                value:
+                - value
+                - value
+              value:
+                expression: expression
+                value: "{}"
+              taskId: taskId
+              lessThanOrEqualTo:
+                expression: expression
+                value: 0.8008281904610115
+              startsWith:
+                expression: expression
+                value: value
+              notEqualTo:
+                expression: expression
+                value: "{}"
+              greaterThan:
+                expression: expression
+                value: 0.8008281904610115
+            - isNotNull:
+                expression: expression
+                value: true
+              in:
+                expression: expression
+                value:
+                - value
+                - value
+              errorMessage:
+                expression: expression
+                value: value
+              equalTo:
+                expression: expression
+                value: "{}"
+              greaterThanOrEqualTo:
+                expression: expression
+                value: 0.8008281904610115
+              description:
+                expression: expression
+                value: value
+              contains:
+                expression: expression
+                value: value
+              lessThan:
+                expression: expression
+                value: 0.8008281904610115
+              isNull:
+                expression: expression
+                value: true
+              endsWith:
+                expression: expression
+                value: value
+              notIn:
+                expression: expression
+                value:
+                - value
+                - value
+              value:
+                expression: expression
+                value: "{}"
+              taskId: taskId
+              lessThanOrEqualTo:
+                expression: expression
+                value: 0.8008281904610115
+              startsWith:
+                expression: expression
+                value: value
+              notEqualTo:
+                expression: expression
+                value: "{}"
+              greaterThan:
+                expression: expression
+                value: 0.8008281904610115
+            type: type
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          namespace: namespace
+          description: description
+          disabled: true
+          id: id
+          source: source
+          flowId: flowId
+        - deleted: true
+          testCases:
+          - description: description
+            disabled: true
+            id: id
+            assertions:
+            - isNotNull:
+                expression: expression
+                value: true
+              in:
+                expression: expression
+                value:
+                - value
+                - value
+              errorMessage:
+                expression: expression
+                value: value
+              equalTo:
+                expression: expression
+                value: "{}"
+              greaterThanOrEqualTo:
+                expression: expression
+                value: 0.8008281904610115
+              description:
+                expression: expression
+                value: value
+              contains:
+                expression: expression
+                value: value
+              lessThan:
+                expression: expression
+                value: 0.8008281904610115
+              isNull:
+                expression: expression
+                value: true
+              endsWith:
+                expression: expression
+                value: value
+              notIn:
+                expression: expression
+                value:
+                - value
+                - value
+              value:
+                expression: expression
+                value: "{}"
+              taskId: taskId
+              lessThanOrEqualTo:
+                expression: expression
+                value: 0.8008281904610115
+              startsWith:
+                expression: expression
+                value: value
+              notEqualTo:
+                expression: expression
+                value: "{}"
+              greaterThan:
+                expression: expression
+                value: 0.8008281904610115
+            - isNotNull:
+                expression: expression
+                value: true
+              in:
+                expression: expression
+                value:
+                - value
+                - value
+              errorMessage:
+                expression: expression
+                value: value
+              equalTo:
+                expression: expression
+                value: "{}"
+              greaterThanOrEqualTo:
+                expression: expression
+                value: 0.8008281904610115
+              description:
+                expression: expression
+                value: value
+              contains:
+                expression: expression
+                value: value
+              lessThan:
+                expression: expression
+                value: 0.8008281904610115
+              isNull:
+                expression: expression
+                value: true
+              endsWith:
+                expression: expression
+                value: value
+              notIn:
+                expression: expression
+                value:
+                - value
+                - value
+              value:
+                expression: expression
+                value: "{}"
+              taskId: taskId
+              lessThanOrEqualTo:
+                expression: expression
+                value: 0.8008281904610115
+              startsWith:
+                expression: expression
+                value: value
+              notEqualTo:
+                expression: expression
+                value: "{}"
+              greaterThan:
+                expression: expression
+                value: 0.8008281904610115
+            type: type
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          - description: description
+            disabled: true
+            id: id
+            assertions:
+            - isNotNull:
+                expression: expression
+                value: true
+              in:
+                expression: expression
+                value:
+                - value
+                - value
+              errorMessage:
+                expression: expression
+                value: value
+              equalTo:
+                expression: expression
+                value: "{}"
+              greaterThanOrEqualTo:
+                expression: expression
+                value: 0.8008281904610115
+              description:
+                expression: expression
+                value: value
+              contains:
+                expression: expression
+                value: value
+              lessThan:
+                expression: expression
+                value: 0.8008281904610115
+              isNull:
+                expression: expression
+                value: true
+              endsWith:
+                expression: expression
+                value: value
+              notIn:
+                expression: expression
+                value:
+                - value
+                - value
+              value:
+                expression: expression
+                value: "{}"
+              taskId: taskId
+              lessThanOrEqualTo:
+                expression: expression
+                value: 0.8008281904610115
+              startsWith:
+                expression: expression
+                value: value
+              notEqualTo:
+                expression: expression
+                value: "{}"
+              greaterThan:
+                expression: expression
+                value: 0.8008281904610115
+            - isNotNull:
+                expression: expression
+                value: true
+              in:
+                expression: expression
+                value:
+                - value
+                - value
+              errorMessage:
+                expression: expression
+                value: value
+              equalTo:
+                expression: expression
+                value: "{}"
+              greaterThanOrEqualTo:
+                expression: expression
+                value: 0.8008281904610115
+              description:
+                expression: expression
+                value: value
+              contains:
+                expression: expression
+                value: value
+              lessThan:
+                expression: expression
+                value: 0.8008281904610115
+              isNull:
+                expression: expression
+                value: true
+              endsWith:
+                expression: expression
+                value: value
+              notIn:
+                expression: expression
+                value:
+                - value
+                - value
+              value:
+                expression: expression
+                value: "{}"
+              taskId: taskId
+              lessThanOrEqualTo:
+                expression: expression
+                value: 0.8008281904610115
+              startsWith:
+                expression: expression
+                value: value
+              notEqualTo:
+                expression: expression
+                value: "{}"
+              greaterThan:
+                expression: expression
+                value: 0.8008281904610115
+            type: type
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          namespace: namespace
+          description: description
+          disabled: true
+          id: id
+          source: source
+          flowId: flowId
       properties:
         results:
           items:
@@ -24168,6 +25328,9 @@ components:
           $ref: "#/components/schemas/AssetsDeclaration"
       type: object
     Property_Boolean_:
+      example:
+        expression: expression
+        value: true
       oneOf:
       - type: object
       - type: string
@@ -24178,6 +25341,9 @@ components:
           type: boolean
       type: object
     Property_Double_:
+      example:
+        expression: expression
+        value: 0.8008281904610115
       oneOf:
       - type: object
       - type: string
@@ -24202,6 +25368,11 @@ components:
           type: string
       type: object
     Property_List_String__:
+      example:
+        expression: expression
+        value:
+        - value
+        - value
       oneOf:
       - type: object
       - type: string
@@ -24214,6 +25385,9 @@ components:
           type: array
       type: object
     Property_Object_:
+      example:
+        expression: expression
+        value: "{}"
       oneOf:
       - type: object
       - type: string
@@ -25809,6 +26983,351 @@ components:
       - SKIPPED
       type: string
     TestSuite:
+      example:
+        deleted: true
+        testCases:
+        - description: description
+          disabled: true
+          id: id
+          assertions:
+          - isNotNull:
+              expression: expression
+              value: true
+            in:
+              expression: expression
+              value:
+              - value
+              - value
+            errorMessage:
+              expression: expression
+              value: value
+            equalTo:
+              expression: expression
+              value: "{}"
+            greaterThanOrEqualTo:
+              expression: expression
+              value: 0.8008281904610115
+            description:
+              expression: expression
+              value: value
+            contains:
+              expression: expression
+              value: value
+            lessThan:
+              expression: expression
+              value: 0.8008281904610115
+            isNull:
+              expression: expression
+              value: true
+            endsWith:
+              expression: expression
+              value: value
+            notIn:
+              expression: expression
+              value:
+              - value
+              - value
+            value:
+              expression: expression
+              value: "{}"
+            taskId: taskId
+            lessThanOrEqualTo:
+              expression: expression
+              value: 0.8008281904610115
+            startsWith:
+              expression: expression
+              value: value
+            notEqualTo:
+              expression: expression
+              value: "{}"
+            greaterThan:
+              expression: expression
+              value: 0.8008281904610115
+          - isNotNull:
+              expression: expression
+              value: true
+            in:
+              expression: expression
+              value:
+              - value
+              - value
+            errorMessage:
+              expression: expression
+              value: value
+            equalTo:
+              expression: expression
+              value: "{}"
+            greaterThanOrEqualTo:
+              expression: expression
+              value: 0.8008281904610115
+            description:
+              expression: expression
+              value: value
+            contains:
+              expression: expression
+              value: value
+            lessThan:
+              expression: expression
+              value: 0.8008281904610115
+            isNull:
+              expression: expression
+              value: true
+            endsWith:
+              expression: expression
+              value: value
+            notIn:
+              expression: expression
+              value:
+              - value
+              - value
+            value:
+              expression: expression
+              value: "{}"
+            taskId: taskId
+            lessThanOrEqualTo:
+              expression: expression
+              value: 0.8008281904610115
+            startsWith:
+              expression: expression
+              value: value
+            notEqualTo:
+              expression: expression
+              value: "{}"
+            greaterThan:
+              expression: expression
+              value: 0.8008281904610115
+          type: type
+          fixtures:
+            inputs:
+              key: ""
+            files:
+              key: files
+            trigger:
+              variables:
+                key: "{}"
+              id: id
+              type: type
+            tasks:
+            - outputs:
+                key: "{}"
+              assets:
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              description:
+                expression: expression
+                value: value
+              id: id
+              state: null
+              value: value
+            - outputs:
+                key: "{}"
+              assets:
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              description:
+                expression: expression
+                value: value
+              id: id
+              state: null
+              value: value
+        - description: description
+          disabled: true
+          id: id
+          assertions:
+          - isNotNull:
+              expression: expression
+              value: true
+            in:
+              expression: expression
+              value:
+              - value
+              - value
+            errorMessage:
+              expression: expression
+              value: value
+            equalTo:
+              expression: expression
+              value: "{}"
+            greaterThanOrEqualTo:
+              expression: expression
+              value: 0.8008281904610115
+            description:
+              expression: expression
+              value: value
+            contains:
+              expression: expression
+              value: value
+            lessThan:
+              expression: expression
+              value: 0.8008281904610115
+            isNull:
+              expression: expression
+              value: true
+            endsWith:
+              expression: expression
+              value: value
+            notIn:
+              expression: expression
+              value:
+              - value
+              - value
+            value:
+              expression: expression
+              value: "{}"
+            taskId: taskId
+            lessThanOrEqualTo:
+              expression: expression
+              value: 0.8008281904610115
+            startsWith:
+              expression: expression
+              value: value
+            notEqualTo:
+              expression: expression
+              value: "{}"
+            greaterThan:
+              expression: expression
+              value: 0.8008281904610115
+          - isNotNull:
+              expression: expression
+              value: true
+            in:
+              expression: expression
+              value:
+              - value
+              - value
+            errorMessage:
+              expression: expression
+              value: value
+            equalTo:
+              expression: expression
+              value: "{}"
+            greaterThanOrEqualTo:
+              expression: expression
+              value: 0.8008281904610115
+            description:
+              expression: expression
+              value: value
+            contains:
+              expression: expression
+              value: value
+            lessThan:
+              expression: expression
+              value: 0.8008281904610115
+            isNull:
+              expression: expression
+              value: true
+            endsWith:
+              expression: expression
+              value: value
+            notIn:
+              expression: expression
+              value:
+              - value
+              - value
+            value:
+              expression: expression
+              value: "{}"
+            taskId: taskId
+            lessThanOrEqualTo:
+              expression: expression
+              value: 0.8008281904610115
+            startsWith:
+              expression: expression
+              value: value
+            notEqualTo:
+              expression: expression
+              value: "{}"
+            greaterThan:
+              expression: expression
+              value: 0.8008281904610115
+          type: type
+          fixtures:
+            inputs:
+              key: ""
+            files:
+              key: files
+            trigger:
+              variables:
+                key: "{}"
+              id: id
+              type: type
+            tasks:
+            - outputs:
+                key: "{}"
+              assets:
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              description:
+                expression: expression
+                value: value
+              id: id
+              state: null
+              value: value
+            - outputs:
+                key: "{}"
+              assets:
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              description:
+                expression: expression
+                value: value
+              id: id
+              state: null
+              value: value
+        namespace: namespace
+        description: description
+        disabled: true
+        id: id
+        source: source
+        flowId: flowId
       properties:
         id:
           minLength: 1
@@ -25880,6 +27399,352 @@ components:
       - ids
       type: object
     TestSuiteController.TestsLastResultResponse:
+      example:
+        results:
+        - endDate: 2000-01-23T04:56:07.000+00:00
+          namespace: namespace
+          id: id
+          testSuiteId: testSuiteId
+          state: ERROR
+          flowId: flowId
+          results:
+          - executionId: executionId
+            assertionResults:
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            testType: testType
+            testId: testId
+            state: null
+            url: https://openapi-generator.tech
+            errors:
+            - details: details
+              message: message
+            - details: details
+              message: message
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          - executionId: executionId
+            assertionResults:
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            testType: testType
+            testId: testId
+            state: null
+            url: https://openapi-generator.tech
+            errors:
+            - details: details
+              message: message
+            - details: details
+              message: message
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          startDate: 2000-01-23T04:56:07.000+00:00
+        - endDate: 2000-01-23T04:56:07.000+00:00
+          namespace: namespace
+          id: id
+          testSuiteId: testSuiteId
+          state: ERROR
+          flowId: flowId
+          results:
+          - executionId: executionId
+            assertionResults:
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            testType: testType
+            testId: testId
+            state: null
+            url: https://openapi-generator.tech
+            errors:
+            - details: details
+              message: message
+            - details: details
+              message: message
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          - executionId: executionId
+            assertionResults:
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            testType: testType
+            testId: testId
+            state: null
+            url: https://openapi-generator.tech
+            errors:
+            - details: details
+              message: message
+            - details: details
+              message: message
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          startDate: 2000-01-23T04:56:07.000+00:00
       properties:
         results:
           items:
@@ -25887,6 +27752,179 @@ components:
           type: array
       type: object
     TestSuiteRunResult:
+      example:
+        endDate: 2000-01-23T04:56:07.000+00:00
+        namespace: namespace
+        id: id
+        testSuiteId: testSuiteId
+        state: ERROR
+        flowId: flowId
+        results:
+        - executionId: executionId
+          assertionResults:
+          - actual: "{}"
+            expected: "{}"
+            errorMessage: errorMessage
+            description: description
+            operator: operator
+            taskId: taskId
+            isSuccess: true
+          - actual: "{}"
+            expected: "{}"
+            errorMessage: errorMessage
+            description: description
+            operator: operator
+            taskId: taskId
+            isSuccess: true
+          testType: testType
+          testId: testId
+          state: null
+          url: https://openapi-generator.tech
+          errors:
+          - details: details
+            message: message
+          - details: details
+            message: message
+          fixtures:
+            inputs:
+              key: ""
+            files:
+              key: files
+            trigger:
+              variables:
+                key: "{}"
+              id: id
+              type: type
+            tasks:
+            - outputs:
+                key: "{}"
+              assets:
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              description:
+                expression: expression
+                value: value
+              id: id
+              state: null
+              value: value
+            - outputs:
+                key: "{}"
+              assets:
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              description:
+                expression: expression
+                value: value
+              id: id
+              state: null
+              value: value
+        - executionId: executionId
+          assertionResults:
+          - actual: "{}"
+            expected: "{}"
+            errorMessage: errorMessage
+            description: description
+            operator: operator
+            taskId: taskId
+            isSuccess: true
+          - actual: "{}"
+            expected: "{}"
+            errorMessage: errorMessage
+            description: description
+            operator: operator
+            taskId: taskId
+            isSuccess: true
+          testType: testType
+          testId: testId
+          state: null
+          url: https://openapi-generator.tech
+          errors:
+          - details: details
+            message: message
+          - details: details
+            message: message
+          fixtures:
+            inputs:
+              key: ""
+            files:
+              key: files
+            trigger:
+              variables:
+                key: "{}"
+              id: id
+              type: type
+            tasks:
+            - outputs:
+                key: "{}"
+              assets:
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              description:
+                expression: expression
+                value: value
+              id: id
+              state: null
+              value: value
+            - outputs:
+                key: "{}"
+              assets:
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              - metadata:
+                  key: "{}"
+                displayName: displayName
+                namespace: namespace
+                description: description
+                id: id
+                type: type
+              description:
+                expression: expression
+                value: value
+              id: id
+              state: null
+              value: value
+        startDate: 2000-01-23T04:56:07.000+00:00
       properties:
         id:
           type: string
@@ -25918,6 +27956,10 @@ components:
       - testSuiteId
       type: object
     TestSuiteService.RunByQueryRequest:
+      example:
+        namespace: namespace
+        flowId: flowId
+        includeChildNamespaces: true
       properties:
         namespace:
           nullable: true
@@ -25933,6 +27975,359 @@ components:
       - includeChildNamespaces
       type: object
     TestSuiteService.TestRunByQueryResult:
+      example:
+        tenantId: tenantId
+        numberOfTestSuitesToBeRun: 0
+        numberOfTestCasesToBeRun: 6
+        requestMade:
+          namespace: namespace
+          flowId: flowId
+          includeChildNamespaces: true
+        results:
+        - endDate: 2000-01-23T04:56:07.000+00:00
+          namespace: namespace
+          id: id
+          testSuiteId: testSuiteId
+          state: ERROR
+          flowId: flowId
+          results:
+          - executionId: executionId
+            assertionResults:
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            testType: testType
+            testId: testId
+            state: null
+            url: https://openapi-generator.tech
+            errors:
+            - details: details
+              message: message
+            - details: details
+              message: message
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          - executionId: executionId
+            assertionResults:
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            testType: testType
+            testId: testId
+            state: null
+            url: https://openapi-generator.tech
+            errors:
+            - details: details
+              message: message
+            - details: details
+              message: message
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          startDate: 2000-01-23T04:56:07.000+00:00
+        - endDate: 2000-01-23T04:56:07.000+00:00
+          namespace: namespace
+          id: id
+          testSuiteId: testSuiteId
+          state: ERROR
+          flowId: flowId
+          results:
+          - executionId: executionId
+            assertionResults:
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            testType: testType
+            testId: testId
+            state: null
+            url: https://openapi-generator.tech
+            errors:
+            - details: details
+              message: message
+            - details: details
+              message: message
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          - executionId: executionId
+            assertionResults:
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            testType: testType
+            testId: testId
+            state: null
+            url: https://openapi-generator.tech
+            errors:
+            - details: details
+              message: message
+            - details: details
+              message: message
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                assets:
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                - metadata:
+                    key: "{}"
+                  displayName: displayName
+                  namespace: namespace
+                  description: description
+                  id: id
+                  type: type
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          startDate: 2000-01-23T04:56:07.000+00:00
       properties:
         requestMade:
           $ref: "#/components/schemas/TestSuiteService.RunByQueryRequest"
@@ -26112,6 +28507,11 @@ components:
           $ref: "#/components/schemas/Trigger"
       type: object
     TriggerFixture:
+      example:
+        variables:
+          key: "{}"
+        id: id
+        type: type
       properties:
         id:
           type: string
@@ -26148,6 +28548,175 @@ components:
       - EMAIL
       type: string
     UnitTest:
+      example:
+        description: description
+        disabled: true
+        id: id
+        assertions:
+        - isNotNull:
+            expression: expression
+            value: true
+          in:
+            expression: expression
+            value:
+            - value
+            - value
+          errorMessage:
+            expression: expression
+            value: value
+          equalTo:
+            expression: expression
+            value: "{}"
+          greaterThanOrEqualTo:
+            expression: expression
+            value: 0.8008281904610115
+          description:
+            expression: expression
+            value: value
+          contains:
+            expression: expression
+            value: value
+          lessThan:
+            expression: expression
+            value: 0.8008281904610115
+          isNull:
+            expression: expression
+            value: true
+          endsWith:
+            expression: expression
+            value: value
+          notIn:
+            expression: expression
+            value:
+            - value
+            - value
+          value:
+            expression: expression
+            value: "{}"
+          taskId: taskId
+          lessThanOrEqualTo:
+            expression: expression
+            value: 0.8008281904610115
+          startsWith:
+            expression: expression
+            value: value
+          notEqualTo:
+            expression: expression
+            value: "{}"
+          greaterThan:
+            expression: expression
+            value: 0.8008281904610115
+        - isNotNull:
+            expression: expression
+            value: true
+          in:
+            expression: expression
+            value:
+            - value
+            - value
+          errorMessage:
+            expression: expression
+            value: value
+          equalTo:
+            expression: expression
+            value: "{}"
+          greaterThanOrEqualTo:
+            expression: expression
+            value: 0.8008281904610115
+          description:
+            expression: expression
+            value: value
+          contains:
+            expression: expression
+            value: value
+          lessThan:
+            expression: expression
+            value: 0.8008281904610115
+          isNull:
+            expression: expression
+            value: true
+          endsWith:
+            expression: expression
+            value: value
+          notIn:
+            expression: expression
+            value:
+            - value
+            - value
+          value:
+            expression: expression
+            value: "{}"
+          taskId: taskId
+          lessThanOrEqualTo:
+            expression: expression
+            value: 0.8008281904610115
+          startsWith:
+            expression: expression
+            value: value
+          notEqualTo:
+            expression: expression
+            value: "{}"
+          greaterThan:
+            expression: expression
+            value: 0.8008281904610115
+        type: type
+        fixtures:
+          inputs:
+            key: ""
+          files:
+            key: files
+          trigger:
+            variables:
+              key: "{}"
+            id: id
+            type: type
+          tasks:
+          - outputs:
+              key: "{}"
+            assets:
+            - metadata:
+                key: "{}"
+              displayName: displayName
+              namespace: namespace
+              description: description
+              id: id
+              type: type
+            - metadata:
+                key: "{}"
+              displayName: displayName
+              namespace: namespace
+              description: description
+              id: id
+              type: type
+            description:
+              expression: expression
+              value: value
+            id: id
+            state: null
+            value: value
+          - outputs:
+              key: "{}"
+            assets:
+            - metadata:
+                key: "{}"
+              displayName: displayName
+              namespace: namespace
+              description: description
+              id: id
+              type: type
+            - metadata:
+                key: "{}"
+              displayName: displayName
+              namespace: namespace
+              description: description
+              id: id
+              type: type
+            description:
+              expression: expression
+              value: value
+            id: id
+            state: null
+            value: value
       properties:
         id:
           type: string
@@ -26169,6 +28738,89 @@ components:
       - type
       type: object
     UnitTestResult:
+      example:
+        executionId: executionId
+        assertionResults:
+        - actual: "{}"
+          expected: "{}"
+          errorMessage: errorMessage
+          description: description
+          operator: operator
+          taskId: taskId
+          isSuccess: true
+        - actual: "{}"
+          expected: "{}"
+          errorMessage: errorMessage
+          description: description
+          operator: operator
+          taskId: taskId
+          isSuccess: true
+        testType: testType
+        testId: testId
+        state: null
+        url: https://openapi-generator.tech
+        errors:
+        - details: details
+          message: message
+        - details: details
+          message: message
+        fixtures:
+          inputs:
+            key: ""
+          files:
+            key: files
+          trigger:
+            variables:
+              key: "{}"
+            id: id
+            type: type
+          tasks:
+          - outputs:
+              key: "{}"
+            assets:
+            - metadata:
+                key: "{}"
+              displayName: displayName
+              namespace: namespace
+              description: description
+              id: id
+              type: type
+            - metadata:
+                key: "{}"
+              displayName: displayName
+              namespace: namespace
+              description: description
+              id: id
+              type: type
+            description:
+              expression: expression
+              value: value
+            id: id
+            state: null
+            value: value
+          - outputs:
+              key: "{}"
+            assets:
+            - metadata:
+                key: "{}"
+              displayName: displayName
+              namespace: namespace
+              description: description
+              id: id
+              type: type
+            - metadata:
+                key: "{}"
+              displayName: displayName
+              namespace: namespace
+              description: description
+              id: id
+              type: type
+            description:
+              expression: expression
+              value: value
+            id: id
+            state: null
+            value: value
       properties:
         testId:
           type: string
