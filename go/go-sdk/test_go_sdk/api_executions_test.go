@@ -58,17 +58,17 @@ namespace: %s
 description: simple_flow_description
 
 inputs:
-  - id: key
+  - id: inputA
     type: STRING
     defaults: 'default_value'
 
 tasks:
   - id: hello
     type: io.kestra.plugin.core.log.Log
-    message: "Hello World! {{ inputs.key }}🚀"
+    message: "Hello World! {{ inputs.inputA }}🚀"
   - id: return
     type: io.kestra.plugin.core.debug.Return
-    format: "{{ inputs.key }}"
+    format: "{{ inputs.inputA }}"
 outputs:
   - id: flow_output
     type: STRING
@@ -236,7 +236,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 
 		labels := []string{"label1:created"}
 		inputs := map[string]any{
-			"key": "value1",
+			"inputA": "value1",
 		}
 
 		res, _, err := KestraTestApiClient().ExecutionsAPI.
@@ -251,7 +251,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 		require.Equal(t, flowId, res.FlowId)
 		require.Equal(t, openapiclient.Label{Key: "label1", Value: "created", AdditionalProperties: map[string]interface{}{}}, res.Labels[0])
 		require.Equal(t, map[string]any{
-			"key": "value1",
+			"inputA": "value1",
 		}, res.Inputs)
 	})
 
@@ -263,7 +263,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 
 		labels := []string{"label1:created"}
 		inputs := map[string]any{
-			"key": "value1",
+			"inputA": "value1",
 		}
 
 		created, _, err := KestraTestApiClient().ExecutionsAPI.
@@ -276,7 +276,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 		exec, _, err := KestraTestApiClient().ExecutionsAPI.Execution(ctx, created.Id, MAIN_TENANT).Execute()
 		require.NoError(t, err)
 		require.Equal(t, map[string]any{
-			"key": "value1",
+			"inputA": "value1",
 		}, exec.Inputs)
 
 		require.Equal(t, map[string]any{
@@ -664,7 +664,7 @@ func TestExecutionsAPI_All(t *testing.T) {
 
 		// then replay with other inputs
 		inputs := map[string]any{
-			"key": "value1FromReplay",
+			"inputA": "value1FromReplay",
 		}
 		replayingExec, _, err := KestraTestApiClient().ExecutionsAPI.ReplayExecutionWithinputs(ctx, exec.Id, MAIN_TENANT).FormData(inputs).Execute()
 		require.NoError(t, err)

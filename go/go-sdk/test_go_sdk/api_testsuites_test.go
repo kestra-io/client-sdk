@@ -3,10 +3,11 @@ package main
 import (
 	"context"
 	"fmt"
-	kestra_api_client "github.com/kestra-io/client-sdk/go-sdk"
-	"github.com/stretchr/testify/require"
 	"strings"
 	"testing"
+
+	kestra_api_client "github.com/kestra-io/client-sdk/go-sdk"
+	"github.com/stretchr/testify/require"
 )
 
 func SIMPLE_TEST_SUITE(id string, ns string, flowId string) string {
@@ -312,6 +313,62 @@ func TestTestSuitesAPI_All(t *testing.T) {
 			foundIds = append(foundIds, found.GetId())
 		}
 		require.ElementsMatch(t, []string{testSuiteId4}, foundIds)
+	})
+	t.Run("runTestSuiteTest", func(t *testing.T) {
+		t.Skip("need to fix AssertionResult expected and actual deserialization first")
+		testSuiteId := randomId()
+		namespace := randomId()
+		flowId := randomId()
+		ctx := GetAuthContext()
+		testSuiteYaml := SIMPLE_TEST_SUITE(testSuiteId, namespace, flowId)
+		createSimpleFlow(ctx, flowId, namespace)
+		_, _, err := KestraTestApiClient().TestSuitesAPI.CreateTestSuite(ctx, MAIN_TENANT).Body(testSuiteYaml).Execute()
+		require.NoError(t, err)
+
+		res, _, err := KestraTestApiClient().TestSuitesAPI.RunTestSuite(ctx, namespace, testSuiteId, MAIN_TENANT).Execute()
+		require.NoError(t, err)
+
+		require.EqualValues(t, testSuiteId, res.GetTestSuiteId())
+		require.EqualValues(t, kestra_api_client.TESTSTATE_SUCCESS, res.GetState())
+		require.NotEmpty(t, res.GetEndDate())
+	})
+	t.Run("runTestSuiteTest_failed", func(t *testing.T) {
+		t.Skip("need to fix AssertionResult expected and actual deserialization first")
+		testSuiteId := randomId()
+		namespace := randomId()
+		flowId := randomId()
+		ctx := GetAuthContext()
+		testSuiteYaml := FAILING_SIMPLE_TEST_SUITE(testSuiteId, namespace, flowId)
+		createSimpleFlow(ctx, flowId, namespace)
+		_, _, err := KestraTestApiClient().TestSuitesAPI.CreateTestSuite(ctx, MAIN_TENANT).Body(testSuiteYaml).Execute()
+		require.NoError(t, err)
+
+		res, _, err := KestraTestApiClient().TestSuitesAPI.RunTestSuite(ctx, namespace, testSuiteId, MAIN_TENANT).Execute()
+		require.NoError(t, err)
+
+		require.EqualValues(t, testSuiteId, res.GetTestSuiteId())
+		require.EqualValues(t, kestra_api_client.TESTSTATE_FAILED, res.GetState())
+		require.Len(t, res.GetResults(), 1)
+		result := res.GetResults()[0]
+		require.EqualValues(t, "test_case_1", result.GetTestId())
+		require.Len(t, result.GetAssertionResults(), 1)
+		assertionResult := result.GetAssertionResults()[0]
+		require.EqualValues(t, "Hi there", assertionResult.GetExpected())
+		require.EqualValues(t, "another value", assertionResult.GetActual())
+		require.EqualValues(t, "equalTo", assertionResult.GetOperator())
+		require.False(t, assertionResult.GetIsSuccess())
+	})
+	t.Run("runTestSuiteByQueryTest", func(t *testing.T) {
+		t.Skip("need to fix AssertionResult expected and actual deserialization first")
+	})
+	t.Run("searchTestSuitesResultsTest", func(t *testing.T) {
+		t.Skip("need to fix AssertionResult expected and actual deserialization first")
+	})
+	t.Run("getTestResult", func(t *testing.T) {
+		t.Skip("need to fix AssertionResult expected and actual deserialization first")
+	})
+	t.Run("getTestsLastResultTest", func(t *testing.T) {
+		t.Skip("need to fix AssertionResult expected and actual deserialization first")
 	})
 }
 func assertTestSuiteExists(t *testing.T, ctx context.Context, namespace string, id string) {
