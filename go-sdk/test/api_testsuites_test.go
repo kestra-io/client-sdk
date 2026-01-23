@@ -1,4 +1,4 @@
-package main
+package test
 
 import (
 	"context"
@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	kestra_api_client "github.com/kestra-io/client-sdk/go-sdk"
+	"github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
 	"github.com/stretchr/testify/require"
 )
 

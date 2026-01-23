@@ -37,7 +37,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
 )
 
 func main() {
@@ -107,7 +107,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
 )
 
 func main() {
@@ -177,7 +177,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
 )
 
 func main() {
@@ -246,7 +246,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
 )
 
 func main() {
@@ -318,7 +318,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
 )
 
 func main() {
@@ -389,7 +389,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
 )
 
 func main() {
@@ -460,7 +460,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
 )
 
 func main() {
@@ -531,7 +531,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
 )
 
 func main() {
@@ -610,7 +610,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
 )
 
 func main() {
@@ -681,7 +681,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
 )
 
 func main() {
@@ -757,7 +757,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
 )
 
 func main() {
@@ -830,7 +830,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
 )
 
 func main() {
@@ -908,7 +908,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
 )
 
 func main() {

@@ -1,6 +1,6 @@
 generatorName: go
 inputSpec: /local/kestra-ee.yml
-outputDir: /local/go/go-sdk
+outputDir: /local/go-sdk/kestra_api_client
 
 globalProperties:
   apiTests: false
@@ -9,13 +9,13 @@ globalProperties:
   modelDocs: true
   skipFormModel: false
 
-
 additionalProperties:
   packageName: kestra_api_client
   projectName: kestra_api
   withGoMod: false
   enumClassPrefix: true
   disallowAdditionalPropertiesIfNotPresent: false
+  isGoSubmodule: true
 
 gitUserId: kestra-io
 gitRepoId: client-sdk/go-sdk
