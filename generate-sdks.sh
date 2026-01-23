@@ -19,6 +19,30 @@ sed_inplace() {
   fi
 }
 
+# cleanup previous generated files listed by OpenAPI Generator
+cleanup_openapi_generated_files() {
+  local sdk_path="$1"
+  local files_list_file="$sdk_path/.openapi-generator/FILES"
+
+  echo "cleanup previous generated files in $files_list_file"
+
+  if [ ! -f "$files_list_file" ]; then
+    echo "No OpenAPI generated files list found at $files_list_file (nothing to cleanup)"
+    return 0
+  fi
+
+  # Print the file list for visibility
+  ls "$files_list_file"
+
+  while IFS= read -r file; do
+    # Skip empty lines
+    [ -z "$file" ] && continue
+
+    echo "removing file: $sdk_path/$file"
+    rm "$sdk_path/$file" || true
+  done < "$files_list_file"
+}
+
 # check if LANGUAGES is empty
 if [ -z "$LANGUAGES" ]; then
   echo "No language specified. Please provide a language. Possible languages are: 'java', 'python', 'go' and 'javascript'"
@@ -49,19 +73,9 @@ KESTRA_OPENAPI=$(readlink -f ./kestra-ee.yml)
 sh -c "cd ./generation-helpers/kestra-openapi-sdk-customizer && npm i && npm run build && npm start $KESTRA_OPENAPI_SDK_CUSTOMIZER_CONF $KESTRA_OPENAPI"
 
 
-SDK_PATH="./${LANGUAGES}/${LANGUAGES}-sdk"
-OPEN_API_GENERATED_FILES_LIST_FILE="$SDK_PATH/.openapi-generator/FILES"
-
-# cleanup previous generated files
-echo "cleanup previous generated files in $OPEN_API_GENERATED_FILES_LIST_FILE"
-ls "${OPEN_API_GENERATED_FILES_LIST_FILE}"
-while IFS= read -r file; do
-  echo "removing file: $SDK_PATH/$file"
-  rm "$SDK_PATH/$file" || true
-done < "$OPEN_API_GENERATED_FILES_LIST_FILE"
-
 # Generate Java SDK
 if [[ ",$LANGUAGES," == *",java,"* ]]; then
+cleanup_openapi_generated_files "./${LANGUAGES}/${LANGUAGES}-sdk"
 rm -rf ./java/java-sdk/docs
 rm -rf ./java/java-sdk/src/main/java/io/kestra/sdk/api
 rm -rf ./java/java-sdk/src/main/java/io/kestra/sdk/internal
@@ -85,6 +99,7 @@ fi
 
 # Generate Python SDK
 if [[ ",$LANGUAGES," == *",python,"* ]]; then
+cleanup_openapi_generated_files "./${LANGUAGES}/${LANGUAGES}-sdk"
 docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release generate \
     -c /local/python/configuration/python-config.yml \
     --skip-validate-spec \
@@ -104,6 +119,7 @@ fi
 
 # Generate Javascript SDK
 if [[ ",$LANGUAGES," == *",javascript,"* ]]; then
+cleanup_openapi_generated_files "./${LANGUAGES}/${LANGUAGES}-sdk"
 rm -rf ./javascript/javascript-sdk
 docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release generate \
     -c /local/javascript/configuration/javascript-config.yml \
@@ -132,14 +148,15 @@ fi
 
 # Generate GoLang SDK
 if [[ ",$LANGUAGES," == *",go,"* ]]; then
+cleanup_openapi_generated_files "./go-sdk/kestra_api_client"
 docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release generate \
-    -c /local/go/configuration/go-config.yml \
+    -c /local/go-sdk/configuration/go-config.yml \
     --skip-validate-spec \
     --additional-properties=packageVersion=$VERSION \
-    --template-dir=/local/go/template
+    --template-dir=/local/go-sdk/template
 
-cp -R ./go/template-files/* ./go/go-sdk/
+cp -R ./go-sdk/template-files/* ./go-sdk/kestra_api_client/
 
 # this will do go fmt and either auto add missing imports or remove unused ones
-go run golang.org/x/tools/cmd/goimports@latest -w ./go
+go run golang.org/x/tools/cmd/goimports@latest -w ./go-sdk
 fi

@@ -1,24 +1,24 @@
-# \RolesAPI
+# \KVAPI
 
 All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AutocompleteRoles**](RolesAPI.md#AutocompleteRoles) | **Post** /api/v1/{tenant}/roles/autocomplete | List roles for autocomplete
-[**CreateRole**](RolesAPI.md#CreateRole) | **Post** /api/v1/{tenant}/roles | Create a role
-[**DeleteRole**](RolesAPI.md#DeleteRole) | **Delete** /api/v1/{tenant}/roles/{id} | Delete a role
-[**ListRolesFromGivenIds**](RolesAPI.md#ListRolesFromGivenIds) | **Post** /api/v1/{tenant}/roles/ids | List roles by ids
-[**Role**](RolesAPI.md#Role) | **Get** /api/v1/{tenant}/roles/{id} | Retrieve a role
-[**SearchRoles**](RolesAPI.md#SearchRoles) | **Get** /api/v1/{tenant}/roles/search | Search for roles
-[**UpdateRole**](RolesAPI.md#UpdateRole) | **Put** /api/v1/{tenant}/roles/{id} | Update a role
+[**DeleteKeyValue**](KVAPI.md#DeleteKeyValue) | **Delete** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Delete a key-value pair
+[**DeleteKeyValues**](KVAPI.md#DeleteKeyValues) | **Delete** /api/v1/{tenant}/namespaces/{namespace}/kv | Bulk-delete multiple key/value pairs from the given namespace.
+[**KeyValue**](KVAPI.md#KeyValue) | **Get** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Get value for a key
+[**ListAllKeys**](KVAPI.md#ListAllKeys) | **Get** /api/v1/{tenant}/kv | List all keys
+[**ListKeys**](KVAPI.md#ListKeys) | **Get** /api/v1/{tenant}/namespaces/{namespace}/kv | List all keys for a namespace
+[**ListKeysWithInheritence**](KVAPI.md#ListKeysWithInheritence) | **Get** /api/v1/{tenant}/namespaces/{namespace}/kv/inheritance | List all keys for inherited namespaces
+[**SetKeyValue**](KVAPI.md#SetKeyValue) | **Put** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Puts a key-value pair in store
 
 
 
-## AutocompleteRoles
+## DeleteKeyValue
 
-> []ApiRoleSummary AutocompleteRoles(ctx, tenant).ApiAutocomplete(apiAutocomplete).Execute()
+> bool DeleteKeyValue(ctx, namespace, key, tenant).Execute()
 
-List roles for autocomplete
+Delete a key-value pair
 
 ### Example
 
@@ -29,22 +29,23 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
 )
 
 func main() {
+	namespace := "namespace_example" // string | The namespace id
+	key := "key_example" // string | The key
 	tenant := "tenant_example" // string | 
-	apiAutocomplete := *openapiclient.NewApiAutocomplete() // ApiAutocomplete | Autocomplete request
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RolesAPI.AutocompleteRoles(context.Background(), tenant).ApiAutocomplete(apiAutocomplete).Execute()
+	resp, r, err := apiClient.KVAPI.DeleteKeyValue(context.Background(), namespace, key, tenant).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RolesAPI.AutocompleteRoles``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `KVAPI.DeleteKeyValue``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `AutocompleteRoles`: []ApiRoleSummary
-	fmt.Fprintf(os.Stdout, "Response from `RolesAPI.AutocompleteRoles`: %v\n", resp)
+	// response from `DeleteKeyValue`: bool
+	fmt.Fprintf(os.Stdout, "Response from `KVAPI.DeleteKeyValue`: %v\n", resp)
 }
 ```
 
@@ -54,21 +55,97 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**namespace** | **string** | The namespace id | 
+**key** | **string** | The key | 
 **tenant** | **string** |  | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAutocompleteRolesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteKeyValueRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **apiAutocomplete** | [**ApiAutocomplete**](ApiAutocomplete.md) | Autocomplete request | 
+
+
 
 ### Return type
 
-[**[]ApiRoleSummary**](ApiRoleSummary.md)
+**bool**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteKeyValues
+
+> KVControllerApiDeleteBulkResponse DeleteKeyValues(ctx, namespace, tenant).KVControllerApiDeleteBulkRequest(kVControllerApiDeleteBulkRequest).Execute()
+
+Bulk-delete multiple key/value pairs from the given namespace.
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
+)
+
+func main() {
+	namespace := "namespace_example" // string | The namespace id
+	tenant := "tenant_example" // string | 
+	kVControllerApiDeleteBulkRequest := *openapiclient.NewKVControllerApiDeleteBulkRequest() // KVControllerApiDeleteBulkRequest | The keys
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.KVAPI.DeleteKeyValues(context.Background(), namespace, tenant).KVControllerApiDeleteBulkRequest(kVControllerApiDeleteBulkRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `KVAPI.DeleteKeyValues``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeleteKeyValues`: KVControllerApiDeleteBulkResponse
+	fmt.Fprintf(os.Stdout, "Response from `KVAPI.DeleteKeyValues`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**namespace** | **string** | The namespace id | 
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteKeyValuesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **kVControllerApiDeleteBulkRequest** | [**KVControllerApiDeleteBulkRequest**](KVControllerApiDeleteBulkRequest.md) | The keys | 
+
+### Return type
+
+[**KVControllerApiDeleteBulkResponse**](KVControllerApiDeleteBulkResponse.md)
 
 ### Authorization
 
@@ -84,11 +161,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CreateRole
+## KeyValue
 
-> IAMRoleControllerApiRoleDetail CreateRole(ctx, tenant).IAMRoleControllerApiRoleCreateOrUpdateRequest(iAMRoleControllerApiRoleCreateOrUpdateRequest).Execute()
+> KVControllerTypedValue KeyValue(ctx, namespace, key, tenant).Execute()
 
-Create a role
+Get value for a key
 
 ### Example
 
@@ -99,22 +176,23 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
 )
 
 func main() {
+	namespace := "namespace_example" // string | The namespace id
+	key := "key_example" // string | The key
 	tenant := "tenant_example" // string | 
-	iAMRoleControllerApiRoleCreateOrUpdateRequest := *openapiclient.NewIAMRoleControllerApiRoleCreateOrUpdateRequest(*openapiclient.NewIAMRoleControllerApiRoleCreateOrUpdateRequestPermissions(), "Name_example") // IAMRoleControllerApiRoleCreateOrUpdateRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RolesAPI.CreateRole(context.Background(), tenant).IAMRoleControllerApiRoleCreateOrUpdateRequest(iAMRoleControllerApiRoleCreateOrUpdateRequest).Execute()
+	resp, r, err := apiClient.KVAPI.KeyValue(context.Background(), namespace, key, tenant).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RolesAPI.CreateRole``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `KVAPI.KeyValue``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateRole`: IAMRoleControllerApiRoleDetail
-	fmt.Fprintf(os.Stdout, "Response from `RolesAPI.CreateRole`: %v\n", resp)
+	// response from `KeyValue`: KVControllerTypedValue
+	fmt.Fprintf(os.Stdout, "Response from `KVAPI.KeyValue`: %v\n", resp)
 }
 ```
 
@@ -124,21 +202,24 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**namespace** | **string** | The namespace id | 
+**key** | **string** | The key | 
 **tenant** | **string** |  | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCreateRoleRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiKeyValueRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **iAMRoleControllerApiRoleCreateOrUpdateRequest** | [**IAMRoleControllerApiRoleCreateOrUpdateRequest**](IAMRoleControllerApiRoleCreateOrUpdateRequest.md) |  | 
+
+
 
 ### Return type
 
-[**IAMRoleControllerApiRoleDetail**](IAMRoleControllerApiRoleDetail.md)
+[**KVControllerTypedValue**](KVControllerTypedValue.md)
 
 ### Authorization
 
@@ -146,7 +227,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -154,11 +235,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## DeleteRole
+## ListAllKeys
 
-> DeleteRole(ctx, id, tenant).Execute()
+> PagedResultsKVEntry ListAllKeys(ctx, tenant).Page(page).Size(size).Sort(sort).Filters(filters).Execute()
 
-Delete a role
+List all keys
 
 ### Example
 
@@ -169,18 +250,238 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
 )
 
 func main() {
-	id := "id_example" // string | The role id
+	page := int32(56) // int32 | The current page (default to 1)
+	size := int32(56) // int32 | The current page size (default to 10)
+	tenant := "tenant_example" // string | 
+	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
+	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.KVAPI.ListAllKeys(context.Background(), tenant).Page(page).Size(size).Sort(sort).Filters(filters).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `KVAPI.ListAllKeys``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListAllKeys`: PagedResultsKVEntry
+	fmt.Fprintf(os.Stdout, "Response from `KVAPI.ListAllKeys`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListAllKeysRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page** | **int32** | The current page | [default to 1]
+ **size** | **int32** | The current page size | [default to 10]
+
+ **sort** | **[]string** | The sort of current page | 
+ **filters** | [**[]QueryFilter**](QueryFilter.md) | Filters | 
+
+### Return type
+
+[**PagedResultsKVEntry**](PagedResultsKVEntry.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListKeys
+
+> []KVEntry ListKeys(ctx, namespace, tenant).Execute()
+
+List all keys for a namespace
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
+)
+
+func main() {
+	namespace := "namespace_example" // string | The namespace id
 	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RolesAPI.DeleteRole(context.Background(), id, tenant).Execute()
+	resp, r, err := apiClient.KVAPI.ListKeys(context.Background(), namespace, tenant).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RolesAPI.DeleteRole``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `KVAPI.ListKeys``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListKeys`: []KVEntry
+	fmt.Fprintf(os.Stdout, "Response from `KVAPI.ListKeys`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**namespace** | **string** | The namespace id | 
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListKeysRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**[]KVEntry**](KVEntry.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListKeysWithInheritence
+
+> []KVEntry ListKeysWithInheritence(ctx, namespace, tenant).Execute()
+
+List all keys for inherited namespaces
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
+)
+
+func main() {
+	namespace := "namespace_example" // string | The namespace id
+	tenant := "tenant_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.KVAPI.ListKeysWithInheritence(context.Background(), namespace, tenant).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `KVAPI.ListKeysWithInheritence``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListKeysWithInheritence`: []KVEntry
+	fmt.Fprintf(os.Stdout, "Response from `KVAPI.ListKeysWithInheritence`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**namespace** | **string** | The namespace id | 
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListKeysWithInheritenceRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**[]KVEntry**](KVEntry.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## SetKeyValue
+
+> SetKeyValue(ctx, namespace, key, tenant).Body(body).Execute()
+
+Puts a key-value pair in store
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
+)
+
+func main() {
+	namespace := "namespace_example" // string | The namespace id
+	key := "key_example" // string | The key
+	tenant := "tenant_example" // string | 
+	body := "body_example" // string | The value of the key
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.KVAPI.SetKeyValue(context.Background(), namespace, key, tenant).Body(body).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `KVAPI.SetKeyValue``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -192,18 +493,21 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The role id | 
+**namespace** | **string** | The namespace id | 
+**key** | **string** | The key | 
 **tenant** | **string** |  | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteRoleRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiSetKeyValueRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+
+ **body** | **string** | The value of the key | 
 
 ### Return type
 
@@ -215,298 +519,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: text/plain
 - **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ListRolesFromGivenIds
-
-> []Role ListRolesFromGivenIds(ctx, tenant).ApiIds(apiIds).Execute()
-
-List roles by ids
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	tenant := "tenant_example" // string | 
-	apiIds := *openapiclient.NewApiIds() // ApiIds | The ids that must be present on results
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RolesAPI.ListRolesFromGivenIds(context.Background(), tenant).ApiIds(apiIds).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RolesAPI.ListRolesFromGivenIds``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListRolesFromGivenIds`: []Role
-	fmt.Fprintf(os.Stdout, "Response from `RolesAPI.ListRolesFromGivenIds`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**tenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListRolesFromGivenIdsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **apiIds** | [**ApiIds**](ApiIds.md) | The ids that must be present on results | 
-
-### Return type
-
-[**[]Role**](Role.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## Role
-
-> IAMRoleControllerApiRoleDetail Role(ctx, id, tenant).Execute()
-
-Retrieve a role
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | The role id
-	tenant := "tenant_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RolesAPI.Role(context.Background(), id, tenant).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RolesAPI.Role``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `Role`: IAMRoleControllerApiRoleDetail
-	fmt.Fprintf(os.Stdout, "Response from `RolesAPI.Role`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The role id | 
-**tenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiRoleRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-### Return type
-
-[**IAMRoleControllerApiRoleDetail**](IAMRoleControllerApiRoleDetail.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## SearchRoles
-
-> PagedResultsApiRoleSummary SearchRoles(ctx, tenant).Page(page).Size(size).Q(q).Sort(sort).Execute()
-
-Search for roles
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	page := int32(56) // int32 | The current page (default to 1)
-	size := int32(56) // int32 | The current page size (default to 10)
-	tenant := "tenant_example" // string | 
-	q := "q_example" // string | A string filter (optional)
-	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RolesAPI.SearchRoles(context.Background(), tenant).Page(page).Size(size).Q(q).Sort(sort).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RolesAPI.SearchRoles``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `SearchRoles`: PagedResultsApiRoleSummary
-	fmt.Fprintf(os.Stdout, "Response from `RolesAPI.SearchRoles`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**tenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiSearchRolesRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **page** | **int32** | The current page | [default to 1]
- **size** | **int32** | The current page size | [default to 10]
-
- **q** | **string** | A string filter | 
- **sort** | **[]string** | The sort of current page | 
-
-### Return type
-
-[**PagedResultsApiRoleSummary**](PagedResultsApiRoleSummary.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## UpdateRole
-
-> IAMRoleControllerApiRoleDetail UpdateRole(ctx, id, tenant).IAMRoleControllerApiRoleCreateOrUpdateRequest(iAMRoleControllerApiRoleCreateOrUpdateRequest).Execute()
-
-Update a role
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | The role id
-	tenant := "tenant_example" // string | 
-	iAMRoleControllerApiRoleCreateOrUpdateRequest := *openapiclient.NewIAMRoleControllerApiRoleCreateOrUpdateRequest(*openapiclient.NewIAMRoleControllerApiRoleCreateOrUpdateRequestPermissions(), "Name_example") // IAMRoleControllerApiRoleCreateOrUpdateRequest | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RolesAPI.UpdateRole(context.Background(), id, tenant).IAMRoleControllerApiRoleCreateOrUpdateRequest(iAMRoleControllerApiRoleCreateOrUpdateRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RolesAPI.UpdateRole``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `UpdateRole`: IAMRoleControllerApiRoleDetail
-	fmt.Fprintf(os.Stdout, "Response from `RolesAPI.UpdateRole`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The role id | 
-**tenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiUpdateRoleRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
- **iAMRoleControllerApiRoleCreateOrUpdateRequest** | [**IAMRoleControllerApiRoleCreateOrUpdateRequest**](IAMRoleControllerApiRoleCreateOrUpdateRequest.md) |  | 
-
-### Return type
-
-[**IAMRoleControllerApiRoleDetail**](IAMRoleControllerApiRoleDetail.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

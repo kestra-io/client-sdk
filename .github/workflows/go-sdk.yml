@@ -24,7 +24,7 @@ jobs:
       GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
     defaults:
       run:
-        working-directory: ./go/go-sdk
+        working-directory: ./go-sdk
 
     steps:
       - uses: actions/checkout@v5
@@ -33,7 +33,7 @@ jobs:
 
       - name: build
         id: build
-        run: go build .
+        run: go build ./...
 
       - name: GCP - Auth with github service account
         uses: 'google-github-actions/auth@v2'
@@ -48,5 +48,5 @@ jobs:
         env:
           APPLICATION_SECRETS: ${{ secrets.APPLICATION_SECRETS }}
         run: |
-          echo $APPLICATION_SECRETS | base64 -d > ../../test-utils/docker-setup/application-secrets.yml
-          ./run-tests.sh
+          echo $APPLICATION_SECRETS | base64 -d > ../test-utils/docker-setup/application-secrets.yml
+          sh run-tests.sh

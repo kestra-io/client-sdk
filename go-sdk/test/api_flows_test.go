@@ -1,4 +1,4 @@
-package main
+package test
 
 import (
 	"context"
@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+	"github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
 	"github.com/stretchr/testify/require"
 )
 
@@ -87,7 +87,7 @@ func TestFlowsAPI_All(t *testing.T) {
 		ctx := GetAuthContext()
 		createSimpleFlow(ctx, flowId, namespace)
 
-		idWithNamespace := []openapiclient.IdWithNamespace{
+		idWithNamespace := []kestra_api_client.IdWithNamespace{
 			{
 				Id:        ptr(flowId),
 				Namespace: ptr(namespace),
@@ -105,10 +105,10 @@ func TestFlowsAPI_All(t *testing.T) {
 		ctx := GetAuthContext()
 		createSimpleFlow(ctx, flowId, namespace)
 
-		filters := []openapiclient.QueryFilter{
+		filters := []kestra_api_client.QueryFilter{
 			{
-				Field:     ptr(openapiclient.QUERYFILTERFIELD_NAMESPACE),
-				Operation: ptr(openapiclient.QUERYFILTEROP_EQUALS),
+				Field:     ptr(kestra_api_client.QUERYFILTERFIELD_NAMESPACE),
+				Operation: ptr(kestra_api_client.QUERYFILTEROP_EQUALS),
 				Value:     namespace,
 			},
 		}
@@ -124,7 +124,7 @@ func TestFlowsAPI_All(t *testing.T) {
 		ctx := GetAuthContext()
 		createSimpleFlow(ctx, flowId, namespace)
 
-		idWithNamespace := []openapiclient.IdWithNamespace{
+		idWithNamespace := []kestra_api_client.IdWithNamespace{
 			{
 				Id:        ptr(flowId),
 				Namespace: ptr(namespace),
@@ -140,10 +140,10 @@ func TestFlowsAPI_All(t *testing.T) {
 		ctx := GetAuthContext()
 		createSimpleFlow(ctx, flowId, namespace)
 
-		filters := []openapiclient.QueryFilter{
+		filters := []kestra_api_client.QueryFilter{
 			{
-				Field:     ptr(openapiclient.QUERYFILTERFIELD_NAMESPACE),
-				Operation: ptr(openapiclient.QUERYFILTEROP_EQUALS),
+				Field:     ptr(kestra_api_client.QUERYFILTERFIELD_NAMESPACE),
+				Operation: ptr(kestra_api_client.QUERYFILTEROP_EQUALS),
 				Value:     namespace,
 			},
 		}
@@ -157,7 +157,7 @@ func TestFlowsAPI_All(t *testing.T) {
 		ctx := GetAuthContext()
 		createSimpleFlow(ctx, flowId, namespace)
 
-		idWithNamespace := []openapiclient.IdWithNamespace{
+		idWithNamespace := []kestra_api_client.IdWithNamespace{
 			{
 				Id:        ptr(flowId),
 				Namespace: ptr(namespace),
@@ -173,10 +173,10 @@ func TestFlowsAPI_All(t *testing.T) {
 		ctx := GetAuthContext()
 		createSimpleFlow(ctx, flowId, namespace)
 
-		filters := []openapiclient.QueryFilter{
+		filters := []kestra_api_client.QueryFilter{
 			{
-				Field:     ptr(openapiclient.QUERYFILTERFIELD_NAMESPACE),
-				Operation: ptr(openapiclient.QUERYFILTEROP_EQUALS),
+				Field:     ptr(kestra_api_client.QUERYFILTERFIELD_NAMESPACE),
+				Operation: ptr(kestra_api_client.QUERYFILTEROP_EQUALS),
 				Value:     namespace,
 			},
 		}
@@ -190,7 +190,7 @@ func TestFlowsAPI_All(t *testing.T) {
 		ctx := GetAuthContext()
 		createSimpleFlow(ctx, flowId, namespace)
 
-		idWithNamespace := []openapiclient.IdWithNamespace{
+		idWithNamespace := []kestra_api_client.IdWithNamespace{
 			{
 				Id:        ptr(flowId),
 				Namespace: ptr(namespace),
@@ -206,10 +206,10 @@ func TestFlowsAPI_All(t *testing.T) {
 		ctx := GetAuthContext()
 		createSimpleFlow(ctx, flowId, namespace)
 
-		filters := []openapiclient.QueryFilter{
+		filters := []kestra_api_client.QueryFilter{
 			{
-				Field:     ptr(openapiclient.QUERYFILTERFIELD_NAMESPACE),
-				Operation: ptr(openapiclient.QUERYFILTEROP_EQUALS),
+				Field:     ptr(kestra_api_client.QUERYFILTERFIELD_NAMESPACE),
+				Operation: ptr(kestra_api_client.QUERYFILTEROP_EQUALS),
 				Value:     namespace,
 			},
 		}
@@ -349,10 +349,10 @@ func TestFlowsAPI_All(t *testing.T) {
 		ctx := GetAuthContext()
 		createSimpleFlow(ctx, flowId, namespace)
 
-		filters := []openapiclient.QueryFilter{
+		filters := []kestra_api_client.QueryFilter{
 			{
-				Field:     ptr(openapiclient.QUERYFILTERFIELD_NAMESPACE),
-				Operation: ptr(openapiclient.QUERYFILTEROP_EQUALS),
+				Field:     ptr(kestra_api_client.QUERYFILTERFIELD_NAMESPACE),
+				Operation: ptr(kestra_api_client.QUERYFILTEROP_EQUALS),
 				Value:     namespace,
 			},
 		}
@@ -434,7 +434,7 @@ func TestFlowsAPI_All(t *testing.T) {
 
 		response, _, err := KestraTestApiClient().FlowsAPI.
 			ValidateTask(ctx, MAIN_TENANT).
-			Section(openapiclient.FLOWCONTROLLERTASKVALIDATIONTYPE_TASKS).
+			Section(kestra_api_client.FLOWCONTROLLERTASKVALIDATIONTYPE_TASKS).
 			Body(taskJson).
 			Execute()
 		require.NoError(t, err)
@@ -454,7 +454,7 @@ func TestFlowsAPI_All(t *testing.T) {
 
 		response, _, err := KestraTestApiClient().FlowsAPI.
 			ValidateTask(ctx, MAIN_TENANT).
-			Section(openapiclient.FLOWCONTROLLERTASKVALIDATIONTYPE_TASKS).
+			Section(kestra_api_client.FLOWCONTROLLERTASKVALIDATIONTYPE_TASKS).
 			Body(taskJson).
 			Execute()
 		require.NoError(t, err)

@@ -252,7 +252,7 @@ import (
     "fmt"
     "log"
 
-    kestra "github.com/kestra-io/client-sdk/go-sdk"
+    kestra "github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
 )
 
 func main() {

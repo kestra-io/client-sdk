@@ -13,8 +13,8 @@ services:
       start_period: 5s
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ../../test-utils/docker-setup/application.yml:/app/confs/application.yml:ro
-      - ../../test-utils/docker-setup/application-secrets.yml:/app/secrets/application-secrets.yml:ro
+      - ../test-utils/docker-setup/application.yml:/app/confs/application.yml:ro
+      - ../test-utils/docker-setup/application-secrets.yml:/app/secrets/application-secrets.yml:ro
     environment:
       MICRONAUT_CONFIG_FILES: /app/confs/application.yml,/app/secrets/application-secrets.yml
     ports:

@@ -1,4 +1,4 @@
-package main
+package test
 
 import (
 	"context"
@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+	"github.com/kestra-io/client-sdk/go-sdk/kestra_api_client"
 )
 
 const (
@@ -17,20 +17,20 @@ const (
 	TEST_DATA_PATH = "../../../test-utils"
 )
 
-func KestraTestApiClient() *openapiclient.APIClient {
-	configuration := openapiclient.NewConfiguration()
+func KestraTestApiClient() *kestra_api_client.APIClient {
+	configuration := kestra_api_client.NewConfiguration()
 
 	url := HOST
 
 	//configuration.Debug = true
 
-	configuration.Servers = []openapiclient.ServerConfiguration{
+	configuration.Servers = []kestra_api_client.ServerConfiguration{
 		{
 			URL: url,
 		},
 	}
 
-	apiClient := openapiclient.NewAPIClient(configuration)
+	apiClient := kestra_api_client.NewAPIClient(configuration)
 
 	return apiClient
 }
@@ -40,11 +40,11 @@ func GetAuthContext() context.Context {
 
 	ctx := context.Background()
 
-	basicAuth := openapiclient.BasicAuth{
+	basicAuth := kestra_api_client.BasicAuth{
 		UserName: username,
 		Password: password,
 	}
-	ctx = context.WithValue(ctx, openapiclient.ContextBasicAuth, basicAuth)
+	ctx = context.WithValue(ctx, kestra_api_client.ContextBasicAuth, basicAuth)
 	return ctx
 }
 func randomId() string {

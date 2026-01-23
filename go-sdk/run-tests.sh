@@ -10,7 +10,7 @@ log_and_run() {
 if [ $# -ge 1 ]; then
   KESTRA_VERSION="$1"
 else
-  KESTRA_VERSION=$(cat ../../COMPATIBLE_KESTRA_VERSION.properties)
+  KESTRA_VERSION=$(cat ../COMPATIBLE_KESTRA_VERSION.properties)
 fi
 
 #CURRENT_TIMESTAMP=$(date -u "+%Y%m%d%H%M%S" 2>/dev/null || date -u -j "+%Y%m%d%H%M%S")
@@ -32,7 +32,7 @@ log_and_run docker compose -f docker-compose-ci.yml up -d --wait || {
 }
 
 echo "build"
-log_and_run sh -c 'go build .'
+log_and_run sh -c 'go build ./...'
 
 echo "start tests"
 log_and_run sh -c 'go test ./...'
