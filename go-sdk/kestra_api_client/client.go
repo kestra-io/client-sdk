@@ -49,6 +49,8 @@ type APIClient struct {
 
 	ExecutionsAPI *ExecutionsAPIService
 
+	FilesAPI *FilesAPIService
+
 	FlowsAPI *FlowsAPIService
 
 	GroupsAPI *GroupsAPIService
@@ -85,6 +87,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 
 	// API Services
 	c.ExecutionsAPI = (*ExecutionsAPIService)(&c.common)
+	c.FilesAPI = (*FilesAPIService)(&c.common)
 	c.FlowsAPI = (*FlowsAPIService)(&c.common)
 	c.GroupsAPI = (*GroupsAPIService)(&c.common)
 	c.KVAPI = (*KVAPIService)(&c.common)

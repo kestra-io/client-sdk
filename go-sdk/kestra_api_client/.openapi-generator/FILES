@@ -3,6 +3,7 @@
 README.md
 api/openapi.yaml
 api_executions.go
+api_files.go
 api_flows.go
 api_groups.go
 api_kv.go
@@ -152,6 +153,7 @@ docs/ExecutionsAPI.md
 docs/FileAttributes.md
 docs/FileAttributesFileType.md
 docs/FileMetas.md
+docs/FilesAPI.md
 docs/Filter.md
 docs/Fixtures.md
 docs/Flow.md

@@ -125,6 +125,16 @@ Class | Method | HTTP request | Description
 *ExecutionsAPI* | [**UpdateExecutionsStatusByIds**](docs/ExecutionsAPI.md#updateexecutionsstatusbyids) | **Post** /api/v1/{tenant}/executions/change-status/by-ids | Change executions state by id
 *ExecutionsAPI* | [**UpdateExecutionsStatusByQuery**](docs/ExecutionsAPI.md#updateexecutionsstatusbyquery) | **Post** /api/v1/{tenant}/executions/change-status/by-query | Change executions state by query parameters
 *ExecutionsAPI* | [**UpdateTaskRunState**](docs/ExecutionsAPI.md#updatetaskrunstate) | **Post** /api/v1/{tenant}/executions/{executionId}/state | Change state for a taskrun in an execution
+*FilesAPI* | [**CreateNamespaceDirectory**](docs/FilesAPI.md#createnamespacedirectory) | **Post** /api/v1/{tenant}/namespaces/{namespace}/files/directory | Create a directory
+*FilesAPI* | [**CreateNamespaceFile**](docs/FilesAPI.md#createnamespacefile) | **Post** /api/v1/{tenant}/namespaces/{namespace}/files | Create a file
+*FilesAPI* | [**DeleteFileDirectory**](docs/FilesAPI.md#deletefiledirectory) | **Delete** /api/v1/{tenant}/namespaces/{namespace}/files | Delete a file or directory
+*FilesAPI* | [**ExportNamespaceFiles**](docs/FilesAPI.md#exportnamespacefiles) | **Get** /api/v1/{tenant}/namespaces/{namespace}/files/export | Export namespace files as a ZIP
+*FilesAPI* | [**FileContent**](docs/FilesAPI.md#filecontent) | **Get** /api/v1/{tenant}/namespaces/{namespace}/files | Get namespace file content
+*FilesAPI* | [**FileMetadatas**](docs/FilesAPI.md#filemetadatas) | **Get** /api/v1/{tenant}/namespaces/{namespace}/files/stats | Get namespace file stats such as size, creation &amp; modification dates and type
+*FilesAPI* | [**FileRevisions**](docs/FilesAPI.md#filerevisions) | **Get** /api/v1/{tenant}/namespaces/{namespace}/files/revisions | Get namespace file revisions
+*FilesAPI* | [**ListNamespaceDirectoryFiles**](docs/FilesAPI.md#listnamespacedirectoryfiles) | **Get** /api/v1/{tenant}/namespaces/{namespace}/files/directory | List directory content
+*FilesAPI* | [**MoveFileDirectory**](docs/FilesAPI.md#movefiledirectory) | **Put** /api/v1/{tenant}/namespaces/{namespace}/files | Move a file or directory
+*FilesAPI* | [**SearchNamespaceFiles**](docs/FilesAPI.md#searchnamespacefiles) | **Get** /api/v1/{tenant}/namespaces/{namespace}/files/search | Find files which path contain the given string in their URI
 *FlowsAPI* | [**BulkUpdateFlows**](docs/FlowsAPI.md#bulkupdateflows) | **Post** /api/v1/{tenant}/flows/bulk | Update from multiples yaml sources
 *FlowsAPI* | [**CreateFlow**](docs/FlowsAPI.md#createflow) | **Post** /api/v1/{tenant}/flows | Create a flow from yaml source
 *FlowsAPI* | [**DeleteFlow**](docs/FlowsAPI.md#deleteflow) | **Delete** /api/v1/{tenant}/flows/{namespace}/{id} | Delete a flow
