@@ -12099,7 +12099,7 @@ paths:
       summary: Delete a file or directory
       tags:
       - Files
-      x-internal: true
+      x-internal: false
     get:
       operationId: fileContent
       parameters:
@@ -12150,7 +12150,7 @@ paths:
       summary: Get namespace file content
       tags:
       - Files
-      x-internal: true
+      x-internal: false
     post:
       operationId: createNamespaceFile
       parameters:
@@ -12197,7 +12197,7 @@ paths:
       summary: Create a file
       tags:
       - Files
-      x-internal: true
+      x-internal: false
     put:
       operationId: moveFileDirectory
       parameters:
@@ -12243,7 +12243,7 @@ paths:
       summary: Move a file or directory
       tags:
       - Files
-      x-internal: true
+      x-internal: false
   /api/v1/{tenant}/namespaces/{namespace}/files/directory:
     get:
       operationId: listNamespaceDirectoryFiles
@@ -12287,7 +12287,7 @@ paths:
       summary: List directory content
       tags:
       - Files
-      x-internal: true
+      x-internal: false
     post:
       operationId: createNamespaceDirectory
       parameters:
@@ -12324,7 +12324,7 @@ paths:
       summary: Create a directory
       tags:
       - Files
-      x-internal: true
+      x-internal: false
   /api/v1/{tenant}/namespaces/{namespace}/files/export:
     get:
       operationId: exportNamespaceFiles
@@ -12358,7 +12358,7 @@ paths:
       summary: Export namespace files as a ZIP
       tags:
       - Files
-      x-internal: true
+      x-internal: false
   /api/v1/{tenant}/namespaces/{namespace}/files/revisions:
     get:
       operationId: fileRevisions
@@ -12402,7 +12402,7 @@ paths:
       summary: Get namespace file revisions
       tags:
       - Files
-      x-internal: true
+      x-internal: false
   /api/v1/{tenant}/namespaces/{namespace}/files/search:
     get:
       operationId: searchNamespaceFiles
@@ -12445,7 +12445,7 @@ paths:
       summary: Find files which path contain the given string in their URI
       tags:
       - Files
-      x-internal: true
+      x-internal: false
   /api/v1/{tenant}/namespaces/{namespace}/files/stats:
     get:
       operationId: fileMetadatas
@@ -12488,7 +12488,7 @@ paths:
         \ and type"
       tags:
       - Files
-      x-internal: true
+      x-internal: false
   /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets:
     get:
       operationId: inheritedSecrets
@@ -18084,6 +18084,14 @@ components:
           type: array
       type: object
     FileAttributes:
+      example:
+        fileName: fileName
+        metadata:
+          key: metadata
+        lastModifiedTime: 0
+        creationTime: 6
+        size: 1
+        type: File
       properties:
         fileName:
           type: string
@@ -21413,6 +21421,8 @@ components:
       - namespace
       type: object
     NamespaceFileRevision:
+      example:
+        revision: 0
       properties:
         revision:
           format: int32
