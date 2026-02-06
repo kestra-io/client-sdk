@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
- * A namespace is a logical grouping of flows and tasks. It is used to organize and manage flows and tasks within Kestra.
+ * Namespace
  */
 @JsonPropertyOrder({
   Namespace.JSON_PROPERTY_ID,

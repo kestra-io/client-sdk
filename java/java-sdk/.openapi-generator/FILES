@@ -8,7 +8,6 @@ build.sbt
 docs/AbstractFlow.md
 docs/AbstractGraph.md
 docs/AbstractGraphBranchType.md
-docs/AbstractMetricEntryObject.md
 docs/AbstractTrigger.md
 docs/AbstractTriggerForExecution.md
 docs/AbstractUser.md
@@ -30,8 +29,6 @@ docs/ApiTenantSummary.md
 docs/ApiToken.md
 docs/ApiTokenList.md
 docs/ApiUser.md
-docs/AppResponse.md
-docs/AppResponseUILayout.md
 docs/AppsApi.md
 docs/AppsControllerApiApp.md
 docs/AppsControllerApiAppCatalogItem.md
@@ -98,9 +95,6 @@ docs/Concurrency.md
 docs/ConcurrencyBehavior.md
 docs/ConcurrencyLimit.md
 docs/Condition.md
-docs/ConversionServiceProvider.md
-docs/ConvertibleMultiValuesString.md
-docs/ConvertibleValuesListString.md
 docs/CreateApiTokenRequest.md
 docs/CreateApiTokenResponse.md
 docs/CreateNamespaceFileRequest.md
@@ -118,17 +112,10 @@ docs/DependsOn.md
 docs/DocumentationWithSchema.md
 docs/EditionProviderEdition.md
 docs/Email.md
-docs/EventAppResponse.md
 docs/EventExecution.md
 docs/EventExecutionStatusEvent.md
-docs/EventLogEntry.md
 docs/ExecutableTaskSubflowId.md
 docs/Execution.md
-docs/ExecutionControllerApiValidateExecutionInputsResponse.md
-docs/ExecutionControllerApiValidateExecutionInputsResponseApiCheckFailure.md
-docs/ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue.md
-docs/ExecutionControllerApiValidateExecutionInputsResponseApiInputError.md
-docs/ExecutionControllerEvalResult.md
 docs/ExecutionControllerExecutionResponse.md
 docs/ExecutionControllerLastExecutionResponse.md
 docs/ExecutionControllerSetLabelsByIdsRequest.md
@@ -136,7 +123,6 @@ docs/ExecutionControllerStateRequest.md
 docs/ExecutionControllerWebhookResponse.md
 docs/ExecutionKind.md
 docs/ExecutionMetadata.md
-docs/ExecutionRepositoryInterfaceChildFilter.md
 docs/ExecutionRepositoryInterfaceFlowFilter.md
 docs/ExecutionStatusEvent.md
 docs/ExecutionTrigger.md
@@ -159,7 +145,6 @@ docs/FlowId.md
 docs/FlowInterface.md
 docs/FlowNode.md
 docs/FlowRelation.md
-docs/FlowScope.md
 docs/FlowTopologyGraph.md
 docs/FlowTopologyGraphEdge.md
 docs/FlowUsage.md
@@ -169,7 +154,6 @@ docs/GroupIdentifier.md
 docs/GroupIdentifierMembership.md
 docs/GroupUsage.md
 docs/GroupsApi.md
-docs/HttpParameters.md
 docs/IAMBindingControllerApiBindingDetail.md
 docs/IAMBindingControllerApiBindingGroup.md
 docs/IAMBindingControllerApiBindingUser.md
@@ -242,7 +226,6 @@ docs/KvApi.md
 docs/Label.md
 docs/LeftSidebarConfiguration.md
 docs/Level.md
-docs/Listener.md
 docs/LogEntry.md
 docs/LogsApi.md
 docs/MapObjectObject.md
@@ -268,7 +251,6 @@ docs/MiscControllerTenantConfigurationInfo.md
 docs/Name.md
 docs/Namespace.md
 docs/NamespaceAllowedNamespace.md
-docs/NamespaceAllowedTrigger.md
 docs/NamespaceFileRevision.md
 docs/NamespaceLight.md
 docs/NamespacesApi.md
@@ -472,7 +454,6 @@ src/main/java/io/kestra/sdk/internal/auth/HttpBearerAuth.java
 src/main/java/io/kestra/sdk/model/AbstractFlow.java
 src/main/java/io/kestra/sdk/model/AbstractGraph.java
 src/main/java/io/kestra/sdk/model/AbstractGraphBranchType.java
-src/main/java/io/kestra/sdk/model/AbstractMetricEntryObject.java
 src/main/java/io/kestra/sdk/model/AbstractTrigger.java
 src/main/java/io/kestra/sdk/model/AbstractTriggerForExecution.java
 src/main/java/io/kestra/sdk/model/AbstractUser.java
@@ -494,8 +475,6 @@ src/main/java/io/kestra/sdk/model/ApiTenantSummary.java
 src/main/java/io/kestra/sdk/model/ApiToken.java
 src/main/java/io/kestra/sdk/model/ApiTokenList.java
 src/main/java/io/kestra/sdk/model/ApiUser.java
-src/main/java/io/kestra/sdk/model/AppResponse.java
-src/main/java/io/kestra/sdk/model/AppResponseUILayout.java
 src/main/java/io/kestra/sdk/model/AppsControllerApiApp.java
 src/main/java/io/kestra/sdk/model/AppsControllerApiAppCatalogItem.java
 src/main/java/io/kestra/sdk/model/AppsControllerApiAppSource.java
@@ -561,9 +540,6 @@ src/main/java/io/kestra/sdk/model/Concurrency.java
 src/main/java/io/kestra/sdk/model/ConcurrencyBehavior.java
 src/main/java/io/kestra/sdk/model/ConcurrencyLimit.java
 src/main/java/io/kestra/sdk/model/Condition.java
-src/main/java/io/kestra/sdk/model/ConversionServiceProvider.java
-src/main/java/io/kestra/sdk/model/ConvertibleMultiValuesString.java
-src/main/java/io/kestra/sdk/model/ConvertibleValuesListString.java
 src/main/java/io/kestra/sdk/model/CreateApiTokenRequest.java
 src/main/java/io/kestra/sdk/model/CreateApiTokenResponse.java
 src/main/java/io/kestra/sdk/model/CreateNamespaceFileRequest.java
@@ -580,17 +556,10 @@ src/main/java/io/kestra/sdk/model/DependsOn.java
 src/main/java/io/kestra/sdk/model/DocumentationWithSchema.java
 src/main/java/io/kestra/sdk/model/EditionProviderEdition.java
 src/main/java/io/kestra/sdk/model/Email.java
-src/main/java/io/kestra/sdk/model/EventAppResponse.java
 src/main/java/io/kestra/sdk/model/EventExecution.java
 src/main/java/io/kestra/sdk/model/EventExecutionStatusEvent.java
-src/main/java/io/kestra/sdk/model/EventLogEntry.java
 src/main/java/io/kestra/sdk/model/ExecutableTaskSubflowId.java
 src/main/java/io/kestra/sdk/model/Execution.java
-src/main/java/io/kestra/sdk/model/ExecutionControllerApiValidateExecutionInputsResponse.java
-src/main/java/io/kestra/sdk/model/ExecutionControllerApiValidateExecutionInputsResponseApiCheckFailure.java
-src/main/java/io/kestra/sdk/model/ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue.java
-src/main/java/io/kestra/sdk/model/ExecutionControllerApiValidateExecutionInputsResponseApiInputError.java
-src/main/java/io/kestra/sdk/model/ExecutionControllerEvalResult.java
 src/main/java/io/kestra/sdk/model/ExecutionControllerExecutionResponse.java
 src/main/java/io/kestra/sdk/model/ExecutionControllerLastExecutionResponse.java
 src/main/java/io/kestra/sdk/model/ExecutionControllerSetLabelsByIdsRequest.java
@@ -598,7 +567,6 @@ src/main/java/io/kestra/sdk/model/ExecutionControllerStateRequest.java
 src/main/java/io/kestra/sdk/model/ExecutionControllerWebhookResponse.java
 src/main/java/io/kestra/sdk/model/ExecutionKind.java
 src/main/java/io/kestra/sdk/model/ExecutionMetadata.java
-src/main/java/io/kestra/sdk/model/ExecutionRepositoryInterfaceChildFilter.java
 src/main/java/io/kestra/sdk/model/ExecutionRepositoryInterfaceFlowFilter.java
 src/main/java/io/kestra/sdk/model/ExecutionStatusEvent.java
 src/main/java/io/kestra/sdk/model/ExecutionTrigger.java
@@ -619,7 +587,6 @@ src/main/java/io/kestra/sdk/model/FlowId.java
 src/main/java/io/kestra/sdk/model/FlowInterface.java
 src/main/java/io/kestra/sdk/model/FlowNode.java
 src/main/java/io/kestra/sdk/model/FlowRelation.java
-src/main/java/io/kestra/sdk/model/FlowScope.java
 src/main/java/io/kestra/sdk/model/FlowTopologyGraph.java
 src/main/java/io/kestra/sdk/model/FlowTopologyGraphEdge.java
 src/main/java/io/kestra/sdk/model/FlowUsage.java
@@ -627,7 +594,6 @@ src/main/java/io/kestra/sdk/model/FlowWithSource.java
 src/main/java/io/kestra/sdk/model/GroupIdentifier.java
 src/main/java/io/kestra/sdk/model/GroupIdentifierMembership.java
 src/main/java/io/kestra/sdk/model/GroupUsage.java
-src/main/java/io/kestra/sdk/model/HttpParameters.java
 src/main/java/io/kestra/sdk/model/IAMBindingControllerApiBindingDetail.java
 src/main/java/io/kestra/sdk/model/IAMBindingControllerApiBindingGroup.java
 src/main/java/io/kestra/sdk/model/IAMBindingControllerApiBindingUser.java
@@ -699,7 +665,6 @@ src/main/java/io/kestra/sdk/model/KVType.java
 src/main/java/io/kestra/sdk/model/Label.java
 src/main/java/io/kestra/sdk/model/LeftSidebarConfiguration.java
 src/main/java/io/kestra/sdk/model/Level.java
-src/main/java/io/kestra/sdk/model/Listener.java
 src/main/java/io/kestra/sdk/model/LogEntry.java
 src/main/java/io/kestra/sdk/model/MapObjectObject.java
 src/main/java/io/kestra/sdk/model/MeControllerApiMe.java
@@ -724,7 +689,6 @@ src/main/java/io/kestra/sdk/model/MiscControllerTenantConfigurationInfo.java
 src/main/java/io/kestra/sdk/model/Name.java
 src/main/java/io/kestra/sdk/model/Namespace.java
 src/main/java/io/kestra/sdk/model/NamespaceAllowedNamespace.java
-src/main/java/io/kestra/sdk/model/NamespaceAllowedTrigger.java
 src/main/java/io/kestra/sdk/model/NamespaceFileRevision.java
 src/main/java/io/kestra/sdk/model/NamespaceLight.java
 src/main/java/io/kestra/sdk/model/Output.java
