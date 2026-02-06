@@ -25,5 +25,8 @@
     "openApp",
     "logsFromAppExecutionlogsFromAppExecution",
     "followLogsFromExecution"
+  ],
+  "tagsToSkip": [
+    "Credentials"
   ]
 }

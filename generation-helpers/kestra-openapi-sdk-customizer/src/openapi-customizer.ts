@@ -88,11 +88,29 @@ function stripDeprecatedParametersFromOperation(op: any, counters: { removedPara
  * - Remove deprecated parameters from operations and from components.parameters
  * - Optionally remove deprecated operations (if removeDeprecatedOperations = true)
  */
-export function sanitizeOpenAPI(spec: any, opts: { removeDeprecatedOperations?: boolean, removeDeprecatedParameters?: boolean, operationIdsToSkip?: string[] } = {}) {
-    const counters = { removedProperties: 0, removedParameters: 0, removedOperations: 0 };
-    let { removeDeprecatedOperations = true, removeDeprecatedParameters = true, operationIdsToSkip = [] } = opts;
+export function sanitizeOpenAPI(
+    spec: any,
+    opts: {
+        removeDeprecatedOperations?: boolean,
+        removeDeprecatedParameters?: boolean,
+        operationIdsToSkip?: string[],
+        tagsToSkip?: string[]
+    } = {}
+) {
+    const counters = { removedProperties: 0, removedParameters: 0, removedOperations: 0, removedSchemas: 0 };
+    let {
+        removeDeprecatedOperations = true,
+        removeDeprecatedParameters = true,
+        operationIdsToSkip = [],
+        tagsToSkip = []
+    } = opts;
 
-    console.log(`sanitize OpenAPI spec with params:\n\tremoveDeprecatedOperations: ${removeDeprecatedOperations}\n\tremoveDeprecatedParameters: ${removeDeprecatedParameters}\n\toperationIdsToSkip: ${operationIdsToSkip}`)
+    console.log(
+        `sanitize OpenAPI spec with params:\n\tremoveDeprecatedOperations: ${removeDeprecatedOperations}` +
+        `\n\tremoveDeprecatedParameters: ${removeDeprecatedParameters}` +
+        `\n\toperationIdsToSkip: ${operationIdsToSkip}` +
+        `\n\ttagsToSkip: ${tagsToSkip}`
+    )
 
     if (!spec || typeof spec !== "object") return counters;
 
@@ -133,6 +151,15 @@ export function sanitizeOpenAPI(spec: any, opts: { removeDeprecatedOperations?: 
                     delete pathItem[method];
                     counters.removedOperations += 1;
                     console.debug(`remove skipped operation: ${method} ${removedOperation.operationId} ${operationIdsToSkip}`)
+                    continue;
+                }
+
+                // Optionally delete whole operation if its tag is skipped
+                if (tagsToSkip && Array.isArray(op.tags) && op.tags.some((tag: string) => tagsToSkip.includes(tag))) {
+                    const removedOperation = pathItem[method];
+                    delete pathItem[method];
+                    counters.removedOperations += 1;
+                    console.debug(`remove skipped tag operation: ${method} ${removedOperation.operationId} ${op.tags}`)
                     continue;
                 }
 
@@ -178,13 +205,91 @@ export function sanitizeOpenAPI(spec: any, opts: { removeDeprecatedOperations?: 
         }
     }
 
-    // 4) Remove get from method name, temporary while its done on core side
+    // 4) Remove unreferenced component schemas after operation filtering
+    counters.removedSchemas += removeUnreferencedSchemas(spec);
+
+    // 5) Remove get from method name, temporary while its done on core side
     normalizeGetOperationIds(spec)
 
-    // 5) Replace Flow.labels property schema
+    // 6) Replace Flow.labels property schema
     replaceFlowLabelsSpec(spec)
 
     return counters;
+}
+
+function removeUnreferencedSchemas(spec: any): number {
+    if (!spec?.components?.schemas || !spec?.paths || typeof spec.paths !== "object") return 0;
+
+    const components = spec.components || {};
+    const schemas = components.schemas || {};
+    const referencedSchemas = new Set<string>();
+    const visitedComponents = new Set<string>();
+
+    const parseComponentRef = (ref: string) => {
+        if (typeof ref !== "string" || !ref.startsWith("#/components/")) return null;
+        const rest = ref.slice("#/components/".length);
+        const parts = rest.split("/");
+        const type = parts.shift();
+        const name = parts.join("/");
+        if (!type || !name) return null;
+        return { type, name };
+    };
+
+    const traverseNode = (node: any) => {
+        if (!node || typeof node !== "object") return;
+        if (Array.isArray(node)) {
+            for (const item of node) traverseNode(item);
+            return;
+        }
+
+        const ref = node.$ref;
+        if (typeof ref === "string") {
+            const parsed = parseComponentRef(ref);
+            if (parsed) {
+                const { type, name } = parsed;
+                const key = `${type}/${name}`;
+                if (!visitedComponents.has(key)) {
+                    visitedComponents.add(key);
+                    if (type === "schemas") {
+                        referencedSchemas.add(name);
+                        if (schemas[name]) traverseNode(schemas[name]);
+                    } else if (components[type] && components[type][name]) {
+                        traverseNode(components[type][name]);
+                    }
+                }
+            }
+        }
+
+        for (const value of Object.values(node)) {
+            traverseNode(value);
+        }
+    };
+
+    const httpMethods = ["get", "put", "post", "delete", "options", "head", "patch", "trace"] as const;
+    for (const p of Object.keys(spec.paths)) {
+        const pathItem = spec.paths[p];
+        if (!pathItem || typeof pathItem !== "object") continue;
+
+        if (Array.isArray(pathItem.parameters)) {
+            traverseNode(pathItem.parameters);
+        }
+
+        for (const method of httpMethods) {
+            const op = pathItem[method];
+            if (!op || typeof op !== "object") continue;
+            traverseNode(op);
+        }
+    }
+
+    let removed = 0;
+    for (const name of Object.keys(schemas)) {
+        if (!referencedSchemas.has(name)) {
+            delete schemas[name];
+            removed += 1;
+        }
+    }
+
+    return removed;
 }
 
 export function normalizeGetOperationIds(spec: any): number {
@@ -245,5 +350,3 @@ export function replaceFlowLabelsSpec(spec: any) {
         }
     }
 }
-
-
