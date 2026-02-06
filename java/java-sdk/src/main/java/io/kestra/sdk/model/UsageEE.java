@@ -32,15 +32,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * UsageEE
  */
 @JsonPropertyOrder({
+  UsageEE.JSON_PROPERTY_FLOWS,
+  UsageEE.JSON_PROPERTY_EXECUTIONS,
   UsageEE.JSON_PROPERTY_GROUPS,
   UsageEE.JSON_PROPERTY_USERS,
   UsageEE.JSON_PROPERTY_ROLES,
-  UsageEE.JSON_PROPERTY_TENANTS,
-  UsageEE.JSON_PROPERTY_FLOWS,
-  UsageEE.JSON_PROPERTY_EXECUTIONS
+  UsageEE.JSON_PROPERTY_TENANTS
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class UsageEE {
+  public static final String JSON_PROPERTY_FLOWS = "flows";
+  @jakarta.annotation.Nullable  private FlowUsage flows;
+
+  public static final String JSON_PROPERTY_EXECUTIONS = "executions";
+  @jakarta.annotation.Nullable  private ExecutionUsage executions;
+
   public static final String JSON_PROPERTY_GROUPS = "groups";
   @jakarta.annotation.Nullable  private GroupUsage groups;
 
@@ -53,13 +59,55 @@ public class UsageEE {
   public static final String JSON_PROPERTY_TENANTS = "tenants";
   @jakarta.annotation.Nullable  private TenantUsage tenants;
 
-  public static final String JSON_PROPERTY_FLOWS = "flows";
-  @jakarta.annotation.Nullable  private FlowUsage flows;
-
-  public static final String JSON_PROPERTY_EXECUTIONS = "executions";
-  @jakarta.annotation.Nullable  private ExecutionUsage executions;
-
   public UsageEE() {
+  }
+
+  public UsageEE flows(@jakarta.annotation.Nullable FlowUsage flows) {
+    
+    this.flows = flows;
+    return this;
+  }
+
+  /**
+   * Get flows
+   * @return flows
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FLOWS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public FlowUsage getFlows() {
+    return flows;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FLOWS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFlows(@jakarta.annotation.Nullable FlowUsage flows) {
+    this.flows = flows;
+  }
+
+  public UsageEE executions(@jakarta.annotation.Nullable ExecutionUsage executions) {
+    
+    this.executions = executions;
+    return this;
+  }
+
+  /**
+   * Get executions
+   * @return executions
+   */
+  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXECUTIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ExecutionUsage getExecutions() {
+    return executions;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EXECUTIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExecutions(@jakarta.annotation.Nullable ExecutionUsage executions) {
+    this.executions = executions;
   }
 
   public UsageEE groups(@jakarta.annotation.Nullable GroupUsage groups) {
@@ -158,54 +206,6 @@ public class UsageEE {
     this.tenants = tenants;
   }
 
-  public UsageEE flows(@jakarta.annotation.Nullable FlowUsage flows) {
-    
-    this.flows = flows;
-    return this;
-  }
-
-  /**
-   * Get flows
-   * @return flows
-   */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_FLOWS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public FlowUsage getFlows() {
-    return flows;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_FLOWS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFlows(@jakarta.annotation.Nullable FlowUsage flows) {
-    this.flows = flows;
-  }
-
-  public UsageEE executions(@jakarta.annotation.Nullable ExecutionUsage executions) {
-    
-    this.executions = executions;
-    return this;
-  }
-
-  /**
-   * Get executions
-   * @return executions
-   */
-  @jakarta.annotation.Nullable  @JsonProperty(JSON_PROPERTY_EXECUTIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public ExecutionUsage getExecutions() {
-    return executions;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_EXECUTIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExecutions(@jakarta.annotation.Nullable ExecutionUsage executions) {
-    this.executions = executions;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -215,29 +215,29 @@ public class UsageEE {
       return false;
     }
     UsageEE usageEE = (UsageEE) o;
-    return Objects.equals(this.groups, usageEE.groups) &&
+    return Objects.equals(this.flows, usageEE.flows) &&
+        Objects.equals(this.executions, usageEE.executions) &&
+        Objects.equals(this.groups, usageEE.groups) &&
         Objects.equals(this.users, usageEE.users) &&
         Objects.equals(this.roles, usageEE.roles) &&
-        Objects.equals(this.tenants, usageEE.tenants) &&
-        Objects.equals(this.flows, usageEE.flows) &&
-        Objects.equals(this.executions, usageEE.executions);
+        Objects.equals(this.tenants, usageEE.tenants);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(groups, users, roles, tenants, flows, executions);
+    return Objects.hash(flows, executions, groups, users, roles, tenants);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class UsageEE {\n");
+    sb.append("    flows: ").append(toIndentedString(flows)).append("\n");
+    sb.append("    executions: ").append(toIndentedString(executions)).append("\n");
     sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
     sb.append("    users: ").append(toIndentedString(users)).append("\n");
     sb.append("    roles: ").append(toIndentedString(roles)).append("\n");
     sb.append("    tenants: ").append(toIndentedString(tenants)).append("\n");
-    sb.append("    flows: ").append(toIndentedString(flows)).append("\n");
-    sb.append("    executions: ").append(toIndentedString(executions)).append("\n");
     sb.append("}");
     return sb.toString();
   }

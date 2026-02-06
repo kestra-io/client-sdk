@@ -4,7 +4,7 @@ Kestra EE
 
 - API version: 1.2.0
 
-- Generator version: 7.16.0
+- Generator version: 7.18.0
 
 All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>
 Endpoints designated as Superadmin-only are not tenant-scoped.
@@ -353,7 +353,6 @@ Class | Method | HTTP request | Description
  - [AbstractFlow](docs/AbstractFlow.md)
  - [AbstractGraph](docs/AbstractGraph.md)
  - [AbstractGraphBranchType](docs/AbstractGraphBranchType.md)
- - [AbstractMetricEntryObject](docs/AbstractMetricEntryObject.md)
  - [AbstractTrigger](docs/AbstractTrigger.md)
  - [AbstractTriggerForExecution](docs/AbstractTriggerForExecution.md)
  - [AbstractUser](docs/AbstractUser.md)
@@ -375,8 +374,6 @@ Class | Method | HTTP request | Description
  - [ApiToken](docs/ApiToken.md)
  - [ApiTokenList](docs/ApiTokenList.md)
  - [ApiUser](docs/ApiUser.md)
- - [AppResponse](docs/AppResponse.md)
- - [AppResponseUILayout](docs/AppResponseUILayout.md)
  - [AppsControllerApiApp](docs/AppsControllerApiApp.md)
  - [AppsControllerApiAppCatalogItem](docs/AppsControllerApiAppCatalogItem.md)
  - [AppsControllerApiAppSource](docs/AppsControllerApiAppSource.md)
@@ -442,9 +439,6 @@ Class | Method | HTTP request | Description
  - [ConcurrencyBehavior](docs/ConcurrencyBehavior.md)
  - [ConcurrencyLimit](docs/ConcurrencyLimit.md)
  - [Condition](docs/Condition.md)
- - [ConversionServiceProvider](docs/ConversionServiceProvider.md)
- - [ConvertibleMultiValuesString](docs/ConvertibleMultiValuesString.md)
- - [ConvertibleValuesListString](docs/ConvertibleValuesListString.md)
  - [CreateApiTokenRequest](docs/CreateApiTokenRequest.md)
  - [CreateApiTokenResponse](docs/CreateApiTokenResponse.md)
  - [CreateNamespaceFileRequest](docs/CreateNamespaceFileRequest.md)
@@ -461,17 +455,10 @@ Class | Method | HTTP request | Description
  - [DocumentationWithSchema](docs/DocumentationWithSchema.md)
  - [EditionProviderEdition](docs/EditionProviderEdition.md)
  - [Email](docs/Email.md)
- - [EventAppResponse](docs/EventAppResponse.md)
  - [EventExecution](docs/EventExecution.md)
  - [EventExecutionStatusEvent](docs/EventExecutionStatusEvent.md)
- - [EventLogEntry](docs/EventLogEntry.md)
  - [ExecutableTaskSubflowId](docs/ExecutableTaskSubflowId.md)
  - [Execution](docs/Execution.md)
- - [ExecutionControllerApiValidateExecutionInputsResponse](docs/ExecutionControllerApiValidateExecutionInputsResponse.md)
- - [ExecutionControllerApiValidateExecutionInputsResponseApiCheckFailure](docs/ExecutionControllerApiValidateExecutionInputsResponseApiCheckFailure.md)
- - [ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue](docs/ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue.md)
- - [ExecutionControllerApiValidateExecutionInputsResponseApiInputError](docs/ExecutionControllerApiValidateExecutionInputsResponseApiInputError.md)
- - [ExecutionControllerEvalResult](docs/ExecutionControllerEvalResult.md)
  - [ExecutionControllerExecutionResponse](docs/ExecutionControllerExecutionResponse.md)
  - [ExecutionControllerLastExecutionResponse](docs/ExecutionControllerLastExecutionResponse.md)
  - [ExecutionControllerSetLabelsByIdsRequest](docs/ExecutionControllerSetLabelsByIdsRequest.md)
@@ -479,7 +466,6 @@ Class | Method | HTTP request | Description
  - [ExecutionControllerWebhookResponse](docs/ExecutionControllerWebhookResponse.md)
  - [ExecutionKind](docs/ExecutionKind.md)
  - [ExecutionMetadata](docs/ExecutionMetadata.md)
- - [ExecutionRepositoryInterfaceChildFilter](docs/ExecutionRepositoryInterfaceChildFilter.md)
  - [ExecutionRepositoryInterfaceFlowFilter](docs/ExecutionRepositoryInterfaceFlowFilter.md)
  - [ExecutionStatusEvent](docs/ExecutionStatusEvent.md)
  - [ExecutionTrigger](docs/ExecutionTrigger.md)
@@ -500,7 +486,6 @@ Class | Method | HTTP request | Description
  - [FlowInterface](docs/FlowInterface.md)
  - [FlowNode](docs/FlowNode.md)
  - [FlowRelation](docs/FlowRelation.md)
- - [FlowScope](docs/FlowScope.md)
  - [FlowTopologyGraph](docs/FlowTopologyGraph.md)
  - [FlowTopologyGraphEdge](docs/FlowTopologyGraphEdge.md)
  - [FlowUsage](docs/FlowUsage.md)
@@ -508,7 +493,6 @@ Class | Method | HTTP request | Description
  - [GroupIdentifier](docs/GroupIdentifier.md)
  - [GroupIdentifierMembership](docs/GroupIdentifierMembership.md)
  - [GroupUsage](docs/GroupUsage.md)
- - [HttpParameters](docs/HttpParameters.md)
  - [IAMBindingControllerApiBindingDetail](docs/IAMBindingControllerApiBindingDetail.md)
  - [IAMBindingControllerApiBindingGroup](docs/IAMBindingControllerApiBindingGroup.md)
  - [IAMBindingControllerApiBindingUser](docs/IAMBindingControllerApiBindingUser.md)
@@ -580,7 +564,6 @@ Class | Method | HTTP request | Description
  - [Label](docs/Label.md)
  - [LeftSidebarConfiguration](docs/LeftSidebarConfiguration.md)
  - [Level](docs/Level.md)
- - [Listener](docs/Listener.md)
  - [LogEntry](docs/LogEntry.md)
  - [MapObjectObject](docs/MapObjectObject.md)
  - [MeControllerApiMe](docs/MeControllerApiMe.md)
@@ -605,7 +588,6 @@ Class | Method | HTTP request | Description
  - [Name](docs/Name.md)
  - [Namespace](docs/Namespace.md)
  - [NamespaceAllowedNamespace](docs/NamespaceAllowedNamespace.md)
- - [NamespaceAllowedTrigger](docs/NamespaceAllowedTrigger.md)
  - [NamespaceFileRevision](docs/NamespaceFileRevision.md)
  - [NamespaceLight](docs/NamespaceLight.md)
  - [Output](docs/Output.md)
