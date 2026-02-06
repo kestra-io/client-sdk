@@ -11,7 +11,12 @@ async function run(confPath: string, inputPath: string, outputPath?: string) {
     const spec = yaml.load(raw);
 
     const absConf = path.resolve(confPath);
-    const configuration = JSON.parse(await fs.readFile(absConf, "utf8")) as { removeDeprecatedOperations?: boolean, removeDeprecatedParameters?: boolean, operationIdsToSkip?: string[] };
+    const configuration = JSON.parse(await fs.readFile(absConf, "utf8")) as {
+        removeDeprecatedOperations?: boolean,
+        removeDeprecatedParameters?: boolean,
+        operationIdsToSkip?: string[],
+        tagsToSkip?: string[]
+    };
 
     const counters = sanitizeOpenAPI(spec, configuration);
     const dumped = yaml.dump(spec, {
