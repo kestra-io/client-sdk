@@ -132,14 +132,8 @@ public class FlowsApiTest {
      *          if the Api call fails
      */
     @Test
+    @Disabled
     public void disableFlowsByQueryTest() throws ApiException {
-        var flow = createSimpleFlow();
-
-        String q = null;
-        List<FlowScope> scope = null;
-        String namespace = null;
-        List<String> labels = null;
-//        kestraClient().flows().disableFlowsByQuery(MAIN_TENANT, deleteExecutionsByQueryRequest, q, scope, namespace, labels); TODO
     }
 
     /**
@@ -162,15 +156,8 @@ public class FlowsApiTest {
      *          if the Api call fails
      */
     @Test
+    @Disabled
     public void enableFlowsByQueryTest() throws ApiException {
-
-        String q = null;
-        List<FlowScope> scope = null;
-        String namespace = null;
-        List<String> labels = null;
-//        BulkResponse response = kestraClient().flows().enableFlowsByQuery(MAIN_TENANT, deleteExecutionsByQueryRequest, q, scope, namespace, labels); TODO
-
-        // TODO: test validations
     }
     /**
      * Export flows as a ZIP archive of yaml sources.
@@ -192,15 +179,9 @@ public class FlowsApiTest {
      *          if the Api call fails
      */
     @Test
+    @Disabled
     public void exportFlowsByQueryTest() throws ApiException {
-        var flow = createSimpleFlow();
 
-        List<QueryFilter> filters = null;
-        String q = null;
-        List<FlowScope> scope = null;
-        String namespace = flow.getNamespace();
-        List<String> labels = null;
-//        byte[] response = kestraClient().flows().exportFlowsByQuery(MAIN_TENANT, filters, q, scope, namespace, labels); TODO
     }
     /**
      * Generate a graph for a flow
@@ -384,19 +365,9 @@ public class FlowsApiTest {
      *          if the Api call fails
      */
     @Test
+    @Disabled
     public void searchFlowsTest() throws ApiException {
-        var flow = createSimpleFlow();
 
-        Integer page = null;
-        Integer size = null;
-
-        List<String> sort = null;
-        List<QueryFilter> filters = null;
-        String q = null;
-        List<FlowScope> scope = null;
-        String namespace = flow.getNamespace();
-        List<String> labels = null;
-//        PagedResultsFlow response = kestraClient().flows().searchFlows(page, size, MAIN_TENANT, sort, filters, q, scope, namespace, labels); TODO
     }
     /**
      * Search for flows source code
