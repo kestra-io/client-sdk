@@ -21,12 +21,12 @@ import UserUsage from './UserUsage';
 
 /**
   * @typedef {Object} IUsageEE
+  * @property {FlowUsage} flows
+  * @property {ExecutionUsage} executions
   * @property {GroupUsage} groups
   * @property {UserUsage} users
   * @property {RoleUsage} roles
   * @property {TenantUsage} tenants
-  * @property {FlowUsage} flows
-  * @property {ExecutionUsage} executions
   */
 
 /**
@@ -65,6 +65,12 @@ class UsageEE {
             obj = obj || new UsageEE();
             MiscControllerApiUsage.constructFromObject(data, obj);
 
+            if (data.hasOwnProperty('flows')) {
+                obj['flows'] = FlowUsage.constructFromObject(data['flows']);
+            }
+            if (data.hasOwnProperty('executions')) {
+                obj['executions'] = ExecutionUsage.constructFromObject(data['executions']);
+            }
             if (data.hasOwnProperty('groups')) {
                 obj['groups'] = GroupUsage.constructFromObject(data['groups']);
             }
@@ -77,12 +83,6 @@ class UsageEE {
             if (data.hasOwnProperty('tenants')) {
                 obj['tenants'] = TenantUsage.constructFromObject(data['tenants']);
             }
-            if (data.hasOwnProperty('flows')) {
-                obj['flows'] = FlowUsage.constructFromObject(data['flows']);
-            }
-            if (data.hasOwnProperty('executions')) {
-                obj['executions'] = ExecutionUsage.constructFromObject(data['executions']);
-            }
         }
         return obj;
     }
@@ -93,6 +93,14 @@ class UsageEE {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>UsageEE</code>.
      */
     static validateJSON(data) {
+        // validate the optional field `flows`
+        if (data['flows']) { // data not null
+          FlowUsage.validateJSON(data['flows']);
+        }
+        // validate the optional field `executions`
+        if (data['executions']) { // data not null
+          ExecutionUsage.validateJSON(data['executions']);
+        }
         // validate the optional field `groups`
         if (data['groups']) { // data not null
           GroupUsage.validateJSON(data['groups']);
@@ -109,14 +117,6 @@ class UsageEE {
         if (data['tenants']) { // data not null
           TenantUsage.validateJSON(data['tenants']);
         }
-        // validate the optional field `flows`
-        if (data['flows']) { // data not null
-          FlowUsage.validateJSON(data['flows']);
-        }
-        // validate the optional field `executions`
-        if (data['executions']) { // data not null
-          ExecutionUsage.validateJSON(data['executions']);
-        }
 
         return true;
     }
@@ -125,6 +125,16 @@ class UsageEE {
 }
 
 
+
+/**
+ * @member {module:model/FlowUsage} flows
+ */
+UsageEE.prototype['flows'] = undefined;
+
+/**
+ * @member {module:model/ExecutionUsage} executions
+ */
+UsageEE.prototype['executions'] = undefined;
 
 /**
  * @member {module:model/GroupUsage} groups
@@ -145,16 +155,6 @@ UsageEE.prototype['roles'] = undefined;
  * @member {module:model/TenantUsage} tenants
  */
 UsageEE.prototype['tenants'] = undefined;
-
-/**
- * @member {module:model/FlowUsage} flows
- */
-UsageEE.prototype['flows'] = undefined;
-
-/**
- * @member {module:model/ExecutionUsage} executions
- */
-UsageEE.prototype['executions'] = undefined;
 
 
 // Implement MiscControllerApiUsage interface:

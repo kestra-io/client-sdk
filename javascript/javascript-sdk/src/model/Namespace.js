@@ -44,7 +44,6 @@ import WorkerGroup from './WorkerGroup';
 class Namespace {
     /**
      * Constructs a new <code>Namespace</code>.
-     * A namespace is a logical grouping of flows and tasks. It is used to organize and manage flows and tasks within Kestra.
      * @alias module:model/Namespace
      * @implements module:model/NamespaceLight
      * @param {String} id - 
